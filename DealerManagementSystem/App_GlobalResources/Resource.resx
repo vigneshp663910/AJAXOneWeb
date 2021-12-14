@@ -1,0 +1,2034 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnCancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Cancel button text</comment>
+  </data>
+  <data name="btnSave" xml:space="preserve">
+    <value>Save</value>
+    <comment>Save button text</comment>
+  </data>
+  <data name="divLoginInfoTitle" xml:space="preserve">
+    <value>Login Info</value>
+    <comment>Create User - Title for login info div</comment>
+  </data>
+  <data name="divPlantTitle" xml:space="preserve">
+    <value>Plants</value>
+    <comment>Create User - Title for plant div</comment>
+  </data>
+  <data name="divStaffAddressTitle" xml:space="preserve">
+    <value>Staff Address</value>
+    <comment>Create User - Title for staff address div</comment>
+  </data>
+  <data name="divStaffInfoTitle" xml:space="preserve">
+    <value>Staff Info</value>
+    <comment>Create User - Title for staff info div</comment>
+  </data>
+  <data name="divUserTypeTitle" xml:space="preserve">
+    <value>User Types</value>
+    <comment>Create User - Title for user types div</comment>
+  </data>
+  <data name="divVendorAddressTitle" xml:space="preserve">
+    <value>Vendor Address</value>
+    <comment>Create User - Title for vendor address div</comment>
+  </data>
+  <data name="divVendorInfoTitle" xml:space="preserve">
+    <value>Vendor Info</value>
+    <comment>Create User - Title for vendor info div</comment>
+  </data>
+  <data name="lblAddressLine1" xml:space="preserve">
+    <value>Address Line 1</value>
+    <comment>Create User - Address Line 1 label text</comment>
+  </data>
+  <data name="lblAddressLine2" xml:space="preserve">
+    <value>Address Line 2</value>
+    <comment>Create User - Address Line 2 label text</comment>
+  </data>
+  <data name="lblAddressLine3" xml:space="preserve">
+    <value>Address Line 3</value>
+    <comment>Create User - Address Line 3 label text</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>City</value>
+    <comment>Create User - City label text</comment>
+  </data>
+  <data name="lblContactName" xml:space="preserve">
+    <value>Contact Name</value>
+    <comment>Create User - Contact Name label text</comment>
+  </data>
+  <data name="lblContactNumber" xml:space="preserve">
+    <value>Contact Number</value>
+    <comment>Create User - Contact Number label text</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>Country</value>
+    <comment>Create User - Country label text</comment>
+  </data>
+  <data name="lblEmailID" xml:space="preserve">
+    <value>Email ID</value>
+    <comment>Create User - Email ID label text / User Management - Email ID label Text</comment>
+  </data>
+  <data name="lblEmployeeCode" xml:space="preserve">
+    <value>Employee Code</value>
+    <comment>Create User - Employee Code label text</comment>
+  </data>
+  <data name="lblEmployeeName" xml:space="preserve">
+    <value>Employee Name</value>
+    <comment>Create User - Employee Name label text</comment>
+  </data>
+  <data name="lblPlant" xml:space="preserve">
+    <value>Select a Plant</value>
+    <comment>Create User - Plant label text</comment>
+  </data>
+  <data name="lblPostcode" xml:space="preserve">
+    <value>Postcode</value>
+    <comment>Create User - Postcode label text</comment>
+  </data>
+  <data name="lblStateProvince" xml:space="preserve">
+    <value>State/Province</value>
+    <comment>Create User - StateProvince label text</comment>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>Username</value>
+    <comment>Create User - User Name label text</comment>
+  </data>
+  <data name="lblUserType" xml:space="preserve">
+    <value>Select an User Type</value>
+    <comment>Create User - User Type label text</comment>
+  </data>
+  <data name="lblVendorCode" xml:space="preserve">
+    <value>Vendor Code</value>
+    <comment>Create User - Vendor Code label text</comment>
+  </data>
+  <data name="lblVendorName" xml:space="preserve">
+    <value>Vendor Name</value>
+    <comment>Create User - Vendor Name label text</comment>
+  </data>
+  <data name="lnkApprovedASNView" xml:space="preserve">
+    <value>Approved ASN View</value>
+    <comment>Master Page - Left nav approved ASN view menu text</comment>
+  </data>
+  <data name="lnkASNAcknowledgement" xml:space="preserve">
+    <value>ASN Acknowledgement</value>
+    <comment>Master Page - Left nav ASN acknowledgement menu text</comment>
+  </data>
+  <data name="lnkASNConfirmation" xml:space="preserve">
+    <value>ASN Confirmation</value>
+    <comment>Master Page - Left nav ASN confirmation header menu text</comment>
+  </data>
+  <data name="lnkASNView" xml:space="preserve">
+    <value>ASN View</value>
+    <comment>Master Page - Left nav ASN view menu text</comment>
+  </data>
+  <data name="lnkAuthorizeUser" xml:space="preserve">
+    <value>Authorize User</value>
+    <comment>Master Page - Left nav authorize user menu text</comment>
+  </data>
+  <data name="lnkCreateASN" xml:space="preserve">
+    <value>Create ASN</value>
+    <comment>Master Page - Left nav create ASN menu text</comment>
+  </data>
+  <data name="lnkCreateUser" xml:space="preserve">
+    <value>Create User</value>
+    <comment>Master Page - Left nav create user menu text</comment>
+  </data>
+  <data name="lnkDAConfirmation" xml:space="preserve">
+    <value>DA Confirmation</value>
+    <comment>Master Page - Left nav DA Confirmation menu text</comment>
+  </data>
+  <data name="lnkDCGRNView" xml:space="preserve">
+    <value>DC Vs GRN View</value>
+    <comment>Master Page - Left nav DC vs GRN view menu text</comment>
+  </data>
+  <data name="lnkDeliveryStatus" xml:space="preserve">
+    <value>Delivery Status</value>
+    <comment>Master Page - Left nav delivery status header menu text</comment>
+  </data>
+  <data name="lnkGateEntryView" xml:space="preserve">
+    <value>Gate Entry View</value>
+    <comment>Master Page - Left nav gate entry view menu text</comment>
+  </data>
+  <data name="lnkInvoice" xml:space="preserve">
+    <value>Invoice</value>
+    <comment>Master Page - Left nav Invoice header menu text</comment>
+  </data>
+  <data name="lnkOrder" xml:space="preserve">
+    <value>Order</value>
+    <comment>Master Page - Left nav order header menu text</comment>
+  </data>
+  <data name="lnkOrderSchedule" xml:space="preserve">
+    <value>Order Schedule</value>
+    <comment>Master Page - Left nav order schedule header menu text</comment>
+  </data>
+  <data name="lnkPaymentDetailsView" xml:space="preserve">
+    <value>Payment Details View</value>
+    <comment>Master Page - Left nav payment details view menu text</comment>
+  </data>
+  <data name="lnkPOScheduleAdherence" xml:space="preserve">
+    <value>PO Schedule Adherence</value>
+    <comment>Master Page - Left nav PO schedule adherence menu text</comment>
+  </data>
+  <data name="lnkPOScheduleView" xml:space="preserve">
+    <value>PO Schedule View</value>
+    <comment>Master Page - Left nav PO schedule view menu text</comment>
+  </data>
+  <data name="lnkPurchaseOrderView" xml:space="preserve">
+    <value>Purchase Order View</value>
+    <comment>Master Page - Left nav purchase order view menu text</comment>
+  </data>
+  <data name="lnkRejectionDetailsView" xml:space="preserve">
+    <value>Rejection Details View</value>
+    <comment>Master Page - Left nav rejection details view menu text</comment>
+  </data>
+  <data name="lnkUser" xml:space="preserve">
+    <value>User</value>
+    <comment>Master Page - Left nav user menu header</comment>
+  </data>
+  <data name="lnkUserManagement" xml:space="preserve">
+    <value>User Management</value>
+    <comment>Master Page - Left nav user management menu text</comment>
+  </data>
+  <data name="mnuAbout" xml:space="preserve">
+    <value>ABOUT US</value>
+    <comment>Master Page - About Us top menu text</comment>
+  </data>
+  <data name="mnuContactUs" xml:space="preserve">
+    <value>CONTACT US</value>
+    <comment>Master Page - Contact Us top menu text</comment>
+  </data>
+  <data name="mnuHome" xml:space="preserve">
+    <value>HOME</value>
+    <comment>Master Page - Home top menu text</comment>
+  </data>
+  <data name="mnuProfile" xml:space="preserve">
+    <value>MY PROFILE</value>
+    <comment>Master Page - Profile top menu text</comment>
+  </data>
+  <data name="pageCreateUser" xml:space="preserve">
+    <value>Create User</value>
+    <comment>Create User - Page title</comment>
+  </data>
+  <data name="rfvPlant" xml:space="preserve">
+    <value>Plant must be specified.</value>
+    <comment>Create User - Plant required field message</comment>
+  </data>
+  <data name="rfvUserType" xml:space="preserve">
+    <value>User Type must be specified.</value>
+    <comment>Create User - User Type required field message</comment>
+  </data>
+  <data name="rfvVendorCode" xml:space="preserve">
+    <value>Vendor Code must be specified.</value>
+    <comment>Create User - Vendor Code required field message</comment>
+  </data>
+  <data name="AEErrorMessage" xml:space="preserve">
+    <value>Sorry, unable to process request. Please try again later</value>
+    <comment>Error Message - Error message for AOE code</comment>
+  </data>
+  <data name="SQLDBEErrorMessage" xml:space="preserve">
+    <value>There seems to be a database problem, please contact System Administrator.</value>
+    <comment>Error Message - Error code for Sql exception</comment>
+  </data>
+  <data name="capchaText" xml:space="preserve">
+    <value>Incorect Capcha Text</value>
+    <comment>Login Page - Capcha validation</comment>
+  </data>
+  <data name="lgnlblpwd" xml:space="preserve">
+    <value>Password:</value>
+    <comment>Login Page - Password</comment>
+  </data>
+  <data name="lgnlblUsername" xml:space="preserve">
+    <value>Username:</value>
+    <comment>Login Page - User Name</comment>
+  </data>
+  <data name="loginPwd" xml:space="preserve">
+    <value>Please Enter Valid Password</value>
+    <comment>Login Page - Password Validation</comment>
+  </data>
+  <data name="loginUserNameandPwd" xml:space="preserve">
+    <value>Enter Valid UserName and Password</value>
+    <comment>Login Page - UserName and  Password Validation</comment>
+  </data>
+  <data name="userAccountLocked" xml:space="preserve">
+    <value>Your account is locked, please contact the system administrator to unlock it</value>
+    <comment>Login Page - User account has been locked</comment>
+  </data>
+  <data name="CreateUserSuccessMessage" xml:space="preserve">
+    <value>User Successfully Created</value>
+    <comment>Create User-Success Message</comment>
+  </data>
+  <data name="DropdownDefaultText" xml:space="preserve">
+    <value>--None--</value>
+    <comment>Default text for all drop down controls</comment>
+  </data>
+  <data name="DropdownDefaultValue" xml:space="preserve">
+    <value>0</value>
+    <comment>Default value for all drop down controls</comment>
+  </data>
+  <data name="divPOSearch" xml:space="preserve">
+    <value>Search</value>
+    <comment>Supplier PO View - PO search div text</comment>
+  </data>
+  <data name="divPOView" xml:space="preserve">
+    <value>Purchase Orders</value>
+    <comment>Supplier PO View - Purchase Order div text</comment>
+  </data>
+  <data name="lblFromDate" xml:space="preserve">
+    <value>PO-From Date</value>
+    <comment>Supplier PO View - From date search label text</comment>
+  </data>
+  <data name="lblPONumber" xml:space="preserve">
+    <value>PO Number</value>
+    <comment>Supplier PO View - PO number search label text</comment>
+  </data>
+  <data name="lblToDate" xml:space="preserve">
+    <value>PO-To Date</value>
+    <comment>Supplier PO View - To date search label text</comment>
+  </data>
+  <data name="pageSupplierPOView" xml:space="preserve">
+    <value>Purchase Order View</value>
+    <comment>Supplier PO View - Page Title</comment>
+  </data>
+  <data name="rbAllPurchaseOrders" xml:space="preserve">
+    <value>All POs</value>
+    <comment>Supplier PO View - All purchase order radio button text</comment>
+  </data>
+  <data name="rbPendingPurchaseOrders" xml:space="preserve">
+    <value>Pending POs</value>
+    <comment>Supplier PO View - Pending purchase order radio button text</comment>
+  </data>
+  <data name="ASNConfirmation" xml:space="preserve">
+    <value>ASN Confirmation</value>
+    <comment>Left Menu - Module name for ASN Confirmation</comment>
+  </data>
+  <data name="AuthorizeUser" xml:space="preserve">
+    <value>Authorize User</value>
+    <comment>Left Menu - Sub Module name for Authorize User under User module</comment>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Create User</value>
+    <comment>Left Menu - Sub Module name for Create User under User module</comment>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+    <comment>Left Menu - Module name for Order</comment>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+    <comment>Left Menu - Module name for User</comment>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+    <comment>Left Menu - Sub Module name for User Management under User module</comment>
+  </data>
+  <data name="lblStaffCode" xml:space="preserve">
+    <value>Staff Code</value>
+    <comment>Create User - Staff Code label text</comment>
+  </data>
+  <data name="lblStaffName" xml:space="preserve">
+    <value>Staff Name</value>
+    <comment>Create User - Staff Name label text</comment>
+  </data>
+  <data name="rfvEmailID" xml:space="preserve">
+    <value>EmailID must be specified.</value>
+    <comment>Create User - EmailID  required field message</comment>
+  </data>
+  <data name="rfvStaffCode" xml:space="preserve">
+    <value>Staff Code must be specified</value>
+    <comment>Create User - StaffCode  required field message</comment>
+  </data>
+  <data name="rfvStaffName" xml:space="preserve">
+    <value>Staff Name must be specified</value>
+    <comment>Create User - StaffName  required field message</comment>
+  </data>
+  <data name="rfvUserName" xml:space="preserve">
+    <value>Username must be specified.</value>
+    <comment>Create User - UserName  required field message</comment>
+  </data>
+  <data name="rfvVendorName" xml:space="preserve">
+    <value>Vendor Name must be specified.</value>
+    <comment>Create User - Vendor Name required field message</comment>
+  </data>
+  <data name="divUserActionTitle" xml:space="preserve">
+    <value>User Action</value>
+    <comment>Authorise User-User Action Title</comment>
+  </data>
+  <data name="divUserDetailsTitle" xml:space="preserve">
+    <value>User Details</value>
+    <comment>Authorize User - Title for userdetails info div</comment>
+  </data>
+  <data name="lblCode" xml:space="preserve">
+    <value>Code</value>
+    <comment>Authorize User-Code label Text</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Name</value>
+    <comment>Authorize User-Name label Text</comment>
+  </data>
+  <data name="radioAuthorize" xml:space="preserve">
+    <value>Authorize</value>
+    <comment>Authorize User-Authorize RadioButton Text</comment>
+  </data>
+  <data name="radioDecline" xml:space="preserve">
+    <value>Decline</value>
+    <comment>Authorize User-Decline RadioButton Text</comment>
+  </data>
+  <data name="lblVendorStaffCode" xml:space="preserve">
+    <value>Vendor/Staff Code</value>
+    <comment>User Management - Vendor Staff Code Label Text</comment>
+  </data>
+  <data name="lteDetails" xml:space="preserve">
+    <value>Details</value>
+    <comment>User Management - Details Literal Text</comment>
+  </data>
+  <data name="lteUserDetails" xml:space="preserve">
+    <value>User Details</value>
+    <comment>User Management - User Details Literal Text</comment>
+  </data>
+  <data name="rbByName" xml:space="preserve">
+    <value>By Name</value>
+    <comment>User Management - By Name Radiobutton Text</comment>
+  </data>
+  <data name="rbByUserID" xml:space="preserve">
+    <value>By User ID</value>
+    <comment>User Management - By User ID Radio button Text</comment>
+  </data>
+  <data name="lblCreatedBy" xml:space="preserve">
+    <value>Created By</value>
+    <comment>Autorize User-Created By label Text/ User Management - Created by Label Text</comment>
+  </data>
+  <data name="lblCreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+    <comment>Authorize User-Created Date label Text / User Management - Created Date</comment>
+  </data>
+  <data name="lblType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Authorize User-Type label Text / User Management - Type Label Text</comment>
+  </data>
+  <data name="lblUserID" xml:space="preserve">
+    <value>Username</value>
+    <comment>Authorize User-User ID label Text</comment>
+  </data>
+  <data name="lteModules" xml:space="preserve">
+    <value>Modules</value>
+    <comment>User Management - Modules div Text</comment>
+  </data>
+  <data name="lteNotes" xml:space="preserve">
+    <value>Notes</value>
+    <comment>User Management - Notes Literal Text</comment>
+  </data>
+  <data name="divUserDetails" xml:space="preserve">
+    <value>User Details</value>
+    <comment>User Management - User Details Div Text</comment>
+  </data>
+  <data name="lblHeaderName" xml:space="preserve">
+    <value>Name</value>
+    <comment>User Management - Name Label Text</comment>
+  </data>
+  <data name="lblIsLocked" xml:space="preserve">
+    <value>Is Locked</value>
+    <comment>User Management - Is Locked Label Text</comment>
+  </data>
+  <data name="lblReasonforDisabling" xml:space="preserve">
+    <value>Reason for disabling</value>
+    <comment>User Management - Reasons for disabling  label Text</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>User Management - Status Label Text</comment>
+  </data>
+  <data name="rbDisable" xml:space="preserve">
+    <value>Disable</value>
+    <comment>User Management - Disable Radio button Text</comment>
+  </data>
+  <data name="rbModify" xml:space="preserve">
+    <value>Modify</value>
+    <comment>User Management - Modify Radio button Text</comment>
+  </data>
+  <data name="ltePlants" xml:space="preserve">
+    <value>Plants</value>
+    <comment>User Management - Plants Literal Text</comment>
+  </data>
+  <data name="lteUserAction" xml:space="preserve">
+    <value>User Action</value>
+    <comment>User Management - User Action Literal Text</comment>
+  </data>
+  <data name="btnRegister" xml:space="preserve">
+    <value>Register</value>
+    <comment>Authorize User-Register Button Text</comment>
+  </data>
+  <data name="divModulesTitle" xml:space="preserve">
+    <value>Modules</value>
+    <comment>Authorize User-Modules Title</comment>
+  </data>
+  <data name="divUnauthorizedUsers" xml:space="preserve">
+    <value>Un Authorized Users</value>
+    <comment>Authorize User-UnAuthorizedUser Grid Title</comment>
+  </data>
+  <data name="btnCreateSupplierASN" xml:space="preserve">
+    <value>Create ASN</value>
+    <comment>Supplier PO For ASN - Create ASN button text</comment>
+  </data>
+  <data name="btnGenerateSupplierASN" xml:space="preserve">
+    <value>Generate ASN</value>
+    <comment>Create Supplier ASN  - Generate ASN button text</comment>
+  </data>
+  <data name="btnPOSearch" xml:space="preserve">
+    <value>Search</value>
+    <comment>Supplier PO For ASN - Search button text</comment>
+  </data>
+  <data name="divASNHeader" xml:space="preserve">
+    <value>ASN Header Info</value>
+    <comment>Create Supplier ASN - Title for ASN header info div</comment>
+  </data>
+  <data name="errNoSupplierPOForASN" xml:space="preserve">
+    <value>Please select atleast one suplier purchase order for ASN creation</value>
+    <comment>Suppplier PO For ASN - No supplier PO selected for ASN.</comment>
+  </data>
+  <data name="grdItemNoHeaderText" xml:space="preserve">
+    <value>Item Number</value>
+    <comment>Supplier PO For ASN - Grid column header text for Item Number</comment>
+  </data>
+  <data name="grdMaterialDescriptionHeaderText" xml:space="preserve">
+    <value>Material Description</value>
+    <comment>Supplier PO For ASN - Grid column header text for Material Description</comment>
+  </data>
+  <data name="grdMaterialNoHeaderText" xml:space="preserve">
+    <value>Material Number</value>
+    <comment>Supplier PO For ASN - Grid column header text for Material Number</comment>
+  </data>
+  <data name="grdPlantHeaderText" xml:space="preserve">
+    <value>Plant</value>
+    <comment>Supplier PO For ASN - Grid column header text for Plant</comment>
+  </data>
+  <data name="grdPODateHeaderText" xml:space="preserve">
+    <value>Purchase Order Date</value>
+    <comment>Supplier PO For ASN - Grid column header text for Purchase Order Date</comment>
+  </data>
+  <data name="grdPONumberHeaderText" xml:space="preserve">
+    <value>Purchase Order Number</value>
+    <comment>Supplier PO For ASN - Grid column header text for Purchase Order Number</comment>
+  </data>
+  <data name="grdRatePerUOMHeaderText" xml:space="preserve">
+    <value>Rate Per UOM</value>
+    <comment>Supplier PO For ASN - Grid column header text for Rate Per UOM</comment>
+  </data>
+  <data name="grdScheduledBalanceQtyHeaderText" xml:space="preserve">
+    <value>Scheduled Balance Qty</value>
+    <comment>Supplier PO For ASN - Grid column header text for Scheduled Balance Qty</comment>
+  </data>
+  <data name="grdSupplierPOEmptyDataText" xml:space="preserve">
+    <value>Supplier purchase order records are not available.</value>
+    <comment>Supplier PO For ASN - Grid empty data text</comment>
+  </data>
+  <data name="grdValuationTypeHeaderText" xml:space="preserve">
+    <value>Valuation Type</value>
+    <comment>Supplier PO For ASN - Grid column header text for Valuation type</comment>
+  </data>
+  <data name="lblDCDate" xml:space="preserve">
+    <value>Delivery Challan Date</value>
+    <comment>Create Supplier ASN - DC Date label text</comment>
+  </data>
+  <data name="lblDCNO" xml:space="preserve">
+    <value>Delivery Challan Number</value>
+    <comment>Create Supplier ASN - DC Number label text</comment>
+  </data>
+  <data name="lblModvatNumber" xml:space="preserve">
+    <value>Modvat Number</value>
+    <comment>Create Supplier ASN - Modvat Number label text</comment>
+  </data>
+  <data name="lteCreateSupplierASNTitle" xml:space="preserve">
+    <value>Create Supplier ASN</value>
+    <comment>Create Supplier ASN - Content title</comment>
+  </data>
+  <data name="ltePOViewTitle" xml:space="preserve">
+    <value>Purchase Order View</value>
+    <comment>Supplier PO For ASN - Content title</comment>
+  </data>
+  <data name="lteContactDetails" xml:space="preserve">
+    <value>Contact Details</value>
+    <comment>User Management - Contact Details Literal Text</comment>
+  </data>
+  <data name="pageUserManagmentView" xml:space="preserve">
+    <value>User Management</value>
+    <comment>User Management - Page Title</comment>
+  </data>
+  <data name="grdBagTypeHeaderText" xml:space="preserve">
+    <value>Type of bag</value>
+    <comment>Create Supplier ASN - Grid column header text for Bag Type</comment>
+  </data>
+  <data name="grdBatchHeatNoHeaderText" xml:space="preserve">
+    <value>Batch/Heat Number</value>
+    <comment>Create Supplier ASN - Grid column header text for Batch Heat Number.</comment>
+  </data>
+  <data name="grdDeliveredQuantityHeaderText" xml:space="preserve">
+    <value>Delivery Qty</value>
+    <comment>Create Supplier ASN - Grid column header text for Delivery Quantity.</comment>
+  </data>
+  <data name="grdPacksNoHeaderText" xml:space="preserve">
+    <value>No of Packs</value>
+    <comment>Create Supplier ASN - Grid column header text for Packs number.</comment>
+  </data>
+  <data name="lblReasonforenabling" xml:space="preserve">
+    <value>Reason for enabling</value>
+    <comment>User Management - Reasons for enabling  label Text</comment>
+  </data>
+  <data name="rbUnLock" xml:space="preserve">
+    <value>Un Lock</value>
+    <comment>User Management - UnLock Radionbutton text</comment>
+  </data>
+  <data name="rfvReasonfordisabling" xml:space="preserve">
+    <value>Reason for disabling must be specified</value>
+    <comment>User Management - Reason for disabling required field validator.</comment>
+  </data>
+  <data name="lblEstimatedTimeofArrival" xml:space="preserve">
+    <value>ETA</value>
+    <comment>Create Supplier ASN - Estimated time of arrival label text</comment>
+  </data>
+  <data name="rfvBagType" xml:space="preserve">
+    <value>Bag Type must be specified</value>
+    <comment>Create Supplier ASN - Bag Type required field message</comment>
+  </data>
+  <data name="rfvBatchHeatNo" xml:space="preserve">
+    <value>Batch /Heat Number must be specified</value>
+    <comment>Create Supplier ASN - Batch Heat Number required field message</comment>
+  </data>
+  <data name="rfvDCDate" xml:space="preserve">
+    <value>DC Date must be specified</value>
+    <comment>Create Supplier ASN - DC Date required field message</comment>
+  </data>
+  <data name="rfvDCNO" xml:space="preserve">
+    <value>DC Number must be specified</value>
+    <comment>Create Supplier ASN - DC Number required field message</comment>
+  </data>
+  <data name="rfvDeliveryQuantity" xml:space="preserve">
+    <value>Delivery Quantity must be specified</value>
+    <comment>Create Supplier ASN - Delivery Quantity required field message</comment>
+  </data>
+  <data name="rfvNoofPacks" xml:space="preserve">
+    <value>No of packs must be specified</value>
+    <comment>Create Supplier ASN - No of packs required field message</comment>
+  </data>
+  <data name="AccountDeclineSuccess" xml:space="preserve">
+    <value>The selected account is declined</value>
+  </data>
+  <data name="AuthorizeSuccess" xml:space="preserve">
+    <value>The selected user is successfully authorized</value>
+  </data>
+  <data name="btnConfirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="rfvModuleList" xml:space="preserve">
+    <value>Atleast one module should be selected</value>
+  </data>
+  <data name="AccountDisabled" xml:space="preserve">
+    <value>Your account is disabled, please contact the system admin to enable it</value>
+    <comment>Login</comment>
+  </data>
+  <data name="AccountLocked" xml:space="preserve">
+    <value>Your account is locked, please contact the system administrator to unlock it</value>
+    <comment>Login</comment>
+  </data>
+  <data name="GeneralFailure" xml:space="preserve">
+    <value>General validation failure</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Invalid password</value>
+    <comment>Login</comment>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Invalid username</value>
+    <comment>Login</comment>
+  </data>
+  <data name="UserExistForThisVendor" xml:space="preserve">
+    <value>You can have only one user for this vendor</value>
+    <comment>Create Account</comment>
+  </data>
+  <data name="UserExists" xml:space="preserve">
+    <value>A user with the same user name exists with the system</value>
+    <comment>Create Account</comment>
+  </data>
+  <data name="UserExistsForStaff" xml:space="preserve">
+    <value>A staff already exists</value>
+    <comment>Create Account</comment>
+  </data>
+  <data name="cvDeliveryQuantity" xml:space="preserve">
+    <value>Delivery quantity must not be greater than scheduled balance quantity </value>
+    <comment>Create Supplier ASN - Delivery quantity error message</comment>
+  </data>
+  <data name="lblShipTo" xml:space="preserve">
+    <value>Ship To</value>
+    <comment>Create Supplier ASN - Ship to label text</comment>
+  </data>
+  <data name="ApprovedASNView" xml:space="preserve">
+    <value>Approved ASN View</value>
+  </data>
+  <data name="ASNAcknowledgement" xml:space="preserve">
+    <value>ASN Acknowledgement</value>
+  </data>
+  <data name="cvPODateSearch" xml:space="preserve">
+    <value>To date must be greater than or equal to From date</value>
+    <comment>Supplier PO View - Data range compare validator error text</comment>
+  </data>
+  <data name="DAConfirmation" xml:space="preserve">
+    <value>DA Confirmation</value>
+  </data>
+  <data name="DeliveryStatus" xml:space="preserve">
+    <value>Delivery Status</value>
+  </data>
+  <data name="divASNLines" xml:space="preserve">
+    <value>ASN Line Info</value>
+    <comment>Create Supplier ASN - ASN Line div title</comment>
+  </data>
+  <data name="errNoPOAvailableForASN" xml:space="preserve">
+    <value>Please go to previous page to select at least one purchase order to create an ASN</value>
+    <comment>Create Supplier ASN - No PO available for ASN error message</comment>
+  </data>
+  <data name="errPageNotValid" xml:space="preserve">
+    <value>Please ensure all the required fields are filled.</value>
+    <comment>Create Supplier ASN - Required fields not filled required message</comment>
+  </data>
+  <data name="GateEntryView" xml:space="preserve">
+    <value>Gate Entry View</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="OrderSchedule" xml:space="preserve">
+    <value>Order Schedule</value>
+  </data>
+  <data name="SubContractorCreateASN" xml:space="preserve">
+    <value>Sub Contractor Create ASN</value>
+    <comment>Left Menu - Sub module name for Sub Contractor Create ASN under Order module</comment>
+  </data>
+  <data name="SubContractorDCvsGRNView" xml:space="preserve">
+    <value>DC vs GRN View</value>
+  </data>
+  <data name="SubContractorManageASN" xml:space="preserve">
+    <value>Manage ASN</value>
+  </data>
+  <data name="SubContractorPaymentDetailsView" xml:space="preserve">
+    <value>Payment Details View</value>
+  </data>
+  <data name="SubContractorPOScheduleView" xml:space="preserve">
+    <value>PO Schedule View</value>
+  </data>
+  <data name="SubContractorPurchaseOrderView" xml:space="preserve">
+    <value>Sub Contractor PO View</value>
+    <comment>Left Menu - Sub Module name for Sub Contractor Purchase Order View under Order module</comment>
+  </data>
+  <data name="SubContractorRejectionDetailsView" xml:space="preserve">
+    <value>Rejection Details View</value>
+  </data>
+  <data name="SubContractorScheduleAdherenceReport" xml:space="preserve">
+    <value>PO Schedule Adherence</value>
+  </data>
+  <data name="SupplierCreateASN" xml:space="preserve">
+    <value>Supplier Create ASN</value>
+    <comment>Left Menu - Sub module name for Supplier Create ASN under Order module</comment>
+  </data>
+  <data name="SupplierDCNumber" xml:space="preserve">
+    <value>Entered DC number already exist in the system.</value>
+    <comment>Create Supplier ASN</comment>
+  </data>
+  <data name="SupplierDCvsGRNView" xml:space="preserve">
+    <value>DC vs GRN View</value>
+  </data>
+  <data name="SupplierManageASN" xml:space="preserve">
+    <value>Manage ASN</value>
+  </data>
+  <data name="SupplierPaymentDetailsView" xml:space="preserve">
+    <value>Payment Details View</value>
+  </data>
+  <data name="SupplierPOScheduleView" xml:space="preserve">
+    <value>PO Schedule View</value>
+  </data>
+  <data name="SupplierPurchaseOrderView" xml:space="preserve">
+    <value>Supplier Purchase Order View</value>
+    <comment>Left Menu - Sub module name for Supplier Purchase Order View under Order module</comment>
+  </data>
+  <data name="SupplierRejectionDetailsView" xml:space="preserve">
+    <value>Rejection Details View</value>
+  </data>
+  <data name="SupplierScheduleAdherenceReport" xml:space="preserve">
+    <value>PO Schedule Adherence</value>
+  </data>
+  <data name="MApprovedASNView" xml:space="preserve">
+    <value>Approved ASN View</value>
+  </data>
+  <data name="MASNAcknowledgement" xml:space="preserve">
+    <value>ASN Acknowledgement</value>
+  </data>
+  <data name="MAuthorizeUser" xml:space="preserve">
+    <value>Authorize User</value>
+  </data>
+  <data name="MCreateUser" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="MDAConfirmation" xml:space="preserve">
+    <value>DA Confirmation</value>
+  </data>
+  <data name="MGateEntryView" xml:space="preserve">
+    <value>Gate Entry View</value>
+  </data>
+  <data name="MSubContractorCreateASN" xml:space="preserve">
+    <value>Sub Contractor Create ASN</value>
+  </data>
+  <data name="MSubContractorDCvsGRNView" xml:space="preserve">
+    <value>Sub Contractor DC vs GRN View</value>
+  </data>
+  <data name="MSubContractorManageASN" xml:space="preserve">
+    <value>Sub Contractor Manage ASN</value>
+  </data>
+  <data name="MSubContractorPaymentDetailsView" xml:space="preserve">
+    <value>Sub Contractor Payment Details View</value>
+  </data>
+  <data name="MSubContractorPOScheduleView" xml:space="preserve">
+    <value>Sub Contractor PO Schedule View</value>
+  </data>
+  <data name="MSubContractorPurchaseOrderView" xml:space="preserve">
+    <value>Sub Contractor Purchase Order View</value>
+  </data>
+  <data name="MSubContractorRejectionDetailsView" xml:space="preserve">
+    <value>Sub Contractor Rejection Details View</value>
+  </data>
+  <data name="MSubContractorScheduleAdherenceReport" xml:space="preserve">
+    <value>Sub Contractor Schedule Adherence Report</value>
+  </data>
+  <data name="MSupplierCreateASN" xml:space="preserve">
+    <value>Supplier Create ASN</value>
+  </data>
+  <data name="MSupplierDCvsGRNView" xml:space="preserve">
+    <value>Supplier DC vs GRN View</value>
+  </data>
+  <data name="MSupplierManageASN" xml:space="preserve">
+    <value>Supplier Manage ASN</value>
+  </data>
+  <data name="MSupplierPaymentDetailsView" xml:space="preserve">
+    <value>Supplier Payment Details View</value>
+  </data>
+  <data name="MSupplierPOScheduleView" xml:space="preserve">
+    <value>Supplier PO Schedule View</value>
+  </data>
+  <data name="MSupplierPurchaseOrderView" xml:space="preserve">
+    <value>Supplier Purchase Order View</value>
+  </data>
+  <data name="MSupplierRejectionDetailsView" xml:space="preserve">
+    <value>Supplier Rejection Details View</value>
+  </data>
+  <data name="MSupplierScheduleAdherenceReport" xml:space="preserve">
+    <value>Supplier Schedule Adherence Report</value>
+  </data>
+  <data name="MUserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="btnCreateSCASN" xml:space="preserve">
+    <value>Create ASN</value>
+    <comment>Sub Contractor ASN Button Text</comment>
+  </data>
+  <data name="btnSCGenerateASN" xml:space="preserve">
+    <value>Generate ASN</value>
+    <comment>Button text for SubContractor ASN</comment>
+  </data>
+  <data name="ddlPackageType" xml:space="preserve">
+    <value>Package Type</value>
+    <comment>Sub Contractor ASN Grid Geader</comment>
+  </data>
+  <data name="errASNNotCreated" xml:space="preserve">
+    <value>Error: ASN Number is Not Created</value>
+    <comment>Error Message for ASN Number Not Created</comment>
+  </data>
+  <data name="errChellanRecordsNotavailable" xml:space="preserve">
+    <value>Please select atleast one challan to acknowledge</value>
+    <comment>Error Message for Button validation of records not available</comment>
+  </data>
+  <data name="errMessageAdvicedQuantity" xml:space="preserve">
+    <value>ASN Quantity should be lesser than or equal to Batch Balance Quantity</value>
+    <comment>Error Message for Adviced Quantity Validation</comment>
+  </data>
+  <data name="errSelectPackage" xml:space="preserve">
+    <value>Error: Please select Package Type</value>
+    <comment>Error Message for Package Type Validation</comment>
+  </data>
+  <data name="grdbtnRemove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Sub Contractor ASN Grid Geader</comment>
+  </data>
+  <data name="grdChck" xml:space="preserve">
+    <value>Select</value>
+    <comment>Sub Contractor Chellan View Grid Header text</comment>
+  </data>
+  <data name="grdipUOM" xml:space="preserve">
+    <value>I/P UOM</value>
+    <comment>Sub Contractor Chellan View Grid Header text</comment>
+  </data>
+  <data name="grdOpUOM" xml:space="preserve">
+    <value>O/P UOM</value>
+    <comment>Sub Contractor Chellan View Grid Header text</comment>
+  </data>
+  <data name="lblETA" xml:space="preserve">
+    <value>Estimated Time of Arrival (ETA)</value>
+    <comment>Sub Contractor ETA</comment>
+  </data>
+  <data name="lteASNView" xml:space="preserve">
+    <value>Sub Contractor ASN</value>
+    <comment>Sub Contractor Literal ASN view</comment>
+  </data>
+  <data name="lteSCASN" xml:space="preserve">
+    <value>ASN Creation</value>
+    <comment>Literal text foe Sub Contractor ASN</comment>
+  </data>
+  <data name="pageSubContratorChellanView" xml:space="preserve">
+    <value>Sub Contractor Challans View</value>
+    <comment>Sub Contractor Chellan title</comment>
+  </data>
+  <data name="pageSubContratorPOView" xml:space="preserve">
+    <value>Sub Contractor Purchase Order View</value>
+    <comment>Sub Contractor Purchase Order View</comment>
+  </data>
+  <data name="rbJobStatus" xml:space="preserve">
+    <value>Job Status</value>
+    <comment>SUb Contractor radio button list header</comment>
+  </data>
+  <data name="revDCNO" xml:space="preserve">
+    <value>Only alphanumeric values allowed</value>
+    <comment>Validation for alllow only alpha numeric values</comment>
+  </data>
+  <data name="scChellansNotAvailable" xml:space="preserve">
+    <value>Sub Contractor Challan records are not available.</value>
+    <comment>Sub Contractor Chellan records not available</comment>
+  </data>
+  <data name="scChellansView" xml:space="preserve">
+    <value>Sub Contractor Challan View</value>
+    <comment>Sub Contractor Chellan View</comment>
+  </data>
+  <data name="scgrdBalanceQuantity" xml:space="preserve">
+    <value>Balance Qty</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdDANumber" xml:space="preserve">
+    <value>DA Number</value>
+    <comment>Sub Contractor Chellan View Grid Header text</comment>
+  </data>
+  <data name="scgrdIPMaterial" xml:space="preserve">
+    <value>I/P Material</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdIPUOM" xml:space="preserve">
+    <value>UOM(I/P)</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdItemNumber" xml:space="preserve">
+    <value>Item Number</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdOPMaterial" xml:space="preserve">
+    <value>O/P Material</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdOPUOM" xml:space="preserve">
+    <value>UOM(O/P)</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdPendingDays" xml:space="preserve">
+    <value>PendingDays</value>
+    <comment>Sub Contractor Chellan View Grid Header text</comment>
+  </data>
+  <data name="scgrdPODate" xml:space="preserve">
+    <value>Purchase Order Date</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scgrdPONo" xml:space="preserve">
+    <value>PO Number</value>
+    <comment>Sub Contractor Chellan View Grid Header text</comment>
+  </data>
+  <data name="scgrdPONumber" xml:space="preserve">
+    <value>Purchase Order Number</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="sclblDCDate" xml:space="preserve">
+    <value>Vendor DC Date</value>
+    <comment>Sub Contractor Vendor DC Date</comment>
+  </data>
+  <data name="sclblDCNumber" xml:space="preserve">
+    <value>Vendor DC NO</value>
+    <comment>Sub Contractor Vendor DC Number</comment>
+  </data>
+  <data name="scPOGridPlant" xml:space="preserve">
+    <value>Plant</value>
+    <comment>Sub Contractor PO Grid Header text</comment>
+  </data>
+  <data name="scPORecordsNotAvailable" xml:space="preserve">
+    <value>Sub Contractor purchase order records are not available.</value>
+    <comment>Sub Contractor PO Records Not available</comment>
+  </data>
+  <data name="scSelectChellan" xml:space="preserve">
+    <value>Please select Challans to Create an ASN</value>
+    <comment>Sub Contractor Chellan Itmes selcetion message</comment>
+  </data>
+  <data name="txtNoofpacks" xml:space="preserve">
+    <value>No. Of Packs</value>
+    <comment>Sub Contractor ASN Grid Geader</comment>
+  </data>
+  <data name="txtRemarks" xml:space="preserve">
+    <value>Remarks</value>
+    <comment>Sub Contractor ASN Grid Geader</comment>
+  </data>
+  <data name="txtShipmentQuantity" xml:space="preserve">
+    <value>Shipment Quantity</value>
+    <comment>Sub Contractor ASN Grid Geader</comment>
+  </data>
+  <data name="WEBSERVICEErrorMessage" xml:space="preserve">
+    <value>The account is created but the syatem failed to send an email due to non availability of the webservice.</value>
+  </data>
+  <data name="grdButtonRemove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Create Supplier ASN - Grid remove button text</comment>
+  </data>
+  <data name="grdCodeHeaderText" xml:space="preserve">
+    <value>Code</value>
+    <comment>User Management -Code Grid header Text</comment>
+  </data>
+  <data name="grdUserMgmtEmptyDataText" xml:space="preserve">
+    <value>There is no information available in database</value>
+    <comment>Empty Result Text message for User Search Grid in User Management screen</comment>
+  </data>
+  <data name="rfvReasonforenabling" xml:space="preserve">
+    <value>Reason for enabling must be specified</value>
+    <comment>Tool tip message for User managment screen</comment>
+  </data>
+  <data name="ttpCapcha" xml:space="preserve">
+    <value>Please Enter the Text Dispalyed in Image</value>
+    <comment>Login Capcha text Message for mandatory field</comment>
+  </data>
+  <data name="ttpPassword" xml:space="preserve">
+    <value>Please Enter a  Password</value>
+    <comment>Login Error Message For Password</comment>
+  </data>
+  <data name="ttpUsername" xml:space="preserve">
+    <value>Please Enter a Username</value>
+    <comment>Login Error Message For User Name</comment>
+  </data>
+  <data name="mevFromDate" xml:space="preserve">
+    <value>Please choose a valid date.</value>
+    <comment>Invalid date error message</comment>
+  </data>
+  <data name="rvFromDate" xml:space="preserve">
+    <value>Please enter a valid from date</value>
+    <comment>Supplier PO View - Invalid from date error message</comment>
+  </data>
+  <data name="rvToDate" xml:space="preserve">
+    <value>Please enter a valid to date</value>
+    <comment>Supplier PO View - Invalid to date error message</comment>
+  </data>
+  <data name="SearchDropDownDefaultText" xml:space="preserve">
+    <value>--All Plants--</value>
+    <comment>Default for plant drop down in Supplier PO View page</comment>
+  </data>
+  <data name="revEmailID" xml:space="preserve">
+    <value>Email ID is not valid !</value>
+    <comment>Create User - Regular expression validator text</comment>
+  </data>
+  <data name="rfvNotes" xml:space="preserve">
+    <value>Decline reason must be specified</value>
+    <comment>Authorize user - textbox required field validator text</comment>
+  </data>
+  <data name="MSGERRORErrorMessage" xml:space="preserve">
+    <value>The account is created, but the syatem failed to send an email  to the user.</value>
+  </data>
+  <data name="rfvModvatNumber" xml:space="preserve">
+    <value>Modvat number must be specified.</value>
+    <comment>Create Supplier ASN - Modvat number required field error message</comment>
+  </data>
+  <data name="revDeliveryQuantity" xml:space="preserve">
+    <value>Please enter a valid delivery quantity. Delivery quantity must have only three decimal places.</value>
+    <comment>Create Supplier ASN - Delivery Quantity invalid value error message</comment>
+  </data>
+  <data name="rfvShipTo" xml:space="preserve">
+    <value>Please choose a Ship To value</value>
+    <comment>Create Supplier ASN - Ship To required error message</comment>
+  </data>
+  <data name="lblNewPassword" xml:space="preserve">
+    <value>New Password</value>
+    <comment>Change Password - New Password label Text</comment>
+  </data>
+  <data name="lblOldPassword" xml:space="preserve">
+    <value>Old Password</value>
+    <comment>Change Password - Old Password label Text</comment>
+  </data>
+  <data name="lblReEnterNewPassword" xml:space="preserve">
+    <value>Re-enter New Password</value>
+    <comment>Change Password - Reenter New Password label Text</comment>
+  </data>
+  <data name="revCombinationCharacters" xml:space="preserve">
+    <value>Minimum of 8 characters, Combination of atleast one alphabet, numeric and special character</value>
+    <comment>Change Password - New Password Reqular expression validator Text</comment>
+  </data>
+  <data name="rfvNewPassword" xml:space="preserve">
+    <value>New Password must be specified</value>
+    <comment>Change Password - New Password required field Text</comment>
+  </data>
+  <data name="rfvOldPassword" xml:space="preserve">
+    <value>Old Password must be specified</value>
+    <comment>Change Password - Old Password required field Text</comment>
+  </data>
+  <data name="rfvReEnterNewPassword" xml:space="preserve">
+    <value>Re-enter New Password must be speciifed</value>
+    <comment>Change Password - Re-enter New Password required field Text</comment>
+  </data>
+  <data name="cvNewPassword" xml:space="preserve">
+    <value>New password and Re-enter new password should be same</value>
+    <comment>Change Password - New and Re-enter new password compare validator text</comment>
+  </data>
+  <data name="cvPassword" xml:space="preserve">
+    <value>Old and New Password should not be same</value>
+    <comment>Change Password - Old and new password compare validator text</comment>
+  </data>
+  <data name="lblChellanNo" xml:space="preserve">
+    <value>Challan Number</value>
+    <comment>Added Filed name for Sub Contractor Chellan View</comment>
+  </data>
+  <data name="scgrdChellanDate" xml:space="preserve">
+    <value>Challan Date</value>
+    <comment>Added Column name for Sub Contractor Chellan View</comment>
+  </data>
+  <data name="scgrdChellanNo" xml:space="preserve">
+    <value>Challan Number</value>
+    <comment>Added Column name for Sub Contractor Chellan View</comment>
+  </data>
+  <data name="lblToVendor" xml:space="preserve">
+    <value>To Vendor</value>
+    <comment>Create Supplier ASN - To Vendor label text</comment>
+  </data>
+  <data name="rfvVendor" xml:space="preserve">
+    <value>Vendor must be specified</value>
+    <comment>Create Supplier ASN - To Vendor required field error message</comment>
+  </data>
+  <data name="rvDeliveryQuantity" xml:space="preserve">
+    <value>Delivery quantity must be greater than 0 and less than or equal to scheduled balance quantity</value>
+    <comment>Create Supplier ASN - Delivery quantity range validator error message</comment>
+  </data>
+  <data name="ChangePwdNewAndConfirmPwdNotMatching" xml:space="preserve">
+    <value>New Password and Re-enter new password are not same. Please enter valid details</value>
+  </data>
+  <data name="ChangePwdOldPwdIncorrect" xml:space="preserve">
+    <value>Old Password is incorrect. Please enter valid Old password.</value>
+  </data>
+  <data name="ChangePwdStdNotMet" xml:space="preserve">
+    <value>New Password should have minimum of {0} characters and maximum of {1} characters and should  contain atleast one alphabet, atleast one special character and atleast one numeric.</value>
+  </data>
+  <data name="cvAcceptedQtyToolTip" xml:space="preserve">
+    <value>Accepted Quantity should be less than or equal to Delivery Quantity</value>
+    <comment>Sub Contractor Acknowledge ASN ToolTip Validation Message</comment>
+  </data>
+  <data name="cvAccptQtyToolTip" xml:space="preserve">
+    <value>Accepted Quantity should not be zero</value>
+    <comment>Sub Contractor Acknowledge ASN ToolTip Validation Message</comment>
+  </data>
+  <data name="grdAckNowledgeAccQty" xml:space="preserve">
+    <value>Accepted Qty</value>
+    <comment>Sub Contractor Acknowledge ASN ToolTip Validation Message</comment>
+  </data>
+  <data name="grdAckNowledgeASNno" xml:space="preserve">
+    <value>ASNNumber</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeDCDate" xml:space="preserve">
+    <value>DC Date</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeDCno" xml:space="preserve">
+    <value>DC Number</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeDqty" xml:space="preserve">
+    <value>Delivery Qty</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeMaterial" xml:space="preserve">
+    <value>Material No</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeMaterialDesc" xml:space="preserve">
+    <value>Material Description</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeNoOfpacks" xml:space="preserve">
+    <value>No Of Packs</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeTypeofbag" xml:space="preserve">
+    <value>Type of bag</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeVendor" xml:space="preserve">
+    <value>Vendor Code</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdAckNowledgeVendorName" xml:space="preserve">
+    <value>Vendor Name</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdbtnAckNowledge" xml:space="preserve">
+    <value>Acknowledge</value>
+    <comment>Sub Contractor Acknowledge ASN Header dispaly</comment>
+  </data>
+  <data name="grdToolTipAdshipment" xml:space="preserve">
+    <value>Shipment quantity must be specified.</value>
+    <comment>SUb Contractor ASN Creation ToolTip validation Message</comment>
+  </data>
+  <data name="grdToolTipNoofPacks" xml:space="preserve">
+    <value>No of packs must be specified.</value>
+    <comment>SUb Contractor ASN Creation ToolTip validation Message</comment>
+  </data>
+  <data name="grdToolTipNoofPacksDecimals" xml:space="preserve">
+    <value>Decimals are not allowed.</value>
+    <comment>SUb Contractor ASN Creation ToolTip validation Message</comment>
+  </data>
+  <data name="grdToolTipRemarks" xml:space="preserve">
+    <value>Remarks must be specified.</value>
+    <comment>SUb Contractor ASN Creation ToolTip validation Message</comment>
+  </data>
+  <data name="grdToolTipShipmentQty" xml:space="preserve">
+    <value>Please enter a valid Shipment quantity. Decimals allowed to two precision levels.</value>
+    <comment>SUb Contractor ASN Creation ToolTip validation Message</comment>
+  </data>
+  <data name="grdToolTipshipmentqtyZero" xml:space="preserve">
+    <value>Shipment quantity should not be zero</value>
+    <comment>SUb Contractor ASN Creation ToolTip validation Message</comment>
+  </data>
+  <data name="pageAcknowledgeASN" xml:space="preserve">
+    <value>Sub Contractor ASN Acknowledge View</value>
+    <comment>Sub Contractor Acknowledge ASN page</comment>
+  </data>
+  <data name="pageApprovedASN" xml:space="preserve">
+    <value>Sub Contractor Approved ASN View</value>
+    <comment>Sub Contractor Approved ASN page</comment>
+  </data>
+  <data name="revAcceptedQtyToolTip" xml:space="preserve">
+    <value>Please Enter a Valid Accepted Quantity. Decimals allowed to two precision levels.</value>
+    <comment>Sub Contractor Acknowledge ASN ToolTip Validation Message</comment>
+  </data>
+  <data name="rfvShipMentToolTip" xml:space="preserve">
+    <value>Accepted Quantity Must be Specified</value>
+    <comment>Sub Contractor Acknowledge ASN ToolTip Validation Message</comment>
+  </data>
+  <data name="scRecordsNotFound" xml:space="preserve">
+    <value>No records found.</value>
+  </data>
+  <data name="btnSaveMessageASN" xml:space="preserve">
+    <value>Changes would be reflected only after clicking the save button</value>
+    <comment>Manage Sub Contractor ASN</comment>
+  </data>
+  <data name="lblChangePassword" xml:space="preserve">
+    <value>Your Password is changed successfully, please use the new password when you login next time. Click</value>
+  </data>
+  <data name="RedirectMsg" xml:space="preserve">
+    <value>Here</value>
+  </data>
+  <data name="divSearchCrietria" xml:space="preserve">
+    <value>Search Category</value>
+  </data>
+  <data name="btnClear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>Clear Button Text</comment>
+  </data>
+  <data name="cvDeliveryQtyZero" xml:space="preserve">
+    <value>Delivery quantity should not be zero.</value>
+  </data>
+  <data name="rfvContactName" xml:space="preserve">
+    <value>Contact Name must be specified.</value>
+  </data>
+  <data name="CreateSupplierASNMailFailure" xml:space="preserve">
+    <value>The ASN is generated but the system failed to send an email confirmation of the same.</value>
+  </data>
+  <data name="AcknowledgeASNMailFailure" xml:space="preserve">
+    <value>The ASN is acknowledged but the system failed to send an email confirmation of the same.</value>
+  </data>
+  <data name="UpdateSupplierASNMailFailure" xml:space="preserve">
+    <value>The ASN is updated but the system failed to send an email confirmation of the same.</value>
+  </data>
+  <data name="manageASNDetailsLte" xml:space="preserve">
+    <value>ASN Details</value>
+    <comment>Title For Manage Sub Contractor ASN Details Screen</comment>
+  </data>
+  <data name="ManageASNDetailsTitle" xml:space="preserve">
+    <value>Sub Contractor ASN Detailed View</value>
+    <comment>Title For Manage Sub Contractor ASN Details Screen</comment>
+  </data>
+  <data name="ManageSUASNDetailsTitle" xml:space="preserve">
+    <value>Supplier ASN Detailed View</value>
+    <comment>Title For Manage Supplier ASN Details Screen</comment>
+  </data>
+  <data name="btnSubmit" xml:space="preserve">
+    <value>Submit</value>
+    <comment>Submit button Text</comment>
+  </data>
+  <data name="lblpwdUsername" xml:space="preserve">
+    <value>Enter Username</value>
+    <comment>Username-Forgot Password</comment>
+  </data>
+  <data name="BatchTracking" xml:space="preserve">
+    <value>Traceability Matrix</value>
+  </data>
+  <data name="BatchTrackingView" xml:space="preserve">
+    <value>Traceability Matrix View</value>
+    <comment>Menu name for batch tracking view</comment>
+  </data>
+  <data name="MBatchTrackingView" xml:space="preserve">
+    <value>Batch Tracking View</value>
+    <comment>Module name for batch tracking</comment>
+  </data>
+  <data name="divMyProfileTitle" xml:space="preserve">
+    <value>My Profile</value>
+    <comment>MyProfile-Title</comment>
+  </data>
+  <data name="lblLoginID" xml:space="preserve">
+    <value>Login ID</value>
+    <comment>My Profile-LoginID Text</comment>
+  </data>
+  <data name="lblPlantView" xml:space="preserve">
+    <value>Plant</value>
+    <comment>MyProfile-Plant labelText</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>State</value>
+    <comment>MyProfile-State Label Text</comment>
+  </data>
+  <data name="btnClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="grdAdvicedQty" xml:space="preserve">
+    <value>ASN Qty</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdASNDate" xml:space="preserve">
+    <value>ASN Date</value>
+  </data>
+  <data name="grdASNNumber" xml:space="preserve">
+    <value>ASN Number</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdASNStatus" xml:space="preserve">
+    <value>ASN Status</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdBatchHeatNo" xml:space="preserve">
+    <value>Batch / Heat No</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdChellanNo" xml:space="preserve">
+    <value>Challan Number</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdDCDate" xml:space="preserve">
+    <value>DC Date</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdDeliveryQty" xml:space="preserve">
+    <value>ASN Qty</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdETA" xml:space="preserve">
+    <value>Estimated Date of Arrival</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdItemSerialNo" xml:space="preserve">
+    <value>Item Serial Number</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdJobStatus" xml:space="preserve">
+    <value>Job Status</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdMaterialDesc" xml:space="preserve">
+    <value>Material Description</value>
+    <comment>Manage Supplier Grid Header Display</comment>
+  </data>
+  <data name="grdMaterialNo" xml:space="preserve">
+    <value>Material No</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdNoofPacks" xml:space="preserve">
+    <value>No Of packs</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdPONumber" xml:space="preserve">
+    <value>PO Number</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdRateUOM" xml:space="preserve">
+    <value>Rate Per UOM</value>
+    <comment>Manage Supplier Grid Header Display</comment>
+  </data>
+  <data name="grdTypeofBag" xml:space="preserve">
+    <value>Type Of bag</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="grdValuationType" xml:space="preserve">
+    <value>Valuation Type</value>
+    <comment>Manage Supplier Grid Header Display</comment>
+  </data>
+  <data name="grdVendorDCNo" xml:space="preserve">
+    <value>Vendor DC NO</value>
+    <comment>Manage Sub Contratcor Grid Header Display</comment>
+  </data>
+  <data name="lblASNDate" xml:space="preserve">
+    <value>ASN Date</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="lblASNNumber" xml:space="preserve">
+    <value>ASN Number</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="lblASNStatus" xml:space="preserve">
+    <value>ASN Status</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="lblDCNumber" xml:space="preserve">
+    <value>DC Number</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="lblJobStatus" xml:space="preserve">
+    <value>Job Status</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="lteManageASNView" xml:space="preserve">
+    <value>Manage ASN View</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="mngDCDate" xml:space="preserve">
+    <value>DC Date</value>
+    <comment>Manage Supplier Grid Header Display</comment>
+  </data>
+  <data name="mngETA" xml:space="preserve">
+    <value>Estimated Date of Arrival</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="sclblPlant" xml:space="preserve">
+    <value>Plant</value>
+    <comment>Manage Supplier ASN Fileds</comment>
+  </data>
+  <data name="btnUpdate" xml:space="preserve">
+    <value>Update</value>
+    <comment>My Profile - Update button text</comment>
+  </data>
+  <data name="lblUser" xml:space="preserve">
+    <value>User ID</value>
+    <comment>My Profile- UserID label text</comment>
+  </data>
+  <data name="btnExportExcel" xml:space="preserve">
+    <value>Export Excel</value>
+    <comment>Export Button Text</comment>
+  </data>
+  <data name="pageBatchTrackingView" xml:space="preserve">
+    <value>Batch Tracking View</value>
+    <comment>Batch Tracking </comment>
+  </data>
+  <data name="errmsgFromPlant" xml:space="preserve">
+    <value>From Plant must be selected</value>
+    <comment>Batch Tracking Search Error Message</comment>
+  </data>
+  <data name="errmsgToPlant" xml:space="preserve">
+    <value>To Plant must be selected</value>
+    <comment>Batch Tracking Search Error Message</comment>
+  </data>
+  <data name="grdDate" xml:space="preserve">
+    <value>Date</value>
+    <comment>Batch Tracking View Grid Column Dispaly</comment>
+  </data>
+  <data name="grdDCNumber" xml:space="preserve">
+    <value>Document Number/Production Order number</value>
+    <comment>Batch Tracking View Grid Column Dispaly</comment>
+  </data>
+  <data name="grdLotQuantity" xml:space="preserve">
+    <value>Lot Quantity</value>
+    <comment>Batch Tracking View Grid Column Dispaly</comment>
+  </data>
+  <data name="grdPlant" xml:space="preserve">
+    <value>Plant </value>
+    <comment>Batch Tracking View Grid Column Dispaly</comment>
+  </data>
+  <data name="grdStorageLocation" xml:space="preserve">
+    <value>Storage Location</value>
+    <comment>Batch Tracking View Grid Column Dispaly</comment>
+  </data>
+  <data name="grdWorkLocation" xml:space="preserve">
+    <value>Work Location</value>
+    <comment>Batch Tracking View Grid Column Dispaly</comment>
+  </data>
+  <data name="lblFromPlant" xml:space="preserve">
+    <value>From Plant</value>
+    <comment>Batch Tracking View Fields</comment>
+  </data>
+  <data name="lblLotID" xml:space="preserve">
+    <value>Lot ID</value>
+    <comment>Batch Tracking View Fields</comment>
+  </data>
+  <data name="lblLotQty" xml:space="preserve">
+    <value>Lot Qunatity</value>
+    <comment>Batch Tracking View Fields</comment>
+  </data>
+  <data name="lblToPlant" xml:space="preserve">
+    <value>To Plant</value>
+    <comment>Batch Tracking View Fields</comment>
+  </data>
+  <data name="ltBatchTrackingView" xml:space="preserve">
+    <value>Batch Tracking View</value>
+    <comment>Batch Tracking View Fields</comment>
+  </data>
+  <data name="tpMsgLotId" xml:space="preserve">
+    <value>Please enter Lot ID</value>
+    <comment>Batch Tracking View Tool Tip Error Message</comment>
+  </data>
+  <data name="tpMsgLotQty" xml:space="preserve">
+    <value>Decimals allowed to two precision levels.</value>
+    <comment>Batch Tracking View Tool Tip Error Message</comment>
+  </data>
+  <data name="pageManageSubContratorView" xml:space="preserve">
+    <value>Manage SubContractor ASN View</value>
+  </data>
+  <data name="pageManageSupplierView" xml:space="preserve">
+    <value>Manage Supplier ASN View</value>
+  </data>
+  <data name="tpUsername" xml:space="preserve">
+    <value>Please enter a Username</value>
+    <comment>Tooltip for ForgotPassword Username</comment>
+  </data>
+  <data name="btnDownload" xml:space="preserve">
+    <value>Download</value>
+    <comment>Upload Excel - Button Text</comment>
+  </data>
+  <data name="btnMove" xml:space="preserve">
+    <value>Move</value>
+    <comment>UploadExcel-Button text</comment>
+  </data>
+  <data name="scErrorMsgPONumber" xml:space="preserve">
+    <value>All selected challans should belong to the same PO number</value>
+    <comment>Sub Contractor Chellan selection for Different PO Number</comment>
+  </data>
+  <data name="grdBatchNumber" xml:space="preserve">
+    <value>Batch Number</value>
+    <comment>gird column name for sub contractor chellans view</comment>
+  </data>
+  <data name="errMsgManageASN" xml:space="preserve">
+    <value>Deleted item was sent to ERP, can't able to delete at this point</value>
+    <comment>Error message disaplyed for Edit the manage asn</comment>
+  </data>
+  <data name="grdGRDate" xml:space="preserve">
+    <value>GR Date</value>
+  </data>
+  <data name="grdGRNumber" xml:space="preserve">
+    <value>GR Number</value>
+  </data>
+  <data name="sucMsgManageASN" xml:space="preserve">
+    <value>Selected challans are updated successfully</value>
+    <comment>Success message displayed for edit manage asn</comment>
+  </data>
+  <data name="ChellanAcknowledgement" xml:space="preserve">
+    <value>Challan Acknowledgement</value>
+  </data>
+  <data name="ChellanAcknowledgementView" xml:space="preserve">
+    <value>Challan Acknowledgement View</value>
+  </data>
+  <data name="ChellanConfirmation" xml:space="preserve">
+    <value>Challan Confirmation</value>
+  </data>
+  <data name="MChellanAcknowledgement" xml:space="preserve">
+    <value>Challan Acknowledgement</value>
+  </data>
+  <data name="MChellanAcknowledgementView" xml:space="preserve">
+    <value>Challan Acknowledgement View</value>
+  </data>
+  <data name="MChellanConfirmation" xml:space="preserve">
+    <value>Challan Confirmation</value>
+  </data>
+  <data name="btnSCChallanSave" xml:space="preserve">
+    <value>Please select a challan to acknowledge</value>
+    <comment>Sub Contractor Chellans acknowledgemnet</comment>
+  </data>
+  <data name="grdToolTipAckQty" xml:space="preserve">
+    <value>Acknowledge Quantity must be specified.</value>
+    <comment>Sub Contractor Chellans acknowledgemnet error message</comment>
+  </data>
+  <data name="grdToolTipSCChellanDecimal" xml:space="preserve">
+    <value>Please enter a valid Acknowledge quantity. Decimals allowed to two precision levels.</value>
+    <comment>Sub Contractor Chellans acknowledgemnet error message</comment>
+  </data>
+  <data name="grdToolTipSCChellanQty" xml:space="preserve">
+    <value>Acknowledge quantity should be less than or equal to Challan quantity</value>
+    <comment>Sub Contractor Chellans acknowledgemnet error message</comment>
+  </data>
+  <data name="grdToolTipSCChellanQtyZero" xml:space="preserve">
+    <value>Acknowledge quantity should not be zero</value>
+    <comment>Sub Contractor Chellans acknowledgemnet error message</comment>
+  </data>
+  <data name="pageSubContractorChellanAck" xml:space="preserve">
+    <value>Sub Contractor Challan Acknowledgement View</value>
+    <comment>Sub Contractor Chellans acknowledgemnet error message</comment>
+  </data>
+  <data name="pageSubContratorChellanAckView" xml:space="preserve">
+    <value>Sub Contractor Challan Acknowledgement </value>
+    <comment>Sub Contractor Chellans acknowledgemnet error message</comment>
+  </data>
+  <data name="SearchDdlForVendors" xml:space="preserve">
+    <value>--All Vendors--</value>
+    <comment>Sub Contractor Chellans acknowledgemnet sesrch</comment>
+  </data>
+  <data name="chkTextAcknowledge" xml:space="preserve">
+    <value> Acknowledged</value>
+  </data>
+  <data name="btnAcknowledge" xml:space="preserve">
+    <value>Acknowledge</value>
+    <comment>button text fro Chellan acknowledgement screen</comment>
+  </data>
+  <data name="scChallanDetails" xml:space="preserve">
+    <value>Sub Contractor Challan Details</value>
+    <comment>Sub Contractor Challana acknowledgement</comment>
+  </data>
+  <data name="grdDeliveryDateHeaderText" xml:space="preserve">
+    <value>Delivery Date</value>
+    <comment>Supplier po for asn view header text</comment>
+  </data>
+  <data name="SupplierCreateAsnHdrSelectionDisabled" xml:space="preserve">
+    <value>Header level selection is disabled, since one or more line items have delivery date outside this month</value>
+  </data>
+  <data name="SupplierCreateAsnLineSelectionDisabled" xml:space="preserve">
+    <value>Selection is disabled since the delivery date does not fall under the current month</value>
+  </data>
+  <data name="DataMigration" xml:space="preserve">
+    <value>Data Migration</value>
+  </data>
+  <data name="DataUpload" xml:space="preserve">
+    <value>Data Upload</value>
+  </data>
+  <data name="MDataMigration" xml:space="preserve">
+    <value>Data Migration</value>
+  </data>
+  <data name="MDataUpload" xml:space="preserve">
+    <value>Data Upload</value>
+  </data>
+  <data name="btnCancelASN" xml:space="preserve">
+    <value>Cancel ASN</value>
+  </data>
+  <data name="sucMsgCancelSubASN" xml:space="preserve">
+    <value>The ASN is cancelled successfully</value>
+  </data>
+  <data name="grdToolTipChallanAcknowledgementQty" xml:space="preserve">
+    <value>Please enter the acknowledge quantity</value>
+  </data>
+  <data name="scgrdDeliveryChallanNumber" xml:space="preserve">
+    <value>Delivery Challan Number</value>
+  </data>
+  <data name="grdDelChellanNo" xml:space="preserve">
+    <value>Delivery Challan Number</value>
+  </data>
+  <data name="grdScheduledQuantityHeaderText" xml:space="preserve">
+    <value>Total Schedule Qty</value>
+  </data>
+  <data name="AcknowledgeASNSuccessfully" xml:space="preserve">
+    <value>Selected ASN is acknowledged successfully</value>
+    <comment>ASN ACKNOWLEDGEMENT MESSAGE</comment>
+  </data>
+  <data name="lblCompanyCode" xml:space="preserve">
+    <value>Company Code</value>
+    <comment>Traceability Matrix report</comment>
+  </data>
+  <data name="lblBatchNo" xml:space="preserve">
+    <value>Batch Number</value>
+    <comment>Traceability Matrix Report</comment>
+  </data>
+  <data name="pageTraceabilityMatrixView" xml:space="preserve">
+    <value>Traceability Matrix Report</value>
+    <comment>Traceability Matrix Report</comment>
+  </data>
+  <data name="rfvBatchNo" xml:space="preserve">
+    <value>Batch Number must be selected</value>
+    <comment>Traceability Matrix report</comment>
+  </data>
+  <data name="rfvCompanyCode" xml:space="preserve">
+    <value>Company Code must be selected</value>
+    <comment>Traceability Matrix report</comment>
+  </data>
+  <data name="divPaymentView" xml:space="preserve">
+    <value>Payments</value>
+    <comment>Payment View - Payment div text</comment>
+  </data>
+  <data name="divRejectionView" xml:space="preserve">
+    <value>Rejections</value>
+    <comment>Supplier Rejection View - Rejection div text</comment>
+  </data>
+  <data name="grdAcceptedQuantityText" xml:space="preserve">
+    <value>Accepted Qty</value>
+    <comment>Payment View - Accepted Quantity Header Text in Grid View</comment>
+  </data>
+  <data name="grdAdvisedQtyText" xml:space="preserve">
+    <value>Advised Qty</value>
+    <comment>Payment View - Advised Quantity Header Text in Grid View</comment>
+  </data>
+  <data name="grdCheckDateText" xml:space="preserve">
+    <value>Check Date</value>
+    <comment>Payment View -Check Date Header Text in Grid View</comment>
+  </data>
+  <data name="grdCheckNumberText" xml:space="preserve">
+    <value>Check Number</value>
+    <comment>Payment View - Check Number Header Text in Grid View</comment>
+  </data>
+  <data name="grdComments" xml:space="preserve">
+    <value>Comments</value>
+    <comment>Uploaded Files</comment>
+  </data>
+  <data name="grdDCDateText" xml:space="preserve">
+    <value>DC Date</value>
+    <comment>Supplier Rejection View - Grid  column header text for DC Date</comment>
+  </data>
+  <data name="grdDCNoText" xml:space="preserve">
+    <value>DC Number</value>
+    <comment>Supplier Rejection View - Grid  column header text for DC Number</comment>
+  </data>
+  <data name="grdDelete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Uploaded Files</comment>
+  </data>
+  <data name="grdDMRRDateText" xml:space="preserve">
+    <value>DMRR Date</value>
+    <comment>Supplier Rejection View - Grid  column header text for DMRR Date</comment>
+  </data>
+  <data name="grdDMRRNumberText" xml:space="preserve">
+    <value>DMRR Number</value>
+    <comment>Supplier Rejection View - Grid  column header text for DMRR Numbet
+	
+	
+	
+	
+	
+	
+	
+Supplier Rejection View - Grid  column header text for DMRR Date</comment>
+  </data>
+  <data name="grdFeedbackText" xml:space="preserve">
+    <value>Feedback</value>
+    <comment>Add Feedback</comment>
+  </data>
+  <data name="grdFileName" xml:space="preserve">
+    <value>File Name</value>
+    <comment>Uploaded Files</comment>
+  </data>
+  <data name="grdFileType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Uploaded Files</comment>
+  </data>
+  <data name="grdGRNDate" xml:space="preserve">
+    <value>GRN Date</value>
+    <comment>Payment View - GRN Date label</comment>
+  </data>
+  <data name="grdGRNNo" xml:space="preserve">
+    <value>GRN Number</value>
+    <comment>Payment View - GRN Number label</comment>
+  </data>
+  <data name="grdOpenFile" xml:space="preserve">
+    <value>Open</value>
+    <comment>Uploaded Files</comment>
+  </data>
+  <data name="grdPartDescriptionHeaderText" xml:space="preserve">
+    <value>Part Description</value>
+    <comment>Supplier Rejection View - Grid  column header text for Part Description</comment>
+  </data>
+  <data name="grdPartNoHeaderText" xml:space="preserve">
+    <value>Part Number</value>
+    <comment>Supplier Rejection View - Grid column header text for Part Number</comment>
+  </data>
+  <data name="grdPOItemNoHeaderText" xml:space="preserve">
+    <value>Purchase Order Number</value>
+    <comment>Supplier PO For ASN - Grid column header text for Purchase Order Number</comment>
+  </data>
+  <data name="grdReceivedQtyText" xml:space="preserve">
+    <value>Received Qty</value>
+    <comment>Payment View - Received Quantity Header Text in Grid View</comment>
+  </data>
+  <data name="grdRejectedQtyText" xml:space="preserve">
+    <value>Rejected Qty</value>
+    <comment>Payment View - Rejected Quantity Header Text in Grid View</comment>
+  </data>
+  <data name="grdRejectionDebitedText" xml:space="preserve">
+    <value>Rejection Debited</value>
+    <comment>Supplier Rejection View - Grid  column header text for Rejection Debited</comment>
+  </data>
+  <data name="grdRejectionReturnedText" xml:space="preserve">
+    <value>Rejection Returned</value>
+    <comment>Supplier Rejection View - Grid  column header text for Rejection Returned</comment>
+  </data>
+  <data name="grdScheduleQuantityHeaderText" xml:space="preserve">
+    <value>Total PO Quantity</value>
+  </data>
+  <data name="lblRejectionAdvice" xml:space="preserve">
+    <value>Rejection Advice</value>
+    <comment>Rejection detail - Rejection advice label</comment>
+  </data>
+  <data name="lblRejectionAdviceContent" xml:space="preserve">
+    <value>We give below details of the rejected lot form your supplies. We request you to investigate the cause for rejection and send us your corrective action report in a fortnight's time, indicating the target dates for implementaion.</value>
+    <comment>Rejection details - Rejection advice label</comment>
+  </data>
+  <data name="lblRejectionFeedback" xml:space="preserve">
+    <value>Rejection Feedback</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="lblThankingYou" xml:space="preserve">
+    <value>Thanking You.</value>
+    <comment>Rejection details - Thanking You</comment>
+  </data>
+  <data name="lblThanks" xml:space="preserve">
+    <value>The above lot was rejected; hence call on us for disposition.</value>
+    <comment>Rejection details - Thanks label</comment>
+  </data>
+  <data name="lblTO" xml:space="preserve">
+    <value>To</value>
+    <comment>Rejected Advice label TO</comment>
+  </data>
+  <data name="tblDcDate" xml:space="preserve">
+    <value>DC Date</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="tblDcNo" xml:space="preserve">
+    <value>DC No.</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="tblPartDesc" xml:space="preserve">
+    <value>Part Desc.</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="tblPartNo" xml:space="preserve">
+    <value>Part No.</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="tblRejDebit" xml:space="preserve">
+    <value>Rejection Debited</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="tblRejReturn" xml:space="preserve">
+    <value>Rejection Returned</value>
+    <comment>Supplier Rejection Feedback</comment>
+  </data>
+  <data name="lblVendor" xml:space="preserve">
+    <value>Vendor</value>
+    <comment>Payment View Label</comment>
+  </data>
+  <data name="ucTitleAdherence" xml:space="preserve">
+    <value>YEARLY SCHEDULE ADHERENCE</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="ucTitleASNPending" xml:space="preserve">
+    <value>ASN PENDING FOR ACKNOWLEDGEMENT</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="ucTitleCircular" xml:space="preserve">
+    <value>CIRCULARS FOR VENDOR</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="ucTitleDeliverables" xml:space="preserve">
+    <value>DELIVERABLES (CURRENT MONTH)</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="ucTitleMonthlyAdherence" xml:space="preserve">
+    <value>MONTHLY SCHEDULE ADHERENCE</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="ucTitlePayments" xml:space="preserve">
+    <value>PAYMENTS (CURRENT MONTH)</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="ucTitleRejection" xml:space="preserve">
+    <value>REJECTIONS BY VENDOR (CURRENT MONTH)</value>
+    <comment>DashboardTitle</comment>
+  </data>
+  <data name="AdminViewCirculars" xml:space="preserve">
+    <value>Circular View</value>
+  </data>
+  <data name="Circulars" xml:space="preserve">
+    <value>Circulars</value>
+  </data>
+  <data name="CreateCirculars" xml:space="preserve">
+    <value>Manage Circulars</value>
+  </data>
+  <data name="MCreateCirculars" xml:space="preserve">
+    <value>Manage Circulars</value>
+  </data>
+  <data name="MViewCirculars" xml:space="preserve">
+    <value>Circular View</value>
+  </data>
+  <data name="ViewCirculars" xml:space="preserve">
+    <value>Circular View</value>
+  </data>
+  <data name="rvDateCompare" xml:space="preserve">
+    <value>Valid till date must be greater than or equal to Valid from date</value>
+    <comment>Circulars</comment>
+  </data>
+  <data name="rvToDateTill" xml:space="preserve">
+    <value>Please enter a valid till date</value>
+    <comment>Circulars</comment>
+  </data>
+  <data name="MSubContractorStockView" xml:space="preserve">
+    <value>SubContractor Stock View</value>
+  </data>
+  <data name="SubContractorStockView" xml:space="preserve">
+    <value>SubContractor Stock View</value>
+  </data>
+  <data name="Assembly" xml:space="preserve">
+    <value>Assembly</value>
+  </data>
+  <data name="AssemblyChallanView" xml:space="preserve">
+    <value>AssemblyChallanView</value>
+  </data>
+  <data name="AssemblyCreateASN" xml:space="preserve">
+    <value>AssemblyCreateASN</value>
+  </data>
+  <data name="MAssemblyChallanView" xml:space="preserve">
+    <value>AssemblyChallanView</value>
+  </data>
+  <data name="MAssemblyCreateASN" xml:space="preserve">
+    <value>AssemblyCreateASN</value>
+  </data>
+  <data name="rfvPendingDays" xml:space="preserve">
+    <value>Only Numbers between 0 to 100 are allowed</value>
+  </data>
+  <data name="MVendorsBlockDateView" xml:space="preserve">
+    <value>VendorsBlockDateView</value>
+  </data>
+  <data name="VendorsBlockDateView" xml:space="preserve">
+    <value>VendorsBlockDateView</value>
+  </data>
+  <data name="MVendorRatingReport" xml:space="preserve">
+    <value>Vendor Rating Report</value>
+  </data>
+  <data name="VendorRatingReport" xml:space="preserve">
+    <value>Vendor Rating Report</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="DocumentView" xml:space="preserve">
+    <value>Document View</value>
+  </data>
+  <data name="MDocumentView" xml:space="preserve">
+    <value>Document View</value>
+  </data>
+</root>
