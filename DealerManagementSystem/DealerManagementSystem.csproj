@@ -221,19 +221,6 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="ServiceView\WarrantyClaimApprovalLevel1.aspx" />
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -371,7 +358,6 @@
     <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.cs">
       <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
