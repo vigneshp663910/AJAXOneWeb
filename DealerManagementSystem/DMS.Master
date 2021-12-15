@@ -126,7 +126,7 @@
         }
 
         .appico {
-            float: right;
+            margin:0 auto;
         }
 
         .login {
