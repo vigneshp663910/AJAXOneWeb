@@ -130,168 +130,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\AspNet.ScriptManager.bootstrap.dll" />
-    <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
-    <Content Include="bin\Business.dll" />
-    <Content Include="bin\Business.pdb" />
-    <Content Include="bin\DataAccess.dll" />
-    <Content Include="bin\DataAccess.pdb" />
-    <Content Include="bin\DealerManagementSystem.dll" />
-    <Content Include="bin\DealerManagementSystem.pdb" />
-    <Content Include="bin\de\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\de\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\de\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\de\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\de\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\de\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\EnvDTE.dll" />
-    <Content Include="bin\es\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\es\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\es\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\es\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\es\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\es\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\fr\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\fr\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\fr\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\fr\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\fr\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\fr\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\it\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\it\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\it\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\it\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\it\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\it\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\ja\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\ja\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\ja\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\ja\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\ja\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\ja\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\ko\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\ko\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\ko\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\ko\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\ko\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\ko\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\log4net.dll" />
-    <Content Include="bin\log4net.xml" />
-    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
-    <Content Include="bin\Microsoft.AspNet.FriendlyUrls.xml" />
-    <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\Microsoft.MSXML.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
-    <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.Common.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.DataVisualization.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.Design.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.ProcessingObjectModel.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.WebDesign.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.WebForms.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.WinForms.dll" />
-    <Content Include="bin\Microsoft.ScriptManager.MSAjax.dll" />
-    <Content Include="bin\Microsoft.ScriptManager.WebForms.dll" />
-    <Content Include="bin\Microsoft.SqlServer.Types.dll" />
-    <Content Include="bin\Microsoft.VisualStudio.OLE.Interop.dll" />
-    <Content Include="bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll" />
-    <Content Include="bin\Microsoft.VisualStudio.Shell.Interop.dll" />
-    <Content Include="bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" />
-    <Content Include="bin\Microsoft.VisualStudio.TextManager.Interop.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\Properties.dll" />
-    <Content Include="bin\Properties.pdb" />
-    <Content Include="bin\pt\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\pt\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\pt\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\pt\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\pt\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\pt\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\QRCoder.dll" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\csi.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
-    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
-    <Content Include="bin\roslyn\System.AppContext.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Console.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
-    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Net.Http.dll" />
-    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
-    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
-    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\roslyn\System.ValueTuple.dll" />
-    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
-    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\ru\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\ru\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\ru\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\ru\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\ru\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\ru\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\SapIntegration.dll" />
-    <Content Include="bin\SapIntegration.pdb" />
-    <Content Include="bin\sapnco.dll" />
-    <Content Include="bin\sapnco_utils.dll" />
-    <Content Include="bin\stdole.dll" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\WebGrease.dll" />
-    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll" />
-    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.Common.resources.dll" />
-    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.DataVisualization.resources.dll" />
-    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.Design.resources.dll" />
-    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WebDesign.resources.dll" />
-    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WebForms.resources.dll" />
-    <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="Ajax\Images\ajax_logow.png" />
+    <Content Include="Ajax\Images\star-empty-lg.png" />
+    <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CSS\bootstrap.min.3.4.1.css" />
+    <Content Include="CSS\bootstrap.min.4.5.2.css" />
+    <Content Include="CSS\font-awesome.min.css" />
+    <Content Include="CSS\font.css" />
+    <Content Include="CSS\w3.css" />
     <Content Include="Dashboard\CustomerSatisfactionInAfterSalesSupport.ascx" />
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx" />
     <Content Include="Dashboard\ICTicketTransactionStatics.ascx" />
     <Content Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="Home.aspx" />
+    <Content Include="Home1.aspx" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Images\ajax-fiori logo for signature.bmp" />
+    <Content Include="Images\ajax-fiori logo for signature.png" />
+    <Content Include="Images\error_info.png" />
+    <Content Include="Images\HRhelpdesk3.jpg" />
+    <Content Include="Images\HR_HelpDesk4.png" />
+    <Content Include="Images\HR_HelpDesk_Ticket_System.png" />
+    <Content Include="Images\it_helpdesk3.png" />
+    <Content Include="Images\IT_Support.png" />
+    <Content Include="Images\IT_Ticket_System.png" />
+    <Content Include="Images\Message.jpg" />
+    <Content Include="Images\MessageNew.jpg" />
+    <Content Include="JS\bootstrap.min.js" />
+    <Content Include="JS\jquery.min.js" />
     <Content Include="Login.aspx" />
     <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
@@ -337,17 +208,8 @@
       <DependentUpon>DS.xsd</DependentUpon>
     </Content>
     <Content Include="Dealer.Master" />
-    <Content Include="bin\DealerManagementSystem.dll.config" />
-    <Content Include="bin\roslyn\csc.exe.config" />
-    <Content Include="bin\roslyn\csc.rsp" />
-    <Content Include="bin\roslyn\csi.exe.config" />
-    <Content Include="bin\roslyn\csi.rsp" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\vbc.exe.config" />
-    <Content Include="bin\roslyn\vbc.rsp" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="DMS.Master" />
+    <Content Include="CSS\bootstrap.min.css.map" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -453,12 +315,26 @@
     <Compile Include="Dealer.Master.designer.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
     </Compile>
+    <Compile Include="DMS.Master.cs">
+      <DependentUpon>DMS.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DMS.Master.designer.cs">
+      <DependentUpon>DMS.Master</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home1.aspx.cs">
+      <DependentUpon>Home1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home1.aspx.designer.cs">
+      <DependentUpon>Home1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
