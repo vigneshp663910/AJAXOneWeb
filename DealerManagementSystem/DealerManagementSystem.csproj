@@ -206,6 +206,7 @@
       <DependentUpon>DS.xsd</DependentUpon>
     </Content>
     <Content Include="Dealer.Master" />
+    <Content Include="DMS.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -309,6 +310,13 @@
     </Compile>
     <Compile Include="Dealer.Master.designer.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
+    </Compile>
+    <Compile Include="DMS.Master.cs">
+      <DependentUpon>DMS.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DMS.Master.designer.cs">
+      <DependentUpon>DMS.Master</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
