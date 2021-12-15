@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html style="background-image: linear-gradient(to bottom,#385b77,#9cc5d6); background-repeat: no-repeat">
 <head runat="server">
-    <link rel="icon" href="Images/Service1.png" type="image/x-icon">
+    <link rel="icon" href="Ajax/Images/dms4.jpg" type="image/x-icon">
     <title>AJAX-Dealer Management</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,6 +123,10 @@
 
         .logo {
             float: left;
+        }
+
+        .appico {
+            float: right;
         }
 
         .login {
@@ -619,8 +623,12 @@
                     <div class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
+                    <div class="appico">
+                        <asp:Image ID="ImageApp" Width="50px" Height="50px" ImageUrl="~/Ajax/Images/dms3.jpg" AlternateText="rr1" runat="server" />
+                    </div>
+
                     <div style="color: white">
-                        <a class="w3-display-topright login" href="#" style="top: 15px">
+                        <a class="w3-display-topright login" href="#" style="top: 15px; right:20px;">
                             <asp:Label ID="lblusername" runat="server"></asp:Label>
                             &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
                     </div>
