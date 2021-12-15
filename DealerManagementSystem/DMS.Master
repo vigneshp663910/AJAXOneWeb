@@ -623,9 +623,10 @@
                     <div class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
-                    <div class="appico">
-                        <asp:Image ID="ImageApp" Width="50px" Height="50px" ImageUrl="~/Ajax/Images/dms3.jpg" AlternateText="rr1" runat="server" />
-                    </div>
+                    <%--<div class="appico">
+                        <asp:Image ID="ImageApp" Width="50px" Height="50px" ImageUrl="~/Ajax/Images/dms5.jpg" AlternateText="rr1" runat="server" />   --%>                
+                       <%-- <asp:Label ID="Label1" runat="server" Text="DEALER MANAGEMENT" ForeColor="White"></asp:Label>--%>
+                   <%-- </div>--%>
 
                     <div style="color: white">
                         <a class="w3-display-topright login" href="#" style="top: 15px; right:20px;">
@@ -648,14 +649,18 @@
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Roles</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Users</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Authorization</a>
+                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>LoginAs</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Message</a>
                     </div>
                     <a onclick='MenuMasters()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id="MenuMasters">Masters<i class='fa fa-caret-down fa-2x'></i></a>
                     <div id="Masters" class='w3-bar-block w3-hide w3-padding-large w3-medium' runat="server">
                         <a href="Location.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Location</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Customer</a>
+                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Dealer</a>
+                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Organisation</a>
+                         
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Material</a>
-                        <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Dealer</a>
+                       
                         <%--<a onclick='MenuDealer()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id="MenuDealer">Dealer<i class='fa fa-caret-down fa-2x'></i></a>
                         <div id="Dealer" class='w3-bar-block w3-hide w3-padding-large w3-medium' runat="server">
                             <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Dealer Management</a>
@@ -669,7 +674,7 @@
                         <a href="Home1.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Activity</a>
                         <a href="Home1.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Quotation</a>
                         <a href="Home1.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Report</a>
-                        <a href="Home1.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Deshboard</a>
+                        <a href="Home1.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Dashboard</a>
                     </div>
                     <a onclick='MenuSales()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id="MenuSales">Sales<i class='fa fa-caret-down fa-2x'></i></a>
                     <div id="Sales" class='w3-bar-block w3-hide w3-padding-large w3-medium'>
@@ -684,6 +689,7 @@
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Invoice</a>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Sales Return</a>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Inventory</a>
+                        <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Dashboard</a>
                     </div>
                     <a onclick='MenuService()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id="MenuService">Service<i class='fa fa-caret-down fa-2x'></i></a>
                     <div id="Service" class='w3-bar-block w3-hide w3-padding-large w3-medium'>
@@ -712,7 +718,7 @@
 
             <br />
             <div class="ProjectTitle">
-                <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management Systems"></asp:Label>
+                <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management"></asp:Label>
             </div>
             <%--<marquee behavior="scroll" direction="left" scrollamount="3"> <h2><p style ="color:red;"> Note: Employees should regularise their attendance on or before 25th of every month</p></h2></marquee>--%>
             <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
