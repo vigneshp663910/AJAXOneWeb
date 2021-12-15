@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajax\Images\ajax_logow.png" />
-    <Content Include="Ajax\Images\dms3.jpg" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -139,21 +138,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="CSS\bootstrap.min.3.4.1.css" />
-    <Content Include="CSS\bootstrap.min.4.5.2.css" />
-    <Content Include="CSS\font-awesome.min.css" />
-    <Content Include="CSS\font.css" />
-    <Content Include="CSS\w3.css" />
     <Content Include="Dashboard\CustomerSatisfactionInAfterSalesSupport.ascx" />
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx" />
     <Content Include="Dashboard\ICTicketTransactionStatics.ascx" />
     <Content Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="Home.aspx" />
-    <Content Include="Home1.aspx" />
     <Content Include="HtmlPage1.html" />
     <Content Include="Images\ajax-fiori logo for signature.bmp" />
     <Content Include="Images\ajax-fiori logo for signature.png" />
-    <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Images\error_info.png" />
     <Content Include="Images\HRhelpdesk3.jpg" />
     <Content Include="Images\HR_HelpDesk4.png" />
@@ -210,8 +202,6 @@
       <DependentUpon>DS.xsd</DependentUpon>
     </Content>
     <Content Include="Dealer.Master" />
-    <Content Include="DMS.Master" />
-    <Content Include="CSS\bootstrap.min.css.map" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -247,7 +237,6 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="ServiceView\WarrantyClaimApprovalLevel1.aspx" />
-    <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -317,26 +306,12 @@
     <Compile Include="Dealer.Master.designer.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
     </Compile>
-    <Compile Include="DMS.Master.cs">
-      <DependentUpon>DMS.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DMS.Master.designer.cs">
-      <DependentUpon>DMS.Master</DependentUpon>
-    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Home1.aspx.cs">
-      <DependentUpon>Home1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Home1.aspx.designer.cs">
-      <DependentUpon>Home1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -399,7 +374,6 @@
     <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.cs">
       <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
@@ -511,8 +485,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="MasterDataView\" />
     <Folder Include="PreSaleView\" />
-    <Folder Include="SqlServerTypes\x64\" />
-    <Folder Include="SqlServerTypes\x86\" />
     <Folder Include="SupportTicket\" />
   </ItemGroup>
   <ItemGroup>
