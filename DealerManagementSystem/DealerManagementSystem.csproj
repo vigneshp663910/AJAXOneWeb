@@ -163,6 +163,7 @@
     <Content Include="Images\MessageNew.jpg" />
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery.min.js" />
+    <Content Include="Location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
@@ -335,6 +336,13 @@
     </Compile>
     <Compile Include="Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Location.aspx.cs">
+      <DependentUpon>Location.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Location.aspx.designer.cs">
+      <DependentUpon>Location.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
