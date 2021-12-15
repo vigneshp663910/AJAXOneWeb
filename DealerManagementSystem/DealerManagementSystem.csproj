@@ -142,6 +142,9 @@
     <Content Include="Home.aspx" />
     <Content Include="HtmlPage1.html" />
     <Content Include="Login.aspx" />
+    <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
+    <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
+    <Content Include="ServiceView\ApproveDeviatedCliamApprove.aspx" />
     <Content Include="ServiceView\ICTicketManage.aspx" />
     <Content Include="ServiceView\ICTicketProcess.aspx" />
     <Content Include="ServiceView\WarrantyClaimAnnexureReport.aspx" />
@@ -217,6 +220,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="ServiceView\WarrantyClaimApprovalLevel1.aspx" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -243,6 +247,7 @@
     <Content Include="UserControls\ICTicketTechnicianAssign.ascx" />
     <Content Include="UserControls\ICTicketTechnicianWorkInformation.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
+    <Content Include="UserControls\ICTicketTSIRView.ascx" />
     <Content Include="UserList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -312,6 +317,27 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceView\ApprovalForDeviatedCliamReques.aspx.cs">
+      <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ApprovalForDeviatedCliamReques.aspx.designer.cs">
+      <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ApproveDeclinedICTicket.aspx.cs">
+      <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ApproveDeclinedICTicket.aspx.designer.cs">
+      <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ApproveDeviatedCliamApprove.aspx.cs">
+      <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ApproveDeviatedCliamApprove.aspx.designer.cs">
+      <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ServiceView\ICTicketManage.aspx.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -338,6 +364,13 @@
     </Compile>
     <Compile Include="Print\DS.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.cs">
+      <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="UIHelper.cs" />
     <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.cs">
@@ -430,6 +463,13 @@
     </Compile>
     <Compile Include="UserControls\ICTicketTSIR.ascx.designer.cs">
       <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ICTicketTSIRView.ascx.cs">
+      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ICTicketTSIRView.ascx.designer.cs">
+      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>

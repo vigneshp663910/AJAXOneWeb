@@ -132,6 +132,8 @@ namespace Properties
         public long UserID { get; set; }
         public int ModuleAccessID { get; set; }
         public int SubModuleAccessID { get; set; }
+        public string SubModuleName { get; set; }
+      
         public bool IsActive { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -148,11 +150,22 @@ namespace Properties
         public int SubModuleMasterID { get; set; }
         public int ModuleMasterID { get; set; }
         public string SubModuleName { get; set; }
+        public string ParentMenu { get; set; }
         public string ModuleAction { get; set; }
-       
+        public List<PChildSubModuleAccess> ChildSubModuleAccess { get; set; }
+
+
         #endregion
     }
-     [Serializable]
+    [Serializable]
+    public class PChildSubModuleAccess
+    {
+        public int SubParentId { get; set; }
+        public string ChildSubMenuName { get; set; }
+        public string ChildSubMenuUrl { get; set; }
+    }
+
+    [Serializable]
     public class PAccount
     {
         public long AccountID { get; set; }
