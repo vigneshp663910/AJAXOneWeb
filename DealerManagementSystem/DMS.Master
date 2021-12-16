@@ -4,7 +4,7 @@
 <html style="background-image: linear-gradient(to bottom,#385b77,#9cc5d6); background-repeat: no-repeat">
 <head runat="server">
     <link rel="icon" href="Ajax/Images/dms4.jpg" type="image/x-icon">
-    <title>AJAX-Dealer Management</title>
+    <title>AJAX-DMS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="CSS/w3.css">
@@ -649,7 +649,7 @@
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Roles</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Users</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Authorization</a>
-                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>LoginAs</a>
+                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Login As</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Message</a>
                     </div>
                     <a onclick='MenuMasters()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id="MenuMasters">Masters<i class='fa fa-caret-down fa-2x'></i></a>
@@ -680,7 +680,7 @@
                     <div id="Sales" class='w3-bar-block w3-hide w3-padding-large w3-medium'>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Process</a>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Purchase Order</a>
-                        <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Advance Shipping</a>
+                        <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Advance Shipping Notice</a>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Goods Receipt</a>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Purchase Returns</a>
                         <a href="Home2.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Stock Transfer Order</a>
