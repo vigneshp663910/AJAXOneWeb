@@ -553,6 +553,32 @@
             font-size: 15px;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            var x = document.getElementById(localStorage.getItem("ParentMenu"));
+            x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+            var x = document.getElementById(localStorage.getItem("MainMenu"));
+            x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+        });
+    </script>
+    <script>
+/*const { hidden } = require("modernizr");*/
+
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }        
+        function ParentMenuClick(ParentMenu, MainMenu) {
+            var x = document.getElementById(ParentMenu);
+            x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+            localStorage.setItem("ParentMenu", ParentMenu);
+            localStorage.setItem("MainMenu", MainMenu);
+        }
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+    </script>
    <%-- <script>
         function MenuMaster() {
             var x = document.getElementById('Master');
@@ -715,7 +741,7 @@
             <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management Systems"></asp:Label>
             </div>
-            <%--<marquee behavior="scroll" direction="left" scrollamount="3"> <h2><p style ="color:red;"> Note: Employees should regularise their attendance on or before 25th of every month</p></h2></marquee>--%>
+            <%--<marquee behavior="scroll" direction="left" scrollamount="3"> <h2><p style ="color:red;" > Note: Employees should regularise their attendance on or before 25th of every month</p></h2></marquee>--%>
             <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                 <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
                 <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
@@ -727,6 +753,7 @@
                     <p><i>AJAX Business System @2021 | Feedback</i></p>
                 </footer> --%>
         </div>
+        <asp:HiddenField ID="HiddenMenu" runat="server" Visible="false"/>
     </form>
 </body>
 </html>
