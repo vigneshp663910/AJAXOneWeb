@@ -162,9 +162,18 @@
     <Content Include="JS\jquery.min.js" />
     <Content Include="Location.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="MasterScreenView\DealerEmployeeApproval.aspx" />
+    <Content Include="MasterScreenView\DealerEmployeeAssigningRole.aspx" />
+    <Content Include="MasterScreenView\DealerEmployeeCreate.aspx" />
+    <Content Include="MasterScreenView\DealerEmployeeLeaving.aspx" />
+    <Content Include="MasterScreenView\DealerEmployeeManage.aspx" />
+    <Content Include="MasterScreenView\DealerEmployeeView.aspx" />
+    <Content Include="MasterScreenView\UserManagement.aspx" />
     <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
+    <Content Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx" />
     <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
     <Content Include="ServiceView\ApproveDeviatedCliamApprove.aspx" />
+    <Content Include="ServiceView\ApproveDeviatedICTicket.aspx" />
     <Content Include="ServiceView\ICTicketManage.aspx" />
     <Content Include="ServiceView\ICTicketProcess.aspx" />
     <Content Include="ServiceView\WarrantyClaimAnnexureReport.aspx" />
@@ -339,12 +348,68 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeApproval.aspx.cs">
+      <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeApproval.aspx.designer.cs">
+      <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeAssigningRole.aspx.cs">
+      <DependentUpon>DealerEmployeeAssigningRole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeAssigningRole.aspx.designer.cs">
+      <DependentUpon>DealerEmployeeAssigningRole.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeCreate.aspx.cs">
+      <DependentUpon>DealerEmployeeCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeCreate.aspx.designer.cs">
+      <DependentUpon>DealerEmployeeCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeLeaving.aspx.cs">
+      <DependentUpon>DealerEmployeeLeaving.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeLeaving.aspx.designer.cs">
+      <DependentUpon>DealerEmployeeLeaving.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeManage.aspx.cs">
+      <DependentUpon>DealerEmployeeManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeManage.aspx.designer.cs">
+      <DependentUpon>DealerEmployeeManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeView.aspx.cs">
+      <DependentUpon>DealerEmployeeView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\DealerEmployeeView.aspx.designer.cs">
+      <DependentUpon>DealerEmployeeView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterScreenView\UserManagement.aspx.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterScreenView\UserManagement.aspx.designer.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ServiceView\ApprovalForDeviatedCliamReques.aspx.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ServiceView\ApprovalForDeviatedCliamReques.aspx.designer.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx.cs">
+      <DependentUpon>ApprovalForDeviatedICTicketRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx.designer.cs">
+      <DependentUpon>ApprovalForDeviatedICTicketRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ServiceView\ApproveDeclinedICTicket.aspx.cs">
       <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
@@ -359,6 +424,13 @@
     </Compile>
     <Compile Include="ServiceView\ApproveDeviatedCliamApprove.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ApproveDeviatedICTicket.aspx.cs">
+      <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ApproveDeviatedICTicket.aspx.designer.cs">
+      <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ServiceView\ICTicketManage.aspx.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
@@ -502,7 +574,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="MasterDataView\" />
     <Folder Include="PreSaleView\" />
     <Folder Include="SupportTicket\" />
   </ItemGroup>
