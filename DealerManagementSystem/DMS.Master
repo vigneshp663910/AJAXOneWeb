@@ -651,6 +651,7 @@
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Authorization</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Login As</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Login Logs</a>
+                        <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Txn Logs</a>
                         <a href="Home.aspx" onclick='w3_close()' class='w3-bar-item w3-button'>Message</a>
                     </div>
                     <a onclick='MenuMasters()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id="MenuMasters">Masters<i class='fa fa-caret-down fa-2x'></i></a>

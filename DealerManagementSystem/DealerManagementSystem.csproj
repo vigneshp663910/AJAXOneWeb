@@ -208,6 +208,7 @@
     </Content>
     <Content Include="Dealer.Master" />
     <Content Include="DMS.Master" />
+    <Content Include="DMSDynamic.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -319,6 +320,13 @@
     <Compile Include="DMS.Master.designer.cs">
       <DependentUpon>DMS.Master</DependentUpon>
     </Compile>
+    <Compile Include="DMSDynamic.Master.cs">
+      <DependentUpon>DMSDynamic.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DMSDynamic.Master.designer.cs">
+      <DependentUpon>DMSDynamic.Master</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -332,6 +340,13 @@
     </Compile>
     <Compile Include="Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Location.aspx.cs">
+      <DependentUpon>Location.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Location.aspx.designer.cs">
+      <DependentUpon>Location.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

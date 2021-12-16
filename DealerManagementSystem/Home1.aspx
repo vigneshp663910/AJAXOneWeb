@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DMSDynamic.Master" AutoEventWireup="true" CodeBehind="Home1.aspx.cs" Inherits="DMS.Home1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DMS.Master" AutoEventWireup="true" CodeBehind="Home1.aspx.cs" Inherits="DMS.Home1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%--<script>
         $(document).ready(function () {
