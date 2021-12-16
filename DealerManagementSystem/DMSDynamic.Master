@@ -559,27 +559,49 @@
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
             var x = document.getElementById(localStorage.getItem("MainMenu"));
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+            window.localStorage.removeItem("ParentMenu");
+            window.localStorage.removeItem("MainMenu");
         });
     </script>
     <script>
-/*const { hidden } = require("modernizr");*/
+        /*const { hidden } = require("modernizr");*/
+        function Menu(id) {            
+            //var div = document.getElementById('Menu');
+            //var divs = div.getElementsByTagName('div');
+            //var divArray = [];
+            //for (var i = 0; i < divs.length; i += 1) {
+            //    divArray.push(divs[i].innerHTML);
+            //}
 
+            $('#Menu').find('div').each(function () {
+                var x1 = document.getElementById($(this).attr('id'));
+                x1.className = x1.className.replace(" w3-show", "");
+            });
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
             document.getElementById("myOverlay").style.display = "block";
-        }        
+        }
         function ParentMenuClick(ParentMenu, MainMenu) {
             var x = document.getElementById(ParentMenu);
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
             localStorage.setItem("ParentMenu", ParentMenu);
             localStorage.setItem("MainMenu", MainMenu);
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
         }
         function w3_close() {
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
     </script>
-   <%-- <script>
+    <%-- <script>
         function MenuMaster() {
             var x = document.getElementById('Master');
             if (x.className.indexOf('w3-show') == -1) {
@@ -645,32 +667,38 @@
 </head>
 <body>
     <form id="form2" runat="server">
-        <div class="ajaxheader">
-            <div class="ajaxheaderinner">
-                <div class="row">
-                    <div class="logo">
-                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-                    </div>
-                    <div class="appico">
-                        <asp:Image ID="ImageApp" Width="50px" Height="50px" ImageUrl="~/Ajax/Images/dms3.jpg" AlternateText="rr1" runat="server" />
-                    </div>
+        <asp:UpdatePanel ID="Updatepanel1" runat="server">
+            <%--<Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click" />
+               </Triggers>--%>
+            <ContentTemplate>
 
-                    <div style="color: white">
-                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;">
-                            <asp:Label ID="lblusername" runat="server"></asp:Label>
-                            &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
-                        <asp:Label ID="lblPageName" runat="server"></asp:Label>
-                        <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                <div class="ajaxheader">
+                    <div class="ajaxheaderinner">
+                        <div class="row">
+                            <div class="logo">
+                                <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+                            </div>
+                            <div class="appico">
+                                <asp:Image ID="ImageApp" Width="50px" Height="50px" ImageUrl="~/Ajax/Images/dms3.jpg" AlternateText="rr1" runat="server" />
+                            </div>
+
+                            <div style="color: white">
+                                <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;">
+                                    <asp:Label ID="lblusername" runat="server"></asp:Label>
+                                    &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
+                                <asp:Label ID="lblPageName" runat="server"></asp:Label>
+                                <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;" id="mySidebar">
-            <br>
-            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 22px">Close Menu</a>
-            <div class="w3-bar-block">
-                <div class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" id="Menu" runat="server">
-                    <%--<a onclick='MenuMaster()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id='MenuMaster'>Master<i class='fa fa-caret-down fa-2x'></i></a>
+                <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;" id="mySidebar">
+                    <br>
+                    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 22px">Close Menu</a>
+                    <div class="w3-bar-block">
+                        <div class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" id="Menu" runat="server">
+                            <%--<a onclick='MenuMaster()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id='MenuMaster'>Master<i class='fa fa-caret-down fa-2x'></i></a>
                     <div id='Master' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>
                         <a href='Home.aspx' onclick='w3_close()' class='w3-bar-item w3-button'>Material</a>
                         <a href='Home.aspx' onclick='w3_close()' class='w3-bar-item w3-button'>Customer</a>
@@ -719,41 +747,43 @@
                         <a href='Home.aspx' onclick='w3_close()' class='w3-bar-item w3-button'>IC Ticket Service Dashboard</a>
                         <a href='Home.aspx' onclick='w3_close()' class='w3-bar-item w3-button'>Dashboard IC Ticket Claim</a>
                     </div>--%>
-                </div>
-            </div>
-        </nav>
-        <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #262626 !important; color: #fff !important">
-            <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
-            <div class="logo float-right">
-                <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-            </div>
-        </header>
+                        </div>
+                    </div>
+                </nav>
+                <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #262626 !important; color: #fff !important">
+                    <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
+                    <div class="logo float-right">
+                        <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server"/>
+                    </div>
+                </header>
 
 
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu" id="myOverlay"></div>
+                <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu" id="myOverlay"></div>
 
 
-        <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
+                <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
-        <div class="w3-main" style="margin-left: 250px;">
+                <div class="w3-main" style="margin-left: 250px;">
 
-            <br />
-            <div class="ProjectTitle">
-                <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management Systems"></asp:Label>
-            </div>
-            <%--<marquee behavior="scroll" direction="left" scrollamount="3"> <h2><p style ="color:red;" > Note: Employees should regularise their attendance on or before 25th of every month</p></h2></marquee>--%>
-            <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
-                <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
-                <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
-            </div>
-            <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-            <%--<footer class="w3-container w3-white w3-center w3-margin-top" style="text-align:center">  
+                    <br />
+                    <div class="ProjectTitle">
+                        <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management Systems"></asp:Label>
+                    </div>
+                    <%--<marquee behavior="scroll" direction="left" scrollamount="3"> <h2><p style ="color:red;" > Note: Employees should regularise their attendance on or before 25th of every month</p></h2></marquee>--%>
+                    <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
+                        <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
+                        <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
+                    </div>
+                    <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <%--<footer class="w3-container w3-white w3-center w3-margin-top" style="text-align:center">  
                     <p><i>AJAX Business System @2021 | Feedback</i></p>
                 </footer> --%>
-        </div>
-        <asp:HiddenField ID="HiddenMenu" runat="server" Visible="false"/>
+                </div>
+                <asp:HiddenField ID="HiddenMenu" runat="server" Visible="false" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </form>
 </body>
 </html>

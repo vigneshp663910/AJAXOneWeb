@@ -67,19 +67,7 @@ namespace DealerManagementSystem
                 }
                 else
                 {
-                    MenuDMS += " <script> ";
-                    MenuDMS += " function Menu" + SM.SubModuleName + "() { ";
-                    MenuDMS += " var x = document.getElementById('" + SM.SubModuleName + "'); ";
-                    MenuDMS += " if (x.className.indexOf('w3-show') == -1) { ";
-                    MenuDMS += " x.className += ' w3-show'; ";
-                    MenuDMS += " } ";
-                    MenuDMS += " else { ";
-                    MenuDMS += " x.className = x.className.replace(' w3-show', ''); ";
-                    MenuDMS += " } ";
-                    MenuDMS += " } ";
-                    MenuDMS += " </script> ";
-
-                    MenuDMS += "<a onclick='Menu" + SM.SubModuleName + "()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id='Menu" + SM.SubModuleName + "'>" + SM.SubModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
+                    MenuDMS += "<a onclick=Menu('" + SM.SubModuleName + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.SubModuleName + "'>" + SM.SubModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
                     MenuDMS += "<div id='" + SM.SubModuleName + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                     MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS,SM.ParentMenu);
                     MenuDMS += "</div>";
@@ -92,30 +80,13 @@ namespace DealerManagementSystem
             string MenuDMS = "";
             foreach (PModuleAccess AM in PSession.User.DMSModules)
             {
-                MenuDMS += " <script> ";
-                MenuDMS += " function Menu" + AM.ModuleName + "() { ";
-                MenuDMS += " var x = document.getElementById('" + AM.ModuleName + "'); ";
-                MenuDMS += " if (x.className.indexOf('w3-show') == -1) { ";
-                MenuDMS += " x.className += ' w3-show'; ";
-                MenuDMS += " } ";
-                MenuDMS += " else { ";
-                MenuDMS += " x.className = x.className.replace(' w3-show', ''); ";
-                MenuDMS += " } ";
-                MenuDMS += " } ";
-                MenuDMS += " </script> ";
-
-                MenuDMS += "<a onclick='Menu" + AM.ModuleName + "()' href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
+                MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName + "')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
                 MenuDMS += "<div id='" + AM.ModuleName + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                 MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS);
                 MenuDMS += "</div>";
             }
             MenuDMS += "</div>";
             Menu.InnerHtml = MenuDMS;
-        }
-        protected void Menu_ServerClick(object sender, EventArgs e)
-        {
-            HiddenMenu.Value = "";
-
         }
     }
 }
