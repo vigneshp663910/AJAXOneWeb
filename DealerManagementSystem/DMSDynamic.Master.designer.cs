@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DMS
+namespace DealerManagementSystem
 {
 
 
-    public partial class DMS
+    public partial class DMSDynamic
     {
 
         /// <summary>
@@ -42,6 +42,15 @@ namespace DMS
         protected global::System.Web.UI.WebControls.Image ImgLogo;
 
         /// <summary>
+        /// ImageApp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageApp;
+
+        /// <summary>
         /// lblusername control.
         /// </summary>
         /// <remarks>
@@ -51,6 +60,24 @@ namespace DMS
         protected global::System.Web.UI.WebControls.Label lblusername;
 
         /// <summary>
+        /// lblPageName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPageName;
+
+        /// <summary>
+        /// lblQuality control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuality;
+
+        /// <summary>
         /// Menu control.
         /// </summary>
         /// <remarks>
@@ -58,24 +85,6 @@ namespace DMS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Menu;
-
-        /// <summary>
-        /// Admin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Admin;
-
-        /// <summary>
-        /// Masters control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Masters;
 
         /// <summary>
         /// Image1 control.
