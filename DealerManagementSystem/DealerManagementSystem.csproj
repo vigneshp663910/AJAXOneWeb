@@ -141,6 +141,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CSS\bootstrap.min.3.4.1.css" />
+    <Content Include="CSS\bootstrap.min.4.5.2.css" />
+    <Content Include="CSS\font-awesome.min.css" />
+    <Content Include="CSS\font.css" />
+    <Content Include="CSS\w3.css" />
     <Content Include="Dashboard\CustomerSatisfactionInAfterSalesSupport.ascx" />
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx" />
     <Content Include="Dashboard\ICTicketTransactionStatics.ascx" />
@@ -209,6 +214,7 @@
     <Content Include="Dealer.Master" />
     <Content Include="DMS.Master" />
     <Content Include="DMSDynamic.Master" />
+    <Content Include="CSS\bootstrap.min.css.map" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
