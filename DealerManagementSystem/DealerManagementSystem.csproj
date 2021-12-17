@@ -165,6 +165,7 @@
     <Content Include="Images\Message.jpg" />
     <Content Include="Images\MessageNew.jpg" />
     <Content Include="JS\bootstrap.min.js" />
+    <Content Include="JS\jquery-resizable.js" />
     <Content Include="JS\jquery.min.js" />
     <Content Include="Location.aspx" />
     <Content Include="Login.aspx" />
@@ -250,6 +251,19 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="ServiceView\WarrantyClaimApprovalLevel1.aspx" />
+    <Content Include="ServiceView\WarrantyClaimDebitNoteAcknowledge.aspx" />
+    <Content Include="ServiceView\WarrantyClaimDebitNoteCreate.aspx" />
+    <Content Include="ServiceView\WarrantyClaimDebitNoteReport.aspx" />
+    <Content Include="ServiceView\WarrantyClaimInvoiceCreate.aspx" />
+    <Content Include="ServiceView\WarrantyClaimInvoiceCreate5k.aspx" />
+    <Content Include="ServiceView\WarrantyClaimInvoiceReport.aspx" />
+    <Content Include="ServiceView\WarrantyFailureMaterialDCCreation.aspx" />
+    <Content Include="ServiceView\WarrantyFailureMaterialDCReport.aspx" />
+    <Content Include="ServiceView\WarrantyFailureMaterialDCTemplateCreation.aspx" />
+    <Content Include="ServiceView\WarrantyFailureMaterialGateEntry.aspx" />
+    <Content Include="ServiceView\WarrantyFailureMaterialReport.aspx" />
+    <Content Include="ServiceView\WarrantyFailureMaterialReturn.aspx" />
+    <Content Include="ServiceView\WarrantyPartsAvailabilityReport.aspx" />
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -414,6 +428,97 @@
     </Compile>
     <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimDebitNoteAcknowledge.aspx.cs">
+      <DependentUpon>WarrantyClaimDebitNoteAcknowledge.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimDebitNoteAcknowledge.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimDebitNoteAcknowledge.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimDebitNoteCreate.aspx.cs">
+      <DependentUpon>WarrantyClaimDebitNoteCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimDebitNoteCreate.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimDebitNoteCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimDebitNoteReport.aspx.cs">
+      <DependentUpon>WarrantyClaimDebitNoteReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimDebitNoteReport.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimDebitNoteReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate.aspx.cs">
+      <DependentUpon>WarrantyClaimInvoiceCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimInvoiceCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate5k.aspx.cs">
+      <DependentUpon>WarrantyClaimInvoiceCreate5k.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate5k.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimInvoiceCreate5k.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimInvoiceReport.aspx.cs">
+      <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyClaimInvoiceReport.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialDCCreation.aspx.cs">
+      <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialDCCreation.aspx.designer.cs">
+      <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialDCReport.aspx.cs">
+      <DependentUpon>WarrantyFailureMaterialDCReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialDCReport.aspx.designer.cs">
+      <DependentUpon>WarrantyFailureMaterialDCReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialDCTemplateCreation.aspx.cs">
+      <DependentUpon>WarrantyFailureMaterialDCTemplateCreation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialDCTemplateCreation.aspx.designer.cs">
+      <DependentUpon>WarrantyFailureMaterialDCTemplateCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialGateEntry.aspx.cs">
+      <DependentUpon>WarrantyFailureMaterialGateEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialGateEntry.aspx.designer.cs">
+      <DependentUpon>WarrantyFailureMaterialGateEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialReport.aspx.cs">
+      <DependentUpon>WarrantyFailureMaterialReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialReport.aspx.designer.cs">
+      <DependentUpon>WarrantyFailureMaterialReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialReturn.aspx.cs">
+      <DependentUpon>WarrantyFailureMaterialReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyFailureMaterialReturn.aspx.designer.cs">
+      <DependentUpon>WarrantyFailureMaterialReturn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyPartsAvailabilityReport.aspx.cs">
+      <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\WarrantyPartsAvailabilityReport.aspx.designer.cs">
+      <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="UIHelper.cs" />
     <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.cs">
