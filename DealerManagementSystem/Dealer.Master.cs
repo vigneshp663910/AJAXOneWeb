@@ -57,18 +57,18 @@ namespace DealerManagementSystem
             List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
             if (SMsCount.Count() == 0)
             {
-                return MenuDMS + "<li><a href='/DMS_CampignTicketCreate.aspx'>"+ SMs[0].SubModuleName + "</a></li>";
+                return MenuDMS + "<li><a href='/" + SMs[0].ModuleAction + ".aspx'>" + SMs[0].DisplayName1 + "</a></li>";
             }
             foreach (PSubModuleAccess SM in SMsCount)
             {
                 List<PSubModuleAccess> PA1s = SMs.Where(x => x.ParentMenu == SM.SubModuleName).ToList();
                 if (PA1s.Count() == 0)
                 {
-                    MenuDMS = MenuDMS + "<li><a href='/DMS_CampignTicketCreate.aspx'>"+ SM.SubModuleName + "</a></li>";
+                    MenuDMS = MenuDMS + "<li><a href='/" + SM.ModuleAction + ".aspx'>" + SM.DisplayName1 + "</a></li>";
                 }
                 else
                 {
-                    MenuDMS = MenuDMS + "<li> <a href=''#'>"+ SM.SubModuleName + "</a><ul>";
+                    MenuDMS = MenuDMS + "<li> <a href=''#'>"+ SM.DisplayName1 + "</a><ul>";
                     MenuDMS =  ReMenu(PA1s, SM.SubModuleName, MenuDMS);
                     MenuDMS = MenuDMS + "</ul> </li>";
                 }

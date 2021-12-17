@@ -124,15 +124,13 @@ namespace Properties
     {
         #region Properties
         public int ModuleMasterID { get; set; }
-        public string ModuleName { get; set; }
-        public string ModuleAction { get; set; } 
+        public string ModuleName { get; set; } 
         public List<PSubModuleAccess> SubModuleAccess { get; set; }
 
         public int UserModuleAccessID { get; set; }
         public long UserID { get; set; }
         public int ModuleAccessID { get; set; }
-        public int SubModuleAccessID { get; set; }
-        public string SubModuleName { get; set; }
+        public int SubModuleAccessID { get; set; } 
       
         public bool IsActive { get; set; }
         public Int64 CreatedBy { get; set; }
@@ -152,18 +150,11 @@ namespace Properties
         public string SubModuleName { get; set; }
         public string ParentMenu { get; set; }
         public string ModuleAction { get; set; }
-        public List<PChildSubModuleAccess> ChildSubModuleAccess { get; set; }
-
+        public string DisplayName1 { get; set; }
 
         #endregion
     }
-    [Serializable]
-    public class PChildSubModuleAccess
-    {
-        public int SubParentId { get; set; }
-        public string ChildSubMenuName { get; set; }
-        public string ChildSubMenuUrl { get; set; }
-    }
+    
 
     [Serializable]
     public class PAccount

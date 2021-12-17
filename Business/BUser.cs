@@ -1239,20 +1239,16 @@ namespace Business
                                 MA.ModuleMasterID = Convert.ToInt32(dr["ModuleMasterID"]);
                                 MA.ModuleName = Convert.ToString(dr["ModuleName"]);
                                 MA.SubModuleAccess = new List<PSubModuleAccess>();
-                                ID = Convert.ToInt32(dr["ModuleMasterID"]);
-
-                                 
-                                MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]);
-                                MA.SubModuleName = Convert.ToString(dr["SubModuleName"]);                             
-                                MA.ModuleAction = Convert.ToString(dr["ModuleAction"]); 
-                               
-                               
-
+                                ID = Convert.ToInt32(dr["ModuleMasterID"]); 
+                                MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]); 
                             }
-                            MA.SubModuleAccess.Add(new PSubModuleAccess() {
-                                ParentMenu = Convert.ToString(dr["ParentMenu"]),
-                            SubModuleMasterID = Convert.ToInt32(dr["SubModuleMasterID"]),
-                                SubModuleName = Convert.ToString(dr["SubModuleName"])
+                            MA.SubModuleAccess.Add(new PSubModuleAccess()
+                            {
+                                SubModuleMasterID = Convert.ToInt32(dr["SubModuleMasterID"]),
+                                SubModuleName = Convert.ToString(dr["SubModuleName"]),
+                                ParentMenu = Convert.ToString(dr["ParentMenu"]), 
+                                ModuleAction = Convert.ToString(dr["ModuleAction"]),
+                                DisplayName1 = Convert.ToString(dr["DisplayName1"])
                             });
                         }
                 }
@@ -1402,75 +1398,6 @@ namespace Business
             }
         }
 
-
-        public List<PModuleAccess> GetDMSModuleByUserN(Int64 UserId, int? ModuleMasterID, int? SubModuleMasterID)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            List<PModuleAccess> MAs = new List<PModuleAccess>();
-
-            List<PChildSubModuleAccess> CSubModuleAccess = new List<PChildSubModuleAccess>();
-            int ID = 0;
-            string ParentMenu = "";
-            PModuleAccess MA = null;
-            try
-            {
-                DbParameter userIdP = provider.CreateParameter("UserId", UserId, DbType.Int64);
-                DbParameter ModuleMasterIDP = provider.CreateParameter("ModuleMasterID", ModuleMasterID, DbType.Int32);
-                DbParameter SubModuleMasterIDP = provider.CreateParameter("SubModuleMasterID", SubModuleMasterID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { userIdP, ModuleMasterIDP, SubModuleMasterIDP };
-
-                using (DataSet ds = provider.Select("GetDMSModuleByUserID", Params))
-                {
-                    if (ds != null)
-                        foreach (DataRow dr in ds.Tables[0].Rows)
-                        {
-                            if (ID != Convert.ToInt32(dr["ModuleMasterID"]))
-                            {
-                                MA = new PModuleAccess();
-                                MAs.Add(MA);
-                                MA.ModuleMasterID = Convert.ToInt32(dr["ModuleMasterID"]);
-                                MA.ModuleName = Convert.ToString(dr["ModuleName"]);
-                                MA.SubModuleAccess = new List<PSubModuleAccess>();
-                                ID = Convert.ToInt32(dr["ModuleMasterID"]);
-
-
-                                MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]);
-                                MA.SubModuleName = Convert.ToString(dr["SubModuleName"]);
-                                MA.ModuleAction = Convert.ToString(dr["ModuleAction"]);
-                               
-                            }
-                            if ((ID != Convert.ToInt32(dr["ModuleMasterID"])) && (ParentMenu == Convert.ToString(dr["ParentMenu"])))
-                            {
-                                MA.SubModuleAccess.Add(new PSubModuleAccess()
-                                {
-                                    SubModuleMasterID = Convert.ToInt32(dr["SubModuleMasterID"]),
-                                    SubModuleName = Convert.ToString(dr["SubModuleName"]),
-                                    ChildSubModuleAccess = CSubModuleAccess
-
-                                });
-                            }
-
-                            CSubModuleAccess.Add(new PChildSubModuleAccess()
-                            {
-                                ChildSubMenuName = Convert.ToString(dr["SubModuleName"]),
-                                ChildSubMenuUrl = Convert.ToString(dr["SubModuleName"])
-                            });
-
-                        }
-                }
-                // This call is for track the status and loged into the trace logeer
-                TraceLogger.Log(traceStartTime);
-                return MAs;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
+ 
     }
 }
