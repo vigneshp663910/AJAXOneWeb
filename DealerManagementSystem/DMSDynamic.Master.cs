@@ -67,7 +67,7 @@ namespace DealerManagementSystem
                 }
                 else
                 {
-                    MenuDMS += "<a onclick=Menu('" + SM.SubModuleName + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.SubModuleName + "'>" + SM.SubModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
+                    MenuDMS += "<a onclick=Menu('" + SM.SubModuleName + "','" + SM.ParentMenu + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.SubModuleName + "'>" + SM.SubModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
                     MenuDMS += "<div id='" + SM.SubModuleName + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                     MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS,SM.ParentMenu);
                     MenuDMS += "</div>";

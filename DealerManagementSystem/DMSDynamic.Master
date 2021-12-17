@@ -565,7 +565,7 @@
     </script>
     <script>
         /*const { hidden } = require("modernizr");*/
-        function Menu(id) {            
+        function Menu(id,Mainid) {            
             //var div = document.getElementById('Menu');
             //var divs = div.getElementsByTagName('div');
             //var divArray = [];
@@ -582,6 +582,12 @@
                 x.className += " w3-show";
             } else {
                 x.className = x.className.replace(" w3-show", "");
+            }
+            var x1 = document.getElementById(Mainid);
+            if (x1.className.indexOf("w3-show") == -1) {
+                x1.className += " w3-show";
+            } else {
+                x1.className = x.className.replace(" w3-show", "");
             }
         }
         function w3_open() {
