@@ -174,6 +174,14 @@
     <Content Include="ServiceView\ApproveDeviatedCliamApprove.aspx" />
     <Content Include="ServiceView\ICTicketManage.aspx" />
     <Content Include="ServiceView\ICTicketProcess.aspx" />
+    <Content Include="ServiceView\ICTicketServiceEngineerUtilisationReport.aspx" />
+    <Content Include="ServiceView\ICTicketStatusReport.aspx" />
+    <Content Include="ServiceView\ICTicketTechnicianAssign.aspx" />
+    <Content Include="ServiceView\ICTicketTSIRApprove.aspx" />
+    <Content Include="ServiceView\ICTicketTSIRMailToVendorReport.aspx" />
+    <Content Include="ServiceView\ICTicketTSIRManage.aspx" />
+    <Content Include="ServiceView\ICTicketTSIRMessage.aspx" />
+    <Content Include="ServiceView\ICTicketTSIRReport.aspx" />
     <Content Include="ServiceView\WarrantyClaimAnnexureReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -409,6 +417,62 @@
     </Compile>
     <Compile Include="ServiceView\ICTicketProcess.aspx.designer.cs">
       <DependentUpon>ICTicketProcess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketServiceEngineerUtilisationReport.aspx.cs">
+      <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketServiceEngineerUtilisationReport.aspx.designer.cs">
+      <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketStatusReport.aspx.cs">
+      <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketStatusReport.aspx.designer.cs">
+      <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTechnicianAssign.aspx.cs">
+      <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTechnicianAssign.aspx.designer.cs">
+      <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRApprove.aspx.cs">
+      <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRApprove.aspx.designer.cs">
+      <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRMailToVendorReport.aspx.cs">
+      <DependentUpon>ICTicketTSIRMailToVendorReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRMailToVendorReport.aspx.designer.cs">
+      <DependentUpon>ICTicketTSIRMailToVendorReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRManage.aspx.cs">
+      <DependentUpon>ICTicketTSIRManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRManage.aspx.designer.cs">
+      <DependentUpon>ICTicketTSIRManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRMessage.aspx.cs">
+      <DependentUpon>ICTicketTSIRMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRMessage.aspx.designer.cs">
+      <DependentUpon>ICTicketTSIRMessage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRReport.aspx.cs">
+      <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServiceView\ICTicketTSIRReport.aspx.designer.cs">
+      <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ServiceView\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
