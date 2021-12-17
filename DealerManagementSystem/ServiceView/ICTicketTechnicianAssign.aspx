@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketTechnicianAssign.aspx.cs" Inherits="DealerManagementSystem.ServiceView.ICTicketTechnicianAssign" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Src="~/UserControls/DMS_ICTicketButton.ascx" TagPrefix="UC" TagName="UC_ICTicket" %>
-<%@ Register Src="~/UserControls/DMS_ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>
+<%@ Register Src="~/UserControls/ICTicketButton.ascx" TagPrefix="UC" TagName="UC_ICTicket" %>
+<%@ Register Src="~/UserControls/ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container IC_ticketManageInfo">
         <div class="col2">

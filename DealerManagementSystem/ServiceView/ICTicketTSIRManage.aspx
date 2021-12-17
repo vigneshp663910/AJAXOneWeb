@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketTSIRManage.aspx.cs" Inherits="DealerManagementSystem.ServiceView.ICTicketTSIRManage" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
-<%@ Register Src="~/UserControls/DMS_ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>
+<%@ Register Src="~/UserControls/ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>
 <%--<%@ Register Src="~/UserControls/DMS_ICTicketMaterialCharges.ascx" TagPrefix="UC" TagName="DMS_ICTicketMaterialCharges" %>--%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
