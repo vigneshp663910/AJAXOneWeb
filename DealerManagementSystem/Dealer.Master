@@ -689,7 +689,7 @@
                                     <asp:Label ID="lblusername" runat="server"></asp:Label>
                                     &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
                                 <asp:Label ID="lblPageName" runat="server"></asp:Label>
-                                <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                                <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
                             </div>
                         </div>
                     </div>
@@ -720,13 +720,19 @@
 
                     <br />
                     <div class="ProjectTitle">
-                        <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management Systems"></asp:Label>
+                        <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management"></asp:Label>
+                        <div style="float:right;padding-right:2em;font-size:small; color:gold"> <asp:Label ID="lblQuality" runat="server"></asp:Label>
+
                     </div>
+                    </div>
+
                      <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                         <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
                         <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
                     </div>
                     <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
+
+                    
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
                    
