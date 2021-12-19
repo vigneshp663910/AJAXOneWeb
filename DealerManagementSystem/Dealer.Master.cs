@@ -25,7 +25,7 @@ namespace DealerManagementSystem
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
                 }
             //    lblWelcome.Text = PSession.User.ContactName;
-
+                  lblusername.Text = PSession.User.ContactName; 
 
                 string MenuCon = "<ul id='topnav'>";
                 if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
