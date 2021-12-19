@@ -52,6 +52,9 @@ namespace DealerManagementSystem
                     }
                 }
             }
+            txtUsername.Text = "IT.OFFICER4";
+            txtPassword.Text = "abc@123";
+            login();
         }
 
         protected void Page_Load(object sender, EventArgs e)

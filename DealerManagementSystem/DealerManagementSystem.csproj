@@ -283,6 +283,8 @@
     <Content Include="ServiceView\WarrantyFailureMaterialReport.aspx" />
     <Content Include="ServiceView\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ServiceView\WarrantyPartsAvailabilityReport.aspx" />
+    <Content Include="SupportTicket\OpenSupportTicket.aspx" />
+    <Content Include="SupportTicket\RequestSupportTicket.aspx" />
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -680,6 +682,20 @@
     <Compile Include="ServiceView\WarrantyPartsAvailabilityReport.aspx.designer.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SupportTicket\OpenSupportTicket.aspx.cs">
+      <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupportTicket\OpenSupportTicket.aspx.designer.cs">
+      <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SupportTicket\RequestSupportTicket.aspx.cs">
+      <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupportTicket\RequestSupportTicket.aspx.designer.cs">
+      <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UIHelper.cs" />
     <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.cs">
       <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
@@ -797,7 +813,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="PreSaleView\" />
-    <Folder Include="SupportTicket\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
