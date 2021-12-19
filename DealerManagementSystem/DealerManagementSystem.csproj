@@ -130,11 +130,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ajax\Images\Ajax-New-Logo.png" />
     <Content Include="Ajax\Images\ajax_logow.png" />
+    <Content Include="Ajax\Images\android__v259.png" />
+    <Content Include="Ajax\Images\apple.png" />
+    <Content Include="Ajax\Images\apple__v259.png" />
     <Content Include="Ajax\Images\bg05q.png" />
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
+    <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -284,6 +289,7 @@
     <Content Include="ServiceView\WarrantyFailureMaterialReport.aspx" />
     <Content Include="ServiceView\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ServiceView\WarrantyPartsAvailabilityReport.aspx" />
+    <Content Include="SignIn.aspx" />
     <Content Include="SupportTicket\OpenSupportTicket.aspx" />
     <Content Include="SupportTicket\RequestSupportTicket.aspx" />
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
@@ -682,6 +688,13 @@
     </Compile>
     <Compile Include="ServiceView\WarrantyPartsAvailabilityReport.aspx.designer.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="SupportTicket\OpenSupportTicket.aspx.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
