@@ -21,7 +21,7 @@
     <!------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------LOG IN------->
     <div style="text-align: center; font-family: Calibri; /*background-color: #FFFFCC; */">
         <form id="form1" runat="server">
-            <table border="1" style="border: thick solid #C0C0C0; text-align: right; margin-top: 10%; margin-right: 34%; margin-left: 36%; width: 30%;">
+            <table border="1" style="border: thick solid #C0C0C0; text-align: right; margin-top: 10%; margin-right: 34%; margin-left: 34%; width: 30%;">
                 <tr>
                     <td colspan="1" style="text-align: left; border-style: solid hidden hidden solid">
                         <img src="Ajax/Images/Ajax-New-Logo.png" border="0" width="150" height="45">
@@ -126,7 +126,7 @@
 
             </table>
             <div id="help" style="display: none;">
-                <table border="1" style="border: thin dotted #C0C0C0; text-align: right; margin-top: 0%; margin-right: 34%; margin-left: 36%; width: 30%; background-color: #FFFFE8;">
+                <table border="1" style="border: thin dotted #C0C0C0; text-align: right; margin-top: 0%; margin-right: 34%; margin-left: 34%; width: 30%; background-color: #FFFFE8;">
                     <tr style="text-align: left;">
                         <td>* If you are a New User, ask Admin for your Sign In Credentials.
                             <%--<asp:LinkButton ID="lnkCreateAccount1" runat="server" Text="Create Your Login Account." PostBackUrl="~/eCatalogue/Account.aspx"></asp:LinkButton>--%>
@@ -142,11 +142,11 @@
         <br>
         <div class="loginFooter">AJAX Business System © 2021 | <a href="#" id="terms_and_conditions_link">Feedback</a> &nbsp;|&nbsp;  <a href="#" id="contact_us_link">Contact Us</a></div>
         <div style="text-align: center; margin: 0px 0;">
-            <p><font size="2px">Download Our Mobile App</font></p>
-            <span>
-                <img src="/ajax/images/apple__v259.png" border="0" id="" alt=""></span>
-            <span>
-                <img src="/ajax/images/android__v259.png" border="0" id="" alt=""></span>
+            <p style="margin: 0px; padding: inherit; "><font size="2px">Download Our Mobile App</font></p>
+           
+                <img src="/ajax/images/apple__v259.png" border="0" id="" alt="">
+          
+                <img src="/ajax/images/android__v259.png" border="0" id="" alt="">
         </div>
 
         
