@@ -28,6 +28,7 @@
 
         .w3-btn, .w3-button {
             text-decoration: initial;
+            padding:2px;
         }
 
         /*.w3-medium {
@@ -371,13 +372,14 @@
         }*/
 
         .w3-bar-block .w3-bar-item {
-            padding: 6px 9px 0px 16px;
+            padding: 3px 2px 2px 10px;
         }
 
         .ProjectTitle {
             /*background-color:orange;*/
             /*background-color:#1ebeb4;*/
-            background-color: #68AF27 !important;
+            /* background-color: #68AF27 !important; */
+            background-color: #336699 !important;
             color: white;
             font-size: medium;
             font-weight: bold;
@@ -532,7 +534,7 @@
     padding: 12px 24px!important;
 }*/
         .w3-padding-large {
-            padding: 0px 12px !important;
+            padding: 0px 2px !important;
         }
 
         .w3-large {
@@ -553,6 +555,10 @@
             font-weight: bold;
             font-size: 15px;
         }
+
+        ul#main-menu {
+    padding-inline-start: -0px;
+}
     </style>
     <script>
         $(document).ready(function () {
@@ -681,7 +687,7 @@
                                 <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                             </div>
                             <div class="appico">
-                                <asp:Image ID="ImageApp" Width="50px" Height="50px" ImageUrl="~/Ajax/Images/dms3.jpg" AlternateText="rr1" runat="server" />
+                                <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
                             </div>
 
                             <div style="color: white">
@@ -689,7 +695,7 @@
                                     <asp:Label ID="lblusername" runat="server"></asp:Label>
                                     &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
                                 <asp:Label ID="lblPageName" runat="server"></asp:Label>
-                                <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                                <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
                             </div>
                         </div>
                     </div>
@@ -720,13 +726,19 @@
 
                     <br />
                     <div class="ProjectTitle">
-                        <asp:Label ID="lblProjectTitle" runat="server" Text="Dealer Management Systems"></asp:Label>
+                        <asp:Label ID="lblProjectTitle" runat="server" Text="&nbsp;"></asp:Label>
+                        <div style="float:right;padding-right:2em;font-size:small; color:gold"> <asp:Label ID="lblQuality" runat="server"></asp:Label>
+
                     </div>
+                    </div>
+
                      <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                         <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
                         <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
                     </div>
                     <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
+
+                    
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
                    

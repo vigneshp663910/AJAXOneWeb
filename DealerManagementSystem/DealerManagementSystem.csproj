@@ -131,9 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajax\Images\ajax_logow.png" />
-    <Content Include="Ajax\Images\dms3.jpg" />
+    <Content Include="Ajax\Images\bg05q.png" />
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
+    <Content Include="Ajax\Images\dms6.jpg" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Content\bootstrap-theme.css" />

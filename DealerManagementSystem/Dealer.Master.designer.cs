@@ -69,15 +69,6 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Label lblPageName;
 
         /// <summary>
-        /// lblQuality control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuality;
-
-        /// <summary>
         /// Menu control.
         /// </summary>
         /// <remarks>
@@ -112,6 +103,15 @@ namespace DealerManagementSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProjectTitle;
+
+        /// <summary>
+        /// lblQuality control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuality;
 
         /// <summary>
         /// DivChangeLogin control.
