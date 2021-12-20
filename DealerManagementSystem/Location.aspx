@@ -1,32 +1,55 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DMSDynamic.Master" AutoEventWireup="true" CodeBehind="Location.aspx.cs" Inherits="DealerManagementSystem.Location" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Location.aspx.cs" Inherits="DealerManagementSystem.Location" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .fade:not(.show) {
+            opacity: 1;
+        }
+
+        .form-check-input {
+            position: initial;
+            margin-top: initial;
+            margin-left: initial;
+        }
+
+        .nav-tabs > li {
+            float: left;
+            margin-bottom: -1px;
+            border: 1px solid gray;
+        }
+    </style>
     <script type="text/javascript">
         $(window).on("load", function () {
             var hfTapActive = document.getElementById("ContentPlaceHolder1_hfTapActive").value;
-            $('#LIhome').removeClass("active");
-            $('#LImenu1').removeClass("active");
-            $('#LImenu2').removeClass("active");
+            $('#LICountry').removeClass("active");
+            $('#LIState').removeClass("active");
+            $('#LIDistrict').removeClass("active");
+            $('#LICity').removeClass("active");
 
-            $('#home').addClass("tab-pane fade");
-            $('#menu1').addClass("tab-pane fade");
-            $('#menu2').addClass("tab-pane fade");
+            $('#country').addClass("tab-pane fade");
+            $('#state').addClass("tab-pane fade");
+            $('#district').addClass("tab-pane fade");
+            $('#city').addClass("tab-pane fade");
 
             if (hfTapActive == 1) {
-                $('#LIhome').addClass("active");
-                $('#home').addClass("tab - pane fade in active");
+                $('#LICountry').addClass("active");
+                $('#country').addClass("tab - pane fade in active");
             }
             else if (hfTapActive == 2) {
-                $('#LImenu1').addClass("active");
-                $('#menu1').addClass("tab - pane fade in active");
+                $('#LIState').addClass("active");
+                $('#state').addClass("tab - pane fade in active");
             }
             else if (hfTapActive == 3) {
-                $('#LImenu2').addClass("active");
-                $('#menu2').addClass("tab - pane fade in active");
+                $('#LIDistrict').addClass("active");
+                $('#district').addClass("tab - pane fade in active");
+            }
+            else if (hfTapActive == 4) {
+                $('#LICity').addClass("active");
+                $('#city').addClass("tab - pane fade in active");
             }
         });
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12">
@@ -49,7 +72,7 @@
             <div class="tab-content">
                 <div id="country">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Functional Skills</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Country</legend>
                         <div class="w3-panel w3-pale-blue w3-border w3-display-container">
                             <span onclick="this.parentElement.style.display='none'"
                                 class="w3-button w3-large w3-display-topright">&times;</span>
@@ -65,7 +88,7 @@
                 </div>
                 <div id="state">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Soft Skills</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">State</legend>
                         <div class="w3-panel w3-pale-blue w3-border w3-display-container">
                             <span onclick="this.parentElement.style.display='none'"
                                 class="w3-button w3-large w3-display-topright">&times;</span>
@@ -81,7 +104,7 @@
                 </div>
                 <div id="district">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Technical Skills</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">District</legend>
                         <div class="w3-panel w3-pale-blue w3-border w3-display-container">
                             <span onclick="this.parentElement.style.display='none'"
                                 class="w3-button w3-large w3-display-topright">&times;</span>
@@ -102,7 +125,7 @@
                 </div>
                 <div id="city">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Technical Skills</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">City</legend>
                         <div class="w3-panel w3-pale-blue w3-border w3-display-container">
                             <span onclick="this.parentElement.style.display='none'"
                                 class="w3-button w3-large w3-display-topright">&times;</span>

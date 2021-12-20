@@ -28,9 +28,11 @@
 
         .w3-btn, .w3-button {
             text-decoration: initial;
-            padding:2px;
+            /*padding:2px;*/
         }
-
+        .w3-btn, .w3-button{
+            padding:8px 16px !important;
+        }
         /*.w3-medium {
             font-size: 14px !important;
         }*/
@@ -575,12 +577,6 @@
     <script>
         /*const { hidden } = require("modernizr");*/
         function Menu(id, Mainid) {
-            //var div = document.getElementById('Menu');
-            //var divs = div.getElementsByTagName('div');
-            //var divArray = [];
-            //for (var i = 0; i < divs.length; i += 1) {
-            //    divArray.push(divs[i].innerHTML);
-            //}
 
             var xModule = document.getElementById(id);
             var xMainModule = document.getElementById(Mainid);
