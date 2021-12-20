@@ -291,8 +291,8 @@
     <Content Include="ServiceView\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ServiceView\WarrantyPartsAvailabilityReport.aspx" />
     <Content Include="SignIn.aspx" />
-    <Content Include="SupportTicket\OpenSupportTicket.aspx" />
-    <Content Include="SupportTicket\RequestSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -683,18 +683,18 @@
     <Compile Include="SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupportTicket\OpenSupportTicket.aspx.cs">
+    <Compile Include="ViewSupportTicket\OpenSupportTicket.aspx.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupportTicket\OpenSupportTicket.aspx.designer.cs">
+    <Compile Include="ViewSupportTicket\OpenSupportTicket.aspx.designer.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupportTicket\RequestSupportTicket.aspx.cs">
+    <Compile Include="ViewSupportTicket\RequestSupportTicket.aspx.cs">
       <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupportTicket\RequestSupportTicket.aspx.designer.cs">
+    <Compile Include="ViewSupportTicket\RequestSupportTicket.aspx.designer.cs">
       <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="UIHelper.cs" />
@@ -812,10 +812,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdminView\" />
     <Folder Include="App_Data\" />
-    <Folder Include="FinanceView\" />
-    <Folder Include="PreSaleView\" />
+    <Folder Include="ViewAdmin\" />
+    <Folder Include="ViewFinance\" />
+    <Folder Include="ViewMarketing\" />
+    <Folder Include="ViewPreSale\" />
+    <Folder Include="ViewSales\" />
+    <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
