@@ -6,14 +6,14 @@
 <head runat="server">
     <link rel="icon" href="Ajax/Images/dms4.jpg" type="image/x-icon">
     <title>AJAX-Dealer Management</title>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="CSS/w3.css">
     <link rel="stylesheet" href="CSS/font.css">
     <%--<link rel="stylesheet" href="CSS/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="CSS/bootstrap.min.3.4.1.css" />--%>
-    <script src="JS/jquery.min.js"></script>
-    <script src="JS/bootstrap.min.js"></script>
+    <script src="/JS/jquery.min.js"></script>
+    <script src="/JS/bootstrap.min.js"></script>
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
@@ -637,6 +637,23 @@
             $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
         }
     </script>
+
+    <script>
+           $(document).ready(function () {
+               var ParentMenu = document.getElementById(localStorage.getItem("ParentMenu"));
+               if (ParentMenu != null) {
+                   ParentMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                   var MainMenu = document.getElementById(localStorage.getItem("MainMenu"));
+                   if (MainMenu != null) {
+                       MainMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                   }
+               }
+              
+               $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
+               window.localStorage.removeItem("ParentMenu");
+               window.localStorage.removeItem("MainMenu");
+           });
+    </script>
     <%-- <script>
         function MenuMaster() {
             var x = document.getElementById('Master');
@@ -701,89 +718,73 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body onkeydown="return (event.keyCode!=13)"> 
-    <form id="form2" runat="server"> 
-                <div class="ajaxheader">
-                    <div class="ajaxheaderinner">
-                        <div class="row">
-                            <div class="logo">
-                                <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-                            </div>
-                            <div class="appico">
-                                <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
-                            </div>
+<body onkeydown="return (event.keyCode!=13)">
+    <form id="form2" runat="server">
+        <div class="ajaxheader">
+            <div class="ajaxheaderinner">
+                <div class="row">
+                    <div class="logo">
+                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+                    </div>
+                    <div class="appico">
+                        <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
+                    </div>
 
-                            <div style="color: white">
-                                <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;">
-                                    <asp:Label ID="lblusername" runat="server"></asp:Label>
-                                    &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
-                                <asp:Label ID="lblPageName" runat="server"></asp:Label>
-                                <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
-                            </div>
-                        </div>
+                    <div style="color: white">
+                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;">
+                            <asp:Label ID="lblusername" runat="server"></asp:Label>
+                            &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
+                        <asp:Label ID="lblPageName" runat="server"></asp:Label>
+                        <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
                     </div>
                 </div>
-                <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;" id="mySidebar">
-                    <br>
-                    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 22px">Close Menu</a>
-                    <div class="w3-bar-block">
-                        <div class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" id="Menu" runat="server">
-                          
-                        </div>
-                    </div>
-                </nav>
-                <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #262626 !important; color: #fff !important">
-                    <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
-                    <div class="logo float-right">
-                        <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server"/>
-                    </div>
-                </header>
-
-
-                <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu" id="myOverlay"></div>
-
-
-                <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
-
-                <div class="w3-main" style="margin-left: 250px;">
-
-                    <br />
-                    <div class="ProjectTitle">
-                        <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
-                        <div style="float:right;padding-right:2em;font-size:small; color:gold"> <asp:Label ID="lblQuality" runat="server"></asp:Label>
-
-                    </div>
-                    </div>
-
-                     <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
-                        <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
-                    </div>
-                    <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
-
-                    
-                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                    </asp:ContentPlaceHolder>
-                   
+            </div>
+        </div>
+        <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;" id="mySidebar">
+            <br>
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 22px">Close Menu</a>
+            <div class="w3-bar-block">
+                <div class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" id="Menu" runat="server">
                 </div>
-                
+            </div>
+        </nav>
+        <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #262626 !important; color: #fff !important">
+            <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
+            <div class="logo float-right">
+                <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+            </div>
+        </header>
+
+
+        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu" id="myOverlay"></div>
+
+
+        <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
+
+        <div class="w3-main" style="margin-left: 250px;">
+
+            <br />
+            <div class="ProjectTitle">
+                <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
+                <div style="float: right; padding-right: 2em; font-size: small; color: gold">
+                    <asp:Label ID="lblQuality" runat="server"></asp:Label>
+
+                </div>
+            </div>
+
+            <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
+                <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
+                <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
+            </div>
+            <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
+
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+
+        </div>
+
     </form>
 
-       <script>
-           $(document).ready(function () {
-               var ParentMenu = document.getElementById(localStorage.getItem("ParentMenu"));
-               if (ParentMenu != null) {
-                   ParentMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
-                   var MainMenu = document.getElementById(localStorage.getItem("MainMenu"));
-                   if (MainMenu != null) {
-                       MainMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
-                   }
-               }
-              
-               $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
-               window.localStorage.removeItem("ParentMenu");
-               window.localStorage.removeItem("MainMenu");
-           });
-       </script> 
-    </body>
+</body>
 </html>
