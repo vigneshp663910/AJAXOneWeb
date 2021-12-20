@@ -20,6 +20,10 @@ namespace DealerManagementSystem
             if (!IsPostBack)
             {
                 lblQuality.Text = ConfigurationManager.AppSettings["IsQuality"];
+                //var retrievedPerson = JSON.parse(localStorage.getItem('person'));
+                //var x = sessionStorage.getItem("test1");
+
+                //lblProjectTitle.Text = "";
                 if (PSession.User == null)
                 {
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -65,7 +69,7 @@ namespace DealerManagementSystem
                 { MenuDMS = MenuDMS + "<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SM.DisplayName1.Replace(" ", "") + "','" + MainMenu + "')>" + SM.DisplayName1 + "</a>"; }
                 else
                 {
-                    MenuDMS += "<a onclick=Menu('" + SM.DisplayName1.Replace(" ", "") + "','" + SM.DisplayName1.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'>" + SM.DisplayName1 + "<i class='fa fa-caret-down fa-2x'></i></a>";
+                    MenuDMS += "<a onclick=Menu('" + SM.DisplayName1.Replace(" ", "") + "','" + SM.ParentMenu.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'>" + SM.DisplayName1 + "<i class='fa fa-caret-down fa-2x'></i></a>";
                     MenuDMS += "<div id='" + SM.DisplayName1.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                     MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS);
                     MenuDMS += "</div>";
