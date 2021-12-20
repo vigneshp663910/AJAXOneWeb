@@ -8,7 +8,7 @@ using Properties;
 using SapIntegration;
 using System.Drawing;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyClaimInvoiceCreate5k : System.Web.UI.Page
     {

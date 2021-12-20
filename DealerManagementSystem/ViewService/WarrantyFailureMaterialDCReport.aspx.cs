@@ -11,7 +11,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyFailureMaterialDCReport : System.Web.UI.Page
     {

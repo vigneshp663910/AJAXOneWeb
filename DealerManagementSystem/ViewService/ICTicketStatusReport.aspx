@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketStatusReport.aspx.cs" Inherits="DealerManagementSystem.ServiceView.ICTicketStatusReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketStatusReport.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketStatusReport" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>

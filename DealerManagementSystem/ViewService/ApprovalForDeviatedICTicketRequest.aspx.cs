@@ -9,7 +9,7 @@ using Properties;
 using System.Drawing;
 using System.Data;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ApprovalForDeviatedICTicketRequest : System.Web.UI.Page
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ApprovalForDeviatedICTicketRequest.aspx.cs" Inherits="DealerManagementSystem.ServiceView.ApprovalForDeviatedICTicketRequest" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ApprovalForDeviatedICTicketRequest.aspx.cs" Inherits="DealerManagementSystem.ViewService.ApprovalForDeviatedICTicketRequest" %>
 
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

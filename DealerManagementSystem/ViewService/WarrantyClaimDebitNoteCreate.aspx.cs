@@ -9,7 +9,7 @@ using Properties;
 using SapIntegration;
 using System.Drawing;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyClaimDebitNoteCreate : System.Web.UI.Page
     {

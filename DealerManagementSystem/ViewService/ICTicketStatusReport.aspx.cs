@@ -8,7 +8,7 @@ using Properties;
 using System.Data;
 using System.Drawing;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketStatusReport : System.Web.UI.Page
     {

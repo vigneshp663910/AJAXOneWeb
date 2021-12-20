@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimApprovalRequest.aspx.cs" Inherits="DealerManagementSystem.ServiceView.WarrantyClaimApprovalRequest" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimApprovalRequest.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyClaimApprovalRequest" %>
 
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
