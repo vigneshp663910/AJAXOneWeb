@@ -185,7 +185,6 @@
     <Content Include="MasterScreenView\DealerEmployeeView.aspx" />
     <Content Include="MasterScreenView\EquipmentPopulationReport.aspx" />
     <Content Include="MasterScreenView\UserManagement.aspx" />
-    <Content Include="Menubar.js" />
     <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx" />
     <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
