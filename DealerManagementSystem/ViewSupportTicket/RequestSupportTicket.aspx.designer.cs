@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.SupportTicket
+namespace DealerManagementSystem.ViewSupportTicket
 {
 
 

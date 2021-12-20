@@ -177,31 +177,31 @@
     <Content Include="JS\jquery.min.js" />
     <Content Include="Location.aspx" />
     <Content Include="Login.aspx" />
-    <Content Include="MasterScreenView\DealerEmployeeApproval.aspx" />
-    <Content Include="MasterScreenView\DealerEmployeeAssigningRole.aspx" />
-    <Content Include="MasterScreenView\DealerEmployeeCreate.aspx" />
-    <Content Include="MasterScreenView\DealerEmployeeLeaving.aspx" />
-    <Content Include="MasterScreenView\DealerEmployeeManage.aspx" />
-    <Content Include="MasterScreenView\DealerEmployeeView.aspx" />
-    <Content Include="MasterScreenView\EquipmentPopulationReport.aspx" />
-    <Content Include="MasterScreenView\UserManagement.aspx" />
-    <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
-    <Content Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx" />
-    <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
-    <Content Include="ServiceView\ApproveDeviatedCliamApprove.aspx" />
-    <Content Include="ServiceView\ApproveDeviatedICTicket.aspx" />
-    <Content Include="ServiceView\ICTicketFSRManage.aspx" />
-    <Content Include="ServiceView\ICTicketManage.aspx" />
-    <Content Include="ServiceView\ICTicketProcess.aspx" />
-    <Content Include="ServiceView\ICTicketServiceEngineerUtilisationReport.aspx" />
-    <Content Include="ServiceView\ICTicketStatusReport.aspx" />
-    <Content Include="ServiceView\ICTicketTechnicianAssign.aspx" />
-    <Content Include="ServiceView\ICTicketTSIRApprove.aspx" />
-    <Content Include="ServiceView\ICTicketTSIRMailToVendorReport.aspx" />
-    <Content Include="ServiceView\ICTicketTSIRManage.aspx" />
-    <Content Include="ServiceView\ICTicketTSIRMessage.aspx" />
-    <Content Include="ServiceView\ICTicketTSIRReport.aspx" />
-    <Content Include="ServiceView\WarrantyClaimAnnexureReport.aspx" />
+    <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
+    <Content Include="ViewMaster\DealerEmployeeAssigningRole.aspx" />
+    <Content Include="ViewMaster\DealerEmployeeCreate.aspx" />
+    <Content Include="ViewMaster\DealerEmployeeLeaving.aspx" />
+    <Content Include="ViewMaster\DealerEmployeeManage.aspx" />
+    <Content Include="ViewMaster\DealerEmployeeView.aspx" />
+    <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
+    <Content Include="ViewMaster\UserManagement.aspx" />
+    <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
+    <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
+    <Content Include="ViewService\ApproveDeclinedICTicket.aspx" />
+    <Content Include="ViewService\ApproveDeviatedCliamApprove.aspx" />
+    <Content Include="ViewService\ApproveDeviatedICTicket.aspx" />
+    <Content Include="ViewService\ICTicketFSRManage.aspx" />
+    <Content Include="ViewService\ICTicketManage.aspx" />
+    <Content Include="ViewService\ICTicketProcess.aspx" />
+    <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
+    <Content Include="ViewService\ICTicketStatusReport.aspx" />
+    <Content Include="ViewService\ICTicketTechnicianAssign.aspx" />
+    <Content Include="ViewService\ICTicketTSIRApprove.aspx" />
+    <Content Include="ViewService\ICTicketTSIRMailToVendorReport.aspx" />
+    <Content Include="ViewService\ICTicketTSIRManage.aspx" />
+    <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
+    <Content Include="ViewService\ICTicketTSIRReport.aspx" />
+    <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -275,21 +275,21 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="ServiceView\WarrantyClaimApprovalLevel1.aspx" />
-    <Content Include="ServiceView\WarrantyClaimApprovalRequest.aspx" />
-    <Content Include="ServiceView\WarrantyClaimDebitNoteAcknowledge.aspx" />
-    <Content Include="ServiceView\WarrantyClaimDebitNoteCreate.aspx" />
-    <Content Include="ServiceView\WarrantyClaimDebitNoteReport.aspx" />
-    <Content Include="ServiceView\WarrantyClaimInvoiceCreate.aspx" />
-    <Content Include="ServiceView\WarrantyClaimInvoiceCreate5k.aspx" />
-    <Content Include="ServiceView\WarrantyClaimInvoiceReport.aspx" />
-    <Content Include="ServiceView\WarrantyFailureMaterialDCCreation.aspx" />
-    <Content Include="ServiceView\WarrantyFailureMaterialDCReport.aspx" />
-    <Content Include="ServiceView\WarrantyFailureMaterialDCTemplateCreation.aspx" />
-    <Content Include="ServiceView\WarrantyFailureMaterialGateEntry.aspx" />
-    <Content Include="ServiceView\WarrantyFailureMaterialReport.aspx" />
-    <Content Include="ServiceView\WarrantyFailureMaterialReturn.aspx" />
-    <Content Include="ServiceView\WarrantyPartsAvailabilityReport.aspx" />
+    <Content Include="ViewService\WarrantyClaimApprovalLevel1.aspx" />
+    <Content Include="ViewService\WarrantyClaimApprovalRequest.aspx" />
+    <Content Include="ViewService\WarrantyClaimDebitNoteAcknowledge.aspx" />
+    <Content Include="ViewService\WarrantyClaimDebitNoteCreate.aspx" />
+    <Content Include="ViewService\WarrantyClaimDebitNoteReport.aspx" />
+    <Content Include="ViewService\WarrantyClaimInvoiceCreate.aspx" />
+    <Content Include="ViewService\WarrantyClaimInvoiceCreate5k.aspx" />
+    <Content Include="ViewService\WarrantyClaimInvoiceReport.aspx" />
+    <Content Include="ViewService\WarrantyFailureMaterialDCCreation.aspx" />
+    <Content Include="ViewService\WarrantyFailureMaterialDCReport.aspx" />
+    <Content Include="ViewService\WarrantyFailureMaterialDCTemplateCreation.aspx" />
+    <Content Include="ViewService\WarrantyFailureMaterialGateEntry.aspx" />
+    <Content Include="ViewService\WarrantyFailureMaterialReport.aspx" />
+    <Content Include="ViewService\WarrantyFailureMaterialReturn.aspx" />
+    <Content Include="ViewService\WarrantyPartsAvailabilityReport.aspx" />
     <Content Include="SignIn.aspx" />
     <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
@@ -391,179 +391,179 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeApproval.aspx.cs">
+    <Compile Include="ViewMaster\DealerEmployeeApproval.aspx.cs">
       <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeApproval.aspx.designer.cs">
+    <Compile Include="ViewMaster\DealerEmployeeApproval.aspx.designer.cs">
       <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeAssigningRole.aspx.cs">
+    <Compile Include="ViewMaster\DealerEmployeeAssigningRole.aspx.cs">
       <DependentUpon>DealerEmployeeAssigningRole.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeAssigningRole.aspx.designer.cs">
+    <Compile Include="ViewMaster\DealerEmployeeAssigningRole.aspx.designer.cs">
       <DependentUpon>DealerEmployeeAssigningRole.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeCreate.aspx.cs">
+    <Compile Include="ViewMaster\DealerEmployeeCreate.aspx.cs">
       <DependentUpon>DealerEmployeeCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeCreate.aspx.designer.cs">
+    <Compile Include="ViewMaster\DealerEmployeeCreate.aspx.designer.cs">
       <DependentUpon>DealerEmployeeCreate.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeLeaving.aspx.cs">
+    <Compile Include="ViewMaster\DealerEmployeeLeaving.aspx.cs">
       <DependentUpon>DealerEmployeeLeaving.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeLeaving.aspx.designer.cs">
+    <Compile Include="ViewMaster\DealerEmployeeLeaving.aspx.designer.cs">
       <DependentUpon>DealerEmployeeLeaving.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeManage.aspx.cs">
+    <Compile Include="ViewMaster\DealerEmployeeManage.aspx.cs">
       <DependentUpon>DealerEmployeeManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeManage.aspx.designer.cs">
+    <Compile Include="ViewMaster\DealerEmployeeManage.aspx.designer.cs">
       <DependentUpon>DealerEmployeeManage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeView.aspx.cs">
+    <Compile Include="ViewMaster\DealerEmployeeView.aspx.cs">
       <DependentUpon>DealerEmployeeView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\DealerEmployeeView.aspx.designer.cs">
+    <Compile Include="ViewMaster\DealerEmployeeView.aspx.designer.cs">
       <DependentUpon>DealerEmployeeView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\EquipmentPopulationReport.aspx.cs">
+    <Compile Include="ViewMaster\EquipmentPopulationReport.aspx.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\EquipmentPopulationReport.aspx.designer.cs">
+    <Compile Include="ViewMaster\EquipmentPopulationReport.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterScreenView\UserManagement.aspx.cs">
+    <Compile Include="ViewMaster\UserManagement.aspx.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterScreenView\UserManagement.aspx.designer.cs">
+    <Compile Include="ViewMaster\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ApprovalForDeviatedCliamReques.aspx.cs">
+    <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ApprovalForDeviatedCliamReques.aspx.designer.cs">
+    <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.designer.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx.cs">
+    <Compile Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx.cs">
       <DependentUpon>ApprovalForDeviatedICTicketRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx.designer.cs">
+    <Compile Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx.designer.cs">
       <DependentUpon>ApprovalForDeviatedICTicketRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ApproveDeclinedICTicket.aspx.cs">
+    <Compile Include="ViewService\ApproveDeclinedICTicket.aspx.cs">
       <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ApproveDeclinedICTicket.aspx.designer.cs">
+    <Compile Include="ViewService\ApproveDeclinedICTicket.aspx.designer.cs">
       <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ApproveDeviatedCliamApprove.aspx.cs">
+    <Compile Include="ViewService\ApproveDeviatedCliamApprove.aspx.cs">
       <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ApproveDeviatedCliamApprove.aspx.designer.cs">
+    <Compile Include="ViewService\ApproveDeviatedCliamApprove.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ApproveDeviatedICTicket.aspx.cs">
+    <Compile Include="ViewService\ApproveDeviatedICTicket.aspx.cs">
       <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ApproveDeviatedICTicket.aspx.designer.cs">
+    <Compile Include="ViewService\ApproveDeviatedICTicket.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketFSRManage.aspx.cs">
+    <Compile Include="ViewService\ICTicketFSRManage.aspx.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketFSRManage.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketFSRManage.aspx.designer.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketManage.aspx.cs">
+    <Compile Include="ViewService\ICTicketManage.aspx.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketManage.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketManage.aspx.designer.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketProcess.aspx.cs">
+    <Compile Include="ViewService\ICTicketProcess.aspx.cs">
       <DependentUpon>ICTicketProcess.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketProcess.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketProcess.aspx.designer.cs">
       <DependentUpon>ICTicketProcess.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketServiceEngineerUtilisationReport.aspx.cs">
+    <Compile Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx.cs">
       <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketServiceEngineerUtilisationReport.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx.designer.cs">
       <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketStatusReport.aspx.cs">
+    <Compile Include="ViewService\ICTicketStatusReport.aspx.cs">
       <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketStatusReport.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketStatusReport.aspx.designer.cs">
       <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTechnicianAssign.aspx.cs">
+    <Compile Include="ViewService\ICTicketTechnicianAssign.aspx.cs">
       <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTechnicianAssign.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketTechnicianAssign.aspx.designer.cs">
       <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRApprove.aspx.cs">
+    <Compile Include="ViewService\ICTicketTSIRApprove.aspx.cs">
       <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRApprove.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketTSIRApprove.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRMailToVendorReport.aspx.cs">
+    <Compile Include="ViewService\ICTicketTSIRMailToVendorReport.aspx.cs">
       <DependentUpon>ICTicketTSIRMailToVendorReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRMailToVendorReport.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketTSIRMailToVendorReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRMailToVendorReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRManage.aspx.cs">
+    <Compile Include="ViewService\ICTicketTSIRManage.aspx.cs">
       <DependentUpon>ICTicketTSIRManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRManage.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketTSIRManage.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRManage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRMessage.aspx.cs">
+    <Compile Include="ViewService\ICTicketTSIRMessage.aspx.cs">
       <DependentUpon>ICTicketTSIRMessage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRMessage.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketTSIRMessage.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRMessage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRReport.aspx.cs">
+    <Compile Include="ViewService\ICTicketTSIRReport.aspx.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\ICTicketTSIRReport.aspx.designer.cs">
+    <Compile Include="ViewService\ICTicketTSIRReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimAnnexureReport.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimAnnexureReport.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -571,109 +571,109 @@
     </Compile>
     <Compile Include="Print\DS.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimApprovalLevel1.aspx.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimApprovalLevel1.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimApprovalLevel1.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimApprovalRequest.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimApprovalRequest.aspx.cs">
       <DependentUpon>WarrantyClaimApprovalRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimApprovalRequest.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimApprovalRequest.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalRequest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimDebitNoteAcknowledge.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimDebitNoteAcknowledge.aspx.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimDebitNoteAcknowledge.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimDebitNoteAcknowledge.aspx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledge.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimDebitNoteCreate.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimDebitNoteCreate.aspx.cs">
       <DependentUpon>WarrantyClaimDebitNoteCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimDebitNoteCreate.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimDebitNoteCreate.aspx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteCreate.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimDebitNoteReport.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimDebitNoteReport.aspx.cs">
       <DependentUpon>WarrantyClaimDebitNoteReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimDebitNoteReport.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimDebitNoteReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimInvoiceCreate.aspx.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimInvoiceCreate.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate5k.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimInvoiceCreate5k.aspx.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate5k.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimInvoiceCreate5k.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimInvoiceCreate5k.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate5k.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimInvoiceReport.aspx.cs">
+    <Compile Include="ViewService\WarrantyClaimInvoiceReport.aspx.cs">
       <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyClaimInvoiceReport.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyClaimInvoiceReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialDCCreation.aspx.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialDCCreation.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialDCCreation.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialDCCreation.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialDCReport.aspx.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialDCReport.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialDCReport.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialDCReport.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialDCReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialDCTemplateCreation.aspx.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialDCTemplateCreation.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCTemplateCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialDCTemplateCreation.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialDCTemplateCreation.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialDCTemplateCreation.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialGateEntry.aspx.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialGateEntry.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialGateEntry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialGateEntry.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialGateEntry.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialGateEntry.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialReport.aspx.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialReport.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialReport.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialReport.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialReturn.aspx.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialReturn.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialReturn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyFailureMaterialReturn.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyFailureMaterialReturn.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialReturn.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ServiceView\WarrantyPartsAvailabilityReport.aspx.cs">
+    <Compile Include="ViewService\WarrantyPartsAvailabilityReport.aspx.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ServiceView\WarrantyPartsAvailabilityReport.aspx.designer.cs">
+    <Compile Include="ViewService\WarrantyPartsAvailabilityReport.aspx.designer.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="SignIn.aspx.cs">

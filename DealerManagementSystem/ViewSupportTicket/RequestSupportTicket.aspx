@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="RequestSupportTicket.aspx.cs" Inherits="DealerManagementSystem.SupportTicket.RequestSupportTicket" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="RequestSupportTicket.aspx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.RequestSupportTicket" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="Scripts/styles.css" />

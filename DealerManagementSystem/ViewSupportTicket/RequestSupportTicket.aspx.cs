@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.SupportTicket
+namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class RequestSupportTicket : System.Web.UI.Page
     {
