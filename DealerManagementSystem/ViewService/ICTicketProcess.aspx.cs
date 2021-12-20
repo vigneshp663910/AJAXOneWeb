@@ -11,7 +11,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketProcess : System.Web.UI.Page
     {

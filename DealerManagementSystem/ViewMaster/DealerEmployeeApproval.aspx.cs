@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using Business;
 using Properties;
 
-namespace DealerManagementSystem.MasterScreenView
+namespace DealerManagementSystem.ViewMaster
 {
     public partial class DealerEmployeeApproval : System.Web.UI.Page
     {

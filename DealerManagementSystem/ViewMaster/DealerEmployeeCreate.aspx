@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerEmployeeCreate.aspx.cs" Inherits="DealerManagementSystem.MasterScreenView.DealerEmployeeCreate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerEmployeeCreate.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.DealerEmployeeCreate" %>
 
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

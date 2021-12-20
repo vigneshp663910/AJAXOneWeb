@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using Business;
 using Properties;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ApprovalForDeviatedCliamReques : System.Web.UI.Page
     {

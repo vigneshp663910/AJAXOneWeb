@@ -15,7 +15,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketFSRManage : System.Web.UI.Page
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserManagement.aspx.cs" Inherits="DealerManagementSystem.MasterScreenView.UserManagement" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserManagement.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.UserManagement" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />

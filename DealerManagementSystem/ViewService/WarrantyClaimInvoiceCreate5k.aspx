@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimInvoiceCreate5k.aspx.cs" Inherits="DealerManagementSystem.ServiceView.WarrantyClaimInvoiceCreate5k" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimInvoiceCreate5k.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyClaimInvoiceCreate5k" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     

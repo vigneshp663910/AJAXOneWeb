@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimDebitNoteAcknowledge.aspx.cs" Inherits="DealerManagementSystem.ServiceView.WarrantyClaimDebitNoteAcknowledge" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimDebitNoteAcknowledge.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyClaimDebitNoteAcknowledge" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ApproveDeviatedCliamApprove.aspx.cs" Inherits="DealerManagementSystem.ServiceView.ApproveDeviatedCliamApprove" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ApproveDeviatedCliamApprove.aspx.cs" Inherits="DealerManagementSystem.ViewService.ApproveDeviatedCliamApprove" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 

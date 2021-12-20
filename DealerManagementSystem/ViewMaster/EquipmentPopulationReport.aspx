@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="EquipmentPopulationReport.aspx.cs" Inherits="DealerManagementSystem.MasterScreenView.EquipmentPopulationReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="EquipmentPopulationReport.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.EquipmentPopulationReport" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="Server">

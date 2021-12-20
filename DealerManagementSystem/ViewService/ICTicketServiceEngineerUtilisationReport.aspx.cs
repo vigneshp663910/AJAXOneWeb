@@ -6,7 +6,7 @@ using Properties;
 using System.Data;
 using System.Drawing;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketServiceEngineerUtilisationReport : System.Web.UI.Page
     {

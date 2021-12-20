@@ -7,7 +7,7 @@ using Business;
 using Properties;
 using System.Drawing;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyClaimDebitNoteAcknowledge : System.Web.UI.Page
     {

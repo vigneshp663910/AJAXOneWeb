@@ -5,7 +5,7 @@ using Business;
 using Properties;
 using System.Data;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketTSIRMailToVendorReport : System.Web.UI.Page
     {

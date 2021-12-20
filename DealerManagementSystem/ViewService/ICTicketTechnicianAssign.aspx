@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketTechnicianAssign.aspx.cs" Inherits="DealerManagementSystem.ServiceView.ICTicketTechnicianAssign" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketTechnicianAssign.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketTechnicianAssign" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/UserControls/ICTicketButton.ascx" TagPrefix="UC" TagName="UC_ICTicket" %>
 <%@ Register Src="~/UserControls/ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>

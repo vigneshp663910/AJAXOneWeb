@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using Business;
 using Properties;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ApproveDeviatedICTicket : System.Web.UI.Page
     {

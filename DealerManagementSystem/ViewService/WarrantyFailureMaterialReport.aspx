@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyFailureMaterialReport.aspx.cs" Inherits="DealerManagementSystem.ServiceView.WarrantyFailureMaterialReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyFailureMaterialReport.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyFailureMaterialReport" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>

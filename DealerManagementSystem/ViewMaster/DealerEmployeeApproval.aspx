@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerEmployeeApproval.aspx.cs" Inherits="DealerManagementSystem.MasterScreenView.DealerEmployeeApproval" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerEmployeeApproval.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.DealerEmployeeApproval" %>
 
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %> 

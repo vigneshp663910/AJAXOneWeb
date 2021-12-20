@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimAnnexureReport.aspx.cs" Inherits="DealerManagementSystem.ServiceView.WarrantyClaimAnnexureReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimAnnexureReport.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyClaimAnnexureReport" %>
 
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

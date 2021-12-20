@@ -13,7 +13,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketTSIRManage : System.Web.UI.Page
     {

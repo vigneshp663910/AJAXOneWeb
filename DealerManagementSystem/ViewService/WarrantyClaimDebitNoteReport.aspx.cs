@@ -12,7 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyClaimDebitNoteReport : System.Web.UI.Page
     {

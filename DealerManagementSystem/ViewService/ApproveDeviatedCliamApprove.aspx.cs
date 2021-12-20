@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class ApproveDeviatedCliamApprove : System.Web.UI.Page
     {

@@ -385,9 +385,9 @@
             color: white;
             font-size: medium;
             font-weight: bold;
-            text-align: center;
+            text-align: left;
             margin-top: 30px;
-            text-align:left;
+            
         }
 
         .ProjectHeadingLine {
@@ -749,7 +749,7 @@
 
                     <br />
                     <div class="ProjectTitle">
-                        <asp:Label ID="lblProjectTitle" runat="server" Text="WELCOME" Visible="true"></asp:Label>
+                        <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
                         <div style="float:right;padding-right:2em;font-size:small; color:gold"> <asp:Label ID="lblQuality" runat="server"></asp:Label>
 
                     </div>

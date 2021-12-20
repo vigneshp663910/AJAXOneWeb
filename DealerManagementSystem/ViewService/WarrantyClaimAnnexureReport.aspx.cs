@@ -12,7 +12,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ServiceView
+namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyClaimAnnexureReport : System.Web.UI.Page
     {
