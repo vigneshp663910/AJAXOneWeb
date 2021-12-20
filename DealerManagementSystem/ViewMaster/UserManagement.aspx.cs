@@ -9,7 +9,7 @@ using Properties;
 using System.Data;
 using System.Drawing;
 
-namespace DealerManagementSystem.MasterScreenView
+namespace DealerManagementSystem.ViewMaster
 {
     public partial class UserManagement : System.Web.UI.Page
     {

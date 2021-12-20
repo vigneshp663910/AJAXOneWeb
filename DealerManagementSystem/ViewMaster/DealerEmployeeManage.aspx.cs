@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.MasterScreenView
+namespace DealerManagementSystem.ViewMaster
 {
     public partial class DealerEmployeeManage : System.Web.UI.Page
     {

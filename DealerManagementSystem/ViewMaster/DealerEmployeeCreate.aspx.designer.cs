@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.MasterScreenView
+namespace DealerManagementSystem.ViewMaster
 {
 
 
