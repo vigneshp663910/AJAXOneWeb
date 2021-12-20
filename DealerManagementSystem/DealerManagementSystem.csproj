@@ -47,6 +47,9 @@
     <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -142,6 +145,7 @@
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
+    <Content Include="DMS.Master" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -157,7 +161,6 @@
     <Content Include="Dashboard\ICTicketTransactionStatics.ascx" />
     <Content Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="Home.aspx" />
-    <Content Include="Home1.aspx" />
     <Content Include="HtmlPage1.html" />
     <Content Include="Images\ajax-fiori logo for signature.bmp" />
     <Content Include="Images\ajax-fiori logo for signature.png" />
@@ -182,6 +185,7 @@
     <Content Include="MasterScreenView\DealerEmployeeView.aspx" />
     <Content Include="MasterScreenView\EquipmentPopulationReport.aspx" />
     <Content Include="MasterScreenView\UserManagement.aspx" />
+    <Content Include="Menubar.js" />
     <Content Include="ServiceView\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ServiceView\ApprovalForDeviatedICTicketRequest.aspx" />
     <Content Include="ServiceView\ApproveDeclinedICTicket.aspx" />
@@ -237,8 +241,6 @@
       <DependentUpon>DS.xsd</DependentUpon>
     </Content>
     <Content Include="Dealer.Master" />
-    <Content Include="DMS.Master" />
-    <Content Include="DMSDynamic.Master" />
     <Content Include="CSS\bootstrap.min.css.map" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
@@ -324,6 +326,13 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="DMS.Master.cs">
+      <DependentUpon>DMS.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DMS.Master.designer.cs">
+      <DependentUpon>DMS.Master</DependentUpon>
+    </Compile>
     <Compile Include="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -362,33 +371,12 @@
     <Compile Include="Dealer.Master.designer.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
     </Compile>
-    <Compile Include="DMS.Master.cs">
-      <DependentUpon>DMS.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DMS.Master.designer.cs">
-      <DependentUpon>DMS.Master</DependentUpon>
-    </Compile>
-    <Compile Include="DMSDynamic.Master.cs">
-      <DependentUpon>DMSDynamic.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DMSDynamic.Master.designer.cs">
-      <DependentUpon>DMSDynamic.Master</DependentUpon>
-    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Home1.aspx.cs">
-      <DependentUpon>Home1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Home1.aspx.designer.cs">
-      <DependentUpon>Home1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Location.aspx.cs">
       <DependentUpon>Location.aspx</DependentUpon>

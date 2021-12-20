@@ -6,7 +6,7 @@
 <head runat="server">
     <link rel="icon" href="Ajax/Images/dms4.jpg" type="image/x-icon">
     <title>AJAX-Dealer Management</title>
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="CSS/w3.css">
     <link rel="stylesheet" href="CSS/font.css">
@@ -385,6 +385,7 @@
             font-weight: bold;
             text-align: center;
             margin-top: 30px;
+            text-align:left;
         }
 
         .ProjectHeadingLine {
@@ -566,6 +567,7 @@
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
             var x = document.getElementById(localStorage.getItem("MainMenu"));
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+            $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
             window.localStorage.removeItem("ParentMenu");
             window.localStorage.removeItem("MainMenu");
         });
@@ -580,27 +582,65 @@
             //    divArray.push(divs[i].innerHTML);
             //}
 
+            var xModule = document.getElementById(id);
+            var xMainModule = document.getElementById(Mainid);
+
+            var ModuleClassName = xModule.className;
+
+            
+           
             $('#Menu').find('div').each(function () {
-                var x1 = document.getElementById($(this).attr('id'));
-                x1.className = x1.className.replace(" w3-show", "");
+                var x2 = document.getElementById($(this).attr('id'));
+                x2.className = x2.className.replace(" w3-show", "");
             });
-            var x = document.getElementById(id);
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
+          //  alert(MainModuleClassName);
+
+         
+
+            if (ModuleClassName == 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show') {
+                xModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium';
             }
-            var x1 = document.getElementById(Mainid);
-            if (x1.className.indexOf("w3-show") == -1) {
-                x1.className += " w3-show";
-            } else {
-                x1.className = x.className.replace(" w3-show", "");
+            else {
+                xModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
             }
+
+            if (Mainid != null) {
+
+                xMainModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
+                //if (SubModuleClassName == 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show') {
+                //    xSubModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium';
+                //}
+                //else {
+                //    xSubModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
+                //}
+
+            }
+
+
+
+            //if (x.className.indexOf("w3-show") == -1) {
+            //    x.className += " w3-show";
+            //} else {
+            //    x.className = x.className.replace(" w3-show", "");
+            //}
+            //var x1 = document.getElementById(Mainid);
+            //if (x1.className.indexOf("w3-show") == -1) {
+            //    x1.className += " w3-show";
+            //} else {
+            //    x1.className = x.className.replace(" w3-show", "");
+            //}
         }
+        
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
             document.getElementById("myOverlay").style.display = "block";
         }
+        
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+
         function ParentMenuClick(ParentMenu, MainMenu) {
             var x = document.getElementById(ParentMenu);
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
@@ -608,10 +648,7 @@
             localStorage.setItem("MainMenu", MainMenu);
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
-        }
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
+            $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
         }
     </script>
     <%-- <script>
@@ -726,7 +763,7 @@
 
                     <br />
                     <div class="ProjectTitle">
-                        <asp:Label ID="lblProjectTitle" runat="server" Text="&nbsp;"></asp:Label>
+                        <asp:Label ID="lblProjectTitle" runat="server" Text="WELCOME" Visible="true"></asp:Label>
                         <div style="float:right;padding-right:2em;font-size:small; color:gold"> <asp:Label ID="lblQuality" runat="server"></asp:Label>
 
                     </div>
