@@ -563,17 +563,7 @@
     padding-inline-start: -0px;
 }
     </style>
-    <script>
-        $(document).ready(function () {
-            var x = document.getElementById(localStorage.getItem("ParentMenu"));
-            x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
-            var x = document.getElementById(localStorage.getItem("MainMenu"));
-            x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
-            $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
-            window.localStorage.removeItem("ParentMenu");
-            window.localStorage.removeItem("MainMenu");
-        });
-    </script>
+
     <script>
         /*const { hidden } = require("modernizr");*/
         function Menu(id, Mainid) {
@@ -778,5 +768,22 @@
                 </div>
                 
     </form>
-</body>
+
+       <script>
+           $(document).ready(function () {
+               var ParentMenu = document.getElementById(localStorage.getItem("ParentMenu"));
+               if (ParentMenu != null) {
+                   ParentMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                   var MainMenu = document.getElementById(localStorage.getItem("MainMenu"));
+                   if (MainMenu != null) {
+                       MainMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                   }
+               }
+              
+               $('#lblProjectTitle').text(localStorage.getItem("ParentMenu"));
+               window.localStorage.removeItem("ParentMenu");
+               window.localStorage.removeItem("MainMenu");
+           });
+       </script> 
+    </body>
 </html>
