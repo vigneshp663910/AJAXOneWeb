@@ -175,7 +175,7 @@
     <Content Include="Images\MessageNew.jpg" />
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery.min.js" />
-    <Content Include="Location.aspx" />
+    <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
     <Content Include="ViewMaster\DealerEmployeeAssigningRole.aspx" />
@@ -308,7 +308,7 @@
     <Content Include="UserControls\ICTicketTechnicianWorkInformation.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
     <Content Include="UserControls\ICTicketTSIRView.ascx" />
-    <Content Include="UserList.aspx" />
+    <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
   </ItemGroup>
@@ -377,11 +377,11 @@
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Location.aspx.cs">
+    <Compile Include="ViewMaster\Location.aspx.cs">
       <DependentUpon>Location.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Location.aspx.designer.cs">
+    <Compile Include="ViewMaster\Location.aspx.designer.cs">
       <DependentUpon>Location.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
@@ -803,17 +803,16 @@
     <Compile Include="UserControls\ICTicketTSIRView.ascx.designer.cs">
       <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserList.aspx.cs">
+    <Compile Include="ViewAdmin\UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserList.aspx.designer.cs">
+    <Compile Include="ViewAdmin\UserList.aspx.designer.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewAdmin\" />
     <Folder Include="ViewFinance\" />
     <Folder Include="ViewMarketing\" />
     <Folder Include="ViewPreSale\" />

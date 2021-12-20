@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserList.aspx.cs" Inherits="DealerManagementSystem.UserList" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserList.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserList" %>
 
 <!DOCTYPE html>
 

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem
+namespace DealerManagementSystem.ViewMaster
 {
     public partial class Location : System.Web.UI.Page 
     {
