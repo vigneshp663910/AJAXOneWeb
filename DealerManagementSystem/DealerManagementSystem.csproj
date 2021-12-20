@@ -825,7 +825,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AdminView\" />
     <Folder Include="App_Data\" />
+    <Folder Include="FinanceView\" />
     <Folder Include="PreSaleView\" />
   </ItemGroup>
   <ItemGroup>
