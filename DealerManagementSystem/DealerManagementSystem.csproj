@@ -203,6 +203,11 @@
     <Content Include="ViewService\ICTicketTSIRManage.aspx" />
     <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
     <Content Include="ViewService\ICTicketTSIRReport.aspx" />
+    <Content Include="ViewService\PaidServiceInvoice.aspx" />
+    <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
+    <Content Include="ViewService\PaidServiceQuotation.aspx" />
+    <Content Include="ViewService\PaidServiceReport.aspx" />
+    <Content Include="ViewService\PaidServiceReportNew.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -581,6 +586,41 @@
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
+      <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceInvoice.aspx.designer.cs">
+      <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceProformaInvoice.aspx.cs">
+      <DependentUpon>PaidServiceProformaInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceProformaInvoice.aspx.designer.cs">
+      <DependentUpon>PaidServiceProformaInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceQuotation.aspx.cs">
+      <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceQuotation.aspx.designer.cs">
+      <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReport.aspx.cs">
+      <DependentUpon>PaidServiceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReport.aspx.designer.cs">
+      <DependentUpon>PaidServiceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReportNew.aspx.cs">
+      <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReportNew.aspx.designer.cs">
+      <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
