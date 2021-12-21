@@ -175,6 +175,7 @@
     <Content Include="Images\MessageNew.jpg" />
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery.min.js" />
+    <Content Include="ViewFinance\WebForm1.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
@@ -185,6 +186,7 @@
     <Content Include="ViewMaster\DealerEmployeeView.aspx" />
     <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
     <Content Include="ViewMaster\UserManagement.aspx" />
+    <Content Include="ViewSales\WebForm1.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
     <Content Include="ViewService\ApproveDeclinedICTicket.aspx" />
@@ -201,6 +203,11 @@
     <Content Include="ViewService\ICTicketTSIRManage.aspx" />
     <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
     <Content Include="ViewService\ICTicketTSIRReport.aspx" />
+    <Content Include="ViewService\PaidServiceInvoice.aspx" />
+    <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
+    <Content Include="ViewService\PaidServiceQuotation.aspx" />
+    <Content Include="ViewService\PaidServiceReport.aspx" />
+    <Content Include="ViewService\PaidServiceReportNew.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
@@ -377,6 +384,20 @@
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewFinance\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\Site1.Master.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\Site1.Master.designer.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\Location.aspx.cs">
       <DependentUpon>Location.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -446,6 +467,13 @@
     </Compile>
     <Compile Include="ViewMaster\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
@@ -558,6 +586,41 @@
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
+      <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceInvoice.aspx.designer.cs">
+      <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceProformaInvoice.aspx.cs">
+      <DependentUpon>PaidServiceProformaInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceProformaInvoice.aspx.designer.cs">
+      <DependentUpon>PaidServiceProformaInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceQuotation.aspx.cs">
+      <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceQuotation.aspx.designer.cs">
+      <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReport.aspx.cs">
+      <DependentUpon>PaidServiceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReport.aspx.designer.cs">
+      <DependentUpon>PaidServiceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReportNew.aspx.cs">
+      <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\PaidServiceReportNew.aspx.designer.cs">
+      <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
@@ -813,16 +876,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewFinance\" />
-    <Folder Include="ViewMarketing\" />
     <Folder Include="ViewPreSale\" />
-    <Folder Include="ViewSales\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="ViewMarketing\Site1.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
