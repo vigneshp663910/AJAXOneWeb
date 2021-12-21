@@ -175,6 +175,7 @@
     <Content Include="Images\MessageNew.jpg" />
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery.min.js" />
+    <Content Include="Menubar.js" />
     <Content Include="ViewFinance\WebForm1.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
