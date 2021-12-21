@@ -180,7 +180,6 @@
     <Content Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx" />
     <Content Include="ViewFinance\BankDepositClearingPostingInSAP.aspx" />
     <Content Include="ViewFinance\BankDepositClearingReport.aspx" />
-    <Content Include="ViewFinance\WebForm1.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
@@ -207,7 +206,6 @@
     <Content Include="ViewSales\SalesOrder.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
-    <Content Include="ViewSales\WebForm1.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
     <Content Include="ViewService\ApproveDeclinedICTicket.aspx" />
@@ -449,13 +447,6 @@
     <Compile Include="ViewFinance\BankDepositClearingReport.aspx.designer.cs">
       <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewFinance\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewMarketing\Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -644,13 +635,6 @@
     </Compile>
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSales\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewSales\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
