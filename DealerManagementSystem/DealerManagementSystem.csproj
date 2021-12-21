@@ -198,6 +198,11 @@
     <Content Include="ViewSales\SaleOrderInvoiceMcReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoicePartsReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoiceReport.aspx" />
+    <Content Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx" />
+    <Content Include="ViewSales\SalesInvoice.aspx" />
+    <Content Include="ViewSales\SalesOrder.aspx" />
+    <Content Include="ViewSales\SalesOrderItems.aspx" />
+    <Content Include="ViewSales\SalesOrderPerformance.aspx" />
     <Content Include="ViewSales\WebForm1.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
@@ -556,6 +561,41 @@
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceReport.aspx.designer.cs">
       <DependentUpon>SaleOrderInvoiceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx.cs">
+      <DependentUpon>SaleOrderInvoiceWarrantyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx.designer.cs">
+      <DependentUpon>SaleOrderInvoiceWarrantyReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesInvoice.aspx.cs">
+      <DependentUpon>SalesInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesInvoice.aspx.designer.cs">
+      <DependentUpon>SalesInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesOrder.aspx.cs">
+      <DependentUpon>SalesOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesOrder.aspx.designer.cs">
+      <DependentUpon>SalesOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesOrderItems.aspx.cs">
+      <DependentUpon>SalesOrderItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesOrderItems.aspx.designer.cs">
+      <DependentUpon>SalesOrderItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesOrderPerformance.aspx.cs">
+      <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
+      <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
