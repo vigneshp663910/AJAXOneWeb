@@ -145,7 +145,8 @@
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
-    <Content Include="DMS.Master" />
+    <Content Include="BackUp\DMS.Master" />
+    <Content Include="BackUp\Home1.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -176,6 +177,7 @@
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery-resizable.js" />
     <Content Include="JS\jquery.min.js" />
+    <Content Include="ViewFinance\BankDepositClearingCreate.aspx" />
     <Content Include="ViewFinance\WebForm1.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
@@ -265,6 +267,7 @@
     </Content>
     <Content Include="Dealer.Master" />
     <Content Include="CSS\bootstrap.min.css.map" />
+    <Content Include="BackUp\DMSDynamic.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -349,12 +352,26 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="DMS.Master.cs">
+    <Compile Include="BackUp\DMS.Master.cs">
       <DependentUpon>DMS.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DMS.Master.designer.cs">
+    <Compile Include="BackUp\DMS.Master.designer.cs">
       <DependentUpon>DMS.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BackUp\DMSDynamic.Master.cs">
+      <DependentUpon>DMSDynamic.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackUp\DMSDynamic.Master.designer.cs">
+      <DependentUpon>DMSDynamic.Master</DependentUpon>
+    </Compile>
+    <Compile Include="BackUp\Home1.aspx.cs">
+      <DependentUpon>Home1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackUp\Home1.aspx.designer.cs">
+      <DependentUpon>Home1.aspx</DependentUpon>
     </Compile>
     <Compile Include="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -400,6 +417,13 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.cs">
+      <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.designer.cs">
+      <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewFinance\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
