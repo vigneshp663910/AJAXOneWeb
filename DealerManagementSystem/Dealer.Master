@@ -382,6 +382,7 @@
             /*background-color:#1ebeb4;*/
             /* background-color: #68AF27 !important; */
             background-color: #336699 !important;
+            
             color: white;
             font-size: medium;
             font-weight: bold;
