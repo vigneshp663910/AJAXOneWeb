@@ -22,7 +22,7 @@ namespace DealerManagementSystem
                 lblQuality.Text = ConfigurationManager.AppSettings["IsQuality"];
                 //var retrievedPerson = JSON.parse(localStorage.getItem('person'));
                 //var x = sessionStorage.getItem("test1");
-                lblProjectTitle.Text = "Welcome";
+                lblProjectTitle.Text = "&nbsp;";
                 if (PSession.User == null)
                 {
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
