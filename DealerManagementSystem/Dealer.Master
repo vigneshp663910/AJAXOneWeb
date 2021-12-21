@@ -14,14 +14,23 @@
     <%--<link rel="stylesheet" href="CSS/bootstrap.min.3.4.1.css" />--%>
     <script src="/JS/jquery.min.js"></script>
     <script src="/JS/bootstrap.min.js"></script>
-    <script src="/Menubar.js"></script>
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
     <script>
-        
-        function ParentMenuClick(ParentMenu, MainMenu, File) {
-            localStorage.setItem("File", File);
+        $(document).ready(function () {
+            var ParentMenu = document.getElementById(localStorage.getItem("ParentMenu"));
+            if (ParentMenu != null) {
+                ParentMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                var MainMenu = document.getElementById(localStorage.getItem("MainMenu"));
+                if (MainMenu != null) {
+                    MainMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                }
+            }
+            window.localStorage.removeItem("ParentMenu");
+            window.localStorage.removeItem("MainMenu");
+        });
+        function ParentMenuClick(ParentMenu, MainMenu) {
             var x = document.getElementById(ParentMenu);
             x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
             localStorage.setItem("ParentMenu", ParentMenu);
@@ -29,8 +38,7 @@
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
-        function Menu(File, id, Mainid) {
-            localStorage.setItem("File", File);
+        function Menu(id, Mainid) {
             var xModule = document.getElementById(id);
             var xMainModule = document.getElementById(Mainid);
 

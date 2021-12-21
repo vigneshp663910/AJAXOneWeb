@@ -60,15 +60,15 @@ namespace DealerManagementSystem
         {
             List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
             if (SMsCount.Count() == 0)
-            { return MenuDMS + "<a href='/" + SMs[0].ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].DisplayName1.Replace(" ", "") + "','" + MainMenu + "','" + SMs[0].DisplayName1.Replace(" ", "") + "')>" + SMs[0].DisplayName1 + "</a>"; }
+            { return MenuDMS + "<a href='/" + SMs[0].ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].DisplayName1.Replace(" ", "") + "','" + MainMenu + "')>" + SMs[0].DisplayName1 + "</a>"; }
             foreach (PSubModuleAccess SM in SMsCount)
             {
                 List<PSubModuleAccess> PA1s = SMs.Where(x => x.ParentMenu == SM.SubModuleName).ToList();
                 if (PA1s.Count() == 0)
-                { MenuDMS = MenuDMS + "<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SM.ParentMenu + "','" + MainMenu + "','" + SM.DisplayName1 + "')>" + SM.DisplayName1.Replace(" ", "") + "</a>"; }
+                { MenuDMS = MenuDMS + "<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SM.ParentMenu + "','" + MainMenu + "')>" + SM.DisplayName1.Replace(" ", "") + "</a>"; }
                 else
                 {
-                    MenuDMS += "<a onclick=Menu('Home','" + SM.DisplayName1 + "','" + SM.ParentMenu.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'>" + SM.DisplayName1 + "<i class='fa fa-caret-down fa-2x'></i></a>";
+                    MenuDMS += "<a onclick=Menu('" + SM.DisplayName1 + "','" + SM.ParentMenu.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'>" + SM.DisplayName1 + "<i class='fa fa-caret-down fa-2x'></i></a>";
                     MenuDMS += "<div id='" + SM.DisplayName1.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                     MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS, SM.ParentMenu);
                     MenuDMS += "</div>";
@@ -82,7 +82,7 @@ namespace DealerManagementSystem
             MenuDMS += "<a href='/Home.aspx' onclick=Menu('Home','Home') class='w3-button w3-block w3-blue w3-left-align'>Home</a>";
             foreach (PModuleAccess AM in PSession.User.DMSModules)
             {                
-                MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName + "','" + AM.ModuleName.Replace(" ","") + "','')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
+                MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ","") + "','')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
                 MenuDMS += "<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                 MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS);
                 MenuDMS += "</div>";
