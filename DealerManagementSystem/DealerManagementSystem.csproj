@@ -177,6 +177,9 @@
     <Content Include="JS\jquery-resizable.js" />
     <Content Include="JS\jquery.min.js" />
     <Content Include="ViewFinance\BankDepositClearingCreate.aspx" />
+    <Content Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx" />
+    <Content Include="ViewFinance\BankDepositClearingPostingInSAP.aspx" />
+    <Content Include="ViewFinance\BankDepositClearingReport.aspx" />
     <Content Include="ViewFinance\WebForm1.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
@@ -424,6 +427,27 @@
     </Compile>
     <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.designer.cs">
       <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx.cs">
+      <DependentUpon>BankDepositClearingEditAndConfirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx.designer.cs">
+      <DependentUpon>BankDepositClearingEditAndConfirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingPostingInSAP.aspx.cs">
+      <DependentUpon>BankDepositClearingPostingInSAP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingPostingInSAP.aspx.designer.cs">
+      <DependentUpon>BankDepositClearingPostingInSAP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingReport.aspx.cs">
+      <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\BankDepositClearingReport.aspx.designer.cs">
+      <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewFinance\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
