@@ -55,7 +55,7 @@
         <div class="col-md-12">
             <br />
             <div>
-                <h2><span class="MainHeader">IT Service Request Form</span></h2>
+                <h2><span class="MainHeader">Location</span></h2>
                 <div style="height: 5px;" class="ProjectHeadingLine"></div>
             </div>
             <br />
