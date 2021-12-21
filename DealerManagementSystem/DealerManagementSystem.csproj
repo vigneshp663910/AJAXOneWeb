@@ -186,6 +186,11 @@
     <Content Include="ViewMaster\DealerEmployeeView.aspx" />
     <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
     <Content Include="ViewMaster\UserManagement.aspx" />
+    <Content Include="ViewSales\MonthlyProcurement.aspx" />
+    <Content Include="ViewSales\MonthlySales.aspx" />
+    <Content Include="ViewSales\PurchaseOrder.aspx" />
+    <Content Include="ViewSales\PurchaseOrderASNReport.aspx" />
+    <Content Include="ViewSales\PurchaseOrderInvoiceReport.aspx" />
     <Content Include="ViewSales\WebForm1.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
@@ -467,6 +472,41 @@
     </Compile>
     <Compile Include="ViewMaster\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\MonthlyProcurement.aspx.cs">
+      <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\MonthlyProcurement.aspx.designer.cs">
+      <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\MonthlySales.aspx.cs">
+      <DependentUpon>MonthlySales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\MonthlySales.aspx.designer.cs">
+      <DependentUpon>MonthlySales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrder.aspx.cs">
+      <DependentUpon>PurchaseOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrder.aspx.designer.cs">
+      <DependentUpon>PurchaseOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderASNReport.aspx.cs">
+      <DependentUpon>PurchaseOrderASNReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderASNReport.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderASNReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderInvoiceReport.aspx.cs">
+      <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderInvoiceReport.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
