@@ -192,6 +192,12 @@
     <Content Include="ViewSales\PurchaseOrder.aspx" />
     <Content Include="ViewSales\PurchaseOrderASNReport.aspx" />
     <Content Include="ViewSales\PurchaseOrderInvoiceReport.aspx" />
+    <Content Include="ViewSales\PurchaseOrderN.aspx" />
+    <Content Include="ViewSales\PurchaseOrderPerformance.aspx" />
+    <Content Include="ViewSales\PurchaseOrderReport.aspx" />
+    <Content Include="ViewSales\SaleOrderInvoiceMcReport.aspx" />
+    <Content Include="ViewSales\SaleOrderInvoicePartsReport.aspx" />
+    <Content Include="ViewSales\SaleOrderInvoiceReport.aspx" />
     <Content Include="ViewSales\WebForm1.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
@@ -508,6 +514,48 @@
     </Compile>
     <Compile Include="ViewSales\PurchaseOrderInvoiceReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderN.aspx.cs">
+      <DependentUpon>PurchaseOrderN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderN.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderPerformance.aspx.cs">
+      <DependentUpon>PurchaseOrderPerformance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderPerformance.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderPerformance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderReport.aspx.cs">
+      <DependentUpon>PurchaseOrderReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\PurchaseOrderReport.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoiceMcReport.aspx.cs">
+      <DependentUpon>SaleOrderInvoiceMcReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoiceMcReport.aspx.designer.cs">
+      <DependentUpon>SaleOrderInvoiceMcReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoicePartsReport.aspx.cs">
+      <DependentUpon>SaleOrderInvoicePartsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoicePartsReport.aspx.designer.cs">
+      <DependentUpon>SaleOrderInvoicePartsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoiceReport.aspx.cs">
+      <DependentUpon>SaleOrderInvoiceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderInvoiceReport.aspx.designer.cs">
+      <DependentUpon>SaleOrderInvoiceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
