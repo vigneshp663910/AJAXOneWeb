@@ -145,8 +145,6 @@
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
-    <Content Include="BackUp\DMS.Master" />
-    <Content Include="BackUp\DMSDynamic.Master" />
     <Content Include="BackUp\Home1.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -268,6 +266,8 @@
     </Content>
     <Content Include="Dealer.Master" />
     <Content Include="CSS\bootstrap.min.css.map" />
+    <Content Include="BackUp\DMS.Master" />
+    <Content Include="BackUp\DMSDynamic.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
