@@ -319,7 +319,12 @@
     <Content Include="ViewService\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ViewService\WarrantyPartsAvailabilityReport.aspx" />
     <Content Include="SignIn.aspx" />
+    <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\ManageSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\ReassignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="UserControls\EquipmentView.ascx" />
@@ -337,6 +342,7 @@
     <Content Include="UserControls\ICTicketTSIR.ascx" />
     <Content Include="UserControls\ICTicketTSIRView.ascx" />
     <Content Include="ViewAdmin\UserList.aspx" />
+    <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
   </ItemGroup>
@@ -907,12 +913,47 @@
     <Compile Include="SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.cs">
+      <DependentUpon>AssignedSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.designer.cs">
+      <DependentUpon>AssignedSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.cs">
+      <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.designer.cs">
+      <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.cs">
+      <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.designer.cs">
+      <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\ManageSupportTicket.aspx.cs">
+      <DependentUpon>ManageSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\ManageSupportTicket.aspx.designer.cs">
+      <DependentUpon>ManageSupportTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSupportTicket\OpenSupportTicket.aspx.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\OpenSupportTicket.aspx.designer.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\ReassignSupportTicket.aspx.cs">
+      <DependentUpon>ReassignSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\ReassignSupportTicket.aspx.designer.cs">
+      <DependentUpon>ReassignSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\RequestSupportTicket.aspx.cs">
       <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
@@ -1033,6 +1074,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserList.aspx.designer.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\SupportTicketView.aspx.cs">
+      <DependentUpon>SupportTicketView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
+      <DependentUpon>SupportTicketView.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
