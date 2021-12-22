@@ -58,11 +58,13 @@
             <%--<div class="item1">DMS</div>
             <div class="item2"></div>--%>
             <div class="item3">
-                <img src='/images/construction.gif' width="202" height="202"><br>
-
-                <font face="verdana" size="4" color="blue" align="center">This part is under construction.<br>
-                    Please visit some time later.<br />
-                    Thank You</font>
+                <font face="verdana" size="4" color="blue" align="center"><p>This part is</p></font>
+               <%-- <img src='/images/construction.gif' width="202" height="202"><br>--%>
+                 <img src='/images/UnderDev.png' width="202" height="202"><br>
+                <font face="verdana" size="4" color="blue" align="center">
+                    <%--This part is under construction.<br>--%>
+                    <p>Please visit some time later.</p>
+                    <p>Thank You</p></font>
             </div>
             <%--<div class="item4"></div>
             <div class="item5"></div>--%>
