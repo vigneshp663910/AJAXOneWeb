@@ -146,6 +146,9 @@
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="BackUp\Home1.aspx" />
+    <Content Include="UnderCons.aspx" />
+    <Content Include="BackUp\UnderCons.htm" />
+    <Content Include="BackUp\UnderDev.htm" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -164,6 +167,7 @@
     <Content Include="HtmlPage1.html" />
     <Content Include="Images\ajax-fiori logo for signature.bmp" />
     <Content Include="Images\ajax-fiori logo for signature.png" />
+    <Content Include="Images\construction.gif" />
     <Content Include="Images\error_info.png" />
     <Content Include="Images\HRhelpdesk3.jpg" />
     <Content Include="Images\HR_HelpDesk4.png" />
@@ -173,6 +177,7 @@
     <Content Include="Images\IT_Ticket_System.png" />
     <Content Include="Images\Message.jpg" />
     <Content Include="Images\MessageNew.jpg" />
+    <Content Include="Images\UnderDev.png" />
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery-resizable.js" />
     <Content Include="JS\jquery.min.js" />
@@ -379,6 +384,13 @@
     </Compile>
     <Compile Include="BackUp\Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UnderCons.aspx.cs">
+      <DependentUpon>UnderCons.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UnderCons.aspx.designer.cs">
+      <DependentUpon>UnderCons.aspx</DependentUpon>
     </Compile>
     <Compile Include="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
