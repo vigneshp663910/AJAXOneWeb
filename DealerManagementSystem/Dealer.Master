@@ -631,6 +631,13 @@
         .ajax__tab_xp .ajax__tab_header {
             font-size:16px;
         }
+        td .form-control {
+            height: 23px;
+            padding:inherit;
+        }
+        .table > tbody > tr > td{
+            padding:inherit;
+        }
     </style>
     <script>
         /*const { hidden } = require("modernizr");*/

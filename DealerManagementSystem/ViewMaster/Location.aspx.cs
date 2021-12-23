@@ -200,5 +200,69 @@ namespace DealerManagementSystem.ViewMaster
             lblMessage.Text = Message;
             return Ret;
         }
+
+        protected void btnDEdit_Click(object sender, EventArgs e)
+        {
+            Button BtnEdit = (Button)sender;
+            long id = Convert.ToInt32(BtnEdit.CommandArgument);
+            GridViewRow row = (GridViewRow)(BtnEdit.NamingContainer);
+            TextBox txtDistrict = (TextBox)row.FindControl("txtDistrict");
+            DropDownList ddlState = (DropDownList)row.FindControl("ddlState");
+            if (BtnEdit.Text == "Edit")
+            {
+                BtnEdit.Text = "Update";
+                BtnEdit.Attributes["CssClass"] = "InputButton btn Save";                
+                txtDistrict.Enabled = true;
+                ddlState.Enabled = true;
+            }
+            else
+            {
+                if (BtnEdit.Text == "Update")
+                {
+                    //Boolean Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, StateID, txtDistrict.Text.Trim(), null, PSession.User.UserID);
+                }
+            }
+            
+            //int status= new BDMS_Address().InsertOrUpdateAddressDistrict(null, StateID, txtDistrict.Text.Trim(), null, PSession.User.UserID);
+            //if (status == 0)
+            //{
+            //    lblMessage.Text = "Ticket " + TicketNo.Text + " is not successfully updated. Please check the report";
+            //    lblMessage.ForeColor = Color.Red;
+            //    lblMessage.Visible = true;
+
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Ticket No " + TicketNo.Text + " is successfully updated.";
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Visible = true;
+            //    FillTickets();
+            //}
+        }
+
+        protected void btnDDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gvDistrict_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Find the DropDownList in the Row
+                DropDownList ddlState = (e.Row.FindControl("ddlState") as DropDownList);
+
+                List<PDMS_State> MML = new BDMS_Address().GetState(null, null);
+                ddlState.DataValueField = "StateID";
+                ddlState.DataTextField = "State";
+                ddlState.DataSource = MML;
+                ddlState.DataBind();
+                ddlState.Items.Insert(0, new ListItem("Select", "0"));
+
+                //Select the Country of Customer in DropDownList
+                string StateID = (e.Row.FindControl("lblState") as Label).Text;
+                ddlState.Items.FindByValue(StateID).Selected = true;
+            }
+        }
     }
 }
