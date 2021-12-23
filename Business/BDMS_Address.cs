@@ -20,7 +20,51 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-
+        public void GetCountry(DropDownList ddl, int? CountryID, string Country)
+        {
+            try
+            {
+                List<PDMS_Country> MML = GetCountry(CountryID, Country);
+                ddl.DataValueField = "CountryID";
+                ddl.DataTextField = "Country";
+                ddl.DataSource = MML;
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("Select", "0"));
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+        }
+        public List<PDMS_Country> GetCountry(int? CountryID, string Country)
+        {
+            List<PDMS_Country> MML = new List<PDMS_Country>();
+            try
+            {
+                DbParameter RegionIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
+                DbParameter RegionP = provider.CreateParameter("Country", string.IsNullOrEmpty(Country) ? null : Country, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { RegionIDP, RegionP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetCountry", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PDMS_Country()
+                            {
+                                CountryID = Convert.ToString(dr["CountryID"]),
+                                Country = Convert.ToString(dr["Country"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return MML;
+        }
         public void GetRegion(DropDownList ddl, int? RegionID, string Region)
         {
             try
