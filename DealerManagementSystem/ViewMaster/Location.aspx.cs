@@ -140,8 +140,8 @@ namespace DealerManagementSystem.ViewMaster
                 Region = ddlSSRegion.SelectedItem.Text.Trim();
             }
             List<PDMS_State> MML = new BDMS_Address().GetState(null, null);
-            gvDistrict.DataSource = MML;
-            gvDistrict.DataBind();
+            gvState.DataSource = MML;
+            gvState.DataBind();
             //throw new NotImplementedException();
         }
         private void FillGridDistrict()
@@ -211,11 +211,6 @@ namespace DealerManagementSystem.ViewMaster
             }
             lblMessage.Text = Message;
             return Ret;
-        }
-
-        protected void btnDDelete_Click(object sender, EventArgs e)
-        {
-
         }
 
         protected void gvDistrict_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -311,7 +306,18 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void BtnSearchState_Click(object sender, EventArgs e)
         {
+            FillGridState();
+        }
 
+        protected void ImageDelete_Click(object sender, ImageClickEventArgs e)
+        {
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            string Message = "";
+            Boolean Success = true;
+            ImageButton ImageDelete = (ImageButton)sender;
+            long id = Convert.ToInt32(ImageDelete.CommandArgument);
+            GridViewRow row = (GridViewRow)(ImageDelete.NamingContainer);
         }
     }
 }
