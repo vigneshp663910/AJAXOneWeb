@@ -146,6 +146,10 @@
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="BackUp\Home1.aspx" />
+    <Content Include="Images\Edit.png" />
+    <Content Include="Images\grid_collapse.png" />
+    <Content Include="Images\grid_expand.png" />
+    <Content Include="Images\Update.png" />
     <Content Include="UnderCons.aspx" />
     <Content Include="BackUp\UnderCons.htm" />
     <Content Include="BackUp\UnderDev.htm" />

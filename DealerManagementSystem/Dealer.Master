@@ -638,6 +638,9 @@
         .table > tbody > tr > td{
             padding:inherit;
         }
+        button, input{
+            height:23px;
+        }
     </style>
     <script>
         /*const { hidden } = require("modernizr");*/
