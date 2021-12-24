@@ -83,12 +83,12 @@ namespace DealerManagementSystem.ViewMaster
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
 
             List<PModuleAccess> user = PSession.User.DMSModules;
-            List<PSubModuleAccess> sub = user.Find(m => m.ModuleMasterID == (short)DMS_MenuMain.Dealer).SubModuleAccess;
+            List<PSubModuleAccess> sub = user.Find(m => m.ModuleMasterID == (short)DMS_MenuMain.Master).SubModuleAccess;
             Boolean EditAlloved = false;
-            if ((sub.Where(m => m.SubModuleMasterID == (short)DMS_MenuSub.DealerEmployeeApproval).Count() != 0))
-            {
-                EditAlloved = true;
-            }
+            //if ((sub.Where(m => m.SubModuleMasterID == (short)DMS_MenuSub.DealerEmployeeApproval).Count() != 0))
+            //{
+            //    EditAlloved = true;
+            //}
             for (int i = 0; i < gvDealerEmployee.Rows.Count; i++)
             {
                 Label lblCreatedByID = (Label)gvDealerEmployee.Rows[i].FindControl("lblCreatedByID");
@@ -259,7 +259,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "DMS_DealerEmployeeView.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
+            string url = "DealerEmployeeView.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
             Response.Redirect(url);
         }
         protected void gvDealerEmployee_PageIndexChanging(object sender, GridViewPageEventArgs e)

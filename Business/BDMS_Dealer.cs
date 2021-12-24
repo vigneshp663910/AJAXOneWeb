@@ -172,7 +172,7 @@ namespace Business
             try
             {
                 DbParameter DealerEmployeeID = provider.CreateParameter("DealerEmployeeID", Emp.DealerEmployeeID, DbType.Int32);
-             //   DbParameter DealerID = provider.CreateParameter("DealerID", Emp.Dealer.DealerID, DbType.Int32);
+                 DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
                 DbParameter Name = provider.CreateParameter("Name", Emp.Name.ToUpper(), DbType.String);
                 DbParameter FatherName = provider.CreateParameter("FatherName", Emp.FatherName.ToUpper(), DbType.String);
                 DbParameter DOB = provider.CreateParameter("DOB", Emp.DOB, DbType.DateTime);
@@ -219,9 +219,9 @@ namespace Business
                     DbParameter ChequeCopyID = provider.CreateParameter("ChequeCopyID", Emp.ChequeCopy.AttachedFileID != 0 ? Emp.ChequeCopy.AttachedFileID : InsertOrUpdateDealerEmployeeAttachedFile(Emp.ChequeCopy, UserID), DbType.Int64);
 
 
-                    DbParameter[] Params = new DbParameter[29] { DealerEmployeeID, Name, FatherName, PhotoID, DOB, ContactNumber,ContactNumber1, Email, Address, StateID, DistrictID, TehsilID, Village,BloodGroupID,EmergencyContactNumber
+                    DbParameter[] Params = new DbParameter[30] { DealerEmployeeID, Name, FatherName, PhotoID, DOB, ContactNumber,ContactNumber1, Email, Address, StateID, DistrictID, TehsilID, Village,BloodGroupID,EmergencyContactNumber
                      ,Location,AadhaarCardNo,AdhaarCardCopyFrontSideID,AdhaarCardCopyBackSideID,EqucationalQualificationID,TotalExperience,PANNo,PANCardCopyID
-                     ,BankName,AccountNo,IFSCCode,ChequeCopyID,UserIDP,OutValueDParam};
+                     ,BankName,AccountNo,IFSCCode,ChequeCopyID,UserIDP,OutValueDParam,LoginUserName};
 
                     provider.Insert("ZDMS_InsertOrUpdateDealerEmployee", Params);
                     scope.Complete();
@@ -466,7 +466,7 @@ namespace Business
                                     SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
                                 },
                                 IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
-                                CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
+                         //       CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
                             });
                         }
                     }
@@ -731,7 +731,7 @@ namespace Business
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-
+        
         public List<PDMS_DealerEmployee> GetDealerEmployeeForApproval(int? DealerID)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
@@ -1009,6 +1009,78 @@ namespace Business
                 return false;
             }
             return true;
+        }
+
+
+        public List<PDMS_DealerEmployee> GetDealerEmployeeByDealerID(int? DealerID, string AadhaarCardNo, int? DistrictID, string Name, string SAPEmpCode)
+        {
+            List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String); 
+                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+                DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
+                DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String); 
+                DbParameter[] Params = new DbParameter[5] { DealerIDP, AadhaarCardNoP, DistrictIDP, NameP, SAPEmpCodeP };
+
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeByDealerID", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            EMP.Add(new PDMS_DealerEmployee()
+                            {
+                                DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
+                                Name = Convert.ToString(dr["Name"]),
+                                FatherName = Convert.ToString(dr["FatherName"]),
+                                DOB = Convert.ToDateTime(dr["DOB"]),
+                       //         ContactNumber = Convert.ToString(dr["ContactNumber"]),
+                                Email = Convert.ToString(dr["EmailID"]),
+                                State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
+                                District = new PDMS_District() { District = Convert.ToString(dr["District"]) },
+                                Location = Convert.ToString(dr["Location"]),
+                                AadhaarCardNo = Convert.ToString(dr["AadhaarCardNo"]),
+                                PANNo = Convert.ToString(dr["PANNo"]),
+
+                                BankName = Convert.ToString(dr["BankName"]),
+                                AccountNo = Convert.ToString(dr["AccountNo"]),
+                                IFSCCode = Convert.ToString(dr["IFSCCode"]),
+                                TotalExperience = Convert.ToDecimal("0" + Convert.ToString(dr["TotalExperience"])),
+
+                                DealerEmployeeRole = DBNull.Value == dr["DealerEmployeeRoleID"] ? null : new PDMS_DealerEmployeeRole()
+                                {
+                                    DealerEmployeeRoleID = Convert.ToInt64(dr["DealerEmployeeRoleID"]),
+                                    Dealer = new PDMS_Dealer()
+                                    {
+                                        DealerID = Convert.ToInt32(dr["DealerID"]),
+                                        DealerCode = Convert.ToString(dr["DealerCode"]),
+                                        DealerName = Convert.ToString(dr["DealerName"]),
+                                  //      State = Convert.ToString(dr["DealerState"]),
+                                        // StateCode = Convert.ToString(dr["StateCode"])
+                                    },
+                                    DealerOffice = new PDMS_DealerOffice() { OfficeName = Convert.ToString(dr["OfficeName"]) },
+                                    DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
+                                    DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
+                                    ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
+                                    DateOfLeaving = DBNull.Value == dr["DateOfLeaving"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfLeaving"]),
+                                    DateOfJoining = Convert.ToDateTime(dr["DateOfJoining"]),
+                                    IsActive = Convert.ToBoolean(dr["IsActive"]),
+                                    SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
+                                },
+                                IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
+                          //      CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return EMP;
         }
     }
 }

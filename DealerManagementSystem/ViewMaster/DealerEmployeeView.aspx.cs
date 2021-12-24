@@ -193,13 +193,16 @@ namespace DealerManagementSystem.ViewMaster
                 ViewState["PhotoAttachedFileID"] = Emp.Photo.AttachedFileID;
 
                 PDMS_DealerEmployeeAttachedFile PHFile = new BDMS_Dealer().GetDealerEmployeeAttachedFile(Emp.Photo.AttachedFileID);
-                string Url = "DealerEmpPhotos/" + (Emp.DealerEmployeeID).ToString() + "." + PHFile.FileName.Split('.')[PHFile.FileName.Split('.').Count() - 1];
-                if (File.Exists(MapPath(Url)))
+                if (PHFile.FileName != null)
                 {
-                    File.Delete(MapPath(Url));
+                    string Url = "DealerEmpPhotos/" + (Emp.DealerEmployeeID).ToString() + "." + PHFile.FileName.Split('.')[PHFile.FileName.Split('.').Count() - 1];
+                    if (File.Exists(MapPath(Url)))
+                    {
+                        File.Delete(MapPath(Url));
+                    }
+                    FileSave(PHFile, (Emp.DealerEmployeeID).ToString());
+                    ibtnPhoto.ImageUrl = Url;
                 }
-                FileSave(PHFile, (Emp.DealerEmployeeID).ToString());
-                ibtnPhoto.ImageUrl = Url;
             }
             if (Emp.AdhaarCardCopyFrontSide != null)
             {
@@ -257,7 +260,15 @@ namespace DealerManagementSystem.ViewMaster
                 if (Ro.IsActive)
                 {
                     ViewState["ActiveRoleID"] = Ro.DealerEmployeeRoleID;
-                    new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, Convert.ToInt32(Ro.Dealer.DealerID));
+
+                    List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeByDealerID(Ro.Dealer.DealerID, null, null, null, null);
+                    ddlReportingTo.DataValueField = "DealerEmployeeID";
+                    ddlReportingTo.DataTextField = "Name";
+                    ddlReportingTo.DataSource = Employee;
+                    ddlReportingTo.DataBind();
+                    ddlReportingTo.Items.Insert(0, new ListItem("Select", "0"));
+
+                   // new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, Convert.ToInt32(Ro.Dealer.DealerID));
                     FillGetDealerOffice(Ro.Dealer.DealerID);
                     ddlDealerOffice.SelectedValue = Convert.ToString(Ro.DealerOffice.OfficeID);
                     if (Ro.ReportingTo != null)
