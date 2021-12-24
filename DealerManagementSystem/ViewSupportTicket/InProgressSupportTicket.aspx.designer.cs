@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewMaster
+namespace DealerManagementSystem.ViewSupportTicket
 {
 
 
-    public partial class Location
+    public partial class InProgressSupportTicket
     {
 
         /// <summary>
@@ -24,282 +24,318 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tbpLocation control.
+        /// pnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tbpLocation;
+        protected global::System.Web.UI.WebControls.Panel pnSearch;
 
         /// <summary>
-        /// tbpnlCountry control.
+        /// lblTicketNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbpnlCountry;
+        protected global::System.Web.UI.WebControls.Label lblTicketNo;
 
         /// <summary>
-        /// ddlSCCountry control.
+        /// txtTicketNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSCCountry;
+        protected global::System.Web.UI.WebControls.TextBox txtTicketNo;
 
         /// <summary>
-        /// BtnSearchCountry control.
+        /// lblCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearchCountry;
+        protected global::System.Web.UI.WebControls.Label lblCategory;
 
         /// <summary>
-        /// gvCountry control.
+        /// ddlCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCountry;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
 
         /// <summary>
-        /// tbpnlState control.
+        /// lblSubcategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbpnlState;
+        protected global::System.Web.UI.WebControls.Label lblSubcategory;
 
         /// <summary>
-        /// fldState control.
+        /// ddlSubcategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldState;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubcategory;
 
         /// <summary>
-        /// ddlSCountry control.
+        /// lblSeverity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSCountry;
+        protected global::System.Web.UI.WebControls.Label lblSeverity;
 
         /// <summary>
-        /// txtState control.
+        /// ddlSeverity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtState;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSeverity;
 
         /// <summary>
-        /// txtStateCode control.
+        /// lblTicketType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStateCode;
+        protected global::System.Web.UI.WebControls.Label lblTicketType;
 
         /// <summary>
-        /// BtnSaveState control.
+        /// ddlTicketType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveState;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTicketType;
 
         /// <summary>
-        /// ddlSSCountry control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSSCountry;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// ddlSSRegion control.
+        /// gvTickets control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSSRegion;
+        protected global::System.Web.UI.WebControls.GridView gvTickets;
 
         /// <summary>
-        /// BtnSearchState control.
+        /// pnResolve control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearchState;
+        protected global::System.Web.UI.WebControls.Panel pnResolve;
 
         /// <summary>
-        /// gvState control.
+        /// lblEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvState;
+        protected global::System.Web.UI.WebControls.Label lblEffort;
 
         /// <summary>
-        /// tbpnlDistrict control.
+        /// txtEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbpnlDistrict;
+        protected global::System.Web.UI.WebControls.TextBox txtEffort;
 
         /// <summary>
-        /// ddlDState control.
+        /// lblResolutionType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDState;
+        protected global::System.Web.UI.WebControls.Label lblResolutionType;
 
         /// <summary>
-        /// txtDistrict control.
+        /// ddlResolutionType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDistrict;
+        protected global::System.Web.UI.WebControls.DropDownList ddlResolutionType;
 
         /// <summary>
-        /// BtnSaveDistrict control.
+        /// lblResolution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveDistrict;
+        protected global::System.Web.UI.WebControls.Label lblResolution;
 
         /// <summary>
-        /// ddlSDState control.
+        /// txtResolution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSDState;
+        protected global::System.Web.UI.WebControls.TextBox txtResolution;
 
         /// <summary>
-        /// ddlSDDistrict control.
+        /// Label7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSDDistrict;
+        protected global::System.Web.UI.WebControls.Label Label7;
 
         /// <summary>
-        /// BtnSearchDistrict control.
+        /// fu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearchDistrict;
+        protected global::System.Web.UI.WebControls.FileUpload fu;
 
         /// <summary>
-        /// gvDistrict control.
+        /// gvNewFileAttached control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDistrict;
+        protected global::System.Web.UI.WebControls.GridView gvNewFileAttached;
 
         /// <summary>
-        /// tbpnlCity control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbpnlCity;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// ddlCDistrict control.
+        /// ddlSupportType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCDistrict;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSupportType;
 
         /// <summary>
-        /// txtCity control.
+        /// lblNewTR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCity;
+        protected global::System.Web.UI.WebControls.Label lblNewTR;
 
         /// <summary>
-        /// BtnSaveCity control.
+        /// cbNewTR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveCity;
+        protected global::System.Web.UI.WebControls.CheckBox cbNewTR;
 
         /// <summary>
-        /// ddlSCDistrict control.
+        /// lblTRNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSCDistrict;
+        protected global::System.Web.UI.WebControls.Label lblTRNumber;
 
         /// <summary>
-        /// ddlSCCity control.
+        /// txtTRNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSCCity;
+        protected global::System.Web.UI.WebControls.TextBox txtTRNumber;
 
         /// <summary>
-        /// BtnSearchCity control.
+        /// lblPurpose control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearchCity;
+        protected global::System.Web.UI.WebControls.Label lblPurpose;
 
         /// <summary>
-        /// gvCity control.
+        /// txtPurpose control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCity;
+        protected global::System.Web.UI.WebControls.TextBox txtPurpose;
+
+        /// <summary>
+        /// lblNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNote;
+
+        /// <summary>
+        /// txtNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNote;
+
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// btnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBack;
     }
 }

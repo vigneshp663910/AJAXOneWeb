@@ -1,0 +1,118 @@
+﻿using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Business;
+using Properties;
+
+namespace DealerManagementSystem.ViewSupportTicket
+{
+    public partial class ClosedSupportTicket : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                FillCategory();
+
+                FillTicketSeverity();
+                FillTicketType();
+                //FillStatus();
+                //FillResolutionType(); 
+                FillTickets();
+            }
+        }
+
+        void FillCategory()
+        {
+            ddlCategory.DataTextField = "Category";
+            ddlCategory.DataValueField = "CategoryID";
+            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null, null);
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillSubCategory()
+        {
+            ddlSubcategory.DataTextField = "SubCategory";
+            ddlSubcategory.DataValueField = "SubCategoryID";
+            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataBind();
+            ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillTicketSeverity()
+        {
+            ddlSeverity.DataTextField = "Severity";
+            ddlSeverity.DataValueField = "SeverityID";
+            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlSeverity.DataBind();
+            ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        void FillTicketType()
+        {
+            ddlTicketType.DataTextField = "Type";
+            ddlTicketType.DataValueField = "TypeID";
+            ddlTicketType.DataSource = new BTicketType().getTicketType(null, null);
+            ddlTicketType.DataBind();
+            ddlTicketType.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        //void FillStatus()
+        //{
+        //    ddlStatus.DataTextField = "TicketStatus";
+        //    ddlStatus.DataValueField = "TicketStatusID";
+        //    ddlStatus.DataSource = new BTicketStatus().getTicketStatus(null, null);
+        //    ddlStatus.DataBind();
+        //    ddlStatus.Items.Insert(0, new ListItem("Select", "0"));
+        //}
+
+        //void FillResolutionType()
+        //{
+        //    ddlResolutionType.DataTextField = "TicketResolutionType";
+        //    ddlResolutionType.DataValueField = "TicketResolutionTypeID";
+        //    ddlResolutionType.DataSource = new BTicketResolutionType().getTicketResolutionType(null, null);
+        //    ddlResolutionType.DataBind();
+        //    ddlResolutionType.Items.Insert(0, new ListItem("Select", "0"));
+        //}
+
+        void FillTickets()
+        {
+            string TicketNO = txtTicketNo.Text.Trim();
+            int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
+            int? TicketSubCategoryID = null;
+            if (ddlSubcategory.Items.Count > 0)
+            {
+                TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
+            }
+            int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
+            int? TicketType = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
+
+            int? AssignedTo = PSession.User.UserID;
+
+            //  gvTickets.DataSource = new BTickets().GetTicketForClose(1, 1, TicketCategoryID, TicketSubCategoryID, TicketSeverity, TicketType, AssignedBy, AssignedTo);
+            gvTickets.DataBind();
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            FillTickets();
+        }
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillSubCategory();
+        }
+        protected void lbTicketNo_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+            string url = "AssignTicket.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            Response.Redirect(url);
+        }
+        protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            FillTickets();
+            gvTickets.PageIndex = e.NewPageIndex;
+            gvTickets.DataBind();
+        }
+    }
+}
