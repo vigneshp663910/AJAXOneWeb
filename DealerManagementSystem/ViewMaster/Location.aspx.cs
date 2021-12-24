@@ -164,12 +164,14 @@ namespace DealerManagementSystem.ViewMaster
         }
         private void FillGridCountry()
         {
-            int CountryID = 0;
+            int? CountryID = null;
+            string country = null;
             if (ddlSCCountry.SelectedValue != "0")
             {
+                country = ddlSCCountry.SelectedItem.Text.Trim();
                 CountryID = Convert.ToInt32(ddlSCCountry.SelectedValue);
             }
-            List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, ddlSCCountry.SelectedItem.Text.Trim());
+            List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, country);
             gvCountry.DataSource = MML;
             gvCountry.DataBind();
         }
@@ -301,7 +303,6 @@ namespace DealerManagementSystem.ViewMaster
                     FillGridDistrict();
                 }
             }
-
         }
 
         protected void BtnSearchState_Click(object sender, EventArgs e)
@@ -318,6 +319,102 @@ namespace DealerManagementSystem.ViewMaster
             ImageButton ImageDelete = (ImageButton)sender;
             long id = Convert.ToInt32(ImageDelete.CommandArgument);
             GridViewRow row = (GridViewRow)(ImageDelete.NamingContainer);
+        }
+
+        protected void BtnSearchCountry_Click(object sender, EventArgs e)
+        {
+            FillGridCountry();
+        }
+
+        protected void ImageSDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ImageSUpdate_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ImageSEdit_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ImageCEdit_Click(object sender, ImageClickEventArgs e)
+        {
+            ImageButton ImageCEdit = (ImageButton)sender;
+            long id = Convert.ToInt32(ImageCEdit.CommandArgument);
+            GridViewRow row = (GridViewRow)(ImageCEdit.NamingContainer);
+            ImageButton ImageCUpdate = (ImageButton)row.FindControl("ImageCUpdate");
+            TextBox txtGCCountry = (TextBox)row.FindControl("txtGCCountry");
+            txtGCCountry.Enabled = true;
+            ImageCUpdate.Visible = true;
+            ImageCEdit.Visible = false;
+        }
+
+        protected void ImageCUpdate_Click(object sender, ImageClickEventArgs e)
+        {
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            string Message = "";
+            Boolean Success = true;
+            ImageButton ImageCUpdate = (ImageButton)sender;
+            long id = Convert.ToInt32(ImageCUpdate.CommandArgument);
+            GridViewRow row = (GridViewRow)(ImageCUpdate.NamingContainer);
+            ImageButton ImageCEdit = (ImageButton)row.FindControl("ImageCEdit");
+            TextBox txtGCCountry = (TextBox)row.FindControl("txtGCCountry");
+            if (string.IsNullOrEmpty(txtGCCountry.Text.Trim()))
+            {
+                Message = Message + "<br/> Please Enter the District";
+                Success = false;
+            }
+            lblMessage.Text = Message;
+            if (Success == false)
+            {
+                return;
+            }
+            else
+            {
+                //Success = new BDMS_Address().InsertOrUpdateAddressCountry(Convert.ToInt32(id), txtGCCountry.Text.Trim(), null, PSession.User.UserID);
+                //if (Success == false)
+                //{
+                //    lblMessage.Text = "Country is not successfully updated";
+                //    lblMessage.ForeColor = Color.Red;
+                //    lblMessage.Visible = true;
+
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "Country was successfully updated.";
+                //    lblMessage.ForeColor = Color.Green;
+                //    lblMessage.Visible = true;
+                //    txtGCCountry.Enabled = false;
+                //    ImageCUpdate.Visible = false;
+                //    ImageCEdit.Visible = true;
+                //    FillGridCountry();
+                //}
+            }
+        }
+
+        protected void ImageCDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ImageCityEdit_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ImageCityUpdate_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ImageCityDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
         }
     }
 }
