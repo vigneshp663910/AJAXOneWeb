@@ -124,7 +124,7 @@ namespace DealerManagementSystem.ViewMaster
                 ViewState["PANCardCopyAttachedFileID"] = null;
                 ViewState["ChequeCopyAttachedFileID"] = null;
 
-                new BDMS_Address().GetState(ddlState, null, null);
+                new BDMS_Address().GetState(ddlState,null,null, null, null);
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEqucationalQualification, null, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
 
