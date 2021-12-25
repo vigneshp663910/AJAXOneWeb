@@ -318,18 +318,16 @@ namespace Properties
     }
     public enum DMS_MenuMain
     {
-        Master = 1,
-        Procurement,
+        Admin=1,
+        Master , 
+        PreSales,
         Sales,
         Service,
-        Stock,
-        DMS_AFAccount,
-        MonthlySummary,
-        Admin,
-        Dealer,
         Marketing,
-        Dashboard,
-        BankDepositClearing
+        Finance,
+        Stock,
+        DealerSupport,
+        Procurement
     }
     public enum DMS_MenuSub
     {

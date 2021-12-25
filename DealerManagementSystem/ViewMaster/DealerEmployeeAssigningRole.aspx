@@ -607,6 +607,7 @@
                                 </span></td>
                             </tr>
                         </table>
+
                         <table id="txnHistory2:panelGridid2" style="height: 100%; width: 100%" class="IC_basicInfo">
                             <tr>
                                 <td>
