@@ -27,8 +27,8 @@ namespace DealerManagementSystem.ViewFinance
                 }
 
                 new BDMS_BankDepositClearing().GetBankDepositClearingStatus(ddlStatus, null, null);
-                new BDMS_Address().GetState(ddlState, null, null);
-                new BDMS_Address().GetRegion(ddlRegion, null, null);
+                new BDMS_Address().GetState(ddlState,null,null, null, null);
+                //new BDMS_Address().GetRegion(ddlRegion, null, null);
 
                 List<PUser> u = new BUser().GetUsers(null, null, null, "");
                 u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer);
