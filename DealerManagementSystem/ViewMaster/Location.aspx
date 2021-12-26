@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlSSRegion" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
@@ -309,11 +309,19 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">District</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
+                                    <label>Country</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <asp:DropDownList ID="ddlDCountry" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                                <div class="col-md-2 text-right">
                                     <label>State</label>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlDState" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
+                            </div>
+                            <div class="col-md-12">                                
                                 <div class="col-md-2 text-right">
                                     <label>District</label>
                                 </div>
@@ -329,16 +337,24 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
+                                    <label>Country</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <asp:DropDownList ID="ddlSDCountry" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                                <div class="col-md-2 text-right">
                                     <label>State</label>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlSDState" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
+                            </div>
+                            <div class="col-md-12">                                
                                 <div class="col-md-2 text-right">
                                     <label>District</label>
                                 </div>
                                 <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSDDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    <asp:TextBox ID="txtSDDistrict" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Search" OnClick="BtnSearchDistrict_Click"></asp:Button>
@@ -358,10 +374,11 @@
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="District ID" Visible="false">
+                                        <asp:TemplateField HeaderText="Country">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
-                                                <asp:Label ID="lblDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server" />
+                                                <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server" Visible="false"></asp:Label>
+                                                <asp:DropDownList ID="ddlGDCountry" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="State">
@@ -380,15 +397,15 @@
                                         <asp:TemplateField ItemStyle-Width="20px">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImageEdit" runat="server" ImageUrl="~/Images/Edit.png" OnClick="ImageEdit_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
-                                                <asp:ImageButton ID="ImageUpdate" runat="server" ImageUrl="~/Images/Update.png" OnClick="ImageUpdate_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' Visible="false" />
+                                                <asp:ImageButton ID="ImageDEdit" runat="server" ImageUrl="~/Images/Edit.png" OnClick="ImageDEdit_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
+                                                <asp:ImageButton ID="ImageDUpdate" runat="server" ImageUrl="~/Images/Update.png" OnClick="ImageDUpdate_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' Visible="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="20px">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
                                                 <%--<asp:Button ID="btnDDelete" runat="server" Font-Size="11px" Text="Delete" CssClass="btn btn-danger btn-sm" OnClick="btnDDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />--%>
-                                                <asp:ImageButton ID="ImageDelete" runat="server" ImageUrl="~/Images/delete.png" OnClick="ImageDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
+                                                <asp:ImageButton ID="ImageDDelete" runat="server" ImageUrl="~/Images/delete.png" OnClick="ImageDDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

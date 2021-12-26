@@ -227,7 +227,6 @@
     <Content Include="JS\jquery-resizable.js" />
     <Content Include="JS\jquery.min.js" />
     <Content Include="Open.aspx" />
-    <Content Include="ViewAdmin\OrganizationStructure.aspx" />
     <Content Include="ViewFinance\BankDepositClearingCreate.aspx" />
     <Content Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx" />
     <Content Include="ViewFinance\BankDepositClearingPostingInSAP.aspx" />
@@ -539,13 +538,6 @@
     </Compile>
     <Compile Include="Open.aspx.designer.cs">
       <DependentUpon>Open.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewAdmin\OrganizationStructure.aspx.cs">
-      <DependentUpon>OrganizationStructure.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewAdmin\OrganizationStructure.aspx.designer.cs">
-      <DependentUpon>OrganizationStructure.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.cs">
       <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>

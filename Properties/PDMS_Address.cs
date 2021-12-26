@@ -30,7 +30,7 @@ namespace Properties
     [Serializable]
     public class PDMS_Country
     {
-        public string CountryID { get; set; }
+        public int CountryID { get; set; }
         public string Country { get; set; }
         public string CountryCode { get; set; }
     }
@@ -58,7 +58,7 @@ namespace Properties
         public string District { get; set; }
         public string DistrictSAP { get; set; }
         public PDMS_State State { get; set; }
-
+        public PDMS_Country Country { get; set; }
     }
     [Serializable]
     public class PDMS_Tehsil

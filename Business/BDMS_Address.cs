@@ -52,7 +52,7 @@ namespace Business
                         {
                             MML.Add(new PDMS_Country()
                             {
-                                CountryID = Convert.ToString(dr["CountryID"]),
+                                CountryID = Convert.ToInt32(dr["CountryID"]),
                                 Country = Convert.ToString(dr["Country"])
                             });
                         }
@@ -102,7 +102,7 @@ namespace Business
                                 Region = Convert.ToString(dr["Region"]),
                                 Country = new PDMS_Country()
                                 {
-                                    CountryID = dr["CountryID"].ToString(),
+                                    CountryID = Convert.ToInt32(dr["CountryID"]),
                                     Country = Convert.ToString(dr["Country"])
                                 }
                             });
@@ -117,7 +117,7 @@ namespace Business
             return MML;
         }
 
-        public void GetState(DropDownList ddl, int? CountryID, int? RegionID,int? StateID, string State)
+        public void GetState(DropDownList ddl, int? CountryID, int? RegionID, int? StateID, string State)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace Business
                                 },
                                 Country = new PDMS_Country()
                                 {
-                                    CountryID = dr["CountryID"].ToString(),
+                                    CountryID = Convert.ToInt32(dr["CountryID"]),
                                     Country = Convert.ToString(dr["Country"]),
                                 }
                             });
@@ -353,11 +353,11 @@ namespace Business
             return false;
         }
 
-        public void GetDistrict(DropDownList ddl, int? DistrictID, int? StateID, string District)
+        public void GetDistrict(DropDownList ddl,int? CountryID,int? RegionID, int? DistrictID, int? StateID, string District)
         {
             try
             {
-                List<PDMS_District> MML = GetDistrict(DistrictID, StateID, District);
+                List<PDMS_District> MML = GetDistrict(CountryID, RegionID,DistrictID, StateID, District);
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = MML;
@@ -369,16 +369,18 @@ namespace Business
             catch (Exception ex)
             { }
         }
-        public List<PDMS_District> GetDistrict(int? DistrictID, int? StateID, string District)
+        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID,int? DistrictID, int? StateID, string District)
         {
             List<PDMS_District> MML = new List<PDMS_District>();
             try
             {
+                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
+                DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DistrictP = provider.CreateParameter("District", string.IsNullOrEmpty(District) ? null : District, DbType.String);
 
-                DbParameter[] Params = new DbParameter[3] { DistrictIDP, StateIDP, DistrictP };
+                DbParameter[] Params = new DbParameter[5] { CountryIDP, RegionIDP,DistrictIDP, StateIDP, DistrictP };
                 using (DataSet DataSet = provider.Select("ZDMS_GetDistrict", Params))
                 {
                     if (DataSet != null)
@@ -393,7 +395,11 @@ namespace Business
                                 State = new PDMS_State()
                                 {
                                     StateID = Convert.ToInt32(dr["StateID"]),
-                                    State = Convert.ToString(dr["State"])
+                                    State = Convert.ToString(dr["State"]),                                   
+                                },
+                                Country = new PDMS_Country()
+                                {
+                                    CountryID = Convert.ToInt32(dr["CountryID"]),
                                 }
                             });
                         }
@@ -406,15 +412,16 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int StateID, string District, string DistrictSAP, int UserID)
+        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int StateID, string District, string DistrictSAP,Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
             DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
             DbParameter DistrictP = provider.CreateParameter("District", District, DbType.String);
             DbParameter DistrictSAPP = provider.CreateParameter("DistrictSAP", string.IsNullOrEmpty(DistrictSAP) ? null : DistrictSAP, DbType.String);
+            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[5] { DistrictIDP, StateIDP, DistrictP, DistrictSAPP, UserIDP };
+            DbParameter[] Params = new DbParameter[6] { DistrictIDP, StateIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))

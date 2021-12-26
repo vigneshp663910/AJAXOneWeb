@@ -294,6 +294,15 @@ namespace DealerManagementSystem.ViewMaster
         protected global::AjaxControlToolkit.TabPanel tbpnlDistrict;
 
         /// <summary>
+        /// ddlDCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDCountry;
+
+        /// <summary>
         /// ddlDState control.
         /// </summary>
         /// <remarks>
@@ -321,6 +330,15 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button BtnSaveDistrict;
 
         /// <summary>
+        /// ddlSDCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSDCountry;
+
+        /// <summary>
         /// ddlSDState control.
         /// </summary>
         /// <remarks>
@@ -330,13 +348,13 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.DropDownList ddlSDState;
 
         /// <summary>
-        /// ddlSDDistrict control.
+        /// txtSDDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSDDistrict;
+        protected global::System.Web.UI.WebControls.TextBox txtSDDistrict;
 
         /// <summary>
         /// BtnSearchDistrict control.
