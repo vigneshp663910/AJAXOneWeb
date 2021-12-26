@@ -211,7 +211,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlDistrict.SelectedValue != "0")
-                new BDMS_Address().GetTehsil(ddlTehsil, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+                new BDMS_Address().GetTehsil(ddlTehsil,null,null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -398,7 +398,7 @@ namespace DealerManagementSystem.ViewMaster
                 if (Emp.District != null)
                 {
                     ddlDistrict.SelectedValue = Convert.ToString(Emp.District.DistrictID);
-                    new BDMS_Address().GetTehsil(ddlTehsil, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+                    new BDMS_Address().GetTehsil(ddlTehsil,null,null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
                     if (Emp.Tehsil != null)
                     {
                         ddlTehsil.SelectedValue = Convert.ToString(Emp.Tehsil.TehsilID);
