@@ -42,6 +42,7 @@ namespace Properties
         public string StateCode { get; set; }
         public string StateSAP { get; set; }
         public PDMS_Country Country { get; set; }
+        public PDMS_Region Region { get; set; }
     }
     [Serializable]
     public class PDMS_Region

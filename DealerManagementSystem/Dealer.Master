@@ -75,6 +75,16 @@
 
         }
 
+        
+
+    </script>
+
+    <script>
+        function SetScreenTitle(as_pagetitle) {
+            var lbl = document.getElementById("lblProjectTitle")
+            lbl.textContent = as_pagetitle;
+            //alert('Hi');
+        }
     </script>
     <style>
         .col-md-12 {

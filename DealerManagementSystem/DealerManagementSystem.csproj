@@ -176,6 +176,23 @@
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\Update.png" />
+    <Content Include="ProcessFlow\AJAX_Org1.png" />
+    <Content Include="ProcessFlow\Dealer_Org1.png" />
+    <Content Include="ProcessFlow\OrgChart.aspx" />
+    <Content Include="ProcessFlow\Parts_Org1.png" />
+    <Content Include="ProcessFlow\Pre_Sales.aspx" />
+    <Content Include="ProcessFlow\Pre_Sales1.png" />
+    <Content Include="ProcessFlow\Process_Flow.aspx" />
+    <Content Include="ProcessFlow\ProjectTeam.aspx" />
+    <Content Include="ProcessFlow\Project_Plan1.png" />
+    <Content Include="ProcessFlow\Project_Team_Functional1.png" />
+    <Content Include="ProcessFlow\Project_Team_IT1.png" />
+    <Content Include="ProcessFlow\Sales_Org1.png" />
+    <Content Include="ProcessFlow\Service.aspx" />
+    <Content Include="ProcessFlow\Service1.png" />
+    <Content Include="ProcessFlow\Service_Org1.png" />
+    <Content Include="RedirectTo\eCatalogue.aspx" />
+    <Content Include="RedirectTo\SPT.aspx" />
     <Content Include="UnderCons.aspx" />
     <Content Include="BackUp\UnderCons.htm" />
     <Content Include="BackUp\UnderDev.htm" />
@@ -217,7 +234,6 @@
     <Content Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx" />
     <Content Include="ViewFinance\BankDepositClearingPostingInSAP.aspx" />
     <Content Include="ViewFinance\BankDepositClearingReport.aspx" />
-    <Content Include="ViewMaster\Location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
     <Content Include="ViewMaster\DealerEmployeeAssigningRole.aspx" />
@@ -226,6 +242,7 @@
     <Content Include="ViewMaster\DealerEmployeeManage.aspx" />
     <Content Include="ViewMaster\DealerEmployeeView.aspx" />
     <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
+    <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewMaster\UserManagement.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -356,7 +373,7 @@
     <Content Include="ViewService\WarrantyFailureMaterialReport.aspx" />
     <Content Include="ViewService\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ViewService\WarrantyPartsAvailabilityReport.aspx" />
-    <Content Include="SignIn.aspx" />
+    <Content Include="BackUp\SignIn.aspx" />
     <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
@@ -417,6 +434,55 @@
     </Compile>
     <Compile Include="BackUp\Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\OrgChart.aspx.cs">
+      <DependentUpon>OrgChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\OrgChart.aspx.designer.cs">
+      <DependentUpon>OrgChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
+      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
+      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\Process_Flow.aspx.cs">
+      <DependentUpon>Process_Flow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\Process_Flow.aspx.designer.cs">
+      <DependentUpon>Process_Flow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\ProjectTeam.aspx.cs">
+      <DependentUpon>ProjectTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\ProjectTeam.aspx.designer.cs">
+      <DependentUpon>ProjectTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\Service.aspx.cs">
+      <DependentUpon>Service.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\Service.aspx.designer.cs">
+      <DependentUpon>Service.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RedirectTo\eCatalogue.aspx.cs">
+      <DependentUpon>eCatalogue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\eCatalogue.aspx.designer.cs">
+      <DependentUpon>eCatalogue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RedirectTo\SPT.aspx.cs">
+      <DependentUpon>SPT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\SPT.aspx.designer.cs">
+      <DependentUpon>SPT.aspx</DependentUpon>
     </Compile>
     <Compile Include="UnderCons.aspx.cs">
       <DependentUpon>UnderCons.aspx</DependentUpon>
@@ -519,13 +585,6 @@
     <Compile Include="ViewMarketing\Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
-    <Compile Include="ViewMaster\Location.aspx.cs">
-      <DependentUpon>Location.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewMaster\Location.aspx.designer.cs">
-      <DependentUpon>Location.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -581,6 +640,13 @@
     </Compile>
     <Compile Include="ViewMaster\EquipmentPopulationReport.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\Location.aspx.cs">
+      <DependentUpon>Location.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\Location.aspx.designer.cs">
+      <DependentUpon>Location.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserManagement.aspx.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
@@ -972,11 +1038,11 @@
     <Compile Include="ViewService\WarrantyPartsAvailabilityReport.aspx.designer.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SignIn.aspx.cs">
+    <Compile Include="BackUp\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SignIn.aspx.designer.cs">
+    <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.cs">
@@ -1181,6 +1247,7 @@
     <ProjectReference Include="..\SapIntegration\SapIntegration.csproj">
       <Project>{40f9ef55-1de8-447f-8840-2dcdea59a96b}</Project>
       <Name>SapIntegration</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
