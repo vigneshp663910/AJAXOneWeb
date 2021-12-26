@@ -15,6 +15,9 @@ namespace DealerManagementSystem.ViewMaster
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Location');</script>");
+
             if (!IsPostBack)
             {
                 Label lblProjectTitle = (Label)Master.FindControl("lblProjectTitle");
@@ -109,7 +112,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                List<PDMS_State> MML = new BDMS_Address().GetState(null,null,null, null);
+                List<PDMS_State> MML = new BDMS_Address().GetState(null, null, null, null);
 
                 ddlDState.DataValueField = "StateID";
                 ddlDState.DataTextField = "State";
@@ -171,7 +174,7 @@ namespace DealerManagementSystem.ViewMaster
                 RegionID = Convert.ToInt32(ddlSSRegion.SelectedValue);
                 Region = ddlSSRegion.SelectedItem.Text.Trim();
             }
-            List<PDMS_State> MML = new BDMS_Address().GetState(null,null,null, null);
+            List<PDMS_State> MML = new BDMS_Address().GetState(null, null, null, null);
             gvState.DataSource = MML;
             gvState.DataBind();
             //throw new NotImplementedException();
@@ -269,7 +272,7 @@ namespace DealerManagementSystem.ViewMaster
                 //Find the DropDownList in the Row
                 DropDownList ddlState = (e.Row.FindControl("ddlGDState") as DropDownList);
 
-                List<PDMS_State> MML = new BDMS_Address().GetState(null,null,null, null);
+                List<PDMS_State> MML = new BDMS_Address().GetState(null, null, null, null);
                 ddlState.DataValueField = "StateID";
                 ddlState.DataTextField = "State";
                 ddlState.DataSource = MML;
@@ -366,11 +369,11 @@ namespace DealerManagementSystem.ViewMaster
 
 
 
-        
 
-        
 
-        
+
+
+
         protected void ImageCityEdit_Click(object sender, ImageClickEventArgs e)
         {
 
@@ -651,7 +654,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 FillGridRegion();
             }
-        }        
+        }
         protected void BtnSaveState_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red;
@@ -734,8 +737,8 @@ namespace DealerManagementSystem.ViewMaster
 
                 //Select the Country of Customer in DropDownList
                 string RegionID = (e.Row.FindControl("lblRegion") as Label).Text;
-                if(MML1.Count>0)
-                ddlGSRegion.Items.FindByValue(RegionID).Selected = true;
+                if (MML1.Count > 0)
+                    ddlGSRegion.Items.FindByValue(RegionID).Selected = true;
             }
         }
         protected void ImageSEdit_Click(object sender, ImageClickEventArgs e)

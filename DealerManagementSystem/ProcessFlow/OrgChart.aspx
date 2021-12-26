@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+   
     <div class="col-md-12">
         <div class="col-md-12">
             <asp1:TabContainer ID="tbpOrgChart" runat="server" ToolTip="DMS Organisation Chart" Font-Bold="True" Font-Size="Medium">
@@ -43,8 +44,6 @@
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
-
-                
 
             </asp1:TabContainer>
         </div>

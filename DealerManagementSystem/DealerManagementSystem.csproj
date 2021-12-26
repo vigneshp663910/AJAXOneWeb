@@ -1239,6 +1239,7 @@
     <ProjectReference Include="..\SapIntegration\SapIntegration.csproj">
       <Project>{40f9ef55-1de8-447f-8840-2dcdea59a96b}</Project>
       <Name>SapIntegration</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
