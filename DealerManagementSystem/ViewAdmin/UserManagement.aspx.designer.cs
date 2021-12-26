@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewMaster
+namespace DealerManagementSystem.ViewAdmin
 {
 
 
