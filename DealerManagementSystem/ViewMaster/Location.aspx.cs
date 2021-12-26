@@ -13,6 +13,7 @@ namespace DealerManagementSystem.ViewMaster
 {
     public partial class Location : System.Web.UI.Page
     {
+        
         public List<PDMS_Country> LCountry
         {
             get
@@ -75,6 +76,10 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Location');</script>");
+
+
             if (!IsPostBack)
             {
                 Label lblProjectTitle = (Label)Master.FindControl("lblProjectTitle");
