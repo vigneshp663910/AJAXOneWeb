@@ -95,6 +95,7 @@
     <Compile Include="PFeedback.cs" />
     <Compile Include="PFormatter.cs" />
     <Compile Include="PL1Support.cs" />
+    <Compile Include="PLead.cs" />
     <Compile Include="PMenu.cs" />
     <Compile Include="PNotifications.cs" />
     <Compile Include="PQuery.cs" />

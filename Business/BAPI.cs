@@ -3,6 +3,7 @@ using Properties;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,24 +18,34 @@ using System.Web.Mvc;
 
 namespace Business
 {
+    public class PApiResult
+    { 
+        public string Success { get; set; }
+        public object Data { get; set; } 
+    }
+
     public class UL
     {
         public string UserName { get; set; }
         public string LoginPassword { get; set; }
     }
-    public class Token
-    {
-        [JsonProperty("access_token")]
-        public string AccessToken { get; set; }
-        public string Error { get; set; }
-        public string Name { get; set; }
-        public string Role { get; set; }
-        public string Parameter1 { get; set; }
-        public string Parameter2 { get; set; }
-    }
+    //public class Token
+    //{
+    //    [JsonProperty("access_token")]
+    //    public string AccessToken { get; set; }
+    //    public string Error { get; set; }
+    //    public string Name { get; set; }
+    //    public string Role { get; set; }
+    //    public string Parameter1 { get; set; }
+    //    public string Parameter2 { get; set; }
+    //}
     public class BAPI
     {
-
+        private static string ApiBaseAddress { get; set; }
+        public BAPI()
+        {
+            ApiBaseAddress = Convert.ToString(ConfigurationManager.AppSettings["ApiBaseAddress"]);
+        }
         //private HttpClient HeadersForAccessTokenGenerate(string baseUrl,string apikey,string clientId,string clientSecret)
         //{
         //    HttpClientHandler handler = new HttpClientHandler() { UseDefaultCredentials = false };
@@ -80,7 +91,7 @@ namespace Business
 
         private static string Username = string.Empty;
         private static string Password = string.Empty;
-        private static string baseAddress = "https://ajaxapps.ajax-engg.com:1443/";
+    
         public void Main1()
         {
             string token1 = "";
@@ -100,8 +111,7 @@ namespace Business
             }
             Console.ReadLine();
         }
- 
-
+  
         public string GetAccessToken(UL user)
         {
             string token = "";
@@ -118,7 +128,7 @@ namespace Business
 
           //  baseAddress = "https://localhost:44302/";
 
-            var tokenResponse = client.PostAsync(baseAddress + "api/User", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")).Result;
+            var tokenResponse = client.PostAsync(ApiBaseAddress + "User", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")).Result;
 
             if (tokenResponse.IsSuccessStatusCode)
             {
@@ -146,7 +156,7 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
 
-            var APIResponse = client.GetAsync(baseAddress + "api/Master/GetServiceType").Result;
+            var APIResponse = client.GetAsync(ApiBaseAddress + "Master/GetServiceType").Result;
 
 
             if (APIResponse.IsSuccessStatusCode)
@@ -167,10 +177,10 @@ namespace Business
            // JsonResult JsonContent = new JsonResult();
             string AccessToken = "";
 
-            string url = "https://localhost:44302/api/Master/GetServiceType";
+            string url = "https://localhost:44302/api/"+ Filter;
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+          //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {
@@ -180,11 +190,12 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
 
-            var APIResponse = client.GetAsync(baseAddress + "api/Master/GetServiceType").Result; 
+            var APIResponse = client.GetAsync(url).Result; 
             if (APIResponse.IsSuccessStatusCode)
             {
-             return APIResponse.Content.ReadAsStringAsync().Result;
-                 
+                var JsonContent= APIResponse.Content.ReadAsStringAsync().Result;
+                return APIResponse.Content.ReadAsStringAsync().Result;
+                
             }
             else
             {
@@ -192,7 +203,7 @@ namespace Business
             } 
             return ""; 
         }
-        public String ApiPut(string Filter)
+        public String ApiPut(string EndPoint)
         {
             // JsonResult JsonContent = new JsonResult();
             string AccessToken = "";
@@ -209,7 +220,7 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
 
-            var APIResponse = client.GetAsync(baseAddress + "api/Master/GetServiceType").Result;
+            var APIResponse = client.GetAsync(ApiBaseAddress + EndPoint).Result;
             if (APIResponse.IsSuccessStatusCode)
             {
                 return APIResponse.Content.ReadAsStringAsync().Result;
@@ -221,7 +232,6 @@ namespace Business
             }
             return "";
         }
-
-
+         
     }
 }
