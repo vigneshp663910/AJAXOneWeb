@@ -762,11 +762,6 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the State";
                     Success = false;
                 }
-                if (string.IsNullOrEmpty(txtStateCode.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the StateCode";
-                    Success = false;
-                }
                 lblMessage.Text = Message;
                 if (Success == false)
                 {
@@ -881,11 +876,6 @@ namespace DealerManagementSystem.ViewMaster
                 if (string.IsNullOrEmpty(txtGRState.Text.Trim()))
                 {
                     Message = Message + "<br/> Please Enter the State";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtGRStateCode.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the StateCode";
                     Success = false;
                 }
                 lblMessage.Text = Message;
@@ -1304,7 +1294,7 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow row = (GridViewRow)(ImageCityEdit.NamingContainer);
                 ImageButton ImageCityUpdate = (ImageButton)row.FindControl("ImageCityUpdate");
                 DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGDState");
+                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
                 DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
                 TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
                 ddlGCityCountry.Enabled = true;
@@ -1334,7 +1324,7 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow row = (GridViewRow)(ImageCityUpdate.NamingContainer);
                 ImageButton ImageCityEdit = (ImageButton)row.FindControl("ImageCityEdit");
                 DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGDState");
+                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
                 DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
                 TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
                 if (ddlGCityCountry.SelectedValue == "0")
@@ -1407,7 +1397,7 @@ namespace DealerManagementSystem.ViewMaster
                 long id = Convert.ToInt32(ImageCityDelete.CommandArgument);
                 GridViewRow row = (GridViewRow)(ImageCityDelete.NamingContainer);
                 DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGDState");
+                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
                 DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
                 TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
                 Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim(), false, PSession.User.UserID);
