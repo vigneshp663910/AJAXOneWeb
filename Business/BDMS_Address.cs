@@ -238,87 +238,6 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return false;
         }
-        public Boolean DeleteAddressCountry(int? CountryID, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { CountryIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_DeleteAddressCountry", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressCountry", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", " ZDMS_DeleteAddressCountry", ex);
-            }
-
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
-        public Boolean DeleteAddressRegion(int? RegionID, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { RegionIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_DeleteAddressRegion", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressRegion", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressRegion", ex);
-            }
-
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
-        public Boolean DeleteAddressState(int? StateID, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { StateIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_DeleteAddressState", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressState", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressState", ex);
-            }
-
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
         public Boolean InsertOrUpdateAddressState(int? StateID, string State, string StateCode, string StateSAP, int? CountryID, Boolean IsActive, int? RegionID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -397,7 +316,7 @@ namespace Business
                                     StateID = Convert.ToInt32(dr["StateID"]),
                                     State = Convert.ToString(dr["State"]),                                   
                                 },
-                                Country = new PDMS_Country()
+                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
                                 }
