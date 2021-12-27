@@ -238,87 +238,6 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return false;
         }
-        public Boolean DeleteAddressCountry(int? CountryID, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { CountryIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_DeleteAddressCountry", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressCountry", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", " ZDMS_DeleteAddressCountry", ex);
-            }
-
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
-        public Boolean DeleteAddressRegion(int? RegionID, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { RegionIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_DeleteAddressRegion", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressRegion", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressRegion", ex);
-            }
-
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
-        public Boolean DeleteAddressState(int? StateID, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { StateIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_DeleteAddressState", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressState", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_DeleteAddressState", ex);
-            }
-
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
         public Boolean InsertOrUpdateAddressState(int? StateID, string State, string StateCode, string StateSAP, int? CountryID, Boolean IsActive, int? RegionID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -369,7 +288,7 @@ namespace Business
             catch (Exception ex)
             { }
         }
-        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID,int? DistrictID, int? StateID, string District)
+        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID, int? StateID, int? DistrictID, string District)
         {
             List<PDMS_District> MML = new List<PDMS_District>();
             try
@@ -397,7 +316,7 @@ namespace Business
                                     StateID = Convert.ToInt32(dr["StateID"]),
                                     State = Convert.ToString(dr["State"]),                                   
                                 },
-                                Country = new PDMS_Country()
+                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
                                 }
@@ -442,17 +361,33 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return false;
         }
-
-        public void GetTehsil(DropDownList ddl, int? TehsilID, int? DistrictID, string Tehsil)
+        public void GetTehsil(DropDownList ddl, int? CountryID, int? StateID, int? DistrictID, string Tehsil)
+        {
+            try
+            {
+                List<PDMS_Tehsil> MML = GetTehsil(CountryID, StateID,DistrictID, Tehsil);
+                ddl.DataValueField = "DistrictID";
+                ddl.DataTextField = "District";
+                ddl.DataSource = MML;
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("Select", "0"));
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+        }
+        public List<PDMS_Tehsil> GetTehsil(int? CountryID, int? StateID, int? DistrictID, string Tehsil)
         {
             List<PDMS_Tehsil> MML = new List<PDMS_Tehsil>();
             try
             {
-                DbParameter TehsilIDP = provider.CreateParameter("TehsilID", TehsilID, DbType.Int32);
+                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
+                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
                 DbParameter TehsilP = provider.CreateParameter("Tehsil", string.IsNullOrEmpty(Tehsil) ? null : Tehsil, DbType.String);
 
-                DbParameter[] Params = new DbParameter[3] { TehsilIDP, DistrictIDP, TehsilP };
+                DbParameter[] Params = new DbParameter[4] { CountryIDP, StateIDP, DistrictIDP, TehsilP };
                 using (DataSet DataSet = provider.Select("ZDMS_GetTehsil", Params))
                 {
                     if (DataSet != null)
@@ -462,7 +397,19 @@ namespace Business
                             MML.Add(new PDMS_Tehsil()
                             {
                                 TehsilID = Convert.ToInt32(dr["TehsilID"]),
-                                Tehsil = Convert.ToString(dr["Tehsil"])
+                                Tehsil = Convert.ToString(dr["Tehsil"]),
+                                District = new PDMS_District()
+                                {
+                                    DistrictID= Convert.ToInt32(dr["DistrictID"]),
+                                },
+                                State = new PDMS_State()
+                                {
+                                    StateID = Convert.ToInt32(dr["StateID"]),
+                                },
+                                Country = new PDMS_Country()
+                                {
+                                    CountryID = Convert.ToInt32(dr["CountryID"]),
+                                }
                             });
                         }
                     }
@@ -472,12 +419,45 @@ namespace Business
             { }
             catch (Exception ex)
             { }
-            ddl.DataValueField = "TehsilID";
-            ddl.DataTextField = "Tehsil";
-            ddl.DataSource = MML;
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select", "0"));
+            return MML;
         }
+        //public void GetTehsil(DropDownList ddl, int? TehsilID,int? CountryID,int? StateID, int? DistrictID, string Tehsil)
+        //{
+        //    List<PDMS_Tehsil> MML = new List<PDMS_Tehsil>();
+        //    try
+        //    {
+        //        DbParameter TehsilIDP = provider.CreateParameter("TehsilID", TehsilID, DbType.Int32);
+        //        DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
+        //        DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+        //        DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+        //        DbParameter TehsilP = provider.CreateParameter("Tehsil", string.IsNullOrEmpty(Tehsil) ? null : Tehsil, DbType.String);
+
+        //        DbParameter[] Params = new DbParameter[5] { TehsilIDP, CountryIDP, StateIDP, DistrictIDP, TehsilP };
+        //        using (DataSet DataSet = provider.Select("ZDMS_GetTehsil", Params))
+        //        {
+        //            if (DataSet != null)
+        //            {
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
+        //                    MML.Add(new PDMS_Tehsil()
+        //                    {
+        //                        TehsilID = Convert.ToInt32(dr["TehsilID"]),
+        //                        Tehsil = Convert.ToString(dr["Tehsil"])
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    ddl.DataValueField = "TehsilID";
+        //    ddl.DataTextField = "Tehsil";
+        //    ddl.DataSource = MML;
+        //    ddl.DataBind();
+        //    ddl.Items.Insert(0, new ListItem("Select", "0"));
+        //}
         public void GetVillage(DropDownList ddl, int? VillageID, int? TehsilID, string Village)
         {
             List<PDMS_Village> MML = new List<PDMS_Village>();
@@ -512,6 +492,35 @@ namespace Business
             ddl.DataSource = MML;
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        public Boolean InsertOrUpdateAddressTehsil(int? TehsilID,int? DistrictID, string Tehsil, Boolean IsActive, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            DbParameter TehsilIDP = provider.CreateParameter("TehsilID", TehsilID, DbType.Int32);
+            DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+            DbParameter TehsilP = provider.CreateParameter("Tehsil", Tehsil, DbType.String);
+            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[5] { TehsilIDP,DistrictIDP, TehsilP, IsActiveP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("ZDMS_InsertOrUpdateAddressTehsil", Params);
+                    scope.Complete();
+                }
+                return true;
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Address", "ZDMS_InsertOrUpdateAddressTehsil", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Address", " ZDMS_InsertOrUpdateAddressTehsil", ex);
+            }
+            TraceLogger.Log(DateTime.Now);
+            return false;
         }
     }
 }

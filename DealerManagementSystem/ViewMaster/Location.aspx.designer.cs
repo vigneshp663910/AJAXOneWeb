@@ -384,13 +384,31 @@ namespace DealerManagementSystem.ViewMaster
         protected global::AjaxControlToolkit.TabPanel tbpnlCity;
 
         /// <summary>
-        /// ddlCDistrict control.
+        /// ddlCityCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCDistrict;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCityCountry;
+
+        /// <summary>
+        /// ddlCityState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCityState;
+
+        /// <summary>
+        /// ddlCityDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCityDistrict;
 
         /// <summary>
         /// txtCity control.
@@ -411,13 +429,31 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button BtnSaveCity;
 
         /// <summary>
-        /// ddlSCDistrict control.
+        /// ddlSCityCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSCDistrict;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSCityCountry;
+
+        /// <summary>
+        /// ddlSCityState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSCityState;
+
+        /// <summary>
+        /// ddlSCityDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSCityDistrict;
 
         /// <summary>
         /// ddlSCCity control.

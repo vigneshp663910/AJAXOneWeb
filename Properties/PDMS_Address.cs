@@ -66,7 +66,8 @@ namespace Properties
         public int TehsilID { get; set; }
         public string Tehsil { get; set; }
         public PDMS_District District { get; set; }
-
+        public PDMS_State State { get; set; }
+        public PDMS_Country Country { get; set; }
     }
     [Serializable]
     public class PDMS_Village

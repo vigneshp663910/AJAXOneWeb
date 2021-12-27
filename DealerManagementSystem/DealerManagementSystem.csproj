@@ -171,6 +171,8 @@
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="BackUp\Home1.aspx" />
+    <Content Include="BackUp\UnderCons.htm" />
+    <Content Include="BackUp\UnderDev.htm" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\Edit.png" />
     <Content Include="Images\grid_collapse.png" />
@@ -242,6 +244,7 @@
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
+    <Content Include="ViewSales\ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
     <Content Include="ViewSales\MonthlySales.aspx" />
     <Content Include="ViewSales\PurchaseOrder.aspx" />
@@ -650,6 +653,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\ASN.aspx.cs">
+      <DependentUpon>ASN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\ASN.aspx.designer.cs">
+      <DependentUpon>ASN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\MonthlyProcurement.aspx.cs">
       <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
