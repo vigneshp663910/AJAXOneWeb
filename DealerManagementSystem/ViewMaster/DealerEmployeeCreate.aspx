@@ -3,11 +3,6 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         function UploadFile(fileUpload) {
             if (fileUpload.value != '') {
@@ -111,471 +106,254 @@
             text-transform: uppercase;
         }
     </style>
-
-    <div class="container">
-        <div class="col2">
-            <div class="rf-p " id="txnHistory:j_idt1289">
-                <div class="rf-p-b " id="txnHistory:j_idt1289_body">
-                    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
-                    <table id="txnHistory1:panelGridid2" style="height: 100%; width: 100%" class="IC_basicInfo">
-                        <tr>
-                            <td>
-                                <div class="boxHead">
-                                    <div class="logheading">Dealership Manpower Registration</div>
-                                    <div style="float: right; padding-top: 0px">
-                                        <a href="javascript:collapseExpandCallInformation();">
-                                            <img id="imgCallInformation" runat="server" alt="Click to show/hide orders" border="0" src="~/Images/grid_collapse.png" height="22" width="22" /></a>
-                                    </div>
-                                </div>
-
-                                <asp:Panel ID="pnlCallInformation" runat="server">
-                                    <div class="rf-p " id="txnHistory:inputFiltersPanel2">
-                                        <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body2">
-                                            <table class="labeltxt fullWidth">
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-left">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label5" runat="server" CssClass="label" Text="Ajax Emp"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:CheckBox ID="cbAjaxEmp" runat="server" OnCheckedChanged="cbAjaxEmp_CheckedChanged" AutoPostBack="true" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-left">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label9" runat="server" CssClass="label" Text="Login User Name"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="TextBox" BorderColor="Silver" MaxLength="20"></asp:TextBox>
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-left">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label7" runat="server" CssClass="label" Text="Aadhaar Card No"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="TextBox" BorderColor="Silver" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label24" runat="server" CssClass="label" Text="Adhaar Card Copy Front Side"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:FileUpload ID="fuAdhaarCardCopyFrontSide" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" onchange="UploadFile(this)" />
-                                                                <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                                <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileRemove_Click" Visible="false">Remove</asp:LinkButton>
-                                                                <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" Visible="false">Download</asp:LinkButton>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label35" runat="server" CssClass="label" Text="Adhaar Card Copy Back Side"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:FileUpload ID="fuAdhaarCardCopyBackSide" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" onchange="UploadFile(this)" />
-                                                                <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                                <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" Visible="false">Remove</asp:LinkButton>
-                                                                <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" Visible="false">Download</asp:LinkButton>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label104" runat="server" CssClass="label" Text="Name"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtName" runat="server" CssClass="uppercase TextBox" AutoComplete="Off" onkeydown="return validateChar(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label26" runat="server" CssClass="label" Text="Father Name"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtFatherName" runat="server" CssClass="uppercase TextBox" AutoComplete="SP" onkeydown="return validateChar(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label10" runat="server" CssClass="label" Text="Photo"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:FileUpload ID="fuPhoto" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" onchange="UploadFile(this)" />
-                                                                <asp:Button ID="btnUpload" Text="Upload" runat="server" OnClick="btnUpload_Click" Style="display: none" />
-                                                                <asp:Label ID="lblPhotoFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                                <asp:LinkButton ID="lbPhotoFileRemove" runat="server" OnClick="lbPhotoFileRemove_Click" Visible="false">Remove</asp:LinkButton>
-                                                                <asp:ImageButton ID="ibtnPhoto" runat="server" OnClick="ibtnPhoto_Click" Width="65px" Height="75px" Visible="false" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label11" runat="server" CssClass="label" Text="DOB"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtDOB" runat="server" CssClass="input" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
-                                                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDOB" PopupButtonID="txtDOB" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtDOB" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                                                            </div>
-
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label28" runat="server" CssClass="label" Text="Contact No 1 "></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtContactNumber" runat="server" CssClass="input" AutoComplete="SP" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label2" runat="server" CssClass="label" Text="Contact No 2"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtContactNumber1" runat="server" CssClass="input" AutoComplete="SP" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label22" runat="server" CssClass="label" Text="Email"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtEmail" runat="server" CssClass="input" AutoComplete="SP"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="auto-style1">
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="lblHMRValue" runat="server" CssClass="label" Text="Equcational Qualification"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlEqucationalQualification" runat="server" CssClass="TextBox" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="auto-style1">
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label23" runat="server" CssClass="label" Text="Total Experience (Years)"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtTotalExperience" runat="server" CssClass="TextBox" onkeydown="return isNumberDigit(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label12" runat="server" CssClass="label" Text="Address"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtAddress" runat="server" CssClass="uppercase TextBox" AutoComplete="SP" TextMode="MultiLine"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label30" runat="server" CssClass="label" Text="State"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlState" runat="server" CssClass="TextBox" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label21" runat="server" CssClass="label" Text="District"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="TextBox" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label106" runat="server" CssClass="label" Text="Tehsil"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="TextBox" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-left">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label32" runat="server" CssClass="label" Text="Village"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtVillage" runat="server" CssClass="TextBox" AutoComplete="SP"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label36" runat="server" CssClass="label" Text="Location"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtLocation" runat="server" CssClass="input" AutoComplete="SP"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label16" runat="server" CssClass="label" Text="PANNo"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtPANNo" runat="server" CssClass="uppercase TextBox" AutoComplete="SP" MaxLength="10" onkeyUp="return PANNo(event);"></asp:TextBox>
-                                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPANNo" WatermarkText="WWWWW DDDD W"></asp:TextBoxWatermarkExtender>
-
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label25" runat="server" CssClass="label" Text="PAN Card Copy"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:FileUpload ID="fuPANCardCopy" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" onchange="UploadFile(this)" />
-                                                                <asp:Label ID="lblPANCardCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                                <asp:LinkButton ID="lbPANCardCopyFileRemove" runat="server" OnClick="lbPANCardCopyFileRemove_Click" Visible="false">Remove</asp:LinkButton>
-                                                                <asp:LinkButton ID="lbPANCardCopyFileDownload" runat="server" OnClick="lbPANCardCopyFileDownload_Click" Visible="false">Download</asp:LinkButton>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label27" runat="server" CssClass="label" Text="BankN ame"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtBankName" runat="server" CssClass="uppercase TextBox" AutoComplete="SP" onkeydown="return validateChar(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label29" runat="server" CssClass="label" Text="Account No"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtAccountNo" runat="server" CssClass="TextBox" onkeydown="return isNumber(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label17" runat="server" CssClass="label" Text="Cheque Copy"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:FileUpload ID="fuChequeCopy" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" onchange="UploadFile(this)" />
-                                                                <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                                <asp:LinkButton ID="lbChequeCopyFileRemove" runat="server" OnClick="lbChequeCopyFileRemove_Click" Visible="false">Remove</asp:LinkButton>
-                                                                <asp:LinkButton ID="lbChequeCopyFileDownload" runat="server" OnClick="lbChequeCopyFileDownload_Click" Visible="false">Download</asp:LinkButton>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label1" runat="server" CssClass="label" Text="IFSC Code"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtIFSCCode" runat="server" CssClass="uppercase TextBox"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label3" runat="server" CssClass="label" Text="Emergency Contact"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtEmergencyContactNumber" runat="server" CssClass="TextBox" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label4" runat="server" CssClass="label" Text="BloodGroup"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlBloodGroup" runat="server" CssClass="TextBox" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-                                </asp:Panel>
-                            </td>
-                        </tr>
-                    </table>
-                    <br />
-                       <br />
-                    <asp:Panel ID="pnlRole" runat="server" Visible="false">
-                        <table id="txnHistory2:panelGridid2" style="height: 100%; width: 100%" class="IC_basicInfo">
-                            <tr>
-                                <td>
-                                    <div class="boxHead">
-                                        <div class="logheading">Employee Role Assigning</div>
-                                        <div style="float: right; padding-top: 0px">
-                                            <a href="javascript:collapseExpandCallInformation();">
-                                                <img id="img1" runat="server" alt="Click to show/hide orders" border="0" src="~/Images/grid_collapse.png" height="22" width="22" /></a>
-                                        </div>
-                                    </div>
-                                    <asp:Panel ID="Panel1" runat="server">
-                                        <div class="rf-p " id="txnHistory2:inputFiltersPanel2">
-                                            <div class="rf-p-b " id="txnHistory2:inputFiltersPanel_body2">
-                                                <table class="labeltxt fullWidth">
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label6" runat="server" CssClass="label" Text="Dealer Office"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label31" runat="server" CssClass="label" Text="Date of Joining"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:TextBox ID="txtDateOfJoining" runat="server" CssClass="input" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
-                                                                    <asp:CalendarExtender ID="caDateOfJoining" runat="server" TargetControlID="txtDateOfJoining" PopupButtonID="txtDateOfJoining" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateOfJoining" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label8" runat="server" CssClass="label" Text="SAP Emp Code"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:TextBox ID="txtSAPEmpCode" runat="server" CssClass="input" AutoComplete="SP"></asp:TextBox>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label56" runat="server" CssClass="label" Text="Department"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="TextBox" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label57" runat="server" CssClass="label" Text="Designation"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="TextBox" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label58" runat="server" CssClass="label" Text="Reporting To"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="TextBox" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </asp:Panel>
-                                </td>
-                            </tr>
-                        </table>
-                    </asp:Panel>
-                    <table id="txnHistory6:panelGridid2" style="height: 100%; width: 100%" class="IC_basicInfo">
-                        <tr>
-                            <td>
-                                <div class="rf-p " id="txnHistory3:inputFiltersPanel2">
-                                    <div class="rf-p-b " id="txnHistory3:inputFiltersPanel_body2">
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
-                                        <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" Visible="false" />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+    <%--<script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Controls</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Ajax Emp</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:CheckBox ID="cbAjaxEmp" runat="server" OnCheckedChanged="cbAjaxEmp_CheckedChanged" AutoPostBack="true" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Login User Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Aadhaar Card No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Adhaar Card Copy Front Side</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuAdhaarCardCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileRemove_Click" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" Visible="false">Download</asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Adhaar Card Copy Back Side</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuAdhaarCardCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" Visible="false">Download</asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtName" runat="server" CssClass="uppercase form-control" AutoComplete="Off" onkeydown="return validateChar(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Father Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtFatherName" runat="server" CssClass="uppercase form-control" AutoComplete="SP" onkeydown="return validateChar(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Photo</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuPhoto" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Button ID="btnUpload" Text="Upload" runat="server" OnClick="btnUpload_Click" Style="display: none" />
+                        <asp:Label ID="lblPhotoFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbPhotoFileRemove" runat="server" OnClick="lbPhotoFileRemove_Click" Visible="false">Remove</asp:LinkButton>
+                        <asp:ImageButton ID="ibtnPhoto" runat="server" OnClick="ibtnPhoto_Click" Width="65px" Height="75px" Visible="false" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>DOB</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDOB" PopupButtonID="txtDOB" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtDOB" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Contact No 1</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" AutoComplete="SP" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Contact No 2</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtContactNumber1" runat="server" CssClass="form-control" AutoComplete="SP" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Equcational Qualification</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlEqucationalQualification" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Total Experience (Years)</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtTotalExperience" runat="server" CssClass="form-control" onkeydown="return isNumberDigit(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Address</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtAddress" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>State</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>District</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Tehsil</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Village</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtVillage" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Location</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>PANNo</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtPANNo" runat="server" CssClass="uppercase form-control" AutoComplete="SP" MaxLength="10" onkeyUp="return PANNo(event);"></asp:TextBox>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPANNo" WatermarkText="WWWWW DDDD W"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>PAN Card Copy</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuPANCardCopy" runat="server" CssClass="form-control" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Label ID="lblPANCardCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbPANCardCopyFileRemove" runat="server" OnClick="lbPANCardCopyFileRemove_Click" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbPANCardCopyFileDownload" runat="server" OnClick="lbPANCardCopyFileDownload_Click" Visible="false">Download</asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>BankName</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtBankName" runat="server" CssClass="uppercase form-control" AutoComplete="SP" onkeydown="return validateChar(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Account No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtAccountNo" runat="server" CssClass="form-control" onkeydown="return isNumber(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Cheque Copy</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuChequeCopy" runat="server" CssClass="form-control" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbChequeCopyFileRemove" runat="server" OnClick="lbChequeCopyFileRemove_Click" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbChequeCopyFileDownload" runat="server" OnClick="lbChequeCopyFileDownload_Click" Visible="false">Download</asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>IFSC Code</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtIFSCCode" runat="server" CssClass="uppercase form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Emergency Contact</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtEmergencyContactNumber" runat="server" CssClass="form-control" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>BloodGroup</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlBloodGroup" runat="server" CssClass="form-control" />
+                    </div>
                 </div>
-            </div>
+                <fieldset class="fieldset-border" id="pnlRole" runat="server" visible="false">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role Assigning</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-3 text-right">
+                            <label>Dealer Office</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control"/>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>Date of Joining</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtDateOfJoining" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
+                            <asp:CalendarExtender ID="caDateOfJoining" runat="server" TargetControlID="txtDateOfJoining" PopupButtonID="txtDateOfJoining" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateOfJoining" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>SAP Emp Code</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtSAPEmpCode" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>Department</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>Designation</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>Reporting To</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+            <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" Visible="false" />
         </div>
     </div>
 </asp:Content>

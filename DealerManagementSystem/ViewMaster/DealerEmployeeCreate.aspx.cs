@@ -111,6 +111,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             if (!IsPostBack)
             {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
                 PhotoFile = new PDMS_DealerEmployeeAttachedFile();
                 AdhaarCardCopyFrontSideFile = new PDMS_DealerEmployeeAttachedFile();
                 AdhaarCardCopyBackSideFile = new PDMS_DealerEmployeeAttachedFile();
@@ -977,6 +978,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void cbAjaxEmp_CheckedChanged(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
             pnlRole.Visible = false;
             if (cbAjaxEmp.Checked)
             {
