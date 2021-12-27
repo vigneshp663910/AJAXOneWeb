@@ -397,7 +397,7 @@ namespace Business
                                     StateID = Convert.ToInt32(dr["StateID"]),
                                     State = Convert.ToString(dr["State"]),                                   
                                 },
-                                Country = new PDMS_Country()
+                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
                                 }
