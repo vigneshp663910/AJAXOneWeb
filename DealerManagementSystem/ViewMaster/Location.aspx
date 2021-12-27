@@ -7,8 +7,8 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12">
-            <asp1:TabContainer ID="tbpLocation" runat="server">
-                <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country">
+            <asp1:TabContainer ID="tbpLocation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
+                <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
                     <ContentTemplate>
                         <fieldset class="fieldset-border" id="fldCountry" runat="server">
                             <legend style="background: none; color: #007bff; font-size: 17px;">Country</legend>
