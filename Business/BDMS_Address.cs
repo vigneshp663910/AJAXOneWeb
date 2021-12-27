@@ -288,7 +288,7 @@ namespace Business
             catch (Exception ex)
             { }
         }
-        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID,int? DistrictID, int? StateID, string District)
+        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID, int? StateID, int? DistrictID, string District)
         {
             List<PDMS_District> MML = new List<PDMS_District>();
             try
