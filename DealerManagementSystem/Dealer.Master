@@ -385,7 +385,7 @@
         label {
             font-size: 14px;
             padding-left: 1.25rem;
-            font-weight:bold;
+            font-weight: bold;
         }
 
         .fieldset-border {
@@ -430,6 +430,10 @@
             font-weight: 400;
             /*font-size: 1rem;*/
             line-height: 1.5;
+        }
+
+        .col-md-12 .Report {
+            display: inline-table;
         }
 
         .w3-sidebar {
