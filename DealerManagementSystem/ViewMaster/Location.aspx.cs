@@ -1237,9 +1237,9 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     DistrictID = Convert.ToInt32(ddlSCityDistrict.SelectedValue);
                 }
-                if (!string.IsNullOrEmpty(ddlSCCity.Text))
+                if (!string.IsNullOrEmpty(txtSCity.Text))
                 {
-                    Tehsil = ddlSCCity.Text.Trim();
+                    Tehsil = txtSCity.Text.Trim();
                 }
                 List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
                 gvCity.DataSource = MML;
