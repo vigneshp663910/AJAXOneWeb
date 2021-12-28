@@ -114,10 +114,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12">
-            <%--<asp1:TabContainer ID="tbpLocation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
-                <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
-                    <ContentTemplate>--%>
-            <fieldset class="fieldset-border" id="fldCountry" runat="server">
+            <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Controls</legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
@@ -316,7 +313,7 @@
                             <label>Dealer Office</label>
                         </div>
                         <div class="col-md-3">
-                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control"/>
+                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-3 text-right">
                             <label>Date of Joining</label>
@@ -353,14 +350,10 @@
                     </div>
                 </fieldset>
             </fieldset>
-                        <%--</ContentTemplate>
-                    </asp1:TabPanel>
-                </asp1:TabContainer>--%>
-            
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
-            <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" Visible="false" />
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+                <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" Visible="false" />
+            </div>
         </div>
     </div>
 </asp:Content>

@@ -42,11 +42,17 @@
 
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="col-md-12">
+            </div>
+        </div>
+
+
     <div class="container">
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
                 <div class="rf-p-b " id="txnHistory:j_idt1289_body">
-                    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
                     <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%">
                         <tr>
                             <td>
