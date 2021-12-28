@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="DealerEmployeeCreate.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.DealerEmployeeCreate" %>
 
-
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>--%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
@@ -114,6 +114,9 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12">
+            <%--<asp1:TabContainer ID="tbpLocation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
+                <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
+                    <ContentTemplate>--%>
             <fieldset class="fieldset-border" id="fldCountry" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Controls</legend>
                 <div class="col-md-12">
@@ -350,6 +353,10 @@
                     </div>
                 </fieldset>
             </fieldset>
+                        <%--</ContentTemplate>
+                    </asp1:TabPanel>
+                </asp1:TabContainer>--%>
+            
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />

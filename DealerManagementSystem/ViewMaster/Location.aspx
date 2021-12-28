@@ -483,7 +483,7 @@
                                     <label>City</label>
                                 </div>
                                 <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSCCity" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    <asp:TextBox ID="txtSCity" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
