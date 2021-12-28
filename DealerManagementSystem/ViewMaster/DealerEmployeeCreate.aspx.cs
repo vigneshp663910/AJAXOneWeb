@@ -15,6 +15,7 @@ namespace DealerManagementSystem.ViewMaster
 {
     public partial class DealerEmployeeCreate : System.Web.UI.Page
     {
+
         public string AadhaarCardNo
         {
             get
@@ -108,10 +109,13 @@ namespace DealerManagementSystem.ViewMaster
             this.Page.MasterPageFile = "~/Dealer.master";
         }
         protected void Page_Load(object sender, EventArgs e)
+
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
+
             if (!IsPostBack)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
                 PhotoFile = new PDMS_DealerEmployeeAttachedFile();
                 AdhaarCardCopyFrontSideFile = new PDMS_DealerEmployeeAttachedFile();
                 AdhaarCardCopyBackSideFile = new PDMS_DealerEmployeeAttachedFile();
@@ -978,7 +982,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void cbAjaxEmp_CheckedChanged(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Manpower Registration');</script>");
             pnlRole.Visible = false;
             if (cbAjaxEmp.Checked)
             {
