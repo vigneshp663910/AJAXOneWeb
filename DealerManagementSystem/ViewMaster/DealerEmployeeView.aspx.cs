@@ -334,7 +334,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            string url = "DMS_DealerEmployeeManage.aspx";
+            string url = "DealerEmployeeManage.aspx";
             Response.Redirect(url);
         }
 

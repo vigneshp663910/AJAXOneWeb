@@ -253,7 +253,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "DMS_DealerEmployeeCreate.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
+            string url = "DealerEmployeeCreate.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
             Response.Redirect(url);
         }
         protected void lbView_Click(object sender, EventArgs e)
