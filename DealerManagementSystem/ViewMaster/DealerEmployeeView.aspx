@@ -3,16 +3,75 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
+    <%--<script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblName" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Father Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblFatherName" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Photo</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:ImageButton ID="ibtnPhoto" runat="server" OnClick="ibtnPhoto_Click" Width="65px" Height="75px" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>DOB</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblDOB" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Contact No 1</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblContactNumber" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Contact No 2</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblContactNumber1" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label></label>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label></label>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+
+
+
     <div class="container">
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
                 <div class="rf-p-b " id="txnHistory:j_idt1289_body">
-                    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
                     <table id="txnHistory1:panelGridid2" style="height: 100%; width: 100%" class="IC_basicInfo">
                         <tr>
                             <td>
@@ -26,73 +85,6 @@
                                 <div class="rf-p " id="txnHistory:inputFiltersPanel2">
                                     <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body2">
                                         <table class="labeltxt fullWidth">
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label104" runat="server" CssClass="label" Text="Name"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblName" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label26" runat="server" CssClass="label" Text="Father Name"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblFatherName" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label10" runat="server" CssClass="label" Text="Photo"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-
-
-                                                            <asp:ImageButton ID="ibtnPhoto" runat="server" OnClick="ibtnPhoto_Click" Width="65px" Height="75px" />
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label11" runat="server" CssClass="label" Text="DOB"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblDOB" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label28" runat="server" CssClass="label" Text="Contact No 1"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblContactNumber" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label2" runat="server" CssClass="label" Text="Contact No 2"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblContactNumber1" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
                                             <tr>
                                                 <td>
                                                     <div class="tbl-row-right">
@@ -358,7 +350,7 @@
                                     <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButtonRight" OnClick="btnExportExcel_Click" />--%>
                                 </div>
                                 <div style="background-color: white" class="tablefixedWidth" id="tablefixedWidthID3">
-                                    <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="TableGrid"  >
+                                    <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="TableGrid">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Employee ID" Visible="false">
                                                 <ItemTemplate>
@@ -388,7 +380,7 @@
                                                 <HeaderStyle Width="250px" />
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             </asp:TemplateField>
-                                              <asp:TemplateField HeaderText="Dealer Office">
+                                            <asp:TemplateField HeaderText="Dealer Office">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerOffice.OfficeName")%>' runat="server"></asp:Label>
                                                 </ItemTemplate>
@@ -430,13 +422,13 @@
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             </asp:TemplateField>
 
-                                             <asp:TemplateField HeaderText="SAP Emp Code">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblSAPEmpCode" Text='<%# DataBinder.Eval(Container.DataItem, "SAPEmpCode" )%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Width="75px" />
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="SAP Emp Code">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblSAPEmpCode" Text='<%# DataBinder.Eval(Container.DataItem, "SAPEmpCode" )%>' runat="server"></asp:Label>
+                                                </ItemTemplate>
+                                                <HeaderStyle Width="75px" />
+                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            </asp:TemplateField>
 
                                             <asp:TemplateField HeaderText="Active">
                                                 <ItemTemplate>
@@ -490,15 +482,15 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                            <div class="tbl-row-right">
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label9" runat="server" CssClass="label" Text="SAP Emp Code"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:TextBox ID="txtSAPEmpCode" runat="server" CssClass="input" AutoComplete="SP"></asp:TextBox>
-                                                                </div>
+                                                        <div class="tbl-row-right">
+                                                            <div class="tbl-col-left">
+                                                                <asp:Label ID="Label9" runat="server" CssClass="label" Text="SAP Emp Code"></asp:Label>
                                                             </div>
-                                                        </td>
+                                                            <div class="tbl-col-right">
+                                                                <asp:TextBox ID="txtSAPEmpCode" runat="server" CssClass="input" AutoComplete="SP"></asp:TextBox>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </table>
                                             <asp:Button ID="btnSave" runat="server" Text="Update" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSave_Click" />

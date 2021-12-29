@@ -171,12 +171,16 @@
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="BackUp\Home1.aspx" />
-    <Content Include="BackUp\UnderCons.htm" />
     <Content Include="BackUp\UnderDev.htm" />
+    <Content Include="Images\ArrowLeft.png" />
+    <Content Include="Images\ArrowRight.png" />
     <Content Include="Images\delete.png" />
+    <Content Include="Images\Delete1.png" />
     <Content Include="Images\Edit.png" />
+    <Content Include="Images\Edit1.png" />
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
+    <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />

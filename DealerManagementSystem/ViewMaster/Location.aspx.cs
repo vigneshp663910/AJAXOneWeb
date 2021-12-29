@@ -415,11 +415,12 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, txtDistrict.Text.Trim(), null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, txtCountry.Text.Trim(), null, true, PSession.User.UserID);
                     if (Success == true)
                     {
                         lblMessage.Text = "Country is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridCountry();
                     }
                     else
                     {
@@ -579,6 +580,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "Region is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridRegion();
                     }
                     else
                     {
@@ -762,6 +764,11 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the State";
                     Success = false;
                 }
+                if (string.IsNullOrEmpty(txtStateCode.Text.Trim()))
+                {
+                    Message = Message + "<br/> Please Enter the StateCode";
+                    Success = false;
+                }
                 lblMessage.Text = Message;
                 if (Success == false)
                 {
@@ -774,6 +781,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "State is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridState();
                     }
                     else
                     {
@@ -990,6 +998,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "District is updated successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridDistrict();
                     }
                     else
                     {
@@ -1199,6 +1208,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "City is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridTehsil();
                     }
                     else
                     {
@@ -1237,9 +1247,9 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     DistrictID = Convert.ToInt32(ddlSCityDistrict.SelectedValue);
                 }
-                if (!string.IsNullOrEmpty(ddlSCCity.Text))
+                if (!string.IsNullOrEmpty(txtSCity.Text))
                 {
-                    Tehsil = ddlSCCity.Text.Trim();
+                    Tehsil = txtSCity.Text.Trim();
                 }
                 List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
                 gvCity.DataSource = MML;
