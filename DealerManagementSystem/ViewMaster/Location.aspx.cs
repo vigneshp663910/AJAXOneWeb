@@ -415,7 +415,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, txtDistrict.Text.Trim(), null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, txtCountry.Text.Trim(), null, true, PSession.User.UserID);
                     if (Success == true)
                     {
                         lblMessage.Text = "Country is Added successfully";
