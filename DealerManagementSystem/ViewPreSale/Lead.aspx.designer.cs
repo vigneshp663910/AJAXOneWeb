@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewPreSale
     {
 
         /// <summary>
+        /// fldCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldCountry;
+
+        /// <summary>
         /// ddlCategory control.
         /// </summary>
         /// <remarks>
@@ -60,6 +69,42 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
 
         /// <summary>
+        /// txtContactPersonName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContactPersonName;
+
+        /// <summary>
+        /// txtContactNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContactNumber;
+
+        /// <summary>
+        /// txtCustomerCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
+
+        /// <summary>
+        /// ddlLeadType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeadType;
+
+        /// <summary>
         /// txtName control.
         /// </summary>
         /// <remarks>
@@ -69,31 +114,22 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.TextBox txtName;
 
         /// <summary>
-        /// txtCustomer control.
+        /// txtAddress1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomer;
+        protected global::System.Web.UI.WebControls.TextBox txtAddress1;
 
         /// <summary>
-        /// txtAddress control.
+        /// txtAddress2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress;
-
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.TextBox txtAddress2;
 
         /// <summary>
         /// ddlCountry control.
@@ -130,5 +166,14 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTehsil;
+
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }
