@@ -142,6 +142,7 @@
     <Compile Include="BForum.cs" />
     <Compile Include="BIntegration.cs" />
     <Compile Include="BNotification.cs" />
+    <Compile Include="BOrganization.cs" />
     <Compile Include="BSMS.cs" />
     <Compile Include="BTicketCategory.cs" />
     <Compile Include="BTicketResolutionType.cs" />

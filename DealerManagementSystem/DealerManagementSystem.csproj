@@ -247,6 +247,7 @@
     <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
+    <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewSales\ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -650,6 +651,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewOrganization\Organization.aspx.cs">
+      <DependentUpon>Organization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewOrganization\Organization.aspx.designer.cs">
+      <DependentUpon>Organization.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.cs">
       <DependentUpon>Lead.aspx</DependentUpon>

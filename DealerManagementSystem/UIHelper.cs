@@ -10,19 +10,19 @@ namespace DealerManagementSystem
 {
     public static class UIHelper
     {
-        private const String redirectToPasswordChange = "ChangePassword.aspx";
+        private const String redirectToPasswordChange = "/ChangePassword.aspx";
         //private const String redirectOnSuccessfulLogin = "Home.aspx";
         //private const String redirectOnCreateUserCancel = "Home.aspx";
-        private const String sessionFailureRedirectionPage = "Login.aspx";
+        private const String sessionFailureRedirectionPage = "/Login.aspx";
         //private const String redirectOnCreateSupplierASNCancel = "Home.aspx";
-        private const String redirectOnUserManagementCancel = "UserManagement.aspx";
-        private const String redirectOnCreateUserSuccess = "AuthorizeUser.aspx";
-        private const String redirectOnAccessViolation = "ForbidAccess.aspx";
-        private const String redirectAfterChangePassword = "Login.aspx";
+        private const String redirectOnUserManagementCancel = "/UserManagement.aspx";
+        private const String redirectOnCreateUserSuccess = "/AuthorizeUser.aspx";
+        private const String redirectOnAccessViolation = "/ForbidAccess.aspx";
+        private const String redirectAfterChangePassword = "/Login.aspx";
         //private const String redirectOnChangePasswordCancel = "Home.aspx";
-        private const String redirectToHomePage = "Home.aspx";
-        private const String redirectToCreateCircularPage = "PlantCirculars.aspx";
-        private const String redirectToViewCircularPage = "ViewPlantCircular.aspx";
+        private const String redirectToHomePage = "/Home.aspx";
+        private const String redirectToCreateCircularPage = "/PlantCirculars.aspx";
+        private const String redirectToViewCircularPage = "/ViewPlantCircular.aspx";
 
         public static String RedirectToCreateCircularPage
         {

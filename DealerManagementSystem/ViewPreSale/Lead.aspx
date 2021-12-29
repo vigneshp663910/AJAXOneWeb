@@ -3,84 +3,141 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        * {
-            box-sizing: border-box
-        }
-
-        /* Set height of body and the document to 100% */
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial;
-        }
-
-        /* Style tab links */
-        .tablink {
-            background-color: #555;
-            color: white;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 17px;
-            width: 25%;
-        }
-
-            .tablink:hover {
-                background-color: #777;
-            }
-
-        /* Style the tab content (and add height:100% for full page content) */
-        .tabcontent {
-            color: white;
-            display: none;
-            padding: 100px 20px;
-            height: 100%;
-        }
-
-        #Home {
-            background-color: red;
-        }
-
-        #News {
-            background-color: green;
-        }
-
-        #Contact {
-            background-color: blue;
-        }
-
-        #About {
-            background-color: orange;
-        }
-    </style>
-    <script>
-        
-
-        // Get the element with id="defaultOpen" and click on it
-      /*  document.getElementById("defaultOpen").click();*/
-    </script>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox" DataTextField="Category" DataValueField="CategoryID" />
-    <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="TextBox" DataTextField="ProgressStatus" DataValueField="ProgressStatusID" />
-    <asp:DropDownList ID="ddlQualification" runat="server" CssClass="TextBox" DataTextField="Qualification" DataValueField="QualificationID" />
-    <asp:DropDownList ID="ddlSource" runat="server" CssClass="TextBox" DataTextField="Source" DataValueField="SourceID" />
-    <asp:DropDownList ID="ddlStatus" runat="server" CssClass="TextBox" DataTextField="Status" DataValueField="StatusID" />
-    <asp:TextBox ID="txtName" runat="server" CssClass="TextBox" BorderColor="Silver"></asp:TextBox>
-    <asp:TextBox ID="txtCustomer" runat="server" CssClass="TextBox" BorderColor="Silver"></asp:TextBox>
-    <asp:TextBox ID="txtAddress" runat="server" CssClass="TextBox" BorderColor="Silver"></asp:TextBox>
-    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Controls</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Category</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Progress Status</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" DataTextField="ProgressStatus" DataValueField="ProgressStatusID" />
+                    </div>
 
 
+                    <div class="col-md-3 text-right">
+                        <label>Qualification</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Source</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
+                    </div>
+
+
+                    <div class="col-md-3 text-right">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Contact Person</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtContactPersonName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+
+
+
+                    <div class="col-md-3 text-right">
+                        <label>Contact Number</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Customer Code</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+
+
+
+                    <div class="col-md-3 text-right">
+                        <label>Lead Type</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+
+
+                     <div class="col-md-3 text-right">
+                        <label>Address 1</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Address 2</label>
+                    </div>
+                    <div class="col-md-3">
+                         <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+
+
+                     <div class="col-md-3 text-right">
+                        <label>Country</label>
+                    </div>
+                    <div class="col-md-3">
+                       <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>State</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+
+
+                    
+                     <div class="col-md-3 text-right">
+                        <label>District</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Tehsil</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="form-control" DataTextField="Tehsil" DataValueField="TehsilID" />
+                    </div>
+
+
+                </div>
+            </fieldset>
+        </div>
+          <div class="col-md-12 text-center">
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+        </div>
+    </div>
      
-    
-    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="TextBox" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
-    <asp:DropDownList ID="ddlState" runat="server" CssClass="TextBox" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
-    <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="TextBox" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
-    <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="TextBox" DataTextField="Tehsil" DataValueField="TehsilID" />  
 </asp:Content>
