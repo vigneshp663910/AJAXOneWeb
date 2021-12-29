@@ -143,8 +143,8 @@
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuAdhaarCardCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
                         <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileRemove_Click" CssClass="btn Reject" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" CssClass="btn Search" Visible="false">Download</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
                     </div>
                     <div class="col-md-3 text-right">
                         <label>Adhaar Card Copy Back Side</label>
@@ -152,8 +152,8 @@
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuAdhaarCardCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
                         <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" CssClass="btn Reject" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" CssClass="btn Search" Visible="false">Download</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
                     </div>
                     <div class="col-md-3 text-right">
                         <label>Name</label>
@@ -174,7 +174,7 @@
                         <asp:FileUpload ID="fuPhoto" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
                         <asp:Button ID="btnUpload" Text="Upload" runat="server" OnClick="btnUpload_Click" Style="display: none" />
                         <asp:Label ID="lblPhotoFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbPhotoFileRemove" runat="server" OnClick="lbPhotoFileRemove_Click" CssClass="btn Reject" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbPhotoFileRemove" runat="server" OnClick="lbPhotoFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
                         <asp:ImageButton ID="ibtnPhoto" runat="server" OnClick="ibtnPhoto_Click" Width="65px" Height="75px" Visible="false" />
                     </div>
                     <div class="col-md-3 text-right">
@@ -264,8 +264,8 @@
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuPANCardCopy" runat="server" CssClass="form-control" ViewStateMode="Inherit" onchange="UploadFile(this)" />
                         <asp:Label ID="lblPANCardCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbPANCardCopyFileRemove" runat="server" OnClick="lbPANCardCopyFileRemove_Click" CssClass="btn Reject" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbPANCardCopyFileDownload" runat="server" OnClick="lbPANCardCopyFileDownload_Click" CssClass="btn Search" Visible="false">Download</asp:LinkButton>
+                        <asp:LinkButton ID="lbPANCardCopyFileRemove" runat="server" OnClick="lbPANCardCopyFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbPANCardCopyFileDownload" runat="server" OnClick="lbPANCardCopyFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
                     </div>
                     <div class="col-md-3 text-right">
                         <label>BankName</label>
@@ -285,8 +285,8 @@
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuChequeCopy" runat="server" CssClass="form-control" ViewStateMode="Inherit" onchange="UploadFile(this)" />
                         <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbChequeCopyFileRemove" runat="server" OnClick="lbChequeCopyFileRemove_Click" CssClass="btn Reject" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbChequeCopyFileDownload" runat="server" OnClick="lbChequeCopyFileDownload_Click" CssClass="btn Search" Visible="false">Download</asp:LinkButton>
+                        <asp:LinkButton ID="lbChequeCopyFileRemove" runat="server" OnClick="lbChequeCopyFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbChequeCopyFileDownload" runat="server" OnClick="lbChequeCopyFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
                     </div>
                     <div class="col-md-3 text-right">
                         <label>IFSC Code</label>
