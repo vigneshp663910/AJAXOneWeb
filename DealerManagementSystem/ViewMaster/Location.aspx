@@ -14,7 +14,7 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">Country</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>Country</label>
+                                    <label>Country</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control" />
@@ -89,12 +89,12 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">Region</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>Country</label>
+                                    <label>Country</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlRCountry" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
-                                <div class="col-md-2 text-right">
+                                <div class="col-md-2 text-right"><span class="Mandatory">*</span>
                                     <label>Region</label>
                                 </div>
                                 <div class="col-md-3">
@@ -176,13 +176,13 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">State</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>Country</label>
+                                    <label>Country</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <label>Region</label>
+                                    <label>Region</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlSRegion" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -190,13 +190,13 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>State</label>
+                                    <label>State</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox ID="txtState" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <label>State Code</label>
+                                    <label>State Code</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox ID="txtStateCode" runat="server" CssClass="form-control" />
@@ -310,13 +310,13 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">District</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>Country</label>
+                                    <label>Country</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlDCountry" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <label>State</label>
+                                    <label>State</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlDState" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -324,7 +324,7 @@
                             </div>
                             <div class="col-md-12">                                
                                 <div class="col-md-2 text-right">
-                                    <label>District</label>
+                                    <label>District</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox ID="txtDistrict" runat="server" CssClass="form-control" />
@@ -426,13 +426,13 @@
                             <legend style="background: none; color: #007bff; font-size: 17px;">City</legend>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>Country</label>
+                                    <label>Country</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlCityCountry" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <label>State</label>
+                                    <label>State</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlCityState" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -440,13 +440,13 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
-                                    <label>District</label>
+                                    <label>District</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlCityDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <label>City</label>
+                                    <label>City</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" />

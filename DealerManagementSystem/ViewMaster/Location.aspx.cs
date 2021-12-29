@@ -420,6 +420,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "Country is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridCountry();
                     }
                     else
                     {
@@ -579,6 +580,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "Region is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridRegion();
                     }
                     else
                     {
@@ -762,6 +764,11 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the State";
                     Success = false;
                 }
+                if (string.IsNullOrEmpty(txtStateCode.Text.Trim()))
+                {
+                    Message = Message + "<br/> Please Enter the StateCode";
+                    Success = false;
+                }
                 lblMessage.Text = Message;
                 if (Success == false)
                 {
@@ -774,6 +781,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "State is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridState();
                     }
                     else
                     {
@@ -990,6 +998,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "District is updated successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridDistrict();
                     }
                     else
                     {
@@ -1199,6 +1208,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         lblMessage.Text = "City is Added successfully";
                         lblMessage.ForeColor = Color.Green;
+                        FillGridTehsil();
                     }
                     else
                     {
