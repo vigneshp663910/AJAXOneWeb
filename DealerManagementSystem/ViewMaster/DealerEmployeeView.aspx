@@ -51,6 +51,144 @@
                         <asp:Label ID="lblContactNumber1" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-3 text-right">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Equcational Qualification</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblEqucationalQualification" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Total Experience</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblTotalExperience" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Address</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblAddress" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>State</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>District</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Tehsil</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblTehsil" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Village</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblVillage" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Location</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Aadhaar Card No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblAadhaarCardNo" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Adhaar Card Copy Front Side</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileName" runat="server" OnClick="lbfuAdhaarCardCopyFrontSide_Click" Visible="false">
+                            <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                        </asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Adhaar Card Copy Back Side</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileName" runat="server" OnClick="lbAdhaarCardCopyBackSide_Click" Visible="false">
+                            <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                        </asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>PANNo</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblPANNo" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>PAN Card Copy</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:LinkButton ID="lbPANCardCopyFileName" runat="server" OnClick="lbPANCardCopy_Click" Visible="false">
+                                                                <asp:Label ID="lblPANCardCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                                                            </asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>BankName</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblBankName" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Account No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblAccountNo" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>IFSC Code</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblIFSCCode" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Cheque Copy</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:LinkButton ID="lbChequeCopyFileName" runat="server" OnClick="lbChequeCopy_Click" Visible="false">
+                                                                <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
+                                                            </asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Department</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblDepartment" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Designation</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label></label>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label></label>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3 text-right">
                         <label></label>
                     </div>
                     <div class="col-md-3">
@@ -86,234 +224,6 @@
                                     <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body2">
                                         <table class="labeltxt fullWidth">
                                             <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label22" runat="server" CssClass="label" Text="Email"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="auto-style1">
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="lblHMRValue" runat="server" CssClass="label" Text="Equcational Qualification"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblEqucationalQualification" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="auto-style1">
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label23" runat="server" CssClass="label" Text="Total Experience"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblTotalExperience" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label12" runat="server" CssClass="label" Text="Address"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblAddress" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label30" runat="server" CssClass="label" Text="State"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label21" runat="server" CssClass="label" Text="District"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label106" runat="server" CssClass="label" Text="Tehsil"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblTehsil" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-left">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label32" runat="server" CssClass="label" Text="Village"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblVillage" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label36" runat="server" CssClass="label" Text="Location"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-left">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label7" runat="server" CssClass="label" Text="Aadhaar Card No"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblAadhaarCardNo" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label24" runat="server" CssClass="label" Text="Adhaar Card Copy Front Side"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-
-                                                            <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileName" runat="server" OnClick="lbfuAdhaarCardCopyFrontSide_Click" Visible="false">
-                                                                <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                            </asp:LinkButton>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label35" runat="server" CssClass="label" Text="Adhaar Card Copy Back Side"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-
-                                                            <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileName" runat="server" OnClick="lbAdhaarCardCopyBackSide_Click" Visible="false">
-                                                                <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                            </asp:LinkButton>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label16" runat="server" CssClass="label" Text="PANNo"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblPANNo" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label25" runat="server" CssClass="label" Text="PAN Card Copy"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-
-                                                            <asp:LinkButton ID="lbPANCardCopyFileName" runat="server" OnClick="lbPANCardCopy_Click" Visible="false">
-                                                                <asp:Label ID="lblPANCardCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                            </asp:LinkButton>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label27" runat="server" CssClass="label" Text="BankN ame"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblBankName" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label29" runat="server" CssClass="label" Text="Account No"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblAccountNo" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label1" runat="server" CssClass="label" Text="IFSC Code"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblIFSCCode" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label17" runat="server" CssClass="label" Text="Cheque Copy"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-
-                                                            <asp:LinkButton ID="lbChequeCopyFileName" runat="server" OnClick="lbChequeCopy_Click" Visible="false">
-                                                                <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
-                                                            </asp:LinkButton>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label3" runat="server" CssClass="label" Text="Department"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblDepartment" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="tbl-row-right">
-                                                        <div class="tbl-col-left">
-                                                            <asp:Label ID="Label4" runat="server" CssClass="label" Text="Designation"></asp:Label>
-                                                        </div>
-                                                        <div class="tbl-col-right">
-                                                            <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </td>
                                                 <td>
                                                     <div class="tbl-row-right">
                                                         <div class="tbl-col-left">

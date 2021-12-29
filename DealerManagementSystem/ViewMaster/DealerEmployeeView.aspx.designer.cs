@@ -78,24 +78,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblContactNumber1;
 
         /// <summary>
-        /// imgCallInformation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgCallInformation;
-
-        /// <summary>
-        /// Label22 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label22;
-
-        /// <summary>
         /// lblEmail control.
         /// </summary>
         /// <remarks>
@@ -103,15 +85,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEmail;
-
-        /// <summary>
-        /// lblHMRValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHMRValue;
 
         /// <summary>
         /// lblEqucationalQualification control.
@@ -123,15 +96,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblEqucationalQualification;
 
         /// <summary>
-        /// Label23 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label23;
-
-        /// <summary>
         /// lblTotalExperience control.
         /// </summary>
         /// <remarks>
@@ -139,15 +103,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalExperience;
-
-        /// <summary>
-        /// Label12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label12;
 
         /// <summary>
         /// lblAddress control.
@@ -159,15 +114,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblAddress;
 
         /// <summary>
-        /// Label30 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label30;
-
-        /// <summary>
         /// lblState control.
         /// </summary>
         /// <remarks>
@@ -175,15 +121,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblState;
-
-        /// <summary>
-        /// Label21 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label21;
 
         /// <summary>
         /// lblDistrict control.
@@ -195,15 +132,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblDistrict;
 
         /// <summary>
-        /// Label106 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label106;
-
-        /// <summary>
         /// lblTehsil control.
         /// </summary>
         /// <remarks>
@@ -211,15 +139,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTehsil;
-
-        /// <summary>
-        /// Label32 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label32;
 
         /// <summary>
         /// lblVillage control.
@@ -231,15 +150,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblVillage;
 
         /// <summary>
-        /// Label36 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label36;
-
-        /// <summary>
         /// lblLocation control.
         /// </summary>
         /// <remarks>
@@ -249,15 +159,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblLocation;
 
         /// <summary>
-        /// Label7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
-
-        /// <summary>
         /// lblAadhaarCardNo control.
         /// </summary>
         /// <remarks>
@@ -265,15 +166,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAadhaarCardNo;
-
-        /// <summary>
-        /// Label24 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label24;
 
         /// <summary>
         /// lbAdhaarCardCopyFrontSideFileName control.
@@ -294,15 +186,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblAdhaarCardCopyFrontSideFileName;
 
         /// <summary>
-        /// Label35 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label35;
-
-        /// <summary>
         /// lbAdhaarCardCopyBackSideFileName control.
         /// </summary>
         /// <remarks>
@@ -321,15 +204,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblAdhaarCardCopyBackSideFileName;
 
         /// <summary>
-        /// Label16 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label16;
-
-        /// <summary>
         /// lblPANNo control.
         /// </summary>
         /// <remarks>
@@ -337,15 +211,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPANNo;
-
-        /// <summary>
-        /// Label25 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label25;
 
         /// <summary>
         /// lbPANCardCopyFileName control.
@@ -366,15 +231,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblPANCardCopyFileName;
 
         /// <summary>
-        /// Label27 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label27;
-
-        /// <summary>
         /// lblBankName control.
         /// </summary>
         /// <remarks>
@@ -382,15 +238,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBankName;
-
-        /// <summary>
-        /// Label29 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label29;
 
         /// <summary>
         /// lblAccountNo control.
@@ -402,15 +249,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblAccountNo;
 
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-
-        /// <summary>
         /// lblIFSCCode control.
         /// </summary>
         /// <remarks>
@@ -418,15 +256,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIFSCCode;
-
-        /// <summary>
-        /// Label17 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label17;
 
         /// <summary>
         /// lbChequeCopyFileName control.
@@ -447,15 +276,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblChequeCopyFileName;
 
         /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-
-        /// <summary>
         /// lblDepartment control.
         /// </summary>
         /// <remarks>
@@ -465,15 +285,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblDepartment;
 
         /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-
-        /// <summary>
         /// lblDesignation control.
         /// </summary>
         /// <remarks>
@@ -481,6 +292,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDesignation;
+
+        /// <summary>
+        /// imgCallInformation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgCallInformation;
 
         /// <summary>
         /// Label5 control.
