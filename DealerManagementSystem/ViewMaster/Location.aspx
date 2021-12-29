@@ -21,22 +21,12 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSaveCountry" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCountry_Click"></asp:Button>
+                                    <asp:Button ID="BtnSearchCountry" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCountry_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>Country</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtSCountry" runat="server" CssClass="form-control" />
-                                </div>
-                                <div class="col-md-2">
-                                    <asp:Button ID="BtnSearchCountry" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCountry_Click"></asp:Button>
-                                </div>
-                            </div>
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvCountry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
                                     <Columns>
@@ -102,28 +92,12 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSaveRegion" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveRegion_Click"></asp:Button>
+                                    <asp:Button ID="BtnSearchRegion" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchRegion_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>Country</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSRCountry" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    <label>Region</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtSRRegion" runat="server" CssClass="form-control" MaxLength="10"/>
-                                </div>
-                                <div class="col-md-2">
-                                    <asp:Button ID="BtnSearchRegion" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchRegion_Click"></asp:Button>
-                                </div>
-                            </div>
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvRegion" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvRegion_RowDataBound">
                                     <Columns>
@@ -203,36 +177,12 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSaveState" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveState_Click"></asp:Button>
+                                    <asp:Button ID="BtnSearchState" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchState_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>Country</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSSCountry" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    <label>Region</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSSRegion" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>State</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtSSState" runat="server" CssClass="form-control" />
-                                </div>
-                                <div class="col-md-2">
-                                    <asp:Button ID="BtnSearchState" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchState_Click"></asp:Button>
-                                </div>
-                            </div>
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvState" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvState_RowDataBound">
                                     <Columns>
@@ -331,36 +281,12 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSaveDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveDistrict_Click"></asp:Button>
+                                    <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchDistrict_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>Country</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSDCountry" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    <label>State</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSDState" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-12">                                
-                                <div class="col-md-2 text-right">
-                                    <label>District</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtSDDistrict" runat="server" CssClass="form-control" />
-                                </div>
-                                <div class="col-md-2">
-                                    <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchDistrict_Click"></asp:Button>
-                                </div>
-                            </div>
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvDistrict" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvDistrict_RowDataBound">
                                     <Columns>
@@ -453,42 +379,12 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSaveCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCity_Click"></asp:Button>
+                                    <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>Country</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSCityCountry" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    <label>State</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSCityState" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>District</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSCityDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    <label>City</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtSCity" runat="server" CssClass="form-control" />
-                                </div>
-                                <div class="col-md-2">
-                                    <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
-                                </div>
-                            </div>
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvCity" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvCity_RowDataBound">
                                     <Columns>

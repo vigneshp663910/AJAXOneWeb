@@ -106,14 +106,10 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                FillCountryDLL(ddlSSCountry);
                 FillCountryDLL(ddlRCountry);
-                FillCountryDLL(ddlSRCountry);
                 FillCountryDLL(ddlSCountry);
                 FillCountryDLL(ddlDCountry);
-                FillCountryDLL(ddlSDCountry);
                 FillCountryDLL(ddlCityCountry);
-                FillCountryDLL(ddlSCityCountry);
             }
             catch (Exception Ex)
             {
@@ -198,12 +194,6 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 int? CountryID = null;
-                if (ddlSSCountry.SelectedValue != "0")
-                {
-                    CountryID = Convert.ToInt32(ddlSSCountry.SelectedValue);
-                }
-                FillRegionDLL(ddlSSRegion, CountryID, null, null);
-                CountryID = null;
                 if (ddlSCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
@@ -231,24 +221,13 @@ namespace DealerManagementSystem.ViewMaster
                     CountryID = Convert.ToInt32(ddlDCountry.SelectedValue);
                 }
                 FillStateDLL(ddlDState, CountryID, null, null, null);
-                CountryID = null; RegionID = null;
-                if (ddlSDCountry.SelectedValue != "0")
-                {
-                    CountryID = Convert.ToInt32(ddlSDCountry.SelectedValue);
-                }
-                FillStateDLL(ddlSDState, CountryID, null, null, null);
+
                 CountryID = null; RegionID = null;
                 if (ddlCityCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
                 }
                 FillStateDLL(ddlCityState, CountryID, null, null, null);
-                CountryID = null; RegionID = null;
-                if (ddlSCityCountry.SelectedValue != "0")
-                {
-                    CountryID = Convert.ToInt32(ddlSCityCountry.SelectedValue);
-                }
-                FillStateDLL(ddlSCityState, CountryID, null, null, null);
             }
             catch (Exception Ex)
             {
@@ -272,16 +251,6 @@ namespace DealerManagementSystem.ViewMaster
                     StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
                 FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
-                CountryID = null; RegionID = null; StateID = null; DistrictID = null; district = null;
-                if (ddlSCityCountry.SelectedValue != "0")
-                {
-                    CountryID = Convert.ToInt32(ddlSCityCountry.SelectedValue);
-                }
-                if (ddlSCityState.SelectedValue != "0")
-                {
-                    StateID = Convert.ToInt32(ddlSCityState.SelectedValue);
-                }
-                FillDistrictDLL(ddlSCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
             }
             catch (Exception Ex)
             {
@@ -295,18 +264,22 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 int? CountryID = null, RegionID = null, StateID = null;
-                string State = null;
-                if (ddlSSCountry.SelectedValue != "0")
+                string State = null, StateCode = null;
+                if (ddlSCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlSSCountry.SelectedValue);
+                    CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
                 }
-                if (ddlSSRegion.SelectedValue != "0")
+                if (ddlSRegion.SelectedValue != "0")
                 {
-                    RegionID = Convert.ToInt32(ddlSSRegion.SelectedValue);
+                    RegionID = Convert.ToInt32(ddlSRegion.SelectedValue);
                 }
-                if (!string.IsNullOrEmpty(txtSSState.Text))
+                if (!string.IsNullOrEmpty(txtState.Text))
                 {
-                    State = txtSRRegion.Text.Trim();
+                    State = txtState.Text.Trim();
+                }
+                if (!string.IsNullOrEmpty(txtStateCode.Text))
+                {
+                    StateCode = txtStateCode.Text.Trim();
                 }
                 List<PDMS_State> MML = new BDMS_Address().GetState(CountryID, RegionID, null, State);
                 gvState.DataSource = MML;
@@ -325,17 +298,17 @@ namespace DealerManagementSystem.ViewMaster
             {
                 int? CountryID = null, RegionID = null, StateID = null, DistrictID = null;
                 string District = null;
-                if (ddlSDCountry.SelectedValue != "0")
+                if (ddlDCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlSDCountry.SelectedValue);
+                    CountryID = Convert.ToInt32(ddlDCountry.SelectedValue);
                 }
-                if (ddlSDState.SelectedValue != "0")
+                if (ddlDState.SelectedValue != "0")
                 {
-                    StateID = Convert.ToInt32(ddlSDState.SelectedValue);
+                    StateID = Convert.ToInt32(ddlDState.SelectedValue);
                 }
-                if (!string.IsNullOrEmpty(txtSDDistrict.Text))
+                if (!string.IsNullOrEmpty(txtDistrict.Text))
                 {
-                    District = txtSDDistrict.Text.Trim();
+                    District = txtDistrict.Text.Trim();
                 }
                 List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
                 gvDistrict.DataSource = MML;
@@ -354,9 +327,9 @@ namespace DealerManagementSystem.ViewMaster
             {
                 int? CountryID = null;
                 string country = null;
-                if (!string.IsNullOrEmpty(txtSCountry.Text))
+                if (!string.IsNullOrEmpty(txtCountry.Text))
                 {
-                    country = txtSCountry.Text.Trim();
+                    country = txtCountry.Text.Trim();
                 }
                 List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, country);
                 gvCountry.DataSource = MML;
@@ -375,13 +348,13 @@ namespace DealerManagementSystem.ViewMaster
             {
                 int? CountryID = null, RegionID = null;
                 string Region = null;
-                if (ddlSRCountry.SelectedValue != "0")
+                if (ddlRCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlSRCountry.SelectedValue);
+                    CountryID = Convert.ToInt32(ddlRCountry.SelectedValue);
                 }
-                if (!string.IsNullOrEmpty(txtSRRegion.Text))
+                if (!string.IsNullOrEmpty(txtRRegion.Text))
                 {
-                    Region = txtSRRegion.Text.Trim();
+                    Region = txtRRegion.Text.Trim();
                 }
                 List<PDMS_Region> MML = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
                 gvRegion.DataSource = MML;
@@ -1235,21 +1208,21 @@ namespace DealerManagementSystem.ViewMaster
             {
                 int? CountryID = null, StateID = null, DistrictID = null;
                 string Tehsil = null;
-                if (ddlSCityCountry.SelectedValue != "0")
+                if (ddlCityCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlSCityCountry.SelectedValue);
+                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
                 }
-                if (ddlSCityState.SelectedValue != "0")
+                if (ddlCityState.SelectedValue != "0")
                 {
-                    StateID = Convert.ToInt32(ddlSCityState.SelectedValue);
+                    StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
-                if (ddlSCityDistrict.SelectedValue != "0")
+                if (ddlCityDistrict.SelectedValue != "0")
                 {
-                    DistrictID = Convert.ToInt32(ddlSCityDistrict.SelectedValue);
+                    DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
                 }
-                if (!string.IsNullOrEmpty(txtSCity.Text))
+                if (!string.IsNullOrEmpty(txtCity.Text))
                 {
-                    Tehsil = txtSCity.Text.Trim();
+                    Tehsil = txtCity.Text.Trim();
                 }
                 List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
                 gvCity.DataSource = MML;
