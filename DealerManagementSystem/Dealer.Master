@@ -452,7 +452,27 @@
         /*.w3-padding-large {
             padding: initial !important;
         }*/
+        .lRemove{
+            background: #C22439 !important;
+            color: white;
+            height: 23px;
+        }
+        .lRemove:hover{
+            background: #C22439 !important;
+            color: white;
+            height: 23px;
+        }
 
+        .lDownload{
+            background: #009ad7 !important;
+            color: white;
+            height: 23px;
+        }
+        .lDownload:hover{
+            background: #009ad7 !important;
+            color: white;
+            height: 23px;
+        }
         .w3-bar-block .w3-bar-item {
             padding: 3px 2px 2px 10px !important;
         }
@@ -607,7 +627,7 @@
             vertical-align: top;
             border-top: 1px solid #ddd;
             font-weight: initial;
-            text-align: left;
+            text-align: none;
         }
 
         b, strong {
@@ -667,9 +687,6 @@
 
         button, input {
             height: 23px;
-        }
-        div a{
-            height:23px !important;
         }
         @media (min-width: 768px) {
             .col-md-3 {

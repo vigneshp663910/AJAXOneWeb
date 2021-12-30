@@ -30,7 +30,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Session["previousUrl"] = "DMS_DealerEmployeeApproval.aspx";
+            Session["previousUrl"] = "DealerEmployeeApproval.aspx";
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -125,7 +125,7 @@ namespace DealerManagementSystem.ViewMaster
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
             Session["DealerEmployeeApproval"] = gvDealerEmployee.DataKeys[index].Value.ToString();
-            string url = "DMS_DealerEmployeeCreate.aspx";
+            string url = "DealerEmployeeCreate.aspx";
             Response.Redirect(url);
         }
         protected void lbApproval_Click(object sender, EventArgs e)
