@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Organization.aspx.cs" Inherits="DealerManagementSystem.ViewOrganization.Organization" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -22,9 +23,63 @@
         }
     </script>
 
-    <h3>Populate Treeview Nodes Dynamically (On Demand)</h3>
-    <%-- Scripr manager is required as we are using AJAX --%>
-    <%-- UpdateProgress is used for show loading panel while loading child nodes --%>
+
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <asp1:TabContainer ID="tbpOrgChart" runat="server" ToolTip="DMS Organisation Chart" Font-Bold="True" Font-Size="Medium" VerticalStripWidth="240px">
+                <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="OEM" Font-Bold="True" ToolTip="OEM  Organisation Chart...">
+                    <ContentTemplate>
+                        <fieldset class="fieldset-border">
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                <ContentTemplate>
+                                    <script type="text/javascript">
+                                        Sys.Application.add_load(placeUP);
+                                    </script>
+                                    <%-- Here ExpandDepth="0" for eleminates the expansion of the added treenodes --%>
+
+                                    <asp:TreeView ID="TreeView1" runat="server" ExpandDepth="5" PopulateNodesFromClient="false" OnTreeNodePopulate="TreeView1_TreeNodePopulate">
+                                    </asp:TreeView>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </fieldset>
+                    </ContentTemplate>
+                </asp1:TabPanel>
+                <asp1:TabPanel ID="tpDealerOrg" runat="server" HeaderText="DEALER">
+                    <ContentTemplate>
+                        <fieldset class="fieldset-border">
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/ProcessFlow/Dealer_Org1.png" />
+                        </fieldset>
+                    </ContentTemplate>
+                </asp1:TabPanel>
+                <asp1:TabPanel ID="tplSalesOrg" runat="server" HeaderText="Sales">
+                    <ContentTemplate>
+                        <fieldset class="fieldset-border">
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org1.png" />
+                        </fieldset>
+                    </ContentTemplate>
+                </asp1:TabPanel>
+                <asp1:TabPanel ID="tpPartsOrg" runat="server" HeaderText="Parts">
+                    <ContentTemplate>
+                        <fieldset class="fieldset-border">
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org1.png" />
+                        </fieldset>
+                    </ContentTemplate>
+                </asp1:TabPanel>
+                <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
+                    <ContentTemplate>
+                        <fieldset class="fieldset-border">
+                            <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service_Org1.png" />
+                        </fieldset>
+                    </ContentTemplate>
+                </asp1:TabPanel>
+
+            </asp1:TabContainer>
+        </div>
+    </div>
+
+    
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
         <ProgressTemplate>
             <div id="UP" style="position: absolute; background-image: url('ajax-loader.gif'); background-repeat: no-repeat; width: 20px;">
@@ -32,42 +87,6 @@
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
 
-            <script type="text/javascript">
-                Sys.Application.add_load(placeUP);
-            </script>
-            <%-- Here ExpandDepth="0" for eleminates the expansion of the added treenodes --%>
-
-       <%--   <asp:ListView ID="TreeView1" runat="server" ExpandDepth="0" PopulateNodesFromClient="false" OnTreeNodePopulate="TreeView1_TreeNodePopulate">--%>
-                 <asp:TreeView  ID="TreeView1" runat="server" ExpandDepth="0" PopulateNodesFromClient="false"  OnTreeNodePopulate="TreeView1_TreeNodePopulate">
-                     
-               <%-- <alternatingitemtemplate>
-                    <table>
-                        <td>
-                            <asp:Label ID="NovinkaLabel" runat="server" Text="John" />
-                        </td>
-                    </table>
-                </alternatingitemtemplate>
-                <itemtemplate>
-                    <table>
-                        <td>
-                            <asp:Label ID="Label1" runat="server" Text="Pe" />
-                        </td>
-                    </table>
-                </itemtemplate>--%>
-              
-            </asp:TreeView>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-
-    <%--    <asp:TreeView ID="TreeView1" runat="server" ImageSet="XPFileExplorer" NodeIndent="15">
-        <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
-        <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black" HorizontalPadding="2px" NodeSpacing="0px" VerticalPadding="2px"></NodeStyle>
-        <ParentNodeStyle Font-Bold="False" />
-        <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px" VerticalPadding="0px" />
-    </asp:TreeView>--%>
-
-    <asp:Button ID="Button1" runat="server" Text="Button"  OnClick="Button1_Click"/>
+     
 </asp:Content>

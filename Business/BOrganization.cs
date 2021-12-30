@@ -37,8 +37,8 @@ namespace Business
                         {
                             W = new PDealerEmployee();
                             Ws.Add(W); 
-                            W.EmpId = Convert.ToInt32(dr["DealerEmployeeID"]);
-                            W.EmployeeName = Convert.ToString(dr["DealerEmployeeRoleID"]);
+                            W.EmpId = Convert.ToInt32(dr["UserID"]);
+                            W.EmployeeName = Convert.ToString(dr["Name"]);
                              
                            
                         }

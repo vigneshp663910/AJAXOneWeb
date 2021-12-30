@@ -46,7 +46,8 @@ namespace DealerManagementSystem.ViewAdmin
             //    EmpId = Convert.ToInt32(txtEmp.Text);
             //}
             List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "");
-            u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            u = u.FindAll(m =>   m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvUser.DataSource = u;
             gvUser.DataBind();
         }
