@@ -60,15 +60,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.TextBox txtCountry;
 
         /// <summary>
-        /// BtnSaveCountry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveCountry;
-
-        /// <summary>
         /// BtnSearchCountry control.
         /// </summary>
         /// <remarks>
@@ -76,6 +67,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchCountry;
+
+        /// <summary>
+        /// BtnSaveCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSaveCountry;
 
         /// <summary>
         /// gvCountry control.
@@ -123,15 +123,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.TextBox txtRRegion;
 
         /// <summary>
-        /// BtnSaveRegion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveRegion;
-
-        /// <summary>
         /// BtnSearchRegion control.
         /// </summary>
         /// <remarks>
@@ -139,6 +130,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchRegion;
+
+        /// <summary>
+        /// BtnSaveRegion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSaveRegion;
 
         /// <summary>
         /// gvRegion control.
@@ -204,15 +204,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.TextBox txtStateCode;
 
         /// <summary>
-        /// BtnSaveState control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveState;
-
-        /// <summary>
         /// BtnSearchState control.
         /// </summary>
         /// <remarks>
@@ -220,6 +211,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchState;
+
+        /// <summary>
+        /// BtnSaveState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSaveState;
 
         /// <summary>
         /// gvState control.
@@ -267,15 +267,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.TextBox txtDistrict;
 
         /// <summary>
-        /// BtnSaveDistrict control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveDistrict;
-
-        /// <summary>
         /// BtnSearchDistrict control.
         /// </summary>
         /// <remarks>
@@ -283,6 +274,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchDistrict;
+
+        /// <summary>
+        /// BtnSaveDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSaveDistrict;
 
         /// <summary>
         /// gvDistrict control.
@@ -339,15 +339,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.TextBox txtCity;
 
         /// <summary>
-        /// BtnSaveCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSaveCity;
-
-        /// <summary>
         /// BtnSearchCity control.
         /// </summary>
         /// <remarks>
@@ -355,6 +346,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchCity;
+
+        /// <summary>
+        /// BtnSaveCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSaveCity;
 
         /// <summary>
         /// gvCity control.
