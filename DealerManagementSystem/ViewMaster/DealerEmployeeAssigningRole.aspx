@@ -3,9 +3,9 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
+    <%--<script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
     <script type="text/javascript">
         function isNumber(evt) {
             var iKeyCode = (evt.which) ? evt.which : evt.keyCode
@@ -33,91 +33,74 @@
             else if (val.length > 4) {
                 document.getElementById('<%=txtAadhaarCardNo.ClientID %>').value = val.substring(0, 4) + "-" + val.substring(4, 8);
             }
-    }
-    function replaceAll(str, term, replacement) {
-        return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
-    }
-    function escapeRegExp(string) {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
+        }
+        function replaceAll(str, term, replacement) {
+            return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
+        }
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Dealer</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" Width="250px" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Aadhaar Card No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)"></asp:TextBox>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label></label>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label></label>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-2">
+            <label>Dealer Employee Manage</label><asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
+            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
+            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
+            </div>
+    </div>
+
+
+
+
     <div class="container">
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
                 <div class="rf-p-b " id="txnHistory:j_idt1289_body">
-                    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
                     <asp:Panel ID="pnlManage" runat="server">
-                        <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%">
-                            <tr>
-                                <td>
-                                    <div class="boxHead">
-                                        <div class="logheading">Filter </div>
-                                        <div style="float: right; padding-top: 0px">
-                                            <a href="javascript:collapseExpand();">
-                                                <img id="imageID" runat="server" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="22" width="22" />
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                        </div>
-                                    </div>
-                                    <asp:Panel ID="pnlFilterContent" runat="server">
-                                        <div class="rf-p " id="txnHistory1:inputFiltersPanel">
-                                            <div class="rf-p-b " id="txnHistory1:inputFiltersPanel_body">
-                                                <table class="labeltxt fullWidth">
-                                                    <tr>
-                                                        <td>
-                                                            <div>
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label3" runat="server" CssClass="label" Text="Dealer"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div>
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label5" runat="server" CssClass="label" Text="Aadhaar Card No"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="input" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)"></asp:TextBox>
-                                                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div>
-                                                                <div class="tbl-col-left">
-                                                                    <asp:Label ID="Label4" runat="server" CssClass="label" Text="Name"></asp:Label>
-                                                                </div>
-                                                                <div class="tbl-col-right">
-                                                                    <asp:TextBox ID="txtName" runat="server" CssClass="input"></asp:TextBox>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-btn excelBtn">
-                                                                <div class="tbl-col-btn">
-                                                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                                                                </div>
-                                                                <div class="tbl-col-btn"></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </asp:Panel>
-                                </td>
-                            </tr>
-                        </table>
                         <table id="txnHistory:panelGridid" style="height: 100%; width: 100%">
                             <tr>
                                 <td><span id="txnHistory1:refreshDataGroup">
@@ -128,13 +111,13 @@
                                                     <tr>
                                                         <td>Dealer Employee Manage</td>
                                                         <td>
-                                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
+                                                            
                                                         </td>
                                                         <td>
-                                                            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
+                                                            
                                                         </td>
                                                         <td>
-                                                            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
+                                                            
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -585,7 +568,7 @@
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                 </asp:TemplateField>
 
-                                                  <asp:TemplateField HeaderText="SAP Emp Code">
+                                                <asp:TemplateField HeaderText="SAP Emp Code">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblSAPEmpCode" Text='<%# DataBinder.Eval(Container.DataItem, "SAPEmpCode" )%>' runat="server"></asp:Label>
                                                     </ItemTemplate>

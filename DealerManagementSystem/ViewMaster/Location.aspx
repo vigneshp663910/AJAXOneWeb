@@ -20,8 +20,8 @@
                                     <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
-                                    <asp:Button ID="BtnSaveCountry" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCountry_Click"></asp:Button>
                                     <asp:Button ID="BtnSearchCountry" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCountry_Click"></asp:Button>
+                                    <asp:Button ID="BtnSaveCountry" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCountry_Click"></asp:Button>                                    
                                 </div>
                             </div>
                         </fieldset>
@@ -91,8 +91,8 @@
                                     <asp:TextBox ID="txtRRegion" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
-                                    <asp:Button ID="BtnSaveRegion" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveRegion_Click"></asp:Button>
                                     <asp:Button ID="BtnSearchRegion" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchRegion_Click"></asp:Button>
+                                    <asp:Button ID="BtnSaveRegion" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveRegion_Click"></asp:Button>                                    
                                 </div>
                             </div>
                         </fieldset>
@@ -176,8 +176,8 @@
                                     <asp:TextBox ID="txtStateCode" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
-                                    <asp:Button ID="BtnSaveState" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveState_Click"></asp:Button>
                                     <asp:Button ID="BtnSearchState" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchState_Click"></asp:Button>
+                                    <asp:Button ID="BtnSaveState" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveState_Click"></asp:Button>                                    
                                 </div>
                             </div>
                         </fieldset>
@@ -280,8 +280,8 @@
                                     <asp:TextBox ID="txtDistrict" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
-                                    <asp:Button ID="BtnSaveDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveDistrict_Click"></asp:Button>
                                     <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchDistrict_Click"></asp:Button>
+                                    <asp:Button ID="BtnSaveDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveDistrict_Click"></asp:Button>                                    
                                 </div>
                             </div>
                         </fieldset>
@@ -378,8 +378,8 @@
                                     <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" />
                                 </div>
                                 <div class="col-md-2">
-                                    <asp:Button ID="BtnSaveCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCity_Click"></asp:Button>
                                     <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
+                                    <asp:Button ID="BtnSaveCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCity_Click"></asp:Button>                                    
                                 </div>
                             </div>
                         </fieldset>

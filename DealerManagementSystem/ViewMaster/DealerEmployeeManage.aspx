@@ -90,23 +90,23 @@
                         <asp:CheckBox ID="cbBasedOnRole" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton btn Search" OnClick="btnExportExcel_Click" Width="100px"/>
+                        <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="InputButton btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton btn Search" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
             </fieldset>
         </div>
         <div class="col-md-2">
-                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-1">
-                    <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
-                </div>
-                <div class="col-md-1">
-                    <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
-                </div>
+            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
+            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
+            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-1">
+        </div>
         <div class="col-md-12">
-            <div class="col-md-12 Report">                
+            <div class="col-md-12 Report">
                 <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="Dealer Code">
