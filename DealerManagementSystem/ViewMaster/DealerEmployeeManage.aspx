@@ -118,21 +118,21 @@
                                 <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerName")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="250px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Name">
                             <ItemTemplate>
                                 <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
                             </ItemTemplate>
                             <HeaderStyle Width="162px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Father Name">
                             <ItemTemplate>
                                 <asp:Label ID="lblFatherName" Text='<%# DataBinder.Eval(Container.DataItem, "FatherName")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="192px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Contact Number">
                             <ItemTemplate>
@@ -145,14 +145,14 @@
                             <ItemTemplate>
                                 <asp:Label ID="lblEmail" Text='<%# DataBinder.Eval(Container.DataItem, "Email")%>' runat="server"></asp:Label>
                             </ItemTemplate>
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="State">
                             <ItemTemplate>
                                 <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="75px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Aadhaar Card No">
                             <ItemTemplate>
@@ -173,14 +173,14 @@
                                 <asp:Label ID="lblCreatedByID" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.UserID")%>' runat="server" Visible="false"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="76px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Is Approved">
                             <ItemTemplate>
                                 <asp:CheckBox ID="cbIsAjaxHPApproved" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsAjaxHPApproved")%>' Enabled="false" />
                             </ItemTemplate>
                             <HeaderStyle Width="76px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>

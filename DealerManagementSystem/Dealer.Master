@@ -627,7 +627,7 @@
             vertical-align: top;
             border-top: 1px solid #ddd;
             font-weight: initial;
-            text-align: left;
+            text-align: none;
         }
 
         b, strong {

@@ -203,28 +203,28 @@
                                 <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployee.Name")%>' runat="server" />
                             </ItemTemplate>
                             <HeaderStyle Width="162px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Dealer Code">
                             <ItemTemplate>
                                 <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
                             </ItemTemplate>
                             <HeaderStyle Width="62px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Dealer Name">
                             <ItemTemplate>
                                 <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="250px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Dealer Office">
                             <ItemTemplate>
                                 <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerOffice.OfficeName")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="250px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Date Of Joining">
                             <ItemTemplate>
@@ -245,20 +245,20 @@
                                 <asp:Label ID="lblContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDepartment.DealerDepartment")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="150px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Designation">
                             <ItemTemplate>
                                 <asp:Label ID="lblEmail" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDesignation.DealerDesignation")%>' runat="server"></asp:Label>
                             </ItemTemplate>
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Reporting To">
                             <ItemTemplate>
                                 <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "ReportingTo.Name" )%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="75px" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="SAP Emp Code">
