@@ -21,14 +21,18 @@ namespace DealerManagementSystem.ViewOrganization
 
         private void PopulateCountry()
         {
+            TreeNode t = new TreeNode(PSession.User.ContactName, Convert.ToString( PSession.User.UserID));
+            t.PopulateOnDemand = true;
+            TreeView1.Nodes.Add(t);
             List<PDealerEmployee> allCountry = new List<PDealerEmployee>();
-            allCountry = new BOrganization().GetOrganization(1);
+            allCountry = new BOrganization().GetOrganization(PSession.User.UserID);
             foreach (PDealerEmployee c in allCountry)
             {
-                TreeNode t = new TreeNode(c.EmployeeName, c.EmpId.ToString());
-                t.PopulateOnDemand = true;
-                TreeView1.Nodes.Add(t);
+                TreeNode sub = new TreeNode(c.EmployeeName, c.EmpId.ToString());
+                sub.PopulateOnDemand = true;
+                t.ChildNodes.Add(sub);
             }
+           
         }
 
         protected void TreeView1_TreeNodePopulate(object sender, TreeNodeEventArgs e)
@@ -39,14 +43,17 @@ namespace DealerManagementSystem.ViewOrganization
             int countryID = Convert.ToInt32(main.Value);
             List<PDealerEmployee> allState = new List<PDealerEmployee>();
 
-            allState = new BOrganization().GetOrganization(1);
+            allState = new BOrganization().GetOrganization(countryID);
            
 
             foreach (PDealerEmployee s in allState)
             {
-                TreeNode sub = new TreeNode(s.EmployeeName, s.EmpId.ToString());
-                sub.PopulateOnDemand = true;
-                main.ChildNodes.Add(sub);
+                if (countryID != s.EmpId)
+                {
+                    TreeNode sub = new TreeNode(s.EmployeeName, s.EmpId.ToString());
+                    sub.PopulateOnDemand = true;
+                    main.ChildNodes.Add(sub);
+                }
             }
         }
 

@@ -101,7 +101,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Session["previousUrl"] = "DMS_DealerEmployeeCreate.aspx";
+            Session["previousUrl"] = "DealerEmployeeCreate.aspx";
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -523,7 +523,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            string url = "DMS_DealerEmployeeApproval.aspx";
+            string url = "DealerEmployeeApproval.aspx";
             Response.Redirect(url);
         }
 
