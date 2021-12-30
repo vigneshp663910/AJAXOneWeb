@@ -96,17 +96,14 @@
                 </div>
             </fieldset>
         </div>
-        <div class="col-md-2">
-            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
-            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
-            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
-        </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-1">
-        </div>
+
         <div class="col-md-12">
             <div class="col-md-12 Report">
+                <div class="col-md-12">
+                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
+                    <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
+                    <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
+                </div>
                 <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="Dealer Code">
