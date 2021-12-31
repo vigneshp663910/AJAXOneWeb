@@ -45,21 +45,21 @@
                 <asp1:TabPanel ID="tplSalesOrg" runat="server" HeaderText="Sales">
                     <ContentTemplate>
                         <fieldset class="fieldset-border">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org1.png" />
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org2.png" Width="1100" Height="900" />
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
                 <asp1:TabPanel ID="tpPartsOrg" runat="server" HeaderText="Parts">
                     <ContentTemplate>
                         <fieldset class="fieldset-border">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org1.png" />
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org2.png" Width="1100" Height="900" />
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
                 <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
                     <ContentTemplate>
                         <fieldset class="fieldset-border">
-                            <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service_Org1.png" />
+                            <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service_Org2.png" Width="1100" Height="900" />
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
