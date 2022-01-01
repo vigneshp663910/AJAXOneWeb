@@ -396,7 +396,7 @@ namespace DealerManagementSystem.ViewSales
                 foreach (PDMS_SalesInvoice M in SDMS_SalesInvoice)
                 {
                     dt.Rows.Add(
-                        M.InvoiceID, M.Customer.CustomerCode, M.Customer.CustomerName, M.GSTNo, M.Customer.StateN.State
+                        M.InvoiceID, M.Customer.CustomerCode, M.Customer.CustomerName, M.GSTNo, M.Customer.State.State
 
                         , M.InvoiceNumber, M.InvoiceDate == null ? "" : ((DateTime)M.InvoiceDate).ToShortDateString()
                         , M.SaleOrderNumber, M.SaleOrderDate == null ? "" : ((DateTime)M.SaleOrderDate).ToShortDateString()

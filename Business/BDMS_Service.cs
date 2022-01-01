@@ -1046,11 +1046,11 @@ namespace Business
                // PDMS_PaidServiceInvoiceE PaidServiceInvoiceE = new BDMS_Service().GetPaidServiceInvoiceE(ServiceInvoiceHeaderID) ;
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 if (string.IsNullOrEmpty(Customer.GSTIN))
                 {
@@ -1074,7 +1074,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = Dealer.StateCode;
+                string StateCode = Dealer.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 decimal CessValue = 0;
@@ -1144,8 +1144,8 @@ namespace Business
                 P[11] = new ReportParameter("CustomerName", PaidServiceInvoice.ICTicket.Customer.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[14] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
-                P[15] = new ReportParameter("CustomerStateCode", Customer.StateCode, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
+                P[15] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("ICTicketNo", PaidServiceInvoice.ICTicket.ICTicketNumber, false);
                 P[18] = new ReportParameter("KindAttn", PaidServiceInvoice.ICTicket.KindAttn, false);
@@ -1254,10 +1254,10 @@ namespace Business
             DbParameter SAddr2 = provider.CreateParameter("Supplier_addr2", Dealer.Address3, DbType.String);
             DbParameter SLocation = provider.CreateParameter("SupplierLocation", Dealer.City, DbType.String);
             DbParameter SPincode = provider.CreateParameter("SupplierPincode", Dealer.Pincode, DbType.String);
-            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.StateCode, DbType.String);
+            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.State.StateCode, DbType.String);
 
             DbParameter BGSTIN = provider.CreateParameter("BuyerGSTIN", Customer.GSTIN, DbType.String);
-            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.StateCode, DbType.String);
+            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.State.StateCode, DbType.String);
             DbParameter BAddr1 = provider.CreateParameter("Buyer_addr1", Customer.Address12, DbType.String);
             DbParameter BAddr2 = provider.CreateParameter("Buyer_addr2", Customer.Address3, DbType.String);
             DbParameter BLoc = provider.CreateParameter("Buyer_loc", Customer.City, DbType.String);
@@ -1436,12 +1436,12 @@ namespace Business
                 PDMS_PaidServiceInvoice PaidServiceInvoice = new BDMS_Service().GetPaidServiceQuotation(ServiceQuotationID, null, "", null, null, null, "")[0];
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
 
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -1457,7 +1457,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = Dealer.StateCode;
+                string StateCode = Dealer.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 decimal CessValue = 0;
@@ -1515,7 +1515,7 @@ namespace Business
                 P[11] = new ReportParameter("CustomerName", PaidServiceInvoice.ICTicket.Customer.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[14] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("ICTicketNo", PaidServiceInvoice.ICTicket.ICTicketNumber, false);
@@ -1695,12 +1695,12 @@ namespace Business
                 PDMS_PaidServiceInvoice PaidServiceInvoice = new BDMS_Service().GetPaidServiceProformaInvoice(ServiceQuotationID, null, "", null, null, null, "")[0];
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
 
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
 
                 if (string.IsNullOrEmpty(Customer.GSTIN))
@@ -1726,7 +1726,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = Dealer.StateCode;
+                string StateCode = Dealer.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 decimal CessValue = 0;
@@ -1784,7 +1784,7 @@ namespace Business
                 P[11] = new ReportParameter("CustomerName", PaidServiceInvoice.ICTicket.Customer.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[14] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("ICTicketNo", PaidServiceInvoice.ICTicket.ICTicketNumber, false);

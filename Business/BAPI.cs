@@ -176,8 +176,7 @@ namespace Business
         {
            // JsonResult JsonContent = new JsonResult();
             string AccessToken = "";
-
-            string url = "https://localhost:44302/api/"+ Filter;
+              
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
           //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
@@ -203,6 +202,8 @@ namespace Business
             } 
             return ""; 
         }
+
+      
         public String ApiPut(string EndPoint,object obj)
         {
             // JsonResult JsonContent = new JsonResult();

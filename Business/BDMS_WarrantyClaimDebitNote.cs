@@ -325,10 +325,10 @@ namespace Business
             DbParameter SAddr2 = provider.CreateParameter("Supplier_addr2", Dealer.Address2, DbType.String);
             DbParameter SLocation = provider.CreateParameter("SupplierLocation", Dealer.City, DbType.String);
             DbParameter SPincode = provider.CreateParameter("SupplierPincode", Dealer.Pincode, DbType.String);
-            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.StateCode, DbType.String);
+            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.State.StateCode, DbType.String);
 
             DbParameter BGSTIN = provider.CreateParameter("BuyerGSTIN", Customer.GSTIN, DbType.String);
-            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.StateCode, DbType.String);
+            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.State.StateCode, DbType.String);
             DbParameter BAddr1 = provider.CreateParameter("Buyer_addr1", Customer.Address1, DbType.String);
             DbParameter BAddr2 = provider.CreateParameter("Buyer_addr2", Customer.Address2, DbType.String);
             DbParameter BLoc = provider.CreateParameter("Buyer_loc", Customer.City, DbType.String);

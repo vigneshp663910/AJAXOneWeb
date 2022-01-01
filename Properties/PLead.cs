@@ -12,8 +12,7 @@ namespace Properties
         public long LeadID { get; set; }
         public DateTime LeadDate { get; set; }
 
-        public string LeadNumber { get; set; }
-        public string Name { get; set; }
+        public string LeadNumber { get; set; } 
         public PLeadCategory Category { get; set; }
         public PLeadProgressStatus ProgressStatus { get; set; }
         public PLeadQualification Qualification { get; set; }
@@ -24,15 +23,15 @@ namespace Properties
         public PDMS_Customer Customer { get; set; }
 
         public string Remarks { get; set; }
-        public string PersonName { get; set; }
-        public string PersonContactNumber { get; set; }
-        public string PersonMail { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public PDMS_Country Country { get; set; }
-        public PDMS_State State { get; set; }
-        public PDMS_District District { get; set; }
-        public PDMS_Tehsil Tehsil { get; set; }
+        //public string PersonName { get; set; }
+        //public string PersonContactNumber { get; set; }
+        //public string PersonMail { get; set; }
+        //public string Address1 { get; set; }
+        //public string Address2 { get; set; }
+        //public PDMS_Country Country { get; set; }
+        //public PDMS_State State { get; set; }
+        //public PDMS_District District { get; set; }
+        //public PDMS_Tehsil Tehsil { get; set; }
 
         public PUser CreatedBy { get; set; }
         public string CreatedOn { get; set; }
@@ -106,5 +105,25 @@ namespace Properties
     {
         public int TypeID { get; set; }
         public string Type { get; set; }
+    }
+    [Serializable]
+    public class PLeadSearch
+    {
+        public long? LeadID { get; set; }
+        public string LeadNumber { get; set; }
+        public DateTime? LeadDateFrom { get; set; }
+        public DateTime? LeadDateTo { get; set; }
+        public int? StatusID { get; set; }
+        public int? ProgressStatusID { get; set; }
+        public int? CategoryID { get; set; }
+        public int? QualificationID { get; set; }
+        public int? SourceID { get; set; }
+        public int? TypeID { get; set; }
+        public int? DealerID { get; set; }
+        public int? CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public int? CountryID { get; set; }
+        public int? StateID { get; set; }
+        public string Name { get; set; }
     }
 }

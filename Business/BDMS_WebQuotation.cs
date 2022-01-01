@@ -340,7 +340,7 @@ namespace Business
                             W.ShipTo = new PDMS_Customer()
                             {
                                 CustomerCode = Convert.ToString(dr["ShipTo"]),
-                                StateN = new PDMS_State() { StateID = Convert.ToInt32(dr["ShipToStateID"]), State = Convert.ToString(dr["State"]) },
+                                State = new PDMS_State() { StateID = Convert.ToInt32(dr["ShipToStateID"]), State = Convert.ToString(dr["State"]) },
                                 District = dr["ShipToDistrictID"] == DBNull.Value?null: new PDMS_District() { DistrictID = Convert.ToInt32(dr["ShipToDistrictID"]), District = Convert.ToString(dr["District"]) },
                                 City = Convert.ToString(dr["ShipToCity"]),
                                 Address1 = Convert.ToString(dr["ShipToAddress1"]),

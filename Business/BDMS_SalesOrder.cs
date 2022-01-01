@@ -690,7 +690,7 @@ namespace Business
                             i = i + 1;
                             SOI.InvoiceID = i;
                             SOI.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]), State = Convert.ToString(dr["DealerState"]) };
-                            SOI.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]), StateN = new PDMS_State() { State = Convert.ToString(dr["CustomerState"]) } };
+                            SOI.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]), State = new PDMS_State() { State = Convert.ToString(dr["CustomerState"]) } };
                             SOI.GSTNo = Convert.ToString(dr["GSTNO"]);
                             SOI.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
                             SOI.InvoiceDate = DBNull.Value == dr["InvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["InvoiceDate"]);

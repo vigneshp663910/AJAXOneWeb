@@ -624,7 +624,7 @@ namespace Business
                                 W.InvoiceDetails.Supplier_addr1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2)).Trim(',');
                                 W.InvoiceDetails.SupplierLocation = Dealer.City;
                                 W.InvoiceDetails.SupplierPincode = Dealer.Pincode;
-                                W.InvoiceDetails.SupplierStateCode = Dealer.StateCode;
+                                W.InvoiceDetails.SupplierStateCode = Dealer.State.StateCode;
 
                                 W.InvoiceDetails.BuyerGSTIN = Convert.ToString(dr["BuyerGSTIN"]);
                                 W.InvoiceDetails.BuyerName = Convert.ToString(dr["BuyerName"]);

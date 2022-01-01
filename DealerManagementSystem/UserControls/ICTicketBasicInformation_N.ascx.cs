@@ -743,7 +743,7 @@ namespace DealerManagementSystem.UserControls
             PDMS_Customer Customer = new SCustomer().getCustomerAddress(SDMS_ICTicket.Customer.CustomerCode);
 
             Boolean IsIGST = true;
-            if (Dealer.StateCode == Customer.StateCode)
+            if (Dealer.State.StateCode == Customer.State.StateCode)
                 IsIGST = false;
 
 

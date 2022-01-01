@@ -372,7 +372,7 @@ namespace DealerManagementSystem.UserControls
                 PDMS_Customer CustomerP = new SCustomer().getCustomerAddress(SDMS_ICTicket.Customer.CustomerCode);
 
                 MaterialTax.BasePrice = MM_SQL.CurrentPrice * Convert.ToDecimal(txtQtyF.Text);
-                if (Dealer.StateCode == CustomerP.StateCode)
+                if (Dealer.State.StateCode == CustomerP.State.StateCode)
                 {
                     IsIGST = false;
                     MaterialTax.IGST = MM_SQL.TaxPercentage;

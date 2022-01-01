@@ -314,12 +314,12 @@ namespace DealerManagementSystem.UserControls
                 + RowTD.Replace("@@RowDetails", "Actual Date of Commissioning (dd/mm/yyyy)").Replace("@@RowPRF", SDMS_ICTicket.Equipment.EquipmentSerialNo)
 
                 + RowTD.Replace("@@RowDetails", "Customer Name (Person/Organisation)").Replace("@@RowPRF", Customer.CustomerName)
-                + RowTD.Replace("@@RowDetails", "Customer Contact Number").Replace("@@RowPRF", Customer.MOBILE)
-                + RowTD.Replace("@@RowDetails", "End user / Customer Mail ID").Replace("@@RowPRF", Customer.EMAIL)
+                + RowTD.Replace("@@RowDetails", "Customer Contact Number").Replace("@@RowPRF", Customer.Mobile)
+                + RowTD.Replace("@@RowDetails", "End user / Customer Mail ID").Replace("@@RowPRF", Customer.Email)
                 + RowTD.Replace("@@RowDetails", "Office Address").Replace("@@RowPRF", Customer.Address12)
                 + RowTD.Replace("@@RowDetails", "Office Address City").Replace("@@RowPRF", Customer.City)
                 // + RowTD.Replace("@@RowDetails", "Office Address District").Replace("@@RowPRF", Customer.District.District)
-                + RowTD.Replace("@@RowDetails", "Office Address State").Replace("@@RowPRF", Customer.StateN.State)
+                + RowTD.Replace("@@RowDetails", "Office Address State").Replace("@@RowPRF", Customer.State.State)
                 + RowTD.Replace("@@RowDetails", "Office Address Pin Code").Replace("@@RowPRF", Customer.Pincode)
 
                 + RowTD.Replace("@@RowDetails", "Site Person Name").Replace("@@RowPRF", SDMS_ICTicket.SiteContactPersonName)
@@ -361,15 +361,15 @@ namespace DealerManagementSystem.UserControls
                 P[3] = new ReportParameter("CommissioningDate", txtRestoreDate.Text, false);
                 P[4] = new ReportParameter("CustomerName", Customer.CustomerName, false);
 
-                P[5] = new ReportParameter("Mobile", Customer.MOBILE, false);
-                P[6] = new ReportParameter("Email", Customer.EMAIL, false);
+                P[5] = new ReportParameter("Mobile", Customer.Mobile, false);
+                P[6] = new ReportParameter("Email", Customer.Email, false);
 
 
                 P[7] = new ReportParameter("OfficeAddress", Customer.Address12, false);
 
                 P[8] = new ReportParameter("OfficeAddressCity", Customer.City, false);
                 P[9] = new ReportParameter("OfficeAddressDistrict", "", false);
-                P[10] = new ReportParameter("OfficeAddressState", Customer.StateN.State, false);
+                P[10] = new ReportParameter("OfficeAddressState", Customer.State.State, false);
                 P[11] = new ReportParameter("OfficeAddressPinCode", Customer.Pincode, false);
 
 

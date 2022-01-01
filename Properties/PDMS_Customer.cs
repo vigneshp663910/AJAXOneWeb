@@ -8,36 +8,37 @@ namespace Properties
     [Serializable]
     public class PDMS_Customer
     {
-        public int CustomerID { get; set; } 
+        public int CustomerID { get; set; }
         public string CustomerCode { get; set; }
-        public string CustomerCodeWithOutZero {
+        public string CustomerCodeWithOutZero
+        {
             get
             {
                 if (string.IsNullOrEmpty(CustomerCode))
                     return "";
                 return Convert.ToString(Convert.ToInt64(CustomerCode));
             }
-            
+
         }
         public string CustomerName { get; set; }
-        public string OrgName { get; set; }
+        //public string OrgName { get; set; }
         public string OfficeID { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
-        public string City { get; set; }
-        public PDMS_State StateN { get; set; }
-        public PDMS_District District { get; set; }
-        public string StateCode { get; set; }
-        public string Country { get; set; }
         public string Pincode { get; set; }
         public string GSTIN { get; set; }
         public string PAN { get; set; }
-        public string MOBILE { get; set; }
-        public string EMAIL { get; set; }
-        public string ContactPerson  { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string ContactPerson { get; set; }
         public string Address12 { get; set; }
         public PDMS_CustomerCategory CustomerCategory { get; set; }
+        public PDMS_Country Country { get; set; }
+        public PDMS_State State { get; set; }
+        public PDMS_District District { get; set; }
+        public PDMS_Tehsil Tehsil { get; set; }
+        public string City { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerCategory

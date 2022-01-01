@@ -444,7 +444,7 @@ namespace DealerManagementSystem.ViewService
 
                 PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(FM.Dealer.DealerCode);
                 string DealerAddress1 = (DealerAD.Address1 + (string.IsNullOrEmpty(DealerAD.Address2) ? "" : "," + DealerAD.Address2) + (string.IsNullOrEmpty(DealerAD.Address3) ? "" : "," + DealerAD.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.StateN.State) ? "" : "," + DealerAD.StateN.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.State.State) ? "" : "," + DealerAD.State.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
 
 
                 DataTable CommissionDT = new DataTable();
@@ -462,7 +462,7 @@ namespace DealerManagementSystem.ViewService
 
                 decimal ApproximateValue = 0;
                 //  decimal GrandTotal = 0;
-                string StateCode = DealerAD.StateCode;
+                string StateCode = DealerAD.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
 

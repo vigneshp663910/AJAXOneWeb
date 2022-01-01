@@ -333,11 +333,11 @@ namespace DealerManagementSystem.ViewService
             {
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(FSR.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(FSR.ICTicket.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 DataTable AvailabilityOfOtherMachineDT = new DataTable();
                 AvailabilityOfOtherMachineDT.Columns.Add("TypeOfMachine");
@@ -499,8 +499,8 @@ namespace DealerManagementSystem.ViewService
                 P[2] = new ReportParameter("CustomerName", Customer.CustomerName, false);
                 P[3] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[4] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[5] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
-                P[6] = new ReportParameter("CustomerStateCode", Customer.StateCode, false);
+                P[5] = new ReportParameter("CustomerMail", Customer.Email, false);
+                P[6] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
                 P[7] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
 
                 P[8] = new ReportParameter("ContactPerson", FSR.ICTicket.SiteContactPersonName, false);
@@ -568,7 +568,7 @@ namespace DealerManagementSystem.ViewService
                 P[53] = new ReportParameter("DealerName", Dealer.CustomerName, false);
                 P[54] = new ReportParameter("DealerAddress1", DealerAddress1, false);
                 P[55] = new ReportParameter("DealerAddress2", DealerAddress2, false);
-                P[56] = new ReportParameter("DealerStateCode", Dealer.StateCode, false);
+                P[56] = new ReportParameter("DealerStateCode", Dealer.State.StateCode, false);
                 P[57] = new ReportParameter("DealerGST", Dealer.GSTIN, false);
                 P[58] = new ReportParameter("SESuggestion", FSR.Report, false);
                 P[59] = new ReportParameter("ContactNumber2", FSR.ICTicket.SiteContactPersonNumber2, false);
@@ -907,9 +907,9 @@ namespace DealerManagementSystem.ViewService
             string URL = ConfigurationManager.AppSettings["URL"] + "/Customer/TSIROTPApprove.aspx?ICTicketNumber=" + FSR.ICTicket.ICTicketNumber;
 
             string Message = "Greetings from Ajax.  " + sRandomOTP + " is the one time password (OTP) for acknowledging FSR " + FSRNumber + ". Click below link to acknowledge. Do not share it with anyone. " + URL;
-            if (!string.IsNullOrEmpty(Customer.MOBILE.Trim()))
+            if (!string.IsNullOrEmpty(Customer.Mobile.Trim()))
             {
-                new BSMS().SendSMS(Customer.MOBILE, Message);
+                new BSMS().SendSMS(Customer.Mobile, Message);
             }
         }
         private string GenerateRandomOTP(int iOTPLength, string[] saAllowedCharacters)
