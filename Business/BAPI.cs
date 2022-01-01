@@ -203,14 +203,13 @@ namespace Business
             } 
             return ""; 
         }
-        public String ApiPut(string EndPoint)
+        public String ApiPut(string EndPoint,object obj)
         {
             // JsonResult JsonContent = new JsonResult();
-            string AccessToken = "";
-            string url = "https://localhost:44302/api/Master/GetServiceType";
+            string AccessToken = ""; 
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {
@@ -219,12 +218,11 @@ namespace Business
             //    };
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
-
-            var APIResponse = client.GetAsync(ApiBaseAddress + EndPoint).Result;
+            var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
+             
             if (APIResponse.IsSuccessStatusCode)
             {
                 return APIResponse.Content.ReadAsStringAsync().Result;
-
             }
             else
             {

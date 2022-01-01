@@ -9,17 +9,32 @@ namespace Properties
     [Serializable]
     public class PLead
     {
-        public long Lead { get; set; }
+        public long LeadID { get; set; }
+        public DateTime LeadDate { get; set; }
+
         public string LeadNumber { get; set; }
         public string Name { get; set; }
-        public PLeadCategory LeadCategory { get; set; }
-        public PLeadProgressStatus LeadProgressStatus { get; set; }
-        public PLeadQualification LeadQualification { get; set; }
-        public PLeadSource LeadSource { get; set; }
-        public PLeadStatus LeadStatus { get; set; }
+        public PLeadCategory Category { get; set; }
+        public PLeadProgressStatus ProgressStatus { get; set; }
+        public PLeadQualification Qualification { get; set; }
+        public PLeadSource Source { get; set; }
+        public PLeadStatus Status { get; set; }
+        public PLeadType Type { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_Customer Customer { get; set; }
-        public int CreatedBy { get; set; }
+
+        public string Remarks { get; set; }
+        public string PersonName { get; set; }
+        public string PersonContactNumber { get; set; }
+        public string PersonMail { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public PDMS_Country Country { get; set; }
+        public PDMS_State State { get; set; }
+        public PDMS_District District { get; set; }
+        public PDMS_Tehsil Tehsil { get; set; }
+
+        public PUser CreatedBy { get; set; }
         public string CreatedOn { get; set; }
     }
 
@@ -86,5 +101,10 @@ namespace Properties
         public int StatusID { get; set; }
         public string Status { get; set; }
     }
- 
+    [Serializable]
+    public class PLeadType
+    {
+        public int TypeID { get; set; }
+        public string Type { get; set; }
+    }
 }

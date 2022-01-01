@@ -132,6 +132,7 @@
     <Compile Include="BDMS_WarrantyClaimInvoice.cs" />
     <Compile Include="BDMS_WarrantyFailureMaterial.cs" />
     <Compile Include="BDMS_WebQuotation.cs" />
+    <Compile Include="BDropDownListBind.cs" />
     <Compile Include="BEmployee.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -144,6 +145,7 @@
     <Compile Include="BNotification.cs" />
     <Compile Include="BOrganization.cs" />
     <Compile Include="BSMS.cs" />
+    <Compile Include="BTest.cs" />
     <Compile Include="BTicketCategory.cs" />
     <Compile Include="BTicketResolutionType.cs" />
     <Compile Include="BTickets.cs" />
