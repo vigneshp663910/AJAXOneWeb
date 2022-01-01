@@ -76,7 +76,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Location');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master > Location');</script>");
 
             if (!IsPostBack)
             {
@@ -367,7 +367,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void BtnSaveCountry_Click(object sender, EventArgs e)
+        protected void BtnAddCountry_Click(object sender, EventArgs e)
         {
             try
             {
@@ -522,7 +522,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void BtnSaveRegion_Click(object sender, EventArgs e)
+        protected void BtnAddRegion_Click(object sender, EventArgs e)
         {
             try
             {
@@ -713,7 +713,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void BtnSaveState_Click(object sender, EventArgs e)
+        protected void BtnAddState_Click(object sender, EventArgs e)
         {
             try
             {
@@ -935,7 +935,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void BtnSaveDistrict_Click(object sender, EventArgs e)
+        protected void BtnAddDistrict_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1140,7 +1140,7 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
-        protected void BtnSaveCity_Click(object sender, EventArgs e)
+        protected void BtnAddCity_Click(object sender, EventArgs e)
         {
             try
             {

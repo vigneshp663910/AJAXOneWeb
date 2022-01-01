@@ -21,7 +21,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchCountry" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCountry_Click"></asp:Button>
-                                    <asp:Button ID="BtnSaveCountry" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCountry_Click"></asp:Button>                                    
+                                    <asp:Button ID="BtnAddCountry" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddCountry_Click"></asp:Button>
+
                                 </div>
                             </div>
                         </fieldset>
@@ -33,6 +34,7 @@
                                         <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <%--<asp:TemplateField HeaderText="Country ID">
@@ -80,7 +82,8 @@
                                 <div class="col-md-3">
                                     <asp:DropDownList ID="ddlRCountry" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
-                                <div class="col-md-2 text-right"><span class="Mandatory">*</span>
+                                <div class="col-md-2 text-right">
+                                    <span class="Mandatory">*</span>
                                     <label>Region</label>
                                 </div>
                                 <div class="col-md-3">
@@ -88,7 +91,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchRegion" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchRegion_Click"></asp:Button>
-                                    <asp:Button ID="BtnSaveRegion" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveRegion_Click"></asp:Button>                                    
+                                    <asp:Button ID="BtnAddRegion" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddRegion_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
@@ -97,7 +100,7 @@
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvRegion" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvRegion_RowDataBound">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Row ID" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             </ItemTemplate>
@@ -169,7 +172,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchState" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchState_Click"></asp:Button>
-                                    <asp:Button ID="BtnSaveState" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveState_Click"></asp:Button>                                    
+                                    <asp:Button ID="BtnAddState" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddState_Click"></asp:Button>
+
                                 </div>
                             </div>
                         </fieldset>
@@ -178,7 +182,7 @@
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvState" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvState_RowDataBound">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Row ID" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             </ItemTemplate>
@@ -258,7 +262,7 @@
                                     <asp:DropDownList ID="ddlDState" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
                             </div>
-                            <div class="col-md-12">                                
+                            <div class="col-md-12">
                                 <div class="col-md-2 text-right">
                                     <label>District</label><span class="Mandatory">*</span>
                                 </div>
@@ -267,7 +271,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchDistrict_Click"></asp:Button>
-                                    <asp:Button ID="BtnSaveDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveDistrict_Click"></asp:Button>                                    
+                                    <asp:Button ID="BtnAddDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddDistrict_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
@@ -282,7 +286,7 @@
                                             <asp:CheckBox ID="CheckBox1" runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                        <asp:TemplateField HeaderText="Row ID" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             </ItemTemplate>
@@ -360,7 +364,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
-                                    <asp:Button ID="BtnSaveCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnSaveCity_Click"></asp:Button>                                    
+                                    <asp:Button ID="BtnAddCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddCity_Click"></asp:Button>
                                 </div>
                             </div>
                         </fieldset>
@@ -369,7 +373,7 @@
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvCity" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnRowDataBound="gvCity_RowDataBound">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Row ID" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             </ItemTemplate>
@@ -394,7 +398,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="City">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtGCity" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' Enabled="false"/>
+                                                <asp:TextBox ID="txtGCity" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' Enabled="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
