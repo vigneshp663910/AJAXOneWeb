@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 namespace DealerManagementSystem
 {
@@ -51,7 +49,7 @@ namespace DealerManagementSystem
                 menu();
             }
         }
-        string ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, string MenuDMS,[Optional] string MainMenu)
+        string ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, string MenuDMS, [Optional] string MainMenu)
         {
             List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
             if (SMsCount.Count() == 0)
@@ -63,13 +61,13 @@ namespace DealerManagementSystem
                 List<PSubModuleAccess> PA1s = SMs.Where(x => x.ParentMenu == SM.SubModuleName).ToList();
                 if (PA1s.Count() == 0)
                 {
-                    MenuDMS = MenuDMS + "<a href='Location.aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].ParentMenu.ToString() + "','"+ MainMenu + "')>" + SM.SubModuleName + "</a>";
+                    MenuDMS = MenuDMS + "<a href='Location.aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].ParentMenu.ToString() + "','" + MainMenu + "')>" + SM.SubModuleName + "</a>";
                 }
                 else
                 {
                     MenuDMS += "<a onclick=Menu('" + SM.SubModuleName + "','" + SM.ParentMenu + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.SubModuleName + "'>" + SM.SubModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
                     MenuDMS += "<div id='" + SM.SubModuleName + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
-                    MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS,SM.ParentMenu);
+                    MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS, SM.ParentMenu);
                     MenuDMS += "</div>";
                 }
             }

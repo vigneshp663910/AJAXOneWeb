@@ -3,8 +3,6 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -61,7 +59,7 @@ namespace DealerManagementSystem.ViewMaster
                     fillDealer();
                 }
 
-                new BDMS_Address().GetState(ddlState,null,null, null, null);
+                new BDMS_Address().GetState(ddlState, null, null, null, null);
             }
         }
 

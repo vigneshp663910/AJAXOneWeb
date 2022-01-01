@@ -6,8 +6,6 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
@@ -236,7 +234,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.Text = "Please enter the ticket note";
                 return false;
             }
-           
+
             if (string.IsNullOrEmpty(txtContactName.Text.Trim()))
             {
                 lblMessage.Text = "Please enter the contact name";

@@ -2,8 +2,6 @@
 using Properties;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,7 +21,7 @@ namespace DealerManagementSystem.ViewOrganization
 
         private void PopulateCountry()
         {
-            TreeNode t = new TreeNode(PSession.User.ContactName, Convert.ToString( PSession.User.UserID));
+            TreeNode t = new TreeNode(PSession.User.ContactName, Convert.ToString(PSession.User.UserID));
             t.PopulateOnDemand = true;
             TreeView1.Nodes.Add(t);
             List<PDealerEmployee> allCountry = new List<PDealerEmployee>();
@@ -34,7 +32,7 @@ namespace DealerManagementSystem.ViewOrganization
                 sub.PopulateOnDemand = true;
                 t.ChildNodes.Add(sub);
             }
-           
+
         }
 
         protected void TreeView1_TreeNodePopulate(object sender, TreeNodeEventArgs e)
@@ -46,7 +44,7 @@ namespace DealerManagementSystem.ViewOrganization
             List<PDealerEmployee> allState = new List<PDealerEmployee>();
 
             allState = new BOrganization().GetOrganization(countryID);
-           
+
 
             foreach (PDealerEmployee s in allState)
             {

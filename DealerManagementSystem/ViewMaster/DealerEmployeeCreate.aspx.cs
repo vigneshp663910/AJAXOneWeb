@@ -129,7 +129,7 @@ namespace DealerManagementSystem.ViewMaster
                 ViewState["PANCardCopyAttachedFileID"] = null;
                 ViewState["ChequeCopyAttachedFileID"] = null;
 
-                new BDMS_Address().GetState(ddlState,null,null, null, null);
+                new BDMS_Address().GetState(ddlState, null, null, null, null);
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEqucationalQualification, null, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
 
@@ -216,13 +216,13 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlDistrict.SelectedValue != "0")
-                new BDMS_Address().GetTehsil(ddlTehsil,null,null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+                new BDMS_Address().GetTehsil(ddlTehsil, null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
 
-            if(cbAjaxEmp.Checked)
+            if (cbAjaxEmp.Checked)
             {
                 SaveAjaxEmp();
                 return;
@@ -403,7 +403,7 @@ namespace DealerManagementSystem.ViewMaster
                 if (Emp.District != null)
                 {
                     ddlDistrict.SelectedValue = Convert.ToString(Emp.District.DistrictID);
-                    new BDMS_Address().GetTehsil(ddlTehsil,null,null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+                    new BDMS_Address().GetTehsil(ddlTehsil, null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
                     if (Emp.Tehsil != null)
                     {
                         ddlTehsil.SelectedValue = Convert.ToString(Emp.Tehsil.TehsilID);
@@ -841,7 +841,7 @@ namespace DealerManagementSystem.ViewMaster
                 Message = "Please enter the Name";
                 Ret = false;
                 txtName.BorderColor = Color.Red;
-            } 
+            }
 
             if (txtContactNumber.Text.Trim().Count() != 10)
             {
@@ -856,12 +856,12 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 txtEmail.BorderColor = Color.Red;
             }
-     
+
             lblMessage.Text = Message;
             if (!Ret)
             {
                 return Ret;
-            } 
+            }
             string email = txtEmail.Text;
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(email);
@@ -870,7 +870,7 @@ namespace DealerManagementSystem.ViewMaster
                 Message = Message + "<br/>" + email + " is not correct";
                 Ret = false;
                 txtEmail.BorderColor = Color.Red;
-            } 
+            }
 
             long valueLong;
 
@@ -1015,7 +1015,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 return;
             }
-            PDMS_DealerEmployee Emp = new PDMS_DealerEmployee(); 
+            PDMS_DealerEmployee Emp = new PDMS_DealerEmployee();
             Emp.Name = txtName.Text.Trim();
             Emp.LoginUserName = txtLoginUserName.Text.Trim();
             Emp.FatherName = txtFatherName.Text.Trim();
@@ -1024,7 +1024,7 @@ namespace DealerManagementSystem.ViewMaster
             Emp.DOB = string.IsNullOrEmpty(txtDOB.Text.Trim()) ? DateTime.Now : Convert.ToDateTime(txtDOB.Text.Trim());
             Emp.ContactNumber = txtContactNumber.Text.Trim();
             Emp.ContactNumber1 = txtContactNumber1.Text.Trim();
-           
+
             Emp.Email = txtEmail.Text.Trim();
 
             Emp.Address = txtAddress.Text.Trim();
@@ -1069,10 +1069,10 @@ namespace DealerManagementSystem.ViewMaster
             if (ddlBloodGroup.SelectedValue != "0")
             {
                 Emp.BloodGroup = new PDMS_BloodGroup() { BloodGroupID = Convert.ToInt32(ddlBloodGroup.SelectedValue) };
-            } 
-           
+            }
 
-            int DealerEmployeeID = new BDMS_Dealer().InsertOrUpdateDealerEmployee(Emp, PSession.User.UserID); 
+
+            int DealerEmployeeID = new BDMS_Dealer().InsertOrUpdateDealerEmployee(Emp, PSession.User.UserID);
 
             PDMS_DealerEmployeeRole Role = new PDMS_DealerEmployeeRole();
             Role.DealerEmployeeID = DealerEmployeeID;
@@ -1087,7 +1087,7 @@ namespace DealerManagementSystem.ViewMaster
             Role.DealerDesignation = new PDMS_DealerDesignation();
             Role.DealerDesignation.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
 
-            
+
 
             if (DealerEmployeeID != 0)
             {
@@ -1161,8 +1161,8 @@ namespace DealerManagementSystem.ViewMaster
 
             DateTime DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
 
-        
-             
+
+
             lblMessage.Text = Message;
             return Ret;
         }

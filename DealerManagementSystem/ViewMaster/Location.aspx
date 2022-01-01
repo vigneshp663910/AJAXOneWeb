@@ -46,7 +46,7 @@
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvCountry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                 <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -60,7 +60,8 @@
                                         </asp:TemplateField>--%>
                                         <asp:TemplateField HeaderText="Country" SortExpression="Country">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtGCCountry" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Country")%>' Enabled="false"></asp:TextBox>
+                                                 <asp:Label ID="lblGCCountry" runat="server"  Text='<%# DataBinder.Eval(Container.DataItem, "Country")%>' Visible="true" />
+                                                <asp:TextBox ID="txtGCCountry" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Country")%>' Visible="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="20px">

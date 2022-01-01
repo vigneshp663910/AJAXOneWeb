@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
@@ -27,8 +25,8 @@ namespace DealerManagementSystem
                 {
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
                 }
-            //    lblWelcome.Text = PSession.User.ContactName;
-                  lblusername.Text = PSession.User.ContactName; 
+                //    lblWelcome.Text = PSession.User.ContactName;
+                lblusername.Text = PSession.User.ContactName;
 
                 string MenuCon = "<ul id='topnav'>";
                 if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
@@ -81,8 +79,8 @@ namespace DealerManagementSystem
             string MenuDMS = "<nav id='main-nav'><ul id='main-menu' class='sm sm-blue'>";
             MenuDMS += "<a href='/Home.aspx' onclick=Menu('Home','Home') class='w3-button w3-block w3-blue w3-left-align'>Home</a>";
             foreach (PModuleAccess AM in PSession.User.DMSModules)
-            {                
-                MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ","") + "','')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
+            {
+                MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
                 MenuDMS += "<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                 MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS);
                 MenuDMS += "</div>";
@@ -93,4 +91,3 @@ namespace DealerManagementSystem
     }
 }
 
- 

@@ -1,11 +1,7 @@
 ﻿using Business;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
@@ -18,7 +14,7 @@ namespace DealerManagementSystem
 
         protected void btnAPITest_Click(object sender, EventArgs e)
         {
-          //  new BAPI().GetServicePriority1();
+            //  new BAPI().GetServicePriority1();
             new BAPI().Main1();
         }
 

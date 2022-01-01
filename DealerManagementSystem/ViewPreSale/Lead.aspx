@@ -189,21 +189,21 @@
         <asp1:TabPanel ID="tplSalesOrg" runat="server" HeaderText="Lead Assign">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org1.png" />
+                   <%-- <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org1.png" />--%>
                 </fieldset>
             </ContentTemplate>
         </asp1:TabPanel>
-        <asp1:TabPanel ID="tpPartsOrg" runat="server" HeaderText="Parts">
+        <asp1:TabPanel ID="tpPartsOrg" runat="server" HeaderText="Activity">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org1.png" />
+                   <%-- <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org1.png" />--%>
                 </fieldset>
             </ContentTemplate>
         </asp1:TabPanel>
-        <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
+        <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Quotation">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service_Org1.png" />
+                    <%--<asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service_Org1.png" />--%>
                 </fieldset>
             </ContentTemplate>
         </asp1:TabPanel>

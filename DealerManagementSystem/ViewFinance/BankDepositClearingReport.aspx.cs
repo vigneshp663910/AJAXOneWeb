@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Business;
+using Properties;
+using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
-using Business;
-using Properties;
 
 namespace DealerManagementSystem.ViewFinance
 {
@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewFinance
                 }
 
                 new BDMS_BankDepositClearing().GetBankDepositClearingStatus(ddlStatus, null, null);
-                new BDMS_Address().GetState(ddlState,null,null, null, null);
+                new BDMS_Address().GetState(ddlState, null, null, null, null);
                 //new BDMS_Address().GetRegion(ddlRegion, null, null);
 
                 List<PUser> u = new BUser().GetUsers(null, null, null, "");

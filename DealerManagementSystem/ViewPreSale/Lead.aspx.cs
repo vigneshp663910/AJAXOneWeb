@@ -2,21 +2,17 @@
 using Newtonsoft.Json;
 using Properties;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
     public partial class Lead : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales ~ Lead');</script>");
+
             if (!IsPostBack)
-            { 
+            {
                 new DDLBind(ddlCategory, new BLead().GetLeadCategory(null, null), "Category", "CategoryID");
                 new DDLBind(ddlQualification, new BLead().GetLeadQualification(null, null), "Qualification", "QualificationID");
                 new DDLBind(ddlSource, new BLead().GetLeadSource(null, null), "Source", "SourceID");
@@ -25,7 +21,7 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 ddlCountry.SelectedValue = "1";
                 new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-                
+
                 //ddlProgressStatus.DataSource = new BLead().GetLeadProgressStatus(null, null);
                 //ddlProgressStatus.DataBind();
                 //ddlProgressStatus.Items.Insert(0, new ListItem("Select", "0"));                 
@@ -33,7 +29,7 @@ namespace DealerManagementSystem.ViewPreSale
                 //ddlStatus.DataSource = new BLead().GetLeadStatus(null, null);
                 //ddlStatus.DataBind();
                 //ddlStatus.Items.Insert(0, new ListItem("Select", "0"));                
-                 
+
             }
         }
 
@@ -62,22 +58,22 @@ namespace DealerManagementSystem.ViewPreSale
             Lead.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
             Lead.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            PLead l= JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", Lead)).Data));
+            PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", Lead)).Data));
         }
 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
-         }
+        }
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
-         }
+        }
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCountry.SelectedValue), Convert.ToInt32(ddlState.SelectedValue), Convert.ToInt32(ddlDistrict.SelectedValue), null), "Tehsil", "TehsilID"); 
+        {
+            new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCountry.SelectedValue), Convert.ToInt32(ddlState.SelectedValue), Convert.ToInt32(ddlDistrict.SelectedValue), null), "Tehsil", "TehsilID");
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Business;
+﻿using Business;
 using Properties;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
@@ -47,7 +46,7 @@ namespace DealerManagementSystem.ViewAdmin
             //}
             List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "");
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-            u = u.FindAll(m =>   m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvUser.DataSource = u;
             gvUser.DataBind();
         }

@@ -2,10 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -76,7 +73,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master > Location');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master ~ Location');</script>");
 
             if (!IsPostBack)
             {
@@ -413,6 +410,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void BtnSearchCountry_Click(object sender, EventArgs e)
         {
             FillGridCountry();
+            lblMessage.Text = "";
         }
         protected void ImageCEdit_Click(object sender, ImageClickEventArgs e)
         {
@@ -422,8 +420,10 @@ namespace DealerManagementSystem.ViewMaster
                 long id = Convert.ToInt32(ImageCEdit.CommandArgument);
                 GridViewRow row = (GridViewRow)(ImageCEdit.NamingContainer);
                 ImageButton ImageCUpdate = (ImageButton)row.FindControl("ImageCUpdate");
+                Label lblGCCountry = (Label)row.FindControl("lblGCCountry");
                 TextBox txtGCCountry = (TextBox)row.FindControl("txtGCCountry");
-                txtGCCountry.Enabled = true;
+                lblGCCountry.Visible = false;
+                txtGCCountry.Visible = true;
                 ImageCUpdate.Visible = true;
                 ImageCEdit.Visible = false;
             }

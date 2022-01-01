@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.UserControls
 {
-    public partial class ICTicketTSIR  : System.Web.UI.UserControl
+    public partial class ICTicketTSIR : System.Web.UI.UserControl
     {
         public PDMS_ICTicket SDMS_ICTicket
         {
@@ -323,7 +323,7 @@ namespace DealerManagementSystem.UserControls
             //     AttachedFile.FSR = new PDMS_ICTicketFSR() { FsrID = SDMS_ICTicket.ICTicketID };
             return AttachedFile;
         }
-       
+
         protected void gvAttachedFile_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)

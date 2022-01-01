@@ -8,7 +8,6 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -515,7 +514,7 @@ namespace DealerManagementSystem.ViewService
                     NewLogo = "1";
                 }
                 P[15] = new ReportParameter("NewLogo", NewLogo, false);
-               // report.ReportPath = Server.MapPath("~/Print/DMS_ClaimAnnexureNC.rdlc");
+                // report.ReportPath = Server.MapPath("~/Print/DMS_ClaimAnnexureNC.rdlc");
                 report.ReportPath = Server.MapPath("~/Print/Report1.rdlc");
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  

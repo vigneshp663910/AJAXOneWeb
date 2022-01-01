@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Business;
+using Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Business;
-using Properties;
 
 namespace DealerManagementSystem.ViewMaster
 {
@@ -48,7 +46,7 @@ namespace DealerManagementSystem.ViewMaster
             {
 
                 //    new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
-                new BDMS_Address().GetState(ddlState,null,null, null, "");
+                new BDMS_Address().GetState(ddlState, null, null, null, "");
                 //  new BDMS_Address().Getr(ddlState, null, "");
 
                 txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;

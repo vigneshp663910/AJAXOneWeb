@@ -8,6 +8,7 @@
     <title>AJAX-Dealer Management</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="CSS/w3.css">
     <link rel="stylesheet" href="CSS/font.css">
     <%--<link rel="stylesheet" href="CSS/font-awesome.min.css" />--%>
@@ -15,8 +16,9 @@
     <script src="/JS/jquery.min.js"></script>
     <script src="/JS/bootstrap.min.js"></script>
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         window.onload = function () {
             if (screen.width < 450) {
@@ -93,15 +95,15 @@
             lbl.textContent = as_pagetitle;
             //alert('Hi');
         }
+
+
     </script>
+
     <style>
         .col-md-12 {
             padding: 0px 12px 12px 12px;
         }
 
-        .navbar a:hover, .dropdown:hover .dropbtn {
-            background-color: red;
-        }
 
         .w3-btn, .w3-button {
             text-decoration: initial;
@@ -700,8 +702,50 @@
             }
         }
     </style>
+    <style>
+        .dropbtn {
+            background-color: #30526f;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 191px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 8px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+          /*  background-color: #3e8e41;*/
+        }
+    </style>
     <script>
-        /*const { hidden } = require("modernizr");*/
+        /*const {hidden} = require("modernizr");*/
 
 
 
@@ -813,15 +857,29 @@
                     </div>
 
                     <div style="color: white">
-                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;">
-                            <asp:Label ID="lblusername" runat="server"></asp:Label>
-                            &nbsp <span class="fa fa-user-circle"></span>&nbsp </a>
+
+                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"> </a>
+                        <div class="dropdown">
+                            <button class="dropbtn"><i class="fa fa-user-circle fa-lg"></i></button>
+                            <div class="dropdown-content">
+                                <a href="/Account/MyProfile"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile</a>
+                                <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company Profile</a>
+                                <a href="/Account/ChangePassword"><i class="fa fa-key"></i>&nbsp;&nbsp;Change Password</a>
+                              
+                                <div class="dropdown-divider"></div>
+                                <a href="/Account/SignOut.htm"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Log Out</a>
+                            </div>
+                        </div>
+                         <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="lblPageName" runat="server"></asp:Label>
                         <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
         <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;" id="mySidebar">
             <br>
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 22px">Close Menu</a>

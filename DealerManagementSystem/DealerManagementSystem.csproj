@@ -158,8 +158,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Account\ChangePassword.aspx" />
+    <Content Include="Account\CompanyProfile.aspx" />
+    <Content Include="Account\MyProfile.aspx" />
+    <Content Include="Account\SignOut.htm" />
     <Content Include="Ajax\Images\Ajax-New-Logo.png" />
     <Content Include="Ajax\Images\ajax_logow.png" />
+    <Content Include="Ajax\Images\AJAX_TitleBar.png" />
     <Content Include="Ajax\Images\android__v259.png" />
     <Content Include="Ajax\Images\apple.png" />
     <Content Include="Ajax\Images\apple__v259.png" />
@@ -170,7 +175,9 @@
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
+    <Content Include="Ajax\Images\ThankYou1.jpg" />
     <Content Include="BackUp\Home1.aspx" />
+    <Content Include="Images\ARROW01.png" />
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
     <Content Include="Images\delete.png" />
@@ -405,6 +412,27 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\CompanyProfile.aspx.cs">
+      <DependentUpon>CompanyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\CompanyProfile.aspx.designer.cs">
+      <DependentUpon>CompanyProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\MyProfile.aspx.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\MyProfile.aspx.designer.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Reso.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -2,8 +2,6 @@
 using Properties;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -25,7 +23,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "");
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-            u = u.FindAll(m =>   m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvEmployee.DataSource = u;
             gvEmployee.DataBind();
         }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -70,7 +69,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             try
             {
                 int? HeaderId = null;
-                int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);                
+                int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
 
                 long? CreatedBy = ddlCreatedBy.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlCreatedBy.SelectedValue);
                 DateTime? RequestedDateFrom = null;
@@ -97,7 +96,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                         if (t.SubCategory != null)
                             if (t.SubCategory.SubCategoryID == 116)
                                 HSN.Add(t);
-                    } 
+                    }
                     gvTickets.DataSource = HSN;
                     gvTickets.DataBind();
                 }
@@ -157,13 +156,13 @@ namespace DealerManagementSystem.ViewSupportTicket
             FillMessageStatus();
         }
         void FillAllFields(int HeaderId)
-        { 
+        {
             PTicketHeader TH = new BTickets().GetTicketDetails(HeaderId, null, null, null, null, null, null, null, null, null)[0];
             txtTicketNo.Text = TH.HeaderID.ToString();
             txtCategory.Text = TH.Category.Category;
             txtRequestedBy.Text = TH.CreatedBy.ContactName + " " + Convert.ToString(TH.CreatedOn);
             txtTicketType.Text = TH.Type.Type;
-            txtTicketDescription.Text = Convert.ToString(TH.Description); 
+            txtTicketDescription.Text = Convert.ToString(TH.Description);
             txtStatus.Text = Convert.ToString(TH.Status.StatusID);
             Dictionary<string, int> AttachedFiles = new BTickets().getAttachedFiles(HeaderId);
             List<ListItem> files = new List<ListItem>();
@@ -174,9 +173,9 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
 
         protected void btnSendForApproval_Click(object sender, EventArgs e)
-        { 
+        {
 
-            int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(txtTicketNo.Text), Convert.ToInt32(ddlapprovar.SelectedValue)); 
+            int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(txtTicketNo.Text), Convert.ToInt32(ddlapprovar.SelectedValue));
             if (success == 0)
             {
                 lblMessage.Text = "Ticket No " + txtTicketNo.Text + "  is not successfully updated.";
@@ -189,7 +188,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 btnSendForApproval.Visible = false;
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
-                PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "")[0]; 
+                PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "")[0];
 
                 string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRequestForApproval.htm");
 
@@ -216,15 +215,15 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             string filePath = (sender as LinkButton).CommandArgument;
             string fileName = (sender as LinkButton).Text;
-            Response.ContentType = ContentType; 
+            Response.ContentType = ContentType;
             Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
             Response.WriteFile(filePath);
             Response.End();
         }
         void FillApproval()
-        { 
+        {
             List<PUser> user = new BUser().GetAllUsers();
-            user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF || M.SystemCategoryID == (short)SystemCategory.Support).ToList(); 
+            user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF || M.SystemCategoryID == (short)SystemCategory.Support).ToList();
             ddlapprovar.DataTextField = "ContactName";
             ddlapprovar.DataValueField = "UserID";
             ddlapprovar.DataSource = user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF).ToList();
@@ -272,7 +271,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 btnReject.Visible = false;
                 lblMessage.Text = "Ticket No " + txtTicketNo.Text + "  is successfully updated.";
                 lblMessage.ForeColor = Color.Red;
-            }        
+            }
         }
         protected void btnRejectBack_Click(object sender, EventArgs e)
         {
