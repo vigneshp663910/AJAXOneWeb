@@ -420,7 +420,7 @@ namespace DealerManagementSystem.ViewService
                     }
                 }
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
-                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.StateN.State + " - " + Customer.Pincode;
+                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
                 CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
                 CustomerAddress = CustomerAddress.Trim(',', ' ');
 
@@ -556,7 +556,7 @@ namespace DealerManagementSystem.ViewService
                 P[13] = new ReportParameter("CustomerName", Customer.CustomerName, false);
                 P[14] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
                 P[15] = new ReportParameter("Location", ICTicket.Location, false);
-                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.StateCode, false);
+                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.State.StateCode, false);
                 P[17] = new ReportParameter("CustomerGSTIN", "GSTIN/UIN No : " + Customer.GSTIN, false);
                 P[18] = new ReportParameter("CustomerAddress", CustomerAddress, false);
 
@@ -650,7 +650,7 @@ namespace DealerManagementSystem.ViewService
                     }
                 }
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
-                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.StateN.State + " - " + Customer.Pincode;
+                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
                 CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
                 CustomerAddress = CustomerAddress.Trim(',', ' ');
 
@@ -760,7 +760,7 @@ namespace DealerManagementSystem.ViewService
                 P[13] = new ReportParameter("CustomerName", Customer.CustomerName, false);
                 P[14] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
                 P[15] = new ReportParameter("Location", ICTicket.Location, false);
-                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.StateCode, false);
+                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.State.StateCode, false);
                 P[17] = new ReportParameter("CustomerGSTIN", "GSTIN/UIN No : " + Customer.GSTIN, false);
                 P[18] = new ReportParameter("CustomerAddress", CustomerAddress, false);
 
@@ -855,7 +855,7 @@ namespace DealerManagementSystem.ViewService
                     }
                 }
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
-                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.StateN.State + " - " + Customer.Pincode;
+                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
                 CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
                 CustomerAddress = CustomerAddress.Trim(',', ' ');
 
@@ -986,7 +986,7 @@ namespace DealerManagementSystem.ViewService
                 P[13] = new ReportParameter("CustomerName", Customer.CustomerName, false);
                 P[14] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
                 P[15] = new ReportParameter("Location", ICTicket.Location, false);
-                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.StateCode, false);
+                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.State.StateCode, false);
                 P[17] = new ReportParameter("CustomerGSTIN", "GSTIN/UIN No : " + Customer.GSTIN, false);
                 P[18] = new ReportParameter("CustomerAddress", CustomerAddress, false);
 
@@ -1335,7 +1335,7 @@ namespace DealerManagementSystem.ViewService
                     }
                 }
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
-                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.StateN.State + " - " + Customer.Pincode;
+                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
                 CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
                 CustomerAddress = CustomerAddress.Trim(',', ' ');
 
@@ -1465,7 +1465,7 @@ namespace DealerManagementSystem.ViewService
                 P[13] = new ReportParameter("CustomerName", Customer.CustomerName, false);
                 P[14] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
                 P[15] = new ReportParameter("Location", ICTicket.Location, false);
-                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.StateCode, false);
+                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.State.StateCode, false);
                 P[17] = new ReportParameter("CustomerGSTIN", "GSTIN/UIN No : " + Customer.GSTIN, false);
                 P[18] = new ReportParameter("CustomerAddress", CustomerAddress, false);
                 P[19] = new ReportParameter("NatureOfFailures", TSIR.NatureOfFailures, false);

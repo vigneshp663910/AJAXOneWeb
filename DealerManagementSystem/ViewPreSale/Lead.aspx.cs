@@ -37,6 +37,11 @@ namespace DealerManagementSystem.ViewPreSale
             }
         }
 
+        void fillLead()
+        {
+
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             PLead Lead = new PLead();
@@ -49,18 +54,18 @@ namespace DealerManagementSystem.ViewPreSale
             Lead.Customer = new PDMS_Customer() { CustomerCode = txtCustomerCode.Text.Trim() };
             Lead.Remarks = txtRemarks.Text.Trim();
 
-            Lead.Name = txtName.Text.Trim();
+            Lead.Customer.CustomerName = txtCustomerName.Text.Trim();
 
-            Lead.PersonName = txtContactPersonName.Text.Trim();
+            Lead.Customer.ContactPerson = txtContactPerson.Text.Trim();
 
-            Lead.PersonContactNumber = txtContactNumber.Text.Trim();
-            Lead.PersonMail = txtPersonMail.Text.Trim();
-            Lead.Address1 = txtAddress1.Text.Trim();
-            Lead.Address2 = txtAddress2.Text.Trim();
-            Lead.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
-            Lead.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
-            Lead.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
-            Lead.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
+            Lead.Customer.Mobile = txtMobile.Text.Trim();
+            Lead.Customer.Email = txtEmail.Text.Trim();
+            Lead.Customer.Address1 = txtAddress1.Text.Trim();
+            Lead.Customer.Address2 = txtAddress2.Text.Trim();
+            Lead.Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
+            Lead.Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
+            Lead.Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
+            Lead.Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
             PLead l= JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", Lead)).Data));
         }
@@ -78,6 +83,41 @@ namespace DealerManagementSystem.ViewPreSale
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         { 
             new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCountry.SelectedValue), Convert.ToInt32(ddlState.SelectedValue), Convert.ToInt32(ddlDistrict.SelectedValue), null), "Tehsil", "TehsilID"); 
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+            PLeadSearch S = new PLeadSearch();
+            List<PLead> Leads = new BLead().GetLead(S);
+            gvLead.DataSource = Leads;
+            gvLead.DataBind();
+        }
+
+        protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblLeadNumber1 = (Label)gvRow.FindControl("lblLeadNumber");
+            PLeadSearch S = new PLeadSearch();
+            S.LeadNumber = lblLeadNumber1.Text;
+            PLead Lead = new BLead().GetLead(S)[0];
+            lblLeadNumber.Text = Lead.LeadNumber;
+            lblLeadDate.Text = Convert.ToString(Lead.LeadDate);
+            lblCategory.Text = Lead.Category.Category;
+            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
+            lblQualification.Text = Lead.Qualification.Qualification;
+            lblSource.Text = Lead.Source.Source;
+            lblStatus.Text = Lead.Status.Status;
+            lblType.Text = Lead.Type.Type;
+            lblDealer.Text = Lead.Dealer.DealerCode;
+            lblRemarks.Text = Lead.Remarks;
+            string Customer = Lead.Customer.CustomerCode + " " + Lead.Customer.CustomerName;
+            lblCustomer.Text = Customer;
+            lblContactPerson.Text = Lead.Customer.ContactPerson;
+            lblMobile.Text = Lead.Customer.Mobile;
+            lblEmail.Text = Lead.Customer.Email;
+
+            string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
+            lblLocation.Text = Location;
         }
     }
 }

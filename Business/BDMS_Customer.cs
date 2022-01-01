@@ -174,19 +174,20 @@ namespace Business
                 {
                     Customer = new PDMS_Customer();
                     Customer.CustomerCode = Convert.ToString(dr["p_bp_id"]);
-                    Customer.OrgName = Convert.ToString(dr["r_org_name"]).Trim();
+                    Customer.CustomerName = Convert.ToString(dr["r_org_name"]).Trim();
+                    // Customer.OrgName = Convert.ToString(dr["r_org_name"]).Trim();
                     Customer.OfficeID = Convert.ToString(dr["Office_ID"]).Trim();
                     Customer.Address1 = Convert.ToString(dr["r_address1"]).Trim();
                     Customer.Address2 = Convert.ToString(dr["r_address2"]).Trim();
                     Customer.City = Convert.ToString(dr["r_city"]).Trim();
-                    Customer.StateN = new PDMS_State() { State = Convert.ToString(dr["r_state"]).Trim() };
+                    Customer.State = new PDMS_State() { State = Convert.ToString(dr["r_state"]).Trim() };
                     Customer.Pincode = Convert.ToString(dr["r_postal_code"]).Trim();
                     //  Customer.DealarCode = Convert.ToString(dr["s_tenant_id"]);
                     //   Customer.DealarName = Convert.ToString(dr["description"]);
                     Customer.GSTIN = Convert.ToString(dr["GSTIN"]).Trim();
                     Customer.PAN = Convert.ToString(dr["PAN"]).Trim();
-                    Customer.EMAIL = Convert.ToString(dr["EMAIL"]).Trim();
-                    Customer.MOBILE = Convert.ToString(dr["MOBILE"]).Trim();
+                    Customer.Email = Convert.ToString(dr["EMAIL"]).Trim();
+                    Customer.Mobile  = Convert.ToString(dr["MOBILE"]).Trim();
                     Customers.Add(Customer);
                 }
                 return Customers;
@@ -336,7 +337,7 @@ namespace Business
                     DbParameter CustomerCode = provider.CreateParameter("CustomerCode", Customer.CustomerCode, DbType.String);
                     DbParameter CustomerName = provider.CreateParameter("CustomerName", Customer.CustomerName, DbType.String);
                     DbParameter GSTIN = provider.CreateParameter("GSTIN", Customer.GSTIN, DbType.String);
-                    DbParameter State = provider.CreateParameter("State", Customer.StateN.State, DbType.String);
+                    DbParameter State = provider.CreateParameter("State", Customer.State.State, DbType.String);
                     DbParameter[] Params = new DbParameter[4] { CustomerCode, CustomerName, GSTIN, State };
 
                     provider.Insert("ZDMS_InsertOrUpdateCustomerPG", Params);
@@ -367,7 +368,7 @@ namespace Business
                     Customer.CustomerCode = Convert.ToString(dr["p_bp_id"]);
                     Customer.CustomerName = Convert.ToString(dr["r_org_name"]);
                     Customer.GSTIN = Convert.ToString(dr["GSTIN"]);
-                    Customer.StateN = new PDMS_State() { State = Convert.ToString(dr["r_state"]) };
+                    Customer.State = new PDMS_State() { State = Convert.ToString(dr["r_state"]) };
                     Customers.Add(Customer);
                 }
                 return Customers;
@@ -402,12 +403,12 @@ namespace Business
                     // Customer.Address3 = tagListBapi.GetString("ADD3");
                     Customer.City = Convert.ToString(dr["r_city"]);
 
-                    Customer.StateN = new PDMS_State() { State = Convert.ToString(dr["r_state"]) };
+                    Customer.State = new PDMS_State() { State = Convert.ToString(dr["r_state"]) };
 
                     Customer.Pincode = Convert.ToString(dr["r_postal_code"]);
 
                     Customer.GSTIN = Convert.ToString(dr["GSTIN"]);
-                    Customer.StateCode = Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "";
+                    Customer.State.StateCode = Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "";
                     Customer.PAN = Convert.ToString(dr["PAN"]);
                     
                 }
@@ -441,12 +442,12 @@ namespace Business
                     // Customer.Address3 = tagListBapi.GetString("ADD3");
                     Customer.City = Convert.ToString(dr["r_city"]);
 
-                    Customer.StateN = new PDMS_State() { State = Convert.ToString(dr["r_state"]) };
+                    Customer.State = new PDMS_State() { State = Convert.ToString(dr["r_state"]) };
 
                     Customer.Pincode = Convert.ToString(dr["r_postal_code"]);
 
                     Customer.GSTIN = Convert.ToString(dr["GSTIN"]);
-                    Customer.StateCode = Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "";
+                    Customer.State.StateCode = Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "";
                     Customer.PAN = Convert.ToString(dr["PAN"]);
 
                 }
@@ -466,15 +467,16 @@ namespace Business
             PDMS_Customer Customer = new PDMS_Customer();
             try
             {
-                Customer.OrgName = ConfigurationManager.AppSettings["EOrgName"];
+                Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
+              //  Customer.OrgName = ConfigurationManager.AppSettings["EOrgName"];
                 Customer.Address1 = ConfigurationManager.AppSettings["EAddress1"];
                 Customer.Address2 = ConfigurationManager.AppSettings["EAddress2"];
                 Customer.City = ConfigurationManager.AppSettings["ECity"];
-                Customer.StateN = new PDMS_State() { State = ConfigurationManager.AppSettings["EState"], StateCode = ConfigurationManager.AppSettings["EStateCode"] };
+                Customer.State = new PDMS_State() { State = ConfigurationManager.AppSettings["EState"], StateCode = ConfigurationManager.AppSettings["EStateCode"] };
                 Customer.Pincode = ConfigurationManager.AppSettings["EPincode"];
                 Customer.GSTIN = ConfigurationManager.AppSettings["EGSTIN"];
                 Customer.PAN = ConfigurationManager.AppSettings["EPAN"];
-                Customer.EMAIL = ConfigurationManager.AppSettings["EMAIL"];
+                Customer.Email = ConfigurationManager.AppSettings["EMAIL"];
                 //  Customer.MOBILE = ConfigurationManager.AppSettings["EInvoiveDate"]; 
 
                 
@@ -500,14 +502,14 @@ namespace Business
             { }
             else if (regex.Match(Customer.GSTIN).Success)
             {
-                Customer.StateCode = Customer.GSTIN.Substring(0, 2);
+                Customer.State.StateCode = Customer.GSTIN.Substring(0, 2);
             }
             else
             {
                 return "Please update correct GST Number"; 
             }
 
-            if (!new BDMS_EInvoice().ValidatePincode(Customer.Pincode.Substring(0, 2), Customer.StateCode))
+            if (!new BDMS_EInvoice().ValidatePincode(Customer.Pincode.Substring(0, 2), Customer.State.StateCode))
             {
                 return "Please check Customer Pincode and Statecode"; 
             }
@@ -571,13 +573,13 @@ namespace Business
                     DbParameter Address2 = provider.CreateParameter("Address2", cust.Address2, DbType.String);
                     DbParameter Address3 = provider.CreateParameter("Address3", cust.Address3, DbType.String);
                     DbParameter City = provider.CreateParameter("City", cust.City, DbType.String);
-                    DbParameter State = provider.CreateParameter("State", cust.StateN.State, DbType.String);
-                    DbParameter StateCode = provider.CreateParameter("StateCode", cust.StateCode, DbType.String);
+                    DbParameter State = provider.CreateParameter("State", cust.State.State, DbType.String);
+                    DbParameter StateCode = provider.CreateParameter("StateCode", cust.State.StateCode, DbType.String);
                     DbParameter Pincode = provider.CreateParameter("PostalCode", cust.Pincode, DbType.String);
                     DbParameter GSTIN = provider.CreateParameter("GSTIN", cust.GSTIN, DbType.String);
                     DbParameter PAN = provider.CreateParameter("PAN", cust.PAN, DbType.String);
-                    DbParameter MOBILE = provider.CreateParameter("MOBILE", cust.MOBILE, DbType.String);
-                    DbParameter EMAIL = provider.CreateParameter("EMAIL", cust.EMAIL, DbType.String);
+                    DbParameter MOBILE = provider.CreateParameter("MOBILE", cust.Mobile, DbType.String);
+                    DbParameter EMAIL = provider.CreateParameter("EMAIL", cust.Email, DbType.String);
                     DbParameter ContactPerson = provider.CreateParameter("ContactPerson", cust.ContactPerson, DbType.String);
                     DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
 

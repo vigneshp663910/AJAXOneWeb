@@ -76,11 +76,11 @@ namespace Business
             DbParameter SAddr2 = provider.CreateParameter("Supplier_addr2", Dealer.Address3, DbType.String);
             DbParameter SLocation = provider.CreateParameter("SupplierLocation", Dealer.City, DbType.String);
             DbParameter SPincode = provider.CreateParameter("SupplierPincode", Dealer.Pincode, DbType.String);
-            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.StateCode, DbType.String);
+            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.State.StateCode, DbType.String);
 
-            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.OrgName, DbType.String);
+            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.CustomerName, DbType.String);
             DbParameter BGSTIN = provider.CreateParameter("BuyerGSTIN", Customer.GSTIN, DbType.String);
-            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.StateN.StateCode, DbType.String);
+            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.State.StateCode, DbType.String);
             DbParameter BAddr1 = provider.CreateParameter("Buyer_addr1", Customer.Address1, DbType.String);
             DbParameter BAddr2 = provider.CreateParameter("Buyer_addr2", Customer.Address2, DbType.String);
             DbParameter BLoc = provider.CreateParameter("Buyer_loc", Customer.City, DbType.String);
@@ -137,11 +137,11 @@ namespace Business
             DbParameter SAddr2 = provider.CreateParameter("Supplier_addr2", Dealer.Address3, DbType.String);
             DbParameter SLocation = provider.CreateParameter("SupplierLocation", Dealer.City, DbType.String);
             DbParameter SPincode = provider.CreateParameter("SupplierPincode", Dealer.Pincode, DbType.String);
-            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.StateCode, DbType.String);
+            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.State.StateCode, DbType.String);
 
-            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.OrgName, DbType.String);
+            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.CustomerName, DbType.String);
             DbParameter BGSTIN = provider.CreateParameter("BuyerGSTIN", Customer.GSTIN, DbType.String);
-            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.StateN.StateCode, DbType.String);
+            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.State.StateCode, DbType.String);
             DbParameter BAddr1 = provider.CreateParameter("Buyer_addr1", (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2)).Trim(','), DbType.String);
             DbParameter BAddr2 = provider.CreateParameter("Buyer_addr2", Customer.Address3, DbType.String);
             DbParameter BLoc = provider.CreateParameter("Buyer_loc", Customer.City, DbType.String);
@@ -198,11 +198,11 @@ namespace Business
             DbParameter SAddr2 = provider.CreateParameter("Supplier_addr2", Dealer.Address3, DbType.String);
             DbParameter SLocation = provider.CreateParameter("SupplierLocation", Dealer.City, DbType.String);
             DbParameter SPincode = provider.CreateParameter("SupplierPincode", Dealer.Pincode, DbType.String);
-            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.StateCode, DbType.String);
+            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.State.StateCode, DbType.String);
 
-            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.OrgName, DbType.String);
+            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.CustomerName, DbType.String);
             DbParameter BGSTIN = provider.CreateParameter("BuyerGSTIN", Customer.GSTIN, DbType.String);
-            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.StateN.StateCode, DbType.String);
+            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.State.StateCode, DbType.String);
             DbParameter BAddr1 = provider.CreateParameter("Buyer_addr1", (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2)).Trim(','), DbType.String);
             DbParameter BAddr2 = provider.CreateParameter("Buyer_addr2", Customer.Address3, DbType.String);
             DbParameter BLoc = provider.CreateParameter("Buyer_loc", Customer.City, DbType.String);
@@ -256,11 +256,11 @@ namespace Business
             DbParameter SAddr2 = provider.CreateParameter("Supplier_addr2", Dealer.Address3, DbType.String);
             DbParameter SLocation = provider.CreateParameter("SupplierLocation", Dealer.City, DbType.String);
             DbParameter SPincode = provider.CreateParameter("SupplierPincode", Dealer.Pincode, DbType.String);
-            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.StateCode, DbType.String);
+            DbParameter SStateCode = provider.CreateParameter("SupplierStateCode", Dealer.State.StateCode, DbType.String);
 
-            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.OrgName, DbType.String);
+            DbParameter BuyerName = provider.CreateParameter("BuyerName", Customer.CustomerName, DbType.String);
             DbParameter BGSTIN = provider.CreateParameter("BuyerGSTIN", Customer.GSTIN, DbType.String);
-            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.StateN.StateCode, DbType.String);
+            DbParameter BStateCode = provider.CreateParameter("BuyerStateCode", Customer.State.StateCode, DbType.String);
             DbParameter BAddr1 = provider.CreateParameter("Buyer_addr1", Customer.Address1, DbType.String);
             DbParameter BAddr2 = provider.CreateParameter("Buyer_addr2", Customer.Address2, DbType.String);
             DbParameter BLoc = provider.CreateParameter("Buyer_loc", Customer.City, DbType.String);
@@ -528,13 +528,13 @@ namespace Business
                 PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 3, "")[0];
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "","","", false, 1)[0];
 
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -550,7 +550,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = Dealer.StateCode;
+                string StateCode = Dealer.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 decimal TCSSubTotal = 0;
@@ -617,7 +617,7 @@ namespace Business
                 P[11] = new ReportParameter("CustomerName", WarrantyInvoiceHeader.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[14] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicketID, false);
@@ -676,7 +676,7 @@ namespace Business
 
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
 
                 DataTable CommissionDT = new DataTable();
@@ -1079,13 +1079,13 @@ namespace Business
                 PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 6, "")[0];
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "", "", "", false, 1)[0];
 
                 PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -1101,7 +1101,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = Dealer.StateCode;
+                string StateCode = Dealer.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 decimal TCSSubTotal = 0;
@@ -1168,7 +1168,7 @@ namespace Business
                 P[11] = new ReportParameter("CustomerName", WarrantyInvoiceHeader.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[14] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicketID, false);

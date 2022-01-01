@@ -526,11 +526,11 @@ namespace DealerManagementSystem.UserControls
             }
             if ((new System.Text.RegularExpressions.Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")).Match(Customer.GSTIN).Success)
             {
-                Customer.StateCode = Customer.GSTIN.Substring(0, 2);
+                Customer.State.StateCode = Customer.GSTIN.Substring(0, 2);
             }
 
             Boolean IsIGST = true;
-            if (Dealer.StateCode == Customer.StateCode)
+            if (Dealer.State.StateCode == Customer.State.StateCode)
                 IsIGST = false;
 
             if (new BDMS_ICTicket().InsertOrUpdateMaterialServiceAddOrRemoveICTicket(0, "", SDMS_ICTicket.ICTicketID, ServiceMaterial, Convert.ToDateTime(txtServiceDate.Text), WorkedHours, BasePrice, Discount, false, IsIGST, PSession.User.UserID))
@@ -648,7 +648,7 @@ namespace DealerManagementSystem.UserControls
             PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SDMS_ICTicket.Dealer.DealerCode);
             PDMS_Customer Customer = new SCustomer().getCustomerAddress(SDMS_ICTicket.Customer.CustomerCode);
             Boolean IsIGST = true;
-            if (Dealer.StateCode == Customer.StateCode)
+            if (Dealer.State.StateCode == Customer.State.StateCode)
                 IsIGST = false;
             if (new BDMS_Service().InsertServiceQuotationOrProformaOrInvoice(SDMS_ICTicket, IsIGST, PSession.User.UserID, 1, Dealer, Customer))
             {
@@ -671,7 +671,7 @@ namespace DealerManagementSystem.UserControls
             PDMS_Customer Customer = new SCustomer().getCustomerAddress(SDMS_ICTicket.Customer.CustomerCode);
             Boolean IsIGST = true;
 
-            if (Dealer.StateCode == Customer.StateCode)
+            if (Dealer.State.StateCode == Customer.State.StateCode)
                 IsIGST = false;
 
 
@@ -712,11 +712,11 @@ namespace DealerManagementSystem.UserControls
             }
             if ((new System.Text.RegularExpressions.Regex("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")).Match(Customer.GSTIN).Success)
             {
-                Customer.StateCode = Customer.GSTIN.Substring(0, 2);
+                Customer.State.StateCode = Customer.GSTIN.Substring(0, 2);
             }
 
             Boolean IsIGST = true;
-            if (Dealer.StateCode == Customer.StateCode)
+            if (Dealer.State.StateCode == Customer.State.StateCode)
                 IsIGST = false;
 
             List<PDMS_PaidServiceInvoice> Invoice = new BDMS_Service().GetPaidServiceInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "", true);

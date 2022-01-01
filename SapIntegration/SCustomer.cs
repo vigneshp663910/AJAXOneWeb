@@ -22,16 +22,15 @@ namespace SapIntegration
             Cust.Address2 = tagListBapi.GetString("ADD2").Trim();
             Cust.Address3 = tagListBapi.GetString("ADD3").Trim();
             Cust.City = tagListBapi.GetString("CITY").Trim();
-            Cust.StateN = new PDMS_State() { State = tagListBapi.GetString("STATE").Trim() };
-            Cust.StateCode = tagListBapi.GetString("STATE_CODE").Trim();
+            Cust.State = new PDMS_State() { State = tagListBapi.GetString("STATE").Trim(), StateCode = tagListBapi.GetString("STATE_CODE").Trim() }; 
             Cust.Pincode = tagListBapi.GetString("PINCODE").Trim();
             Cust.GSTIN = tagListBapi.GetString("GST").Trim();
             Cust.PAN = tagListBapi.GetString("PAN").Trim();
 
             Cust.Address12 = (Cust.Address1.Trim(',', ' ') + "," + Cust.Address2.Trim(',', ' ')).Trim(',', ' ');
 
-            Cust.MOBILE = tagListBapi.GetString("MOBILE");
-            Cust.EMAIL = tagListBapi.GetString("EMAIL");
+            Cust.Mobile = tagListBapi.GetString("MOBILE");
+            Cust.Email = tagListBapi.GetString("EMAIL");
             Cust.ContactPerson = tagListBapi.GetString("CON_NAME");
             return Cust;
         }

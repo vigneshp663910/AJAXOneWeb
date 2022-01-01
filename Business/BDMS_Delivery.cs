@@ -164,14 +164,14 @@ namespace Business
                 // string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State) ? "" : "," + Dealer.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
                 // PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.StateCode)[0];
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
-                PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.StateCode)[0];
+                PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.State.StateCode)[0];
 
 
               //  PDealer Dealer = new BDealer().GetDealerList(null, Delivery.Dealer.DealerCode, "")[0];
                 PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, null, Delivery.Dealer.DealerOffice.OfficeCode)[0];
                 PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(DealerOffice.SapLocationCode.Trim());
                 string DealerAddress1 = (DealerAD.Address1 + (string.IsNullOrEmpty(DealerAD.Address2) ? "" : "," + DealerAD.Address2) + (string.IsNullOrEmpty(DealerAD.Address3) ? "" : "," + DealerAD.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.StateN.State) ? "" : "," + DealerAD.StateN.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
+                string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.State.State) ? "" : "," + DealerAD.State.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
 
                 PDMS_Customer Customer = null;
 
@@ -186,7 +186,7 @@ namespace Business
 
                // PDMS_Customer Customer = new SCustomer().getCustomerAddress(Delivery.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.StateN.State) ? "" : "," + Customer.StateN.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -202,7 +202,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = DealerAD.StateCode;
+                string StateCode = DealerAD.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 foreach (PDMS_DeliveryItem item in Delivery.DeliveryItems)
@@ -289,7 +289,7 @@ namespace Business
                 P[11] = new ReportParameter("CustomerName", Customer.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-                P[14] = new ReportParameter("CustomerMail", Customer.EMAIL, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("ICTicketNo", Delivery.ICTicketID, false);
