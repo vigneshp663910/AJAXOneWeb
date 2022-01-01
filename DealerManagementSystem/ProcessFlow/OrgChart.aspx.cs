@@ -17,7 +17,7 @@ namespace DealerManagementSystem.ProcessFlow
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Organisation Chart');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Organisation Chart - Model');</script>");
         }
 
     }
