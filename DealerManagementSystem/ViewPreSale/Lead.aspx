@@ -20,7 +20,6 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
 
