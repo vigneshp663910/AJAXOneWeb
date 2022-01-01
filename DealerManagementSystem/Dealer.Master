@@ -454,27 +454,30 @@
         /*.w3-padding-large {
             padding: initial !important;
         }*/
-        .lRemove{
-            background: #C22439 !important;
-            color: white;
-            height: 23px;
-        }
-        .lRemove:hover{
+        .lRemove {
             background: #C22439 !important;
             color: white;
             height: 23px;
         }
 
-        .lDownload{
+            .lRemove:hover {
+                background: #C22439 !important;
+                color: white;
+                height: 23px;
+            }
+
+        .lDownload {
             background: #009ad7 !important;
             color: white;
             height: 23px;
         }
-        .lDownload:hover{
-            background: #009ad7 !important;
-            color: white;
-            height: 23px;
-        }
+
+            .lDownload:hover {
+                background: #009ad7 !important;
+                color: white;
+                height: 23px;
+            }
+
         .w3-bar-block .w3-bar-item {
             padding: 3px 2px 2px 10px !important;
         }
@@ -690,6 +693,7 @@
         button, input {
             height: 23px;
         }
+
         @media (min-width: 768px) {
             .col-md-3 {
                 -ms-flex: 0 0 22%;
@@ -701,6 +705,7 @@
     <style>
         .dropbtn {
             background-color: #30526f;
+            /* background-color:aliceblue;*/
             color: white;
             padding: 16px;
             font-size: 16px;
@@ -716,7 +721,7 @@
             display: none;
             position: absolute;
             background-color: #f1f1f1;
-            min-width: 191px;
+            min-width: 230px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
@@ -737,7 +742,7 @@
         }
 
         .dropdown:hover .dropbtn {
-          /*  background-color: #3e8e41;*/
+            /*  background-color: #3e8e41;*/
         }
     </style>
     <script>
@@ -845,25 +850,71 @@
                     <div class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
+                  
+
+                    <div style="color: white">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
+                        <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home"></i></a>
+
+                       <%-- <div class="dropdown">--%>
+                           <%-- <button class="dropbtn"><i class="fa fa-fw fa-home fa-lg"></i><a href="/Home.aspx"></a></button>   --%>
+                        
+                            <%--<div class="dropdown-content">
+                                <div class="dropdown-header">Dashboard</div>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Service</a>                        
+                            </div>--%>
+                       <%-- </div>--%>
+
+                        <div class="dropdown">
+
+                            <button class="dropbtn"><i class="fa fa-dashboard font-white"></i></button>
+                            <div class="dropdown-content">
+                                <div class="dropdown-header">Dashboard</div>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Service</a>                        
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="appico">
                         <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
                     </div>
 
                     <div style="color: white">
 
-                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"> </a>
+                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
+
+                        <div class="dropdown">
+
+                            <button class="dropbtn"><i class="fa fa-list font-white"></i></button>
+
+                            <div class="dropdown-content">
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Enquiry</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Cross Company Enquiry</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
+
+                                <%--<div class="dropdown-divider"></div>
+                                <a href="/Account/SignOut.htm"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Log Out</a>--%>
+                            </div>
+                        </div>
+
                         <div class="dropdown">
                             <button class="dropbtn"><i class="fa fa-user-circle fa-lg"></i></button>
                             <div class="dropdown-content">
                                 <a href="/Account/MyProfile"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile</a>
                                 <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company Profile</a>
                                 <a href="/Account/ChangePassword"><i class="fa fa-key"></i>&nbsp;&nbsp;Change Password</a>
-                              
+
                                 <div class="dropdown-divider"></div>
                                 <a href="/Account/SignOut.htm"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Log Out</a>
                             </div>
                         </div>
-                         <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="lblPageName" runat="server"></asp:Label>
                         <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
                     </div>

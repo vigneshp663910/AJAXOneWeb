@@ -77,7 +77,7 @@ namespace DealerManagementSystem
         private void menu()
         {
             string MenuDMS = "<nav id='main-nav'><ul id='main-menu' class='sm sm-blue'>";
-            MenuDMS += "<a href='/Home.aspx' onclick=Menu('Home','Home') class='w3-button w3-block w3-blue w3-left-align'>Home</a>";
+            //MenuDMS += "<a href='/Home.aspx' onclick=Menu('Home','Home') class='w3-button w3-block w3-blue w3-left-align'>Home</a>";
             foreach (PModuleAccess AM in PSession.User.DMSModules)
             {
                 MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" + AM.ModuleName + "<i class='fa fa-caret-down fa-2x'></i></a>";
