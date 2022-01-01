@@ -2,6 +2,21 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
+            width: 120px;
+            height: 50px;
+            font: 20px;
+        }
+
+        .ajax__tab_xp .ajax__tab_header {
+            background-position: bottom;
+            background-repeat: repeat-x;
+            font-family: verdana,tahoma,helvetica;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -26,8 +41,8 @@
 
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-    <div class="col-md-12">
-        <div class="col-md-12">
+   <%-- <div class="col-md-12">
+        <div class="col-md-12">--%>
             <asp1:TabContainer ID="tbpOrgChart" runat="server" ToolTip="DMS Organisation Chart" Font-Bold="True" Font-Size="Medium" VerticalStripWidth="240px">
                 <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="OEM" Font-Bold="True" ToolTip="OEM  Organisation Chart...">
                     <ContentTemplate>
@@ -76,8 +91,8 @@
                 </asp1:TabPanel>
 
             </asp1:TabContainer>
-        </div>
-    </div>
+      <%--  </div>
+    </div>--%>
 
     
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">

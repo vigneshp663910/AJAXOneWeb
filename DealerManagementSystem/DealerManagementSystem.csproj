@@ -254,7 +254,6 @@
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
     <Content Include="ViewOrganization\Organization.aspx" />
-    <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewSales\ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
     <Content Include="ViewSales\MonthlySales.aspx" />
@@ -692,13 +691,6 @@
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.designer.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\Lead.aspx.cs">
-      <DependentUpon>Lead.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
-      <DependentUpon>Lead.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\ASN.aspx.cs">
       <DependentUpon>ASN.aspx</DependentUpon>
@@ -1255,6 +1247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewPreSale\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>
