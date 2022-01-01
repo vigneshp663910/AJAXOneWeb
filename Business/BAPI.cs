@@ -190,7 +190,7 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
 
-            var APIResponse = client.GetAsync(url).Result; 
+            var APIResponse = client.GetAsync(ApiBaseAddress+ Filter).Result; 
             if (APIResponse.IsSuccessStatusCode)
             {
                 var JsonContent= APIResponse.Content.ReadAsStringAsync().Result;

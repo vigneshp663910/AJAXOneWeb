@@ -4,27 +4,25 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-     .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
-            width: 170px;
-            height:50px;
-            font:20px;
-        } 
-.ajax__tab_xp .ajax__tab_header {
-    background-position: bottom;
-    background-repeat: repeat-x;
-    font-family: verdana,tahoma,helvetica;
-    font-size: 12px; 
-    font-weight: bold;
-}
-        </style>
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
+            width: 120px;
+            height: 50px;
+            font: 20px;
+        }
+
+        .ajax__tab_xp .ajax__tab_header {
+            background-position: bottom;
+            background-repeat: repeat-x;
+            font-family: verdana,tahoma,helvetica;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-
-
-    <asp1:TabContainer ID="tbpOrgChart" runat="server"   >
-        <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="Lead List"   ToolTip="Lead List">
+    <asp1:TabContainer ID="tbpOrgChart" runat="server">
+        <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="Lead List" ToolTip="Lead List">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -44,7 +42,7 @@
                                     <fieldset class="fieldset-border" id="fldCountry" runat="server">
                                         <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
                                         <div class="col-md-12">
-                                                  <div class="col-md-3 text-right">
+                                            <div class="col-md-3 text-right">
                                                 <label>Lead Date</label>
                                             </div>
                                             <div class="col-md-3">

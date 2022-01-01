@@ -2,11 +2,26 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
+            width: 120px;
+            height: 50px;
+            font: 20px;
+        }
+
+        .ajax__tab_xp .ajax__tab_header {
+            background-position: bottom;
+            background-repeat: repeat-x;
+            font-family: verdana,tahoma,helvetica;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <div class="col-md-12">
+    <%--<div class="col-md-12">
+        <div class="col-md-12">--%>
             <asp1:TabContainer ID="tbpLocation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
                 <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
                     <ContentTemplate>
@@ -71,7 +86,7 @@
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
-                <asp1:TabPanel ID="tbpnlRegion" runat="server" HeaderText="Region">
+                <asp1:TabPanel ID="tbpnlRegion" runat="server" HeaderText="Region" ToolTip="List of Region...">
                     <ContentTemplate>
                         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                             <legend style="background: none; color: #007bff; font-size: 17px;">Region</legend>
@@ -139,7 +154,7 @@
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
-                <asp1:TabPanel ID="tbpnlState" runat="server" HeaderText="State">
+                <asp1:TabPanel ID="tbpnlState" runat="server" HeaderText="State" ToolTip="List of States...">
                     <ContentTemplate>
                         <fieldset class="fieldset-border" id="fldState" runat="server">
                             <legend style="background: none; color: #007bff; font-size: 17px;">State</legend>
@@ -244,7 +259,7 @@
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
-                <asp1:TabPanel ID="tbpnlDistrict" runat="server" HeaderText="District">
+                <asp1:TabPanel ID="tbpnlDistrict" runat="server" HeaderText="District" ToolTip="List of Districts...">
                     <ContentTemplate>
                         <fieldset class="fieldset-border">
                             <legend style="background: none; color: #007bff; font-size: 17px;">District</legend>
@@ -331,7 +346,7 @@
                         </fieldset>
                     </ContentTemplate>
                 </asp1:TabPanel>
-                <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="City">
+                <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="City" ToolTip="List of Cities...">
                     <ContentTemplate>
                         <fieldset class="fieldset-border">
                             <legend style="background: none; color: #007bff; font-size: 17px;">City</legend>
@@ -425,6 +440,6 @@
                     </ContentTemplate>
                 </asp1:TabPanel>
             </asp1:TabContainer>
-        </div>
-    </div>
+       <%-- </div>
+    </div>--%>
 </asp:Content>
