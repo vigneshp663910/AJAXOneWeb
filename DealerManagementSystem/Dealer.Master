@@ -452,27 +452,30 @@
         /*.w3-padding-large {
             padding: initial !important;
         }*/
-        .lRemove{
-            background: #C22439 !important;
-            color: white;
-            height: 23px;
-        }
-        .lRemove:hover{
+        .lRemove {
             background: #C22439 !important;
             color: white;
             height: 23px;
         }
 
-        .lDownload{
+            .lRemove:hover {
+                background: #C22439 !important;
+                color: white;
+                height: 23px;
+            }
+
+        .lDownload {
             background: #009ad7 !important;
             color: white;
             height: 23px;
         }
-        .lDownload:hover{
-            background: #009ad7 !important;
-            color: white;
-            height: 23px;
-        }
+
+            .lDownload:hover {
+                background: #009ad7 !important;
+                color: white;
+                height: 23px;
+            }
+
         .w3-bar-block .w3-bar-item {
             padding: 3px 2px 2px 10px !important;
         }
@@ -688,6 +691,7 @@
         button, input {
             height: 23px;
         }
+
         @media (min-width: 768px) {
             .col-md-3 {
                 -ms-flex: 0 0 22%;
@@ -801,6 +805,9 @@
                     <div class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
+                    <%--<div class="menu-toggler sidebar-toggler">
+                        <span></span>
+                    </div>--%>
                     <div class="appico">
                         <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
                     </div>
