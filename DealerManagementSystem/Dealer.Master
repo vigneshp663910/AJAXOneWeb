@@ -124,6 +124,7 @@
             padding: 2px 20px;
             text-decoration: none;
             font-size: 15px;
+          
         }
 
         body, h1, h2, h3, h4, h5 {
@@ -449,6 +450,7 @@
             /*background-color: #2a3342 !important;*/
             /*background-color: #151e2cdb !important;*/
             background-color: #3C4C5B !important;
+            /*background-color:darkgray !important;*/
         }
 
         /*.w3-padding-large {
@@ -874,7 +876,7 @@
                             <button class="dropbtn"><i class="fa fa-dashboard font-white"></i></button>
                             <div class="dropdown-content">
                                 <div class="dropdown-header">Dashboard</div>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
+                                <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>                        
