@@ -177,7 +177,6 @@
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Ajax\Images\ThankYou1.jpg" />
     <Content Include="BackUp\Home1.aspx" />
-    <Content Include="BackUp\SignIn.aspx" />
     <Content Include="Images\ARROW01.png" />
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
@@ -468,13 +467,6 @@
     </Compile>
     <Compile Include="BackUp\Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BackUp\SignIn.aspx.cs">
-      <DependentUpon>SignIn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BackUp\SignIn.aspx.designer.cs">
-      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\OrgChart.aspx.cs">
       <DependentUpon>OrgChart.aspx</DependentUpon>
