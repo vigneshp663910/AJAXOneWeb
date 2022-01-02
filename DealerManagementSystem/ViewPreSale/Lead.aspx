@@ -8,7 +8,6 @@
             width: 170px;
             height: 50px;
             font: 20px;
-
         }
 
         .ajax__tab_xp .ajax__tab_header {
@@ -52,6 +51,20 @@
                             <asp1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtLeadDateTo" PopupButtonID="txtLeadDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
                         </div>
                         <div class="col-md-2 text-right">
+                            <label>Progress Status</label>
+                        </div>
+                        <div class="col-md-2">
+                            <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
+                        </div>
+
+                        <div class="col-md-2 text-right">
+                            <label>Status</label>
+                        </div>
+                        <div class="col-md-2">
+                            <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
+                        </div>
+
+                        <div class="col-md-2 text-right">
                             <label>Category</label>
                         </div>
                         <div class="col-md-2">
@@ -70,12 +83,7 @@
                         <div class="col-md-2">
                             <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Status</label>
-                        </div>
-                        <div class="col-md-2">
-                            <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
-                        </div>
+
                         <div class="col-md-2 text-right">
                             <label>Lead Type</label>
                         </div>
@@ -93,8 +101,15 @@
                             <label>Country</label>
                         </div>
                         <div class="col-md-2">
-                            <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />
                         </div>
+                        <div class="col-md-2 text-right">
+                            <label>State</label>
+                        </div>
+                        <div class="col-md-2">
+                            <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
+                        </div>
+
                         <div class="col-md-2">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         </div>
@@ -577,6 +592,41 @@
         </asp1:TabPanel>
     </asp1:TabContainer>
 
+
+
+    <asp:Panel ID="Panel111" runat="server" CssClass="modalPopup" Style="display: none">
+        <table style="width: 270px">
+            <tr>
+                <td>
+                    <label>Sales Engineer</label></td>
+                <td>
+                      <asp:DropDownList ID="ddlSalesEngineer" runat="server" CssClass="form-control" /></td>
+            </tr>
+          <%--  <tr>
+                <td>
+                    <label>Password</label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPassword" runat="server" Width="100px"></asp:TextBox></td>
+            </tr>--%>
+            <tr>
+                <td></td>
+                <td>
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+                    <asp:Button ID="btnAssignSalesEngineer" runat="server" Text="LogIn" OnClick="btnAssignSalesEngineer_Click" /></td>
+            </tr>
+        </table>
+
+    </asp:Panel>
+    <asp:LinkButton ID="lnkLoginbtn" runat="server">Login</asp:LinkButton>
+    <ajaxToolkit:ModalPopupExtender ID="MP_AssignSalesEngineer" runat="server"
+        TargetControlID="lnkLoginbtn"
+        PopupControlID="Panel111"
+        BackgroundCssClass="modalBackground"
+        DropShadow="true"
+        OkControlID="btnAssignSalesEngineer"
+        OnOkScript="ok()"
+        CancelControlID="btnCancel" />
 
 
 </asp:Content>

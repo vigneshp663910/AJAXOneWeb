@@ -17,23 +17,36 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!IsPostBack)
             {
-                new DDLBind(ddlCategory, new BLead().GetLeadCategory(null, null), "Category", "CategoryID");
-                new DDLBind(ddlQualification, new BLead().GetLeadQualification(null, null), "Qualification", "QualificationID");
-                new DDLBind(ddlSource, new BLead().GetLeadSource(null, null), "Source", "SourceID");
-                new DDLBind(ddlLeadType, new BLead().GetLeadType(null, null), "Type", "TypeID");
+                List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
+                new DDLBind(ddlCategory, Category, "Category", "CategoryID");
+                new DDLBind(ddlSCategory, Category, "Category", "CategoryID");
 
-                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                List <PLeadQualification > Qualification = new BLead().GetLeadQualification(null, null);
+                new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID");
+                new DDLBind(ddlSQualification, Qualification, "Qualification", "QualificationID");
+
+                List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
+                new DDLBind(ddlSource, Source, "Source", "SourceID");
+                new DDLBind(ddlSSource, Source, "Source", "SourceID");
+
+                List<PLeadType> LeadType = new BLead().GetLeadType(null, null);
+                new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");
+                 new DDLBind(ddlSType, LeadType, "Type", "TypeID");
+
+                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
+                new DDLBind(ddlCountry, Country, "Country", "CountryID");
+                new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlCountry.SelectedValue = "1";
-                new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
 
-                //ddlProgressStatus.DataSource = new BLead().GetLeadProgressStatus(null, null);
-                //ddlProgressStatus.DataBind();
-                //ddlProgressStatus.Items.Insert(0, new ListItem("Select", "0"));                 
+                List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
+                new DDLBind(ddlState, State, "State", "StateID");
+                new DDLBind(ddlSState, State, "State", "StateID");
 
-                //ddlStatus.DataSource = new BLead().GetLeadStatus(null, null);
-                //ddlStatus.DataBind();
-                //ddlStatus.Items.Insert(0, new ListItem("Select", "0"));                
+                List<PLeadProgressStatus > ProgressStatus = new BLead().GetLeadProgressStatus(null, null);
+                new DDLBind(ddlSProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
 
+                List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
+                new DDLBind(ddlSStatus, Status, "Status", "StatusID"); 
             }
         }
 
@@ -88,6 +101,20 @@ namespace DealerManagementSystem.ViewPreSale
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             PLeadSearch S = new PLeadSearch();
+            S.LeadNumber = txtLeadNumber.Text.Trim();
+            S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
+            S.ProgressStatusID = ddlSProgressStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSProgressStatus.SelectedValue);
+            S.CategoryID = ddlSCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCategory.SelectedValue);
+            S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
+            S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+            S.TypeID = ddlSType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSType.SelectedValue);
+            S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
+            S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue); 
+
+            S.CustomerCode = txtCustomerCode.Text.Trim();
+            S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim())?(DateTime?) null: Convert.ToDateTime( txtLeadDateFrom.Text.Trim());
+            S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
+
             List<PLead> Leads = new BLead().GetLead(S);
             gvLead.DataSource = Leads;
             gvLead.DataBind();
@@ -95,29 +122,48 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblLeadNumber1 = (Label)gvRow.FindControl("lblLeadNumber");
-            PLeadSearch S = new PLeadSearch();
-            S.LeadNumber = lblLeadNumber1.Text;
-            PLead Lead = new BLead().GetLead(S)[0];
-            lblLeadNumber.Text = Lead.LeadNumber;
-            lblLeadDate.Text = Convert.ToString(Lead.LeadDate);
-            lblCategory.Text = Lead.Category.Category;
-            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
-            lblQualification.Text = Lead.Qualification.Qualification;
-            lblSource.Text = Lead.Source.Source;
-            lblStatus.Text = Lead.Status.Status;
-            lblType.Text = Lead.Type.Type;
-            lblDealer.Text = Lead.Dealer.DealerCode;
-            lblRemarks.Text = Lead.Remarks;
-            string Customer = Lead.Customer.CustomerCode + " " + Lead.Customer.CustomerName;
-            lblCustomer.Text = Customer;
-            lblContactPerson.Text = Lead.Customer.ContactPerson;
-            lblMobile.Text = Lead.Customer.Mobile;
-            lblEmail.Text = Lead.Customer.Email;
 
-            string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
-            lblLocation.Text = Location;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
+
+            if (ddlAction.Text == "View Lead")
+            {
+                Label lblLeadNumber1 = (Label)gvRow.FindControl("lblLeadNumber");
+                PLeadSearch S = new PLeadSearch();
+                S.LeadNumber = lblLeadNumber1.Text;
+                PLead Lead = new BLead().GetLead(S)[0];
+                lblLeadNumber.Text = Lead.LeadNumber;
+                lblLeadDate.Text = Convert.ToString(Lead.LeadDate);
+                lblCategory.Text = Lead.Category.Category;
+                lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
+                lblQualification.Text = Lead.Qualification.Qualification;
+                lblSource.Text = Lead.Source.Source;
+                lblStatus.Text = Lead.Status.Status;
+                lblType.Text = Lead.Type.Type;
+                lblDealer.Text = Lead.Dealer.DealerCode;
+                lblRemarks.Text = Lead.Remarks;
+                string Customer = Lead.Customer.CustomerCode + " " + Lead.Customer.CustomerName;
+                lblCustomer.Text = Customer;
+                lblContactPerson.Text = Lead.Customer.ContactPerson;
+                lblMobile.Text = Lead.Customer.Mobile;
+                lblEmail.Text = Lead.Customer.Email;
+
+                string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
+                lblLocation.Text = Location;
+            }
+            else if (ddlAction.Text == "Assign")
+            {
+                MP_AssignSalesEngineer.Show();
+            }
+        }
+        protected void ddlSCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlSState, new BDMS_Address().GetState(Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
+        }
+
+        protected void btnAssignSalesEngineer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
