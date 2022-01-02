@@ -8,6 +8,7 @@
             width: 170px;
             height: 50px;
             font: 20px;
+
         }
 
         .ajax__tab_xp .ajax__tab_header {
