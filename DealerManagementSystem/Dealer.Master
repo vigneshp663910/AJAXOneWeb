@@ -897,8 +897,8 @@
                             <button class="dropbtn"><i class="fa fa-list font-white"></i></button>
 
                             <div class="dropdown-content">
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Enquiry</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Cross Company Enquiry</a>
+                                <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
+                                <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
 
                                 <%--<div class="dropdown-divider"></div>

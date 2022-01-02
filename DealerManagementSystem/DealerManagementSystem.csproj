@@ -190,8 +190,10 @@
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
+    <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
     <Content Include="ProcessFlow\OrgChart.aspx" />
+    <Content Include="ViewMaster\tab_MaterialMaster.aspx" />
     <Content Include="ProcessFlow\Parts_Org2.png" />
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Pre_Sales1.png" />
@@ -259,7 +261,8 @@
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
-    <Content Include="ViewSales\ASN.aspx" />
+    <Content Include="ViewSales\tab_ASNPages.aspx" />
+    <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
     <Content Include="ViewSales\MonthlySales.aspx" />
     <Content Include="ViewSales\PurchaseOrder.aspx" />
@@ -477,12 +480,26 @@
     <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
+      <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.designer.cs">
+      <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProcessFlow\OrgChart.aspx.cs">
       <DependentUpon>OrgChart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\OrgChart.aspx.designer.cs">
       <DependentUpon>OrgChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\tab_MaterialMaster.aspx.cs">
+      <DependentUpon>tab_MaterialMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\tab_MaterialMaster.aspx.designer.cs">
+      <DependentUpon>tab_MaterialMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
       <DependentUpon>Pre_Sales.aspx</DependentUpon>
@@ -732,12 +749,19 @@
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.designer.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\ASN.aspx.cs">
-      <DependentUpon>ASN.aspx</DependentUpon>
+    <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
+      <DependentUpon>tab_ASNPages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\ASN.aspx.designer.cs">
-      <DependentUpon>ASN.aspx</DependentUpon>
+    <Compile Include="ViewSales\tab_ASNPages.aspx.designer.cs">
+      <DependentUpon>tab_ASNPages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\tab_ASN.aspx.cs">
+      <DependentUpon>tab_ASN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\tab_ASN.aspx.designer.cs">
+      <DependentUpon>tab_ASN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\MonthlyProcurement.aspx.cs">
       <DependentUpon>MonthlyProcurement.aspx</DependentUpon>

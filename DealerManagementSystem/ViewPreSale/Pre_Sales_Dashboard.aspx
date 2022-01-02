@@ -2,15 +2,30 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
+
+        /*.thumbnail {
+
+            padding-bottom: 11px;
+            padding-top:11px;
+        }
+
+        .wide_thumbnail
+        {
+             padding-left: 8px;
+             padding-right: 8px;
+
+        }*/
         .portlet.box.green {
-         /*   border: 1px solid #5cd1db;*/
-            border: 1px solid #483D8B;
+            border: 1px solid #5cd1db;
+            /*  border: 1px solid #483D8B;*/
             border-top: 0;
+            padding-bottom: 11px;
+            padding-top:11px;
         }
 
             .portlet.box.green > .portlet-title {
-               /* background-color: #32c5d2;*/
-                background-color: #40E0D0;
+                background-color: #32c5d2;
+                /* background-color: #00CED1;*/
             }
 
         .portlet.box > .portlet-title {
@@ -18,7 +33,6 @@
             padding: 0 10px;
             margin-bottom: 0;
             color: #fff;
-
         }
 
         .portlet > .portlet-title > .actions > .btn, .portlet > .portlet-title > .actions > .btn.btn-sm, .portlet > .portlet-title > .actions > .btn-group > .btn, .portlet > .portlet-title > .actions > .btn-group > .btn.btn-sm {
@@ -31,7 +45,7 @@
         .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-sm {
             font-size: 11px;
             /*padding: 6px 18px 6px 18px;*/
-           /* padding: 3px 9px 3px 9px;*/
+            /* padding: 3px 9px 3px 9px;*/
         }
 
 
@@ -65,14 +79,14 @@
             z-index: 2;
         }
 
-        
+
         .btn.active, .btn:active {
             outline: 0;
             -webkit-box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
             box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
         }
 
-        
+
 
         .btn, .btn-danger.active, .btn-danger:active, .btn-default.active, .btn-default:active, .btn-info.active, .btn-info:active, .btn-primary.active, .btn-primary:active, .btn-warning.active, .btn-warning:active, .btn.active, .btn:active, .dropdown-menu > .disabled > a:focus, .dropdown-menu > .disabled > a:hover, .form-control, .navbar-toggle, .open > .btn-danger.dropdown-toggle, .open > .btn-default.dropdown-toggle, .open > .btn-info.dropdown-toggle, .open > .btn-primary.dropdown-toggle, .open > .btn-warning.dropdown-toggle {
             background-image: none;
@@ -85,7 +99,7 @@
 
         .btn {
             outline: none !important;
-            min-block-size:30px;
+            min-block-size: 30px;
         }
 
         .btn-circle {
@@ -100,7 +114,7 @@
             border-radius: 3px;
         }
 
-        
+
 
         .btn {
             display: inline-block;
@@ -122,21 +136,20 @@
             user-select: none;
         }
 
-        
-        label {
-            font-weight: normal;
-        }
 
         label {
             font-weight: normal;
         }
 
+        label {
+            font-weight: normal;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml">
+    <html>
     <head>
         <title></title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -148,11 +161,9 @@
 
         <div class="portlet box green">
             <div class="portlet-title">
-                <div class="caption" style="font-size:25px">
-                    Lead Activity Statistics
-                   
-                
-                <div class="actions" style="float:right;">
+                <div class="caption" style="font-size: 25px">
+                    Lead Activity Statistics             
+                <div class="actions" style="float: right;">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">
                             <input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');">Today
@@ -172,60 +183,60 @@
                         </label>
                     </div>
                 </div>
-                    </div>
+                </div>
             </div>
             <div class="portlet-body" style="padding: 5px;">
                 <div id="divEnquiryStat">
-                    <div id="divLeadStatistics" class="row no-margin">
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px;">
+                    <div id="divLeadStatistics" class="row no-margin" style="font-size:medium; text-align: right;">
+                        <div class="col-md-3 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; margin-left:15px; background-color: #8775a7; ">
                             <a class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details">
+                                <div class="details" style="color:white;">
                                     <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
-                                    <div class="desc">Newly Created</div>
+                                    <div class="desc" >Newly Created</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px;">
+                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#3598dc;">
                             <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details">
+                                <div class="details" style="color:white;">
                                     <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
                                     <div class="desc">Assigned</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px;">
+                        <div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#32c5d2;">
                             <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0);" onclick="VisitMyEnquiries('Prospect');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details">
+                                <div class="details" style="color:white;">
                                     <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
                                     <div class="desc">Prospect</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px;">
+                        <div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#26c281;">
                             <a class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details">
+                                <div class="details" style="color:white;">
                                     <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
                                     <div class="desc">Won</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px;">
+                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#d91e18;">
                             <a class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details">
+                                <div class="details" style="color:white;">
                                     <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
                                     <div class="desc">Lost</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px;">
+                        <div class="col-md-1 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:1px; background-color:#d05454;">
                             <a class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details">
+                                <div class="details" style="color:white;">
                                     <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
                                     <div class="desc">Cancelled</div>
                                 </div>
@@ -234,9 +245,226 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
 
+
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption" style="font-size: 25px">
+                    Lead Statistics Funnel
+  
+                    <div class="actions" style="float: right;">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px; font-size: 11px;">
+                                <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">Week
+                           
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">Month
+                           
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <input name="leadFunnel" class="toggle" type="radio" value="Year" onchange="ShowLeadFunnel('Year');">Year
+                           
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body" style="padding: 5px; text-align: center;">
+                <div id="divLeadFunnel" style="width: 300px; height: 300px; margin: 0 auto;" class="row no-margin">
+                    <svg id="d3-funnel-chart-0" width="300" height="300">
+                        <defs>
+                            <linearGradient id="d3-funnel-chart-0-gradient-0">
+                                <stop offset="0%" style="stop-color: #6c5e86"></stop>
+                                <stop offset="40%" style="stop-color: #8775A7"></stop>
+                                <stop offset="60%" style="stop-color: #8775A7"></stop>
+                                <stop offset="100%" style="stop-color: #6c5e86"></stop>
+                            </linearGradient>
+                            <linearGradient id="d3-funnel-chart-0-gradient-1">
+                                <stop offset="0%" style="stop-color: #289ea8"></stop>
+                                <stop offset="40%" style="stop-color: #32C5D2"></stop>
+                                <stop offset="60%" style="stop-color: #32C5D2"></stop>
+                                <stop offset="100%" style="stop-color: #289ea8"></stop>
+                            </linearGradient>
+                            <linearGradient id="d3-funnel-chart-0-gradient-2">
+                                <stop offset="0%" style="stop-color: #1e9b67"></stop>
+                                <stop offset="40%" style="stop-color: #26C281"></stop>
+                                <stop offset="60%" style="stop-color: #26C281"></stop>
+                                <stop offset="100%" style="stop-color: #1e9b67"></stop>
+                            </linearGradient>
+                        </defs><path fill="#514664" d="M0,10 Q150,30 300,10 M300,10 Q150,0 0,10"></path><g><path d="M0,10 Q150,20 300,10 L250,103.33333333333333 M250,103.33333333333333 Q150,123.33333333333333 50,103.33333333333333 L0,10" fill="url(#d3-funnel-chart-0-gradient-0)"></path>
+                            <text x="150" y="66.66666666666666" fill="#fff" font-size="14px" text-anchor="middle" dominant-baseline="middle" pointer-events="none">
+                                <tspan x="150" dy="-10">Newly Created</tspan>
+                                <tspan x="150" dy="20">16</tspan>
+                            </text>
+                        </g><g><path d="M50,103.33333333333333 Q150,113.33333333333333 250,103.33333333333333 L200,196.66666666666666 M200,196.66666666666666 Q150,216.66666666666666 100,196.66666666666666 L50,103.33333333333333" fill="url(#d3-funnel-chart-0-gradient-1)"></path>
+                            <text x="150" y="160" fill="#fff" font-size="14px" text-anchor="middle" dominant-baseline="middle" pointer-events="none">
+                                <tspan x="150" dy="-10">Convert To Prospect</tspan>
+                                <tspan x="150" dy="20">2</tspan>
+                            </text>
+                        </g><g><path d="M100,196.66666666666666 Q150,206.66666666666666 200,196.66666666666666 L200,290 M200,290 Q150,310 100,290 L100,196.66666666666666" fill="url(#d3-funnel-chart-0-gradient-2)"></path>
+                            <text x="150" y="253.33333333333331" fill="#fff" font-size="14px" text-anchor="middle" dominant-baseline="middle" pointer-events="none">
+                                <tspan x="150" dy="-10">Won</tspan>
+                                <tspan x="150" dy="20">0</tspan>
+                            </text>
+                        </g></svg>
+                </div>
+            </div>
+        </div>
+
+        <%--<div class="row">
+        
+                    <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        SMS Summary
+                    </div>
+                </div>
+                <div class="portlet-body" style="padding:5px;">
+                    <div id="divSMSBalanceStatisctics" class="row no-margin"><div class="col-sm-4" style="padding:0;margin-left:5px;border-right:1px solid #F3F3F4;">
+    <div class="ibox-title">
+        <h5>SMS Balance</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-12" style="padding-bottom:10px;">
+                <h2 class="no-margins" style="margin-top:5px"><i class="fa fa-envelope"></i>&nbsp;<span id="smsBalance">461</span></h2>
+            </div>
+        </div>
+    </div>
+</div></div>
+                </div>
+            </div>
+                                            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Enquiry Activity Statistics
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <label class="btn red btn-outline btn-circle btn-sm active" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');">Today
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">Week
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">Month
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">Year
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body" style="padding:5px;">
+                    <div id="divEnquiryStat"><div id="divLeadStatistics" class="row no-margin"><div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom:2px;padding-left:10px;padding-right:10px;"><a class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');"><div class="visual"><i class="fa fa-ticket"></i></div><div class="details"><div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div><div class="desc">Newly Created</div></div></a></div><div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom:2px;padding-left:10px;padding-right:10px;"><a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');"><div class="visual"><i class="fa fa-ticket"></i></div><div class="details"><div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div><div class="desc">Assigned</div></div></a></div><div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom:2px;padding-left:10px;padding-right:10px;"><a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0);" onclick="VisitMyEnquiries('Prospect');"><div class="visual"><i class="fa fa-ticket"></i></div><div class="details"><div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div><div class="desc">Prospect</div></div></a></div><div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom:2px;padding-left:10px;padding-right:10px;"><a class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');"><div class="visual"><i class="fa fa-ticket"></i></div><div class="details"><div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div><div class="desc">Won</div></div></a></div><div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom:2px;padding-left:10px;padding-right:10px;"><a class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');"><div class="visual"><i class="fa fa-ticket"></i></div><div class="details"><div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div><div class="desc">Lost</div></div></a></div><div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom:2px;padding-left:10px;padding-right:10px;"><a class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');"><div class="visual"><i class="fa fa-ticket"></i></div><div class="details"><div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div><div class="desc">Cancelled</div></div></a></div></div></div>
+                </div>
+            </div>
+                    <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Enquiry Statistics Funnel
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <label class="btn red btn-outline btn-circle btn-sm active" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">Week
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">Month
+                            </label>
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding:2px 5px;font-size:11px;">
+                                <input name="leadFunnel" class="toggle" type="radio" value="Year" onchange="ShowLeadFunnel('Year');">Year
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body" style="padding:5px;text-align:center;">
+                    <div id="divLeadFunnel" style="width: 300px; height: 300px; margin: 0 auto;" class="row no-margin"><svg id="d3-funnel-chart-0" width="300" height="300"><defs><linearGradient id="d3-funnel-chart-0-gradient-0"><stop offset="0%" style="stop-color: #6c5e86"></stop><stop offset="40%" style="stop-color: #8775A7"></stop><stop offset="60%" style="stop-color: #8775A7"></stop><stop offset="100%" style="stop-color: #6c5e86"></stop></linearGradient><linearGradient id="d3-funnel-chart-0-gradient-1"><stop offset="0%" style="stop-color: #289ea8"></stop><stop offset="40%" style="stop-color: #32C5D2"></stop><stop offset="60%" style="stop-color: #32C5D2"></stop><stop offset="100%" style="stop-color: #289ea8"></stop></linearGradient><linearGradient id="d3-funnel-chart-0-gradient-2"><stop offset="0%" style="stop-color: #1e9b67"></stop><stop offset="40%" style="stop-color: #26C281"></stop><stop offset="60%" style="stop-color: #26C281"></stop><stop offset="100%" style="stop-color: #1e9b67"></stop></linearGradient></defs><path fill="#514664" d="M0,10 Q150,30 300,10 M300,10 Q150,0 0,10"></path><g><path d="M0,10 Q150,20 300,10 L250,103.33333333333333 M250,103.33333333333333 Q150,123.33333333333333 50,103.33333333333333 L0,10" fill="url(#d3-funnel-chart-0-gradient-0)"></path><text x="150" y="66.66666666666666" fill="#fff" font-size="14px" text-anchor="middle" dominant-baseline="middle" pointer-events="none"><tspan x="150" dy="-10">Newly Created</tspan><tspan x="150" dy="20">16</tspan></text></g><g><path d="M50,103.33333333333333 Q150,113.33333333333333 250,103.33333333333333 L200,196.66666666666666 M200,196.66666666666666 Q150,216.66666666666666 100,196.66666666666666 L50,103.33333333333333" fill="url(#d3-funnel-chart-0-gradient-1)"></path><text x="150" y="160" fill="#fff" font-size="14px" text-anchor="middle" dominant-baseline="middle" pointer-events="none"><tspan x="150" dy="-10">Convert To Prospect</tspan><tspan x="150" dy="20">2</tspan></text></g><g><path d="M100,196.66666666666666 Q150,206.66666666666666 200,196.66666666666666 L200,290 M200,290 Q150,310 100,290 L100,196.66666666666666" fill="url(#d3-funnel-chart-0-gradient-2)"></path><text x="150" y="253.33333333333331" fill="#fff" font-size="14px" text-anchor="middle" dominant-baseline="middle" pointer-events="none"><tspan x="150" dy="-10">Won</tspan><tspan x="150" dy="20">0</tspan></text></g></svg></div>
+                </div>
+            </div>
+                    <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Assigned Pending Enquiries [Recent 3]
+                    </div>
+                </div>
+                <div class="portlet-body" style="padding:5px;">
+                    <div class="row no-margin">
+                        <div class="col-md-12" style="margin-top:10px;padding:0;">
+                            <div id="tblEnquiry_wrapper" class="dataTables_wrapper no-footer"><div class="row"><div class="col-md-6 col-sm-6"></div><div class="col-md-6 col-sm-6"><div id="tblEnquiry_filter" class="dataTables_filter" style="display: none;"><label>Search:<input type="search" class="form-control input-sm input-small input-inline" placeholder="" aria-controls="tblEnquiry"></label></div></div></div><div class="table-scrollable"><table id="tblEnquiry" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" style="border-bottom: none; width: 1649px;" role="grid">
+                                <thead>
+                                    <tr role="row"><th style="width: 39px; text-align: center;" class="all sorting_disabled" rowspan="1" colspan="1">#</th><th class="all sorting_disabled" style="width: 72px;" rowspan="1" colspan="1">Enquiry No.</th><th class="all sorting_disabled" style="width: 318px;" rowspan="1" colspan="1">Customer</th><th class="all sorting_disabled" style="width: 285px;" rowspan="1" colspan="1">Product</th><th class="all sorting_disabled" style="width: 318px;" rowspan="1" colspan="1">Source</th><th class="all sorting_disabled" style="width: 105px;" rowspan="1" colspan="1">Enquiry Date</th><th class="all sorting_disabled" style="width: 154px;" rowspan="1" colspan="1">Type</th><th class="all sorting_disabled" style="width: 154px;" rowspan="1" colspan="1">Status</th><th class="all sorting_disabled" style="width: 106px; text-align: center;" rowspan="1" colspan="1">Action</th></tr>
+                                </thead>
+                                <tbody><tr class="odd"><td valign="top" colspan="9" class="dataTables_empty" style="display: none;">No data available in table</td></tr></tbody>
+                            </table></div><div class="row"><div class="col-md-5 col-sm-5"></div><div class="col-md-7 col-sm-7"></div></div></div>
+                        </div>
+                        <div id="divViewMoreEnquiries" class="btn-arrow-link pull-right" style="display:none;">
+                            <a href="javascript:void(0);" onclick="VisitPageWithParam('Enquiry', 'ManageEnquiries','statisticsType=Week&amp;status=Assigned');">Show More <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                        <div id="divNoRecords" class="col-sm-12" style="">
+                            <span class="text-danger">No records found</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+                    <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Today's Follow-ups
+                    </div>
+                </div>
+                <div class="portlet-body" style="padding:5px;">
+                    <div id="divTodaysTask" class="row no-margin">
+<div class="col-md-12" style="padding:0 10px 0 10px;">
+        <span class="text-danger">No records found</span>
+</div>
+<script type="text/javascript">
+    function CopyFollowUp(n){ShowLoader();$.ajax({url:"/Task/CopyFollowUp",type:"POST",data:{followUpId:n},success:function(n){ValidateAjaxRequest(n)?($("#myModalContent").html(n.renderedView),$("#myParitialModalForm").modal({keyboard:!0},"show")):DisplayErrorMessage(n.message);HideLoader()}})}function CopyFollowUp(n){ShowLoader();$.ajax({url:"/Task/CopyFollowUp",type:"POST",data:{followUpId:n},success:function(n){HideLoader();ValidateAjaxRequest(n,!1)?($("div.modal-backdrop").remove(),$("#divImageModalWindow").html(n.renderedView),$("#addFollowUpModalForm").modal({keyboard:!0},"show")):DisplayErrorMessage(n.message)}})}function UpdateFollowUpStatus(n,t,i){ShowLoader();$.ajax({url:"/Task/UpdateFollowUpStatus",type:"POST",data:{followUpId:n,status:t,comment:i},success:function(n){HideLoader();ValidateAjaxRequest(n,!1)?(ShowFollowUps(),DisplaySuccessMessage(n.message)):DisplayErrorMessage(n.message)}})}function CancelFollowUp(n){$("html, body").css("overflow-y","visible");swal({title:"Are you sure to cancel this follow-up?",type:"input",showCancelButton:!0,confirmButtonText:"Yes",confirmButtonColor:"#3085d6",cancelButtonText:"No",closeOnConfirm:!1,animation:"pop",inputPlaceholder:"Comment to cancel follow-up",showLoaderOnConfirm:!0},function(t){if(t===!1)return!1;UpdateFollowUpStatus(n,"Cancelled",t);swal.close()});CustomizeSweetAlert()}function CompleteFollowUp(n){$("html, body").css("overflow-y","visible");swal({title:"Are you sure to complete this follow-up?",type:"input",showCancelButton:!0,confirmButtonText:"Yes",confirmButtonColor:"#3085d6",cancelButtonText:"No",closeOnConfirm:!1,animation:"pop",inputPlaceholder:"Comment to complete follow-up",showLoaderOnConfirm:!0},function(t){if(t===!1)return!1;UpdateFollowUpStatus(n,"Completed",t);swal.close()});CustomizeSweetAlert()}function EditFollowUp(n){ShowLoader();$.ajax({url:"/Task/EditFollowUp",type:"POST",data:{followUpId:n},success:function(n){HideLoader();ValidateAjaxRequest(n,!1)?($("div.modal-backdrop").remove(),$("#divImageModalWindow").html(n.renderedView),$("#addFollowUpModalForm").modal({keyboard:!0},"show")):DisplayErrorMessage(n.message)}})}
+</script></div>
+                </div>
+            </div>
+        <div class="col-md-12" style="padding:0;">
+                <div class="col-md-6" style="padding:2px">
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                Today's Birthdays
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-sm btn-primary" style="margin-top:5px;" onclick="ShowTodaysBirthdays();">Show Birthdays</button>
+                            </div>
+                        </div>
+                        <div class="portlet-body" style="padding:5px;">
+                            <div id="divTodaysBirthdays" class="row no-margin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-6" style="padding:2px">
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                Today's Anniversaries
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-sm btn-primary" style="margin-top:5px;" onclick="ShowTodaysAnniversaries();">Show Anniversaries</button>
+                            </div>
+                        </div>
+                        <div class="portlet-body" style="padding:5px;">
+                            <div id="divTodaysAnniversaries" class="row no-margin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>--%>
     </body>
     </html>
 </asp:Content>
