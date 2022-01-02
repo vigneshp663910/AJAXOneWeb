@@ -12,7 +12,7 @@
 
 
     <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
-    <body onload="SetScreenTitle('My Profile')">
+    <body>
         
 
     </body>
