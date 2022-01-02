@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="../Dealer.Master" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="DealerManagementSystem.Account.ChangePassword" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="../Dealer.Master" AutoEventWireup="true" CodeBehind="LoginAs.aspx.cs" Inherits="DealerManagementSystem.Account.LoginAs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -9,9 +9,8 @@
     <head>
         <title></title>
     </head>
+
     <body>
-
-
     </body>
     </html>
 </asp:Content>

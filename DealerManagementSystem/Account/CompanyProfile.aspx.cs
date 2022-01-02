@@ -7,7 +7,7 @@ namespace DealerManagementSystem.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Company Profile');</script>");
         }
     }
 }

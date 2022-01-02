@@ -9,21 +9,9 @@
     <head>
         <title></title>
     </head>
-
-    
-    <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
-    <body onload="SetScreenTitle('Pre-Sales Process Flow')">
+    <body>
         <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
-        <%--<form id="form1" runat="server">
-            <div>
-            </div>
-        </form>--%>
-
-        <%--<script>
-            function SetScreenTitle() {
-                alert('Hi');
-            }
-        </script>--%>
+       
     </body>
     </html>
 </asp:Content>

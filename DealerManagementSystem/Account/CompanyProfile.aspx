@@ -9,11 +9,8 @@
     <head>
         <title></title>
     </head>
+    <body>
 
-
-    <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
-    <body onload="SetScreenTitle('Company Profile')">
-        
 
     </body>
     </html>

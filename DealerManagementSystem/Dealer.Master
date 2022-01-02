@@ -875,8 +875,9 @@
                             <div class="dropdown-content">
                                 <div class="dropdown-header">Dashboard</div>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Service</a>                        
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>                        
                             </div>
                         </div>
                     </div>
