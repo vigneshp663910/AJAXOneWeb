@@ -17,7 +17,7 @@
         }*/
         .portlet.box.green {
             border: 1px solid #5cd1db;
-            /*  border: 1px solid #483D8B;*/
+           /*   border: 1px solid #483D8B;*/
             border-top: 0;
             padding-bottom: 11px;
             padding-top:11px;
@@ -25,7 +25,9 @@
 
             .portlet.box.green > .portlet-title {
                 background-color: #32c5d2;
-                /* background-color: #00CED1;*/
+               /*  background-color: #00CED1;*/
+                /* background-color: #0000cc;*/
+                /*   background-color: #000099;*/
             }
 
         .portlet.box > .portlet-title {
@@ -161,7 +163,7 @@
 
         <div class="portlet box green">
             <div class="portlet-title">
-                <div class="caption" style="font-size: 25px">
+                <div class="caption" style="font-size: 25px;">
                     Lead Activity Statistics             
                 <div class="actions" style="float: right;">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -252,7 +254,7 @@
 
         <div class="portlet box green">
             <div class="portlet-title">
-                <div class="caption" style="font-size: 25px">
+                <div class="caption" style="font-size: 25px;">
                     Lead Statistics Funnel
   
                     <div class="actions" style="float: right;">
