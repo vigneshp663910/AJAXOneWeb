@@ -190,6 +190,8 @@
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
+    <Content Include="ViewAdmin\tab_AdminModule.aspx" />
+    <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
     <Content Include="ProcessFlow\OrgChart.aspx" />
@@ -479,6 +481,20 @@
     </Compile>
     <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\tab_AdminModule.aspx.cs">
+      <DependentUpon>tab_AdminModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\tab_AdminModule.aspx.designer.cs">
+      <DependentUpon>tab_AdminModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.cs">
+      <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
+      <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
