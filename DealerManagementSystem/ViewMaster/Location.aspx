@@ -280,11 +280,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-2 text-right">
+                                    <label>DealerCode</label><span class="Mandatory">*</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <asp:DropDownList ID="ddlDDealer" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                                <div class="col-md-2 text-right">
                                     <label>District</label><span class="Mandatory">*</span>
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox ID="txtDistrict" runat="server" CssClass="form-control" />
-                                </div>
+                                </div>                                
                                 <div class="col-md-2">
                                     <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchDistrict_Click"></asp:Button>
                                     <asp:Button ID="BtnAddDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddDistrict_Click"></asp:Button>
@@ -317,6 +323,12 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' runat="server" Visible="false"></asp:Label>
                                                 <asp:DropDownList ID="ddlGDState" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="DealerCode">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDealer" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerID")%>' runat="server" Visible="false"></asp:Label>
+                                                <asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="District">

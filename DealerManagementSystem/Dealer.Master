@@ -378,8 +378,9 @@
             .fa {
                 visibility: hidden;
             }
-            #userprofile{
-                display:none;
+
+            #userprofile {
+                display: none;
             }
         }
 
@@ -771,9 +772,26 @@
         .modal-backdrop {
             background-color: gray;
         }
-        .modalBackground{
-            background-color:#000000bd;
+
+        .modalBackground {
+            background-color: #000000bd;
         }
+
+        /*.card {
+            margin-bottom: 30px;
+            border: 0;
+            box-shadow: 0 0 2rem 0 rgb(136 152 170 / 15%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            border: 1px solid rgba(0,0,0,.05);
+            border-radius: 0.375rem;
+            background-color: #fff;
+            background-clip: border-box;
+        }*/
+        
     </style>
     <style>
         .dropbtn {
@@ -805,7 +823,6 @@
             min-width: 195px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
-                  
         }
 
             .dropdown-content a {
@@ -932,7 +949,7 @@
                     <div class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
-                  
+
 
                     <%--<div style="color: white">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -941,17 +958,17 @@
                         <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
 
                        <%-- <div class="dropdown">--%>
-                           <%-- <button class="dropbtn"><i class="fa fa-fw fa-home fa-lg"></i><a href="/Home.aspx"></a></button>   --%>
-                        
-                            <%--<div class="dropdown-content">
+                    <%-- <button class="dropbtn"><i class="fa fa-fw fa-home fa-lg"></i><a href="/Home.aspx"></a></button>   --%>
+
+                    <%--<div class="dropdown-content">
                                 <div class="dropdown-header">Dashboard</div>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Service</a>                        
                             </div>--%>
-                       <%-- </div>--%>
+                    <%-- </div>--%>
 
-                         <%--<div class="dropdown">
+                    <%--<div class="dropdown">
                             <button class="dropbtn"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
                             <div class="dropdown-content">
                                 <div class="dropdown-header">Dashboard</div>
@@ -995,7 +1012,7 @@
                                 <a href="/Account/SignOut.htm"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Log Out</a>
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -1048,7 +1065,7 @@
                             <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
                         </div>
 
-                        
+
                     </div>
                 </div>
                 <div style="float: right; padding-right: 0.5em;">
@@ -1068,7 +1085,7 @@
                 <div style="float: right; padding-right: 0.5em;">
 
                     <div class="dropdown">
-                        <a href='/Home.aspx'> <i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
+                        <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
 
                         <%-- <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>--%>
 
