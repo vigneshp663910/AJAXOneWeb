@@ -931,7 +931,7 @@
                     </div>
                   
 
-                    <div style="color: white">
+                    <%--<div style="color: white">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
@@ -948,7 +948,7 @@
                             </div>--%>
                        <%-- </div>--%>
 
-                        <div class="dropdown">
+                         <%--<div class="dropdown">
                             <button class="dropbtn"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
                             <div class="dropdown-content">
                                 <div class="dropdown-header">Dashboard</div>
