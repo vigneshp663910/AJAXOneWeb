@@ -124,7 +124,6 @@
             padding: 2px 20px;
             text-decoration: none;
             font-size: 15px;
-          
         }
 
         body, h1, h2, h3, h4, h5 {
@@ -490,8 +489,10 @@
             /* background-color: #68AF27 !important; */
             background-color: #336699 !important;
             color: white;
-            font-size: medium;
-            font-weight: bold;
+            /* font-size: medium;
+            font-weight: bold;*/
+            font-size: large;
+            font-weight: normal;
             text-align: left;
             margin-top: 30px;
             padding: 0px 0px 0px 8px;
@@ -707,9 +708,17 @@
     <style>
         .dropbtn {
             background-color: #30526f;
-            /* background-color:aliceblue;*/
             color: white;
             padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropbtn1 {
+            /* background-color: #30526f;*/
+            background-color: #336699 !important;
+            color: white;
+            padding: 1px;
             font-size: 16px;
             border: none;
         }
@@ -723,9 +732,10 @@
             display: none;
             position: absolute;
             background-color: #f1f1f1;
-            min-width: 230px;
+            min-width: 195px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+                  
         }
 
             .dropdown-content a {
@@ -852,37 +862,24 @@
                     <div class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
-                  
 
-                    <div style="color: white">
+                    <%--<div style="color: white">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
-                        <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home"></i></a>
-
-                       <%-- <div class="dropdown">--%>
-                           <%-- <button class="dropbtn"><i class="fa fa-fw fa-home fa-lg"></i><a href="/Home.aspx"></a></button>   --%>
-                        
-                            <%--<div class="dropdown-content">
-                                <div class="dropdown-header">Dashboard</div>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Service</a>                        
-                            </div>--%>
-                       <%-- </div>--%>
+                        <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
 
                         <div class="dropdown">
-
-                            <button class="dropbtn"><i class="fa fa-dashboard font-white"></i></button>
+                            <button class="dropbtn"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
                             <div class="dropdown-content">
                                 <div class="dropdown-header">Dashboard</div>
                                 <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>                        
+                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <div class="appico">
                         <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
@@ -892,22 +889,19 @@
 
                         <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
 
-                        <div class="dropdown">
+                        <%--<div class="dropdown">
 
-                            <button class="dropbtn"><i class="fa fa-list font-white"></i></button>
+                            <button class="dropbtn"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
 
                             <div class="dropdown-content">
                                 <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
                                 <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
                                 <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
-
-                                <%--<div class="dropdown-divider"></div>
-                                <a href="/Account/SignOut.htm"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Log Out</a>--%>
                             </div>
-                        </div>
+                        </div>--%>
 
                         <div class="dropdown">
-                            <button class="dropbtn"><i class="fa fa-user-circle fa-lg"></i></button>
+                            <button class="dropbtn"><i class="fa fa-user-circle fa-lg" style="color: lightgray"></i></button>
                             <div class="dropdown-content">
                                 <a href="/Account/MyProfile"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile</a>
                                 <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company Profile</a>
@@ -919,7 +913,7 @@
                         </div>
                         <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="lblPageName" runat="server"></asp:Label>
-                        <%--<asp:Label ID="lblQuality" runat="server"></asp:Label>--%>
+
                     </div>
                 </div>
             </div>
@@ -953,8 +947,54 @@
             <br />
             <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
-                <div style="float: right; padding-right: 2em; font-size: small; color: gold">
+
+
+                <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
+
                     <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                </div>
+                <div style="float: right; padding-right: 7em;">
+                    <div class="dropdown">
+
+                        <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
+                        <div class="dropdown-content" style="font-size: small">
+                            <div class="dropdown-header">Dashboard</div>
+                            <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div style="float: right; padding-right: 0.5em;">
+
+                    <div class="dropdown">
+                        <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
+
+                        <div class="dropdown-content" style="font-size: small">
+                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
+                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="float: right; padding-right: 0.5em;">
+
+                    <div class="dropdown">
+                        <a href='/Home.aspx'> <i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
+
+                        <%-- <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>--%>
+
+                        <%--<div class="dropdown-content" style="font-size: small">
+                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
+                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
+                        </div>--%>
+                    </div>
 
                 </div>
             </div>
