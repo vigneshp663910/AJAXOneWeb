@@ -378,6 +378,9 @@
             .fa {
                 visibility: hidden;
             }
+            #userprofile{
+                display:none;
+            }
         }
 
         input[type=checkbox], input[type=radio] {
@@ -979,8 +982,10 @@
                             </div>
                         </div>--%>
 
-                        <div class="dropdown">
+                        <div class="dropdown" id="userprofile">
                             <button class="dropbtn"><i class="fa fa-user-circle fa-lg" style="color: lightgray"></i></button>
+                            <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label ID="lblPageName" runat="server"></asp:Label>
                             <div class="dropdown-content">
                                 <a href="/Account/MyProfile"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile</a>
                                 <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company Profile</a>
@@ -990,8 +995,7 @@
                                 <a href="/Account/SignOut.htm"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Log Out</a>
                             </div>
                         </div>
-                        <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Label ID="lblPageName" runat="server"></asp:Label>
+                        
 
                     </div>
                 </div>
