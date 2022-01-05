@@ -48,18 +48,21 @@
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
-        function Menu(id, Mainid) {
+        function Menu(id, Mainid, Itag) {
             var xModule = document.getElementById(id);
             var xMainModule = document.getElementById(Mainid);
 
             var ModuleClassName = xModule.className;
+            var itagid = document.getElementById(Itag);
+            var itagClassName = xModule.className;
 
-
-
+            document.getElementById(Itag).className = 'fa fa-angle-up fa-2x';
+            
             $('#Menu').find('div').each(function () {
                 var x2 = document.getElementById($(this).attr('id'));
                 x2.className = x2.className.replace(" w3-show", "");
             });
+
             //  alert(MainModuleClassName);
 
 
@@ -503,9 +506,9 @@
             /*border:solid;*/
             border-style: none none solid none;
             border-width: thin;
-           /* border-color: #000080;*/
+            /* border-color: #000080;*/
             border-color: red;
-           /*  border-color: #7FFF00;*/
+            /*  border-color: #7FFF00;*/
         }
 
         .ProjectHeadingLine {
@@ -797,7 +800,6 @@
             background-color: #fff;
             background-clip: border-box;
         }*/
-        
     </style>
     <style>
         .dropbtn {

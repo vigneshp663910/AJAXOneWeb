@@ -599,6 +599,62 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return CustomerID;
         }
-       
+        public List<PDMS_Customer> GetCustomerProspect(int? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_Customer> Customers = new List<PDMS_Customer>();
+            try
+            {
+                DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int64);
+                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+                DbParameter CustomerNameP = provider.CreateParameter("CustomerName", string.IsNullOrEmpty(CustomerName) ? null : CustomerName, DbType.String);
+                DbParameter MobileP = provider.CreateParameter("Mobile", string.IsNullOrEmpty(Mobile) ? null : Mobile, DbType.String);
+                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
+                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[7] { CustomerIDP, CustomerCodeP, CustomerNameP, MobileP, CountryIDP, StateIDP, DistrictIDP };
+
+                PDMS_Customer Customer = new PDMS_Customer();
+                using (DataSet DataSet = provider.Select("ZDMS_GetCustomerProspect", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Customer = new PDMS_Customer();
+                            Customers.Add(Customer);
+                            Customer.CustomerID = Convert.ToInt64(dr["CustomerProspectID"]);
+                            Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+                            Customer.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                            Customer.Mobile = Convert.ToString(dr["Mobile"]);
+                            Customer.AlternativeMobile = Convert.ToString(dr["AlternativeMobile"]);
+                            Customer.Email = Convert.ToString(dr["Email"]);
+                            Customer.Address1 = Convert.ToString(dr["Address1"]);
+                            Customer.Address2 = Convert.ToString(dr["Address2"]);
+                            Customer.Address3 = Convert.ToString(dr["Address3"]);
+
+                            Customer.Country = new PDMS_Country() { Country = Convert.ToString(dr["CustomerName"]) };
+                            Customer.State = new PDMS_State() { State = Convert.ToString(dr["CustomerName"]) };
+                            Customer.District = new PDMS_District() { District = Convert.ToString(dr["CustomerName"]) };
+
+                            Customer.City = Convert.ToString(dr["City"]);
+                            Customer.Pincode = Convert.ToString(dr["Pincode"]);
+                            Customer.GSTIN = Convert.ToString(dr["GSTIN"]);
+                            Customer.PAN = Convert.ToString(dr["PAN"]);
+                        }
+                    }
+                }
+
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Customer", "GetCustomerProspect", ex);
+                throw ex;
+            }
+            return Customers;
+        }
+
     }
 }

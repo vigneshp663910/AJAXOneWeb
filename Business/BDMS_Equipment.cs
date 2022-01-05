@@ -710,7 +710,7 @@ namespace Business
                     DbParameter ProductCode = provider.CreateParameter("ProductCode", Equ.Ibase.ProductCode, DbType.String);
                     DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Equ.Material.MaterialCodeWithOutZero, DbType.String);
 
-                    int? CustomerID = null;
+                    long? CustomerID = null;
                     if (!string.IsNullOrEmpty(Equ.Customer.CustomerCodeWithOutZero))
                     {
                         List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Customer.CustomerCodeWithOutZero);
@@ -724,7 +724,7 @@ namespace Business
                         }
                     }
 
-                    int? ShipToPartyID = null;
+                    long? ShipToPartyID = null;
                     if (!string.IsNullOrEmpty(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero))
                     {
                         List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
@@ -738,7 +738,7 @@ namespace Business
                         }
                     }
 
-                    int? Buyer1stID = null;
+                    long? Buyer1stID = null;
                     if (!string.IsNullOrEmpty(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero))
                     {
                         List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
@@ -752,7 +752,7 @@ namespace Business
                             Buyer1stID = Customer[0].CustomerID;
                         }
                     }
-                    int? Buyer2ndID = null;
+                    long? Buyer2ndID = null;
                     if (!string.IsNullOrEmpty(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero))
                     {
                         List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
