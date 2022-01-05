@@ -361,6 +361,7 @@ namespace DealerManagementSystem.ViewMaster
                     District = txtDistrict.Text.Trim();
                 }
                 List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
+                ViewState["gvDistrict"] = MML;
                 gvDistrict.DataSource = MML;
                 gvDistrict.DataBind();
             }
@@ -1484,56 +1485,6 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 lblMessage.Text = Ex.ToString();
                 lblMessage.ForeColor = Color.Red;
-            }
-        }
-
-        protected void gvCountry_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            List<PDMS_Country> pCountry = ViewState["gvCountry"] as List<PDMS_Country>;
-            //var HoliDay = pHoliDay;
-            var Country = pCountry;
-            string Sortdir = GetSortDirection(e.SortExpression);
-            string SortExp = e.SortExpression;
-            if (Sortdir == "ASC")
-            {
-                Country = Sort<PDMS_Country>(Country, SortExp, SortDirection.Ascending);
-            }
-            else
-            {
-                Country = Sort<PDMS_Country>(Country, SortExp, SortDirection.Descending);
-            }
-            this.gvCountry.DataSource = Country;
-            this.gvCountry.DataBind();
-        }
-        private string GetSortDirection(string column)
-        {
-            string sortDirection = "ASC";
-            string sortExpression = ViewState["SortExpression"] as string;
-            if (sortExpression != null)
-            {
-                if (sortExpression == column)
-                {
-                    string lastDirection = ViewState["SortDirection"] as string;
-                    if ((lastDirection != null) && (lastDirection == "ASC"))
-                    {
-                        sortDirection = "DESC";
-                    }
-                }
-            }
-            ViewState["SortDirection"] = sortDirection;
-            ViewState["SortExpression"] = column;
-            return sortDirection;
-        }
-        public List<PDMS_Country> Sort<TKey>(List<PDMS_Country> list, string sortBy, SortDirection direction)
-        {
-            PropertyInfo property = list.GetType().GetGenericArguments()[0].GetProperty(sortBy);
-            if (direction == SortDirection.Ascending)
-            {
-                return list.OrderBy(e => property.GetValue(e, null)).ToList<PDMS_Country>();
-            }
-            else
-            {
-                return list.OrderByDescending(e => property.GetValue(e, null)).ToList<PDMS_Country>();
             }
         }
     }
