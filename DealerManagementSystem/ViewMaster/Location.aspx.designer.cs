@@ -258,6 +258,15 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.DropDownList ddlDState;
 
         /// <summary>
+        /// ddlDDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDDealer;
+
+        /// <summary>
         /// txtDistrict control.
         /// </summary>
         /// <remarks>
