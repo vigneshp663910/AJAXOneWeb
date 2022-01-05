@@ -17,7 +17,7 @@ namespace DealerManagementSystem.BackUp
 
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        { 
             //txtLoginID.Text = AJX_Apps.Global.gs_WinAdUserId; 
         }
 
