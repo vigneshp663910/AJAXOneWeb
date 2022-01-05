@@ -3,6 +3,8 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -359,6 +361,7 @@ namespace DealerManagementSystem.ViewMaster
                     District = txtDistrict.Text.Trim();
                 }
                 List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
+                ViewState["gvDistrict"] = MML;
                 gvDistrict.DataSource = MML;
                 gvDistrict.DataBind();
             }
@@ -380,6 +383,7 @@ namespace DealerManagementSystem.ViewMaster
                     country = txtCountry.Text.Trim();
                 }
                 List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, country);
+                ViewState["gvCountry"] = MML;
                 gvCountry.DataSource = MML;
                 gvCountry.DataBind();
             }
