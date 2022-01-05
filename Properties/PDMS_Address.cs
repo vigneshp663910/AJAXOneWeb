@@ -59,6 +59,7 @@ namespace Properties
         public string DistrictSAP { get; set; }
         public PDMS_State State { get; set; }
         public PDMS_Country Country { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
     }
     [Serializable]
     public class PDMS_Tehsil

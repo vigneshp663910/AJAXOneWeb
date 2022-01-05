@@ -71,6 +71,21 @@ namespace DealerManagementSystem.ViewMaster
                 Session["PDMS_District"] = value;
             }
         }
+        public List<PDMS_Dealer> LDealer
+        {
+            get
+            {
+                if (Session["PDMS_Dealer"] == null)
+                {
+                    Session["PDMS_Dealer"] = new List<PDMS_Dealer>();
+                }
+                return (List<PDMS_Dealer>)Session["PDMS_Dealer"];
+            }
+            set
+            {
+                Session["PDMS_Dealer"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master ~ Location');</script>");
@@ -85,10 +100,12 @@ namespace DealerManagementSystem.ViewMaster
                     LRegion = new BDMS_Address().GetRegion(null, null, null);
                     LState = new BDMS_Address().GetState(null, null, null, null);
                     LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null);
+                    LDealer = new BDMS_Dealer().GetDealer(null, null);
                     FillCountry();
                     FillRegion();
                     FillState();
                     FillDistrict();
+                    FillDealer();
                 }
                 catch (Exception Ex)
                 {
@@ -186,6 +203,24 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+        private void FillDealerDLL(DropDownList ddl, int? DealerID, string DealerCode)
+        {
+            try
+            {
+                LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode);
+                ddl.DataValueField = "DealerID";
+                ddl.DataTextField = "DealerCode";
+                ddl.DataSource = LDealer;
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("Select", "0"));
+            }
+            catch (Exception Ex)
+            {
+                lblMessage.Visible = true;
+                lblMessage.Text = Ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
         private void FillRegion()
         {
             try
@@ -248,6 +283,22 @@ namespace DealerManagementSystem.ViewMaster
                     StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
                 FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
+            }
+            catch (Exception Ex)
+            {
+                lblMessage.Visible = true;
+                lblMessage.Text = Ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        private void FillDealer()
+        {
+            try
+            {
+                int? DealerID = null;
+                string DealerCode = null;
+                
+                FillDealerDLL(ddlDDealer, DealerID, DealerCode);
             }
             catch (Exception Ex)
             {
@@ -953,6 +1004,11 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Select State";
                     Success = false;
                 }
+                if (ddlDDealer.SelectedValue == "0")
+                {
+                    Message = Message + "<br/> Please Select DealerCode";
+                    Success = false;
+                }
                 if (string.IsNullOrEmpty(txtDistrict.Text.Trim()))
                 {
                     Message = Message + "<br/> Please Enter the District";
@@ -966,16 +1022,16 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlDState.SelectedValue), txtDistrict.Text.Trim(), null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlDState.SelectedValue), Convert.ToInt32(ddlDDealer.SelectedValue), txtDistrict.Text.Trim(), null, true, PSession.User.UserID);
                     if (Success == true)
                     {
-                        lblMessage.Text = "District is updated successfully";
+                        lblMessage.Text = "District is Added successfully";
                         lblMessage.ForeColor = Color.Green;
                         FillGridDistrict();
                     }
                     else
                     {
-                        lblMessage.Text = "District is not updated successfully";
+                        lblMessage.Text = "District is not Added successfully";
                         lblMessage.ForeColor = Color.Red;
                     }
                 }
@@ -999,6 +1055,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     DropDownList ddlGDCountry = (e.Row.FindControl("ddlGDCountry") as DropDownList);
                     DropDownList ddlGDState = (e.Row.FindControl("ddlGDState") as DropDownList);
+                    DropDownList ddlGDDealer = (e.Row.FindControl("ddlGDDealer") as DropDownList);
 
                     FillCountryDLL(ddlGDCountry);
                     string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
@@ -1007,6 +1064,10 @@ namespace DealerManagementSystem.ViewMaster
                     FillStateDLL(ddlGDState, Convert.ToInt32(CountryID), null, null, null);
                     string StateID = !string.IsNullOrEmpty((e.Row.FindControl("lblState") as Label).Text) ? (e.Row.FindControl("lblState") as Label).Text : "0";
                     ddlGDState.SelectedValue = StateID;
+
+                    FillDealerDLL(ddlGDDealer, null, null);
+                    string DealerID = !string.IsNullOrEmpty((e.Row.FindControl("lblDealer") as Label).Text) ? (e.Row.FindControl("lblDealer") as Label).Text : "0";
+                    ddlGDDealer.SelectedValue = DealerID;
                 }
             }
             catch (Exception Ex)
@@ -1027,9 +1088,11 @@ namespace DealerManagementSystem.ViewMaster
                 ImageButton ImageDUpdate = (ImageButton)row.FindControl("ImageDUpdate");
                 DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
                 DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+                DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
                 TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
                 ddlGDCountry.Enabled = true;
                 ddlGDState.Enabled = true;
+                ddlGDDealer.Enabled = true;
                 txtGDDistrict.Enabled = true;
                 ImageDUpdate.Visible = true;
                 ImageDEdit.Visible = false;
@@ -1055,13 +1118,25 @@ namespace DealerManagementSystem.ViewMaster
                 ImageButton ImageDEdit = (ImageButton)row.FindControl("ImageDEdit");
                 DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
                 DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+                DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
                 TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
-                if (string.IsNullOrEmpty(txtGDDistrict.Text.Trim()))
+
+                if (ddlGDCountry.SelectedValue == "0")
                 {
-                    Message = Message + "<br/> Please Enter the District";
+                    Message = Message + "<br/> Please Select the Country";
                     Success = false;
                 }
                 if (ddlGDState.SelectedValue == "0")
+                {
+                    Message = Message + "<br/> Please Select the State";
+                    Success = false;
+                }
+                if (ddlGDDealer.SelectedValue == "0")
+                {
+                    Message = Message + "<br/> Please Select the DealerCode";
+                    Success = false;
+                }
+                if (string.IsNullOrEmpty(txtGDDistrict.Text.Trim()))
                 {
                     Message = Message + "<br/> Please Enter the District";
                     Success = false;
@@ -1073,7 +1148,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), txtGDDistrict.Text.Trim(), null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), txtGDDistrict.Text.Trim(), null, true, PSession.User.UserID);
                     if (Success == false)
                     {
                         lblMessage.Text = "District is not successfully updated";
@@ -1088,6 +1163,7 @@ namespace DealerManagementSystem.ViewMaster
                         lblMessage.Visible = true;
                         ddlGDCountry.Enabled = false;
                         ddlGDState.Enabled = false;
+                        ddlGDDealer.Enabled = false;
                         txtGDDistrict.Enabled = false;
                         ImageDUpdate.Visible = false;
                         ImageDEdit.Visible = true;
@@ -1115,8 +1191,9 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow row = (GridViewRow)(ImageDDelete.NamingContainer);
                 DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
                 DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+                DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
                 TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
-                Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), txtGDDistrict.Text.Trim(), null, false, PSession.User.UserID);
+                Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), txtGDDistrict.Text.Trim(), null, false, PSession.User.UserID);
                 if (Success == false)
                 {
                     lblMessage.Text = "District is not successfully Deleted";

@@ -168,6 +168,7 @@
     <Content Include="Ajax\Images\android__v259.png" />
     <Content Include="Ajax\Images\apple.png" />
     <Content Include="Ajax\Images\apple__v259.png" />
+    <Content Include="Ajax\Images\bg01.jpg" />
     <Content Include="Ajax\Images\bg05q.png" />
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
@@ -189,6 +190,8 @@
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
+    <Content Include="ViewAdmin\tab_AdminModule.aspx" />
+    <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
     <Content Include="ProcessFlow\OrgChart.aspx" />
@@ -259,8 +262,8 @@
     <Content Include="ViewAdmin\UserManagement.aspx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
+    <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
-    <Content Include="ViewPreSale\WebForm1.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -472,6 +475,13 @@
     </Compile>
     <Compile Include="BackUp\Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackUp\SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackUp\SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
@@ -735,19 +745,19 @@
     <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\LeadVignesh.aspx.cs">
+      <DependentUpon>LeadVignesh.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadVignesh.aspx.designer.cs">
+      <DependentUpon>LeadVignesh.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.designer.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
