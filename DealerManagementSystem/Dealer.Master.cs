@@ -82,7 +82,7 @@ namespace DealerManagementSystem
             {
                 MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" + AM.ModuleName + "<i class='fa fa-angle-down fa-2x'></i></a>";
                 MenuDMS += "<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
-                MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS);
+                MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS, AM.ModuleName.Replace(" ", ""));
                 MenuDMS += "</div>";
             }
             MenuDMS += "</div>";
