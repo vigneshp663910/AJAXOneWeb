@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Properties
-{    
+{
     [Serializable]
     public class PLead
     {
         public long LeadID { get; set; }
         public DateTime LeadDate { get; set; }
 
-        public string LeadNumber { get; set; } 
+        public string LeadNumber { get; set; }
         public PLeadCategory Category { get; set; }
         public PLeadProgressStatus ProgressStatus { get; set; }
         public PLeadQualification Qualification { get; set; }
@@ -28,43 +28,89 @@ namespace Properties
         //public string PersonMail { get; set; }
         //public string Address1 { get; set; }
         //public string Address2 { get; set; }
-        //public PDMS_Country Country { get; set; }
+        //public  PDMS_Country Country { get; set; }
         //public PDMS_State State { get; set; }
         //public PDMS_District District { get; set; }
         //public PDMS_Tehsil Tehsil { get; set; }
 
         public PUser CreatedBy { get; set; }
         public string CreatedOn { get; set; }
-    }
 
+
+        public PUser AssignedTo { get; set; }
+        public List<PLeadSalesEngineer> SalesEngineer { get; set; }
+        public List<PLeadConvocation> Convocation { get; set; }
+        public PLeadFinancial Financial { get; set; }
+        public List<PLeadFollowUp> FollowUp { get; set; }
+    }
     [Serializable]
-    public class PLeadindiaMartJson
+    public class PLeadSalesEngineer
     {
-        public string RN { get; set; }
-        public string QUERY_ID { get; set; }
-        public string QTYPE { get; set; }
-        public string SENDERNAME { get; set; }
-        public string SENDEREMAIL { get; set; }
-        public string MOB { get; set; }
-        public string GLUSR_USR_COMPANYNAME { get; set; }
-        public string ENQ_ADDRESS { get; set; }
-        public string ENQ_CITY { get; set; }
-        public string ENQ_STATE { get; set; }
-        public string COUNTRY_ISO { get; set; }
-        public string PRODUCT_NAME { get; set; }
-
-        public long ENQ_MESSAGE { get; set; }
-        public string DATE_RE { get; set; }
-        public string DATE_R { get; set; }
-        public string DATE_TIME_RE { get; set; }
-        public string LOG_TIME { get; set; }
-        public string QUERY_MODID { get; set; }
-        public string ENQ_CALL_DURATION { get; set; }
-        public string ENQ_RECEIVER_MOB { get; set; }
-        public string EMAIL_ALT { get; set; }
-        public string MOBILE_ALT { get; set; }
-        public string TOTAL_COUNT { get; set; }
+        public long LeadSalesEngineerID { get; set; }
+        public long LeadID { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public PUser AssignedBy { get; set; }
+        public DateTime AssignedOn { get; set; }
+        public Boolean IsActive { get; set; }
     }
+    [Serializable]
+    public class PLeadConvocation
+    {
+        public long LeadConvocationID { get; set; }
+        public long LeadID { get; set; }
+        public PLeadProgressStatus ProgressStatus { get; set; }
+        public string Convocation { get; set; }
+        public DateTime ConvocationDate { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PLeadFinancial
+    {
+        public long LeadFinancialID { get; set; }
+        public long LeadID { get; set; }
+        public PBankName BankName { get; set; }
+        public decimal FinancePercentage { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PLeadFollowUp
+    {
+        public long LeadFollowUpID { get; set; }
+        public long LeadID { get; set; }
+        public string FollowUpNote { get; set; }
+        public DateTime FollowUpDate { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PLeadEffort
+    {
+        public long LeadEffortID { get; set; }
+        public long LeadID { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public DateTime EffortDate { get; set; }
+        public decimal EffortStartTime { get; set; }
+        public decimal EffortEndTime { get; set; }
+        public decimal Effort { get; set; }
+        public PEffortType EffortType { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PLeadExpense
+    {
+        public long LeadExpenseID { get; set; }
+        public long LeadID { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public DateTime ExpenseDate { get; set; }
+        public PExpenseType ExpenseType { get; set; }
+        public decimal Amount { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+
 
     [Serializable]
     public class PLeadCategory
@@ -72,28 +118,24 @@ namespace Properties
         public int CategoryID { get; set; }
         public string Category { get; set; }
     }
-
     [Serializable]
     public class PLeadProgressStatus
     {
         public int ProgressStatusID { get; set; }
         public string ProgressStatus { get; set; }
     }
-    
     [Serializable]
     public class PLeadQualification
     {
         public int QualificationID { get; set; }
         public string Qualification { get; set; }
     }
-    
     [Serializable]
     public class PLeadSource
     {
         public int SourceID { get; set; }
         public string Source { get; set; }
     }
-    
     [Serializable]
     public class PLeadStatus
     {
@@ -106,6 +148,7 @@ namespace Properties
         public int TypeID { get; set; }
         public string Type { get; set; }
     }
+
     [Serializable]
     public class PLeadSearch
     {

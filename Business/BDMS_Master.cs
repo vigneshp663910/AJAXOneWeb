@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,22 @@ namespace Business
         public DataTable ExecuteReader(String Query,Boolean live = false)
         {
             return new NpgsqlServer().ExecuteReader(Query);
+        }
+
+        public List<PBankName> GetBankName(int? BankNameID, string BankName)
+        {
+            string endPoint = "Master/BankName?BankNameID=" + BankNameID + "&BankName=" + BankName;
+            return JsonConvert.DeserializeObject<List<PBankName>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PEffortType> GetEffortType(int? EffortTypeID, string EffortType)
+        {
+            string endPoint = "Master/EffortType?EffortTypeID=" + EffortTypeID + "&EffortType=" + EffortType;
+            return JsonConvert.DeserializeObject<List<PEffortType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PExpenseType> GetExpenseType(int? ExpenseTypeID, string ExpenseType)
+        {
+            string endPoint = "Master/ExpenseType?ExpenseTypeID=" + ExpenseTypeID + "&ExpenseType=" + ExpenseType;
+            return JsonConvert.DeserializeObject<List<PExpenseType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 } 

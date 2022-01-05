@@ -177,7 +177,6 @@
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Ajax\Images\ThankYou1.jpg" />
     <Content Include="BackUp\Home1.aspx" />
-    <Content Include="BackUp\SignIn.aspx" />
     <Content Include="Images\ARROW01.png" />
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
@@ -261,6 +260,7 @@
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
+    <Content Include="ViewPreSale\WebForm1.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -472,13 +472,6 @@
     </Compile>
     <Compile Include="BackUp\Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BackUp\SignIn.aspx.cs">
-      <DependentUpon>SignIn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BackUp\SignIn.aspx.designer.cs">
-      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
@@ -748,6 +741,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.designer.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
