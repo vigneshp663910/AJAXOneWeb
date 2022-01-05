@@ -504,8 +504,8 @@
             border-style: none none solid none;
             border-width: thin;
            /* border-color: #000080;*/
-           /* border-color: red;*/
-             border-color: #7FFF00;
+            border-color: red;
+           /*  border-color: #7FFF00;*/
         }
 
         .ProjectHeadingLine {
@@ -1091,15 +1091,15 @@
                 <div style="float: right; padding-right: 0.5em;">
 
                     <div class="dropdown">
+                        <a href='/Home.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
+                    </div>
+
+                </div>
+
+                <div style="float: right; padding-right: 0.5em;">
+
+                    <div class="dropdown">
                         <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
-
-                        <%-- <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>--%>
-
-                        <%--<div class="dropdown-content" style="font-size: small">
-                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
-                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
-                        </div>--%>
                     </div>
 
                 </div>
