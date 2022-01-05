@@ -169,13 +169,13 @@
                             <label>Country</label>
                         </div>
                         <div class="col-md-2">
-                            <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />
+                            <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />         
                         </div>
                         <div class="col-md-2 text-right">
                             <label>State</label>
                         </div>
                         <div class="col-md-2">
-                            <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control"  />
                         </div>
 
                         <div class="col-md-2">
@@ -443,8 +443,7 @@
                                     </div>
                                     <div class="col-md-12 text-center">
                                         <asp:Button ID="btnSaveCustomer" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSaveCustomer_Click" />
-                                    </div>
-                                    </asp:Panel>
+                                    </div> 
                                 </div>
                                 <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
                                     <Columns>
@@ -465,7 +464,7 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" />
                                             </ItemTemplate>
-                                        </asp:TemplateField> 
+                                        </asp:TemplateField>
                                     </Columns>
                                     <AlternatingRowStyle BackColor="#f2f2f2" />
                                     <FooterStyle ForeColor="White" />
