@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BackUp/DMSDynamic.Master" AutoEventWireup="true" CodeBehind="Home1.aspx.cs" Inherits="DMS.Home1" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server" > 
     <%--<script>
         $(document).ready(function () {
             var x = document.getElementById("Masters");
