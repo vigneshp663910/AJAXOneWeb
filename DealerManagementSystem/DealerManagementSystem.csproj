@@ -168,6 +168,7 @@
     <Content Include="Ajax\Images\android__v259.png" />
     <Content Include="Ajax\Images\apple.png" />
     <Content Include="Ajax\Images\apple__v259.png" />
+    <Content Include="Ajax\Images\bg01.jpg" />
     <Content Include="Ajax\Images\bg05q.png" />
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
