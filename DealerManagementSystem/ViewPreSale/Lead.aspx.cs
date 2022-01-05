@@ -1,4 +1,5 @@
-﻿using Business;
+﻿using AjaxControlToolkit;
+using Business;
 using Newtonsoft.Json;
 using Properties;
 using System;
@@ -37,6 +38,9 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlCountry, Country, "Country", "CountryID");
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 new DDLBind(ddlCCountry, Country, "Country", "CountryID");
+
+               
+           
                 ddlCountry.SelectedValue = "1";
 
                 List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
@@ -51,6 +55,15 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
                 new DDLBind(ddlStatus, Status, "Status", "StatusID");
+
+
+                //cbCustomers.DataTextField = "State";
+                //cbCustomers.DataValueField = "StateID";
+                //cbCustomers.DataSource = State;
+                //cbCustomers.DataBind();
+
+                //cbCustomers.Items.Insert(0, new ListItem("Select", "0"));
+
             }
         }
 
@@ -489,7 +502,8 @@ namespace DealerManagementSystem.ViewPreSale
             Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
             Customer.Pincode = txtPincode.Text.Trim();
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerProspect", Customer)).Data));
+            string result = new BAPI().ApiPut("Customer/CustomerProspect", Customer);
+      //      PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerProspect", Customer)).Data));
         }
 
         protected void btnCustomerRetrieve_Click(object sender, EventArgs e)

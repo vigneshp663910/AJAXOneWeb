@@ -262,9 +262,11 @@
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
     <Content Include="ViewOrganization\Organization.aspx" />
+    <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
+    <Content Include="ViewPreSale\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -746,6 +748,13 @@
     <Compile Include="ViewOrganization\Organization.aspx.designer.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\ColdVisits.aspx.cs">
+      <DependentUpon>ColdVisits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\ColdVisits.aspx.designer.cs">
+      <DependentUpon>ColdVisits.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -766,6 +775,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.designer.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\CustomerCreate.ascx.cs">
+      <DependentUpon>CustomerCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\CustomerCreate.ascx.designer.cs">
+      <DependentUpon>CustomerCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
