@@ -167,7 +167,7 @@
 
 
         <div class="col-md-12">
-            <asp:Panel ID="pnlCustomer" runat="server" cssclass="Popup" style="display: none">
+            <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
                 <div class="PopupHeader clearfix">
                     <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                         <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
@@ -199,8 +199,9 @@
                             </div>
                         </div>
                     </fieldset>
-                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
-
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
+                    </div>
                 </div>
             </asp:Panel>
             <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
