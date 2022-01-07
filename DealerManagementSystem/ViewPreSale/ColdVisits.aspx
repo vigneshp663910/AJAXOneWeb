@@ -272,7 +272,7 @@
 
             <ajaxToolkit:ModalPopupExtender ID="MPE_Effort" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEffort" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-            <asp:Panel ID="pnlExpense" runat="server" CssClass="model" Style="display: none">
+            <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
                 <div class="PopupHeader clearfix">
                     <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                         <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
