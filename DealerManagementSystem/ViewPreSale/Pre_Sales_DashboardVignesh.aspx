@@ -1,6 +1,37 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Pre_Sales_DashboardVignesh.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Pre_Sales_DashboardVignesh" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', { packages: ['corechart'] });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: 'Pre_Sales_DashboardVignesh.aspx/GetData',
+                data: '{}',
+                success:
+                    function (response) {
+                        drawVisualization(response.d);
+                    }
+            });
+        })
+
+        function drawVisualization(dataValues) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'State');
+            data.addColumn('number', 'Count');
+            for (var i = 0; i < dataValues.length; i++) {
+                data.addRow([dataValues[i].ColumnName, dataValues[i].Value]);
+            }
+            new google.visualization.Bar(document.getElementById('visualization')).
+                draw(data, { title: "Google Chart demo" });
+        }
+    </script>
     <style>
         .card {
             color: white;
@@ -56,6 +87,8 @@
             chart.draw(data, google.charts.Bar.convertOptions(options));
         }
     </script>
+    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -89,7 +122,11 @@
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card crd2">
-                <label>card</label>
+                <label>cardchart</label>
+            </div>
+            <div class="card-body">
+                <div id="visualization">
+                </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
