@@ -599,7 +599,7 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return CustomerID;
         }
-        public List<PDMS_Customer> GetCustomerProspect(int? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID)
+        public List<PDMS_Customer> GetCustomerProspect(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID)
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Customer> Customers = new List<PDMS_Customer>();

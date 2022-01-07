@@ -267,6 +267,9 @@
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\UserControls\CustomerCreate.ascx" />
+    <Content Include="ViewPreSale\UserControls\CustomerView.ascx" />
+    <Content Include="ViewPreSale\UserControls\Effort.ascx" />
+    <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -789,6 +792,27 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\CustomerCreate.ascx.designer.cs">
       <DependentUpon>CustomerCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\CustomerView.ascx.cs">
+      <DependentUpon>CustomerView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\CustomerView.ascx.designer.cs">
+      <DependentUpon>CustomerView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\Effort.ascx.cs">
+      <DependentUpon>Effort.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\Effort.ascx.designer.cs">
+      <DependentUpon>Effort.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\Expense.ascx.cs">
+      <DependentUpon>Expense.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\Expense.ascx.designer.cs">
+      <DependentUpon>Expense.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
