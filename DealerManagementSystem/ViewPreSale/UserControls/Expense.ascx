@@ -28,8 +28,6 @@
             <div class="col-md-4">
                 <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
             </div>
-            <div class="col-md-6">
-            </div>
             <div class="col-md-2 text-right">
                 <label>Remark</label>
             </div>
