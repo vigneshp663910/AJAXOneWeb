@@ -32,10 +32,12 @@
             <div class="col-md-4">
                 <asp:TextBox ID="txtEffortEndTime" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Time"></asp:TextBox>
             </div>
+            <div class="col-md-6">
+            </div>
             <div class="col-md-2 text-right">
                 <label>Remark</label>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-10">
                 <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
             </div>
         </div>
