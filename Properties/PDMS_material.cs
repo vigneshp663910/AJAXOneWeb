@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Properties
 {
-     [Serializable]
+    [Serializable]
     public class PDMS_Material
     {
         public long MaterialID { get; set; }
@@ -58,11 +58,12 @@ namespace Properties
         public string MaterialDivision { get; set; }
         public string HSN { get; set; }
         public decimal TaxPercentage { get; set; }
-        public decimal CST {
+        public decimal CST
+        {
             get
-            { 
+            {
                 return TaxPercentage;
-            } 
+            }
         }
         public decimal SST
         {
@@ -79,7 +80,7 @@ namespace Properties
             }
         }
         public decimal CurrentPrice { get; set; }
-        public Boolean IsMainServiceMaterial { get; set; } 
+        public Boolean IsMainServiceMaterial { get; set; }
 
         public PSupersede Supersede { get; set; }
         public PRoqDoq RoqDoq { get; set; }
@@ -87,20 +88,25 @@ namespace Properties
 
         public string Product { get; set; }
         public string ProductGroup { get; set; }
+        public DateTime ValidFrom { get; set; }
+        public DateTime ValidTo { get; set; }
+        public PDMS_Model Model { get; set; }
+        public string SubCategory { get; set; }
+        public string SerialProfile { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
+    public class PSupersede
+    {
+        public string Material { get; set; }
+        public string MaterialDescription { get; set; }
+        public string Description { get; set; }
+        public DateTime ValidFrom { get; set; }
+        public DateTime ValidTo { get; set; }
     }
 
-     [Serializable]
-     public class PSupersede
-   {
-       public string Material { get; set; }
-       public string MaterialDescription { get; set; }
-       public string Description { get; set; }
-       public DateTime ValidFrom { get; set; }
-       public DateTime ValidTo { get; set; }
-   }
-
-     [Serializable]
-     public class PRoqDoq
+    [Serializable]
+    public class PRoqDoq
     {
         public string SeasonCode { get; set; }
         public DateTime SeasonValidFrom { get; set; }
@@ -115,15 +121,15 @@ namespace Properties
         public string OfficeDesc { get; set; }
         public string Unit { get; set; }
         public decimal RoqQty { get; set; }
-        
+
     }
-     [Serializable]
-     public class PBin
+    [Serializable]
+    public class PBin
     {
         public PDMS_Dealer Dealer { get; set; }
         public string Office { get; set; }
         public string Location { get; set; }
         public string BinID { get; set; }
-        
+
     }
 }

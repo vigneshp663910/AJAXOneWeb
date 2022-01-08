@@ -29,6 +29,37 @@ namespace SapIntegration
             }
             return Materials;
         }
+        public List<PDMS_Material> getMaterialIntegration()
+        {
+            List<PDMS_Material> Materials = new List<PDMS_Material>();
+            PDMS_Material Material = null;
+
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
+            tagListBapi.Invoke(SAP.RfcDes());
+            IRfcTable tagTable = tagListBapi.GetTable("IT_MAT");
+            for (int i = 0; i < tagTable.RowCount; i++)
+            {
+                tagTable.CurrentIndex = i;
+                Material = new PDMS_Material();
+                Material.MaterialCode = tagTable.CurrentRow.GetString("MATERIAL");
+                Material.ValidFrom= Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
+                Material.ValidTo = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_TO"));
+                Material.MaterialDescription = tagTable.CurrentRow.GetString("MATERIAL_DESC");
+                Material.MaterialType = tagTable.CurrentRow.GetString("MATERIAL_TYPE");
+                Material.MaterialGroup = tagTable.CurrentRow.GetString("MATERIAL_GROUP");
+                Material.Model.ModelCode= tagTable.CurrentRow.GetString("MODEL");
+                Material.SubCategory = tagTable.CurrentRow.GetString("SUB_CATEGORY");
+                Material.GrossWeight = tagTable.CurrentRow.GetDecimal("GROSS_WEIGHT");
+                Material.NetWeight = tagTable.CurrentRow.GetDecimal("NET_WEIGHT");
+                Material.BaseUnit = tagTable.CurrentRow.GetString("BASE_UNIT");
+                Material.SerialProfile = tagTable.CurrentRow.GetString("BASE_UNIT");
+                Material.MaterialDivision = tagTable.CurrentRow.GetString("MATERIAL_DIVISION");
+                Material.HSN = tagTable.CurrentRow.GetString("HSN_SAC");
+                Material.IsActive = (tagTable.CurrentRow.GetString("ACTIVE")=="X")?false:true;
+                Materials.Add(Material);
+            }
+            return Materials;
+        }
         public List<PDMS_Material> getMaterialDetails(string MaterialCode)
         {
             List<PDMS_Material> Materials = new List<PDMS_Material>();
