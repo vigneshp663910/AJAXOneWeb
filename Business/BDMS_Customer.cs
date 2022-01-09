@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -655,6 +656,15 @@ namespace Business
             }
             return Customers;
         }
-
+        public List<PDMS_CustomerMarketSegment> GetCustomerMarketSegment(long? CustomerID,int? CreatedBy)
+        {
+            string endPoint = "Customer/CustomerMarketSegment?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
+            return JsonConvert.DeserializeObject<List<PDMS_CustomerMarketSegment>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PDMS_CustomerRelation> GetCustomerRelation(long? CustomerID, int? CreatedBy)
+        {
+            string endPoint = "Customer/Relation?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
+            return JsonConvert.DeserializeObject<List<PDMS_CustomerRelation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

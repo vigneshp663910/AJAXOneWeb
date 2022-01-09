@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Properties
 {
+
     [Serializable]
     public class PDMS_Customer
     {
@@ -48,14 +49,41 @@ namespace Properties
         public string City { get; set; }
         public PUser CreatedBy { get; set; }
 
+
     }
     [Serializable]
     public class PDMS_CustomerCategory
     {
         public int CustomerCategoryID { get; set; }
-        public string CustomerCategory { get; set; }        
+        public string CustomerCategory { get; set; }
     }
 
+    [Serializable]
+    public class PDMS_CustomerRelation
+    {
+        public long CustomerRelationID { get; set; }
+        public long CustomerID { get; set; }
+        public string DecisionMaker { get; set; }
+        //public string OrgName { get; set; }
+
+        public string ContactName { get; set; }
+        public string Mobile { get; set; }
+
+        public PRelation Relation { get; set; }
+
+        public DateTime? DOB { get; set; }
+        public DateTime? DOAniversary { get; set; }
+        public PUser CreatedBy { get; set; }
+
+    }
+    [Serializable]
+    public class PDMS_CustomerMarketSegment
+    {
+        public long CustomerMarketSegmentID { get; set; }
+        public long CustomerID { get; set; }
+        public PMarketSegment MarketSegment { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
     public class PDMS_CustomerJSON
     {
         public string fromentityname { get; set; }
@@ -110,7 +138,7 @@ namespace Properties
         public string s_status { get; set; }
         public string s_sync_status { get; set; }
         public string s_object_type { get; set; }
-        public string channel { get; set; }   
+        public string channel { get; set; }
         public IEnumerable<PDMS_AddressJSON> bp_address { get; set; }
         public IEnumerable<PDMS_statutoryJSON> bp_statutory { get; set; }
     }

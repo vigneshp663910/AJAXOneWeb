@@ -27,4 +27,15 @@ namespace Properties
         public int ExpenseTypeID { get; set; }
         public string ExpenseType { get; set; }
     }
+    public class PRelation
+    {
+        public int RelationID { get; set; }
+        public string Relation { get; set; }
+    }
+    [Serializable]
+    public class PMarketSegment
+    {
+        public int MarketSegmentID { get; set; }
+        public string MarketSegment { get; set; }
+    }
 }

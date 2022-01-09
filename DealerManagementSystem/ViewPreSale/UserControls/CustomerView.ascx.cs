@@ -34,6 +34,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             string Location = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
             lblLocation.Text = Location;
+            gvRelation.DataSource = new BDMS_Customer().GetCustomerRelation(CustomerID, null);
+            gvRelation.DataBind();
+            gvMarketSegment.DataSource = new BDMS_Customer().GetCustomerMarketSegment(CustomerID, null);
+            gvMarketSegment.DataBind();
+        }
+
+        protected void ibtnDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ibtnMarketSegmentDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ibtnProductDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ibtnRelationDelete_Click(object sender, ImageClickEventArgs e)
+        {
 
         }
     }

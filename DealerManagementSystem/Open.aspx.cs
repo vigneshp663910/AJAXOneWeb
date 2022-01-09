@@ -32,8 +32,7 @@ namespace DealerManagementSystem
 
         protected void BtnMaterial_Click(object sender, EventArgs e)
         {
-            new SapIntegration.SMaterial().getMaterialIntegration();
-            new SapInteg.SMaterial().getMaterialIntegration();
+            new SapIntegration.SMaterial().getMaterialIntegration(); 
         }
     }
 }
