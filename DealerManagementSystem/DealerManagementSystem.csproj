@@ -177,8 +177,12 @@
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Ajax\Images\ThankYou1.jpg" />
+    <Content Include="autocomplete\jquery-ui.css" />
+    <Content Include="autocomplete\jquery-ui.js" />
     <Content Include="BackUp\Home1.aspx" />
     <Content Include="BackUp\SignIn.aspx" />
+    <Content Include="CSS\jquery-ui.css" />
+    <Content Include="CSS\StyleSheet1.css" />
     <Content Include="Images\ARROW01.png" />
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
@@ -190,6 +194,7 @@
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
+    <Content Include="JS\jquery-ui.css" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
@@ -267,6 +272,7 @@
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\UserControls\CustomerCreate.ascx" />
+    <Content Include="ViewPreSale\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewPreSale\UserControls\CustomerView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
@@ -792,6 +798,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\CustomerCreate.ascx.designer.cs">
       <DependentUpon>CustomerCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\CustomerSearch.ascx.cs">
+      <DependentUpon>CustomerSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\CustomerSearch.ascx.designer.cs">
+      <DependentUpon>CustomerSearch.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\CustomerView.ascx.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
@@ -1405,9 +1418,8 @@
       <Name>Properties</Name>
     </ProjectReference>
     <ProjectReference Include="..\SapIntegration\SapIntegration.csproj">
-      <Project>{40f9ef55-1de8-447f-8840-2dcdea59a96b}</Project>
+      <Project>{87886c5a-4aab-4aa8-84d4-d77321444cb3}</Project>
       <Name>SapIntegration</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

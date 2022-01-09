@@ -284,7 +284,7 @@
                         <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
                     </div>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" ShowFooter="true">
+                        <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
                             <Columns>
                                 <%-- <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
             <ItemTemplate>
