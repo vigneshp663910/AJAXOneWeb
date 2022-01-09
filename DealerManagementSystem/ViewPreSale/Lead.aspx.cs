@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,7 +12,6 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class Lead : System.Web.UI.Page
     { 
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales ~ Lead');</script>");
@@ -35,16 +35,16 @@ namespace DealerManagementSystem.ViewPreSale
                  new DDLBind(ddlSType, LeadType, "Type", "TypeID");
 
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-                new DDLBind(ddlCountry, Country, "Country", "CountryID");
+             //   new DDLBind(ddlCountry, Country, "Country", "CountryID");
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 new DDLBind(ddlCCountry, Country, "Country", "CountryID");
 
                
            
-                ddlCountry.SelectedValue = "1";
+               // ddlCountry.SelectedValue = "1";
 
                 List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
-                new DDLBind(ddlState, State, "State", "StateID");
+              //  new DDLBind(ddlState, State, "State", "StateID");
                 new DDLBind(ddlSState, State, "State", "StateID");
                 new DDLBind(ddlCState, State, "State", "StateID");
 
@@ -56,7 +56,11 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
                 new DDLBind(ddlStatus, Status, "Status", "StatusID");
 
-
+                ddlProgressStatus.SelectedValue = "1";
+                ddlStatus.SelectedValue = "1";
+                txtLeadDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+ 
+                txtLeadDate.TextMode = TextBoxMode.Date;
                 //cbCustomers.DataTextField = "State";
                 //cbCustomers.DataValueField = "StateID";
                 //cbCustomers.DataSource = State;
@@ -74,6 +78,8 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+           
+
             PLead Lead = new PLead();
             Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
 
@@ -87,37 +93,37 @@ namespace DealerManagementSystem.ViewPreSale
           //  Lead.Customer = new PDMS_Customer() { CustomerCode = txtCustomerCode.Text.Trim() };
             Lead.Remarks = txtRemarks.Text.Trim();
 
-            Lead.Customer.CustomerName = txtCustomerName.Text.Trim();
+            //Lead.Customer.CustomerName = txtCustomerName.Text.Trim();
+            //Lead.Customer.ContactPerson = txtContactPerson.Text.Trim();
+            //Lead.Customer.Mobile = txtMobile.Text.Trim();
+            //Lead.Customer.Email = txtEmail.Text.Trim();
+            //Lead.Customer.Address1 = txtAddress1.Text.Trim();
+            //Lead.Customer.Address2 = txtAddress2.Text.Trim();
+            //Lead.Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
+            //Lead.Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
+            //Lead.Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
+            //Lead.Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
 
-            Lead.Customer.ContactPerson = txtContactPerson.Text.Trim();
 
-            Lead.Customer.Mobile = txtMobile.Text.Trim();
-            Lead.Customer.Email = txtEmail.Text.Trim();
-            Lead.Customer.Address1 = txtAddress1.Text.Trim();
-            Lead.Customer.Address2 = txtAddress2.Text.Trim();
-            Lead.Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
-            Lead.Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
-            Lead.Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
-            Lead.Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
             PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", Lead)).Data));
         }
 
-        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
-        }
+        //protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+        //}
 
-        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
-        }
+        //protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+        //}
 
-        protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCountry.SelectedValue), Convert.ToInt32(ddlState.SelectedValue), Convert.ToInt32(ddlDistrict.SelectedValue), null), "Tehsil", "TehsilID");
-        }
+        //protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCountry.SelectedValue), Convert.ToInt32(ddlState.SelectedValue), Convert.ToInt32(ddlDistrict.SelectedValue), null), "Tehsil", "TehsilID");
+        //}
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -241,65 +247,43 @@ namespace DealerManagementSystem.ViewPreSale
             MPE_FollowUp.Show();
             fillFollowUp(Lead.LeadID);
         }
-        protected void lblEffortAdd_Click(object sender, EventArgs e)
+      
+        protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
+            MPE_Effort.Show();
 
-            DropDownList ddlSalesEngineer = (DropDownList)gvEffort.FooterRow.FindControl("ddlSalesEngineer");
-            DropDownList ddlEffortTypeF = (DropDownList)gvEffort.FooterRow.FindControl("ddlEffortTypeF");
-            TextBox txtEffortDateF = (TextBox)gvEffort.FooterRow.FindControl("txtEffortDateF");
-            TextBox txtEffortStartTimeF = (TextBox)gvEffort.FooterRow.FindControl("txtEffortStartTimeF");
-            TextBox txtEffortEndTimeF = (TextBox)gvEffort.FooterRow.FindControl("txtEffortEndTimeF"); 
-            TextBox txtRemarkF = (TextBox)gvEffort.FooterRow.FindControl("txtRemarkF");
-
-
+            string Message = UC_Effort.ValidationEffort();
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true; 
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessage.Text = Message;
+                return;
+            }
             PLeadEffort Lead = new PLeadEffort();
+            Lead = UC_Effort.ReadEffort();
             Lead.LeadEffortID = 0;
             Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
-            Lead.SalesEngineer = new PUser { UserID = Convert.ToInt32(ddlSalesEngineer.SelectedValue) };
-            Lead.EffortType = new PEffortType { EffortTypeID = Convert.ToInt32(ddlEffortTypeF.SelectedValue) };
-                Lead.EffortType = new PEffortType { EffortTypeID = Convert.ToInt32(ddlEffortTypeF.SelectedValue) };
-
-
-            Lead.EffortDate = Convert.ToDateTime(txtEffortDateF.Text.Trim());
-
-            
-            Lead.EffortStartTime = Convert.ToDecimal(txtEffortStartTimeF.Text.Trim().Replace(':', '.'));
-            Lead.EffortEndTime = Convert.ToDecimal(txtEffortEndTimeF.Text.Trim().Replace(':', '.'));
-            Lead.Remark = txtRemarkF.Text;
-            long EffortStartTime = (Convert.ToInt32(Lead.EffortStartTime) * 60) + (int)(((decimal)Lead.EffortStartTime % 1) * 100); 
-            long EffortEndTime = (Convert.ToInt32(Lead.EffortEndTime) * 60) + (int)(((decimal)Lead.EffortEndTime % 1) * 100);
-            long Effort = EffortEndTime -EffortStartTime ;
-            Lead.Effort =  Convert.ToInt32(Effort /60) + Convert.ToDecimal( ((Effort % 60)/100.00));
-            
-            Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
-
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead)).Data);
-            MPE_Effort.Show();
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead)).Data); 
             fillEffort(Lead.LeadID);
         }
-        protected void lblExpenseAdd_Click(object sender, EventArgs e)
+        protected void btnSaveExpense_Click(object sender, EventArgs e)
         {
-
-            DropDownList ddlSalesEngineerF = (DropDownList)gvExpense.FooterRow.FindControl("ddlSalesEngineerF");
-            DropDownList ddlExpenseTypeF = (DropDownList)gvExpense.FooterRow.FindControl("ddlExpenseTypeF");
-            TextBox txtExpenseDateF = (TextBox)gvExpense.FooterRow.FindControl("txtExpenseDateF");
-            TextBox txtAmountF = (TextBox)gvExpense.FooterRow.FindControl("txtAmountF"); 
-            TextBox txtRemarkF = (TextBox)gvExpense.FooterRow.FindControl("txtRemarkF");
-
-
+            MPE_Expense.Show();
+            string Message = UC_Expense.ValidationExpense();
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            MPE_Expense.Show();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessage.Text = Message;
+                return;
+            }
             PLeadExpense Lead = new PLeadExpense();
+            Lead = UC_Expense.ReadExpense();
             Lead.LeadExpenseID = 0;
             Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
-            Lead.SalesEngineer = new PUser { UserID = Convert.ToInt32(ddlSalesEngineerF.SelectedValue) };
-            Lead.ExpenseType = new PExpenseType { ExpenseTypeID = Convert.ToInt32(ddlExpenseTypeF.SelectedValue) }; 
-
-            Lead.ExpenseDate = Convert.ToDateTime(txtExpenseDateF.Text.Trim());
-            Lead.Amount = Convert.ToDecimal(txtAmountF.Text.Trim());
-            Lead.Remark = txtRemarkF.Text; 
-            Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
-
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Expense", Lead)).Data);
-            MPE_Expense.Show();
             fillExpense(Lead.LeadID);
         }
         protected void lblFinancialAdd_Click(object sender, EventArgs e)
@@ -426,15 +410,8 @@ namespace DealerManagementSystem.ViewPreSale
             new DDLBind((DropDownList)gvFinancial.FooterRow.FindControl("ddlBankNameF"), new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
         }
         void fillEffort(long LeadID)
-        {
-            List<PLeadEffort> FollowUp = new BLead().GetLeadEffort(LeadID, PSession.User.UserID);
-
-            if (FollowUp.Count == 0)
-            {
-                FollowUp.Add(new PLeadEffort());
-            }
-
-            gvEffort.DataSource = FollowUp;
+        { 
+            gvEffort.DataSource = new BLead().GetLeadEffort(LeadID, PSession.User.UserID);
             gvEffort.DataBind();
              
 
@@ -444,27 +421,20 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
             }
-            new DDLBind((DropDownList)gvEffort.FooterRow.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
-            new DDLBind((DropDownList)gvEffort.FooterRow.FindControl("ddlEffortTypeF"), new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+            new DDLBind((DropDownList)UC_Effort.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
         }
         void fillExpense(long LeadID)
-        {
-            List<PLeadExpense> FollowUp = new BLead().GetLeadExpense(LeadID, PSession.User.UserID);
-            if (FollowUp.Count == 0)
-            {
-                FollowUp.Add(new PLeadExpense());
-            }
-
-            gvExpense.DataSource = FollowUp;
+        { 
+            gvExpense.DataSource = new BLead().GetLeadExpense(LeadID, PSession.User.UserID);
             gvExpense.DataBind(); 
+
             List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID);
             List<PUser> U = new List<PUser>();
             foreach (PLeadSalesEngineer SE in SalesEngineer)
             {
                 U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            }
-            new DDLBind((DropDownList)gvExpense.FooterRow.FindControl("ddlSalesEngineerF"), U, "ContactName", "UserID");
-            new DDLBind((DropDownList)gvExpense.FooterRow.FindControl("ddlExpenseTypeF"), new BDMS_Master().GetExpenseType(null,null), "ExpenseType", "ExpenseTypeID");
+            } 
+            new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
         }
 
         protected void cbNewCustomer_CheckedChanged(object sender, EventArgs e)
@@ -482,28 +452,38 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void btnSaveCustomer_Click(object sender, EventArgs e)
-        {
-            PDMS_Customer Customer = new PDMS_Customer();
+        { 
+            string Message = UC_Customer.ValidationCustomer();
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true; 
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessage.Text = Message;
+                return;
+            }
 
-            Customer.CustomerName = txtCustomerName.Text.Trim();
-            Customer.GSTIN = txtGSTIN.Text.Trim();
-            Customer.PAN = txtPAN.Text.Trim();           
-            Customer.ContactPerson = txtContactPerson.Text.Trim();
-            Customer.Mobile = txtMobile.Text.Trim();
-           // Customer.ContactNo = txtContactNo.Text.Trim();
-            Customer.Email = txtEmail.Text.Trim();
-            Customer.Address1 = txtAddress1.Text.Trim();
-            Customer.Address2 = txtAddress2.Text.Trim();
-            Customer.Address3 = txtAddress2.Text.Trim();
+            //Customer.CustomerName = txtCustomerName.Text.Trim();
+            //Customer.GSTIN = txtGSTIN.Text.Trim();
+            //Customer.PAN = txtPAN.Text.Trim();
+            //Customer.ContactPerson = txtContactPerson.Text.Trim();
+            //Customer.Mobile = txtMobile.Text.Trim();
+            //Customer.ContactNo = txtContactNo.Text.Trim();
+            //Customer.Email = txtEmail.Text.Trim();
+            //Customer.Address1 = txtAddress1.Text.Trim();
+            //Customer.Address2 = txtAddress2.Text.Trim();
+            //Customer.Address3 = txtAddress2.Text.Trim();
 
-            Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
-            Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
-            Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
-            Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
-            Customer.Pincode = txtPincode.Text.Trim();
+            //Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
+            //Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
+            //Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
+            //Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
+            //Customer.Pincode = txtPincode.Text.Trim();
+
+            PDMS_Customer Customer = UC_Customer.ReadCustomer();
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            string result = new BAPI().ApiPut("Customer/CustomerProspect", Customer);
-      //      PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerProspect", Customer)).Data));
+            string result = new BAPI().ApiPut("Customer/CustomerProspect", Customer); 
+            gvCustomer.DataSource = new BDMS_Customer().GetCustomerProspect(Convert.ToInt64(result), null, null, null, null, null, null); 
+            gvCustomer.DataBind();
         }
 
         protected void btnCustomerRetrieve_Click(object sender, EventArgs e)
@@ -527,6 +507,20 @@ namespace DealerManagementSystem.ViewPreSale
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspect(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
             gvCustomer.DataSource = Customer;
             gvCustomer.DataBind();
+        }
+
+        protected void rbCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int RIndex = gvRow.RowIndex;
+            for (int i = 0; i < gvCustomer.Rows.Count; i++)
+            {
+                RadioButton rbCustomer = (RadioButton)gvCustomer.Rows[i].FindControl("rbCustomer");
+                if (RIndex != i)
+                {
+                    rbCustomer.Checked = false;
+                }
+            }
         }
     }
 }

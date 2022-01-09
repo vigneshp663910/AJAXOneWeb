@@ -20,7 +20,7 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public int IntegrationMaterial()
+        public int IntegrationMaterialOld()
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Material> SOIs = new List<PDMS_Material>();
@@ -78,10 +78,10 @@ namespace Business
                     {
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-                            provider.Insert("ZDMS_InsertOrUpdateMaterial", Params);
+                            provider.Insert("ZDMS_InsertOrUpdateMaterialOld", Params);
                             scope.Complete();
                         }
-                       
+
                     }
                     catch (SqlException sqlEx)
                     {
@@ -100,7 +100,74 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);                
+                new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);
+            }
+            return SOIs.Count();
+        }
+        public int IntegrationMaterial()
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_Material> SOIs = new List<PDMS_Material>();
+            try
+            {
+                SOIs = new SMaterial().getMaterialIntegration();
+
+                foreach (PDMS_Material Material in SOIs)
+                {
+                    DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Material.MaterialCode, DbType.String);
+                    DbParameter ValidFrom = provider.CreateParameter("ValidFrom", Material.ValidFrom, DbType.DateTime);
+                    DbParameter ValidTo = provider.CreateParameter("ValidTo", Material.ValidTo, DbType.DateTime);
+                    DbParameter MaterialDescription = provider.CreateParameter("MaterialDescription", Material.MaterialDescription, DbType.String);
+
+                    DbParameter BaseUnit = provider.CreateParameter("BaseUnit", Material.BaseUnit, DbType.String);
+                    DbParameter MaterialType = provider.CreateParameter("MaterialType", Material.MaterialType, DbType.String);
+                    DbParameter MaterialGroup = provider.CreateParameter("MaterialGroup", Material.MaterialGroup, DbType.String);
+                    DbParameter ModelID = provider.CreateParameter("ModelID", Material.Model.ModelID, DbType.Int32);
+                    DbParameter SubCategory = provider.CreateParameter("SubCategory", Material.SubCategory, DbType.String);
+                    DbParameter GrossWeight = provider.CreateParameter("GrossWeight", Material.GrossWeight, DbType.Decimal);
+                    DbParameter NetWeight = provider.CreateParameter("NetWeight", Material.NetWeight, DbType.Decimal);
+
+                    DbParameter SerialProfile = provider.CreateParameter("SerialProfile", Material.SerialProfile, DbType.String);
+
+                    DbParameter WeightUnit = provider.CreateParameter("WeightUnit", Material.WeightUnit, DbType.String);
+                    DbParameter HSNCode = provider.CreateParameter("HSNCode", Material.HSN, DbType.String);
+                    DbParameter CurrentPrice = provider.CreateParameter("CurrentPrice", Material.CurrentPrice, DbType.Decimal);
+                    DbParameter TaxPercentage = provider.CreateParameter("TaxPercentage", Material.TaxPercentage, DbType.Decimal);
+
+                    DbParameter Product = provider.CreateParameter("Product", Material.Product, DbType.String);
+                    DbParameter ProductGroup = provider.CreateParameter("ProductGroup", Material.ProductGroup, DbType.String);
+                    DbParameter IsActive = provider.CreateParameter("IsActive", Material.IsActive, DbType.Boolean);
+
+
+                    DbParameter[] Params = new DbParameter[19] { MaterialCode,ValidFrom,ValidTo, MaterialDescription, BaseUnit,MaterialType
+                                    , MaterialGroup,ModelID,SubCategory, GrossWeight, NetWeight,SerialProfile,WeightUnit,HSNCode, CurrentPrice, TaxPercentage ,Product,ProductGroup,IsActive};
+                    try
+                    {
+                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        {
+                            provider.Insert("ZDMS_InsertOrUpdateMaterial", Params);
+                            scope.Complete();
+                        }
+
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", sqlEx);
+
+                        throw;
+                    }
+                    catch (Exception ex)
+                    {
+                        new FileLogger().LogMessage("BDMS_Material", " IntegrationMaterial", ex);
+                        throw;
+                    }
+                }
+
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);
             }
             return SOIs.Count();
         }
@@ -382,46 +449,46 @@ namespace Business
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Material> SOIs = new List<PDMS_Material>();
-                PDMS_Material SOI = new PDMS_Material();
-                try
-                {
-                    DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
-                    DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
-                    DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
+            PDMS_Material SOI = new PDMS_Material();
+            try
+            {
+                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
+                DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
 
-                    using (DataSet DataSet = provider.Select("ZDMS_GetMaterialList", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_GetMaterialList", Params))
+                {
+                    if (DataSet != null)
                     {
-                        if (DataSet != null)
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            foreach (DataRow dr in DataSet.Tables[0].Rows)
-                            { 
-                                SOI = new PDMS_Material();
-                                SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
-                                SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
-                                SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
-                                SOI.BaseUnit = Convert.ToString(dr["BaseUnit"]);
-                                SOI.MaterialType = Convert.ToString(dr["MaterialType"]);
-                                SOI.MaterialGroup = Convert.ToString(dr["MaterialGroup"]);
-                                SOI.WeightUnit = Convert.ToString(dr["WeightUnit"]);
-                              //  SOI.MaterialDivision = Convert.ToString(dr["MaterialDivision"]);
-                                SOI.GrossWeight = DBNull.Value == dr["GrossWeight"] ? 0 : Convert.ToDecimal(dr["GrossWeight"]);
-                                SOI.NetWeight = DBNull.Value == dr["NetWeight"] ? 0 : Convert.ToDecimal(dr["NetWeight"]);
-                                SOI.HSN = Convert.ToString(dr["HSNCode"]);
-                                SOI.TaxPercentage = DBNull.Value == dr["TaxPercentage"] ? 0 : Convert.ToDecimal(dr["TaxPercentage"]);
-                                SOI.CurrentPrice = DBNull.Value == dr["CurrentPrice"] ? 0 : Convert.ToDecimal(dr["CurrentPrice"]);
-                                SOI.IsMainServiceMaterial = DBNull.Value == dr["IsMainServiceMaterial"] ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]);
-                                SOIs.Add(SOI);
-                            }
-                            return SOIs;
-                            TraceLogger.Log(DateTime.Now);
+                            SOI = new PDMS_Material();
+                            SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
+                            SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
+                            SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
+                            SOI.BaseUnit = Convert.ToString(dr["BaseUnit"]);
+                            SOI.MaterialType = Convert.ToString(dr["MaterialType"]);
+                            SOI.MaterialGroup = Convert.ToString(dr["MaterialGroup"]);
+                            SOI.WeightUnit = Convert.ToString(dr["WeightUnit"]);
+                            //  SOI.MaterialDivision = Convert.ToString(dr["MaterialDivision"]);
+                            SOI.GrossWeight = DBNull.Value == dr["GrossWeight"] ? 0 : Convert.ToDecimal(dr["GrossWeight"]);
+                            SOI.NetWeight = DBNull.Value == dr["NetWeight"] ? 0 : Convert.ToDecimal(dr["NetWeight"]);
+                            SOI.HSN = Convert.ToString(dr["HSNCode"]);
+                            SOI.TaxPercentage = DBNull.Value == dr["TaxPercentage"] ? 0 : Convert.ToDecimal(dr["TaxPercentage"]);
+                            SOI.CurrentPrice = DBNull.Value == dr["CurrentPrice"] ? 0 : Convert.ToDecimal(dr["CurrentPrice"]);
+                            SOI.IsMainServiceMaterial = DBNull.Value == dr["IsMainServiceMaterial"] ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]);
+                            SOIs.Add(SOI);
                         }
+                        return SOIs;
+                        TraceLogger.Log(DateTime.Now);
                     }
                 }
-                catch (Exception ex)
-                {
-                    new FileLogger().LogMessage("BDMS_Material", "GetMaterial", ex);
-                    throw ex;
-                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterial", ex);
+                throw ex;
+            }
             return SOIs;
         }
 
@@ -432,7 +499,7 @@ namespace Business
             try
             {
 
-                SOIs = new SMaterial().getAllMaterialFromEccSap(""); 
+                SOIs = new SMaterial().getAllMaterialFromEccSap("");
 
                 foreach (PDMS_Material Material in SOIs)
                 {
@@ -448,11 +515,11 @@ namespace Business
 
                     DbParameter WeightUnit = provider.CreateParameter("WeightUnit", Material.WeightUnit, DbType.String);
                     DbParameter HSNCode = provider.CreateParameter("HSNCode", Material.HSN, DbType.String);
-                  //  DbParameter CurrentPrice = provider.CreateParameter("CurrentPrice", Material.CurrentPrice, DbType.Decimal);
-                  //  DbParameter TaxPercentage = provider.CreateParameter("TaxPercentage", Material.TaxPercentage, DbType.Decimal);
+                    //  DbParameter CurrentPrice = provider.CreateParameter("CurrentPrice", Material.CurrentPrice, DbType.Decimal);
+                    //  DbParameter TaxPercentage = provider.CreateParameter("TaxPercentage", Material.TaxPercentage, DbType.Decimal);
 
-                  //  DbParameter Product = provider.CreateParameter("Product", Material.Product, DbType.String);
-                 //   DbParameter ProductGroup = provider.CreateParameter("ProductGroup", Material.ProductGroup, DbType.String);
+                    //  DbParameter Product = provider.CreateParameter("Product", Material.Product, DbType.String);
+                    //   DbParameter ProductGroup = provider.CreateParameter("ProductGroup", Material.ProductGroup, DbType.String);
 
                     DbParameter[] Params = new DbParameter[9] { MaterialCode, MaterialDescription, BaseUnit,MaterialType
                                     , MaterialGroup, GrossWeight, NetWeight, WeightUnit,HSNCode};

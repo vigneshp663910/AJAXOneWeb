@@ -29,5 +29,11 @@ namespace DealerManagementSystem
             chartData.Add(new object[] { 2016, 1030, 866 });
             return chartData;
         }
+
+        protected void BtnMaterial_Click(object sender, EventArgs e)
+        {
+            new SapIntegration.SMaterial().getMaterialIntegration();
+            new SapInteg.SMaterial().getMaterialIntegration();
+        }
     }
 }

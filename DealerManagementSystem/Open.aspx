@@ -58,7 +58,9 @@
                     <td>
                         <asp:Button ID="btnAPITest" runat="server" Text="API Test" OnClick="btnAPITest_Click" />
                     </td>
-
+                    <td>
+                        <asp:Button ID="BtnMaterial" runat="server" Text="Material" OnClick="BtnMaterial_Click"/>
+                    </td>
                     <td>
                         <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
                 </tr>

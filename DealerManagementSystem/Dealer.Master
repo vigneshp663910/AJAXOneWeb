@@ -57,7 +57,7 @@
             var itagClassName = xModule.className;
 
             document.getElementById(Itag).className = 'fa fa-angle-up fa-2x';
-            
+
             $('#Menu').find('div').each(function () {
                 var x2 = document.getElementById($(this).attr('id'));
                 x2.className = x2.className.replace(" w3-show", "");
@@ -368,8 +368,15 @@
         .w3-padding-32 {
             padding-top: 0px !important;
         }
-
+        @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
+            .ProjectTitle{
+                display:none;
+            }
+        }
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
+            .ProjectTitle{
+                display:none;
+            }
             .w3-padding-32 {
                 padding-top: 32px !important;
             }
@@ -385,6 +392,20 @@
             #userprofile {
                 display: none;
             }
+
+            label {
+                padding-left: initial;
+                float: left;
+            }
+
+            html,
+            body {
+                height: 100%;
+            }
+            .Popup{
+                left:0px;
+                top:0px;
+            }
         }
 
         input[type=checkbox], input[type=radio] {
@@ -393,7 +414,7 @@
 
         label {
             font-size: 14px;
-            padding-left: 1.25rem;
+            padding-left: initial;
             font-weight: bold;
         }
 
@@ -784,6 +805,10 @@
 
         .modalBackground {
             background-color: #000000bd;
+        }
+
+        .Popup label {
+            font-size: 13px;
         }
 
         /*.card {
