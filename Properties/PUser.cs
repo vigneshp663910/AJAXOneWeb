@@ -124,7 +124,8 @@ namespace Properties
     {
         #region Properties
         public int ModuleMasterID { get; set; }
-        public string ModuleName { get; set; } 
+        public string ModuleName { get; set; }
+        public string ModulAwesomeIco { get; set; }
         public List<PSubModuleAccess> SubModuleAccess { get; set; }
 
         public int UserModuleAccessID { get; set; }
