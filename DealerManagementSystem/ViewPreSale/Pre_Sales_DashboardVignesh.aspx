@@ -2,36 +2,46 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="//www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load('visualization', '1', { packages: ['corechart'] });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                url: 'Pre_Sales_DashboardVignesh.aspx/GetData',
-                data: '{}',
-                success:
-                    function (response) {
-                        drawVisualization(response.d);
-                    }
-            });
-        })
+    <%--<script type="text/javascript" src="//www.google.com/jsapi"></script>--%>
+    <script src="../Menubar.js" type="text/javascript"></script>
+  
+<script type="text/javascript">
+           
 
-        function drawVisualization(dataValues) {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'State');
-            data.addColumn('number', 'Count');
-            for (var i = 0; i < dataValues.length; i++) {
-                data.addRow([dataValues[i].ColumnName, dataValues[i].Value]);
-            }
-            new google.visualization.Bar(document.getElementById('visualization')).
-                draw(data, { title: "Google Chart demo" });
-        }
-    </script>
+    //function drawChart() {
+        //    var options = {
+        //        title: 'State vs Count',
+        //        width: 1000,
+        //        height: 600,
+        //        bar: { groupWidth: "95%" },
+        //        legend: { position: "none" },
+        //        isStacked: true,
+        //    };
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "Pre_Sales_DashboardVignesh.aspx/GetData",
+        //        data: '{}',
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        success: function (r) {
+        //            var data = google.visualization.arrayToDataTable(r.d);
+        //            data.addColumn('string', 'State');
+        //            data.addColumn('number', 'Count');
+        //            var chart = new google.visualization.LineChart($("#visualization")[0]);
+        //            chart.draw(data, options);
+        //        },
+        //        failure: function (r) {
+        //            alert(r.d);
+        //        },
+        //        error: function (r) {
+        //            alert(r.d);
+        //        }
+        //    });
+        //}
+</script>
+
+        
+    
     <style>
         .card {
             color: white;
@@ -87,7 +97,7 @@
             chart.draw(data, google.charts.Bar.convertOptions(options));
         }
     </script>
-    
+
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
