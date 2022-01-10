@@ -59,7 +59,7 @@ namespace SapIntegration
             }
             return Materials;
         }
-        public List<PSupersede> getSupersedeIntegration()
+        public List<PSupersede> getMaterialSupersedeIntegration()
         {
             List<PSupersede> Supersedes = new List<PSupersede>();
             PSupersede Supersede = null;

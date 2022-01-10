@@ -171,13 +171,13 @@ namespace Business
             }
             return SOIs.Count();
         }
-        public int IntegrationSuperSeed()
+        public int IntegrationMaterialSupersede()
         {
             TraceLogger.Log(DateTime.Now);
             List<PSupersede> SOIs = new List<PSupersede>();
             try
             {
-                SOIs = new SMaterial().getSupersedeIntegration();
+                SOIs = new SMaterial().getMaterialSupersedeIntegration();
 
                 foreach (PSupersede Supersedes in SOIs)
                 {
