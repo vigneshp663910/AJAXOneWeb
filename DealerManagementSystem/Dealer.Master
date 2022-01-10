@@ -214,6 +214,7 @@
 
         .appico {
             margin: 0 auto;
+            padding-left:100px;
         }
 
         .login {
@@ -1014,7 +1015,7 @@
                     </div>--%>
 
                     <div class="appico">
-                        <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
+                        <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server"/>
                     </div>
 
                     <div style="color: white">
