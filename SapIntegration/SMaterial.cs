@@ -59,6 +59,28 @@ namespace SapIntegration
             }
             return Materials;
         }
+        public List<PSupersede> getSupersedeIntegration()
+        {
+            List<PSupersede> Supersedes = new List<PSupersede>();
+            PSupersede Supersede = null;
+
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
+            tagListBapi.Invoke(SAP.RfcDes());
+            IRfcTable tagTable = tagListBapi.GetTable("IT_SC");
+            for (int i = 0; i < tagTable.RowCount; i++)
+            {
+                tagTable.CurrentIndex = i;
+                Supersede = new PSupersede();
+                Supersede.Material = tagTable.CurrentRow.GetString("MATERIAL");
+                Supersede.MaterialDescription = tagTable.CurrentRow.GetString("SSMATNR");
+                Supersede.Description = tagTable.CurrentRow.GetString("DESCRIPTION");
+                Supersede.ValidFrom = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
+                Supersede.ValidTo = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_TO"));
+                Supersede.IsActive = (tagTable.CurrentRow.GetString("ACTIVE") == "X") ? false : true;
+                Supersedes.Add(Supersede);
+            }
+            return Supersedes;
+        }
         public List<PDMS_Material> getMaterialDetails(string MaterialCode)
         {
             List<PDMS_Material> Materials = new List<PDMS_Material>();
