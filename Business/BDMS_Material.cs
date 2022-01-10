@@ -122,7 +122,7 @@ namespace Business
                     DbParameter BaseUnit = provider.CreateParameter("BaseUnit", Material.BaseUnit, DbType.String);
                     DbParameter MaterialType = provider.CreateParameter("MaterialType", Material.MaterialType, DbType.String);
                     DbParameter MaterialGroup = provider.CreateParameter("MaterialGroup", Material.MaterialGroup, DbType.String);
-                    DbParameter ModelID = provider.CreateParameter("ModelID", Material.Model.ModelID, DbType.Int32);
+                    DbParameter ModelID = provider.CreateParameter("ModelCode", Material.Model.ModelCode, DbType.String);
                     DbParameter SubCategory = provider.CreateParameter("SubCategory", Material.SubCategory, DbType.String);
                     DbParameter GrossWeight = provider.CreateParameter("GrossWeight", Material.GrossWeight, DbType.Decimal);
                     DbParameter NetWeight = provider.CreateParameter("NetWeight", Material.NetWeight, DbType.Decimal);
