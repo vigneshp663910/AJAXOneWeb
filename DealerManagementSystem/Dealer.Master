@@ -88,8 +88,6 @@
 
         }
 
-
-
     </script>
 
     <script>
@@ -214,7 +212,7 @@
 
         .appico {
             margin: 0 auto;
-            padding-left:100px;
+            padding-left: 100px;
         }
 
         .login {
@@ -369,15 +367,18 @@
         .w3-padding-32 {
             padding-top: 0px !important;
         }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
-            .ProjectTitle{
-                display:none;
+            .ProjectTitle {
+                display: none;
             }
         }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
-            .ProjectTitle{
-                display:none;
+            .ProjectTitle {
+                display: none;
             }
+
             .w3-padding-32 {
                 padding-top: 32px !important;
             }
@@ -403,9 +404,10 @@
             body {
                 height: 100%;
             }
-            .Popup{
-                left:0px;
-                top:0px;
+
+            .Popup {
+                left: 0px;
+                top: 0px;
             }
         }
 
@@ -1015,7 +1017,7 @@
                     </div>--%>
 
                     <div class="appico">
-                        <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server"/>
+                        <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
                     </div>
 
                     <div style="color: white">
