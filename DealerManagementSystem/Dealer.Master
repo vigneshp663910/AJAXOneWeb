@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="CSS/w3.css">
     <link rel="stylesheet" href="CSS/font.css">
+    <link rel="stylesheet" href="CSS/StyleSheet1.css" />
     <%--<link rel="stylesheet" href="CSS/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="CSS/bootstrap.min.3.4.1.css" />--%>
     <script src="/JS/jquery.min.js"></script>
@@ -87,6 +88,8 @@
             }
 
         }
+
+
 
     </script>
 
@@ -327,6 +330,28 @@
             background-color: #009AD7;
             font-weight: bold;
             color: white;
+        }
+
+        .Grid th {
+            background-color: #d8d8d8;
+            color: black;
+            font: message-box;
+            font-weight: bold;
+        }
+
+        .Grid td span {
+            font: message-box;
+        }
+        .Grid.table > tbody > tr > td{
+            padding:8px;
+        }
+        tr:hover {
+            background-color: blue;
+        }
+
+        .Grid td input {
+            height: 15px;
+            width: 20px;
         }
 
         th {
@@ -667,7 +692,6 @@
         }
 
         .table > tbody > tr > td {
-            padding: 8px;
             line-height: 1.42857143;
             vertical-align: top;
             border-top: 1px solid #ddd;
@@ -828,8 +852,6 @@
             background-color: #fff;
             background-clip: border-box;
         }*/
-    </style>
-    <style>
         .dropbtn {
             background-color: #30526f;
             color: white;
@@ -879,6 +901,20 @@
         .dropdown:hover .dropbtn {
             /*  background-color: #3e8e41;*/
         }
+
+        .View {
+            background: rgba(191,191,191,.8) !important;
+        }
+
+            .View label {
+                font: message-box;
+            }
+
+            .View .label {
+                font-weight: 700;
+                font-family: "Open Sans",sans-serif;
+                font-size: large;
+            }
     </style>
     <script>
         /*const {hidden} = require("modernizr");*/
