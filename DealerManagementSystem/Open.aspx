@@ -62,6 +62,9 @@
                         <asp:Button ID="BtnMaterial" runat="server" Text="Material" OnClick="BtnMaterial_Click"/>
                     </td>
                     <td>
+                        <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click"/>
+                    </td>
+                    <td>
                         <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
                 </tr>
               </table>

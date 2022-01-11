@@ -13,7 +13,6 @@ namespace SapIntegration
         {
             List<PDMS_Material> Materials = new List<PDMS_Material>();
             PDMS_Material Material = null;
-
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZBAPI_MATERIALS_GET");
             tagListBapi.SetValue("MATERIALCODE", MaterialCode);
             tagListBapi.Invoke(SAP.RfcDes());
@@ -47,7 +46,7 @@ namespace SapIntegration
                 Material.MaterialDescription = tagTable.CurrentRow.GetString("MATERIAL_DESC");
                 Material.MaterialType = tagTable.CurrentRow.GetString("MATERIAL_TYPE");
                 Material.MaterialGroup = tagTable.CurrentRow.GetString("MATERIAL_GROUP");
-                Material.Model = new PDMS_Model() { ModelCode = tagTable.CurrentRow.GetString("MODEL") };
+                Material.Model = new PDMS_Model() { ModelCode = tagTable.CurrentRow.GetString("MATERIAL_GROUP") };
                 Material.SubCategory = tagTable.CurrentRow.GetString("SUB_CATEGORY");
                 Material.GrossWeight = tagTable.CurrentRow.GetDecimal("GROSS_WEIGHT");
                 Material.NetWeight = tagTable.CurrentRow.GetDecimal("NET_WEIGHT");
@@ -59,6 +58,28 @@ namespace SapIntegration
                 Materials.Add(Material);
             }
             return Materials;
+        }
+        public List<PSupersede> getMaterialSupersedeIntegration()
+        {
+            List<PSupersede> Supersedes = new List<PSupersede>();
+            PSupersede Supersede = null;
+
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
+            tagListBapi.Invoke(SAP.RfcDes());
+            IRfcTable tagTable = tagListBapi.GetTable("IT_SC");
+            for (int i = 0; i < tagTable.RowCount; i++)
+            {
+                tagTable.CurrentIndex = i;
+                Supersede = new PSupersede();
+                Supersede.Material = tagTable.CurrentRow.GetString("MATERIAL");
+                Supersede.MaterialDescription = tagTable.CurrentRow.GetString("SSMATNR");
+                Supersede.Description = tagTable.CurrentRow.GetString("DESCRIPTION");
+                Supersede.ValidFrom = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
+                Supersede.ValidTo = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_TO"));
+                Supersede.IsActive = (tagTable.CurrentRow.GetString("ACTIVE") == "X") ? false : true;
+                Supersedes.Add(Supersede);
+            }
+            return Supersedes;
         }
         public List<PDMS_Material> getMaterialDetails(string MaterialCode)
         {

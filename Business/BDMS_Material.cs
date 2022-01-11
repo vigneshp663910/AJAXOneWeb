@@ -122,7 +122,7 @@ namespace Business
                     DbParameter BaseUnit = provider.CreateParameter("BaseUnit", Material.BaseUnit, DbType.String);
                     DbParameter MaterialType = provider.CreateParameter("MaterialType", Material.MaterialType, DbType.String);
                     DbParameter MaterialGroup = provider.CreateParameter("MaterialGroup", Material.MaterialGroup, DbType.String);
-                    DbParameter ModelID = provider.CreateParameter("ModelID", Material.Model.ModelID, DbType.Int32);
+                    DbParameter ModelID = provider.CreateParameter("ModelCode", Material.Model.ModelCode, DbType.String);
                     DbParameter SubCategory = provider.CreateParameter("SubCategory", Material.SubCategory, DbType.String);
                     DbParameter GrossWeight = provider.CreateParameter("GrossWeight", Material.GrossWeight, DbType.Decimal);
                     DbParameter NetWeight = provider.CreateParameter("NetWeight", Material.NetWeight, DbType.Decimal);
@@ -159,6 +159,55 @@ namespace Business
                     catch (Exception ex)
                     {
                         new FileLogger().LogMessage("BDMS_Material", " IntegrationMaterial", ex);
+                        throw;
+                    }
+                }
+
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);
+            }
+            return SOIs.Count();
+        }
+        public int IntegrationMaterialSupersede()
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PSupersede> SOIs = new List<PSupersede>();
+            try
+            {
+                SOIs = new SMaterial().getMaterialSupersedeIntegration();
+
+                foreach (PSupersede Supersedes in SOIs)
+                {
+                    DbParameter Material = provider.CreateParameter("Material", Supersedes.Material, DbType.String);
+                    DbParameter Supersede = provider.CreateParameter("Supersede", Supersedes.MaterialDescription, DbType.String);
+                    DbParameter Description = provider.CreateParameter("Description", Supersedes.Description, DbType.String);
+                    DbParameter ValidFrom = provider.CreateParameter("ValidFrom", Supersedes.ValidFrom, DbType.DateTime);
+                    DbParameter ValidTo = provider.CreateParameter("ValidTo", Supersedes.ValidTo, DbType.DateTime);
+                    DbParameter IsActive = provider.CreateParameter("IsActive", Supersedes.IsActive, DbType.Boolean);
+
+
+                    DbParameter[] Params = new DbParameter[6] { Material,Supersede,Description,ValidFrom,ValidTo,IsActive};
+                    try
+                    {
+                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        {
+                            provider.Insert("ZDMS_InsertOrUpdateMaterialSupersede", Params);
+                            scope.Complete();
+                        }
+
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        new FileLogger().LogMessage("BDMS_Material", "IntegrationSuperSeed", sqlEx);
+
+                        throw;
+                    }
+                    catch (Exception ex)
+                    {
+                        new FileLogger().LogMessage("BDMS_Material", " IntegrationSuperSeed", ex);
                         throw;
                     }
                 }
