@@ -171,6 +171,55 @@ namespace Business
             }
             return SOIs.Count();
         }
+        public int IntegrationMaterialSupersede()
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PSupersede> SOIs = new List<PSupersede>();
+            try
+            {
+                SOIs = new SMaterial().getMaterialSupersedeIntegration();
+
+                foreach (PSupersede Supersedes in SOIs)
+                {
+                    DbParameter Material = provider.CreateParameter("Material", Supersedes.Material, DbType.String);
+                    DbParameter Supersede = provider.CreateParameter("Supersede", Supersedes.MaterialDescription, DbType.String);
+                    DbParameter Description = provider.CreateParameter("Description", Supersedes.Description, DbType.String);
+                    DbParameter ValidFrom = provider.CreateParameter("ValidFrom", Supersedes.ValidFrom, DbType.DateTime);
+                    DbParameter ValidTo = provider.CreateParameter("ValidTo", Supersedes.ValidTo, DbType.DateTime);
+                    DbParameter IsActive = provider.CreateParameter("IsActive", Supersedes.IsActive, DbType.Boolean);
+
+
+                    DbParameter[] Params = new DbParameter[6] { Material,Supersede,Description,ValidFrom,ValidTo,IsActive};
+                    try
+                    {
+                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        {
+                            provider.Insert("ZDMS_InsertOrUpdateMaterialSupersede", Params);
+                            scope.Complete();
+                        }
+
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        new FileLogger().LogMessage("BDMS_Material", "IntegrationSuperSeed", sqlEx);
+
+                        throw;
+                    }
+                    catch (Exception ex)
+                    {
+                        new FileLogger().LogMessage("BDMS_Material", " IntegrationSuperSeed", ex);
+                        throw;
+                    }
+                }
+
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);
+            }
+            return SOIs.Count();
+        }
         public List<PDMS_Material> GetMaterial(string filter)
         {
             TraceLogger.Log(DateTime.Now);

@@ -34,5 +34,10 @@ namespace DealerManagementSystem
         {
             new BDMS_Material().IntegrationMaterial();
         }
+
+        protected void BtnMaterialSupersede_Click(object sender, EventArgs e)
+        {
+            new BDMS_Material().IntegrationMaterialSupersede();
+        }
     }
 }
