@@ -13,18 +13,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
     public partial class CustomerCreate : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-
+        { 
             if (!IsPostBack)
-            {  
-                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-                new DDLBind(ddlCountry, Country, "Country", "CountryID");  
-
-                ddlCountry.SelectedValue = "1";
-
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
-                new DDLBind(ddlState, State, "State", "StateID");  
+            { 
             }
+        }
+        public void FillMaster()
+        {  
+            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID"); 
+            ddlCountry.SelectedValue = "1";  
+            new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");  
+          //  new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null,null), "District", "DistrictID");
+           // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -38,7 +38,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCountry.SelectedValue), Convert.ToInt32(ddlState.SelectedValue), Convert.ToInt32(ddlDistrict.SelectedValue), null), "Tehsil", "TehsilID");
+            //List<PDMS_District> District   new BDMS_Address().GetDistrict(1, null, null, null, null);
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+            //ddlCountry.SelectedValue = Convert.ToString(Tehsil[0].Country.CountryID);
+            //ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
+            //ddlDistrict.SelectedValue = Convert.ToString(Customer.District.DistrictID);
+
+            new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
         }
         public PDMS_Customer ReadCustomer()
         {
@@ -62,9 +68,71 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (ddlTehsil.SelectedValue != "0")
             {
                 Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
-            } 
+            }
+
+            Customer.DOB = string.IsNullOrEmpty(txtDOB.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOB.Text.Trim());
+            Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
+            Customer.SendSMS = cbSendSMS.Checked;
+            Customer.SendEmail = cbSendEmail.Checked;
             return Customer;
         }
+
+        public void FillCustomer(PDMS_Customer Customer)
+        {
+            txtCustomerName.Text = Customer.CustomerName;
+            txtGSTIN.Text = Customer.GSTIN;
+            txtPAN.Text = Customer.PAN;
+            txtContactPerson.Text = Customer.ContactPerson;
+            txtMobile.Text = Customer.Mobile;
+            txtAlternativeMobile.Text = Customer.AlternativeMobile;
+            txtEmail.Text = Customer.Email;
+            txtAddress1.Text = Customer.Address1;
+            txtAddress2.Text = Customer.Address2;
+            txtAddress3.Text = Customer.Address3;
+            txtCity.Text = Customer.City;
+            txtPincode.Text = Customer.Pincode;
+
+            ddlCountry.SelectedValue = Convert.ToString(Customer.Country.CountryID);
+            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+
+            ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+
+            ddlDistrict.SelectedValue = Convert.ToString(Customer.District.DistrictID);
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+            new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
+            if (Customer.Tehsil != null)
+            {
+                ddlTehsil.SelectedValue = Convert.ToString(Customer.Tehsil.TehsilID);
+            }
+
+            txtDOB.Text = Customer.DOB == null ? "" : ((DateTime)Customer.DOB).ToString("yyyy-MM-dd");
+            txtDOAnniversary.Text = Customer.DOAnniversary == null ? "" : ((DateTime)Customer.DOAnniversary).ToString("yyyy-MM-dd");
+            cbSendSMS.Checked = Customer.SendSMS;
+            cbSendEmail.Checked = Customer.SendEmail;
+        }
+
+        public void FillClean()
+        {
+            txtCustomerName.Text = "";
+            txtGSTIN.Text = "";
+            txtPAN.Text = "";
+            txtContactPerson.Text = "";
+            txtMobile.Text = "";
+            txtAlternativeMobile.Text = "";
+            txtEmail.Text = "";
+            txtAddress1.Text = "";
+            txtAddress2.Text = "";
+            txtAddress3.Text = "";
+            txtCity.Text = "";
+            txtPincode.Text = "";
+            txtDOB.Text = "";
+            txtDOAnniversary.Text = "";
+            cbSendSMS.Checked = false;
+            cbSendEmail.Checked = false;
+            FillMaster();
+        }
+
         public string ValidationCustomer()
         {
             string Message = "";

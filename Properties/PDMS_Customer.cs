@@ -50,6 +50,10 @@ namespace Properties
         public PUser CreatedBy { get; set; }
 
 
+        public DateTime? DOB { get; set; }      
+        public DateTime? DOAnniversary { get; set; }
+        public Boolean SendSMS { get; set; }
+        public Boolean SendEmail { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerCategory
@@ -59,10 +63,29 @@ namespace Properties
     }
 
     [Serializable]
-    public class PDMS_CustomerRelation
+    public class PCustomerProduct
+    {
+        public long CustomerrProductID { get; set; }
+        public long CustomerID { get; set; }
+        public long ICTicketID { get; set; }
+
+        public PMake Make { get; set; }
+        public PProductType ProductType { get; set; }
+        public PProduct Product { get; set; }
+
+        public int Quantity { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+    }
+    [Serializable]
+
+    public class PCustomerRelation
     {
         public long CustomerRelationID { get; set; }
         public long CustomerID { get; set; }
+
+
         public string DecisionMaker { get; set; }
         //public string OrgName { get; set; }
 
@@ -72,16 +95,17 @@ namespace Properties
         public PRelation Relation { get; set; }
 
         public DateTime? DOB { get; set; }
-        public DateTime? DOAniversary { get; set; }
+        public DateTime? DOAnniversary { get; set; }
         public PUser CreatedBy { get; set; }
 
     }
     [Serializable]
-    public class PDMS_CustomerMarketSegment
+    public class PCustomerMarketSegment
     {
         public long CustomerMarketSegmentID { get; set; }
         public long CustomerID { get; set; }
         public PMarketSegment MarketSegment { get; set; }
+        public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
     }
     public class PDMS_CustomerJSON

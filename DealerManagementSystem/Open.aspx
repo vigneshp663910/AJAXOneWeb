@@ -5,9 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
     <script type="text/javascript"> 
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -17,7 +17,7 @@
             var options = { title: country + ' Distribution', is3D: false };
             $.ajax({
                 type: "POST",
-                url: '/Open.aspx/GetChartData',
+                url: '/Open/GetChartData',
                 data: "{country: '" + country + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

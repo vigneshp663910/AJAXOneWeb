@@ -101,6 +101,36 @@
                 <div class="col-md-4">
                     <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" ></asp:TextBox>
                 </div>
+
+
+                <div class="col-md-2 text-right">
+                    <label>Birth Date</label>
+                </div>
+                <div class="col-md-4">
+                    <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" ></asp:TextBox>
+                </div>
+
+                <div class="col-md-2 text-right">
+                    <label>Anniversary Date</label>
+                </div>
+                <div class="col-md-4">
+                    <asp:TextBox ID="txtDOAnniversary" runat="server" CssClass="form-control" BorderColor="Silver"  TextMode="Date"></asp:TextBox>
+                </div>
+
+                <div class="col-md-2 text-right">
+                    <label>Send SMS</label>
+                </div>
+                <div class="col-md-4">
+                    <asp:CheckBox ID="cbSendSMS" runat="server" /> 
+                </div>
+
+                <div class="col-md-2 text-right">
+                    <label>Send Email</label>
+                </div>
+                <div class="col-md-4">
+                     <asp:CheckBox ID="cbSendEmail"  runat="server" /> 
+                </div>
+
             </div> 
         </fieldset>
     </ContentTemplate>

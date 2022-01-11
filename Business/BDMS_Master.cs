@@ -102,5 +102,33 @@ namespace Business
             string endPoint = "Master/ExpenseType?ExpenseTypeID=" + ExpenseTypeID + "&ExpenseType=" + ExpenseType;
             return JsonConvert.DeserializeObject<List<PExpenseType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public List<PMarketSegment> GetMarketSegment(int? MarketSegmentID, string MarketSegment)
+        {
+            string endPoint = "Master/MarketSegment?MarketSegmentID=" + MarketSegmentID + "&MarketSegment=" + MarketSegment;
+            return JsonConvert.DeserializeObject<List<PMarketSegment>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public List<PMake> GetMake(int? MakeID, string Make)
+        {
+            string endPoint = "Master/Make?MakeID=" + MakeID + "&Make=" + Make;
+            return JsonConvert.DeserializeObject<List<PMake>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PProductType> GetProductType(int? MarketSegmentID, string MarketSegment)
+        {
+            string endPoint = "Master/ProductType?ProductTypeID=" + MarketSegmentID + "&ProductType=" + MarketSegment;
+            return JsonConvert.DeserializeObject<List<PProductType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PProduct> GetProduct(int? ProductID, string Product)
+        {
+            string endPoint = "Master/Product?ProductID=" + ProductID + "&Product=" + Product;
+            return JsonConvert.DeserializeObject<List<PProduct>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public List<PRelation> GetRelation(int? RelationID, string Relation)
+        {
+            string endPoint = "Master/Relation?RelationID=" + RelationID + "&Relation=" + Relation;
+            return JsonConvert.DeserializeObject<List<PRelation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 } 

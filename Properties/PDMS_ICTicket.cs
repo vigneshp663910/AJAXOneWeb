@@ -220,7 +220,7 @@ namespace Properties
         public string RentalNumber { get; set; }
         public string OperatorName { get; set; }
         public string OperatorNumber { get; set; }
-        public PDMS_AvailabilityOfOtherMachine AvailabilityOfOtherMachine { get; set; }
+        public PCustomerProduct AvailabilityOfOtherMachine { get; set; }
 
         public string NatureOfComplaint { get; set; }
         public string Observation { get; set; }
@@ -282,30 +282,9 @@ namespace Properties
         public int MachineMaintenanceLevelID { get; set; }
         public string MachineMaintenanceLevel { get; set; }
     }
-
-    [Serializable]
-    public class PDMS_Make
-    {
-        public int MakeID { get; set; }
-        public string Make { get; set; }
-    }
-    [Serializable]
-    public class PDMS_TypeOfMachine
-    {
-        public int TypeOfMachineID { get; set; }
-        public string TypeOfMachine { get; set; }
-    }
-    [Serializable]
-    public class PDMS_AvailabilityOfOtherMachine
-    {
-        public long AvailabilityOfOtherMachineID { get; set; }
-        public long ICTicketID { get; set; }
-        public PDMS_TypeOfMachine TypeOfMachine { get; set; }
-        public PDMS_Make Make { get; set; }
-        public int Quantity { get; set; }
-        public DateTime CreatedOn { get; set; }
-
-    }
+ 
+    
+  
     [Serializable]
     public class PDMS_MachineAttachedFile
     {

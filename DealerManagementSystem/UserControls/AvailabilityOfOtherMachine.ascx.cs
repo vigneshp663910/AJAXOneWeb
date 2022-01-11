@@ -102,10 +102,10 @@ namespace DealerManagementSystem.UserControls
         public void FillAvailabilityOfOtherMachine(long ICTicketID)
         {
             ViewState["ICTicketID"] = ICTicketID;
-            List<PDMS_AvailabilityOfOtherMachine> Note = new BDMS_AvailabilityOfOtherMachine().GetAvailabilityOfOtherMachine(ICTicketID, null, null, null);
+            List<PCustomerProduct> Note = new BDMS_Customer().GetCustomerProduct(null,ICTicketID, null, null, null);
             if (Note.Count == 0)
             {
-                PDMS_AvailabilityOfOtherMachine N = new PDMS_AvailabilityOfOtherMachine();
+                PCustomerProduct N = new PCustomerProduct();
                 Note.Add(N);
             }
             gvAvailabilityOfOtherMachine.DataSource = Note;

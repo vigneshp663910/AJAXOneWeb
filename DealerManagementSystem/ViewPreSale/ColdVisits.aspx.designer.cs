@@ -123,6 +123,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCustomerView;
 
         /// <summary>
+        /// btnEditCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditCustomer;
+
+        /// <summary>
         /// tblDashboard control.
         /// </summary>
         /// <remarks>
@@ -130,6 +139,15 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
+
+        /// <summary>
+        /// UC_CustomerView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.CustomerView UC_CustomerView;
 
         /// <summary>
         /// ph_usercontrols_1 control.

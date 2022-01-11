@@ -21,9 +21,46 @@
             font-size: 12px;
             font-weight: bold;
         }
+
+        .portlet.box.green {
+            border: 1px solid #5cd1db;
+            border-top: 0;
+        }
+
+            .portlet.box.green > .portlet-title {
+                background-color: #32c5d2;
+            }
+
+                .portlet.box.green > .portlet-title > .caption {
+                    color: #fff;
+                }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-sm {
+            font-size: 11px;
+            padding: 6px 18px 6px 18px;
+        }
+
+        .btn.yellow:not(.btn-outline) {
+            color: #fff;
+            background-color: #c49f47;
+            border-color: #c49f47;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        b, optgroup, strong {
+            font-weight: 700;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -137,14 +174,7 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" Width="70px" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged" AutoPostBack="true">
-                                                <asp:ListItem>Action</asp:ListItem>
-                                                <asp:ListItem>Add Effort</asp:ListItem>
-                                                <asp:ListItem>Add Expense</asp:ListItem>
-                                            </asp:DropDownList>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <AlternatingRowStyle BackColor="#f2f2f2" />
+                                                <asp:ListItem>Action</asp:ListItem><asp:ListItem>Add Effort</asp:ListItem><asp:ListItem>Add Expense</asp:ListItem></asp:DropDownList></ItemTemplate></asp:TemplateField></Columns><AlternatingRowStyle BackColor="#f2f2f2" />
                                 <FooterStyle ForeColor="White" />
                                 <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
@@ -152,14 +182,19 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
-            <div class="col-md-12" runat="server" id="tblDashboard">
-                <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
-                <div class="col-md-12 text-center">
-                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+            <div class="portlet box green" style="border: none; margin-bottom: 5px;">
+                <div class="portlet-title">
+                    <div class="caption" style="width: 100%">
+                        <span>View Company Customer Details</span> <div class="pull-right">
+                            <asp:Button ID="btnEditCustomer" runat="server" Text="Edit Customer" Style="margin-top: 5px;" class="btn btn-sm btn-primary" />
+                            <button class="btn btn-sm btn-primary" href="#" onclick="ViewCustomerAudits('6750');" style="margin-top: 5px;">View Audit Trails</button>&nbsp;<button class="btn btn-sm yellow" onclick="history.go(-1)" style="margin-top: 5px;">Back</button></div></div></div><div class="col-md-12" runat="server" id="tblDashboard">
+
+                    <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
+                    <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,8 +204,7 @@
         <div class="col-md-12">
             <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
                 <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                        <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                    <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
                 </div>
                 <div class="col-md-12">
 
@@ -179,27 +213,15 @@
                         <div class="col-md-12">
 
                             <div class="col-md-2 text-right">
-                                <label>Cold Visit Date</label>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <label>Action Type</label>
-                            </div>
-                            <div class="col-md-4">
+                                <label>Cold Visit Date</label> </div><div class="col-md-4">
+                                <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox></div><div class="col-md-2 text-right">
+                                <label>Action Type</label> </div><div class="col-md-4">
                                 <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                             </div>
 
                             <div class="col-md-2 text-right">
-                                <label>Remark</label>
-                            </div>
-                            <div class="col-md-10">
-                                <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="col-md-12 text-center">
+                                <label>Remark</label> </div><div class="col-md-10">
+                                <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox></div></div></fieldset> <div class="col-md-12 text-center">
                         <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
                     </div>
                 </div>
@@ -208,8 +230,7 @@
 
             <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
                 <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button">
-                        <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+                    <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
                 </div>
                 <div class="col-md-12">
 
@@ -274,8 +295,7 @@
 
             <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
                 <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                        <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
+                    <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
                     </a>
                 </div>
                 <div class="col-md-12">
@@ -336,4 +356,5 @@
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
+
 </asp:Content>

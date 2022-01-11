@@ -344,11 +344,11 @@ namespace DealerManagementSystem.ViewService
                 AvailabilityOfOtherMachineDT.Columns.Add("Qty");
                 AvailabilityOfOtherMachineDT.Columns.Add("Mack");
 
-                List<PDMS_AvailabilityOfOtherMachine> AvailabilityOfOtherMachine = new BDMS_AvailabilityOfOtherMachine().GetAvailabilityOfOtherMachine(FSR.ICTicket.ICTicketID, null, null, null);
+                List<PCustomerProduct> AvailabilityOfOtherMachine = new BDMS_Customer().GetCustomerProduct(null, FSR.ICTicket.ICTicketID, null, null, null);
 
-                foreach (PDMS_AvailabilityOfOtherMachine Aom in AvailabilityOfOtherMachine)
+                foreach (PCustomerProduct Aom in AvailabilityOfOtherMachine)
                 {
-                    AvailabilityOfOtherMachineDT.Rows.Add(Aom.TypeOfMachine.TypeOfMachine, Aom.Quantity, Aom.Make.Make);
+                    AvailabilityOfOtherMachineDT.Rows.Add(Aom.ProductType.ProductType, Aom.Quantity, Aom.Make.Make);
                 }
 
                 DataTable FsrFiles = new DataTable();

@@ -186,13 +186,13 @@ namespace DealerManagementSystem.ViewPreSale
             DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
             Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
 
-           
-            CustomerView ucCustomerView = (CustomerView)LoadControl("~/ViewPreSale/UserControls/CustomerView.ascx");
-            ucCustomerView.ID = "ucCustomerView";
+            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
+            //CustomerView ucCustomerView = (CustomerView)LoadControl("~/ViewPreSale/UserControls/CustomerView.ascx");
+            //ucCustomerView.ID = "ucCustomerView";
           
-            PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
-            phDashboard.Controls.Add(ucCustomerView);
-            ucCustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text)); 
+            //PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
+            //phDashboard.Controls.Add(ucCustomerView);
+            //ucCustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text)); 
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)

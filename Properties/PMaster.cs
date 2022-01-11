@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Properties
 {
+
     public class PMaster
     {
     }
@@ -27,6 +28,9 @@ namespace Properties
         public int ExpenseTypeID { get; set; }
         public string ExpenseType { get; set; }
     }
+
+
+    [Serializable]
     public class PRelation
     {
         public int RelationID { get; set; }
@@ -37,5 +41,25 @@ namespace Properties
     {
         public int MarketSegmentID { get; set; }
         public string MarketSegment { get; set; }
+    }
+
+
+    [Serializable]
+    public class PMake
+    {
+        public int MakeID { get; set; }
+        public string Make { get; set; }
+    }
+    [Serializable]
+    public class PProductType
+    {
+        public int ProductTypeID { get; set; }
+        public string ProductType { get; set; }
+    }
+    [Serializable]
+    public class PProduct
+    {
+        public int ProductID { get; set; }
+        public string Product { get; set; }
     }
 }
