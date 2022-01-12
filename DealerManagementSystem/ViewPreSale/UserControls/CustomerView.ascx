@@ -6,201 +6,212 @@
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
-        <div class="col-md-12">
-            <div class="form-group">
-                Customer : <b>
-                    <asp:Label ID="lblCustomer" runat="server"></asp:Label></b>
+        <div class="col-md-12 View">
+            <div class="col-md-6">
+                <label>Customer : </label>
+                <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
             </div>
-
-            <div class="form-group">
-                Contact Person : <b>
-                    <asp:Label ID="lblContactPerson" runat="server"></asp:Label>
-                </b>
+            <div class="col-md-6">
+                <label>Contact Person : </label>
+                <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
             </div>
-
-            <div class="form-group">
-                Mobile : <b>
-                    <asp:Label ID="lblMobile" runat="server"></asp:Label>
-                </b>
+            <div class="col-md-6">
+                <label>Mobile : </label>
+                <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
             </div>
-
-            <div class="form-group">
-                Alternative Mobile : <b>
-                    <asp:Label ID="lblAlternativeMobile" runat="server"></asp:Label>
-                </b>
+            <div class="col-md-6">
+                <label>Alternative Mobile : </label>
+                <asp:Label ID="lblAlternativeMobile" runat="server" CssClass="label"></asp:Label>
             </div>
-
-            <div class="form-group">
-                Email : <b>
-                    <asp:Label ID="lblEmail" runat="server"></asp:Label>
-                </b>
+            <div class="col-md-6">
+                <label>Email : </label>
+                <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-2 text-right">
-                <label>Location</label>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
+                <label>Location : </label>
                 <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
             </div>
-
-            <div class="col-md-2 text-right">
-                <label>GSTIN</label>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
+                <label>GSTIN : </label>
                 <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
             </div>
-
-            <div class="col-md-2 text-right">
-                <label>PAN</label>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
+                <label>PAN : </label>
                 <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
             </div>
-            <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" Width="70px" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged" AutoPostBack="true">
-                <asp:ListItem>Action</asp:ListItem>
-                <asp:ListItem>Edit Customer</asp:ListItem>
-                <asp:ListItem>View Adit Trails</asp:ListItem>
-                <asp:ListItem>Add Market Segment</asp:ListItem>
-                <asp:ListItem>Add Products</asp:ListItem>
-                <asp:ListItem>Add Market Relations</asp:ListItem> 
-            </asp:DropDownList>
+            <div class="col-md-12">
+                <div style="float: right;">
+                    <div class="dropdown">
+                        <asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />
+                        <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                            <asp:LinkButton ID="LinkButton1" runat="server">LinkButton1</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton2" runat="server">LinkButton2</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton3" runat="server">LinkButton3</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton4" runat="server">LinkButton4</asp:LinkButton>
+                            <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
+                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" Width="70px" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:ListItem>Action</asp:ListItem>
+                    <asp:ListItem>Edit Customer</asp:ListItem>
+                    <asp:ListItem>View Adit Trails</asp:ListItem>
+                    <asp:ListItem>Add Market Segment</asp:ListItem>
+                    <asp:ListItem>Add Products</asp:ListItem>
+                    <asp:ListItem>Add Market Relations</asp:ListItem>
+                </asp:DropDownList>
+            </div>
         </div>
     </fieldset>
 </div>
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Market Segment</legend>
-        <asp:Button ID="btnAddMarketSegment" runat="server" Text="Add Market Segment" CssClass="btn Back" OnClick="btnAddMarketSegment_Click" />
-
-        <asp:GridView ID="gvMarketSegment" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
-            <Columns>
-                <asp:TemplateField HeaderText="Product Name">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblCustomerMarketSegmentID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerMarketSegmentID")%>' runat="server" Visible="false" />
-                        <asp:Label ID="lblMarketSegment" Text='<%# DataBinder.Eval(Container.DataItem, "MarketSegment.MarketSegment")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Action">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ibtnMarketSegmentDelete" runat="server" OnClick="ibtnMarketSegmentDelete_Click" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <AlternatingRowStyle BackColor="#f2f2f2" />
-            <FooterStyle ForeColor="White" />
-            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
-        </asp:GridView>
+        <div class="text-right">
+            <asp:Button ID="btnAddMarketSegment" runat="server" Text="Add Market Segment" CssClass="btn Back" OnClick="btnAddMarketSegment_Click" />
+        </div>
+        <div class="col-md-12 Report">
+            <asp:GridView ID="gvMarketSegment" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                <Columns>
+                    <asp:TemplateField HeaderText="Product Name">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblCustomerMarketSegmentID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerMarketSegmentID")%>' runat="server" Visible="false" />
+                            <asp:Label ID="lblMarketSegment" Text='<%# DataBinder.Eval(Container.DataItem, "MarketSegment.MarketSegment")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="ibtnMarketSegmentDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px" onclick="ibtnMarketSegmentDelete_Click"></i></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <AlternatingRowStyle BackColor="#ffffff" />
+                <FooterStyle ForeColor="White" />
+                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+            </asp:GridView>
+        </div>
     </fieldset>
 </div>
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Products</legend>
-        <asp:Button ID="btnAddProducts" runat="server" Text="Add Products" CssClass="btn Back" OnClick="btnAddProduct_Click" />
-        <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
-            <Columns>
-                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                    <ItemTemplate>
-                        <itemstyle width="25px" horizontalalign="Center"></itemstyle>
-                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                        <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Product">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product.Product")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Product Type">
-                    <ItemTemplate>
-                        <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Brand Name">
-                    <ItemTemplate>
-                        <asp:Label ID="lblMake" Text='<%# DataBinder.Eval(Container.DataItem, "Make.Make")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Quantity">
-                    <ItemTemplate>
-                        <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Action">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ibtnProductDelete" runat="server" OnClick="ibtnProductDelete_Click" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-            </Columns>
-            <AlternatingRowStyle BackColor="#f2f2f2" />
-            <FooterStyle ForeColor="White" />
-            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
-        </asp:GridView>
+        <div class="text-right">
+            <asp:Button ID="btnAddProducts" runat="server" Text="Add Products" CssClass="btn Back" OnClick="btnAddProduct_Click" />
+        </div>
+        <div class="col-md-12 Report">
+            <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                <Columns>
+                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <itemstyle width="25px" horizontalalign="Center"></itemstyle>
+                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                            <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Product">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product.Product")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Product Type">
+                        <ItemTemplate>
+                            <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Brand Name">
+                        <ItemTemplate>
+                            <asp:Label ID="lblMake" Text='<%# DataBinder.Eval(Container.DataItem, "Make.Make")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Quantity">
+                        <ItemTemplate>
+                            <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="ibtnProductDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px" onclick="ibtnProductDelete_Click"></i></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <AlternatingRowStyle BackColor="#ffffff" />
+                <FooterStyle ForeColor="White" />
+                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+            </asp:GridView>
+        </div>
     </fieldset>
 </div>
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Relations</legend>
-        <asp:Button ID="btnAddRelations" runat="server" Text="Add Relations" CssClass="btn Back" OnClick="btnAddRelations_Click" />
-        <asp:GridView ID="gvRelation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
-            <Columns>
-                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                    <ItemTemplate>
-                        <itemstyle width="25px" horizontalalign="Center"></itemstyle>
-                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                        <asp:Label ID="lblCustomerRelationID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerRelationID")%>' runat="server" Visible="false" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Type">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblDecisionMaker" Text='<%# DataBinder.Eval(Container.DataItem, "DecisionMaker")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Contact Name">
-                    <ItemTemplate>
-                        <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Mobile">
-                    <ItemTemplate>
-                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Relation">
-                    <ItemTemplate>
-                        <asp:Label ID="lblRelation" Text='<%# DataBinder.Eval(Container.DataItem, "Relation.Relation")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Birth Date">
-                    <ItemTemplate>
-                        <asp:Label ID="lblDOB" Text='<%# DataBinder.Eval(Container.DataItem, "DOB")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Anniversary Date">
-                    <ItemTemplate>
-                        <asp:Label ID="lblDOAniversary" Text='<%# DataBinder.Eval(Container.DataItem, "DOAnniversary")%>' runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Action">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ibtnRelationDelete" runat="server" OnClick="ibtnRelationDelete_Click" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-            </Columns>
-            <AlternatingRowStyle BackColor="#f2f2f2" />
-            <FooterStyle ForeColor="White" />
-            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
-        </asp:GridView>
+        <div class="text-right">
+            <asp:Button ID="btnAddRelations" runat="server" Text="Add Relations" CssClass="btn Back" OnClick="btnAddRelations_Click" />
+        </div>
+        <div class="col-md-12 Report">
+            <asp:GridView ID="gvRelation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                <Columns>
+                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <itemstyle width="25px" horizontalalign="Center"></itemstyle>
+                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                            <asp:Label ID="lblCustomerRelationID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerRelationID")%>' runat="server" Visible="false" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Type">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblDecisionMaker" Text='<%# DataBinder.Eval(Container.DataItem, "DecisionMaker")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Contact Name">
+                        <ItemTemplate>
+                            <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Mobile">
+                        <ItemTemplate>
+                            <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Relation">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRelation" Text='<%# DataBinder.Eval(Container.DataItem, "Relation.Relation")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Birth Date">
+                        <ItemTemplate>
+                            <asp:Label ID="lblDOB" Text='<%# DataBinder.Eval(Container.DataItem, "DOB")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Anniversary Date">
+                        <ItemTemplate>
+                            <asp:Label ID="lblDOAniversary" Text='<%# DataBinder.Eval(Container.DataItem, "DOAnniversary")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="ibtnRelationDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px" onclick="ibtnRelationDelete_Click"></i></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+                <AlternatingRowStyle BackColor="#ffffff" />
+                <FooterStyle ForeColor="White" />
+                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+            </asp:GridView>
+        </div>
     </fieldset>
 </div>
 
@@ -214,7 +225,7 @@
         <div class="col-md-12">
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <div class="col-md-12">
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6">
                         <label>Market Segment</label>
                     </div>
                     <div class="col-md-4">

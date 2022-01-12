@@ -108,7 +108,6 @@
             padding: 0px 12px 12px 12px;
         }
 
-
         .w3-btn, .w3-button {
             text-decoration: initial;
             /*padding:2px;*/
@@ -396,6 +395,9 @@
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
             .ProjectTitle {
                 display: none;
+            }
+            .w3-main{
+                margin-top:30px;
             }
         }
 
@@ -747,6 +749,10 @@
 
         td .form-control {
             height: 23px;
+            padding: inherit;
+        }
+        .Grid td .form-control {
+            height: 35px;
             padding: inherit;
         }
 
