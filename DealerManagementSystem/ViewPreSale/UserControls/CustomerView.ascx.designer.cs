@@ -384,15 +384,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtMobile;
 
         /// <summary>
-        /// ddlRelation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRelation;
-
-        /// <summary>
         /// txtBirthDate control.
         /// </summary>
         /// <remarks>
@@ -409,6 +400,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAnniversaryDate;
+
+        /// <summary>
+        /// ddlRelation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRelation;
 
         /// <summary>
         /// btnSaveRelation control.

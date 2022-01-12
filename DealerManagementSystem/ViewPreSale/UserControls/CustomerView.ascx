@@ -225,13 +225,14 @@
         <div class="col-md-12">
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <div class="col-md-12">
-                    <div class="col-md-6">
+                    <div class="col-md-2">
                         <label>Market Segment</label>
                     </div>
                     <div class="col-md-4">
                         <asp:DropDownList ID="ddlMarketSegment" runat="server" CssClass="form-control" />
                     </div>
-
+                    <div class="col-md-6">
+                    </div>
                     <div class="col-md-2 text-right">
                         <label>Remark</label>
                     </div>
@@ -279,7 +280,7 @@
                     <div class="col-md-2 text-right">
                         <label>Quantity</label>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-4">
                         <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
@@ -314,24 +315,24 @@
                     </div>
                     <div class="col-md-4">
                         <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>                    
+                    <div class="col-md-2 text-right">
+                        <label>Birth Date</label>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>Anniversary Date</label>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:TextBox ID="txtAnniversaryDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                     </div>
                     <div class="col-md-2 text-right">
                         <label>Relation</label>
                     </div>
                     <div class="col-md-4">
                         <asp:DropDownList ID="ddlRelation" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Birth Date</label>
-                    </div>
-                    <div class="col-md-10">
-                        <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Anniversary Date</label>
-                    </div>
-                    <div class="col-md-10">
-                        <asp:TextBox ID="txtAnniversaryDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                     </div>
                 </div>
             </fieldset>

@@ -168,10 +168,10 @@
                                     </asp:TemplateField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
-                <FooterStyle ForeColor="White" />
-                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
                         </div>
                     </fieldset>
@@ -180,7 +180,7 @@
         </div>
         <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="text-right">
-                <asp:Button ID="btnEditCustomer" runat="server" Text="Edit Customer" class="btn Edit" Width="110px"/>
+                <asp:Button ID="btnEditCustomer" runat="server" Text="Edit Customer" class="btn Edit" Width="110px" />
                 <asp:Button ID="BtnBack" runat="server" Text="Back" class="btn Back" />
             </div>
             <div class="col-md-12" runat="server" id="tblDashboard">
@@ -247,7 +247,7 @@
                     <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
                 </div>
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                    <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="Sales Engineer">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -289,11 +289,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -313,7 +313,7 @@
                     <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
                 </div>
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                    <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <%-- <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
             <ItemTemplate>
@@ -349,11 +349,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -361,9 +361,7 @@
 
         <ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
     </div>
-    </div>
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
-
 </asp:Content>
