@@ -44,37 +44,32 @@
                     <div class="dropdown">
                         <asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />
                         <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                            <asp:LinkButton ID="LinkButton1" runat="server">LinkButton1</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton2" runat="server">LinkButton2</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton3" runat="server">LinkButton3</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton4" runat="server">LinkButton4</asp:LinkButton>
-                            <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
+                            <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbEditCustomer_Click">Edit Customer</asp:LinkButton>
+                         <%--   <asp:LinkButton ID="lbViewAditTrails" runat="server" OnClick="lbViewAditTrails_Click">View Adit Trails</asp:LinkButton>--%>
+                            <asp:LinkButton ID="lbAddMarketSegment" runat="server" OnClick="lbAddMarketSegment_Click">Add Market Segment</asp:LinkButton>
+                            <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbAddProduct_Click">Add Product</asp:LinkButton>
+                            <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbAddRelation_Click">Add Relation</asp:LinkButton> 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-right">
+          <%--  <div class="text-right">
                 <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" Width="70px" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem>Action</asp:ListItem>
                     <asp:ListItem>Edit Customer</asp:ListItem>
                     <asp:ListItem>View Adit Trails</asp:ListItem>
                     <asp:ListItem>Add Market Segment</asp:ListItem>
                     <asp:ListItem>Add Products</asp:ListItem>
-                    <asp:ListItem>Add Market Relations</asp:ListItem>
+                    <asp:ListItem>Add Relations</asp:ListItem>
                 </asp:DropDownList>
-            </div>
+            </div>--%>
         </div>
     </fieldset>
 </div>
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Market Segment</legend>
-        <div class="text-right">
-            <asp:Button ID="btnAddMarketSegment" runat="server" Text="Add Market Segment" CssClass="btn Back" OnClick="btnAddMarketSegment_Click" />
-        </div>
+      
         <div class="col-md-12 Report">
             <asp:GridView ID="gvMarketSegment" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                 <Columns>
@@ -87,7 +82,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:LinkButton ID="ibtnMarketSegmentDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px" onclick="ibtnMarketSegmentDelete_Click"></i></asp:LinkButton>
+                            <asp:LinkButton ID="lbMarketSegmentDelete" runat="server" OnClick="lbMarketSegmentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -103,9 +98,7 @@
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Products</legend>
-        <div class="text-right">
-            <asp:Button ID="btnAddProducts" runat="server" Text="Add Products" CssClass="btn Back" OnClick="btnAddProduct_Click" />
-        </div>
+         
         <div class="col-md-12 Report">
             <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                 <Columns>
@@ -113,7 +106,7 @@
                         <ItemTemplate>
                             <itemstyle width="25px" horizontalalign="Center"></itemstyle>
                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                            <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
+                            <asp:Label ID="lblCustomerrProductID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerrProductID")%>' runat="server" Visible="false" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Product">
@@ -139,7 +132,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:LinkButton ID="ibtnProductDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px" onclick="ibtnProductDelete_Click"></i></asp:LinkButton>
+                            <asp:LinkButton ID="lbProductDelete" runat="server" OnClick="lbProductDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -155,9 +148,7 @@
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Relations</legend>
-        <div class="text-right">
-            <asp:Button ID="btnAddRelations" runat="server" Text="Add Relations" CssClass="btn Back" OnClick="btnAddRelations_Click" />
-        </div>
+      
         <div class="col-md-12 Report">
             <asp:GridView ID="gvRelation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                 <Columns>
@@ -201,7 +192,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:LinkButton ID="ibtnRelationDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px" onclick="ibtnRelationDelete_Click"></i></asp:LinkButton>
+                            <asp:LinkButton ID="lbRelationDelete" runat="server" OnClick="lbRelationDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -355,11 +346,13 @@
 
         <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnEditCustomer" runat="server" Text="Save" CssClass="btn Save" OnClick="btnEditCustomer_Click" />
+            <asp:Button ID="btnUpdateCustomer" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateCustomer_Click" />
         </div>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>

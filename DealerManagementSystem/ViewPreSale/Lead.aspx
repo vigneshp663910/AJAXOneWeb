@@ -92,15 +92,168 @@
             background-color: #000000bd;
         }
     </style>
+
+    <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
+    <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
+    <script type="text/javascript">  
+        $(function () {
+            $("#MainContent_txtCustomer").autocomplete({
+                source: function (request, response) {
+                    debugger
+                    var param = { CustS: $('#MainContent_txtCustomer').val() };
+                    $.ajax({
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
+                        url: "ColdVisits.aspx/GetCustomer",
+                        data: JSON.stringify(param),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            debugger
+                            document.getElementById('divAuto').style.display = "block";
+                            var n = 0;
+                            for (var i = 1; i <= 5; i++) {
+                                $(('#div' + i)).empty();
+                                document.getElementById('div' + i).style.display = "none";
+                            }
+                            $.map(data.d, function (item) {
+                                n = n + 1;
+                                document.getElementById('div' + n).style.display = "block";
+                                document.getElementById("div" + n).innerHTML = item;
+                            })
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                },
+                minLength: 3 //This is the Char length of inputTextBox    
+            });
+
+            $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
+                source: function (request, response) {
+                    var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
+                    $.ajax({
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
+                        url: "ColdVisits.aspx/GetCustomer",
+                        data: JSON.stringify(param),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            document.getElementById('UCdivAuto').style.display = "block";
+                            var n = 0;
+                            for (var i = 1; i <= 5; i++) {
+                                $(('#div' + i)).empty();
+                                document.getElementById('UCdiv' + i).style.display = "none";
+                            }
+                            $.map(data.d, function (item) {
+                                n = n + 1;
+                                document.getElementById('UCdiv' + n).style.display = "block";
+                                document.getElementById("UCdiv" + n).innerHTML = item;
+                            })
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
+                },
+                minLength: 3 //This is the Char length of inputTextBox    
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
+    <script type="text/javascript"> 
+        $(function () {
+            $('#div1').click(function () {
+                AutoCustomer(document.getElementById('lblCustomerID1'), document.getElementById('lblCustomerName1'));
+            });
+        });
+        $(function () {
+            $('#div2').click(function () {
+                AutoCustomer(document.getElementById('lblCustomerID2'), document.getElementById('lblCustomerName2'));
+            });
+        });
+        $(function () {
+            $('#div3').click(function () {
+                AutoCustomer(document.getElementById('lblCustomerID3'), document.getElementById('lblCustomerName3'));
+            });
+        });
+        $(function () {
+            $('#div4').click(function () {
+                AutoCustomer(document.getElementById('lblCustomerID4'), document.getElementById('lblCustomerName4'));
+            });
+        });
+        $(function () {
+            $('#div5').click(function () {
+                AutoCustomer(document.getElementById('lblCustomerID5'), document.getElementById('lblCustomerName5'));
+            });
+        });
+        function AutoCustomer(lblCustomerID, lblCustomerName) {
+            debugger
+            var txtCustomer = document.getElementById('MainContent_txtCustomer');
+            txtCustomer.value = lblCustomerName.innerText;
+            document.getElementById('divAuto').style.display = "none";
+        }
+        function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
+            debugger
+            var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
+            txtCustomerID.value = CustomerID.innerText;
+
+            var txtCustomer = document.getElementById('MainContent_UC_Customer_txtCustomerName');
+
+            txtCustomer.value = CustomerName.innerText;
+
+            document.getElementById('lblCustomerName').innerText = CustomerName.innerText;
+            document.getElementById('lblContactPerson').innerText = ContactPerson.innerText;
+            document.getElementById('lblMobile').innerText = Mobile.innerText;
+
+            document.getElementById('UCdivAuto').style.display = "none";
+
+            document.getElementById('divCustomerViewID').style.display = "block";
+            document.getElementById('divCustomerCreateID').style.display = "none";
+        }
+
+        $(function () {
+            $('#divChangeCustomer').click(function () {
+                var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
+                txtCustomerID.value = "";
+                var txtCustomer = document.getElementById('MainContent_UC_Customer_txtCustomerName');
+                txtCustomer.value = "";
+                document.getElementById('divCustomerViewID').style.display = "none";
+                document.getElementById('divCustomerCreateID').style.display = "block";
+            });
+        });
+
+    </script>
+    <style>
+        .fieldset-borderAuto {
+            border: solid 1px #cacaca;
+            margin: 1px 0;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #b4b4b4;
+        }
+
+            .fieldset-borderAuto tr {
+                /* background-color: #000084; */
+                background-color: inherit;
+                font-weight: bold;
+                color: white;
+            }
+
+            .fieldset-borderAuto:hover {
+                background-color: blue;
+            }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-    <%-- <UC:UC_CustomerSearch ID="UC_Expense" runat="server"></UC:UC_CustomerSearch>--%>
-    <asp1:TabContainer ID="tbpOrgChart" runat="server">
-        <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="Lead List" ToolTip="Lead List">
-            <ContentTemplate>
-                <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+
+      <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Country</legend>
                     <div class="col-md-12">
 
@@ -167,10 +320,22 @@
                         </div>
 
                         <div class="col-md-2 text-right">
-                            <label>Customer Code</label>
+                            <label>Customer</label>
                         </div>
                         <div class="col-md-2">
-                            <asp:TextBox ID="txtSCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                             <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
+                                <div id="div1" class="fieldset-borderAuto" style="display: none">
+                                </div>
+                                <div id="div2" class="fieldset-borderAuto" style="display: none">
+                                </div>
+                                <div id="div3" class="fieldset-borderAuto" style="display: none">
+                                </div>
+                                <div id="div4" class="fieldset-borderAuto" style="display: none">
+                                </div>
+                                <div id="div5" class="fieldset-borderAuto" style="display: none">
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-2 text-right">
                             <label>Country</label>
@@ -185,8 +350,9 @@
                             <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
+                            <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
@@ -286,283 +452,11 @@
                         </asp:GridView>
                     </div>
                 </fieldset>
-            </ContentTemplate>
-        </asp1:TabPanel>
-        <asp1:TabPanel ID="tpDealerOrg" runat="server" HeaderText="Lead Create">
+    <asp1:TabContainer ID="tbpOrgChart" runat="server">
+        <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="Lead List" ToolTip="Lead List">
             <ContentTemplate>
-                <div class="col-md-12">
-
-                    <div class="col-md-12">
-                        <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
-
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-right">
-                                    <label>New Customer</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <asp:CheckBox ID="cbNewCustomer" runat="server" OnCheckedChanged="cbNewCustomer_CheckedChanged" AutoPostBack="true" CssClass="form-control"></asp:CheckBox>
-                                </div>
-                                <div id="pnlOldCustomerName" class="col-md-12" runat="server" visible="true">
-                                    <div class="col-md-2 text-right">
-                                        <label>Customer Code</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <asp:TextBox ID="txtCCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        <label>Customer Name</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <asp:TextBox ID="txtCCustomerName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        <label>Mobile</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <asp:TextBox ID="txtCMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        <label>Country</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        <label>State</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCState" runat="server" CssClass="form-control" />
-                                    </div>
-                                    <div class="col-md-2 text-right">
-                                        <label>District</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCDistrict" runat="server" CssClass="form-control" />
-                                    </div>
-                                    <div class="col-md-12 text-center">
-                                        <asp:Button ID="btnCustomerRetrieve" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnCustomerRetrieve_Click"></asp:Button>
-                                    </div>
-                                </div>
-                                <div id="pnlNewCustomerName" runat="server" visible="false">
-                                    <%--<div class="col-md-3 text-right">
-                                        <label>Customer Name</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-
-                                    <div class="col-md-3 text-right">
-                                        <label>GSTIN</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>PAN</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-
-                                    <div class="col-md-3 text-right">
-                                        <label>Contact Person</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-
-
-                                    <div class="col-md-3 text-right">
-                                        <label>Mobile</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>Alternative Mobile</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtAlternativeMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
-                                    </div>
-
-
-                                    <div class="col-md-3 text-right">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email"></asp:TextBox>
-                                    </div>
-
-                                    <div class="col-md-3 text-right">
-                                        <label>Address 1</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>Address 2</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>Address 3</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>Country</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>State</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>District</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>Tehsil</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="form-control" DataTextField="Tehsil" DataValueField="TehsilID" />
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>PinCode</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
-                                    </div>
-                                    <div class="col-md-3 text-right">
-                                        <label>City</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
-                                    </div>--%>
-                                      <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-                                    <div class="col-md-12 text-center">
-                                        <asp:Button ID="btnSaveCustomer" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSaveCustomer_Click" />
-                                    </div>
-                                </div>
-                                <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
-                                    <Columns>
-                                          <asp:TemplateField HeaderText="Select">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                            <ItemTemplate>
-                                                <asp:RadioButton ID="rbCustomer" runat="server"  OnCheckedChanged="rbCustomer_CheckedChanged" AutoPostBack="true" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Customer Code">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
-                                                <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerCode")%>' runat="server" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                    <AlternatingRowStyle BackColor="#f2f2f2" />
-                                    <FooterStyle ForeColor="White" />
-                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                    <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
-                                </asp:GridView>
-                        </fieldset>
-
-
-                        <fieldset class="fieldset-border" id="fldCountry" runat="server">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-3 text-right">
-                                    <label>Lead Date</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
-                                </div>
-
-                                <div class="col-md-3 text-right">
-                                    <label>Status</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
-                                </div>
-
-                                <div class="col-md-3 text-right">
-                                    <label>Progress Status</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
-                                </div>
-
-
-                                <div class="col-md-3 text-right">
-                                    <label>Category</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
-                                </div>
-
-
-
-
-                                <div class="col-md-3 text-right">
-                                    <label>Qualification</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
-                                </div>
-                                <div class="col-md-3 text-right">
-                                    <label>Source</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
-                                </div>
-
-                                <div class="col-md-3 text-right">
-                                    <label>Lead Type</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
-                                </div>
-                                <div class="col-md-3 text-right">
-                                    <label>Remarks</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-12 text-center">
-                                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
-                            </div>
-                        </fieldset>
-
-
-
-                    </div>
-
-                </div>
-                </div>
+              
             </ContentTemplate>
-
         </asp1:TabPanel>
         <asp1:TabPanel ID="tplSalesOrg" runat="server" HeaderText="Lead Info">
             <ContentTemplate>
@@ -681,12 +575,105 @@
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
-            <div class="col-md-12">
+            <div style="display: none">
+                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
+            </div>
+            <div id="divCustomerViewID" style="display: none">
+                <fieldset class="fieldset-border">
+                    <div class="col-md-12">
+
+                        <div class="col-md-2 text-right">
+                            <label>Customer Name</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label id="lblCustomerName"></label>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label>Contact Person</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label id="lblContactPerson"></label>
+                        </div>
+
+                        <div class="col-md-2 text-right">
+                            <label>Mobile</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label id="lblMobile"></label>
+                        </div>
+                    </div>
+                    <div id="divChangeCustomer">
+                        <label>Change Customer</label>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div id="divCustomerCreateID">
+                <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+            </div>
+            <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Lead Date</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Progress Status</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Category</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Qualification</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Source</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Lead Type</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Remarks</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                </div>
+
+            </fieldset>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
             </div>
         </div>
-
     </asp:Panel>
-
     <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
     <asp:Panel ID="pnlSEAssign" runat="server" CssClass="Popup" Style="display: none">

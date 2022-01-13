@@ -33,21 +33,12 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.TextBox txtEmpName;
 
         /// <summary>
-        /// grd control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grd;
-
-        /// <summary>
-        /// gvRelation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRelation;
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

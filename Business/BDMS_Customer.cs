@@ -663,7 +663,7 @@ namespace Business
         }
         public List<PCustomerMarketSegment> GetCustomerMarketSegment(long? CustomerID,int? CreatedBy)
         {
-            string endPoint = "Customer/MarketSegment?MarketSegmentID=" + CustomerID + "&CreatedBy=" + CreatedBy;
+            string endPoint = "Customer/MarketSegment?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
             return JsonConvert.DeserializeObject<List<PCustomerMarketSegment>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PCustomerRelation> GetCustomerRelation(long? CustomerID, int? CreatedBy)
@@ -676,6 +676,15 @@ namespace Business
             string endPoint = "Customer/Product?CustomerProspectID=" + CustomerProspectID + "&ICTicketID=" + ICTicketID + "&AvailabilityOfOtherMachineID=" + AvailabilityOfOtherMachineID
                 + "&TypeOfMachineID=" + TypeOfMachineID + "&MakeID=" + MakeID;
             return JsonConvert.DeserializeObject<List<PCustomerProduct>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+
+        public List<PDMS_Customer> GetCustomerProspectAutocomplete(string Customer)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/CustomerProspectAutocomplete?Customer=" + Customer;
+            return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            
         }
     }
 }

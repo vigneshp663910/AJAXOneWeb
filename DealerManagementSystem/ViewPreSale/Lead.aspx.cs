@@ -5,6 +5,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -37,7 +38,7 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
              //   new DDLBind(ddlCountry, Country, "Country", "CountryID");
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
-                new DDLBind(ddlCCountry, Country, "Country", "CountryID");
+              //  new DDLBind(ddlCCountry, Country, "Country", "CountryID");
 
                
            
@@ -46,7 +47,7 @@ namespace DealerManagementSystem.ViewPreSale
                 List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
               //  new DDLBind(ddlState, State, "State", "StateID");
                 new DDLBind(ddlSState, State, "State", "StateID");
-                new DDLBind(ddlCState, State, "State", "StateID");
+               // new DDLBind(ddlCState, State, "State", "StateID");
 
                 List<PLeadProgressStatus > ProgressStatus = new BLead().GetLeadProgressStatus(null, null);
                 new DDLBind(ddlSProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
@@ -77,10 +78,28 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
-        {
-           
+        { 
+            PLead Lead = new PLead(); 
+            string Message = ""; 
+            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+            {
+                Lead.Customer = new PDMS_Customer();
+                Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+            }
+            else
+            {
+                Message = UC_Customer.ValidationCustomer();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                MPE_Customer.Show();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                Lead.Customer = UC_Customer.ReadCustomer();
+            }
 
-            PLead Lead = new PLead();
             Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
 
             Lead.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
@@ -89,22 +108,8 @@ namespace DealerManagementSystem.ViewPreSale
             Lead.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
             Lead.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
             Lead.Source = new PLeadSource() { SourceID = Convert.ToInt32(ddlSource.SelectedValue) };
-            Lead.Type = new PLeadType() { TypeID = Convert.ToInt32(ddlLeadType.SelectedValue) };
-          //  Lead.Customer = new PDMS_Customer() { CustomerCode = txtCustomerCode.Text.Trim() };
-            Lead.Remarks = txtRemarks.Text.Trim();
-
-            //Lead.Customer.CustomerName = txtCustomerName.Text.Trim();
-            //Lead.Customer.ContactPerson = txtContactPerson.Text.Trim();
-            //Lead.Customer.Mobile = txtMobile.Text.Trim();
-            //Lead.Customer.Email = txtEmail.Text.Trim();
-            //Lead.Customer.Address1 = txtAddress1.Text.Trim();
-            //Lead.Customer.Address2 = txtAddress2.Text.Trim();
-            //Lead.Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
-            //Lead.Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
-            //Lead.Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
-            //Lead.Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
-
-
+            Lead.Type = new PLeadType() { TypeID = Convert.ToInt32(ddlLeadType.SelectedValue) }; 
+            Lead.Remarks = txtRemarks.Text.Trim(); 
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
             PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", Lead)).Data));
@@ -138,7 +143,7 @@ namespace DealerManagementSystem.ViewPreSale
             S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue); 
 
-          //  S.CustomerCode = txtCustomerCode.Text.Trim();
+            S.CustomerCode = txtCustomer.Text.Trim();
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim())?(DateTime?) null: Convert.ToDateTime( txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
@@ -437,90 +442,43 @@ namespace DealerManagementSystem.ViewPreSale
             new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
         }
 
-        protected void cbNewCustomer_CheckedChanged(object sender, EventArgs e)
+        //protected void cbNewCustomer_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if(cbNewCustomer.Checked)
+        //    {
+        //        pnlNewCustomerName.Visible = true;
+        //        pnlOldCustomerName.Visible = false;
+        //    }
+        //    else
+        //    {
+        //        pnlNewCustomerName.Visible = false;
+        //        pnlOldCustomerName.Visible = true;
+        //    }
+        //}
+  
+         
+        protected void btnAddLead_Click(object sender, EventArgs e)
         {
-            if(cbNewCustomer.Checked)
-            {
-                pnlNewCustomerName.Visible = true;
-                pnlOldCustomerName.Visible = false;
-            }
-            else
-            {
-                pnlNewCustomerName.Visible = false;
-                pnlOldCustomerName.Visible = true;
-            }
+            MPE_Customer.Show();
+            UC_Customer.FillMaster();
         }
-
-        protected void btnSaveCustomer_Click(object sender, EventArgs e)
-        { 
-            string Message = UC_Customer.ValidationCustomer();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true; 
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessage.Text = Message;
-                return;
-            }
-
-            //Customer.CustomerName = txtCustomerName.Text.Trim();
-            //Customer.GSTIN = txtGSTIN.Text.Trim();
-            //Customer.PAN = txtPAN.Text.Trim();
-            //Customer.ContactPerson = txtContactPerson.Text.Trim();
-            //Customer.Mobile = txtMobile.Text.Trim();
-            //Customer.ContactNo = txtContactNo.Text.Trim();
-            //Customer.Email = txtEmail.Text.Trim();
-            //Customer.Address1 = txtAddress1.Text.Trim();
-            //Customer.Address2 = txtAddress2.Text.Trim();
-            //Customer.Address3 = txtAddress2.Text.Trim();
-
-            //Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
-            //Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
-            //Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
-            //Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
-            //Customer.Pincode = txtPincode.Text.Trim();
-
-            PDMS_Customer Customer = UC_Customer.ReadCustomer();
-            Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            string result = new BAPI().ApiPut("Customer/CustomerProspect", Customer); 
-            gvCustomer.DataSource = new BDMS_Customer().GetCustomerProspect(Convert.ToInt64(result), null, null, null, null, null, null); 
-            gvCustomer.DataBind();
-        }
-
-        protected void btnCustomerRetrieve_Click(object sender, EventArgs e)
+        [WebMethod]
+        public static List<string> GetCustomer(string CustS)
         {
-            int? StateID = null;
-            int? DistrictID = null;
-
-            int? CustomerID = null;
-            string CustomerCode = txtCCustomerCode.Text.Trim(); ;
-            string CustomerName = txtCCustomerName.Text.Trim();
-            string Mobile = txtCMobile.Text.Trim();
-            int? CountryID = ddlCCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCCountry.SelectedValue);
-            if (CountryID != null)
+            List<string> Emp = new List<string>();
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspectAutocomplete(CustS);
+            int i = 0;
+            foreach (PDMS_Customer cust in Customer)
             {
-                StateID = ddlCState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCState.SelectedValue);
-                if (StateID != null)
-                {
-                    DistrictID = ddlCDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCDistrict.SelectedValue);
-                }
+                i = i + 1;
+                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                    + "<table><tr><td>"
+                    + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
+                    + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                Emp.Add(div);
             }
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspect(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
-            gvCustomer.DataSource = Customer;
-            gvCustomer.DataBind();
-        }
-
-        protected void rbCustomer_CheckedChanged(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int RIndex = gvRow.RowIndex;
-            for (int i = 0; i < gvCustomer.Rows.Count; i++)
-            {
-                RadioButton rbCustomer = (RadioButton)gvCustomer.Rows[i].FindControl("rbCustomer");
-                if (RIndex != i)
-                {
-                    rbCustomer.Checked = false;
-                }
-            }
+            return Emp;
         }
     }
 }

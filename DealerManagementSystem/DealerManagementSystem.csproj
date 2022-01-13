@@ -203,8 +203,10 @@
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
+    <Content Include="UserControls\CustomerAutocomplete.ascx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
@@ -519,6 +521,13 @@
     <Compile Include="TestAutocomplete.aspx.designer.cs">
       <DependentUpon>TestAutocomplete.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CustomerAutocomplete.ascx.cs">
+      <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\CustomerAutocomplete.ascx.designer.cs">
+      <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewAdmin\tab_AdminModule.aspx.cs">
       <DependentUpon>tab_AdminModule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -532,6 +541,13 @@
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\Customer.aspx.cs">
+      <DependentUpon>Customer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\Customer.aspx.designer.cs">
+      <DependentUpon>Customer.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>

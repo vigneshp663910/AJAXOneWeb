@@ -58,39 +58,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillProduct(CustomerID);
         }
 
-        protected void ibtnMarketSegmentDelete_Click(object sender, ImageClickEventArgs e)
-        {
-
-        }
-        protected void ibtnProductDelete_Click(object sender, ImageClickEventArgs e)
-        {
-
-        }
-        protected void ibtnRelationDelete_Click(object sender, ImageClickEventArgs e)
-        {
-
-        }
-
-
-        protected void btnAddMarketSegment_Click(object sender, EventArgs e)
-        {
-            new DDLBind(ddlMarketSegment, new BDMS_Master().GetMarketSegment(null, null), "MarketSegment", "MarketSegmentID");
-            MPE_MarketSegment.Show();
-        }
-        protected void btnAddProduct_Click(object sender, EventArgs e)
-        {
-            new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
-            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
-            MPE_Product.Show();
-        }
-        protected void btnAddRelations_Click(object sender, EventArgs e)
-        {
-            new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
-            MPE_Relation.Show();
-        }
-
-
+     
 
         protected void btnSaveMarketSegment_Click(object sender, EventArgs e)
         {
@@ -169,7 +137,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvRelation.DataBind();
         }
 
-        protected void btnEditCustomer_Click(object sender, EventArgs e)
+        protected void btnUpdateCustomer_Click(object sender, EventArgs e)
         {
             string Message = UC_Customer.ValidationCustomer();
             lblMessageCustomerEdit.ForeColor = Color.Red;
@@ -187,19 +155,85 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillCustomer(CustomerID);
         }
 
-        protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            if (ddlAction.Text == "Edit Customer")
-            {
-                MPE_Customer.Show();
-                PDMS_Customer Customer = new PDMS_Customer();
-                Customer = new BDMS_Customer().GetCustomerProspect(CustomerID, "", "", null, null, null, null)[0]; 
-                UC_Customer.FillMaster();
-                UC_Customer.FillCustomer(Customer);
-            }
-            else if (ddlAction.Text == "Add Expense")
-            { 
-            }
+        
+
+        protected void lbEditCustomer_Click(object sender, EventArgs e)
+        {
+            MPE_Customer.Show();
+            PDMS_Customer Customer = new PDMS_Customer();
+            Customer = new BDMS_Customer().GetCustomerProspect(CustomerID, "", "", null, null, null, null)[0];
+            UC_Customer.FillMaster();
+            UC_Customer.FillCustomer(Customer);
         }
+
+        protected void lbViewAditTrails_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lbAddMarketSegment_Click(object sender, EventArgs e)
+        {
+            new DDLBind(ddlMarketSegment, new BDMS_Master().GetMarketSegment(null, null), "MarketSegment", "MarketSegmentID");
+            MPE_MarketSegment.Show();
+        }
+
+        protected void lbAddProduct_Click(object sender, EventArgs e)
+        {
+            new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
+            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+            MPE_Product.Show();
+        }
+
+        protected void lbAddRelation_Click(object sender, EventArgs e)
+        {
+            new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+            MPE_Relation.Show();
+        }
+
+        protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerMarketSegmentID = (Label)gvRow.FindControl("lblCustomerMarketSegmentID");
+            PCustomerMarketSegment MarketSegment = new PCustomerMarketSegment();
+            MarketSegment.CustomerMarketSegmentID = Convert.ToInt64(lblCustomerMarketSegmentID.Text);
+            MarketSegment.CustomerID = CustomerID;
+            MarketSegment.MarketSegment = new PMarketSegment() { MarketSegmentID = 0 };
+            MarketSegment.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/MarketSegment", MarketSegment)).Data);
+            fillMarketSegment(CustomerID);
+        }
+
+        protected void lbProductDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerrProductID = (Label)gvRow.FindControl("lblCustomerrProductID");
+            PCustomerProduct Product = new PCustomerProduct();
+            Product.CustomerrProductID = Convert.ToInt64(lblCustomerrProductID.Text);
+            Product.CustomerID = CustomerID;
+            Product.Make = new PMake() { MakeID = 0 };
+            Product.ProductType = new PProductType() { ProductTypeID = 0 };
+            Product.Product = new PProduct() { ProductID = 0 };
+            Product.Quantity = 0;
+            Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
+            fillProduct(CustomerID);
+        }
+
+        protected void lbRelationDelete_Click(object sender, EventArgs e)
+        { 
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerRelationID = (Label)gvRow.FindControl("lblCustomerRelationID");
+            PCustomerRelation Relation = new PCustomerRelation();
+            Relation.CustomerRelationID = Convert.ToInt64(lblCustomerRelationID.Text);
+            Relation.CustomerID = CustomerID;
+            Relation.Relation = new PRelation() { RelationID = 0 };
+            Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
+            fillRelation(CustomerID);
+        }
+
+
     }
 }

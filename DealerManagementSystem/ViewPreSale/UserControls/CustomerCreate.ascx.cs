@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -74,6 +75,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
             Customer.SendSMS = cbSendSMS.Checked;
             Customer.SendEmail = cbSendEmail.Checked;
+            Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
             return Customer;
         }
 
@@ -201,5 +203,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             return Message;
         }
+
+       
     }
 }

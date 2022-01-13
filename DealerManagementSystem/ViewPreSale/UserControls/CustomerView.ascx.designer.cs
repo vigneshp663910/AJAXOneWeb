@@ -96,58 +96,40 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button BtnActions;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lbEditCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lbEditCustomer;
 
         /// <summary>
-        /// LinkButton2 control.
+        /// lbAddMarketSegment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.LinkButton lbAddMarketSegment;
 
         /// <summary>
-        /// LinkButton3 control.
+        /// lbAddProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
+        protected global::System.Web.UI.WebControls.LinkButton lbAddProduct;
 
         /// <summary>
-        /// LinkButton4 control.
+        /// lbAddRelation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
-
-        /// <summary>
-        /// ddlAction control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAction;
-
-        /// <summary>
-        /// btnAddMarketSegment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddMarketSegment;
+        protected global::System.Web.UI.WebControls.LinkButton lbAddRelation;
 
         /// <summary>
         /// gvMarketSegment control.
@@ -159,15 +141,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.GridView gvMarketSegment;
 
         /// <summary>
-        /// btnAddProducts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddProducts;
-
-        /// <summary>
         /// gvProduct control.
         /// </summary>
         /// <remarks>
@@ -175,15 +148,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvProduct;
-
-        /// <summary>
-        /// btnAddRelations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddRelations;
 
         /// <summary>
         /// gvRelation control.
@@ -465,13 +429,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::DealerManagementSystem.ViewPreSale.UserControls.CustomerCreate UC_Customer;
 
         /// <summary>
-        /// btnEditCustomer control.
+        /// btnUpdateCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditCustomer;
+        protected global::System.Web.UI.WebControls.Button btnUpdateCustomer;
 
         /// <summary>
         /// MPE_Customer control.

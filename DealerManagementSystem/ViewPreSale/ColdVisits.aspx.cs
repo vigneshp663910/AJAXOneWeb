@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -56,14 +57,26 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            string Message = UC_Customer.ValidationCustomer();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            MPE_Customer.Show();
-            if (!string.IsNullOrEmpty(Message))
+            PColdVisit ColdVisitList = new PColdVisit();
+            string Message = "";
+           // TextBox txtCustomerID = (TextBox)UC_Customer.FindControl("txtCustomerID");
+            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
             {
-                lblMessage.Text = Message;
-                return;
+                ColdVisitList.Customer = new PDMS_Customer();
+                ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+            }
+            else
+            {
+                Message = UC_Customer.ValidationCustomer();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                MPE_Customer.Show();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                ColdVisitList.Customer = UC_Customer.ReadCustomer();
             }
 
             Message = ValidationColdVisit();
@@ -71,13 +84,12 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 lblMessage.Text = Message;
                 return;
-            }
-
-            PColdVisit ColdVisitList = new PColdVisit();
+            } 
+           
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Remark = txtRemark.Text.Trim();
-            ColdVisitList.Customer = UC_Customer.ReadCustomer(); 
+           
             ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
                string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
         }
@@ -205,7 +217,26 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void btnAddColdVisit_Click(object sender, EventArgs e)
         {
-            MPE_Customer.Show(); 
+            MPE_Customer.Show();
+            UC_Customer.FillMaster();
+        }
+        [WebMethod]
+        public static List<string> GetCustomer(string CustS)
+        {
+            List<string> Emp = new List<string>();
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspectAutocomplete(CustS);
+            int i = 0;
+            foreach (PDMS_Customer cust in Customer)
+            {
+                i = i + 1;
+                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                    +"<table><tr><td>"
+                    +"<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"   + "<tr><td>"
+                    +"<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                Emp.Add(div);
+            }
+            return Emp;
         }
     }
 }

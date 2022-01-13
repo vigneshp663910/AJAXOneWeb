@@ -1,4 +1,5 @@
 ﻿using Business;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace DealerManagementSystem
         {
             if(!IsPostBack)
             {
-                grd.DataSource = new BDMS_Address().GetCountry(null, null);
-                grd.DataBind();
+                //grd.DataSource = new BDMS_Address().GetCountry(null, null);
+                //grd.DataBind();
 
-                gvRelation.DataSource = new BDMS_Address().GetCountry(null, null);
-                gvRelation.DataBind();
+                //gvRelation.DataSource = new BDMS_Address().GetCountry(null, null);
+                //gvRelation.DataBind();
             }
         }
 
@@ -27,16 +28,42 @@ namespace DealerManagementSystem
         public static List<string> GetEmpNames(string empName)
         {
             List<string> Emp = new List<string>();
-            Emp.Add("abc");
-            Emp.Add("abcd");
-            Emp.Add("abcde");
-            Emp.Add("abtf");
+
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspectAutocomplete(empName);
+            int i = 0;
+            foreach (PDMS_Customer cust in Customer)
+            {
+                i = i + 1;
+                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label><table><tr><td><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"
+           + "<tr><td>" + cust.ContactPerson + "</td><td>" + cust.Mobile + "</td></tr></ table >";
+                Emp.Add(div);
+            }
             return Emp;
         }
+
+
+        //[WebMethod]
+        //public static string GetEmpNames(string empName)
+        //{
+        //    string Emp = "";
+
+        //    for (int i = 1; i <= 5; i++)
+        //    {
+        //        string div = "<div id='div" + i + "'><label id='lblCustomerID" + i + "'>John</label><table><tr><td><label id='lblCustomerName" + i + "'>John</label></td><td>Prospect</td></tr >"
+        //   + "<tr><td>Peter</td><td>900000000</td></tr></ table > </ div >";
+        //        Emp = Emp + div;
+        //    }
+        //    return Emp;
+        //}
 
         protected void grd_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string ss = txtEmpName.Text;
         }
     }
 }
