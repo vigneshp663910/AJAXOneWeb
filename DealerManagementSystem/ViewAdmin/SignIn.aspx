@@ -54,7 +54,8 @@
         .btn {
             width: 100%;
             padding: 12px;
-            border: none;
+            border : solid 1px #cacaca;
+            background-color : rgb(245 248 255);
             border-radius: 4px;
             margin: 5px 0;
             opacity: 0.85;
@@ -230,9 +231,6 @@
                 transform: translateY(-50%);
             }
         }
-        input, .btn {
-            border : solid 1px #cacaca;
-        }
     </style>
 </head>
 <body>
@@ -248,6 +246,7 @@
                             <legend style="background: none; color: #007bff; font-size: 20px;">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
+                                    <br />
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
                                 <div>
