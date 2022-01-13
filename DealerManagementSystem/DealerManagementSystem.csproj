@@ -203,6 +203,7 @@
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
+    <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -518,6 +519,13 @@
     </Compile>
     <Compile Include="TestAutocomplete.aspx.designer.cs">
       <DependentUpon>TestAutocomplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModule.aspx.cs">
       <DependentUpon>tab_AdminModule.aspx</DependentUpon>
