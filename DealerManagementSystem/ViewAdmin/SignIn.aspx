@@ -287,10 +287,10 @@
                             <div class="col-md-12">
                                 <br />
                                 <asp:LinkButton ID="LinkButton1" runat="server">Forgot password?</asp:LinkButton>
-                                <br />
+                                <%--<br />
                                 <br />
                                 <label>Don't have ajax account?</label>
-                                <input type="submit" value="Create an account" class="btn-danger">
+                                <input type="submit" value="Create an account" class="btn-danger">--%>
                             </div>
                         </fieldset>
                     </div>
