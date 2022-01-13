@@ -210,6 +210,7 @@
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
             #LoginLeft {
                 display: none;
@@ -229,6 +230,9 @@
                 transform: translateY(-50%);
             }
         }
+        input, .btn {
+            border : solid 1px #cacaca;
+        }
     </style>
 </head>
 <body>
@@ -240,19 +244,21 @@
                 </div>
                 <div id="LoginRight" class="split right" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
-                        <h1>Sign in</h1>
-
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Sign in</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px;">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
-                                    <label><b>UserID / Email / Mobile</b></label></div>
+                                    <label><b>UserID / Email / Mobile</b></label>
+                                </div>
                                 <div>
-                                    <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required></div>
+                                    <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required>
+                                </div>
                                 <div>
-                                    <label><b>Password</b></label></div>
+                                    <label><b>Password</b></label>
+                                </div>
                                 <div>
-                                    <input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required></div>
+                                    <input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>
+                                </div>
 
                                 <input type="submit" value="Login">
                             </div>
