@@ -253,12 +253,13 @@
                                     <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required>
                                 </div>
                                 <div>
+                                    <br />
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
                                     <input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>
                                 </div>
-
+                                <br />
                                 <input type="submit" value="Login">
                             </div>
                             <div class="col-md-12">
