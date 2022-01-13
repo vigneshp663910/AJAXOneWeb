@@ -258,7 +258,7 @@
                     <div class="split top">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
                     </div>
-                    <div class="split bottom" style="padding: 128px;background: linear-gradient(311deg, black, transparent);">
+                    <div class="split bottom" style="padding: 128px;background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
                         <h2>Ajax-XXXXXXXXXXXX</h2>
                     </div>
                 </div>
