@@ -33,6 +33,24 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Image Image1;
 
         /// <summary>
+        /// ImageCompanyLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageCompanyLogo;
+
+        /// <summary>
+        /// ImageAppLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageAppLogo;
+
+        /// <summary>
         /// txtusername control.
         /// </summary>
         /// <remarks>
