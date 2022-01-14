@@ -285,6 +285,10 @@
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
+    <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
@@ -861,6 +865,34 @@
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerView.ascx.designer.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.cs">
+      <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.designer.cs">
+      <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddFinancial.ascx.cs">
+      <DependentUpon>AddFinancial.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddFinancial.ascx.designer.cs">
+      <DependentUpon>AddFinancial.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.cs">
+      <DependentUpon>AddFollowUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.designer.cs">
+      <DependentUpon>AddFollowUp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.cs">
+      <DependentUpon>AssignSE.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.designer.cs">
+      <DependentUpon>AssignSE.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.cs">
       <DependentUpon>Effort.ascx</DependentUpon>
