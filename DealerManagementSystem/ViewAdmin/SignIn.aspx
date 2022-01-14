@@ -259,9 +259,9 @@
                 <div id="LoginLeft" class="split left">
                     <div class="split left">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
-                        <div class="vertical-center" style="padding: 198px; text-align: center">
-                            <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />
-                            <h3 style="font-family: Calibri; color: white;">DELAER MANAGEMENT SYSTEM</h3>
+                        <div class="vertical-center" style="padding: 198px; text-align:center">
+                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="150" Width="350"  />
+                            <h3 style="font-family:Calibri;color:white;">DELAER MANAGEMENT SYSTEM</h3>
                         </div>
                     </div>
                     <%--<div class="split bottom" style="padding: 128px; background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
@@ -270,22 +270,18 @@
                 </div>
                 <div id="LoginRight" class="split right" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
-                        <div style="text-align: center">
-                            <asp:Image ID="ImageAppLogo1" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="50" Height="50" />
+                        <div style="text-align: center;">
+                            <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="50" Height="50" />
                         </div>
 
-                        <%--<div style="text-align: center; background-color: #2f516e;">
-                            <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms6.jpg" Width="100" Height="45" />
+                        <%--<div style="text-align: center;background-color:#2e516d">
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/dms6.jpg" Width="130" Height="60" />
                         </div>--%>
 
                         <fieldset class="fieldset-border">
 
                             <legend style="background: none; color: #007bff; font-size: 20px;">Sign in</legend>
                             <div class="col-md-12">
-
-                                <%--<div style="text-align: center; background-color: #2f516e;">
-                                    <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms6.jpg" Width="100" Height="45" />
-                                </div>--%>
                                 <div>
                                     <br />
                                     <label><b>UserID / Email / Mobile</b></label>
