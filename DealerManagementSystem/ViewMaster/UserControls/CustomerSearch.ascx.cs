@@ -7,7 +7,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewPreSale.UserControls
+namespace DealerManagementSystem.ViewMaster.UserControls
 {
     public partial class CustomerSearch : System.Web.UI.UserControl
     {

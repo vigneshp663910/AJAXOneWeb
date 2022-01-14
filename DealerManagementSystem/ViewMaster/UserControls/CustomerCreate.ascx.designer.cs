@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale.UserControls
+namespace DealerManagementSystem.ViewMaster.UserControls
 {
 
 

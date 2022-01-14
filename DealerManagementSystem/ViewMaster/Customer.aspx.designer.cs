@@ -129,7 +129,7 @@ namespace DealerManagementSystem.ViewMaster
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewPreSale.UserControls.CustomerView UC_CustomerView;
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerView UC_CustomerView;
 
         /// <summary>
         /// ph_usercontrols_1 control.
@@ -165,7 +165,7 @@ namespace DealerManagementSystem.ViewMaster
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewPreSale.UserControls.CustomerCreate UC_Customer;
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerCreate UC_Customer;
 
         /// <summary>
         /// btnSave control.

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerCreate.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.CustomerCreate" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerCreate.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.CustomerCreate" %>
 
 <script type="text/javascript"> 
     $(function () {

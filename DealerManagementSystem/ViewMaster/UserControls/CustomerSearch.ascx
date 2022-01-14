@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerSearch.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.CustomerSearch" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerSearch.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.CustomerSearch" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%--<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.22/jquery-ui.js"></script>

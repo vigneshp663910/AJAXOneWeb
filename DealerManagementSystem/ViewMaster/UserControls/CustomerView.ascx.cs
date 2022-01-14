@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewPreSale.UserControls
+namespace DealerManagementSystem.ViewMaster.UserControls
 {
     public partial class CustomerView : System.Web.UI.UserControl
     { 

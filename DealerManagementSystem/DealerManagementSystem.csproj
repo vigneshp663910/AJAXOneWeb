@@ -203,7 +203,7 @@
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
-    <Content Include="UserControls\CustomerAutocomplete.ascx" />
+    <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
@@ -281,11 +281,12 @@
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
-    <Content Include="ViewPreSale\UserControls\CustomerCreate.ascx" />
-    <Content Include="ViewPreSale\UserControls\CustomerSearch.ascx" />
-    <Content Include="ViewPreSale\UserControls\CustomerView.ascx" />
+    <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
+    <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
+    <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
+    <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -520,13 +521,6 @@
     </Compile>
     <Compile Include="TestAutocomplete.aspx.designer.cs">
       <DependentUpon>TestAutocomplete.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CustomerAutocomplete.ascx.cs">
-      <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\CustomerAutocomplete.ascx.designer.cs">
-      <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModule.aspx.cs">
       <DependentUpon>tab_AdminModule.aspx</DependentUpon>
@@ -839,25 +833,25 @@
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.designer.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\CustomerCreate.ascx.cs">
+    <Compile Include="ViewMaster\UserControls\CustomerCreate.ascx.cs">
       <DependentUpon>CustomerCreate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\CustomerCreate.ascx.designer.cs">
+    <Compile Include="ViewMaster\UserControls\CustomerCreate.ascx.designer.cs">
       <DependentUpon>CustomerCreate.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\CustomerSearch.ascx.cs">
+    <Compile Include="ViewMaster\UserControls\CustomerSearch.ascx.cs">
       <DependentUpon>CustomerSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\CustomerSearch.ascx.designer.cs">
+    <Compile Include="ViewMaster\UserControls\CustomerSearch.ascx.designer.cs">
       <DependentUpon>CustomerSearch.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\CustomerView.ascx.cs">
+    <Compile Include="ViewMaster\UserControls\CustomerView.ascx.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\CustomerView.ascx.designer.cs">
+    <Compile Include="ViewMaster\UserControls\CustomerView.ascx.designer.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.cs">
@@ -873,6 +867,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Expense.ascx.designer.cs">
       <DependentUpon>Expense.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\LeadView.ascx.cs">
+      <DependentUpon>LeadView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\LeadView.ascx.designer.cs">
+      <DependentUpon>LeadView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
@@ -1436,7 +1437,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewMaster\UserControls\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>

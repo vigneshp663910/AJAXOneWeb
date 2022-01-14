@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale.UserControls
+namespace DealerManagementSystem.ViewMaster.UserControls
 {
 
 
@@ -426,7 +426,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewPreSale.UserControls.CustomerCreate UC_Customer;
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerCreate UC_Customer;
 
         /// <summary>
         /// btnUpdateCustomer control.

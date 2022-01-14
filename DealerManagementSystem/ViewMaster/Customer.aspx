@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Customer.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Customer" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-<%@ Register Src="~/ViewPreSale/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
-<%@ Register Src="~/ViewPreSale/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -52,7 +52,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
-                        
+
                         <div class="col-md-2 text-right">
                             <label>Customer</label>
                         </div>
@@ -124,7 +124,7 @@
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "EMail")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                 
+
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -134,7 +134,10 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="text-right">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
@@ -152,7 +155,8 @@
     <div class="col-md-12">
         <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
             <div class="col-md-12">
 
