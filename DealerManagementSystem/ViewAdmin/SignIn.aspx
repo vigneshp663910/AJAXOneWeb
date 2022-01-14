@@ -54,8 +54,8 @@
         .btn {
             width: 100%;
             padding: 12px;
-            border : solid 1px #cacaca;
-            background-color : rgb(245 248 255);
+            border: solid 1px #cacaca;
+            background-color: rgb(245 248 255);
             border-radius: 4px;
             margin: 5px 0;
             opacity: 0.85;
@@ -186,6 +186,23 @@
             width: 50%;
             padding: initial;
         }
+        /* Control the top side */
+        .top {
+            top: 0;
+            height: 50%;
+            width:50%;
+            padding: initial;
+            background-color: #fff;
+        }
+
+        /* Control the bottom side */
+        .bottom {
+            top:50%;
+            bottom: 0;
+            height: 50%;
+            width:50%;
+            padding: initial;
+        }
 
         /* If you want the content centered horizontally and vertically */
         .centered {
@@ -238,7 +255,12 @@
         <form id="form1" runat="server">
             <div class="row">
                 <div id="LoginLeft" class="split left">
-                    <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
+                    <div class="split top">
+                        <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
+                    </div>
+                    <div class="split bottom" style="padding: 128px;background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
+                        <h2>Ajax-XXXXXXXXXXXX</h2>
+                    </div>
                 </div>
                 <div id="LoginRight" class="split right" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
@@ -265,10 +287,10 @@
                             <div class="col-md-12">
                                 <br />
                                 <asp:LinkButton ID="LinkButton1" runat="server">Forgot password?</asp:LinkButton>
-                                <br />
+                                <%--<br />
                                 <br />
                                 <label>Don't have ajax account?</label>
-                                <input type="submit" value="Create an account" class="btn-danger">
+                                <input type="submit" value="Create an account" class="btn-danger">--%>
                             </div>
                         </fieldset>
                     </div>
