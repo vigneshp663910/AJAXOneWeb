@@ -326,9 +326,9 @@
 
         tr {
             /*background-color:#000084;*/
-            background-color: #009AD7;
+            background-color: #d8d8d8;
             font-weight: bold;
-            color: white;
+            color: black;
         }
 
         .Grid th {
@@ -341,17 +341,23 @@
         .Grid td span {
             font: message-box;
         }
-        .Grid.table > tbody > tr > td{
-            padding:8px;
+        .Grid td a {
+            color:black;
         }
+
+        .Grid.table > tbody > tr > td {
+            padding: 8px;
+        }
+
         tr:hover {
-            background-color: blue;
+            background-color: #d8d8d8;
         }
 
         .Grid td input {
             height: 15px;
             width: 20px;
         }
+
 
         th {
             background-color: #009AD7;
@@ -396,8 +402,9 @@
             .ProjectTitle {
                 display: none;
             }
-            .w3-main{
-                margin-top:30px;
+
+            .w3-main {
+                margin-top: 30px;
             }
         }
 
@@ -751,6 +758,7 @@
             height: 23px;
             padding: inherit;
         }
+
         .Grid td .form-control {
             height: 35px;
             padding: inherit;
