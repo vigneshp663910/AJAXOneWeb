@@ -201,6 +201,7 @@
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
+    <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
@@ -216,7 +217,7 @@
     <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Process_Flow.aspx" />
     <Content Include="ProcessFlow\ProjectTeam.aspx" />
-    <Content Include="ProcessFlow\Project_Plan1.png" />
+    <Content Include="ProcessFlow\Project_Plan_PV1.png" />
     <Content Include="ProcessFlow\Project_Team_Functional1.png" />
     <Content Include="ProcessFlow\Project_Team_IT1.png" />
     <Content Include="ProcessFlow\Sales_Org2.png" />
