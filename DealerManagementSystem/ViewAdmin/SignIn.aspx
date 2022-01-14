@@ -259,9 +259,10 @@
                 <div id="LoginLeft" class="split left">
                     <div class="split left">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
-                        <div class="vertical-center" style="padding: 198px; text-align:center">
-                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="150" Width="350"  />
-                            <h3 style="font-family:Calibri;color:white;">DELAER MANAGEMENT SYSTEM</h3>
+                        <div class="vertical-center" style="padding: 198px; text-align: center">
+                            <%-- <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="150" Width="350"  />--%>
+                            <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />
+                            <h3 style="font-family: Calibri; color: white;">DELAER MANAGEMENT SYSTEM</h3>
                         </div>
                     </div>
                     <%--<div class="split bottom" style="padding: 128px; background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
