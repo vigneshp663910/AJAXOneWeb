@@ -954,6 +954,7 @@
         }
 
         function w3_close() {
+            //alert('Hi');
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
@@ -1036,7 +1037,7 @@
                     </div>
 
                     <div class="w3-display-topleft" style="color: white; padding-left: 235px">
-                        <a class="navbar-brand " href="/Home.aspx" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
+                        <a class="navbar-brand" href="javascript:void(0)" onclick="w3_close()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
                     </div>
 
                     <div class="w3-display-topmiddle appico">
