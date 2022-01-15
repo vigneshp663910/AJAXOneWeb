@@ -89,15 +89,14 @@
 
         }
 
-
-
     </script>
 
     <script>
         function SetScreenTitle(as_pagetitle) {
+            //alert(as_pagetitle);
+            //as_pagetitle = '<i class="fa fa-angle-up fa-2x">' ;
             var lbl = document.getElementById("lblProjectTitle")
             lbl.textContent = as_pagetitle;
-            //alert('Hi');
         }
 
 
@@ -341,8 +340,9 @@
         .Grid td span {
             font: message-box;
         }
+
         .Grid td a {
-            color:black;
+            color: black;
         }
 
         .Grid.table > tbody > tr > td {
@@ -399,6 +399,8 @@
         }
 
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
+
+
             .ProjectTitle {
                 display: none;
             }
@@ -409,6 +411,8 @@
         }
 
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
+
+
             .ProjectTitle {
                 display: none;
             }
@@ -503,6 +507,7 @@
             display: inline-table;
         }
 
+
         .w3-sidebar {
             height: 95%;
             margin-top: 50px;
@@ -548,25 +553,17 @@
             padding: 3px 2px 2px 10px !important;
         }
 
-        .ProjectTitle {
-            /*background-color:orange;*/
-            /*background-color:#1ebeb4;*/
-            /* background-color: #68AF27 !important; */
+        .ProjectTitle {           
             background-color: #336699 !important;
-            color: white;
-            /* font-size: medium;
-            font-weight: bold;*/
+            color: white;           
             font-size: large;
             font-weight: normal;
             text-align: left;
             margin-top: 30px;
             padding: 0px 0px 0px 8px;
-            /*border:solid;*/
             border-style: none none solid none;
-            border-width: thin;
-            /* border-color: #000080;*/
-            border-color: red;
-            /*  border-color: #7FFF00;*/
+            border-width: thin;         
+            border-color: red;          
         }
 
         .ProjectHeadingLine {
@@ -711,9 +708,11 @@
         b, strong {
             font-weight: initial;
         }
+
         /*.w3-padding-large {
-    padding: 12px 24px!important;
-}*/
+           padding: 12px 24px!important;
+        }*/
+
         .w3-padding-large {
             padding: 0px 2px !important;
         }
@@ -866,6 +865,7 @@
             background-color: #fff;
             background-clip: border-box;
         }*/
+
         .dropbtn {
             background-color: #30526f;
             color: white;
@@ -929,12 +929,11 @@
                 font-family: "Open Sans",sans-serif;
                 font-size: large;
             }
+
+
     </style>
     <script>
         /*const {hidden} = require("modernizr");*/
-
-
-
 
         //if (x.className.indexOf("w3-show") == -1) {
         //    x.className += " w3-show";
@@ -1036,56 +1035,17 @@
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
 
+                    <div class="w3-display-topleft" style="color: white; padding-left: 235px">
+                        <a class="navbar-brand " href="/Home.aspx" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
+                    </div>
 
-                    <%--<div style="color: white">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
-                        <a class="navbar-brand" href="/Home.aspx" style="color: #FFFFFF"><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
-
-                       <%-- <div class="dropdown">--%>
-                    <%-- <button class="dropbtn"><i class="fa fa-fw fa-home fa-lg"></i><a href="/Home.aspx"></a></button>   --%>
-
-                    <%--<div class="dropdown-content">
-                                <div class="dropdown-header">Dashboard</div>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Service</a>                        
-                            </div>--%>
-                    <%-- </div>--%>
-
-                    <%--<div class="dropdown">
-                            <button class="dropbtn"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
-                            <div class="dropdown-content">
-                                <div class="dropdown-header">Dashboard</div>
-                                <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
-                            </div>
-                        </div>
-                    </div>--%>
-
-                    <div class="appico">
+                    <div class="w3-display-topmiddle appico">
                         <asp:Image ID="ImageApp" Width="100px" Height="50px" ImageUrl="~/Ajax/Images/dms6.jpg" AlternateText="rr1" runat="server" />
                     </div>
 
-                    <div style="color: white">
+                    <div class="w3-display-topright" style="color: white">
 
-                        <a class="w3-display-topright login" href="#" style="top: 15px; right: 20px;"></a>
-
-                        <%--<div class="dropdown">
-
-                            <button class="dropbtn"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
-
-                            <div class="dropdown-content">
-                                <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
-                                <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
-                                <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
-                            </div>
-                        </div>--%>
-
-                        <div class="dropdown" id="userprofile">
+                        <div class="dropdown">
                             <button class="dropbtn"><i class="fa fa-user-circle fa-lg" style="color: lightgray"></i></button>
                             <asp:Label ID="lblusername" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="lblPageName" runat="server"></asp:Label>
@@ -1105,26 +1065,25 @@
             </div>
         </div>
 
-
-
-        <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;" id="mySidebar">
+        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;">
             <br>
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 22px">Close Menu</a>
+
             <div class="w3-bar-block">
-                <div class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" id="Menu" runat="server">
+                <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
                 </div>
             </div>
+
         </nav>
-        <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #262626 !important; color: #fff !important">
+
+        <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
             <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
             <div class="logo float-right">
                 <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
             </div>
         </header>
 
-
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu" id="myOverlay"></div>
-
+        <div id="myOverlay" class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="Close Side Menu"></div>
 
         <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
@@ -1198,6 +1157,7 @@
         </div>
 
     </form>
+
 
 </body>
 </html>
