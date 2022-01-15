@@ -288,6 +288,7 @@
     <Content Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
@@ -886,6 +887,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.designer.cs">
       <DependentUpon>AddFollowUp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.cs">
+      <DependentUpon>AddLeadProduct.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.designer.cs">
+      <DependentUpon>AddLeadProduct.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
