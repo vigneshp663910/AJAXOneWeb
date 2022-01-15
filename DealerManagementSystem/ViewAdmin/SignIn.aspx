@@ -256,11 +256,10 @@
     <div>
         <form id="form1" runat="server">
             <div class="row">
-                <div id="LoginLeft" class="split left">
+                <div id="LoginLeft" class="left split">
                     <div class="split left">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
                         <div class="vertical-center" style="padding: 198px; text-align: center">
-                            <%-- <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="150" Width="350"  />--%>
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />
                             <h3 style="font-family: Calibri; color: white;">DELAER MANAGEMENT SYSTEM</h3>
                         </div>
@@ -269,7 +268,7 @@
                         <h2>Ajax-XXXXXXXXXXXX</h2>
                     </div>--%>
                 </div>
-                <div id="LoginRight" class="split right" style="margin: 0 auto">
+                <div id="LoginRight" class="right split" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
                         <div style="text-align: center;">
                             <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="50" Height="50" />
@@ -309,7 +308,26 @@
                                 <input type="submit" value="Create an account" class="btn-danger">--%>
                             </div>
                         </fieldset>
+                  <%--  </div>--%>
+
+                    <div>
+                        <div style="text-align: center; margin: 10px 0;">
+                            <p><em>AJAX Business Systems </em>&copy; <%: DateTime.Now.Year %> </p>
+
+                            <p><font size="2px">Download Our Mobile App</font></p>
+                            <p>
+                                <span>
+                                    <img src="../Images/apple.png" border="0" id="" alt="">
+                                </span>
+                                <span>
+                                    <a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
+                                        <img src="../Images/Playstore.png" border="0" id="" alt="">
+                                    </a>
+                                </span>
+                            </p>
+                        </div>
                     </div>
+                     </div>
                 </div>
             </div>
         </form>

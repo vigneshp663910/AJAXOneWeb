@@ -183,6 +183,7 @@
     <Content Include="BackUp\SignIn.aspx" />
     <Content Include="CSS\jquery-ui.css" />
     <Content Include="CSS\StyleSheet1.css" />
+    <Content Include="Images\apple.png" />
     <Content Include="Images\ARROW01.png" />
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
@@ -192,8 +193,11 @@
     <Content Include="Images\Edit1.png" />
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
+    <Content Include="Images\hsizegrip.png" />
+    <Content Include="Images\Playstore.png" />
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
+    <Content Include="Images\vsizegrip.png" />
     <Content Include="JSAutocomplete\ajax\1.8.3jquery.min.js" />
     <Content Include="JSAutocomplete\ajax\jquery-1.8.0.js" />
     <Content Include="JSAutocomplete\ajax\jquery-ui.css" />
