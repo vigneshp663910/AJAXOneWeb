@@ -114,6 +114,7 @@
 
         .w3-btn, .w3-button {
             padding: 1px 1px !important;
+           /* color:Highlight*/
         }
         /*.w3-medium {
             font-size: 14px !important;
