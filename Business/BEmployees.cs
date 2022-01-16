@@ -74,7 +74,25 @@ namespace Business
                             Employee.Department.DepartmentName = Convert.ToString(EmployeeRow["Department"]);
                             Employee.Mail1 = Convert.ToString(EmployeeRow["Mail"]);
                             Employee.IsActive = Convert.ToBoolean(Convert.ToString(EmployeeRow["IsActive"]));
-                         //   Employee.DOJ = Convert.ToDateTime(EmployeeRow["DOJ"]);
+                            Employee.ReportingTo = new PEmployee()
+                            {
+                                EID = Convert.ToInt32(EmployeeRow["ReportingToEID"]),
+                                EmpId = Convert.ToInt32(EmployeeRow["ReportingToEmpId"]),
+                                EmployeeName = Convert.ToString(EmployeeRow["ReportingToEmployeeName"])
+                            };
+                            Employee.DmsEmp = new PDMS_DealerEmployee();
+                            Employee.DmsEmp.LoginUserName = Convert.ToString(EmployeeRow["DMSUserName"]);
+                            Employee.DmsEmp.DealerEmployeeRole = new PDMS_DealerEmployeeRole();
+                            Employee.DmsEmp.DealerEmployeeRole.DealerDepartment = new PDMS_DealerDepartment();
+                            Employee.DmsEmp.DealerEmployeeRole.DealerDepartment.DealerDepartment = Convert.ToString(EmployeeRow["DealerDepartment"]);
+
+                            Employee.DmsEmp.DealerEmployeeRole.DealerDesignation = new PDMS_DealerDesignation();
+                            Employee.DmsEmp.DealerEmployeeRole.DealerDesignation.DealerDesignation = Convert.ToString(EmployeeRow["DealerDesignation"]);
+
+                            Employee.DmsEmp.DealerEmployeeRole.ReportingTo = new PDMS_DealerEmployee();
+                            Employee.DmsEmp.DealerEmployeeRole.ReportingTo.Name = Convert.ToString(EmployeeRow["DmsReportingToName"]);
+
+                           //   Employee.DOJ = Convert.ToDateTime(EmployeeRow["DOJ"]);
                             Employees.Add(Employee);
                         }
                     }
@@ -205,6 +223,45 @@ namespace Business
         public void ChangeDealerEmployeeName(string EmpID, string Name, string DEALER_CODE)
         {
             new STechnician().ChangeDealerEmployeeName(EmpID, Name, DEALER_CODE);
+        }
+        public DataTable GetDepartment(int? DepartmentId, string DepartmentName)
+        {
+
+            DbParameter DepartmentIdParam;
+            DbParameter DepartmentNameParam;
+
+            if (DepartmentId != null)
+
+                DepartmentIdParam = provider.CreateParameter("DepartmentId", DepartmentId, DbType.Int32);
+            else
+                DepartmentIdParam = provider.CreateParameter("DepartmentId", DBNull.Value, DbType.Int32);
+            if (!string.IsNullOrEmpty(DepartmentName))
+                DepartmentNameParam = provider.CreateParameter("DepartmentName", DepartmentName, DbType.String);
+            else
+                DepartmentNameParam = provider.CreateParameter("DepartmentName", DBNull.Value, DbType.String);
+
+
+            DbParameter[] Params = new DbParameter[2] { DepartmentIdParam, DepartmentNameParam };
+            try
+            {
+                using (DataSet DataSet = provider.Select("GetAjaxDepartment", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return null;
         }
     }
 }

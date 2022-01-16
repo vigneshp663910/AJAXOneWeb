@@ -211,6 +211,7 @@
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewMaster\AjaxEmployeeManage.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
@@ -281,6 +282,7 @@
     <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
+    <Content Include="ViewMaster\UserControls\AjaxrEmployeeCreate.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
@@ -553,6 +555,13 @@
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\AjaxEmployeeManage.aspx.cs">
+      <DependentUpon>AjaxEmployeeManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\AjaxEmployeeManage.aspx.designer.cs">
+      <DependentUpon>AjaxEmployeeManage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\Customer.aspx.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -814,6 +823,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\AjaxrEmployeeCreate.ascx.cs">
+      <DependentUpon>AjaxrEmployeeCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\AjaxrEmployeeCreate.ascx.designer.cs">
+      <DependentUpon>AjaxrEmployeeCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.cs">
       <DependentUpon>Organization.aspx</DependentUpon>

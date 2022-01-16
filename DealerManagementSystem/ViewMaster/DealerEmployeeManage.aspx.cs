@@ -3,6 +3,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -78,16 +79,21 @@ namespace DealerManagementSystem.ViewMaster
             }
             ICTicket = new BDMS_Dealer().GetDealerEmployeeManage(DealerID, AadhaarCardNo, StateID, null, txtName.Text.Trim(), null, StatusID);
             gvDealerEmployee.DataSource = ICTicket;
+            gvDealerEmployeeDataBind();
+        }
+        void gvDealerEmployeeDataBind()
+        {
             gvDealerEmployee.DataBind();
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
 
             List<PModuleAccess> user = PSession.User.DMSModules;
             List<PSubModuleAccess> sub = user.Find(m => m.ModuleMasterID == (short)DMS_MenuMain.Master).SubModuleAccess;
             Boolean EditAlloved = false;
-            //if ((sub.Where(m => m.SubModuleMasterID == (short)DMS_MenuSub.DealerEmployeeApproval).Count() != 0))
-            //{
-            //    EditAlloved = true;
-            //}
+
+            if ((sub.Where(m => m.SubModuleMasterID == (short)DMS_MenuSub.DealerEmployeeApproval).Count() != 0))
+            {
+                EditAlloved = true;
+            }
             for (int i = 0; i < gvDealerEmployee.Rows.Count; i++)
             {
                 Label lblCreatedByID = (Label)gvDealerEmployee.Rows[i].FindControl("lblCreatedByID");
@@ -109,9 +115,9 @@ namespace DealerManagementSystem.ViewMaster
             {
                 gvDealerEmployee.DataSource = ICTicket;
                 gvDealerEmployee.PageIndex = gvDealerEmployee.PageIndex - 1;
-
-                gvDealerEmployee.DataBind();
-                lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
+                gvDealerEmployeeDataBind();
+                //gvDealerEmployee.DataBind();
+                //lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
             }
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -120,8 +126,9 @@ namespace DealerManagementSystem.ViewMaster
             {
                 gvDealerEmployee.DataSource = ICTicket;
                 gvDealerEmployee.PageIndex = gvDealerEmployee.PageIndex + 1;
-                gvDealerEmployee.DataBind();
-                lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
+                gvDealerEmployeeDataBind();
+                //gvDealerEmployee.DataBind();
+                //lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
             }
         }
         void fillDealer()
@@ -265,8 +272,9 @@ namespace DealerManagementSystem.ViewMaster
         {
             gvDealerEmployee.PageIndex = e.NewPageIndex;
             gvDealerEmployee.DataSource = ICTicket;
-            gvDealerEmployee.DataBind();
-            lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
+            gvDealerEmployeeDataBind();
+            //gvDealerEmployee.DataBind();
+            //lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
 
         }
     }
