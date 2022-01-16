@@ -91,6 +91,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MPE_Expense.Show();
                 fillExpense(LeadID);
             }
+            else if (lbActions.Text == "Add Product")
+            {
+                MPE_Product.Show();
+                fillProduct(LeadID);
+            }
+            
         }
  
        
@@ -213,7 +219,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
         }
+        void fillProduct(long LeadID)
+        {
+            gvProduct.DataSource = new BLead().GetLeadProduct(LeadID, PSession.User.UserID);
+            gvProduct.DataBind();
+            UC_Product.FillMaster();
+           
 
+        }
         protected void btnSaveFollowUp_Click(object sender, EventArgs e)
         { 
             MPE_FollowUp.Show(); 
@@ -286,6 +299,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead)).Data);
             fillFinancial(LeadID);
+        }
+
+        protected void btnSaveProduct_Click(object sender, EventArgs e)
+        {
+            MPE_Product.Show();
+            string Message = UC_Product.ValidationProduct();
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessage.Text = Message;
+                return;
+            }
+            PLeadProduct Lead = new PLeadProduct();
+            Lead = UC_Product.ReadProduct();
+            Lead.LeadID = LeadID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead)).Data);
+            fillProduct(LeadID);
         }
     }
 }

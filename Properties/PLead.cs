@@ -111,6 +111,16 @@ namespace Properties
         public PUser CreatedBy { get; set; }
     }
 
+    public class PLeadProduct
+    {
+        public long LeadProductID { get; set; }
+        public long LeadID { get; set; }
+        public PProductType ProductType { get; set; }
+        public PProduct Product { get; set; }
+        public decimal Quantity { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
 
     [Serializable]
     public class PLeadCategory

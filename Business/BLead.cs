@@ -98,5 +98,13 @@ namespace Business
             //  TraceLogger.Log(DateTime.Now);
 
         }
+        public List<PLeadProduct> GetLeadProduct(long LeadID, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/Product?LeadID=" + LeadID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PLeadProduct>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
     }
 }

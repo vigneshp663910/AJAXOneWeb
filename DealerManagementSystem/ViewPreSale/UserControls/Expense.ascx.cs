@@ -20,18 +20,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, "", null, ""), "ContactName", "UserID");
             }
         }
-        protected void lblEffortAdd_Click(object sender, EventArgs e)
-        {
-            PLeadEffort Lead = new PLeadEffort(); 
-            Lead.SalesEngineer = new PUser { UserID = Convert.ToInt32(ddlSalesEngineer.SelectedValue) };
+        //protected void lblEffortAdd_Click(object sender, EventArgs e)
+        //{
+        //    PLeadEffort Lead = new PLeadEffort(); 
+        //    Lead.SalesEngineer = new PUser { UserID = Convert.ToInt32(ddlSalesEngineer.SelectedValue) };
 
-            Lead.EffortDate = Convert.ToDateTime(txtExpenseDate.Text.Trim());
-            Lead.EffortStartTime = Convert.ToDecimal(txtAmount.Text.Trim()); 
+        //    Lead.EffortDate = Convert.ToDateTime(txtExpenseDate.Text.Trim());
+        //    Lead.EffortStartTime = Convert.ToDecimal(txtAmount.Text.Trim()); 
 
-            Lead.EffortType = new PEffortType { EffortTypeID = Convert.ToInt32(ddlExpenseType.SelectedValue) };
-            Lead.Remark = txtRemark.Text; 
-            Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
-        }
+        //    Lead.EffortType = new PEffortType { EffortTypeID = Convert.ToInt32(ddlExpenseType.SelectedValue) };
+        //    Lead.Remark = txtRemark.Text; 
+        //    Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
+        //}
 
         
 
