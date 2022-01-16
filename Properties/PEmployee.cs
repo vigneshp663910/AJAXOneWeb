@@ -15,9 +15,11 @@ namespace Properties
         public int EmpId { get; set; }
         public string Mail1 { get; set; }
         public string Phone { get; set; }
-        public int? ReportingTo { get; set; }
+        public PEmployee ReportingTo { get; set; }
         public PDepartment Department { get; set; }
-        public int UserTypeID { get; set; }
+        public int UserTypeID { get; set; } 
         public Boolean IsActive { get; set; }
+
+        public PDMS_DealerEmployee DmsEmp { get; set; }
     }
 }

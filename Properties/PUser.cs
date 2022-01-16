@@ -138,6 +138,7 @@ namespace Properties
         public DateTime CreatedOn { get; set; }
         public Int64 UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
+        public string ModuleAwesomeIco { get; set; }
 
 
         #endregion

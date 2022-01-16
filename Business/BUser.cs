@@ -1238,6 +1238,7 @@ namespace Business
                                 MAs.Add(MA);
                                 MA.ModuleMasterID = Convert.ToInt32(dr["ModuleMasterID"]);
                                 MA.ModuleName = Convert.ToString(dr["ModuleName"]);
+                                MA.ModuleAwesomeIco = Convert.ToString(dr["ModuleAwesomeIco"]);
                                 MA.SubModuleAccess = new List<PSubModuleAccess>();
                                 ID = Convert.ToInt32(dr["ModuleMasterID"]); 
                                 MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]); 
