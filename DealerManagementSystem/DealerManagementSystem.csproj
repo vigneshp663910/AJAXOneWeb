@@ -205,6 +205,9 @@
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
+    <Content Include="ProcessFlow\DMM_Process.aspx" />
+    <Content Include="ProcessFlow\DMM_Process.png" />
+    <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
@@ -219,7 +222,6 @@
     <Content Include="ProcessFlow\OrgChart.aspx" />
     <Content Include="ViewMaster\tab_MaterialMaster.aspx" />
     <Content Include="ProcessFlow\Parts_Org2.png" />
-    <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Process_Flow.aspx" />
     <Content Include="ProcessFlow\ProjectTeam.aspx" />
@@ -520,6 +522,20 @@
     <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProcessFlow\DMM_Process.aspx.cs">
+      <DependentUpon>DMM_Process.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\DMM_Process.aspx.designer.cs">
+      <DependentUpon>DMM_Process.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
+      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
+      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -596,13 +612,6 @@
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMaster.aspx.designer.cs">
       <DependentUpon>tab_MaterialMaster.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
-      <DependentUpon>Pre_Sales.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
-      <DependentUpon>Pre_Sales.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Process_Flow.aspx.cs">
       <DependentUpon>Process_Flow.aspx</DependentUpon>
