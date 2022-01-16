@@ -209,6 +209,7 @@
     <Content Include="ProcessFlow\DMM_Process.png" />
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
+    <Content Include="ProcessFlow\Project_Plan_PV2.png" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
