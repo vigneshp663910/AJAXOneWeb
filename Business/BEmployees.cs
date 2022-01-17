@@ -21,42 +21,24 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PEmployee> GetEmployeeListJohn(int? EID, int? EmpID, string EmployeeUserID, string EmployeeName, string Department)
+        public List<PEmployee> GetEmployeeListJohn(int? EID, int? EmpID, string EmployeeUserID, string EmployeeName, string Department, long? DealerEmployeeRoleID)
         {
             List<PEmployee> Employees = new List<PEmployee>();
             PEmployee Employee = null;
-            DbParameter EIDParam;
-            DbParameter EmpIDParam;
-            DbParameter EmployeeUserIDParam;
-            DbParameter EmployeeNameParam;
-            DbParameter DepartmentParam;
 
-            if (EID != null)
-                EIDParam = provider.CreateParameter("EID", EID, DbType.Int32);
-            else
-                EIDParam = provider.CreateParameter("EID", DBNull.Value, DbType.Int32);
+            DbParameter EIDP = provider.CreateParameter("EID", EID, DbType.Int32);
 
-            if (EmpID != null)
-                EmpIDParam = provider.CreateParameter("EmpID", EmpID, DbType.Int32);
-            else
-                EmpIDParam = provider.CreateParameter("EmpID", DBNull.Value, DbType.Int32);
+            DbParameter EmpIDP = provider.CreateParameter("EmpID", EmpID, DbType.Int32);
 
-            if (!string.IsNullOrEmpty(EmployeeUserID))
-                EmployeeUserIDParam = provider.CreateParameter("EmployeeUserID", EmployeeUserID, DbType.String);
-            else
-                EmployeeUserIDParam = provider.CreateParameter("EmployeeUserID", DBNull.Value, DbType.String);
+            DbParameter EmployeeUserIDP = provider.CreateParameter("EmployeeUserID", string.IsNullOrEmpty(EmployeeUserID) ? null : EmployeeUserID, DbType.String);
 
-            if (!string.IsNullOrEmpty(EmployeeName))
-                EmployeeNameParam = provider.CreateParameter("EmployeeName", EmployeeName, DbType.String);
-            else
-                EmployeeNameParam = provider.CreateParameter("EmployeeName", DBNull.Value, DbType.String);
 
-            if (!string.IsNullOrEmpty(Department))
-                DepartmentParam = provider.CreateParameter("Department", Department, DbType.String);
-            else
-                DepartmentParam = provider.CreateParameter("Department", DBNull.Value, DbType.String);
+            DbParameter EmployeeNameP = provider.CreateParameter("EmployeeName", string.IsNullOrEmpty(EmployeeName) ? null : EmployeeName, DbType.String);
 
-            DbParameter[] EmployeeParams = new DbParameter[5] { EIDParam,EmpIDParam, EmployeeUserIDParam, EmployeeNameParam, DepartmentParam };
+            DbParameter DealerEmployeeRoleIDP = provider.CreateParameter("DealerEmployeeRoleID", DealerEmployeeRoleID, DbType.String);
+
+            DbParameter DepartmentP = provider.CreateParameter("Department", string.IsNullOrEmpty(Department) ? null : Department, DbType.String);
+            DbParameter[] EmployeeParams = new DbParameter[6] { EIDP, EmpIDP, EmployeeUserIDP, EmployeeNameP, DepartmentP, DealerEmployeeRoleIDP };
             try
             {
                 using (DataSet EmployeeDataSet = provider.Select("GetEmployeeList", EmployeeParams))
@@ -82,17 +64,29 @@ namespace Business
                             };
                             Employee.DmsEmp = new PDMS_DealerEmployee();
                             Employee.DmsEmp.LoginUserName = Convert.ToString(EmployeeRow["DMSUserName"]);
-                            Employee.DmsEmp.DealerEmployeeRole = new PDMS_DealerEmployeeRole();
-                            Employee.DmsEmp.DealerEmployeeRole.DealerDepartment = new PDMS_DealerDepartment();
-                            Employee.DmsEmp.DealerEmployeeRole.DealerDepartment.DealerDepartment = Convert.ToString(EmployeeRow["DealerDepartment"]);
+                            Employee.DmsEmp.DealerEmployeeRole = EmployeeRow["DealerEmployeeRoleID"] == DBNull.Value ? null : new PDMS_DealerEmployeeRole()
+                            {
+                                DealerEmployeeRoleID = Convert.ToInt64(EmployeeRow["DealerEmployeeRoleID"]),
 
-                            Employee.DmsEmp.DealerEmployeeRole.DealerDesignation = new PDMS_DealerDesignation();
-                            Employee.DmsEmp.DealerEmployeeRole.DealerDesignation.DealerDesignation = Convert.ToString(EmployeeRow["DealerDesignation"]);
+                                DealerDepartment = EmployeeRow["DealerDepartmentID"] == DBNull.Value ? null : new PDMS_DealerDepartment()
+                                {
+                                    DealerDepartmentID = Convert.ToInt32(EmployeeRow["DealerDepartmentID"]),
+                                    DealerDepartment = Convert.ToString(EmployeeRow["DealerDepartment"])
+                                },
 
-                            Employee.DmsEmp.DealerEmployeeRole.ReportingTo = new PDMS_DealerEmployee();
-                            Employee.DmsEmp.DealerEmployeeRole.ReportingTo.Name = Convert.ToString(EmployeeRow["DmsReportingToName"]);
+                                DealerDesignation = EmployeeRow["DealerDesignationID"] == DBNull.Value ? null : new PDMS_DealerDesignation()
+                                {
+                                    DealerDesignationID = Convert.ToInt32(EmployeeRow["DealerDesignationID"]),
+                                    DealerDesignation = Convert.ToString(EmployeeRow["DealerDesignation"])
+                                },
 
-                           //   Employee.DOJ = Convert.ToDateTime(EmployeeRow["DOJ"]);
+                                ReportingTo = EmployeeRow["DmsReportingToID"] == DBNull.Value ? null : new PDMS_DealerEmployee()
+                                {
+                                    DealerEmployeeID = Convert.ToInt32(EmployeeRow["DmsReportingToID"]),
+                                    Name = Convert.ToString(EmployeeRow["DmsReportingToName"])
+                                }
+                            };
+                            //   Employee.DOJ = Convert.ToDateTime(EmployeeRow["DOJ"]);
                             Employees.Add(Employee);
                         }
                     }
@@ -105,7 +99,6 @@ namespace Business
             return Employees;
         }
 
-
         public void CheckPermitionJohn(int SubModuleMasterID)
         {
             string userId;
@@ -114,7 +107,7 @@ namespace Business
           //  userId = "abhishek.r";
             if (Session["UserId"] != null)
             {
-                userId = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(Session["UserId"]), "", "", "")[0].EmployeeUserID;
+                userId = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(Session["UserId"]), "", "", "",null)[0].EmployeeUserID;
                 PSession.User = null;
             }
             if ((PSession.User == null) || (PSession.Emp == null))
@@ -122,7 +115,7 @@ namespace Business
 
                 if (SubModuleMasterID == 0)
                 {
-                    PSession.Emp = new BEmployees().GetEmployeeListJohn(null, null, userId, "", "")[0];
+                    PSession.Emp = new BEmployees().GetEmployeeListJohn(null, null, userId, "", "", null)[0];
                     PUser user = new BUser().GetUserDetails(userId);
 
                     if (user.UserName == null)
@@ -262,6 +255,41 @@ namespace Business
                 throw ex;
             }
             return null;
+        }
+
+
+        public Boolean InsertOrUpdateAjaxEmp(int EID,string LoginUserName,long? DealerEmployeeRoleID, int? ReportingTo,int DealerDepartmentID,int DealerDesignationID,int UserID)
+        {
+
+
+            DbParameter EIDP = provider.CreateParameter("EID", EID, DbType.Int32);
+            DbParameter LoginUserNameP = provider.CreateParameter("LoginUserName", LoginUserName, DbType.String);
+            DbParameter DealerEmployeeRoleIDP = provider.CreateParameter("DealerEmployeeRoleID", DealerEmployeeRoleID, DbType.Int64);
+            DbParameter ReportingToP = provider.CreateParameter("ReportingTo", ReportingTo, DbType.Int32);
+            DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+            DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[7] { EIDP, LoginUserNameP, DealerEmployeeRoleIDP, ReportingToP, DealerDepartmentIDP, DealerDesignationIDP, UserIDP};
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateAjaxEmployee", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BEmployees", "InsertOrUpdateAjaxEmp", sqlEx);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BEmployees", " InsertOrUpdateAjaxEmp", ex);
+                throw;
+            }
+
+            return true;
         }
     }
 }

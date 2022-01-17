@@ -285,7 +285,7 @@
     <Content Include="ViewMaster\EquipmentPopulationReport.aspx" />
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
-    <Content Include="ViewMaster\UserControls\AjaxrEmployeeCreate.ascx" />
+    <Content Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
@@ -834,12 +834,12 @@
     <Compile Include="ViewAdmin\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewMaster\UserControls\AjaxrEmployeeCreate.ascx.cs">
-      <DependentUpon>AjaxrEmployeeCreate.ascx</DependentUpon>
+    <Compile Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx.cs">
+      <DependentUpon>AjaxEmployeeCreate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewMaster\UserControls\AjaxrEmployeeCreate.ascx.designer.cs">
-      <DependentUpon>AjaxrEmployeeCreate.ascx</DependentUpon>
+    <Compile Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx.designer.cs">
+      <DependentUpon>AjaxEmployeeCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.cs">
       <DependentUpon>Organization.aspx</DependentUpon>

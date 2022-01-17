@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster.UserControls
 {
-    public partial class AjaxrEmployeeCreate : System.Web.UI.UserControl
+    public partial class AjaxEmployeeCreate : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -83,44 +83,61 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
         void SaveAjaxEmp()
-        { 
+        {
             if (!ValidationRoal())
             {
                 return;
             }
-            PDMS_DealerEmployee Emp = new PDMS_DealerEmployee();
-                
 
-            int DealerEmployeeID = new BDMS_Dealer().InsertOrUpdateDealerEmployee(Emp, PSession.User.UserID);
+            long? RoleID = string.IsNullOrEmpty(lblDealerEmployeeRoleID.Text) ? (long?)null : Convert.ToInt64(lblDealerEmployeeRoleID.Text);
+            int? ReportingTo = ddlReportingTo.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReportingTo.SelectedValue);
+            int DepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
+            int DesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
+            Boolean S = new BEmployees().InsertOrUpdateAjaxEmp(Convert.ToInt32(lblEID.Text), txtUserName.Text.Trim(), RoleID, ReportingTo, DepartmentID, DesignationID, PSession.User.UserID);
 
-            PDMS_DealerEmployeeRole Role = new PDMS_DealerEmployeeRole();
-            Role.DealerEmployeeID = DealerEmployeeID;
-            Role.Dealer = new PDMS_Dealer();
-            Role.Dealer.DealerID = Convert.ToInt32(ConfigurationManager.AppSettings["AjaxDealerID"]);
-            Role.Dealer.DealerOffice = new PDMS_DealerOffice();
-            Role.Dealer.DealerOffice.OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);          
-            Role.DealerDepartment = new PDMS_DealerDepartment();
-            Role.DealerDepartment.DealerDepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
-            Role.DealerDesignation = new PDMS_DealerDesignation();
-            Role.DealerDesignation.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
+            //  lblMessage.Text = "Employee is updated successfully";
+            // lblMessage.ForeColor = Color.Green;
+            //  btnSave.Visible = false;
 
-
-
-            if (DealerEmployeeID != 0)
-            {
-                new BDMS_Dealer().ApproveDealerEmployee(DealerEmployeeID, PSession.User.UserID);
-                new BDMS_Dealer().InsertDealerEmployeeRole(Role, PSession.User.UserID);
-              //  lblMessage.Text = "Employee is updated successfully";
-               // lblMessage.ForeColor = Color.Green;
-              //  btnSave.Visible = false;
-            }
-            else
-            {
-               // lblMessage.Text = "Employee is not updated successfully";
-            }
-
-          //  btnSave.Focus();
         }
 
+        public void FillData(PEmployee Emp)
+        {
+            lblEID.Text = Emp.EmpId.ToString();
+            if (Emp.DmsEmp.DealerEmployeeRole != null)
+            {
+                lblDealerEmployeeRoleID.Text = Convert.ToString(Emp.DmsEmp.DealerEmployeeRole.DealerEmployeeRoleID);
+            }
+            lblName.Text = Emp.EmployeeName;
+            lblSAPEmpCode.Text = Emp.EmpId.ToString();
+
+            txtUserName.Text = Emp.DmsEmp.LoginUserName;
+            if (Emp.DmsEmp.DealerEmployeeRole != null)
+            {
+                if (Emp.DmsEmp.DealerEmployeeRole.DealerOffice != null)
+            {
+                ddlDealerOffice.SelectedValue = Emp.DmsEmp.DealerEmployeeRole.DealerOffice.OfficeID.ToString();
+            }
+           
+                if (Emp.DmsEmp.DealerEmployeeRole.DealerDepartment != null)
+                {
+                    ddlDepartment.SelectedValue = Emp.DmsEmp.DealerEmployeeRole.DealerDepartment.DealerDepartmentID.ToString();
+                    new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+                }
+                if (Emp.DmsEmp.DealerEmployeeRole.DealerDesignation != null)
+                {
+                    ddlDesignation.SelectedValue = Emp.DmsEmp.DealerEmployeeRole.DealerDesignation.DealerDesignationID.ToString();
+                }
+                if (Emp.DmsEmp.DealerEmployeeRole.ReportingTo != null)
+                {
+                    ddlReportingTo.SelectedValue = Emp.DmsEmp.DealerEmployeeRole.ReportingTo.DealerEmployeeID.ToString();
+                }
+            }
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveAjaxEmp();
+        }
     }
 }

@@ -51,13 +51,13 @@ namespace DealerManagementSystem.ViewOrganization
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
-        /// TreeView1 control.
+        /// tvAjax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView TreeView1;
+        protected global::System.Web.UI.WebControls.TreeView tvAjax;
 
         /// <summary>
         /// tpDealerOrg control.
@@ -69,13 +69,31 @@ namespace DealerManagementSystem.ViewOrganization
         protected global::AjaxControlToolkit.TabPanel tpDealerOrg;
 
         /// <summary>
-        /// Image2 control.
+        /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image2;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+
+        /// <summary>
+        /// ddlDealerCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
+
+        /// <summary>
+        /// tvDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvDealer;
 
         /// <summary>
         /// tplSalesOrg control.
@@ -87,13 +105,22 @@ namespace DealerManagementSystem.ViewOrganization
         protected global::AjaxControlToolkit.TabPanel tplSalesOrg;
 
         /// <summary>
-        /// Image3 control.
+        /// UpdatePanel3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image3;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+
+        /// <summary>
+        /// tvSales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvSales;
 
         /// <summary>
         /// tpPartsOrg control.
@@ -105,13 +132,22 @@ namespace DealerManagementSystem.ViewOrganization
         protected global::AjaxControlToolkit.TabPanel tpPartsOrg;
 
         /// <summary>
-        /// Image4 control.
+        /// UpdatePanel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image4;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+
+        /// <summary>
+        /// tvParts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvParts;
 
         /// <summary>
         /// tpServiceOrg control.
@@ -123,13 +159,22 @@ namespace DealerManagementSystem.ViewOrganization
         protected global::AjaxControlToolkit.TabPanel tpServiceOrg;
 
         /// <summary>
-        /// Image5 control.
+        /// UpdatePanel5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image5;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+
+        /// <summary>
+        /// tvService control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvService;
 
         /// <summary>
         /// UpdateProgress1 control.

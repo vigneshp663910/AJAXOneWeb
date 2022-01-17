@@ -21,7 +21,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <script src="Scripts/jquery-1.7.1.js"></script>
-    <script language="javascript" type="text/javascript">
+    <%--<script language="javascript" type="text/javascript">
         function placeUP() {
             var mouseX;
             var mouseY;
@@ -36,65 +36,106 @@
                 $('#UP').css({ 'top': mouseY, 'left': mouseX });
             });
         }
-    </script>
+        function tvDealerUP() {
+            var mouseX;
+            var mouseY;
+            // below line for get mouse position
+            $(document).mousemove(function (e) {
+                mouseX = e.pageX;
+                mouseY = e.pageY;
+
+            });
+            // below line for show loading panel at proper place
+            $('#<%= tvDealer.ClientID%> a').click(function () {
+                $('#UP').css({ 'top': mouseY, 'left': mouseX });
+            });
+        }
+    </script>--%>
 
 
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-   <%-- <div class="col-md-12">
+    <%-- <div class="col-md-12">
         <div class="col-md-12">--%>
-            <asp1:TabContainer ID="tbpOrgChart" runat="server" ToolTip="DMS Organisation Chart" Font-Bold="True" Font-Size="Medium" VerticalStripWidth="240px">
-                <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="OEM" Font-Bold="True" ToolTip="OEM  Organisation Chart...">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                <ContentTemplate>
-                                    <script type="text/javascript">
-                                        Sys.Application.add_load(placeUP);
-                                    </script>
-                                    <%-- Here ExpandDepth="0" for eleminates the expansion of the added treenodes --%>
+    <asp1:TabContainer ID="tbpOrgChart" runat="server" ToolTip="DMS Organisation Chart" Font-Bold="True" Font-Size="Medium" VerticalStripWidth="240px">
+        <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="OEM" Font-Bold="True" ToolTip="OEM  Organisation Chart...">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                        <ContentTemplate>
+                            <script type="text/javascript">
+                                Sys.Application.add_load(placeUP);
+                            </script>
+                            <%-- Here ExpandDepth="0" for eleminates the expansion of the added treenodes --%>
+                            <table>
+                                <tr>
+                                    <td>
 
-                                    <asp:TreeView ID="TreeView1" runat="server" ExpandDepth="5" PopulateNodesFromClient="false" OnTreeNodePopulate="TreeView1_TreeNodePopulate">
-                                    </asp:TreeView>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tpDealerOrg" runat="server" HeaderText="DEALER">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:Image ID="Image2" runat="server" ImageUrl="~/ProcessFlow/Dealer_Org1.png" />
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tplSalesOrg" runat="server" HeaderText="Sales">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org1.png" />
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tpPartsOrg" runat="server" HeaderText="Parts">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org1.png" />
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service_Org1.png" />
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
+                                        <asp:TreeView ID="tvAjax" runat="server" ExpandDepth="5" PopulateNodesFromClient="false" OnTreeNodePopulate="tvAjax_TreeNodePopulate">
+                                        </asp:TreeView>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tpDealerOrg" runat="server" HeaderText="DEALER">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlDealerCode" runat="server" Width="250px" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" AutoPostBack="true" />
+                            <asp:TreeView ID="tvDealer" runat="server" ExpandDepth="7" OnTreeNodePopulate="tvDealer_TreeNodePopulate">
+                            </asp:TreeView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tplSalesOrg" runat="server" HeaderText="Sales">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                        <ContentTemplate>
+                            <asp:TreeView ID="tvSales" runat="server" ExpandDepth="7" OnTreeNodePopulate="tvSales_TreeNodePopulate">
+                            </asp:TreeView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tpPartsOrg" runat="server" HeaderText="Parts">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                       <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <asp:TreeView ID="tvParts" runat="server" ExpandDepth="7" OnTreeNodePopulate="tvParts_TreeNodePopulate">
+                            </asp:TreeView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                        <ContentTemplate>
+                            <asp:TreeView ID="tvService" runat="server" ExpandDepth="7" OnTreeNodePopulate="tvService_TreeNodePopulate">
+                            </asp:TreeView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
 
-            </asp1:TabContainer>
-      <%--  </div>
-    </div>--%>
+    </asp1:TabContainer>
 
-    
+
+
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
         <ProgressTemplate>
             <div id="UP" style="position: absolute; background-image: url('ajax-loader.gif'); background-repeat: no-repeat; width: 20px;">
@@ -103,5 +144,5 @@
         </ProgressTemplate>
     </asp:UpdateProgress>
 
-     
+
 </asp:Content>

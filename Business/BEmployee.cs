@@ -91,7 +91,7 @@ namespace Business
             }
           //  List<PEmployee> pList = new BEmployees().GetEmployeeList(null, null, UserID, "", "").Where(a => a.EmployeeUserID.ToUpper() == UserID.ToUpper()).Select(a => a).ToList();
 
-            List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, UserID, "", "");
+            List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, UserID, "", "",null);
             if (pList.Count == 0)
             {
                 DirectoryEntry entry = new DirectoryEntry("LDAP://Ajax-fiori.com");
@@ -124,7 +124,7 @@ namespace Business
 
 
                // pList = new BEmployee().getEmployee().Where(a => a.EmployeeUserID.ToUpper() == UserID.ToUpper()).Select(a => a).ToList();
-                pList = new BEmployees().GetEmployeeListJohn(null, null, UserID, "", "");
+                pList = new BEmployees().GetEmployeeListJohn(null, null, UserID, "", "", null);
                 if (pList.Count == 0)
                 {
                     Session["NewUser"] = null;
@@ -162,7 +162,7 @@ namespace Business
                          p.Department = new PDepartment { DepartmentName = GetProperty(sResultSet, "department") };
 
                         // List<PEmployee> pList = new BEmployee().getEmployee().Where(a => a.EmployeeUserID.ToUpper() == p.EmployeeUserID.ToUpper()).Select(a => a).ToList();
-                         List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, UserID, "", "");
+                         List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, UserID, "", "",null);
                         if (pList.Count == 0)
                          {
                              CountDB = CountDB + 1;

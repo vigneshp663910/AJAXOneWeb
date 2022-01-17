@@ -86,7 +86,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 {
                     HeaderId = Convert.ToInt32(txtTicketId.Text);
                 }
-                List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, PSession.User.UserName, "", "");
+                List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, PSession.User.UserName, "", "", null);
                 if (ConfigurationManager.AppSettings["HSNCode"] == PSession.User.ExternalReferenceID)
                 {
                     List<PTicketHeader> TH = new BTickets().GetOpenTickets(HeaderId, 1, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID);

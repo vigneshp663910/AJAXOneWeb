@@ -63,7 +63,7 @@ namespace Business
         {
             ddl.DataTextField = "EmployeeUserID";
             ddl.DataValueField = "EID";
-            ddl.DataSource = new BEmployees().GetEmployeeListJohn(EID, EmpID, EmployeeUserID, EmployeeName, Department);
+            ddl.DataSource = new BEmployees().GetEmployeeListJohn(EID, EmpID, EmployeeUserID, EmployeeName, Department, null);
             DataBindDDL(ddl);
         }
         public void Department(DropDownList ddl)

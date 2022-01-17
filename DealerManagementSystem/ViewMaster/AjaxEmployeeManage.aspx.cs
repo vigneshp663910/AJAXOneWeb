@@ -1,4 +1,5 @@
 ﻿using Business;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 Department = ddlDepartment.SelectedItem.Text;
             }
-            gvEmployee.DataSource = new BEmployees().GetEmployeeListJohn(null, null, "", "", Department);
+            gvEmployee.DataSource = new BEmployees().GetEmployeeListJohn(null, null, "", "", Department,null);
             gvEmployee.DataBind();
         }
         private void fillDepartment()
@@ -33,6 +34,18 @@ namespace DealerManagementSystem.ViewMaster
             ddlDepartment.DataSource = new BEmployees().GetDepartment(null, null);
             ddlDepartment.DataBind();
         //    ddlDepartment.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        protected void btnAjaxEmpView_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            TextBox txtEId = (TextBox)gvRow.FindControl("txtEId");
+            Label lblDealerEmployeeRoleID = (Label)gvRow.FindControl("lblDealerEmployeeRoleID");
+            long? DealerEmployeeRoleID = string.IsNullOrEmpty(lblDealerEmployeeRoleID.Text) ? (long?)null : Convert.ToInt32(lblDealerEmployeeRoleID.Text);
+            PEmployee emp = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(txtEId.Text), null, null, "", "", DealerEmployeeRoleID)[0];
+            MPE_AjaxEmp.Show();
+            UC_Ajax.FillMaster();
+            UC_Ajax.FillData(emp);
         }
     }
 }
