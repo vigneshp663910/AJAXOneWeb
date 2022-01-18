@@ -218,6 +218,7 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewMaster\AjaxEmployeeManage.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
+    <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
@@ -593,6 +594,13 @@
     </Compile>
     <Compile Include="ViewMaster\Customer.aspx.designer.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\DealerCustomerMapping.aspx.cs">
+      <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
+      <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>
