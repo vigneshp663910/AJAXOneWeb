@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">f
     <script>
         window.onload = function () {
             if (screen.width < 450) {
@@ -426,10 +426,6 @@
                 width: 100% !important;
             }
 
-            .fa {
-                visibility: hidden;
-            }
-
             #userprofile {
                 display: none;
             }
@@ -762,6 +758,7 @@
         .Grid td .form-control {
             height: 35px;
             padding: inherit;
+            width:100%;
         }
 
         .table > tbody > tr > td {
@@ -930,7 +927,9 @@
                 font-family: "Open Sans",sans-serif;
                 font-size: large;
             }
-
+            .fa-angle-down:hover #mySidebar{
+                
+            }
 
     </style>
     <script>
@@ -955,11 +954,24 @@
         }
 
         function w3_close() {
-            //alert('Hi');
+            alert('Hi');
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
-
+        function w3_closeSideBar() {
+            if (document.getElementById("mySidebar").style.width == "250px") {
+                document.getElementById("mySidebar").style.width = "49px";
+            }
+            else {
+                document.getElementById("mySidebar").style.width = "250px";
+            }
+            if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
+                document.getElementById("w3mainclass").style.marginLeft = "50px";
+            }
+            else {
+                document.getElementById("w3mainclass").style.marginLeft = "250px";
+            }
+        }
 
     </script>
 
@@ -1038,7 +1050,7 @@
                     </div>
 
                     <div class="w3-display-topleft" style="color: white; padding-left: 235px">
-                        <a class="navbar-brand" href="javascript:void(0)" onclick="w3_close()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
+                        <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
                     </div>
 
                     <div class="w3-display-topmiddle appico">
@@ -1089,9 +1101,9 @@
 
         <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
-        <div class="w3-main" style="margin-left: 250px;">
+        <div id="w3mainclass" class="w3-main" style="margin-left: 250px;">
 
-            <br />
+            <%--<br />--%>
             <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
@@ -1106,10 +1118,10 @@
                         <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
                         <div class="dropdown-content" style="font-size: small">
                             <div class="dropdown-header">Dashboard</div>
-                            <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Pre-Sales</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Sales</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Parts Sales</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Equipment Service</a>
+                            <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
+                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
+                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
+                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
                         </div>
 
 
@@ -1121,9 +1133,10 @@
                         <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
 
                         <div class="dropdown-content" style="font-size: small">
-                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Lead</a>
-                            <a href="/ViewPreSale/Lead"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
-                            <a href="#"><i class="fa fa-sun-o"></i>&nbsp;&nbsp;Add Followup</a>
+                            <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
+                            <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
+                            <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
+                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
                         </div>
                     </div>
 

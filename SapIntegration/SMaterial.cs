@@ -46,12 +46,21 @@ namespace SapIntegration
                 Material.MaterialDescription = tagTable.CurrentRow.GetString("MATERIAL_DESC");
                 Material.MaterialType = tagTable.CurrentRow.GetString("MATERIAL_TYPE");
                 Material.MaterialGroup = tagTable.CurrentRow.GetString("MATERIAL_GROUP");
-                Material.Model = new PDMS_Model() { ModelCode = tagTable.CurrentRow.GetString("MATERIAL_GROUP") };
+                Material.Model = new PDMS_Model()
+                {
+                    ModelCode = tagTable.CurrentRow.GetString("MATERIAL_GROUP"),
+                    Model = "",
+                    Division = new PDMS_Division()
+                    {
+                        DivisionCode = "",
+                        DivisionDescription = ""
+                    },
+                };
                 Material.SubCategory = tagTable.CurrentRow.GetString("SUB_CATEGORY");
                 Material.GrossWeight = tagTable.CurrentRow.GetDecimal("GROSS_WEIGHT");
                 Material.NetWeight = tagTable.CurrentRow.GetDecimal("NET_WEIGHT");
                 Material.BaseUnit = tagTable.CurrentRow.GetString("BASE_UNIT");
-                Material.SerialProfile = tagTable.CurrentRow.GetString("BASE_UNIT");
+                Material.SerialProfile = tagTable.CurrentRow.GetString("SERIAL_PROFILE");
                 Material.MaterialDivision = tagTable.CurrentRow.GetString("MATERIAL_DIVISION");
                 Material.HSN = tagTable.CurrentRow.GetString("HSN_SAC");
                 Material.IsActive = (tagTable.CurrentRow.GetString("ACTIVE")=="X")?false:true;
