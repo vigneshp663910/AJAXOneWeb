@@ -177,6 +177,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Button Button6;
 
         /// <summary>
+        /// lblMessageColdVisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageColdVisit;
+
+        /// <summary>
         /// txtCustomerID control.
         /// </summary>
         /// <remarks>
@@ -258,6 +267,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
+        /// lblMessageEffort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageEffort;
+
+        /// <summary>
         /// UC_Effort control.
         /// </summary>
         /// <remarks>
@@ -310,6 +328,15 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button3;
+
+        /// <summary>
+        /// lblMessageExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageExpense;
 
         /// <summary>
         /// UC_Expense control.

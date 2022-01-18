@@ -137,6 +137,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         public string ValidationCustomer()
         {
+            long longCheck;
+            
+
             string Message = "";
             Boolean Ret = true;
 
@@ -156,31 +159,39 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Ret = false;
                 txtCustomerName.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Contact Person";
                 Ret = false;
                 txtContactPerson.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Mobile";
                 Ret = false;
                 txtMobile.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+            else if (txtMobile.Text.Trim().Length != 10)
+            {
+                Message = Message + "<br/>Mobile Length should be 10 digit";
+                Ret = false;
+                txtMobile.BorderColor = Color.Red;
+            }
+            else if(!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            {                
+                Message = Message + "<br/>Mobile should be 10 digit";
+                Ret = false;
+                txtMobile.BorderColor = Color.Red;
+            }
+
+            else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Address1";
                 Ret = false;
                 txtAddress1.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Postal";
-                Ret = false;
-                txtPincode.BorderColor = Color.Red;
-            }
-            if (ddlCountry.SelectedValue == "0")
+         
+            else if (ddlCountry.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the Country";
                 Ret = false;
@@ -192,14 +203,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Ret = false;
                 ddlState.BorderColor = Color.Red;
             }
-
             else if (ddlDistrict.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the District";
                 Ret = false;
                 ddlDistrict.BorderColor = Color.Red;
             }
-
+            else if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Postal";
+                Ret = false;
+                txtPincode.BorderColor = Color.Red;
+            }
+            else if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Pincode should be in digit";
+                Ret = false;
+                txtPincode.BorderColor = Color.Red;
+            }
 
             return Message;
         }

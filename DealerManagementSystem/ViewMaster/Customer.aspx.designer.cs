@@ -87,13 +87,13 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button btnAddColdVisit;
 
         /// <summary>
-        /// gvLead control.
+        /// gvCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvLead;
+        protected global::System.Web.UI.WebControls.GridView gvCustomer;
 
         /// <summary>
         /// divCustomerView control.
@@ -157,6 +157,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button6;
+
+        /// <summary>
+        /// lblMessageCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageCustomer;
 
         /// <summary>
         /// UC_Customer control.

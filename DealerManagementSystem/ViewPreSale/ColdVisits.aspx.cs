@@ -20,6 +20,9 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales ~ Cold Visit');</script>");
 
             lblMessage.Text = "";
+            lblMessageColdVisit.Text = "";
+            lblMessageEffort.Text = "";
+            lblMessageExpense.Text = "";
             if (!IsPostBack)
             { 
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
@@ -32,17 +35,21 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
-        { 
+        {
+            FillClodVisit();
+        }
+        void FillClodVisit()
+        {
             DateTime? ColdVisitDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTime? ColdVisitDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-          
+
             long? CustomerID = null;
             string CustomerCode = null;
             string CustomerName = txtCustomer.Text.Trim();
-            string Mobile = txtMobile.Text.Trim(); 
+            string Mobile = txtMobile.Text.Trim();
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-            int?   StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+            int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             int? DistrictID = null;
 
 
@@ -57,7 +64,10 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            MPE_Customer.Show();
             PColdVisit ColdVisitList = new PColdVisit();
+            lblMessageColdVisit.ForeColor = Color.Red;
+            lblMessageColdVisit.Visible = true;
             string Message = "";
            // TextBox txtCustomerID = (TextBox)UC_Customer.FindControl("txtCustomerID");
             if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
@@ -67,13 +77,11 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else
             {
-                Message = UC_Customer.ValidationCustomer();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                MPE_Customer.Show();
+                Message = UC_Customer.ValidationCustomer();               
+               
                 if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = Message;
+                    lblMessageColdVisit.Text = Message;
                     return;
                 }
                 ColdVisitList.Customer = UC_Customer.ReadCustomer();
@@ -82,7 +90,7 @@ namespace DealerManagementSystem.ViewPreSale
             Message = ValidationColdVisit();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageColdVisit.Text = Message;
                 return;
             } 
            
@@ -92,36 +100,48 @@ namespace DealerManagementSystem.ViewPreSale
            
             ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
                string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
+
+            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+            if (result == "0")
+            {
+                MPE_Customer.Show();
+                lblMessageColdVisit.Text = "Customer is not updated successfully ";
+                return;
+            }
+            else
+            {
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "Customer is updated successfully ";
+            }
+            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null);
+            gvLead.DataSource = Leads;
+            gvLead.DataBind();
+            UC_Customer.FillClean();
+            MPE_Customer.Hide();
         }
         public string ValidationColdVisit()
         {
-            string Message = "";
-            Boolean Ret = true;
-
+            string Message = ""; 
             txtColdVisitDate.BorderColor = Color.Silver;
             txtRemark.BorderColor = Color.Silver;
             ddlActionType.BorderColor = Color.Silver;
             if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
             {
-                Message = "Please enter the Cold Visi tDate";
-                Ret = false;
+                Message = "Please enter the Cold Visit Date"; 
                 txtColdVisitDate.BorderColor = Color.Red;
             }
             if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Remark";
-                Ret = false;
+                Message = Message + "<br/>Please enter the Remark"; 
                 txtRemark.BorderColor = Color.Red;
             }
             
             if (ddlActionType.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Action Type";
-                Ret = false;
+                Message = Message + "<br/>Please select the Action Type"; 
                 ddlActionType.BorderColor = Color.Red;
-            }
-            
-
+            } 
             return Message;
         }
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,12 +166,12 @@ namespace DealerManagementSystem.ViewPreSale
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
             string Message = UC_Effort.ValidationEffort();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageEffort.ForeColor = Color.Red;
+            lblMessageEffort.Visible = true;
             MPE_Effort.Show();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageEffort.Text = Message;
                 return;
             } 
             PLeadEffort Effort = new PLeadEffort(); 
@@ -164,12 +184,12 @@ namespace DealerManagementSystem.ViewPreSale
         protected void btnSaveExpense_Click(object sender, EventArgs e)
         {
             string Message = UC_Expense.ValidationExpense();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageExpense.ForeColor = Color.Red;
+            lblMessageExpense.Visible = true;
             MPE_Expense.Show();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageExpense.Text = Message;
                 return;
             } 
             PLeadExpense Expense = new PLeadExpense();
@@ -237,6 +257,14 @@ namespace DealerManagementSystem.ViewPreSale
                 Emp.Add(div);
             }
             return Emp;
+        }
+
+
+
+        protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        { 
+            gvLead.PageIndex = e.NewPageIndex;
+            FillClodVisit();
         }
     }
 }

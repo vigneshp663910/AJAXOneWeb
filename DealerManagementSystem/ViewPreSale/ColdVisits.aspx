@@ -4,7 +4,7 @@
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Effort.ascx" TagPrefix="UC" TagName="UC_Effort" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Expense.ascx" TagPrefix="UC" TagName="UC_Expense" %>
-<%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %> 
+<%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
@@ -139,7 +139,7 @@
                 document.getElementById('divCustomerCreateID').style.display = "block";
             });
         });
-       
+
     </script>
     <style>
         .fieldset-borderAuto {
@@ -225,7 +225,7 @@
                         <div class="col-md-2 text-right">
                             <label>Customer</label>
                         </div>
-                        <div class="col-md-2"> 
+                        <div class="col-md-2">
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                                 <div id="div1" class="fieldset-borderAuto" style="display: none">
@@ -271,7 +271,7 @@
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                         <div class="col-md-12 Report">
-                            <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                         <ItemTemplate>
@@ -326,14 +326,7 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" Width="70px" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged" AutoPostBack="true">
-                                                <asp:ListItem>Action</asp:ListItem>
-                                                <asp:ListItem>Add Effort</asp:ListItem>
-                                                <asp:ListItem>Add Expense</asp:ListItem>
-                                            </asp:DropDownList>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <asp:ListItem>Action</asp:ListItem><asp:ListItem>Add Effort</asp:ListItem><asp:ListItem>Add Expense</asp:ListItem></asp:DropDownList></ItemTemplate></asp:TemplateField></Columns><AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
                                 <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
@@ -341,10 +334,7 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="text-right">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
@@ -355,75 +345,51 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="col-md-12">
         <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
+
+            <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-12">
                 <div style="display: none">
-                    <asp:TextBox ID="txtCustomerID" runat="server" ></asp:TextBox>
-                </div>
-                <div id="divCustomerViewID" style="display: none">
+                    <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox></div><div id="divCustomerViewID" style="display: none">
                     <fieldset class="fieldset-border">
                         <div class="col-md-12">
 
                             <div class="col-md-2 text-right">
-                                <label>Customer Name</label>
-                            </div>
-                            <div class="col-md-4">
+                                <label>Customer Name</label> </div><div class="col-md-4">
                                 <label id="lblCustomerName"></label>
                             </div>
                             <div class="col-md-2 text-right">
-                                <label>Contact Person</label>
-                            </div>
-                            <div class="col-md-4">
+                                <label>Contact Person</label> </div><div class="col-md-4">
                                 <label id="lblContactPerson"></label>
                             </div>
 
                             <div class="col-md-2 text-right">
-                                <label>Mobile</label>
-                            </div>
-                            <div class="col-md-4">
+                                <label>Mobile</label> </div><div class="col-md-4">
                                 <label id="lblMobile"></label>
                             </div>
                         </div>
                         <div id="divChangeCustomer">
-                            <label>Change Customer</label>
-                        </div>
-                        
-                    </fieldset>
-                </div>
-                <div id="divCustomerCreateID">
+                            <label>Change Customer</label> </div></fieldset> </div><div id="divCustomerCreateID">
                     <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                 </div>
                 <fieldset class="fieldset-border">
                     <div class="col-md-12">
 
                         <div class="col-md-2 text-right">
-                            <label>Cold Visit Date</label>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <label>Action Type</label>
-                        </div>
-                        <div class="col-md-4">
+                            <label>Cold Visit Date</label> </div><div class="col-md-4">
+                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox></div><div class="col-md-2 text-right">
+                            <label>Action Type</label> </div><div class="col-md-4">
                             <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
 
                         <div class="col-md-2 text-right">
-                            <label>Remark</label>
-                        </div>
-                        <div class="col-md-10">
-                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="col-md-12 text-center">
+                            <label>Remark</label> </div><div class="col-md-10">
+                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox></div></div></fieldset> <div class="col-md-12 text-center">
                     <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
                 </div>
             </div>
@@ -432,9 +398,9 @@
 
         <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button">
-                    <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
+            <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-12">
 
                 <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
@@ -498,10 +464,11 @@
 
         <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                    <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
+                <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
                 </a>
             </div>
+
+            <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-12">
                 <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
                 <div class="col-md-12 text-center">

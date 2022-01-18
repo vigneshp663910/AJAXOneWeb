@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-md-4">
                    
-                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox> 
                     <div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">
                         <div id="UCdiv1" class="fieldset-border">
                         </div>
@@ -99,56 +99,56 @@
                     <label>GSTIN</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="20" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>PAN</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="20" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Contact Person</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="40" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Mobile</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
+                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"  MaxLength="10" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Alternative Mobile</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtAlternativeMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
+                    <asp:TextBox ID="txtAlternativeMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"  MaxLength="10" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Email</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email"  MaxLength="40" ></asp:TextBox>
                 </div>
 
                 <div class="col-md-2 text-right">
                     <label>Address 1</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="40" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Address 2</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="40" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Address 3</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="40" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>Country</label>
@@ -178,13 +178,13 @@
                     <label>PinCode</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
+                    <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"  MaxLength="10" ></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-right">
                     <label>City</label>
                 </div>
                 <div class="col-md-4">
-                    <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver"  MaxLength="20" ></asp:TextBox>
                 </div>
 
 

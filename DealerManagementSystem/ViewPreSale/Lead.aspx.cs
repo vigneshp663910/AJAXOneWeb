@@ -72,14 +72,13 @@ namespace DealerManagementSystem.ViewPreSale
             }
         }
 
-        void fillLead()
-        {
-
-        }
+        
 
         protected void btnSave_Click(object sender, EventArgs e)
         { 
-            PLead Lead = new PLead(); 
+            PLead Lead = new PLead();
+            lblMessageLead.ForeColor = Color.Red;
+            lblMessageLead.Visible = true;
             string Message = ""; 
             if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
             {
@@ -89,15 +88,21 @@ namespace DealerManagementSystem.ViewPreSale
             else
             {
                 Message = UC_Customer.ValidationCustomer();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+               
                 MPE_Customer.Show();
                 if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = Message;
+                    lblMessageLead.Text = Message;
                     return;
                 }
                 Lead.Customer = UC_Customer.ReadCustomer();
+            }
+
+            Message = ValidationLead();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLead.Text = Message;
+                return;
             }
 
             Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
@@ -112,7 +117,82 @@ namespace DealerManagementSystem.ViewPreSale
             Lead.Remarks = txtRemarks.Text.Trim(); 
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
-            PLead l = JsonConvert.DeserializeObject<PLead>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", Lead)).Data));
+            string result = new BAPI().ApiPut("Lead", Lead); 
+            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+            if (result == "0")
+            {
+                MPE_Customer.Show();
+                lblMessageLead.Text = "Customer is not updated successfully ";
+                return;
+            }
+            else
+            {
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "Customer is updated successfully ";
+            }
+
+            PLeadSearch S = new PLeadSearch();
+            S.LeadID = Convert.ToInt64(result);
+             
+            gvLead.DataSource = new BLead().GetLead(S);
+            gvLead.DataBind();  
+            UC_Customer.FillClean();
+            MPE_Customer.Hide();
+        }
+
+        public string ValidationLead()
+        {
+            string Message = ""; 
+            txtLeadDate.BorderColor = Color.Silver; 
+            ddlStatus.BorderColor = Color.Silver;
+            ddlProgressStatus.BorderColor = Color.Silver;
+            ddlCategory.BorderColor = Color.Silver;
+            ddlQualification.BorderColor = Color.Silver;
+            ddlSource.BorderColor = Color.Silver;
+            ddlStatus.BorderColor = Color.Silver;
+            txtRemarks.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
+            {
+                Message = "Please enter the Lead Date"; 
+                txtLeadDate.BorderColor = Color.Red;
+            }
+            else if (ddlStatus.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Status"; 
+                ddlStatus.BorderColor = Color.Red;
+            }
+            else if (ddlProgressStatus.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Progress Status";
+                ddlProgressStatus.BorderColor = Color.Red;
+            }
+            else if (ddlCategory.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Category";
+                ddlCategory.BorderColor = Color.Red;
+            }
+            else if (ddlQualification.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Qualification";
+                ddlQualification.BorderColor = Color.Red;
+            }
+            else if (ddlSource.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Source";
+                ddlSource.BorderColor = Color.Red;
+            }
+            else if (ddlLeadType.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the LeadType";
+                ddlStatus.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Remark"; 
+                txtRemarks.BorderColor = Color.Red;
+            } 
+            return Message;
         }
 
         //protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,6 +212,10 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            FillLead();
+        }
+        void FillLead()
+        {
             PLeadSearch S = new PLeadSearch();
             S.LeadNumber = txtLeadNumber.Text.Trim();
             S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
@@ -141,10 +225,10 @@ namespace DealerManagementSystem.ViewPreSale
             S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
             S.TypeID = ddlSType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSType.SelectedValue);
             S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-            S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue); 
+            S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
 
             S.CustomerCode = txtCustomer.Text.Trim();
-            S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim())?(DateTime?) null: Convert.ToDateTime( txtLeadDateFrom.Text.Trim());
+            S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
             List<PLead> Leads = new BLead().GetLead(S);
@@ -256,6 +340,12 @@ namespace DealerManagementSystem.ViewPreSale
             divList.Visible = false;
             divDetailsView.Visible = true;
             UC_LeadView.fillViewLead(Convert.ToInt64(lblLeadID.Text));
+        }
+
+        protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvLead.PageIndex = e.NewPageIndex;
+            FillLead();
         }
     }
 }

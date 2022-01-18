@@ -357,9 +357,10 @@
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
             <div class="col-md-12 Report">
-                <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed"
+                     PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
                     <Columns>
-                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
+                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                 <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -468,6 +469,7 @@
             <span id="PopupDialogue">Sales Engineer Assign </span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
+          <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
         <div class="col-md-12">
             <div style="display: none">
                 <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
