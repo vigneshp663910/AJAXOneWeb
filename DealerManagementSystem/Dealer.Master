@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">f
     <script>
         window.onload = function () {
             if (screen.width < 450) {
@@ -1091,7 +1091,7 @@
 
         <div class="w3-main" style="margin-left: 250px;">
 
-            <br />
+            <%--<br />--%>
             <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
@@ -1123,6 +1123,7 @@
                         <div class="dropdown-content" style="font-size: small">
                             <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
                             <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
+                            <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
                             <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
                         </div>
                     </div>
