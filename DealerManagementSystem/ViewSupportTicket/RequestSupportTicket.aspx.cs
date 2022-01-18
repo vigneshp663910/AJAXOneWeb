@@ -136,7 +136,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 {
 
                     List<PCategory> pTicketCategory = new BTicketCategory().getTicketCategory(Convert.ToInt32(ddlCategory.SelectedValue), null, null);
-                    List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "");
+                    List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "", null);
                     messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
                     messageBody = messageBody.Replace("@@requested", PSession.User.ContactName);
                     messageBody = messageBody.Replace("@@TicketNo ", TicketId.ToString());
@@ -152,7 +152,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 {
                     PUser AssignedUser = new BUser().GetUserDetails(L1SupportUser);
                     List<PEmployee> pAssignedTo = null;
-                    pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "");
+                    pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "", null);
                     messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
                     messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URLAF"] + "AssignedTickets.aspx?TicketNo=" + TicketId);
                     messageBody = messageBody.Replace("@@TicketNo", TicketId.ToString());
