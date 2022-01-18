@@ -514,6 +514,12 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the Country";
                     Success = false;
                 }
+                List<PDMS_Country> MML = new BDMS_Address().GetCountry(Convert.ToInt32(id), txtGCCountry.Text.Trim());
+                if (MML.Count > 0)
+                {
+                    Message = Message + "<br/> Country is already found...!";
+                    Success = false;
+                }
                 lblMessage.Text = Message;
                 if (Success == false)
                 {
@@ -708,6 +714,12 @@ namespace DealerManagementSystem.ViewMaster
                 if (string.IsNullOrEmpty(txtGRRegion.Text.Trim()))
                 {
                     Message = Message + "<br/> Please Enter the Region";
+                    Success = false;
+                }
+                List<PDMS_Region> MML = new BDMS_Address().GetRegion(Convert.ToInt32(ddlGRCountry.SelectedValue), Convert.ToInt32(id), txtGRRegion.Text.Trim());
+                if (MML.Count > 0)
+                {
+                    Message = Message + "<br/> Region is already found...!";
                     Success = false;
                 }
                 lblMessage.Text = Message;
@@ -933,6 +945,12 @@ namespace DealerManagementSystem.ViewMaster
                 if (string.IsNullOrEmpty(txtGRState.Text.Trim()))
                 {
                     Message = Message + "<br/> Please Enter the State";
+                    Success = false;
+                }
+                List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlGSCountry.SelectedValue), Convert.ToInt32(ddlGSRegion.SelectedValue), Convert.ToInt32(id), txtGRState.Text.Trim());
+                if (MML.Count > 0)
+                {
+                    Message = Message + "<br/> State is already found...!";
                     Success = false;
                 }
                 lblMessage.Text = Message;
@@ -1170,6 +1188,12 @@ namespace DealerManagementSystem.ViewMaster
                 if (string.IsNullOrEmpty(txtGDDistrict.Text.Trim()))
                 {
                     Message = Message + "<br/> Please Enter the District";
+                    Success = false;
+                }
+                List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlGDCountry.SelectedValue), null, Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(id), txtGDDistrict.Text.Trim());
+                if (MML.Count > 0)
+                {
+                    Message = Message + "<br/> District is already found...!";
                     Success = false;
                 }
                 lblMessage.Text = Message;
@@ -1444,7 +1468,12 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the City";
                     Success = false;
                 }
-
+                List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(Convert.ToInt32(ddlGCityCountry.SelectedValue), Convert.ToInt32(ddlGCityState.SelectedValue), Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim());
+                if (MML.Count > 0)
+                {
+                    Message = Message + "<br/> City is already found...!";
+                    Success = false;
+                }
                 lblMessage.Text = Message;
                 if (Success == false)
                 {
