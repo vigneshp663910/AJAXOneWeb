@@ -514,7 +514,7 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the Country";
                     Success = false;
                 }
-                List<PDMS_Country> MML = new BDMS_Address().GetCountry(Convert.ToInt32(id), txtGCCountry.Text.Trim());
+                List<PDMS_Country> MML = new BDMS_Address().GetCountry(null, txtGCCountry.Text.Trim());
                 if (MML.Count > 0)
                 {
                     Message = Message + "<br/> Country is already found...!";
@@ -716,7 +716,7 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the Region";
                     Success = false;
                 }
-                List<PDMS_Region> MML = new BDMS_Address().GetRegion(Convert.ToInt32(ddlGRCountry.SelectedValue), Convert.ToInt32(id), txtGRRegion.Text.Trim());
+                List<PDMS_Region> MML = new BDMS_Address().GetRegion(Convert.ToInt32(ddlGRCountry.SelectedValue), null, txtGRRegion.Text.Trim());
                 if (MML.Count > 0)
                 {
                     Message = Message + "<br/> Region is already found...!";
@@ -947,7 +947,7 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the State";
                     Success = false;
                 }
-                List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlGSCountry.SelectedValue), Convert.ToInt32(ddlGSRegion.SelectedValue), Convert.ToInt32(id), txtGRState.Text.Trim());
+                List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlGSCountry.SelectedValue), Convert.ToInt32(ddlGSRegion.SelectedValue), null, txtGRState.Text.Trim());
                 if (MML.Count > 0)
                 {
                     Message = Message + "<br/> State is already found...!";
@@ -1190,7 +1190,7 @@ namespace DealerManagementSystem.ViewMaster
                     Message = Message + "<br/> Please Enter the District";
                     Success = false;
                 }
-                List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlGDCountry.SelectedValue), null, Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(id), txtGDDistrict.Text.Trim());
+                List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlGDCountry.SelectedValue), null, Convert.ToInt32(ddlGDState.SelectedValue), null, txtGDDistrict.Text.Trim());
                 if (MML.Count > 0)
                 {
                     Message = Message + "<br/> District is already found...!";
