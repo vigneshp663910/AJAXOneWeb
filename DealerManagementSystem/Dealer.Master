@@ -426,10 +426,6 @@
                 width: 100% !important;
             }
 
-            .fa {
-                visibility: hidden;
-            }
-
             #userprofile {
                 display: none;
             }
@@ -931,7 +927,9 @@
                 font-family: "Open Sans",sans-serif;
                 font-size: large;
             }
-
+            .fa-angle-down:hover #mySidebar{
+                
+            }
 
     </style>
     <script>
@@ -968,7 +966,7 @@
                 document.getElementById("mySidebar").style.width = "250px";
             }
             if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
-                document.getElementById("w3mainclass").style.marginLeft = "auto";
+                document.getElementById("w3mainclass").style.marginLeft = "50px";
             }
             else {
                 document.getElementById("w3mainclass").style.marginLeft = "250px";
