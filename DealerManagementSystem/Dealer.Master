@@ -762,6 +762,7 @@
         .Grid td .form-control {
             height: 35px;
             padding: inherit;
+            width:100%;
         }
 
         .table > tbody > tr > td {
