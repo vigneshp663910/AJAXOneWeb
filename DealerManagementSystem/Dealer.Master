@@ -955,11 +955,24 @@
         }
 
         function w3_close() {
-            //alert('Hi');
+            alert('Hi');
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
-
+        function w3_closeSideBar() {
+            if (document.getElementById("mySidebar").style.width == "250px") {
+                document.getElementById("mySidebar").style.width = "49px";
+            }
+            else {
+                document.getElementById("mySidebar").style.width = "250px";
+            }
+            if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
+                document.getElementById("w3mainclass").style.marginLeft = "auto";
+            }
+            else {
+                document.getElementById("w3mainclass").style.marginLeft = "250px";
+            }
+        }
 
     </script>
 
@@ -1038,7 +1051,7 @@
                     </div>
 
                     <div class="w3-display-topleft" style="color: white; padding-left: 235px">
-                        <a class="navbar-brand" href="javascript:void(0)" onclick="w3_close()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
+                        <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
                     </div>
 
                     <div class="w3-display-topmiddle appico">
@@ -1089,7 +1102,7 @@
 
         <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
-        <div class="w3-main" style="margin-left: 250px;">
+        <div id="w3mainclass" class="w3-main" style="margin-left: 250px;">
 
             <%--<br />--%>
             <div class="ProjectTitle">
