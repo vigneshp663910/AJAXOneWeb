@@ -13,11 +13,7 @@
                         <label>DealerCode</label>
                     </div>
                     <div class="col-md-2">
-                        <asp:TextBox ID="txtDealerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>
-                    <div class="col-md-8">
-                        <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve"></asp:Button>
-                        <asp:Button ID="btnAddCustomer" runat="server" CssClass="btn Save" Text="Add Customer" Width="110px"></asp:Button>
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />
                     </div>
                 </div>
             </fieldset>
@@ -29,16 +25,10 @@
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomer_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="CustomerID">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" />
+                                        <itemstyle width="20px" horizontalalign="center"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Customer Code">
@@ -53,12 +43,17 @@
                                         <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
-                                <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                <asp:TemplateField HeaderText="Customer Name">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lbViewCustomer" runat="server" OnClick="lbViewCustomer_Click">
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" />
                                         </asp:LinkButton>
                                         <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lblCustomerDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -68,6 +63,17 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
+                        <div id="DivCustomer" runat="server" visible="true">
+                            <div class="col-md-2 text-right">
+                                <label>Customer Code</label>
+                            </div>
+                            <div class="col-md-2">
+                                <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-2">
+                                <asp:Button ID="BtnSave" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSave_Click"></asp:Button>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
             </div>
