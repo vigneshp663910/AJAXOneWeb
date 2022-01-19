@@ -38,6 +38,7 @@
                 grid-gap: 5px;
                 background-color: #2196F3;
                 padding: 10px;
+                margin-left:1px;
             }
 
                 .grid-container > div {

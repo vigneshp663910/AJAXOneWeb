@@ -24,7 +24,7 @@
         <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/bg05q.png" Width="100%" Height="200%"/>     
     </div>--%>
 
-    <div id="grad1" style="width: 100%; height: 100%; position: absolute;">
+    <div id="grad1" style="width: 100%; height: 100%; position: absolute; margin-left:1px;">
         <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/bg01.jpg" Width="100%" Height="200%" />
     </div>
 

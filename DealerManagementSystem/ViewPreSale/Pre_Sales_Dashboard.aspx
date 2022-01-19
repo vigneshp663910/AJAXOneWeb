@@ -21,6 +21,7 @@
             border-top: 0;
             padding-bottom: 11px;
             padding-top:11px;
+            margin-left:1px;
         }
 
             .portlet.box.green > .portlet-title {
@@ -28,6 +29,7 @@
                /*  background-color: #00CED1;*/
                 /* background-color: #0000cc;*/
                 /*   background-color: #000099;*/
+                
             }
 
         .portlet.box > .portlet-title {
