@@ -20,8 +20,8 @@ namespace DealerManagementSystem.ViewMaster
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master <i class= '+ '"' + 'fa fa-angle-double-down fa-2x' + '"'> </i>Customer');</script>");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master < i class='fa fa-fw fa-home font-white' style='color: lightgray'></i> Customer');</script>");
 
-            
 
+            lblMessageCustomer.Text = "";
             lblMessage.Text = "";
             if (!IsPostBack)
             {
@@ -34,8 +34,11 @@ namespace DealerManagementSystem.ViewMaster
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
-        { 
-
+        {
+            SearchCustomer();
+        }
+        void SearchCustomer()
+        {
             long? CustomerID = null;
             string CustomerCode = null;
             string CustomerName = txtCustomer.Text.Trim();
@@ -45,9 +48,9 @@ namespace DealerManagementSystem.ViewMaster
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             int? DistrictID = null;
             List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomerProspect(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
-             
-            gvLead.DataSource = Leads;
-            gvLead.DataBind();
+
+            gvCustomer.DataSource = Leads;
+            gvCustomer.DataBind();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -57,17 +60,35 @@ namespace DealerManagementSystem.ViewMaster
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string Message = UC_Customer.ValidationCustomer();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true; 
+            lblMessageCustomer.ForeColor = Color.Red;
+            lblMessageCustomer.Visible = true;
+            MPE_Customer.Show();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageCustomer.Text = Message;
                 return;
-            }  
-            PDMS_Customer cust =  UC_Customer.ReadCustomer(); 
+            }
+            PDMS_Customer cust = UC_Customer.ReadCustomer();
             string result = new BAPI().ApiPut("Customer/CustomerProspect", cust);
+            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data); 
+            if (result == "0")
+            {
+                MPE_Customer.Show();
+                lblMessageCustomer.Text = "Customer is not updated successfully ";
+                return;
+            }
+            else
+            {
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "Customer is updated successfully ";
+            }
+            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomerProspect(Convert.ToInt64(result), "", "", "", null, null, null);
+            gvCustomer.DataSource = Leads;
+            gvCustomer.DataBind();
             UC_Customer.FillClean();
-        } 
+            MPE_Customer.Hide(); 
+        }
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
             divCustomerView.Visible = true;
@@ -97,5 +118,10 @@ namespace DealerManagementSystem.ViewMaster
             UC_Customer.FillMaster();
         }
 
+        protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomer.PageIndex = e.NewPageIndex;
+            SearchCustomer();
+        }
     }
 }

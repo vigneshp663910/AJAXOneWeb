@@ -137,6 +137,9 @@ namespace Business
                     DbParameter Product = provider.CreateParameter("Product", Material.Product, DbType.String);
                     DbParameter ProductGroup = provider.CreateParameter("ProductGroup", Material.ProductGroup, DbType.String);
                     DbParameter IsActive = provider.CreateParameter("IsActive", Material.IsActive, DbType.Boolean);
+                    DbParameter Model = provider.CreateParameter("Model", Material.Model.Model, DbType.String);
+                    DbParameter DivisionCode = provider.CreateParameter("DivisionCode", Material.Model.Division.DivisionCode, DbType.String);
+                    DbParameter DivisionDescription = provider.CreateParameter("DivisionDescription", Material.Model.Division.DivisionDescription, DbType.String);
 
 
                     DbParameter[] Params = new DbParameter[19] { MaterialCode,ValidFrom,ValidTo, MaterialDescription, BaseUnit,MaterialType
