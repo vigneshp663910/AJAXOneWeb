@@ -686,5 +686,70 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             
         }
+        public List<PDMS_Customer> GetDealerCustomer(int? DealerID, string DealerCode)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_Customer> Customers = new List<PDMS_Customer>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+
+                PDMS_Customer Customer = new PDMS_Customer();
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerCustomer", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Customer = new PDMS_Customer();
+                            Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
+                            Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+                            Customers.Add(Customer);
+                        }
+                    }
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("GetDealerCustomer", "ZDMS_GetDealerCustomer", ex);
+                throw ex;
+            }
+            return Customers;
+        }
+        public Boolean InsertOrUpdateDealerCustomerMapping(int? DealerCustomerMappingID, int? DealerID, string CustomerCode, int UserID, Boolean IsActive)
+        {
+            int result = 0;
+            TraceLogger.Log(DateTime.Now);
+            DbParameter DealerCustomerMappingIDP = provider.CreateParameter("DealerCustomerMappingID", DealerCustomerMappingID, DbType.Int32);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+            DbParameter[] Params = new DbParameter[5] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
+                    scope.Complete();
+                }
+                return true;
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Customer", "ZDMS_InsertOrUpdateDealerCustomerMapping", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Customer", " ZDMS_InsertOrUpdateDealerCustomerMapping", ex);
+            }
+
+            TraceLogger.Log(DateTime.Now);
+            return false;
+        }
     }
 }

@@ -53,7 +53,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lblCustomerDelete" runat="server"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="lblCustomerDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DealerCustomerMappingID")%>' OnClick="lblCustomerDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

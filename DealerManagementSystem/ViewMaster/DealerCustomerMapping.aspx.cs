@@ -101,5 +101,10 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void lblCustomerDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
