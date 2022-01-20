@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DealerManagementSystem/ViewMaster/DealerCustomerMapping.aspx
+/DealerManagementSystem/ViewMaster/DealerCustomerMapping.aspx.cs
+/DealerManagementSystem/ViewMaster/DealerCustomerMapping.aspx.designer.cs
