@@ -966,7 +966,9 @@
             if (document.getElementById("mySidebar").style.width == "250px") {
                 document.getElementById("mySidebar").style.width = "50px";             
                 w3_hide_angle_down();
-
+                document.getElementById("CompanyLogo").style.display = "none";
+                document.getElementById("SideBarToggle").style.paddingLeft = "0px"
+              
                 $('#Menu').find('div').each(function () {
                     var x2 = document.getElementById($(this).attr('id'));
                     x2.className = x2.className.replace(" w3-show", "");
@@ -975,6 +977,8 @@
             else {
                 document.getElementById("mySidebar").style.width = "250px";          
                 w3_disp_angle_down()
+                document.getElementById("CompanyLogo").style.display = "block";
+                document.getElementById("SideBarToggle").style.paddingLeft = "235Px"
             }
 
             if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
@@ -1085,11 +1089,11 @@
         <div class="ajaxheader">
             <div class="ajaxheaderinner">
                 <div class="row">
-                    <div class="logo">
+                    <div id="CompanyLogo" class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
 
-                    <div class="w3-display-topleft" style="color: white; padding-left: 235px">
+                    <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
                         <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
                     </div>
 
