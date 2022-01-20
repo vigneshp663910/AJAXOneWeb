@@ -35,15 +35,7 @@ namespace Properties
     {
         public int RelationID { get; set; }
         public string Relation { get; set; }
-    }
-    [Serializable]
-    public class PMarketSegment
-    {
-        public int MarketSegmentID { get; set; }
-        public string MarketSegment { get; set; }
-    }
-
-
+    } 
     [Serializable]
     public class PMake
     {

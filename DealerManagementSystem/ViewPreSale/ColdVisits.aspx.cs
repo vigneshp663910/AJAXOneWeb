@@ -244,7 +244,7 @@ namespace DealerManagementSystem.ViewPreSale
         public static List<string> GetCustomer(string CustS)
         {
             List<string> Emp = new List<string>();
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspectAutocomplete(CustS);
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS);
             int i = 0;
             foreach (PDMS_Customer cust in Customer)
             {

@@ -103,11 +103,6 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PExpenseType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
-        public List<PMarketSegment> GetMarketSegment(int? MarketSegmentID, string MarketSegment)
-        {
-            string endPoint = "Master/MarketSegment?MarketSegmentID=" + MarketSegmentID + "&MarketSegment=" + MarketSegment;
-            return JsonConvert.DeserializeObject<List<PMarketSegment>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
 
         public List<PMake> GetMake(int? MakeID, string Make)
         {

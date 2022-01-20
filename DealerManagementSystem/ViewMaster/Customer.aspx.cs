@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewMaster
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             int? DistrictID = null;
-            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomerProspect(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
+            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
 
             gvCustomer.DataSource = Leads;
             gvCustomer.DataBind();
@@ -69,7 +69,7 @@ namespace DealerManagementSystem.ViewMaster
                 return;
             }
             PDMS_Customer cust = UC_Customer.ReadCustomer();
-            string result = new BAPI().ApiPut("Customer/CustomerProspect", cust);
+            string result = new BAPI().ApiPut("Customer", cust);
             result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data); 
             if (result == "0")
             {
@@ -83,7 +83,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "Customer is updated successfully ";
             }
-            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomerProspect(Convert.ToInt64(result), "", "", "", null, null, null);
+            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null);
             gvCustomer.DataSource = Leads;
             gvCustomer.DataBind();
             UC_Customer.FillClean();

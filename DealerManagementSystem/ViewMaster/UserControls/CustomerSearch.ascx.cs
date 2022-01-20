@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void txtCustomer_TextChanged(object sender, EventArgs e)
         {
-            gvCustomer.DataSource = new BDMS_Customer().GetCustomerProspect(null, "", txtCustomer.Text.Trim(), "", null, null, null);
+            gvCustomer.DataSource = new BDMS_Customer().GetCustomer(null, "", txtCustomer.Text.Trim(), "", null, null, null);
             gvCustomer.DataBind();
         }
 

@@ -90,8 +90,8 @@
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                         <div class="col-md-12 Report">
-                            <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" 
-                                EmptyDataText="No Data Found"  PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomer_PageIndexChanging">
+                            <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomer_PageIndexChanging">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                         <ItemTemplate>
@@ -135,7 +135,10 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="text-right">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
@@ -153,10 +156,11 @@
     <div class="col-md-12">
         <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Add Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
             <div class="col-md-12">
-                 <asp:Label ID="lblMessageCustomer" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblMessageCustomer" runat="server" Text="" CssClass="message" Visible="false" />
                 <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
 
                 <div class="col-md-12 text-center">

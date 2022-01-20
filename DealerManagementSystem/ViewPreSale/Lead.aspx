@@ -426,21 +426,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                 <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" />
-                              <%--  <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" Width="70px" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged" AutoPostBack="true">
-                                    <asp:ListItem>Action</asp:ListItem>
-                                    <asp:ListItem>View Lead</asp:ListItem>
-                                    <asp:ListItem>Edit Lead</asp:ListItem>
-                                    <asp:ListItem>Convert to Prospect</asp:ListItem>
-                                    <asp:ListItem>Lost Lead</asp:ListItem>
-                                    <asp:ListItem>Cancel Lead</asp:ListItem>
-                                    <asp:ListItem>Assign</asp:ListItem>
-                                    <asp:ListItem>Add Follow-up</asp:ListItem>
-                                    <asp:ListItem>Customer Convocation</asp:ListItem>
-                                    <asp:ListItem>Edit Financial Info</asp:ListItem>
-                                    <asp:ListItem>Add Effort</asp:ListItem>
-                                    <asp:ListItem>Add Expense</asp:ListItem>
-                                </asp:DropDownList>--%>
+                                 <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" /> 
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
