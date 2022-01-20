@@ -720,7 +720,7 @@ namespace Business
             }
             return Customers;
         }
-        public Boolean InsertOrUpdateDealerCustomerMapping(int? DealerCustomerMappingID, int? DealerID, string CustomerCode, int UserID, Boolean IsActive)
+        public int InsertOrUpdateDealerCustomerMapping(int? DealerCustomerMappingID, int? DealerID, string CustomerCode, int UserID, Boolean IsActive)
         {
             int result = 0;
             TraceLogger.Log(DateTime.Now);
@@ -729,15 +729,20 @@ namespace Business
             DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-            DbParameter[] Params = new DbParameter[5] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP };
+            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
+            DbParameter[] Params = new DbParameter[6] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP, OutValue };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
+                    result=provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
+                    if (result != 0)
+                    {
+                        result = Convert.ToInt32(OutValue.Value);
+                    }
                     scope.Complete();
                 }
-                return true;
+                return result;
             }
             catch (SqlException sqlEx)
             {
@@ -745,11 +750,11 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_Customer", " ZDMS_InsertOrUpdateDealerCustomerMapping", ex);
+                new FileLogger().LogMessage("BDMS_Customer", "ZDMS_InsertOrUpdateDealerCustomerMapping", ex);
             }
 
             TraceLogger.Log(DateTime.Now);
-            return false;
+            return result;
         }
     }
 }
