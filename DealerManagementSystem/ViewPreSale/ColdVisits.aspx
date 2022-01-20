@@ -334,7 +334,7 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                  </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="text-right">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
