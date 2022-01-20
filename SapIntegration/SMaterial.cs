@@ -34,8 +34,9 @@ namespace SapIntegration
             PDMS_Material Material = null;
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
+            tagListBapi.SetValue("P_MATERIAL_DIS", "X");
             tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("IT_MAT");
+            IRfcTable tagTable = tagListBapi.GetTable("IT_MATERIAL");
             for (int i = 0; i < tagTable.RowCount; i++)
             {
                 tagTable.CurrentIndex = i;
@@ -49,11 +50,11 @@ namespace SapIntegration
                 Material.Model = new PDMS_Model()
                 {
                     ModelCode = tagTable.CurrentRow.GetString("MATERIAL_GROUP"),
-                    Model = "",
+                    Model = tagTable.CurrentRow.GetString("GROUP_DES"),
                     Division = new PDMS_Division()
                     {
-                        DivisionCode = "",
-                        DivisionDescription = ""
+                        DivisionCode = tagTable.CurrentRow.GetString("SPART"),
+                        DivisionDescription = tagTable.CurrentRow.GetString("DIVISION_DES")
                     },
                 };
                 Material.SubCategory = tagTable.CurrentRow.GetString("SUB_CATEGORY");
