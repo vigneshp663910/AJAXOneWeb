@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">f
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         window.onload = function () {
             if (screen.width < 450) {
@@ -927,11 +927,11 @@
                 font-family: "Open Sans",sans-serif;
                 font-size: large;
             }
-            .fa-angle-down:hover #mySidebar{
-                
+            #mySidebar:hover{
+                width:250px;
             }
-
     </style>
+
     <script>
         /*const {hidden} = require("modernizr");*/
 
@@ -954,7 +954,7 @@
         }
 
         function w3_close() {
-            alert('Hi');
+            //alert('Hi');
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
@@ -976,7 +976,8 @@
     </script>
 
 
-    <%-- <script>
+     <script>
+<%--
         function MenuMaster() {
             var x = document.getElementById('Master');
             if (x.className.indexOf('w3-show') == -1) {
@@ -985,8 +986,6 @@
                 x.className = x.className.replace(' w3-show', '');
             }
         }
-    </script>
-    <script>
         function MenuMasters() {
             var x = document.getElementById("Masters");
             if (x.className.indexOf("w3-show") == -1) {
@@ -1035,8 +1034,9 @@
         function w3_close() {
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
-        }
-    </script>--%>
+        }--%>
+     </script>
+        
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -1081,7 +1081,7 @@
 
         <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;">
             <br>
-            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 32px; text-align:right"><span>&nbsp;&nbsp;&times&nbsp;&nbsp;</span></a>
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 32px; text-align: right"><span>&nbsp;&nbsp;&times&nbsp;&nbsp;</span></a>
 
             <div class="w3-bar-block">
                 <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">

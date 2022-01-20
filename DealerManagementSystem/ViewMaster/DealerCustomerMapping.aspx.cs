@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using Business;
+using Properties;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Drawing;
+
+namespace DealerManagementSystem.ViewMaster
+{
+    public partial class DealerCustomerMapping : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                FillDealer();                
+            }
+        }
+        void FillDealer()
+        {
+            List<PDMS_Dealer> Dealer = new List<PDMS_Dealer>();
+            Dealer = new BDMS_Dealer().GetDealer(null, null);
+            new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
+        }
+        void FillCustomer()
+        {
+            int? DealerID = null;
+            string DealerCode = null;
+            if (ddlDealerCode.SelectedValue!="0")
+            {
+                DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue.Trim());
+            }
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
+            gvCustomer.DataSource = Customer;
+            gvCustomer.DataBind();
+        }
+        protected void lbViewCustomer_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomer.PageIndex = e.NewPageIndex;
+            FillCustomer();
+        }
+
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillCustomer();
+        }
+
+        protected void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                lblMessage.Text = string.Empty;
+                Boolean Success = true;
+                string Message = "";
+
+                if (ddlDealerCode.SelectedValue=="0")
+                {
+                    Message = Message + "<br/> Please Select the Dealer...!";
+                    Success = false;
+                }
+                if(string.IsNullOrEmpty(txtCustomerCode.Text.Trim()))
+                {
+                    Message = Message + "<br/> Please Enter the CustomerCode...!";
+                    Success = false;
+                }
+                lblMessage.Text = Message;
+                if (Success == false)
+                {
+                    return;
+                }
+                else
+                {
+                    Success = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
+                    if (Success == true)
+                    {
+                        lblMessage.Text = "Dealer To Customer Mapped successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        FillCustomer();
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Dealer To Customer Is Not Mapped successfully";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                lblMessage.Visible = true;
+                lblMessage.Text = Ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+    }
+}
