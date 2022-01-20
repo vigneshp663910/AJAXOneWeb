@@ -21,4 +21,33 @@ namespace Properties
         public int ActionTypeID { get; set; }
         public string ActionType { get; set; }
     }
+    public class PVisitTarget
+    {
+        public long VisitTargetID { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public PDMS_DealerEmployee Employee { get; set; }
+        public int NewCustomerTarget { get; set; }
+        public int ProspectCustomerTarget { get; set; }
+        public int ExistCustomerTarget { get; set; }
+        public int TotalTarget
+        {
+            get
+            {
+                return NewCustomerTarget + ProspectCustomerTarget + ExistCustomerTarget;
+            }
+        }
+        public int NewCustomerActual { get; set; }
+        public int ProspectCustomerActual { get; set; }
+        public int ExistCustomerActual { get; set; }
+        public int TotalActual
+        {
+            get
+            {
+                return NewCustomerActual + ProspectCustomerActual + ExistCustomerActual;
+            }
+        } 
+        public PUser CreatedBy { get; set; }
+    }
 }

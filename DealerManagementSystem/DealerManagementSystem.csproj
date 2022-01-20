@@ -303,6 +303,7 @@
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
+    <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -960,6 +961,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadView.ascx.designer.cs">
       <DependentUpon>LeadView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
+      <DependentUpon>VisitTargetManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
+      <DependentUpon>VisitTargetManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
