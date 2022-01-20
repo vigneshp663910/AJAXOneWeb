@@ -122,7 +122,7 @@ namespace Business
                     DbParameter BaseUnit = provider.CreateParameter("BaseUnit", Material.BaseUnit, DbType.String);
                     DbParameter MaterialType = provider.CreateParameter("MaterialType", Material.MaterialType, DbType.String);
                     DbParameter MaterialGroup = provider.CreateParameter("MaterialGroup", Material.MaterialGroup, DbType.String);
-                    DbParameter ModelID = provider.CreateParameter("ModelCode", Material.Model.ModelCode, DbType.String);
+                    DbParameter ModelCode = provider.CreateParameter("ModelCode", Material.Model.ModelCode, DbType.String);
                     DbParameter SubCategory = provider.CreateParameter("SubCategory", Material.SubCategory, DbType.String);
                     DbParameter GrossWeight = provider.CreateParameter("GrossWeight", Material.GrossWeight, DbType.Decimal);
                     DbParameter NetWeight = provider.CreateParameter("NetWeight", Material.NetWeight, DbType.Decimal);
@@ -136,14 +136,15 @@ namespace Business
 
                     DbParameter Product = provider.CreateParameter("Product", Material.Product, DbType.String);
                     DbParameter ProductGroup = provider.CreateParameter("ProductGroup", Material.ProductGroup, DbType.String);
-                    DbParameter IsActive = provider.CreateParameter("IsActive", Material.IsActive, DbType.Boolean);
                     DbParameter Model = provider.CreateParameter("Model", Material.Model.Model, DbType.String);
                     DbParameter DivisionCode = provider.CreateParameter("DivisionCode", Material.Model.Division.DivisionCode, DbType.String);
                     DbParameter DivisionDescription = provider.CreateParameter("DivisionDescription", Material.Model.Division.DivisionDescription, DbType.String);
+                    DbParameter IsActive = provider.CreateParameter("IsActive", Material.IsActive, DbType.Boolean);
+                    
 
 
-                    DbParameter[] Params = new DbParameter[19] { MaterialCode,ValidFrom,ValidTo, MaterialDescription, BaseUnit,MaterialType
-                                    , MaterialGroup,ModelID,SubCategory, GrossWeight, NetWeight,SerialProfile,WeightUnit,HSNCode, CurrentPrice, TaxPercentage ,Product,ProductGroup,IsActive};
+                    DbParameter[] Params = new DbParameter[22] { MaterialCode,ValidFrom,ValidTo, MaterialDescription, BaseUnit,MaterialType
+                                    , MaterialGroup,ModelCode,SubCategory, GrossWeight, NetWeight,SerialProfile,WeightUnit,HSNCode, CurrentPrice, TaxPercentage ,Product,ProductGroup,Model,DivisionCode,DivisionDescription,IsActive};
                     try
                     {
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
