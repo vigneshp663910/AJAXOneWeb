@@ -343,7 +343,7 @@
         }
 
         .Grid td a {
-            color: black;
+            color: blue;
         }
 
         .Grid.table > tbody > tr > td {
