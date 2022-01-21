@@ -19,6 +19,7 @@
 
             #div1 {
                 height: 93.2vh;
+                /* margin-left: 0px;*/
             }
         }
 
