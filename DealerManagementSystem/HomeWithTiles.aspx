@@ -85,7 +85,7 @@
 
         <div class="container">
             <div class="first">
-                <p>first first </p>
+                <p>first</p>
 
             </div>
 
