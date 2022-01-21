@@ -35,6 +35,8 @@ namespace Properties
         public string Email { get; set; }
 
         public string Address12 { get; set; }
+        public PCustomerType Type { get; set; }
+        public PCustomerTitle Title { get; set; }
         public PDMS_CustomerCategory CustomerCategory { get; set; }
 
         public string Address1 { get; set; }
@@ -54,6 +56,18 @@ namespace Properties
         public DateTime? DOAnniversary { get; set; }
         public Boolean SendSMS { get; set; }
         public Boolean SendEmail { get; set; }
+    }
+    [Serializable]
+    public class PCustomerTitle
+    {
+        public long TitleID { get; set; }
+        public string Title { get; set; }
+    }
+    [Serializable]
+    public class PCustomerType
+    {
+        public int CustomerTypeID { get; set; }
+        public string CustomerType { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerCategory
@@ -100,14 +114,31 @@ namespace Properties
 
     }
     [Serializable]
-    public class PCustomerMarketSegment
+    public class PCustomerAttribute
     {
-        public long CustomerMarketSegmentID { get; set; }
+        public long CustomerAttributeID { get; set; }
         public long CustomerID { get; set; }
-        public PMarketSegment MarketSegment { get; set; }
+        public PCustomerAttributeMain AttributeMain { get; set; }
+        public PCustomerAttributeSub AttributeSub { get; set; }
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
     }
+
+    [Serializable]
+    public class PCustomerAttributeMain
+    {
+        public int AttributeMainID { get; set; }
+        public string AttributeMain { get; set; }
+    }
+    [Serializable]
+    public class PCustomerAttributeSub
+    {
+        public int AttributeSubID { get; set; }
+        public int AttributeMainID { get; set; }
+        public string AttributeSub { get; set; }
+    }
+
+
     public class PDMS_CustomerJSON
     {
         public string fromentityname { get; set; }

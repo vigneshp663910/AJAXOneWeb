@@ -29,7 +29,7 @@ namespace DealerManagementSystem
         {
             List<string> Emp = new List<string>();
 
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerProspectAutocomplete(empName);
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(empName);
             int i = 0;
             foreach (PDMS_Customer cust in Customer)
             {

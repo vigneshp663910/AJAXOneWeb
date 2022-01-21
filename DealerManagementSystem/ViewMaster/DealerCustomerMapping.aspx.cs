@@ -60,6 +60,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 lblMessage.Text = string.Empty;
                 Boolean Success = true;
+                int Result = 0;
                 string Message = "";
 
                 if (ddlDealerCode.SelectedValue=="0")
@@ -79,12 +80,18 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    Success = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
-                    if (Success == true)
+                    Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
+                    if (Result == 1)
                     {
                         lblMessage.Text = "Dealer To Customer Mapped successfully";
                         lblMessage.ForeColor = Color.Green;
                         FillCustomer();
+                    }
+                    else if(Result == 2)
+                    {
+                        lblMessage.Text = "Dealer To Customer Already Mapped";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
                     }
                     else
                     {
@@ -104,7 +111,22 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void lblCustomerDelete_Click(object sender, EventArgs e)
         {
-
+            int Result = 0;
+            LinkButton lblCustomerDelete = (LinkButton)sender;
+            string customercode = lblCustomerDelete.CommandArgument;
+            Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), customercode.ToString().Trim(), PSession.User.UserID, false);
+            if (Result == 1)
+            {
+                lblMessage.Text = "Mapping was Deleted successfully";
+                lblMessage.ForeColor = Color.Green;
+                FillCustomer();
+            }
+            else
+            {
+                lblMessage.Text = "Mapping was not deleted successfully";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
         }
     }
 }

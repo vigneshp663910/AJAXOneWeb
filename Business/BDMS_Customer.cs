@@ -602,87 +602,52 @@ namespace Business
         }
 
 
-        public List<PDMS_Customer> GetCustomerProspect(long?  CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID)
-        { 
+        public List<PDMS_Customer> GetCustomer(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID)
+        {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Customer/CustomerProspect?CustomerID=" + CustomerID + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile
+            string endPoint = "Customer?CustomerID=" + CustomerID + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile
                 + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-            //List<PDMS_Customer> Customers = new List<PDMS_Customer>();
-            //try
-            //{
-            //    DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int64);
-            //    DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
-            //    DbParameter CustomerNameP = provider.CreateParameter("CustomerName", string.IsNullOrEmpty(CustomerName) ? null : CustomerName, DbType.String);
-            //    DbParameter MobileP = provider.CreateParameter("Mobile", string.IsNullOrEmpty(Mobile) ? null : Mobile, DbType.String);
-            //    DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-            //    DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-            //    DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-            //    DbParameter[] Params = new DbParameter[7] { CustomerIDP, CustomerCodeP, CustomerNameP, MobileP, CountryIDP, StateIDP, DistrictIDP };
-
-            //    PDMS_Customer Customer = new PDMS_Customer();
-            //    using (DataSet DataSet = provider.Select("ZDMS_GetCustomerProspect", Params))
-            //    {
-            //        if (DataSet != null)
-            //        {
-            //            foreach (DataRow dr in DataSet.Tables[0].Rows)
-            //            {
-            //                Customer = new PDMS_Customer();
-            //                Customers.Add(Customer);
-            //                Customer.CustomerID = Convert.ToInt64(dr["CustomerProspectID"]);
-            //                Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-            //                Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-            //                Customer.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-            //                Customer.Mobile = Convert.ToString(dr["Mobile"]);
-            //                Customer.AlternativeMobile = Convert.ToString(dr["AlternativeMobile"]);
-            //                Customer.Email = Convert.ToString(dr["Email"]);
-            //                Customer.Address1 = Convert.ToString(dr["Address1"]);
-            //                Customer.Address2 = Convert.ToString(dr["Address2"]);
-            //                Customer.Address3 = Convert.ToString(dr["Address3"]);
-
-            //                Customer.Country = new PDMS_Country() { Country = Convert.ToString(dr["CustomerName"]) };
-            //                Customer.State = new PDMS_State() { State = Convert.ToString(dr["CustomerName"]) };
-            //                Customer.District = new PDMS_District() { District = Convert.ToString(dr["CustomerName"]) };
-
-            //                Customer.City = Convert.ToString(dr["City"]);
-            //                Customer.Pincode = Convert.ToString(dr["Pincode"]);
-            //                Customer.GSTIN = Convert.ToString(dr["GSTIN"]);
-            //                Customer.PAN = Convert.ToString(dr["PAN"]);
-            //            }
-            //        }
-            //    }
-
-            //    TraceLogger.Log(DateTime.Now);
-            //}
-            //catch (Exception ex)
-            //{
-            //    new FileLogger().LogMessage("BDMS_Customer", "GetCustomerProspect", ex);
-            //    throw ex;
-            //}
-            //return Customers;
         }
-        public List<PCustomerMarketSegment> GetCustomerMarketSegment(long? CustomerID,int? CreatedBy)
+        public List<PCustomerTitle> GetCustomerTitle(int? TitleID, string Title)
         {
-            string endPoint = "Customer/MarketSegment?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
-            return JsonConvert.DeserializeObject<List<PCustomerMarketSegment>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/Title?TitleID=" + TitleID + "&Title=" + Title;
+            return JsonConvert.DeserializeObject<List<PCustomerTitle>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PCustomerAttribute> GetCustomerAttribute(long? CustomerID,int? CreatedBy)
+        {
+            string endPoint = "Customer/Attribute?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
+            return JsonConvert.DeserializeObject<List<PCustomerAttribute>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public List<PCustomerAttributeMain> GetCustomerAttributeMain(int? AttributeMainID, string AttributeMain)
+        {
+            string endPoint = "Customer/AttributeMain?AttributeMainID=" + AttributeMainID + "&AttributeMain=" + AttributeMain;
+            return JsonConvert.DeserializeObject<List<PCustomerAttributeMain>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PCustomerAttributeSub> GetCustomerAttributeSub(int? AttributeSubID, int? AttributeMainID, string AttributeSub)
+        {
+            string endPoint = "Customer/AttributeSub?AttributeSubID=" + AttributeSubID + "&AttributeMainID=" + AttributeMainID + "&AttributeSub=" + AttributeSub;
+            return JsonConvert.DeserializeObject<List<PCustomerAttributeSub>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PCustomerRelation> GetCustomerRelation(long? CustomerID, int? CreatedBy)
         {
             string endPoint = "Customer/Relation?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
             return JsonConvert.DeserializeObject<List<PCustomerRelation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PCustomerProduct> GetCustomerProduct(long? CustomerProspectID, long? ICTicketID, long? AvailabilityOfOtherMachineID, int? TypeOfMachineID, int? MakeID)
+        public List<PCustomerProduct> GetCustomerProduct(long? CustomerID, long? ICTicketID, long? AvailabilityOfOtherMachineID, int? TypeOfMachineID, int? MakeID)
         {
-            string endPoint = "Customer/Product?CustomerProspectID=" + CustomerProspectID + "&ICTicketID=" + ICTicketID + "&AvailabilityOfOtherMachineID=" + AvailabilityOfOtherMachineID
+            string endPoint = "Customer/Product?CustomerID=" + CustomerID + "&ICTicketID=" + ICTicketID + "&AvailabilityOfOtherMachineID=" + AvailabilityOfOtherMachineID
                 + "&TypeOfMachineID=" + TypeOfMachineID + "&MakeID=" + MakeID;
             return JsonConvert.DeserializeObject<List<PCustomerProduct>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
 
-        public List<PDMS_Customer> GetCustomerProspectAutocomplete(string Customer)
+        public List<PDMS_Customer> GetCustomerAutocomplete(string Customer)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Customer/CustomerProspectAutocomplete?Customer=" + Customer;
+            string endPoint = "Customer/CustomerAutocomplete?Customer=" + Customer;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             
         }
@@ -720,7 +685,7 @@ namespace Business
             }
             return Customers;
         }
-        public Boolean InsertOrUpdateDealerCustomerMapping(int? DealerCustomerMappingID, int? DealerID, string CustomerCode, int UserID, Boolean IsActive)
+        public int InsertOrUpdateDealerCustomerMapping(int? DealerCustomerMappingID, int? DealerID, string CustomerCode, int UserID, Boolean IsActive)
         {
             int result = 0;
             TraceLogger.Log(DateTime.Now);
@@ -729,15 +694,20 @@ namespace Business
             DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-            DbParameter[] Params = new DbParameter[5] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP };
+            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
+            DbParameter[] Params = new DbParameter[6] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP, OutValue };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
+                    result=provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
+                    if (result != 0)
+                    {
+                        result = Convert.ToInt32(OutValue.Value);
+                    }
                     scope.Complete();
                 }
-                return true;
+                return result;
             }
             catch (SqlException sqlEx)
             {
@@ -745,11 +715,11 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_Customer", " ZDMS_InsertOrUpdateDealerCustomerMapping", ex);
+                new FileLogger().LogMessage("BDMS_Customer", "ZDMS_InsertOrUpdateDealerCustomerMapping", ex);
             }
 
             TraceLogger.Log(DateTime.Now);
-            return false;
+            return result;
         }
     }
 }

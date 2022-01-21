@@ -77,6 +77,12 @@
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
                 <div class="col-md-2 text-right">
+                    <label>Title</label>
+                </div>
+                <div class="col-md-4">
+                    <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-2 text-right">
                     <label>Customer Name</label>
                 </div>
                 <div class="col-md-4">

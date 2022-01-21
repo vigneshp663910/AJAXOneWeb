@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             Session["CustomerID"] = CustomerID;
             PDMS_Customer Customer = new PDMS_Customer();
-            Customer = new BDMS_Customer().GetCustomerProspect(CustomerID, "", "", null, null, null, null)[0];
+            Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
 
             lblCustomer.Text = (Customer.CustomerCode + " " + Customer.CustomerName).Trim();
             lblContactPerson.Text = Customer.ContactPerson;
@@ -53,7 +53,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             string Location = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
             lblLocation.Text = Location;
 
-            fillMarketSegment(CustomerID);
+            fillAttribute(CustomerID);
             fillRelation(CustomerID);
             fillProduct(CustomerID);
         }
@@ -68,13 +68,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 //  lblMessage.Text = Message;
                 return;
             }
-            PCustomerMarketSegment MarketSegment = new PCustomerMarketSegment();
-            MarketSegment.CustomerID = CustomerID;
-            MarketSegment.MarketSegment = new PMarketSegment() { MarketSegmentID = Convert.ToInt32(ddlMarketSegment.SelectedValue) };
-            MarketSegment.Remark = txtRemark.Text.Trim();
-            MarketSegment.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/MarketSegment", MarketSegment)).Data);
-            fillMarketSegment(CustomerID);
+            PCustomerAttribute Attribute = new PCustomerAttribute();
+            Attribute.CustomerID = CustomerID;
+            Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = Convert.ToInt32(ddlAttributeMain.SelectedValue) };
+            Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = Convert.ToInt32(ddlAttributeSub.SelectedValue) };
+            Attribute.Remark = txtRemark.Text.Trim();
+            Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
+            fillAttribute(CustomerID);
         }
         protected void btnSaveProduct_Click(object sender, EventArgs e)
         {
@@ -121,10 +122,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             return "";
         }
 
-        void fillMarketSegment(long CustomerID)
+        void fillAttribute(long CustomerID)
         {
-            gvMarketSegment.DataSource = new BDMS_Customer().GetCustomerMarketSegment(CustomerID, null);
-            gvMarketSegment.DataBind();
+            gvAttribute.DataSource = new BDMS_Customer().GetCustomerAttribute(CustomerID, null);
+            gvAttribute.DataBind();
         }
         void fillProduct(long CustomerID)
         {
@@ -151,57 +152,27 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PDMS_Customer Customer = UC_Customer.ReadCustomer();
             Customer.CustomerID = CustomerID;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            string result = new BAPI().ApiPut("Customer/CustomerProspect", Customer);
+            string result = new BAPI().ApiPut("Customer/Customer", Customer);
             fillCustomer(CustomerID);
-        }
-
-        
-
-        protected void lbEditCustomer_Click(object sender, EventArgs e)
-        {
-            MPE_Customer.Show();
-            PDMS_Customer Customer = new PDMS_Customer();
-            Customer = new BDMS_Customer().GetCustomerProspect(CustomerID, "", "", null, null, null, null)[0];
-            UC_Customer.FillMaster();
-            UC_Customer.FillCustomer(Customer);
-        }
-
-        protected void lbViewAditTrails_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lbAddMarketSegment_Click(object sender, EventArgs e)
-        {
-            new DDLBind(ddlMarketSegment, new BDMS_Master().GetMarketSegment(null, null), "MarketSegment", "MarketSegmentID");
-            MPE_MarketSegment.Show();
-        }
-
-        protected void lbAddProduct_Click(object sender, EventArgs e)
-        {
-            new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
-            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
-            MPE_Product.Show();
-        }
-
-        protected void lbAddRelation_Click(object sender, EventArgs e)
-        {
-            new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
-            MPE_Relation.Show();
-        }
+        } 
 
         protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblCustomerMarketSegmentID = (Label)gvRow.FindControl("lblCustomerMarketSegmentID");
-            PCustomerMarketSegment MarketSegment = new PCustomerMarketSegment();
-            MarketSegment.CustomerMarketSegmentID = Convert.ToInt64(lblCustomerMarketSegmentID.Text);
-            MarketSegment.CustomerID = CustomerID;
-            MarketSegment.MarketSegment = new PMarketSegment() { MarketSegmentID = 0 };
-            MarketSegment.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/MarketSegment", MarketSegment)).Data);
-            fillMarketSegment(CustomerID);
+            Label lblCustomerAttributeID = (Label)gvRow.FindControl("lblCustomerAttributeID");
+            PCustomerAttribute Attribute = new PCustomerAttribute();
+            Attribute.CustomerAttributeID = Convert.ToInt64(lblCustomerAttributeID.Text);
+            Attribute.CustomerID = CustomerID;  
+             
+            Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = 0 };
+            Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0};
+            Attribute.Remark = txtRemark.Text.Trim();
+            Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+
+            Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
+            fillAttribute(CustomerID);
         }
 
         protected void lbProductDelete_Click(object sender, EventArgs e)
@@ -234,6 +205,40 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillRelation(CustomerID);
         }
 
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Edit Customer")
+            {
+                MPE_Customer.Show();
+                PDMS_Customer Customer = new PDMS_Customer();
+                Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
+                UC_Customer.FillMaster();
+                UC_Customer.FillCustomer(Customer);
+            }
+            else if (lbActions.Text == "Add Attribute")
+            {
+                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");    
+                MPE_MarketSegment.Show();
+            }
+            else if (lbActions.Text == "Add Product")
+            {
+                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+                new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+                MPE_Product.Show();
+            }
+            else if (lbActions.Text == "Add Relation")
+            {
+                new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                MPE_Relation.Show();
+            } 
+        }
 
+        protected void ddlAttributeMain_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            new DDLBind(ddlAttributeSub, new BDMS_Customer().GetCustomerAttributeSub(null,Convert.ToInt32(ddlAttributeMain.SelectedValue), null), "AttributeSub", "AttributeSubID");
+            MPE_MarketSegment.Show();
+        }
     }
 }

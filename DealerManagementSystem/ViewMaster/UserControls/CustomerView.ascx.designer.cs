@@ -132,13 +132,40 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbAddRelation;
 
         /// <summary>
-        /// gvMarketSegment control.
+        /// tbpCust control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMarketSegment;
+        protected global::AjaxControlToolkit.TabContainer tbpCust;
+
+        /// <summary>
+        /// tpnlAttribute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlAttribute;
+
+        /// <summary>
+        /// gvAttribute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAttribute;
+
+        /// <summary>
+        /// tpnlProducts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlProducts;
 
         /// <summary>
         /// gvProduct control.
@@ -150,6 +177,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.GridView gvProduct;
 
         /// <summary>
+        /// tpnlRelations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlRelations;
+
+        /// <summary>
         /// gvRelation control.
         /// </summary>
         /// <remarks>
@@ -157,6 +193,33 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRelation;
+
+        /// <summary>
+        /// tpnlEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlEmployee;
+
+        /// <summary>
+        /// gvEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEmployee;
+
+        /// <summary>
+        /// TabPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel2;
 
         /// <summary>
         /// pnlAddMarketSegment control.
@@ -186,13 +249,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
-        /// ddlMarketSegment control.
+        /// ddlAttributeMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMarketSegment;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAttributeMain;
+
+        /// <summary>
+        /// ddlAttributeSub control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAttributeSub;
 
         /// <summary>
         /// txtRemark control.

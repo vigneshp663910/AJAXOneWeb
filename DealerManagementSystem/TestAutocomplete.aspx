@@ -161,7 +161,7 @@
         //        source: function (request, response) {
         //            debugger
         //            var param = { empName: $('#txtEmpName').val() };
-        //            $.get("https://localhost:44302/api/Customer/CustomerProspectAutocomplete?Customer=" + $('#txtEmpName').val(), function (data) {
+        //            $.get("https://localhost:44302/api/Customer/CustomerAutocomplete?Customer=" + $('#txtEmpName').val(), function (data) {
         //                debugger
         //                alert("Data: " + data );
         //                document.getElementById('divAuto').style.display = "block";

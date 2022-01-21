@@ -20,7 +20,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
         }
         public void FillMaster()
-        {  
+        {
+            new DDLBind(ddlTitle, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID",false);
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID"); 
             ddlCountry.SelectedValue = "1";  
             new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");  
@@ -50,6 +51,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         public PDMS_Customer ReadCustomer()
         {
             PDMS_Customer Customer = new PDMS_Customer();
+            Customer.Title = new PCustomerTitle() { TitleID = Convert.ToInt32(ddlTitle.SelectedValue) };
             Customer.CustomerName = txtCustomerName.Text.Trim();
             Customer.GSTIN = txtGSTIN.Text.Trim();
             Customer.PAN = txtPAN.Text.Trim();
@@ -146,6 +148,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtCustomerName.BorderColor = Color.Silver;
             txtContactPerson.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
+            txtAlternativeMobile.BorderColor = Color.Silver;
             txtAddress1.BorderColor = Color.Silver;
             txtPincode.BorderColor = Color.Silver;
 
@@ -182,6 +185,21 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Message = Message + "<br/>Mobile should be 10 digit";
                 Ret = false;
                 txtMobile.BorderColor = Color.Red;
+            }
+            else if (!string.IsNullOrEmpty(txtAlternativeMobile.Text.Trim()))
+            {
+                if (txtAlternativeMobile.Text.Trim().Length != 10)
+                {
+                    Message = Message + "<br/>Alternative Mobile Length should be 10 digit";
+                    Ret = false;
+                    txtAlternativeMobile.BorderColor = Color.Red;
+                }
+                else if (!long.TryParse(txtAlternativeMobile.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Alternative Mobile should be 10 digit";
+                    Ret = false;
+                    txtAlternativeMobile.BorderColor = Color.Red;
+                }
             }
 
             else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
