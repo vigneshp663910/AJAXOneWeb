@@ -27,7 +27,7 @@
             <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="TableView" BorderStyle="None" AllowPaging="true" PageSize="30" OnPageIndexChanging="gvEmployee_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="User Id">
-                        <ItemStyle BorderStyle="None" Width="150px" HorizontalAlign="Center" />
+                        <ItemStyle BorderStyle="None" Width="150px" HorizontalAlign="Left" />
                         <ItemTemplate>
                             <asp:Label ID="lblUserID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserID")%>' Visible="false"></asp:Label>
                             <asp:LinkButton ID="lbUserID" runat="server" OnClick="lbEmpId_Click">
@@ -50,14 +50,14 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Contact Name">
-                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
                         <ItemTemplate>
                             <asp:Label ID="lblContactName" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>'></asp:Label>
                             <asp:TextBox ID="txtContactName" runat="server" CssClass="TextBox" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' Visible="false"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Mail">
-                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px"  />
                         <ItemTemplate>
                             <asp:Label ID="lblMail" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>'></asp:Label>
                             <asp:TextBox ID="txtMail" runat="server" CssClass="TextBox" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>' Visible="false"></asp:TextBox>
