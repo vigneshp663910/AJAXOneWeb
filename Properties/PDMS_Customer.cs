@@ -138,6 +138,26 @@ namespace Properties
         public string AttributeSub { get; set; }
     }
 
+    [Serializable]
+    public class PCustomerResponsibleEmployee
+    {
+        public long CustomerResponsibleEmployeeID { get; set; }
+        public long CustomerID { get; set; }
+        public PDMS_DealerEmployee Employee { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+    }
+    [Serializable]
+    public class PCustomerFleet
+    {
+        public long CustomerFleetID { get; set; }
+        public long CustomerID { get; set; }
+        public PDMS_Customer Fleet { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+    }
+
+
 
     public class PDMS_CustomerJSON
     {

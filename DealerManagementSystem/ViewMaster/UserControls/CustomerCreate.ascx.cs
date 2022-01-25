@@ -142,9 +142,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             long longCheck;
             
 
-            string Message = "";
-            Boolean Ret = true;
-
+            string Message = ""; 
             txtCustomerName.BorderColor = Color.Silver;
             txtContactPerson.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
@@ -158,86 +156,73 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             if (string.IsNullOrEmpty(txtCustomerName.Text.Trim()))
             {
-                Message = "Please enter the Customer Name";
-                Ret = false;
+                Message = "Please enter the Customer Name"; 
                 txtCustomerName.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Contact Person";
-                Ret = false;
+                Message = Message + "<br/>Please enter the Contact Person"; 
                 txtContactPerson.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Mobile";
-                Ret = false;
+                Message = Message + "<br/>Please enter the Mobile"; 
                 txtMobile.BorderColor = Color.Red;
             }
             else if (txtMobile.Text.Trim().Length != 10)
             {
-                Message = Message + "<br/>Mobile Length should be 10 digit";
-                Ret = false;
+                Message = Message + "<br/>Mobile Length should be 10 digit"; 
                 txtMobile.BorderColor = Color.Red;
             }
             else if(!long.TryParse(txtMobile.Text.Trim(), out longCheck))
             {                
-                Message = Message + "<br/>Mobile should be 10 digit";
-                Ret = false;
+                Message = Message + "<br/>Mobile should be 10 digit"; 
                 txtMobile.BorderColor = Color.Red;
-            }
-            else if (!string.IsNullOrEmpty(txtAlternativeMobile.Text.Trim()))
-            {
-                if (txtAlternativeMobile.Text.Trim().Length != 10)
-                {
-                    Message = Message + "<br/>Alternative Mobile Length should be 10 digit";
-                    Ret = false;
-                    txtAlternativeMobile.BorderColor = Color.Red;
-                }
-                else if (!long.TryParse(txtAlternativeMobile.Text.Trim(), out longCheck))
-                {
-                    Message = Message + "<br/>Alternative Mobile should be 10 digit";
-                    Ret = false;
-                    txtAlternativeMobile.BorderColor = Color.Red;
-                }
-            }
-
+            } 
             else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Address1";
-                Ret = false;
+                Message = Message + "<br/>Please enter the Address1"; 
                 txtAddress1.BorderColor = Color.Red;
             }
          
             else if (ddlCountry.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Country";
-                Ret = false;
+                Message = Message + "<br/>Please select the Country"; 
                 ddlCountry.BorderColor = Color.Red;
             }
             else if (ddlState.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the State";
-                Ret = false;
+                Message = Message + "<br/>Please select the State"; 
                 ddlState.BorderColor = Color.Red;
             }
             else if (ddlDistrict.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the District";
-                Ret = false;
+                Message = Message + "<br/>Please select the District"; 
                 ddlDistrict.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Postal";
-                Ret = false;
+                Message = Message + "<br/>Please enter the Postal"; 
                 txtPincode.BorderColor = Color.Red;
             }
             else if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
             {
-                Message = Message + "<br/>Pincode should be in digit";
-                Ret = false;
+                Message = Message + "<br/>Pincode should be in digit"; 
                 txtPincode.BorderColor = Color.Red;
+            }
+            
+            if (!string.IsNullOrEmpty(txtAlternativeMobile.Text.Trim()))
+            {
+                if (txtAlternativeMobile.Text.Trim().Length != 10)
+                {
+                    Message = Message + "<br/>Alternative Mobile Length should be 10 digit";
+                    txtAlternativeMobile.BorderColor = Color.Red;
+                }
+                else if (!long.TryParse(txtAlternativeMobile.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Alternative Mobile should be 10 digit";
+                    txtAlternativeMobile.BorderColor = Color.Red;
+                }
             }
 
             return Message;

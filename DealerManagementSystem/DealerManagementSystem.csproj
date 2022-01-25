@@ -288,6 +288,7 @@
     <Content Include="ViewMaster\Location.aspx" />
     <Content Include="ViewAdmin\UserManagement.aspx" />
     <Content Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx" />
+    <Content Include="ViewMaster\UserControls\CustomerAutocomplete.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
@@ -301,6 +302,7 @@
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
+    <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
@@ -857,6 +859,13 @@
     <Compile Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx.designer.cs">
       <DependentUpon>AjaxEmployeeCreate.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\UserControls\CustomerAutocomplete.ascx.cs">
+      <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\CustomerAutocomplete.ascx.designer.cs">
+      <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -947,6 +956,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.designer.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\ColdVisitsView.ascx.cs">
+      <DependentUpon>ColdVisitsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\ColdVisitsView.ascx.designer.cs">
+      <DependentUpon>ColdVisitsView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.cs">
       <DependentUpon>Effort.ascx</DependentUpon>

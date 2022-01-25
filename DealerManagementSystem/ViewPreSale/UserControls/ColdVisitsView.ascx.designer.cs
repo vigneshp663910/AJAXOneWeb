@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale
+namespace DealerManagementSystem.ViewPreSale.UserControls
 {
 
 
-    public partial class ColdVisits
+    public partial class ColdVisitsView
     {
 
         /// <summary>
@@ -24,139 +24,265 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// divList control.
+        /// lblLeadNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+        protected global::System.Web.UI.WebControls.Label lblLeadNumber;
 
         /// <summary>
-        /// txtDateFrom control.
+        /// lblLeadDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
+        protected global::System.Web.UI.WebControls.Label lblLeadDate;
 
         /// <summary>
-        /// txtDateTo control.
+        /// lblDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateTo;
+        protected global::System.Web.UI.WebControls.Label lblDealer;
 
         /// <summary>
-        /// txtCustomer control.
+        /// lblRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomer;
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
 
         /// <summary>
-        /// txtMobile control.
+        /// lblCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMobile;
+        protected global::System.Web.UI.WebControls.Label lblCustomer;
 
         /// <summary>
-        /// ddlSCountry control.
+        /// lblContactPerson control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSCountry;
+        protected global::System.Web.UI.WebControls.Label lblContactPerson;
 
         /// <summary>
-        /// ddlState control.
+        /// lblMobile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlState;
+        protected global::System.Web.UI.WebControls.Label lblMobile;
 
         /// <summary>
-        /// BtnSearch control.
+        /// lblEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch;
+        protected global::System.Web.UI.WebControls.Label lblEmail;
 
         /// <summary>
-        /// btnAddColdVisit control.
+        /// lblLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddColdVisit;
+        protected global::System.Web.UI.WebControls.Label lblLocation;
 
         /// <summary>
-        /// gvLead control.
+        /// BtnActions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvLead;
+        protected global::System.Web.UI.WebControls.Button BtnActions;
 
         /// <summary>
-        /// btnBackToList control.
+        /// lbActions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBackToList;
+        protected global::System.Web.UI.WebControls.LinkButton lbActions;
 
         /// <summary>
-        /// divCustomerView control.
+        /// LinkButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCustomerView;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
-        /// UC_CustomerView control.
+        /// tbpCust control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerView UC_CustomerView;
+        protected global::AjaxControlToolkit.TabContainer tbpCust;
 
         /// <summary>
-        /// divColdVisitView control.
+        /// tpnlEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divColdVisitView;
+        protected global::AjaxControlToolkit.TabPanel tpnlEffort;
 
         /// <summary>
-        /// UC_ColdVisitsView control.
+        /// gvEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewPreSale.UserControls.ColdVisitsView UC_ColdVisitsView;
+        protected global::System.Web.UI.WebControls.GridView gvEffort;
+
+        /// <summary>
+        /// tpnlExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlExpense;
+
+        /// <summary>
+        /// gvExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvExpense;
+
+        /// <summary>
+        /// pnlEffort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlEffort;
+
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
+        /// lblMessageEffort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageEffort;
+
+        /// <summary>
+        /// UC_Effort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.Effort UC_Effort;
+
+        /// <summary>
+        /// btnSaveEffort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveEffort;
+
+        /// <summary>
+        /// MPE_Effort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Effort;
+
+        /// <summary>
+        /// pnlExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlExpense;
+
+        /// <summary>
+        /// Button3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button3;
+
+        /// <summary>
+        /// lblMessageExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageExpense;
+
+        /// <summary>
+        /// UC_Expense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.Expense UC_Expense;
+
+        /// <summary>
+        /// btnSaveExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveExpense;
+
+        /// <summary>
+        /// MPE_Expense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Expense;
 
         /// <summary>
         /// lnkMPE control.
@@ -175,95 +301,5 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        /// <summary>
-        /// pnlCustomer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlCustomer;
-
-        /// <summary>
-        /// Button6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button6;
-
-        /// <summary>
-        /// lblMessageColdVisit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageColdVisit;
-
-        /// <summary>
-        /// txtCustomerID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerID;
-
-        /// <summary>
-        /// UC_Customer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerCreate UC_Customer;
-
-        /// <summary>
-        /// txtColdVisitDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtColdVisitDate;
-
-        /// <summary>
-        /// ddlActionType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlActionType;
-
-        /// <summary>
-        /// txtRemark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemark;
-
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
-
-        /// <summary>
-        /// MPE_Customer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Customer;
     }
 }

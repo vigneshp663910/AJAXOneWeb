@@ -21,8 +21,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             lblMessage.Text = "";
             lblMessageColdVisit.Text = "";
-            lblMessageEffort.Text = "";
-            lblMessageExpense.Text = "";
+
             if (!IsPostBack)
             { 
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
@@ -144,94 +143,27 @@ namespace DealerManagementSystem.ViewPreSale
             } 
             return Message;
         }
-        protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
-            Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
-            ViewState["ColdVisitID"] = lblColdVisitID.Text;
-
-            if (ddlAction.Text == "Add Effort")
-            {
-                MPE_Effort.Show();
-                fillEffort(Convert.ToInt64(lblColdVisitID.Text)); 
-            }
-            else if (ddlAction.Text == "Add Expense")
-            {
-                 MPE_Expense.Show();
-                fillExpense(Convert.ToInt64(lblColdVisitID.Text));
-            }
-        }
+       
  
-        protected void btnSaveEffort_Click(object sender, EventArgs e)
-        {
-            string Message = UC_Effort.ValidationEffort();
-            lblMessageEffort.ForeColor = Color.Red;
-            lblMessageEffort.Visible = true;
-            MPE_Effort.Show();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageEffort.Text = Message;
-                return;
-            } 
-            PLeadEffort Effort = new PLeadEffort(); 
-            Effort = UC_Effort.ReadEffort();
-            Effort.LeadID = Convert.ToInt64(ViewState["ColdVisitID"]);
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort)).Data);
-            fillEffort(Effort.LeadID);
-        }
-
-        protected void btnSaveExpense_Click(object sender, EventArgs e)
-        {
-            string Message = UC_Expense.ValidationExpense();
-            lblMessageExpense.ForeColor = Color.Red;
-            lblMessageExpense.Visible = true;
-            MPE_Expense.Show();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageExpense.Text = Message;
-                return;
-            } 
-            PLeadExpense Expense = new PLeadExpense();
-            Expense = UC_Expense.ReadExpense();
-            Expense.LeadID = Convert.ToInt64(ViewState["ColdVisitID"]);
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense)).Data);
-            fillExpense(Expense.LeadID);
-        }
-        void fillEffort(long ColdVisitID)
-        {   
-            gvEffort.DataSource = new BColdVisit().GetColdVisitEffort(ColdVisitID, PSession.User.UserID); 
-            gvEffort.DataBind();
-             
-        }
-        void fillExpense(long ColdVisitID)
-        { 
-            
-            gvExpense.DataSource = new BColdVisit().GetColdVisitExpense(ColdVisitID, PSession.User.UserID); 
-            gvExpense.DataBind();
-            
-        }
 
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
             divCustomerView.Visible = true;
+            divColdVisitView.Visible = false;
+            btnBackToList.Visible = true;
             divList.Visible = false;
+
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
-            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
-
-            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
-            //CustomerView ucCustomerView = (CustomerView)LoadControl("~/ViewPreSale/UserControls/CustomerView.ascx");
-            //ucCustomerView.ID = "ucCustomerView";
-          
-            //PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
-            //phDashboard.Controls.Add(ucCustomerView);
-            //ucCustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text)); 
+            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID"); 
+            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text)); 
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divCustomerView.Visible = false;
+            divColdVisitView.Visible = false;
+            btnBackToList.Visible = false;
             divList.Visible = true;
         }
 
@@ -265,6 +197,18 @@ namespace DealerManagementSystem.ViewPreSale
         { 
             gvLead.PageIndex = e.NewPageIndex;
             FillClodVisit();
+        }
+
+        protected void btnViewColdVisit_Click(object sender, EventArgs e)
+        {
+            divCustomerView.Visible = false;
+            divColdVisitView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
+            UC_ColdVisitsView.fillViewColdVisit(Convert.ToInt64(lblColdVisitID.Text));
         }
     }
 }

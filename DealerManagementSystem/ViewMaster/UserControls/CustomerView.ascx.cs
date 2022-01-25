@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -30,6 +31,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblMessageAttribute.Text = "";
+            lblMessageProduct.Text = "";
+            lblMessageRelation.Text = "";
             if (!IsPostBack)
             {
 
@@ -38,7 +42,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         public void fillCustomer(long CustomerID)
         {
 
-            Session["CustomerID"] = CustomerID;
+            this.CustomerID = CustomerID;
             PDMS_Customer Customer = new PDMS_Customer();
             Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
 
@@ -53,19 +57,21 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             string Location = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
             lblLocation.Text = Location;
 
-            fillAttribute(CustomerID);
-            fillRelation(CustomerID);
-            fillProduct(CustomerID);
+            fillAttribute();
+            fillRelation();
+            fillProduct();
+            fillResponsible();
+            fillFleet();
         }
 
      
 
         protected void btnSaveMarketSegment_Click(object sender, EventArgs e)
         {
-            string Message = ValidationMarketSegment();
+            string Message = ValidationAttribute();
             if (!string.IsNullOrEmpty(Message))
             {
-                //  lblMessage.Text = Message;
+                lblMessageAttribute.Text = Message;
                 return;
             }
             PCustomerAttribute Attribute = new PCustomerAttribute();
@@ -75,14 +81,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Attribute.Remark = txtRemark.Text.Trim();
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
-            fillAttribute(CustomerID);
+            fillAttribute();
         }
         protected void btnSaveProduct_Click(object sender, EventArgs e)
         {
-            string Message = ValidationMarketSegment();
+            string Message = ValidationProduct(); 
             if (!string.IsNullOrEmpty(Message))
             {
-                //  lblMessage.Text = Message;
+                lblMessageProduct.Text = Message;
                 return;
             }
             PCustomerProduct Product = new PCustomerProduct();
@@ -95,14 +101,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
-            fillProduct(CustomerID);
+            fillProduct();
         }
         protected void btnSaveRelation_Click(object sender, EventArgs e)
         {
-            string Message = ValidationMarketSegment();
+            string Message = ValidationRelation();
             if (!string.IsNullOrEmpty(Message))
             {
-                //  lblMessage.Text = Message;
+                lblMessageRelation.Text = Message;
                 return;
             }
             PCustomerRelation Relation = new PCustomerRelation();
@@ -114,28 +120,71 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
-            fillRelation(CustomerID);
+            fillRelation();
         }
-         
-        string ValidationMarketSegment()
+        protected void btnResponsibleEmp_Click(object sender, EventArgs e)
         {
-            return "";
+
+            string Message = ValidationEmployee();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageRelation.Text = Message;
+                return;
+            }
+            PCustomerResponsibleEmployee Relation = new PCustomerResponsibleEmployee();
+            Relation.CustomerID = CustomerID;
+            Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(ddlEmployee.SelectedValue) };
+            Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
+            fillResponsible();
+        }
+        protected void btnFleed_Click(object sender, EventArgs e)
+        {
+
+            string Message = ValidationRelation();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageRelation.Text = Message;
+                return;
+            }
+            PCustomerRelation Relation = new PCustomerRelation();
+            Relation.CustomerID = CustomerID;
+            Relation.ContactName = txtPersonName.Text.Trim();
+            Relation.Mobile = txtMobile.Text.Trim();
+            Relation.Relation = new PRelation() { RelationID = Convert.ToInt32(ddlRelation.SelectedValue) };
+            Relation.DOB = string.IsNullOrEmpty(txtBirthDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtBirthDate.Text.Trim());
+            Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
+            Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
+            fillFleet();
         }
 
-        void fillAttribute(long CustomerID)
+
+
+        void fillAttribute()
         {
             gvAttribute.DataSource = new BDMS_Customer().GetCustomerAttribute(CustomerID, null);
             gvAttribute.DataBind();
         }
-        void fillProduct(long CustomerID)
+        void fillProduct()
         {
             gvProduct.DataSource = new BDMS_Customer().GetCustomerProduct(CustomerID, null, null, null, null);
             gvProduct.DataBind();
         }
-        void fillRelation(long CustomerID)
+        void fillRelation()
         {
             gvRelation.DataSource = new BDMS_Customer().GetCustomerRelation(CustomerID, null);
             gvRelation.DataBind();
+        }
+        void fillResponsible()
+        { 
+            gvEmployee.DataSource = new BDMS_Customer().GetCustomerResponsibleEmployee( null, CustomerID);
+            gvEmployee.DataBind();
+        }
+        void fillFleet()
+        {
+            gvFleet.DataSource = new BDMS_Customer().GetCustomerFleet(null, CustomerID);
+            gvFleet.DataBind();
         }
 
         protected void btnUpdateCustomer_Click(object sender, EventArgs e)
@@ -156,6 +205,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillCustomer(CustomerID);
         } 
 
+
         protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -172,7 +222,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
-            fillAttribute(CustomerID);
+            fillAttribute();
         }
 
         protected void lbProductDelete_Click(object sender, EventArgs e)
@@ -189,7 +239,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
-            fillProduct(CustomerID);
+            fillProduct();
         }
 
         protected void lbRelationDelete_Click(object sender, EventArgs e)
@@ -202,7 +252,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.Relation = new PRelation() { RelationID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
-            fillRelation(CustomerID);
+            fillRelation();
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -219,7 +269,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             else if (lbActions.Text == "Add Attribute")
             {
                 new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");    
-                MPE_MarketSegment.Show();
+                MPE_Attribute.Show();
             }
             else if (lbActions.Text == "Add Product")
             {
@@ -232,13 +282,132 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
                 MPE_Relation.Show();
-            } 
+            }
+            else if (lbActions.Text == "Add Fleet")
+            {
+               // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                MPE_Fleed.Show();
+            }
+            else if (lbActions.Text == "Add Responsible Employee")
+            {
+                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                MPE_ResponsibleEmp.Show();
+            }
         }
 
         protected void ddlAttributeMain_SelectedIndexChanged(object sender, EventArgs e)
         { 
             new DDLBind(ddlAttributeSub, new BDMS_Customer().GetCustomerAttributeSub(null,Convert.ToInt32(ddlAttributeMain.SelectedValue), null), "AttributeSub", "AttributeSubID");
-            MPE_MarketSegment.Show();
+            MPE_Attribute.Show();
         }
+
+        public string ValidationAttribute()
+        {
+            string Message = "";
+            ddlAttributeMain.BorderColor = Color.Silver;
+            ddlAttributeSub.BorderColor = Color.Silver;
+            txtRemark.BorderColor = Color.Silver;
+            if (ddlAttributeMain.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Attribute Main";
+                ddlAttributeMain.BorderColor = Color.Red;
+            }
+
+            else if (ddlAttributeSub.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Attribute Sub";
+                ddlAttributeSub.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            {
+                Message = "Please enter the Remark";
+                txtRemark.BorderColor = Color.Red;
+            }
+            return Message;
+        }
+        public string ValidationProduct()
+        {
+            int intCheck;
+            string Message = "";
+            ddlMake.BorderColor = Color.Silver;
+            ddlProductType.BorderColor = Color.Silver;
+            ddlProduct.BorderColor = Color.Silver;
+            txtQuantity.BorderColor = Color.Silver;
+            if (ddlMake.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Make";
+                ddlMake.BorderColor = Color.Red;
+            } 
+            else if (ddlProductType.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Product Type";
+                ddlProductType.BorderColor = Color.Red;
+            }
+            else if (ddlProduct.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Product";
+                ddlProduct.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtQuantity.Text.Trim()))
+            {
+                Message = "<br/>Please enter the Quantity";
+                txtQuantity.BorderColor = Color.Red;
+            }
+            else if (!int.TryParse(txtQuantity.Text.Trim(), out intCheck))
+            {
+                Message = Message + "<br/>Quantity should be digit";
+                txtMobile.BorderColor = Color.Red;
+            }
+            return Message;
+        }
+        public string ValidationRelation()
+        {
+            long longCheck;
+            string Message = "";
+            txtPersonName.BorderColor = Color.Silver; 
+            txtMobile.BorderColor = Color.Silver;
+          
+            if (string.IsNullOrEmpty(txtPersonName.Text.Trim()))
+            {
+                Message = "Please enter the Person Name";
+                txtPersonName.BorderColor = Color.Red;
+            } 
+            else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Mobile";
+                txtMobile.BorderColor = Color.Red;
+            }
+            else if (txtMobile.Text.Trim().Length != 10)
+            {
+                Message = Message + "<br/>Mobile Length should be 10 digit";
+                txtMobile.BorderColor = Color.Red;
+            }
+            else if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Mobile should be 10 digit";
+                txtMobile.BorderColor = Color.Red;
+            } 
+            return Message;
+        }
+        public string ValidationEmployee()
+        {
+            long longCheck;
+            string Message = ""; 
+            return Message;
+        }
+        public string ValidationFleet()
+        {
+            long longCheck;
+            string Message = ""; 
+            return Message;
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlEmployee, new BUser().GetAllUsers(), "ContactName", "UserID");
+            MPE_ResponsibleEmp.Show();
+        }
+
+       
     }
 }

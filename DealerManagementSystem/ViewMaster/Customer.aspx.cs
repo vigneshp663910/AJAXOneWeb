@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -122,6 +123,24 @@ namespace DealerManagementSystem.ViewMaster
         {
             gvCustomer.PageIndex = e.NewPageIndex;
             SearchCustomer();
+        }
+        [WebMethod]
+        public static List<string> GetCustomer(string CustS)
+        {
+            List<string> Emp = new List<string>();
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS);
+            int i = 0;
+            foreach (PDMS_Customer cust in Customer)
+            {
+                i = i + 1;
+                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                    + "<table><tr><td>"
+                    + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
+                    + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                Emp.Add(div);
+            }
+            return Emp;
         }
     }
 }
