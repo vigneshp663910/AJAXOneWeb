@@ -80,11 +80,23 @@ namespace DealerManagementSystem
             string MenuDMS = "<nav id='main-nav'><ul id='main-menu' class='sm sm-blue'>";
             //MenuDMS += "<a href='/Home.aspx' onclick=Menu('Home','Home') class='w3-button w3-block w3-blue w3-left-align'>Home</a>";
             foreach (PModuleAccess AM in PSession.User.DMSModules)
-            {            
-                // MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'><i class='" + AM.ModuleAwesomeIco + " fa-sm' style='color: #2fb7c3'></i>&nbsp;" + AM.ModuleName + "<i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color:lightgray' ></i></a>";
-                 MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'><i class='" + AM.ModuleAwesomeIco + " fa-sm' style='color: #2fb7c3'></i>&nbsp;" + AM.ModuleName + "<i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color:lightgray' ></i></a>";
-                // MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'><i id='pf" + AM.ModuleName + "'class='" + AM.ModuleAwesomeIco + " fa-xs' style='color: #2fb7c3'></i>&nbsp;" + AM.ModuleName + "<i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color:lightgray' ></i></a>";
-                 MenuDMS += "<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
+            {
+              // MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'><i class='" + AM.ModuleAwesomeIco + " fa-sm' style='color: #2fb7c3'></i>&nbsp;" + AM.ModuleName + "<i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color:lightgray' ></i></a>";
+                 
+                MenuDMS += "<a href='javascript:void(0)'   onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "')  class='w3-button w3-block w3-blue w3-left-align' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" +
+                    //"<div class='dropdown'>" +
+                    //"<button onclick = 'myFunction()' class='dropbtn1'>" +
+                    "<i class='" + AM.ModuleAwesomeIco + " fa-sm' style='color: #2fb7c3'></i>&nbsp;" +
+                    //"</button >" +
+                    //"<div id = 'myDropdown' class='dropdown-content'>" +
+                    //"<a href = '#home'> Home </a>" +
+                    //"<a href='#about'>About</a> " +
+                    //"<a href = '#contact' >Contact</a>" +
+                    //"</div> " +
+                    //"</div>" +
+                    AM.ModuleName + "<i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color:lightgray' ></i></a>";
+                
+                MenuDMS += "<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                  MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS, AM.ModuleName.Replace(" ", ""));
                  MenuDMS += "</div>";
             }

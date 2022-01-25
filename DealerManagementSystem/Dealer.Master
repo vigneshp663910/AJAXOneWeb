@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">f
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    f
     <script>
         window.onload = function () {
             if (screen.width < 450) {
@@ -399,23 +400,42 @@
             padding-top: 0px !important;
         }
 
+        #icoDashBoard {
+
+                padding-right: 7em;
+              
+                    
+            }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
 
-            .ProjectTitle {
+            /*.ProjectTitle {
                 display: none;
-            }
+            }*/
+
+            /*#titlebarico {
+                 display: none;
+            }*/
 
             .w3-main {
                 margin-top: 30px;
             }
+
+           /* #icoDashBoard {
+                padding-right: 2em;                            
+            }*/
         }
 
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
 
 
-            .ProjectTitle {
+            /*.ProjectTitle {
                 display: none;
+            }*/
+
+            #icoDashBoard {
+                padding-right: 2em;                    
             }
 
             .w3-padding-32 {
@@ -561,7 +581,7 @@
             border-style: none none solid none;
             border-width: thin;
             border-color: red;
-            margin-left:1px;
+            margin-left: 1px;
         }
 
         .ProjectHeadingLine {
@@ -894,6 +914,7 @@
             min-width: 195px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+           
         }
 
             .dropdown-content a {
@@ -928,10 +949,9 @@
                 font-family: "Open Sans",sans-serif;
                 font-size: large;
             }
-            .fa-angle-down:hover #mySidebar{
-                
-            }
 
+        .fa-angle-down:hover #mySidebar {
+        }
     </style>
 
     <script>
@@ -964,18 +984,18 @@
 
         function w3_closeSideBar() {
             if (document.getElementById("mySidebar").style.width == "250px") {
-                document.getElementById("mySidebar").style.width = "50px";             
+                document.getElementById("mySidebar").style.width = "50px";
                 w3_hide_angle_down();
                 document.getElementById("CompanyLogo").style.display = "none";
                 document.getElementById("SideBarToggle").style.paddingLeft = "0px"
-              
+
                 $('#Menu').find('div').each(function () {
                     var x2 = document.getElementById($(this).attr('id'));
                     x2.className = x2.className.replace(" w3-show", "");
                 });
             }
             else {
-                document.getElementById("mySidebar").style.width = "250px";          
+                document.getElementById("mySidebar").style.width = "250px";
                 w3_disp_angle_down()
                 document.getElementById("CompanyLogo").style.display = "block";
                 document.getElementById("SideBarToggle").style.paddingLeft = "235Px"
@@ -993,11 +1013,11 @@
             $(document).ready(function () {
                 $('i').each(function () {
                     var i = $(this).attr('id');
-                    if (i != undefined && i.substring(0,1) == 'i' ) {
+                    if (i != undefined && i.substring(0, 1) == 'i') {
                         //console.log(i);
                         document.getElementById(i).style.display = "none";
                         document.getElementById(i).className = 'fa fa-angle-down fa-2x';
-                       
+
                     }
                 });
             });
@@ -1010,9 +1030,9 @@
                     if (i != undefined) {
                         //console.log(i);
                         document.getElementById(i).style.display = "block";
-                      
+
                     }
-                   
+
                 });
             });
         };
@@ -1020,7 +1040,7 @@
     </script>
 
 
-     <script>
+    <script>
 <%--
         function MenuMaster() {
             var x = document.getElementById('Master');
@@ -1079,8 +1099,8 @@
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }--%>
-     </script>
-        
+    </script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -1151,55 +1171,57 @@
             <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
+                <div id="titlebarico" style="float: right;">
 
-                <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
+                    <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
 
-                    <asp:Label ID="lblQuality" runat="server"></asp:Label>
-                </div>
-                <div style="float: right; padding-right: 7em;">
-                    <div class="dropdown">
-
-                        <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
-                        <div class="dropdown-content" style="font-size: small">
-                            <div class="dropdown-header">Dashboard</div>
-                            <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
-                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
-                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
-                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
-                        </div>
-
-
+                        <asp:Label ID="lblQuality" runat="server"></asp:Label>
                     </div>
-                </div>
-                <div style="float: right; padding-right: 0.5em;">
+                    <div id="icoDashBoard" style="float: right;">
+                        <div class="dropdown">
 
-                    <div class="dropdown">
-                        <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
+                            <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
+                            <div class="dropdown-content" style="font-size: small">
+                                <div class="dropdown-header">Dashboard</div>
+                                <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
+                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
+                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
+                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
+                            </div>
 
-                        <div class="dropdown-content" style="font-size: small">
-                            <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
-                            <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
-                            <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
-                            <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
+
                         </div>
                     </div>
+                    <div style="float: right; padding-right: 0.5em;">
 
-                </div>
+                        <div class="dropdown">
+                            <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
 
-                <div style="float: right; padding-right: 0.5em;">
+                            <div class="dropdown-content" style="font-size: small">
+                                <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
+                                <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
+                                <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
+                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
+                            </div>
+                        </div>
 
-                    <div class="dropdown">
-                        <a href='/Home.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
                     </div>
 
-                </div>
+                    <div style="float: right; padding-right: 0.5em;">
 
-                <div style="float: right; padding-right: 0.5em;">
+                        <div class="dropdown">
+                            <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
+                        </div>
 
-                    <div class="dropdown">
-                        <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
                     </div>
 
+                    <div style="float: right; padding-right: 0.5em;">
+
+                        <div class="dropdown">
+                            <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -1213,7 +1235,9 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
 
+
         </div>
+
 
     </form>
 
