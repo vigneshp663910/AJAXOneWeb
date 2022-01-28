@@ -201,8 +201,8 @@ namespace Business
                         {
                             provider.Insert("ZDMS_InsertOrUpdateMaterialSupersede", Params);
                             scope.Complete();
+                            new SMaterial().setMaterialSupersedeInActive(Supersedes.Material, Supersedes.MaterialDescription);
                         }
-
                     }
                     catch (SqlException sqlEx)
                     {
