@@ -34,6 +34,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessageAttribute.Text = "";
             lblMessageProduct.Text = "";
             lblMessageRelation.Text = "";
+            lblMessageResponsible.Text = "";
+            lblMessageFleet.Text = "";
+            lblMessage.Text = "";
             if (!IsPostBack)
             {
 
@@ -46,7 +49,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PDMS_Customer Customer = new PDMS_Customer();
             Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
 
-            lblCustomer.Text = (Customer.CustomerCode + " " + Customer.CustomerName).Trim();
+            lblCustomer.Text = (Customer.Title.Title + " "+Customer.CustomerCode + " " + Customer.CustomerName).Trim();
             lblContactPerson.Text = Customer.ContactPerson;
             lblMobile.Text = Customer.Mobile;
             lblAlternativeMobile.Text = Customer.AlternativeMobile;
@@ -62,12 +65,27 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillProduct();
             fillResponsible();
             fillFleet();
+            fillLead();
+            fillVisit();
         }
 
-     
+        public void fillLead()
+        {
+            PLeadSearch S = new PLeadSearch(); 
+            S.CustomerID = CustomerID; 
+            List<PLead> Leads = new BLead().GetLead(S);
+            gvLead.DataSource = Leads;
+            gvLead.DataBind(); 
+        }
+        public void fillVisit()
+        {  
+            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, CustomerID, null, null, null, null, null, null);
+            gvColdVisit.DataBind();
+        }
 
         protected void btnSaveMarketSegment_Click(object sender, EventArgs e)
         {
+            MPE_Attribute.Show();
             string Message = ValidationAttribute();
             if (!string.IsNullOrEmpty(Message))
             {
@@ -81,10 +99,21 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Attribute.Remark = txtRemark.Text.Trim();
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
+            if (s == "0")
+            {
+                lblMessageAttribute.Text = Message;
+                return;
+            }
+            ddlAttributeMain.Items.Clear();
+            ddlAttributeSub.Items.Clear();
+            txtRemark.Text = "";
+            tbpCust.ActiveTabIndex = 0;
+            MPE_Attribute.Hide();
             fillAttribute();
         }
         protected void btnSaveProduct_Click(object sender, EventArgs e)
         {
+            MPE_Product.Show();
             string Message = ValidationProduct(); 
             if (!string.IsNullOrEmpty(Message))
             {
@@ -92,7 +121,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PCustomerProduct Product = new PCustomerProduct();
-            Product.CustomerrProductID = 0;
+            Product.CustomerProductID = 0;
             Product.CustomerID = CustomerID;
             Product.Make = new PMake() { MakeID = Convert.ToInt32(ddlMake.SelectedValue) };
             Product.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
@@ -101,10 +130,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
+            if (s == "0")
+            {
+                lblMessageProduct.Text = "Something went wrong try again";
+                lblMessageProduct.Visible = true;
+                lblMessageProduct.ForeColor = Color.Red;
+                return;
+            }
+            ddlMake.Items.Clear();
+            ddlProductType.Items.Clear();
+            ddlProduct.Items.Clear(); 
+            txtQuantity.Text = "";
+            tbpCust.ActiveTabIndex = 1;
+            MPE_Product.Hide();
             fillProduct();
         }
         protected void btnSaveRelation_Click(object sender, EventArgs e)
         {
+            MPE_Relation.Show();
             string Message = ValidationRelation();
             if (!string.IsNullOrEmpty(Message))
             {
@@ -120,15 +163,29 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
+            if (s == "0")
+            {
+                lblMessageRelation.Text = Message;
+                return;
+            }
+            ddlRelation.Items.Clear();
+            txtPersonName.Text = "";
+            txtMobile.Text = "";
+            txtBirthDate.Text = "";
+            txtAnniversaryDate.Text = "";
+            tbpCust.ActiveTabIndex = 2;
+            MPE_Relation.Hide();
             fillRelation();
         }
         protected void btnResponsibleEmp_Click(object sender, EventArgs e)
         {
-
+            MPE_ResponsibleEmp.Show();
+            lblMessageResponsible.Visible = true;
+            lblMessageResponsible.ForeColor = Color.Red;
             string Message = ValidationEmployee();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageRelation.Text = Message;
+                lblMessageResponsible.Text = Message;
                 return;
             }
             PCustomerResponsibleEmployee Relation = new PCustomerResponsibleEmployee();
@@ -136,26 +193,44 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(ddlEmployee.SelectedValue) };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
+            if (s == "0")
+            {
+                lblMessageResponsible.Text = Message;
+                return;
+            }
+            ddlEmployee.Items.Clear(); 
+            tbpCust.ActiveTabIndex = 3;
+            MPE_ResponsibleEmp.Hide();
             fillResponsible();
         }
         protected void btnFleed_Click(object sender, EventArgs e)
         {
-
-            string Message = ValidationRelation();
+            MPE_Fleed.Show();
+            lblMessageFleet.Visible = true;
+            lblMessageFleet.ForeColor = Color.Red;
+            string Message = ValidationFleet();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageRelation.Text = Message;
+                lblMessageFleet.Text = Message;
                 return;
             }
-            PCustomerRelation Relation = new PCustomerRelation();
-            Relation.CustomerID = CustomerID;
-            Relation.ContactName = txtPersonName.Text.Trim();
-            Relation.Mobile = txtMobile.Text.Trim();
-            Relation.Relation = new PRelation() { RelationID = Convert.ToInt32(ddlRelation.SelectedValue) };
-            Relation.DOB = string.IsNullOrEmpty(txtBirthDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtBirthDate.Text.Trim());
-            Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
-            Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
+
+            PCustomerFleet Fleet = new PCustomerFleet();
+            Fleet.CustomerFleetID = 0;
+            Fleet.CustomerID = CustomerID;
+            Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
+            Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet)).Data);
+            if (s == "0")
+            {
+                lblMessageFleet.Text = Message;
+                return;
+            }
+            txtFleetID.Text = "";
+            txtFleet.Text = "";
+            tbpCust.ActiveTabIndex = 4;
+            MPE_Fleed.Hide();
+
             fillFleet();
         }
 
@@ -222,15 +297,27 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
+            lblMessage.Visible = true;
+            if (s == "0")
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+            }
             fillAttribute();
+
         }
 
         protected void lbProductDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblCustomerrProductID = (Label)gvRow.FindControl("lblCustomerrProductID");
+            Label lblCustomerrProductID = (Label)gvRow.FindControl("lblCustomerProductID");
             PCustomerProduct Product = new PCustomerProduct();
-            Product.CustomerrProductID = Convert.ToInt64(lblCustomerrProductID.Text);
+            Product.CustomerProductID = Convert.ToInt64(lblCustomerrProductID.Text);
             Product.CustomerID = CustomerID;
             Product.Make = new PMake() { MakeID = 0 };
             Product.ProductType = new PProductType() { ProductTypeID = 0 };
@@ -239,6 +326,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
+            if (s == "0")
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+            }
             fillProduct();
         }
 
@@ -252,7 +349,63 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.Relation = new PRelation() { RelationID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
+            if (s == "0")
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+            }
             fillRelation();
+        }
+        protected void lbResponsibleDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerResponsibleEmployeeID = (Label)gvRow.FindControl("lblCustomerResponsibleEmployeeID");
+            PCustomerResponsibleEmployee Relation = new PCustomerResponsibleEmployee();
+            Relation.CustomerResponsibleEmployeeID = Convert.ToInt64(lblCustomerResponsibleEmployeeID.Text);
+            Relation.CustomerID = CustomerID;
+            Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = 0 };
+            Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
+            if (s == "0")
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+            }
+            fillResponsible();
+        }
+
+        protected void lbFleetDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerFleetID = (Label)gvRow.FindControl("lblCustomerFleetID"); 
+            PCustomerFleet Fleet = new PCustomerFleet();
+            Fleet.CustomerFleetID = Convert.ToInt64(lblCustomerFleetID.Text);
+            Fleet.CustomerID = CustomerID;
+            Fleet.Fleet = new PDMS_Customer() { CustomerID = 0 };
+            Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet)).Data);
+            lblMessage.Visible = true;
+            if (s == "0")
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+            }
+            fillFleet();
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -390,21 +543,38 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             return Message;
         }
         public string ValidationEmployee()
-        {
-            long longCheck;
-            string Message = ""; 
+        { 
+            string Message = "";
+            ddlEmployee.BorderColor = Color.Silver; 
+            if ((ddlEmployee.SelectedValue == "0") || (ddlEmployee.SelectedValue == ""))
+            {
+                Message = Message + "<br/>Please select the Employee";
+                ddlEmployee.BorderColor = Color.Red;
+            }
+            
             return Message;
         }
         public string ValidationFleet()
-        {
-            long longCheck;
-            string Message = ""; 
+        { 
+            string Message = "";
+            txtFleet.BorderColor = Color.Silver;
+
+            if (string.IsNullOrEmpty(txtFleetID.Text.Trim()))
+            {
+                Message = "Please enter the Customer";
+                txtFleet.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtFleet.Text.Trim()))
+            {
+                Message = "Please enter the Customer";
+                txtFleet.BorderColor = Color.Red;
+            }
             return Message;
         }
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlEmployee, new BUser().GetAllUsers(), "ContactName", "UserID");
+            new DDLBind(ddlEmployee, new BDMS_Dealer().GetDealerEmployeeByDealerID(Convert.ToInt32(ddlDealer.SelectedValue),null,null,"",""), "Name", "DealerEmployeeID");
             MPE_ResponsibleEmp.Show();
         }
 

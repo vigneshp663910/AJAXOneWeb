@@ -17,12 +17,12 @@
                 <div class="rf-p " id="txnHistory:inputFiltersPanel6">
                     <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body6">
 
-                        <asp:GridView ID="gvAvailabilityOfOtherMachine" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" ShowFooter="true" DataKeyNames="AvailabilityOfOtherMachineID" OnRowDataBound="gvNotes_RowDataBound">
+                        <asp:GridView ID="gvAvailabilityOfOtherMachine" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" ShowFooter="true" DataKeyNames="CustomerProductID" OnRowDataBound="gvNotes_RowDataBound">
                             <Columns>
-                                <asp:TemplateField HeaderText="Type Of Machine">
+                                <asp:TemplateField HeaderText="Product Type">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblTypeOfMachine" Text='<%# DataBinder.Eval(Container.DataItem, "TypeOfMachine.TypeOfMachine")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblTypeOfMachine" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:DropDownList ID="ddlTypeOfMachine" runat="server" CssClass="TextBox" />

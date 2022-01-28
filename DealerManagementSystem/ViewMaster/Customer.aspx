@@ -42,16 +42,20 @@
             font-weight: 700;
         }
     </style>
+    
 
-    <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+ <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
     <script type="text/javascript">  
-        $(function () { 
-            $("#MainContent_UC_CustomerView_txtCustomerName").autocomplete({ 
+        $(function () {
+            debugger
+            $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
                     debugger
-                    var param = { CustS: $('#MainContent_UC_CustomerView_txtCustomerName').val() };
+                    var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
+                    txtCustomerID.value = "";
+                    var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
                     $.ajax({
                         type: 'POST',
                         contentType: "application/json; charset=utf-8",
@@ -60,22 +64,22 @@
                         data: JSON.stringify(param),
                         dataType: 'JSON',
                         success: function (data) {
-                            var UCdivAuto = document.getElementById('UCdivAuto');
+                            var UCdivAuto = document.getElementById('FleDivAuto');
                             UCdivAuto.style.display = "block";
-                           /* document.getElementById('UCdivAuto').style.display = "block";*/
+                            /* document.getElementById('UCdivAuto').style.display = "block";*/
                             var n = 0;
                             for (var i = 1; i <= 5; i++) {
                                 $(('#div' + i)).empty();
-                                document.getElementById('UCdiv' + i).style.display = "none";
+                                document.getElementById('FleDiv' + i).style.display = "none";
                             }
                             $.map(data.d, function (item) {
                                 n = n + 1;
-                                document.getElementById('UCdiv' + n).style.display = "block";
-                                document.getElementById("UCdiv" + n).innerHTML = item;
+                                document.getElementById('FleDiv' + n).style.display = "block";
+                                document.getElementById("FleDiv" + n).innerHTML = item;
                             })
                         },
                         error: function () {
-                            alert("Error");
+                            alert("Error fedrfve");
                         }
                     });
                 },
@@ -83,92 +87,7 @@
             });
         });
     </script>
-    <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
-    <script type="text/javascript">  
-        function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-            debugger
-            var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
-            txtCustomerID.value = CustomerID.innerText;
-            var txtCustomer = document.getElementById('MainContent_UC_Customer_txtCustomerName');
-
-            txtCustomer.value = CustomerName.innerText;
-
-            document.getElementById('lblCustomerName').innerText = CustomerName.innerText;
-            document.getElementById('UCdivAuto').style.display = "none";
-            document.getElementById('divCustomerViewID').style.display = "block";
-            document.getElementById('divCustomerCreateID').style.display = "none";
-        }
-    </script>
-    <script type="text/javascript"> 
-        $(function () {
-            $('#UCdiv1').click(function () {
-                debugger
-                var CustomerID = document.getElementById('lblCustomerID1')
-                var CustomerName = document.getElementById('lblCustomerName1')
-                var ContactPerson = document.getElementById('lblContactPerson1')
-                var Mobile = document.getElementById('lblMobile1')
-                UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile);
-            });
-        });
-        $(function () {
-            $('#UCdiv2').click(function () {
-                debugger
-                var CustomerID = document.getElementById('lblCustomerID2')
-                var CustomerName = document.getElementById('lblCustomerName2')
-                var ContactPerson = document.getElementById('lblContactPerson2')
-                var Mobile = document.getElementById('lblMobile2')
-                UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile);
-            });
-        });
-        $(function () {
-            $('#UCdiv3').click(function () {
-                var CustomerID = document.getElementById('lblCustomerID3')
-                var CustomerName = document.getElementById('lblCustomerName3')
-                var ContactPerson = document.getElementById('lblContactPerson3')
-                var Mobile = document.getElementById('lblMobile3')
-                UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile);
-            });
-        });
-        $(function () {
-            $('#UCdiv4').click(function () {
-                var CustomerID = document.getElementById('lblCustomerID4')
-                var CustomerName = document.getElementById('lblCustomerName4')
-                var ContactPerson = document.getElementById('lblContactPerson4')
-                var Mobile = document.getElementById('lblMobile4')
-                UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile);
-            });
-        });
-        $(function () {
-            $('#UCdiv5').click(function () {
-                var CustomerID = document.getElementById('lblCustomerID5')
-                var CustomerName = document.getElementById('lblCustomerName5')
-                var ContactPerson = document.getElementById('lblContactPerson5')
-                var Mobile = document.getElementById('lblMobile5')
-                UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile);
-            });
-        });
-
-    </script>
-    <style>
-        .fieldset-borderAuto {
-            border: solid 1px #cacaca;
-            margin: 1px 0;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #b4b4b4;
-        }
-
-            .fieldset-borderAuto tr {
-                /* background-color: #000084; */
-                background-color: inherit;
-                font-weight: bold;
-                color: white;
-            }
-
-            .fieldset-borderAuto:hover {
-                background-color: blue;
-            }
-    </style>
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -262,7 +181,7 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                             </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="text-right">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>

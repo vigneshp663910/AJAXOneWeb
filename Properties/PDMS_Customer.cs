@@ -79,7 +79,7 @@ namespace Properties
     [Serializable]
     public class PCustomerProduct
     {
-        public long CustomerrProductID { get; set; }
+        public long CustomerProductID { get; set; }
         public long CustomerID { get; set; }
         public long ICTicketID { get; set; }
 

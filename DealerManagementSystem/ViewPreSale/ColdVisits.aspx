@@ -11,6 +11,7 @@
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
     <script type="text/javascript">  
         $(function () {
+            debugger
             $("#MainContent_txtCustomer").autocomplete({
                 source: function (request, response) {
                     debugger
@@ -46,6 +47,7 @@
 
             $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
                 source: function (request, response) {
+                    debugger
                     var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
                     $.ajax({
                         type: 'POST',
@@ -69,6 +71,41 @@
                         },
                         error: function () {
                             alert("Error");
+                        }
+                    });
+                },
+                minLength: 3 //This is the Char length of inputTextBox    
+            });
+            $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
+                source: function (request, response) {
+                    debugger
+                    var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
+                    txtCustomerID.value = "";
+                    var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
+                    $.ajax({
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
+                        url: "ColdVisits.aspx/GetCustomer",
+                        data: JSON.stringify(param),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            var UCdivAuto = document.getElementById('FleDivAuto');
+                            UCdivAuto.style.display = "block";
+                            /* document.getElementById('UCdivAuto').style.display = "block";*/
+                            var n = 0;
+                            for (var i = 1; i <= 5; i++) {
+                                $(('#div' + i)).empty();
+                                document.getElementById('FleDiv' + i).style.display = "none";
+                            }
+                            $.map(data.d, function (item) {
+                                n = n + 1;
+                                document.getElementById('FleDiv' + n).style.display = "block";
+                                document.getElementById("FleDiv" + n).innerHTML = item;
+                            })
+                        },
+                        error: function () {
+                            alert("Error fedrfve");
                         }
                     });
                 },
@@ -336,7 +373,7 @@
 
                         </div>
                     </fieldset>
-                    </div></div></div><div>
+                       </div></div></div><div>
             <div class="text-right">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click"  visible="false" />
             </div>

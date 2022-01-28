@@ -248,17 +248,27 @@ namespace Business
                 PasswordExpiryDate = Convert.ToDateTime(userRow["PasswordExpirationDate"]),
                 CreatedBy = Convert.ToInt32(userRow["CreatedBy"]),
                 CreatedOn = Convert.ToDateTime(userRow["CreatedOn"]),
-                CreatedByName = Convert.ToString(userRow["UserName"]),
-                IsNatesanGroupUser = userRow.Table.Columns.Contains("SisterCompanyId") ? (userRow["SisterCompanyId"] != DBNull.Value ? true : false) : true,
                 L1Support = userRow["L1Support"] != DBNull.Value ? Convert.ToBoolean(userRow["L1Support"]) : false,
                 IsTechnician = userRow["IsTechnician"] != DBNull.Value ? Convert.ToBoolean(userRow["IsTechnician"]) : false,
                 Mail = Convert.ToString(userRow["Mail"]),
                 SystemCategoryID = Convert.ToInt16(userRow["SystemCategoryID"]),
                 ContactNumber = Convert.ToString(userRow["ContactNumber"]),
-                UsersDesignation = userRow["UsersDesignationID"] == DBNull.Value ? new PUsersDesignation() : new PUsersDesignation()
+
+                DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"]),
+                Department = new PDMS_DealerDepartment()
                 {
-                    UsersDesignationID = Convert.ToInt32(userRow["UsersDesignationID"]),
-                    UsersDesignation = Convert.ToString(userRow["UsersDesignation"])
+                    DealerDepartmentID = Convert.ToInt32(userRow["DealerDepartmentID"]),
+                    DealerDepartment = Convert.ToString(userRow["DealerDepartment"])
+                },
+                Designation = new PDMS_DealerDesignation()
+                {
+                    DealerDesignationID = Convert.ToInt32(userRow["DealerDepartmentID"]),
+                    DealerDesignation = Convert.ToString(userRow["DealerDesignation"])
+                },
+                Employee = new PDMS_DealerEmployee()
+                {
+                    Name = Convert.ToString(userRow["Name"]),
+                    DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"])
                 }
             };
         }

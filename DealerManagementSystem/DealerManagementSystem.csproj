@@ -294,6 +294,7 @@
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
+    <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
@@ -902,6 +903,13 @@
     </Compile>
     <Compile Include="ViewPreSale\LeadVignesh.aspx.designer.cs">
       <DependentUpon>LeadVignesh.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
+      <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.designer.cs">
+      <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>

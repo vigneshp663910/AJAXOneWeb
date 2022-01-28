@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
@@ -40,34 +40,45 @@
 <body>
     <form id="form1" runat="server">
 
-             <asp:DropDownList ID="DrpMonth" runat="server" AutoPostBack="true">
-        <asp:ListItem Text="Finland" Value="Finland" Selected="True"></asp:ListItem>
-        <asp:ListItem Text="Brazil" Value="Brazil"></asp:ListItem>
-        <asp:ListItem Text="USA" Value="USA"></asp:ListItem>
-        <asp:ListItem Text="Italy" Value="Italy"></asp:ListItem>
-        <asp:ListItem Text="Germany" Value="Germany"></asp:ListItem>
-    </asp:DropDownList>
-                
-    
-     <div id="chart" style="width: 100%; height: 500px;"></div> 
-          <table>
+        <asp:DropDownList ID="DrpMonth" runat="server" AutoPostBack="true">
+            <asp:ListItem Text="Finland" Value="Finland" Selected="True"></asp:ListItem>
+            <asp:ListItem Text="Brazil" Value="Brazil"></asp:ListItem>
+            <asp:ListItem Text="USA" Value="USA"></asp:ListItem>
+            <asp:ListItem Text="Italy" Value="Italy"></asp:ListItem>
+            <asp:ListItem Text="Germany" Value="Germany"></asp:ListItem>
+        </asp:DropDownList>
 
-                <tr>
+
+        <div id="chart" style="width: 100%; height: 500px;"></div>
+        <table>
+
+            <tr>
+                <td>
+                    <asp:Label ID="Label2" runat="server" Text="API Test"></asp:Label></td>
+                <td>
+                    <asp:Button ID="btnAPITest" runat="server" Text="API Test" OnClick="btnAPITest_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="BtnMaterial" runat="server" Text="Material" OnClick="BtnMaterial_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click" />
+                </td>
+                <td>
+                    <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
+            </tr>
+            
+              <tr>
                     <td>
-                        <asp:Label ID="Label2" runat="server" Text="API Test"></asp:Label></td>
-                    <td>
-                        <asp:Button ID="btnAPITest" runat="server" Text="API Test" OnClick="btnAPITest_Click" />
+                        <asp:Label ID="Label34" runat="server" Text="Enquiry Indiamart"></asp:Label>
                     </td>
+
                     <td>
-                        <asp:Button ID="BtnMaterial" runat="server" Text="Material" OnClick="BtnMaterial_Click"/>
+                        <asp:Button ID="btnEnquiryIndiamart" runat="server" Text="Enquiry Indiamart" OnClick="btnEnquiryIndiamart_Click" />
                     </td>
-                    <td>
-                        <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click"/>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
                 </tr>
-              </table>
+
+        </table>
     </form>
 </body>
 </html>

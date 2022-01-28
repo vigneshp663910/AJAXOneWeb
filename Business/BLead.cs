@@ -58,10 +58,19 @@ namespace Business
           //  TraceLogger.Log(DateTime.Now);
             
         }
-        public List<PLeadFollowUp> GetLeadFollowUp(long LeadID, int UserID)
+        public List<PLeadFollowUp> GetLeadFollowUpByID(long LeadID, long? LeadFollowUpID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Lead/FollowUp?LeadID=" + LeadID + "&UserID=" + UserID;
+            string endPoint = "Lead/FollowUpByID?LeadID=" + LeadID + "&LeadFollowUpID=" + LeadFollowUpID;
+            return JsonConvert.DeserializeObject<List<PLeadFollowUp>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+        public List<PLeadFollowUp> GetLeadFollowUp(long? LeadID, int? SalesEngineerUserID, DateTime? From, DateTime? To, int? UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/FollowUp?LeadID=" + LeadID + "&SalesEngineerUserID=" + SalesEngineerUserID 
+                + "&From=" + From + "&To=" + To + "&UserID=" + UserID;
             return JsonConvert.DeserializeObject<List<PLeadFollowUp>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
 

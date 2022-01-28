@@ -649,10 +649,10 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PCustomerResponsibleEmployee>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
-        public List<PDMS_Customer> GetCustomerFleet(long? CustomerFleetID, long? CustomerID)
+        public List<PCustomerFleet> GetCustomerFleet(long? CustomerFleetID, long? CustomerID)
         {
             string endPoint = "Customer/Fleet?CustomerFleetID=" + CustomerFleetID + "&CustomerID=" + CustomerID;
-            return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<List<PCustomerFleet>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
         public List<PDMS_Customer> GetCustomerAutocomplete(string Customer)

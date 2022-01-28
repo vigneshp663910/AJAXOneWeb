@@ -24,8 +24,8 @@ namespace SapIntegration
                 {
                     tagTable.CurrentIndex = i;
                     Employee = new PUser();
-                    Employee.Department = new PDepartment();
-                    Employee.Department.DepartmentName = tagTable.CurrentRow.GetString("EMPLOYEE_DEPARTMENT");              
+                    Employee.Department = new PDMS_DealerDepartment();
+                    Employee.Department.DealerDepartment = tagTable.CurrentRow.GetString("EMPLOYEE_DEPARTMENT");              
                     Employee.ContactName = tagTable.CurrentRow.GetString("EMPLOYEE_NAME");
                     Employee.Mail = tagTable.CurrentRow.GetString("EMAIL_ID");
                     Employee.UserName = tagTable.CurrentRow.GetString("EMPLOYEE_ID");

@@ -203,9 +203,9 @@ namespace Business
                 {
                     DealerEmployee.Add(new PDealerEmployee()
                     {
-                        Dealer = new PDMS_Dealer() { DealerName = E.Department.DepartmentName, DealerCode = E.ExternalReferenceID.Split('-')[0] },
+                        Dealer = new PDMS_Dealer() { DealerName = E.Department.DealerDepartment, DealerCode = E.ExternalReferenceID.Split('-')[0] },
                         EmpId = Convert.ToInt32(E.UserName),
-                        Department = E.Department.DepartmentName,
+                        Department = E.Department.DealerDepartment,
                         EmployeeName = E.ContactName,
                         EmployeeType = E.ExternalReferenceID.Split('-').Count() == 2 ? E.ExternalReferenceID.Split('-')[1] : ""
                     });

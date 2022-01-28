@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -138,12 +139,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
 
         public string ValidationCustomer()
-        {
+            {
             long longCheck;
             
 
             string Message = ""; 
             txtCustomerName.BorderColor = Color.Silver;
+            txtGSTIN.BorderColor = Color.Silver;
+            txtPAN.BorderColor = Color.Silver;
             txtContactPerson.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
             txtAlternativeMobile.BorderColor = Color.Silver;
@@ -154,63 +157,54 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlState.BorderColor = Color.Silver;
             ddlDistrict.BorderColor = Color.Silver;
 
+            Regex regex = new Regex(@"^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[a-zA-Z0-9]{3}$");
+
             if (string.IsNullOrEmpty(txtCustomerName.Text.Trim()))
             {
-                Message = "Please enter the Customer Name"; 
+                Message = "Please enter the Customer Name";
                 txtCustomerName.BorderColor = Color.Red;
+                return Message;
             }
-            else if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
+            else if ((!regex.Match(txtGSTIN.Text.Trim()).Success) && (txtGSTIN.Text.Trim() != "URD"))
             {
-                Message = Message + "<br/>Please enter the Contact Person"; 
+                Message = " GST Number " + txtGSTIN.Text.Trim() + " is not correct";
+                txtGSTIN.BorderColor = Color.Red;
+                return Message;
+            } 
+
+            if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
+            {
+                string gst = txtGSTIN.Text.Trim().Remove(0, 2).Substring(0, 10);
+                if (txtPAN.Text.Trim().ToUpper() != gst.ToUpper())
+                {
+                    Message = Message + "<br/>PAN and GSTIN are not matching .";
+                    txtPAN.BorderColor = Color.Red;
+                    return Message;
+                }
+            } 
+            
+            if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Contact Person";
                 txtContactPerson.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Mobile"; 
+                Message = Message + "<br/>Please enter the Mobile";
                 txtMobile.BorderColor = Color.Red;
             }
             else if (txtMobile.Text.Trim().Length != 10)
             {
-                Message = Message + "<br/>Mobile Length should be 10 digit"; 
+                Message = Message + "<br/>Mobile Length should be 10 digit";
                 txtMobile.BorderColor = Color.Red;
             }
-            else if(!long.TryParse(txtMobile.Text.Trim(), out longCheck))
-            {                
-                Message = Message + "<br/>Mobile should be 10 digit"; 
+            else if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Mobile should be 10 digit";
                 txtMobile.BorderColor = Color.Red;
-            } 
-            else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Address1"; 
-                txtAddress1.BorderColor = Color.Red;
             }
-         
-            else if (ddlCountry.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Country"; 
-                ddlCountry.BorderColor = Color.Red;
-            }
-            else if (ddlState.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the State"; 
-                ddlState.BorderColor = Color.Red;
-            }
-            else if (ddlDistrict.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the District"; 
-                ddlDistrict.BorderColor = Color.Red;
-            }
-            else if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Postal"; 
-                txtPincode.BorderColor = Color.Red;
-            }
-            else if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
-            {
-                Message = Message + "<br/>Pincode should be in digit"; 
-                txtPincode.BorderColor = Color.Red;
-            }
-            
+
+
             if (!string.IsNullOrEmpty(txtAlternativeMobile.Text.Trim()))
             {
                 if (txtAlternativeMobile.Text.Trim().Length != 10)
@@ -225,6 +219,41 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
             }
 
+            if (!string.IsNullOrEmpty(Message))
+            {
+                return Message;
+            }
+              if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Address1";
+                txtAddress1.BorderColor = Color.Red;
+            }
+
+            else if (ddlCountry.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Country";
+                ddlCountry.BorderColor = Color.Red;
+            }
+            else if (ddlState.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the State";
+                ddlState.BorderColor = Color.Red;
+            }
+            else if (ddlDistrict.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the District";
+                ddlDistrict.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Postal";
+                txtPincode.BorderColor = Color.Red;
+            }
+            else if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Pincode should be in digit";
+                txtPincode.BorderColor = Color.Red;
+            }  
             return Message;
         }
 

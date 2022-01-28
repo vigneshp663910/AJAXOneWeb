@@ -56,6 +56,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
             lblLocation.Text = Location;
+
+            fillAssignSalesEngineer(LeadID);
+            fillFollowUp(LeadID);
+            fillConvocation(LeadID);
+            fillFinancial(LeadID);
+            fillEffort(LeadID);
+            fillExpense(LeadID);
+            fillProduct(LeadID);
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -98,9 +106,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             
         }
- 
-       
-        
+  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
             MPE_Effort.Show();
@@ -166,7 +172,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void fillFollowUp(long LeadID)
         {
-            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(LeadID, PSession.User.UserID); 
+            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUpByID(LeadID, null); 
             gvFollowUp.DataSource = FollowUp;
             gvFollowUp.DataBind();
 

@@ -398,7 +398,7 @@ namespace DealerManagementSystem.ViewService
                 RadioButton rbICTicketID = (RadioButton)gvICTickets.Rows[i].FindControl("rbICTicketID");
                 if (rbICTicketID.Checked)
                 {
-                    string url = "DMS_ICTicketMaterialCharges.aspx?TicketID=" + gvICTickets.DataKeys[i].Value.ToString();
+                    string url = "ICTicketMaterialCharges.aspx?TicketID=" + gvICTickets.DataKeys[i].Value.ToString();
                     Response.Redirect(url);
                 }
             }
@@ -437,7 +437,7 @@ namespace DealerManagementSystem.ViewService
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
 
             int index = gvRow.RowIndex;
-            string url = "DMS_ICTicketProcess.aspx?TicketID=" + gvICTickets.DataKeys[index].Value.ToString();
+            string url = "ICTicketProcess.aspx?TicketID=" + gvICTickets.DataKeys[index].Value.ToString();
             Response.Redirect(url);
         }
 
@@ -445,7 +445,7 @@ namespace DealerManagementSystem.ViewService
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "DMS_ICTicketView.aspx?TicketID=" + gvICTickets.DataKeys[index].Value.ToString();
+            string url = "ICTicketView.aspx?TicketID=" + gvICTickets.DataKeys[index].Value.ToString();
             Response.Redirect(url);
         }
 

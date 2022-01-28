@@ -407,7 +407,7 @@ namespace Business
                             {
                                 UserID = Convert.ToInt32(DR["CreatedBy"]),
                                 ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                             };
                             pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
                             pHeader.Subject = Convert.ToString(DR["Subject"]);
@@ -873,7 +873,7 @@ namespace Business
                             {
                                 UserID = Convert.ToInt32(DR["CreatedBy"]),
                                 ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                             };
                             pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
                             // pTickets.Justification = Convert.ToString(DR["Justification"]);
@@ -1106,7 +1106,7 @@ namespace Business
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                    Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                    Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
                                 pHeader.Subject = Convert.ToString(DR["Subject"]);
@@ -1584,7 +1584,7 @@ namespace Business
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                    Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                    Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
 
@@ -1776,7 +1776,7 @@ namespace Business
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                    Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                    Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
 
@@ -1925,7 +1925,7 @@ namespace Business
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                    Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                    Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
 
@@ -2229,7 +2229,7 @@ namespace Business
                             {
                                 UserID = Convert.ToInt32(DR["CreatedBy"]),
                                 ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                Department = new PDepartment { DepartmentName = Convert.ToString(DR["CreatedByDepartment"]) }
+                                Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                             };
                             pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
                             pHeader.Description = Convert.ToString(DR["Description"]);

@@ -11,14 +11,18 @@ namespace Properties
         #region Properties
         public Int32 Status { get; set; }
         public int UserID { get; set; }
+        public int DealerEmployeeID { get; set; }
+        public PDMS_DealerEmployee Employee { get; set; }
+        public PDMS_DealerDepartment Department { get; set; }
+        public PDMS_DealerDesignation Designation { get; set; }
+        public PDMS_DealerEmployee ReportingTo { get; set; }
         public Int32 PlantID { get; set; } 
         public String UserName { get; set; }
         public String PassWord { get; set; }
         public Boolean IsLocked { get; set; }
         public Int16 UserTypeID { get; set; }
         public Boolean IsEnabled { get; set; }
-        public String ContactName { get; set; }
-        public PDepartment Department { get; set; }
+        public String ContactName { get; set; } 
 
         public Boolean IsFirstTimeLogin { get; set; }
         public String ExternalReferenceID { get; set; }

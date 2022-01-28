@@ -83,6 +83,9 @@ namespace Properties
         public DateTime FollowUpDate { get; set; }
         public PUser SalesEngineer { get; set; }
         public PUser CreatedBy { get; set; }
+
+        public PLead Lead { get; set; }
+        public PDMS_Customer Customer { get; set; }
     }
     [Serializable]
     public class PLeadEffort
@@ -173,7 +176,7 @@ namespace Properties
         public int? SourceID { get; set; }
         public int? TypeID { get; set; }
         public int? DealerID { get; set; }
-        public int? CustomerID { get; set; }
+        public long? CustomerID { get; set; }
         public string CustomerCode { get; set; }
         public int? CountryID { get; set; }
         public int? StateID { get; set; }

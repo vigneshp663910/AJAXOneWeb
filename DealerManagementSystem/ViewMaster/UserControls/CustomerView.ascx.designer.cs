@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
     {
 
         /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
         /// lblCustomer control.
         /// </summary>
         /// <remarks>
@@ -132,6 +141,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbAddRelation;
 
         /// <summary>
+        /// LinkButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+
+        /// <summary>
         /// LinkButton2 control.
         /// </summary>
         /// <remarks>
@@ -238,6 +256,42 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvFleet;
+
+        /// <summary>
+        /// tpnlLead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlLead;
+
+        /// <summary>
+        /// gvLead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvLead;
+
+        /// <summary>
+        /// tpnlVisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlVisit;
+
+        /// <summary>
+        /// gvColdVisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvColdVisit;
 
         /// <summary>
         /// pnlAddAttribute control.
@@ -564,13 +618,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_Customer;
 
         /// <summary>
-        /// pnlFleed control.
+        /// pnlFleet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFleed;
+        protected global::System.Web.UI.WebControls.Panel pnlFleet;
 
         /// <summary>
         /// Button2 control.
@@ -582,13 +636,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
-        /// Label1 control.
+        /// lblMessageFleet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblMessageFleet;
 
         /// <summary>
         /// Fieldset2 control.
@@ -600,22 +654,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
 
         /// <summary>
-        /// txtCustomerName control.
+        /// txtFleet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerName;
+        protected global::System.Web.UI.WebControls.TextBox txtFleet;
 
         /// <summary>
-        /// txtCustomerID control.
+        /// txtFleetID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerID;
+        protected global::System.Web.UI.WebControls.TextBox txtFleetID;
 
         /// <summary>
         /// btnFleed control.
@@ -654,13 +708,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Button Button7;
 
         /// <summary>
-        /// Label2 control.
+        /// lblMessageResponsible control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblMessageResponsible;
 
         /// <summary>
         /// Fieldset5 control.

@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketFSRManage.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketFSRManage" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Src="~/UserControls/DMS_U_AvailabilityOfOtherMachine.ascx" TagPrefix="UC" TagName="UC_AvailabilityOfOtherMachine" %>
-<%@ Register Src="~/UserControls/DMS_ICTicketServiceCharges.ascx" TagPrefix="UC" TagName="DMS_ICTicketServiceCharges" %>
+<%@ Register Src="~/UserControls/AvailabilityOfOtherMachine.ascx" TagPrefix="UC" TagName="UC_AvailabilityOfOtherMachine" %>
+<%@ Register Src="~/UserControls/ICTicketServiceCharges.ascx" TagPrefix="UC" TagName="DMS_ICTicketServiceCharges" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
 
     <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>

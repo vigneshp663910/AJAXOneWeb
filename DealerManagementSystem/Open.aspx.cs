@@ -39,5 +39,9 @@ namespace DealerManagementSystem
         {
             new BDMS_Material().IntegrationMaterialSupersede();
         }
+        protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
+        {
+            new BEnquiryIndiamart().InsertOrUpdateEnquiryIndiamart();
+        }
     }
 }
