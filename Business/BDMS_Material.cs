@@ -151,6 +151,7 @@ namespace Business
                         {
                             provider.Insert("ZDMS_InsertOrUpdateMaterial", Params);
                             scope.Complete();
+                            new SMaterial().setMaterialInActive(Material.MaterialCode);
                         }
 
                     }

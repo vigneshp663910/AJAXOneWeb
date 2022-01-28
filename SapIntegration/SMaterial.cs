@@ -69,6 +69,22 @@ namespace SapIntegration
             }
             return Materials;
         }
+        public void setMaterialInActive(string MaterialCode)
+        {
+            try
+            {
+                IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_SET");
+                IRfcStructure tagTable = tagListBapi.GetStructure("IT_MAT");
+                tagTable.SetValue("MATERIAL", MaterialCode);
+                tagTable.SetValue("ACTIVE", "X");
+                tagListBapi.Invoke(SAP.RfcDes());
+                
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
         public List<PSupersede> getMaterialSupersedeIntegration()
         {
             List<PSupersede> Supersedes = new List<PSupersede>();
@@ -76,7 +92,7 @@ namespace SapIntegration
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
             tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("IT_SC");
+            IRfcTable tagTable = tagListBapi.GetTable("IT_SUPERSEED");
             for (int i = 0; i < tagTable.RowCount; i++)
             {
                 tagTable.CurrentIndex = i;
