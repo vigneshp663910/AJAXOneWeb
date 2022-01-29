@@ -452,7 +452,7 @@
 
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Sales Engineer Assign </span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <span id="PopupDialogue">Add Lead</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
           <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
