@@ -71,7 +71,7 @@ namespace DealerManagementSystem.ViewPreSale
             else
             {
                 FillVisitTarget();
-            } 
+            }
         }
 
         void FillVisitTarget()
@@ -152,7 +152,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                     Label lblNewCustomerTargett = (Label)gvVisitTarget.Rows[i].FindControl("lblNewCustomerTarget");
                     Label lblProspectCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblProspectCustomerTarget");
-                    Label lblExistCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblExistCustomerTarget"); 
+                    Label lblExistCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblExistCustomerTarget");
 
                     txtNewCustomerTarget.Visible = true;
                     txtProspectCustomerTarget.Visible = true;
@@ -163,6 +163,36 @@ namespace DealerManagementSystem.ViewPreSale
                     lblExistCustomerTarget.Visible = false;
                 }
             }
+        }
+
+
+        protected void OnDataBound(object sender, EventArgs e)
+        {
+
+            //if (btnEdit.Text == "Edit")
+            //{
+            //    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+            //    TableHeaderCell cell = new TableHeaderCell();
+            //    cell.Text = "";
+            //    cell.ColumnSpan = 5;
+            //    row.Controls.Add(cell);
+
+            //    cell = new TableHeaderCell();
+            //    cell.ColumnSpan = 4;
+            //    cell.Text = "Target";
+            //    row.Controls.Add(cell);
+
+            //    cell = new TableHeaderCell();
+            //    cell.ColumnSpan = 4;
+            //    cell.Text = "Actual";
+            //    row.Controls.Add(cell);
+
+            //    row.BackColor = ColorTranslator.FromHtml("#3AC0F2");
+            //    gvVisitTarget.HeaderRow.Parent.Controls.AddAt(0, row);
+            //}
+            //else
+            //{
+            //}
         }
     }
 }

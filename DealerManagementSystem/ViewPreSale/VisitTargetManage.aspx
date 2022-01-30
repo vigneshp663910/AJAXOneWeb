@@ -25,7 +25,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12" id="divList" runat="server">
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Visit Target</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
             <div class="col-md-12">
                 <div class="col-md-2 text-right">
                     <label>Year</label>
@@ -63,17 +63,17 @@
             </div>
         </fieldset>
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Listing</legend>
             <div class="col-md-12 Report">
-                <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnDataBound = "OnDataBound">
                     <Columns>
-                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="35px">
                             <ItemTemplate>
                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                 <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Dealer Code">
+                        <asp:TemplateField HeaderText="Dealer Code" ItemStyle-Width="30px"> 
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblVisitTargetID" Text='<%# DataBinder.Eval(Container.DataItem, "VisitTargetID")%>' runat="server" Visible="false" />
@@ -82,43 +82,43 @@
                                 <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Employee Name" SortExpression="Country">
+                        <asp:TemplateField HeaderText="Employee Name" SortExpression="EmployeeName" >
                             <ItemTemplate>
                                 <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Employee.Name")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Year" SortExpression="Country">
+                        <asp:TemplateField HeaderText="Year" SortExpression="Year" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "Year")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Month" SortExpression="Country">
+                        <asp:TemplateField HeaderText="Month" SortExpression="Month" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "Month")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Total Target" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Total Target" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="right" >
                             <ItemTemplate>
                                 <asp:Label ID="lblTotalTarget" Text='<%# DataBinder.Eval(Container.DataItem, "TotalTarget")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="New Customer Target" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="New Customer Target" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblNewCustomerTarget" Text='<%# DataBinder.Eval(Container.DataItem, "NewCustomerTarget")%>' runat="server" />
                                 <asp:TextBox ID="txtNewCustomerTarget" Text='<%# DataBinder.Eval(Container.DataItem, "NewCustomerTarget")%>'
                                     runat="server" CssClass="form-control" TextMode="Number" Visible="false" onblur="Calculation(this)" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Prospect Customer Target" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Prospect Customer Target" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblProspectCustomerTarget" Text='<%# DataBinder.Eval(Container.DataItem, "ProspectCustomerTarget")%>' runat="server" />
                                 <asp:TextBox ID="txtProspectCustomerTarget" Text='<%# DataBinder.Eval(Container.DataItem, "ProspectCustomerTarget")%>' runat="server" CssClass="form-control" TextMode="Number" Visible="false" onblur="Calculation(this)" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Exist Customer Target" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Exist Customer Target" ItemStyle-Width="125px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblExistCustomerTarget" Text='<%# DataBinder.Eval(Container.DataItem, "ExistCustomerTarget")%>' runat="server" />
                                 <asp:TextBox ID="txtExistCustomerTarget" Text='<%# DataBinder.Eval(Container.DataItem, "ExistCustomerTarget")%>' runat="server" CssClass="form-control" TextMode="Number" Visible="false" onblur="Calculation(this)" />
@@ -126,23 +126,23 @@
                         </asp:TemplateField>
 
 
-                        <asp:TemplateField HeaderText="Total Actual" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Total Actual" ItemStyle-Width="60px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblTotalActual" Text='<%# DataBinder.Eval(Container.DataItem, "TotalActual")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="New Customer Actual" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="New Customer Actual" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblNewCustomerActual" Text='<%# DataBinder.Eval(Container.DataItem, "NewCustomerActual")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Prospect Customer Actual" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Prospect Customer Actual" ItemStyle-Width="140px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblProspectCustomerActual" Text='<%# DataBinder.Eval(Container.DataItem, "ProspectCustomerActual")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Exist Customer Actual" ItemStyle-HorizontalAlign="Center">
+                        <asp:TemplateField HeaderText="Exist Customer Actual" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblExistCustomerActual" Text='<%# DataBinder.Eval(Container.DataItem, "ExistCustomerActual")%>' runat="server" />
                             </ItemTemplate>

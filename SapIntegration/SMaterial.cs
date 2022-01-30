@@ -16,14 +16,14 @@ namespace SapIntegration
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZBAPI_MATERIALS_GET");
             tagListBapi.SetValue("MATERIALCODE", MaterialCode);
             tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("It_MARA"); 
+            IRfcTable tagTable = tagListBapi.GetTable("It_MARA");
             for (int i = 0; i < tagTable.RowCount; i++)
             {
                 tagTable.CurrentIndex = i;
                 Material = new PDMS_Material();
                 Material.MaterialCode = tagTable.CurrentRow.GetString(1);
                 Material.MaterialDescription = tagTable.CurrentRow.GetString(2);
-              
+
                 Materials.Add(Material);
             }
             return Materials;
@@ -42,7 +42,7 @@ namespace SapIntegration
                 tagTable.CurrentIndex = i;
                 Material = new PDMS_Material();
                 Material.MaterialCode = tagTable.CurrentRow.GetString("MATERIAL");
-                Material.ValidFrom= Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
+                Material.ValidFrom = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
                 Material.ValidTo = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_TO"));
                 Material.MaterialDescription = tagTable.CurrentRow.GetString("MATERIAL_DESC");
                 Material.MaterialType = tagTable.CurrentRow.GetString("MATERIAL_TYPE");
@@ -64,10 +64,18 @@ namespace SapIntegration
                 Material.SerialProfile = tagTable.CurrentRow.GetString("SERIAL_PROFILE");
                 Material.MaterialDivision = tagTable.CurrentRow.GetString("MATERIAL_DIVISION");
                 Material.HSN = tagTable.CurrentRow.GetString("HSN_SAC");
-                Material.IsActive = (tagTable.CurrentRow.GetString("ACTIVE")=="X")?false:true;
+                Material.IsActive = (tagTable.CurrentRow.GetString("ACTIVE") == "X") ? false : true;
                 Materials.Add(Material);
             }
             return Materials;
+        }
+        public void setMaterialInActive(string MaterialCode)
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_SET");
+            IRfcStructure tagTable = tagListBapi.GetStructure("IT_MAT");
+            tagTable.SetValue("MATERIAL", MaterialCode);
+            tagTable.SetValue("ACTIVE", "X");
+            tagListBapi.Invoke(SAP.RfcDes());
         }
         public List<PSupersede> getMaterialSupersedeIntegration()
         {
@@ -75,8 +83,9 @@ namespace SapIntegration
             PSupersede Supersede = null;
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
+            tagListBapi.SetValue("P_SUPERSEED_DIS", "X");
             tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("IT_SC");
+            IRfcTable tagTable = tagListBapi.GetTable("IT_SUPERSEED");
             for (int i = 0; i < tagTable.RowCount; i++)
             {
                 tagTable.CurrentIndex = i;
@@ -90,6 +99,15 @@ namespace SapIntegration
                 Supersedes.Add(Supersede);
             }
             return Supersedes;
+        }
+        public void setMaterialSupersedeInActive(string Material, string MaterialDescription)
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_SET");
+            IRfcStructure tagTable = tagListBapi.GetStructure("IT_SC");
+            tagTable.SetValue("MATERIAL", Material);
+            tagTable.SetValue("SSMATNR", MaterialDescription);
+            tagTable.SetValue("ACTIVE", "X");
+            tagListBapi.Invoke(SAP.RfcDes());
         }
         public List<PDMS_Material> getMaterialDetails(string MaterialCode)
         {
@@ -120,9 +138,9 @@ namespace SapIntegration
             }
             return Materials;
         }
-        public PDMS_ServiceMaterial getMaterialTax(string Customer, string Vendor, string OrderType, int Item, string MaterialCode, decimal Quantity, string IV_SEC_SALES, string PRICEDATE,Boolean IsWarrenty)
+        public PDMS_ServiceMaterial getMaterialTax(string Customer, string Vendor, string OrderType, int Item, string MaterialCode, decimal Quantity, string IV_SEC_SALES, string PRICEDATE, Boolean IsWarrenty)
         {
-            PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial(); 
+            PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial();
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_SO");
             tagListBapi.SetValue("IV_SEC_SALES", IV_SEC_SALES);
@@ -131,13 +149,13 @@ namespace SapIntegration
             IS_SO_HEAD.SetValue("ORDER_TYPE", OrderType);
             IS_SO_HEAD.SetValue("VENDOR", Vendor.Trim().PadLeft(10, '0'));
             IS_SO_HEAD.SetValue("PRICEDATE", PRICEDATE);
-            
+
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
 
             long n;
             if (long.TryParse(MaterialCode, out n))
             {
-                MaterialCode= MaterialCode.PadLeft(18, '0');
+                MaterialCode = MaterialCode.PadLeft(18, '0');
             }
 
             IT_SO_ITEMS.Append();
@@ -218,23 +236,23 @@ namespace SapIntegration
                 IT_MARA_NEW.CurrentIndex = i;
                 Material = new PDMS_Material();
                 Material.MaterialCode = IT_MARA_NEW.CurrentRow.GetString("MATNR");
-               // Material.MaterialDescription = IT_MARA_NEW.CurrentRow.GetString("MAKTX");
+                // Material.MaterialDescription = IT_MARA_NEW.CurrentRow.GetString("MAKTX");
                 Material.MaterialDescription = MDescription.Keys.Contains(Material.MaterialCode) ? MDescription[Material.MaterialCode] : "";
 
                 Material.BaseUnit = IT_MARA_NEW.CurrentRow.GetString("MEINS");
                 Material.MaterialType = IT_MARA_NEW.CurrentRow.GetString("MTART");
                 Material.MaterialGroup = IT_MARA_NEW.CurrentRow.GetString("MATKL");
-                Material.GrossWeight = Convert.ToDecimal( IT_MARA_NEW.CurrentRow.GetString("BRGEW"));
+                Material.GrossWeight = Convert.ToDecimal(IT_MARA_NEW.CurrentRow.GetString("BRGEW"));
                 Material.NetWeight = Convert.ToDecimal(IT_MARA_NEW.CurrentRow.GetString("NTGEW"));
                 Material.WeightUnit = IT_MARA_NEW.CurrentRow.GetString("GEWEI");
-                Material.HSN = Hsn.Keys.Contains(Material.MaterialCode) ? Hsn[Material.MaterialCode] : "";  
-              //  Material.TaxPercentage = Convert.ToDecimal(IT_MARA_NEW.CurrentRow.GetString(""));
-              //  Material.Product = IT_MARA_NEW.CurrentRow.GetString("");
-              //  Material.ProductGroup = IT_MARA_NEW.CurrentRow.GetString("");
-                Materials.Add(Material);  
+                Material.HSN = Hsn.Keys.Contains(Material.MaterialCode) ? Hsn[Material.MaterialCode] : "";
+                //  Material.TaxPercentage = Convert.ToDecimal(IT_MARA_NEW.CurrentRow.GetString(""));
+                //  Material.Product = IT_MARA_NEW.CurrentRow.GetString("");
+                //  Material.ProductGroup = IT_MARA_NEW.CurrentRow.GetString("");
+                Materials.Add(Material);
             }
             return Materials;
         }
-    
+
     }
 }
