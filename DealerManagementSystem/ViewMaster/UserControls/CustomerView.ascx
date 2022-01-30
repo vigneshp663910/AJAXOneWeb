@@ -3,78 +3,78 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 
-    <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
-    <script type="text/javascript">  
-        function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
+<script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
+<script type="text/javascript">  
+    function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
+        debugger
+        var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
+        txtCustomerID.value = CustomerID.innerText;
+        var txtCustomer = document.getElementById('MainContent_UC_CustomerView_txtFleet');
+        txtCustomer.value = CustomerName.innerText;
+
+        document.getElementById('FleDivAuto').style.display = "none";
+    }
+</script>
+<script type="text/javascript"> 
+    $(function () {
+        $('#FleDiv1').click(function () {
             debugger
-            var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
-            txtCustomerID.value = CustomerID.innerText;
-            var txtCustomer = document.getElementById('MainContent_UC_CustomerView_txtFleet');
-            txtCustomer.value = CustomerName.innerText;
+            var CustomerID = document.getElementById('lblCustomerID1')
+            var CustomerName = document.getElementById('lblCustomerName1')
+            FleAutoCustomer(CustomerID, CustomerName, "", "");
+        });
+    });
+    $(function () {
+        $('#FleDiv2').click(function () {
+            debugger
+            var CustomerID = document.getElementById('lblCustomerID2')
+            var CustomerName = document.getElementById('lblCustomerName2')
+            FleAutoCustomer(CustomerID, CustomerName, "", "");
+        });
+    });
+    $(function () {
+        $('#FleDiv3').click(function () {
+            var CustomerID = document.getElementById('lblCustomerID3')
+            var CustomerName = document.getElementById('lblCustomerName3')
+            FleAutoCustomer(CustomerID, CustomerName, "", "");
+        });
+    });
+    $(function () {
+        $('#FleDiv4').click(function () {
+            var CustomerID = document.getElementById('lblCustomerID4')
+            var CustomerName = document.getElementById('lblCustomerName4')
+            FleAutoCustomer(CustomerID, CustomerName, "", "");
+        });
+    });
+    $(function () {
+        $('#FleDiv5').click(function () {
+            var CustomerID = document.getElementById('lblCustomerID5')
+            var CustomerName = document.getElementById('lblCustomerName5')
+            FleAutoCustomer(CustomerID, CustomerName, "", "");
+        });
+    });
 
-            document.getElementById('FleDivAuto').style.display = "none"; 
-        }
-    </script>
-    <script type="text/javascript"> 
-        $(function () {
-            $('#FleDiv1').click(function () {
-                debugger
-                var CustomerID = document.getElementById('lblCustomerID1')
-                var CustomerName = document.getElementById('lblCustomerName1') 
-                FleAutoCustomer(CustomerID, CustomerName, "", "");
-            });
-        });
-        $(function () {
-            $('#FleDiv2').click(function () {
-                debugger
-                var CustomerID = document.getElementById('lblCustomerID2')
-                var CustomerName = document.getElementById('lblCustomerName2') 
-                FleAutoCustomer(CustomerID, CustomerName, "", "");
-            });
-        });
-        $(function () {
-            $('#FleDiv3').click(function () {
-                var CustomerID = document.getElementById('lblCustomerID3')
-                var CustomerName = document.getElementById('lblCustomerName3') 
-                FleAutoCustomer(CustomerID, CustomerName, "", "");
-            });
-        });
-        $(function () {
-            $('#FleDiv4').click(function () {
-                var CustomerID = document.getElementById('lblCustomerID4')
-                var CustomerName = document.getElementById('lblCustomerName4') 
-                FleAutoCustomer(CustomerID, CustomerName, "", "");
-            });
-        });
-        $(function () {
-            $('#FleDiv5').click(function () {
-                var CustomerID = document.getElementById('lblCustomerID5')
-                var CustomerName = document.getElementById('lblCustomerName5') 
-                FleAutoCustomer(CustomerID, CustomerName, "", "");
-            });
-        });
+</script>
+<style>
+    .fieldset-borderAuto {
+        border: solid 1px #cacaca;
+        margin: 1px 0;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #b4b4b4;
+    }
 
-    </script>
-    <style>
-        .fieldset-borderAuto {
-            border: solid 1px #cacaca;
-            margin: 1px 0;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #b4b4b4;
+        .fieldset-borderAuto tr {
+            /* background-color: #000084; */
+            background-color: inherit;
+            font-weight: bold;
+            color: white;
         }
 
-            .fieldset-borderAuto tr {
-                /* background-color: #000084; */
-                background-color: inherit;
-                font-weight: bold;
-                color: white;
-            }
-
-            .fieldset-borderAuto:hover {
-                background-color: blue;
-            }
-    </style>
+        .fieldset-borderAuto:hover {
+            background-color: blue;
+        }
+</style>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
 
@@ -106,6 +106,7 @@
                 <label>Location : </label>
                 <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
             </div>
+
             <div class="col-md-6">
                 <label>GSTIN : </label>
                 <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
@@ -114,6 +115,30 @@
                 <label>PAN : </label>
                 <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
             </div>
+
+            <div class="col-md-6">
+                <label>Verified : </label>
+                <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" />
+            </div>
+
+            <div class="col-md-6">
+                <label>Active : </label>
+                <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" />
+            </div>
+
+            <div class="col-md-6">
+                <label>OrderBlock : </label>
+                <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" />
+            </div>
+            <div class="col-md-6">
+                <label>DeliveryBlock : </label>
+                <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" />
+            </div>
+            <div class="col-md-6">
+                <label>BillingBlock : </label>
+                <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" />
+            </div>
+
             <div class="col-md-12">
                 <div style="float: right;">
                     <div class="dropdown">
@@ -126,6 +151,11 @@
                             <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
                             <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
                             <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
+
+                            <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
+                            <asp:LinkButton ID="lbtnInActivateCustomer" runat="server" OnClick="lbActions_Click">In Activate Customer</asp:LinkButton>
                         </div>
                     </div>
                 </div>
@@ -224,6 +254,11 @@
                                         <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Remark">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lbProductDelete" runat="server" OnClick="lbProductDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
@@ -304,11 +339,11 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlEmployee" runat="server" HeaderText="Employee">
+    <asp1:TabPanel ID="tpnlEmployee" runat="server" HeaderText="EMP RESP">
         <ContentTemplate>
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Employee</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">EMP RESP</legend>
 
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -423,12 +458,12 @@
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
-            </fieldset> 
+            </fieldset>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Lead">
         <ContentTemplate>
-              <fieldset class="fieldset-border">
+            <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
                 <div class="col-md-12 Report">
                     <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -496,7 +531,7 @@
                                     <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                           
+
                         </Columns>
                         <AlternatingRowStyle BackColor="#f2f2f2" />
                         <FooterStyle ForeColor="White" />
@@ -505,7 +540,7 @@
                         <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
-            </fieldset> 
+            </fieldset>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlVisit" runat="server" HeaderText="Visit">
@@ -513,7 +548,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Visit</legend>
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvColdVisit" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" >
+                    <asp:GridView ID="gvColdVisit" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -540,8 +575,8 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                                <ItemTemplate> 
-                                    <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" /> 
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Contact Person">
@@ -561,7 +596,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
                                 </ItemTemplate>
-                            </asp:TemplateField> 
+                            </asp:TemplateField>
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
@@ -570,10 +605,83 @@
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
-            </fieldset> 
+            </fieldset>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+        <ContentTemplate>
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
 
+                <table>
+                    <tr>
+                        <td>
+                            <asp:FileUpload ID="fileUpload" runat="server" /></td>
+                        <td>
+                            <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" /></td>
+                    </tr>
+                </table>
+                <div class="col-md-12 Report">
+                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Cold Visit No">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblColdVisitNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitNumber")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Cold Visit Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Action Type">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType.ActionType")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Contact Person">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.ContactPerson")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Mobile">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="EMail">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </fieldset>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlAddAttribute" runat="server" CssClass="Popup" Style="display: none">
@@ -651,6 +759,12 @@
                     </div>
                     <div class="col-md-4">
                         <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>Quantity</label>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:TextBox ID="txtRemarkProduct" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
             </fieldset>

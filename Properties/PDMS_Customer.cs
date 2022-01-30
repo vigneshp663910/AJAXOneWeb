@@ -56,6 +56,16 @@ namespace Properties
         public DateTime? DOAnniversary { get; set; }
         public Boolean SendSMS { get; set; }
         public Boolean SendEmail { get; set; }
+
+
+        public Boolean IsVerified { get; set; }
+        public PUser VerifiedBy { get; set; }
+        public Boolean VerifiedOn { get; set; }
+
+        public Boolean IsActive { get; set; }
+        public Boolean OrderBlock { get; set; }
+        public Boolean DeliveryBlock { get; set; }
+        public Boolean BillingBlock { get; set; }
     }
     [Serializable]
     public class PCustomerTitle
@@ -86,8 +96,8 @@ namespace Properties
         public PMake Make { get; set; }
         public PProductType ProductType { get; set; }
         public PProduct Product { get; set; }
-
         public int Quantity { get; set; }
+        public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
 

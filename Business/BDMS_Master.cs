@@ -125,5 +125,15 @@ namespace Business
             string endPoint = "Master/Relation?RelationID=" + RelationID + "&Relation=" + Relation;
             return JsonConvert.DeserializeObject<List<PRelation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PImportance> GetImportance(int? ImportanceID, string Importance)
+        {
+            string endPoint = "Master/Importance?ImportanceID=" + ImportanceID + "&Importance=" + Importance;
+            return JsonConvert.DeserializeObject<List<PImportance>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PPreSaleStatus> GetPreSaleStatus(int? PreSaleStatusID, string PreSaleStatus)
+        {
+            string endPoint = "Master/PreSaleStatus?PreSaleStatusID=" + PreSaleStatusID + "&PreSaleStatus=" + PreSaleStatus;
+            return JsonConvert.DeserializeObject<List<PPreSaleStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 } 

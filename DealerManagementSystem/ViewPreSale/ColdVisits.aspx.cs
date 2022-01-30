@@ -29,7 +29,7 @@ namespace DealerManagementSystem.ViewPreSale
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID"); 
-                new DDLBind(ddlActionType, new BPreSale().GetActionType( null, null), "ActionType", "ActionTypeID");
+               
             }
         }
 
@@ -95,6 +95,7 @@ namespace DealerManagementSystem.ViewPreSale
            
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+            ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.Remark = txtRemark.Text.Trim();
            
             ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
@@ -171,6 +172,8 @@ namespace DealerManagementSystem.ViewPreSale
         {
             MPE_Customer.Show();
             UC_Customer.FillMaster();
+            new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+            new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
         }
         [WebMethod]
         public static List<string> GetCustomer(string CustS)

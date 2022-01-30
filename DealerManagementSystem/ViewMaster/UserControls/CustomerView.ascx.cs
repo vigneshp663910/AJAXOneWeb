@@ -1,9 +1,15 @@
-﻿using Business;
+﻿using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Transfer;
+using Business;
 using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -60,6 +66,23 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             string Location = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
             lblLocation.Text = Location;
 
+            cbVerified.Checked = Customer.IsVerified;
+            cbIsActive.Checked = Customer.IsActive;
+            cbOrderBlock.Checked = Customer.OrderBlock;
+            cbDeliveryBlock.Checked = Customer.DeliveryBlock;
+            cbBillingBlock.Checked = Customer.BillingBlock;
+
+            lbtnVerifiedCustomer.Visible = true;
+            if(Customer.IsVerified)
+            {
+                lbtnVerifiedCustomer.Visible = false;
+            }
+            lbtnInActivateCustomer.Visible = true;
+            if (!Customer.IsActive)
+            {
+                lbtnInActivateCustomer.Visible = false;
+            }
+
             fillAttribute();
             fillRelation();
             fillProduct();
@@ -114,7 +137,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected void btnSaveProduct_Click(object sender, EventArgs e)
         {
             MPE_Product.Show();
-            string Message = ValidationProduct(); 
+            string Message = ValidationProduct();
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessageProduct.Text = Message;
@@ -127,6 +150,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
             Product.Product = new PProduct() { ProductID = Convert.ToInt32(ddlProduct.SelectedValue) };
             Product.Quantity = Convert.ToInt32(txtQuantity.Text.Trim());
+            Product.Remark = txtRemarkProduct.Text.Trim();
+
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
@@ -139,7 +164,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             ddlMake.Items.Clear();
             ddlProductType.Items.Clear();
-            ddlProduct.Items.Clear(); 
+            ddlProduct.Items.Clear();
             txtQuantity.Text = "";
             tbpCust.ActiveTabIndex = 1;
             MPE_Product.Hide();
@@ -421,7 +446,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             else if (lbActions.Text == "Add Attribute")
             {
-                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");    
+                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");
                 MPE_Attribute.Show();
             }
             else if (lbActions.Text == "Add Product")
@@ -438,13 +463,47 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             else if (lbActions.Text == "Add Fleet")
             {
-               // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
                 MPE_Fleed.Show();
             }
             else if (lbActions.Text == "Add Responsible Employee")
             {
-                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 MPE_ResponsibleEmp.Show();
+            }
+            else if (lbActions.Text == "Verified Customer")
+            {
+                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + CustomerID + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "In Activate Customer")
+            {
+                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + CustomerID + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
             }
         }
 
@@ -578,6 +637,40 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             MPE_ResponsibleEmp.Show();
         }
 
-       
+        protected void btnAddFile_Click(object sender, EventArgs e)
+        {
+
+            byte[] buffer = new byte[100];
+            Stream stream = new MemoryStream(buffer);
+
+
+
+
+            HttpPostedFile file = fileUpload.PostedFile;
+            PAttachedFile F = new PAttachedFile();           
+            int size = file.ContentLength;
+            string name = file.FileName;
+            int position = name.LastIndexOf("\\");
+            name = name.Substring(position + 1);
+            F.FileName = name; 
+            F.FileType = file.ContentType;             
+            F.FileSize = size;
+            F.AttachedFileID = 0; 
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFileCustomer", F)).Data);
+            if (Convert.ToBoolean(s) == true)
+            {
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillCustomer(CustomerID);
+            }
+            else
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            lblMessage.Visible = true; 
+        } 
     }
 }

@@ -12,6 +12,8 @@ namespace Properties
         public string ColdVisitNumber { get; set; }
         public DateTime ColdVisitDate { get; set; }
         public PActionType ActionType { get; set; }
+        public PImportance Importance { get; set; }
+        public PPreSaleStatus Status { get; set; }
         public PDMS_Customer Customer { get; set; }
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }

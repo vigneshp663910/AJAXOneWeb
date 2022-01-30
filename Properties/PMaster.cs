@@ -54,4 +54,16 @@ namespace Properties
         public int ProductID { get; set; }
         public string Product { get; set; }
     }
+    [Serializable]
+    public class PImportance
+    {
+        public int ImportanceID { get; set; }
+        public string Importance { get; set; }
+    }
+    [Serializable]
+    public class PPreSaleStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
 }

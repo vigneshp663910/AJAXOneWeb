@@ -45,17 +45,18 @@ namespace Business
         }
         public Boolean InsertOrUpdateEnquiryIndiamart()
         {
-            TraceLogger.Log(DateTime.Now);
             try
             {
-               
+
+                provider = new ProviderFactory().GetProvider();
+
                 List<PEnquiryIndiamart> Enquirys = new List<PEnquiryIndiamart>();
-                 
-                Enquirys = JsonConvert.DeserializeObject<List<PEnquiryIndiamart>>(ApiGet());
+
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Enquirys = ser.Deserialize<List<PEnquiryIndiamart>>(ApiGet());
 
                 foreach (PEnquiryIndiamart Enquiry in Enquirys)
                 {
-                    DbParameter RN = provider.CreateParameter("RN", Enquiry.RN, DbType.String);
                     DbParameter QUERY_ID = provider.CreateParameter("QUERY_ID", Enquiry.QUERY_ID, DbType.String);
                     DbParameter QTYPE = provider.CreateParameter("QTYPE", Enquiry.QTYPE, DbType.String);
                     DbParameter SENDERNAME = provider.CreateParameter("SENDERNAME", Enquiry.SENDERNAME, DbType.String);
@@ -77,7 +78,7 @@ namespace Business
                     DbParameter EMAIL_ALT = provider.CreateParameter("EMAIL_ALT", Enquiry.EMAIL_ALT, DbType.String);
                     DbParameter MOBILE_ALT = provider.CreateParameter("MOBILE_ALT", Enquiry.MOBILE_ALT, DbType.String);
                     DbParameter TOTAL_COUNT = provider.CreateParameter("TOTAL_COUNT", Enquiry.TOTAL_COUNT, DbType.String);
-                    DbParameter[] Params = new DbParameter[21] { RN, QUERY_ID, QTYPE, SENDERNAME, SENDEREMAIL, MOB, GLUSR_USR_COMPANYNAME, ENQ_ADDRESS ,ENQ_CITY,ENQ_STATE,COUNTRY_ISO
+                    DbParameter[] Params = new DbParameter[20] {   QUERY_ID, QTYPE, SENDERNAME, SENDEREMAIL, MOB, GLUSR_USR_COMPANYNAME, ENQ_ADDRESS ,ENQ_CITY,ENQ_STATE,COUNTRY_ISO
                    ,PRODUCT_NAME,ENQ_MESSAGE,DATE_RE,DATE_TIME_RE,QUERY_MODID,ENQ_CALL_DURATION,ENQ_RECEIVER_MOB,EMAIL_ALT,MOBILE_ALT,TOTAL_COUNT};
                     using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {
@@ -85,28 +86,28 @@ namespace Business
                         scope.Complete();
                     }
                 }
-                TraceLogger.Log(DateTime.Now);
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessageService("BDMS_Dealer", "InsertOrUpdateDealerBankDetails", ex);
                 return false;
             }
             return true;
         }
-         
+
         public String ApiGet()
         {
-            string Start_Time = "Start_Time/21-JAN-2022/";
-            string End_Time = "End_Time/27-JAN-2022/";
+            //string Start_Time = "Start_Time/21-JAN-2022/";
+            //string End_Time = "End_Time/27-JAN-2022/";
+
+            string Start_Time = "Start_Time/" + DateTime.Now.AddDays(-1).ToString("dd-MMM-yyyy") + "/";
+            string End_Time = "End_Time/" + DateTime.Now.ToString("dd-MMM-yyyy") + "/";
+
             string GLUSR_MOBILE_KEY = "GLUSR_MOBILE_KEY/MTY0MzI3OTkzNy4yNjAxIzE3MzU2MTg=/";
             string GLUSR_MOBILE = "GLUSR_MOBILE/6366426080/";
             string dd = "" + GLUSR_MOBILE + GLUSR_MOBILE_KEY + Start_Time + End_Time;
 
             HttpClientHandler handler = new HttpClientHandler();
-            HttpClient client = new HttpClient(handler); 
-
-            var ss = client.GetStringAsync(URL + GLUSR_MOBILE + GLUSR_MOBILE_KEY + Start_Time + End_Time);
+            HttpClient client = new HttpClient(handler);  
             var APIResponse = client.GetAsync(URL + GLUSR_MOBILE + GLUSR_MOBILE_KEY + Start_Time + End_Time).Result;
 
             if (APIResponse.IsSuccessStatusCode)

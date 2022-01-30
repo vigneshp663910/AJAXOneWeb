@@ -32,6 +32,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             lblMessageEffort.Text = "";
             lblMessageExpense.Text = "";
+            lblMessage.Text = "";
         }
         public void fillViewColdVisit(long ColdVisitID)
         {
@@ -47,10 +48,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMobile.Text = Lead.Customer.Mobile;
             lblEmail.Text = Lead.Customer.Email;
 
+            lblStatus.Text = Lead.Status.Status;
+            lblImportance.Text = Lead.Importance.Importance;
+
             string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
             lblLocation.Text = Location;
             fillEffort();
             fillExpense();
+
+            lbtnStatusChangeToClose.Visible = true;
+            lbtnStatusChangeToCancel.Visible = true;
+            if ((Lead.Status.StatusID== 2) || (Lead.Status.StatusID == 3))
+            {                 
+                lbtnStatusChangeToClose.Visible = false;
+                lbtnStatusChangeToCancel.Visible = false;
+            }
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -64,6 +76,40 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Add Expense")
             {
                 MPE_Expense.Show(); 
+            }
+            else if (lbActions.Text == "Status Change to Close")
+            {
+                string endPoint = "ColdVisit/ColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2"  + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillViewColdVisit(ColdVisitID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "Status Change to Cancel")
+            {
+                string endPoint = "ColdVisit/ColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillViewColdVisit(ColdVisitID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
             }
         }
 
