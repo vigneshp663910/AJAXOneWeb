@@ -427,6 +427,71 @@
         </div>
         </ContentTemplate>
     </asp1:TabPanel>
+       <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+        <ContentTemplate>
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
+
+                <table>
+                    <tr>
+                        <td>
+                            <asp:FileUpload ID="fileUpload" runat="server" /></td>
+                        <td>
+                            <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" /></td>
+                    </tr>
+                </table>
+                <div class="col-md-12 Report">
+                    <asp:GridView ID="gvSupportDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="File Name">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
+                                    <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                     <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Created By">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Download">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbSupportDocumentDownload" runat="server" OnClick="lbSupportDocumentDownload_Click">Download </asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbSupportDocumentDelete" runat="server" OnClick="lbSupportDocumentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+
+                </div>
+            </fieldset>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 

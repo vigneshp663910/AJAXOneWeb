@@ -40,6 +40,15 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PVisitTarget>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
         }
-
+        public List<PAttachedFile> GetAttachedFileColdVisit(long? ColdVisitID)
+        {
+            string endPoint = "ColdVisit/AttachedFile?ColdVisitID=" + ColdVisitID;
+            return JsonConvert.DeserializeObject<List<PAttachedFile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PAttachedFile GetAttachedFileColdVisitForDownload(string DocumentName)
+        {
+            string endPoint = "ColdVisit/AttachedFileForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

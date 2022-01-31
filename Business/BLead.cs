@@ -115,5 +115,16 @@ namespace Business
             //  TraceLogger.Log(DateTime.Now);
 
         }
+
+        public List<PAttachedFile> GetAttachedFileLead(long? LeadID)
+        {
+            string endPoint = "Lead/AttachedFile?LeadID=" + LeadID;
+            return JsonConvert.DeserializeObject<List<PAttachedFile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PAttachedFile GetAttachedFileLeadForDownload(string DocumentName)
+        {
+            string endPoint = "Lead/AttachedFileForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

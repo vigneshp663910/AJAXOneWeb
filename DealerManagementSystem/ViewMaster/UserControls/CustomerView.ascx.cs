@@ -90,6 +90,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillFleet();
             fillLead();
             fillVisit();
+            fillSupportDocument();
         }
 
         public void fillLead()
@@ -286,7 +287,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gvFleet.DataSource = new BDMS_Customer().GetCustomerFleet(null, CustomerID);
             gvFleet.DataBind();
         }
+        void fillSupportDocument()
+        {
+            gvSupportDocument.DataSource = new BDMS_Customer().GetAttachedFileCustomer( CustomerID);
+            gvSupportDocument.DataBind();
+        }
 
+
+        
         protected void btnUpdateCustomer_Click(object sender, EventArgs e)
         {
             string Message = UC_Customer.ValidationCustomer();
@@ -630,6 +638,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             return Message;
         }
+       
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -641,29 +650,31 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
 
             byte[] buffer = new byte[100];
-            Stream stream = new MemoryStream(buffer);
-
-
-
-
+            Stream stream = new MemoryStream(buffer); 
             HttpPostedFile file = fileUpload.PostedFile;
             PAttachedFile F = new PAttachedFile();           
             int size = file.ContentLength;
             string name = file.FileName;
             int position = name.LastIndexOf("\\");
             name = name.Substring(position + 1);
-            F.FileName = name; 
+
+            byte[] fileData = new byte[size];
+            file.InputStream.Read(fileData, 0, size); 
+
+            F.FileName = name;
+            F.AttachedFile = fileData;
             F.FileType = file.ContentType;             
             F.FileSize = size;
-            F.AttachedFileID = 0; 
+            F.AttachedFileID = 0;
+            F.ReferenceID = CustomerID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
 
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFileCustomer", F)).Data);
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
             if (Convert.ToBoolean(s) == true)
             {
                 lblMessage.Text = "Updated successfully";
                 lblMessage.ForeColor = Color.Green;
-                fillCustomer(CustomerID);
+                fillSupportDocument();
             }
             else
             {
@@ -671,6 +682,64 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
             lblMessage.Visible = true; 
-        } 
+        }
+
+        protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // LinkButton lnkDownload = (LinkButton)sender;
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+                LinkButton lnkDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+
+                Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text); 
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                Label lblFileType = (Label)gvRow.FindControl("lblFileType");
+
+                PAttachedFile UploadedFile = new BDMS_Customer().GetAttachedFileCustomerForDownload(AttachedFileID + Path.GetExtension(lblFileName.Text));
+
+                Response.AddHeader("Content-type", lblFileType.Text);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+
+        protected void lbSupportDocumentDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+            PAttachedFile F = new PAttachedFile();
+            F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
+            F.ReferenceID = CustomerID;
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
+            if (Convert.ToBoolean(s) == true)
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillSupportDocument();
+            }
+            else
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            } 
+        }
     }
 }

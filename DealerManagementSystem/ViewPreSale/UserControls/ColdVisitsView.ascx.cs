@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.IO;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
@@ -161,6 +162,106 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvExpense.DataSource = new BColdVisit().GetColdVisitExpense(ColdVisitID, PSession.User.UserID);
             gvExpense.DataBind();
 
-        } 
+        }
+        void fillSupportDocument()
+        {
+            gvSupportDocument.DataSource = new BColdVisit().GetAttachedFileColdVisit(ColdVisitID);
+            gvSupportDocument.DataBind();
+        }
+        protected void btnAddFile_Click(object sender, EventArgs e)
+        {
+
+            byte[] buffer = new byte[100];
+            Stream stream = new MemoryStream(buffer);
+            HttpPostedFile file = fileUpload.PostedFile;
+            PAttachedFile F = new PAttachedFile();
+            int size = file.ContentLength;
+            string name = file.FileName;
+            int position = name.LastIndexOf("\\");
+            name = name.Substring(position + 1);
+
+            byte[] fileData = new byte[size];
+            file.InputStream.Read(fileData, 0, size);
+
+            F.FileName = name;
+            F.AttachedFile = fileData;
+            F.FileType = file.ContentType;
+            F.FileSize = size;
+            F.AttachedFileID = 0;
+            F.ReferenceID = ColdVisitID;
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F)).Data);
+            if (Convert.ToBoolean(s) == true)
+            {
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillSupportDocument();
+            }
+            else
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            lblMessage.Visible = true;
+        }
+
+        protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // LinkButton lnkDownload = (LinkButton)sender;
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+                LinkButton lnkDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+
+                Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                Label lblFileType = (Label)gvRow.FindControl("lblFileType");
+
+                PAttachedFile UploadedFile = new BColdVisit().GetAttachedFileColdVisitForDownload(AttachedFileID + Path.GetExtension(lblFileName.Text));
+
+                Response.AddHeader("Content-type", lblFileType.Text);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+
+        protected void lbSupportDocumentDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+            PAttachedFile F = new PAttachedFile();
+            F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
+            F.ReferenceID = ColdVisitID;
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F)).Data);
+            if (Convert.ToBoolean(s) == true)
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillSupportDocument();
+            }
+            else
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
     }
 }

@@ -654,6 +654,16 @@ namespace Business
             string endPoint = "Customer/Fleet?CustomerFleetID=" + CustomerFleetID + "&CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PCustomerFleet>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PAttachedFile> GetAttachedFileCustomer(long? CustomerID)
+        {
+            string endPoint = "Customer/AttachedFile?CustomerID=" + CustomerID;
+            return JsonConvert.DeserializeObject<List<PAttachedFile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public  PAttachedFile GetAttachedFileCustomerForDownload(string DocumentName)
+        {
+            string endPoint = "Customer/AttachedFileForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
 
         public List<PDMS_Customer> GetCustomerAutocomplete(string Customer)
         {
