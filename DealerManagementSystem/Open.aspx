@@ -64,6 +64,12 @@
                 <td>
                     <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click" />
                 </td>
+                
+                <td>
+                    <br />
+                    <asp:TextBox ID="txtCustomerId" runat="server"></asp:TextBox>
+                    <asp:Button ID="BtnCreateCustomer" runat="server" Text="Create Customer" OnClick="BtnCreateCustomer_Click" />
+                </td>
                 <td>
                     <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
             </tr>

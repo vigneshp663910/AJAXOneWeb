@@ -22,7 +22,7 @@ namespace SapIntegration
             Cust.Address2 = tagListBapi.GetString("ADD2").Trim();
             Cust.Address3 = tagListBapi.GetString("ADD3").Trim();
             Cust.City = tagListBapi.GetString("CITY").Trim();
-            Cust.State = new PDMS_State() { State = tagListBapi.GetString("STATE").Trim(), StateCode = tagListBapi.GetString("STATE_CODE").Trim() }; 
+            Cust.State = new PDMS_State() { State = tagListBapi.GetString("STATE").Trim(), StateCode = tagListBapi.GetString("STATE_CODE").Trim() };
             Cust.Pincode = tagListBapi.GetString("PINCODE").Trim();
             Cust.GSTIN = tagListBapi.GetString("GST").Trim();
             Cust.PAN = tagListBapi.GetString("PAN").Trim();
@@ -60,6 +60,75 @@ namespace SapIntegration
                 Cust.PostalCode = IT_DET.GetString("POST_CODE1").Trim();
             }
             return Custs;
+        }
+        public string CreateCustomerInSAP(List<PDMS_Customer> Customer)
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CREATE_NEW");
+            //IRfcStructure tagTable = tagListBapi.GetStructure("IT_STATUS");
+            Int32 country = Customer[0].Country.CountryID;
+            tagListBapi.SetValue("MODE", "N");
+            tagListBapi.SetValue("P_COMPANYCODE", "AF");
+            tagListBapi.SetValue("P_SORG", (country == 1) ? "AJF" : "AJI");
+            tagListBapi.SetValue("P_DIS_CH", (country == 1) ? "GT" : "EX");
+            tagListBapi.SetValue("P_DIVISION", "CM");
+            tagListBapi.SetValue("P_ACC_GROUP", (country == 1) ? "AJGT" : "AJIC");
+            tagListBapi.SetValue("P_TITLE", Customer[0].Title.Title);
+            tagListBapi.SetValue("P_NAME1", Customer[0].CustomerName);
+            tagListBapi.SetValue("P_NAME2", "");
+            tagListBapi.SetValue("P_NAME3", "");
+            tagListBapi.SetValue("P_NAME4", "");
+            tagListBapi.SetValue("P_STREET2", Customer[0].Address1);
+            tagListBapi.SetValue("P_STREET3", Customer[0].Address2);
+            tagListBapi.SetValue("P_STREET4", Customer[0].Tehsil.Tehsil);
+            tagListBapi.SetValue("P_HOUSE_NO", Customer[0].Address3);
+            tagListBapi.SetValue("P_DISTRICT", Customer[0].District.District);
+            tagListBapi.SetValue("P_POSTCODE", Customer[0].Pincode);
+            tagListBapi.SetValue("P_CITY", Customer[0].City);
+            tagListBapi.SetValue("P_COUNTRY", Customer[0].Country.CountryCode);
+            tagListBapi.SetValue("P_REGION", Convert.ToString(Customer[0].State.StateCode));
+            tagListBapi.SetValue("P_LANGU", "EN");
+            tagListBapi.SetValue("P_PHONE", Customer[0].Mobile);
+            tagListBapi.SetValue("P_MOBILE", Customer[0].AlternativeMobile);
+            tagListBapi.SetValue("P_EMAIL", Customer[0].Email);
+            tagListBapi.SetValue("P_GSTIN", Customer[0].GSTIN);
+            tagListBapi.SetValue("P_PANNO", Customer[0].PAN);
+            tagListBapi.SetValue("P_CONTACT", Customer[0].ContactPerson);
+            tagListBapi.SetValue("P_CONTACT2", Customer[0].ContactPerson);
+            tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
+            tagListBapi.SetValue("P_SALES_DISTRICT", "SOUTH1");
+            tagListBapi.SetValue("P_ORD_PROB", "000");
+            tagListBapi.SetValue("P_SALES_OFFICE", "KA10");
+            tagListBapi.SetValue("P_SALES_GROUP", "100");
+            tagListBapi.SetValue("P_CUS_GROUP", "GT");
+            tagListBapi.SetValue("P_CURRENCY", (country == 1) ? "INR" : "USD");
+            tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
+            tagListBapi.SetValue("P_PRICE_GROUP", (country == 1) ? "07" : "08");
+            tagListBapi.SetValue("P_PRICING_PROCED", (country == 1) ? "7" : "9");
+            tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
+            tagListBapi.SetValue("P_DEL_PRIORITY", "2");
+            tagListBapi.SetValue("P_ORD_COMB_IND", "X");//Checkbox
+            tagListBapi.SetValue("P_SHIP_COND", "01");
+            tagListBapi.SetValue("P_DEL_ALLOW", "9");
+            tagListBapi.SetValue("P_INV_DATE", "AF");
+            tagListBapi.SetValue("P_INV_LIST_SCH", "AF");
+            tagListBapi.SetValue("P_INCO_TERMS", "EXW");
+            tagListBapi.SetValue("P_INCO_TERMS1", "EX WORKS");
+            tagListBapi.SetValue("P_PYMT_TERMS", "C000");
+            tagListBapi.SetValue("P_ACC_GROUP1", (country == 1) ? "01" : "02");
+            tagListBapi.SetValue("P_TAX_CLASS1", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS2", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS3", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS4", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS5", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS6", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS7", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS8", (country == 1) ? "0" : "1");
+            tagListBapi.SetValue("P_TAX_CLASS9", (country == 1) ? "0" : "1");
+
+            tagListBapi.Invoke(SAP.RfcDes());
+            string CustomerCode=tagListBapi.GetValue("CUSTOMER").ToString();
+
+            return CustomerCode;
         }
     }
 }

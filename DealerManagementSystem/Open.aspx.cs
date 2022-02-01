@@ -1,4 +1,5 @@
 ﻿using Business;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Web.Services;
@@ -42,6 +43,16 @@ namespace DealerManagementSystem
         protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
         {
             new BEnquiryIndiamart().InsertOrUpdateEnquiryIndiamart();
+        }
+
+        protected void BtnCreateCustomer_Click(object sender, EventArgs e)
+        {
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
+            string CustomerCode=new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+            if (!string.IsNullOrEmpty(CustomerCode))
+            {
+                new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
+            }
         }
     }
 }

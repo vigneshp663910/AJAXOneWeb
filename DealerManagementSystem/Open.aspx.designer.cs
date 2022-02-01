@@ -69,6 +69,24 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Button BtnMaterialSupersede;
 
         /// <summary>
+        /// txtCustomerId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerId;
+
+        /// <summary>
+        /// BtnCreateCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCreateCustomer;
+
+        /// <summary>
         /// lblAPITest control.
         /// </summary>
         /// <remarks>
