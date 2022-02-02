@@ -764,6 +764,7 @@ namespace Business
                             Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
                             Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
                             Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+                            Customer.CustomerName2 = Convert.ToString(dr["CustomerName2"]);
                             Customer.Title = new PCustomerTitle();
                             Customer.Title.Title = Convert.ToString(dr["Title"]);
                             Customer.Address1 = Convert.ToString(dr["Address1"]);
