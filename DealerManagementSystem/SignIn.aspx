@@ -288,7 +288,7 @@
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="Username"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                         ControlToValidate="txtUsername" ToolTip="<%$ Resources:Resource,ttpUsername %>" ForeColor="Red"><img src="images/error_info.png" alt="info" />
 
@@ -296,18 +296,18 @@
                                     <%-- <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required>--%>
                                 </div>
                                 <div>
-                                    <br />
+                                    <%--<br />--%>
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
                                 </div>
-                                <br />
+                              <%--  <br />--%>
                               <%--  <input type="submit" value="Login">--%>
-                                 <asp:Button ID="btnLogin" runat="server"  Text="submit"   OnClick="btnLogin_Click"/>
+                                 <asp:Button ID="btnLogin" runat="server"  Text="Login"   OnClick="btnLogin_Click"/>
                                 <div style="text-align: center">
                                     <asp:Label ID="lblMessage" runat="server"></asp:Label>
                                 </div>
