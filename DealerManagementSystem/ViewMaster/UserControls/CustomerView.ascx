@@ -77,7 +77,28 @@
 </style>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
+<div class="col-md-12">
+    <div class="action-btn">
+        <div class="dropdown">
+            <%--<asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />--%>
+            <div class="btn Approval">Actions</div>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Edit Customer</asp:LinkButton>
+                <%--   <asp:LinkButton ID="lbViewAditTrails" runat="server" OnClick="lbViewAditTrails_Click">View Adit Trails</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbAddMarketSegment" runat="server" OnClick="lbActions_Click">Add Attribute</asp:LinkButton>
+                <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
+                <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
 
+                <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
+                <asp:LinkButton ID="lbtnInActivateCustomer" runat="server" OnClick="lbActions_Click">In Activate Customer</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
@@ -139,27 +160,7 @@
                 <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" />
             </div>
 
-            <div class="col-md-12">
-                <div style="float: right;">
-                    <div class="dropdown">
-                        <asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />
-                        <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                            <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Edit Customer</asp:LinkButton>
-                            <%--   <asp:LinkButton ID="lbViewAditTrails" runat="server" OnClick="lbViewAditTrails_Click">View Adit Trails</asp:LinkButton>--%>
-                            <asp:LinkButton ID="lbAddMarketSegment" runat="server" OnClick="lbActions_Click">Add Attribute</asp:LinkButton>
-                            <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                            <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
 
-                            <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
-                            <asp:LinkButton ID="lbtnInActivateCustomer" runat="server" OnClick="lbActions_Click">In Activate Customer</asp:LinkButton>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </fieldset>
@@ -609,10 +610,10 @@
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+     
         <ContentTemplate>
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
-
                 <table>
                     <tr>
                         <td>
@@ -635,7 +636,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
                                     <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
-                                     <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Date">

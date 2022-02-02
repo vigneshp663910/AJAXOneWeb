@@ -22,6 +22,7 @@ namespace Properties
 
         }
         public string CustomerName { get; set; }
+        public string CustomerName2 { get; set; }
         //public string OrgName { get; set; }
 
         public string GSTIN { get; set; }

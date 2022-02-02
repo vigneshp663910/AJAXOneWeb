@@ -84,7 +84,7 @@
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                         <div class="col-md-12 Report">
-                            <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" ShowFooter="true">
+                            <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -100,7 +100,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Follow Up Date">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate")%>' runat="server" />
+                                            <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Follow Up Note">
@@ -117,7 +117,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadDate")%>' runat="server" />
+                                            <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadDate","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Category" SortExpression="Country">
@@ -155,10 +155,20 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Dealer.DealerCode")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="FollowUp Status" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Update Status" SortExpression="Country">
+                                        <ItemTemplate>
+                                            
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

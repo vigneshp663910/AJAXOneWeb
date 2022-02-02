@@ -54,6 +54,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PDMS_Customer Customer = new PDMS_Customer();
             Customer.Title = new PCustomerTitle() { TitleID = Convert.ToInt32(ddlTitle.SelectedValue) };
             Customer.CustomerName = txtCustomerName.Text.Trim();
+            Customer.CustomerName2 = txtCustomerName2.Text.Trim();
             Customer.GSTIN = txtGSTIN.Text.Trim();
             Customer.PAN = txtPAN.Text.Trim();
             Customer.ContactPerson = txtContactPerson.Text.Trim();
@@ -85,6 +86,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         public void FillCustomer(PDMS_Customer Customer)
         {
             txtCustomerName.Text = Customer.CustomerName;
+            txtCustomerName2.Text = Customer.CustomerName2;
             txtGSTIN.Text = Customer.GSTIN;
             txtPAN.Text = Customer.PAN;
             txtContactPerson.Text = Customer.ContactPerson;

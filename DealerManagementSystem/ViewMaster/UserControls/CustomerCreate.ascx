@@ -50,6 +50,61 @@
         });
     });
     $('#txtEmail').watermark('Required information');
+    // Previous date hide
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        console.log(month);
+        var day = dtToday.getDate();
+        console.log(day);
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var minDate = year + '-' + month + '-' + day;
+        // Max
+        var mmonth = dtToday.setMonth(1);
+
+        var mday = dtToday.setDate();
+        var myear = dtToday.setFullYear();
+        if (mmonth < 10)
+            mmonth = '0' + mmonth.toString();
+
+        if (mday < 10)
+            mday = '0' + mday.toString();
+        var monthplus = parseInt(mmonth) + 01;
+        if (month < 10)
+            monthplus = '0' + monthplus.toString();
+
+        var maxDate = year + '-' + monthplus + '-' + day;
+
+        $('#MainContent_UC_Customer_txtDOB').attr('min', minDate);
+        $('#MainContent_UC_Customer_txtDOB').attr('max', maxDate);
+        $('#MainContent_UC_Customer_txtDOAnniversary').attr('min', minDate);
+    });
+
+
+    //sticky back button
+
+    function boxtothetop() {
+        var windowTop = ($(window).scrollTop()) + 50;
+        var top = $('#boxHere').offset().top;
+        if (windowTop > top) {
+            $('#backBtn').addClass('sticky');
+            $('#boxHere').height($('#backBtn').outerHeight());
+        } else {
+            $('#backBtn').removeClass('sticky');
+            $('#boxHere').height(0);
+        }
+    }
+    $(function () {
+        $(window).scroll(boxtothetop);
+        boxtothetop();
+    });
 </script>
 <style>
     .fieldset-borderAuto {
@@ -70,6 +125,9 @@
         .fieldset-borderAuto:hover {
             background-color: blue;
         }
+        .WatermarkCssClass  {
+            color:#aaa;
+        }
 </style>
 
 
@@ -77,17 +135,15 @@
     <ContentTemplate>
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div class="col-md-2 text-right">
-                    <label>Title</label>
-                </div>
-                <div class="col-md-4">
+
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Title</label>
                     <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>Customer Name</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Customer Name</label>
+                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                     <div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">
                         <div id="UCdiv1" class="fieldset-border">
                         </div>
@@ -100,137 +156,120 @@
                         <div id="UCdiv5" class="fieldset-border">
                         </div>
                     </div>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtCustomerName" WatermarkText="Customer Name" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>GSTIN</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtGSTIN" WatermarkText="GSTIN" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>PAN</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtPAN" WatermarkText="PAN" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Contact Person</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtContactPerson" WatermarkText="Contact Person" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Mobile</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Alternative Mobile</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtAlternativeMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
-                      <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender12" runat="server" TargetControlID ="txtAlternativeMobile" WatermarkText="Alternative Mobile"  />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Email</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email" MaxLength="40"></asp:TextBox>
-                     <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtEmail" WatermarkText="Email"  />--%>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtCustomerName" WatermarkText="Customer Name" WatermarkCssClass="WatermarkCssClass" />
                 </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Address 1</label>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Customer Name2</label>
+                    <asp:TextBox ID="txtCustomerName2" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomerName2" WatermarkText="Customer Name2" WatermarkCssClass="WatermarkCssClass" />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">GSTIN</label>
+                    <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtGSTIN" WatermarkText="GSTIN" WatermarkCssClass="WatermarkCssClass" />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">PAN</label>
+                    <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtPAN" WatermarkText="PAN" WatermarkCssClass="WatermarkCssClass" />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Contact Person</label>
+
+                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtContactPerson" WatermarkText="Contact Person" WatermarkCssClass="WatermarkCssClass" />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Mobile</label>
+
+                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile"  WatermarkCssClass="WatermarkCssClass"/>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Alternative Mobile</label>
+
+                    <asp:TextBox ID="txtAlternativeMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender12" runat="server" TargetControlID="txtAlternativeMobile" WatermarkText="Alternative Mobile" WatermarkCssClass="WatermarkCssClass" />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Email</label>
+
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email" MaxLength="40"></asp:TextBox>
+                    <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtEmail" WatermarkText="Email"  />--%>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Address 1</label> 
                     <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID ="txtAddress1" WatermarkText="Address 1"  />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>Address 2</label>
-                </div>
-                <div class="col-md-4">
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Address 2</label>
+                
                     <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender8" runat="server" TargetControlID ="txtAddress2" WatermarkText="Address 2"  />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender8" runat="server" TargetControlID="txtAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>Address 3</label>
-                </div>
-                <div class="col-md-4">
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Address 3</label>
+                
                     <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                      <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID ="txtAddress3" WatermarkText="Address 3"  />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID="txtAddress3" WatermarkText="Address 3" WatermarkCssClass="WatermarkCssClass" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>Country</label>
-                </div>
-                <div class="col-md-4">
+                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Country</label>
+                
                     <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>State</label>
-                </div>
-                <div class="col-md-4">
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">State</label>
+               
                     <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>District</label>
-                </div>
-                <div class="col-md-4">
+                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">District</label>
+                
                     <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>Tehsil</label>
-                </div>
-                <div class="col-md-4">
+                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Tehsil</label>
+               
                     <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="form-control" DataTextField="Tehsil" DataValueField="TehsilID" />
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>PinCode</label>
-                </div>
-                <div class="col-md-4">
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">PinCode</label>
+                
                     <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
-                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender10" runat="server" TargetControlID ="txtPincode" WatermarkText="Pincode"  />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender10" runat="server" TargetControlID="txtPincode" WatermarkText="Pincode"  WatermarkCssClass="WatermarkCssClass"/>
                 </div>
-                <div class="col-md-2 text-right">
-                    <label>City</label>
-                </div>
-                <div class="col-md-4">
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">City</label>
+                
                     <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID ="txtCity" WatermarkText="City"  />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID="txtCity" WatermarkText="City" WatermarkCssClass="WatermarkCssClass" />
                 </div>
 
 
-                <div class="col-md-2 text-right">
-                    <label>Birth Date</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                </div>
-
-                <div class="col-md-2 text-right">
-                    <label>Anniversary Date</label>
-                </div>
-                <div class="col-md-4">
-                    <asp:TextBox ID="txtDOAnniversary" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Birth Date</label>
+                
+                    <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"  WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Send SMS</label>
+                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Anniversary Date</label>
+                
+                    <asp:TextBox ID="txtDOAnniversary" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"  WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
-                <div class="col-md-4">
+
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Send SMS</label>
+                
                     <asp:CheckBox ID="cbSendSMS" runat="server" />
                 </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Send Email</label>
-                </div>
-                <div class="col-md-4">
+                  <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Send Email</label>
+                
                     <asp:CheckBox ID="cbSendEmail" runat="server" />
                 </div>
 

@@ -309,7 +309,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PDMS_Customer Customer = UC_Customer.ReadCustomer();
             Customer.CustomerID = CustomerID;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            string result = new BAPI().ApiPut("Customer/Customer", Customer);
+            string result = new BAPI().ApiPut("Customer", Customer);
             fillCustomer(CustomerID);
         } 
 

@@ -85,7 +85,9 @@ namespace Properties
         public PUser CreatedBy { get; set; }
 
         public PLead Lead { get; set; }
+        public PPreSaleStatus Status { get; set; }
         public PDMS_Customer Customer { get; set; }
+        public string Remark { get; set; }
     }
     [Serializable]
     public class PLeadEffort
