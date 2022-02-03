@@ -71,8 +71,6 @@
                         <div class="col-md-2">
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-
-
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve"></asp:Button>
                         </div>
@@ -105,10 +103,9 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Follow Up Note">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblAssignedBy" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpNote")%>' runat="server" />
+                                            <asp:Label ID="lblFollowUpNote" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpNote")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
                                     <asp:TemplateField HeaderText="Lead Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
@@ -130,7 +127,6 @@
                                             <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.ProgressStatus.ProgressStatus")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
                                     <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Qualification.Qualification")%>' runat="server" />
@@ -143,7 +139,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Status" SortExpression="Country">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Status.Status")%>' runat="server" />
+                                            <asp:Label ID="lblLeadStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Status.Status")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Type" SortExpression="Country">
@@ -161,26 +157,62 @@
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="FollowUp Status" >
+                                    <asp:TemplateField HeaderText="FollowUp Status">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                            <asp:Label ID="lblFollowUpStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Update Status" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Update Status" SortExpression="Country">
                                         <ItemTemplate>
-                                            
+                                            <div class="dropdown">
+                                                <div class="btn Approval" style="height: 25px">Actions</div>
+                                                <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                                    <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
+                                                    <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
+                                                    <%-- <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Escalate</asp:LinkButton>--%>
+                                                </div>
+                                            </div>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
-
                         </div>
                     </fieldset>
                 </div>
             </div>
         </div>
-        <div>
+    </div>
+
+    <asp:Panel ID="pnlFoloowUpStatus" runat="server" CssClass="Popup" Style="display: none">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">Foloow Up Status</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
+            </a>
         </div>
+        <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <fieldset class="fieldset-border" id="Fieldset5" runat="server">
+                    <div class="col-md-12"> 
+                        <div class="col-md-2 text-right">
+                            <label>Remark</label>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                        </div> 
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnFoloowUpStatus" runat="server" Text="Save" CssClass="btn Save" OnClick="btnFoloowUpStatus_Click" />
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_FoloowUpStatus" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFoloowUpStatus" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+    <div style="display: none">
+        <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
 
 

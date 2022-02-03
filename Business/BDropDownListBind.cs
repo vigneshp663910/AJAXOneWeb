@@ -9,15 +9,14 @@ namespace Business
 {
     public class DDLBind
     {
-        public DDLBind(DropDownList ddl, object data, string DataTextField, string DataValueField, Boolean isSelect = true)
+        public DDLBind(DropDownList ddl, object data, string DataTextField, string DataValueField, Boolean isSelect = true, string Select = "Select")
         {
             ddl.DataTextField = DataTextField;
             ddl.DataValueField = DataValueField;
             ddl.DataSource = data;
             ddl.DataBind();
             if (isSelect)
-                ddl.Items.Insert(0, new ListItem("Select", "0"));
+                ddl.Items.Insert(0, new ListItem(Select, "0"));
         }
-      
     }
 }

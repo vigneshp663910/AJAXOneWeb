@@ -753,7 +753,7 @@
                         <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 text-right">
-                        <label>Quantity</label>
+                        <label>Remark</label>
                     </div>
                     <div class="col-md-4">
                         <asp:TextBox ID="txtRemarkProduct" runat="server" CssClass="form-control"></asp:TextBox>
