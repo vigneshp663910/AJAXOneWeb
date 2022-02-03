@@ -126,7 +126,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_TAX_CLASS9", (country == 1) ? "0" : "1");
 
             tagListBapi.Invoke(SAP.RfcDes());
-            string CustomerCode=tagListBapi.GetValue("CUSTOMER").ToString();
+            string CustomerCode=!string.IsNullOrEmpty(tagListBapi.GetValue("CUSTOMER").ToString())? tagListBapi.GetValue("CUSTOMER").ToString().Remove(0, 4) :"";
 
             return CustomerCode;
         }
