@@ -342,6 +342,7 @@
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
     <Content Include="ViewService\ICTicketProcess.aspx" />
+    <Content Include="ViewService\ICTicketReachedDateChange.aspx" />
     <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
     <Content Include="ViewService\ICTicketStatusReport.aspx" />
     <Content Include="ViewService\ICTicketTechnicianAssign.aspx" />
@@ -350,11 +351,14 @@
     <Content Include="ViewService\ICTicketTSIRManage.aspx" />
     <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
     <Content Include="ViewService\ICTicketTSIRReport.aspx" />
+    <Content Include="ViewService\MTTR_New.aspx" />
+    <Content Include="ViewService\MTTR_Report.aspx" />
     <Content Include="ViewService\PaidServiceInvoice.aspx" />
     <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
     <Content Include="ViewService\PaidServiceQuotation.aspx" />
     <Content Include="ViewService\PaidServiceReport.aspx" />
     <Content Include="ViewService\PaidServiceReportNew.aspx" />
+    <Content Include="ViewService\TicketTracking.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
@@ -1198,6 +1202,13 @@
     <Compile Include="ViewService\ICTicketProcess.aspx.designer.cs">
       <DependentUpon>ICTicketProcess.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\ICTicketReachedDateChange.aspx.cs">
+      <DependentUpon>ICTicketReachedDateChange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketReachedDateChange.aspx.designer.cs">
+      <DependentUpon>ICTicketReachedDateChange.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx.cs">
       <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1254,6 +1265,20 @@
     <Compile Include="ViewService\ICTicketTSIRReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\MTTR_New.aspx.cs">
+      <DependentUpon>MTTR_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\MTTR_New.aspx.designer.cs">
+      <DependentUpon>MTTR_New.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\MTTR_Report.aspx.cs">
+      <DependentUpon>MTTR_Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\MTTR_Report.aspx.designer.cs">
+      <DependentUpon>MTTR_Report.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
       <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1288,6 +1313,13 @@
     </Compile>
     <Compile Include="ViewService\PaidServiceReportNew.aspx.designer.cs">
       <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\TicketTracking.aspx.cs">
+      <DependentUpon>TicketTracking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\TicketTracking.aspx.designer.cs">
+      <DependentUpon>TicketTracking.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
