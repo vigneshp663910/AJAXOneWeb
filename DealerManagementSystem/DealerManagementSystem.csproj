@@ -359,6 +359,8 @@
     <Content Include="ViewService\PaidServiceReport.aspx" />
     <Content Include="ViewService\PaidServiceReportNew.aspx" />
     <Content Include="ViewService\TicketTracking.aspx" />
+    <Content Include="ViewService\WarrantyClaim.aspx" />
+    <Content Include="ViewService\WarrantyClaimAnnexureCreate.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
@@ -445,6 +447,7 @@
     <Content Include="ViewService\WarrantyClaimInvoiceCreate.aspx" />
     <Content Include="ViewService\WarrantyClaimInvoiceCreate5k.aspx" />
     <Content Include="ViewService\WarrantyClaimInvoiceReport.aspx" />
+    <Content Include="ViewService\WarrantyDeliveryReport.aspx" />
     <Content Include="ViewService\WarrantyFailureMaterialDCCreation.aspx" />
     <Content Include="ViewService\WarrantyFailureMaterialDCReport.aspx" />
     <Content Include="ViewService\WarrantyFailureMaterialDCTemplateCreation.aspx" />
@@ -1321,6 +1324,20 @@
     <Compile Include="ViewService\TicketTracking.aspx.designer.cs">
       <DependentUpon>TicketTracking.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\WarrantyClaim.aspx.cs">
+      <DependentUpon>WarrantyClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\WarrantyClaim.aspx.designer.cs">
+      <DependentUpon>WarrantyClaim.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\WarrantyClaimAnnexureCreate.aspx.cs">
+      <DependentUpon>WarrantyClaimAnnexureCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\WarrantyClaimAnnexureCreate.aspx.designer.cs">
+      <DependentUpon>WarrantyClaimAnnexureCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1388,6 +1405,13 @@
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\WarrantyDeliveryReport.aspx.cs">
+      <DependentUpon>WarrantyDeliveryReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\WarrantyDeliveryReport.aspx.designer.cs">
+      <DependentUpon>WarrantyDeliveryReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCCreation.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
