@@ -219,7 +219,6 @@
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Project_Plan_PV2.png" />
-    <Content Include="RedirectHome.aspx" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
@@ -580,13 +579,6 @@
     </Compile>
     <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
       <DependentUpon>Pre_Sales.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RedirectHome.aspx.cs">
-      <DependentUpon>RedirectHome.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RedirectHome.aspx.designer.cs">
-      <DependentUpon>RedirectHome.aspx</DependentUpon>
     </Compile>
     <Compile Include="SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>

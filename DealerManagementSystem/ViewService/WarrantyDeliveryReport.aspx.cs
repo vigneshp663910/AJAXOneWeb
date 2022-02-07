@@ -103,7 +103,7 @@ namespace DealerManagementSystem.ViewService
                 }
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
 
-                DealerStateCode = Dealer.StateCode;
+                DealerStateCode = Dealer.State.StateCode;
                 List<PDMS_DeliveryHeader> SOIs = new BDMS_Delivery().getDelivery(DealerCode, DeliveryNumber, DeliveryDateFrom, DeliveryDateTo, DeliveryTypeID, DealerStateCode);
 
                 SDMS_WarrantyClaimHeader = SOIs;
