@@ -63,11 +63,11 @@ namespace DealerManagementSystem
             {
                 List<PSubModuleAccess> PA1s = SMs.Where(x => x.ParentMenu == SM.SubModuleName).ToList();
                 if (PA1s.Count() == 0)
-                { MenuDMS = MenuDMS + "<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SM.ParentMenu.Replace(" ", "") + "','" + MainMenu + "')><i class='fa fa-mercury' style='color: #ff6666'></i>&nbsp;" + SM.DisplayName1.Replace(" ", "") + "</a>"; }
+                { MenuDMS = MenuDMS + "<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SM.ParentMenu.Replace(" ", "") + "','" + MainMenu + "')><i class='fa fa-mercury' style='color: #ff6666'></i>&nbsp;" + SM.DisplayName1 + "</a>"; }
                 else
                 {
                   //MenuDMS += "<a onclick=Menu('" + SM.DisplayName1 + "','" + SM.ParentMenu.Replace(" ", "") + "','i" + SM.DisplayName1.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'>" + SM.DisplayName1 + "<i id='i" + SM.DisplayName1.Replace(" ", "") + "' class='fa fa-angle-double-down fa-2x'></i></a>";
-                    MenuDMS += "<a onclick=Menu('" + SM.DisplayName1 + "','" + SM.ParentMenu.Replace(" ", "") + "','i" + SM.DisplayName1.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'><i class='fa fa-bolt' style='color: #2fb7c3'></i>&nbsp;" + SM.DisplayName1 + "<i id='i" + SM.DisplayName1.Replace(" ", "") + "' class='fa fa-angle-double-down fa-2x' style='color:lightgray' ></i></a>";
+                    MenuDMS += "<a onclick=Menu('" + SM.DisplayName1.Replace(" ", "") + "','" + SM.ParentMenu.Replace(" ", "") + "','i" + SM.DisplayName1.Replace(" ", "") + "') href='javascript:void(0)' class='w3-button w3-block w3-blue w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'><i class='fa fa-bolt' style='color: #2fb7c3'></i>&nbsp;" + SM.DisplayName1 + "<i id='i" + SM.DisplayName1.Replace(" ", "") + "' class='fa fa-angle-double-down fa-2x' style='color:lightgray' ></i></a>";
                     MenuDMS += "<div id='" + SM.DisplayName1.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
                     MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS, SM.ParentMenu);
                     MenuDMS += "</div>";
