@@ -1,6 +1,4 @@
-﻿using ATSVendor.Dashboard;
-using ATSVendor.UserControls;
-using Business;
+﻿using Business;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -18,7 +16,7 @@ namespace DealerManagementSystem.ViewService
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Session["previousUrl"] = "DMS_WarrantyClaim1.aspx";
+            Session["previousUrl"] = "WarrantyClaim1.aspx";
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -613,9 +611,9 @@ namespace DealerManagementSystem.ViewService
             LinkButton lnkEquipmentSerialNo = (LinkButton)sender;
             Session["SerEquipmentSerialNo"] = lnkEquipmentSerialNo.Text;
             PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
-            DMS_EquipmentView ucDMS_EquipmentView = (DMS_EquipmentView)this.LoadControl("~/UserControls/DMS_EquipmentView.ascx");
-            ucDMS_EquipmentView.ID = "ucDMS_EquipmentView";
-            phDashboard.Controls.Add(ucDMS_EquipmentView);
+            EquipmentView ucEquipmentView = (EquipmentView)this.LoadControl("~/UserControls/EquipmentView.ascx");
+            ucEquipmentView.ID = "ucEquipmentView";
+            phDashboard.Controls.Add(ucEquipmentView);
             mp1.Show();
         }
         protected void lnkTSIR_Click(object sender, EventArgs e)
@@ -623,9 +621,9 @@ namespace DealerManagementSystem.ViewService
             LinkButton lnkTSIR = (LinkButton)sender;
             Session["TSIRNumber"] = lnkTSIR.Text;
             PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_2");
-            DMS_ICTicketTSIRView ucDMS_ICTicketTSIRView = (DMS_ICTicketTSIRView)this.LoadControl("~/UserControls/DMS_ICTicketTSIRView.ascx");
-            ucDMS_ICTicketTSIRView.ID = "ucDMS_ICTicketTSIRView";
-            phDashboard.Controls.Add(ucDMS_ICTicketTSIRView);
+            ICTicketTSIRView ucICTicketTSIRView = (ICTicketTSIRView)this.LoadControl("~/UserControls/ICTicketTSIRView.ascx");
+            ucICTicketTSIRView.ID = "ucICTicketTSIRView";
+            phDashboard.Controls.Add(ucICTicketTSIRView);
             mpTSIR.Show();
         }
         protected void lnkFSRDownload_Click(object sender, EventArgs e)

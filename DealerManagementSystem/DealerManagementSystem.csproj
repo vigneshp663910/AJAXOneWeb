@@ -219,12 +219,21 @@
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Project_Plan_PV2.png" />
+    <Content Include="RedirectHome.aspx" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewMarketing\ABPSparePart.aspx" />
+    <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
+    <Content Include="ViewMarketing\ActivityActual.aspx" />
+    <Content Include="ViewMarketing\ActivityClaimApproval.aspx" />
+    <Content Include="ViewMarketing\ActivityInvReports.aspx" />
+    <Content Include="ViewMarketing\ActivityPlan.aspx" />
+    <Content Include="ViewMarketing\ClaimEntry.aspx" />
+    <Content Include="ViewMarketing\LostCustomerData.aspx" />
     <Content Include="ViewMaster\AjaxEmployeeManage.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
@@ -572,6 +581,13 @@
     <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
       <DependentUpon>Pre_Sales.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RedirectHome.aspx.cs">
+      <DependentUpon>RedirectHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectHome.aspx.designer.cs">
+      <DependentUpon>RedirectHome.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -613,6 +629,62 @@
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ABPSparePart.aspx.cs">
+      <DependentUpon>ABPSparePart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ABPSparePart.aspx.designer.cs">
+      <DependentUpon>ABPSparePart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ABPSparePart_Retail.aspx.cs">
+      <DependentUpon>ABPSparePart_Retail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ABPSparePart_Retail.aspx.designer.cs">
+      <DependentUpon>ABPSparePart_Retail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityActual.aspx.cs">
+      <DependentUpon>ActivityActual.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityActual.aspx.designer.cs">
+      <DependentUpon>ActivityActual.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityClaimApproval.aspx.cs">
+      <DependentUpon>ActivityClaimApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityClaimApproval.aspx.designer.cs">
+      <DependentUpon>ActivityClaimApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityInvReports.aspx.cs">
+      <DependentUpon>ActivityInvReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityInvReports.aspx.designer.cs">
+      <DependentUpon>ActivityInvReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityPlan.aspx.cs">
+      <DependentUpon>ActivityPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ActivityPlan.aspx.designer.cs">
+      <DependentUpon>ActivityPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\ClaimEntry.aspx.cs">
+      <DependentUpon>ClaimEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\ClaimEntry.aspx.designer.cs">
+      <DependentUpon>ClaimEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarketing\LostCustomerData.aspx.cs">
+      <DependentUpon>LostCustomerData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMarketing\LostCustomerData.aspx.designer.cs">
+      <DependentUpon>LostCustomerData.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\AjaxEmployeeManage.aspx.cs">
       <DependentUpon>AjaxEmployeeManage.aspx</DependentUpon>
