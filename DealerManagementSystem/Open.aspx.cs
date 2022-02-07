@@ -2,6 +2,9 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Web.Services;
 
 namespace DealerManagementSystem
@@ -48,11 +51,15 @@ namespace DealerManagementSystem
         protected void BtnCreateCustomer_Click(object sender, EventArgs e)
         {
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
-            string CustomerCode=new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
-            if (!string.IsNullOrEmpty(CustomerCode))
+            string CustomerCode = Customer[0].CustomerCode;
+            if (string.IsNullOrEmpty(CustomerCode))
             {
-                new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
+                CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+                if (!string.IsNullOrEmpty(CustomerCode))
+                {
+                    new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
+                }
             }
-        }
+        } 
     }
 }

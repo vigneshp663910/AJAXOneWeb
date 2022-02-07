@@ -74,7 +74,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_ACC_GROUP", (country == 1) ? "AJGT" : "AJIC");
             tagListBapi.SetValue("P_TITLE", Customer[0].Title.Title);
             tagListBapi.SetValue("P_NAME1", Customer[0].CustomerName);
-            tagListBapi.SetValue("P_NAME2", "");
+            tagListBapi.SetValue("P_NAME2", Customer[0].CustomerName2);
             tagListBapi.SetValue("P_NAME3", "");
             tagListBapi.SetValue("P_NAME4", "");
             tagListBapi.SetValue("P_STREET2", Customer[0].Address1);
@@ -126,7 +126,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_TAX_CLASS9", (country == 1) ? "0" : "1");
 
             tagListBapi.Invoke(SAP.RfcDes());
-            string CustomerCode=tagListBapi.GetValue("CUSTOMER").ToString();
+            string CustomerCode=!string.IsNullOrEmpty(tagListBapi.GetValue("CUSTOMER").ToString())? tagListBapi.GetValue("CUSTOMER").ToString().Remove(0, 4) :"";
 
             return CustomerCode;
         }
