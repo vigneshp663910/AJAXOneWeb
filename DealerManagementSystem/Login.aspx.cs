@@ -119,7 +119,7 @@ namespace DealerManagementSystem
                 if ((txtUsername.Text == "admin") && (txtPassword.Text == "p123"))
                 {
                     Session["LoginID"] = txtUsername.Text;
-                    Response.Redirect("UserList.aspx");
+                    Response.Redirect("ViewAdmin/UserList.aspx");
                 }
                 userDetails = new BUser().AuthenticateUser(txtUsername.Text, txtPassword.Text);
                 if (userDetails.PasswordExpiryDate < DateTime.Now)

@@ -100,7 +100,7 @@
                             <label>Region</label>
                         </div>
                         <div class="col-md-3">
-                            <asp:TextBox ID="txtRRegion" runat="server" CssClass="form-control" />
+                            <asp:TextBox ID="txtRRegion" runat="server" CssClass="form-control" MaxLength="10"/>
                         </div>
                         <div class="col-md-2">
                             <asp:Button ID="BtnSearchRegion" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchRegion_Click"></asp:Button>
