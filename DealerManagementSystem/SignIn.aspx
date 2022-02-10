@@ -325,7 +325,7 @@
 
                         <div>
                             <div style="text-align: center; margin: 10px 0;">
-                                <p><em>AJAX Business Systems </em>&copy; <%: DateTime.Now.Year %> </p>
+                                <p><em>Powered by AJAXOne </em>&copy; <%: DateTime.Now.Year %> </p>
 
                                 <p><font size="2px">Download Our Mobile App</font></p>
                                 <p>
