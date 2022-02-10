@@ -18,7 +18,6 @@
 <script type="text/javascript"> 
     $(function () {
         $('#FleDiv1').click(function () {
-            debugger
             var CustomerID = document.getElementById('lblCustomerID1')
             var CustomerName = document.getElementById('lblCustomerName1')
             FleAutoCustomer(CustomerID, CustomerName, "", "");
@@ -26,7 +25,6 @@
     });
     $(function () {
         $('#FleDiv2').click(function () {
-            debugger
             var CustomerID = document.getElementById('lblCustomerID2')
             var CustomerName = document.getElementById('lblCustomerName2')
             FleAutoCustomer(CustomerID, CustomerName, "", "");
@@ -79,7 +77,8 @@
 
 <div class="col-md-12">
     <div class="action-btn">
-        <div class="dropdown">
+        <div class="" id="boxHere"></div>
+        <div class="dropdown btnactions" id="customerAction">
             <%--<asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />--%>
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
@@ -99,63 +98,63 @@
         </div>
     </div>
 </div>
-<div class="col-md-12">
+<div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
         <div class="col-md-12 View">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Customer : </label>
                 <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Contact Person : </label>
                 <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Mobile : </label>
                 <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Alternative Mobile : </label>
                 <asp:Label ID="lblAlternativeMobile" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Email : </label>
                 <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Location : </label>
                 <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>GSTIN : </label>
                 <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>PAN : </label>
                 <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Verified : </label>
                 <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" />
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Active : </label>
                 <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" />
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>OrderBlock : </label>
                 <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>DeliveryBlock : </label>
                 <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>BillingBlock : </label>
                 <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" />
             </div>
@@ -173,46 +172,48 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Attribute</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvAttribute" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
-                            <Columns>
-                                <asp:TemplateField HeaderText="RId">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                        <asp:Label ID="lblCustomerAttributeID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerAttributeID")%>' runat="server" Visible="false" />
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvAttribute" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="RId">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                            <asp:Label ID="lblCustomerAttributeID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerAttributeID")%>' runat="server" Visible="false" />
 
-                                    </ItemTemplate>
-                                    <ItemStyle HorizontalAlign="Center" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Attribute Main">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAttributeMain" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeMain.AttributeMain")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Attribute Sub">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAttributeSub" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSub.AttributeSub")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Remark">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Action">
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lbMarketSegmentDelete" runat="server" OnClick="lbMarketSegmentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                    </ItemTemplate>
-                                    <HeaderStyle Width="50px" />
-                                    <ItemStyle HorizontalAlign="Center" />
-                                </asp:TemplateField>
-                            </Columns>
-                            <AlternatingRowStyle BackColor="White" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Attribute Main">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAttributeMain" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeMain.AttributeMain")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Attribute Sub">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAttributeSub" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSub.AttributeSub")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Remark">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Action">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbMarketSegmentDelete" runat="server" OnClick="lbMarketSegmentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                        </ItemTemplate>
+                                        <HeaderStyle Width="50px" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="White" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
                     </div>
                 </fieldset>
             </div>
@@ -225,6 +226,7 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Products</legend>
 
                     <div class="col-md-12 Report">
+                         <div class="table-responsive">
                         <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -272,6 +274,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
+                               </div>
                     </div>
                 </fieldset>
             </div>
@@ -283,6 +286,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Relations</legend>
                     <div class="col-md-12 Report">
+                         <div class="table-responsive">
                         <asp:GridView ID="gvRelation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -335,6 +339,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
+                               </div>
                     </div>
                 </fieldset>
             </div>
@@ -347,6 +352,7 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">EMP RESP</legend>
 
                     <div class="col-md-12 Report">
+                         <div class="table-responsive">
                         <asp:GridView ID="gvEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -401,6 +407,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
+                               </div>
 
                     </div>
                 </fieldset>
@@ -412,6 +419,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Fleet</legend>
                 <div class="col-md-12 Report">
+                     <div class="table-responsive">
                     <asp:GridView ID="gvFleet" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         EmptyDataText="No Data Found">
                         <Columns>
@@ -458,6 +466,7 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+                           </div>
                 </div>
             </fieldset>
         </ContentTemplate>
@@ -467,6 +476,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
                 <div class="col-md-12 Report">
+                     <div class="table-responsive">
                     <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -540,6 +550,7 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+                           </div>
                 </div>
             </fieldset>
         </ContentTemplate>
@@ -549,6 +560,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Visit</legend>
                 <div class="col-md-12 Report">
+                     <div class="table-responsive">
                     <asp:GridView ID="gvColdVisit" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -605,12 +617,13 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+                           </div>
                 </div>
             </fieldset>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
-     
+
         <ContentTemplate>
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
@@ -623,6 +636,7 @@
                     </tr>
                 </table>
                 <div class="col-md-12 Report">
+                     <div class="table-responsive">
                     <asp:GridView ID="gvSupportDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -669,7 +683,7 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
-
+                           </div>
                 </div>
             </fieldset>
         </ContentTemplate>

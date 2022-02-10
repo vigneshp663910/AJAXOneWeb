@@ -41,115 +41,17 @@
         b, optgroup, strong {
             font-weight: 700;
         }
-
-        .Popup {
-            height: 600px;
-        }
-        .Popup #MainContent_UC_Customer_updatepnl {
-            height:500px;
-            overflow-x:auto;
-        }
-        .modal-label {
-            display:block;
-        }
-        #MainContent_UC_Customer_cbSendSMS, #MainContent_UC_Customer_cbSendEmail {
-            margin-top: 0;
-            vertical-align: middle;
-        }
-        .modal-check-label {
-            padding-right:10px;
-            padding-top:2px;
-        }
-        .PopupClose {
-            font-size: 13px;
-            width: 25px;
-            height: 25px;
-        }
-        .PopupClose:hover {
-            background:#fff;
-        }
-        .back-buttton.sticky {
-            position: fixed;
-            right: 0;
-            z-index: 99;
-            background: #fff;
-            width: calc(100% - 250px);
-            padding: 4px 0px;
-            top: 50px;
-        }
-        .back-buttton #MainContent_btnBackToList {
-            float: right;
-            margin-right: 20px;
-        }
-         .back-buttton.sticky #MainContent_btnBackToList {
-            margin-right: 30px;
-        }
-         /*   .back-buttton.sticky + #MainContent_tblDashboard {
-            padding-top: 100px;
-        }*/
-         .ajax__tab_default .ajax__tab {
-            height: 30px!important;
-        }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
-                 padding-left: 1px!important;
-         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_outer, .ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
-             background:none!important;
-             height: 30px!important;
-         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
-              background:#fff!important;
-             background-image: linear-gradient(#fff, #e3e4ee)!important;
-             height: 30px!important;
-             border:1px solid #ccc;
-             border-bottom:none;
-             border-radius: 3px 3px 0px 0px;
-             padding: 7px 4px!important;
-             width:80px;
-         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_active .ajax__tab_tab {
-             background:#fff!important;
-         }
-         .Popup label {
-            margin:0px;
-         }
-         .fieldset-border {
-             margin:0px;
-             padding:0px;
-         }
-         .action-btn {
-             margin-right: 110px;
-            margin-top: -62px;
-            display: block;
-            float:right;
-         }
-         @media only screen and (max-width: 992px) {
-            .back-buttton.sticky {
-                width: 100%;
-            }
-        }
-        @media only screen and (max-width: 767px) {
-          .Popup {
-            height: auto;
-            left:0 !important;
-            width:auto;
-            }
-          .back-buttton.sticky #MainContent_btnBackToList {
-            margin-right: 0px;
-            }
-        }
     </style>
-    
 
- <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+
+    <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
     <script type="text/javascript">  
         $(function () {
-            debugger
+
             $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
-                    debugger
                     var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
                     txtCustomerID.value = "";
                     var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
@@ -183,8 +85,10 @@
                 minLength: 3 //This is the Char length of inputTextBox    
             });
         });
+
+
     </script>
-   
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -278,8 +182,12 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                             </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
-            <div class="text-right">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
             <div class="col-md-12" runat="server" id="tblDashboard">
@@ -296,12 +204,14 @@
     <div class="col-md-12">
         <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Add Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Add Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
             <div class="col-md-12">
-                <asp:Label ID="lblMessageCustomer" runat="server" Text="" CssClass="message" Visible="false" />
-                <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-
+                <div class="model-scroll">
+                    <asp:Label ID="lblMessageCustomer" runat="server" Text="" CssClass="message" Visible="false" />
+                    <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+                </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
                 </div>

@@ -4,7 +4,6 @@
 <script type="text/javascript"> 
     $(function () {
         $('#UCdiv1').click(function () {
-            debugger
             var CustomerID = document.getElementById('lblCustomerID1')
             var CustomerName = document.getElementById('lblCustomerName1')
             var ContactPerson = document.getElementById('lblContactPerson1')
@@ -14,7 +13,6 @@
     });
     $(function () {
         $('#UCdiv2').click(function () {
-            debugger
             var CustomerID = document.getElementById('lblCustomerID2')
             var CustomerName = document.getElementById('lblCustomerName2')
             var ContactPerson = document.getElementById('lblContactPerson2')
@@ -50,61 +48,7 @@
         });
     });
     $('#txtEmail').watermark('Required information');
-    // Previous date hide
-    $(function () {
-        var dtToday = new Date();
 
-        var month = dtToday.getMonth() + 1;
-        console.log(month);
-        var day = dtToday.getDate();
-        console.log(day);
-        var year = dtToday.getFullYear();
-        if (month < 10)
-            month = '0' + month.toString();
-
-        if (day < 10)
-            day = '0' + day.toString();
-
-        var minDate = year + '-' + month + '-' + day;
-        // Max
-        var mmonth = dtToday.setMonth(1);
-
-        var mday = dtToday.setDate();
-        var myear = dtToday.setFullYear();
-        if (mmonth < 10)
-            mmonth = '0' + mmonth.toString();
-
-        if (mday < 10)
-            mday = '0' + mday.toString();
-        var monthplus = parseInt(mmonth) + 01;
-        if (month < 10)
-            monthplus = '0' + monthplus.toString();
-
-        var maxDate = year + '-' + monthplus + '-' + day;
-
-        $('#MainContent_UC_Customer_txtDOB').attr('min', minDate);
-        $('#MainContent_UC_Customer_txtDOB').attr('max', maxDate);
-        $('#MainContent_UC_Customer_txtDOAnniversary').attr('min', minDate);
-    });
-
-
-    //sticky back button
-
-    function boxtothetop() {
-        var windowTop = ($(window).scrollTop()) + 50;
-        var top = $('#boxHere').offset().top;
-        if (windowTop > top) {
-            $('#backBtn').addClass('sticky');
-            $('#boxHere').height($('#backBtn').outerHeight());
-        } else {
-            $('#backBtn').removeClass('sticky');
-            $('#boxHere').height(0);
-        }
-    }
-    $(function () {
-        $(window).scroll(boxtothetop);
-        boxtothetop();
-    });
 </script>
 <style>
     .fieldset-borderAuto {

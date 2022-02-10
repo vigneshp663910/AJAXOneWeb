@@ -96,7 +96,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_CONTACT2", Customer[0].ContactPerson);
             tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
             tagListBapi.SetValue("P_SALES_DISTRICT", "SOUTH1");
-            tagListBapi.SetValue("P_ORD_PROB", "000");
+            tagListBapi.SetValue("P_ORD_PROB", "100");
             tagListBapi.SetValue("P_SALES_OFFICE", "KA10");
             tagListBapi.SetValue("P_SALES_GROUP", "100");
             tagListBapi.SetValue("P_CUS_GROUP", "GT");

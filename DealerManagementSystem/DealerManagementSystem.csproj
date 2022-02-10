@@ -222,6 +222,7 @@
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
+    <Content Include="TestPageForMenu.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
@@ -600,6 +601,20 @@
     </Compile>
     <Compile Include="TestAutocomplete.aspx.designer.cs">
       <DependentUpon>TestAutocomplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestMenu.Master.cs">
+      <DependentUpon>TestMenu.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestMenu.Master.designer.cs">
+      <DependentUpon>TestMenu.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TestPageForMenu.aspx.cs">
+      <DependentUpon>TestPageForMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestPageForMenu.aspx.designer.cs">
+      <DependentUpon>TestPageForMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
@@ -1706,6 +1721,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="ViewMarketing\Site1.Master" />
     <Content Include="Site1.Master" />
+    <Content Include="TestMenu.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
