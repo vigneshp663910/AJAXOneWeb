@@ -42,6 +42,15 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Image ImageCompanyLogo;
 
         /// <summary>
+        /// ImageCompanyLogo2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageCompanyLogo2;
+
+        /// <summary>
         /// ImageAppLogo control.
         /// </summary>
         /// <remarks>
