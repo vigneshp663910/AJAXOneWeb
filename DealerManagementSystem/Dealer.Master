@@ -1183,7 +1183,7 @@
                             <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
                             <div class="dropdown-content" style="font-size: small">
                                 <div class="dropdown-header">Dashboard</div>
-                                <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
+                                <a href="/ViewPreSale/Pre_Sales_DashboardX"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
                                 <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
                                 <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
                                 <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
