@@ -203,7 +203,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
         <ContentTemplate>
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
@@ -230,7 +230,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
                                     <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
-                                     <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Date">

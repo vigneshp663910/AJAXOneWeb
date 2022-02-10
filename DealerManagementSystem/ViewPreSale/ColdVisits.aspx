@@ -377,7 +377,8 @@
             </div>
         </div>
         <div>
-            <div class="text-right">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
             </div>
             <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
@@ -389,7 +390,6 @@
         </div>
     </div>
 
-
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
@@ -400,72 +400,68 @@
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
 
-        <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
+
         <div class="col-md-12">
             <div style="display: none">
                 <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
             </div>
-            <div id="divCustomerViewID" style="display: none">
+            <div class="model-scroll">
+                <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
+                <div id="divCustomerViewID" style="display: none">
+                    <fieldset class="fieldset-border">
+                        <div class="col-md-12">
+
+                            <div class="col-md-2 text-right">
+                                <label>Customer Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lblCustomerName"></label>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label>Contact Person</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lblContactPerson"></label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <label>Mobile</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lblMobile"></label>
+                            </div>
+                        </div>
+                        <div id="divChangeCustomer">
+                            <label>Change Customer</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="divCustomerCreateID">
+                    <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+                </div>
+
                 <fieldset class="fieldset-border">
                     <div class="col-md-12">
 
-                        <div class="col-md-2 text-right">
-                            <label>Customer Name</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Cold Visit Date</label>
+                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
-                        <div class="col-md-4">
-                            <label id="lblCustomerName"></label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Action Type</label>
+                            <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Contact Person</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Importance</label>
+                            <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-4">
-                            <label id="lblContactPerson"></label>
+                        <div class="col-md-12 col-sm-12">
+                            <label class="modal-label">Remark</label>
+                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
                         </div>
-
-                        <div class="col-md-2 text-right">
-                            <label>Mobile</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label id="lblMobile"></label>
-                        </div>
-                    </div>
-                    <div id="divChangeCustomer">
-                        <label>Change Customer</label>
                     </div>
                 </fieldset>
             </div>
-            <div id="divCustomerCreateID">
-                <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-            </div>
-            <fieldset class="fieldset-border">
-                <div class="col-md-12">
-
-                    <div class="col-md-2 text-right">
-                        <label>Cold Visit Date</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Action Type</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
-                    </div>
-                     <div class="col-md-2 text-right">
-                        <label>Importance</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Remark</label>
-                    </div>
-                    <div class="col-md-10">
-                        <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-                </div>
-            </fieldset>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
             </div>

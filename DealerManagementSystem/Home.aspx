@@ -102,14 +102,7 @@
                                                             </div>
                                                         </td>
 
-                                                        <td>
-                                                            <div class="tbl-row-left">
-
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlEngineer" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                     
                                                     </tr>
                                                     <tr>
                                                         <td>
