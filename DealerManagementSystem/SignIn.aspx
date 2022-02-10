@@ -232,14 +232,27 @@
             transform: translateY(-50%);
         }
 
+        #ImageCompanyLogoRight {
+            display: none;
+        }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
             #LoginLeft {
                 display: none;
             }
 
+            #Footer {
+                display: none;
+            }
+
+            #ImageCompanyLogoRight {
+                display: block;
+            }
+
             #LoginRight {
                 width: 100%;
             }
+
 
             .vertical-center {
                 margin: 0;
@@ -271,6 +284,10 @@
                 </div>
                 <div id="LoginRight" class="right split" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
+                        <div id="ImageCompanyLogoRight" style="text-align: center;">
+                            <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />
+                        </div>
+                        <br />
                         <div style="text-align: center;">
                             <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="50" Height="50" />
                         </div>
@@ -288,7 +305,7 @@
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="Username"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="UserID / Email / Mobile"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                         ControlToValidate="txtUsername" ToolTip="<%$ Resources:Resource,ttpUsername %>" ForeColor="Red"><img src="images/error_info.png" alt="info" />
 
@@ -300,14 +317,14 @@
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
                                 </div>
-                              <%--  <br />--%>
-                              <%--  <input type="submit" value="Login">--%>
-                                 <asp:Button ID="btnLogin" runat="server"  Text="Login"   OnClick="btnLogin_Click"/>
+                                <%--  <br />--%>
+                                <%--  <input type="submit" value="Login">--%>
+                                <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
                                 <div style="text-align: center">
                                     <asp:Label ID="lblMessage" runat="server"></asp:Label>
                                 </div>
@@ -323,21 +340,23 @@
                         </fieldset>
                         <%--  </div>--%>
 
-                        <div>
+                        <div id="Footer1">
                             <div style="text-align: center; margin: 10px 0;">
-                                <p><em>Powered by AJAXOne </em>&copy; <%: DateTime.Now.Year %> </p>
+                                <p><font size="2px">Powered by AJAXOne&nbsp;&copy; <%: DateTime.Now.Year %> </font></p>
 
-                                <p><font size="2px">Download Our Mobile App</font></p>
-                                <p>
-                                    <span>
-                                        <img src="../Images/apple.png" border="0" id="" alt="">
-                                    </span>
-                                    <span>
-                                        <a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
-                                            <img src="../Images/Playstore.png" border="0" id="" alt="">
-                                        </a>
-                                    </span>
-                                </p>
+                                <div id="Footer">
+                                    <p><font size="2px">Download Our Mobile App</font></p>
+                                    <p>
+                                        <span>
+                                            <img src="../Images/apple.png" border="0" id="" alt="">
+                                        </span>
+                                        <span>
+                                            <a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
+                                                <img src="../Images/Playstore.png" border="0" id="" alt="">
+                                            </a>
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
