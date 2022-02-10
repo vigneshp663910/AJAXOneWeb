@@ -69,31 +69,13 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Label lblPageName;
 
         /// <summary>
-        /// Admin control.
+        /// Menu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Admin;
-
-        /// <summary>
-        /// Master control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Master;
-
-        /// <summary>
-        /// DealerEmployee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DealerEmployee;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Menu;
 
         /// <summary>
         /// Image1 control.
