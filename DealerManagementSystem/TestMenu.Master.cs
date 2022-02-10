@@ -51,8 +51,8 @@ namespace DealerManagementSystem
                 MenuCon = MenuCon + "<li class='right-boarder'><a href='Login.aspx' style='white-space: pre;'><img src='Ajax/SignOutLogo.png'  width='17px' /></a></li>";
                 MenuCon = MenuCon + " <li><a href='DMS_ContactUs.aspx' style='white-space: pre;'><img src='Ajax/ContactUsLogo.png'  width='17px' /></a></li>";
                 MenuCon = MenuCon + "</ul></li></ul>";
-                //Menu.InnerHtml = MenuCon;
-                //menu();
+                Menu.InnerHtml = MenuCon;
+                menu();
             }
         }
 
