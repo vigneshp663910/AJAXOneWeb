@@ -1,5 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Dealer.master.cs" Inherits="DealerManagementSystem.Dealer" %>
-
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="DealerOld.master.cs" Inherits="DealerManagementSystem.DealerOld" %>
 
 <!DOCTYPE html>
 
@@ -21,7 +20,89 @@
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <style>
+    <script>
+        window.onload = function () {
+            if (screen.width < 450) {
+                var mvp = document.getElementById('vp');
+                mvp.setAttribute('content', 'user-scalable=no,width=450');
+            }
+        }
+    </script>
+    <%-- <script>
+        $(document).ready(function () {
+            var ParentMenu = document.getElementById(localStorage.getItem("ParentMenu"));
+            if (ParentMenu != null) {
+                ParentMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                var MainMenu = document.getElementById(localStorage.getItem("MainMenu"));
+                if (MainMenu != null) {
+                    MainMenu.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+                }
+            }
+            window.localStorage.removeItem("ParentMenu");
+            window.localStorage.removeItem("MainMenu");
+        });
+        function ParentMenuClick(ParentMenu, MainMenu) {
+            var x = document.getElementById(ParentMenu);
+            x.className = "w3-bar-block w3-hide w3-padding-large w3-medium w3-show";
+            localStorage.setItem("ParentMenu", ParentMenu);
+            localStorage.setItem("MainMenu", MainMenu);
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+        function Menu(id, Mainid, Itag) {
+            var xModule = document.getElementById(id);
+            var xMainModule = document.getElementById(Mainid);
+
+            var ModuleClassName = xModule.className;
+            var itagid = document.getElementById(Itag);
+            var itagClassName = xModule.className;
+
+            document.getElementById(Itag).className = 'fa fa-angle-up fa-2x';
+
+            $('#Menu').find('div').each(function () {
+                var x2 = document.getElementById($(this).attr('id'));
+                x2.className = x2.className.replace(" w3-show", "");
+            });
+
+            //  alert(MainModuleClassName);
+
+
+
+            if (ModuleClassName == 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show') {
+                xModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium';
+                document.getElementById(Itag).className = 'fa fa-angle-down fa-2x';
+            }
+            else {
+                xModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
+            }
+
+            if (Mainid != null) {
+
+                xMainModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
+                //if (SubModuleClassName == 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show') {
+                //    xSubModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium';
+                //}
+                //else {
+                //    xSubModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
+                //}
+
+            }
+
+        }
+
+    </script>--%>
+
+    <script>
+        function SetScreenTitle(as_pagetitle) {
+            //alert(as_pagetitle);
+            var lbl = document.getElementById("lblProjectTitle")
+            lbl.textContent = as_pagetitle;
+        }
+
+
+    </script>
+
+    <style>
         .col-md-12 {
             padding: 0px 12px 12px 12px;
         }
@@ -494,7 +575,7 @@
             font-size: large;
             font-weight: normal;
             text-align: left;
-            margin-top: 51px;
+            margin-top: 30px;
             padding: 0px 0px 0px 8px;
             border-style: none none solid none;
             border-width: thin;
@@ -1014,101 +1095,6 @@
             }
         }
     </style>
-    <script>
-        window.onload = function () {
-            if (screen.width < 450) {
-                var mvp = document.getElementById('vp');
-                mvp.setAttribute('content', 'user-scalable=no,width=450');
-            }
-        }
-    </script>
-    <script>
-        $(document).ready(function () {
-            var ParentMenu = document.getElementById(localStorage.getItem("ParentMenu"));
-            if (ParentMenu != null) {
-                ParentMenu.className = "w3-bar-block w3-hide w3-medium w3-show";
-                var MainMenu = document.getElementById(localStorage.getItem("MainMenu"));
-                if (MainMenu != null) {
-                    MainMenu.className = "w3-bar-block w3-hide w3-medium w3-show";
-                }
-            }
-            window.localStorage.removeItem("ParentMenu");
-            window.localStorage.removeItem("MainMenu");
-            //$(".menu-item a").click(function () {
-            //    alert('hi')
-            //    /*   var t = $(this).attr("href"); $(this).closest("li").addClass("active").find("i").css("color", "white"),*/
-            //    $(this).closest('div').addClass('active');
-            //});
-        });
-
-        function ParentMenuClick(ParentMenu, MainMenu) {
-
-            localStorage.setItem("ParentMenu", ParentMenu);
-            localStorage.setItem("MainMenu", MainMenu);
-            var y = document.getElementById(MainMenu);
-            var x = document.getElementById(ParentMenu);
-            x.className = "w3-bar-block w3-hide w3-medium w3-show";
-            y.className = "w3-bar-block w3-hide w3-medium w3-show";
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-        function Menu(id, Mainid, Itag) {
-            var xModule = document.getElementById(id);
-            var xMainModule = document.getElementById(Mainid);
-
-            var ModuleClassName = xModule.className;
-            var itagid = document.getElementById(Itag);
-            var itagClassName = xModule.className;
-
-            document.getElementById(Itag).className = 'sub-menu-icon fa fa-angle-up fa-2x';
-
-            $('#Menu').find('div').each(function () {
-                var x2 = document.getElementById($(this).attr('id'));
-                x2.className = x2.className.replace(" w3-show", "");
-            });
-
-            //  alert(MainModuleClassName);
-
-
-
-            if (ModuleClassName == 'w3-bar-block w3-hide w3-medium w3-show') {
-                xModule.className = 'w3-bar-block w3-hide w3-medium';
-                document.getElementById(Itag).className = 'sub-menu-icon fa fa-angle-down fa-2x';
-            }
-            else {
-                xModule.className = 'w3-bar-block w3-hide w3-medium w3-show';
-            }
-
-            if (Mainid != null) {
-
-                xMainModule.className = 'w3-bar-block w3-hide w3-medium w3-show';
-                //if (SubModuleClassName == 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show') {
-                //    xSubModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium';
-                //}
-                //else {
-                //    xSubModule.className = 'w3-bar-block w3-hide w3-padding-large w3-medium w3-show';
-                //}
-
-            }
-
-        }
-
-
-
-    </script>
-
-
-    <script>
-        function SetScreenTitle(as_pagetitle) {
-            //alert(as_pagetitle);
-            var lbl = document.getElementById("lblProjectTitle")
-            lbl.textContent = as_pagetitle;
-        }
-
-
-    </script>
-
-
 
     <script>
         /*const {hidden} = require("modernizr");*/
@@ -1141,12 +1127,9 @@
         function w3_closeSideBar() {
             if (document.getElementById("mySidebar").style.width == "250px") {
                 document.getElementById("mySidebar").style.width = "50px";
-                document.getElementById("mySidebar").classList.add("closed-sidebar");
                 w3_hide_angle_down();
                 document.getElementById("CompanyLogo").style.display = "none";
-                document.getElementById("SideBarToggle").style.paddingLeft = "0px";
-                //document.getElementById("mySidebar").classList.remove("closed-sidebar");
-
+                document.getElementById("SideBarToggle").style.paddingLeft = "0px"
 
                 $('#Menu').find('div').each(function () {
                     var x2 = document.getElementById($(this).attr('id'));
@@ -1155,7 +1138,6 @@
             }
             else {
                 document.getElementById("mySidebar").style.width = "250px";
-                document.getElementById("mySidebar").classList.remove("closed-sidebar");
                 w3_disp_angle_down()
                 document.getElementById("CompanyLogo").style.display = "block";
                 document.getElementById("SideBarToggle").style.paddingLeft = "235Px"
@@ -1163,11 +1145,9 @@
 
             if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
                 document.getElementById("w3mainclass").style.marginLeft = "50px";
-                //document.getElementById("mySidebar").classList.add("closed-sidebar");
             }
             else {
                 document.getElementById("w3mainclass").style.marginLeft = "250px";
-                //document.getElementById("mySidebar").classList.remove("closed-sidebar");
             }
         }
 
@@ -1178,7 +1158,7 @@
                     if (i != undefined && i.substring(0, 1) == 'i') {
                         //console.log(i);
                         document.getElementById(i).style.display = "none";
-                        document.getElementById(i).className = 'sub-menu-icon fa fa-angle-down fa-2x';
+                        document.getElementById(i).className = 'fa fa-angle-down fa-2x';
 
                     }
                 });
@@ -1259,7 +1239,6 @@
             $(window).scroll(boxtothetop);
             boxtothetop();
         });
-
     </script>
 
 
@@ -1324,17 +1303,7 @@
         }--%>
     </script>
 
-    <script>
-        jQuery(function ($) {
-            var path = window.location.href;
-            // because the 'href' property of the DOM element is the absolute path
-            $('#main-nav ul li a').each(function () {
-                if (this.href === path) {
-                    $(this).addClass('active');
-                }
-            });
-        });
-    </script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -1377,83 +1346,15 @@
             </div>
         </div>
 
-        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;">
-            <%--  <br>--%>
-            <div class="w3-bar-block"  >
-                <%--  <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
-                </div>--%>
-                <div id="MenuNew" runat="server" >
-                   
+        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index: 3; width: 250px; font-weight: bold;">
+            <br>
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 32px; text-align: right"><span>&nbsp;&nbsp;&times&nbsp;&nbsp;</span></a>
+
+            <div class="w3-bar-block">
+                <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
                 </div>
-                
-             
-                <%--  <nav id="main-nav">
-                    <ul id="main-menu" class="sm sm-blue">
-                        <li class="menu-item-list">
-                            <a href="javascript:void(0)" onclick="Menu('Admin','','iAdmin')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuAdmin">
-                            <i class="fa fa-cogs fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Admin</span><i id="iAdmin" class="sub-menu-icon fa fa-angle-up fa-2x" style="color: lightgray"></i></a>
-                            <div id="Admin" class="w3-bar-block w3-hide w3-medium" runat="server">
-                            <div class="menu-item"><a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Modules</span></a></div>
-                            <div class="menu-item"><a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Users</span></a></div>
-                            <div class="menu-item"><a href="/SignIn.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Login</span></a></div>
-                            <div class="menu-item"><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Login As</span></a></div>
-                            <div class="menu-item"><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Message / Prev Login</span></a></div>
-                            <div class="menu-item"><a href="/UnderCons.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Mobile User Approve</span></a></div>
-                        </div>
-                        </li>
-                    </ul>
-                </nav>--%>
-                <%-- <nav id="main-nav">
-                    <ul id="main-menu" class="sm sm-blue">
-                        <li class="menu-item-list">
-                            <a href="javascript:void(0)" onclick="Menu('Admin','','iAdmin')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuAdmin">
-                                <i class="fa fa-cogs fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Admin</span><i id="iAdmin" class="fa fa-angle-down fa-2x" style="color: lightgray"></i></a>
-                            <div id="Admin" class="w3-bar-block w3-hide w3-medium" runat="server">
-                                <a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Modules</a>
-                                <a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Users</a><a href="/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Login</a><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #ff6666"></i>&nbsp;LoginAs</a><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Message/PrevLogin</a><a href="/UnderCons.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;MobileUserApprove</a>
-                            </div>
-                        </li>
-                        <li class="menu-item-list">
-                            <a href="javascript:void(0)" onclick="Menu('Master','','iMaster')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuMaster">
-                                <i class="fa fa-anchor fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Master</span><i id="iMaster" class="fa fa-angle-down fa-2x" style="color: lightgray"></i>
-                            </a>
-                            <div id="Master" class="w3-bar-block w3-hide w3-medium" runat="server">
-                                <div class="menu-item">
-                                    <a href="#" class="w3-bar-item w3-button" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Location</span></a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="/TestPageForMenu.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Customer</span></a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="/material" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Material</span></a>
-                                </div>
-                                <div class="menu-item">
-                                    <a onclick="Menu('DealerEmployee','Master','iDealerEmployee')" href="javascript:void(0)" class="w3-bar-item w3-button w3-block w3-left-align submenu" id="MenuDealerEmployee">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>DealerEmployee</span>
-                                        <i id="iDealerEmployee" class="sub-menu-icon fa fa-angle-down fa-2x" style="color: lightgray"></i></a>
-                                    <div id="DealerEmployee" class="w3-bar-block w3-hide w3-padding-large w3-medium" runat="server">
-                                        <a href="/ProcessFlow/DMM_Process.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>ProcessFlow</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeCreate.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Create</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeAssigningRole.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>RoleAssign</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeManage.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Manage</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeApproval.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Approval</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeLeaving.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Leaving/Exit</span></a>
-                                    </div>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="/material" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Test</span></a>
-                                </div>
-
-                            </div>
-                        </li>
-
-                    </ul>
-                </nav>--%>
             </div>
+
         </nav>
 
         <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
@@ -1470,7 +1371,7 @@
         <div id="w3mainclass" class="w3-main" style="margin-left: 250px;">
 
             <%--<br />--%>
-            <%--   <div class="ProjectTitle">
+            <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
                 <div id="titlebarico" style="float: right;">
@@ -1485,7 +1386,7 @@
                             <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
                             <div class="dropdown-content" style="font-size: small">
                                 <div class="dropdown-header">Dashboard</div>
-                                <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
+                                <a href="/ViewPreSale/Pre_Sales_DashboardX"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
                                 <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
                                 <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
                                 <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
@@ -1524,8 +1425,8 @@
                         </div>
 
                     </div>
-                        </div>
-            </div>--%>
+                </div>
+            </div>
 
             <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                 <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
@@ -1539,9 +1440,10 @@
 
 
         </div>
+
+
     </form>
 
 
 </body>
 </html>
-

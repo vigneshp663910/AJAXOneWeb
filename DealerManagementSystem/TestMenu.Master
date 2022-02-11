@@ -1514,19 +1514,38 @@
 
         <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;">
             <%--  <br>--%>
-            <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width: 100%; font-size: 32px; text-align: right"><span>&nbsp;&nbsp;&times&nbsp;&nbsp;</span></a>
-
-            <div class="w3-bar-block">
-                <%--<div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
+            <div class="w3-bar-block"  >
+                <%--  <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
                 </div>--%>
-
-                <nav id="main-nav">
+                <div id="MenuNew" runat="server">
+                   
+                </div>
+                
+             
+                <%--  <nav id="main-nav">
+                    <ul id="main-menu" class="sm sm-blue">
+                        <li class="menu-item-list">
+                            <a href="javascript:void(0)" onclick="Menu('Admin','','iAdmin')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuAdmin">
+                            <i class="fa fa-cogs fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Admin</span><i id="iAdmin" class="sub-menu-icon fa fa-angle-up fa-2x" style="color: lightgray"></i></a>
+                            <div id="Admin" class="w3-bar-block w3-hide w3-medium" runat="server">
+                            <div class="menu-item"><a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Modules</span></a></div>
+                            <div class="menu-item"><a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Users</span></a></div>
+                            <div class="menu-item"><a href="/SignIn.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Login</span></a></div>
+                            <div class="menu-item"><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Login As</span></a></div>
+                            <div class="menu-item"><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Message / Prev Login</span></a></div>
+                            <div class="menu-item"><a href="/UnderCons.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Mobile User Approve</span></a></div>
+                        </div>
+                        </li>
+                    </ul>
+                </nav>--%>
+                <%-- <nav id="main-nav">
                     <ul id="main-menu" class="sm sm-blue">
                         <li class="menu-item-list">
                             <a href="javascript:void(0)" onclick="Menu('Admin','','iAdmin')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuAdmin">
                                 <i class="fa fa-cogs fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Admin</span><i id="iAdmin" class="fa fa-angle-down fa-2x" style="color: lightgray"></i></a>
                             <div id="Admin" class="w3-bar-block w3-hide w3-medium" runat="server">
-                                <a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Modules</a><a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Users</a><a href="/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Login</a><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #ff6666"></i>&nbsp;LoginAs</a><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Message/PrevLogin</a><a href="/UnderCons.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;MobileUserApprove</a>
+                                <a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Modules</a>
+                                <a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Users</a><a href="/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Login</a><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #ff6666"></i>&nbsp;LoginAs</a><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Message/PrevLogin</a><a href="/UnderCons.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;MobileUserApprove</a>
                             </div>
                         </li>
                         <li class="menu-item-list">
@@ -1566,25 +1585,27 @@
 
                             </div>
                         </li>
-                            
+
                     </ul>
-                </nav>
+                </nav>--%>
+            </div>
+        </nav>
 
-                <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
-                    <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
-                    <div class="logo float-right">
-                        <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-                    </div>
-                </header>
+        <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
+            <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
+            <div class="logo float-right">
+                <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+            </div>
+        </header>
 
-                <div id="myOverlay" class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="Close Side Menu"></div>
+        <div id="myOverlay" class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="Close Side Menu"></div>
 
-                <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
-                <div id="w3mainclass" class="w3-main" style="margin-left: 250px;">
+        <div id="w3mainclass" class="w3-main" style="margin-left: 250px;">
 
-                    <%--<br />--%>
-                    <%--   <div class="ProjectTitle">
+            <%--<br />--%>
+            <%--   <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
                 <div id="titlebarico" style="float: right;">
@@ -1638,21 +1659,21 @@
                         </div>
 
                     </div>
-                </div>
+                        </div>
             </div>--%>
 
-                    <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
-                        <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
-                    </div>
-                    <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
+            <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
+                <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
+                <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
+            </div>
+            <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
 
 
-                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                    </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
 
 
-                </div>
+        </div>
     </form>
 
 

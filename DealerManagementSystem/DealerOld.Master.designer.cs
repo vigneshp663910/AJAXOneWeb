@@ -11,7 +11,7 @@ namespace DealerManagementSystem
 {
 
 
-    public partial class Dealer
+    public partial class DealerOld
     {
 
         /// <summary>
@@ -69,13 +69,13 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Label lblPageName;
 
         /// <summary>
-        /// MenuNew control.
+        /// Menu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuNew;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Menu;
 
         /// <summary>
         /// Image1 control.
@@ -94,6 +94,24 @@ namespace DealerManagementSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ToolkitScriptManager1;
+
+        /// <summary>
+        /// lblProjectTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectTitle;
+
+        /// <summary>
+        /// lblQuality control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuality;
 
         /// <summary>
         /// DivChangeLogin control.

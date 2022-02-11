@@ -222,6 +222,7 @@
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
+    <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
@@ -414,6 +415,7 @@
     <Content Include="BackUp\DMSDynamic.Master" />
     <Content Include="JSAutocomplete\jquery-3.6.0.js" />
     <Content Include="JSAutocomplete\ui1.13.0jquery-ui.js" />
+    <Content Include="DealerOld.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -553,6 +555,13 @@
     <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DealerOld.Master.cs">
+      <DependentUpon>DealerOld.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DealerOld.Master.designer.cs">
+      <DependentUpon>DealerOld.Master</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -601,6 +610,13 @@
     </Compile>
     <Compile Include="TestAutocomplete.aspx.designer.cs">
       <DependentUpon>TestAutocomplete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestDealerOld.aspx.cs">
+      <DependentUpon>TestDealerOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestDealerOld.aspx.designer.cs">
+      <DependentUpon>TestDealerOld.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestMenu.Master.cs">
       <DependentUpon>TestMenu.Master</DependentUpon>
