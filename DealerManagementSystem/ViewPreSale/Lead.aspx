@@ -254,7 +254,6 @@
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
             <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
             <div class="col-md-12">
-
                 <div class="col-md-2 text-right">
                     <label>Lead Number</label>
                 </div>
@@ -358,7 +357,7 @@
             <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
             <div class="col-md-12 Report">
                 <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed"
-                     PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
+                    PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
                     <Columns>
                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
@@ -426,7 +425,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                 <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" /> 
+                                <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -440,9 +439,9 @@
         </fieldset>
     </div>
     <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
-          <div class="text-right">
-                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
-            </div>
+        <div class="text-right">
+            <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+        </div>
         <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
     </div>
     <div style="display: none">
@@ -455,8 +454,9 @@
             <span id="PopupDialogue">Add Lead</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
-          <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
         <div class="col-md-12">
+            <div class="model-scroll">
             <div style="display: none">
                 <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
             </div>
@@ -496,61 +496,46 @@
             <fieldset class="fieldset-border" id="fldCountry" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
                 <div class="col-md-12">
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Lead Date</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>
 
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Status</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Progress Status</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Category</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
                     </div>
 
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Qualification</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
                     </div>
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Source</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
                     </div>
 
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-6 col-sm-12">
                         <label>Lead Type</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
                     </div>
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
-                    </div>
-                    <div class="col-md-3">
                         <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>
                 </div>
 
             </fieldset>
+            </div>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
             </div>

@@ -95,7 +95,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            z-index: 1;
+            /*z-index: 1;*/
+            z-index: 99;
             padding: 0px 15px 0px 23px;
             /*overflow:auto;*/
         }
@@ -319,12 +320,17 @@
         }
 
         #icoDashBoard {
-
-                padding-right: 7em;
-              
-                    
-            }
-
+            padding-right: 1.5em;
+        }
+        .field-margin-top .View {
+            background: rgb(241 241 241) !important;
+            border-radius:5px;
+        }
+        .field-margin-top .View .aspNetDisabled {
+            padding-top: 10px;
+            vertical-align: middle;
+            padding-left: 5px;
+        }
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
 
@@ -340,7 +346,7 @@
                 margin-top: 30px;
             }
 
-           /* #icoDashBoard {
+            /* #icoDashBoard {
                 padding-right: 2em;                            
             }*/
         }
@@ -353,7 +359,7 @@
             }*/
 
             #icoDashBoard {
-                padding-right: 2em;                    
+                padding-right: 2em;
             }
 
             .w3-padding-32 {
@@ -485,7 +491,9 @@
             }
 
         .w3-bar-block .w3-bar-item {
-            padding: 3px 2px 2px 10px !important;
+            padding: 7px 16px 7px 37px !important;
+            color: #ccc;
+            border-top: 1px solid #546171;
         }
 
         .ProjectTitle {
@@ -832,7 +840,6 @@
             min-width: 195px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
-           
         }
 
             .dropdown-content a {
@@ -865,7 +872,8 @@
             .View .label {
                 font-weight: 700;
                 font-family: "Open Sans",sans-serif;
-                font-size: large;
+                /*font-size: large;*/
+                font:16px;
             }
 
         .fa-angle-down:hover #mySidebar {
@@ -875,143 +883,344 @@
         .Popup {
             height: 600px;
         }
-        
-        .Popup .model-scroll {
-            height:500px;
-            overflow-x:auto;
-        }
+
+            .Popup .model-scroll {
+                height: 500px;
+                overflow-x: auto;
+            }
+
         .modal-label {
-            display:block;
+            display: block;
         }
+
         #MainContent_UC_Customer_cbSendSMS, #MainContent_UC_Customer_cbSendEmail {
             margin-top: 0;
             vertical-align: middle;
         }
+
         .modal-check-label {
-            padding-right:10px;
-            padding-top:2px;
+            padding-right: 10px;
+            padding-top: 2px;
         }
+
         .PopupClose {
             font-size: 13px;
             width: 25px;
             height: 25px;
         }
-        .PopupClose:hover {
-            background:#fff;
-        }
+
+            .PopupClose:hover {
+                background: #fff;
+            }
+
         .back-buttton.sticky {
             position: fixed;
             right: 0;
             z-index: 99;
             background: #fff;
             width: calc(100% - 250px);
-            padding: 4px 0px;
-            top: 50px;
+            padding: 7px 0px;
+            top: 78px;
         }
+
         .back-buttton #MainContent_btnBackToList {
             float: right;
             margin-right: 20px;
             margin-top: -6px;
         }
+
         .back-buttton.coldvisit #MainContent_btnBackToList {
             margin-top: 0px;
         }
-         .back-buttton.sticky #MainContent_btnBackToList {
+
+        .back-buttton.sticky #MainContent_btnBackToList {
             margin-right: 30px;
             margin-top: 0px;
         }
-         /*   .back-buttton.sticky + #MainContent_tblDashboard {
+        /*   .back-buttton.sticky + #MainContent_tblDashboard {
             padding-top: 100px;
         }*/
-         .ajax__tab_default .ajax__tab {
-            height: 30px!important;
+        .ajax__tab_default .ajax__tab {
+            height: 30px !important;
         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
-                 padding-left: 1px!important;
-         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_outer, .ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
-             background:none!important;
-             height: 30px!important;
-         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
-              background:#fff!important;
-             background-image: linear-gradient(#fff, #e3e4ee)!important;
-             height: 29px!important;
-             border:1px solid #ccc;
-             border-bottom:none;
-             border-radius: 3px 3px 0px 0px;
-             padding: 7px 8px!important;
-             width:auto;
-         }
-         .ajax__tab_xp .ajax__tab_header .ajax__tab_active .ajax__tab_tab {
-             background:#fff!important;
-         }
-         .ajax__tab_xp .ajax__tab_body {
-             padding: 0 8px!important;
-         }
-         .Popup label {
-            margin:0px;
-         }
-         .fieldset-border {
-             margin:0px;
-             padding-top:0px;
-         }
-         .fieldset-border legend {
-             margin-bottom:0;
-         }
-         .action-btn {
+
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
+            padding-left: 1px !important;
+        }
+
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_outer, .ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
+            background: none !important;
+            height: 30px !important;
+        }
+
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
+            background: #fff !important;
+            background-image: linear-gradient(#fff, #e3e4ee) !important;
+            height: 29px !important;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 3px 3px 0px 0px;
+            padding: 7px 8px !important;
+            width: auto;
+        }
+
+        .ajax__tab_xp .ajax__tab_header .ajax__tab_active .ajax__tab_tab {
+            background: #fff !important;
+        }
+
+        .ajax__tab_xp .ajax__tab_body {
+            padding: 0 8px !important;
+        }
+
+        .Popup label {
+            margin: 0px;
+        }
+
+        .fieldset-border {
+            margin: 0px;
+            padding-top: 0px;
+        }
+
+            .fieldset-border legend {
+                margin-bottom: 0;
+            }
+
+        .action-btn {
             margin-right: 98px;
             margin-top: -62px;
             display: block;
-            float:right;
-         }
-         .action-btn .btn.Approval{
-             padding:11px;
-             margin-top: 7px;
-         }
-         .action-btn .btnactions.sticky {
-            position: fixed;
-            right: 119px;
-            z-index: 99;
-            top: 47px;
+            float: right;
         }
-         .dropdown.btnactions {
-             z-index: 1;
-         }
-         .field-margin-top {
-             margin-top: -38px;
-             padding: 5px 0px;
-         }
-         .col-md-12 .Report {
+
+            .action-btn .btn.Approval {
+                padding: 11px;
+                margin-top: 7px;
+            }
+
+            .action-btn .btnactions.sticky {
+                position: fixed;
+                right: 118px;
+                z-index: 99;
+                top: 78px;
+            }
+
+        .dropdown.btnactions {
+            z-index: 1;
+        }
+
+        .field-margin-top {
+            margin-top: -35px;
+            padding: 5px 0px;
+        }
+
+        .col-md-12 .Report {
             display: grid;
         }
+
         .table {
-            margin-bottom:0px;
+            margin-bottom: 0px;
         }
-         @media only screen and (max-width: 992px) {
-            .back-buttton.sticky {
+
+        .w3-show {
+            background: #505a65;
+        }
+
+        .menu-item .submenu {
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        .submenu + .w3-bar-block .w3-bar-item {
+            padding-left: 51px !important;
+        }
+
+        .submenu + .w3-show {
+            background: #475461;
+        }
+
+        .w3-button:hover {
+            text-decoration: none;
+            color: #fff !important;
+            background-color: #3a444d !important;
+        }
+
+        #main-nav .fa-2x {
+            font-size: 1.6em;
+        }
+
+        #main-nav #main-menu > li > a {
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+            color: #ccc !important;
+            border-top: 1px solid #546171;
+        }
+        
+        #main-nav #main-menu > li > a:hover {
+            color: #fff !important;
+        }
+
+        #main-nav #main-menu > li > a:hover i.fa-cogs {
+            color: #2fb7c3 !important;
+        }
+
+        .w3-bar-block .w3-bar-item:hover i.fa-mercury {
+            color: #ff6666 !important;
+        }
+
+        .w3-bar-block .w3-bar-item.active {
+            background-color: #3a444d !important;
+            color: #fff !important;
+        }
+
+        .project-title-outer {
+            position: relative;
+            z-index: 9;
+        }
+
+        .project-title-outer .ProjectTitle {
+            position: fixed;
+            width: calc( 100% - 250px );
+            margin: 0;
+            top: 50px;
+            border-top: 1px solid #4c7da7;
+        }
+        .w3-main.closed-sidebar-main .project-title-outer .ProjectTitle  {
+            width: calc( 100% - 50px );
+        }
+        .sub-menu-dashboard .dropdown-content, #icoDashBoard .dropdown-content {
+            right: 0px;
+        }
+        .table.table-bordered.table-condensed.Grid th {
+            padding: 0.3rem 0.75rem;
+            font-size: 14px;
+        }
+        .table.table-bordered.table-condensed.Grid td {
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+        .table.table-bordered.table-condensed.Grid tr:last-child td {
+            padding: 3px 8px;
+        }
+        .table.table-bordered.table-condensed.Grid tr:last-child td table td {
+            padding: 2px 5px;
+            font-size:10px;
+            background:#369;
+        }
+        .table.table-bordered.table-condensed.Grid tr:last-child td table td span {
+            font-size:10px;
+            background:none;
+            color: #6ea9e3;
+        }
+        .lead-static .portlet .btn-group.btn-group-devided {
+            vertical-align: initial;
+            padding: 4px;
+        }
+        .lead-static .portlet .btn-group.btn-group-devided label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .lead-static .portlet .btn-group.btn-group-devided label span {
+            padding-left: 5px;
+        }
+        .lead-static .portlet #divLeadStatistics {
+            justify-content: center;
+        }
+        .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
+            width: 15%;
+        }
+        @media only screen and (min-width: 992px) {
+            .closed-sidebar {
+                width: 50px;
+                overflow: visible;
+            }
+
+            .closed-sidebar #main-menu > li > a span {
+                display: none;
+            }
+
+            .closed-sidebar #main-menu > li > a {
+                padding-top: 5px !important;
+                padding-bottom: 5px !important;
+            }
+
+            .closed-sidebar #main-menu > li:hover {
+                width: 256px !important;
+                position: relative !important;
+                z-index: 10000;
+                display: block !important;
+            }
+
+                .closed-sidebar #main-menu > li:hover span {
+                    display: inline !important;
+                    padding-left: 30px;
+                }
+
+            .closed-sidebar #main-menu > li > .w3-bar-block {
+                display: none !important;
+            }
+
+            .closed-sidebar #main-menu > li:hover > .w3-bar-block {
+                width: 210px;
+                position: absolute;
+                z-index: 2000;
+                left: 46px;
+                margin-top: 0;
+                top: 100%;
+                display: block !important;
+                -webkit-border-radius: 0 0 4px 4px;
+                -moz-border-radius: 0 0 4px 4px;
+                -ms-border-radius: 0 0 4px 4px;
+                -o-border-radius: 0 0 4px 4px;
+                border-radius: 0 0 4px 4px;
+                background: #505a65;
+            }
+
+            .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
+                padding: 5px 10px 5px 21px !important
+            }
+
+            .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
+                padding-left: 0;
+            }
+
+            .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
+                display: inline !important;
+            }
+        }
+
+        @media only screen and (max-width: 992px) {
+            .back-buttton.sticky, .project-title-outer .ProjectTitle {
                 width: 100%;
             }
-        }
-        @media only screen and (max-width: 767px) {
-          .Popup {
-            height: auto;
-            left:0 !important;
-            width:auto;
+            .w3-sidebar.w3-collapse {
+                width: 250px!important;
             }
-          /*.back-buttton.sticky #MainContent_btnBackToList {
+            #icoDashBoard {
+                padding-right: 1em;
+            }
+        }
+
+        @media only screen and (max-width: 767px) {
+            .Popup {
+                height: auto;
+                left: 0 !important;
+                width: auto;
+            }
+            /*.back-buttton.sticky #MainContent_btnBackToList {
             margin-right: 0px;
             }*/
-          .table-responsive {
+            .table-responsive {
                 width: 100%;
                 margin-bottom: 15px;
                 overflow-y: hidden;
-              /*  -ms-overflow-style: -ms-autohiding-scrollbar;*/
-               /* border: 1px solid #ddd;*/
+                /*  -ms-overflow-style: -ms-autohiding-scrollbar;*/
+                /* border: 1px solid #ddd;*/
             }
-          .table-responsive>.table {
-                margin-bottom: 0;
-            }
+
+                .table-responsive > .table {
+                    margin-bottom: 0;
+                }
         }
     </style>
     <script>
@@ -1163,10 +1372,12 @@
 
             if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
                 document.getElementById("w3mainclass").style.marginLeft = "50px";
+                document.getElementById("w3mainclass").classList.add("closed-sidebar-main");
                 //document.getElementById("mySidebar").classList.add("closed-sidebar");
             }
             else {
                 document.getElementById("w3mainclass").style.marginLeft = "250px";
+                document.getElementById("w3mainclass").classList.remove("closed-sidebar-main");
                 //document.getElementById("mySidebar").classList.remove("closed-sidebar");
             }
         }
@@ -1241,7 +1452,7 @@
         //sticky back button
 
         function boxtothetop() {
-            var windowTop = ($(window).scrollTop()) + 50;
+            var windowTop = ($(window).scrollTop()) + 78;
             var top = $('#boxHere').offset().top;
             if (windowTop > top) {
 
@@ -1467,10 +1678,11 @@
 
         <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
-        <div id="w3mainclass" class="w3-main" style="margin-left: 250px;">
+        <div id="w3mainclass" class="w3-main" style="margin-left: 250px;margin-top: 60px">
 
-            <%--<br />--%>
-            <%--   <div class="ProjectTitle">
+            <br />
+            <div class="project-title-outer">
+               <div class="ProjectTitle">
                 <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
                 <div id="titlebarico" style="float: right;">
@@ -1494,7 +1706,7 @@
 
                         </div>
                     </div>
-                    <div style="float: right; padding-right: 0.5em;">
+                    <div class="sub-menu-dashboard" style="float: right; padding-right: 0.5em;">
 
                         <div class="dropdown">
                             <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
@@ -1525,8 +1737,8 @@
 
                     </div>
                         </div>
-            </div>--%>
-
+            </div>
+            </div>
             <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                 <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
                 <asp:Button ID="btnLoginChange" runat="server" Text="Button" />
@@ -1534,7 +1746,7 @@
             <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
 
 
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            <asp:ContentPlaceHolder ID="MainContent"  runat="server">
             </asp:ContentPlaceHolder>
 
 

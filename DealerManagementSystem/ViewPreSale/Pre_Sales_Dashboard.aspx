@@ -162,7 +162,7 @@
 
     <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
     <body>
-
+        <div class="lead-static">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption" style="font-size: 25px;">
@@ -170,19 +170,19 @@
                 <div class="actions" style="float: right;">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');">Today
+                            <input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');"><span>Today</span>
                            
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">Week
+                            <input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');"><span>Week</span>
                            
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">Month
+                            <input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');"><span>Month</span>
                            
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">Year
+                            <input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');"><span>Year</span>
                            
                         </label>
                     </div>
@@ -192,7 +192,7 @@
             <div class="portlet-body" style="padding: 5px;">
                 <div id="divEnquiryStat">
                     <div id="divLeadStatistics" class="row no-margin" style="font-size:medium; text-align: right;">
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; margin-left:15px; background-color: #8775a7; ">
+                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; margin-left:15px; background-color: #8775a7; ">
                             <a class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color:white;">
@@ -201,7 +201,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#3598dc;">
+                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#3598dc;">
                             <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color:white;">
@@ -210,7 +210,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#32c5d2;">
+                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#32c5d2;">
                             <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0);" onclick="VisitMyEnquiries('Prospect');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color:white;">
@@ -219,7 +219,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2  thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#26c281;">
+                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#26c281;">
                             <a class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color:white;">
@@ -228,7 +228,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#d91e18;">
+                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:5px; background-color:#d91e18;">
                             <a class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color:white;">
@@ -237,7 +237,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-1 thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:1px; background-color:#d05454;">
+                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right:1px; background-color:#d05454;">
                             <a class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color:white;">
@@ -469,6 +469,7 @@
                 </div>
         </div>
     </div>--%>
+        </div>
     </body>
     </html>
 </asp:Content>

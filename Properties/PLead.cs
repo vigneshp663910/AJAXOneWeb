@@ -52,6 +52,13 @@ namespace Properties
         public PUser AssignedBy { get; set; }
         public DateTime AssignedOn { get; set; }
         public Boolean IsActive { get; set; }
+        public string Active
+        {
+            get
+            {
+                return IsActive ? "Active" : "Not Active";
+            }
+        }
     }
     [Serializable]
     public class PLeadConvocation

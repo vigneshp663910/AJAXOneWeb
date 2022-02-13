@@ -465,6 +465,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button PopupClose;
 
         /// <summary>
+        /// lblMessageAssignEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageAssignEngineer;
+
+        /// <summary>
         /// UC_AssignSE control.
         /// </summary>
         /// <remarks>
@@ -483,13 +492,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button btnSaveAssignSE;
 
         /// <summary>
-        /// MP_AssignSE control.
+        /// MPE_AssignSE control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MP_AssignSE;
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_AssignSE;
 
         /// <summary>
         /// pnlFollowUp control.
@@ -508,6 +517,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
+        /// lblMessageFollowUp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageFollowUp;
 
         /// <summary>
         /// UC_FollowUp control.
@@ -555,6 +573,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
+        /// lblMessageConvocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageConvocation;
+
+        /// <summary>
         /// UC_CustomerConvocation control.
         /// </summary>
         /// <remarks>
@@ -598,6 +625,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button3;
+
+        /// <summary>
+        /// lblMessageFinancial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageFinancial;
 
         /// <summary>
         /// UC_Financial control.
@@ -645,6 +681,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button Button4;
 
         /// <summary>
+        /// lblMessageEffort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageEffort;
+
+        /// <summary>
         /// UC_Effort control.
         /// </summary>
         /// <remarks>
@@ -690,6 +735,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button Button5;
 
         /// <summary>
+        /// lblMessageExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageExpense;
+
+        /// <summary>
         /// UC_Expense control.
         /// </summary>
         /// <remarks>
@@ -733,6 +787,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button6;
+
+        /// <summary>
+        /// lblMessageProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageProduct;
 
         /// <summary>
         /// UC_Product control.

@@ -316,15 +316,18 @@
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
+    <Content Include="ViewPreSale\Quotation.aspx" />
     <Content Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddQuotation.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
+    <Content Include="ViewPreSale\UserControls\QuotationView.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
@@ -1048,6 +1051,13 @@
     <Compile Include="ViewMaster\UserControls\CustomerView.ascx.designer.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\Quotation.aspx.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.cs">
       <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1075,6 +1085,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.designer.cs">
       <DependentUpon>AddLeadProduct.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddQuotation.ascx.cs">
+      <DependentUpon>AddQuotation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddQuotation.ascx.designer.cs">
+      <DependentUpon>AddQuotation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
@@ -1110,6 +1127,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadView.ascx.designer.cs">
       <DependentUpon>LeadView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.cs">
+      <DependentUpon>QuotationView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.designer.cs">
+      <DependentUpon>QuotationView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>

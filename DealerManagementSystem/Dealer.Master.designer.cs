@@ -96,6 +96,24 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.ScriptManager ToolkitScriptManager1;
 
         /// <summary>
+        /// lblProjectTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectTitle;
+
+        /// <summary>
+        /// lblQuality control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuality;
+
+        /// <summary>
         /// DivChangeLogin control.
         /// </summary>
         /// <remarks>

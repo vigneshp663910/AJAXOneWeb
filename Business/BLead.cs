@@ -50,10 +50,10 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLead", Lead)).Data));
         }
 
-        public List<PLeadSalesEngineer> GetLeadSalesEngineer(long LeadID, int UserID)
+        public List<PLeadSalesEngineer> GetLeadSalesEngineer(long LeadID, int UserID, Boolean? IsActive)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Lead/SalesEngineer?LeadID=" + LeadID + "&UserID=" + UserID;
+            string endPoint = "Lead/SalesEngineer?LeadID=" + LeadID + "&UserID=" + UserID + "&IsActive=" + IsActive;
             return JsonConvert.DeserializeObject<List<PLeadSalesEngineer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
           //  TraceLogger.Log(DateTime.Now);
             

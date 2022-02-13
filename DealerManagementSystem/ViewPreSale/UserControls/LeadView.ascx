@@ -13,125 +13,122 @@
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
         <div class="col-md-12 View">
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-
-                <div class="col-md-2 text-right">
-                    <label>Lead Number</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblLeadNumber" runat="server"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Lead Date</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Category</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Progress Status</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblProgressStatus" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Qualification</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblQualification" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Source</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblSource" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Status</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Type</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblType" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Dealer</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Remarks</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Customer</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Contact Person</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Mobile</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Email</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Location</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Financial Info</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblFinancialInfo" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <div style="float: right;">
-                        <div class="dropdown">
-                            <asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />
-                            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                                <asp:LinkButton ID="lbActions" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Convert to Prospect</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Cancel Lead</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton5" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton6" runat="server" OnClick="lbActions_Click">Customer Convocation</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton7" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton8" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton9" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
-                                <asp:LinkButton ID="LinkButton10" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                            </div>
+            <div class="col-md-2 text-right">
+                <label>Lead Number</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblLeadNumber" runat="server"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Lead Date</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Category</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Progress Status</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblProgressStatus" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Qualification</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblQualification" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Source</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblSource" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Status</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Type</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblType" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Dealer</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Remarks</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Customer</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Contact Person</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Mobile</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Email</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Location</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>Financial Info</label>
+            </div>
+            <div class="col-md-2">
+                <asp:Label ID="lblFinancialInfo" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <div style="float: right;">
+                    <div class="dropdown">
+                        <asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />
+                        <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                            <asp:LinkButton ID="lbActions" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Convert to Prospect</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Cancel Lead</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton5" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton6" runat="server" OnClick="lbActions_Click">Customer Convocation</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton7" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton8" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton9" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton10" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </fieldset>
 </div>
@@ -163,6 +160,11 @@
                             <asp:TemplateField HeaderText="Assigned By" SortExpression="Country">
                                 <ItemTemplate>
                                     <asp:Label ID="lblAssignedBy" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedBy.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                              <asp:TemplateField HeaderText="Status" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblActive" Text='<%# DataBinder.Eval(Container.DataItem, "Active")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -384,50 +386,50 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-     <asp1:TabPanel ID="tpnlProduct" runat="server" HeaderText="Product">
+    <asp1:TabPanel ID="tpnlProduct" runat="server" HeaderText="Product">
         <ContentTemplate>
             <div class="col-md-12 Report">
-            <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
-                <Columns>
-                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                    <Columns>
+                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Product Type">
-                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Product" SortExpression="Country">
-                        <ItemTemplate>
-                            <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product.Product")%>' runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Quantity" SortExpression="Country">
-                        <ItemTemplate>
-                            <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Remark" SortExpression="Country">
-                        <ItemTemplate>
-                            <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-                <AlternatingRowStyle BackColor="#f2f2f2" />
-                <FooterStyle ForeColor="White" />
-                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
-            </asp:GridView>
-        </div>
+                        <asp:TemplateField HeaderText="Product Type">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Product" SortExpression="Country">
+                            <ItemTemplate>
+                                <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product.Product")%>' runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Quantity" SortExpression="Country">
+                            <ItemTemplate>
+                                <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Remark" SortExpression="Country">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <AlternatingRowStyle BackColor="#f2f2f2" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                    <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                </asp:GridView>
+            </div>
         </ContentTemplate>
     </asp1:TabPanel>
-       <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
         <ContentTemplate>
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
@@ -454,7 +456,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
                                     <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
-                                     <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Date">
@@ -501,6 +503,7 @@
             <asp:Button ID="PopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageAssignEngineer" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_AssignSE ID="UC_AssignSE" runat="server"></UC:UC_AssignSE>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />
@@ -508,11 +511,12 @@
 
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MP_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveFollowUp" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFollowUp_Click" />
@@ -525,6 +529,7 @@
 <asp:Panel ID="pnlConvocation" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Convocation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_CustomerConvocation ID="UC_CustomerConvocation" runat="server"></UC:UC_CustomerConvocation>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveustomerConvocation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConvocation_Click" />
@@ -538,6 +543,7 @@
 <asp:Panel ID="pnlFinancial" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Financial Info</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageFinancial" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_Financial ID="UC_Financial" runat="server"></UC:UC_Financial>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveFinancial" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFinancial_Click" />
@@ -555,6 +561,7 @@
             <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
@@ -572,6 +579,7 @@
         </a>
     </div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
@@ -589,20 +597,19 @@
         </a>
     </div>
     <div class="col-md-12">
+        <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
         <UC:UC_Product ID="UC_Product" runat="server"></UC:UC_Product>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
         </div>
-      
+
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
-</div>
-
-
+</div> 
 
 
 <%--  <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">

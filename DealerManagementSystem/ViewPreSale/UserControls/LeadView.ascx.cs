@@ -72,7 +72,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Assign")
             {
-                MP_AssignSE.Show();
+                MPE_AssignSE.Show();
                 fillAssignSalesEngineer(LeadID);
             }
             else if (lbActions.Text == "Add Follow-up")
@@ -167,7 +167,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         void fillAssignSalesEngineer(long LeadID)
         { 
-            gvSalesEngineer.DataSource = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID);
+            gvSalesEngineer.DataSource = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID, null);
             gvSalesEngineer.DataBind();
             UC_AssignSE.FillMaster();
         }
@@ -205,7 +205,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvEffort.DataBind();
 
 
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID);
+            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,true);
             List<PUser> U = new List<PUser>();
             foreach (PLeadSalesEngineer SE in SalesEngineer)
             {
@@ -218,7 +218,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvExpense.DataSource = new BLead().GetLeadExpense(LeadID, PSession.User.UserID);
             gvExpense.DataBind();
 
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID);
+            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,true);
             List<PUser> U = new List<PUser>();
             foreach (PLeadSalesEngineer SE in SalesEngineer)
             {
@@ -238,18 +238,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         { 
             MPE_FollowUp.Show(); 
             string Message = UC_FollowUp.ValidationFollowUp();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageFollowUp.ForeColor = Color.Red;
+            lblMessageFollowUp.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageFollowUp.Text = Message;
                 return;
             }
             PLeadFollowUp Lead = new PLeadFollowUp();
             Lead = UC_FollowUp.ReadFollowUp();
             Lead.LeadFollowUpID = 0;
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead)).Data); 
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageFollowUp.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_FollowUp.Hide();
             fillFollowUp(Lead.LeadID); 
         }
 
@@ -257,36 +263,50 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             MPE_Convocation.Show();
             string Message = UC_CustomerConvocation.ValidationConvocation();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageConvocation.ForeColor = Color.Red;
+            lblMessageConvocation.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageConvocation.Text = Message;
                 return;
             }
             PLeadConvocation Lead = new PLeadConvocation();
             Lead = UC_CustomerConvocation.ReadConvocation();
             Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageConvocation.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Convocation.Hide();
             fillConvocation(Lead.LeadID);
         }
 
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
-
-            MP_AssignSE.Show();
+            MPE_AssignSE.Show();
             string Message = UC_AssignSE.ValidationAssignSE();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageAssignEngineer.Text = Message;
                 return;
             }
             PLeadSalesEngineer Lead = new PLeadSalesEngineer();
             Lead = UC_AssignSE.ReadAssignSE();
             Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Lead)).Data);
+            if (s == "false")
+            {
+                lblMessageAssignEngineer.Text = "Something went wrong try again"; 
+                return;
+            }
+            MPE_AssignSE.Hide();
+            tbpCust.ActiveTabIndex = 0;
+
             fillAssignSalesEngineer(Lead.LeadID);
         }
 
@@ -294,17 +314,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         { 
             MPE_Financial.Show();
             string Message = UC_Financial.ValidationFinancial();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageFinancial.ForeColor = Color.Red;
+            lblMessageFinancial.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageFinancial.Text = Message;
                 return;
             }
             PLeadFinancial Lead = new PLeadFinancial();
             Lead = UC_Financial.ReadFinancial();
             Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageFinancial.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Financial.Hide();
             fillFinancial(LeadID);
         }
 
@@ -312,17 +338,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             MPE_Product.Show();
             string Message = UC_Product.ValidationProduct();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageProduct.ForeColor = Color.Red;
+            lblMessageProduct.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageProduct.Text = Message;
                 return;
             }
             PLeadProduct Lead = new PLeadProduct();
             Lead = UC_Product.ReadProduct();
             Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageProduct.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Product.Hide();
             fillProduct(LeadID);
         }
 

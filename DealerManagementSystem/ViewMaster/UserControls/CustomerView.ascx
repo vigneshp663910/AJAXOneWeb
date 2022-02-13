@@ -103,9 +103,9 @@
         <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
-                <label>Customer : </label>
+                <label>Customer Name : </label>
                 <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
-            </div>
+            </div> 
             <div class="col-md-4">
                 <label>Contact Person : </label>
                 <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
@@ -692,7 +692,7 @@
 
 <asp:Panel ID="pnlAddAttribute" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Market Segment to Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Add Attribute to Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -715,7 +715,7 @@
                     </div>
                     <div class="col-md-6">
                     </div>
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-4 text-right">
                         <label>Remark</label>
                     </div>
                     <div class="col-md-10">
