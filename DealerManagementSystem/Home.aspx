@@ -13,7 +13,47 @@
             background: linear-gradient(to right, #4e97d5, #30526f );
             scroll
         }
-
+        .home-search-panel {
+            padding: 15px;
+        }
+        .home-search-panel .tbl-col-right {
+            margin-bottom: 10px;
+        }
+        .tbl-col-right .textBox.form-control {
+            height: 35px;
+            padding: 0px 7px;
+        }
+        .tbl-col-right input.form-control {
+            height: 35px;
+            padding: 0px 10px;
+        }
+        .home-search-bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #2f516e;
+        }
+        .home-search-bar:hover {
+            background: #336699;
+        }
+        .home-search-bar a {
+            padding:5px;
+        }
+        .home-history-body {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .navbar-home-content {
+            width: 300px;
+        }
+        .home-search-main {
+            transition: width .4s;
+            /*width: 300px;*/
+            float: right;
+            margin-top:21px;
+            margin-bottom: 20px;
+        }
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
             #div1 {
@@ -25,10 +65,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="container">
+    <%--<div class="container">--%>
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
-                <div class="rf-p-b " id="txnHistory:j_idt1289_body">
+                <div class="rf-p-b home-history-body" id="txnHistory:j_idt1289_body">
                     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Visible="false" Font-Bold="true" Font-Size="24px" />
 
                     <div class="ErrorRed" id="divError" runat="server" visible="false">
@@ -39,107 +79,76 @@
                         <span id="successMessage" runat="server"></span>
                         <img alt="" src="Images/sucess_green.png" />
                     </div>
-                    <asp:Panel ID="pnlFilter" runat="server">
-                        <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%">
+                    <div id="homeSearchBar" class="home-search-bar">
+                        <a class="navbar-home-search" href="javascript:void(0)" onclick="w3_closeHomeSearch()" style="color: #FFFFFF;"><i class="fa fa-fw fa-search font-white" style="color: lightgray"></i></a>
+                    </div>
+                    <div id="homeSearchMain" class="home-search-main" style="width:300px">
+                    <asp:Panel ID="pnlFilter" runat="server" CssClass="navbar-home-content">
+                        <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%" class="home-history">
                             <tr>
                                 <td>
-                                    <asp:Panel ID="pnlFilterContent" runat="server">
+                                    <asp:Panel ID="pnlFilterContent" runat="server" CssClass="home-search-panel">
                                         <div class="rf-p " id="txnHistory:inputFiltersPanel">
-                                            <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body">
-                                                <table class="labeltxt fullWidth">
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlZone" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                            <div class="rf-p-b" id="txnHistory:inputFiltersPanel_body">
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlCountry" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlZone" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlModel" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlApplication" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlFiscalYear" runat="server" CssClass="textBox form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
 
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlDivision" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlModel" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlApplication" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                    <div class="tbl-col-right">
+                                                        <asp:TextBox ID="txtDateFrom" runat="server" CssClass="hasDatepicker input form-control" AutoComplete="Off"></asp:TextBox>
+                                                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp:TextBoxWatermarkExtender>
 
-                                                        <td>
-                                                            <div class="tbl-row-left">
-                                                                <div class="tbl-col-right">
-                                                                    <asp:DropDownList ID="ddlFiscalYear" runat="server" CssClass="TextBox" Width="250px" />
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-col-right">
 
-                                                     
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-row-left">
+                                                        <asp:TextBox ID="txtDateTo" runat="server" CssClass="hasDatepicker input form-control" AutoComplete="Off"></asp:TextBox>
+                                                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
 
-                                                                <div class="tbl-col-right">
-                                                                    <asp:TextBox ID="txtDateFrom" runat="server" CssClass="hasDatepicker input" AutoComplete="Off"></asp:TextBox>
-                                                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp:TextBoxWatermarkExtender>
+                                                    </div>
 
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                </div>
+                                                <div class="col-md-12">
 
-                                                        <td>
-                                                            <div class="tbl-row-left">
+                                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
 
-                                                                <div class="tbl-col-right">
-
-                                                                    <asp:TextBox ID="txtDateTo" runat="server" CssClass="hasDatepicker input" AutoComplete="Off"></asp:TextBox>
-                                                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
-
-                                                                </div>
-                                                            </div>
-
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-
-                                                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </asp:Panel>
@@ -147,7 +156,7 @@
                             </tr>
                         </table>
                     </asp:Panel>
-
+                    </div>
                     <!-- Placeholder for dashboard -->
                     <div runat="server" id="tblDashboard" class="container">
                         <div class="tblcontrols12">
@@ -191,7 +200,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <%--</div>--%>
     <div id="div1">
         <asp:Image ID="Image1" runat="server" ImageUrl="~/Ajax/Images/bg01.jpg" Height="100%" />
     </div>

@@ -1,17 +1,282 @@
-﻿using System;
+﻿using Business;
+using Newtonsoft.Json;
+using Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
+using System.IO;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class QuotationView : System.Web.UI.UserControl
     {
+        public long ColdVisitID
+        {
+            get
+            {
+                if (Session["ColdVisitID"] == null)
+                {
+                    Session["ColdVisitID"] = 0;
+                }
+                return Convert.ToInt64(Session["ColdVisitID"]);
+            }
+            set
+            {
+                Session["ColdVisitID"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblMessageEffort.Text = "";
+            lblMessageExpense.Text = "";
+            lblMessage.Text = "";
+        }
+        public void fillViewColdVisit(long ColdVisitID)
+        {
+            this.ColdVisitID = ColdVisitID;
 
+            PColdVisit Lead = new BColdVisit().GetColdVisit(ColdVisitID, null, null, null, null, null, null, null, null, null)[0];
+            lblLeadNumber.Text = Lead.ColdVisitNumber;
+            lblLeadDate.Text = Convert.ToString(Lead.ColdVisitDate);
+            //  lblRemarks.Text = Lead.Remarks;
+            string Customer = Lead.Customer.CustomerCode + " " + Lead.Customer.CustomerName;
+            lblCustomer.Text = Customer;
+            lblContactPerson.Text = Lead.Customer.ContactPerson;
+            lblMobile.Text = Lead.Customer.Mobile;
+            lblEmail.Text = Lead.Customer.Email;
+
+            lblStatus.Text = Lead.Status.Status;
+            lblImportance.Text = Lead.Importance.Importance;
+
+            string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
+            lblLocation.Text = Location;
+            fillEffort();
+            fillExpense();
+
+            lbtnStatusChangeToClose.Visible = true;
+            lbtnStatusChangeToCancel.Visible = true;
+            if ((Lead.Status.StatusID == 2) || (Lead.Status.StatusID == 3))
+            {
+                lbtnStatusChangeToClose.Visible = false;
+                lbtnStatusChangeToCancel.Visible = false;
+            }
+        }
+
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+
+            if (lbActions.Text == "Add Effort")
+            {
+                MPE_Effort.Show();
+            }
+            else if (lbActions.Text == "Add Expense")
+            {
+                MPE_Expense.Show();
+            }
+            else if (lbActions.Text == "Status Change to Close")
+            {
+                string endPoint = "ColdVisit/ColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2" + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillViewColdVisit(ColdVisitID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "Status Change to Cancel")
+            {
+                string endPoint = "ColdVisit/ColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillViewColdVisit(ColdVisitID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void btnSaveEffort_Click(object sender, EventArgs e)
+        {
+            MPE_Effort.Show();
+            string Message = UC_Effort.ValidationEffort();
+            lblMessageEffort.ForeColor = Color.Red;
+            lblMessageEffort.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageEffort.Text = Message;
+                return;
+            }
+            PLeadEffort Effort = new PLeadEffort();
+            Effort = UC_Effort.ReadEffort();
+            Effort.LeadID = ColdVisitID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort)).Data);
+            if (s == "false")
+            {
+                lblMessageEffort.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Effort.Hide();
+            tbpCust.ActiveTabIndex = 0;
+            fillEffort();
+        }
+
+        protected void btnSaveExpense_Click(object sender, EventArgs e)
+        {
+            MPE_Expense.Show();
+            string Message = UC_Expense.ValidationExpense();
+            lblMessageExpense.ForeColor = Color.Red;
+            lblMessageExpense.Visible = true;
+
+            if (!string.IsNullOrEmpty(Message))
+            {
+
+                lblMessageExpense.Text = Message;
+                return;
+            }
+            PLeadExpense Expense = new PLeadExpense();
+            Expense = UC_Expense.ReadExpense();
+            Expense.LeadID = ColdVisitID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense)).Data);
+            if (s == "false")
+            {
+                lblMessageExpense.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Expense.Hide();
+            tbpCust.ActiveTabIndex = 1;
+            fillExpense();
+        }
+        void fillEffort()
+        {
+            gvEffort.DataSource = new BColdVisit().GetColdVisitEffort(ColdVisitID, PSession.User.UserID);
+            gvEffort.DataBind();
+
+        }
+        void fillExpense()
+        {
+
+            gvExpense.DataSource = new BColdVisit().GetColdVisitExpense(ColdVisitID, PSession.User.UserID);
+            gvExpense.DataBind();
+
+        }
+        void fillSupportDocument()
+        {
+            gvSupportDocument.DataSource = new BColdVisit().GetAttachedFileColdVisit(ColdVisitID);
+            gvSupportDocument.DataBind();
+        }
+        protected void btnAddFile_Click(object sender, EventArgs e)
+        {
+
+            byte[] buffer = new byte[100];
+            Stream stream = new MemoryStream(buffer);
+            HttpPostedFile file = fileUpload.PostedFile;
+            PAttachedFile F = new PAttachedFile();
+            int size = file.ContentLength;
+            string name = file.FileName;
+            int position = name.LastIndexOf("\\");
+            name = name.Substring(position + 1);
+
+            byte[] fileData = new byte[size];
+            file.InputStream.Read(fileData, 0, size);
+
+            F.FileName = name;
+            F.AttachedFile = fileData;
+            F.FileType = file.ContentType;
+            F.FileSize = size;
+            F.AttachedFileID = 0;
+            F.ReferenceID = ColdVisitID;
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F)).Data);
+            if (Convert.ToBoolean(s) == true)
+            {
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillSupportDocument();
+            }
+            else
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            lblMessage.Visible = true;
+        }
+
+        protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // LinkButton lnkDownload = (LinkButton)sender;
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+                LinkButton lnkDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+
+                Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                Label lblFileType = (Label)gvRow.FindControl("lblFileType");
+
+                PAttachedFile UploadedFile = new BColdVisit().GetAttachedFileColdVisitForDownload(AttachedFileID + Path.GetExtension(lblFileName.Text));
+
+                Response.AddHeader("Content-type", lblFileType.Text);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+
+        protected void lbSupportDocumentDelete_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+            PAttachedFile F = new PAttachedFile();
+            F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
+            F.ReferenceID = ColdVisitID;
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F)).Data);
+            if (Convert.ToBoolean(s) == true)
+            {
+                lblMessage.Text = "Removed successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillSupportDocument();
+            }
+            else
+            {
+                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.ForeColor = Color.Red;
+            }
         }
     }
 }

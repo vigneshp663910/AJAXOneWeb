@@ -106,34 +106,34 @@ namespace Business
         }
         public Boolean InsertOrUpdateSalesQuotationFocInformation(PSalesQuotation SalesOrder)
         {
-            int success = 0;
-            DbParameter WebQuotationID = provider.CreateParameter("WebQuotationID", SalesOrder.QuotationID, DbType.Int64);
+            //int success = 0;
+            //DbParameter WebQuotationID = provider.CreateParameter("WebQuotationID", SalesOrder.QuotationID, DbType.Int64);
 
-            DbParameter SpecialRequirements = provider.CreateParameter("SpecialRequirements", SalesOrder.SpecialRequirements, DbType.String);
-            DbParameter FocServiceKit = provider.CreateParameter("FocServiceKit", SalesOrder.FocServiceKit, DbType.String);
-            DbParameter FocWheelAssy = provider.CreateParameter("FocWheelAssy", SalesOrder.FocWheelAssy, DbType.String);
-            DbParameter FocExtensionChutes = provider.CreateParameter("FocExtensionChutes", SalesOrder.FocExtensionChutes, DbType.String);
-            DbParameter FocOthers = provider.CreateParameter("FocOthers", SalesOrder.FocOthers, DbType.String);
+            //DbParameter SpecialRequirements = provider.CreateParameter("SpecialRequirements", SalesOrder.SpecialRequirements, DbType.String);
+            //DbParameter FocServiceKit = provider.CreateParameter("FocServiceKit", SalesOrder.FocServiceKit, DbType.String);
+            //DbParameter FocWheelAssy = provider.CreateParameter("FocWheelAssy", SalesOrder.FocWheelAssy, DbType.String);
+            //DbParameter FocExtensionChutes = provider.CreateParameter("FocExtensionChutes", SalesOrder.FocExtensionChutes, DbType.String);
+            //DbParameter FocOthers = provider.CreateParameter("FocOthers", SalesOrder.FocOthers, DbType.String);
 
-            DbParameter[] Params = new DbParameter[6] { WebQuotationID, SpecialRequirements, FocServiceKit, FocWheelAssy, FocExtensionChutes, FocOthers };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("ZDMS_InsertOrUpdateWebQuotationFocInformation", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderFocInformation", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderFocInformation", ex);
-                return false;
-            }
+            //DbParameter[] Params = new DbParameter[6] { WebQuotationID, SpecialRequirements, FocServiceKit, FocWheelAssy, FocExtensionChutes, FocOthers };
+            //try
+            //{
+            //    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+            //    {
+            //        success = provider.Insert("ZDMS_InsertOrUpdateWebQuotationFocInformation", Params);
+            //        scope.Complete();
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderFocInformation", sqlEx);
+            //    return false;
+            //}
+            //catch (Exception ex)
+            //{
+            //    new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderFocInformation", ex);
+            //    return false;
+            //}
             return true;
         }
         public Boolean InsertOrUpdateSalesQuotationFinanceInformation(PSalesQuotation SalesOrder)
@@ -181,34 +181,34 @@ namespace Business
         }
         public Boolean InsertOrUpdateSalesQuotationItem(PSalesQuotationItem Item)
         {
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    DbParameter WebQuotationID = provider.CreateParameter("WebQuotationID", Item.WebQuotationID, DbType.Int64);
-                    DbParameter WebQuotationItemID = provider.CreateParameter("WebQuotationItemID", Item.WebQuotationItemID, DbType.Int64);
-                    DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Item.Material == null ? "" : Item.Material.MaterialCode, DbType.String);
-                    DbParameter Qty = provider.CreateParameter("Qty", Item.Qty, DbType.Int32);
-                    DbParameter BasicPrice = provider.CreateParameter("BasicPrice", Item.BasicPrice, DbType.Decimal);
-                    DbParameter Discount1 = provider.CreateParameter("Discount1", Item.Discount1, DbType.Decimal);
-                    DbParameter Discount2 = provider.CreateParameter("Discount2", Item.Discount2, DbType.Decimal);
-                    DbParameter Discount3 = provider.CreateParameter("Discount3", Item.Discount3, DbType.Decimal);
+            //try
+            //{
+            //    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+            //    {
+            //        DbParameter WebQuotationID = provider.CreateParameter("WebQuotationID", Item.WebQuotationID, DbType.Int64);
+            //        DbParameter WebQuotationItemID = provider.CreateParameter("WebQuotationItemID", Item.WebQuotationItemID, DbType.Int64);
+            //        DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Item.Material == null ? "" : Item.Material.MaterialCode, DbType.String);
+            //        DbParameter Qty = provider.CreateParameter("Qty", Item.Qty, DbType.Int32);
+            //        DbParameter BasicPrice = provider.CreateParameter("BasicPrice", Item.BasicPrice, DbType.Decimal);
+            //        DbParameter Discount1 = provider.CreateParameter("Discount1", Item.Discount1, DbType.Decimal);
+            //        DbParameter Discount2 = provider.CreateParameter("Discount2", Item.Discount2, DbType.Decimal);
+            //        DbParameter Discount3 = provider.CreateParameter("Discount3", Item.Discount3, DbType.Decimal);
 
-                    DbParameter[] ItemParams = new DbParameter[8] { WebQuotationID, WebQuotationItemID, MaterialCode, Qty, BasicPrice, Discount1, Discount2, Discount3 };
-                    provider.Insert("ZDMS_InsertOrUpdateWebQuotationItem", ItemParams);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderDealer", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderDealer", ex);
-                return false;
-            }
+            //        DbParameter[] ItemParams = new DbParameter[8] { WebQuotationID, WebQuotationItemID, MaterialCode, Qty, BasicPrice, Discount1, Discount2, Discount3 };
+            //        provider.Insert("ZDMS_InsertOrUpdateWebQuotationItem", ItemParams);
+            //        scope.Complete();
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderDealer", sqlEx);
+            //    return false;
+            //}
+            //catch (Exception ex)
+            //{
+            //    new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderDealer", ex);
+            //    return false;
+            //}
             return true;
         }
         public Boolean InsertOrUpdateSalesQuotationSalesInformation(PSalesQuotation SalesOrder)

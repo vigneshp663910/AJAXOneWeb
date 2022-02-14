@@ -364,15 +364,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
             PSalesQuotationItem Item = new PSalesQuotationItem();
-            Item.WebQuotationID = PSO.QuotationID;
-            Item.WebQuotationItemID = 0;
-            Item.Material = new PDMS_Material();
-            Item.Material.MaterialCode = Material;
-            Item.Qty = Convert.ToInt32(txtQty.Text);
-            Item.BasicPrice = MM[0].CurrentPrice;
-            Item.Discount1 = Convert.ToDecimal("0" + txtDiscount1.Text);
-            Item.Discount2 = Convert.ToDecimal("0" + txtDiscount2.Text);
-            Item.Discount3 = Convert.ToDecimal("0" + txtDiscount3.Text);
+            //Item.WebQuotationID = PSO.QuotationID;
+            //Item.WebQuotationItemID = 0;
+            //Item.Material = new PDMS_Material();
+            //Item.Material.MaterialCode = Material;
+            //Item.Qty = Convert.ToInt32(txtQty.Text);
+            //Item.BasicPrice = MM[0].CurrentPrice;
+            //Item.Discount1 = Convert.ToDecimal("0" + txtDiscount1.Text);
+            //Item.Discount2 = Convert.ToDecimal("0" + txtDiscount2.Text);
+            //Item.Discount3 = Convert.ToDecimal("0" + txtDiscount3.Text);
 
             lblMessage.Text = "";
             if (new BSalesQuotation().InsertOrUpdateSalesQuotationItem(Item))

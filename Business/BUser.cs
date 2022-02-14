@@ -32,7 +32,7 @@ namespace Business
             try
             {
                 DateTime tracerStart = DateTime.Now;
-                using (DataTable userData = AuthenticateUser(userName))
+                using (DataTable userData = AuthenticateUserByUserNameOrMobileOrEmail(userName, password))
                 {
                     if (userData.Rows.Count > 0)
                         userAuthDetails = ConvertToUser(userData.Rows[0]);
@@ -201,7 +201,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public DataTable AuthenticateUser(string userName)
+        public DataTable AuthenticateUserByUserNameOrMobileOrEmail(string userName, String password)
         {
             try
             {
@@ -209,6 +209,38 @@ namespace Business
                 DataTable userDataTable = new DataTable();
 
                 DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String);
+                DbParameter passwordP = provider.CreateParameter("Password", LMSHelper.EncodeString(password), DbType.String);
+                DbParameter[] userParams = new DbParameter[2] { userIDParams, passwordP };
+
+                using (DataSet userDataSet = provider.Select("AuthenticateUserByUserNameOrMobileOrEmail", userParams))
+                {
+                    if (userDataSet != null)
+                        userDataTable = userDataSet.Tables[0];
+                }
+
+                // This call is for track the status and loged into the trace logeer
+                TraceLogger.Log(traceStartTime);
+
+                return userDataTable;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable AuthenticateUser(string userName)
+        {
+            try
+            {
+                DateTime traceStartTime = DateTime.Now;
+                DataTable userDataTable = new DataTable();
+
+                DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String); 
                 DbParameter[] userParams = new DbParameter[1] { userIDParams };
 
                 using (DataSet userDataSet = provider.Select("AuthenticateUser", userParams))

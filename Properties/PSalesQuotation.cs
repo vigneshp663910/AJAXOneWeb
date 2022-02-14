@@ -14,7 +14,7 @@ namespace Properties
         public DateTime QuotationDate { get; set; }
         public DateTime? RequestedDeliveryDate { get; set; }
 
-        public PSaleQuotationType Type { get; set; }
+        public PSaleQuotationType QuotationType { get; set; }
         public PSaleQuotationStatus Status { get; set; }
         public PSaleQuotationRejectionReason RejectionReason { get; set; }
 
@@ -24,31 +24,21 @@ namespace Properties
         public decimal NetValue { get; set; }
         public DateTime? PriceDate { get; set; }
         public PPriceGroup PriceGroup { get; set; }
-        //Ajax product  
-        public PSaleQuotationNote Note { get; set; }
-        public PDMS_Dealer Dealer { get; set; }
-        public PDMS_Customer Customer { get; set; }
+        //Ajax product   
         public PDMS_Customer BillTo { get; set; }
         public PDMS_Customer ShipTo { get; set; }
 
-        //Foc
-        public string SpecialRequirements { get; set; }
-        public string FocServiceKit { get; set; }
-        public string FocWheelAssy { get; set; }
-        public string FocExtensionChutes { get; set; }
-        public string FocOthers { get; set; }
+       
         public PSalesQuotationFinancier Financier { get; set; }
-
         public PSalesQuotationItem QuotationItem { get; set; }
         public List<PSalesQuotationItem> QuotationItems { get; set; }
+        public PLead Lead { get; set; }
+        public PSaleQuotationNote Note { get; set; } 
 
-
-        public string SalesOrderNumber { get; set; }
+        public string SalesOrderNo { get; set; }
         public DateTime? SalesOrderDate { get; set; }
-        public PDMS_PrimaryPurchaseOrder PrimaryPurchaseOrder { get; set; }
-        public PDMS_PrimaryInvoice PrimaryInvoice { get; set; }
+        public string InvoiceNo { get; set; }
         public Decimal? InvoiceValue { get; set; }
-
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
@@ -83,20 +73,28 @@ namespace Properties
         //        return SendToSAP ? (IsSuccess ? "Success" : "Not Success") : "Not Send To SAP";
         //    }
         //}
-
+        //Foc
+        //public string SpecialRequirements { get; set; }
+        //public string FocServiceKit { get; set; }
+        //public string FocWheelAssy { get; set; }
+        //public string FocExtensionChutes { get; set; }
+        //public string FocOthers { get; set; }
+        //public PDMS_PrimaryInvoice PrimaryInvoice { get; set; }
+        //public PDMS_PrimaryPurchaseOrder PrimaryPurchaseOrder { get; set; }
     }
 
     [Serializable]
     public class PSalesQuotationItem
     {
-        public long WebQuotationItemID { get; set; }
-        public long WebQuotationID { get; set; }
+        public long QuotationItemID { get; set; }
+        public long QuotationID { get; set; }
+        public int Item { get; set; }
         public PDMS_Material Material { get; set; }
         public int Qty { get; set; }
         public Decimal BasicPrice { get; set; }
-        public Decimal? Discount1 { get; set; }
-        public Decimal? Discount2 { get; set; }
-        public Decimal? Discount3 { get; set; }
+        public Decimal? Discount { get; set; }
+        public PPlant Plant { get; set; }
+        public PSaleQuotationRejectionReason RejectionReason { get; set; }
     }
 
     [Serializable]
@@ -147,5 +145,5 @@ namespace Properties
     }
     public class PPriceGroup
     {
-    }
+    } 
 }

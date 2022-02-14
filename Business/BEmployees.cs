@@ -104,10 +104,10 @@ namespace Business
             string userId;
 
             userId = User.Identity.Name.Split('\\')[1];
-          //  userId = "abhishek.r";
+            //  userId = "abhishek.r";
             if (Session["UserId"] != null)
             {
-                userId = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(Session["UserId"]), "", "", "",null)[0].EmployeeUserID;
+                userId = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(Session["UserId"]), "", "", "", null)[0].EmployeeUserID;
                 PSession.User = null;
             }
             if ((PSession.User == null) || (PSession.Emp == null))
@@ -124,7 +124,7 @@ namespace Business
                         user.UserName = userId;
                         user.PassWord = "YWJjIzEyMyQ=";
                         user.UserTypeID = (short)PSession.Emp.UserTypeID;
-                        user.ExternalReferenceID = PSession.Emp.EmpId.ToString(); 
+                        user.ExternalReferenceID = PSession.Emp.EmpId.ToString();
                         user.IsFirstTimeLogin = false;
                         user.IsLocked = false;
                         user.IsEnabled = true;

@@ -21,7 +21,7 @@
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <style>
+    <style>
         .col-md-12 {
             padding: 0px 12px 12px 12px;
         }
@@ -322,15 +322,18 @@
         #icoDashBoard {
             padding-right: 1.5em;
         }
+
         .field-margin-top .View {
             background: rgb(241 241 241) !important;
-            border-radius:5px;
+            border-radius: 5px;
         }
-        .field-margin-top .View .aspNetDisabled {
-            padding-top: 10px;
-            vertical-align: middle;
-            padding-left: 5px;
-        }
+
+            .field-margin-top .View .aspNetDisabled {
+                padding-top: 10px;
+                vertical-align: middle;
+                padding-left: 5px;
+            }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
 
@@ -502,7 +505,7 @@
             font-size: large;
             font-weight: normal;
             text-align: left;
-            margin-top: 51px;
+            margin-top: 30px;
             padding: 0px 0px 0px 8px;
             border-style: none none solid none;
             border-width: thin;
@@ -873,7 +876,7 @@
                 font-weight: 700;
                 font-family: "Open Sans",sans-serif;
                 /*font-size: large;*/
-                font:16px;
+                font: 16px;
             }
 
         .fa-angle-down:hover #mySidebar {
@@ -918,7 +921,7 @@
             right: 0;
             z-index: 99;
             background: #fff;
-            width: calc(100% - 250px);
+            width: calc(100% - 251px);
             padding: 7px 0px;
             top: 78px;
         }
@@ -1054,14 +1057,14 @@
             color: #ccc !important;
             border-top: 1px solid #546171;
         }
-        
-        #main-nav #main-menu > li > a:hover {
-            color: #fff !important;
-        }
 
-        #main-nav #main-menu > li > a:hover i.fa-cogs {
-            color: #2fb7c3 !important;
-        }
+            #main-nav #main-menu > li > a:hover {
+                color: #fff !important;
+            }
+
+                #main-nav #main-menu > li > a:hover i.fa-cogs {
+                    color: #2fb7c3 !important;
+                }
 
         .w3-bar-block .w3-bar-item:hover i.fa-mercury {
             color: #ff6666 !important;
@@ -1077,125 +1080,145 @@
             z-index: 9;
         }
 
-        .project-title-outer .ProjectTitle {
-            position: fixed;
-            width: calc( 100% - 250px );
-            margin: 0;
-            top: 50px;
-            border-top: 1px solid #4c7da7;
-        }
-        .w3-main.closed-sidebar-main .project-title-outer .ProjectTitle  {
+            .project-title-outer .ProjectTitle {
+                position: fixed;
+                width: calc( 100% - 250px );
+                margin: 0;
+                top: 50px;
+                border-top: 1px solid #4c7da7;
+            }
+
+        .w3-main.closed-sidebar-main .project-title-outer .ProjectTitle {
             width: calc( 100% - 50px );
         }
+
         .sub-menu-dashboard .dropdown-content, #icoDashBoard .dropdown-content {
             right: 0px;
         }
+
         .table.table-bordered.table-condensed.Grid th {
             padding: 0.3rem 0.75rem;
             font-size: 14px;
         }
+
         .table.table-bordered.table-condensed.Grid td {
             padding: 6px 8px;
             font-size: 12px;
         }
+
         .table.table-bordered.table-condensed.Grid tr:last-child td {
             padding: 3px 8px;
         }
-        .table.table-bordered.table-condensed.Grid tr:last-child td table td {
-            padding: 2px 5px;
-            font-size:10px;
-            background:#369;
-        }
-        .table.table-bordered.table-condensed.Grid tr:last-child td table td span {
-            font-size:10px;
-            background:none;
-            color: #6ea9e3;
-        }
+
+            .table.table-bordered.table-condensed.Grid tr:last-child td table td {
+                padding: 2px 5px;
+                font-size: 10px;
+                background: #369;
+            }
+
+                .table.table-bordered.table-condensed.Grid tr:last-child td table td span {
+                    font-size: 10px;
+                    background: none;
+                    color: #6ea9e3;
+                }
+
         .lead-static .portlet .btn-group.btn-group-devided {
             vertical-align: initial;
             padding: 4px;
         }
-        .lead-static .portlet .btn-group.btn-group-devided label {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .lead-static .portlet .btn-group.btn-group-devided label span {
-            padding-left: 5px;
-        }
+
+            .lead-static .portlet .btn-group.btn-group-devided label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .lead-static .portlet .btn-group.btn-group-devided label span {
+                    padding-left: 5px;
+                }
+
         .lead-static .portlet #divLeadStatistics {
             justify-content: center;
         }
-        .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
-            width: 15%;
-        }
+
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
+                width: 15%;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-right: 25px !important;
+                margin-right: 10px !important;
+                margin-top: 10px;
+            }
+
         @media only screen and (min-width: 992px) {
             .closed-sidebar {
                 width: 50px;
                 overflow: visible;
             }
 
-            .closed-sidebar #main-menu > li > a span {
-                display: none;
-            }
-
-            .closed-sidebar #main-menu > li > a {
-                padding-top: 5px !important;
-                padding-bottom: 5px !important;
-            }
-
-            .closed-sidebar #main-menu > li:hover {
-                width: 256px !important;
-                position: relative !important;
-                z-index: 10000;
-                display: block !important;
-            }
-
-                .closed-sidebar #main-menu > li:hover span {
-                    display: inline !important;
-                    padding-left: 30px;
+                .closed-sidebar #main-menu > li > a span {
+                    display: none;
                 }
 
-            .closed-sidebar #main-menu > li > .w3-bar-block {
-                display: none !important;
-            }
+                .closed-sidebar #main-menu > li > a {
+                    padding-top: 5px !important;
+                    padding-bottom: 5px !important;
+                }
 
-            .closed-sidebar #main-menu > li:hover > .w3-bar-block {
-                width: 210px;
-                position: absolute;
-                z-index: 2000;
-                left: 46px;
-                margin-top: 0;
-                top: 100%;
-                display: block !important;
-                -webkit-border-radius: 0 0 4px 4px;
-                -moz-border-radius: 0 0 4px 4px;
-                -ms-border-radius: 0 0 4px 4px;
-                -o-border-radius: 0 0 4px 4px;
-                border-radius: 0 0 4px 4px;
-                background: #505a65;
-            }
+                .closed-sidebar #main-menu > li:hover {
+                    width: 256px !important;
+                    position: relative !important;
+                    z-index: 10000;
+                    display: block !important;
+                }
 
-            .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
-                padding: 5px 10px 5px 21px !important
-            }
+                    .closed-sidebar #main-menu > li:hover span {
+                        display: inline !important;
+                        padding-left: 30px;
+                    }
 
-            .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
-                padding-left: 0;
-            }
+                .closed-sidebar #main-menu > li > .w3-bar-block {
+                    display: none !important;
+                }
 
-            .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
-                display: inline !important;
-            }
+                .closed-sidebar #main-menu > li:hover > .w3-bar-block {
+                    width: 210px;
+                    position: absolute;
+                    z-index: 2000;
+                    left: 46px;
+                    margin-top: 0;
+                    top: 100%;
+                    display: block !important;
+                    -webkit-border-radius: 0 0 4px 4px;
+                    -moz-border-radius: 0 0 4px 4px;
+                    -ms-border-radius: 0 0 4px 4px;
+                    -o-border-radius: 0 0 4px 4px;
+                    border-radius: 0 0 4px 4px;
+                    background: #505a65;
+                }
+
+                    .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
+                        padding: 5px 10px 5px 21px !important
+                    }
+
+                        .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
+                            padding-left: 0;
+                        }
+
+                        .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
+                            display: inline !important;
+                        }
         }
 
         @media only screen and (max-width: 992px) {
             .back-buttton.sticky, .project-title-outer .ProjectTitle {
                 width: 100%;
             }
+
             .w3-sidebar.w3-collapse {
-                width: 250px!important;
+                width: 250px !important;
             }
+
             #icoDashBoard {
                 padding-right: 1em;
             }
@@ -1221,6 +1244,44 @@
                 .table-responsive > .table {
                     margin-bottom: 0;
                 }
+
+            .responsive-menu-click {
+                z-index: 999;
+            }
+
+            .w3-sidebar.w3-collapse {
+                z-index: 9999 !important;
+            }
+
+            .my-overlay {
+                z-index: 999;
+            }
+
+            .lead-static .portlet .portlet-title .actions {
+                float: none !important;
+            }
+
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
+                width: 28%;
+            }
+
+                .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:first-child {
+                    margin-left: 0 !important;
+                }
+
+                .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:nth-child(2n) {
+                    margin-right: 0 !important;
+                }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
+                width: 42%;
+            }
+
+            .lead-static .portlet .btn-group.btn-group-devided label {
+                width: 70px;
+            }
         }
     </style>
     <script>
@@ -1379,6 +1440,24 @@
                 document.getElementById("w3mainclass").style.marginLeft = "250px";
                 document.getElementById("w3mainclass").classList.remove("closed-sidebar-main");
                 //document.getElementById("mySidebar").classList.remove("closed-sidebar");
+            }
+        }
+
+        function w3_closeHomeSearch() {
+            if (document.getElementById("homeSearchMain").style.width == "300px") {
+                document.getElementById("homeSearchMain").style.width = "0px";
+                //document.getElementById("mySidebar").classList.add("closed-sidebar");
+                //w3_hide_angle_down();
+                //document.getElementById("CompanyLogo").style.display = "none";
+                //document.getElementById("SideBarToggle").style.paddingLeft = "0px";
+                //document.getElementById("mySidebar").classList.remove("closed-sidebar");
+
+            }
+            else {
+                document.getElementById("homeSearchMain").style.width = "300px";
+                //document.getElementById("mySidebar").classList.remove("closed-sidebar");
+                //w3_disp_angle_down()
+                //document.getElementById("CompanyLogo").style.display = "block";
             }
         }
 
@@ -1590,14 +1669,13 @@
 
         <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;">
             <%--  <br>--%>
-            <div class="w3-bar-block"  >
+            <div class="w3-bar-block">
                 <%--  <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
                 </div>--%>
-                <div id="MenuNew" runat="server" >
-                   
+                <div id="MenuNew" runat="server">
                 </div>
-                
-             
+
+
                 <%--  <nav id="main-nav">
                     <ul id="main-menu" class="sm sm-blue">
                         <li class="menu-item-list">
@@ -1666,78 +1744,77 @@
                 </nav>--%>
             </div>
         </nav>
-
-        <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
+        <header class="responsive-menu-click w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
             <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
             <div class="logo float-right">
                 <asp:Image ID="Image1" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
             </div>
         </header>
 
-        <div id="myOverlay" class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="Close Side Menu"></div>
+        <div id="myOverlay" class="w3-overlay w3-hide-large my-overlay" onclick="w3_close()" style="cursor: pointer" title="Close Side Menu"></div>
 
         <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
 
-        <div id="w3mainclass" class="w3-main" style="margin-left: 250px;margin-top: 60px">
+        <div id="w3mainclass" class="w3-main" style="margin-left: 250px; margin-top: 60px">
 
             <br />
             <div class="project-title-outer">
-               <div class="ProjectTitle">
-                <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
+                <div class="ProjectTitle">
+                    <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
-                <div id="titlebarico" style="float: right;">
+                    <div id="titlebarico" style="float: right;">
 
-                    <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
+                        <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
 
-                        <asp:Label ID="lblQuality" runat="server"></asp:Label>
-                    </div>
-                    <div id="icoDashBoard" style="float: right;">
-                        <div class="dropdown">
-
-                            <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
-                            <div class="dropdown-content" style="font-size: small">
-                                <div class="dropdown-header">Dashboard</div>
-                                <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
-                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
-                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
-                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
-                            </div>
-
-
+                            <asp:Label ID="lblQuality" runat="server"></asp:Label>
                         </div>
-                    </div>
-                    <div class="sub-menu-dashboard" style="float: right; padding-right: 0.5em;">
+                        <div id="icoDashBoard" style="float: right;">
+                            <div class="dropdown">
 
-                        <div class="dropdown">
-                            <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
+                                <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
+                                <div class="dropdown-content" style="font-size: small">
+                                    <div class="dropdown-header">Dashboard</div>
+                                    <a href="/ViewPreSale/Pre_Sales_Dashboard"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Pre-Sales</a>
+                                    <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Sales</a>
+                                    <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Parts Sales</a>
+                                    <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Equipment Service</a>
+                                </div>
 
-                            <div class="dropdown-content" style="font-size: small">
-                                <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
-                                <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
-                                <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
-                                <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
+
                             </div>
                         </div>
+                        <div class="sub-menu-dashboard" style="float: right; padding-right: 0.5em;">
 
-                    </div>
+                            <div class="dropdown">
+                                <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
 
-                    <div style="float: right; padding-right: 0.5em;">
+                                <div class="dropdown-content" style="font-size: small">
+                                    <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
+                                    <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
+                                    <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
+                                    <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
+                                </div>
+                            </div>
 
-                        <div class="dropdown">
-                            <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
                         </div>
 
-                    </div>
+                        <div style="float: right; padding-right: 0.5em;">
 
-                    <div style="float: right; padding-right: 0.5em;">
+                            <div class="dropdown">
+                                <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
+                            </div>
 
-                        <div class="dropdown">
-                            <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
                         </div>
 
-                    </div>
+                        <div style="float: right; padding-right: 0.5em;">
+
+                            <div class="dropdown">
+                                <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
+                            </div>
+
                         </div>
-            </div>
+                    </div>
+                </div>
             </div>
             <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                 <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>
@@ -1746,7 +1823,7 @@
             <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
 
 
-            <asp:ContentPlaceHolder ID="MainContent"  runat="server">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
 
 
