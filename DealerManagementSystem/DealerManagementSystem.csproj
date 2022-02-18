@@ -225,6 +225,7 @@
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
+    <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
@@ -635,6 +636,13 @@
     </Compile>
     <Compile Include="TestPageForMenu.aspx.designer.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.cs">
+      <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
+      <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
