@@ -10,6 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../CSS/bootstrap.min.4.5.2.css" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -165,6 +171,10 @@
             }
         }*/
 
+        .modal-lc {
+            max-width: 20%;
+        }
+
         /* Split the screen in half */
         .split {
             height: 100%;
@@ -265,6 +275,8 @@
             }
         }
     </style>
+
+
 </head>
 <body>
     <div>
@@ -345,15 +357,23 @@
                                 <p><font size="2px">Powered by AJAXOne&nbsp;&copy; <%: DateTime.Now.Year %> </font></p>
 
                                 <div id="Footer">
-                                    <p><font size="2px">Download Our Mobile App</font></p>
+                                    <p><font size="2px"><a href="#" data-toggle="modal" data-target="#myModal">Download Our Mobile App </a></font></p>
                                     <p>
                                         <span>
-                                            <img src="../Images/apple.png" border="0" id="" alt="">
+                                            <a href="#" data-toggle="modal" data-target="#myModal">
+                                                <img src="../Images/apple.png" border="0" id="" alt="">
+                                            </a>
                                         </span>
                                         <span>
-                                            <a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
+                                            <%--<a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
+                                                <img src="../Images/Playstore.png" border="0" id="" alt="">
+                                            </a>--%>
+
+                                            <a href="#" data-toggle="modal" data-target="#myModal">
                                                 <img src="../Images/Playstore.png" border="0" id="" alt="">
                                             </a>
+
+
                                         </span>
                                     </p>
                                 </div>
@@ -364,5 +384,97 @@
             </div>
         </form>
     </div>
+
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="color: #999999; height: 50px;">
+                    <h5 class="modal-title" style="color: #0000FF"><b>AJAX Mobile Apps Library</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="tab_mobile" border="1" style="font-family: Calibri; font-size: medium">
+                        <tr style="background-color: black; color: white">
+                            <th>SN
+                            </th>
+                            <th style="width: 200px; text-align: center">App
+                            </th>
+                            <th style="width: 100px; text-align: center">Mode
+                            </th>
+                            <th style="width: 100px; text-align: center">Features
+                            </th>
+                            <th style="width: 100px">
+                                <img src="../Images/Playstore.png" border="0" id="" alt="">
+                            </th>
+                            <th style="width: 100px">
+                                <img src="../Images/apple.png" border="0" id="" alt="">
+                            </th>
+                            <th style="width: 600px; text-align: center">Remarks
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">1</td>
+                            <td>AJAX One</td>
+                            <td>Online</td>
+                            <td>All</td>
+                            <td style="text-align: center"><a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">Install</a></td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">Includes both Pre-Sales & Service</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">2</td>
+                            <td>Pre-Sales</td>
+                            <td>Offline</td>
+                            <td>Applicable</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">Customer, Lead, Activity & Quotation</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">3</td>
+                            <td>Service</td>
+                            <td>Offline</td>
+                            <td>Applicable</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">IC Tickets, Customer Feedback</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">4</td>
+                            <td>Customer</td>
+                            <td>Online</td>
+                            <td>Applicable</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">Phase-2</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">5</td>
+                            <td>Operator</td>
+                            <td>Online</td>
+                            <td>All</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">Only for M/C Operators & Customers</td>
+                        </tr>
+
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%--<script>
+
+        function openModal() {
+            $('#myModal').modal('show')
+        };
+    </script>--%>
 </body>
 </html>
