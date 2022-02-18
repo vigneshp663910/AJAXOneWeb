@@ -69,6 +69,15 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Button BtnMaterialSupersede;
 
         /// <summary>
+        /// lblAPITest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAPITest;
+
+        /// <summary>
         /// txtCustomerId control.
         /// </summary>
         /// <remarks>
@@ -87,13 +96,22 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Button BtnCreateCustomer;
 
         /// <summary>
-        /// lblAPITest control.
+        /// txtQuotationID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAPITest;
+        protected global::System.Web.UI.WebControls.TextBox txtQuotationID;
+
+        /// <summary>
+        /// BtnCreateQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCreateQuotation;
 
         /// <summary>
         /// Label34 control.

@@ -64,11 +64,10 @@ namespace SapIntegration
         public string CreateCustomerInSAP(List<PDMS_Customer> Customer)
         {
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CREATE_NEW");
-            //IRfcStructure tagTable = tagListBapi.GetStructure("IT_STATUS");
             Int32 country = Customer[0].Country.CountryID;
             tagListBapi.SetValue("MODE", "N");
             tagListBapi.SetValue("P_COMPANYCODE", "AF");
-            tagListBapi.SetValue("P_SORG", (country == 1) ? "AJF" : "AJI");
+            tagListBapi.SetValue("P_SORG", Customer[0].SalesOrganization);
             tagListBapi.SetValue("P_DIS_CH", (country == 1) ? "GT" : "EX");
             tagListBapi.SetValue("P_DIVISION", "CM");
             tagListBapi.SetValue("P_ACC_GROUP", (country == 1) ? "AJGT" : "AJIC");
@@ -95,10 +94,10 @@ namespace SapIntegration
             tagListBapi.SetValue("P_CONTACT", Customer[0].ContactPerson);
             tagListBapi.SetValue("P_CONTACT2", Customer[0].ContactPerson);
             tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
-            tagListBapi.SetValue("P_SALES_DISTRICT", "SOUTH1");
+            tagListBapi.SetValue("P_SALES_DISTRICT", Customer[0].SalesDistrict);
             tagListBapi.SetValue("P_ORD_PROB", "100");
-            tagListBapi.SetValue("P_SALES_OFFICE", "KA10");
-            tagListBapi.SetValue("P_SALES_GROUP", "100");
+            tagListBapi.SetValue("P_SALES_OFFICE", Customer[0].SalesOffice);
+            tagListBapi.SetValue("P_SALES_GROUP", Customer[0].SalesGroup);
             tagListBapi.SetValue("P_CUS_GROUP", "GT");
             tagListBapi.SetValue("P_CURRENCY", (country == 1) ? "INR" : "USD");
             tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");

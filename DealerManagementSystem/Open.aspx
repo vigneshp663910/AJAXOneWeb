@@ -64,25 +64,34 @@
                 <td>
                     <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click" />
                 </td>
-                
+
+
+                <td>
+                    <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
+            </tr>
+            <tr>
                 <td>
                     <br />
                     <asp:TextBox ID="txtCustomerId" runat="server"></asp:TextBox>
                     <asp:Button ID="BtnCreateCustomer" runat="server" Text="Create Customer" OnClick="BtnCreateCustomer_Click" />
                 </td>
-                <td>
-                    <asp:Label ID="lblAPITest" runat="server"></asp:Label></td>
             </tr>
-            
-              <tr>
-                    <td>
-                        <asp:Label ID="Label34" runat="server" Text="Enquiry Indiamart"></asp:Label>
-                    </td>
+            <tr>
+                <td>
+                    <br />
+                    <asp:TextBox ID="txtQuotationID" runat="server"></asp:TextBox>
+                    <asp:Button ID="BtnCreateQuotation" runat="server" Text="Create Quotation" OnClick="BtnCreateQuotation_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label34" runat="server" Text="Enquiry Indiamart"></asp:Label>
+                </td>
 
-                    <td>
-                        <asp:Button ID="btnEnquiryIndiamart" runat="server" Text="Enquiry Indiamart" OnClick="btnEnquiryIndiamart_Click" />
-                    </td>
-                </tr>
+                <td>
+                    <asp:Button ID="btnEnquiryIndiamart" runat="server" Text="Enquiry Indiamart" OnClick="btnEnquiryIndiamart_Click" />
+                </td>
+            </tr>
 
         </table>
     </form>

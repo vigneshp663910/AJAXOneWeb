@@ -788,6 +788,10 @@ namespace Business
                             Customer.GSTIN = Convert.ToString(dr["GSTNo"]);
                             Customer.PAN = Convert.ToString(dr["PAN"]);
                             Customer.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                            Customer.SalesOrganization= Convert.ToString(dr["SalesOrganization"]);
+                            Customer.SalesOffice = Convert.ToString(dr["SalesOffice"]);
+                            Customer.SalesGroup = Convert.ToString(dr["SalesGroup"]);
+                            Customer.SalesDistrict = Convert.ToString(dr["SalesDistrict"]);
                         }
                     }
                 }
