@@ -43,7 +43,7 @@
 
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnAddColdVisit" runat="server" CssClass="btn Save" Text="Add Cold Visit" OnClick="btnAddColdVisit_Click" Width="150px"></asp:Button>
+                            <asp:Button ID="btnAddQuotation" runat="server" CssClass="btn Save" Text="Add Quotation" OnClick="btnAddQuotation_Click" Width="150px"></asp:Button>
                         </div>
                     </div>
                 </fieldset>

@@ -212,5 +212,10 @@ namespace DealerManagementSystem.ViewPreSale
             //Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
             //UC_ColdVisitsView.fillViewColdVisit(Convert.ToInt64(lblColdVisitID.Text));
         }
+
+        protected void btnAddQuotation_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/ViewPreSale/Lead.aspx");
+        }
     }
 }
