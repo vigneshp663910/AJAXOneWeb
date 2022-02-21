@@ -1812,10 +1812,6 @@
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.S3.3.7.7.17\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Print\VigneshMachineQuotation.rdlc" />
-    <EmbeddedResource Include="Print\VigneshTaxQuotation.rdlc" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

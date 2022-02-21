@@ -1818,7 +1818,7 @@ Zonal Manager- Key Accounts
       <Width>7.99875in</Width>
       <Page>
         <PageHeader>
-          <Height>2.54882cm</Height>
+          <Height>2.92982cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1837,13 +1837,12 @@ Zonal Manager- Key Accounts
               </Style>
             </Image>
             <Textbox Name="Textbox1">
-              <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!CompanyName.Value</Value>
+                      <Value>=Parameters!CustomerName.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontWeight>Bold</FontWeight>
@@ -1935,7 +1934,7 @@ Zonal Manager- Key Accounts
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.12319cm</Top>
               <Left>7.83167cm</Left>
-              <Height>2.24042cm</Height>
+              <Height>2.6888cm</Height>
               <Width>11.83662cm</Width>
               <ZIndex>1</ZIndex>
               <Style>

@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -1441,6 +1442,12 @@ namespace Business
             }
         }
 
- 
+
+
+        public List<PSubModuleChile> GetSubModuleChileByUserID(Int64 UserId)
+        {
+            string endPoint = "User/SubModuleChileByUserID?UserId=" + UserId;
+            return JsonConvert.DeserializeObject<List<PSubModuleChile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
