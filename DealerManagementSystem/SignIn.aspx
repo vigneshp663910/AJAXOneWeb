@@ -428,7 +428,7 @@
                             <td style="text-align: right">2</td>
                             <td>Pre-Sales</td>
                             <td>Offline</td>
-                            <td>Applicable</td>
+                            <td>Role Based</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
                             <td style="width: 100px; text-align: left">Customer, Lead, Activity & Quotation</td>
@@ -437,7 +437,7 @@
                             <td style="text-align: right">3</td>
                             <td>Service</td>
                             <td>Offline</td>
-                            <td>Applicable</td>
+                            <td>Role Based</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
                             <td style="width: 100px; text-align: left">IC Tickets, Customer Feedback</td>
@@ -446,19 +446,19 @@
                             <td style="text-align: right">4</td>
                             <td>Customer</td>
                             <td>Online</td>
-                            <td>Applicable</td>
+                            <td>Standard</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">Phase-2</td>
+                            <td style="width: 100px; text-align: left">To Develop in Phase-2</td>
                         </tr>
                         <tr>
                             <td style="text-align: right">5</td>
                             <td>Operator</td>
                             <td>Online</td>
-                            <td>All</td>
+                            <td>Standard</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">Only for M/C Operators & Customers</td>
+                            <td style="width: 100px; text-align: left">For M/C Operators & Customers Only</td>
                         </tr>
 
 

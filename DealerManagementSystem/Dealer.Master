@@ -1822,10 +1822,10 @@
             </div>
             <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
 
-
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-
+           <%-- <div style="background-image:url('/Ajax/Images/bg01.jpg');height:100%">--%>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+          <%--  </div>--%>
 
         </div>
     </form>

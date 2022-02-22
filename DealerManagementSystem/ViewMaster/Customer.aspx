@@ -155,25 +155,25 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                       <asp:TemplateField HeaderText="Customer Name 2">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle"  />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCustomerName2" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName2")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Contact Person">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "ContactPerson")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Mobile">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EMail">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle"/>
                                         <ItemTemplate>
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "EMail")%>' runat="server" />
                                         </ItemTemplate>
