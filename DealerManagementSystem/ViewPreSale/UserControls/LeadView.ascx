@@ -8,6 +8,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddFollowUp.ascx" TagPrefix="UC" TagName="UC_FollowUp" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddFinancial.ascx" TagPrefix="UC" TagName="UC_Financial" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLeadProduct.ascx" TagPrefix="UC" TagName="UC_Product" %>
+<%@ Register Src="~/ViewPreSale/UserControls/AddQuotation.ascx" TagPrefix="UC" TagName="UC_Quotation" %>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <div class="col-md-12">
     <fieldset class="fieldset-border">
@@ -125,6 +126,7 @@
                             <asp:LinkButton ID="LinkButton8" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
                             <asp:LinkButton ID="LinkButton9" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
                             <asp:LinkButton ID="LinkButton10" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton11" runat="server" OnClick="lbActions_Click">Add Quotation</asp:LinkButton>
                         </div>
                     </div>
                 </div>
@@ -606,6 +608,23 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
+                    <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="Button8" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

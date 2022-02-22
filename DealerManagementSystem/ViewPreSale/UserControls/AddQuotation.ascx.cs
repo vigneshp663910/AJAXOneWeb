@@ -42,8 +42,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 else
                 {
                 }
-                List<PDMS_WebQuotationItem> PrimarySOItem = new List<PDMS_WebQuotationItem>();
-                PrimarySOItem.Add(new PDMS_WebQuotationItem());
+                List<PSalesQuotationItem> PrimarySOItem = new List<PSalesQuotationItem>();
+                if (PrimarySOItem.Count == 0)
+                {
+                    PSalesQuotationItem N = new PSalesQuotationItem();
+                    PrimarySOItem.Add(N);
+                }
                 gvMaterial.DataSource = PrimarySOItem;
                 gvMaterial.DataBind();
                 new BDMS_IncoTerm().GetIncoTermDDL(ddlIncoterms, null, null);
@@ -306,56 +310,75 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Red;
+            LinkButton lbtn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)lbtn.NamingContainer;
             string Material = ((TextBox)gvMaterial.FooterRow.FindControl("txtMaterial")).Text.Trim();
+            Label lblMaterialDescription = (Label)row.FindControl("lblMaterialDescription");
+            Label lblUnit = (Label)row.FindControl("lblUnit");
             TextBox txtQty = (TextBox)gvMaterial.FooterRow.FindControl("txtQty");
-            TextBox txtBasicPrice = (TextBox)gvMaterial.FooterRow.FindControl("txtBasicPrice");
-            TextBox txtDiscount1 = (TextBox)gvMaterial.FooterRow.FindControl("txtDiscount1");
-            TextBox txtDiscount2 = (TextBox)gvMaterial.FooterRow.FindControl("txtDiscount2");
-            TextBox txtDiscount3 = (TextBox)gvMaterial.FooterRow.FindControl("txtDiscount3");
+            Label lblBasicPrice = (Label)row.FindControl("lblBasicPrice");
+            TextBox txtDiscount = (TextBox)gvMaterial.FooterRow.FindControl("txtDiscount");
+            Label lblTaxableValue = (Label)row.FindControl("lblTaxableValue");
+            Label lblTaxPersent = (Label)row.FindControl("lblTaxPersent");
+            Label lblTaxvalue = (Label)row.FindControl("lblTaxvalue");
+            Label lblNetValue = (Label)row.FindControl("lblNetValue");
 
             if (string.IsNullOrEmpty(Material))
             {
                 lblMessage.Text = "Please enter the material";
                 return;
             }
+
             if (string.IsNullOrEmpty(txtQty.Text.Trim()))
             {
                 lblMessage.Text = "Please enter the Qty";
                 return;
             }
 
-            int valueInt;
-            if (!int.TryParse(txtQty.Text, out valueInt))
+            int valueqty;
+            if (!int.TryParse(txtQty.Text, out valueqty))
             {
                 lblMessage.Text = "Please enter correct format in Qty";
                 return;
             }
-            decimal value;
+            int valuediscount=0;
+            if (!string.IsNullOrEmpty(txtDiscount.Text.Trim()))
+            {
+                if (!int.TryParse("0" + txtDiscount.Text.Trim(), out valuediscount))
+                {
+                    lblMessage.Text = "Please enter correct format in Discount";
+                    return;
+                }
+            }
+            int valueBasicPrice = 0;
+            if (!string.IsNullOrEmpty(lblBasicPrice.Text))
+            {
+                int.TryParse("0" + lblBasicPrice.Text.Trim(), out valueBasicPrice);
+            }
+            int valueTaxableValue=0;
+            lblTaxableValue.Text = ((valueqty* valueBasicPrice) - valuediscount).ToString();
+            if (!string.IsNullOrEmpty(lblTaxableValue.Text.Trim()))
+            {
+                int.TryParse("0" + lblTaxableValue.Text.Trim(), out valueTaxableValue);
+            }            
+            int valueTaxPersent=0;
+            if (!string.IsNullOrEmpty(lblTaxPersent.Text.Trim()))
+            {
+                int.TryParse("0" + lblTaxPersent.Text.Trim(), out valueTaxPersent);
+            }
+            int valueTaxValue=0;
+            lblTaxvalue.Text = (valueTaxableValue * (valueTaxPersent / 100)).ToString();
+            if (!string.IsNullOrEmpty(lblTaxvalue.Text.Trim()))
+            {
+                int.TryParse("0" + lblTaxvalue.Text.Trim(), out valueTaxValue);
+            }
+            int valueNetValue=0;
+            lblNetValue.Text = valueTaxValue.ToString();
+            if (!string.IsNullOrEmpty(lblTaxvalue.Text.Trim()))
+            {
+                int.TryParse("0" + lblTaxvalue.Text.Trim(), out valueTaxValue);
+            }
 
-            if (!string.IsNullOrEmpty(txtDiscount1.Text.Trim()))
-            {
-                if (!decimal.TryParse("0" + txtDiscount1.Text.Trim(), out value))
-                {
-                    lblMessage.Text = "Please enter correct format in Discount1";
-                    return;
-                }
-            }
-            if (!string.IsNullOrEmpty(txtDiscount2.Text.Trim()))
-            {
-                if (!decimal.TryParse("0" + txtDiscount2.Text.Trim(), out value))
-                {
-                    lblMessage.Text = "Please enter correct format in Discount2";
-                    return;
-                }
-            }
-            if (!string.IsNullOrEmpty(txtDiscount3.Text.Trim()))
-            {
-                if (!decimal.TryParse("0" + txtDiscount3.Text.Trim(), out value))
-                {
-                    lblMessage.Text = "Please enter correct format in Discount3";
-                    return;
-                }
-            }
 
             List<PDMS_Material> MM = new BDMS_Material().GetMaterialListSQL(null, Material);
             if (MM.Count != 1)
@@ -364,6 +387,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
             PSalesQuotationItem Item = new PSalesQuotationItem();
+            Item.Material = new PDMS_Material();
+            Item.Material.MaterialCode = Material;
+            Item.Qty = Convert.ToInt32(txtQty.Text);
+            Item.BasicPrice = MM[0].CurrentPrice;
+            Item.Discount = Convert.ToDecimal("0" + txtDiscount.Text);
             //Item.WebQuotationID = PSO.QuotationID;
             //Item.WebQuotationItemID = 0;
             //Item.Material = new PDMS_Material();
@@ -373,6 +401,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //Item.Discount1 = Convert.ToDecimal("0" + txtDiscount1.Text);
             //Item.Discount2 = Convert.ToDecimal("0" + txtDiscount2.Text);
             //Item.Discount3 = Convert.ToDecimal("0" + txtDiscount3.Text);
+
+            gvMaterial.DataSource = Item;
+            gvMaterial.DataBind();
+            return;
+
+
 
             lblMessage.Text = "";
             if (new BSalesQuotation().InsertOrUpdateSalesQuotationItem(Item))
