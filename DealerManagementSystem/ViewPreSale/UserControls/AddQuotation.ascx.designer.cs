@@ -339,31 +339,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
 
         /// <summary>
-        /// lblMessage control.
+        /// Fieldset4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-
-        /// <summary>
-        /// divSO control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSO;
-
-        /// <summary>
-        /// imgCallInformation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgCallInformation;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset4;
 
         /// <summary>
         /// pnlAllowM control.
@@ -375,13 +357,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Panel pnlAllowM;
 
         /// <summary>
-        /// imgMaterialCharges control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgMaterialCharges;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// pnlMaterial control.

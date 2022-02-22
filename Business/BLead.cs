@@ -15,7 +15,6 @@ namespace Business
             string endPoint = "Lead/GetLeadCategory?LeadCategoryID=" + LeadCategoryID + "&LeadCategory=" + LeadCategory;
             return JsonConvert.DeserializeObject<List<PLeadCategory>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
         public List<PLeadProgressStatus> GetLeadProgressStatus(int? ProgressStatusID, string ProgressStatus)
         {
             string endPoint = "Lead/GetLeadProgressStatus?ProgressStatusID=" + ProgressStatusID + "&ProgressStatus=" + ProgressStatus;
@@ -46,7 +45,7 @@ namespace Business
         }
         public List<PLead> GetLead(PLeadSearch Lead)
         {
-            string endPoint = "Lead?"+ JsonConvert.SerializeObject(Lead);
+            string endPoint = "Lead?" + JsonConvert.SerializeObject(Lead);
             return JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLead", Lead)).Data));
         }
 
@@ -55,8 +54,8 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Lead/SalesEngineer?LeadID=" + LeadID + "&UserID=" + UserID + "&IsActive=" + IsActive;
             return JsonConvert.DeserializeObject<List<PLeadSalesEngineer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-          //  TraceLogger.Log(DateTime.Now);
-            
+            //  TraceLogger.Log(DateTime.Now);
+
         }
         public List<PLeadFollowUp> GetLeadFollowUpByID(long LeadID, long? LeadFollowUpID)
         {
@@ -69,7 +68,7 @@ namespace Business
         public List<PLeadFollowUp> GetLeadFollowUp(long? LeadID, int? SalesEngineerUserID, DateTime? From, DateTime? To, int? UserID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Lead/FollowUp?LeadID=" + LeadID + "&SalesEngineerUserID=" + SalesEngineerUserID 
+            string endPoint = "Lead/FollowUp?LeadID=" + LeadID + "&SalesEngineerUserID=" + SalesEngineerUserID
                 + "&From=" + From + "&To=" + To + "&UserID=" + UserID;
             return JsonConvert.DeserializeObject<List<PLeadFollowUp>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
@@ -125,6 +124,12 @@ namespace Business
         {
             string endPoint = "Lead/AttachedFileForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
+        public List<PLeadStatus> GetLeadCountByStatus(DateTime? From, DateTime? To, int? DealerID, int? UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/LeadCountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PLeadStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

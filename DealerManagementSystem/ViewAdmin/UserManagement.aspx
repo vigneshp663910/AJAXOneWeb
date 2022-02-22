@@ -57,7 +57,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Mail">
-                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px"  />
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
                         <ItemTemplate>
                             <asp:Label ID="lblMail" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>'></asp:Label>
                             <asp:TextBox ID="txtMail" runat="server" CssClass="TextBox" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>' Visible="false"></asp:TextBox>
@@ -96,11 +96,11 @@
                             <table>
                                 <tr>
                                     <td style="border-bottom-width: 0px; border-right-width: 0px;">
-                                        <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="InputButton" OnClick="btnEdit_Click"   />
-                                        <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="GvbtnUpdate_Click"   Visible="false" />
+                                        <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="InputButton" OnClick="btnEdit_Click" />
+                                        <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="GvbtnUpdate_Click" Visible="false" />
                                     </td>
                                     <td style="border-bottom-width: 0px; border-right-width: 0px;">
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" OnClick="btnCancel_Click"   Visible="false" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" OnClick="btnCancel_Click" Visible="false" />
                                     </td>
                                 </tr>
                             </table>
@@ -112,6 +112,7 @@
             </asp:GridView>
         </div>
     </asp:Panel>
+
     <asp:Panel ID="pnlModule" runat="server" Visible="false">
         <table>
             <tr>
@@ -178,6 +179,57 @@
 
         <table>
             <tr>
+                <td>
+                    <div>
+                        <br />
+                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Module  Authentication</span>
+                        <div style="height: 5px; background-color: #0072c6;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
+            <asp:GridView ID="gvSubModuleChild" runat="server" AutoGenerateColumns="false"
+                BorderStyle="None" OnRowDataBound="gvSubModuleChild_RowDataBound" DataKeyNames="SubModuleChildID">
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemStyle BorderStyle="None" />
+                        <ItemTemplate>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="lbl" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ModuleName")%>' Font-Bold="true" Font-Size="15px"></asp:Label>
+                                        <asp:CheckBox ID="cbAll" runat="server" Text="Select All" OnCheckedChanged="cbAll_CheckedChanged" AutoPostBack="true" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:DataList ID="dlModule" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="6" CellSpacing="10" DataKeyField="SubModuleChildID">
+                                            <ItemTemplate>
+                                                <div class="item">
+                                                    <span>
+                                                        <strong>
+                                                            <asp:CheckBox ID="cbSMId" runat="server" />
+                                                        </strong>
+                                                    </span>
+                                                    <span><%# Eval("ChildName") %></span>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                </Columns>
+            </asp:GridView>
+        </div>
+
+        <table>
+            <tr>
                 <td colspan="5">
                     <div>
                         <br />
@@ -201,6 +253,7 @@
             </ItemTemplate>
         </asp:DataList>
     </asp:Panel>
+
     <asp:Panel ID="pnlDealer" runat="server" Visible="false">
         <table>
             <tr>
