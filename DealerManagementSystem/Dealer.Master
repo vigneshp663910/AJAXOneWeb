@@ -252,7 +252,7 @@
         }
 
         .Grid th {
-            background-color: #d8d8d8;
+            background-color: #d8d8d8;          
             color: black;
             font: message-box;
             font-weight: bold;
@@ -1653,7 +1653,7 @@
                         <asp:Label ID="lblPageName" runat="server"></asp:Label>
                             <div class="dropdown-content">
                                 <a href="/Account/MyProfile"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile</a>
-                                <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company Profile</a>
+                                <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company/Dealer Profile</a>
                                 <a href="/Account/ChangePassword"><i class="fa fa-key"></i>&nbsp;&nbsp;Change Password</a>
 
                                 <div class="dropdown-divider"></div>
