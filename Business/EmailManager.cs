@@ -350,9 +350,9 @@ namespace Business
                 string result = ""; WebRequest request = null;
                 HttpWebResponse response = null; try
                 {
-                    String sendToPhoneNumber ="91"+ Mobile; String userid = "2000138608";
-                    //String passwd = LMSHelper.DecodeString("R3Vwc21zQDEyMw==");
-                    String passwd = "Gupsms@123";
+                    String sendToPhoneNumber ="91"+ Mobile; 
+                    String userid = LMSHelper.DecodeString("MjAwMDEzODYwOA==");
+                    String passwd = LMSHelper.DecodeString("R3Vwc21zQDEyMw==");
                     String url = "http://enterprise.smsgupshup.com/GatewayAPI/rest?method=sendMessage&send_to=" + sendToPhoneNumber + "&msg="+ messageBody + "&userid=" + userid + "&password=" + passwd + "&v=1.1&msg_type=TEXT&auth_scheme=PLAIN";
                     request = WebRequest.Create(url);
                     //in case u work behind proxy, uncomment the commented code and provide correct details
