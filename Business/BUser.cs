@@ -301,7 +301,9 @@ namespace Business
                 Employee = new PDMS_DealerEmployee()
                 {
                     Name = Convert.ToString(userRow["Name"]),
-                    DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"])
+                    DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"]),
+                    ContactNumber= Convert.ToString(userRow["DealerContactNumber"]),
+                    Email= Convert.ToString(userRow["DealerEmailID"])
                 }
             };
         }

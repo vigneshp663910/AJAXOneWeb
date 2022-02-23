@@ -1,6 +1,7 @@
 ﻿using Business;
 using Properties;
 using System;
+using System.Linq;
 using System.Web.UI;
 namespace DealerManagementSystem
 {
@@ -173,14 +174,55 @@ namespace DealerManagementSystem
         }
         protected void lForgetPassword_Click(object sender, EventArgs e)
         {
+            FldSignin.Visible = false;
+            FldResetPassword.Visible = true;
+            FldChangePassword.Visible = false;
+
             PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
-            string Password = "abc@123";
+
+            string Password = RandomNumber(000000, 999999).ToString("000000");
             new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
             string messageBody = MailFormate.ForgotPassword;
             messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
             messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
             messageBody = messageBody.Replace("@@Password", Password);
             new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+
+            messageBody = "Dear User, Your OTP for login is "+ Password +". From AJAX ENGG.";
+            new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
+
+            //string Password = "abc@123";
+            //new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
+            //string messageBody = MailFormate.ForgotPassword;
+            //messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+            //messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+            //messageBody = messageBody.Replace("@@Password", Password);
+            //new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+        }
+        private int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
+
+        protected void BtnReset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (new BUser().ChangePassword(PSession.User.UserID, txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text) == 1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                }
+            }
+            catch (Exception e1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
+
+            }
         }
     }
 }
