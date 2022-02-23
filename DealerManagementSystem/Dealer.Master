@@ -252,7 +252,8 @@
         }
 
         .Grid th {
-            background-color: #d8d8d8;          
+            background-color: #d8d8d8;       
+          /*   background-color: #cdbaba70;*/
             color: black;
             font: message-box;
             font-weight: bold;
@@ -647,7 +648,8 @@
         .table > tbody > tr > td {
             line-height: 1.42857143;
             vertical-align: top;
-            border-top: 1px solid #ddd;
+       /*     border-top: 1px solid #ddd;*/
+            border-top: 1px solid #cdbaba70;
             font-weight: initial;
             text-align: none;
         }

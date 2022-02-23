@@ -26,6 +26,7 @@
         }
 
         .fieldset-border {
+            
             border: solid 1px #cacaca;
             margin: 15px 0;
             border-radius: 5px;
