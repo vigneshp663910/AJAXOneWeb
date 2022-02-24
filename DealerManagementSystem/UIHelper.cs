@@ -168,7 +168,7 @@ namespace DealerManagementSystem
         public static string ForgotPassword = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" +
             "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><title>User Authorized</title></head><body><div><table width=\"600px\"><tr><td style=\"height: 200px; width: 600px;\"><p><span>Dear <span>@@Addresse</span>,</span></p><p style=\"margin: 0in 0in 0pt\">You requested to have your password reset, below is your new password." +
             "<br/><br/>Your OTP for this login : <b>@@Password</b></p></td></tr> <tr> <td style=\"height: 60px; width: 600px;\">  <p> <br/>Please click the below link to reset your password.<br/> <br/>" +
-            "<b><a href='https://ajaxapps.ajax-engg.com:1444/SignIn.aspx'>https://ajaxapps.ajax-engg.com:1444/SignIn.aspx</a></b></p><span> <br />" +
+            "<b><a href='@@URL'>@@URL</a></b></p><span> <br />" +
             "Thanks,<br /> Team AJAXOne </span> </td></tr> </table> </div> </body> </html>";
 
     }

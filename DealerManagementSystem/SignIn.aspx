@@ -384,18 +384,9 @@
                                     <asp:Label ID="Label1" runat="server"></asp:Label>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <br />
-                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lForgetPassword_Click">Forgot password?</asp:LinkButton>
-                                <%--<br />
-                                <br />
-                                <label>Don't have ajax account?</label>
-                                <input type="submit" value="Create an account" class="btn-danger">--%>
-                            </div>
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
-
                             <legend style="background: none; color: #007bff; font-size: 20px;">Change Password</legend>
                             <div class="col-md-12">
                                 <div>
@@ -426,14 +417,6 @@
                                 <div style="text-align: center">
                                     <asp:Label ID="Label2" runat="server"></asp:Label>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <br />
-                                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lForgetPassword_Click">Forgot password?</asp:LinkButton>
-                                <%--<br />
-                                <br />
-                                <label>Don't have ajax account?</label>
-                                <input type="submit" value="Create an account" class="btn-danger">--%>
                             </div>
                         </fieldset>
                         <%--  </div>--%>

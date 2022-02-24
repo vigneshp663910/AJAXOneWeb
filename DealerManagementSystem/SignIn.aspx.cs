@@ -1,6 +1,7 @@
 ﻿using Business;
 using Properties;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.UI;
 namespace DealerManagementSystem
@@ -204,6 +205,7 @@ namespace DealerManagementSystem
             messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
             messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
             messageBody = messageBody.Replace("@@Password", Password);
+            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString()+ "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
             new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
 
             messageBody = "Dear User, Your OTP for login is "+ Password +". From AJAX ENGG.";
