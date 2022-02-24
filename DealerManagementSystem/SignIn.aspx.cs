@@ -61,6 +61,27 @@ namespace DealerManagementSystem
             NoOfAllowedLoginAttempt = Convert.ToInt16(System.Configuration.ConfigurationManager.AppSettings["NoOfAllowedLoginAttempts"]);
             if (!Page.IsPostBack)
             {
+                if (Request.QueryString["SignIn"] != null)
+                {
+                    if (Request.QueryString["SignIn"].ToString() == "ForgotPassword")
+                    {
+                        FldSignin.Visible = false;
+                        FldResetPassword.Visible = true;
+                        FldChangePassword.Visible = false;
+                    }
+                    else if(Request.QueryString["SignIn"].ToString() == "ChangePassword")
+                    {
+                        FldSignin.Visible = false;
+                        FldResetPassword.Visible = false;
+                        FldChangePassword.Visible = true;
+                    }
+                    else
+                    {
+                        FldSignin.Visible = true;
+                        FldResetPassword.Visible = false;
+                        FldChangePassword.Visible = false;
+                    }
+                }
                 txtUsername.Focus();
             }
         }
@@ -126,7 +147,8 @@ namespace DealerManagementSystem
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
                     AddToSession(userDetails.UserID);
-                    Redirect(UIHelper.RedirectToPasswordChange);
+                    //Redirect(UIHelper.RedirectToPasswordChange);
+                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + userDetails.UserID + "", true);
                 }
 
                 if ((!string.IsNullOrEmpty(Request.QueryString["IMEI"])) || (!string.IsNullOrEmpty(Request.Cookies["IMEI"].Value)))
@@ -174,10 +196,6 @@ namespace DealerManagementSystem
         }
         protected void lForgetPassword_Click(object sender, EventArgs e)
         {
-            FldSignin.Visible = false;
-            FldResetPassword.Visible = true;
-            FldChangePassword.Visible = false;
-
             PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
 
             string Password = RandomNumber(000000, 999999).ToString("000000");
@@ -190,7 +208,7 @@ namespace DealerManagementSystem
 
             messageBody = "Dear User, Your OTP for login is "+ Password +". From AJAX ENGG.";
             new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
-
+            Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID="+ userDetails.UserID + "",true); 
             //string Password = "abc@123";
             //new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
             //string messageBody = MailFormate.ForgotPassword;
@@ -209,13 +227,41 @@ namespace DealerManagementSystem
         {
             try
             {
-                if (new BUser().ChangePassword(PSession.User.UserID, txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text) == 1)
+                if (Request.QueryString["UserID"] != null)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+                    if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text,"Reset") == 1)
+                    {
+                        AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                    }
                 }
-                else
+            }
+            catch (Exception e1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
+
+            }
+        }
+
+        protected void BtnChange_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Request.QueryString["UserID"] != null)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                    if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOldPassword.Text.Trim(), txtCNewPassword.Text.Trim(), txtCRetypePassword.Text,"Change") == 1)
+                    {
+                        AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                    }
                 }
             }
             catch (Exception e1)

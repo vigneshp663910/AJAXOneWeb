@@ -403,7 +403,7 @@
                                     <label><b>Old Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Pld Password" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Old Password" TextMode="Password"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtOldPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
                                 </div>
                                 <div>
@@ -422,7 +422,7 @@
                                     <asp:TextBox ID="txtCRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" TextMode="Password"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
                                 </div>
-                                <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="btnLogin_Click" />
+                                <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="BtnChange_Click" />
                                 <div style="text-align: center">
                                     <asp:Label ID="Label2" runat="server"></asp:Label>
                                 </div>
