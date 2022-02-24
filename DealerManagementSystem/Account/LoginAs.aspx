@@ -124,7 +124,13 @@
                             <asp:TemplateField HeaderText="User Name">
                                 <ItemStyle VerticalAlign="Middle" />
                                 <ItemTemplate>
-                                    <asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="500px"></asp:Label>                           
+                                    <asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="300px"></asp:Label>                           
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Remarks">
+                                <ItemStyle VerticalAlign="Middle" />
+                                <ItemTemplate>
+                                    <%--<asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="500px"></asp:Label>--%>                           
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

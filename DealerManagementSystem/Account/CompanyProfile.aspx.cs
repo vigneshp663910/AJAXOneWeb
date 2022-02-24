@@ -14,8 +14,12 @@ namespace DealerManagementSystem.Account
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Company Profile');</script>");
 
             PUser userDetails = (PUser)Session["userDetails"];
-            FillDealerEmployee(Convert.ToInt32(userDetails.DealerEmployeeID));
-            FillDealerEmployeeRole(Convert.ToInt32(userDetails.DealerEmployeeID));
+            //FillDealerEmployee(Convert.ToInt32(userDetails.DealerEmployeeID));        
+            //FillDealerEmployeeRole(Convert.ToInt32(userDetails.DealerEmployeeID));
+            FillDealerEmployee(1450);
+            FillDealerEmployeeRole(1450);
+            //FillDealerEmployee(1166);
+            //FillDealerEmployeeRole(1166);
         }
         void FillDealerEmployee(int DealerEmployeeID)
         {
@@ -33,10 +37,7 @@ namespace DealerManagementSystem.Account
             //{
             //    lblReportingTo.Text = Emp.ReportingTo.Name;
             //}
-
-            
-            
-            
+        
 
             if (Emp.Photo != null)
             {

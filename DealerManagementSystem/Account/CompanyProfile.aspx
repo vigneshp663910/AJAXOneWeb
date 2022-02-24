@@ -7,10 +7,10 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Info</legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
-                        <asp:ImageButton ID="ibtnPhoto" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" runat="server" Width="65px" Height="25px" />
+                        <asp:ImageButton ID="ibtnPhoto" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" runat="server" Width="170px" Height="55px" />
                     </div>
                     <div class="col-md-9"></div>
                     <div class="col-md-3 text-right">

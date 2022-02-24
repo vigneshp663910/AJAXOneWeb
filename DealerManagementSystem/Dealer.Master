@@ -1794,7 +1794,7 @@
                                     <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
                                     <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
                                     <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
-                                    <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
+                                    <a href="/ViewPreSale/ManageLeadFoloowUps.aspx"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Manage Followup</a>
                                 </div>
                             </div>
 
