@@ -114,15 +114,6 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Button btnLogin;
 
         /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-
-        /// <summary>
         /// LnkForgotPassword control.
         /// </summary>
         /// <remarks>
@@ -193,15 +184,6 @@ namespace DealerManagementSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnReset;
-
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// FldChangePassword control.
@@ -276,12 +258,12 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Button BtnChange;
 
         /// <summary>
-        /// Label2 control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
     }
 }

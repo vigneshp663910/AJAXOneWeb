@@ -26,7 +26,6 @@
         }
 
         .fieldset-border {
-            
             border: solid 1px #cacaca;
             margin: 15px 0;
             border-radius: 5px;
@@ -330,7 +329,7 @@
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
@@ -338,9 +337,6 @@
                                 <%--  <br />--%>
                                 <%--  <input type="submit" value="Login">--%>
                                 <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
-                                <div style="text-align: center">
-                                    <asp:Label ID="lblMessage" runat="server"></asp:Label>
-                                </div>
                             </div>
                             <div class="col-md-12">
                                 <br />
@@ -380,9 +376,6 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtRRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
                                 </div>
                                 <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
-                                <div style="text-align: center">
-                                    <asp:Label ID="Label1" runat="server"></asp:Label>
-                                </div>
                             </div>
                         </fieldset>
 
@@ -414,11 +407,11 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
                                 </div>
                                 <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="BtnChange_Click" />
-                                <div style="text-align: center">
-                                    <asp:Label ID="Label2" runat="server"></asp:Label>
-                                </div>
                             </div>
                         </fieldset>
+                        <div style="text-align: center">
+                            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+                        </div>
                         <%--  </div>--%>
 
                         <div id="Footer1">

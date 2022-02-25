@@ -30,29 +30,70 @@ namespace Business
             }
         }
 
-        public void IntegrationSalesOrder( string filter = "")
-        { 
+        public List<object> getSalesByYearAndMonth()
+        {
+            List<object> chartData = new List<object>();
+            string ICT = "";
             try
-            { 
+            {
+                using (DataSet DataSet = provider.Select("DB_SalesByYearAndMonth"))
+                {
+                    if (DataSet != null)
+                    {
+                        int cCount = DataSet.Tables[0].Columns.Count;
+                        int rCount = DataSet.Tables[0].Rows.Count;
+
+
+                        for (int i = 0; i < rCount; i++)
+                        {
+                            object[] obj = new object[cCount];
+                            if (chartData.Count == 0)
+                            {
+                                for (int j = 0; j < cCount; j++)
+                                {
+                                    obj[j] = Convert.ToString(DataSet.Tables[0].Columns[j].ColumnName);
+                                }
+                                chartData.Add(obj);
+                                obj = new object[cCount];
+                            }
+                            for (int j = 0; j < cCount; j++)
+                            {
+                                obj[j] = DataSet.Tables[0].Rows[i][j];
+                            }
+                            chartData.Add(obj);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return chartData;
+        }
+        public void IntegrationSalesOrder(string filter = "")
+        {
+            try
+            {
 
                 TraceLogger.Log(DateTime.Now);
-            List<PDMS_SalesOrderItems> SOIs = new List<PDMS_SalesOrderItems>();
-            
+                List<PDMS_SalesOrderItems> SOIs = new List<PDMS_SalesOrderItems>();
+
                 //  string query   = "SELECT  * from pr_getsalesorderitems(" + filter + ")";
 
-                string query =   "select so.f_customer_id ,so.p_so_Id"
-+" ,so.r_order_date ,so.s_status So_status ,inv.p_inv_id ,inv.r_inv_date ,soi.f_material_id ,soi.r_unit_price  ,soi.r_order_qty,soi.r_gross_amt, soi.r_discount_amt  "
-+" ,ZFRH.r_cond_amt  as freight ,SGST.r_cond_amt as SGSTAmt , SGST.f_percentage as SGST ,CGST.r_cond_amt as CGSTAmt ,CGST.f_percentage as CGST ,IGST.r_cond_amt  as IGSTAmt "
-+" ,IGST.f_percentage  as IGST  ,so.f_Division ,so.f_location  ,so.r_contact_prsn ,so.r_contact_no ,so.s_tenant_id "
- +" from  dssor_sales_order_hdr so  "
- +" inner join dssor_sales_order_item soi on so.p_so_Id = soi.p_so_Id   " 
- +" left Join dsinr_inv_hdr inv on inv.f_so_id = so.p_so_Id	 "
- +" left join dssor_sales_order_cond SGST on SGST.p_so_id = soi.p_so_Id and SGST.p_so_item = soi.p_so_item and SGST.p_condition_type = 'ZOSG' "
- +" left join dssor_sales_order_cond CGST on CGST.p_so_id = soi.p_so_Id and CGST.p_so_item = soi.p_so_item and CGST.p_condition_type = 'ZOCG' "
- +" left join dssor_sales_order_cond IGST on IGST.p_so_id = soi.p_so_Id and IGST.p_so_item = soi.p_so_item and IGST.p_condition_type = 'ZICG' "
- +" left join dssor_sales_order_cond ZFRH on ZFRH.p_so_id = soi.p_so_Id and ZFRH.p_so_item = soi.p_so_item and ( ZFRH.p_condition_type = 'ZFRH' or (ZFRH.p_condition_type = 'ZFRD')) "
- +" where	1 =1 ";
-                    query = query + filter;
+                string query = "select so.f_customer_id ,so.p_so_Id"
++ " ,so.r_order_date ,so.s_status So_status ,inv.p_inv_id ,inv.r_inv_date ,soi.f_material_id ,soi.r_unit_price  ,soi.r_order_qty,soi.r_gross_amt, soi.r_discount_amt  "
++ " ,ZFRH.r_cond_amt  as freight ,SGST.r_cond_amt as SGSTAmt , SGST.f_percentage as SGST ,CGST.r_cond_amt as CGSTAmt ,CGST.f_percentage as CGST ,IGST.r_cond_amt  as IGSTAmt "
++ " ,IGST.f_percentage  as IGST  ,so.f_Division ,so.f_location  ,so.r_contact_prsn ,so.r_contact_no ,so.s_tenant_id "
+ + " from  dssor_sales_order_hdr so  "
+ + " inner join dssor_sales_order_item soi on so.p_so_Id = soi.p_so_Id   "
+ + " left Join dsinr_inv_hdr inv on inv.f_so_id = so.p_so_Id	 "
+ + " left join dssor_sales_order_cond SGST on SGST.p_so_id = soi.p_so_Id and SGST.p_so_item = soi.p_so_item and SGST.p_condition_type = 'ZOSG' "
+ + " left join dssor_sales_order_cond CGST on CGST.p_so_id = soi.p_so_Id and CGST.p_so_item = soi.p_so_item and CGST.p_condition_type = 'ZOCG' "
+ + " left join dssor_sales_order_cond IGST on IGST.p_so_id = soi.p_so_Id and IGST.p_so_item = soi.p_so_item and IGST.p_condition_type = 'ZICG' "
+ + " left join dssor_sales_order_cond ZFRH on ZFRH.p_so_id = soi.p_so_Id and ZFRH.p_so_item = soi.p_so_item and ( ZFRH.p_condition_type = 'ZFRH' or (ZFRH.p_condition_type = 'ZFRD')) "
+ + " where	1 =1 ";
+                query = query + filter;
 
                 DataTable dt = new NpgsqlServer().ExecuteReader(query);
                 PDMS_SalesOrderItems SOI = new PDMS_SalesOrderItems();
@@ -60,7 +101,7 @@ namespace Business
                 {
                     SOI = new PDMS_SalesOrderItems();
                     SOI.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["s_tenant_id"]) };
-                    SOI.Customer = Convert.ToString(dr["f_customer_id"]); 
+                    SOI.Customer = Convert.ToString(dr["f_customer_id"]);
                     SOI.SONumber = Convert.ToString(dr["p_so_Id"]);
                     SOI.SODate = Convert.ToDateTime(dr["r_order_date"]);
                     SOI.SOStatus = Convert.ToString(dr["So_status"]);
@@ -68,7 +109,7 @@ namespace Business
                     SOI.InvoiceDate = DBNull.Value == dr["r_inv_date"] ? (DateTime?)null : Convert.ToDateTime(dr["r_inv_date"]);
                     SOI.Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["f_material_id"]) };
                     SOI.UnitBasicPrice = Convert.ToDecimal("0" + Convert.ToString(dr["r_unit_price"]));
-                    SOI.Qty = Convert.ToDecimal("0" + Convert.ToString(dr["r_order_qty"])); 
+                    SOI.Qty = Convert.ToDecimal("0" + Convert.ToString(dr["r_order_qty"]));
                     SOI.Value = SOI.UnitBasicPrice * SOI.Qty;
                     SOI.Discount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
                     SOI.DiscountedPrice = SOI.Value + SOI.Discount;
@@ -82,14 +123,14 @@ namespace Business
                     SOI.IGSTAmt = DBNull.Value == dr["IGSTAmt"] ? 0 : Convert.ToDecimal(dr["IGSTAmt"]);
                     SOI.Tax = SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt;
                     SOI.TotalAmt = SOI.Tax + SOI.TaxableAmount;
-                     SOI.Location = Convert.ToString(dr["f_location"]);
+                    SOI.Location = Convert.ToString(dr["f_location"]);
                     SOI.ContactPerson = Convert.ToString(dr["r_contact_prsn"]);
                     SOI.ContactNumber = Convert.ToString(dr["r_contact_no"]);
                     SOIs.Add(SOI);
                 }
 
                 foreach (PDMS_SalesOrderItems SO in SOIs)
-                {                    
+                {
                     try
                     {
                         DbParameter SaleOrderNumber = provider.CreateParameter("SaleOrderNumber", SO.SONumber, DbType.String);
@@ -123,7 +164,7 @@ namespace Business
                         //DbParameter Discount = provider.CreateParameter("Discount ", SO.Discount, DbType.String);
                         //DbParameter FreightAmt = provider.CreateParameter("FreightAmt", SO.FreightInsurance, DbType.String);
 
-                        DbParameter[] Params = new DbParameter[23] { SaleOrderNumber,SaleOrderDate,DealerCode,CustomerCode,SaleOrderStatus, InvoiceNumber,InvoiceDate,  
+                        DbParameter[] Params = new DbParameter[23] { SaleOrderNumber,SaleOrderDate,DealerCode,CustomerCode,SaleOrderStatus, InvoiceNumber,InvoiceDate,
                         Location,ContactPerson,ContactPersonNumber , MaterialCode,UnitPrice,Qty,Value,Discount, FreightAmt,TaxableAmt,SGST,SGSTAmt,CGST
                         ,CGSTAmt,IGST,IGSTAmt};
 
@@ -132,12 +173,12 @@ namespace Business
 
                             provider.Insert("ZDMS_InsertOrUpdateSaleOrder", Params); ;
                             scope.Complete();
-                            
+
                         }
-                         
+
                     }
                     catch (Exception e1)
-                    { 
+                    {
                         new FileLogger().LogMessageService("BDMS_ICTicket", "IntegrationICTicket", e1);
                         //  throw e1;
                     }
@@ -145,22 +186,22 @@ namespace Business
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception ex)
-            { 
+            {
                 new FileLogger().LogMessageService("BDMS_Material", "IntegrationMaterial", ex);
                 //   throw ex;
             }
-           
+
         }
         public string IntegrationSalesOrderInvoice(string filter = "")
         {
-             string Re="";
+            string Re = "";
             try
             {
-                  
+
                 TraceLogger.Log(DateTime.Now);
                 List<PDMS_SalesInvoice> SOIs = new List<PDMS_SalesInvoice>();
 
- 
+
                 DateTime r_inv_date = DateTime.Now;
                 string r_inv_dateString = "";
 
@@ -174,32 +215,43 @@ namespace Business
                     }
                 }
                 string query = "";
-                  query = "select   inv.f_customer_id ,inv.p_inv_id,inv.s_created_on  as r_inv_date,inv.r_price_grp ,inv.s_status,inv.s_object_type,invi.p_inv_item ,invi.f_material_id   "
-+ " ,invi.r_unit_price ,invi.r_qty,invi.r_received_qty,invi.r_return_qty ,invi.r_gross_amt,invi.r_net_amt , invi.r_discount_amt,invi.r_tax_amt, ZFRH.r_amt  as freight  "
-+ " ,inv.f_division, inv.f_location,so.r_contact_prsn ,so.r_contact_no, so.r_our_ref_id ,inv.s_tenant_id ,so.p_so_Id,so.r_order_date,so.r_our_ref_id,so.r_ref_date,so.r_model,so.r_model_no, so.r_remarks  "
-+ " from  dsinr_inv_hdr inv   "
-+ " inner join dsinr_inv_item invi on invi.k_id = inv.p_id  and invi.s_tenant_id = inv.s_tenant_id "
-+ " inner join dssor_sales_order_hdr so on   so.p_so_Id = inv.f_so_id    and so.s_tenant_id = inv.s_tenant_id"
-+ " left join dsinr_inv_cond ZFRH on ZFRH.k_inv_id = invi.k_inv_id and ZFRH.k_inv_item = invi.p_inv_item and (ZFRH.k_cond_type = 'ZFRH' or (ZFRH.k_cond_type = 'ZFRD')) "
-+ " where	invi.r_gross_amt <> 0 and (inv.s_created_on>='" + r_inv_dateString + "' or inv.s_modified_on>='" + r_inv_dateString + "') order by  inv.s_created_on";
+                //                  query = "select   inv.f_customer_id ,inv.p_inv_id,inv.s_created_on  as r_inv_date,inv.r_price_grp ,inv.s_status,inv.s_object_type,invi.p_inv_item ,invi.f_material_id   "
+                //+ " ,invi.r_unit_price ,invi.r_qty,invi.r_received_qty,invi.r_return_qty ,invi.r_gross_amt,invi.r_net_amt , invi.r_discount_amt,invi.r_tax_amt, ZFRH.r_amt  as freight  "
+                //+ " ,inv.f_division, inv.f_location,so.r_contact_prsn ,so.r_contact_no, so.r_our_ref_id ,inv.s_tenant_id ,so.p_so_Id,so.r_order_date,so.r_our_ref_id,so.r_ref_date,so.r_model,so.r_model_no, so.r_remarks  "
+                //+ " from  dsinr_inv_hdr inv   "
+                //+ " inner join dsinr_inv_item invi on invi.k_id = inv.p_id  and invi.s_tenant_id = inv.s_tenant_id "
+                //+ " inner join dssor_sales_order_hdr so on   so.p_so_Id = inv.f_so_id    and so.s_tenant_id = inv.s_tenant_id"
+                //+ " left join dsinr_inv_cond ZFRH on ZFRH.k_inv_id = invi.k_inv_id and ZFRH.k_inv_item = invi.p_inv_item and (ZFRH.k_cond_type = 'ZFRH' or (ZFRH.k_cond_type = 'ZFRD')) "
+                //+ " where	invi.r_gross_amt <> 0 and (inv.s_created_on>='" + r_inv_dateString + "' or inv.s_modified_on>='" + r_inv_dateString + "') order by  inv.s_created_on";
 
-                if(!string.IsNullOrEmpty(filter))
+                query = "select   inv.f_customer_id ,inv.p_inv_id, invi.k_id ,inv.s_created_on  as r_inv_date,inv.r_price_grp ,inv.s_status,inv.s_object_type,invi.p_inv_item ,invi.f_material_id   "
+                + " ,invi.r_unit_price ,invi.r_qty,invi.r_received_qty,invi.r_return_qty ,invi.r_gross_amt,invi.r_net_amt , invi.r_discount_amt,invi.r_tax_amt, ZFRH.r_amt  as freight  "
+                + " ,inv.f_division, inv.f_location,so.r_contact_prsn ,so.r_contact_no, so.r_our_ref_id ,inv.s_tenant_id ,so.p_so_Id,so.r_order_date,so.r_our_ref_id,so.r_ref_date,so.r_model,so.r_model_no, so.r_remarks  "
+                + " from  dsinr_inv_hdr inv   "
+                + " inner join dsinr_inv_item invi on invi.k_id = inv.p_id  and invi.s_tenant_id = inv.s_tenant_id "
+                + " inner join dssor_sales_order_hdr so on   so.p_so_Id = inv.f_so_id    and so.s_tenant_id = inv.s_tenant_id"
+                + " left join dsinr_inv_cond ZFRH on ZFRH.k_inv_id = invi.k_inv_id and ZFRH.k_inv_item = invi.p_inv_item and (ZFRH.k_cond_type = 'ZFRH' or (ZFRH.k_cond_type = 'ZFRD')) "
+                + " where invi.r_gross_amt <> 0  and EXTRACT(YEAR FROM  inv.s_created_on) >=  2021  and invi.s_action is null and  inv.s_status ='RELEASED'  and so.s_tenant_id <> 20   limit 1000";
+
+                // and EXTRACT(MONTH FROM  inv.s_created_on) >=  9
+
+                if (!string.IsNullOrEmpty(filter))
                 {
-                    query = "select   inv.f_customer_id ,inv.p_inv_id,inv.s_created_on  as r_inv_date,inv.r_price_grp ,inv.s_status,inv.s_object_type,invi.p_inv_item ,invi.f_material_id   "
+                    query = "select   inv.f_customer_id ,inv.p_inv_id, ,invi.k_id ,inv.s_created_on  as r_inv_date,inv.r_price_grp ,inv.s_status,inv.s_object_type,invi.p_inv_item ,invi.f_material_id   "
 + " ,invi.r_unit_price ,invi.r_qty,invi.r_received_qty,invi.r_return_qty ,invi.r_gross_amt,invi.r_net_amt , invi.r_discount_amt,invi.r_tax_amt, ZFRH.r_amt  as freight  "
 + " ,inv.f_division, inv.f_location,so.r_contact_prsn ,so.r_contact_no, so.r_our_ref_id ,inv.s_tenant_id ,so.p_so_Id,so.r_order_date,so.r_our_ref_id,so.r_ref_date,so.r_model,so.r_model_no, so.r_remarks  "
 + " from  dsinr_inv_hdr inv   "
 + " inner join dsinr_inv_item invi on invi.k_id = inv.p_id    and invi.s_tenant_id = inv.s_tenant_id  "
 + " inner join dssor_sales_order_hdr so on   so.p_so_Id = inv.f_so_id    and so.s_tenant_id = inv.s_tenant_id"
 + " left join dsinr_inv_cond ZFRH on ZFRH.k_inv_id = invi.k_inv_id and ZFRH.k_inv_item = invi.p_inv_item and (ZFRH.k_cond_type = 'ZFRH' or (ZFRH.k_cond_type = 'ZFRD')) "
-+ " where	invi.r_gross_amt <> 0  " + filter  ;
++ " where	invi.r_gross_amt <> 0  " + filter;
 
                 }
-              //  query = query + filter;
+                //  query = query + filter;
 
                 DataTable dt = new NpgsqlServer().ExecuteReader(query);
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
-                int i = 0;  
+                int i = 0;
                 foreach (DataRow dr in dt.Rows)
                 {
                     SOI = new PDMS_SalesInvoice();
@@ -209,6 +261,9 @@ namespace Business
                     SOI.Dealer.DealerCode = SOI.Dealer.DealerCode == "23" ? "9004" : SOI.Dealer.DealerCode;
                     SOI.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["f_customer_id"]) };
                     SOI.InvoiceNumber = Convert.ToString(dr["p_inv_id"]);
+
+                    SOI.k_id = Convert.ToString(dr["k_id"]);
+
                     SOI.InvoiceDate = DBNull.Value == dr["r_inv_date"] ? (DateTime?)null : Convert.ToDateTime(dr["r_inv_date"]);
                     SOI.Status = Convert.ToString(dr["s_status"]);
                     SOI.SalesType = new PDMS_SalesType() { SalesTypeCode = Convert.ToInt32(dr["s_object_type"]) };
@@ -243,7 +298,7 @@ namespace Business
                         SOI.InvoiceItem.Value = SOI.InvoiceItem.TaxableAmount;
                         SOI.InvoiceItem.TaxableAmount = t;
                     }
-                   // SOI.InvoiceItem.ReceivedQty = Convert.ToDecimal("0" + Convert.ToString(dr["r_received_qty"]));
+                    // SOI.InvoiceItem.ReceivedQty = Convert.ToDecimal("0" + Convert.ToString(dr["r_received_qty"]));
                     SOI.InvoiceItem.ReturnQty = Convert.ToDecimal("0" + Convert.ToString(dr["r_return_qty"]));
 
                     SOI.InvoiceItem.Qty = Convert.ToDecimal("0" + Convert.ToString(dr["r_qty"]));
@@ -271,53 +326,9 @@ namespace Business
 
                     SOI.InvoiceItem.FreightAmount = DBNull.Value == dr["freight"] ? 0 : Convert.ToDecimal(dr["freight"]);
                     SOIs.Add(SOI);
-                    //  SOI.InvoiceItem.TaxableAmount =   SOI.InvoiceItem.Value ;
 
-                    //if (SOI.InvoiceItem.Tax == 0)
-                    //{
-                    //    SOI.InvoiceItem.SGST = (decimal?)null;
-                    //    SOI.InvoiceItem.SGSTAmt = 0;
-                    //    SOI.InvoiceItem.IGST = (decimal?)null;
-                    //    SOI.InvoiceItem.IGSTAmt = 0;
-                    //}
-                    //else
-                    //{
-                    //    if (SOI.InvoiceItem.Value == 0)
-                    //    {
-                    //        SOI.InvoiceItem.SGST = (decimal?)null;
-                    //        SOI.InvoiceItem.SGSTAmt = 0;
-                    //        SOI.InvoiceItem.IGST = (decimal?)null;
-                    //        SOI.InvoiceItem.IGSTAmt = 0;
-
-                    //    }
-                    //    else  if (Convert.ToString(dr["r_price_grp"]) == "09")
-                    //    {
-                    //        SOI.InvoiceItem.SGST = SOI.InvoiceItem.Tax * 50 / SOI.InvoiceItem.TaxableAmount;
-                    //        SOI.InvoiceItem.SGSTAmt = SOI.InvoiceItem.Tax / 2;
-
-                    //        SOI.InvoiceItem.IGST =  (decimal?)null;
-                    //        SOI.InvoiceItem.IGSTAmt = 0;
-
-                    //    }
-                    //    else if (Convert.ToString(dr["r_price_grp"]) == "07")
-                    //    {
-                    //        SOI.InvoiceItem.SGST = (decimal?)null;
-                    //        SOI.InvoiceItem.SGSTAmt = 0;
-
-                    //        SOI.InvoiceItem.IGST = SOI.InvoiceItem.Tax * 100 / SOI.InvoiceItem.TaxableAmount;
-                    //        SOI.InvoiceItem.IGSTAmt = SOI.InvoiceItem.Tax;
-                    //    }
-                    //    else
-                    //    {
-                    //        SOI.InvoiceItem.SGST = (decimal?)null;
-                    //        SOI.InvoiceItem.SGSTAmt = 0;
-                    //        SOI.InvoiceItem.IGST = (decimal?)null;
-                    //        SOI.InvoiceItem.IGSTAmt = 0;
-                    //    }
-                    //}
-                    // SOI.InvoiceItem.TotalAmt = SOI.InvoiceItem.Tax + SOI.InvoiceItem.TaxableAmount; 
                 }
-                Re = Re+" " + SOIs.Count();
+                Re = Re + " " + SOIs.Count();
                 foreach (PDMS_SalesInvoice SO in SOIs)
                 {
                     try
@@ -348,7 +359,7 @@ namespace Business
                         DbParameter MaterialCode = provider.CreateParameter("MaterialCode", SO.InvoiceItem.Material.MaterialCode, DbType.String);
                         DbParameter UnitPrice = provider.CreateParameter("UnitPrice", SO.InvoiceItem.UnitBasicPrice, DbType.Decimal);
                         DbParameter Qty = provider.CreateParameter("Qty", SO.InvoiceItem.Qty, DbType.Decimal);
-                      //  DbParameter ReceivedQty = provider.CreateParameter("ReceivedQty", SO.InvoiceItem.ReceivedQty, DbType.Decimal);
+                        //  DbParameter ReceivedQty = provider.CreateParameter("ReceivedQty", SO.InvoiceItem.ReceivedQty, DbType.Decimal);
                         DbParameter ReceivedQty = provider.CreateParameter("ReturnQty", SO.InvoiceItem.ReturnQty, DbType.Decimal);
                         DbParameter Value = provider.CreateParameter("Value", SO.InvoiceItem.Value, DbType.Decimal);
                         DbParameter Discount = provider.CreateParameter("Discount", SO.InvoiceItem.Discount, DbType.Decimal);
@@ -357,22 +368,22 @@ namespace Business
                         DbParameter TaxableAmt = provider.CreateParameter("TaxableAmt", SO.InvoiceItem.TaxableAmount, DbType.Decimal);
                         DbParameter Tax = provider.CreateParameter("Tax", SO.InvoiceItem.Tax, DbType.Decimal);
 
-                      //  DbParameter SGST = provider.CreateParameter("SGST", SO.InvoiceItem.SGST, DbType.Decimal);
-                      //  DbParameter SGSTAmt = provider.CreateParameter("SGSTAmt", SO.InvoiceItem.SGSTAmt, DbType.Decimal);
-                      //  DbParameter IGST = provider.CreateParameter("IGST", SO.InvoiceItem.IGST, DbType.Decimal);
-                      //  DbParameter IGSTAmt = provider.CreateParameter("IGSTAmt", SO.InvoiceItem.IGSTAmt, DbType.Decimal);
+                        //  DbParameter SGST = provider.CreateParameter("SGST", SO.InvoiceItem.SGST, DbType.Decimal);
+                        //  DbParameter SGSTAmt = provider.CreateParameter("SGSTAmt", SO.InvoiceItem.SGSTAmt, DbType.Decimal);
+                        //  DbParameter IGST = provider.CreateParameter("IGST", SO.InvoiceItem.IGST, DbType.Decimal);
+                        //  DbParameter IGSTAmt = provider.CreateParameter("IGSTAmt", SO.InvoiceItem.IGSTAmt, DbType.Decimal);
                         DbParameter CalType = provider.CreateParameter("CalType", string.IsNullOrEmpty(SO.InvoiceItem.CalType) ? null : SO.InvoiceItem.CalType, DbType.String);
 
-                        DbParameter[] Params = new DbParameter[29] { InvoiceNumber,InvoiceDate,DealerCode,CustomerCode,SaleOrderInvoiceStatus,SalesTypeCode, SaleOrderNumber,SaleOrderDate,Division,  
+                        DbParameter[] Params = new DbParameter[29] { InvoiceNumber,InvoiceDate,DealerCode,CustomerCode,SaleOrderInvoiceStatus,SalesTypeCode, SaleOrderNumber,SaleOrderDate,Division,
                         Location,ContactPerson,ContactPersonNumber,SalesPerson,Reference,ReferenceDate,McMode,MachineSlNo,Remarks,ItemNo , MaterialCode,UnitPrice,Qty,ReceivedQty,Value,Discount, FreightAmt,TaxableAmt,Tax,CalType};
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-
                             provider.Insert("ZDMS_InsertOrUpdateSaleOrderInvoice", Params); ;
                             scope.Complete();
-
                         }
+
+                        new NpgsqlServer().ExecuteReader("update dsinr_inv_item set s_action = '0' where k_id = '" + SO.k_id + "' and f_material_id = '" + SO.InvoiceItem.Material.MaterialCode + "' and p_inv_item = " + SO.InvoiceItem.ItemNo + " and s_tenant_id = " + SO.Dealer.DealerCode);
                     }
                     catch (Exception e1)
                     {
@@ -398,7 +409,7 @@ namespace Business
             {
 
                 TraceLogger.Log(DateTime.Now);
-                List<PDMS_SalesInvoice> SOIs = new List<PDMS_SalesInvoice>();              
+                List<PDMS_SalesInvoice> SOIs = new List<PDMS_SalesInvoice>();
                 DateTime r_inv_date = DateTime.Now;
                 string r_inv_dateString = "";
 
@@ -417,7 +428,7 @@ namespace Business
 
 + " where r_unit_price is not null  and  (h.s_created_on>='" + r_inv_dateString + "' or h.s_modified_on>='" + r_inv_dateString + "') order by  h.s_created_on";
 
-                 
+
 
                 DataTable dt = new NpgsqlServer().ExecuteReader(query);
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
@@ -464,7 +475,7 @@ namespace Business
                         SOI.InvoiceItem.Value = SOI.InvoiceItem.TaxableAmount;
                         SOI.InvoiceItem.TaxableAmount = t;
                     }
-                    
+
                     SOI.InvoiceItem.Qty = Convert.ToDecimal("0" + Convert.ToString(dr["r_qty"]));
                     SOI.InvoiceItem.Qty = SOI.InvoiceItem.Qty == 0 ? 1 : SOI.InvoiceItem.Qty;
                     SOI.InvoiceItem.Discount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
@@ -566,7 +577,7 @@ namespace Business
                         DbParameter MaterialCode = provider.CreateParameter("MaterialCode", SO.InvoiceItem.Material.MaterialCode, DbType.String);
                         DbParameter UnitPrice = provider.CreateParameter("UnitPrice", SO.InvoiceItem.UnitBasicPrice, DbType.Decimal);
                         DbParameter Qty = provider.CreateParameter("Qty", SO.InvoiceItem.Qty, DbType.Decimal);
-                        
+
                         DbParameter Value = provider.CreateParameter("Value", SO.InvoiceItem.Value, DbType.Decimal);
                         DbParameter Discount = provider.CreateParameter("Discount", SO.InvoiceItem.Discount, DbType.Decimal);
                         DbParameter FreightAmt = provider.CreateParameter("FreightAmt", SO.InvoiceItem.FreightAmount, DbType.Decimal);
@@ -580,7 +591,7 @@ namespace Business
                         //  DbParameter IGSTAmt = provider.CreateParameter("IGSTAmt", SO.InvoiceItem.IGSTAmt, DbType.Decimal);
                         DbParameter CalType = provider.CreateParameter("CalType", string.IsNullOrEmpty(SO.InvoiceItem.CalType) ? null : SO.InvoiceItem.CalType, DbType.String);
 
-                        DbParameter[] Params = new DbParameter[27] { InvoiceNumber,InvoiceDate,DealerCode,CustomerCode,SaleOrderInvoiceStatus,SalesTypeCode, SaleOrderNumber,SaleOrderDate,Division,  
+                        DbParameter[] Params = new DbParameter[27] { InvoiceNumber,InvoiceDate,DealerCode,CustomerCode,SaleOrderInvoiceStatus,SalesTypeCode, SaleOrderNumber,SaleOrderDate,Division,
                         Location,ContactPerson,ContactPersonNumber,Reference,ReferenceDate,McMode,MachineSlNo,Remarks,ItemNo , MaterialCode,UnitPrice,Qty,Value,Discount, FreightAmt,TaxableAmt,Tax,CalType};
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -648,7 +659,7 @@ namespace Business
                     SOI.SalesOrderItem.TotalAmt = SOI.SalesOrderItem.DiscountedPrice + SOI.SalesOrderItem.Tax + SOI.SalesOrderItem.FreightAmount;
 
                     SOIs.Add(SOI);
-                }            
+                }
                 return SOIs;
                 TraceLogger.Log(DateTime.Now);
             }
@@ -659,7 +670,7 @@ namespace Business
             }
             return SOIs;
         }
-      
+
         public List<PDMS_SalesInvoice> GetSaleOrderInvoicePartsReport(int? DealerID, string CustomerCode, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, String SaleOrderInvoiceStatusID, string MaterialCode)
         {
             TraceLogger.Log(DateTime.Now);
@@ -764,7 +775,7 @@ namespace Business
             List<PDMS_SalesInvoice> SOIs = new List<PDMS_SalesInvoice>();
             try
             {
-                  DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
                 DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
                 DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
                 DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", string.IsNullOrEmpty(InvoiceNumber) ? null : InvoiceNumber, DbType.String);
@@ -785,7 +796,7 @@ namespace Business
                             SOI = new PDMS_SalesInvoice();
                             i = i + 1;
                             SOI.InvoiceID = i;
-                            SOI.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) }; 
+                            SOI.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
                             SOI.HeaderCount = Convert.ToInt64(dr["HeaderCount"]);
                             SOI.InvoiceItem = new PDMS_SalesInvoiceItem();
                             SOI.InvoiceItem.Material = new PDMS_Material()
@@ -1275,7 +1286,7 @@ namespace Business
             }
             return SOIs;
         }
-        
+
         public List<PDMS_SalesInvoice> GetSalesInvoiceDetails(int? DealerID, string CustomerCode, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, String SaleOrderInvoiceStatusID, string SalesTypeID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -1335,12 +1346,12 @@ namespace Business
 
                             SOI.InvoiceItem.TaxableAmount = SOI.InvoiceItem.Discount + SOI.InvoiceItem.Value + SOI.InvoiceItem.FreightAmount;
                             SOI.InvoiceItem.SGST = DBNull.Value == dr["SGST"] ? (decimal?)null : Convert.ToDecimal(dr["SGST"]);
-                            SOI.InvoiceItem.SGSTAmt =  Convert.ToDecimal(dr["SGSTAmt"]);
+                            SOI.InvoiceItem.SGSTAmt = Convert.ToDecimal(dr["SGSTAmt"]);
                             SOI.InvoiceItem.CGST = DBNull.Value == dr["CGST"] ? (decimal?)null : Convert.ToDecimal(dr["CGST"]);
-                            SOI.InvoiceItem.CGSTAmt =  Convert.ToDecimal(dr["CGSTAmt"]);
+                            SOI.InvoiceItem.CGSTAmt = Convert.ToDecimal(dr["CGSTAmt"]);
 
                             SOI.InvoiceItem.IGST = DBNull.Value == dr["IGST"] ? (decimal?)null : Convert.ToDecimal(dr["IGST"]);
-                            SOI.InvoiceItem.IGSTAmt =   Convert.ToDecimal(dr["IGSTAmt"]);
+                            SOI.InvoiceItem.IGSTAmt = Convert.ToDecimal(dr["IGSTAmt"]);
                             SOI.InvoiceItem.Tax = SOI.InvoiceItem.SGSTAmt + SOI.InvoiceItem.CGSTAmt + SOI.InvoiceItem.IGSTAmt;
                             SOI.InvoiceItem.TotalAmt = SOI.InvoiceItem.Tax + SOI.InvoiceItem.TaxableAmount;
 
@@ -1359,7 +1370,54 @@ namespace Business
             }
             return SOIs;
         }
-         
+
+        //public List<PDMS_SalesOrder> GetSalesOrderOld(string filter)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    List<PDMS_SalesOrder> SOIs = new List<PDMS_SalesOrder>();
+        //    try
+        //    {
+
+        //        string query = "SELECT  * from pr_getsalesorderBasedOnInvoice(" + filter + ")";
+
+        //        DataTable dt = new NpgsqlServer().ExecuteReader(query);
+        //        PDMS_SalesOrder SOI = new PDMS_SalesOrder();
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            SOI = new PDMS_SalesOrder();
+        //            SOI.Customer = Convert.ToString(dr["p_bp_id"]);
+        //            SOI.CustomerName = Convert.ToString(dr["r_org_name"]);
+        //            SOI.InvoiceNumber = Convert.ToString(dr["p_inv_id"]);
+        //            SOI.InvoiceDate = DBNull.Value == dr["r_inv_date"] ? (DateTime?)null : Convert.ToDateTime(dr["r_inv_date"]);
+        //            SOI.PartNumber = Convert.ToString(dr["f_material_id"]);
+        //            SOI.Description = Convert.ToString(dr["r_description"]);
+        //            SOI.MatType = Convert.ToString(dr["f_Mat_Type"]);
+        //            SOI.Division = Convert.ToString(dr["f_Division"]);
+        //            SOI.Qty = DBNull.Value == dr["r_qty"] ? 0 : Convert.ToDecimal(dr["r_qty"]);
+
+        //            SOI.Basic = DBNull.Value == dr["ZPRP"] ? 0 : Convert.ToDecimal(dr["ZPRP"]);
+
+        //            SOI.Discount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
+        //            SOI.BasicAfterDisc = SOI.Basic - SOI.Discount;
+        //            SOI.Tax = DBNull.Value == dr["r_tax_amt"] ? 0 : Convert.ToDecimal(dr["r_tax_amt"]);
+        //            SOI.FreightInsurance = DBNull.Value == dr["ZFRH"] ? 0 : Convert.ToDecimal(dr["ZFRH"]);// + (DBNull.Value == dr["ZINS"] ? 0 : Convert.ToDecimal(dr["ZINS"]));
+        //            SOI.TotalAmt = SOI.BasicAfterDisc + SOI.Tax + SOI.FreightInsurance;
+        //            SOI.SoNumber = Convert.ToString(dr["so_number"]);
+        //            SOI.SoDate = DBNull.Value == dr["so_date"] ? (DateTime?)null : Convert.ToDateTime(dr["so_date"]);
+        //            SOI.SoQty = DBNull.Value == dr["so_qty"] ? 0 : Convert.ToDecimal(dr["so_qty"]);
+        //            SOI.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["Dealer_Code"]) };
+        //            SOIs.Add(SOI);
+        //        }
+        //        return SOIs;
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_SalesOrder", "GetSalesOrder", ex);
+        //        throw ex;
+        //    }
+        //    return SOIs;
+        //}
         public List<PDMS_SalesOrderItems> GetSalesOrderItems(string filter)
         {
             TraceLogger.Log(DateTime.Now);
@@ -1652,7 +1710,91 @@ namespace Business
             }
             return SOIs;
         }
-         
+
+        //public List<PDMS_SalesInvoice> GetSalesInvoiceDetails(string filter, string DealerCode)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    List<PDMS_SalesInvoice> SOIs = new List<PDMS_SalesInvoice>();
+        //    try
+        //    {
+        //        //  string query   = "SELECT  * from pr_getsalesorderitems(" + filter + ")";
+        //        string query = "";
+
+        //        query = PQuery.GetSalesInvoiceDetails + filter;
+
+        //        DataTable dt = new NpgsqlServer().ExecuteReader(query);
+        //        PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
+        //        int i = 0;
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            if (!string.IsNullOrEmpty(DealerCode))
+        //            {
+        //                if (DealerCode != Convert.ToString(dr["Dealer_Code"]))
+        //                {
+        //                    continue;
+        //                }
+        //            }
+        //            SOI = new PDMS_SalesInvoice();
+        //            i = i + 1;
+        //            SOI.InvoiceID = i;
+        //            SOI.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["Dealer_Code"]), DealerName = Convert.ToString(dr["Dealer_Name"]) };
+        //            SOI.Dealer.DealerCode = SOI.Dealer.DealerCode == "23" ? "9004" : SOI.Dealer.DealerCode;
+        //            SOI.Customer = Convert.ToString(dr["f_customer_id"]);
+        //            SOI.CustomerName = Convert.ToString(dr["d_customer_name"]);
+        //            SOI.GSTNo = Convert.ToString(dr["GSTNO"]);
+        //            SOI.InvoiceNumber = Convert.ToString(dr["p_inv_id"]);
+        //            SOI.InvoiceDate = DBNull.Value == dr["r_inv_date"] ? (DateTime?)null : Convert.ToDateTime(dr["r_inv_date"]);
+        //            SOI.Status = Convert.ToString(dr["s_status"]);
+        //            SOI.Division = Convert.ToString(dr["f_Division"]);
+        //            SOI.Location = Convert.ToString(dr["f_location"]);
+        //            SOI.ContactPerson = Convert.ToString(dr["r_contact_prsn"]);
+        //            SOI.ContactNumber = Convert.ToString(dr["r_contact_no"]);
+        //            SOI.InvoiceItem = new PDMS_SalesInvoiceItem();
+
+        //            SOI.InvoiceItem.Material = new PDMS_Material()
+        //            {
+        //                MaterialCode = Convert.ToString(dr["f_material_id"]),
+        //                MaterialDescription = Convert.ToString(dr["r_description"])
+        //                ,
+        //                HSN = Convert.ToString(dr["r_hsn_id"]),
+        //                MaterialType = Convert.ToString(dr["f_Mat_Type"])
+        //            };
+        //            SOI.InvoiceItem.UnitBasicPrice = Convert.ToDecimal("0" + Convert.ToString(dr["r_unit_price"]));
+        //            SOI.InvoiceItem.Qty = Convert.ToDecimal("0" + Convert.ToString(dr["r_qty"]));
+        //            // SOI.Value = DBNull.Value == dr["r_gross_amt"] ? 0 : Convert.ToDecimal(dr["r_gross_amt"]);
+        //            SOI.InvoiceItem.Value = SOI.InvoiceItem.UnitBasicPrice * SOI.InvoiceItem.Qty;
+
+        //            SOI.InvoiceItem.Discount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
+
+        //            SOI.InvoiceItem.DiscountedPrice = SOI.InvoiceItem.Value + SOI.InvoiceItem.Discount;
+
+        //            SOI.InvoiceItem.FreightAmount = DBNull.Value == dr["freight"] ? 0 : Convert.ToDecimal(dr["freight"]);
+
+        //            SOI.InvoiceItem.TaxableAmount = SOI.InvoiceItem.Discount + SOI.InvoiceItem.Value + SOI.InvoiceItem.FreightAmount;
+        //            SOI.InvoiceItem.SGST = DBNull.Value == dr["SGST"] ? (decimal?)null : Convert.ToDecimal(dr["SGST"]);
+        //            SOI.InvoiceItem.SGSTAmt = DBNull.Value == dr["SGSTAmt"] ? 0 : Convert.ToDecimal(dr["SGSTAmt"]);
+        //            SOI.InvoiceItem.CGST = DBNull.Value == dr["CGST"] ? (decimal?)null : Convert.ToDecimal(dr["CGST"]);
+        //            SOI.InvoiceItem.CGSTAmt = DBNull.Value == dr["CGSTAmt"] ? 0 : Convert.ToDecimal(dr["CGSTAmt"]);
+
+        //            SOI.InvoiceItem.IGST = DBNull.Value == dr["IGST"] ? (decimal?)null : Convert.ToDecimal(dr["IGST"]);
+        //            SOI.InvoiceItem.IGSTAmt = DBNull.Value == dr["IGSTAmt"] ? 0 : Convert.ToDecimal(dr["IGSTAmt"]);
+        //            SOI.InvoiceItem.Tax = SOI.InvoiceItem.SGSTAmt + SOI.InvoiceItem.CGSTAmt + SOI.InvoiceItem.IGSTAmt;
+        //            SOI.InvoiceItem.TotalAmt = SOI.InvoiceItem.Tax + SOI.InvoiceItem.TaxableAmount;
+
+
+        //            SOIs.Add(SOI);
+        //        }
+        //        return SOIs;
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_SalesOrder", "GetSalesOrderItems", ex);
+        //        throw ex;
+        //    }
+        //    return SOIs;
+        //}
+
         public List<PDMS_SalesInvoice> GetSalesInvoiceDealerAndMaterialWise(string filter)
         {
             TraceLogger.Log(DateTime.Now);
@@ -1952,7 +2094,7 @@ namespace Business
                     File.Move(file, file.Replace("DCONNECT", "DCONNECT\\FAILED"));
                     new FileLogger().LogMessageService("BDMS_SalesOrder", "CreateQuotationForJSN", ex);
                 }
-            } 
+            }
         }
 
         List<string> QuotationForJSN(PDMS_SalesOrderResultsJSON SalesOrderResults, string Location, string Office, string DealerCode)
@@ -2329,9 +2471,9 @@ namespace Business
                 }
                 //if (!string.IsNullOrEmpty(SalesOrderItems.s_status))
                 //{
-                    Query1SItem = Query1SItem + ",s_status";
-                 // Query1VItem = Query1VItem + ",'" + SalesOrderItems.s_status + "'";
-                    Query1VItem = Query1VItem + ",'QUOTATION'";
+                Query1SItem = Query1SItem + ",s_status";
+                // Query1VItem = Query1VItem + ",'" + SalesOrderItems.s_status + "'";
+                Query1VItem = Query1VItem + ",'QUOTATION'";
                 //}
                 if (!string.IsNullOrEmpty(SalesOrderItems.s_created_by))
                 {
