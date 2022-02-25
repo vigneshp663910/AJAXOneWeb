@@ -74,6 +74,9 @@
     <div id="Module" class="tabcontent">
         <h3>Module</h3>
         <p>DMS Module Master</p>
+        <div style="text-align: center;">
+            <img src='/images/UnderDev.png' width="202" height="202">
+        </div>
     </div>
 
     <div id="Roles" class="tabcontent">
@@ -93,12 +96,12 @@
     </div>
 
     <div id="LoginLogs" class="tabcontent">
-         <h3>Login Logs</h3>
+        <h3>Login Logs</h3>
         <p>DMS Login Logs</p>
     </div>
 
     <div id="TxnLogs" class="tabcontent">
-         <h3>Txn Logs</h3>
+        <h3>Txn Logs</h3>
         <p>DMS Transaction Logs</p>
     </div>
 
