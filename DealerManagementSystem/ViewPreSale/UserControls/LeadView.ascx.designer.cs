@@ -276,6 +276,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton LinkButton10;
 
         /// <summary>
+        /// LinkButton11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton11;
+
+        /// <summary>
         /// tbpCust control.
         /// </summary>
         /// <remarks>
@@ -823,6 +832,60 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_Product;
+
+        /// <summary>
+        /// pnlQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlQuotation;
+
+        /// <summary>
+        /// Button7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button7;
+
+        /// <summary>
+        /// lblMessageQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageQuotation;
+
+        /// <summary>
+        /// UC_Quotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.AddQuotation UC_Quotation;
+
+        /// <summary>
+        /// Button8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button8;
+
+        /// <summary>
+        /// MPE_Quotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Quotation;
 
         /// <summary>
         /// lnkMPE control.

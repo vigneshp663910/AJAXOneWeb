@@ -50,7 +50,8 @@ namespace Properties
         public List<PDashboard> Dashboard { get; set; }
 
         public  PUsersDesignation UsersDesignation { get; set; }
-
+        public string OTP { get; set; }
+        public DateTime OTPExpiry { get; set; }
         #endregion
     }
      [Serializable]

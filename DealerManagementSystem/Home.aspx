@@ -82,7 +82,7 @@
                     <div id="homeSearchBar" class="home-search-bar">
                         <a class="navbar-home-search" href="javascript:void(0)" onclick="w3_closeHomeSearch()" style="color: #FFFFFF;"><i class="fa fa-fw fa-search font-white" style="color: lightgray"></i></a>
                     </div>
-                    <div id="homeSearchMain" class="home-search-main" style="width:300px">
+                    <div id="homeSearchMain" class="home-search-main" style="width:300px;">
                     <asp:Panel ID="pnlFilter" runat="server" CssClass="navbar-home-content">
                         <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%" class="home-history">
                             <tr>
@@ -201,8 +201,8 @@
             </div>
         </div>
     <%--</div>--%>
-    <div id="div1">
+   <%-- <div id="div1">
         <asp:Image ID="Image1" runat="server" ImageUrl="~/Ajax/Images/bg01.jpg" Height="100%" />
-    </div>
+    </div>--%>
 
 </asp:Content>

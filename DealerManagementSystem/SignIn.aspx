@@ -287,7 +287,7 @@
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
                         <div class="vertical-center" style="padding: 198px; text-align: center">
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />
-                            <h3 style="font-family: Calibri; color: white;">DELAER MANAGEMENT SYSTEM</h3>
+                            <h3 style="font-family: Calibri; color: white;">DEALER MANAGEMENT SYSTEM</h3>
                         </div>
                     </div>
                     <%--<div class="split bottom" style="padding: 128px; background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
@@ -308,7 +308,7 @@
                             <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/dms6.jpg" Width="130" Height="60" />
                         </div>--%>
 
-                        <fieldset class="fieldset-border">
+                        <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
                             <legend style="background: none; color: #007bff; font-size: 20px;">Sign in</legend>
                             <div class="col-md-12">
@@ -329,7 +329,7 @@
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
@@ -337,19 +337,81 @@
                                 <%--  <br />--%>
                                 <%--  <input type="submit" value="Login">--%>
                                 <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
-                                <div style="text-align: center">
-                                    <asp:Label ID="lblMessage" runat="server"></asp:Label>
-                                </div>
                             </div>
                             <div class="col-md-12">
                                 <br />
-                                <asp:LinkButton ID="LinkButton1" runat="server">Forgot password?</asp:LinkButton>
+                                <asp:LinkButton ID="LnkForgotPassword" runat="server" OnClick="lForgetPassword_Click">Forgot password?</asp:LinkButton>
                                 <%--<br />
                                 <br />
                                 <label>Don't have ajax account?</label>
                                 <input type="submit" value="Create an account" class="btn-danger">--%>
                             </div>
                         </fieldset>
+
+                        <fieldset class="fieldset-border" id="FldResetPassword" runat="server" visible="false">
+
+                            <legend style="background: none; color: #007bff; font-size: 20px;">Reset Password</legend>
+                            <div class="col-md-12">
+                                <div>
+                                    <br />
+                                    <label><b>OTP</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number"></asp:TextBox>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>New Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtRNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" autocomplete="off" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtRNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>Retype Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtRRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" autocomplete="off" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtRRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
+                            <legend style="background: none; color: #007bff; font-size: 20px;">Change Password</legend>
+                            <div class="col-md-12">
+                                <div>
+                                    <%--<br />--%>
+                                    <label><b>Old Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Old Password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtOldPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>New Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtCNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>Retype Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtCRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="BtnChange_Click" />
+                            </div>
+                        </fieldset>
+                        <div style="text-align: center">
+                            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+                        </div>
                         <%--  </div>--%>
 
                         <div id="Footer1">
@@ -428,7 +490,7 @@
                             <td style="text-align: right">2</td>
                             <td>Pre-Sales</td>
                             <td>Offline</td>
-                            <td>Applicable</td>
+                            <td>Role Based</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
                             <td style="width: 100px; text-align: left">Customer, Lead, Activity & Quotation</td>
@@ -437,7 +499,7 @@
                             <td style="text-align: right">3</td>
                             <td>Service</td>
                             <td>Offline</td>
-                            <td>Applicable</td>
+                            <td>Role Based</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
                             <td style="width: 100px; text-align: left">IC Tickets, Customer Feedback</td>
@@ -446,19 +508,19 @@
                             <td style="text-align: right">4</td>
                             <td>Customer</td>
                             <td>Online</td>
-                            <td>Applicable</td>
+                            <td>Standard</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">Phase-2</td>
+                            <td style="width: 100px; text-align: left">To Develop in Phase-2</td>
                         </tr>
                         <tr>
                             <td style="text-align: right">5</td>
                             <td>Operator</td>
                             <td>Online</td>
-                            <td>All</td>
+                            <td>Standard</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">Only for M/C Operators & Customers</td>
+                            <td style="width: 100px; text-align: left">For M/C Operators & Customers Only</td>
                         </tr>
 
 

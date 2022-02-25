@@ -147,16 +147,111 @@ contact person
             <label class="modal-label">Dealer Office</label>
             <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
         </div>
-       
+
     </div>
 </fieldset>
 
+<fieldset class="fieldset-border" id="Fieldset4" runat="server">
+    <div class="col-md-12">
+        <asp:Panel ID="pnlAllowM" runat="server" Enabled="true">
+         <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
+        <asp:Panel ID="pnlMaterial" runat="server">
+            <div class="rf-p " id="txnHistory:inputFiltersPanel">
+                <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body">
+                    <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" ShowFooter="true" DataKeyNames="QuotationItemID">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Material">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "Material")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtMaterial" runat="server" CssClass="TextBox"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Material Desc">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMaterialDescription" Text='' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Unit">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblUnit" runat="server" Text="1"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Qty">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtQty" runat="server" CssClass="TextBox" Text="1"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Basic Price">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblBasicPrice" Text='<%# DataBinder.Eval(Container.DataItem, "BasicPrice")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Discount">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "Discount")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtDiscount" runat="server" CssClass="TextBox" Text="0"></asp:TextBox>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Taxable value">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTaxableValue" Text='1' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Tax %">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTaxPersent" Text='10' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Tax value">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTaxvalue" Text='' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="NetValue">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNetValue" Text='' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lblMaterialRemove" runat="server" OnClick="lblMaterialRemove_Click">Cancel</asp:LinkButton>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:LinkButton ID="lblMaterialAdd" runat="server" OnClick="lblMaterialAdd_Click">Add</asp:LinkButton>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+        </asp:Panel>
+            </asp:Panel>
+    </div>
+</fieldset>
 
-<div class="container IC_ticketManageInfo">
+<%--<div class="container IC_ticketManageInfo">
     <div class="col2">
         <div class="rf-p " id="txnHistory:j_idt1289">
             <div class="rf-p-b " id="txnHistory:j_idt1289_body">
-                <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
+               
 
                 <div id="divSO" runat="server">
 
@@ -165,7 +260,7 @@ contact person
                             <img id="imgCallInformation" runat="server" alt="Click to show/hide orders" border="0" src="~/Images/grid_collapse.png" height="22" width="22" /></a>
                     </div>
                 </div>
-                <asp:Panel ID="pnlAllowM" runat="server" Enabled="false">
+                
                     <table id="txnHistory4:panelGridid" style="height: 100%; width: 100%">
                         <tr>
                             <td>
@@ -176,86 +271,11 @@ contact person
                                             <img id="imgMaterialCharges" runat="server" alt="Click to show/hide orders" border="0" src="~/Images/grid_collapse.png" height="22" width="22" /></a>
                                     </div>
                                 </div>
-                                <asp:Panel ID="pnlMaterial" runat="server">
-                                    <div class="rf-p " id="txnHistory:inputFiltersPanel">
-                                        <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body">
-                                            <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" ShowFooter="true" DataKeyNames="WebQuotationItemID">
-                                                <Columns>
-                                                    <asp:TemplateField HeaderText="Material">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <asp:TextBox ID="txtMaterial" runat="server" CssClass="TextBox"></asp:TextBox>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Material Desc">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Qty">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <asp:TextBox ID="txtQty" runat="server" CssClass="TextBox"></asp:TextBox>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Basic Price">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label61" Text='<%# DataBinder.Eval(Container.DataItem, "BasicPrice")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Discount 1">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label63" Text='<%# DataBinder.Eval(Container.DataItem, "Discount1")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <asp:TextBox ID="txtDiscount1" runat="server" CssClass="TextBox"></asp:TextBox>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Discount 2">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label63" Text='<%# DataBinder.Eval(Container.DataItem, "Discount2")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <asp:TextBox ID="txtDiscount2" runat="server" CssClass="TextBox"></asp:TextBox>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Discount 3">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="Label63" Text='<%# DataBinder.Eval(Container.DataItem, "Discount3")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <asp:TextBox ID="txtDiscount3" runat="server" CssClass="TextBox"></asp:TextBox>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField>
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:LinkButton ID="lblMaterialRemove" runat="server" OnClick="lblMaterialRemove_Click">Cancel</asp:LinkButton>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <asp:LinkButton ID="lblMaterialAdd" runat="server" OnClick="lblMaterialAdd_Click">Add</asp:LinkButton>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>
-                                                </Columns>
-                                            </asp:GridView>
-                                        </div>
-                                    </div>
-                                </asp:Panel>
+                                
                             </td>
                         </tr>
                     </table>
                 </asp:Panel>
             </div> 
         </div>
-    </div>
+    </div>--%>
