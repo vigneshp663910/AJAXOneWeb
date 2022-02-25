@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Web.UI;
 namespace DealerManagementSystem
@@ -197,20 +198,36 @@ namespace DealerManagementSystem
         }
         protected void lForgetPassword_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtUsername.Text))
+            {
+                lblMessage.Text = "Please Enter UserName...!";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
+            if (userDetails.UserName != null)
+            {
+                string Password = RandomNumber(000000, 999999).ToString("000000");
+                new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
+                string messageBody = MailFormate.ForgotPassword;
+                messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+                messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+                messageBody = messageBody.Replace("@@Password", Password);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString() + "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
+                new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
 
-            string Password = RandomNumber(000000, 999999).ToString("000000");
-            new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
-            string messageBody = MailFormate.ForgotPassword;
-            messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
-            messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
-            messageBody = messageBody.Replace("@@Password", Password);
-            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString()+ "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
-            new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
-
-            messageBody = "Dear User, Your OTP for login is "+ Password +". From AJAX ENGG.";
-            new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
-            Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID="+ userDetails.UserID + "",true); 
+                messageBody = "Dear User, Your OTP for login is " + Password + ". From AJAX ENGG.";
+                new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
+                Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "", true);
+            }
+            else
+            {
+                lblMessage.Text = "Invalid UserName UserName...!";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             //string Password = "abc@123";
             //new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
             //string messageBody = MailFormate.ForgotPassword;
@@ -229,6 +246,13 @@ namespace DealerManagementSystem
         {
             try
             {
+                if (string.IsNullOrEmpty(txtOTP.Text))
+                {
+                    lblMessage.Text = "Please Enter OTP...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (Request.QueryString["UserID"] != null)
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text,"Reset") == 1)
@@ -253,6 +277,13 @@ namespace DealerManagementSystem
         {
             try
             {
+                if (string.IsNullOrEmpty(txtOldPassword.Text))
+                {
+                    lblMessage.Text = "Please Enter Old Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (Request.QueryString["UserID"] != null)
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOldPassword.Text.Trim(), txtCNewPassword.Text.Trim(), txtCRetypePassword.Text,"Change") == 1)
