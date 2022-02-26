@@ -90,9 +90,14 @@ namespace Properties
         public long QuotationID { get; set; }
         public int Item { get; set; }
         public PDMS_Material Material { get; set; }
+        public int Unit { get; set; }
         public int Qty { get; set; }
         public Decimal BasicPrice { get; set; }
         public Decimal? Discount { get; set; }
+        public Decimal TaxableValue { get; set; }
+        public Decimal TaxPersent { get; set; }
+        public Decimal TaxValue { get; set; }
+        public Decimal NetValue { get; set; }
         public PPlant Plant { get; set; }
         public PSaleQuotationRejectionReason RejectionReason { get; set; }
     }
@@ -130,7 +135,7 @@ namespace Properties
         public string Status { get; set; }
     }
 
-
+    [Serializable]
     public class PSaleQuotationRejectionReason
     {
     }

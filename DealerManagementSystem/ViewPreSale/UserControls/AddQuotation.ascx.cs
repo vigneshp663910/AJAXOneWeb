@@ -15,6 +15,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class AddQuotation : System.Web.UI.UserControl
     {
+        public PDMS_ICTicket SDMS_ICTicket
+        {
+            get;
+            set;
+        }
         public PSalesQuotation PSO
         {
             get
@@ -30,6 +35,38 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["AddQuotation"] = value;
             }
         }
+        private List<PSalesQuotationItem> PSOItem
+        {
+            get
+            {
+                if (ViewState["PLSO"] == null)
+                {
+                    ViewState["PLSO"] = new List<PSalesQuotationItem>();
+                }
+                return (List<PSalesQuotationItem>)ViewState["PLSO"];
+            }
+            set
+            {
+                ViewState["PLSO"] = value;
+            }
+        }
+        private List<PDMS_ServiceMaterial> PSM
+        {
+            get
+            {
+                if (ViewState["PSM"] == null)
+                {
+                    ViewState["PSM"] = new List<PDMS_ServiceMaterial>();
+                }
+                return (List<PDMS_ServiceMaterial>)ViewState["PSM"];
+            }
+            set
+            {
+                ViewState["PSM"] = value;
+            }
+        }
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -42,6 +79,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 else
                 {
                 }
+
+
                 List<PSalesQuotationItem> PrimarySOItem = new List<PSalesQuotationItem>();
                 if (PrimarySOItem.Count == 0)
                 {
@@ -310,117 +349,148 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Red;
-            LinkButton lbtn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)lbtn.NamingContainer;
+            //  btnGenerateQuotation.Focus();
             string Material = ((TextBox)gvMaterial.FooterRow.FindControl("txtMaterial")).Text.Trim();
-            Label lblMaterialDescription = (Label)row.FindControl("lblMaterialDescription");
-            Label lblUnit = (Label)row.FindControl("lblUnit");
-            TextBox txtQty = (TextBox)gvMaterial.FooterRow.FindControl("txtQty");
-            Label lblBasicPrice = (Label)row.FindControl("lblBasicPrice");
-            TextBox txtDiscount = (TextBox)gvMaterial.FooterRow.FindControl("txtDiscount");
-            Label lblTaxableValue = (Label)row.FindControl("lblTaxableValue");
-            Label lblTaxPersent = (Label)row.FindControl("lblTaxPersent");
-            Label lblTaxvalue = (Label)row.FindControl("lblTaxvalue");
-            Label lblNetValue = (Label)row.FindControl("lblNetValue");
-
             if (string.IsNullOrEmpty(Material))
             {
                 lblMessage.Text = "Please enter the material";
                 return;
             }
 
+            TextBox txtQty = (TextBox)gvMaterial.FooterRow.FindControl("txtQty");
             if (string.IsNullOrEmpty(txtQty.Text.Trim()))
             {
                 lblMessage.Text = "Please enter the Qty";
                 return;
             }
-
-            int valueqty;
-            if (!int.TryParse(txtQty.Text, out valueqty))
+            TextBox txtDiscount = (TextBox)gvMaterial.FooterRow.FindControl("txtDiscount");
+            if (string.IsNullOrEmpty(txtDiscount.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Qty";
+                return;
+            }
+            decimal value;
+            if (!decimal.TryParse(txtQty.Text, out value))
             {
                 lblMessage.Text = "Please enter correct format in Qty";
                 return;
             }
-            int valuediscount=0;
-            if (!string.IsNullOrEmpty(txtDiscount.Text.Trim()))
-            {
-                if (!int.TryParse("0" + txtDiscount.Text.Trim(), out valuediscount))
-                {
-                    lblMessage.Text = "Please enter correct format in Discount";
-                    return;
-                }
-            }
-            int valueBasicPrice = 0;
-            if (!string.IsNullOrEmpty(lblBasicPrice.Text))
-            {
-                int.TryParse("0" + lblBasicPrice.Text.Trim(), out valueBasicPrice);
-            }
-            int valueTaxableValue=0;
-            lblTaxableValue.Text = ((valueqty* valueBasicPrice) - valuediscount).ToString();
-            if (!string.IsNullOrEmpty(lblTaxableValue.Text.Trim()))
-            {
-                int.TryParse("0" + lblTaxableValue.Text.Trim(), out valueTaxableValue);
-            }            
-            int valueTaxPersent=0;
-            if (!string.IsNullOrEmpty(lblTaxPersent.Text.Trim()))
-            {
-                int.TryParse("0" + lblTaxPersent.Text.Trim(), out valueTaxPersent);
-            }
-            int valueTaxValue=0;
-            lblTaxvalue.Text = (valueTaxableValue * (valueTaxPersent / 100)).ToString();
-            if (!string.IsNullOrEmpty(lblTaxvalue.Text.Trim()))
-            {
-                int.TryParse("0" + lblTaxvalue.Text.Trim(), out valueTaxValue);
-            }
-            int valueNetValue=0;
-            lblNetValue.Text = valueTaxValue.ToString();
-            if (!string.IsNullOrEmpty(lblTaxvalue.Text.Trim()))
-            {
-                int.TryParse("0" + lblTaxvalue.Text.Trim(), out valueTaxValue);
-            }
+            //     string 
+            Material = Material.Split(' ')[0];
+            string MaterialOrg = Material;
 
+            //CheckBox cbSupersedeYN = (CheckBox)gvMaterial.FooterRow.FindControl("cbSupersedeYN");
+            //if (cbSupersedeYN.Checked)
+            //{
+            //    string smaterial = Material;
+            //    do
+            //    {
+            //        Material = smaterial;
+            //        string query = "select s.p_smaterial from af_m_supersede s left join af_m_materials mm on mm.p_material = s.p_rmaterial left join af_m_materials ms on ms.p_material = s.p_smaterial   where s.valid_from <= Now() and s.valid_to >= Now() and  p_rmaterial = '" + smaterial + "'";
+            //        smaterial = new NpgsqlServer().ExecuteScalar(query);
+            //    } while (!string.IsNullOrEmpty(smaterial));
+            //}
 
-            List<PDMS_Material> MM = new BDMS_Material().GetMaterialListSQL(null, Material);
-            if (MM.Count != 1)
+            //for (int i = 0; i < gvMaterial.Rows.Count; i++)
+            //{
+            //    Label lblMaterialCode = (Label)gvMaterial.Rows[i].FindControl("lblMaterialCode");
+            //    Label lblCancel = (Label)gvMaterial.Rows[i].FindControl("lblCancel");
+            //    if ((lblMaterialCode.Text == Material) && (lblCancel.Visible == false))
+            //    {
+            //        if (MaterialOrg != Material)
+            //        {
+            //            lblMessage.Text = "Part Number " + MaterialOrg + "is superseded with " + Material + "  and already available";
+            //        }
+            //        else
+            //        {
+            //            lblMessage.Text = "Material " + Material + " already available";
+            //        }
+            //        lblMessage.ForeColor = Color.Red;
+            //        return;
+            //    }
+            //}
+
+            string OrderType = "";
+            string Customer = "";
+            string Vendor = "";
+            string IV_SEC_SALES = "X";
+            string PRICEDATE = "";
+            Boolean IsWarrenty = false;
+            //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
+            //{
+            //    OrderType = "DEFAULT_SEC_AUART";
+            //    Customer = SDMS_ICTicket.Customer.CustomerCode;
+            //    Vendor = SDMS_ICTicket.Dealer.DealerCode;
+            //}
+            //else
+            //{
+            //    OrderType = "301_DSSOR_SALES_ORDER_HDR";
+            //    Customer = SDMS_ICTicket.Dealer.DealerCode;
+            //    Vendor = "9031";
+            //    IsWarrenty = true;
+            //}
+
+            decimal Available = 0;
+            Boolean IsIGST = true;
+            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material)[0];
+            if (string.IsNullOrEmpty(MM.MaterialCode))
             {
                 lblMessage.Text = "Please check the Material";
                 return;
             }
+            PSM = new List<PDMS_ServiceMaterial>();
+            decimal Qty = Convert.ToDecimal(txtQty.Text);
+            PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
+
+
+            PDMS_Material MM_SQL = new BDMS_Material().GetMaterialListSQL(null, Material)[0];
+            Available = Convert.ToDecimal(txtQty.Text);
+
+            PDMS_Customer Dealer = new SCustomer().getCustomerAddress("9001");
+            PDMS_Customer CustomerP = new SCustomer().getCustomerAddress("343559");
+
+            MaterialTax.BasePrice = MM_SQL.CurrentPrice;
+            if (MaterialTax.BasePrice <= 0)
+            {
+                lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            
+            MaterialTax.TaxablePrice = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text))- Convert.ToDecimal(txtDiscount.Text);
+
+            PSOItem = new List<PSalesQuotationItem>();
             PSalesQuotationItem Item = new PSalesQuotationItem();
             Item.Material = new PDMS_Material();
-            Item.Material.MaterialCode = Material;
+            Item.Material.MaterialCode = MM.MaterialCode;
+            Item.Material.MaterialDescription = MM.MaterialDescription;
+
+            Item.Plant = new PPlant() { PlantCode = "" };
+            Item.Unit = 1;
             Item.Qty = Convert.ToInt32(txtQty.Text);
-            Item.BasicPrice = MM[0].CurrentPrice;
-            Item.Discount = Convert.ToDecimal("0" + txtDiscount.Text);
-            //Item.WebQuotationID = PSO.QuotationID;
-            //Item.WebQuotationItemID = 0;
-            //Item.Material = new PDMS_Material();
-            //Item.Material.MaterialCode = Material;
-            //Item.Qty = Convert.ToInt32(txtQty.Text);
-            //Item.BasicPrice = MM[0].CurrentPrice;
-            //Item.Discount1 = Convert.ToDecimal("0" + txtDiscount1.Text);
-            //Item.Discount2 = Convert.ToDecimal("0" + txtDiscount2.Text);
-            //Item.Discount3 = Convert.ToDecimal("0" + txtDiscount3.Text);
+            Item.BasicPrice = MaterialTax.BasePrice;
+            Item.Discount = Convert.ToDecimal(txtDiscount.Text);
+            Item.TaxableValue = MaterialTax.TaxablePrice;
 
-            gvMaterial.DataSource = Item;
-            gvMaterial.DataBind();
-            return;
-
-
-
-            lblMessage.Text = "";
-            if (new BSalesQuotation().InsertOrUpdateSalesQuotationItem(Item))
+            if (Dealer.State.StateCode == CustomerP.State.StateCode)
             {
-                lblMessage.ForeColor = Color.Green;
-
-                lblMessage.Text = "Material " + Material + " is added";
-                FillMaterial();
+                IsIGST = false;
+                MaterialTax.IGST = MM_SQL.TaxPercentage;
+                MaterialTax.IGSTValue = MM_SQL.TaxPercentage * MaterialTax.TaxablePrice * 2 / 100;
+                Item.TaxPersent = MaterialTax.IGST;
+                Item.TaxValue = MaterialTax.IGSTValue;
             }
             else
             {
-                lblMessage.Text = "Material " + Material + " is not added";
-                lblMessage.ForeColor = Color.Red;
+                MaterialTax.SGST = MM_SQL.TaxPercentage;
+                MaterialTax.SGSTValue = MM_SQL.TaxPercentage * MaterialTax.TaxablePrice / 100;
+                Item.TaxPersent = MaterialTax.SGST;
+                Item.TaxValue = MaterialTax.SGSTValue;
             }
+            Item.NetValue = Item.TaxValue;
+            PSOItem.Add(Item);
+            gvMaterial.DataSource = PSOItem;
+            gvMaterial.DataBind();
         }
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
         {
@@ -442,7 +512,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
-
         public void FillMaterial()
         {
             List<PDMS_WebQuotationItem> Item = new BDMS_WebQuotation().GetWebQuotationItem(PSO.QuotationID, null);
@@ -453,7 +522,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvMaterial.DataSource = Item;
             gvMaterial.DataBind();
         }
-
         private void FillGetDealerOffice()
         {
             ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
@@ -462,7 +530,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlDealerOffice.DataBind();
             ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
-
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillGetDealerOffice();
