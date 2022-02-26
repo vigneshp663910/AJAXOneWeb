@@ -1,14 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Lead.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Lead" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
-
 <%@ Register Src="~/ViewPreSale/UserControls/LeadView.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <style>
+    <%--  <style>
         .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
             width: 170px;
             height: 50px;
@@ -90,8 +88,44 @@
         .modalBackground {
             background-color: #000000bd;
         }
-    </style>
+    </style>--%>
+    <style>
+        .portlet.box.green {
+            border: 1px solid #5cd1db;
+            border-top: 0;
+        }
 
+            .portlet.box.green > .portlet-title {
+                background-color: #32c5d2;
+            }
+
+                .portlet.box.green > .portlet-title > .caption {
+                    color: #fff;
+                }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-sm {
+            font-size: 11px;
+            padding: 6px 18px 6px 18px;
+        }
+
+        .btn.yellow:not(.btn-outline) {
+            color: #fff;
+            background-color: #c49f47;
+            border-color: #c49f47;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        b, optgroup, strong {
+            font-weight: 700;
+        }
+    </style>
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
@@ -250,200 +284,206 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12" id="divList" runat="server">
-        <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-            <div class="col-md-12">
-                <div class="col-md-2 text-right">
-                    <label>Lead Number</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:TextBox ID="txtLeadNumber" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Lead Date From</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:TextBox ID="txtLeadDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+    <div class="col-md-12">
+        <div class="col-md-12" id="divList" runat="server">
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 text-right">
+                        <label>Lead Number</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:TextBox ID="txtLeadNumber" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>Lead Date From</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:TextBox ID="txtLeadDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
 
-                </div>
+                    </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Lead Date To</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                    <div class="col-md-2 text-right">
+                        <label>Lead Date To</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
 
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Progress Status</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
-                </div>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>Progress Status</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
+                    </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Status</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
-                </div>
+                    <div class="col-md-2 text-right">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
+                    </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Category</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
-                </div>
+                    <div class="col-md-2 text-right">
+                        <label>Category</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
+                    </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Qualification</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSQualification" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Source</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
-                </div>
+                    <div class="col-md-2 text-right">
+                        <label>Qualification</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSQualification" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>Source</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
+                    </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Lead Type</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSType" runat="server" CssClass="form-control" />
-                </div>
+                    <div class="col-md-2 text-right">
+                        <label>Lead Type</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSType" runat="server" CssClass="form-control" />
+                    </div>
 
-                <div class="col-md-2 text-right">
-                    <label>Customer</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
-                        <div id="div1" class="fieldset-borderAuto" style="display: none">
-                        </div>
-                        <div id="div2" class="fieldset-borderAuto" style="display: none">
-                        </div>
-                        <div id="div3" class="fieldset-borderAuto" style="display: none">
-                        </div>
-                        <div id="div4" class="fieldset-borderAuto" style="display: none">
-                        </div>
-                        <div id="div5" class="fieldset-borderAuto" style="display: none">
+                    <div class="col-md-2 text-right">
+                        <label>Customer</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
+                            <div id="div1" class="fieldset-borderAuto" style="display: none">
+                            </div>
+                            <div id="div2" class="fieldset-borderAuto" style="display: none">
+                            </div>
+                            <div id="div3" class="fieldset-borderAuto" style="display: none">
+                            </div>
+                            <div id="div4" class="fieldset-borderAuto" style="display: none">
+                            </div>
+                            <div id="div5" class="fieldset-borderAuto" style="display: none">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>Country</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />
-                </div>
-                <div class="col-md-2 text-right">
-                    <label>State</label>
-                </div>
-                <div class="col-md-2">
-                    <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
-                </div>
+                    <div class="col-md-2 text-right">
+                        <label>Country</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <label>State</label>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
+                    </div>
 
-                <div class="col-md-12 text-center">
-                    <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                    <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
+                        <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-        <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
-            <div class="col-md-12 Report">
-                <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed"
-                    PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
-                    <Columns>
-                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Lead Number">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            <ItemTemplate>
-                                <asp:Label ID="lblLeadID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadID")%>' runat="server" Visible="false" />
-                                <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "LeadNumber")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Category" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                <div class="col-md-12 Report">
+                    <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed"
+                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Lead Number">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLeadID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadID")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "LeadNumber")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Qualification.Qualification")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Source" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Status" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Type" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Dealer Code" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                    <AlternatingRowStyle BackColor="#f2f2f2" />
-                    <FooterStyle ForeColor="White" />
-                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
-                </asp:GridView>
-            </div>
-        </fieldset>
-    </div>
-    <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
-        <div class="text-right">
-            <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                            <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Qualification.Qualification")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Source" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Status" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Type" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Dealer Code" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </fieldset>
         </div>
-        <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
+        <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton" id="backBtn">
+                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+            </div>
+            <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
+        </div>
     </div>
+
+
+
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton>
         <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
@@ -457,84 +497,84 @@
         <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
         <div class="col-md-12">
             <div class="model-scroll">
-            <div style="display: none">
-                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
-            </div>
-            <div id="divCustomerViewID" style="display: none">
-                <fieldset class="fieldset-border">
+                <div style="display: none">
+                    <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
+                </div>
+                <div id="divCustomerViewID" style="display: none">
+                    <fieldset class="fieldset-border">
+                        <div class="col-md-12">
+
+                            <div class="col-md-2 text-right">
+                                <label>Customer Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lblCustomerName"></label>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label>Contact Person</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lblContactPerson"></label>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <label>Mobile</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lblMobile"></label>
+                            </div>
+                        </div>
+                        <div id="divChangeCustomer">
+                            <label>Change Customer</label>
+                        </div>
+
+                    </fieldset>
+                </div>
+                <div id="divCustomerCreateID">
+                    <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+                </div>
+                <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
                     <div class="col-md-12">
-
-                        <div class="col-md-2 text-right">
-                            <label>Customer Name</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label id="lblCustomerName"></label>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <label>Contact Person</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label id="lblContactPerson"></label>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Lead Date</label>
+                            <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-2 text-right">
-                            <label>Mobile</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Status</label>
+                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-4">
-                            <label id="lblMobile"></label>
+
+                        <div class="col-md-6 col-sm-12">
+                            <label>Progress Status</label>
+                            <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
                         </div>
-                    </div>
-                    <div id="divChangeCustomer">
-                        <label>Change Customer</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Category</label>
+                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <label>Qualification</label>
+                            <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Source</label>
+                            <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <label>Lead Type</label>
+                            <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <label>Remarks</label>
+                            <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                        </div>
                     </div>
 
                 </fieldset>
-            </div>
-            <div id="divCustomerCreateID">
-                <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-            </div>
-            <fieldset class="fieldset-border" id="fldCountry" runat="server">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-                <div class="col-md-12">
-                    <div class="col-md-6 col-sm-12">
-                        <label>Lead Date</label>
-                        <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Progress Status</label>
-                        <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Category</label>
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Qualification</label>
-                        <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Source</label>
-                        <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Lead Type</label>
-                        <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <label>Remarks</label>
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                </div>
-
-            </fieldset>
             </div>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
