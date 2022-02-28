@@ -68,7 +68,6 @@ namespace Properties
     {
         public int DealerEmployeeID { get; set; } 
         public string Name { get; set; }
-        public string LoginUserName { get; set; }
         public string FatherName { get; set; }
         public PDMS_DealerEmployeeAttachedFile Photo { get; set; }
         public DateTime DOB { get; set; }
@@ -138,6 +137,7 @@ namespace Properties
     [Serializable]
     public class PDMS_DealerEmployeeRole
     {
+        public string LoginUserName { get; set; }
         public long DealerEmployeeRoleID { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }

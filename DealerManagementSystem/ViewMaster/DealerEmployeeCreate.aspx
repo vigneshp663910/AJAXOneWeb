@@ -102,7 +102,6 @@
         }
     </script>
     <style>
-        
         .uppercase {
             text-transform: uppercase;
         }
@@ -124,12 +123,12 @@
                     <div class="col-md-3">
                         <asp:CheckBox ID="cbAjaxEmp" runat="server" OnCheckedChanged="cbAjaxEmp_CheckedChanged" AutoPostBack="true" CssClass="form-control" />
                     </div>--%>
-                    <div class="col-md-3 text-right">
+                    <%--<div class="col-md-3 text-right">
                         <label>Login User Name</label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
-                    </div>
+                    </div>--%>
                     <div class="col-md-3 text-right">
                         <label>Aadhaar Card No</label>
                     </div>
@@ -307,7 +306,7 @@
                         <asp:DropDownList ID="ddlBloodGroup" runat="server" CssClass="form-control" />
                     </div>
                 </div>
-                
+
             </fieldset>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />

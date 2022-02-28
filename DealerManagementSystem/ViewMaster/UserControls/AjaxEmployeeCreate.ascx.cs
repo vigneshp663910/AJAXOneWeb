@@ -111,7 +111,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblName.Text = Emp.EmployeeName;
             lblSAPEmpCode.Text = Emp.EmpId.ToString();
 
-            txtUserName.Text = Emp.DmsEmp.LoginUserName;
+            //txtUserName.Text = Emp.DmsEmp.LoginUserName;
             if (Emp.DmsEmp.DealerEmployeeRole != null)
             {
                 if (Emp.DmsEmp.DealerEmployeeRole.DealerOffice != null)
