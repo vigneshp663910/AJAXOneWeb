@@ -18,9 +18,7 @@ namespace DealerManagementSystem.Account
 
                 FillUser();
             }
-
         }
-
         void FillUser()
         {
 

@@ -29,6 +29,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["LeadID"] = value;
             }
         }
+        public PLead Lead
+        {
+            get
+            {
+                if (Session["LeadView"] == null)
+                {
+                    Session["LeadView"] = new PLead();
+                }
+                return (PLead)Session["LeadView"];
+            }
+            set
+            {
+                Session["LeadView"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -38,9 +53,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             this.LeadID =LeadID;
             PLeadSearch S = new PLeadSearch();
             S.LeadID = LeadID;
-            PLead Lead = new BLead().GetLead(S)[0];
+             Lead = new BLead().GetLead(S)[0];
             lblLeadNumber.Text = Lead.LeadNumber;
-            lblLeadDate.Text = Convert.ToString(Lead.LeadDate);
+            lblLeadDate.Text =  Lead.LeadDate.ToLongDateString();
             lblCategory.Text = Lead.Category.Category;
             lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
             lblQualification.Text = Lead.Qualification.Qualification;
@@ -48,9 +63,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblStatus.Text = Lead.Status.Status;
             lblType.Text = Lead.Type.Type;
             lblDealer.Text = Lead.Dealer.DealerCode;
-            lblRemarks.Text = Lead.Remarks;
-            string Customer = Lead.Customer.CustomerCode + " " + Lead.Customer.CustomerName;
-            lblCustomer.Text = Customer;
+            lblRemarks.Text = Lead.Remarks; 
+            lblCustomer.Text = Lead.Customer.CustomerFullName;
             lblContactPerson.Text = Lead.Customer.ContactPerson;
             lblMobile.Text = Lead.Customer.Mobile;
             lblEmail.Text = Lead.Customer.Email;
@@ -92,11 +106,26 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Effort")
             {
+
+
+                DropDownList ddlSalesEngineer = (DropDownList)UC_Effort.FindControl("ddlSalesEngineer");
+                DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
+
+                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                ddlSalesEngineer.Enabled = false;
+
                 MPE_Effort.Show();
                 fillEffort(LeadID);
             }
             else if (lbActions.Text == "Add Expense")
             {
+
+                DropDownList ddlSalesEngineer = (DropDownList)UC_Expense.FindControl("ddlSalesEngineer");
+                DropDownList ddlExpenseType = (DropDownList)UC_Expense.FindControl("ddlExpenseType");
+
+                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+
+                ddlSalesEngineer.Enabled = false;
                 MPE_Expense.Show();
                 fillExpense(LeadID);
             }
@@ -115,20 +144,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
   
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
-            MPE_Effort.Show();
+
 
             string Message = UC_Effort.ValidationEffort();
             lblMessage.ForeColor = Color.Red;
             lblMessage.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
+                MPE_Effort.Show();
                 lblMessage.Text = Message;
                 return;
             }
             PLeadEffort Lead = new PLeadEffort();
             Lead = UC_Effort.ReadEffort();
             Lead.LeadEffortID = 0;
-            Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
+            Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead)).Data);
             fillEffort(Lead.LeadID);
         }
@@ -216,7 +246,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
             }
-            new DDLBind((DropDownList)UC_Effort.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
+            new DDLBind((DropDownList)UC_Effort.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID",false);
         }
         void fillExpense(long LeadID)
         {

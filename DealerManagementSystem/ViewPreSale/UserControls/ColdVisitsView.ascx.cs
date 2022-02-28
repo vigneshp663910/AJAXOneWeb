@@ -29,6 +29,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["ColdVisitID"] = value;
             }
         }
+        public PColdVisit ColdVisit
+        {
+            get
+            {
+                if (Session["ColdVisitsView"] == null)
+                {
+                    Session["ColdVisitsView"] = new PColdVisit();
+                }
+                return (PColdVisit)Session["ColdVisitsView"];
+            }
+            set
+            {
+                Session["ColdVisitsView"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessageEffort.Text = "";
@@ -38,28 +53,27 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public void fillViewColdVisit(long ColdVisitID)
         {
             this.ColdVisitID = ColdVisitID;
-             
-            PColdVisit Lead = new BColdVisit().GetColdVisit(ColdVisitID,null, null, null, null, null, null, null, null, null)[0];
-            lblLeadNumber.Text = Lead.ColdVisitNumber;
-            lblLeadDate.Text = Convert.ToString(Lead.ColdVisitDate); 
-          //  lblRemarks.Text = Lead.Remarks;
-            string Customer = Lead.Customer.CustomerCode + " " + Lead.Customer.CustomerName;
-            lblCustomer.Text = Customer;
-            lblContactPerson.Text = Lead.Customer.ContactPerson;
-            lblMobile.Text = Lead.Customer.Mobile;
-            lblEmail.Text = Lead.Customer.Email;
 
-            lblStatus.Text = Lead.Status.Status;
-            lblImportance.Text = Lead.Importance.Importance;
+            ColdVisit = new BColdVisit().GetColdVisit(ColdVisitID,null, null, null, null, null, null, null, null, null)[0];
+            lblLeadNumber.Text = ColdVisit.ColdVisitNumber;
+            lblLeadDate.Text = ColdVisit.ColdVisitDate.ToShortDateString();// Convert.ToString(Lead.ColdVisitDate); 
+                                                                           //  lblRemarks.Text = ColdVisit.Remarks; 
+            lblCustomer.Text = ColdVisit.Customer.CustomerFullName;
+            lblContactPerson.Text = ColdVisit.Customer.ContactPerson;
+            lblMobile.Text = ColdVisit.Customer.Mobile;
+            lblEmail.Text = ColdVisit.Customer.Email;
 
-            string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
+            lblStatus.Text = ColdVisit.Status.Status;
+            lblImportance.Text = ColdVisit.Importance.Importance;
+
+            string Location = ColdVisit.Customer.Address1 + ", " + ColdVisit.Customer.Address2 + ", " + ColdVisit.Customer.District.District + ", " + ColdVisit.Customer.State.State;
             lblLocation.Text = Location;
             fillEffort();
             fillExpense();
 
             lbtnStatusChangeToClose.Visible = true;
             lbtnStatusChangeToCancel.Visible = true;
-            if ((Lead.Status.StatusID== 2) || (Lead.Status.StatusID == 3))
+            if ((ColdVisit.Status.StatusID== 2) || (ColdVisit.Status.StatusID == 3))
             {                 
                 lbtnStatusChangeToClose.Visible = false;
                 lbtnStatusChangeToCancel.Visible = false;
@@ -72,15 +86,34 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             if (lbActions.Text == "Add Effort")
             {
+                List<PUser> User = new List<PUser>();
+                User.Add(ColdVisit.CreatedBy);
+                DropDownList ddlSalesEngineer = (DropDownList)UC_Effort.FindControl("ddlSalesEngineer");
+                DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
+
+                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID", false); 
+               
+                ddlSalesEngineer.Enabled = false;
                 MPE_Effort.Show(); 
             }
             else if (lbActions.Text == "Add Expense")
             {
+                List<PUser> User = new List<PUser>();
+                User.Add(ColdVisit.CreatedBy);
+                DropDownList ddlSalesEngineer = (DropDownList)UC_Expense.FindControl("ddlSalesEngineer");
+                DropDownList ddlExpenseType = (DropDownList)UC_Expense.FindControl("ddlExpenseType");
+
+                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+                new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID", false);
+
+                ddlSalesEngineer.Enabled = false;
+
                 MPE_Expense.Show(); 
             }
             else if (lbActions.Text == "Status Change to Close")
             {
-                string endPoint = "ColdVisit/ColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2"  + "&UserID=" + PSession.User.UserID;
+                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2"  + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
@@ -97,7 +130,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Status Change to Cancel")
             {
-                string endPoint = "ColdVisit/ColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
+                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
