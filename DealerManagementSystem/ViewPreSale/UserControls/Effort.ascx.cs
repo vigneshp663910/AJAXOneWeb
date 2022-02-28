@@ -16,10 +16,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             if (!IsPostBack)
             {
-                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
-                new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, "", null, ""), "ContactName", "UserID");
+               
             }
         }
+
+        public void FillMaster(List<PUser> User)
+        {
+            new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+            new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID");
+        }
+
         protected void lblEffortAdd_Click(object sender, EventArgs e)
         {  
             PLeadEffort Lead = new PLeadEffort();

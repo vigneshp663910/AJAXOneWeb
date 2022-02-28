@@ -54,9 +54,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             this.CustomerID = CustomerID;
             PDMS_Customer Customer = new PDMS_Customer();
             Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
-
-            lblCustomer.Text = (Customer.Title.Title + " " + Customer.CustomerName + " " + Customer.CustomerName2 + (string.IsNullOrEmpty(Customer.CustomerCode) ? "" : " [" + Customer.CustomerCode + "] ")).Trim();
-            lblContactPerson.Text = Customer.ContactPerson;
+            lblCustomer.Text = Customer.CustomerFullName;
+             lblContactPerson.Text = Customer.ContactPerson;
             lblMobile.Text = Customer.Mobile;
             lblAlternativeMobile.Text = Customer.AlternativeMobile;
             lblEmail.Text = Customer.Email;

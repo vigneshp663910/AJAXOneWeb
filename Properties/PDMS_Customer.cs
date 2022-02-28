@@ -23,7 +23,14 @@ namespace Properties
         }
         public string CustomerName { get; set; }
         public string CustomerName2 { get; set; }
-        //public string OrgName { get; set; }
+
+        public string CustomerFullName
+        {
+            get
+            {
+                return (CustomerName + " " + CustomerName2).Trim() + (string.IsNullOrEmpty(CustomerCodeWithOutZero) ? "" : " (" + CustomerCodeWithOutZero + ")");
+            }
+        }
 
         public string GSTIN { get; set; }
         public string PAN { get; set; }
@@ -53,7 +60,7 @@ namespace Properties
         public PUser CreatedBy { get; set; }
 
 
-        public DateTime? DOB { get; set; }      
+        public DateTime? DOB { get; set; }
         public DateTime? DOAnniversary { get; set; }
         public Boolean SendSMS { get; set; }
         public Boolean SendEmail { get; set; }
@@ -67,7 +74,7 @@ namespace Properties
         public Boolean OrderBlock { get; set; }
         public Boolean DeliveryBlock { get; set; }
         public Boolean BillingBlock { get; set; }
-        
+
         public string SalesOrganization { get; set; }
         public string SalesOffice { get; set; }
         public string SalesGroup { get; set; }

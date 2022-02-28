@@ -108,6 +108,7 @@ namespace Properties
         public bool IsActive { get; set; }
         #endregion
     }
+    [Serializable]
     public class PPlant
     {
         #region Properties

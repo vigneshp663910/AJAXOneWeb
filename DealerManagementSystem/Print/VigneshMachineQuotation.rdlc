@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DS">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>cffbf2d2-86e6-4d7b-91fe-a75b6424ddae</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="SalesQuotationItem">
+      <Query>
+        <DataSourceName>DS</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="TechnicalSpecification">
+          <DataField>TechnicalSpecification</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Units">
+          <DataField>Units</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UnitPriceINR">
+          <DataField>UnitPriceINR</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AmountINR">
+          <DataField>AmountINR</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DS</rd:DataSetName>
+        <rd:SchemaPath>D:\AjaxGit\DealerManagementSystem\DealerManagementSystem\Print\DS.xsd</rd:SchemaPath>
+        <rd:TableName>SalesQuotationItem</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -275,11 +318,9 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!KindAttn.Value</Value>
+                                  <Value>=Parameters!Attention.Value</Value>
                                   <Style>
-                                    <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -509,21 +550,21 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox30">
+                        <Textbox Name="TechnicalSpecification">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!TechnicalSpecification.Value</Value>
+                                  <Value>=Fields!TechnicalSpecification.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox30</rd:DefaultName>
+                          <rd:DefaultName>TechnicalSpecification</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -539,14 +580,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox31">
+                        <Textbox Name="Units">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!Units.Value</Value>
+                                  <Value>=Fields!Units.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -555,7 +596,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox31</rd:DefaultName>
+                          <rd:DefaultName>Units</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -571,14 +612,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox32">
+                        <Textbox Name="UnitPriceINR">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!UnitPriceINR.Value</Value>
+                                  <Value>=Fields!UnitPriceINR.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -587,7 +628,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox32</rd:DefaultName>
+                          <rd:DefaultName>UnitPriceINR</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -603,14 +644,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox33">
+                        <Textbox Name="AmountINR">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!AmountINR.Value</Value>
+                                  <Value>=Fields!AmountINR.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -619,7 +660,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox33</rd:DefaultName>
+                          <rd:DefaultName>AmountINR</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -659,6 +700,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
+            <DataSetName>SalesQuotationItem</DataSetName>
             <Top>0.52599cm</Top>
             <Height>8.90875cm</Height>
             <Width>20.30646cm</Width>
@@ -1842,7 +1884,7 @@ Zonal Manager- Key Accounts
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!CustomerName.Value</Value>
+                      <Value>=Parameters!CompanyName.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontWeight>Bold</FontWeight>
@@ -2156,30 +2198,6 @@ Zonal Manager- Key Accounts
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="TechnicalSpecification">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Units">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="UnitPriceINR">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="AmountINR">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="Annexure">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
@@ -2193,6 +2211,12 @@ Zonal Manager- Key Accounts
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="AnnexureDate">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyName">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
@@ -2291,26 +2315,6 @@ Zonal Manager- Key Accounts
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
-          <RowIndex>7</RowIndex>
-          <ParameterName>TechnicalSpecification</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
-          <RowIndex>7</RowIndex>
-          <ParameterName>Units</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>8</RowIndex>
-          <ParameterName>UnitPriceINR</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>8</RowIndex>
-          <ParameterName>AmountINR</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
           <RowIndex>8</RowIndex>
           <ParameterName>Annexure</ParameterName>
         </CellDefinition>
@@ -2323,6 +2327,11 @@ Zonal Manager- Key Accounts
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>9</RowIndex>
           <ParameterName>AnnexureDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>CompanyName</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
