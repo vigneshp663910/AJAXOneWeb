@@ -16,9 +16,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             if (!IsPostBack)
             {
-                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
-                new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, "", null, ""), "ContactName", "UserID");
+               
             }
+        }
+        public void FillMaster(List<PUser> User)
+        {
+            new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+            new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID");
         }
         //protected void lblEffortAdd_Click(object sender, EventArgs e)
         //{
@@ -33,7 +37,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         //    Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
         //}
 
-        
+
 
         public PLeadExpense ReadExpense()
         {

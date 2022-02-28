@@ -477,146 +477,144 @@
         </ContentTemplate>
     </asp1:TabPanel>
 </asp1:TabContainer>
-<asp:UpdatePanel ID="up" runat="server">
-    <ContentTemplate>
-        <div id="Divtab" runat="server" visible="true">
 
 
 
 
 
-            <asp:Panel ID="pnlSEAssign" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Assign Engineer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                        <asp:Button ID="PopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
-                </div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageAssignEngineer" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_AssignSE ID="UC_AssignSE" runat="server"></UC:UC_AssignSE>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />
-                    </div>
 
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<asp:Panel ID="pnlSEAssign" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Assign Engineer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="PopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageAssignEngineer" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_AssignSE ID="UC_AssignSE" runat="server"></UC:UC_AssignSE>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />
+        </div>
 
-            <asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveFollowUp" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFollowUp_Click" />
-                    </div>
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_FollowUp" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFollowUp" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-
-            <asp:Panel ID="pnlConvocation" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Convocation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_CustomerConvocation ID="UC_CustomerConvocation" runat="server"></UC:UC_CustomerConvocation>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveustomerConvocation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConvocation_Click" />
-                    </div>
-
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_Convocation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlConvocation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveFollowUp" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFollowUp_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_FollowUp" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFollowUp" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
-            <asp:Panel ID="pnlFinancial" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Financial Info</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a></div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageFinancial" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_Financial ID="UC_Financial" runat="server"></UC:UC_Financial>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveFinancial" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFinancial_Click" />
-                    </div>
+<asp:Panel ID="pnlConvocation" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Convocation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_CustomerConvocation ID="UC_CustomerConvocation" runat="server"></UC:UC_CustomerConvocation>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveustomerConvocation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConvocation_Click" />
+        </div>
 
-                </div>
-
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_Financial" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFinancial" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
-
-            <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button">
-                        <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
-                </div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
-                    </div>
-
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_Effort" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEffort" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Convocation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlConvocation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
-            <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                        <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" />
-                    </a>
-                </div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
-                    </div>
+<asp:Panel ID="pnlFinancial" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Financial Info</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a></div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageFinancial" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_Financial ID="UC_Financial" runat="server"></UC:UC_Financial>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveFinancial" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFinancial_Click" />
+        </div>
 
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    </div>
+
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Financial" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFinancial" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
-            <asp:Panel ID="pnlProduct" runat="server" CssClass="Popup" Style="display: none">
-                <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Add Product</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                        <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" />
-                    </a>
-                </div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_Product ID="UC_Product" runat="server"></UC:UC_Product>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
-                    </div>
+<asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button">
+            <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
+        </div>
 
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Effort" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEffort" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-            <asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none; left: 0px" Width="50%">
-                <div class="PopupHeader clearfix">
-                    <span id="PopupDialogue">Add Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                        <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
-                    </a>
-                </div>
-                <div class="col-md-12">
-                    <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
 
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="Button8" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
-                    </div>
+<asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
+        </div>
 
-                </div>
-            </asp:Panel>
-            <ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-            <div style="display: none">
-                <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
-            </div>
 
-            <%--  <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlProduct" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Product</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_Product ID="UC_Product" runat="server"></UC:UC_Product>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none; left: 0px" Width="50%">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
+
+        <div class="col-md-12 text-center">
+            <asp:Button ID="Button8" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<div style="display: none">
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+</div>
+
+<%--  <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogue">Pre -Sales Effort</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
@@ -698,7 +696,7 @@
         </div>
     </asp:Panel>--%>
 
-            <%-- <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
+<%-- <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogue">Pre -Sales Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a>
@@ -764,11 +762,16 @@
 
         </div>
     </asp:Panel>--%>
+
+
+<asp:UpdatePanel ID="up" runat="server">
+    <ContentTemplate>
+        <div id="Divtab" runat="server" visible="true">
+            <fieldset class="fieldset-border" id="FldQuotation" runat="server" visible="false">
+                <div class="col-md-12">
+                    <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
+                </div>
+            </fieldset>
         </div>
-        <fieldset class="fieldset-border" id="FldQuotation" runat="server" visible="false">
-            <div class="col-md-12">
-                <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
-            </div>
-        </fieldset>
     </ContentTemplate>
 </asp:UpdatePanel>
