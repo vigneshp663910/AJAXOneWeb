@@ -64,6 +64,7 @@
     <Compile Include="SDMS_WebQuotation.cs" />
     <Compile Include="SHDFCBankPaymentIntegration.cs" />
     <Compile Include="SMaterial.cs" />
+    <Compile Include="SQuotation.cs" />
     <Compile Include="SSAPDocumentNumber.cs" />
     <Compile Include="SSapErrorMail.cs" />
     <Compile Include="SSAP_CRM.cs" />

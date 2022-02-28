@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Properties", "Properties\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapIntegration", "SapIntegration\SapIntegration.csproj", "{87886C5A-4AAB-4AA8-84D4-D77321444CB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Job", "Job\Job.csproj", "{3519D026-530E-4EB3-9A7E-0E29D5C74F0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{87886C5A-4AAB-4AA8-84D4-D77321444CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87886C5A-4AAB-4AA8-84D4-D77321444CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87886C5A-4AAB-4AA8-84D4-D77321444CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3519D026-530E-4EB3-9A7E-0E29D5C74F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3519D026-530E-4EB3-9A7E-0E29D5C74F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3519D026-530E-4EB3-9A7E-0E29D5C74F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3519D026-530E-4EB3-9A7E-0E29D5C74F0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

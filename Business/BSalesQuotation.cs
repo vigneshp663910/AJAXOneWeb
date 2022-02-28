@@ -181,34 +181,37 @@ namespace Business
         }
         public Boolean InsertOrUpdateSalesQuotationItem(PSalesQuotationItem Item)
         {
-            //try
-            //{
-            //    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-            //    {
-            //        DbParameter WebQuotationID = provider.CreateParameter("WebQuotationID", Item.WebQuotationID, DbType.Int64);
-            //        DbParameter WebQuotationItemID = provider.CreateParameter("WebQuotationItemID", Item.WebQuotationItemID, DbType.Int64);
-            //        DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Item.Material == null ? "" : Item.Material.MaterialCode, DbType.String);
-            //        DbParameter Qty = provider.CreateParameter("Qty", Item.Qty, DbType.Int32);
-            //        DbParameter BasicPrice = provider.CreateParameter("BasicPrice", Item.BasicPrice, DbType.Decimal);
-            //        DbParameter Discount1 = provider.CreateParameter("Discount1", Item.Discount1, DbType.Decimal);
-            //        DbParameter Discount2 = provider.CreateParameter("Discount2", Item.Discount2, DbType.Decimal);
-            //        DbParameter Discount3 = provider.CreateParameter("Discount3", Item.Discount3, DbType.Decimal);
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    DbParameter QuotationID = provider.CreateParameter("QuotationID", Item.QuotationID, DbType.Int64);
+                    DbParameter QuotationItemID = provider.CreateParameter("WebQuotationItemID", Item.QuotationItemID, DbType.Int64);
+                    DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Item.Material == null ? "" : Item.Material.MaterialCode, DbType.String);
+                    DbParameter MaterialDescription = provider.CreateParameter("MaterialDescription", Item.Material == null ? "" : Item.Material.MaterialDescription, DbType.String);
+                    DbParameter Unit = provider.CreateParameter("Unit", Item.Unit, DbType.Int32);
+                    DbParameter Qty = provider.CreateParameter("Qty", Item.Qty, DbType.Int32);
+                    DbParameter BasicPrice = provider.CreateParameter("BasicPrice", Item.BasicPrice, DbType.Decimal);
+                    DbParameter TaxableValue = provider.CreateParameter("TaxableValue", Item.TaxableValue, DbType.Decimal);
+                    DbParameter TaxPersent = provider.CreateParameter("TaxPersent", Item.TaxPersent, DbType.Decimal);
+                    DbParameter TaxValue = provider.CreateParameter("TaxValue", Item.TaxValue, DbType.Decimal);
+                    DbParameter NetValue = provider.CreateParameter("NetValue", Item.NetValue, DbType.Decimal);
 
-            //        DbParameter[] ItemParams = new DbParameter[8] { WebQuotationID, WebQuotationItemID, MaterialCode, Qty, BasicPrice, Discount1, Discount2, Discount3 };
-            //        provider.Insert("ZDMS_InsertOrUpdateWebQuotationItem", ItemParams);
-            //        scope.Complete();
-            //    }
-            //}
-            //catch (SqlException sqlEx)
-            //{
-            //    new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderDealer", sqlEx);
-            //    return false;
-            //}
-            //catch (Exception ex)
-            //{
-            //    new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderDealer", ex);
-            //    return false;
-            //}
+                    DbParameter[] ItemParams = new DbParameter[11] { QuotationID, QuotationItemID, MaterialCode, MaterialDescription, Unit, Qty, BasicPrice, TaxableValue, TaxPersent, TaxValue, NetValue };
+                    provider.Insert("ZDMS_InsertOrUpdateSalesQuotationItem", ItemParams);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderDealer", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderDealer", ex);
+                return false;
+            }
             return true;
         }
         public Boolean InsertOrUpdateSalesQuotationSalesInformation(PSalesQuotation SalesOrder)

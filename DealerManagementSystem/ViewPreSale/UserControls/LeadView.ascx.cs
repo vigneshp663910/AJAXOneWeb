@@ -105,7 +105,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MPE_Product.Show();
                 fillProduct(LeadID);
             }
-            
+            else if (lbActions.Text == "Add Quotation")
+            {
+                FldQuotation.Visible = true;
+                Divtab.Visible = false;
+                fillProduct(LeadID);
+            }
         }
   
         protected void btnSaveEffort_Click(object sender, EventArgs e)

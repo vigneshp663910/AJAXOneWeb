@@ -110,6 +110,8 @@
                 <label>Contact Person : </label>
                 <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
             </div>
+             <div class="col-md-4"> 
+            </div>
             <div class="col-md-4">
                 <label>Mobile : </label>
                 <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
@@ -123,7 +125,7 @@
                 <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">
-                <label>Location : </label>
+                <label>Address : </label>
                 <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
             </div>
 

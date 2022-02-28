@@ -10,6 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../CSS/bootstrap.min.4.5.2.css" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -165,6 +171,10 @@
             }
         }*/
 
+        .modal-lc {
+            max-width: 20%;
+        }
+
         /* Split the screen in half */
         .split {
             height: 100%;
@@ -265,6 +275,8 @@
             }
         }
     </style>
+
+
 </head>
 <body>
     <div>
@@ -275,7 +287,7 @@
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
                         <div class="vertical-center" style="padding: 198px; text-align: center">
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />
-                            <h3 style="font-family: Calibri; color: white;">DELAER MANAGEMENT SYSTEM</h3>
+                            <h3 style="font-family: Calibri; color: white;">DEALER MANAGEMENT SYSTEM</h3>
                         </div>
                     </div>
                     <%--<div class="split bottom" style="padding: 128px; background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
@@ -296,7 +308,7 @@
                             <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/dms6.jpg" Width="130" Height="60" />
                         </div>--%>
 
-                        <fieldset class="fieldset-border">
+                        <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
                             <legend style="background: none; color: #007bff; font-size: 20px;">Sign in</legend>
                             <div class="col-md-12">
@@ -317,7 +329,7 @@
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
@@ -325,19 +337,81 @@
                                 <%--  <br />--%>
                                 <%--  <input type="submit" value="Login">--%>
                                 <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
-                                <div style="text-align: center">
-                                    <asp:Label ID="lblMessage" runat="server"></asp:Label>
-                                </div>
                             </div>
                             <div class="col-md-12">
                                 <br />
-                                <asp:LinkButton ID="LinkButton1" runat="server">Forgot password?</asp:LinkButton>
+                                <asp:LinkButton ID="LnkForgotPassword" runat="server" OnClick="lForgetPassword_Click">Forgot password?</asp:LinkButton>
                                 <%--<br />
                                 <br />
                                 <label>Don't have ajax account?</label>
                                 <input type="submit" value="Create an account" class="btn-danger">--%>
                             </div>
                         </fieldset>
+
+                        <fieldset class="fieldset-border" id="FldResetPassword" runat="server" visible="false">
+
+                            <legend style="background: none; color: #007bff; font-size: 20px;">Reset Password</legend>
+                            <div class="col-md-12">
+                                <div>
+                                    <br />
+                                    <label><b>OTP</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number"></asp:TextBox>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>New Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtRNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" autocomplete="off" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtRNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>Retype Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtRRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" autocomplete="off" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtRRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
+                            <legend style="background: none; color: #007bff; font-size: 20px;">Change Password</legend>
+                            <div class="col-md-12">
+                                <div>
+                                    <%--<br />--%>
+                                    <label><b>Old Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Old Password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtOldPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>New Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtCNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <div>
+                                    <br />
+                                    <label><b>Retype Password</b></label>
+                                </div>
+                                <div>
+                                    <asp:TextBox ID="txtCRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                </div>
+                                <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="BtnChange_Click" />
+                            </div>
+                        </fieldset>
+                        <div style="text-align: center">
+                            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+                        </div>
                         <%--  </div>--%>
 
                         <div id="Footer1">
@@ -345,15 +419,23 @@
                                 <p><font size="2px">Powered by AJAXOne&nbsp;&copy; <%: DateTime.Now.Year %> </font></p>
 
                                 <div id="Footer">
-                                    <p><font size="2px">Download Our Mobile App</font></p>
+                                    <p><font size="2px"><a href="#" data-toggle="modal" data-target="#myModal">Download Our Mobile App </a></font></p>
                                     <p>
                                         <span>
-                                            <img src="../Images/apple.png" border="0" id="" alt="">
+                                            <a href="#" data-toggle="modal" data-target="#myModal">
+                                                <img src="../Images/apple.png" border="0" id="" alt="">
+                                            </a>
                                         </span>
                                         <span>
-                                            <a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
+                                            <%--<a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">
+                                                <img src="../Images/Playstore.png" border="0" id="" alt="">
+                                            </a>--%>
+
+                                            <a href="#" data-toggle="modal" data-target="#myModal">
                                                 <img src="../Images/Playstore.png" border="0" id="" alt="">
                                             </a>
+
+
                                         </span>
                                     </p>
                                 </div>
@@ -364,5 +446,97 @@
             </div>
         </form>
     </div>
+
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="color: #999999; height: 50px;">
+                    <h5 class="modal-title" style="color: #0000FF"><b>AJAX Mobile Apps Library</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="tab_mobile" border="1" style="font-family: Calibri; font-size: medium">
+                        <tr style="background-color: black; color: white">
+                            <th>SN
+                            </th>
+                            <th style="width: 200px; text-align: center">App
+                            </th>
+                            <th style="width: 100px; text-align: center">Mode
+                            </th>
+                            <th style="width: 100px; text-align: center">Features
+                            </th>
+                            <th style="width: 100px">
+                                <img src="../Images/Playstore.png" border="0" id="" alt="">
+                            </th>
+                            <th style="width: 100px">
+                                <img src="../Images/apple.png" border="0" id="" alt="">
+                            </th>
+                            <th style="width: 600px; text-align: center">Remarks
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">1</td>
+                            <td>AJAX One</td>
+                            <td>Online</td>
+                            <td>All</td>
+                            <td style="text-align: center"><a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">Install</a></td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">Includes both Pre-Sales & Service</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">2</td>
+                            <td>Pre-Sales</td>
+                            <td>Offline</td>
+                            <td>Role Based</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">Customer, Lead, Activity & Quotation</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">3</td>
+                            <td>Service</td>
+                            <td>Offline</td>
+                            <td>Role Based</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">IC Tickets, Customer Feedback</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">4</td>
+                            <td>Customer</td>
+                            <td>Online</td>
+                            <td>Standard</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">To Develop in Phase-2</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">5</td>
+                            <td>Operator</td>
+                            <td>Online</td>
+                            <td>Standard</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center">Install</td>
+                            <td style="width: 100px; text-align: left">For M/C Operators & Customers Only</td>
+                        </tr>
+
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%--<script>
+
+        function openModal() {
+            $('#myModal').modal('show')
+        };
+    </script>--%>
 </body>
 </html>

@@ -100,7 +100,7 @@ namespace Business
                             {
                                 RegionID = Convert.ToInt32(dr["RegionID"]),
                                 Region = Convert.ToString(dr["Region"]),
-                                Country = new PDMS_Country()
+                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
                                     Country = Convert.ToString(dr["Country"])
@@ -276,7 +276,7 @@ namespace Business
         {
             try
             {
-                List<PDMS_District> MML = GetDistrict(CountryID, RegionID,DistrictID, StateID, District);
+                List<PDMS_District> MML = GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = MML;

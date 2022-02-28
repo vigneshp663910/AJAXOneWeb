@@ -42,7 +42,9 @@ namespace Properties
         GeneralFailure = 8,
         ChangePwdOldPwdIncorrect = 9,
         ChangePwdNewAndConfirmPwdNotMatching = 10,
-        ChangePwdStdNotMet = 11
+        ChangePwdStdNotMet = 11,
+        InvalidOTP = 12,
+        OTPTimeExpired = 13
     }
     public enum MessageModuleType
     {
@@ -318,8 +320,8 @@ namespace Properties
     }
     public enum DMS_MenuMain
     {
-        Admin=1,
-        Master , 
+        Admin = 1,
+        Master,
         PreSales,
         Sales,
         Service,
@@ -455,7 +457,7 @@ namespace Properties
         WebQuotationReport,
         WebQuotationSendToSAP,
 
-        
+
         BankDepositClearingCreate,
         BankDepositClearingEditAndConfirm,
         BankDepositClearingPostingInSAP,
@@ -479,14 +481,14 @@ namespace Properties
         PAID,
         APPROVED_L2,
     }
-    
+
     public enum DMS_InvoiceType
     {
         NEPI_Commission = 1,
         Warranty_Service,
-        Above50k ,
+        Above50k,
         DebitNote,
-        Warranty_ServicePartial ,
+        Warranty_ServicePartial,
         Above50kPartial
     }
 
@@ -514,7 +516,7 @@ namespace Properties
         TechnicianAssigned,
         Reached,
         Restored,
-        ReqDeclined ,
+        ReqDeclined,
         Declined,
         Reopen
     }
@@ -535,7 +537,7 @@ namespace Properties
         QuotationForJSN = 12,
         IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
-        IntegrationClaimAnnexure =15,
+        IntegrationClaimAnnexure = 15,
         EInvoice = 16,
         SendMailMttrEscalationMatrix = 17,
         IntegrationEquipmentFromSAP = 18,
@@ -554,8 +556,8 @@ namespace Properties
         //ICTicketEscalationOnBreakdownLevel2,
         //ICTicketEscalationOnBreakdownLevel3,
         //ICTicketEscalationOnBreakdownLevel4,
-       
-       
+
+
     }
     public enum FSRAttachedFileName
     {
@@ -565,14 +567,14 @@ namespace Properties
         Customer,
         TechnicianSignature,
         CustomerSignature,
-        CheckList 
+        CheckList
     }
     public enum MaterialSource
     {
         Dealer = 1,
         Vendor,
         Ajax,
-        Customer 
+        Customer
     }
     public enum TSIRStatus
     {
@@ -588,7 +590,7 @@ namespace Properties
         Canceled
     }
     public enum TypeOfWarranty
-    { 
+    {
         Warranty = 1,
         Parts_Warranty,
         OnlyForInfo,
@@ -597,7 +599,7 @@ namespace Properties
     }
     public enum RefreshEnum
     {
-        ServiceChargesAddOrRemove = 1 
+        ServiceChargesAddOrRemove = 1
     }
-    
+
 }

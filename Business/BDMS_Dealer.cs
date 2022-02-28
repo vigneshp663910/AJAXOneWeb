@@ -45,9 +45,8 @@ namespace Business
                             Dealer.EInvoiceFTPPath = Convert.ToString(Dr["EInvoiceFTPPath"]);
                             Dealer.EInvoiceFTPUserID = Convert.ToString(Dr["EInvoiceFTPUserID"]);
                             Dealer.EInvoiceFTPPassword = Convert.ToString(Dr["EInvoiceFTPPassword"]);
-                            Dealer.StateN = new PDMS_State() { StateID = Convert.ToInt32(Dr["StateID"]), State = Convert.ToString(Dr["State"]) };
-                            Dealers.Add(Dealer);
-                             
+                            Dealer.StateN = DBNull.Value == Dr["StateID"] ? null : new PDMS_State() { StateID = Convert.ToInt32(Dr["StateID"]), State = Convert.ToString(Dr["State"]) };
+                            Dealers.Add(Dealer);                             
                         }
                     }
                 }

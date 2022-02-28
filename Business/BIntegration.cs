@@ -20,14 +20,14 @@ namespace Business
         }
         public void Start()
         {
-            UpdateJobsStatus((short)Jobs.EInvoice, Joblist((Jobs.SendMailMttrEscalationMatrix)));
-           return;
+            UpdateJobsStatus((short)Jobs.ICTicketIntegrationFromCRM, Joblist((Jobs.ICTicketIntegrationFromCRM)));
+            return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
-            { 
-                UpdateJobsStatus(Job, Joblist((Jobs)Job)); 
+            {
+                UpdateJobsStatus(Job, Joblist((Jobs)Job));
             }
-           
+
         }
         //public void DailyJob()
         //{
@@ -37,7 +37,7 @@ namespace Business
         //    new FileLogger().LogMessageService("End", "Main", null);
 
         //}
- 
+
         public List<int> GetActiveJobsForNextRun()
         {
             List<int> activeJobs = new List<int>();
@@ -71,19 +71,19 @@ namespace Business
             {
                 switch (JobName)
                 {
-                    case Jobs.WarrantyClaimFromPostgre:
-                        new FileLogger().LogMessageService("Started", "WarrantyClaimFromPostgre", null);
-                        C = new BDMS_WarrantyClaim().InsertWarrantyInvoice("");
-                        new FileLogger().LogMessageService("Ended", "Warranty Claim from Postgre Total Record " + C.ToString(), null);
-                        break;
-                    case Jobs.WarrantyClaimAbove50KFromPostgre:
-                        new FileLogger().LogMessageService("Started", "WarrantyClaimAbove50KFromPostgre", null);
-                        string Filter = " where inv.p_inv_id in ( select InvoiceNumber  from  ( select   invg.p_inv_id as  InvoiceNumber , sum(invig.r_gross_amt) Sum_Value FROM   dsinr_inv_item invig  inner JOIN dsinr_inv_hdr invg ON ( invig.k_id = invg.p_id AND invig.s_tenant_id = invg.s_tenant_id and  d_inv_type_desc = 'Warranty Invoice'  )  where 1 = 1  ";
-                        Filter = Filter + " and inv.r_inv_date  = '" + DateTime.Now.ToShortDateString().Split('/')[1] + "/" + DateTime.Now.ToShortDateString().Split('/')[0] + "/" + DateTime.Now.ToShortDateString().Split('/')[2] + "'";
-                        Filter = Filter + "  group by invg.p_inv_id  ,invg.s_tenant_id )	t where Sum_Value >= 50000) ";
-                        C = new BDMS_WarrantyClaim().InsertWarrantyInvoice(Filter);
-                        new FileLogger().LogMessageService("Ended", "Warranty Claim from Postgre Above 50K Total Record " + C.ToString(), null);
-                        break;
+                    //case Jobs.WarrantyClaimFromPostgre:
+                    //    new FileLogger().LogMessageService("Started", "WarrantyClaimFromPostgre", null);
+                    //    C = new BDMS_WarrantyClaim().InsertWarrantyInvoice("", false);
+                    //    new FileLogger().LogMessageService("Ended", "Warranty Claim from Postgre Total Record " + C.ToString(), null);
+                    //    break;
+                    //case Jobs.WarrantyClaimAbove50KFromPostgre:
+                    //    new FileLogger().LogMessageService("Started", "WarrantyClaimAbove50KFromPostgre", null);
+                    //    string Filter = " where inv.p_inv_id in ( select InvoiceNumber  from  ( select   invg.p_inv_id as  InvoiceNumber , sum(invig.r_gross_amt) Sum_Value FROM   dsinr_inv_item invig  inner JOIN dsinr_inv_hdr invg ON ( invig.k_id = invg.p_id AND invig.s_tenant_id = invg.s_tenant_id and  d_inv_type_desc = 'Warranty Invoice'  )  where 1 = 1  ";
+                    //    Filter = Filter + " and inv.r_inv_date  = '" + DateTime.Now.ToShortDateString().Split('/')[1] + "/" + DateTime.Now.ToShortDateString().Split('/')[0] + "/" + DateTime.Now.ToShortDateString().Split('/')[2] + "'";
+                    //    Filter = Filter + "  group by invg.p_inv_id  ,invg.s_tenant_id )	t where Sum_Value >= 50000) ";
+                    //    C = new BDMS_WarrantyClaim().InsertWarrantyInvoice(Filter, false);
+                    //    new FileLogger().LogMessageService("Ended", "Warranty Claim from Postgre Above 50K Total Record " + C.ToString(), null);
+                    //    break;
                     case Jobs.ICTicketIntegrationFromCRM:
                         new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
                         C = new BDMS_ICTicket().IntegrationICTicket();
@@ -165,7 +165,7 @@ namespace Business
                 }
                 i = true;
             }
-            catch( Exception e1)
+            catch (Exception e1)
             {
                 new FileLogger().LogMessageService("BIntegration", "BIntegration : " + e1.Message, null);
             }

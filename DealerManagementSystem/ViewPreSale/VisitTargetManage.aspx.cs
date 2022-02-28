@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewPreSale
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? DepartmentID = 1;
+            int? DepartmentID = null;
             int? DealerEmployeeID = null;
             gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
             gvVisitTarget.DataBind();

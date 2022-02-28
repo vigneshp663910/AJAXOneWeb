@@ -35,15 +35,15 @@ namespace Business
                 DbParameter mailToP = provider.CreateParameter("MailTo", mailTo, DbType.String);
                 DbParameter SubjectP = provider.CreateParameter("Subject", Subject, DbType.String);
                 DbParameter messageBodyP = provider.CreateParameter("MessageBody", messageBody, DbType.String);
-               
+
                 DbParameter[] Params = new DbParameter[5] { TicketIDP, UserIDP, mailToP, SubjectP, messageBodyP };
                 try
                 {
                     using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {
-                        provider.Insert("insertMailSendInfo", Params); 
-                        scope.Complete(); 
-                    } 
+                        provider.Insert("insertMailSendInfo", Params);
+                        scope.Complete();
+                    }
                 }
                 catch (SqlException sqlEx)
                 {
@@ -101,36 +101,36 @@ namespace Business
             }
             catch (FileNotFoundException fex)
             {
-                new FileLogger().LogMessage("EmailManager", "GetFileContent", fex); 
+                new FileLogger().LogMessage("EmailManager", "GetFileContent", fex);
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("EmailManager", "GetFileContent", ex); 
+                new FileLogger().LogMessage("EmailManager", "GetFileContent", ex);
             }
             return msg;
         }
         private string GetMessageBody(string messagePath, int MailModuleId)
         {
-          string messageBody = new EmailManager().GetFileContent(Server.MapPath(messagePath));
+            string messageBody = new EmailManager().GetFileContent(Server.MapPath(messagePath));
 
-          if (MailModuleId ==1)
-          {
+            if (MailModuleId == 1)
+            {
 
-          }
-          else if (MailModuleId == 2)
-          {
+            }
+            else if (MailModuleId == 2)
+            {
 
-          }
-          else if (MailModuleId == 3)
-          {
+            }
+            else if (MailModuleId == 3)
+            {
 
-          }
-          else if (MailModuleId == 4)
-          {
+            }
+            else if (MailModuleId == 4)
+            {
 
-          }
+            }
 
-          return messageBody;
+            return messageBody;
 
         }
 
@@ -162,11 +162,11 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("EmailManager", "MailSendDelegate", ex); 
+                new FileLogger().LogMessage("EmailManager", "MailSendDelegate", ex);
             }
         }
 
-        public Boolean MailSendTSIR(string mailTo, string Subject, string messageBody, Byte[] mybytes,string FileName)
+        public Boolean MailSendTSIR(string mailTo, string Subject, string messageBody, Byte[] mybytes, string FileName)
         {
             try
             {
@@ -185,7 +185,7 @@ namespace Business
                 mailMessage.Subject = Subject;
                 mailMessage.To.Add(mailTo);
                 mailMessage.Body = messageBody;
-                
+
                 Attachment attachment = new Attachment(memoryStream, FileName);
                 mailMessage.Attachments.Add(attachment);
 
@@ -195,7 +195,7 @@ namespace Business
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = networkCredential;
                 mailMessage.IsBodyHtml = true;
-                      smtpClient.EnableSsl = true;
+                smtpClient.EnableSsl = true;
                 smtpClient.Send(mailMessage);
                 return true;
                 // new FileLogger().LogTrack("MailSend", "End");
@@ -312,7 +312,7 @@ namespace Business
             try
             {
                 //   new FileLogger().LogTrack("MailSend", "Start");
-             
+
 
 
                 MailMessage mailMessage = new MailMessage();
@@ -325,7 +325,7 @@ namespace Business
                 mailMessage.From = new MailAddress(fromMail);
                 mailMessage.Subject = Subject;
                 mailMessage.To.Add(mailTo);
-                mailMessage.Body = messageBody; 
+                mailMessage.Body = messageBody;
 
                 SmtpClient smtpClient = new SmtpClient();
                 smtpClient.Host = smtpHost;
@@ -334,14 +334,53 @@ namespace Business
                 smtpClient.Credentials = networkCredential;
                 mailMessage.IsBodyHtml = true;
                 smtpClient.EnableSsl = true;
-                smtpClient.Send(mailMessage); 
+                smtpClient.Send(mailMessage);
                 // new FileLogger().LogTrack("MailSend", "End");
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("EmailManager", "MailSend", ex); 
+                new FileLogger().LogMessage("EmailManager", "MailSend", ex);
             }
         }
-    
+        public void SendSMS(string Mobile, string messageBody)
+        {
+            try
+            {
+                //   new FileLogger().LogTrack("SMSSend", "Start");
+                string result = ""; WebRequest request = null;
+                HttpWebResponse response = null; try
+                {
+                    String sendToPhoneNumber ="91"+ Mobile; 
+                    String userid = LMSHelper.DecodeString("MjAwMDEzODYwOA==");
+                    String passwd = LMSHelper.DecodeString("R3Vwc21zQDEyMw==");
+                    String url = "http://enterprise.smsgupshup.com/GatewayAPI/rest?method=sendMessage&send_to=" + sendToPhoneNumber + "&msg="+ messageBody + "&userid=" + userid + "&password=" + passwd + "&v=1.1&msg_type=TEXT&auth_scheme=PLAIN";
+                    request = WebRequest.Create(url);
+                    //in case u work behind proxy, uncomment the commented code and provide correct details
+                    /*WebProxy proxy = new WebProxy("http://proxy:80/",true); proxy.Credentials = new
+                    NetworkCredential("userId","password", "Domain"); request.Proxy = proxy;*/
+                    // Send the 'HttpWebRequest' and wait for response.
+                    response = (HttpWebResponse)request.GetResponse();
+                    Stream stream = response.GetResponseStream();
+                    Encoding ec = System.Text.Encoding.GetEncoding("utf-8");
+                    StreamReader reader = new System.IO.StreamReader(stream, ec);
+                    result = reader.ReadToEnd(); Console.WriteLine(result);
+                    reader.Close();
+                    stream.Close();
+                }
+                catch (Exception exp)
+                {
+                    Console.WriteLine(exp.ToString());
+                }
+                finally
+                {
+                    if (response != null) response.Close();
+                }
+                // new FileLogger().LogTrack("SMSSend", "End");
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("EmailManager", "SMSSend", ex);
+            }
+        }
     }
 }

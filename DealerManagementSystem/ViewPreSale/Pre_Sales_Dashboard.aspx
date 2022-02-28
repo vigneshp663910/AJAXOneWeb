@@ -177,20 +177,24 @@
                 <div class="actions" style="float: right;">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');"><span>Today</span>
-
+                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
+                            <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span>Today</span> 
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');"><span>Week</span>
-
+                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
+                            <asp:RadioButton ID="rbWeek" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span>Week</span> 
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');"><span>Month</span>
-
+                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
+                            <asp:RadioButton ID="rbMonth" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span>Month</span> 
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');"><span>Year</span>
-
+                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
+                            <asp:RadioButton ID="rbYear" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged"  AutoPostBack="true"/>
+                            <span>Year</span> 
                         </label>
                     </div>
                 </div>
@@ -203,7 +207,8 @@
                                 <a class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
+                                        <asp:Label ID="lblNewlyCreated" runat="server" Text="0"></asp:Label>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         <div class="desc">Newly Created</div>
                                     </div>
                                 </a>
@@ -212,8 +217,10 @@
                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
-                                        <div class="desc">Assigned</div>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
+                                       
+                                        <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
+                                         <div class="desc">Assigned</div>
                                     </div>
                                 </a>
                             </div>
@@ -221,7 +228,9 @@
                                 <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0);" onclick="VisitMyEnquiries('Prospect');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
+                                        
+                                         <asp:Label ID="lblProspect" runat="server" Text="0"></asp:Label>
                                         <div class="desc">Prospect</div>
                                     </div>
                                 </a>
@@ -230,8 +239,10 @@
                                 <a class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
+                                        <asp:Label ID="lblWon" runat="server" Text="0"></asp:Label>
                                         <div class="desc">Won</div>
+                                        
                                     </div>
                                 </a>
                             </div>
@@ -239,8 +250,9 @@
                                 <a class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
+                                         <asp:Label ID="lblLost" runat="server" Text="0"></asp:Label>
                                         <div class="desc">Lost</div>
+                                       
                                     </div>
                                 </a>
                             </div>
@@ -248,19 +260,16 @@
                                 <a class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>
+                                        <asp:Label ID="lblCancelled" runat="server" Text="0"></asp:Label>
                                         <div class="desc">Cancelled</div>
+                                        
                                     </div>
                                 </a>
                             </div>
                         </div>
                     </div>
-                </div>
-
-            </div>
-
-
-
+                </div> 
+            </div> 
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption" style="font-size: 25px;">
@@ -269,16 +278,21 @@
                     <div class="actions" style="float: right;">
                         <div class="btn-group btn-group-devided" data-toggle="buttons">
                             <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px; font-size: 11px;">
-                                <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">Week
+                               <%-- <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">--%>
+                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel"   OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true"/>
+                                Week
                            
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                <input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">Month
+                                <%--<input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">--%>
+                                <asp:RadioButton ID="rbMonthF" runat="server" GroupName="Funnel"  OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" />
+                                Month
                            
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                <input name="leadFunnel" class="toggle" type="radio" value="Year" onchange="ShowLeadFunnel('Year');">Year
-                           
+                               <%-- <input name="leadFunnel" class="toggle" type="radio" value="Year" onchange="ShowLeadFunnel('Year');">--%>
+                                <asp:RadioButton ID="rbYearF" runat="server" GroupName="Funnel"  OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" />
+                                Year 
                             </label>
                         </div>
                     </div>
@@ -332,21 +346,21 @@
                                 <g>
                                     <path d="M174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,236.87035240905414A483.16965914395865,593.7128277905049,0,0,1,284,221.33333333333326A3.786666666666663,55.333333333333286,0,0,0,284,110.66666666666669A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,95.12964759094581" fill="rgb(104, 193, 130)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,232.88061079530988,165.99999999999997)" pointer-events="none">
-                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle">Won: 0</text>
+                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server"  id="lblWonF" >Won: 0</text>
                                     </g>
                                 </g>
                                 <g role="img" aria-label="Convert To Prospect; Value: 2">
                                     <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(217 30 24)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,123.08669335814801,165.99999999999997)" pointer-events="none">
-                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server" id="lblConvertToProspect">
+                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  >
                                             Convert To Prospect: 
                                         </text>
                                         
                                         <%--  <asp:Label ID="lblConvertToProspect" Text="52" runat="server" /> --%>
                                     </g>
                                      <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,145.08669335814801,165.99999999999997)" pointer-events="none">
-                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server" id="Text1">
-                                            2
+                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server" id="lblConvertToProspectF">
+                                            0
                                         </text>
                                          
                                     </g>
@@ -354,7 +368,7 @@
                                 <g role="img" aria-label="Newly Created; Value: 16" id="_dvtActiveElement180589916">
                                     <path d="M4.934393756608301,330.37507614415694A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,1.624923855843008A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,330.37507614415694A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A483.16965914395865,593.7128277905049,0,0,1,4.934393756608301,1.624923855843008" fill="rgb(35, 123, 177)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,41.92689374965195,165.99999999999997)" pointer-events="none">
-                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle">Newly Created: 16</text>
+                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server"  id="lblNewlyCreatedF">Newly Created: 0</text>
                                     </g>
                                 </g>
                             </g>

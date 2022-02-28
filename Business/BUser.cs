@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -285,6 +286,8 @@ namespace Business
                 Mail = Convert.ToString(userRow["Mail"]),
                 SystemCategoryID = Convert.ToInt16(userRow["SystemCategoryID"]),
                 ContactNumber = Convert.ToString(userRow["ContactNumber"]),
+                OTP = Convert.ToString(userRow["OTP"]),
+                OTPExpiry = Convert.ToDateTime(userRow["OTPExpiry"]),
 
                 DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"]),
                 Department = new PDMS_DealerDepartment()
@@ -300,7 +303,9 @@ namespace Business
                 Employee = new PDMS_DealerEmployee()
                 {
                     Name = Convert.ToString(userRow["Name"]),
-                    DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"])
+                    DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"]),
+                    ContactNumber= Convert.ToString(userRow["DealerContactNumber"]),
+                    Email= Convert.ToString(userRow["DealerEmailID"])
                 }
             };
         }
@@ -1072,13 +1077,13 @@ namespace Business
         /// <param name="oldPwd">string</param>
         /// <param name="newPwd">string</param>
         /// <param name="cnfmNewPwd">string</param>
-        public int ChangePassword(int userId, string oldPwd, string newPwd, string cnfmNewPwd)
+        public int ChangePassword(int userId, string oldPwd, string newPwd, string cnfmNewPwd,string PasswordType)
         {
             try
             {
                 DateTime tracerStartTime = DateTime.Now;
                 PUser user = GetUserDetails(userId);
-                ValidateChangePassword(user, oldPwd, newPwd, cnfmNewPwd);
+                ValidateChangePassword(user, oldPwd, newPwd, cnfmNewPwd, PasswordType);
                 user.IsFirstTimeLogin = false;
                 user.IsLocked = false;
                 user.IsEnabled = true;
@@ -1125,14 +1130,33 @@ namespace Business
                 throw new LMSFunctionalException(FunctionalErrorCode.AccountDisabled);
 
         }
-        private void ValidateChangePassword(PUser user, string oldPwd, string newPwd, string cnfmNewPwd)
+        private void ValidateChangePassword(PUser user, string oldPwd, string newPwd, string cnfmNewPwd, string PasswordType)
         {
-            if (!LMSHelper.DecodeString(user.PassWord).Equals(oldPwd))
-                throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdOldPwdIncorrect);
-            else if (!newPwd.Equals(cnfmNewPwd))
-                throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdNewAndConfirmPwdNotMatching);
-            else if (!CheckPasswordStandard(newPwd))
-                throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdStdNotMet);
+            if (PasswordType == "Reset")
+            {
+                if (user.OTPExpiry >= DateTime.Now)
+                {
+                    if (!LMSHelper.DecodeString(Convert.ToString(user.OTP)).Equals(oldPwd))
+                        throw new LMSFunctionalException(FunctionalErrorCode.InvalidOTP);
+                    else if (!newPwd.Equals(cnfmNewPwd))
+                        throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdNewAndConfirmPwdNotMatching);
+                    else if (!CheckPasswordStandard(newPwd))
+                        throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdStdNotMet);
+                }
+                else
+                {
+                    throw new LMSFunctionalException(FunctionalErrorCode.OTPTimeExpired);
+                }
+            }
+            else
+            {
+                if (!LMSHelper.DecodeString(user.PassWord).Equals(oldPwd))
+                    throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdOldPwdIncorrect);
+                else if (!newPwd.Equals(cnfmNewPwd))
+                    throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdNewAndConfirmPwdNotMatching);
+                else if (!CheckPasswordStandard(newPwd))
+                    throw new LMSFunctionalException(FunctionalErrorCode.ChangePwdStdNotMet);
+            }
         }
         private bool CheckPasswordStandard(string newPwd)
         {
@@ -1441,6 +1465,12 @@ namespace Business
             }
         }
 
- 
+
+
+        public List<PSubModuleChile> GetSubModuleChileByUserID(Int64 UserId)
+        {
+            string endPoint = "User/SubModuleChileByUserID?UserId=" + UserId;
+            return JsonConvert.DeserializeObject<List<PSubModuleChile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

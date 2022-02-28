@@ -252,7 +252,8 @@
         }
 
         .Grid th {
-            background-color: #d8d8d8;
+            background-color: #d8d8d8;       
+          /*   background-color: #cdbaba70;*/
             color: black;
             font: message-box;
             font-weight: bold;
@@ -647,7 +648,8 @@
         .table > tbody > tr > td {
             line-height: 1.42857143;
             vertical-align: top;
-            border-top: 1px solid #ddd;
+       /*     border-top: 1px solid #ddd;*/
+            border-top: 1px solid #cdbaba70;
             font-weight: initial;
             text-align: none;
         }
@@ -1653,7 +1655,7 @@
                         <asp:Label ID="lblPageName" runat="server"></asp:Label>
                             <div class="dropdown-content">
                                 <a href="/Account/MyProfile"><i class="fa fa-user"></i>&nbsp;&nbsp;My Profile</a>
-                                <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company Profile</a>
+                                <a href="/Account/CompanyProfile"><i class="fa fa-building"></i>&nbsp;&nbsp;Company/Dealer Profile</a>
                                 <a href="/Account/ChangePassword"><i class="fa fa-key"></i>&nbsp;&nbsp;Change Password</a>
 
                                 <div class="dropdown-divider"></div>
@@ -1792,7 +1794,7 @@
                                     <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
                                     <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
                                     <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Cold Visits</a>
-                                    <a href="#"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Add Followup</a>
+                                    <a href="/ViewPreSale/ManageLeadFoloowUps.aspx"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Manage Followup</a>
                                 </div>
                             </div>
 
@@ -1822,10 +1824,10 @@
             </div>
             <asp:Label ID="lblMsg" runat="server" Text="" Visible="false"></asp:Label>
 
-
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-
+           <%-- <div style="background-image:url('/Ajax/Images/bg01.jpg');height:100%">--%>
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+          <%--  </div>--%>
 
         </div>
     </form>

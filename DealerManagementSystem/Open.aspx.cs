@@ -60,6 +60,21 @@ namespace DealerManagementSystem
                     new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
                 }
             }
-        } 
+        }
+
+        protected void BtnCreateQuotation_Click(object sender, EventArgs e)
+        {
+            //List<> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
+            //string CustomerCode = Customer[0].CustomerCode;
+            //if (string.IsNullOrEmpty(CustomerCode))
+            //{
+            //CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+            string QuotationNo=new SapIntegration.SQuotation().getQuotationIntegration();
+            //if (!string.IsNullOrEmpty(CustomerCode))
+            //{
+            //    new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
+            //}
+            //}
+        }
     }
 }

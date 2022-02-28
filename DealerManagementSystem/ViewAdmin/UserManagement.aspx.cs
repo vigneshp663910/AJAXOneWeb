@@ -27,6 +27,22 @@ namespace DealerManagementSystem.ViewAdmin
                 Session["PModuleAccess"] = value;
             }
         }
+
+        public List<PSubModuleChile> SubModuleChile
+        {
+            get
+            {
+                if (Session["SubModuleChile"] == null)
+                {
+                    Session["SubModuleChile"] = new List<PSubModuleChile>();
+                }
+                return (List<PSubModuleChile>)Session["SubModuleChile"];
+            }
+            set
+            {
+                Session["SubModuleChile"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » User');</script>");
@@ -459,6 +475,11 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessage.Text = "State is not Updated Successfully";
                 lblMessage.ForeColor = Color.Red;
             }
+
+        }
+         
+        protected void gvSubModuleChild_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
 
         }
     }

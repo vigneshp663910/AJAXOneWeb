@@ -161,6 +161,7 @@ namespace Properties
     [Serializable]
     public class PDMS_SalesInvoice
     {
+        public string k_id { get; set; }
         public long InvoiceID { get; set; }
         public long HeaderCount { get; set; }
         public PDMS_Dealer Dealer { get; set; }

@@ -35,6 +35,7 @@ namespace Properties
         public PContactDetail ContactDetail { get; set; }
          public List<PUserModuleAccess> AccessModules { get; set; }
         public List<PModuleAccess> DMSModules { get; set; }
+        public List<PSubModuleChile> SubModuleChile { get; set; }
         public PUserType UserType { get; set; }
         public string EnableDisableReason { get; set; }
         public bool IsUpdate { get; set; }
@@ -49,7 +50,8 @@ namespace Properties
         public List<PDashboard> Dashboard { get; set; }
 
         public  PUsersDesignation UsersDesignation { get; set; }
-
+        public string OTP { get; set; }
+        public DateTime OTPExpiry { get; set; }
         #endregion
     }
      [Serializable]
@@ -106,6 +108,7 @@ namespace Properties
         public bool IsActive { get; set; }
         #endregion
     }
+    [Serializable]
     public class PPlant
     {
         #region Properties
@@ -160,7 +163,17 @@ namespace Properties
 
         #endregion
     }
-    
+
+    [Serializable]
+    public class PSubModuleChile
+    {
+        #region Properties
+        public int SubModuleChildID { get; set; }
+        public PSubModuleAccess SubModule { get; set; }
+        public string ChildName { get; set; } 
+        #endregion
+    }
+
 
     [Serializable]
     public class PAccount
