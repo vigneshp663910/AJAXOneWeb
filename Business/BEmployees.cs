@@ -63,7 +63,7 @@ namespace Business
                                 EmployeeName = Convert.ToString(EmployeeRow["ReportingToEmployeeName"])
                             };
                             Employee.DmsEmp = new PDMS_DealerEmployee();
-                            Employee.DmsEmp.LoginUserName = Convert.ToString(EmployeeRow["DMSUserName"]);
+                            //Employee.DmsEmp.LoginUserName = Convert.ToString(EmployeeRow["DMSUserName"]);
                             Employee.DmsEmp.DealerEmployeeRole = EmployeeRow["DealerEmployeeRoleID"] == DBNull.Value ? null : new PDMS_DealerEmployeeRole()
                             {
                                 DealerEmployeeRoleID = Convert.ToInt64(EmployeeRow["DealerEmployeeRoleID"]),

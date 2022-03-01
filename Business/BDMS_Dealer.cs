@@ -171,7 +171,7 @@ namespace Business
             try
             {
                 DbParameter DealerEmployeeID = provider.CreateParameter("DealerEmployeeID", Emp.DealerEmployeeID, DbType.Int32);
-                 DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
+                 //DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
                 DbParameter Name = provider.CreateParameter("Name", Emp.Name.ToUpper(), DbType.String);
                 DbParameter FatherName = provider.CreateParameter("FatherName", Emp.FatherName.ToUpper(), DbType.String);
                 DbParameter DOB = provider.CreateParameter("DOB", Emp.DOB, DbType.DateTime);
@@ -218,9 +218,9 @@ namespace Business
                     DbParameter ChequeCopyID = provider.CreateParameter("ChequeCopyID", Emp.ChequeCopy.AttachedFileID != 0 ? Emp.ChequeCopy.AttachedFileID : InsertOrUpdateDealerEmployeeAttachedFile(Emp.ChequeCopy, UserID), DbType.Int64);
 
 
-                    DbParameter[] Params = new DbParameter[30] { DealerEmployeeID, Name, FatherName, PhotoID, DOB, ContactNumber,ContactNumber1, Email, Address, StateID, DistrictID, TehsilID, Village,BloodGroupID,EmergencyContactNumber
+                    DbParameter[] Params = new DbParameter[29] { DealerEmployeeID, Name, FatherName, PhotoID, DOB, ContactNumber,ContactNumber1, Email, Address, StateID, DistrictID, TehsilID, Village,BloodGroupID,EmergencyContactNumber
                      ,Location,AadhaarCardNo,AdhaarCardCopyFrontSideID,AdhaarCardCopyBackSideID,EqucationalQualificationID,TotalExperience,PANNo,PANCardCopyID
-                     ,BankName,AccountNo,IFSCCode,ChequeCopyID,UserIDP,OutValueDParam,LoginUserName};
+                     ,BankName,AccountNo,IFSCCode,ChequeCopyID,UserIDP,OutValueDParam};
 
                     provider.Insert("ZDMS_InsertOrUpdateDealerEmployee", Params);
                     scope.Complete();
@@ -847,10 +847,11 @@ namespace Business
                 DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", Emp.DealerDesignation == null ? (int?)null : Emp.DealerDesignation.DealerDesignationID, DbType.Int32);
                 DbParameter ReportingTo = provider.CreateParameter("ReportingTo", Emp.ReportingTo == null ? (int?)null : Emp.ReportingTo.DealerEmployeeID, DbType.Int32); 
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
 
-                    DbParameter[] Params = new DbParameter[9] { DealerEmployeeID, DealerID, OfficeCodeID, DateOfJoining, SAPEmpCode, DealerDepartmentID, DealerDesignationID, ReportingTo, UserIDP };
+                    DbParameter[] Params = new DbParameter[10] { DealerEmployeeID, DealerID, OfficeCodeID, DateOfJoining, SAPEmpCode, DealerDepartmentID, DealerDesignationID, ReportingTo, UserIDP, LoginUserName };
                     provider.Insert("ZDMS_InsertDealerEmployeeRole", Params);
                     scope.Complete();
                 }
