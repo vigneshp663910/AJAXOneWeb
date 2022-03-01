@@ -13,12 +13,15 @@ namespace DealerManagementSystem.Account
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('My Profile');</script>");
             if (!IsPostBack)
             {
+               
+                //FillDealerEmployee(1015);
                 //FillDealerEmployee(1450);
-                FillDealerEmployee(1015);
+
+                FillDealerEmployee(PSession.User.DealerEmployeeID); // 1450 - Murugeshan KN
 
                 if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
                 {
-                    FillDealerEmployee(1450);
+                    //FillDealerEmployee(PSession.User.DealerEmployeeID);
                     //FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
                     //FillDealerEmployeeRole(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
                 }
@@ -29,20 +32,29 @@ namespace DealerManagementSystem.Account
             void FillDealerEmployee(int DealerEmployeeID)
             {
                 PDMS_DealerEmployee Emp = new BDMS_Dealer().GetDealerEmployeeByDealerEmployeeID(DealerEmployeeID);
-                lblFullName.Text = Emp.Name;
-                //lblFatherName.Text = Emp.FatherName;
-                //lblDOB.Text = Convert.ToString(Emp.DOB);
-                //lbDesignation.Text = Emp.DealerEmployeeRole.DealerDesignation.DealerDesignation;
+                lblFullName.Text = Emp.Name;              
                 lblAddress.Text = Emp.Address;
 
-                lblState.Text = Emp.State.State;
-                lblCity.Text = Emp.District.District;
-                //lblCity.Text = Emp.Tehsil.Tehsil;
+                if (Emp.State != null)
+                {
+                    lblState.Text = Emp.State.State;
+                    if (Emp.District != null)
+                    {
+                        lblDistrict.Text = Emp.District.District;
+                        if (Emp.Tehsil != null)
+                        {
+                            lblTehsil.Text = Emp.Tehsil.Tehsil;
+                        }
+                    }
+                }             
+                lblVillage.Text = Emp.Village;
 
                 lblEmail.Text = Emp.Email;
                 lblContactNo1.Text = Emp.ContactNumber;
                 lblContactNo2.Text = Emp.ContactNumber1;
                 lblEmergencyContact.Text = Emp.EmergencyContactNumber;
+                lblEmpID.Text = Emp.DealerEmployeeID.ToString();
+                
             }
         }
     }

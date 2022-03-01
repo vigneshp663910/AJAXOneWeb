@@ -78,22 +78,40 @@ namespace DealerManagementSystem.Account
         protected global::System.Web.UI.WebControls.Label lblState;
 
         /// <summary>
-        /// lblCountry control.
+        /// lblDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCountry;
+        protected global::System.Web.UI.WebControls.Label lblDistrict;
 
         /// <summary>
-        /// lblPincode control.
+        /// lblTehsil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPincode;
+        protected global::System.Web.UI.WebControls.Label lblTehsil;
+
+        /// <summary>
+        /// lblVillage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVillage;
+
+        /// <summary>
+        /// lblLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocation;
 
         /// <summary>
         /// lblEmail control.

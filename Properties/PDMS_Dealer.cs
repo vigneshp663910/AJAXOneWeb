@@ -103,6 +103,7 @@ namespace Properties
 
         public string EmergencyContactNumber { get; set; }
         public PDMS_BloodGroup BloodGroup { get; set; }
+        public object Country { get; set; }
     }
     [Serializable]
     public class PDMS_DealerEmployeeAttachedFile
