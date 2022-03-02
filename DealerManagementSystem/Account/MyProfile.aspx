@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-9"></div>
                     <div class="col-md-3 text-right">
-                        <label>Full Name</label>
+                        <label>Name</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblFullName" runat="server" CssClass="label"></asp:Label>
@@ -33,29 +33,49 @@
                     <div class="col-md-3">
                         <asp:Label ID="lblAddress" runat="server" CssClass="label"></asp:Label>
                     </div>
+
                     <div class="col-md-3 text-right">
                         <label>City</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblCity" runat="server" CssClass="label"></asp:Label>
                     </div>
+
                     <div class="col-md-3 text-right">
                         <label>State</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
                     </div>
+
                     <div class="col-md-3 text-right">
-                        <label>Country</label>
+                        <label>District</label>
                     </div>
                     <div class="col-md-3">
-                        <asp:Label ID="lblCountry" runat="server" CssClass="label"></asp:Label>
+                        <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
                     </div>
+
                     <div class="col-md-3 text-right">
-                        <label>Pincode</label>
+                        <label>Tehsil</label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <asp:Label ID="lblTehsil" runat="server" CssClass="label"></asp:Label>
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Village</label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <asp:Label ID="lblVillage" runat="server" CssClass="label"></asp:Label>
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Location</label>
                     </div>
                     <div class="col-md-3">
-                        <asp:Label ID="lblPincode" runat="server" CssClass="label"></asp:Label>
+                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-3 text-right">
                         <label>Email</label>
