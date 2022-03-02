@@ -136,23 +136,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Quotation")
             {
-                FldQuotation.Visible = true;
-                Divtab.Visible = false;
-                fillProduct(LeadID);
+                MPE_Quotation.Show();
+                UC_Quotation.FillMaster();
             }
         }
   
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
 
-
+            MPE_Effort.Show();
             string Message = UC_Effort.ValidationEffort();
             lblMessage.ForeColor = Color.Red;
             lblMessage.Visible = true;
             if (!string.IsNullOrEmpty(Message))
-            {
-                MPE_Effort.Show();
-                lblMessage.Text = Message;
+            { 
+                lblMessageEffort.Text = Message;
                 return;
             }
             PLeadEffort Lead = new PLeadEffort();
@@ -160,6 +158,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead.LeadEffortID = 0;
             Lead.LeadID = LeadID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageEffort.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Effort.Hide();
             fillEffort(Lead.LeadID);
         }
         protected void btnSaveExpense_Click(object sender, EventArgs e)
@@ -167,11 +171,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             MPE_Expense.Show();
             string Message = UC_Expense.ValidationExpense();
             lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            MPE_Expense.Show();
+            lblMessage.Visible = true; 
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessage.Text = Message;
+                lblMessageExpense.Text = Message;
                 return;
             }
             PLeadExpense Lead = new PLeadExpense();
@@ -179,6 +182,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead.LeadExpenseID = 0;
             Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Expense", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageExpense.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Expense.Hide();
             fillExpense(Lead.LeadID);
         }
         protected void lblFinancialAdd_Click(object sender, EventArgs e)
@@ -494,6 +503,31 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
         }
 
+        protected void BtnSaveQuotation_Click(object sender, EventArgs e)
+        {
+            MPE_Quotation.Show();
+            string Message = UC_Financial.ValidationFinancial();
+            lblMessageQuotation.ForeColor = Color.Red;
+            lblMessageQuotation.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageQuotation.Text = Message;
+                return;
+            }
+            PSalesQuotation Sq = new PSalesQuotation();
+            Sq = UC_Quotation.ReadSalesQuotation();
+            Sq.Lead = new PLead { LeadID = Lead.LeadID }; 
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq)).Data);
+            if (s == "0")
+            {
+                lblMessageQuotation.Text = "Something went wrong try again";
+                return;
+            }
+            else
+            {
 
+            }
+            MPE_Quotation.Hide(); 
+        }
     }
 }

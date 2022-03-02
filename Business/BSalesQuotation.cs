@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -717,6 +718,44 @@ namespace Business
 
             //}
             return Ws;
+        }
+
+        public List<PSalesQuotation> GetSalesQuotationBasic(long? SalesQuotationID, long? RefQuotationID, long? LeadID, DateTime? RefQuotationDate
+          , string QuotationNo, DateTime? QuotationDateFrom, DateTime? QuotationDateTo, int? QuotationTypeID, int? StatusID, int? DealerID, string CustomerCode)
+        {
+            string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID + "&RefQuotationID=" + RefQuotationID + "&LeadID=" + LeadID 
+                + "&RefQuotationDate=" + RefQuotationDate                + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom 
+                + "&QuotationDateTo=" + QuotationDateTo + "&QuotationTypeID=" + QuotationTypeID + "&StatusID=" + StatusID
+                + "&DealerID=" + DealerID + "&CustomerCode=" + CustomerCode;
+            return JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
+        public PSalesQuotation GetSalesQuotationByID(long SalesQuotationID)
+        {
+            string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID;
+            return JsonConvert.DeserializeObject<PSalesQuotation>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+
+        public List<PSalesQuotationType> GetSalesQuotationType(int? QuotationTypeID, string QuotationType)
+        {
+            string endPoint = "SalesQuotation/Type?QuotationTypeID=" + QuotationTypeID + "&QuotationType=" + QuotationType;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSalesQuotationStatus> GetSalesQuotationStatus(int? SaleQuotationStatusID, string Status)
+        {
+            string endPoint = "SalesQuotation/Status?SaleQuotationStatusID=" + SaleQuotationStatusID + "&Status=" + Status;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSalesQuotationUserStatus> GetSalesQuotationUserStatus(int? SalesQuotationUserStatusID, string Status)
+        {
+            string endPoint = "SalesQuotation/UserStatus?SalesQuotationUserStatusID=" + SalesQuotationUserStatusID + "&Status=" + Status;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationUserStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSaleQuotationRejectionReason> GetSaleQuotationRejectionReason(int? SaleQuotationRejectionReasonID, string Reason)
+        {
+            string endPoint = "SalesQuotation/RejectionReason?SaleQuotationRejectionReasonID=" + SaleQuotationRejectionReasonID + "&Reason=" + Reason;
+            return JsonConvert.DeserializeObject<List<PSaleQuotationRejectionReason>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

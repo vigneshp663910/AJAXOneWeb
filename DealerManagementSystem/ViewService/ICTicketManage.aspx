@@ -13,7 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="YDMS/YDMS_Scripts.js"></script>
+    <style>
+    .report-container {
+
+    }
+    
+    </style>
 </asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <%--   <asp:UpdatePanel ID="upManageSubContractorASN" runat="server">
         <ContentTemplate>
@@ -33,59 +40,59 @@
         </tr>
     </table>
 
-    <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%">
+    <table id="txnHistory1:panelGridid" class="report-container" style="height: 100%; width: 100%">
         <tr>
             <td>
                 <div class="boxHead">
                     <div class="logheading">Filter : IC Ticket Manage </div>
-                    <div style="float: right; padding-top: 0px">
+                    <div class="order-show">
                         <a href="javascript:collapseExpand();">
                             <img id="imageID" runat="server" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="22" width="22" /></a>
                     </div>
                 </div>
-                <asp:Panel ID="Panel2" runat="server">
+                <asp:Panel ID="Panel2" CssClass="report-panel" runat="server">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label1" runat="server" Text="Dealer Code" />
-                                <asp:DropDownList ID="ddlDealerCode" runat="server" />
+                                <asp:DropDownList ID="ddlDealerCode" CssClass="form-control" runat="server" />
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label5" runat="server" CssClass="label" Text="Customer Code"></asp:Label>
-                                <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="input"></asp:TextBox>
+                                <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="input form-control"></asp:TextBox>
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="lblPlant" runat="server" CssClass="label" Text="IC Ticket "></asp:Label>
-                                <asp:TextBox ID="txtICTicketNumber" runat="server" CssClass="input"></asp:TextBox>
+                                <asp:TextBox ID="txtICTicketNumber" runat="server" CssClass="input form-control"></asp:TextBox>
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label3" runat="server" CssClass="label" Text="IC Ticket Date From "></asp:Label>
-                                <asp:TextBox ID="txtICLoginDateFrom" runat="server" CssClass="hasDatepicker input" AutoComplete="Off"></asp:TextBox>
+                                <asp:TextBox ID="txtICLoginDateFrom" runat="server" CssClass="hasDatepicker input form-control" AutoComplete="Off"></asp:TextBox>
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICLoginDateFrom" PopupButtonID="txtICLoginDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
                                 <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICLoginDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label4" runat="server" CssClass="label" Text="IC Ticket Date To"></asp:Label>
-                                <asp:TextBox ID="txtICLoginDateTo" runat="server" CssClass="hasDatepicker input" AutoComplete="Off"></asp:TextBox>
+                                <asp:TextBox ID="txtICLoginDateTo" runat="server" CssClass="hasDatepicker input form-control" AutoComplete="Off"></asp:TextBox>
                                 <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICLoginDateTo" PopupButtonID="txtICLoginDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                                 <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICLoginDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label6" runat="server" Text="Status" />
-                                <asp:DropDownList ID="ddlStatus" runat="server" />
+                                <asp:DropDownList ID="ddlStatus" CssClass="form-control" runat="server" />
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label11" runat="server" CssClass="label" Text="Service Type" />
-                                <asp:DropDownList ID="ddlServiceType" runat="server" CssClass="TextBox" />
+                                <asp:DropDownList ID="ddlServiceType" runat="server" CssClass="TextBox form-control" />
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                            <div class="col-md-4 col-sm-6">
                                 <asp:Label ID="Label2" runat="server" Text="Division" />
-                                <asp:DropDownList ID="ddlDivision" runat="server" />
+                                <asp:DropDownList ID="ddlDivision" CssClass="form-control" runat="server" />
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align: right; vertical-align: bottom; padding-top: 10px;">
+                            <div class="col-md-12" style="text-align: right; vertical-align: bottom; padding-top: 10px;">
                                 <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
                                 &nbsp;
-                                                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButtonRight" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" />
+                                 <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButtonRight" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" />
                             </div>
                         </div>
                     </div>
@@ -99,7 +106,7 @@
             <div class="rf-p-b " id="txnHistory:j_idt1289_body">
                 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
                 <div id="divICTicketManage" runat="server">
-                    <table id="txnHistory:panelGridid" style="height: 100%; width: 100%">
+                    <table id="txnHistory:panelGridid" style="height: 100%; width: 100%" class="report-container">
                         <tr>
                             <td>
                                 <span id="txnHistory1:refreshDataGroup">

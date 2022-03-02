@@ -10,20 +10,30 @@ namespace Properties
     public class PSalesQuotation
     {
         public long QuotationID { get; set; }
+
+        public string RefQuotationNo { get; set; }
+        public DateTime RefQuotationDate { get; set; }
+
         public string QuotationNo { get; set; }
-        public DateTime QuotationDate { get; set; }
+        public DateTime? QuotationDate { get; set; }
         public DateTime? RequestedDeliveryDate { get; set; }
 
-        public PSaleQuotationType QuotationType { get; set; }
-        public PSaleQuotationStatus Status { get; set; }
-        public PSaleQuotationRejectionReason RejectionReason { get; set; }
+       
 
-        public DateTime? ValidDate { get; set; }
+        public PSalesQuotationType QuotationType { get; set; }
+        public PSalesQuotationStatus Status { get; set; }
+        public PSaleQuotationRejectionReason RejectionReason { get; set; }
+        public PSaleQuotationRejectionReason UserStatusRemarks { get; set; }
+
+        public DateTime? ValidFrom { get; set; }
         public DateTime? ValidTo { get; set; }
 
-        public decimal NetValue { get; set; }
-        public DateTime? PriceDate { get; set; }
+      
+        public DateTime? PricingDate { get; set; }
         public PPriceGroup PriceGroup { get; set; }
+        public PSalesQuotationUserStatus UserStatus { get; set; } 
+
+        public decimal? NetValue { get; set; }
         //Ajax product   
         public PDMS_Customer BillTo { get; set; }
         public PDMS_Customer ShipTo { get; set; }
@@ -32,13 +42,19 @@ namespace Properties
         public PSalesQuotationFinancier Financier { get; set; }
         public PSalesQuotationItem QuotationItem { get; set; }
         public List<PSalesQuotationItem> QuotationItems { get; set; }
-        public PLead Lead { get; set; }
-        public PSaleQuotationNote Note { get; set; } 
 
+        public List<PSalesQuotationCompetitor> Competitor { get; set; }
+
+        public PLead Lead { get; set; }
+        public PSalesQuotationNote Note { get; set; }  
         public string SalesOrderNo { get; set; }
         public DateTime? SalesOrderDate { get; set; }
         public string InvoiceNo { get; set; }
-        public Decimal? InvoiceValue { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+
+
+        public PUser CreatedBy { get; set; }
+
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
@@ -100,6 +116,7 @@ namespace Properties
         public Decimal NetValue { get; set; }
         public PPlant Plant { get; set; }
         public PSaleQuotationRejectionReason RejectionReason { get; set; }
+
     }
 
     [Serializable]
@@ -108,7 +125,7 @@ namespace Properties
         public long QuotationFinancierID { get; set; }
         public long QuotationID { get; set; }
         //Financier 
-        public PDMS_Financier Financier { get; set; }
+        public PBankName BankName { get; set; }
         public PDMS_IncoTerm IncoTerm { get; set; }
         public PDMS_PaymentTerm CreditDays { get; set; }
         public string DoNumber { get; set; }
@@ -119,36 +136,60 @@ namespace Properties
 
         public Decimal? AdvanceAmount { get; set; }
         public Decimal? FinancierAmount { get; set; }
+        public PUser CreatedBy { get; set; }
 
-        public PMake Competitor { get; set; }
-        public PProduct CompetitorProduct { get; set; }
-        public PProductType CompetitorProductType { get; set; }
 
         //  public string BenificiaryOfDO { get; set; }
         //  public Decimal? SubventionAmount { get; set; }
         //  public string BackToBackDoEndorsedToAjax { get; set; }
         //  public string TransportationAndInsurance { get; set; }
     }
-    public class PSaleQuotationStatus
+
+    [Serializable]
+    public class PSalesQuotationCompetitor
     {
-        public Int16 SaleQuotationStatusID { get; set; }
+
+        public PMake Competitor { get; set; }
+        public PProduct CompetitorProduct { get; set; }
+        public PProductType CompetitorProductType { get; set; }
+    }
+
+    [Serializable]
+    public class PSalesQuotationType
+    {
+        public Int32 QuotationTypeID { get; set; }
+        public string QuotationType { get; set; }
+    }
+    public class PSalesQuotationStatus
+    {
+        public Int32 SaleQuotationStatusID { get; set; }
+        public string Status { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationUserStatus
+    {
+        public Int32 SalesQuotationUserStatusID { get; set; }
         public string Status { get; set; }
     }
 
     [Serializable]
     public class PSaleQuotationRejectionReason
     {
+        public Int32 SalesQuotationRejectionReasonID { get; set; }
+        public string Reason { get; set; }
     }
-    public class PSaleQuotationUserStatus
+
+    [Serializable]
+    public class PSalesQuotationNote
     {
     }
-    public class PSaleQuotationType
-    {
-    }
-    public class PSaleQuotationNote
-    {
-    }
-    public class PPriceGroup
-    {
-    } 
+
+
+  
+
+   
+
+
+    
+    
 }
