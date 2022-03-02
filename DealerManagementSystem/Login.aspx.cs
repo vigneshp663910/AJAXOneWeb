@@ -121,7 +121,7 @@ namespace DealerManagementSystem
                 {
                     Session["LoginID"] = txtUsername.Text;
                     Response.Redirect("ViewAdmin/UserList.aspx");
-                    //Response.Redirect("/Account/LoginAs.aspx");                 
+                    //Response.Redirect("Account/LoginAs.aspx");                 
                 }
                 userDetails = new BUser().AuthenticateUser(txtUsername.Text, txtPassword.Text);
                 if (userDetails.PasswordExpiryDate < DateTime.Now)

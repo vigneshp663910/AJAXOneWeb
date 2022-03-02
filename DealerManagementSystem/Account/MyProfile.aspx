@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-9"></div>
                     <div class="col-md-3 text-right">
-                        <label>Full Name</label>
+                        <label>Name</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblFullName" runat="server" CssClass="label"></asp:Label>

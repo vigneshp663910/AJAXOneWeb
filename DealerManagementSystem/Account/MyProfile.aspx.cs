@@ -48,8 +48,7 @@ namespace DealerManagementSystem.Account
                     }
                 }             
                 lblVillage.Text = Emp.Village;
-
-                lblEmail.Text = Emp.Email;
+                lblEmail.Text = "<a href=MAILTO:" + Emp.Email + '>' + Emp.Email + "</a>";
                 lblContactNo1.Text = Emp.ContactNumber;
                 lblContactNo2.Text = Emp.ContactNumber1;
                 lblEmergencyContact.Text = Emp.EmergencyContactNumber;
