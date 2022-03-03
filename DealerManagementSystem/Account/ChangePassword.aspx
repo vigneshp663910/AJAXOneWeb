@@ -19,7 +19,7 @@
                         <label>Current Password</label>
                     </div>
                     <div class="col-md-2">                
-                         <asp:TextBox ID="txtCurrentPassword" runat="server" CssClass="form-control" Width="100%" TextMode="Password"/>
+                         <asp:TextBox ID="txtCurrentPassword" runat="server" CssClass="form-control" TextMode="Password"/>
                     </div>
                     <div class="col-md-7">
                     </div>
@@ -28,7 +28,7 @@
                         <label>New Password</label>
                     </div>
                     <div class="col-md-2">           
-                        <asp:TextBox ID="txtNewPassword" runat="server" CssClass="form-control" Width="100%" TextMode="Password"/>
+                        <asp:TextBox ID="txtNewPassword" runat="server" CssClass="form-control" TextMode="Password"/>
                     </div>
                     <div class="col-md-7">
                     </div>
@@ -37,7 +37,7 @@
                         <label>Re-Type New Password</label>
                     </div>
                     <div class="col-md-2">                     
-                        <asp:TextBox ID="txtReTypeNewPassword" runat="server" CssClass="form-control" Width="100%" TextMode="Password" />
+                        <asp:TextBox ID="txtReTypeNewPassword" runat="server" CssClass="form-control" TextMode="Password" />
                     </div>
                     <div class="col-md-7">
                         <div class="col-md-2 text-right ">
