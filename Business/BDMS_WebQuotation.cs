@@ -150,12 +150,12 @@ namespace Business
             DbParameter InvoiceValue = provider.CreateParameter("InvoiceValue", SalesOrder.InvoiceValue, DbType.Decimal);
             DbParameter DoNumber = provider.CreateParameter("DoNumber", SalesOrder.DoNumber, DbType.String);
             DbParameter DoDate = provider.CreateParameter("DoDate", SalesOrder.DoDate, DbType.DateTime);
-            DbParameter PaymentTermID = provider.CreateParameter("TermsOfPaymentID", SalesOrder.CreditDays == null ? (int?)null : SalesOrder.CreditDays.PaymentTermID, DbType.Int32);
+            DbParameter PaymentTermID = provider.CreateParameter("TermsOfPaymentID", SalesOrder.PaymentTerms == null ? (int?)null : SalesOrder.PaymentTerms.PaymentTermsID, DbType.Int32);
 
             DbParameter DoAmount = provider.CreateParameter("DoAmount", SalesOrder.DoAmount, DbType.Decimal);
             DbParameter MarginMoney = provider.CreateParameter("MarginMoney", SalesOrder.MarginMoney, DbType.Decimal);
 
-            DbParameter IncoTermID = provider.CreateParameter("IncoTermID", SalesOrder.IncoTerm == null ? (int?)null : SalesOrder.IncoTerm.IncoTermID, DbType.Int32);
+            DbParameter IncoTermID = provider.CreateParameter("IncoTermID", SalesOrder.IncoTerms == null ? (int?)null : SalesOrder.IncoTerms.IncoTermsID, DbType.Int32);
             DbParameter AdvanceAmount = provider.CreateParameter("AdvanceAmount", SalesOrder.AdvanceAmount, DbType.Decimal);
             //  DbParameter FinancierAmount = provider.CreateParameter("FinancierAmount", SalesOrder.FinancierAmount, DbType.Decimal);
             DbParameter BenificiaryOfDO = provider.CreateParameter("BenificiaryOfDO", SalesOrder.BenificiaryOfDO, DbType.String);
@@ -364,11 +364,11 @@ namespace Business
                             W.InvoiceValue = dr["InvoiceValue"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["InvoiceValue"]);
                             W.DoNumber = Convert.ToString(dr["DoNumber"]);
                             W.DoDate = dr["DoDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DoDate"]);
-                            W.CreditDays = dr["TermsOfPaymentID"] == DBNull.Value ? null : new PDMS_PaymentTerm() { PaymentTermID = Convert.ToInt32(dr["TermsOfPaymentID"]), Description = Convert.ToString(dr["PaymentTermDescription"]) };
+                            W.PaymentTerms = dr["TermsOfPaymentID"] == DBNull.Value ? null : new PPaymentTerms() { PaymentTermsID = Convert.ToInt32(dr["TermsOfPaymentID"]), Description = Convert.ToString(dr["PaymentTermDescription"]) };
                             W.DoAmount = dr["DoAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["DoAmount"]);
                             W.MarginMoney = dr["MarginMoney"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["MarginMoney"]);
                             W.ModeOfBilling = dr["DiscountTypeID"] == DBNull.Value ? null : new PDMS_DiscountType() { DiscountTypeID = Convert.ToInt32(dr["DiscountTypeID"]), DiscountType = Convert.ToString(dr["DiscountType"]) };
-                            W.IncoTerm = dr["IncoTermID"] == DBNull.Value ? null : new PDMS_IncoTerm() { IncoTermID = Convert.ToInt32(dr["IncoTermID"]), Description = Convert.ToString(dr["IncoTermDescription"]) };
+                            W.IncoTerms = dr["IncoTermsID"] == DBNull.Value ? null : new PIncoTerms() { IncoTermsID = Convert.ToInt32(dr["IncoTermID"]), Description = Convert.ToString(dr["IncoTermDescription"]) };
                             W.AdvanceAmount = dr["AdvanceAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["AdvanceAmount"]);
                             //    W.FinancierAmount = dr["FinancierAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["FinancierAmount"]);
                             W.BenificiaryOfDO = Convert.ToString(dr["BenificiaryOfDO"]);
@@ -687,7 +687,7 @@ namespace Business
                             W.DoNumber = Convert.ToString(dr["DoNumber"]);
                             W.DoDate = dr["DoDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DoDate"]);
                             W.DoAmount = dr["DoAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["DoAmount"]);
-                            W.CreditDays = new PDMS_PaymentTerm() { PaymentTerm = Convert.ToString(dr["PaymentTermDescription"]) };
+                            W.PaymentTerms = new PPaymentTerms() { PaymentTerms = Convert.ToString(dr["PaymentTermDescription"]) };
                             W.AdvanceAmount = dr["AdvanceAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["AdvanceAmount"]);
                             W.FreightAmount = dr["FreightAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["FreightAmount"]);
                             W.InvoiceValue = dr["InvoiceValue"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["InvoiceValue"]);
@@ -703,7 +703,7 @@ namespace Business
 
                             W.Usage = new PDMS_MainApplication() { MainApplication = Convert.ToString(dr["MainApplication"]) };
                             W.ShipTo = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["ShipTo"]) };
-                            W.IncoTerm =  new PDMS_IncoTerm() {   Description = Convert.ToString(dr["IncoTermDescription"]) };
+                            W.IncoTerms =  new PIncoTerms() {   Description = Convert.ToString(dr["IncoTermDescription"]) };
                             W.Financier = new PDMS_Financier() { FinancierCode = Convert.ToString(dr["FinancierCode"]) };
                             W.BenificiaryOfDO = Convert.ToString(dr["BenificiaryOfDO"]);
                             W.SubventionAmount = dr["SubventionAmount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["SubventionAmount"]);

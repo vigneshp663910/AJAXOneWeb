@@ -17,9 +17,9 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-         public List<PDMS_IncoTerm> GetIncoTerm(int? IncoTermID, string IncoTerm)
+         public List<PIncoTerms> GetIncoTerm(int? IncoTermID, string IncoTerm)
         {
-            List<PDMS_IncoTerm> IncoTermS = new List<PDMS_IncoTerm>();
+            List<PIncoTerms> IncoTermS = new List<PIncoTerms>();
             DbParameter DiscountTypeIDP = provider.CreateParameter("IncoTermID", IncoTermID, DbType.Int32);
             DbParameter DiscountTypeP = provider.CreateParameter("IncoTerm", string.IsNullOrEmpty(IncoTerm) ? null : IncoTerm, DbType.String);
             DbParameter[] Params = new DbParameter[2] { DiscountTypeIDP, DiscountTypeP };
@@ -31,10 +31,10 @@ namespace Business
                     {
                         foreach (DataRow dr in ds.Tables[0].Rows)
                         {
-                            IncoTermS.Add(new PDMS_IncoTerm()
+                            IncoTermS.Add(new PIncoTerms()
                             {
-                                IncoTermID = Convert.ToInt32(dr["IncoTermID"]),
-                                IncoTerm = Convert.ToString(dr["IncoTerm"]),
+                                IncoTermsID = Convert.ToInt32(dr["IncoTermsID"]),
+                                IncoTerms = Convert.ToString(dr["IncoTerms"]),
                                 Description = Convert.ToString(dr["Description"])
                             });
                         }

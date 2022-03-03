@@ -6,16 +6,16 @@ using System.Text;
 namespace Properties
 {
      [Serializable]
-    public class PDMS_IncoTerm
+    public class PIncoTerms
     {
-         public int IncoTermID { get; set; }
-         public string IncoTerm { get; set; }
+         public int IncoTermsID { get; set; }
+         public string IncoTerms { get; set; }
          public string Description { get; set; }
          public string IncoTerm_Description
          {
              get
              {
-                 return IncoTerm + " " + Description;
+                 return IncoTerms + " " + Description;
              }
          }
     }

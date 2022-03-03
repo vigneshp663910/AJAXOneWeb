@@ -101,10 +101,10 @@ namespace Business
                             DiscountType = Convert.ToString(Dr["DiscountType"]),
                             DiscountTypeCode = Convert.ToString(Dr["DiscountTypeCode"])
                         };
-                        SO.IncoTerm = new PDMS_IncoTerm()
+                        SO.IncoTerms = new PIncoTerms()
                         {
-                            IncoTermID = Convert.ToInt32(Dr["IncoTermID"]),
-                            IncoTerm = Convert.ToString(Dr["IncoTerm"]),
+                            IncoTermsID = Convert.ToInt32(Dr["IncoTermID"]),
+                            IncoTerms = Convert.ToString(Dr["IncoTerm"]),
                             Description = Convert.ToString(Dr["IncoTermDescription"])
                         };
                         SO.AdvanceAmount = Convert.ToDecimal(Dr["AdvanceAmount"]);
@@ -179,7 +179,7 @@ namespace Business
                 DbParameter MarginMoney = provider.CreateParameter("MarginMoney", SO.MarginMoney, DbType.Decimal);
 
                 DbParameter DiscountTypeID = provider.CreateParameter("DiscountTypeID", SO.DiscountType.DiscountTypeID, DbType.Int32);
-                DbParameter IncotermsID = provider.CreateParameter("IncotermsID", SO.IncoTerm.IncoTermID, DbType.Int32);
+                DbParameter IncotermsID = provider.CreateParameter("IncotermsID", SO.IncoTerms.IncoTermsID, DbType.Int32);
                 DbParameter FinancierAmount = provider.CreateParameter("FinancierAmount", SO.FinancierAmount, DbType.Decimal);
                 DbParameter FreightAmount = provider.CreateParameter("FreightAmount", SO.FreightAmount, DbType.Decimal);
                 DbParameter BenificiaryOfDO = provider.CreateParameter("BenificiaryOfDO", SO.BenificiaryOfDO, DbType.String);
