@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MTTR_Report.aspx.cs" Inherits="DealerManagementSystem.ViewService.MTTR_Report" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -23,12 +24,12 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container">
+    <div class="container-fluid">
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
                 <div class="rf-p-b " id="txnHistory:j_idt1289_body">
                     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
-                    <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%">
+                    <table id="txnHistory1:panelGridid" class="report-container" style="height: 100%; width: 100%">
                         <tr>
                             <td>
                                 <div class="boxHead">
@@ -38,140 +39,110 @@
                                             <img id="imageID" runat="server" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="22" width="22" /></a>
                                     </div>
                                 </div>
-                                <asp:Panel ID="pnlFilterContent" runat="server">
+                                <asp:Panel ID="pnlFilterContent" CssClass="report-panel" runat="server">
                                     <div class="rf-p " id="txnHistory:inputFiltersPanel">
                                         <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body">
-                                            <table class="labeltxt fullWidth">
-                                                <tr>
-                                                    <td>
-                                                        <div>
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label1" runat="server" CssClass="label" Text="Dealer Code"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="TextBox" Width="250px" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div>
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label5" runat="server" CssClass="label" Text="Customer Code"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="input"></asp:TextBox>
-                                                            </div>
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="Label1" runat="server" CssClass="label" Text="Dealer Code"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="TextBox form-control" />
+                                                    </div>
 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div>
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="lblPlant" runat="server" CssClass="label" Text="IC Service Ticket :"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtICServiceTicket" runat="server" CssClass="input"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-row-left">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label3" runat="server" CssClass="label" Text="IC Login Date From :"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:TextBox ID="txtICLoginDateFrom" runat="server" CssClass="hasDatepicker input" AutoComplete="Off"></asp:TextBox>
-                                                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICLoginDateFrom" PopupButtonID="txtICLoginDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICLoginDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="Label5" runat="server" CssClass="label" Text="Customer Code"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="input form-control"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="lblPlant" runat="server" CssClass="label" Text="IC Service Ticket :"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:TextBox ID="txtICServiceTicket" runat="server" CssClass="input form-control"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="Label3" runat="server" CssClass="label" Text="IC Login Date From :"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:TextBox ID="txtICLoginDateFrom" runat="server" CssClass="hasDatepicker input form-control" AutoComplete="Off"></asp:TextBox>
+                                                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICLoginDateFrom" PopupButtonID="txtICLoginDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICLoginDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="tbl-row-right">
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label4" runat="server" CssClass="label" Text="IC Login Date To"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
+                                                    </div>
 
-                                                                <asp:TextBox ID="txtICLoginDateTo" runat="server" CssClass="hasDatepicker input" AutoComplete="Off"></asp:TextBox>
-                                                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICLoginDateTo" PopupButtonID="txtICLoginDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICLoginDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="display: none;">
-                                                        <div>
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label2" runat="server" CssClass="label" Text="Status2" Visible="false"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlStatus2" runat="server" CssClass="TextBox" Visible="false">
-                                                                    <asp:ListItem Value="0">All</asp:ListItem>
-                                                                    <asp:ListItem Value="Open">Open</asp:ListItem>
-                                                                    <asp:ListItem Value="Srv. Restored">Srv. Restored</asp:ListItem>
-                                                                    <asp:ListItem Value="Rejected By Dea">Rejected By Dea</asp:ListItem>
-                                                                    <asp:ListItem Value="Forced Close">Forced Close</asp:ListItem>
-                                                                    <asp:ListItem Value="Srv. Eng. Reached">Srv. Eng. Reached</asp:ListItem>
-                                                                    <asp:ListItem Value="Rejected By Dealer">Rejected By Dealer</asp:ListItem>
-                                                                </asp:DropDownList>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="Label4" runat="server" CssClass="label" Text="IC Login Date To"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div>
-                                                            <div class="tbl-col-left">
-                                                                <asp:Label ID="Label6" runat="server" CssClass="label" Text="PSR Status"></asp:Label>
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:DropDownList ID="ddlPsrStatus" runat="server" CssClass="TextBox">
-                                                                    <asp:ListItem Value="0">All</asp:ListItem>
-                                                                    <asp:ListItem Value="OPEN">Open</asp:ListItem>
-                                                                    <asp:ListItem Value="INPROCESS">In Process</asp:ListItem>
-                                                                    <asp:ListItem Value="COMPLETED">Completed</asp:ListItem>
-                                                                    <asp:ListItem Value="DECLINED">Declined</asp:ListItem>
-                                                                    <asp:ListItem Value="CLOSED">Closed</asp:ListItem>
-                                                                    <asp:ListItem Value="FORCED_CLOSED">Forced Closed</asp:ListItem>
-                                                                </asp:DropDownList>
-                                                            </div>
+                                                        <asp:TextBox ID="txtICLoginDateTo" runat="server" CssClass="hasDatepicker input form-control" AutoComplete="Off"></asp:TextBox>
+                                                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICLoginDateTo" PopupButtonID="txtICLoginDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICLoginDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="Label2" runat="server" CssClass="label" Text="Status2" Visible="false"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlStatus2" runat="server" CssClass="TextBox form-control" Visible="false">
+                                                            <asp:ListItem Value="0">All</asp:ListItem>
+                                                            <asp:ListItem Value="Open">Open</asp:ListItem>
+                                                            <asp:ListItem Value="Srv. Restored">Srv. Restored</asp:ListItem>
+                                                            <asp:ListItem Value="Rejected By Dea">Rejected By Dea</asp:ListItem>
+                                                            <asp:ListItem Value="Forced Close">Forced Close</asp:ListItem>
+                                                            <asp:ListItem Value="Srv. Eng. Reached">Srv. Eng. Reached</asp:ListItem>
+                                                            <asp:ListItem Value="Rejected By Dealer">Rejected By Dealer</asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:Label ID="Label6" runat="server" CssClass="label" Text="PSR Status"></asp:Label>
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:DropDownList ID="ddlPsrStatus" runat="server" CssClass="TextBox form-control">
+                                                            <asp:ListItem Value="0">All</asp:ListItem>
+                                                            <asp:ListItem Value="OPEN">Open</asp:ListItem>
+                                                            <asp:ListItem Value="INPROCESS">In Process</asp:ListItem>
+                                                            <asp:ListItem Value="COMPLETED">Completed</asp:ListItem>
+                                                            <asp:ListItem Value="DECLINED">Declined</asp:ListItem>
+                                                            <asp:ListItem Value="CLOSED">Closed</asp:ListItem>
+                                                            <asp:ListItem Value="FORCED_CLOSED">Forced Closed</asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="tbl-col-left">
+                                                        <asp:RadioButton ID="rbWithOutText" runat="server" Text="With Out Text" GroupName="s" OnCheckedChanged="rbWithOutText_CheckedChanged" AutoPostBack="true" Checked="true" />
+                                                    </div>
+                                                    <div class="tbl-col-right">
+                                                        <asp:RadioButton ID="rbWithText" runat="server" Text="With Text" GroupName="s" OnCheckedChanged="rbWithOutText_CheckedChanged" AutoPostBack="true" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="tbl-btn excelBtn">
+                                                        <div class="tbl-col-btn">
+                                                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div>
-                                                            <div class="tbl-col-left">
-                                                                <asp:RadioButton ID="rbWithOutText" runat="server" Text="With Out Text" GroupName="s" OnCheckedChanged="rbWithOutText_CheckedChanged" AutoPostBack="true" Checked="true" />
-                                                            </div>
-                                                            <div class="tbl-col-right">
-                                                                <asp:RadioButton ID="rbWithText" runat="server" Text="With Text" GroupName="s" OnCheckedChanged="rbWithOutText_CheckedChanged" AutoPostBack="true" />
-                                                            </div>
+                                                        <div class="tbl-col-btn">
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="tbl-btn excelBtn">
-                                                            <div class="tbl-col-btn">
-                                                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                                                            </div>
-                                                            <div class="tbl-col-btn">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                     </div>
                                 </asp:Panel>
                             </td>
                         </tr>
@@ -789,5 +760,5 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </asp:Content>

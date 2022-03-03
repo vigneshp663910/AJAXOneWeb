@@ -6,21 +6,8 @@
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <%--  <style>
-        .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
-            width: 170px;
-            height: 50px;
-            font: 20px;
-        }
-
-        .ajax__tab_xp .ajax__tab_header {
-            background-position: bottom;
-            background-repeat: repeat-x;
-            font-family: verdana,tahoma,helvetica;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
+  <style>
+        
         .Popup {
             display: block;
             z-index: 1002;
@@ -87,43 +74,6 @@
 
         .modalBackground {
             background-color: #000000bd;
-        }
-    </style>--%>
-    <style>
-        .portlet.box.green {
-            border: 1px solid #5cd1db;
-            border-top: 0;
-        }
-
-            .portlet.box.green > .portlet-title {
-                background-color: #32c5d2;
-            }
-
-                .portlet.box.green > .portlet-title > .caption {
-                    color: #fff;
-                }
-
-        .pull-right {
-            float: right !important;
-        }
-
-        .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-sm {
-            font-size: 11px;
-            padding: 6px 18px 6px 18px;
-        }
-
-        .btn.yellow:not(.btn-outline) {
-            color: #fff;
-            background-color: #c49f47;
-            border-color: #c49f47;
-        }
-
-        .form-group {
-            margin-bottom: 5px;
-        }
-
-        b, optgroup, strong {
-            font-weight: 700;
         }
     </style>
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
@@ -473,10 +423,12 @@
                 </div>
             </fieldset>
         </div>
-        <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
-            <div class="" id="boxHere"></div>
-            <div class="back-buttton" id="backBtn">
-                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+        <div class="col-md-12" id="divDetailsView" runat="server" visible="false"  style="padding:5px 15px">
+            <div class="col-md-12 lead-back-btn">
+                <div class="" id="boxHere"></div>
+                <div class="back-buttton" id="backBtn">
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                </div>
             </div>
             <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
         </div>

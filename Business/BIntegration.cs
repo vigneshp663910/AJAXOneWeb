@@ -20,8 +20,8 @@ namespace Business
         }
         public void Start()
         {
-            UpdateJobsStatus((short)Jobs.ICTicketIntegrationFromCRM, Joblist((Jobs.ICTicketIntegrationFromCRM)));
-            return;
+            //UpdateJobsStatus((short)Jobs.ICTicketIntegrationFromCRM, Joblist((Jobs.ICTicketIntegrationFromCRM)));
+            //return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
             {

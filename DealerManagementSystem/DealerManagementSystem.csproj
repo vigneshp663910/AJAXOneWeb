@@ -16,7 +16,8 @@
     <AssemblyName>DealerManagementSystem</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44343</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -334,6 +335,7 @@
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewPreSale\UserControls\QuotationView.ascx" />
+    <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
@@ -1154,6 +1156,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.designer.cs">
       <DependentUpon>QuotationView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.cs">
+      <DependentUpon>SalesQuotationView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.designer.cs">
+      <DependentUpon>SalesQuotationView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>

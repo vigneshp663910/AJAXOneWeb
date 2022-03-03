@@ -132,15 +132,6 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.DropDownList ddlSCountry;
 
         /// <summary>
-        /// ddlState control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlState;
-
-        /// <summary>
         /// BtnSearch control.
         /// </summary>
         /// <remarks>
@@ -159,13 +150,22 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Button btnAddQuotation;
 
         /// <summary>
-        /// gvLead control.
+        /// gvQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvLead;
+        protected global::System.Web.UI.WebControls.GridView gvQuotation;
+
+        /// <summary>
+        /// divColdVisitView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divColdVisitView;
 
         /// <summary>
         /// btnBackToList control.
@@ -175,6 +175,15 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBackToList;
+
+        /// <summary>
+        /// UC_QuotationView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.SalesQuotationView UC_QuotationView;
 
         /// <summary>
         /// lnkMPE control.
