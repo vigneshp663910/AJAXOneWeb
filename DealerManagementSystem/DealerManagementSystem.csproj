@@ -16,8 +16,7 @@
     <AssemblyName>DealerManagementSystem</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44343</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -246,6 +245,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
+    <Content Include="ViewMaster\PresalesMasters.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
     <Content Include="ProcessFlow\OrgChart.aspx" />
@@ -761,6 +761,13 @@
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.designer.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\PresalesMasters.aspx.cs">
+      <DependentUpon>PresalesMasters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\PresalesMasters.aspx.designer.cs">
+      <DependentUpon>PresalesMasters.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
