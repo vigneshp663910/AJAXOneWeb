@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="col-md-2 text-right ">
-                            <asp:Button ID="btnChangePw" runat="server" CssClass="btn Search" Text="Change" ></asp:Button>
+                            <asp:Button ID="btnChangePw" runat="server" CssClass="btn Search" Text="Change" OnClick="btnChangePw_Click"></asp:Button>
                         </div>
                     </div>
 
