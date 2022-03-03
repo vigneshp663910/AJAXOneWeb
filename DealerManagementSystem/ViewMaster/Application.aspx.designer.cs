@@ -24,22 +24,22 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// ddlMainModule control.
+        /// HiddenID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMainModule;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenID;
 
         /// <summary>
-        /// txtSubModule control.
+        /// ddlMainApplication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubModule;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMainApplication;
 
         /// <summary>
         /// btnRetrieve control.
@@ -51,12 +51,21 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button btnRetrieve;
 
         /// <summary>
-        /// btnAdd control.
+        /// gvMainApplication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdd;
+        protected global::System.Web.UI.WebControls.GridView gvMainApplication;
+
+        /// <summary>
+        /// gvSubApplication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSubApplication;
     }
 }

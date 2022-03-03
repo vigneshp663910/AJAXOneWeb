@@ -57,6 +57,7 @@ namespace Properties
     {
         public int MainApplicationID { get; set; }
         public string MainApplication { get; set; }
+        public bool IsActive { get; set; }        
     }
     [Serializable]
     public class PDMS_SubApplication
@@ -64,6 +65,7 @@ namespace Properties
         public int SubApplicationID { get; set; }
         public int MainApplicationID { get; set; }
         public string SubApplication { get; set; }
+        public PDMS_MainApplication MainApplication { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceCharge
