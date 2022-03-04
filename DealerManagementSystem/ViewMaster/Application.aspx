@@ -4,20 +4,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-    <asp:HiddenField ID="HiddenID" runat="server" Visible="false"/>
+    <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Application</legend>
                 <div class="col-md-12">
-                    <div class="col-md-3 text-right">
+                    <div class="col-md-2 text-right">
                         <label>MainApplication</label>
                     </div>
                     <div class="col-md-2">
                         <asp:DropDownList ID="ddlMainApplication" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
-                    <div class="col-md-2 text-right ">
-                        <asp:Button ID="btnRetrieve" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnRetrieve_Click"></asp:Button>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnRetrieve" runat="server" CssClass="btn Search" Text="Search" OnClick="btnRetrieve_Click"></asp:Button>
                     </div>
                 </div>
             </fieldset>
@@ -37,9 +37,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="MainApplication" SortExpression="MainApplication">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lbMainApplication" runat="server">
-                                            <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication")%>' runat="server" />
-                                        </asp:LinkButton>
+                                        <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication")%>' runat="server" />
                                         <asp:Label ID="lblSubModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                     <FooterTemplate>
@@ -52,7 +50,7 @@
                                         <asp:LinkButton ID="lblMainApplicationDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' OnClick="lblMainApplicationDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Button ID="BtnAddMainApplication" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddMainApplication_Click" Width="70px" Height="33px"/>
+                                        <asp:Button ID="BtnAddMainApplication" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddMainApplication_Click" Width="70px" Height="33px" />
                                     </FooterTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -83,7 +81,7 @@
                                     <ItemStyle VerticalAlign="Middle" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication.MainApplication")%>' runat="server" />
-                                        <asp:Label ID="lblMainApplicationID" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication.MainApplicationID")%>' runat="server" Visible="false"/>
+                                        <asp:Label ID="lblMainApplicationID" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication.MainApplicationID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:DropDownList ID="ddlGMainApplication" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -91,9 +89,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubApplication" SortExpression="SubApplication">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lbSubApplication" runat="server">
-                                            <asp:Label ID="lblSubApplication" Text='<%# DataBinder.Eval(Container.DataItem, "SubApplication")%>' runat="server" />
-                                        </asp:LinkButton>
+                                        <asp:Label ID="lblSubApplication" Text='<%# DataBinder.Eval(Container.DataItem, "SubApplication")%>' runat="server" />
                                         <asp:Label ID="lblSubModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "SubApplicationID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                     <FooterTemplate>
@@ -106,7 +102,7 @@
                                         <asp:LinkButton ID="lblSubApplicationDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SubApplicationID")%>' OnClick="lblSubApplicationDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Button ID="BtnAddSubApplication" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddSubApplication_Click" Width="70px" Height="33px"/>
+                                        <asp:Button ID="BtnAddSubApplication" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddSubApplication_Click" Width="70px" Height="33px" />
                                     </FooterTemplate>
                                 </asp:TemplateField>
                             </Columns>

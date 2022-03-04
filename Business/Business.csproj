@@ -176,6 +176,7 @@
     <Compile Include="LMSHelper.cs" />
     <Compile Include="LMSMessaging.cs" />
     <Compile Include="BLead.cs" />
+    <Compile Include="BPresalesMasters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TraceLogger.cs" />
     <Compile Include="YDMS\BDMS_Activity.cs" />
