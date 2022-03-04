@@ -116,54 +116,54 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
-            MPE_Effort.Show();
-            string Message = UC_Effort.ValidationEffort();
-            lblMessageEffort.ForeColor = Color.Red;
-            lblMessageEffort.Visible = true;
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageEffort.Text = Message;
-                return;
-            }
-            PLeadEffort Effort = new PLeadEffort();
-            Effort = UC_Effort.ReadEffort();
-            Effort.LeadID = ColdVisitID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort)).Data);
-            if (s == "false")
-            {
-                lblMessageEffort.Text = "Something went wrong try again";
-                return;
-            }
-            MPE_Effort.Hide();
-            tbpCust.ActiveTabIndex = 0;
-            fillEffort();
+            //MPE_Effort.Show();
+            //string Message = UC_Effort.ValidationEffort();
+            //lblMessageEffort.ForeColor = Color.Red;
+            //lblMessageEffort.Visible = true;
+            //if (!string.IsNullOrEmpty(Message))
+            //{
+            //    lblMessageEffort.Text = Message;
+            //    return;
+            //}
+            //PLeadEffort Effort = new PLeadEffort();
+            //Effort = UC_Effort.ReadEffort();
+            //Effort.LeadID = ColdVisitID;
+            //string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort)).Data);
+            //if (s == "false")
+            //{
+            //    lblMessageEffort.Text = "Something went wrong try again";
+            //    return;
+            //}
+            //MPE_Effort.Hide();
+            //tbpCust.ActiveTabIndex = 0;
+            //fillEffort();
         }
 
         protected void btnSaveExpense_Click(object sender, EventArgs e)
         {
-            MPE_Expense.Show();
-            string Message = UC_Expense.ValidationExpense();
-            lblMessageExpense.ForeColor = Color.Red;
-            lblMessageExpense.Visible = true;
+            //MPE_Expense.Show();
+            //string Message = UC_Expense.ValidationExpense();
+            //lblMessageExpense.ForeColor = Color.Red;
+            //lblMessageExpense.Visible = true;
 
-            if (!string.IsNullOrEmpty(Message))
-            {
+            //if (!string.IsNullOrEmpty(Message))
+            //{
 
-                lblMessageExpense.Text = Message;
-                return;
-            }
-            PLeadExpense Expense = new PLeadExpense();
-            Expense = UC_Expense.ReadExpense();
-            Expense.LeadID = ColdVisitID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense)).Data);
-            if (s == "false")
-            {
-                lblMessageExpense.Text = "Something went wrong try again";
-                return;
-            }
-            MPE_Expense.Hide();
-            tbpCust.ActiveTabIndex = 1;
-            fillExpense();
+            //    lblMessageExpense.Text = Message;
+            //    return;
+            //}
+            //PLeadExpense Expense = new PLeadExpense();
+            //Expense = UC_Expense.ReadExpense();
+            //Expense.LeadID = ColdVisitID;
+            //string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense)).Data);
+            //if (s == "false")
+            //{
+            //    lblMessageExpense.Text = "Something went wrong try again";
+            //    return;
+            //}
+            //MPE_Expense.Hide();
+            //tbpCust.ActiveTabIndex = 1;
+            //fillExpense();
         }
         void fillEffort()
         {

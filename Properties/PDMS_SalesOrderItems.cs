@@ -491,10 +491,10 @@ namespace Properties
         public Decimal? InvoiceValue { get; set; }
         public string DoNumber { get; set; }
         public DateTime? DoDate { get; set; }
-        public PDMS_PaymentTerm CreditDays { get; set; }
+        public PPaymentTerms PaymentTerms { get; set; }
         public Decimal? DoAmount { get; set; }
         public Decimal? MarginMoney { get; set; }
-        public PDMS_IncoTerm IncoTerm { get; set; }
+        public PIncoTerms IncoTerms { get; set; }
         public Decimal? AdvanceAmount { get; set; }
         //public Decimal? FinancierAmount { get; set; }
         public string BenificiaryOfDO { get; set; }

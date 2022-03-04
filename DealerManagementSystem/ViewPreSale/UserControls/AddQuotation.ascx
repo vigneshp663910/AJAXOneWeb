@@ -67,22 +67,7 @@
             </div>
         </fieldset>
        
-        <fieldset class="fieldset-border" id="Fieldset5" runat="server">
-            <div class="col-md-12">
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Competitor</label>
-                    <asp:DropDownList ID="ddlCompetitor" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Competitor Product Type</label>
-                    <asp:DropDownList ID="ddlCompetitorProductType" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Competitor Products</label>
-                    <asp:DropDownList ID="ddlCompetitorProducts" runat="server" CssClass="form-control" />
-                </div>
-            </div>
-        </fieldset>
+       
        
       
         <%--        commisssion agent

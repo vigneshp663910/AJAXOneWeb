@@ -28,7 +28,7 @@ namespace Properties
         public PDMS_PaymentTerm TermsOfPayment { get; set; }
         public decimal? MarginMoney { get; set; }
         public PDMS_DiscountType DiscountType { get; set; }
-        public PDMS_IncoTerm IncoTerm { get; set; }
+        public PIncoTerms IncoTerms { get; set; }
         public decimal? AdvanceAmount { get; set; }
         public decimal? FinancierAmount { get; set; }
         public decimal? FreightAmount { get; set; }

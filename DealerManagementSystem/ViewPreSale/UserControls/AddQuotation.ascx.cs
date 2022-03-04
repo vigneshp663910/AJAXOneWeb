@@ -99,8 +99,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "Status", "SaleQuotationStatusID");
 
             new DDLBind(ddlPriceGroup, new BDMS_Master().GetPriceGroup(null, null, null), "PriceGroupCode", "PriceGroupID");
-            //new DDLBind(ddlIncoterms, new BDMS_Master().GetIncoterms(null, null, null), "IncoTerm", "IncoTermID");
-            //new DDLBind(ddlPaymentTerms, new BDMS_Master().GetPaymentTerms(null, null, null), "PaymentTerm", "PaymentTermID");
+            
 
             new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "Status", "SalesQuotationUserStatusID");
 
@@ -109,9 +108,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
 
 
-            new DDLBind(ddlCompetitor, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
-            new DDLBind(ddlCompetitorProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-            new DDLBind(ddlCompetitorProducts, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+           
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -255,7 +252,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PSalesQuotation Sq = new PSalesQuotation();
             Sq.Lead = new PLead { LeadID = Lead.LeadID };
             Sq.QuotationType = new PSalesQuotationType() { QuotationTypeID = Convert.ToInt32(ddlQuotationType.SelectedValue) };
-            Sq.Status = new PSalesQuotationStatus() { SaleQuotationStatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
+            Sq.Status = new PSalesQuotationStatus() { SalesQuotationStatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
             Sq.ValidFrom = Convert.ToDateTime(txtValidFrom.Text.Trim());
             Sq.ValidTo = Convert.ToDateTime(txtValidTo.Text.Trim());
             Sq.PricingDate = Convert.ToDateTime(txtPricingDate.Text.Trim());
