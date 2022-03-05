@@ -75,6 +75,66 @@
 
             <asp:TabPanel ID="tpnlTypeOfActivity" runat="server" HeaderText="Type Of Activity" Font-Bold="True" ToolTip="Type Of Activity...">
                 <ContentTemplate>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-2 text-right">
+                                        <label>Action Type</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchActionType_Click"></asp:Button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 Report">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <div class="col-md-12 Report">
+                                    <asp:GridView ID="gvActionType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvActionType_PageIndexChanging">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="ActionType" SortExpression="ActionType">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType")%>' runat="server" />
+                                                    <asp:Label ID="lblActionTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ActionTypeID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:TextBox ID="txtActionType" runat="server" placeholder="Action Type" CssClass="form-control"></asp:TextBox>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="lblActionTypeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ActionTypeID")%>' OnClick="lblActionTypeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                    <asp:LinkButton ID="lblActionTypeDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ActionTypeID")%>' OnClick="lblActionTypeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:Button ID="BtnAddActionType" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddActionType_Click" Width="70px" Height="33px" />
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <AlternatingRowStyle BackColor="#ffffff" />
+                                        <FooterStyle ForeColor="White" />
+                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                    </asp:GridView>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
                 </ContentTemplate>
             </asp:TabPanel>
         </asp:TabContainer>

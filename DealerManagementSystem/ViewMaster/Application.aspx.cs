@@ -24,7 +24,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 catch (Exception ex)
                 {
-                    lblMessage.Text = ex.ToString();
+                    lblMessage.Text = ex.Message.ToString();
                     lblMessage.ForeColor = Color.Red;
                     lblMessage.Visible = true;
                 }
@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -80,14 +80,14 @@ namespace DealerManagementSystem.ViewMaster
                 string MainApplication = ((TextBox)gvMainApplication.FooterRow.FindControl("txtMainApplication")).Text.Trim();
                 if (string.IsNullOrEmpty(MainApplication))
                 {
-                    lblMessage.Text = "Please Enter the Main Application Name";
+                    lblMessage.Text = "Please Enter Main Application";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
 
                 if (BtnAddMainApplication.Text == "Add")
                 {
-                    success = new BDMS_Service().InsertOrUpdateMainApplication(null, MainApplication, true, PSession.User.UserID, "Add");
+                    success = new BDMS_Service().InsertOrUpdateMainApplication(null, MainApplication, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         SearchMainApplication();
@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewMaster
                     }
                     else if (success == 2)
                     {
-                        lblMessage.Text = "Main Application Name Already Found";
+                        lblMessage.Text = "Main Application Already Found";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
@@ -110,7 +110,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    success = new BDMS_Service().InsertOrUpdateMainApplication(Convert.ToInt32(HiddenID.Value), MainApplication, true, PSession.User.UserID, "Update");
+                    success = new BDMS_Service().InsertOrUpdateMainApplication(Convert.ToInt32(HiddenID.Value), MainApplication, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         HiddenID.Value = null;
@@ -135,7 +135,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -153,7 +153,7 @@ namespace DealerManagementSystem.ViewMaster
                 long MainApplicationID = Convert.ToInt32(lblMainApplicationDelete.CommandArgument);
                 GridViewRow row = (GridViewRow)(lblMainApplicationDelete.NamingContainer);
                 string MainApplication = ((Label)row.FindControl("lblMainApplication")).Text.Trim();
-                success = new BDMS_Service().InsertOrUpdateMainApplication(MainApplicationID, MainApplication, false, PSession.User.UserID, "Delete");
+                success = new BDMS_Service().InsertOrUpdateMainApplication(MainApplicationID, MainApplication, false, PSession.User.UserID);
                 if (success == 1)
                 {
                     HiddenID.Value = null;
@@ -170,7 +170,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -204,7 +204,7 @@ namespace DealerManagementSystem.ViewMaster
                 int MainApplicationID = Convert.ToInt32(((Label)row.FindControl("lblMainApplicationID")).Text.Trim());
                 string SubApplication = ((Label)row.FindControl("lblSubApplication")).Text.Trim();
 
-                success = new BDMS_Service().InsertOrUpdateSubApplication(SubApplicationID, MainApplicationID, SubApplication, false, PSession.User.UserID, "Delete");
+                success = new BDMS_Service().InsertOrUpdateSubApplication(SubApplicationID, MainApplicationID, SubApplication, false, PSession.User.UserID);
                 if (success == 1)
                 {
                     HiddenID.Value = null;
@@ -221,7 +221,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -239,7 +239,7 @@ namespace DealerManagementSystem.ViewMaster
                 DropDownList ddlGMainApplication = (DropDownList)gvSubApplication.FooterRow.FindControl("ddlGMainApplication");
                 if (ddlGMainApplication.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please Select the Main Application Name";
+                    lblMessage.Text = "Please Select Main Application";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -247,13 +247,13 @@ namespace DealerManagementSystem.ViewMaster
                 string SubApplication = ((TextBox)gvSubApplication.FooterRow.FindControl("txtSubApplication")).Text.Trim();
                 if (string.IsNullOrEmpty(SubApplication))
                 {
-                    lblMessage.Text = "Please Enter the Sub Application Name";
+                    lblMessage.Text = "Please Enter Sub Application";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
                 if (BtnAddSubApplication.Text == "Add")
                 {
-                    success = new BDMS_Service().InsertOrUpdateSubApplication(null, MainApplicationID, SubApplication, true, Convert.ToInt32(PSession.User.UserID), "Add");
+                    success = new BDMS_Service().InsertOrUpdateSubApplication(null, MainApplicationID, SubApplication, true, Convert.ToInt32(PSession.User.UserID));
                     if (success == 1)
                     {
                         SearchSubApplication();
@@ -263,7 +263,7 @@ namespace DealerManagementSystem.ViewMaster
                     }
                     else if (success == 2)
                     {
-                        lblMessage.Text = "Sub Application Name Already Found";
+                        lblMessage.Text = "Sub Application Already Found";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
@@ -276,7 +276,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    success = new BDMS_Service().InsertOrUpdateSubApplication(Convert.ToInt32(HiddenID.Value), MainApplicationID, SubApplication, true, Convert.ToInt32(PSession.User.UserID), "Update");
+                    success = new BDMS_Service().InsertOrUpdateSubApplication(Convert.ToInt32(HiddenID.Value), MainApplicationID, SubApplication, true, Convert.ToInt32(PSession.User.UserID));
                     if (success == 1)
                     {
                         HiddenID.Value = null;
@@ -287,7 +287,7 @@ namespace DealerManagementSystem.ViewMaster
                     }
                     else if (success == 2)
                     {
-                        lblMessage.Text = "Sub Application Name Already Found";
+                        lblMessage.Text = "Sub Application Already Found";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
@@ -301,7 +301,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -316,7 +316,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -340,7 +340,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -367,7 +367,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }

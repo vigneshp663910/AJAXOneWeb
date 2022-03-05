@@ -498,8 +498,6 @@ namespace Business
             List<PDMS_MainApplication> Main = new List<PDMS_MainApplication>();
             try
             {
-
-
                 DbParameter MainApplicationIDP = provider.CreateParameter("MainApplicationID", MainApplicationID, DbType.Int32);
 
                 DbParameter MainApplicationP;
@@ -526,9 +524,15 @@ namespace Business
                 }
             }
             catch (SqlException sqlEx)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetMainApplication", sqlEx);
+                throw sqlEx;
+            }
             catch (Exception ex)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetMainApplication", ex);
+                throw ex;
+            }
             return Main;
         }
         public List<PDMS_SubApplication> GetSubApplication(int? MainApplicationID, int? SubApplicationID, string SubApplication)
@@ -570,9 +574,15 @@ namespace Business
                 }
             }
             catch (SqlException sqlEx)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetSubApplication", sqlEx);
+                throw sqlEx;
+            }
             catch (Exception ex)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetSubApplication", ex);
+                throw ex;
+            }
             return Sub;
         }
         public List<PDMS_ServiceCharge> GetServiceCharges(long ICTicketID, long? ServiceChargeID, string MaterialCode, Boolean? IsDeleted)
@@ -2121,7 +2131,7 @@ namespace Business
             }
             return ServiceMaterials;
         }
-        public int InsertOrUpdateMainApplication(long? MainApplicationID, string MainApplication, Boolean IsActive, int UserID, string Action)
+        public int InsertOrUpdateMainApplication(long? MainApplicationID, string MainApplication, Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             int success = 0;
@@ -2129,31 +2139,28 @@ namespace Business
             DbParameter MainApplicationP = provider.CreateParameter("MainApplication", MainApplication, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter ActionP = provider.CreateParameter("Action", Action, DbType.String);
-            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[6] { MainApplicationIDP, MainApplicationP, IsActiveP, UserIDP, ActionP, OutValue };
+            DbParameter[] Params = new DbParameter[4] { MainApplicationIDP, MainApplicationP, IsActiveP, UserIDP};
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     success = provider.Insert("ZDMS_InsertOrUpdateMainApplication", Params);
-                    success = Convert.ToInt32(OutValue.Value);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
                 new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateMainApplication", sqlEx);
-                return 0;
+                throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_Service", " ZDMS_InsertOrUpdateMainApplication", ex);
-                return 0;
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateMainApplication", ex);
+                throw ex;
             }
             return success;
         }
-        public int InsertOrUpdateSubApplication(long? SubApplicationID, int MainApplicationID, string SubApplication, Boolean IsActive, int UserID, string Action)
+        public int InsertOrUpdateSubApplication(long? SubApplicationID, int MainApplicationID, string SubApplication, Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             int success = 0;
@@ -2162,27 +2169,24 @@ namespace Business
             DbParameter SubApplicationP = provider.CreateParameter("SubApplication", SubApplication, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter ActionP = provider.CreateParameter("Action", Action, DbType.String);
-            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[7] { SubApplicationIDP,MainApplicationIDP, SubApplicationP, IsActiveP, UserIDP, ActionP, OutValue };
+            DbParameter[] Params = new DbParameter[5] { SubApplicationIDP,MainApplicationIDP, SubApplicationP, IsActiveP, UserIDP};
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     success = provider.Insert("ZDMS_InsertOrUpdateSubApplication", Params);
-                    success = Convert.ToInt32(OutValue.Value);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
                 new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateSubApplication", sqlEx);
-                return 0;
+                throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_Service", " ZDMS_InsertOrUpdateSubApplication", ex);
-                return 0;
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateSubApplication", ex);
+                throw ex;
             }
             return success;
         }
