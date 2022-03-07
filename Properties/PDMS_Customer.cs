@@ -159,6 +159,7 @@ namespace Properties
         public int AttributeSubID { get; set; }
         public int AttributeMainID { get; set; }
         public string AttributeSub { get; set; }
+        public PCustomerAttributeMain AttributeMain { get; set; }
     }
 
     [Serializable]

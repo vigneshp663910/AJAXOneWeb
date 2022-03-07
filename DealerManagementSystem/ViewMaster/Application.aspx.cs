@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 try
                 {
-                    new DDLBind(ddlMainApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID", true, "All Application");
+                    new DDLBind(ddlMainApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID", true, "Select");
                     SearchMainApplication();
                     SearchSubApplication();
                 }
@@ -55,6 +55,13 @@ namespace DealerManagementSystem.ViewMaster
 
             gvSubApplication.DataSource = subApplications;
             gvSubApplication.DataBind();
+            if (subApplications.Count == 0)
+            {
+                PDMS_SubApplication pDMS_SubApplication = new PDMS_SubApplication();
+                subApplications.Add(pDMS_SubApplication);
+                gvSubApplication.DataSource = subApplications;
+                gvSubApplication.DataBind();
+            }
         }
         void SearchMainApplication()
         {
@@ -65,6 +72,13 @@ namespace DealerManagementSystem.ViewMaster
 
             gvMainApplication.DataSource = mainApplications;
             gvMainApplication.DataBind();
+            if (mainApplications.Count == 0)
+            {
+                PDMS_MainApplication pDMS_MainApplication = new PDMS_MainApplication();
+                mainApplications.Add(pDMS_MainApplication);
+                gvMainApplication.DataSource = mainApplications;
+                gvMainApplication.DataBind();
+            }
         }
 
         protected void BtnAddMainApplication_Click(object sender, EventArgs e)
@@ -312,7 +326,7 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 DropDownList ddlGMainApplication = gvSubApplication.FooterRow.FindControl("ddlGMainApplication") as DropDownList;
-                new DDLBind(ddlGMainApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID", true, "All Application");
+                new DDLBind(ddlGMainApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID", true, "Select");
             }
             catch (Exception ex)
             {
