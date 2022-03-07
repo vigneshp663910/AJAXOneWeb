@@ -126,7 +126,7 @@
                 <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                 <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
                 <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton> 
+                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
                 <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
@@ -356,12 +356,12 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Birth Date">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDOB" Text='<%# DataBinder.Eval(Container.DataItem, "DOB")%>' runat="server" />
+                                            <asp:Label ID="lblDOB" Text='<%# DataBinder.Eval(Container.DataItem, "DOB","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Anniversary Date">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDOAniversary" Text='<%# DataBinder.Eval(Container.DataItem, "DOAnniversary")%>' runat="server" />
+                                            <asp:Label ID="lblDOAniversary" Text='<%# DataBinder.Eval(Container.DataItem, "DOAnniversary","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
@@ -615,7 +615,7 @@
                                 <asp:TemplateField HeaderText="Cold Visit Date">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate")%>' runat="server" />
+                                        <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action Type">
@@ -659,7 +659,7 @@
             </fieldset>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+    <asp1:TabPanel ID="tpnlSupportDocument" runat="server" HeaderText="Support Document">
 
         <ContentTemplate>
             <fieldset class="fieldset-border">
