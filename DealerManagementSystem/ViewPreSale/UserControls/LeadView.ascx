@@ -600,10 +600,11 @@
         </a>
     </div>
     <div class="col-md-12">
+       
         <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
-
         <div class="col-md-12 text-center">
-            <asp:Button ID="Button8" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
+             <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
+            <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
         </div>
 
     </div>
@@ -762,16 +763,5 @@
 
         </div>
     </asp:Panel>--%>
-
-
-<asp:UpdatePanel ID="up" runat="server">
-    <ContentTemplate>
-        <div id="Divtab" runat="server" visible="true">
-            <fieldset class="fieldset-border" id="FldQuotation" runat="server" visible="false">
-                <div class="col-md-12">
-                    <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
-                </div>
-            </fieldset>
-        </div>
-    </ContentTemplate>
-</asp:UpdatePanel>
+ 
+       

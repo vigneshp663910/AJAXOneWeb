@@ -27,40 +27,37 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID",true, "All Country");
                 ddlSCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
-                new DDLBind(ddlState, State, "State", "StateID", true, "All State");
-
+                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null); 
             }
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            FillClodVisit();
+            FillQuotation();
         }
-        void FillClodVisit()
+        void FillQuotation()
         {
-            DateTime? ColdVisitDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
-            DateTime? ColdVisitDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
+            long? SalesQuotationID = null;
+            long? RefQuotationID = null;
+            long? LeadID = null;
+            DateTime? RefQuotationDate = null;
+            string QuotationNo = null;
+            DateTime? QuotationDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
+            DateTime? QuotationDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
 
-            long? CustomerID = null;
+
+            int? QuotationTypeID = null;
+            int? StatusID = null;
+
+            int? DealerID = null;
             string CustomerCode = null;
-            string CustomerName = txtCustomer.Text.Trim();
-            string Mobile = txtMobile.Text.Trim();
-
-            int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-            int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-            int? DistrictID = null;
 
 
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
-            gvLead.DataSource = Leads;
-            gvLead.DataBind();
+            List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate
+          , QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
+            gvQuotation.DataSource = Quotations;
+            gvQuotation.DataBind();
         }
-        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
-        }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
             MPE_Customer.Show();
@@ -114,8 +111,8 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.Text = "Customer is updated successfully ";
             }
             List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null);
-            gvLead.DataSource = Leads;
-            gvLead.DataBind();
+            gvQuotation.DataSource = Leads;
+            gvQuotation.DataBind();
            // UC_Customer.FillClean();
             MPE_Customer.Hide();
         }
@@ -143,9 +140,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
             return Message;
         }
-
-
-
+         
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
             //divCustomerView.Visible = true;
@@ -160,9 +155,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)
-        {
-            //divCustomerView.Visible = false;
-            //divColdVisitView.Visible = false;
+        { 
+            divColdVisitView.Visible = false;
             btnBackToList.Visible = false;
             divList.Visible = true;
         }
@@ -174,43 +168,21 @@ namespace DealerManagementSystem.ViewPreSale
             new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
             new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
         }
-        [WebMethod]
-        public static List<string> GetCustomer(string CustS)
-        {
-            List<string> Emp = new List<string>();
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS);
-            int i = 0;
-            foreach (PDMS_Customer cust in Customer)
-            {
-                i = i + 1;
-                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                    + "<table><tr><td>"
-                    + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
-                    + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
-                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
-                Emp.Add(div);
-            }
-            return Emp;
-        }
-
-
-
+        
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvLead.PageIndex = e.NewPageIndex;
-            FillClodVisit();
+            gvQuotation.PageIndex = e.NewPageIndex;
+            FillQuotation();
         }
 
-        protected void btnViewColdVisit_Click(object sender, EventArgs e)
-        {
-            //divCustomerView.Visible = false;
-            //divColdVisitView.Visible = true;
-            //btnBackToList.Visible = true;
-            //divList.Visible = false;
-
-            //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            //Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
-            //UC_ColdVisitsView.fillViewColdVisit(Convert.ToInt64(lblColdVisitID.Text));
+        protected void btnViewQuotation_Click(object sender, EventArgs e)
+        { 
+            divColdVisitView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false; 
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblQuotationID = (Label)gvRow.FindControl("lblQuotationID");
+            UC_QuotationView.fillViewQuotation(Convert.ToInt64(lblQuotationID.Text));
         }
 
         protected void btnAddQuotation_Click(object sender, EventArgs e)

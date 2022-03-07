@@ -241,9 +241,11 @@
     <Content Include="ViewMarketing\ClaimEntry.aspx" />
     <Content Include="ViewMarketing\LostCustomerData.aspx" />
     <Content Include="ViewMaster\AjaxEmployeeManage.aspx" />
+    <Content Include="ViewMaster\Application.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
+    <Content Include="ViewMaster\PresalesMasters.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
     <Content Include="ProcessFlow\OrgChart.aspx" />
@@ -333,6 +335,7 @@
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewPreSale\UserControls\QuotationView.ascx" />
+    <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
@@ -731,6 +734,13 @@
     <Compile Include="ViewMaster\AjaxEmployeeManage.aspx.designer.cs">
       <DependentUpon>AjaxEmployeeManage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\Application.aspx.cs">
+      <DependentUpon>Application.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\Application.aspx.designer.cs">
+      <DependentUpon>Application.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\Customer.aspx.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -751,6 +761,13 @@
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.designer.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\PresalesMasters.aspx.cs">
+      <DependentUpon>PresalesMasters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\PresalesMasters.aspx.designer.cs">
+      <DependentUpon>PresalesMasters.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
@@ -1146,6 +1163,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.designer.cs">
       <DependentUpon>QuotationView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.cs">
+      <DependentUpon>SalesQuotationView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.designer.cs">
+      <DependentUpon>SalesQuotationView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>

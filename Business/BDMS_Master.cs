@@ -135,5 +135,26 @@ namespace Business
             string endPoint = "Master/PreSaleStatus?PreSaleStatusID=" + PreSaleStatusID + "&PreSaleStatus=" + PreSaleStatus;
             return JsonConvert.DeserializeObject<List<PPreSaleStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public List<PPriceGroup> GetPriceGroup(int? PriceGroupID, int? PriceGroupCode, string Description)
+        {
+            string endPoint = "Master/PriceGroup?PriceGroupID=" + PriceGroupID + "&PriceGroupCode=" + PriceGroupCode + "&Description=" + Description;
+            return JsonConvert.DeserializeObject<List<PPriceGroup>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PIncoterms> GetIncoterms(int? IncoTermID, string IncoTerm, string Description)
+        {
+            string endPoint = "Master/Incoterms?IncoTermID=" + IncoTermID + "&IncoTerm=" + IncoTerm + "&Description=" + Description;
+            return JsonConvert.DeserializeObject<List<PIncoterms>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PPaymentTerms> GetPaymentTerms(int? PaymentTermID, string PaymentTerm, string Description)
+        {
+            string endPoint = "Master/PaymentTerms?PaymentTermID=" + PaymentTermID + "&PaymentTerm=" + PaymentTerm + "&Description=" + Description;
+            return JsonConvert.DeserializeObject<List<PPaymentTerms>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PPlant> GetPlant(int? PlantID, string PlantCode)
+        {
+            string endPoint = "Master/Plant?PlantID=" + PlantID + "&PlantCode=" + PlantCode;
+            return JsonConvert.DeserializeObject<List<PPlant>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 } 

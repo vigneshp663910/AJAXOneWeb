@@ -498,8 +498,6 @@ namespace Business
             List<PDMS_MainApplication> Main = new List<PDMS_MainApplication>();
             try
             {
-
-
                 DbParameter MainApplicationIDP = provider.CreateParameter("MainApplicationID", MainApplicationID, DbType.Int32);
 
                 DbParameter MainApplicationP;
@@ -518,19 +516,26 @@ namespace Business
                             Main.Add(new PDMS_MainApplication()
                             {
                                 MainApplicationID = Convert.ToInt32(dr["MainApplicationID"]),
-                                MainApplication = Convert.ToString(dr["MainApplication"])
+                                MainApplication = Convert.ToString(dr["MainApplication"]),
+                                IsActive=Convert.ToBoolean(dr["IsActive"])
                             });
                         }
                     }
                 }
             }
             catch (SqlException sqlEx)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetMainApplication", sqlEx);
+                throw sqlEx;
+            }
             catch (Exception ex)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetMainApplication", ex);
+                throw ex;
+            }
             return Main;
         }
-        public List<PDMS_SubApplication> GetSubApplication(int MainApplicationID, int? SubApplicationID, string SubApplication)
+        public List<PDMS_SubApplication> GetSubApplication(int? MainApplicationID, int? SubApplicationID, string SubApplication)
         {
             List<PDMS_SubApplication> Sub = new List<PDMS_SubApplication>();
             try
@@ -557,16 +562,27 @@ namespace Business
                             {
                                 MainApplicationID = Convert.ToInt32(dr["MainApplicationID"]),
                                 SubApplicationID = Convert.ToInt32(dr["SubApplicationID"]),
-                                SubApplication = Convert.ToString(dr["SubApplication"])
+                                SubApplication = Convert.ToString(dr["SubApplication"]),
+                                MainApplication=new PDMS_MainApplication()
+                                {
+                                    MainApplicationID = Convert.ToInt32(dr["MainApplicationID"]),
+                                    MainApplication = Convert.ToString(dr["MainApplication"])
+                                }
                             });
                         }
                     }
                 }
             }
             catch (SqlException sqlEx)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetSubApplication", sqlEx);
+                throw sqlEx;
+            }
             catch (Exception ex)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_GetSubApplication", ex);
+                throw ex;
+            }
             return Sub;
         }
         public List<PDMS_ServiceCharge> GetServiceCharges(long ICTicketID, long? ServiceChargeID, string MaterialCode, Boolean? IsDeleted)
@@ -2115,6 +2131,64 @@ namespace Business
             }
             return ServiceMaterials;
         }
-
+        public int InsertOrUpdateMainApplication(long? MainApplicationID, string MainApplication, Boolean IsActive, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            int success = 0;
+            DbParameter MainApplicationIDP = provider.CreateParameter("MainApplicationID", MainApplicationID, DbType.Int32);
+            DbParameter MainApplicationP = provider.CreateParameter("MainApplication", MainApplication, DbType.String);
+            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[4] { MainApplicationIDP, MainApplicationP, IsActiveP, UserIDP};
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("ZDMS_InsertOrUpdateMainApplication", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateMainApplication", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateMainApplication", ex);
+                throw ex;
+            }
+            return success;
+        }
+        public int InsertOrUpdateSubApplication(long? SubApplicationID, int MainApplicationID, string SubApplication, Boolean IsActive, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            int success = 0;
+            DbParameter SubApplicationIDP = provider.CreateParameter("SubApplicationID", SubApplicationID, DbType.Int32);
+            DbParameter MainApplicationIDP = provider.CreateParameter("MainApplicationID", MainApplicationID, DbType.Int32);
+            DbParameter SubApplicationP = provider.CreateParameter("SubApplication", SubApplication, DbType.String);
+            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[5] { SubApplicationIDP,MainApplicationIDP, SubApplicationP, IsActiveP, UserIDP};
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("ZDMS_InsertOrUpdateSubApplication", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateSubApplication", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Service", "ZDMS_InsertOrUpdateSubApplication", ex);
+                throw ex;
+            }
+            return success;
+        }
     }
 }

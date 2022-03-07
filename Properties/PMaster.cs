@@ -66,4 +66,27 @@ namespace Properties
         public int StatusID { get; set; }
         public string Status { get; set; }
     }
+
+    [Serializable]
+    public class PPriceGroup
+    {
+        public Int32 PriceGroupID { get; set; }
+        public string PriceGroupCode { get; set; }
+        public string Description { get; set; }
+    }
+
+    [Serializable]
+    public class PIncoterms
+    {
+        public Int32 IncoTermsID { get; set; }
+        public string IncoTerms { get; set; }
+        public string Description { get; set; }
+    }
+    [Serializable]
+    public class PPaymentTerms
+    {
+        public Int32 PaymentTermsID { get; set; }
+        public string PaymentTerms { get; set; }
+        public string Description { get; set; }
+    }
 }

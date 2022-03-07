@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -179,41 +180,41 @@ namespace Business
             //}
             return true;
         }
-        public Boolean InsertOrUpdateSalesQuotationItem(PSalesQuotationItem Item)
-        {
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    DbParameter QuotationID = provider.CreateParameter("QuotationID", Item.QuotationID, DbType.Int64);
-                    DbParameter QuotationItemID = provider.CreateParameter("WebQuotationItemID", Item.QuotationItemID, DbType.Int64);
-                    DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Item.Material == null ? "" : Item.Material.MaterialCode, DbType.String);
-                    DbParameter MaterialDescription = provider.CreateParameter("MaterialDescription", Item.Material == null ? "" : Item.Material.MaterialDescription, DbType.String);
-                    DbParameter Unit = provider.CreateParameter("Unit", Item.Unit, DbType.Int32);
-                    DbParameter Qty = provider.CreateParameter("Qty", Item.Qty, DbType.Int32);
-                    DbParameter BasicPrice = provider.CreateParameter("BasicPrice", Item.BasicPrice, DbType.Decimal);
-                    DbParameter TaxableValue = provider.CreateParameter("TaxableValue", Item.TaxableValue, DbType.Decimal);
-                    DbParameter TaxPersent = provider.CreateParameter("TaxPersent", Item.TaxPersent, DbType.Decimal);
-                    DbParameter TaxValue = provider.CreateParameter("TaxValue", Item.TaxValue, DbType.Decimal);
-                    DbParameter NetValue = provider.CreateParameter("NetValue", Item.NetValue, DbType.Decimal);
+        //public Boolean InsertOrUpdateSalesQuotationItem(PSalesQuotationItem Item)
+        //{
+        //    try
+        //    {
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            DbParameter QuotationID = provider.CreateParameter("QuotationID", Item.QuotationID, DbType.Int64);
+        //            DbParameter QuotationItemID = provider.CreateParameter("WebQuotationItemID", Item.QuotationItemID, DbType.Int64);
+        //            DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Item.Material == null ? "" : Item.Material.MaterialCode, DbType.String);
+        //            DbParameter MaterialDescription = provider.CreateParameter("MaterialDescription", Item.Material == null ? "" : Item.Material.MaterialDescription, DbType.String);
+                   
+        //            DbParameter Qty = provider.CreateParameter("Qty", Item.Qty, DbType.Int32);
+        //            DbParameter Rate = provider.CreateParameter("Rate", Item.Rate, DbType.Decimal);
+        //            DbParameter TaxableValue = provider.CreateParameter("TaxableValue", Item.TaxableValue, DbType.Decimal);
+        //            DbParameter TaxPersent = provider.CreateParameter("TaxPersent", Item.TaxPersent, DbType.Decimal);
+        //            DbParameter TaxValue = provider.CreateParameter("TaxValue", Item.TaxValue, DbType.Decimal);
+        //            DbParameter NetValue = provider.CreateParameter("NetValue", Item.NetValue, DbType.Decimal);
 
-                    DbParameter[] ItemParams = new DbParameter[11] { QuotationID, QuotationItemID, MaterialCode, MaterialDescription, Unit, Qty, BasicPrice, TaxableValue, TaxPersent, TaxValue, NetValue };
-                    provider.Insert("ZDMS_InsertOrUpdateSalesQuotationItem", ItemParams);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderDealer", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderDealer", ex);
-                return false;
-            }
-            return true;
-        }
+        //            DbParameter[] ItemParams = new DbParameter[10] { QuotationID, QuotationItemID, MaterialCode, MaterialDescription,  Qty, Rate, TaxableValue, TaxPersent, TaxValue, NetValue };
+        //            provider.Insert("ZDMS_InsertOrUpdateSalesQuotationItem", ItemParams);
+        //            scope.Complete();
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_WebQuotation", "InsertOrUpdatePrimarySalesOrderDealer", sqlEx);
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_WebQuotation", " InsertOrUpdatePrimarySalesOrderDealer", ex);
+        //        return false;
+        //    }
+        //    return true;
+        //}
         public Boolean InsertOrUpdateSalesQuotationSalesInformation(PSalesQuotation SalesOrder)
         {
             //int success = 0;
@@ -717,6 +718,49 @@ namespace Business
 
             //}
             return Ws;
+        }
+
+        public List<PSalesQuotation> GetSalesQuotationBasic(long? SalesQuotationID, long? RefQuotationID, long? LeadID, DateTime? RefQuotationDate
+          , string QuotationNo, DateTime? QuotationDateFrom, DateTime? QuotationDateTo, int? QuotationTypeID, int? StatusID, int? DealerID, string CustomerCode)
+        {
+            string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID + "&RefQuotationID=" + RefQuotationID + "&LeadID=" + LeadID 
+                + "&RefQuotationDate=" + RefQuotationDate                + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom 
+                + "&QuotationDateTo=" + QuotationDateTo + "&QuotationTypeID=" + QuotationTypeID + "&StatusID=" + StatusID
+                + "&DealerID=" + DealerID + "&CustomerCode=" + CustomerCode;
+            return JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
+        public PSalesQuotation GetSalesQuotationByID(long SalesQuotationID)
+        {
+            string endPoint = "SalesQuotation/SalesQuotationByID?SalesQuotationID=" + SalesQuotationID;
+            return JsonConvert.DeserializeObject<PSalesQuotation>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+
+        public List<PSalesQuotationType> GetSalesQuotationType(int? QuotationTypeID, string QuotationType)
+        {
+            string endPoint = "SalesQuotation/Type?QuotationTypeID=" + QuotationTypeID + "&QuotationType=" + QuotationType;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSalesQuotationStatus> GetSalesQuotationStatus(int? SaleQuotationStatusID, string Status)
+        {
+            string endPoint = "SalesQuotation/Status?SaleQuotationStatusID=" + SaleQuotationStatusID + "&Status=" + Status;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSalesQuotationUserStatus> GetSalesQuotationUserStatus(int? SalesQuotationUserStatusID, string Status)
+        {
+            string endPoint = "SalesQuotation/UserStatus?SalesQuotationUserStatusID=" + SalesQuotationUserStatusID + "&Status=" + Status;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationUserStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSaleQuotationRejectionReason> GetSaleQuotationRejectionReason(int? SaleQuotationRejectionReasonID, string Reason)
+        {
+            string endPoint = "SalesQuotation/RejectionReason?SaleQuotationRejectionReasonID=" + SaleQuotationRejectionReasonID + "&Reason=" + Reason;
+            return JsonConvert.DeserializeObject<List<PSaleQuotationRejectionReason>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSalesQuotationNoteList> GetSaleQuotationNoteList(int? SalesQuotationNoteListID, string Note)
+        {
+            string endPoint = "SalesQuotation/NoteList?SalesQuotationNoteListID=" + SalesQuotationNoteListID + "&Note=" + Note;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationNoteList>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

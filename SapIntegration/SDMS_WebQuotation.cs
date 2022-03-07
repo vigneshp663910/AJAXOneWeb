@@ -20,7 +20,7 @@ namespace SapIntegration
             tagListBapi.SetValue("PO_DATE", Quot.PrimaryPurchaseOrder.PurchaseOrderDate);
             tagListBapi.SetValue("DO_NUMBER", Quot.DoNumber);
             tagListBapi.SetValue("DO_DATE", Quot.DoDate);
-            tagListBapi.SetValue("TERMS_PAYMENT", Quot.CreditDays == null ? "" : Quot.CreditDays.PaymentTerm);
+            tagListBapi.SetValue("TERMS_PAYMENT", Quot.PaymentTerms == null ? "" : Quot.PaymentTerms.PaymentTerms);
             tagListBapi.SetValue("FINANCIER_AMT", Quot.DoAmount);
             tagListBapi.SetValue("ADVANCE_AMT", Quot.AdvanceAmount);
             tagListBapi.SetValue("FREIGHT_AMT", Quot.FreightAmount);
@@ -30,7 +30,7 @@ namespace SapIntegration
             tagListBapi.SetValue("MONTH_YR_MANUFACT", Quot.Equipment.ManufacturingMonthYear);
             tagListBapi.SetValue("APPLICATION_USAGE", Quot.Usage == null ? "" : Quot.Usage.MainApplication);
             tagListBapi.SetValue("SHIP_TO_PARTY", Quot.ShipTo.CustomerCode);
-            tagListBapi.SetValue("INCOTERMS", Quot.IncoTerm == null ? "" : Quot.IncoTerm.IncoTerm);
+            tagListBapi.SetValue("INCOTERMS", Quot.IncoTerms == null ? "" : Quot.IncoTerms.IncoTerms);
             tagListBapi.SetValue("FINANCIER_CODE", Quot.Financier == null ? "" : Quot.Financier.FinancierCode);
             tagListBapi.SetValue("BENIFICIARY_DO", Quot.BenificiaryOfDO);
             tagListBapi.SetValue("SUBVENTION_AMOUNT", Quot.SubventionAmount);
