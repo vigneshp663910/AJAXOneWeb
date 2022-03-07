@@ -19,12 +19,12 @@ namespace DealerManagementSystem.Account
 
                 FillDealerEmployee(PSession.User.DealerEmployeeID); // 1450 - Murugeshan KN
 
-                if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
-                {
-                    //FillDealerEmployee(PSession.User.DealerEmployeeID);
-                    //FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
-                    //FillDealerEmployeeRole(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
-                }
+                //if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
+                //{
+                //    //FillDealerEmployee(PSession.User.DealerEmployeeID);
+                //    //FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
+                //    //FillDealerEmployeeRole(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
+                //}
 
             }
 
@@ -46,14 +46,21 @@ namespace DealerManagementSystem.Account
                             lblTehsil.Text = Emp.Tehsil.Tehsil;
                         }
                     }
-                }             
+                }      
+                
+
                 lblVillage.Text = Emp.Village;
                 lblEmail.Text = "<a href=MAILTO:" + Emp.Email + '>' + Emp.Email + "</a>";
                 lblContactNo1.Text = Emp.ContactNumber;
                 lblContactNo2.Text = Emp.ContactNumber1;
                 lblEmergencyContact.Text = Emp.EmergencyContactNumber;
                 lblEmpID.Text = Emp.DealerEmployeeID.ToString();
-                
+                lblUserID.Text = PSession.UserId.ToString() + "/" + PSession.User.UserName;
+                //lblRole.Text = PSession.User.UserID.ToString();
+                //lblRole.Text = PSession.User.DealerEmployeeID.ToString();
+                //lblRole.Text = PSession.UserIPAddress;
+                //lblRole.Text = PSession.User.UserPlants.ToString();
+
             }
         }
     }
