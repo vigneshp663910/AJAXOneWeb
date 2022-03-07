@@ -46,14 +46,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 Message = Message + "<br/>Please select the Bank Name";
                 ddlBankName.BorderColor = Color.Red;
-            }
-           
-            if (string.IsNullOrEmpty(txtFinancePercentage.Text.Trim()))
+            }           
+            else if (string.IsNullOrEmpty(txtFinancePercentage.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Finance Percentage";
                 txtFinancePercentage.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            else if(string.IsNullOrEmpty(txtRemark.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Remark";
                 txtRemark.BorderColor = Color.Red;

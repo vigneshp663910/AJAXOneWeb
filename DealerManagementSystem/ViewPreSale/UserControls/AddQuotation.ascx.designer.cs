@@ -87,6 +87,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlPriceGroup;
 
         /// <summary>
+        /// txtRequestedDeliveryDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRequestedDeliveryDate;
+
+        /// <summary>
         /// ddlUserStatus control.
         /// </summary>
         /// <remarks>
@@ -105,93 +114,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlUserStatusRemarks;
 
         /// <summary>
-        /// Fieldset3 control.
+        /// txtShipParty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset3;
+        protected global::System.Web.UI.WebControls.TextBox txtShipParty;
 
         /// <summary>
-        /// txtSoldToParty control.
+        /// cbCommissionAgent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSoldToParty;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
-
-        /// <summary>
-        /// txtBillToParty control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBillToParty;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
-
-        /// <summary>
-        /// txtShipToParty control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtShipToParty;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender6;
-
-        /// <summary>
-        /// txtPayer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPayer;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender7;
-
-        /// <summary>
-        /// ddlDealerOffice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
+        protected global::System.Web.UI.WebControls.CheckBox cbCommissionAgent;
     }
 }

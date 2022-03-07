@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Effort.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.Effort" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <div class="col-md-12">
     <fieldset class="fieldset-border" id="Fieldset1" runat="server">
         <div class="col-md-12">
@@ -18,7 +19,9 @@
                 <label>Effort Date</label>
             </div>
             <div class="col-md-4">
-                <asp:TextBox ID="txtEffortDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                <asp:TextBox ID="txtEffortDate" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                <asp1:CalendarExtender ID="cxEffortDate" runat="server" TargetControlID="txtEffortDate" PopupButtonID="txtEffortDate" Format="dd/MM/yyyy" />
+                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender13" runat="server" TargetControlID="txtEffortDate" WatermarkText="DD/MM/YYYY" />
             </div>
             <div class="col-md-2 text-right">
                 <label>Effort Start Time</label>

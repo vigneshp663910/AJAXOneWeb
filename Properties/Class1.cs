@@ -7,7 +7,7 @@ namespace Properties
 {
     class Class1
     {
-        
+      
     }
 
 }

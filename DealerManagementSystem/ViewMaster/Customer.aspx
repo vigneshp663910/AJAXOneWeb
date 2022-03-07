@@ -153,8 +153,8 @@
                                             </asp:LinkButton><asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                      <asp:TemplateField HeaderText="Customer Name 2">
-                                        <ItemStyle VerticalAlign="Middle"  />
+                                    <asp:TemplateField HeaderText="Customer Name 2">
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCustomerName2" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName2")%>' runat="server" />
                                         </ItemTemplate>
@@ -172,7 +172,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EMail">
-                                        <ItemStyle VerticalAlign="Middle"/>
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "EMail")%>' runat="server" />
                                         </ItemTemplate>

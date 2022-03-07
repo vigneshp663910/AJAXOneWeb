@@ -22,6 +22,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         public void FillMaster(List<PUser> User)
         {
+            cxEffortDate.EndDate = DateTime.Now;
             new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
             new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID");
         }
@@ -77,38 +78,53 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtEffortStartTime.BorderColor = Color.Silver;
             txtEffortEndTime.BorderColor = Color.Silver;
             ddlEffortType.BorderColor = Color.Silver;
-            txtRemark.BorderColor = Color.Silver; 
+            txtRemark.BorderColor = Color.Silver;
 
             if (ddlSalesEngineer.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Sales Engineer"; 
+                Message = Message + "<br/>Please select the Sales Engineer.";
                 ddlSalesEngineer.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtEffortDate.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtEffortDate.Text.Trim()))
             {
-                Message = "Please enter the Effort Date"; 
+                Message = "Please enter the Effort Date.";
                 txtEffortDate.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtEffortStartTime.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtEffortStartTime.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Effort Start Time"; 
+                Message = Message + "<br/>Please enter the Effort Start Time.";
                 txtEffortStartTime.BorderColor = Color.Red;
-            } 
-            if (string.IsNullOrEmpty(txtEffortEndTime.Text.Trim()))
+            }
+            else if (string.IsNullOrEmpty(txtEffortEndTime.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Effort End Time"; 
+                Message = Message + "<br/>Please enter the Effort End Time.";
                 txtEffortEndTime.BorderColor = Color.Red;
-            } 
-            if (ddlEffortType.SelectedValue == "0")
+            }
+            else if (ddlEffortType.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Effort Type"; 
+                Message = Message + "<br/>Please select the Effort Type.";
                 ddlEffortType.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Remark"; 
+                Message = Message + "<br/>Please enter the Remark.";
                 txtRemark.BorderColor = Color.Red;
-            } 
+            }
+            else {
+                 
+                decimal EffortStartTime = Convert.ToDecimal(txtEffortStartTime.Text.Trim().Replace(':', '.'));
+                decimal EffortEndTime = Convert.ToDecimal(txtEffortEndTime.Text.Trim().Replace(':', '.'));
+
+                long StartTime = (Convert.ToInt32(EffortStartTime) * 60) + (int)(((decimal)EffortStartTime % 1) * 100);
+                long EndTime = (Convert.ToInt32(EffortEndTime) * 60) + (int)(((decimal)EffortEndTime % 1) * 100);
+                long Effort = EndTime - StartTime;
+                if (Effort <= 0)
+                {
+                    Message = Message + "Please enter the Effort Start Time and End Time correctly.";
+                    txtEffortStartTime.BorderColor = Color.Red;
+                    txtEffortEndTime.BorderColor = Color.Red;
+                }
+            }
             return Message;
         }
     }

@@ -51,6 +51,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtExpenseDate;
 
         /// <summary>
+        /// cxExpenseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cxExpenseDate;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender13;
+
+        /// <summary>
         /// txtAmount control.
         /// </summary>
         /// <remarks>

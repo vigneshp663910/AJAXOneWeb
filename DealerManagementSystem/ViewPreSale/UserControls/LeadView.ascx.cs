@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblMessage.Text = "";
         }
        public void fillViewLead(long LeadID)
         {
@@ -229,7 +229,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //{
             //    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
             //}
-            UC_FollowUp.FillMaster(LeadID); 
+            UC_FollowUp.FillMaster(); 
         }
         void fillConvocation(long LeadID)
         { 
@@ -268,7 +268,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
             }
-            new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID");
+            new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
         }
         void fillProduct(long LeadID)
         {
@@ -409,7 +409,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         protected void btnAddFile_Click(object sender, EventArgs e)
         {
-
+            lblMessage.Visible = true;
+            if (fileUpload.PostedFile.FileName.Length == 0)
+            {
+                lblMessage.Text = "Please select the file";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             byte[] buffer = new byte[100];
             Stream stream = new MemoryStream(buffer);
             HttpPostedFile file = fileUpload.PostedFile;
@@ -506,7 +512,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void BtnSaveQuotation_Click(object sender, EventArgs e)
         {
             MPE_Quotation.Show();
-            string Message = UC_Financial.ValidationFinancial();
+            string Message = UC_Quotation.ValidationSalesQuotation();
             lblMessageQuotation.ForeColor = Color.Red;
             lblMessageQuotation.Visible = true;
             if (!string.IsNullOrEmpty(Message))
@@ -516,7 +522,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             PSalesQuotation Sq = new PSalesQuotation();
             Sq = UC_Quotation.ReadSalesQuotation();
-            Sq.Lead = new PLead { LeadID = Lead.LeadID }; 
+            Sq.Lead = new PLead { LeadID = Lead.LeadID };
+            Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq)).Data);
             if (s == "0")
             {

@@ -312,6 +312,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtDOB;
 
         /// <summary>
+        /// cxDOB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cxDOB;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender14;
+
+        /// <summary>
         /// txtDOAnniversary control.
         /// </summary>
         /// <remarks>
@@ -319,6 +337,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDOAnniversary;
+
+        /// <summary>
+        /// cxDOAnniversary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cxDOAnniversary;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender13;
 
         /// <summary>
         /// cbSendSMS control.

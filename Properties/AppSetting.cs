@@ -14,4 +14,9 @@ namespace Properties
         public  Boolean TicketAssign { get; set; }
         public  Boolean TRApprover { get; set; }
     }
+    static public class PApplication
+    {
+        static public string Success { get { return ("Success"); } }
+        static public string Failure { get { return ("Failed"); } }
+    }
 }

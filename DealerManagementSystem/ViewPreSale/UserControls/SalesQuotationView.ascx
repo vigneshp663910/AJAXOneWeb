@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SalesQuotationView.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.SalesQuotationView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
+<%@ Register Src="~/ViewPreSale/UserControls/AddQuotation.ascx" TagPrefix="UC" TagName="UC_Quotation" %>
+<%@ Register Src="~/ViewPreSale/UserControls/AddFollowUp.ascx" TagPrefix="UC" TagName="UC_FollowUp" %>
+<%@ Register Src="~/ViewPreSale/UserControls/Effort.ascx" TagPrefix="UC" TagName="UC_Effort" %>
+<%@ Register Src="~/ViewPreSale/UserControls/Expense.ascx" TagPrefix="UC" TagName="UC_Expense" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -12,8 +15,9 @@
                 <asp:LinkButton ID="lbtnStatusChangeToClose" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                 <asp:LinkButton ID="lbtnStatusChangeToCancel" runat="server" OnClick="lbActions_Click">Add Competitor</asp:LinkButton>
                 <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Quotation Note</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add </asp:LinkButton>
-                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add </asp:LinkButton>
+                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton5" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -36,12 +40,12 @@
                     <label>Quotation Number : </label>
                     <asp:Label ID="lblQuotationNumber" runat="server"></asp:Label>
                 </div>
-            </div>
-            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Quotation Date : </label>
                     <asp:Label ID="lblQuotationDate" runat="server"></asp:Label>
                 </div>
+            </div>
+            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Quotation Type : </label>
                     <asp:Label ID="lblQuotationType" runat="server"></asp:Label>
@@ -54,13 +58,12 @@
                     <label>Valid From : </label>
                     <asp:Label ID="lblValidFrom" runat="server"></asp:Label>
                 </div>
-            </div>
-            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Valid To : </label>
                     <asp:Label ID="lblValidTo" runat="server"></asp:Label>
                 </div>
-
+            </div>
+            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Pricing Date : </label>
                     <asp:Label ID="lblPricingDate" runat="server"></asp:Label>
@@ -74,12 +77,11 @@
                     <asp:Label ID="lblUserStatus" runat="server"></asp:Label>
                 </div>
             </div>
-
-
         </div>
     </fieldset>
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+
 <asp:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
     <asp:TabPanel ID="tpnlFinancier" runat="server" HeaderText="Financier" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
@@ -99,7 +101,6 @@
                             <label>Payment Terms : </label>
                             <asp:Label ID="lblPaymentTerms" runat="server"></asp:Label>
                         </div>
-
                     </div>
                     <div class="col-md-4">
                         <div class="col-md-12">
@@ -110,7 +111,6 @@
                             <label>Do Date : </label>
                             <asp:Label ID="lblDoDate" runat="server"></asp:Label>
                         </div>
-
                     </div>
                     <div class="col-md-4">
                         <div class="col-md-12">
@@ -181,7 +181,7 @@
                                         <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxableValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                            <%--    <asp:TemplateField HeaderText="Tax %">
+                                <%--    <asp:TemplateField HeaderText="Tax %">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblTaxPersent" Text='<%# DataBinder.Eval(Container.DataItem, "TaxPersent")%>' runat="server"></asp:Label>
@@ -199,10 +199,9 @@
                                         <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lblMaterialRemove" runat="server" CommandArgument="QuotationItemID" OnClick="lblMaterialRemove_Click">Cancel</asp:LinkButton>
+                                        <asp:LinkButton ID="lblMaterialRemove" runat="server" OnClick="lblMaterialRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -249,10 +248,9 @@
                                         <asp:Label ID="lblRemark" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lblMaterialRemove" runat="server" CommandArgument="QuotationItemID" OnClick="lblMaterialRemove_Click">Cancel</asp:LinkButton>
+                                        <asp:LinkButton ID="lblCompetitorRemove" runat="server" OnClick="lblCompetitorRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -262,6 +260,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
+
                     </div>
                 </div>
             </div>
@@ -281,17 +280,16 @@
                                         <asp:Label ID="lblSalesQuotationCompetitorID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotationNoteID")%>' runat="server" Visible="false"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
+
                                 <asp:TemplateField HeaderText="Remark">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblRemark" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lblMaterialRemove" runat="server" CommandArgument="QuotationItemID" OnClick="lblMaterialRemove_Click">Cancel</asp:LinkButton>
+                                        <asp:LinkButton ID="lblNoteRemove" runat="server" OnClick="lblNoteRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -301,6 +299,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
+
                     </div>
                 </div>
             </div>
@@ -332,7 +331,6 @@
                             <label>Customer : </label>
                             <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
                         </div>
-
                     </div>
                 </div>
             </fieldset>
@@ -373,6 +371,188 @@
                     </div>
                 </div>
             </fieldset>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Customer">
+        <ContentTemplate>
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <label>Contact Person : </label>
+                            <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Mobile : </label>
+                            <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Email : </label>
+                            <asp:Label ID="Label3" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <label>Address : </label>
+                            <asp:Label ID="Label4" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Importance : </label>
+                            <asp:Label ID="Label5" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Status : </label>
+                            <asp:Label ID="Label6" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up">
+        <ContentTemplate>
+            <div class="col-md-12">
+                <div class="col-md-12 Report">
+                    <div class="table-responsive">
+                        <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Sales Engineer">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Follow Up Date">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Follow Up Note">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAssignedBy" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpNote")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
+        <ContentTemplate>
+            <div class="col-md-12 Report">
+                <div class="table-responsive">
+                    <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Sales Engineer">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Effort Type">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffortType" Text='<%# DataBinder.Eval(Container.DataItem, "EffortType.EffortType")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Effort Date" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffortDate" Text='<%# DataBinder.Eval(Container.DataItem, "EffortDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Effort Start Time" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffortStartTime" Text='<%# DataBinder.Eval(Container.DataItem, "EffortStartTime")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Effort End Time" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffortEndTime" Text='<%# DataBinder.Eval(Container.DataItem, "EffortEndTime")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Effort" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffort" Text='<%# DataBinder.Eval(Container.DataItem, "Effort")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Remark" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
+        <ContentTemplate>
+            <div class="col-md-12 Report">
+                <div class="table-responsive">
+                    <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Sales Engineer">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expense Type">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpenseType" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseType.ExpenseType")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expense Date" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Amount" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Remark" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
         </ContentTemplate>
     </asp:TabPanel>
 </asp:TabContainer>
@@ -429,7 +609,6 @@
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Financier" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFinancier" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-
 <asp:Panel ID="pnlProduct" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Product</span><a href="#" role="button">
@@ -465,7 +644,6 @@
 </asp:Panel>
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
 
 <asp:Panel ID="pnlCompetitor" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -503,7 +681,6 @@
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Competitor" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCompetitor" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-
 <asp:Panel ID="pntNote" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Note</span><a href="#" role="button">
@@ -516,7 +693,7 @@
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Note</label>
                     <asp:DropDownList ID="ddlNote" runat="server" CssClass="form-control" />
-                </div> 
+                </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Remark</label>
                     <asp:TextBox ID="txtNoteRemark" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
@@ -532,6 +709,71 @@
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Note" runat="server" TargetControlID="lnkMPE" PopupControlID="pntNote" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+
+<asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none;">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+
+            <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
+        </div>
+        <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height:400px">
+    <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a></div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveFollowUp" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFollowUp_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_FollowUp" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFollowUp" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button">
+            <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Effort" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEffort" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Cold Visit Expense</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
+        <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <%--<fieldset class="fieldset-border" id="Fieldset4" runat="server">
     <div class="col-md-12">

@@ -21,6 +21,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillMaster(List<PUser> User)
         {
+            cxExpenseDate.EndDate = DateTime.Now;
             new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
             new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID");
         }
@@ -85,7 +86,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 Message = Message + "<br/>Please enter the Remark"; 
                 txtRemark.BorderColor = Color.Red;
-            }
+            } 
             return Message;
         }
     }

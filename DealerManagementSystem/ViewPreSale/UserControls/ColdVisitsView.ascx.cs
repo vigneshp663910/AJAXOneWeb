@@ -218,7 +218,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         protected void btnAddFile_Click(object sender, EventArgs e)
         {
-
+            lblMessage.Visible = true;
+            if (fileUpload.PostedFile.FileName.Length == 0)
+            {
+                lblMessage.Text = "Please select the file";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             byte[] buffer = new byte[100];
             Stream stream = new MemoryStream(buffer);
             HttpPostedFile file = fileUpload.PostedFile;

@@ -762,5 +762,39 @@ namespace Business
             string endPoint = "SalesQuotation/NoteList?SalesQuotationNoteListID=" + SalesQuotationNoteListID + "&Note=" + Note;
             return JsonConvert.DeserializeObject<List<PSalesQuotationNoteList>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PSalesQuotationFollowUp> GetSalesQuotationFollowUpByID(long SalesQuotationID, long? SalesQuotationFollowUpID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "SalesQuotation/FollowUpByID?SalesQuotationID=" + SalesQuotationID + "&SalesQuotationFollowUpID=" + SalesQuotationFollowUpID;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationFollowUp>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+        public List<PSalesQuotationFollowUp> GetSalesQuotationFollowUp(long? SalesQuotationID, int? SalesEngineerUserID, DateTime? From, DateTime? To, int? UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "SalesQuotation/FollowUp?SalesQuotationID=" + SalesQuotationID + "&SalesEngineerUserID=" + SalesEngineerUserID
+                + "&From=" + From + "&To=" + To + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationFollowUp>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+        public List<PSalesQuotationEffort> GetSalesQuotationEffort(long SalesQuotationID, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "SalesQuotation/Effort?SalesQuotationID=" + SalesQuotationID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationEffort>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+        public List<PSalesQuotationExpense> GetSalesQuotationExpense(long SalesQuotationID, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "SalesQuotation/Expense?SalesQuotationID=" + SalesQuotationID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PSalesQuotationExpense>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+
     }
 }

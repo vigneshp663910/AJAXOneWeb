@@ -20,15 +20,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                
             }
         }
-        public void FillMaster(long LeadID)
+        public void FillMaster()
         {
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID, true);
-            List<PUser> U = new List<PUser>();
-            foreach (PLeadSalesEngineer SE in SalesEngineer)
-            {
-                U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            }
-            new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID");
+            cxFollowUpDate.StartDate = DateTime.Now;
+            //List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID, true);
+            //List<PUser> U = new List<PUser>();
+            //foreach (PLeadSalesEngineer SE in SalesEngineer)
+            //{
+            //    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
+            //}
+            //new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID");
         }
         //protected void lblFollowUpAdd_Click(object sender, EventArgs e)
         //{

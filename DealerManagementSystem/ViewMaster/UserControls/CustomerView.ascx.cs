@@ -299,7 +299,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             string Message = UC_Customer.ValidationCustomer();
             lblMessageCustomerEdit.ForeColor = Color.Red;
             lblMessageCustomerEdit.Visible = true;
-            //MPE_Customer.Show();
+            MPE_Customer.Show();
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessageCustomerEdit.Text = Message;
@@ -309,6 +309,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.CustomerID = CustomerID;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
             string result = new BAPI().ApiPut("Customer", Customer);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", Customer));
+
+            if (Result.Staus == PApplication.Failure)
+            {
+                lblMessageCustomerEdit.Text = Result.Message;
+                lblMessageCustomerEdit.ForeColor = Color.Red;
+                return;
+            }
+            else
+            {
+                lblMessageCustomerEdit.Text = "Successfully Updated";
+                lblMessageCustomerEdit.ForeColor = Color.Green;
+            }
             fillCustomer(CustomerID);
         } 
 
@@ -402,10 +415,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerID = CustomerID;
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
-            if (s == "0")
+           // PApiResult s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
+
+            PApiResult Result =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
+
+            if (Result.Staus == PApplication.Failure)
             {
-                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
             }
             else
@@ -647,7 +663,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void btnAddFile_Click(object sender, EventArgs e)
         {
-
+            lblMessage.Visible = true;
+            if (fileUpload.PostedFile.FileName.Length == 0)
+            {
+                lblMessage.Text = "Please select the file";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             byte[] buffer = new byte[100];
             Stream stream = new MemoryStream(buffer); 
             HttpPostedFile file = fileUpload.PostedFile;

@@ -22,11 +22,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         public void FillMaster()
         {
+            cxDOAnniversary.EndDate = DateTime.Now;
+            cxDOB.EndDate = DateTime.Now;
+
             new DDLBind(ddlTitle, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID",false);
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID"); 
             ddlCountry.SelectedValue = "1";  
             new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");  
-          //  new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null,null), "District", "DistrictID");
+           // new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null,null), "District", "DistrictID");
            // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)

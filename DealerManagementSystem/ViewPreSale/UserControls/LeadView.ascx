@@ -9,7 +9,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddFinancial.ascx" TagPrefix="UC" TagName="UC_Financial" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLeadProduct.ascx" TagPrefix="UC" TagName="UC_Product" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddQuotation.ascx" TagPrefix="UC" TagName="UC_Quotation" %>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -104,12 +104,13 @@
         </div>
     </fieldset>
 </div>
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
     <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="Sales Engineer" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvSalesEngineer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" ShowFooter="true">
+                    <asp:GridView ID="gvSalesEngineer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" >
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -154,7 +155,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-                        <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" ShowFooter="true">
+                        <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" >
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -189,7 +190,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvConvocation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" ShowFooter="true">
+                    <asp:GridView ID="gvConvocation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" >
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -229,7 +230,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvFinancial" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" ShowFooter="true">
+                    <asp:GridView ID="gvFinancial" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found"  >
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -480,9 +481,6 @@
 
 
 
-
-
-
 <asp:Panel ID="pnlSEAssign" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Assign Engineer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -499,7 +497,7 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height:400px">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
@@ -593,21 +591,20 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-<asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none; left: 0px" Width="50%">
+<asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
+    <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-       
-        <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
-        <div class="col-md-12 text-center">
-             <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
-            <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
-        </div>
+        <div class="model-scroll">
 
-    </div>
+            <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
+        </div>
+        <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
+    </div> 
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 

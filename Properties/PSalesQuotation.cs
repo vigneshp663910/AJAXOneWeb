@@ -22,11 +22,12 @@ namespace Properties
         public DateTime? ValidFrom { get; set; }
         public DateTime? ValidTo { get; set; }
         public DateTime? PricingDate { get; set; }
+        public Boolean CommissionAgent { get; set; }
         public PPriceGroup PriceGroup { get; set; }
         public PSalesQuotationUserStatus UserStatus { get; set; }
         public decimal? NetValue { get; set; }
-        //Ajax product   
-        public PDMS_Customer BillTo { get; set; }
+
+        //Ajax product    
         public PDMS_Customer ShipTo { get; set; }
         public PSalesQuotationFinancier Financier { get; set; }
         public PSalesQuotationItem QuotationItem { get; set; }
@@ -191,12 +192,48 @@ namespace Properties
         public string Note { get; set; }
     }
 
+    [Serializable]
+    public class PSalesQuotationFollowUp
+    {
+        public long SalesQuotationFollowUpID { get; set; }
+        public long SalesQuotationID { get; set; }
+        public string FollowUpNote { get; set; }
+        public DateTime FollowUpDate { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public PUser CreatedBy { get; set; }
+
+        public PSalesQuotation SalesQuotation { get; set; }
+        public PPreSaleStatus Status { get; set; }
+        public PDMS_Customer Customer { get; set; }
+        public string Remark { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationEffort
+    {
+        public long SalesQuotationEffortID { get; set; }
+        public long SalesQuotationID { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public DateTime EffortDate { get; set; }
+        public decimal EffortStartTime { get; set; }
+        public decimal EffortEndTime { get; set; }
+        public decimal Effort { get; set; }
+        public PEffortType EffortType { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationExpense
+    {
+        public long SalesQuotationExpenseID { get; set; }
+        public long SalesQuotationID { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public DateTime ExpenseDate { get; set; }
+        public PExpenseType ExpenseType { get; set; }
+        public decimal Amount { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
 
 
-
-
-
-
-
-
+     
 }

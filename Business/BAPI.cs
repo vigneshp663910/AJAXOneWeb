@@ -19,9 +19,10 @@ using System.Web.Mvc;
 namespace Business
 {
     public class PApiResult
-    { 
-        public string Success { get; set; }
-        public object Data { get; set; } 
+    {
+        public string Staus { get; set; }
+        public string Message { get; set; }
+        public object Data { get; set; }
     }
 
     public class UL

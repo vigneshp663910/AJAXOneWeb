@@ -73,7 +73,7 @@
             background-color: blue;
         }
 </style>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+
 
 <%--<div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
@@ -126,8 +126,7 @@
                 <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                 <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
                 <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton> 
                 <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
@@ -139,70 +138,70 @@
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
-        <div class="col-md-12 View"> 
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Customer : </label>
-                        <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Alternative Mobile : </label>
-                        <asp:Label ID="lblAlternativeMobile" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>GSTIN : </label>
-                        <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Active : </label>
-                        <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" />
+        <div class="col-md-12 View">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Customer : </label>
+                    <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Alternative Mobile : </label>
+                    <asp:Label ID="lblAlternativeMobile" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>GSTIN : </label>
+                    <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Active : </label>
+                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" />
 
-                    </div>
-                    <div class="col-md-12">
-                        <label>BillingBlock : </label>
-                        <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" />
-                    </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Contact Person : </label>
-                        <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Email : </label>
-                        <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>PAN : </label>
-                        <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>OrderBlock : </label>
-                        <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" />
-                    </div>
+                <div class="col-md-12">
+                    <label>BillingBlock : </label>
+                    <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" />
                 </div>
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Mobile : </label>
-                        <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Location : </label>
-                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Verified : </label>
-                        <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" />
-                    </div>
-                    <div class="col-md-12">
-                        <label>DeliveryBlock : </label>
-                        <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" />
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Contact Person : </label>
+                    <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Email : </label>
+                    <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>PAN : </label>
+                    <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>OrderBlock : </label>
+                    <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Mobile : </label>
+                    <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Location : </label>
+                    <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Verified : </label>
+                    <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" />
+                </div>
+                <div class="col-md-12">
+                    <label>DeliveryBlock : </label>
+                    <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" />
+                </div>
+            </div>
         </div>
     </fieldset>
 </div>
-
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
     <asp1:TabPanel ID="tpnlAttribute" runat="server" HeaderText="Attribute" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
@@ -876,15 +875,18 @@
         <span id="PopupDialogue">Edit Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <asp:Label ID="lblMessageCustomerEdit" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
 
-        <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageCustomerEdit" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnUpdateCustomer" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateCustomer_Click" />
         </div>
     </div>
 </asp:Panel>
+
 <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlFleet" runat="server" CssClass="Popup" Style="display: none">
