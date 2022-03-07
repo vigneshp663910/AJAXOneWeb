@@ -141,7 +141,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MPE_Expense.Show();
                 fillExpense();
             }
-
+            else if (lbActions.Text == "Generate Quotation")
+            {
+                GenerateQuotation();
+                fillViewQuotation(Quotation.QuotationID);
+            }
+            else if (lbActions.Text == "Print PDF")
+            {
+                GeneratePDF();
+            }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
@@ -712,5 +720,17 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
         }
 
+        void GenerateQuotation()
+        {
+            PSalesQuotation Q = Quotation;
+
+
+        }
+        void GeneratePDF()
+        {
+            PSalesQuotation Q = Quotation;
+
+
+        }
     }
 }

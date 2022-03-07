@@ -18,6 +18,8 @@
                 <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
                 <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
                 <asp:LinkButton ID="LinkButton5" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton6" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton7" runat="server" OnClick="lbActions_Click">Print PDF</asp:LinkButton>
             </div>
         </div>
     </div>
