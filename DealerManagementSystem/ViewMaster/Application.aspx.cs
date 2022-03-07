@@ -30,21 +30,6 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
-
-        protected void btnRetrieve_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SearchMainApplication();
-                SearchSubApplication();
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
         void SearchSubApplication()
         {
             int? SubApplicationID = null;
@@ -65,8 +50,10 @@ namespace DealerManagementSystem.ViewMaster
         }
         void SearchMainApplication()
         {
-            int? MainApplicationID = ddlMainApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMainApplication.SelectedValue);
-            string MainApplicationName = ddlMainApplication.SelectedValue == "0" ? (string)null : ddlMainApplication.SelectedItem.Text.Trim();
+            //int? MainApplicationID = ddlMainApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMainApplication.SelectedValue);
+            //string MainApplicationName = ddlMainApplication.SelectedValue == "0" ? (string)null : ddlMainApplication.SelectedItem.Text.Trim();
+            int? MainApplicationID = (int?)null;
+            string MainApplicationName = (string)null;
 
             List<PDMS_MainApplication> mainApplications = new BDMS_Service().GetMainApplication(MainApplicationID, MainApplicationName);
 
@@ -378,6 +365,20 @@ namespace DealerManagementSystem.ViewMaster
                 txtSubApplication.Text = SubApplication;
                 HiddenID.Value = Convert.ToString(lblSubApplicationEdit.CommandArgument);
                 BtnAddSubApplication.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void ddlMainApplication_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SearchSubApplication();
             }
             catch (Exception ex)
             {

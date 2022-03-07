@@ -33,22 +33,22 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.HiddenField HiddenID;
 
         /// <summary>
-        /// ddlMainApplication control.
+        /// tbpApplication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMainApplication;
+        protected global::AjaxControlToolkit.TabContainer tbpApplication;
 
         /// <summary>
-        /// btnRetrieve control.
+        /// tpnlMainApplication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRetrieve;
+        protected global::AjaxControlToolkit.TabPanel tpnlMainApplication;
 
         /// <summary>
         /// gvMainApplication control.
@@ -58,6 +58,24 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvMainApplication;
+
+        /// <summary>
+        /// tpnlSubApplication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlSubApplication;
+
+        /// <summary>
+        /// ddlMainApplication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMainApplication;
 
         /// <summary>
         /// gvSubApplication control.

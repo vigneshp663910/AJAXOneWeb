@@ -354,7 +354,7 @@
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
-                                        <label>Effort Type</label>
+                                        <label>Expense Type</label>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:DropDownList ID="ddlExpenseType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlExpenseType_SelectedIndexChanged"></asp:DropDownList>
@@ -382,7 +382,7 @@
                                                     <asp:Label ID="lblExpenseTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' runat="server" Visible="false" />
                                                 </ItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtExpenseType" runat="server" placeholder="Effort Type" CssClass="form-control"></asp:TextBox>
+                                                    <asp:TextBox ID="txtExpenseType" runat="server" placeholder="Expense Type" CssClass="form-control"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
