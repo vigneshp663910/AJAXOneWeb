@@ -208,6 +208,129 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
            
             fillFinancial(Lead.LeadID);
         }
+        protected void btnSaveFollowUp_Click(object sender, EventArgs e)
+        {
+            MPE_FollowUp.Show();
+            string Message = UC_FollowUp.ValidationFollowUp();
+            lblMessageFollowUp.ForeColor = Color.Red;
+            lblMessageFollowUp.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageFollowUp.Text = Message;
+                return;
+            }
+            PLeadFollowUp Lead = new PLeadFollowUp();
+            Lead = UC_FollowUp.ReadFollowUp();
+            Lead.LeadFollowUpID = 0;
+            Lead.LeadID = LeadID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageFollowUp.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_FollowUp.Hide();
+            fillFollowUp(Lead.LeadID);
+        }
+
+        protected void btnSaveustomerConvocation_Click(object sender, EventArgs e)
+        {
+            MPE_Convocation.Show();
+            string Message = UC_CustomerConvocation.ValidationConvocation();
+            lblMessageConvocation.ForeColor = Color.Red;
+            lblMessageConvocation.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageConvocation.Text = Message;
+                return;
+            }
+            PLeadConvocation Lead = new PLeadConvocation();
+            Lead = UC_CustomerConvocation.ReadConvocation();
+            Lead.LeadID = LeadID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageConvocation.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Convocation.Hide();
+            fillConvocation(Lead.LeadID);
+        }
+
+        protected void btnSaveAssignSE_Click(object sender, EventArgs e)
+        {
+            MPE_AssignSE.Show();
+            string Message = UC_AssignSE.ValidationAssignSE();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            PLeadSalesEngineer Lead = new PLeadSalesEngineer();
+            Lead = UC_AssignSE.ReadAssignSE();
+            Lead.LeadID = LeadID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Lead)).Data);
+            if (s == "false")
+            {
+                lblMessageAssignEngineer.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_AssignSE.Hide();
+            tbpCust.ActiveTabIndex = 0;
+
+            fillAssignSalesEngineer(Lead.LeadID);
+        }
+
+        protected void btnSaveFinancial_Click(object sender, EventArgs e)
+        {
+            MPE_Financial.Show();
+            string Message = UC_Financial.ValidationFinancial();
+            lblMessageFinancial.ForeColor = Color.Red;
+            lblMessageFinancial.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageFinancial.Text = Message;
+                return;
+            }
+            PLeadFinancial Lead = new PLeadFinancial();
+            Lead = UC_Financial.ReadFinancial();
+            Lead.LeadID = LeadID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageFinancial.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Financial.Hide();
+            fillFinancial(LeadID);
+        }
+
+        protected void btnSaveProduct_Click(object sender, EventArgs e)
+        {
+            MPE_Product.Show();
+            string Message = UC_Product.ValidationProduct();
+            lblMessageProduct.ForeColor = Color.Red;
+            lblMessageProduct.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageProduct.Text = Message;
+                return;
+            }
+            PLeadProduct Lead = new PLeadProduct();
+            Lead = UC_Product.ReadProduct();
+            Lead.LeadID = LeadID;
+            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead)).Data);
+            if (s == "0")
+            {
+                lblMessageProduct.Text = "Something went wrong try again";
+                return;
+            }
+            MPE_Product.Hide();
+            fillProduct(LeadID);
+        }
 
         void fillAssignSalesEngineer(long LeadID)
         { 
@@ -278,129 +401,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
            
 
         }
-        protected void btnSaveFollowUp_Click(object sender, EventArgs e)
-        { 
-            MPE_FollowUp.Show(); 
-            string Message = UC_FollowUp.ValidationFollowUp();
-            lblMessageFollowUp.ForeColor = Color.Red;
-            lblMessageFollowUp.Visible = true;
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageFollowUp.Text = Message;
-                return;
-            }
-            PLeadFollowUp Lead = new PLeadFollowUp();
-            Lead = UC_FollowUp.ReadFollowUp();
-            Lead.LeadFollowUpID = 0;
-            Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead)).Data);
-            if (s == "0")
-            {
-                lblMessageFollowUp.Text = "Something went wrong try again";
-                return;
-            }
-            MPE_FollowUp.Hide();
-            fillFollowUp(Lead.LeadID); 
-        }
-
-        protected void btnSaveustomerConvocation_Click(object sender, EventArgs e)
-        {
-            MPE_Convocation.Show();
-            string Message = UC_CustomerConvocation.ValidationConvocation();
-            lblMessageConvocation.ForeColor = Color.Red;
-            lblMessageConvocation.Visible = true;
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageConvocation.Text = Message;
-                return;
-            }
-            PLeadConvocation Lead = new PLeadConvocation();
-            Lead = UC_CustomerConvocation.ReadConvocation();
-            Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Lead)).Data);
-            if (s == "0")
-            {
-                lblMessageConvocation.Text = "Something went wrong try again";
-                return;
-            }
-            MPE_Convocation.Hide();
-            fillConvocation(Lead.LeadID);
-        }
-
-        protected void btnSaveAssignSE_Click(object sender, EventArgs e)
-        {
-            MPE_AssignSE.Show();
-            string Message = UC_AssignSE.ValidationAssignSE();
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
-
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageAssignEngineer.Text = Message;
-                return;
-            }
-            PLeadSalesEngineer Lead = new PLeadSalesEngineer();
-            Lead = UC_AssignSE.ReadAssignSE();
-            Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Lead)).Data);
-            if (s == "false")
-            {
-                lblMessageAssignEngineer.Text = "Something went wrong try again"; 
-                return;
-            }
-            MPE_AssignSE.Hide();
-            tbpCust.ActiveTabIndex = 0;
-
-            fillAssignSalesEngineer(Lead.LeadID);
-        }
-
-        protected void btnSaveFinancial_Click(object sender, EventArgs e)
-        { 
-            MPE_Financial.Show();
-            string Message = UC_Financial.ValidationFinancial();
-            lblMessageFinancial.ForeColor = Color.Red;
-            lblMessageFinancial.Visible = true;
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageFinancial.Text = Message;
-                return;
-            }
-            PLeadFinancial Lead = new PLeadFinancial();
-            Lead = UC_Financial.ReadFinancial();
-            Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead)).Data);
-            if (s == "0")
-            {
-                lblMessageFinancial.Text = "Something went wrong try again";
-                return;
-            }
-            MPE_Financial.Hide();
-            fillFinancial(LeadID);
-        }
-
-        protected void btnSaveProduct_Click(object sender, EventArgs e)
-        {
-            MPE_Product.Show();
-            string Message = UC_Product.ValidationProduct();
-            lblMessageProduct.ForeColor = Color.Red;
-            lblMessageProduct.Visible = true;
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageProduct.Text = Message;
-                return;
-            }
-            PLeadProduct Lead = new PLeadProduct();
-            Lead = UC_Product.ReadProduct();
-            Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead)).Data);
-            if (s == "0")
-            {
-                lblMessageProduct.Text = "Something went wrong try again";
-                return;
-            }
-            MPE_Product.Hide();
-            fillProduct(LeadID);
-        }
+       
 
         void fillSupportDocument()
         {
