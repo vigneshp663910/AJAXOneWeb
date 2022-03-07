@@ -69,10 +69,12 @@ namespace DealerManagementSystem
         {
             login();
         }
+
         private void Redirect(string pageNmae)
         {
             Response.Redirect(pageNmae);
         }
+
         private void LockUser(string userName)
         {
             try
