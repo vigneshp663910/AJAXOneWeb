@@ -9,7 +9,7 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public string getQuotationIntegration()
+        public string getQuotationIntegration(PSalesQuotation pSalesQuotation)
         {
             string QuotationNo=null;
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
@@ -17,24 +17,24 @@ namespace SapIntegration
             QTHeader.SetValue("REFOBJTYPE", "");
             QTHeader.SetValue("REFOBJKEY", "");
             QTHeader.SetValue("REFDOCTYPE", "");            
-            QTHeader.SetValue("DOC_TYPE", "");
+            QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
             QTHeader.SetValue("COLLECT_NO", "");
-            QTHeader.SetValue("SALES_ORG", "");
-            QTHeader.SetValue("DISTR_CHAN", "");
-            QTHeader.SetValue("DIVISION", "");
-            QTHeader.SetValue("SALES_GRP", "");
-            QTHeader.SetValue("SALES_OFF", "");
+            QTHeader.SetValue("SALES_ORG", "");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
+            QTHeader.SetValue("DISTR_CHAN", "GT");
+            QTHeader.SetValue("DIVISION", "CM");
+            QTHeader.SetValue("SALES_GRP", pSalesQuotation.Lead.Customer.SalesGroup);
+            QTHeader.SetValue("SALES_OFF", pSalesQuotation.Lead.Customer.SalesOffice);
             QTHeader.SetValue("REQ_DATE_H", "");
             QTHeader.SetValue("DATE_TYPE", "");
             QTHeader.SetValue("PURCH_DATE", "");
             QTHeader.SetValue("PO_METHOD", "");
             QTHeader.SetValue("PO_SUPPLEM", "");
             QTHeader.SetValue("REF_1", "");
-            QTHeader.SetValue("NAME", "");
-            QTHeader.SetValue("TELEPHONE", "");
-            QTHeader.SetValue("PRICE_GRP", "");
-            QTHeader.SetValue("CUST_GROUP", "");
-            QTHeader.SetValue("SALES_DIST", "");
+            QTHeader.SetValue("NAME", pSalesQuotation.Lead.Customer.CustomerCode);
+            QTHeader.SetValue("TELEPHONE", pSalesQuotation.Lead.Customer.Mobile);
+            QTHeader.SetValue("PRICE_GRP", pSalesQuotation.PriceGroup.PriceGroupCode);
+            QTHeader.SetValue("CUST_GROUP", "GT");
+            QTHeader.SetValue("SALES_DIST", pSalesQuotation.Lead.Customer.SalesDistrict);
             QTHeader.SetValue("PRICE_LIST", "");
             QTHeader.SetValue("INCOTERMS1", "");
             QTHeader.SetValue("INCOTERMS2", "");
@@ -43,11 +43,11 @@ namespace SapIntegration
             QTHeader.SetValue("BILL_BLOCK", "");
             QTHeader.SetValue("ORD_REASON", "");
             QTHeader.SetValue("COMPL_DLV", "");
-            QTHeader.SetValue("PRICE_DATE", "");
-            QTHeader.SetValue("QT_VALID_F", "");
-            QTHeader.SetValue("QT_VALID_T", "");
+            QTHeader.SetValue("PRICE_DATE", pSalesQuotation.PricingDate);
+            QTHeader.SetValue("QT_VALID_F", pSalesQuotation.ValidFrom);
+            QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
             QTHeader.SetValue("CT_VALID_F", "");
-            QTHeader.SetValue("CT_VALID_T", "");
+            QTHeader.SetValue("CT_VALID_T", pSalesQuotation.ValidTo);
             QTHeader.SetValue("CUST_GRP1", "");
             QTHeader.SetValue("CUST_GRP2", "");
             QTHeader.SetValue("CUST_GRP3", "");
@@ -63,7 +63,7 @@ namespace SapIntegration
             QTHeader.SetValue("WAR_DATE", "");
             QTHeader.SetValue("SHIP_COND", "");
             QTHeader.SetValue("PP_SEARCH", "");
-            QTHeader.SetValue("DUN_COUNT", "");
+            QTHeader.SetValue("DUN_COUNT", "0");
             QTHeader.SetValue("DUN_DATE", "");
             QTHeader.SetValue("DLVSCHDUSE", "");
             QTHeader.SetValue("PLDLVSTYP", "");
@@ -86,11 +86,11 @@ namespace SapIntegration
             QTHeader.SetValue("INVO_SCHED", "");
             QTHeader.SetValue("MN_INVOICE", "");
             QTHeader.SetValue("EXRATE_FI", "");
-            QTHeader.SetValue("ADD_VAL_DY", "");
+            QTHeader.SetValue("ADD_VAL_DY", "00");
             QTHeader.SetValue("FIX_VAL_DY", "");
             QTHeader.SetValue("PYMT_METH", "");
             QTHeader.SetValue("ACCNT_ASGN", "");
-            QTHeader.SetValue("EXCHG_RATE", "");
+            QTHeader.SetValue("EXCHG_RATE", "0.00000");
             QTHeader.SetValue("BILL_DATE", "");
             QTHeader.SetValue("SERV_DATE", "");
             QTHeader.SetValue("DUNN_KEY", "");
@@ -119,9 +119,9 @@ namespace SapIntegration
             QTHeader.SetValue("NOTIF_NO", "");
             QTHeader.SetValue("WBS_ELEM", "");
             QTHeader.SetValue("EXCH_RATE_FI_V", "");
-            QTHeader.SetValue("EXCHG_RATE_V", "");
+            QTHeader.SetValue("EXCHG_RATE_V", "0.00000");
             QTHeader.SetValue("FKK_CONACCT", "");
-            QTHeader.SetValue("CAMPAIGN", "");
+            QTHeader.SetValue("CAMPAIGN", "0000000000000000000000");
             QTHeader.SetValue("DOC_CLASS", "");
             QTHeader.SetValue("H_CURR", "");
             QTHeader.SetValue("H_CURR_ISO", "");
@@ -141,7 +141,7 @@ namespace SapIntegration
             QTHeader.SetValue("SEPA_MANDATE_ID", "");
             QTHeader.SetValue("SD_DOC_CAT_LONG", "");
             QTHeader.SetValue("REFDOC_CAT_LONG", "");
-            QTHeader.SetValue("INCOTERMSV", "");
+            QTHeader.SetValue("INCOTERMSV", pSalesQuotation.Lead.Customer);
             QTHeader.SetValue("INCOTERMS2L", "");
             QTHeader.SetValue("INCOTERMS3L", "");
 
@@ -158,6 +158,63 @@ namespace SapIntegration
             QTH_Financier.SetValue("ZBENDO", "");
             QTH_Financier.SetValue("ZTOT", "");
             QTH_Financier.SetValue("ZSUBAMT", "");
+
+            IRfcStructure QT_Item = tagListBapi.GetStructure("QUOTATION_ITEMS_IN");
+            QT_Item.SetValue("ITM_NUMBER", "");
+            QT_Item.SetValue("HG_LV_ITEM", "");
+            QT_Item.SetValue("PO_ITM_NO", "");
+            QT_Item.SetValue("MATERIAL", "");
+            QT_Item.SetValue("ALT_TO_ITM", "");
+            QT_Item.SetValue("CUST_MAT22", "");
+            QT_Item.SetValue("BATCH", "");
+            QT_Item.SetValue("DLV_GROUP", "");
+            QT_Item.SetValue("PART_DLV", "");
+            QT_Item.SetValue("REASON_REJ", "");
+            QT_Item.SetValue("BILL_BLOCK", "");
+            QT_Item.SetValue("BILL_DATE", "");
+            QT_Item.SetValue("PLANT", "");
+            QT_Item.SetValue("STORE_LOC", "");
+            QT_Item.SetValue("TARGET_QTY", "");
+            QT_Item.SetValue("TARGET_QU", "");
+            QT_Item.SetValue("T_UNIT_ISO", "");
+            QT_Item.SetValue("ITEM_CATEG", "");
+            QT_Item.SetValue("SHORT_TEXT", "");
+            QT_Item.SetValue("PRC_GROUP1", "");
+            QT_Item.SetValue("PRC_GROUP2", "");
+            QT_Item.SetValue("PRC_GROUP3", "");
+            QT_Item.SetValue("PRC_GROUP4", "");
+            QT_Item.SetValue("PRC_GROUP5", "");
+            QT_Item.SetValue("PROD_HIERA", "");
+            QT_Item.SetValue("MATL_GROUP", "");
+            QT_Item.SetValue("PURCH_NO_C", "");
+            QT_Item.SetValue("PURCH_DATE", "");
+            QT_Item.SetValue("PO_METHOD", "");
+            QT_Item.SetValue("REF_1", "");
+            QT_Item.SetValue("PURCH_NO_S", "");
+            QT_Item.SetValue("PO_DAT_S", "");
+            QT_Item.SetValue("PO_METH_S", "");
+            QT_Item.SetValue("REF_1_S", "");
+            QT_Item.SetValue("POITM_NO_S", "");
+            QT_Item.SetValue("PRICE_GRP", "");
+            QT_Item.SetValue("CUST_GROUP", "");
+            QT_Item.SetValue("SALES_DIST", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+            QT_Item.SetValue("", "");
+
             tagListBapi.Invoke(SAP.RfcDes());
             return QuotationNo;
         }

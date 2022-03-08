@@ -9,6 +9,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SapIntegration;
 using Newtonsoft.Json;
+using System.Globalization;
+using Microsoft.Reporting.WebForms;
+using System.Data;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
@@ -723,14 +726,74 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void GenerateQuotation()
         {
             PSalesQuotation Q = Quotation;
-
-
+            string QuotationNo= new SQuotation().getQuotationIntegration(Q);
         }
         void GeneratePDF()
         {
             PSalesQuotation Q = Quotation;
 
+            string contentType = string.Empty;
+            contentType = "application/pdf";
+            var CC = CultureInfo.CurrentCulture;
+            Random r = new Random();
+            string FileName = "QT_" + r.Next(0, 1000000) + ".pdf";
+            string extension;
+            string encoding;
+            string mimeType;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+            ReportParameter[] P = new ReportParameter[21];
 
+            P[0] = new ReportParameter("QuotationType", Q.QuotationType.QuotationType, false);
+            P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
+            P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+            P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName+" "+ Q.Lead.Customer.CustomerName2, false);
+            P[4] = new ReportParameter("CustomerAddress1", Q.Lead.Customer.Address1, false);
+            P[5] = new ReportParameter("CustomerAddress2", Q.Lead.Customer.Address2, false);
+            P[6] = new ReportParameter("CustomerAddress3", Q.Lead.Customer.Address3, false);
+            P[7] = new ReportParameter("City", Q.Lead.Customer.City, false);
+            P[8] = new ReportParameter("District", (Q.Lead.Customer.District==null)?"": Q.Lead.Customer.District.District, false);
+            P[9] = new ReportParameter("State", (Q.Lead.Customer.State == null) ? "" : Q.Lead.Customer.State.State, false);
+            P[10] = new ReportParameter("Country", (Q.Lead.Customer.Country == null) ? "" : Q.Lead.Customer.Country.Country, false);
+            P[11] = new ReportParameter("PinCode", Q.Lead.Customer.Pincode, false);
+            P[12] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
+            P[13] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
+            P[14] = new ReportParameter("Attention", "", false);
+            P[15] = new ReportParameter("Subject", "", false);
+            P[16] = new ReportParameter("Reference", "", false);
+            P[17] = new ReportParameter("Annexure", "", false);
+            P[18] = new ReportParameter("AnnexureRef", "", false);
+            P[19] = new ReportParameter("AnnexureDate", "", false);
+            P[20] = new ReportParameter("CompanyName", "", false);
+
+            report.ReportPath = Server.MapPath("~/Print/VigneshMachineQuotation.rdlc");
+            report.SetParameters(P);
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("TechnicalSpecification");
+            dtItem.Columns.Add("Units");
+            dtItem.Columns.Add("UnitPriceINR");
+            dtItem.Columns.Add("AmountINR");
+            for (int i = 0; i < Q.QuotationItems.Count(); i++)
+            {
+                dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
+            }
+                
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds);;
+
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+            Response.BinaryWrite(mybytes); // create the file
+            Response.Flush(); // send it to the client to download
         }
     }
 }

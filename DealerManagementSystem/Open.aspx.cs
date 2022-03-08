@@ -69,7 +69,7 @@ namespace DealerManagementSystem
             //if (string.IsNullOrEmpty(CustomerCode))
             //{
             //CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
-            string QuotationNo=new SapIntegration.SQuotation().getQuotationIntegration();
+            //string QuotationNo=new SapIntegration.SQuotation().getQuotationIntegration();
             //if (!string.IsNullOrEmpty(CustomerCode))
             //{
             //    new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
