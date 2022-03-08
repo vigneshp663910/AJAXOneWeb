@@ -108,6 +108,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void btnSaveMarketSegment_Click(object sender, EventArgs e)
         {
+            lblMessageAttribute.Visible = true;
+            lblMessageAttribute.ForeColor = Color.Red;
             MPE_Attribute.Show();
             string Message = ValidationAttribute();
             if (!string.IsNullOrEmpty(Message))
@@ -121,12 +123,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = Convert.ToInt32(ddlAttributeSub.SelectedValue) };
             Attribute.Remark = txtRemark.Text.Trim();
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
-            if (s == "0")
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageAttribute.Text = Message;
+                lblMessageAttribute.Text = Results.Message;
                 return;
             }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
             ddlAttributeMain.Items.Clear();
             ddlAttributeSub.Items.Clear();
             txtRemark.Text = "";
@@ -136,6 +143,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void btnSaveProduct_Click(object sender, EventArgs e)
         {
+            lblMessageProduct.Visible = true;
+            lblMessageProduct.ForeColor = Color.Red;
+
             MPE_Product.Show();
             string Message = ValidationProduct();
             if (!string.IsNullOrEmpty(Message))
@@ -154,14 +164,18 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageProduct.Text = "Something went wrong try again";
-                lblMessageProduct.Visible = true;
-                lblMessageProduct.ForeColor = Color.Red;
+                lblMessageProduct.Text = Results.Message;
                 return;
-            }
+            } 
+             
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
+
             ddlMake.Items.Clear();
             ddlProductType.Items.Clear();
             ddlProduct.Items.Clear();
@@ -172,6 +186,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void btnSaveRelation_Click(object sender, EventArgs e)
         {
+            lblMessageRelation.Visible = true;
+            lblMessageRelation.ForeColor = Color.Red;
             MPE_Relation.Show();
             string Message = ValidationRelation();
             if (!string.IsNullOrEmpty(Message))
@@ -187,12 +203,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.DOB = string.IsNullOrEmpty(txtBirthDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtBirthDate.Text.Trim());
             Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
-            if (s == "0")
+            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageRelation.Text = Message;
+                lblMessageRelation.Text = Results.Message;
                 return;
             }
+
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
             ddlRelation.Items.Clear();
             txtPersonName.Text = "";
             txtMobile.Text = "";
@@ -217,12 +238,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerID = CustomerID;
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(ddlEmployee.SelectedValue) };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
-            if (s == "0")
+            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageResponsible.Text = Message;
+                lblMessageResponsible.Text = Results.Message;
                 return;
             }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
             ddlEmployee.Items.Clear(); 
             tbpCust.ActiveTabIndex = 3;
             MPE_ResponsibleEmp.Hide();
@@ -245,12 +270,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Fleet.CustomerID = CustomerID;
             Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet)).Data);
-            if (s == "0")
+            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageFleet.Text = Message;
+                lblMessageFleet.Text = Results.Message;
                 return;
             }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
             txtFleetID.Text = "";
             txtFleet.Text = "";
             tbpCust.ActiveTabIndex = 4;
@@ -291,9 +319,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gvSupportDocument.DataSource = new BDMS_Customer().GetAttachedFileCustomer( CustomerID);
             gvSupportDocument.DataBind();
         }
-
-
-        
+          
         protected void btnUpdateCustomer_Click(object sender, EventArgs e)
         {
             string Message = UC_Customer.ValidationCustomer();
@@ -313,21 +339,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             if (Result.Staus == PApplication.Failure)
             {
-                lblMessageCustomerEdit.Text = Result.Message;
-                lblMessageCustomerEdit.ForeColor = Color.Red;
+                lblMessageCustomerEdit.Text = Result.Message; 
                 return;
             }
-            else
-            {
-                lblMessageCustomerEdit.Text = "Successfully Updated";
-                lblMessageCustomerEdit.ForeColor = Color.Green;
-            }
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            MPE_Customer.Hide();
             fillCustomer(CustomerID);
         } 
-
-
+         
         protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
         {
+            
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblCustomerAttributeID = (Label)gvRow.FindControl("lblCustomerAttributeID");
             PCustomerAttribute Attribute = new PCustomerAttribute();
@@ -341,18 +365,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
 
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute)).Data);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute));
             lblMessage.Visible = true;
-            if (s == "0")
+            if (Result.Staus == PApplication.Failure)
             {
-                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-            }
+            lblMessage.Text = Result.Message; 
+            lblMessage.ForeColor = Color.Green;
+
             fillAttribute();
 
         }
@@ -370,17 +393,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.Quantity = 0;
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product)).Data);
-            if (s == "0")
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product));
+            lblMessage.Visible = true;
+            if (Result.Staus == PApplication.Failure)
             {
-                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
+
             fillProduct();
         }
 
@@ -393,17 +416,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerID = CustomerID;
             Relation.Relation = new PRelation() { RelationID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation)).Data);
-            if (s == "0")
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
+            lblMessage.Visible = true;
+            if (Result.Staus == PApplication.Failure)
             {
-                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
             fillRelation();
         }
         protected void lbResponsibleDelete_Click(object sender, EventArgs e)
@@ -419,16 +441,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             PApiResult Result =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
 
+            lblMessage.Visible = true;
             if (Result.Staus == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
             fillResponsible();
         }
 
@@ -440,19 +461,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Fleet.CustomerFleetID = Convert.ToInt64(lblCustomerFleetID.Text);
             Fleet.CustomerID = CustomerID;
             Fleet.Fleet = new PDMS_Customer() { CustomerID = 0 };
-            Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet)).Data);
+            Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
             lblMessage.Visible = true;
-            if (s == "0")
+            if (Result.Staus == PApplication.Failure)
             {
-                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
             fillFleet();
         }
 
@@ -750,6 +769,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             F.ReferenceID = CustomerID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
+            lblMessage.Visible = true;
             if (Convert.ToBoolean(s) == true)
             {
                 lblMessage.Text = "Removed successfully";

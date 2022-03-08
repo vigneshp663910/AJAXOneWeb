@@ -171,7 +171,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Follow Up Date">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate")%>' runat="server" />
+                                        <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Follow Up Note">
@@ -217,7 +217,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Convocation Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblConvocationDate" Text='<%# DataBinder.Eval(Container.DataItem, "ConvocationDate")%>' runat="server" />
+                                    <asp:Label ID="lblConvocationDate" Text='<%# DataBinder.Eval(Container.DataItem, "ConvocationDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -282,7 +282,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Effort Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEffortDate" Text='<%# DataBinder.Eval(Container.DataItem, "EffortDate")%>' runat="server" />
+                                    <asp:Label ID="lblEffortDate" Text='<%# DataBinder.Eval(Container.DataItem, "EffortDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Effort Start Time" SortExpression="Country">
@@ -342,7 +342,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Expense Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate")%>' runat="server" />
+                                    <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Amount" SortExpression="Country">

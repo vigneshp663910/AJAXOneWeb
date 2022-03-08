@@ -161,12 +161,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLeadEffort Effort = new PLeadEffort();
             Effort = UC_Effort.ReadEffort();
             Effort.LeadID = ColdVisitID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort)).Data);
-            if (s == "false")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageEffort.Text = "Something went wrong try again";
+                lblMessageEffort.Text = Results.Message;
                 return;
             }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
             MPE_Effort.Hide();
             tbpCust.ActiveTabIndex = 0;
             fillEffort(); 
@@ -188,12 +192,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLeadExpense Expense = new PLeadExpense();
             Expense = UC_Expense.ReadExpense();
             Expense.LeadID = ColdVisitID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense)).Data);
-            if (s == "false")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense));
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessageExpense.Text = "Something went wrong try again";
+                lblMessageEffort.Text = Results.Message;
                 return;
             }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
             MPE_Expense.Hide();
             tbpCust.ActiveTabIndex =1;
             fillExpense();
@@ -245,19 +253,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             F.ReferenceID = ColdVisitID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F)).Data);
-            if (Convert.ToBoolean(s) == true)
-            {
-                lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                fillSupportDocument();
-            }
-            else
-            {
-                lblMessage.Text = "Something went wrong try again.";
-                lblMessage.ForeColor = Color.Red;
-            }
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
             lblMessage.Visible = true;
+            if (Results.Staus == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = Results.Message; 
+            lblMessage.ForeColor = Color.Green; 
+            fillSupportDocument(); 
+           
         }
 
         protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
@@ -304,18 +311,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
             F.ReferenceID = ColdVisitID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F)).Data);
-            if (Convert.ToBoolean(s) == true)
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
+
+            lblMessage.Visible = true;
+            if (Results.Staus == PApplication.Failure)
             {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-                fillSupportDocument();
-            }
-            else
-            {
-                lblMessage.Text = "Something went wrong try again.";
+                lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Red;
+                return;
             }
+            lblMessage.Text = Results.Message;
+            lblMessage.ForeColor = Color.Green;
+            fillSupportDocument();
         }
     }
 }

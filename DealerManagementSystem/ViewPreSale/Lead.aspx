@@ -359,7 +359,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate")%>' runat="server" />
+                                    <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Category" SortExpression="Country">

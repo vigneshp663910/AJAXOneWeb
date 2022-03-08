@@ -16,7 +16,8 @@
     <AssemblyName>DealerManagementSystem</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44343</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -181,7 +182,11 @@
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
     <Content Include="Ajax\Images\Login1.png" />
+    <Content Include="Ajax\Images\Operator1.png" />
+    <Content Include="Ajax\Images\Pre-Sales3.jpg" />
+    <Content Include="Ajax\Images\Pre-Sales4.jpg" />
     <Content Include="Ajax\Images\QuotationFooter.jpg" />
+    <Content Include="Ajax\Images\Service1.jpg" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Ajax\Images\ThankYou1.jpg" />
