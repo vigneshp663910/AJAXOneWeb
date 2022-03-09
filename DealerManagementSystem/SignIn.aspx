@@ -175,6 +175,10 @@
             max-width: 20%;
         }
 
+        /*.modal-lg {
+            width:991px;
+        }*/
+
         /* Split the screen in half */
         .split {
             height: 100%;
@@ -462,65 +466,72 @@
                         <tr style="background-color: black; color: white">
                             <th>SN
                             </th>
-                            <th style="width: 200px; text-align: center">App
+                            <th style="width: 60px; text-align: center">Ico
                             </th>
-                            <th style="width: 100px; text-align: center">Mode
+                            <th style="width: 150px; text-align: center">App
+                            </th>
+                            <th style="width: 80px; text-align: center">Mode
                             </th>
                             <th style="width: 100px; text-align: center">Features
                             </th>
-                            <th style="width: 100px">
-                                <img src="../Images/Playstore.png" border="0" id="" alt="">
+                            <th style="width: 60px">
+                                <img src="../Images/Playstore.png" border="0" id="" alt="" width="110Px">
                             </th>
-                            <th style="width: 100px">
-                                <img src="../Images/apple.png" border="0" id="" alt="">
+                            <th style="width: 60px">
+                                <img src="../Images/apple.png" border="0" id="" alt="" width="110Px">
                             </th>
-                            <th style="width: 600px; text-align: center">Remarks
+                            <th style="width: 620px; text-align: center">Remarks
                             </th>
                         </tr>
                         <tr>
                             <td style="text-align: right">1</td>
+                            <td style="text-align: center"><asp:Image ID="ImgjxOne" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="30" Height="30" /></td>
                             <td>AJAX One</td>
                             <td>Online</td>
                             <td>All</td>
                             <td style="text-align: center"><a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">Install</a></td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">Includes both Pre-Sales & Service</td>
+                            <td style="width: 550px; text-align: left">Includes both Pre-Sales & Service</td>
                         </tr>
                         <tr>
                             <td style="text-align: right">2</td>
+                             <td style="text-align: center"><asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/Pre-Sales4.jpg" Width="30" Height="30" /></td>
                             <td>Pre-Sales</td>
                             <td>Offline</td>
-                            <td>Role Based</td>
+                            <td>RoleBased</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">Customer, Lead, Activity & Quotation</td>
+                            <td style="width: 550px; text-align: left">Customer, Lead, Activity & Quotation</td>
                         </tr>
                         <tr>
                             <td style="text-align: right">3</td>
+                             <td style="text-align: center"><asp:Image ID="Image3" runat="server" ImageUrl="~/Ajax/Images/Service1.jpg" Width="50" Height="30" /></td>
                             <td>Service</td>
                             <td>Offline</td>
-                            <td>Role Based</td>
+                            <td>RoleBased</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">IC Tickets, Customer Feedback</td>
+                            <td style="width: 550px; text-align: left">IC Tickets, Customer Feedback</td>
                         </tr>
                         <tr>
                             <td style="text-align: right">4</td>
+                             <td style="text-align: center"><asp:Image ID="Image4" runat="server" ImageUrl="~/Images/User.jpg" Width="30" Height="30" /></td>
                             <td>Customer</td>
                             <td>Online</td>
                             <td>Standard</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">To Develop in Phase-2</td>
+                            <td style="width: 550px; text-align: left">To Develop in Phase-2</td>
                         </tr>
                         <tr>
                             <td style="text-align: right">5</td>
+                             <td style="text-align: center"><asp:Image ID="Image5" runat="server" ImageUrl="~/Ajax/Images/Operator1.png" Width="30" Height="30" /></td>
                             <td>Operator</td>
                             <td>Online</td>
                             <td>Standard</td>
                             <td style="text-align: center">Install</td>
                             <td style="text-align: center">Install</td>
-                            <td style="width: 100px; text-align: left">For M/C Operators & Customers Only</td>
+                            <td style="width: 550px; text-align: left">For M/C Operators & Customers Only</td>
                         </tr>
 
 
