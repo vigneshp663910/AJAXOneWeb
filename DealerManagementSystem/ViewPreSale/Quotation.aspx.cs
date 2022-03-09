@@ -15,6 +15,13 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class Quotation : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Quotation');</script>");
@@ -188,6 +195,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected void btnAddQuotation_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/ViewPreSale/Lead.aspx");
+        }
+
+        [WebMethod]
+        public static List<string> SearchSMaterial(string input)
+        {
+            List<string> Materials = new BDMS_Material().GetMaterialAutocomplete(input, "");
+            return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
         }
     }
 }

@@ -176,11 +176,11 @@ namespace Business
         public String ApiGet(string Filter)
         {
            // JsonResult JsonContent = new JsonResult();
-            string AccessToken = "";
+            string AccessToken = PSession.;
               
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-          //  client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {

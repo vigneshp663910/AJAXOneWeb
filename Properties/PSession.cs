@@ -73,8 +73,13 @@ namespace Properties
             get { return GetFromSession<PUser>("User"); }
             set { SetInSession<PUser>("User", value); }
         }
-      
-       
+        public static string AccessToken
+        {
+            get { return GetFromSession<string>("AccessToken"); }
+            set { SetInSession<string>("AccessToken", value); }
+        }
+        
+
         public static string SessionId
         {
             get { return HttpContext.Current.Session.SessionID; }

@@ -13,6 +13,14 @@ namespace DealerManagementSystem.ViewPreSale
         DateTime? To = DateTime.Now;
         DateTime? FromF = null;
         DateTime? ToF = DateTime.Now;
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales Dashboard');</script>");

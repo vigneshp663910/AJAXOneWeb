@@ -225,19 +225,32 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             string Material = txtMaterial.Text.Trim();
 
+
+            for (int i = 0; i < gvProduct.Rows.Count; i++)
+            {
+                Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode"); 
+                if (lblMaterialCode.Text == Material) 
+                { 
+                    lblMessageProduct.Text = "Material " + Material + " already available"; 
+                    return;
+                }
+            }
+
+
+
             string OrderType = "";
             string Customer = Quotation.Lead.Customer.CustomerCode;
             string Vendor = "";
-            string IV_SEC_SALES = "X";
+            string IV_SEC_SALES = "";
             string PRICEDATE = "";
             Boolean IsWarrenty = false;
             //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
             //{
-            //    OrderType = "DEFAULT_SEC_AUART";
+                 OrderType = "DEFAULT_SEC_AUART";
             //    Customer = SDMS_ICTicket.Customer.CustomerCode;
             //    Vendor = SDMS_ICTicket.Dealer.DealerCode;
             //}
-
+            Material = Material.Split(' ')[0];
             PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material)[0];
             if (string.IsNullOrEmpty(MM.MaterialCode))
             {
@@ -247,13 +260,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
 
-            //if (MaterialTax.BasePrice <= 0)
-            //{
-            //    lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP"; 
-            //    return;
-            //} 
+            if (MaterialTax.BasePrice <= 0)
+            {
+                lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
+                return;
+            }
 
             PSalesQuotationItem Item = new PSalesQuotationItem();
+            Item.SalesQuotationID = Quotation.QuotationID;
             Item.Material = new PDMS_Material();
             Item.Material.MaterialCode = MM.MaterialCode;
             Item.Material.MaterialID = MM.MaterialID;
