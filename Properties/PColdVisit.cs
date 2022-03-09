@@ -16,6 +16,7 @@ namespace Properties
         public PPreSaleStatus Status { get; set; }
         public PDMS_Customer Customer { get; set; }
         public string Remark { get; set; }
+        public string Location { get; set; }
         public PUser CreatedBy { get; set; }
     }
     public class PActionType

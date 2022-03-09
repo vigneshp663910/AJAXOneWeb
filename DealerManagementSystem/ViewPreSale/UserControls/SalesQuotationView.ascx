@@ -87,45 +87,42 @@
 <asp:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
     <asp:TabPanel ID="tpnlFinancier" runat="server" HeaderText="Financier" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Bank Name : </label>
-                            <asp:Label ID="lblBankName" runat="server"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>IncoTerms : </label>
-                            <asp:Label ID="lblIncoTerms" runat="server"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Payment Terms : </label>
-                            <asp:Label ID="lblPaymentTerms" runat="server"></asp:Label>
-                        </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Bank Name : </label>
+                        <asp:Label ID="lblBankName" runat="server"></asp:Label>
                     </div>
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>DoNumber : </label>
-                            <asp:Label ID="lblDoNumber" runat="server"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Do Date : </label>
-                            <asp:Label ID="lblDoDate" runat="server"></asp:Label>
-                        </div>
+                    <div class="col-md-12">
+                        <label>IncoTerms : </label>
+                        <asp:Label ID="lblIncoTerms" runat="server"></asp:Label>
                     </div>
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Advance Amount : </label>
-                            <asp:Label ID="lblAdvanceAmount" runat="server"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Financier Amount : </label>
-                            <asp:Label ID="lblFinancierAmount" runat="server"></asp:Label>
-                        </div>
+                    <div class="col-md-12">
+                        <label>Payment Terms : </label>
+                        <asp:Label ID="lblPaymentTerms" runat="server"></asp:Label>
                     </div>
                 </div>
-            </fieldset>
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>DoNumber : </label>
+                        <asp:Label ID="lblDoNumber" runat="server"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Do Date : </label>
+                        <asp:Label ID="lblDoDate" runat="server"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Advance Amount : </label>
+                        <asp:Label ID="lblAdvanceAmount" runat="server"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Financier Amount : </label>
+                        <asp:Label ID="lblFinancierAmount" runat="server"></asp:Label>
+                    </div>
+                </div>
+            </div>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="tpnlProduct" runat="server" HeaderText="Product">
@@ -309,107 +306,98 @@
     </asp:TabPanel>
     <asp:TabPanel ID="TabLead" runat="server" HeaderText="Lead">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Cold Visit</legend>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Lead Number : </label>
-                            <asp:Label ID="lblLeadNumber" runat="server"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Visit Date : </label>
-                            <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Dealer : </label>
-                            <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Remarks : </label>
-                            <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Customer : </label>
-                            <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
-                        </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Lead Number : </label>
+                        <asp:Label ID="lblLeadNumber" runat="server"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Visit Date : </label>
+                        <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Dealer : </label>
+                        <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Remarks : </label>
+                        <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Customer : </label>
+                        <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
-            </fieldset>
+            </div>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Contact Person : </label>
-                            <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Mobile : </label>
-                            <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Email : </label>
-                            <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
-                        </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Contact Person : </label>
+                        <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
                     </div>
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Address : </label>
-                            <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Importance : </label>
-                            <asp:Label ID="lblImportance" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Status : </label>
-                            <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
-                        </div>
+                    <div class="col-md-12">
+                        <label>Mobile : </label>
+                        <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Email : </label>
+                        <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
-            </fieldset>
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Address : </label>
+                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Importance : </label>
+                        <asp:Label ID="lblImportance" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Status : </label>
+                        <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                </div>
+            </div>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Customer">
+    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Ship to party">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Contact Person : </label>
-                            <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Mobile : </label>
-                            <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Email : </label>
-                            <asp:Label ID="Label3" runat="server" CssClass="label"></asp:Label>
-                        </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Contact Person : </label>
+                        <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label>
                     </div>
-                    <div class="col-md-4">
-                        <div class="col-md-12">
-                            <label>Address : </label>
-                            <asp:Label ID="Label4" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Importance : </label>
-                            <asp:Label ID="Label5" runat="server" CssClass="label"></asp:Label>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Status : </label>
-                            <asp:Label ID="Label6" runat="server" CssClass="label"></asp:Label>
-                        </div>
+                    <div class="col-md-12">
+                        <label>Mobile : </label>
+                        <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Email : </label>
+                        <asp:Label ID="Label3" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
-            </fieldset>
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Address : </label>
+                        <asp:Label ID="Label4" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Importance : </label>
+                        <asp:Label ID="Label5" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Status : </label>
+                        <asp:Label ID="Label6" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                </div>
+            </div>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up">
@@ -433,7 +421,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Follow Up Date">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate")%>' runat="server" />
+                                        <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Follow Up Note">
@@ -473,7 +461,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Effort Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblEffortDate" Text='<%# DataBinder.Eval(Container.DataItem, "EffortDate")%>' runat="server" />
+                                    <asp:Label ID="lblEffortDate" Text='<%# DataBinder.Eval(Container.DataItem, "EffortDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Effort Start Time" SortExpression="Country">
@@ -498,10 +486,10 @@
                             </asp:TemplateField>
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -533,7 +521,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Expense Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate")%>' runat="server" />
+                                    <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Amount" SortExpression="Country">
@@ -548,10 +536,10 @@
                             </asp:TemplateField>
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -730,7 +718,7 @@
 <ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
-<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height:400px">
+<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height: 400px">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />

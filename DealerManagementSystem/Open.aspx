@@ -92,7 +92,15 @@
                     <asp:Button ID="btnEnquiryIndiamart" runat="server" Text="Enquiry Indiamart" OnClick="btnEnquiryIndiamart_Click" />
                 </td>
             </tr>
+              <tr>
+                <td>
+                    <asp:Label ID="Label1" runat="server" Text="Enquiry Indiamart"></asp:Label>
+                </td>
 
+                <td>
+                    <asp:Button ID="btnUpdateAddressFromSapToSql" runat="server" Text="Update Address From SapToSql" OnClick="btnUpdateAddressFromSapToSql_Click" />
+                </td>
+            </tr>
         </table>
     </form>
 </body>

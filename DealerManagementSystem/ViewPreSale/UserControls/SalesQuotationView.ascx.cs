@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 new DDLBind((DropDownList)UC_FollowUp.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
                 MPE_FollowUp.Show();
-                fillFollowUp();
+                UC_FollowUp.FillMaster();
             }
             else if (lbActions.Text == "Add Effort")
             {
@@ -127,7 +127,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ddlSalesEngineer.Enabled = false;
 
                 MPE_Effort.Show();
-                fillEffort();
+
+                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Quotation.Lead.LeadID, PSession.User.UserID, true);
+                List<PUser> U = new List<PUser>();
+                foreach (PLeadSalesEngineer SE in SalesEngineer)
+                {
+                    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
+                }
+                new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID", false);
+
             }
             else if (lbActions.Text == "Add Expense")
             {
@@ -139,7 +147,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 ddlSalesEngineer.Enabled = false;
                 MPE_Expense.Show();
-                fillExpense();
+
+                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Quotation.Lead.LeadID, PSession.User.UserID, true);
+                List<PUser> U = new List<PUser>();
+                foreach (PLeadSalesEngineer SE in SalesEngineer)
+                {
+                    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
+                }
+                new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID", false);
+
             }
             else if (lbActions.Text == "Generate Quotation")
             {
@@ -179,9 +195,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Financier", Sqf));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = Results.Message;
+                lblMessageFinancier.Text = Results.Message;
                 return;
             }
             Quotation.Financier = Sqf;
@@ -255,7 +271,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -293,7 +309,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Competitor", Sqf));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -347,7 +363,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Note", Sqf));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -376,7 +392,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sq.Lead = new PLead { LeadID = Lead.LeadID };
             Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -414,7 +430,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             SalesQuotation.SalesQuotationFollowUpID = 0;
             SalesQuotation.SalesQuotationID = Quotation.QuotationID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/FollowUp", SalesQuotation));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -460,7 +476,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             SalesQuotation.CreatedBy = Lead.CreatedBy;
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Effort", SalesQuotation));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -499,7 +515,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             SalesQuotation.CreatedBy = Lead.CreatedBy;
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Expense", SalesQuotation));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -515,14 +531,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Quotation = new BSalesQuotation().GetSalesQuotationByID(QuotationID);
 
             lblRefQuotationNo.Text = Quotation.RefQuotationNo;
-            lblRefQuotationDate.Text = Convert.ToString(Quotation.RefQuotationDate);
+            lblRefQuotationDate.Text = Quotation.RefQuotationDate.ToLongDateString();
+
             lblQuotationNumber.Text = Quotation.QuotationNo;
-            lblQuotationDate.Text = Convert.ToString(Quotation.QuotationDate);
+            lblQuotationDate.Text = Quotation.QuotationDate == null ? "" : ((DateTime)Quotation.QuotationDate).ToLongDateString();
             lblQuotationType.Text = Quotation.QuotationType.QuotationType;
             lblQuotationStatus.Text = Quotation.Status.SalesQuotationStatus;
-            lblValidFrom.Text = Convert.ToString(Quotation.ValidFrom);
-            lblValidTo.Text = Convert.ToString(Quotation.ValidTo);
-            lblPricingDate.Text = Convert.ToString(Quotation.PricingDate);
+            lblValidFrom.Text = Quotation.ValidFrom == null ? "" : ((DateTime)Quotation.ValidFrom).ToLongDateString();
+            lblValidTo.Text = Quotation.ValidTo == null ? "" : ((DateTime)Quotation.ValidTo).ToLongDateString();  
+            lblPricingDate.Text = Quotation.PricingDate == null ? "" : ((DateTime)Quotation.PricingDate).ToLongDateString();  
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
@@ -690,7 +707,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //{
             //    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
             //}
-            UC_FollowUp.FillMaster();
+            
         }
         void fillEffort()
         {
@@ -698,26 +715,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvEffort.DataBind();
 
 
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Quotation.QuotationID, PSession.User.UserID, true);
-            List<PUser> U = new List<PUser>();
-            foreach (PLeadSalesEngineer SE in SalesEngineer)
-            {
-                U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            }
-            new DDLBind((DropDownList)UC_Effort.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
+ 
         }
         void fillExpense()
         {
             gvExpense.DataSource = new BSalesQuotation().GetSalesQuotationExpense(Quotation.QuotationID, PSession.User.UserID);
             gvExpense.DataBind();
 
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Quotation.QuotationID, PSession.User.UserID, true);
-            List<PUser> U = new List<PUser>();
-            foreach (PLeadSalesEngineer SE in SalesEngineer)
-            {
-                U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            }
-            new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
+
         }
 
         void GenerateQuotation()

@@ -243,24 +243,18 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
-                        <div class="col-md-2 text-right">
-                            <label>Date From</label>
-                        </div>
-                        <div class="col-md-2">
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Date From</label> 
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-2 text-right">
-                            <label>Date To</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Date To</label> 
                             <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-2 text-right">
-                            <label>Customer</label>
-                        </div>
-                        <div class="col-md-2">
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer</label> 
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                                 <div id="div1" class="fieldset-borderAuto" style="display: none">
@@ -275,22 +269,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Mobile</label>
-                        </div>
-                        <div class="col-md-2">
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Mobile</label> 
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Country</label>
-                        </div>
-                        <div class="col-md-2">
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Country</label> 
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>State</label>
-                        </div>
-                        <div class="col-md-2">
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">State</label> 
                             <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
                         </div>
 
@@ -454,6 +442,10 @@
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Importance</label>
                             <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
+                        </div>
+                          <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Location</label>
+                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"   ></asp:TextBox>
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <label class="modal-label">Remark</label>

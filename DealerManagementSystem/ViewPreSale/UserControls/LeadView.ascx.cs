@@ -47,15 +47,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            lblMessageEffort.Text = "";
+            lblMessageExpense.Text = "";
+            lblMessageFollowUp.Text = "";
+            lblMessageConvocation.Text = "";
+            lblMessageAssignEngineer.Text = "";
+            lblMessageFinancial.Text = "";
+            lblMessageProduct.Text = "";
+            lblMessageQuotation.Text = ""; 
         }
-       public void fillViewLead(long LeadID)
+        public void fillViewLead(long LeadID)
         {
-            this.LeadID =LeadID;
-            PLeadSearch S = new PLeadSearch();
-            S.LeadID = LeadID;
-             Lead = new BLead().GetLead(S)[0];
+            this.LeadID = LeadID;
+            Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
-            lblLeadDate.Text =  Lead.LeadDate.ToLongDateString();
+            lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
             lblCategory.Text = Lead.Category.Category;
             lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
             lblQualification.Text = Lead.Qualification.Qualification;
@@ -63,7 +69,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblStatus.Text = Lead.Status.Status;
             lblType.Text = Lead.Type.Type;
             lblDealer.Text = Lead.Dealer.DealerCode;
-            lblRemarks.Text = Lead.Remarks; 
+            lblRemarks.Text = Lead.Remarks;
             lblCustomer.Text = Lead.Customer.CustomerFullName;
             lblContactPerson.Text = Lead.Customer.ContactPerson;
             lblMobile.Text = Lead.Customer.Mobile;
@@ -84,15 +90,48 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Assign")
+            if (lbActions.Text == "Edit Lead")
+            {
+                MPE_Lead.Show();
+                fillLeadEdit();
+            }
+            else if (lbActions.Text == "Convert to Prospect")
+            {
+                string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=4" + "&UserID=" + PSession.User.UserID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)); 
+                ShowMessage(Results);
+                if (Results.Status == PApplication.Failure)
+                { 
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                } 
+                fillViewLead(Lead.LeadID);
+            }
+            else if (lbActions.Text == "Lost Lead")
+            {
+                MPE_LostReason.Show();
+            }
+            else if (lbActions.Text == "Cancel Lead")
+            {
+                MPE_RejectedBySales.Show();
+            }
+            else if(lbActions.Text == "Assign")
             {
                 MPE_AssignSE.Show();
                 fillAssignSalesEngineer(LeadID);
             }
             else if (lbActions.Text == "Add Follow-up")
             {
-                MPE_FollowUp.Show();
-                fillFollowUp(LeadID);
+                MPE_FollowUp.Show(); 
+
+                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,true);
+                List<PUser> U = new List<PUser>();
+                foreach (PLeadSalesEngineer SE in SalesEngineer)
+                {
+                    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
+                }
+                new DDLBind((DropDownList)UC_FollowUp.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
+                UC_FollowUp.FillMaster();
             }
             else if (lbActions.Text == "Customer Convocation")
             {
@@ -105,9 +144,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 fillFinancial(LeadID);
             }
             else if (lbActions.Text == "Add Effort")
-            {
-
-
+            { 
                 DropDownList ddlSalesEngineer = (DropDownList)UC_Effort.FindControl("ddlSalesEngineer");
                 DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
 
@@ -118,13 +155,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 fillEffort(LeadID);
             }
             else if (lbActions.Text == "Add Expense")
-            {
-
+            { 
                 DropDownList ddlSalesEngineer = (DropDownList)UC_Expense.FindControl("ddlSalesEngineer");
                 DropDownList ddlExpenseType = (DropDownList)UC_Expense.FindControl("ddlExpenseType");
-
                 new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
-
                 ddlSalesEngineer.Enabled = false;
                 MPE_Expense.Show();
                 fillExpense(LeadID);
@@ -157,12 +191,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead = UC_Effort.ReadEffort();
             Lead.LeadEffortID = 0;
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead));
+
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = "Something went wrong try again";
+                lblMessageEffort.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
+
             MPE_Effort.Hide();
             fillEffort(Lead.LeadID);
         }
@@ -181,12 +218,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead = UC_Expense.ReadExpense();
             Lead.LeadExpenseID = 0;
             Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Expense", Lead)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Expense", Lead));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageExpense.Text = "Something went wrong try again";
+                lblMessageExpense.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
+
             MPE_Expense.Hide();
             fillExpense(Lead.LeadID);
         }
@@ -223,12 +262,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead = UC_FollowUp.ReadFollowUp();
             Lead.LeadFollowUpID = 0;
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead)).Data);
-            if (s == "0")
+            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageFollowUp.Text = "Something went wrong try again";
+                lblMessageFollowUp.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
+
             MPE_FollowUp.Hide();
             fillFollowUp(Lead.LeadID);
         }
@@ -247,12 +288,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLeadConvocation Lead = new PLeadConvocation();
             Lead = UC_CustomerConvocation.ReadConvocation();
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Lead)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Lead));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageConvocation.Text = "Something went wrong try again";
+                lblMessageConvocation.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
+
             MPE_Convocation.Hide();
             fillConvocation(Lead.LeadID);
         }
@@ -272,12 +315,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLeadSalesEngineer Lead = new PLeadSalesEngineer();
             Lead = UC_AssignSE.ReadAssignSE();
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Lead)).Data);
-            if (s == "false")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Lead));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = "Something went wrong try again";
+                lblMessageAssignEngineer.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
             MPE_AssignSE.Hide();
             tbpCust.ActiveTabIndex = 0;
 
@@ -298,12 +342,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLeadFinancial Lead = new PLeadFinancial();
             Lead = UC_Financial.ReadFinancial();
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageFinancial.Text = "Something went wrong try again";
+                lblMessageFinancial.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
             MPE_Financial.Hide();
             fillFinancial(LeadID);
         }
@@ -322,12 +367,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLeadProduct Lead = new PLeadProduct();
             Lead = UC_Product.ReadProduct();
             Lead.LeadID = LeadID;
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageProduct.Text = "Something went wrong try again";
+                lblMessageProduct.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
             MPE_Product.Hide();
             fillProduct(LeadID);
         }
@@ -344,15 +390,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvFollowUp.DataSource = FollowUp;
             gvFollowUp.DataBind();
 
-            //DropDownList ddlSalesEngineer = (DropDownList)gvFollowUp.FooterRow.FindControl("ddlSalesEngineer");
-
-            //List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID);
-            //List<PUser> U = new List<PUser>();
-            //foreach (PLeadSalesEngineer SE in SalesEngineer)
-            //{
-            //    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            //}
-            UC_FollowUp.FillMaster(); 
+           
         }
         void fillConvocation(long LeadID)
         { 
@@ -401,8 +439,39 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
            
 
         }
-       
 
+        void fillLeadEdit()
+        {
+            txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");
+
+
+            List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
+            new DDLBind(ddlCategory, Category, "Category", "CategoryID"); 
+
+            List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null);
+            new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID"); 
+
+            List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
+            new DDLBind(ddlSource, Source, "Source", "SourceID"); 
+
+            List<PLeadType> LeadType = new BLead().GetLeadType(null, null);
+            new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");  
+
+            List<PLeadProgressStatus> ProgressStatus = new BLead().GetLeadProgressStatus(null, null); 
+            new DDLBind(ddlProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
+
+            List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null); 
+            new DDLBind(ddlStatus, Status, "Status", "StatusID"); 
+
+
+            ddlStatus.SelectedValue = Convert.ToString(Lead.Status.StatusID);
+            ddlProgressStatus.SelectedValue = Convert.ToString(Lead.ProgressStatus.ProgressStatusID);
+            ddlCategory.SelectedValue = Convert.ToString(Lead.Category.CategoryID);
+            ddlQualification.SelectedValue = Convert.ToString(Lead.Qualification.QualificationID);
+            ddlSource.SelectedValue = Convert.ToString(Lead.Source.SourceID);
+            ddlLeadType.SelectedValue = Convert.ToString(Lead.Type.TypeID);
+            txtRemarks.Text = Lead.Remarks;
+        }
         void fillSupportDocument()
         {
             gvSupportDocument.DataSource = new BLead().GetAttachedFileLead(LeadID);
@@ -437,19 +506,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             F.ReferenceID = LeadID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/AttachedFile", F)).Data);
-            if (Convert.ToBoolean(s) == true)
-            {
-                lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                fillSupportDocument();
-            }
-            else
-            {
-                lblMessage.Text = "Something went wrong try again.";
+            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/AttachedFile", F));
+            ShowMessage(Results);
+            if (Results.Status == PApplication.Failure)
+            { 
                 lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
+                return;
+            } 
+            fillSupportDocument();
         }
 
         protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
@@ -496,18 +560,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
             F.ReferenceID = LeadID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/AttachedFile", F)).Data);
-            if (Convert.ToBoolean(s) == true)
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-                fillSupportDocument();
-            }
-            else
-            {
-                lblMessage.Text = "Something went wrong try again.";
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/AttachedFile", F));
+            ShowMessage(Results);
+            if (Results.Status == PApplication.Failure)
+            { 
                 lblMessage.ForeColor = Color.Red;
-            }
+                return;
+            } 
+            fillSupportDocument();
         }
 
         protected void BtnSaveQuotation_Click(object sender, EventArgs e)
@@ -525,17 +585,143 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.Lead = new PLead { LeadID = Lead.LeadID };
             Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq)).Data);
-            if (s == "0")
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageQuotation.Text = "Something went wrong try again";
+                lblMessageQuotation.Text = Results.Message;
                 return;
             }
-            else
-            {
-
-            }
+            ShowMessage(Results);
             MPE_Quotation.Hide(); 
+        }
+
+        
+
+        protected void btnLostReasonUpdate_Click(object sender, EventArgs e)
+        {
+            string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            ShowMessage(Results); 
+            if (Results.Status == PApplication.Failure)
+            { 
+                lblMessage.ForeColor = Color.Red;
+                return;
+            } 
+            txtLostReason.Text = "";
+            fillViewLead(Lead.LeadID);
+        }
+
+        protected void btnRejectedBySalesUpdate_Click(object sender, EventArgs e)
+        {
+            string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=7&Reason=" + txtRejectedBySalesReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            ShowMessage(Results);
+            if (Results.Status == PApplication.Failure)
+            { 
+                lblMessage.ForeColor = Color.Red;
+                return;
+            } 
+            txtRejectedBySalesReason.Text = "";
+            fillViewLead(Lead.LeadID);
+        }
+
+        protected void btnLeadEdit_Click(object sender, EventArgs e)
+        {
+            MPE_Lead.Show();
+            PLead LeadEdit = new PLead();
+            lblMessageLead.ForeColor = Color.Red;
+            lblMessageLead.Visible = true;
+            string Message =  ValidationLead();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLead.Text = Message;
+                return;
+            }
+            LeadEdit.LeadID = Lead.LeadID;
+            LeadEdit.Customer = Lead.Customer;
+            LeadEdit.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
+
+            LeadEdit.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
+            LeadEdit.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
+
+            LeadEdit.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
+            LeadEdit.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
+            LeadEdit.Source = new PLeadSource() { SourceID = Convert.ToInt32(ddlSource.SelectedValue) };
+            LeadEdit.Type = new PLeadType() { TypeID = Convert.ToInt32(ddlLeadType.SelectedValue) };
+            LeadEdit.Remarks = txtRemarks.Text.Trim();
+            LeadEdit.CreatedBy = new PUser { UserID = PSession.User.UserID };
+
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
+            if (Results.Status == PApplication.Failure)
+            { 
+                lblMessageLead.Text = "Customer is not updated successfully ";
+                return;
+            } 
+            ShowMessage(Results);
+            fillViewLead(Lead.LeadID);
+
+            MPE_Lead.Hide();
+        }
+        public string ValidationLead()
+        {
+            string Message = "";
+            txtLeadDate.BorderColor = Color.Silver;
+            ddlStatus.BorderColor = Color.Silver;
+            ddlProgressStatus.BorderColor = Color.Silver;
+            ddlCategory.BorderColor = Color.Silver;
+            ddlQualification.BorderColor = Color.Silver;
+            ddlSource.BorderColor = Color.Silver;
+            ddlStatus.BorderColor = Color.Silver;
+            txtRemarks.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
+            {
+                Message = "Please enter the Lead Date";
+                txtLeadDate.BorderColor = Color.Red;
+            }
+            else if (ddlStatus.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Status";
+                ddlStatus.BorderColor = Color.Red;
+            }
+            else if (ddlProgressStatus.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Progress Status";
+                ddlProgressStatus.BorderColor = Color.Red;
+            }
+            else if (ddlCategory.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Category";
+                ddlCategory.BorderColor = Color.Red;
+            }
+            else if (ddlQualification.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Qualification";
+                ddlQualification.BorderColor = Color.Red;
+            }
+            else if (ddlSource.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Source";
+                ddlSource.BorderColor = Color.Red;
+            }
+            else if (ddlLeadType.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the LeadType";
+                ddlStatus.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Remark";
+                txtRemarks.BorderColor = Color.Red;
+            }
+            return Message;
+        }
+
+        void ShowMessage(PApiResult Results)
+        {
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

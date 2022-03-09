@@ -65,7 +65,7 @@
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">Listing</legend>
             <div class="col-md-12 Report">
-                <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" OnDataBound = "OnDataBound">
+                <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound = "OnDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="35px">
                             <ItemTemplate>
@@ -148,11 +148,11 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
-                    <AlternatingRowStyle BackColor="#f2f2f2" />
-                    <FooterStyle ForeColor="White" />
-                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                    <AlternatingRowStyle BackColor="White" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
                 </asp:GridView>
             </div>
         </fieldset>

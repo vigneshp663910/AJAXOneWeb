@@ -49,11 +49,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
         }
         public void fillCustomer(long CustomerID)
-        {
-
+        { 
             this.CustomerID = CustomerID;
             PDMS_Customer Customer = new PDMS_Customer();
-            Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
+            Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
              lblContactPerson.Text = Customer.ContactPerson;
             lblMobile.Text = Customer.Mobile;
@@ -62,8 +61,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblGSTIN.Text = Customer.GSTIN;
             lblPAN.Text = Customer.PAN;
 
-            string Location = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
-            lblLocation.Text = Location;
+            string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
+            lblAddress.Text = Address;
 
             cbVerified.Checked = Customer.IsVerified;
             cbIsActive.Checked = Customer.IsActive;
@@ -125,7 +124,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageAttribute.Text = Results.Message;
                 return;
@@ -165,7 +164,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageProduct.Text = Results.Message;
                 return;
@@ -204,7 +203,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageRelation.Text = Results.Message;
                 return;
@@ -239,7 +238,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(ddlEmployee.SelectedValue) };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageResponsible.Text = Results.Message;
                 return;
@@ -271,7 +270,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageFleet.Text = Results.Message;
                 return;
@@ -337,7 +336,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             string result = new BAPI().ApiPut("Customer", Customer);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", Customer));
 
-            if (Result.Staus == PApplication.Failure)
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessageCustomerEdit.Text = Result.Message; 
                 return;
@@ -367,7 +366,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute));
             lblMessage.Visible = true;
-            if (Result.Staus == PApplication.Failure)
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
@@ -395,7 +394,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product));
             lblMessage.Visible = true;
-            if (Result.Staus == PApplication.Failure)
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
@@ -418,7 +417,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
             lblMessage.Visible = true;
-            if (Result.Staus == PApplication.Failure)
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
@@ -442,7 +441,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PApiResult Result =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
 
             lblMessage.Visible = true;
-            if (Result.Staus == PApplication.Failure)
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
@@ -464,7 +463,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
             lblMessage.Visible = true;
-            if (Result.Staus == PApplication.Failure)
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Red;
@@ -782,5 +781,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
             } 
         }
+
     }
 }

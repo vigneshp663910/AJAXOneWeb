@@ -98,29 +98,20 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
-
-                        <div class="col-md-2 text-right">
-                            <label>Customer</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Mobile</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Country</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>State</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">State</label>
                             <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
                         </div>
 

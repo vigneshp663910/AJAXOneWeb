@@ -609,6 +609,13 @@ namespace Business
                 + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public PDMS_Customer GetCustomerByID(long CustomerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/CustomerByID?CustomerID=" + CustomerID;
+            return JsonConvert.DeserializeObject<PDMS_Customer>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PCustomerTitle> GetCustomerTitle(int? TitleID, string Title)
         {
             TraceLogger.Log(DateTime.Now);
@@ -827,6 +834,31 @@ namespace Business
             }
             TraceLogger.Log(DateTime.Now);
             return success;
+        }
+
+
+        public void UpdateCustomerAddressFromSapToSql()
+        { 
+            List<PDMS_Customer> Customers = new List<PDMS_Customer>(); 
+            PDMS_Customer Customer = new PDMS_Customer();
+            using (DataSet DataSet = provider.Select("GetCustomerForUpdateAddressFromSapToSql"))
+            {
+                if (DataSet != null)
+                {
+                    foreach (DataRow dr in DataSet.Tables[0].Rows)
+                    {
+                        Customer = new PDMS_Customer();
+                        Customers.Add(Customer);
+                        Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+
+                    }
+                }
+            }
+
+            foreach(PDMS_Customer C in Customers)
+            {
+                InsertOrUpdateCustomerSap(C.CustomerCode);
+            }
         }
     }
 }

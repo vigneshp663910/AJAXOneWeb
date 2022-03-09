@@ -20,7 +20,7 @@ namespace Business
 {
     public class PApiResult
     {
-        public string Staus { get; set; }
+        public string Status { get; set; }
         public string Message { get; set; }
         public object Data { get; set; }
     }

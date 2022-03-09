@@ -6,8 +6,7 @@
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-  <style>
-        
+    <style>
         .Popup {
             display: block;
             z-index: 1002;
@@ -239,72 +238,52 @@
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
                 <div class="col-md-12">
-                    <div class="col-md-2 text-right">
-                        <label>Lead Number</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Lead Number</label> 
                         <asp:TextBox ID="txtLeadNumber" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-2 text-right">
-                        <label>Lead Date From</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Lead Date From</label> 
                         <asp:TextBox ID="txtLeadDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
 
                     </div>
 
-                    <div class="col-md-2 text-right">
-                        <label>Lead Date To</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Lead Date To</label> 
                         <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
 
                     </div>
-                    <div class="col-md-2 text-right">
-                        <label>Progress Status</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Progress Status</label> 
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-right">
-                        <label>Status</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Status</label> 
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-right">
-                        <label>Category</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Category</label> 
                         <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-right">
-                        <label>Qualification</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Qualification</label> 
                         <asp:DropDownList ID="ddlSQualification" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-2 text-right">
-                        <label>Source</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Source</label> 
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-right">
-                        <label>Lead Type</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Lead Type</label> 
                         <asp:DropDownList ID="ddlSType" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-right">
-                        <label>Customer</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Customer</label> 
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                             <div id="div1" class="fieldset-borderAuto" style="display: none">
@@ -319,16 +298,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 text-right">
-                        <label>Country</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>Country</label> 
                         <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSCountry_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
-                    <div class="col-md-2 text-right">
-                        <label>State</label>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 text-left">
+                        <label>State</label> 
                         <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
                     </div>
 
@@ -341,7 +316,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed"
+                    <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -410,20 +385,20 @@
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" />
+                                    <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" Width="75px" Height="25px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </fieldset>
         </div>
-        <div class="col-md-12" id="divDetailsView" runat="server" visible="false"  style="padding:5px 15px">
+        <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">

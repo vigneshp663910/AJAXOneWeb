@@ -58,6 +58,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblLeadNumber.Text = ColdVisit.ColdVisitNumber;
             lblLeadDate.Text = ColdVisit.ColdVisitDate.ToShortDateString();// Convert.ToString(Lead.ColdVisitDate); 
                                                                            //  lblRemarks.Text = ColdVisit.Remarks; 
+
+            lblLocation.Text = ColdVisit.Location;
             lblCustomer.Text = ColdVisit.Customer.CustomerFullName;
             lblContactPerson.Text = ColdVisit.Customer.ContactPerson;
             lblMobile.Text = ColdVisit.Customer.Mobile;
@@ -67,7 +69,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblImportance.Text = ColdVisit.Importance.Importance;
 
             string Location = ColdVisit.Customer.Address1 + ", " + ColdVisit.Customer.Address2 + ", " + ColdVisit.Customer.District.District + ", " + ColdVisit.Customer.State.State;
-            lblLocation.Text = Location;
+            lblAddress.Text = Location;
             fillEffort();
             fillExpense();
 
@@ -162,7 +164,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Effort = UC_Effort.ReadEffort();
             Effort.LeadID = ColdVisitID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -193,7 +195,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Expense = UC_Expense.ReadExpense();
             Expense.LeadID = ColdVisitID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense));
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
                 return;
@@ -255,7 +257,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
             lblMessage.Visible = true;
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Red;
@@ -314,7 +316,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
 
             lblMessage.Visible = true;
-            if (Results.Staus == PApplication.Failure)
+            if (Results.Status == PApplication.Failure)
             {
                 lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Red;

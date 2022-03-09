@@ -110,7 +110,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvSalesEngineer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" >
+                    <asp:GridView ID="gvSalesEngineer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -140,11 +140,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -155,7 +155,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-                        <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" >
+                        <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -180,6 +180,11 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </div>
                 </div>
@@ -190,7 +195,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvConvocation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found" >
+                    <asp:GridView ID="gvConvocation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -221,6 +226,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -230,7 +240,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvFinancial" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found"  >
+                    <asp:GridView ID="gvFinancial" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -257,6 +267,11 @@
                             </asp:TemplateField>
 
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -266,7 +281,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                    <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="Sales Engineer">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -306,11 +321,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -320,7 +335,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                    <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -356,11 +371,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -370,7 +385,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                    <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -401,11 +416,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -413,9 +428,7 @@
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Support Document</legend>
-
+            <div class="col-md-12">
                 <table>
                     <tr>
                         <td>
@@ -474,7 +487,7 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </fieldset>
+            </div>
         </ContentTemplate>
     </asp1:TabPanel>
 </asp1:TabContainer>
@@ -497,7 +510,7 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height:400px">
+<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height: 400px">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
@@ -604,9 +617,114 @@
             <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
         </div>
         <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
-    </div> 
+    </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlLostReason" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Lost Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+        <div class="col-md-2 text-right">
+            <label>Reason</label>
+        </div>
+        <div class="col-md-10">
+            <asp:TextBox ID="txtLostReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnLostReasonUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnLostReasonUpdate_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_LostReason" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLostReason" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlRejectedBySales" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Rejected By Sales Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+        <div class="col-md-2 text-right">
+            <label>Reason</label>
+        </div>
+        <div class="col-md-10">
+            <asp:TextBox ID="txtRejectedBySalesReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnRejectedBySalesUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnRejectedBySalesUpdate_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_RejectedBySales" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRejectedBySales" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlLead" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Edit Lead</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button10" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label>Lead Date</label>
+                        <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label>Status</label>
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label>Progress Status</label>
+                        <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label>Category</label>
+                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label>Qualification</label>
+                        <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label>Source</label>
+                        <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label>Lead Type</label>
+                        <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label>Remarks</label>
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnLeadEdit" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnLeadEdit_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Lead" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLead" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

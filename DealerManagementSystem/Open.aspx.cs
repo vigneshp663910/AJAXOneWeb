@@ -76,5 +76,10 @@ namespace DealerManagementSystem
             //}
             //}
         }
+
+        protected void btnUpdateAddressFromSapToSql_Click(object sender, EventArgs e)
+        {
+            new BDMS_Customer().UpdateCustomerAddressFromSapToSql();
+        }
     }
 }

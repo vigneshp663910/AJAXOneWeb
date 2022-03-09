@@ -97,7 +97,8 @@ namespace DealerManagementSystem.ViewPreSale
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.Remark = txtRemark.Text.Trim();
-           
+            ColdVisitList.Location = txtLocation.Text.Trim();
+
             ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
                string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
 
@@ -131,15 +132,20 @@ namespace DealerManagementSystem.ViewPreSale
                 Message = "Please enter the Cold Visit Date"; 
                 txtColdVisitDate.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Remark"; 
+                Message = Message + "Please enter the Location";
+                txtRemark.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            {
+                Message = Message + "Please enter the Remark"; 
                 txtRemark.BorderColor = Color.Red;
             }
             
-            if (ddlActionType.SelectedValue == "0")
+           else if (ddlActionType.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Action Type"; 
+                Message = Message + "Please select the Action Type"; 
                 ddlActionType.BorderColor = Color.Red;
             } 
             return Message;
