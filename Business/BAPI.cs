@@ -92,7 +92,7 @@ namespace Business
 
         private static string Username = string.Empty;
         private static string Password = string.Empty;
-    
+
         public void Main1()
         {
             string token1 = "";
@@ -112,7 +112,7 @@ namespace Business
             }
             Console.ReadLine();
         }
-  
+
         public string GetAccessToken(UL user)
         {
             string token = "";
@@ -127,7 +127,7 @@ namespace Business
             // var tokenResponse = client.PostAsync(baseAddress + "User", new FormUrlEncodedContent(RequestBody)).Result;
             //var tokenResponse = client.PostAsync(baseAddress + "User", new StringContent(JsonConvert.SerializeObject(user))).Result;
 
-          //  baseAddress = "https://localhost:44302/";
+            //  baseAddress = "https://localhost:44302/";
 
             var tokenResponse = client.PostAsync(ApiBaseAddress + "User", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")).Result;
 
@@ -138,7 +138,7 @@ namespace Business
             }
             else
             {
-                token =  "";
+                token = "";
             }
             return token;
         }
@@ -175,12 +175,12 @@ namespace Business
 
         public String ApiGet(string Filter)
         {
-           // JsonResult JsonContent = new JsonResult();
-            //string AccessToken = PSession.;
-              
+            // JsonResult JsonContent = new JsonResult();
+            string AccessToken = PSession.AccessToken;
+
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-           // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {
@@ -190,28 +190,28 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
 
-            var APIResponse = client.GetAsync(ApiBaseAddress+ Filter).Result; 
+            var APIResponse = client.GetAsync(ApiBaseAddress + Filter).Result;
             if (APIResponse.IsSuccessStatusCode)
             {
-                var JsonContent= APIResponse.Content.ReadAsStringAsync().Result;
+                var JsonContent = APIResponse.Content.ReadAsStringAsync().Result;
                 return APIResponse.Content.ReadAsStringAsync().Result;
-                
+
             }
             else
             {
                 Console.WriteLine("APIResponse, Error : " + APIResponse.StatusCode);
-            } 
-            return ""; 
+            }
+            return "";
         }
 
-      
-        public String ApiPut(string EndPoint,object obj)
+
+        public String ApiPut(string EndPoint, object obj)
         {
             // JsonResult JsonContent = new JsonResult();
-            string AccessToken = ""; 
+            string AccessToken = PSession.AccessToken;
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {
@@ -220,9 +220,9 @@ namespace Business
             //    };
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
-             var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
+            var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
 
-           
+
             if (APIResponse.IsSuccessStatusCode)
             {
                 return APIResponse.Content.ReadAsStringAsync().Result;
@@ -233,6 +233,6 @@ namespace Business
             }
             return "";
         }
-         
+
     }
 }
