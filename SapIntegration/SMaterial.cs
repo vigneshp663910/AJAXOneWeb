@@ -145,9 +145,9 @@ namespace SapIntegration
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_SO");
             tagListBapi.SetValue("IV_SEC_SALES", IV_SEC_SALES);
             IRfcStructure IS_SO_HEAD = tagListBapi.GetStructure("IS_SO_HEAD");
-            IS_SO_HEAD.SetValue("CUSTOMER", Customer.Trim().PadLeft(10, '0'));
+            IS_SO_HEAD.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer)?"": Customer.Trim().PadLeft(10, '0'));
             IS_SO_HEAD.SetValue("ORDER_TYPE", OrderType);
-            IS_SO_HEAD.SetValue("VENDOR", Vendor.Trim().PadLeft(10, '0'));
+            IS_SO_HEAD.SetValue("VENDOR", string.IsNullOrEmpty(Vendor) ? "" : Vendor.Trim().PadLeft(10, '0'));
             IS_SO_HEAD.SetValue("PRICEDATE", PRICEDATE);
 
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");

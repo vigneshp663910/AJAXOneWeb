@@ -147,7 +147,7 @@
                                 <asp:TemplateField HeaderText="Plant">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Plant.PlantCode")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblPlantCode" Text='<%# DataBinder.Eval(Container.DataItem, "Plant.PlantCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Unit">
@@ -615,6 +615,7 @@
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Material</label>
                     <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Qty</label>
@@ -873,4 +874,82 @@
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 
+ <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
+    <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
+<script type="text/javascript">
+    function InIEvent() { }
+
+    $(document).ready(InIEvent);
+
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    if (prm != null) {
+       
+        prm.add_endRequest(function (sender, e) {
+            $("#MainContent_UC_QuotationView_txtMaterial").autocomplete({
+                source: function (request, response) {
+                    debugger;
+                    var param = { input: $('#MainContent_UC_QuotationView_txtMaterial').val() };
+                    $.ajax({
+                        url: "Quotation.aspx/SearchSMaterial",
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            var err = eval("(" + XMLHttpRequest.responseText + ")");
+                            alert(err.Message)
+                            // console.log("Ajax Error!");  
+                        }
+                    });
+                },
+                minLength: 2 //This is the Char length of inputTextBox  
+            });
+
+        });
+    };
+
+    $(function () {
+
+        $("#MainContent_UC_QuotationView_txtMaterial").autocomplete({
+           
+            source: function (request, response) {
+                debugger;
+                var param = { input: $('#MainContent_UC_QuotationView_txtMaterial').val() };
+                $.ajax({
+                    url: "Quotation.aspx/SearchSMaterial",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        response($.map(data.d, function (item) {
+                            return {
+                                value: item
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+                        alert(err.Message)
+                        // console.log("Ajax Error!");  
+                    }
+                });
+            },
+            minLength: 2 //This is the Char length of inputTextBox  
+        });
+    });
+
+
+     
+</script>
 

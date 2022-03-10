@@ -12,7 +12,14 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewPreSale
 {
     public partial class Lead : System.Web.UI.Page
-    { 
+    {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Lead');</script>");
