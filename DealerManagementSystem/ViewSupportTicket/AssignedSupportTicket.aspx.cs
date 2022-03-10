@@ -9,6 +9,17 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class AssignedSupportTicket : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+            // if (Membership.GetUser() == null) 
+            this.Page.MasterPageFile = "~/Dealer.master";
+            //  else
+            //    this.Page.MasterPageFile = "~/myMaster.master";
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -171,5 +182,6 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             Response.Redirect("ReassignTicketS.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
         }
+
     }
 }

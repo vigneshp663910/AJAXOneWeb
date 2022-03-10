@@ -14,7 +14,7 @@
                                 <td colspan="2">
                                     <div style="height: 20px;">
                                         <br />
-                                        <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095;">New support ticket</span>
+                                        <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095;">New Task</span>
 
 
                                         <div style="height: 5px; background-color: #3665c2;"></div>
@@ -170,7 +170,7 @@
                                     <asp:TemplateField HeaderText="Ticket Type">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTicketType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="Label5" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Contact Name">

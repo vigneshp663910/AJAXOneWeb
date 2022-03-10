@@ -485,6 +485,7 @@
     <Content Include="ViewService\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ViewService\WarrantyPartsAvailabilityReport.aspx" />
     <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\AssignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ManageSupportTicket.aspx" />
@@ -1637,6 +1638,13 @@
     </Compile>
     <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.designer.cs">
       <DependentUpon>AssignedSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\AssignSupportTicket.aspx.cs">
+      <DependentUpon>AssignSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\AssignSupportTicket.aspx.designer.cs">
+      <DependentUpon>AssignSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>

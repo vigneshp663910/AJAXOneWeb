@@ -135,38 +135,38 @@ namespace DealerManagementSystem.ViewSupportTicket
                 if (L1SupportUser == 0)
                 {
 
-                    List<PCategory> pTicketCategory = new BTicketCategory().getTicketCategory(Convert.ToInt32(ddlCategory.SelectedValue), null, null);
-                    List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "", null);
-                    messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
-                    messageBody = messageBody.Replace("@@requested", PSession.User.ContactName);
-                    messageBody = messageBody.Replace("@@TicketNo ", TicketId.ToString());
-                    messageBody = messageBody.Replace("@@ToName", EmployeeRe[0].EmployeeName);
-                    messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-                    messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-                    messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
-                    messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "AssignTicket.aspx?TicketNo=" + TicketId.ToString());
-                    new EmailManager().MailSend(EmployeeRe[0].Mail1, Subject, messageBody, TicketId);
+                    //List<PCategory> pTicketCategory = new BTicketCategory().getTicketCategory(Convert.ToInt32(ddlCategory.SelectedValue), null, null);
+                    //List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "");
+                    //messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
+                    //messageBody = messageBody.Replace("@@requested", PSession.User.ContactName);
+                    //messageBody = messageBody.Replace("@@TicketNo ", TicketId.ToString());
+                    //messageBody = messageBody.Replace("@@ToName", EmployeeRe[0].EmployeeName);
+                    //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
+                    //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
+                    //messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
+                    //messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                    //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "AssignTicket.aspx?TicketNo=" + TicketId.ToString());
+                    //new EmailManager().MailSend(EmployeeRe[0].Mail1, Subject, messageBody, TicketId);
                 }
                 else
                 {
-                    PUser AssignedUser = new BUser().GetUserDetails(L1SupportUser);
-                    List<PEmployee> pAssignedTo = null;
-                    pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "", null);
-                    messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
-                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URLAF"] + "AssignedTickets.aspx?TicketNo=" + TicketId);
-                    messageBody = messageBody.Replace("@@TicketNo", TicketId.ToString());
-                    messageBody = messageBody.Replace("@@ToName", pAssignedTo[0].EmployeeName);
-                    messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
-                    messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-                    messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
-                    messageBody = messageBody.Replace("@@Severity", "");
-                    messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-                    messageBody = messageBody.Replace("@@Description", "");
-                    messageBody = messageBody.Replace("@@Justification", "");
-                    messageBody = messageBody.Replace("@@ActualDuration", "2");
-                    messageBody = messageBody.Replace("@@fromName", "");
-                    new EmailManager().MailSend(pAssignedTo[0].Mail1, Subject, messageBody, TicketId);
+                    //PUser AssignedUser = new BUser().GetUserDetails(L1SupportUser);
+                    //List<PEmployee> pAssignedTo = null;
+                    //pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "");
+                    //messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
+                    //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URLAF"] + "AssignedTickets.aspx?TicketNo=" + TicketId);
+                    //messageBody = messageBody.Replace("@@TicketNo", TicketId.ToString());
+                    //messageBody = messageBody.Replace("@@ToName", pAssignedTo[0].EmployeeName);
+                    //messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
+                    //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
+                    //messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
+                    //messageBody = messageBody.Replace("@@Severity", "");
+                    //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
+                    //messageBody = messageBody.Replace("@@Description", "");
+                    //messageBody = messageBody.Replace("@@Justification", "");
+                    //messageBody = messageBody.Replace("@@ActualDuration", "2");
+                    //messageBody = messageBody.Replace("@@fromName", "");
+                    //new EmailManager().MailSend(pAssignedTo[0].Mail1, Subject, messageBody, TicketId);
                 }
                 ClearField();
             }
@@ -234,7 +234,12 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.Text = "Please enter the ticket note";
                 return false;
             }
-
+            //int value;
+            //if (!int.TryParse("0" + txtPriorityLevel.Text, out value))
+            //{
+            //    lblMessage.Text = "Please enter integer in priority level";
+            //    return false;
+            //}
             if (string.IsNullOrEmpty(txtContactName.Text.Trim()))
             {
                 lblMessage.Text = "Please enter the contact name";

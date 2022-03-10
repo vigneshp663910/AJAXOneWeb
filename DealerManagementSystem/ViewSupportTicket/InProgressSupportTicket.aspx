@@ -1,59 +1,59 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="InProgressSupportTicket.aspx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.InProgressSupportTicket" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <script type="text/javascript">
-        $(document).ready(function () {
-            var asnQunatity = 0;
-            var gvTickets = document.getElementById('MainContent_gvTickets');
-            if (gvTickets != null) {
-                for (var i = 0; i < gvTickets.rows.length - 1; i++) {
-                    var lblTicketSeverity = document.getElementById('MainContent_gvTickets_lblTicketSeverity_' + i);
-                    var lblTicketStatus = document.getElementById('MainContent_gvTickets_lblTicketStatus_' + i);
-                    var lblCreatedOn = document.getElementById('MainContent_gvTickets_lblCreatedOn_' + i);
-                    if (lblCreatedOn != null) {
-                        var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-                        var dt = new Date(lblCreatedOn.innerText.replace(pattern, '$3-$2-$1'));
-                        if (dt == "Invalid Date") {
-                            var CreatedOn = lblCreatedOn.innerText.split('/');
-                            dt = new Date(CreatedOn[2].split(' ')[0], CreatedOn[1] - 1, CreatedOn[0]);
-                        }
-                        var someDate = new Date();
-                        // someDate.setDate(someDate.getDate() - 1);
-                        if (lblTicketSeverity.innerHTML == "SEVERITY  1 -  Address The call within 4 hrs") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 1);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
+    $(document).ready(function () {
+        var asnQunatity = 0;
+        var gvTickets = document.getElementById('MainContent_gvTickets');
+        if (gvTickets != null) {
+            for (var i = 0; i < gvTickets.rows.length - 1; i++) {
+                var lblTicketSeverity = document.getElementById('MainContent_gvTickets_lblTicketSeverity_' + i);
+                var lblTicketStatus = document.getElementById('MainContent_gvTickets_lblTicketStatus_' + i);
+                var lblCreatedOn = document.getElementById('MainContent_gvTickets_lblCreatedOn_' + i);
+                if (lblCreatedOn != null) {
+                    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+                    var dt = new Date(lblCreatedOn.innerText.replace(pattern, '$3-$2-$1'));
+                    if (dt == "Invalid Date") {
+                        var CreatedOn = lblCreatedOn.innerText.split('/');
+                        dt = new Date(CreatedOn[2].split(' ')[0], CreatedOn[1] - 1, CreatedOn[0]);
+                    }
+                    var someDate = new Date();
+                    // someDate.setDate(someDate.getDate() - 1);
+                    if (lblTicketSeverity.innerHTML == "SEVERITY  1 -  Address The call within 4 hrs") {
+                        if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
+                            someDate.setDate(someDate.getDate() - 1);
+                            if (dt < someDate) {
+                                lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
                             }
                         }
-                        else if (lblTicketSeverity.innerHTML == "SEVERITY  2  -  Address the call with 2days") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 2);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
+                    }
+                    else if (lblTicketSeverity.innerHTML == "SEVERITY  2  -  Address the call with 2days") {
+                        if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
+                            someDate.setDate(someDate.getDate() - 2);
+                            if (dt < someDate) {
+                                lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
                             }
                         }
-                        else if (lblTicketSeverity.innerHTML == "SEVERITY  3  - Address the call with in 1 week") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 7);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
+                    }
+                    else if (lblTicketSeverity.innerHTML == "SEVERITY  3  - Address the call with in 1 week") {
+                        if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
+                            someDate.setDate(someDate.getDate() - 7);
+                            if (dt < someDate) {
+                                lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
                             }
                         }
-                        else if (lblTicketSeverity.innerHTML == "SEVERITY  4  - Address the call with in 1 month") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 31);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
+                    }
+                    else if (lblTicketSeverity.innerHTML == "SEVERITY  4  - Address the call with in 1 month") {
+                        if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
+                            someDate.setDate(someDate.getDate() - 31);
+                            if (dt < someDate) {
+                                lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
                             }
                         }
                     }
                 }
             }
-        });
+        }
+    });
 </script>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
     <asp:Panel ID="pnSearch" runat="server">
@@ -63,7 +63,7 @@
                     <td colspan="8">
                         <div style="height: 40px; background-color: white;">
                             <br />
-                            <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 10px">Assigned Ticket Form</span>
+                            <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 10px">Assigned T  ask</span>
                             <div style="height: 5px; background-color: #0072c6;"></div>
                         </div>
                         <br />

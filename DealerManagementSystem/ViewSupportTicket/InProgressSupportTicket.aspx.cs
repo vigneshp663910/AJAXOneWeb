@@ -24,6 +24,17 @@ namespace DealerManagementSystem.ViewSupportTicket
                 return (List<string>)ViewState["NewAttchedFile"];
             }
         }
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+            // if (Membership.GetUser() == null) 
+            this.Page.MasterPageFile = "~/Dealer.master";
+            //  else
+            //    this.Page.MasterPageFile = "~/myMaster.master";
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
