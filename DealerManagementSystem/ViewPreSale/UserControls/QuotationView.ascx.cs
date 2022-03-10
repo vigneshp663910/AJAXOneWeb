@@ -34,6 +34,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageEffort.Text = "";
             lblMessageExpense.Text = "";
             lblMessage.Text = "";
+            
         }
         public void fillViewColdVisit(long ColdVisitID)
         {
@@ -278,5 +279,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+        
     }
 }

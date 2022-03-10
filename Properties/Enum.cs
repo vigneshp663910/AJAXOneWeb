@@ -602,4 +602,11 @@ namespace Properties
         ServiceChargesAddOrRemove = 1
     }
 
+    public enum SalesQuotationStatus
+    {
+        Open = 1,
+        InProcess, 
+    }
+    
+
 }

@@ -1215,10 +1215,10 @@
                     display: block !important;
                 }
 
-                    .closed-sidebar #main-menu > li:hover span {
-                        display: inline !important;
-                        padding-left: 30px;
-                    }
+                .closed-sidebar #main-menu > li:hover span {
+                    display: inline !important;
+                    padding-left: 30px;
+                }
 
                 .closed-sidebar #main-menu > li > .w3-bar-block {
                     display: none !important;
@@ -1238,6 +1238,8 @@
                     -o-border-radius: 0 0 4px 4px;
                     border-radius: 0 0 4px 4px;
                     background: #505a65;
+                    max-height:400px;
+                    overflow: auto;
                 }
 
                     .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
@@ -1353,8 +1355,27 @@
                     MainMenu.className = "w3-bar-block w3-hide w3-medium w3-show";
                 }
             }
-            window.localStorage.removeItem("ParentMenu");
-            window.localStorage.removeItem("MainMenu");
+            var SidebarID = document.getElementById(localStorage.getItem("SidebarID"));
+            var w3mainID = document.getElementById(localStorage.getItem("w3mainID"));
+            if (SidebarID != null) {
+                SidebarID.style.width = "50px";
+                document.getElementById("CompanyLogo").style.display = "none";
+                document.getElementById("SideBarToggle").style.paddingLeft = "0px";
+                document.getElementById("mySidebar").classList.add(localStorage.getItem("mySidebarClass"));
+                w3_hide_angle_down();
+            }
+            if (w3mainID != null) {
+                w3mainID.style.marginLeft = "50px";
+                document.getElementById("w3mainclass").classList.add(localStorage.getItem("ClosedSidebarClass"));
+            }
+
+            //if (document.getElementById("mySidebar").style.width == "50px") {
+            //var closedClass = document.getElementById(localStorage.getItem("Sidebartoggle"));
+            /*document.getElementById("mySidebar").style.width = "50px";*/
+            //document.getElementById("mySidebar").classList.add(localStorage.getItem("Sidebartoggle"));
+            //}
+            //window.localStorage.removeItem("ParentMenu");
+            //window.localStorage.removeItem("MainMenu");
             //$(".menu-item a").click(function () {
             //    alert('hi')
             //    /*   var t = $(this).attr("href"); $(this).closest("li").addClass("active").find("i").css("color", "white"),*/
@@ -1461,6 +1482,8 @@
 
         function w3_closeSideBar() {
             if (document.getElementById("mySidebar").style.width == "250px") {
+                localStorage.setItem("SidebarID", "mySidebar");
+                localStorage.setItem("mySidebarClass", "closed-sidebar");
                 document.getElementById("mySidebar").style.width = "50px";
                 document.getElementById("mySidebar").classList.add("closed-sidebar");
                 w3_hide_angle_down();
@@ -1475,6 +1498,8 @@
                 });
             }
             else {
+                localStorage.removeItem("SidebarID", "mySidebar");
+                localStorage.removeItem("mySidebarClass", "closed-sidebar");
                 document.getElementById("mySidebar").style.width = "250px";
                 document.getElementById("mySidebar").classList.remove("closed-sidebar");
                 w3_disp_angle_down()
@@ -1483,11 +1508,15 @@
             }
 
             if (document.getElementById("w3mainclass").style.marginLeft == "250px") {
+                localStorage.setItem("w3mainID", "w3mainclass");
+                localStorage.setItem("ClosedSidebarClass", "closed-sidebar-main");
                 document.getElementById("w3mainclass").style.marginLeft = "50px";
                 document.getElementById("w3mainclass").classList.add("closed-sidebar-main");
                 //document.getElementById("mySidebar").classList.add("closed-sidebar");
             }
             else {
+                localStorage.removeItem("w3mainID", "w3mainclass");
+                localStorage.removeItem("ClosedSidebarClass", "closed-sidebar-main");
                 document.getElementById("w3mainclass").style.marginLeft = "250px";
                 document.getElementById("w3mainclass").classList.remove("closed-sidebar-main");
                 //document.getElementById("mySidebar").classList.remove("closed-sidebar");
@@ -1673,6 +1702,12 @@
                 if (this.href === path) {
                     $(this).addClass('active');
                 }
+                //if (document.getElementById("mySidebar").style.width == "250px") {
+                //    document.getElementById("mySidebar").style.width = "250px";
+                //}
+                //else
+                //    document.getElementById("mySidebar").style.width = "50px";
+
             });
         });
     </script>

@@ -208,7 +208,7 @@ namespace Business
         public String ApiPut(string EndPoint,object obj)
         {
             // JsonResult JsonContent = new JsonResult();
-            string AccessToken = ""; 
+            string AccessToken = PSession.AccessToken;
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);

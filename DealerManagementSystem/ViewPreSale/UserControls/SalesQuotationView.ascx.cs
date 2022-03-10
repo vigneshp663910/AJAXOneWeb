@@ -51,6 +51,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
+            if (!IsPostBack)
+            {
+               
+            }
         }
         public void FillMaster()
         {
@@ -602,6 +606,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillFollowUp();
             fillEffort();
             fillExpense();
+
+            PagePermissionEnable();
         }
         
         
@@ -813,6 +819,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
             Response.BinaryWrite(mybytes); // create the file
             Response.Flush(); // send it to the client to download
+        }
+
+        void PagePermissionEnable()
+        {
+            if (Quotation.Status.SalesQuotationStatusID == 1)
+            {
+
+            }
+            else if (Quotation.Status.SalesQuotationStatusID == 1)
+            {
+
+            }
+            else if (Quotation.Status.SalesQuotationStatusID == 1)
+            {
+
+            }
         }
     }
 }
