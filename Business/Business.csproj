@@ -150,6 +150,7 @@
     <Compile Include="BSalesQuotation.cs" />
     <Compile Include="BSMS.cs" />
     <Compile Include="BTest.cs" />
+    <Compile Include="BTestSN.cs" />
     <Compile Include="BTicketCategory.cs" />
     <Compile Include="BTicketResolutionType.cs" />
     <Compile Include="BTickets.cs" />
