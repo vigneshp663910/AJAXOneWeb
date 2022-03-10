@@ -72,7 +72,7 @@ namespace Business
                             UserMobile = new PUserMobile();
                             UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
                             UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-                            //UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
+                            UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
                             UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
                             UserMobile.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? (int?)null : Convert.ToInt32(dr["ApprovedBy"]);
                             UserMobile.ApprovedOn = DBNull.Value == dr["ApprovedOn"] ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
@@ -96,50 +96,50 @@ namespace Business
             }
         
         }
-        //public List<PUserMobile> GetUserIDForApproval(string IMEI)
-        //{
-        //    List<PUserMobile> UserMobiles = new List<PUserMobile>();
+        public List<PUserMobile> GetUserIDForApproval(string IMEI)
+        {
+            List<PUserMobile> UserMobiles = new List<PUserMobile>();
 
-        //    PUserMobile UserMobile = null;
-        //    try
-        //    {
-        //        DateTime tracerStart = DateTime.Now;
-        //        DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-        //        DbParameter[] userParams = new DbParameter[1] { IMEIP };
+            PUserMobile UserMobile = null;
+            try
+            {
+                DateTime tracerStart = DateTime.Now;
+                DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
+                DbParameter[] userParams = new DbParameter[1] { IMEIP };
 
-        //        using (DataSet userDataSet = provider.Select("GetUserIDForApproval", userParams))
-        //        {
-        //            if (userDataSet != null)
-        //                foreach (DataRow dr in userDataSet.Tables[0].Rows)
-        //                {
-        //                    UserMobile = new PUserMobile();
-        //                    UserMobiles.Add(UserMobile);
-        //                    UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
-        //                    UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-        //                    UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
-        //                    UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-        //                    UserMobile.UserName = Convert.ToString(dr["UserName"]);
-        //                    UserMobile.Name = Convert.ToString(dr["ContactName"]);
-        //                    UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
-        //                }
-        //        }
-        //        TraceLogger.Log(tracerStart);
-        //        return UserMobiles;
-        //    }
-        //    catch (LMSException lmsEx)
-        //    {
-        //        throw lmsEx;
-        //    }
-        //    catch (LMSFunctionalException lmsfExe)
-        //    {
-        //        throw lmsfExe;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new LMSException(ErrorCode.GENE, ex);
-        //    }
+                using (DataSet userDataSet = provider.Select("GetUserIDForApproval", userParams))
+                {
+                    if (userDataSet != null)
+                        foreach (DataRow dr in userDataSet.Tables[0].Rows)
+                        {
+                            UserMobile = new PUserMobile();
+                            UserMobiles.Add(UserMobile);
+                            UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
+                            UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
+                            UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
+                            UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+                            UserMobile.UserName = Convert.ToString(dr["UserName"]);
+                            UserMobile.Name = Convert.ToString(dr["ContactName"]);
+                            UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
+                        }
+                }
+                TraceLogger.Log(tracerStart);
+                return UserMobiles;
+            }
+            catch (LMSException lmsEx)
+            {
+                throw lmsEx;
+            }
+            catch (LMSFunctionalException lmsfExe)
+            {
+                throw lmsfExe;
+            }
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
 
-        //}
+        }
         public Boolean InserUserMobileIMEI(int UserID, string IMEI)
         {
             Boolean UserMobile = false;
@@ -1471,16 +1471,6 @@ namespace Business
         {
             string endPoint = "User/SubModuleChileByUserID?UserId=" + UserId;
             return JsonConvert.DeserializeObject<List<PSubModuleChile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
-
-        public PApiResult Login(UserAuthentication UserA)
-        {
-            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/GetToken", UserA));
-        }
-        public PUser GetUserByToken()
-        {
-            string endPoint = "User/UserByToken";
-            return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

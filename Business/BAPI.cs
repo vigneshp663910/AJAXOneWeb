@@ -176,11 +176,11 @@ namespace Business
         public String ApiGet(string Filter)
         {
            // JsonResult JsonContent = new JsonResult();
-            string AccessToken = PSession.AccessToken;
+            //string AccessToken = PSession.;
               
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+           // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {
@@ -208,10 +208,10 @@ namespace Business
         public String ApiPut(string EndPoint,object obj)
         {
             // JsonResult JsonContent = new JsonResult();
-            string AccessToken = PSession.AccessToken;
+            string AccessToken = ""; 
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {
