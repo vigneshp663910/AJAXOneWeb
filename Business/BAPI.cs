@@ -176,7 +176,7 @@ namespace Business
         public String ApiGet(string Filter)
         {
            // JsonResult JsonContent = new JsonResult();
-            string AccessToken = PSession.;
+            string AccessToken = PSession.AccessToken;
               
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
@@ -211,7 +211,7 @@ namespace Business
             string AccessToken = ""; 
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
             //    {

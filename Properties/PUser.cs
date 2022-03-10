@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Properties
 {
-     [Serializable]
+    [Serializable]
     public class PUser
     {
         #region Properties
@@ -16,13 +16,13 @@ namespace Properties
         public PDMS_DealerDepartment Department { get; set; }
         public PDMS_DealerDesignation Designation { get; set; }
         public PDMS_DealerEmployee ReportingTo { get; set; }
-        public Int32 PlantID { get; set; } 
+        public Int32 PlantID { get; set; }
         public String UserName { get; set; }
         public String PassWord { get; set; }
         public Boolean IsLocked { get; set; }
         public Int16 UserTypeID { get; set; }
         public Boolean IsEnabled { get; set; }
-        public String ContactName { get; set; } 
+        public String ContactName { get; set; }
 
         public Boolean IsFirstTimeLogin { get; set; }
         public String ExternalReferenceID { get; set; }
@@ -33,7 +33,7 @@ namespace Properties
         public long UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
         public PContactDetail ContactDetail { get; set; }
-         public List<PUserModuleAccess> AccessModules { get; set; }
+        public List<PUserModuleAccess> AccessModules { get; set; }
         public List<PModuleAccess> DMSModules { get; set; }
         public List<PSubModuleChile> SubModuleChile { get; set; }
         public PUserType UserType { get; set; }
@@ -49,12 +49,12 @@ namespace Properties
         public Boolean IsTechnician { get; set; }
         public List<PDashboard> Dashboard { get; set; }
 
-        public  PUsersDesignation UsersDesignation { get; set; }
+        public PUsersDesignation UsersDesignation { get; set; }
         public string OTP { get; set; }
         public DateTime OTPExpiry { get; set; }
         #endregion
     }
-     [Serializable]
+    [Serializable]
     public class PUserType
     {
 
@@ -65,6 +65,7 @@ namespace Properties
         public Boolean IsActive { get; set; }
 
     }
+    [Serializable]
     public class PUserAudit
     {
         public int UserId { get; set; }
@@ -75,7 +76,7 @@ namespace Properties
         public string SesionId { get; set; }
         public bool IsSessionExpired { get; set; }
     }
-     [Serializable]
+    [Serializable]
     public class PContactDetail
     {
         public Int64 ContactDetailsID { get; set; }
@@ -94,14 +95,14 @@ namespace Properties
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
     }
-     [Serializable]
+    [Serializable]
     public class PUserModuleAccess
     {
         #region Properties
         public int UserModuleAccessID { get; set; }
         public int ModuleAccessID { get; set; }
         public int SubModuleAccessId { get; set; }
-        public string Name { get; set; } 
+        public string Name { get; set; }
         public PModuleAccess ModuleAccess { get; set; }
         public PSubModuleAccess SubModuleAccess { get; set; }
         public bool IsUpdate { get; set; }
@@ -126,7 +127,7 @@ namespace Properties
         public bool IsUpdate { get; set; }
         #endregion
     }
-     [Serializable]
+    [Serializable]
     public class PModuleAccess
     {
         #region Properties
@@ -138,8 +139,8 @@ namespace Properties
         public int UserModuleAccessID { get; set; }
         public long UserID { get; set; }
         public int ModuleAccessID { get; set; }
-        public int SubModuleAccessID { get; set; } 
-      
+        public int SubModuleAccessID { get; set; }
+
         public bool IsActive { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -150,7 +151,7 @@ namespace Properties
 
         #endregion
     }
-     [Serializable]
+    [Serializable]
     public class PSubModuleAccess
     {
         #region Properties
@@ -163,18 +164,15 @@ namespace Properties
 
         #endregion
     }
-
     [Serializable]
     public class PSubModuleChile
     {
         #region Properties
         public int SubModuleChildID { get; set; }
         public PSubModuleAccess SubModule { get; set; }
-        public string ChildName { get; set; } 
+        public string ChildName { get; set; }
         #endregion
     }
-
-
     [Serializable]
     public class PAccount
     {
@@ -206,7 +204,7 @@ namespace Properties
         public List<int> ManagerID { get; set; }
         public List<PPlant> Plants { get; set; }
     }
-     [Serializable]
+    [Serializable]
     public class PUserPlantMapping
     {
 
@@ -220,46 +218,73 @@ namespace Properties
         public DateTime UpdatedOn { get; set; }
         #endregion
     }
+    [Serializable]
     public class PL1SupportUserMapping
     {
         #region Properties
         public int DealerID { get; set; }
         public long CategoryID { get; set; }
         public long UserID { get; set; }
-        public bool IsActive { get; set; } 
+        public bool IsActive { get; set; }
         #endregion
     }
+    [Serializable]
     public class PUserMobile
     {
         public int UserMobileID { get; set; }
         public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Name { get; set; }
-        public string IMEI { get; set; }
+        public string DeviceId { get; set; }
+        public string ModelNumber { get; set; }
+        public string VersionCode { get; set; }
+        public string AppVersionNumber { get; set; }
+        public string OSVersionNumber { get; set; }
+        public string OSType { get; set; }
+        public string FCMTokenId { get; set; }
+        public string Language { get; set; }
         public DateTime CreatedOn { get; set; }
         public int? ApprovedBy { get; set; }
         public DateTime? ApprovedOn { get; set; }
         public Boolean IsActive { get; set; }
-         
     }
-     [Serializable]
+    [Serializable]
     public class PDashboard
     {
         #region Properties
         public int DashboardID { get; set; }
-        public string Dashboard { get; set; }      
-        public long UserID { get; set; } 
-        public bool IsActive { get; set; } 
+        public string Dashboard { get; set; }
+        public long UserID { get; set; }
+        public bool IsActive { get; set; }
         #endregion
     }
-
-
-     [Serializable]
-     public class PUsersDesignation
-     {
-         #region Properties
-         public int UsersDesignationID { get; set; }
-         public string UsersDesignation { get; set; } 
-         #endregion
-     }
+    [Serializable]
+    public class PUsersDesignation
+    {
+        #region Properties
+        public int UsersDesignationID { get; set; }
+        public string UsersDesignation { get; set; }
+        #endregion
+    }
+    [Serializable]
+    public class PUserJWT
+    {
+        public int UserID { get; set; }
+        public string Mail { get; set; }
+        public string ApplicationKey { get; set; }
+        public string DeviceId { get; set; }
+    }
+    [Serializable]
+    public class UserAuthentication
+    {
+        public string UserName { get; set; }
+        public string LoginPassword { get; set; }
+        public string ApplicationKey { get; set; }
+        public string DeviceId { get; set; }
+        public string ModelNumber { get; set; }
+        public string VersionCode { get; set; }
+        public string AppVersionNumber { get; set; }
+        public string OSVersionNumber { get; set; }
+        public string OSType { get; set; }
+        public string FCMTokenId { get; set; }
+        public string Language { get; set; }
+    }
 }
