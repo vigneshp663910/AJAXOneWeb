@@ -72,7 +72,7 @@ namespace Business
                             UserMobile = new PUserMobile();
                             UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
                             UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-                            UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
+                            //UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
                             UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
                             UserMobile.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? (int?)null : Convert.ToInt32(dr["ApprovedBy"]);
                             UserMobile.ApprovedOn = DBNull.Value == dr["ApprovedOn"] ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
@@ -94,52 +94,52 @@ namespace Business
             {
                 throw new LMSException(ErrorCode.GENE, ex);
             }
-        
-        }
-        public List<PUserMobile> GetUserIDForApproval(string IMEI)
-        {
-            List<PUserMobile> UserMobiles = new List<PUserMobile>();
-
-            PUserMobile UserMobile = null;
-            try
-            {
-                DateTime tracerStart = DateTime.Now;
-                DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-                DbParameter[] userParams = new DbParameter[1] { IMEIP };
-
-                using (DataSet userDataSet = provider.Select("GetUserIDForApproval", userParams))
-                {
-                    if (userDataSet != null)
-                        foreach (DataRow dr in userDataSet.Tables[0].Rows)
-                        {
-                            UserMobile = new PUserMobile();
-                            UserMobiles.Add(UserMobile);
-                            UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
-                            UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-                            UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
-                            UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            UserMobile.UserName = Convert.ToString(dr["UserName"]);
-                            UserMobile.Name = Convert.ToString(dr["ContactName"]);
-                            UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
-                        }
-                }
-                TraceLogger.Log(tracerStart);
-                return UserMobiles;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
 
         }
+        //public List<PUserMobile> GetUserIDForApproval(string IMEI)
+        //{
+        //    List<PUserMobile> UserMobiles = new List<PUserMobile>();
+
+        //    PUserMobile UserMobile = null;
+        //    try
+        //    {
+        //        DateTime tracerStart = DateTime.Now;
+        //        DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
+        //        DbParameter[] userParams = new DbParameter[1] { IMEIP };
+
+        //        using (DataSet userDataSet = provider.Select("GetUserIDForApproval", userParams))
+        //        {
+        //            if (userDataSet != null)
+        //                foreach (DataRow dr in userDataSet.Tables[0].Rows)
+        //                {
+        //                    UserMobile = new PUserMobile();
+        //                    UserMobiles.Add(UserMobile);
+        //                    UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
+        //                    UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
+        //                    UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
+        //                    UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+        //                    UserMobile.UserName = Convert.ToString(dr["UserName"]);
+        //                    UserMobile.Name = Convert.ToString(dr["ContactName"]);
+        //                    UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
+        //                }
+        //        }
+        //        TraceLogger.Log(tracerStart);
+        //        return UserMobiles;
+        //    }
+        //    catch (LMSException lmsEx)
+        //    {
+        //        throw lmsEx;
+        //    }
+        //    catch (LMSFunctionalException lmsfExe)
+        //    {
+        //        throw lmsfExe;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new LMSException(ErrorCode.GENE, ex);
+        //    }
+
+        //}
         public Boolean InserUserMobileIMEI(int UserID, string IMEI)
         {
             Boolean UserMobile = false;
@@ -241,7 +241,7 @@ namespace Business
                 DateTime traceStartTime = DateTime.Now;
                 DataTable userDataTable = new DataTable();
 
-                DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String); 
+                DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String);
                 DbParameter[] userParams = new DbParameter[1] { userIDParams };
 
                 using (DataSet userDataSet = provider.Select("AuthenticateUser", userParams))
@@ -304,8 +304,8 @@ namespace Business
                 {
                     Name = Convert.ToString(userRow["Name"]),
                     DealerEmployeeID = Convert.ToInt32(userRow["DealerEmployeeID"]),
-                    ContactNumber= Convert.ToString(userRow["DealerContactNumber"]),
-                    Email= Convert.ToString(userRow["DealerEmailID"])
+                    ContactNumber = Convert.ToString(userRow["DealerContactNumber"]),
+                    Email = Convert.ToString(userRow["DealerEmailID"])
                 }
             };
         }
@@ -433,9 +433,9 @@ namespace Business
 
                 using (DataSet usersDataSet = provider.Select("GetAllUsers", userParams))
                 {
-                    if (usersDataSet != null)                        
-                    foreach (DataRow usersRow in usersDataSet.Tables[0].Rows)
-                        users.Add(ConvertToUserVO(usersRow));
+                    if (usersDataSet != null)
+                        foreach (DataRow usersRow in usersDataSet.Tables[0].Rows)
+                            users.Add(ConvertToUserVO(usersRow));
                 }
                 // This call is for track the status and logged into the trace logeer
                 TraceLogger.Log(traceStartTime);
@@ -553,9 +553,9 @@ namespace Business
                 DbParameter updatedOnParam = provider.CreateParameter("UpdatedOn", userDAO.UpdatedOn, DbType.DateTime);
                 DbParameter userIDParam = provider.CreateParameter("UserID", userDAO.UserID, DbType.Int64);
                 DbParameter MailP = provider.CreateParameter("Mail", userDAO.Mail, DbType.String);
-               
-                DbParameter[] userParams = new DbParameter[16] { userIDParam, contactNameParam, userNameParam, loginPasswordParam, userTypeIDParam, externalReferenceIDParam, 
-                                                                     isFirstTimeParam, isLockedParam, isEnabledParam, passwordExpirationDateParam, 
+
+                DbParameter[] userParams = new DbParameter[16] { userIDParam, contactNameParam, userNameParam, loginPasswordParam, userTypeIDParam, externalReferenceIDParam,
+                                                                     isFirstTimeParam, isLockedParam, isEnabledParam, passwordExpirationDateParam,
                                                                     enableDisableReasonParam, updatedByParam,updatedOnParam, createdByParam, createdOnParam,MailP};
 
                 // This call is for track the status and loged into the trace logeer
@@ -577,7 +577,7 @@ namespace Business
 
         public void UpdateResetPassword(string UserName, string Password)
         {
-            DateTime traceStartTime = DateTime.Now; 
+            DateTime traceStartTime = DateTime.Now;
             try
             {
                 DbParameter UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
@@ -722,7 +722,7 @@ namespace Business
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                   // userId = CreateUser(user);
+                    // userId = CreateUser(user);
                     user.UserID = userId;
                     //foreach (PPlant plant in user.UserPlants)
                     //{
@@ -830,7 +830,7 @@ namespace Business
                 DbParameter stateParam = provider.CreateParameter("State", contactDetailsDAO.State, DbType.String);
                 DbParameter postcodeParam = provider.CreateParameter("Postcode", contactDetailsDAO.Postcode, DbType.String);
                 DbParameter countryParam = provider.CreateParameter("Country", contactDetailsDAO.Country, DbType.String);
-                DbParameter[] contactDetailParams = new DbParameter[10] { userIDParam, emailIDParam, phoneParam, addressLine1Param, addressLine2Param, addressLine3Param, 
+                DbParameter[] contactDetailParams = new DbParameter[10] { userIDParam, emailIDParam, phoneParam, addressLine1Param, addressLine2Param, addressLine3Param,
                                                                     cityParam, stateParam, postcodeParam, countryParam};
                 provider.Insert("CreateContactDetails", contactDetailParams);
                 TraceLogger.Log(traceStartTime);
@@ -914,7 +914,7 @@ namespace Business
                 DbParameter userNameParam = provider.CreateParameter("UserName", userDAO.UserName, DbType.String);
                 DbParameter loginPasswordParam = provider.CreateParameter("LoginPassword", userDAO.PassWord, DbType.String);
                 DbParameter userTypeIDParam = provider.CreateParameter("UserTypeID", userDAO.UserTypeID, DbType.Int16);
-                DbParameter externalReferenceIDParam = provider.CreateParameter("ExternalReferenceID", userDAO.ExternalReferenceID, DbType.String); 
+                DbParameter externalReferenceIDParam = provider.CreateParameter("ExternalReferenceID", userDAO.ExternalReferenceID, DbType.String);
                 DbParameter isFirstTimeParam = provider.CreateParameter("IsFirstTime", userDAO.IsFirstTimeLogin, DbType.Boolean);
                 DbParameter isLockedParam = provider.CreateParameter("IsLocked", userDAO.IsLocked, DbType.Boolean);
                 DbParameter isEnabledParam = provider.CreateParameter("IsEnabled", userDAO.IsEnabled, DbType.Boolean);
@@ -932,12 +932,12 @@ namespace Business
                 DbParameter PhoneP = provider.CreateParameter("Phone", userDAO.ContactNumber, DbType.String);
                 DbParameter UserIDP = provider.CreateParameter("UserID", userDAO.UserID, DbType.String);
 
-                DbParameter IsTechnician = provider.CreateParameter("IsTechnician", userDAO.IsTechnician, DbType.Boolean); 
+                DbParameter IsTechnician = provider.CreateParameter("IsTechnician", userDAO.IsTechnician, DbType.Boolean);
 
 
                 DbParameter OutValueP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt16(ParameterDirections.Output));
-                DbParameter[] userParams = new DbParameter[19] { contactNameParam, userNameParam, loginPasswordParam, userTypeIDParam, externalReferenceIDParam, 
-                                                                     isFirstTimeParam, isLockedParam, isEnabledParam, passwordExpirationDateParam, 
+                DbParameter[] userParams = new DbParameter[19] { contactNameParam, userNameParam, loginPasswordParam, userTypeIDParam, externalReferenceIDParam,
+                                                                     isFirstTimeParam, isLockedParam, isEnabledParam, passwordExpirationDateParam,
                                                                     enableDisableReasonParam, createdByParam,updatedByParam,createdOnParam,updatedOnParam,MailP,PhoneP,UserIDP,IsTechnician,OutValueP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
@@ -1077,7 +1077,7 @@ namespace Business
         /// <param name="oldPwd">string</param>
         /// <param name="newPwd">string</param>
         /// <param name="cnfmNewPwd">string</param>
-        public int ChangePassword(int userId, string oldPwd, string newPwd, string cnfmNewPwd,string PasswordType)
+        public int ChangePassword(int userId, string oldPwd, string newPwd, string cnfmNewPwd, string PasswordType)
         {
             try
             {
@@ -1108,7 +1108,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-       
+
         #endregion
 
         #region Private Methods
@@ -1162,7 +1162,7 @@ namespace Business
         {
             return Regex.IsMatch(newPwd, @"(?=.*[a-z])(?=.*[@#$%^&+=])(?=.*[0-9]).*$");
         }
-         
+
         /// <summary>
         /// This method is used to convert user datarow to UserVO.
         /// </summary>
@@ -1178,7 +1178,7 @@ namespace Business
                 ContactName = Convert.ToString(userRow["ContactName"]),
                 UserTypeID = Convert.ToInt16(userRow["UserTypeID"]),
                 ExternalReferenceID = userRow["ExternalReferenceID"] != DBNull.Value ? Convert.ToString(userRow["ExternalReferenceID"]) : string.Empty,
-             
+
                 IsFirstTimeLogin = Convert.ToBoolean(userRow["IsFirstTime"]),
                 IsLocked = Convert.ToBoolean(userRow["IsLocked"]),
                 IsEnabled = Convert.ToBoolean(userRow["IsEnabled"]),
@@ -1187,7 +1187,7 @@ namespace Business
                 CreatedOn = Convert.ToDateTime(userRow["CreatedOn"]),
                 CreatedByName = Convert.ToString(userRow["UserName"]),
                 SystemCategoryID = Convert.ToInt16(userRow["SystemCategoryID"]),
-              //  IsNatesanGroupUser = userRow.Table.Columns.Contains("SisterCompanyId") ? (userRow["SisterCompanyId"] != DBNull.Value ? true : false) : true,
+                //  IsNatesanGroupUser = userRow.Table.Columns.Contains("SisterCompanyId") ? (userRow["SisterCompanyId"] != DBNull.Value ? true : false) : true,
                 Mail = Convert.ToString(userRow["Mail"]),
                 ContactNumber = Convert.ToString(userRow["ContactNumber"]),
                 IsTechnician = userRow["IsTechnician"] == DBNull.Value ? false : Convert.ToBoolean(userRow["IsTechnician"]),
@@ -1284,9 +1284,9 @@ namespace Business
         {
             DateTime traceStartTime = DateTime.Now;
             List<PModuleAccess> MAs = new List<PModuleAccess>();
-            int ID=0;
+            int ID = 0;
             PModuleAccess MA = null;
-             try
+            try
             {
                 DbParameter userIdP = provider.CreateParameter("UserId", UserId, DbType.Int64);
                 DbParameter ModuleMasterIDP = provider.CreateParameter("ModuleMasterID", ModuleMasterID, DbType.Int32);
@@ -1306,14 +1306,14 @@ namespace Business
                                 MA.ModuleName = Convert.ToString(dr["ModuleName"]);
                                 MA.ModuleAwesomeIco = Convert.ToString(dr["ModuleAwesomeIco"]);
                                 MA.SubModuleAccess = new List<PSubModuleAccess>();
-                                ID = Convert.ToInt32(dr["ModuleMasterID"]); 
-                                MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]); 
+                                ID = Convert.ToInt32(dr["ModuleMasterID"]);
+                                MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]);
                             }
                             MA.SubModuleAccess.Add(new PSubModuleAccess()
                             {
                                 SubModuleMasterID = Convert.ToInt32(dr["SubModuleMasterID"]),
                                 SubModuleName = Convert.ToString(dr["SubModuleName"]),
-                                ParentMenu = Convert.ToString(dr["ParentMenu"]), 
+                                ParentMenu = Convert.ToString(dr["ParentMenu"]),
                                 ModuleAction = Convert.ToString(dr["ModuleAction"]),
                                 DisplayName1 = Convert.ToString(dr["DisplayName1"])
                             });
@@ -1340,7 +1340,7 @@ namespace Business
             int ID = 0;
             PModuleAccess MA = null;
             try
-            {     
+            {
                 using (DataSet ds = provider.Select("GetDMSModuleAll"))
                 {
                     if (ds != null)
@@ -1383,45 +1383,45 @@ namespace Business
             DataTable usersDataTable = new DataTable();
             try
             {
-                DbParameter UserIDP  = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                 DbParameter CreatedByP  = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
 
 
-                 DbParameter[] userParams = new DbParameter[2] { UserIDP, CreatedByP };
-                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                 {
-                     provider.Insert("DeactivateUserAccess", userParams, false);
+                DbParameter[] userParams = new DbParameter[2] { UserIDP, CreatedByP };
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("DeactivateUserAccess", userParams, false);
 
-                     foreach (int SubModuleAccessID in AccessModule)
-                     {
-                         DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                         DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
-                         DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                         DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
-                         provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
-                     }
-                     foreach (int DealerID in AccessDealer)
-                     {
-                         DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                         DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int64);
-                         DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                         DbParameter[] DParams = new DbParameter[3] { UserIDDP, DealerIDP, CreatedByDP };
-                         provider.Insert("InsertOrUpdateUserDealerAccess", DParams, false);
-                     }
+                    foreach (int SubModuleAccessID in AccessModule)
+                    {
+                        DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                        DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
+                        DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
+                        provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
+                    }
+                    foreach (int DealerID in AccessDealer)
+                    {
+                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                        DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int64);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, DealerIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateUserDealerAccess", DParams, false);
+                    }
 
-                     foreach (int DashboardID in Dashboard)
-                     {
-                         DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                         DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
-                         DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                         DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
-                         provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
-                     }
+                    foreach (int DashboardID in Dashboard)
+                    {
+                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                        DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+                    }
 
-                     scope.Complete();
-                     // This call is for track the status and logged into the trace logeer
-                     TraceLogger.Log(traceStartTime);
-                 }
+                    scope.Complete();
+                    // This call is for track the status and logged into the trace logeer
+                    TraceLogger.Log(traceStartTime);
+                }
                 return true;
             }
             catch (SqlException sqlEx)
@@ -1440,7 +1440,7 @@ namespace Business
         {
             DateTime traceStartTime = DateTime.Now;
             List<PUser> users = new List<PUser>();
-         
+
             try
             {
                 DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int64);
@@ -1471,6 +1471,16 @@ namespace Business
         {
             string endPoint = "User/SubModuleChileByUserID?UserId=" + UserId;
             return JsonConvert.DeserializeObject<List<PSubModuleChile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public PApiResult Login(UserAuthentication UserA)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/GetToken", UserA));
+        }
+        public PUser GetUserByToken()
+        {
+            string endPoint = "User/UserByToken";
+            return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

@@ -12,44 +12,46 @@ namespace DealerManagementSystem
         private int NoOfAllowedLoginAttempt;
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (Request.Cookies["IMEI"] == null)
-            {
-                Response.Cookies["IMEI"].Value = "";
-            }
-            if ((!string.IsNullOrEmpty(Request.QueryString["IMEI"])) || (!string.IsNullOrEmpty(Request.Cookies["IMEI"].Value)))
-            {
-                string IMEI = string.IsNullOrEmpty(Request.QueryString["IMEI"]) ? Request.Cookies["IMEI"].Value : Convert.ToString(Request.QueryString["IMEI"]);
-                Response.Cookies["IMEI"].Value = IMEI;
-                PUserMobile UserMobile = new BUser().GetUserIDByIMEI(IMEI);
-                string Message = "";
+            //if (Request.Cookies["IMEI"] == null)
+            //{
+            //    Response.Cookies["IMEI"].Value = "";
+            //}
+            //if ((!string.IsNullOrEmpty(Request.QueryString["IMEI"])) || (!string.IsNullOrEmpty(Request.Cookies["IMEI"].Value)))
+            //{
+            //    string IMEI = string.IsNullOrEmpty(Request.QueryString["IMEI"]) ? Request.Cookies["IMEI"].Value : Convert.ToString(Request.QueryString["IMEI"]);
+            //    Response.Cookies["IMEI"].Value = IMEI;
+            //    PUserMobile UserMobile = new BUser().GetUserIDByIMEI(IMEI);
+            //    string Message = "";
 
-                if (UserMobile == null)
-                {
-                    Response.Cookies["IMEI"].Value = IMEI;
-                }
-                else if (!UserMobile.IsActive)
-                {
-                    Message = "";
-                    Response.Redirect("RegisterUserMobile.aspx?Message=" + Message);
-                }
-                else if (UserMobile.ApprovedBy == null)
-                {
-                    Response.Redirect("RegisterUserMobile.aspx?Message=Your request waiting for approval");
-                }
-                else
-                {
-                    AddToSession(UserMobile.UserID);
+            //    if (UserMobile == null)
+            //    {
+            //        Response.Cookies["IMEI"].Value = IMEI;
+            //    }
+            //    else if (!UserMobile.IsActive)
+            //    {
+            //        Message = "";
+            //        Response.Redirect("RegisterUserMobile.aspx?Message=" + Message);
+            //    }
+            //    else if (UserMobile.ApprovedBy == null)
+            //    {
+            //        Response.Redirect("RegisterUserMobile.aspx?Message=Your request waiting for approval");
+            //    }
+            //    else
+            //    {
+            //        AddToSession(UserMobile.UserID);
 
-                    if (!string.IsNullOrEmpty(Request.QueryString["Session_End"]))
-                    {
-                        Redirect(UIHelper.RedirectToHomePage + "?Session_End=This page idle for long lime so system went home page");
-                    }
-                    else
-                    {
-                        Redirect(UIHelper.RedirectToHomePage);
-                    }
-                }
-            }
+            //        if (!string.IsNullOrEmpty(Request.QueryString["Session_End"]))
+            //        {
+            //            Redirect(UIHelper.RedirectToHomePage + "?Session_End=This page idle for long lime so system went home page");
+            //        }
+            //        else
+            //        {
+            //            Redirect(UIHelper.RedirectToHomePage);
+            //        }
+            //    }
+            //}
+
+
             //txtUsername.Text = "IT.OFFICER4";
             //txtPassword.Text = "abc@123";
 
@@ -143,33 +145,33 @@ namespace DealerManagementSystem
                 if ((txtUsername.Text == "admin") && (txtPassword.Text == "p123"))
                 {
                     Session["LoginID"] = txtUsername.Text;
-                    Response.Redirect("/ViewAdmin/UserList.aspx");
+                    Response.Redirect("ViewAdmin/UserList.aspx");
+                    //Response.Redirect("Account/LoginAs.aspx");                 
                 }
-                userDetails = new BUser().AuthenticateUser(txtUsername.Text, txtPassword.Text);
+
+                UserAuthentication userA = new UserAuthentication();
+
+                userA.UserName = txtUsername.Text;
+                userA.LoginPassword = txtPassword.Text;
+                userA.ApplicationKey = Convert.ToString(ConfigurationManager.AppSettings["ApplicationKey"]);
+                PApiResult Results = new BUser().Login(userA);
+
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    return;
+                }
+                PSession.AccessToken = Convert.ToString(Results.Data);
+
+                userDetails = new BUser().GetUserByToken();
+                PSession.User = userDetails;
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
-                    AddToSession(userDetails.UserID);
-                    //Redirect(UIHelper.RedirectToPasswordChange);
-                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + userDetails.UserID + "", true);
-                }
-
-                if ((!string.IsNullOrEmpty(Request.QueryString["IMEI"])) || (!string.IsNullOrEmpty(Request.Cookies["IMEI"].Value)))
-                {
-                    string IMEI = string.IsNullOrEmpty(Request.QueryString["IMEI"]) ? Request.Cookies["IMEI"].Value : Convert.ToString(Request.QueryString["IMEI"]);
-                    string Message = "";
-                    if (new BUser().InserUserMobileIMEI(userDetails.UserID, IMEI))
-                    {
-                        Message = "You are new mobile user. Your request send to approval. Once approval you can open the application.";
-                    }
-                    else
-                    {
-                        Message = "Please contact the administrator.";
-                    }
-                    Response.Redirect("RegisterUserMobile.aspx?Message=" + Message);
+                    Redirect(UIHelper.RedirectToPasswordChange);
                 }
                 RemoveLoginAttemptsFromViewState();
-
-                AddToSession(userDetails.UserID);
                 Redirect(UIHelper.RedirectToHomePage);
             }
 
@@ -191,6 +193,68 @@ namespace DealerManagementSystem
                 }
             }
         }
+        //void login() Old
+        //{
+        //    int attemptCount = 0;
+        //    PUser userDetails = null;
+        //    if (ViewState["NoOfLoginAttempts"] != null)
+        //        attemptCount = (int)ViewState["NoOfLoginAttempts"];
+
+        //    DateTime traceStartTime = DateTime.Now;
+        //    try
+        //    {
+        //        Session["LoginID"] = "";
+        //        if ((txtUsername.Text == "admin") && (txtPassword.Text == "p123"))
+        //        {
+        //            Session["LoginID"] = txtUsername.Text;
+        //            Response.Redirect("/ViewAdmin/UserList.aspx");
+        //        }
+        //        userDetails = new BUser().AuthenticateUser(txtUsername.Text, txtPassword.Text);
+        //        if (userDetails.PasswordExpiryDate < DateTime.Now)
+        //        {
+        //            AddToSession(userDetails.UserID);
+        //            //Redirect(UIHelper.RedirectToPasswordChange);
+        //            Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + userDetails.UserID + "", true);
+        //        }
+
+        //        if ((!string.IsNullOrEmpty(Request.QueryString["IMEI"])) || (!string.IsNullOrEmpty(Request.Cookies["IMEI"].Value)))
+        //        {
+        //            string IMEI = string.IsNullOrEmpty(Request.QueryString["IMEI"]) ? Request.Cookies["IMEI"].Value : Convert.ToString(Request.QueryString["IMEI"]);
+        //            string Message = "";
+        //            if (new BUser().InserUserMobileIMEI(userDetails.UserID, IMEI))
+        //            {
+        //                Message = "You are new mobile user. Your request send to approval. Once approval you can open the application.";
+        //            }
+        //            else
+        //            {
+        //                Message = "Please contact the administrator.";
+        //            }
+        //            Response.Redirect("RegisterUserMobile.aspx?Message=" + Message);
+        //        }
+        //        RemoveLoginAttemptsFromViewState();
+
+        //        AddToSession(userDetails.UserID);
+        //        Redirect(UIHelper.RedirectToHomePage);
+        //    }
+
+        //    catch (LMSException vpExe)
+        //    {
+        //        RemoveLoginAttemptsFromViewState();
+        //        DisplayMessages(ErrorHandler.GetErrorMessage(ErrorHandler.GetErrorCode(vpExe.Message)));
+        //    }
+        //    catch (LMSFunctionalException vpsFun)
+        //    {
+        //        if ((attemptCount + 1 >= NoOfAllowedLoginAttempt) && (ErrorHandler.GetFunctionalErrorCode(vpsFun.Message) == FunctionalErrorCode.InvalidPassword))
+        //        {
+        //            LockUser(txtUsername.Text);
+        //        }
+        //        else
+        //        {
+        //            DisplayMessages(ErrorHandler.GetErrorMessage(ErrorHandler.GetFunctionalErrorCode(vpsFun.Message)));
+        //            ViewState["NoOfLoginAttempts"] = attemptCount + 1;
+        //        }
+        //    }
+        //}
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
