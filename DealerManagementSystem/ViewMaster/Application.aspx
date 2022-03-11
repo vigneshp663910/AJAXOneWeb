@@ -12,7 +12,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvMainApplication" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMainApplication_PageIndexChanging">
@@ -58,7 +58,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>MainApplication</label>
@@ -73,7 +73,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvSubApplication" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvSubApplication_PageIndexChanging" OnDataBound="gvSubApplication_DataBound">

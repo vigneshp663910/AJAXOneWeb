@@ -230,6 +230,11 @@
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Project_Plan_PV2.png" />
+    <Content Include="ProcessFlow\V0_Physical_Inventory.png" />
+    <Content Include="ProcessFlow\V0_Procurment_Process_OE_CoDealer.png" />
+    <Content Include="ProcessFlow\V0_Purchse_Return.png" />
+    <Content Include="ProcessFlow\V0_Secondary_Sales.png" />
+    <Content Include="ProcessFlow\V0_Stock_Transfer.png" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
