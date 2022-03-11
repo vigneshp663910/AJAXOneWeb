@@ -76,7 +76,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateMake.Text == "Add")
                 {
-                    success = new BTestSN().InsertOrUpdateMake(null, Make, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateMake(null, Make, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         GetMake();
@@ -99,7 +99,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    success = new BTestSN().InsertOrUpdateMake(Convert.ToInt32(HiddenID.Value), Make, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateMake(Convert.ToInt32(HiddenID.Value), Make, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         HiddenID.Value = null;
@@ -162,11 +162,11 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 int success = 0;
-                LinkButton lnkMakeDelete = (LinkButton)sender;
-                int MakeID = Convert.ToInt32(lnkMakeDelete.CommandArgument);
-                GridViewRow row = (GridViewRow)(lnkMakeDelete.NamingContainer);
-                string Make = ((Label)row.FindControl("lnkMakeDelete")).Text.Trim();
-                success = new BTestSN().InsertOrUpdateMake(MakeID, Make, false, PSession.User.UserID);
+                LinkButton lnkBtnMakeDelete = (LinkButton)sender;
+                int MakeID = Convert.ToInt32(lnkBtnMakeDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnMakeDelete.NamingContainer);
+                string Make = ((Label)row.FindControl("lblMake")).Text.Trim();
+                success = new BPresalesMasters().InsertOrUpdateMake(MakeID, Make, false, PSession.User.UserID);
                 if (success == 1)
                 {
                     HiddenID.Value = null;
@@ -221,9 +221,9 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 int success = 0;
-                Button BtnAddOrUpdateProductType = (Button)gvMake.FooterRow.FindControl("BtnAddOrUpdateProductType");
+                Button BtnAddOrUpdateProductType = (Button)gvProductType.FooterRow.FindControl("BtnAddOrUpdateProductType");
 
-                string ProductType = ((TextBox)gvMake.FooterRow.FindControl("txtProductType")).Text.Trim();
+                string ProductType = ((TextBox)gvProductType.FooterRow.FindControl("txtProductType")).Text.Trim();
                 if (string.IsNullOrEmpty(ProductType))
                 {
                     lblMessage.Text = "Please enter Product Type";
@@ -233,7 +233,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateProductType.Text == "Add")
                 {
-                    success = new BTestSN().InsertOrUpdateProductType(null, ProductType, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateProductType(null, ProductType, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         GetProductType();
@@ -256,7 +256,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    success = new BTestSN().InsertOrUpdateProductType(Convert.ToInt32(HiddenID.Value), ProductType, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateProductType(Convert.ToInt32(HiddenID.Value), ProductType, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         HiddenID.Value = null;
@@ -294,13 +294,13 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Text = string.Empty;
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
-                LinkButton lnkProductTypeEdit = (LinkButton)sender;
-                TextBox txtProductType = (TextBox)gvMake.FooterRow.FindControl("txtProductType");
-                Button BtnAddOrUpdateProductType = (Button)gvMake.FooterRow.FindControl("BtnAddOrUpdateProductType");
-                GridViewRow row = (GridViewRow)(lnkProductTypeEdit.NamingContainer);
-                string Make = ((Label)row.FindControl("lblProductType")).Text.Trim();
-                txtProductType.Text = Make;
-                HiddenID.Value = Convert.ToString(lnkProductTypeEdit.CommandArgument);
+                LinkButton lnkBtnProductTypeEdit = (LinkButton)sender;
+                TextBox txtProductType = (TextBox)gvProductType.FooterRow.FindControl("txtProductType");
+                Button BtnAddOrUpdateProductType = (Button)gvProductType.FooterRow.FindControl("BtnAddOrUpdateProductType");
+                GridViewRow row = (GridViewRow)(lnkBtnProductTypeEdit.NamingContainer);
+                string ProductType = ((Label)row.FindControl("lblProductType")).Text.Trim();
+                txtProductType.Text = ProductType;
+                HiddenID.Value = Convert.ToString(lnkBtnProductTypeEdit.CommandArgument);
                 BtnAddOrUpdateProductType.Text = "Update";
             }
             catch (Exception ex)
@@ -319,11 +319,11 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 int success = 0;
-                LinkButton lnkProductTypeDelete = (LinkButton)sender;
-                int ProductTypeID = Convert.ToInt32(lnkProductTypeDelete.CommandArgument);
-                GridViewRow row = (GridViewRow)(lnkProductTypeDelete.NamingContainer);
-                string ProductType = ((Label)row.FindControl("lnkProductTypeDelete")).Text.Trim();
-                success = new BTestSN().InsertOrUpdateProductType(ProductTypeID, ProductType, false, PSession.User.UserID);
+                LinkButton lnkBtnProductTypeDelete = (LinkButton)sender;
+                int ProductTypeID = Convert.ToInt32(lnkBtnProductTypeDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnProductTypeDelete.NamingContainer);
+                string ProductType = ((Label)row.FindControl("lblProductType")).Text.Trim();
+                success = new BPresalesMasters().InsertOrUpdateProductType(ProductTypeID, ProductType, false, PSession.User.UserID);
                 if (success == 1)
                 {
                     HiddenID.Value = null;
@@ -378,9 +378,9 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 int success = 0;
-                Button BtnAddOrUpdateProduct = (Button)gvMake.FooterRow.FindControl("BtnAddOrUpdateProduct");
+                Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
 
-                string Product = ((TextBox)gvMake.FooterRow.FindControl("txtProduct")).Text.Trim();
+                string Product = ((TextBox)gvProduct.FooterRow.FindControl("txtProduct")).Text.Trim();
                 if (string.IsNullOrEmpty(Product))
                 {
                     lblMessage.Text = "Please enter Product";
@@ -390,7 +390,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateProduct.Text == "Add")
                 {
-                    success = new BTestSN().InsertOrUpdateProduct(null, Product, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateProduct(null, Product, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         GetProduct();
@@ -413,7 +413,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    success = new BTestSN().InsertOrUpdateProduct(Convert.ToInt32(HiddenID.Value), Product, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateProduct(Convert.ToInt32(HiddenID.Value), Product, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         HiddenID.Value = null;
@@ -451,13 +451,13 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Text = string.Empty;
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
-                LinkButton lnkProductEdit = (LinkButton)sender;
-                TextBox txtProduct = (TextBox)gvMake.FooterRow.FindControl("txtProduct");
-                Button BtnAddOrUpdateProduct = (Button)gvMake.FooterRow.FindControl("BtnAddOrUpdateProduct");
-                GridViewRow row = (GridViewRow)(lnkProductEdit.NamingContainer);
+                LinkButton lnkBtnProductEdit = (LinkButton)sender;
+                TextBox txtProduct = (TextBox)gvProduct.FooterRow.FindControl("txtProduct");
+                Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
+                GridViewRow row = (GridViewRow)(lnkBtnProductEdit.NamingContainer);
                 string Make = ((Label)row.FindControl("lblProduct")).Text.Trim();
                 txtProduct.Text = Make;
-                HiddenID.Value = Convert.ToString(lnkProductEdit.CommandArgument);
+                HiddenID.Value = Convert.ToString(lnkBtnProductEdit.CommandArgument);
                 BtnAddOrUpdateProduct.Text = "Update";
             }
             catch (Exception ex)
@@ -476,11 +476,11 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 int success = 0;
-                LinkButton lnkProductDelete = (LinkButton)sender;
-                int ProductID = Convert.ToInt32(lnkProductDelete.CommandArgument);
-                GridViewRow row = (GridViewRow)(lnkProductDelete.NamingContainer);
-                string Product = ((Label)row.FindControl("lnkProductDelete")).Text.Trim();
-                success = new BTestSN().InsertOrUpdateProduct(ProductID, Product, false, PSession.User.UserID);
+                LinkButton lnkBtnProductDelete = (LinkButton)sender;
+                int ProductID = Convert.ToInt32(lnkBtnProductDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnProductDelete.NamingContainer);
+                string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
+                success = new BPresalesMasters().InsertOrUpdateProduct(ProductID, Product, false, PSession.User.UserID);
                 if (success == 1)
                 {
                     HiddenID.Value = null;
