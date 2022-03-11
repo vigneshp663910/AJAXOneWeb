@@ -48,7 +48,7 @@ namespace DealerManagementSystem.ViewMaster
         void SearchCustomer()
         {
             long? CustomerID = null;
-            string CustomerCode = null;
+            string CustomerCode = txtCustomerCode.Text.Trim();
             string CustomerName = txtCustomer.Text.Trim();
             string Mobile = txtMobile.Text.Trim();
 
