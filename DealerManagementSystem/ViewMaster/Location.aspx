@@ -24,7 +24,7 @@
         <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="fldCountry" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Country</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><span class="Mandatory">*</span>
@@ -39,7 +39,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvCountry" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnPageIndexChanging="gvCountry_PageIndexChanging">
                             <Columns>
@@ -87,7 +87,7 @@
         <asp1:TabPanel ID="tbpnlRegion" runat="server" HeaderText="Region">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Region</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><span class="Mandatory">*</span>
@@ -109,7 +109,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvRegion" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvRegion_RowDataBound" OnPageIndexChanging="gvRegion_PageIndexChanging">
                             <Columns>
@@ -155,7 +155,7 @@
         <asp1:TabPanel ID="tbpnlState" runat="server" HeaderText="State">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="fldState" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">State</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><span class="Mandatory">*</span>
@@ -191,7 +191,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvState" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvState_RowDataBound" OnPageIndexChanging="gvState_PageIndexChanging">
                             <Columns>
@@ -260,7 +260,7 @@
         <asp1:TabPanel ID="tbpnlDistrict" runat="server" HeaderText="District">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">District</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><span class="Mandatory">*</span>
@@ -295,7 +295,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvDistrict" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvDistrict_RowDataBound" OnPageIndexChanging="gvDistrict_PageIndexChanging">
                             <Columns>
@@ -359,7 +359,7 @@
         <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="City">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">City</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><span class="Mandatory">*</span>
@@ -394,7 +394,7 @@
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvCity" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvCity_RowDataBound" OnPageIndexChanging="gvCity_PageIndexChanging">
                             <Columns>
