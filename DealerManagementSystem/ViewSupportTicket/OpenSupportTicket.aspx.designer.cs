@@ -150,15 +150,6 @@ namespace DealerManagementSystem.ViewSupportTicket
         protected global::System.Web.UI.WebControls.RadioButton rbSendForApproval;
 
         /// <summary>
-        /// rbResolve control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbResolve;
-
-        /// <summary>
         /// rbReject control.
         /// </summary>
         /// <remarks>

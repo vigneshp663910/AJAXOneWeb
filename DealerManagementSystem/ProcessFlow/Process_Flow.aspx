@@ -7,6 +7,7 @@
             width: 120px;
             height: 50px;
             font: 20px;
+                
         }
 
         .ajax__tab_xp .ajax__tab_header {
@@ -14,54 +15,78 @@
             background-repeat: repeat-x;
             font-family: verdana,tahoma,helvetica;
             font-size: 12px;
-            font-weight: bold;
+            font-weight: bold;           
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <%--<div class="col-md-12">--%>
-      <%--  <div class="col-md-12">--%>
-            <asp1:TabContainer ID="tbpProcess_Flow" runat="server" ToolTip="Process Flow" Font-Bold="True" Font-Size="Medium">
-                <asp1:TabPanel ID="tbpnPre_Sales" runat="server" HeaderText="Pre-Sales" Font-Bold="True">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tpService" runat="server" HeaderText="Procurement">
-                    <ContentTemplate>
-                        <%--<fieldset class="fieldset-border">
+    <%--  <div class="col-md-12">--%>
+    <asp1:TabContainer ID="tbpProcess_Flow" runat="server" ToolTip="Process Flow" Font-Bold="True" Font-Size="Medium">
+        <asp1:TabPanel ID="tbpnPre_Sales" runat="server" HeaderText="Pre-Sales" Font-Bold="True">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tpService" runat="server" HeaderText="Procurement">
+            <ContentTemplate>
+                <%--<fieldset class="fieldset-border">
                             <asp:Image ID="Image2" runat="server" ImageUrl="~/ProcessFlow/Service1.png" />
                         </fieldset>--%>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tplMCSales" runat="server" HeaderText="M/C Sales">
-                    <ContentTemplate>
-                        <%--<fieldset class="fieldset-border">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/Sales_Org1.png" />
-                        </fieldset>--%>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tpPartsSales" runat="server" HeaderText="Parts       Sales">
-                    <ContentTemplate>
-                        <%--<fieldset class="fieldset-border">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/Parts_Org1.png" />
-                        </fieldset>--%>
-                    </ContentTemplate>
-                </asp1:TabPanel>
-                <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
-                    <ContentTemplate>
-                        <fieldset class="fieldset-border">
-                            <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/Service1.png" />
-                        </fieldset>
-                    </ContentTemplate>
-                </asp1:TabPanel>
+                <asp1:TabContainer ID="TabContainer1" runat="server" ToolTip="Procurement" Font-Bold="True" Font-Size="Medium">
+                    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="OE/Co-Dealer" Font-Bold="True" ToolTip="Procurement With OE/Co-Dealer">
+                        <ContentTemplate>
+                            <fieldset class="fieldset-border">
+                                <asp:Image ID="Image2" runat="server" ImageUrl="~/ProcessFlow/V0_Procurment_Process_OE_CoDealer.png" />
+                            </fieldset>
+                        </ContentTemplate>
+                    </asp1:TabPanel>
+                    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="PurchaseReturn" Font-Bold="True" ToolTip="Purchase Return">
+                        <ContentTemplate>
+                            <fieldset class="fieldset-border">
+                                <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/V0_Purchse_Return.png" />
+                            </fieldset>
+                        </ContentTemplate>
+                    </asp1:TabPanel>
+                    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="StockTransfer" Font-Bold="True" ToolTip="Stock Transfer">
+                        <ContentTemplate>
+                            <fieldset class="fieldset-border">
+                                <asp:Image ID="Image4" runat="server" ImageUrl="~/ProcessFlow/V0_Stock_Transfer.png" />
+                            </fieldset>
+                        </ContentTemplate>
+                    </asp1:TabPanel>
 
-                
+                </asp1:TabContainer>
+            </ContentTemplate>
+        </asp1:TabPanel>
 
-            </asp1:TabContainer>
+        <asp1:TabPanel ID="tpPartsSales" runat="server" HeaderText="Sales">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image5" runat="server" ImageUrl="~/ProcessFlow/V0_Secondary_Sales.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tpServiceOrg" runat="server" HeaderText="Service">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image6" runat="server" ImageUrl="~/ProcessFlow/Service1.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+        <asp1:TabPanel ID="tplInventory" runat="server" HeaderText="Inventory">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image7" runat="server" ImageUrl="~/ProcessFlow/V0_Physical_Inventory.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+
+
+    </asp1:TabContainer>
     <%--    </div>--%>
-   <%-- </div>--%>
+    <%-- </div>--%>
 </asp:Content>

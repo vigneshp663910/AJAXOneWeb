@@ -35,7 +35,10 @@ namespace DealerManagementSystem.ViewSupportTicket
                 //  new FillDropDownt().Employee(ddlAssignedTo, null, null, "", "", "");
                 //  new FillDropDownt().Employee(ddlCreatedBy, null, null, "", "", "");
                 //  new FillDropDownt().Department(ddlDepartment);
-                FillTickets();
+
+
+
+                //FillTickets();
             }
         }
         void FillStatus()
@@ -73,9 +76,17 @@ namespace DealerManagementSystem.ViewSupportTicket
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
             if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
             {
-                TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
-                gvTickets.Columns[10].Visible = true;
-                gvTickets.Columns[11].Visible = false;
+
+                if (PSession.User.UserName.Contains("IT."))
+                {
+                    TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, null, TicketStatus);
+                }
+                else
+                {
+                    TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
+                    gvTickets.Columns[10].Visible = true;
+                    gvTickets.Columns[11].Visible = false;
+                }
             }
             else if (PSession.User.SystemCategoryID == (short)SystemCategory.Support)
             {
@@ -195,7 +206,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "TicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
             Response.Redirect(url);
         }
 
@@ -212,7 +223,12 @@ namespace DealerManagementSystem.ViewSupportTicket
                     ItemNo = i.ItemID;
                 }
             }
-            Response.Redirect("ReassignTicketS.aspx?TicketNo=" + lblTicketID.Text + "&ItemNo=" + ItemNo.ToString());
+            if (ItemNo == 0)
+            {
+                string url = "AssignSupportTicket.aspx?TicketNo=" + lblTicketID.Text;
+                Response.Redirect(url);
+            }
+            Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + lblTicketID.Text + "&ItemNo=" + ItemNo.ToString());
         }
     }
 }

@@ -17,7 +17,7 @@
                     <td colspan="8">
                         <div style="height: 40px; background-color: white;">
                             <br />
-                            <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 10px">Open Ticket Form</span>
+                            <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 10px">Open Task</span>
 
                             <div style="height: 5px; background-color: #0072c6;"></div>
                         </div>
@@ -88,7 +88,7 @@
         <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
             <asp:RadioButton ID="rbAssign" runat="server" Text="Assign" GroupName="ss" CssClass="label" Checked="true" />
             <asp:RadioButton ID="rbSendForApproval" runat="server" Text="Send for Approval" GroupName="ss" CssClass="label" />
-            <asp:RadioButton ID="rbResolve" runat="server" Text="Resolve" GroupName="ss" CssClass="label" />
+           <%-- <asp:RadioButton ID="rbResolve" runat="server" Text="Resolve" GroupName="ss" CssClass="label" />--%>
                   <asp:RadioButton ID="rbReject" runat="server" Text="Reject" GroupName="ss" CssClass="label" />
             <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="TableView" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                 <Columns>

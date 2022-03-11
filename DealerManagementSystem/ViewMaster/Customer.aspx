@@ -96,16 +96,21 @@
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer</label>
+                            <label class="modal-label">Customer  Name</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer Code</label>
+                            <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
+                        
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
@@ -125,7 +130,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                 EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomer_PageIndexChanging">
@@ -178,10 +183,7 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="" id="boxHere"></div>
             <div class="back-buttton" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
@@ -200,8 +202,7 @@
     <div class="col-md-12">
         <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Add Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Add Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
             <div class="col-md-12">
                 <div class="model-scroll">

@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Lead Source</label>
@@ -31,7 +31,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvLeadSource" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvLeadSource_PageIndexChanging">
@@ -78,7 +78,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Action Type</label>
@@ -96,7 +96,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvActionType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvActionType_PageIndexChanging">
@@ -143,7 +143,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Attribute Main</label>
@@ -161,7 +161,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvCustomerAttributeMain" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvCustomerAttributeMain_PageIndexChanging">
@@ -208,7 +208,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Attribute Main</label>
@@ -232,7 +232,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvCustomerAttributeSub" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvCustomerAttributeSub_PageIndexChanging" OnDataBound="gvCustomerAttributeSub_DataBound">
@@ -289,7 +289,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Effort Type</label>
@@ -304,7 +304,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvEffortType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvEffortType_PageIndexChanging">
@@ -351,7 +351,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Header</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Expense Type</label>
@@ -366,7 +366,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvExpenseType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvExpenseType_PageIndexChanging">

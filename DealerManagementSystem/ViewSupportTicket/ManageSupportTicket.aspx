@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ManageSupportTicket.aspx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.ManageSupportTicket" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -73,34 +75,23 @@
             <table style="padding-left: 20px;">
                 <tr>
                     <td colspan="2">
-                         
-                            <table>
-                                <tr>
-                                    <td colspan="2">
-                                        <div style="height: 20px;">
-                                           
-                                            <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095;">Ticket Status</span>
+
+                        <table>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="height: 20px;">
+
+                                        <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095;">Task Status</span>
 
 
-                                            <div style="height: 5px; background-color: #3665c2;"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                         
-                         <br />
-                        <table  >
-                            <%-- <tr>
-                    <td colspan="13">
-                        <div>
-                            <br />
-                            <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095;">Ticket Status</span>
+                                        <div style="height: 5px; background-color: #3665c2;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
 
-                            <div style="height: 5px; background-color: #3665c2;"></div>
-                        </div>
-                    </td>
-                </tr>--%>
-
+                        <br />
+                        <table> 
                             <tr>
                                 <td>
                                     <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
@@ -117,25 +108,43 @@
                                     <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="label"></asp:Label></td>
                                 <td>
                                     <asp:ListBox ID="lbStatus" runat="server" SelectionMode="Multiple" CssClass="TextBox" Height="50px"></asp:ListBox>
-                                </td>
-
-                                <td style="width: 30px"></td>
+                                </td> 
+                            </tr> 
+                            <tr>
                                 <td>
                                     <asp:Label ID="lblTicketType" runat="server" Text="Ticket Type" CssClass="label"></asp:Label></td>
                                 <td>
                                     <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox"></asp:DropDownList></td>
                                 <td style="width: 30px"></td>
                                 <td>
+                                    <asp:Label ID="Label3" runat="server" Text="Ticket From" CssClass="label"></asp:Label></td>
+                                <td>
+                                    <asp:TextBox ID="txtTicketFrom" runat="server" CssClass="TextBox"></asp:TextBox>
+                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtTicketFrom" PopupButtonID="txtTicketFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtTicketFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <asp:Label ID="Label2" runat="server" Text="Ticket To" CssClass="label"></asp:Label></td>
+                                <td>
+                                    <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox"></asp:TextBox>
+                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTicketTo" PopupButtonID="txtTicketTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtTicketTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
                                     <asp:Button ID="btnSave" runat="server" Text="Search" CssClass="InputButton" OnClick="btnSave_Click" /></td>
                             </tr>
-
 
                         </table>
                     </td>
                 </tr>
             </table>
             <br />
-            
+
             <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
                 <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="TableView" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                     <Columns>

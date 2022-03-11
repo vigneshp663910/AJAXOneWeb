@@ -26,7 +26,6 @@ namespace DealerManagementSystem.ViewSupportTicket
                 }
                 else
                 {
-                    new BEmployees().CheckPermitionJohn(0);
                     FillCategory();
                     //   FillStatus();
                     FillCreatedBy();
@@ -71,6 +70,8 @@ namespace DealerManagementSystem.ViewSupportTicket
                 int? HeaderId = null;
                 int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
 
+                //  int? StatusId = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+
                 long? CreatedBy = ddlCreatedBy.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlCreatedBy.SelectedValue);
                 DateTime? RequestedDateFrom = null;
                 if (!string.IsNullOrEmpty(txtRequestedDateFrom.Text))
@@ -84,31 +85,26 @@ namespace DealerManagementSystem.ViewSupportTicket
                 }
                 if (!string.IsNullOrEmpty(txtTicketId.Text.Trim()))
                 {
+
                     HeaderId = Convert.ToInt32(txtTicketId.Text);
                 }
-                List<PEmployee> pList = new BEmployees().GetEmployeeListJohn(null, null, PSession.User.UserName, "", "", null);
-                if (ConfigurationManager.AppSettings["HSNCode"] == PSession.User.ExternalReferenceID)
-                {
-                    List<PTicketHeader> TH = new BTickets().GetOpenTickets(HeaderId, 1, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID);
-                    List<PTicketHeader> HSN = new List<PTicketHeader>();
-                    foreach (PTicketHeader t in TH)
-                    {
-                        if (t.SubCategory != null)
-                            if (t.SubCategory.SubCategoryID == 116)
-                                HSN.Add(t);
-                    }
-                    gvTickets.DataSource = HSN;
-                    gvTickets.DataBind();
-                }
-                else if (pList[0].Department.DepartmentName == "Business Systems")
-                {
-                    gvTickets.DataSource = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID);
-                    gvTickets.DataBind();
-                }
+
+                gvTickets.DataSource = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID);
+                gvTickets.DataBind();
+
+
+                //else if (PSession.User.L1Support == true)
+                //{
+                //    List<PTicketHeader> Header = new BTickets().GetTicketDetails(HeaderId, null, TicketCategoryID, null, null, null, null, PSession.User.UserID, null, "2,3,4");
+
+                //    gvTickets.DataSource = Header;
+                //}
+
                 FillMessageStatus();
             }
             catch (Exception ex)
             {
+
             }
         }
 
@@ -123,7 +119,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             int index = gvRow.RowIndex;
             if (rbAssign.Checked)
             {
-                string url = "AssignTicket.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+                string url = "AssignSupportTicket.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
                 Response.Redirect(url);
             }
             else if (rbSendForApproval.Checked)
@@ -132,11 +128,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                 pnList.Visible = false;
                 pnView.Visible = true;
             }
-            else if (rbResolve.Checked)
-            {
-                string url = "Resolve.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
-                Response.Redirect(url);
-            }
+            //else if (rbResolve.Checked)
+            //{
+            //    string url = "ResolveSupportTicket.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            //    Response.Redirect(url);
+            //}
             else if (rbReject.Checked)
             {
                 pnList.Visible = false;
@@ -157,25 +153,62 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         void FillAllFields(int HeaderId)
         {
+            //if (string.IsNullOrEmpty(TicketNo))
+            //{
+            //    TicketNo = txtTicketNo.Text.Trim();
+            //}
+            // PTickets Tickets = new PTickets();
+            // Tickets = new BTickets().GeTicketsByTicketNo(TicketNo);
+
+            //    PTicketHeader TH = new BTickets().GetOpenTickets(HeaderId, null, null, null, null, null, PSession.User.UserID)[0];
             PTicketHeader TH = new BTickets().GetTicketDetails(HeaderId, null, null, null, null, null, null, null, null, null)[0];
             txtTicketNo.Text = TH.HeaderID.ToString();
             txtCategory.Text = TH.Category.Category;
             txtRequestedBy.Text = TH.CreatedBy.ContactName + " " + Convert.ToString(TH.CreatedOn);
             txtTicketType.Text = TH.Type.Type;
             txtTicketDescription.Text = Convert.ToString(TH.Description);
+            // txtJustification.Text = Convert.ToString(Tickets.Justification);
+
+
             txtStatus.Text = Convert.ToString(TH.Status.StatusID);
+
             Dictionary<string, int> AttachedFiles = new BTickets().getAttachedFiles(HeaderId);
             List<ListItem> files = new List<ListItem>();
             foreach (KeyValuePair<string, Int32> Files in AttachedFiles)
             {
                 files.Add(new ListItem(Files.Key, ConfigurationManager.AppSettings["BasePath"] + "/AttachedFile/" + TH.CreatedOn.Month.ToString("00") + "" + TH.CreatedOn.Year.ToString() + "/" + Files.Value + "." + Files.Key.Split('.')[Files.Key.Split('.').Count() - 1]));// Files.Key.Split('.')[1])));
             }
+
         }
 
         protected void btnSendForApproval_Click(object sender, EventArgs e)
         {
+            //PEmployee AssignedTo = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(ddlapprovar.SelectedValue), null, "", "", "")[0];
+            //PUser AssignedTo_User = new BUser().GetUserDetails(AssignedTo.EmployeeUserID);
+            //if (string.IsNullOrEmpty(AssignedTo_User.UserName))
+            //{
+            //    PUser user = new PUser();
+            //    user.ContactName = AssignedTo.EmployeeName;
+            //    user.ExternalReferenceID = AssignedTo.EmpId.ToString();
+            //    user.UserName = AssignedTo.EmployeeUserID;
+            //    user.UserTypeID = 1;
+            //    user.CreatedBy = AssignedTo.EmpId;
+            //    user.CreatedOn = DateTime.Now;
+            //    user.UpdatedBy = AssignedTo.EmpId;
+            //    user.UpdatedOn = DateTime.Now;
+            //    user.UserID = 0;
+            //    user.IsLocked = false;
+            //    user.IsEnabled = true;
+            //    user.PassWord = "";
+            //    user.IsFirstTimeLogin = true;
+            //    user.Mail = AssignedTo.Mail1;
+            //    user.Phone = "";
+            //    new BUser().UpdateUser(user);
+            //    AssignedTo_User = new BUser().GetUserDetails(AssignedTo.EmployeeUserID);
+            //}
 
             int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(txtTicketNo.Text), Convert.ToInt32(ddlapprovar.SelectedValue));
+            //int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(txtTicketNo.Text), AssignedTo_User.UserID);
             if (success == 0)
             {
                 lblMessage.Text = "Ticket No " + txtTicketNo.Text + "  is not successfully updated.";
@@ -189,6 +222,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
                 PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "")[0];
+                //  PEmployee EmployeeApproval = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(ddlapprovar.SelectedValue), null, "", "", "")[0];
 
                 string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRequestForApproval.htm");
 
@@ -216,14 +250,33 @@ namespace DealerManagementSystem.ViewSupportTicket
             string filePath = (sender as LinkButton).CommandArgument;
             string fileName = (sender as LinkButton).Text;
             Response.ContentType = ContentType;
+            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
             Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
             Response.WriteFile(filePath);
             Response.End();
         }
         void FillApproval()
         {
+            //List<PEmployee> eList = null;
+            //if (Session["eList"] == null)
+            //{
+            //    eList = new BEmployees().GetEmployeeListJohn(null, null, "", "", "");
+            //    Session["eList"] = eList;
+            //}
+            //else
+            //{
+            //    eList = (List<PEmployee>)Session["eList"];
+            //}
+            //ddlapprovar.DataTextField = "EmployeeUserID";
+            //ddlapprovar.DataValueField = "EID";
+            //ddlapprovar.DataSource = eList;
+            //ddlapprovar.DataBind();
+            //ddlapprovar.Items.Insert(0, new ListItem("Select", "0"));
+
             List<PUser> user = new BUser().GetAllUsers();
             user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF || M.SystemCategoryID == (short)SystemCategory.Support).ToList();
+            //   List<PUser> UserList = new BUser().GetUsers(null, "", 0, "");
+
             ddlapprovar.DataTextField = "ContactName";
             ddlapprovar.DataValueField = "UserID";
             ddlapprovar.DataSource = user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF).ToList();
@@ -235,7 +288,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "TicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
             Response.Redirect(url);
         }
 
@@ -257,6 +310,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 }
             }
         }
+
         protected void btnReject_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
@@ -272,7 +326,31 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.Text = "Ticket No " + txtTicketNo.Text + "  is successfully updated.";
                 lblMessage.ForeColor = Color.Red;
             }
+
+            //else
+            //{
+            //    lblMessage.Text = "Ticket No " + txtTicketNo.Text + " is successfully updated.";
+            //    btnSendForApproval.Visible = false;
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Visible = true;
+            //    PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "")[0];
+
+            //    //  PEmployee EmployeeApproval = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(ddlapprovar.SelectedValue), null, "", "", "")[0];
+
+            //    string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRequestForApproval.htm");
+            //    messageBody = messageBody.Replace("@@RequestedBy", txtRequestedBy.Text);
+            //    messageBody = messageBody.Replace("@@TicketNo", txtTicketNo.Text);
+            //    messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
+            //    messageBody = messageBody.Replace("@@TicketType", txtTicketType.Text);
+            //    messageBody = messageBody.Replace("@@Category", txtCategory.Text);
+            //    messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
+            //    messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+
+            //    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "TicketApproval.aspx?TicketNo=" + txtTicketNo.Text);
+            //    new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + txtTicketNo.Text, messageBody, Convert.ToInt32(txtTicketNo.Text));
+            //}
         }
+
         protected void btnRejectBack_Click(object sender, EventArgs e)
         {
             pnList.Visible = true;

@@ -230,6 +230,11 @@
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Project_Plan_PV2.png" />
+    <Content Include="ProcessFlow\V0_Physical_Inventory.png" />
+    <Content Include="ProcessFlow\V0_Procurment_Process_OE_CoDealer.png" />
+    <Content Include="ProcessFlow\V0_Purchse_Return.png" />
+    <Content Include="ProcessFlow\V0_Secondary_Sales.png" />
+    <Content Include="ProcessFlow\V0_Stock_Transfer.png" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
@@ -486,6 +491,7 @@
     <Content Include="ViewService\WarrantyFailureMaterialReturn.aspx" />
     <Content Include="ViewService\WarrantyPartsAvailabilityReport.aspx" />
     <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\AssignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ManageSupportTicket.aspx" />
@@ -1645,6 +1651,13 @@
     </Compile>
     <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.designer.cs">
       <DependentUpon>AssignedSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\AssignSupportTicket.aspx.cs">
+      <DependentUpon>AssignSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\AssignSupportTicket.aspx.designer.cs">
+      <DependentUpon>AssignSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
