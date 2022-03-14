@@ -89,16 +89,17 @@
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Customer Name</label>
                     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                    <div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">
-                        <div id="UCdiv1" class="fieldset-border">
+                    <%--<div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">--%>
+                    <div id="UCdivAuto" class="custom-auto-complete"> 
+                        <div id="UCdiv1" class="auto-item"  style="display: none"> 
+                        </div> 
+                        <div id="UCdiv2" class="auto-item"  style="display: none">
                         </div>
-                        <div id="UCdiv2" class="fieldset-border">
+                        <div id="UCdiv3" class="auto-item"  style="display: none">
                         </div>
-                        <div id="UCdiv3" class="fieldset-border">
+                        <div id="UCdiv4" class="auto-item"  style="display: none">
                         </div>
-                        <div id="UCdiv4" class="fieldset-border">
-                        </div>
-                        <div id="UCdiv5" class="fieldset-border">
+                        <div id="UCdiv5" class="auto-item"  style="display: none">
                         </div>
                     </div>
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtCustomerName" WatermarkText="Customer Name" WatermarkCssClass="WatermarkCssClass" />

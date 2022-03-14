@@ -113,6 +113,13 @@
         </div>
     </fieldset>
 </div>--%>
+
+<style type="text/css">
+    .mycheckBig input {
+        width: 25px;
+        height: 25px;
+    }
+</style>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -121,16 +128,17 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Edit Customer</asp:LinkButton>
-                <%--   <asp:LinkButton ID="lbViewAditTrails" runat="server" OnClick="lbViewAditTrails_Click">View Adit Trails</asp:LinkButton>--%>
-                <asp:LinkButton ID="lbAddMarketSegment" runat="server" OnClick="lbActions_Click">Add Attribute</asp:LinkButton>
+                <asp:LinkButton ID="lbAddAttribute" runat="server" OnClick="lbActions_Click">Add Attribute</asp:LinkButton>
                 <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                 <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
+                <asp:LinkButton ID="lbAddFleet" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
+                <asp:LinkButton ID="lbAddResponsibleEmployee" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
                 <asp:LinkButton ID="lbtnInActivateCustomer" runat="server" OnClick="lbActions_Click">In Activate Customer</asp:LinkButton>
+                <asp:LinkButton ID="lbtnActivateCustomer" runat="server" OnClick="lbActions_Click">Activate Customer</asp:LinkButton>
+                <asp:LinkButton ID="lbtnSyncToSap" runat="server" OnClick="lbActions_Click">Sync to Sap</asp:LinkButton>
+
             </div>
         </div>
     </div>
@@ -154,12 +162,12 @@
                 </div>
                 <div class="col-md-12">
                     <label>Active : </label>
-                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" />
 
+                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
                 <div class="col-md-12">
                     <label>BillingBlock : </label>
-                    <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" />
+                    <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -177,7 +185,7 @@
                 </div>
                 <div class="col-md-12">
                     <label>OrderBlock : </label>
-                    <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" />
+                    <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -191,13 +199,13 @@
                 </div>
                 <div class="col-md-12">
                     <label>Verified : </label>
-                    <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" />
+                    <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
                 <div class="col-md-12">
                     <label>DeliveryBlock : </label>
-                    <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" />
+                    <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
-               
+
             </div>
         </div>
     </fieldset>
@@ -548,7 +556,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField> 
+                                </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -563,278 +571,135 @@
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlVisit" runat="server" HeaderText="Visit">
         <ContentTemplate>
-            <div class="col-md-12"> 
-                    <div class="col-md-12 Report">
-                        <div class="table-responsive">
-                            <asp:GridView ID="gvColdVisit" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cold Visit No">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblColdVisitNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitNumber")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cold Visit Date">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate","{0:d}")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Action Type">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType.ActionType")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Contact Person">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.ContactPerson")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Mobile">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="EMail">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <AlternatingRowStyle BackColor="#ffffff" />
-                                <FooterStyle ForeColor="White" />
-                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                            </asp:GridView>
-                        </div>
-                    </div> 
+            <div class="col-md-12">
+                <div class="col-md-12 Report">
+                    <div class="table-responsive">
+                        <asp:GridView ID="gvColdVisit" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Cold Visit No">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblColdVisitNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitNumber")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Cold Visit Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate","{0:d}")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action Type">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType.ActionType")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Contact Person">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.ContactPerson")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Mobile">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="EMail">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </div>
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlSupportDocument" runat="server" HeaderText="Support Document"> 
+    <asp1:TabPanel ID="tpnlSupportDocument" runat="server" HeaderText="Support Document">
         <ContentTemplate>
-            <div class="col-md-12"> 
-                    <table>
-                        <tr>
-                            <td>
-                                <asp:FileUpload ID="fileUpload" runat="server" /></td>
-                            <td>
-                                <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" /></td>
-                        </tr>
-                    </table>
-                    <div class="col-md-12 Report">
-                        <div class="table-responsive">
-                            <asp:GridView ID="gvSupportDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="File Name">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
-                                            <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
-                                            <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Date">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Created By">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Download">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="lbSupportDocumentDownload" runat="server" OnClick="lbSupportDocumentDownload_Click">Download </asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="lbSupportDocumentDelete" runat="server" OnClick="lbSupportDocumentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <AlternatingRowStyle BackColor="#ffffff" />
-                                <FooterStyle ForeColor="White" />
-                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                            </asp:GridView>
-                        </div>
-                    </div> 
+            <div class="col-md-12">
+                <table>
+                    <tr>
+                        <td>
+                            <asp:FileUpload ID="fileUpload" runat="server" /></td>
+                        <td>
+                            <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" /></td>
+                    </tr>
+                </table>
+                <div class="col-md-12 Report">
+                    <div class="table-responsive">
+                        <asp:GridView ID="gvSupportDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="File Name">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
+                                        <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Created By">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Download">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lbSupportDocumentDownload" runat="server" OnClick="lbSupportDocumentDownload_Click">Download </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lbSupportDocumentDelete" runat="server" OnClick="lbSupportDocumentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </div>
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
 </asp1:TabContainer>
-
-<asp:Panel ID="pnlAddAttribute" runat="server" CssClass="Popup" Style="display: none">
-    <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Attribute to Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
-        </a>
-    </div>
-    <asp:Label ID="lblMessageAttribute" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                <div class="col-md-12">
-                    <div class="col-md-2">
-                        <label>Attribute Main</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlAttributeMain" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlAttributeMain_SelectedIndexChanged" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-2">
-                        <label>Attribute Sub</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlAttributeSub" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-4 text-right">
-                        <label>Remark</label>
-                    </div>
-                    <div class="col-md-10">
-                        <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveMarketSegment" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveMarketSegment_Click" />
-        </div>
-    </div>
-</asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_Attribute" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddAttribute" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
-<asp:Panel ID="PapnlAddProduct" runat="server" CssClass="Popup" Style="display: none">
-    <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Customer Product</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" />
-        </a>
-    </div>
-    <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <fieldset class="fieldset-border" id="Fieldset3" runat="server">
-                <div class="col-md-12">
-                    <div class="col-md-2 text-right">
-                        <label>Make</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Product Type</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Product</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlProduct" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Quantity</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Remark</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtRemarkProduct" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
-        </div>
-    </div>
-</asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="PapnlAddProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
-<asp:Panel ID="pnlAddRelation" runat="server" CssClass="Popup" Style="display: none">
-    <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Customer Relation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" />
-        </a>
-    </div>
-    <asp:Label ID="lblMessageRelation" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <fieldset class="fieldset-border" id="Fieldset4" runat="server">
-                <div class="col-md-12">
-                    <div class="col-md-2 text-right">
-                        <label>Person Name</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtPersonName" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Mobile</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Birth Date</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Anniversary Date</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:TextBox ID="txtAnniversaryDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 text-right">
-                        <label>Relation</label>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="ddlRelation" runat="server" CssClass="form-control" />
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveRelation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveRelation_Click" />
-        </div>
-    </div>
-</asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_Relation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddRelation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -855,21 +720,141 @@
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+
+<asp:Panel ID="pnlAddAttribute" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Attribute to Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageAttribute" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Attribute Main</label>
+                        <asp:DropDownList ID="ddlAttributeMain" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlAttributeMain_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Attribute Sub</label>
+                        <asp:DropDownList ID="ddlAttributeSub" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remark</label>
+                        <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveMarketSegment" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveMarketSegment_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Attribute" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddAttribute" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="PapnlAddProduct" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Customer Product</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset3" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Make</label>
+                        <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Product Type</label>
+                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Product</label>
+                        <asp:DropDownList ID="ddlProduct" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Quantity</label>
+                        <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remark</label>
+                        <asp:TextBox ID="txtRemarkProduct" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="PapnlAddProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlAddRelation" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Customer Relation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageRelation" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset4" runat="server">
+                <div class="col-md-12">
+                      <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Person Name</label> 
+                        <asp:TextBox ID="txtPersonName" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Mobile</label> 
+                        <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Birth Date</label> 
+                        <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                    </div>
+                     <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Anniversary Date</label> 
+                        <asp:TextBox ID="txtAnniversaryDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                    </div>
+                     <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Relation</label> 
+                        <asp:DropDownList ID="ddlRelation" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveRelation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveRelation_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Relation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddRelation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
 <asp:Panel ID="pnlFleet" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Customer Fleet</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-    <asp:Label ID="lblMessageFleet" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <div class="col-md-12">
+    
+     <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageFleet" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
-                    <div class="col-md-2 text-right">
-                        <label>Customer Name</label>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer Name</label> 
                         <asp:TextBox ID="txtFleet" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                         <div id="FleDivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">
                             <div id="FleDiv1" class="fieldset-border">
@@ -906,20 +891,16 @@
     </div>
     <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-        <div class="col-md-12">
+         <div class="model-scroll">
+
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
-
-                    <div class="col-md-2 text-right">
-                        <label>Dealer</label>
-                    </div>
-                    <div class="col-md-4">
+                   <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Dealer</label> 
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
-                    <div class="col-md-2 text-right">
-                        <label>Employee</label>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Employee</label> 
                         <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                     </div>
                 </div>

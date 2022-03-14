@@ -50,16 +50,16 @@ namespace DealerManagementSystem
 
         protected void BtnCreateCustomer_Click(object sender, EventArgs e)
         {
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
-            string CustomerCode = Customer[0].CustomerCode;
-            if (string.IsNullOrEmpty(CustomerCode))
-            {
-                CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
-                if (!string.IsNullOrEmpty(CustomerCode))
-                {
-                    new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
-                }
-            }
+            //List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
+            //string CustomerCode = Customer[0].CustomerCode;
+            //if (string.IsNullOrEmpty(CustomerCode))
+            //{
+            //    CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+            //    if (!string.IsNullOrEmpty(CustomerCode))
+            //    {
+                    new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt64(txtCustomerId.Text));
+            //    }
+            //}
         }
 
         protected void BtnCreateQuotation_Click(object sender, EventArgs e)

@@ -58,8 +58,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.Title = new PCustomerTitle() { TitleID = Convert.ToInt32(ddlTitle.SelectedValue) };
             Customer.CustomerName = txtCustomerName.Text.Trim();
             Customer.CustomerName2 = txtCustomerName2.Text.Trim();
-            Customer.GSTIN = txtGSTIN.Text.Trim();
-            Customer.PAN = txtPAN.Text.Trim();
+            Customer.GSTIN = txtGSTIN.Text.Trim().ToUpper();
+            Customer.PAN = txtPAN.Text.Trim().ToUpper();
             Customer.ContactPerson = txtContactPerson.Text.Trim();
             Customer.Mobile = txtMobile.Text.Trim();
             Customer.AlternativeMobile = txtAlternativeMobile.Text.Trim();

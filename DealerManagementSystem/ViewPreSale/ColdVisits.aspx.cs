@@ -196,12 +196,24 @@ namespace DealerManagementSystem.ViewPreSale
             int i = 0;
             foreach (PDMS_Customer cust in Customer)
             {
+                //i = i + 1;
+                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                //    +"<table><tr><td>"
+                //    +"<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"   + "<tr><td>"
+                //    +"<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                //Emp.Add(div);
+
                 i = i + 1;
+                string Name = cust.CustomerName;
+                string Prospect = "Prospect";
                 string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                    +"<table><tr><td>"
-                    +"<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"   + "<tr><td>"
-                    +"<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
-                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+
+
+                    + "<p><label id='lblCustomerName" + i + "'>" + Name + "</label><span>" + Prospect + "</span></p>"
+
+                    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
                 Emp.Add(div);
             }
             return Emp;

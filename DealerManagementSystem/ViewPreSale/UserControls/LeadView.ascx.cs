@@ -85,6 +85,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillEffort(LeadID);
             fillExpense(LeadID);
             fillProduct(LeadID);
+
+            ActionControlMange();
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -591,12 +593,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageQuotation.Text = Results.Message;
                 return;
             }
+            Response.Redirect("Quotation.aspx?Quotation=" + Results.Data);
             ShowMessage(Results);
             MPE_Quotation.Hide(); 
         }
-
-        
-
+         
         protected void btnLostReasonUpdate_Click(object sender, EventArgs e)
         {
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
@@ -723,5 +724,36 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
         }
+        void ActionControlMange()
+        {
+            lbtnEditLead.Visible = true;
+            lbtnConvertToProspect.Visible = true;
+            lbtnLostLead.Visible = true;
+            lbtnCancelLead.Visible = true;
+            lbtnAssign.Visible = true;
+            lbtnAddFollowUp.Visible = true;
+            lbtnCustomerConvocation.Visible = true;
+            lbtnAddEffort.Visible = true;
+            lbtnAddExpense.Visible = true;
+            lbtnAddFinancialInfo.Visible = true;
+            lbtnAddProduct.Visible = true;
+            lbtnAddQuotation.Visible = true;
+
+            //lbtnEditLead.Visible = false;
+            //lbtnConvertToProspect.Visible = false;
+            //lbtnLostLead.Visible = false;
+            //lbtnCancelLead.Visible = false;
+            //lbtnAssign.Visible = false;
+            //lbtnAddFollowUp.Visible = false;
+            //lbtnCustomerConvocation.Visible = false;
+            //lbtnAddEffort.Visible = false;
+            //lbtnAddExpense.Visible = false;
+            //lbtnAddFinancialInfo.Visible = false;
+            //lbtnAddProduct.Visible = false;
+            //lbtnAddQuotation.Visible = false;
+
+             
+        }
+
     }
 }

@@ -15,94 +15,94 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
     {
 
         /// <summary>
-        /// lbActions control.
+        /// lbtnEditQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbActions;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnEditQuotation;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lbtnEditFinancier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnEditFinancier;
 
         /// <summary>
-        /// lbtnStatusChangeToClose control.
+        /// lbtnAddProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnStatusChangeToClose;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddProduct;
 
         /// <summary>
-        /// lbtnStatusChangeToCancel control.
+        /// lbtnAddCompetitor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnStatusChangeToCancel;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddCompetitor;
 
         /// <summary>
-        /// LinkButton2 control.
+        /// lbtnAddQuotationNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddQuotationNote;
 
         /// <summary>
-        /// LinkButton3 control.
+        /// lbtnAddFollowUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddFollowUp;
 
         /// <summary>
-        /// LinkButton4 control.
+        /// lbtnAddEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddEffort;
 
         /// <summary>
-        /// LinkButton5 control.
+        /// lbtnAddExpense control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddExpense;
 
         /// <summary>
-        /// LinkButton6 control.
+        /// lbtnGenerateQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton6;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnGenerateQuotation;
 
         /// <summary>
-        /// LinkButton7 control.
+        /// lbtnPrintPDF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton7;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnPrintPDF;
 
         /// <summary>
         /// lblRefQuotationNo control.

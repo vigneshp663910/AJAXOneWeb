@@ -276,22 +276,28 @@
                         Lead Statistics Funnel
   
                     <div class="actions" style="float: right;">
-                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px; font-size: 11px;">
+                        <div class="btn-group btn-group-devided" >
+                            <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                <%-- <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">--%>
-                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel"   OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true"/>
-                                Week
+                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel"   OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" Checked="true"  >
+                                      
+                                </asp:RadioButton>
+                              Week
                            
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                 <%--<input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">--%>
-                                <asp:RadioButton ID="rbMonthF" runat="server" GroupName="Funnel"  OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" />
+                                <asp:RadioButton ID="rbMonthF" runat="server" GroupName="Funnel"  OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" 
+                                    />
+                                 
                                 Month
                            
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                <%-- <input name="leadFunnel" class="toggle" type="radio" value="Year" onchange="ShowLeadFunnel('Year');">--%>
-                                <asp:RadioButton ID="rbYearF" runat="server" GroupName="Funnel"  OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" />
+                                <asp:RadioButton ID="rbYearF" runat="server" GroupName="Funnel"  OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" >
+
+                                </asp:RadioButton>
                                 Year 
                             </label>
                         </div>
@@ -350,7 +356,7 @@
                                     </g>
                                 </g>
                                 <g role="img" aria-label="Convert To Prospect; Value: 2">
-                                    <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(217 30 24)" stroke="#FFFFFF"></path>
+                                    <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(50 197 210)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,123.08669335814801,165.99999999999997)" pointer-events="none">
                                         <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  >
                                             Convert To Prospect: 
@@ -366,7 +372,7 @@
                                     </g>
                                 </g>
                                 <g role="img" aria-label="Newly Created; Value: 16" id="_dvtActiveElement180589916">
-                                    <path d="M4.934393756608301,330.37507614415694A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,1.624923855843008A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,330.37507614415694A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A483.16965914395865,593.7128277905049,0,0,1,4.934393756608301,1.624923855843008" fill="rgb(35, 123, 177)" stroke="#FFFFFF"></path>
+                                    <path d="M4.934393756608301,330.37507614415694A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,1.624923855843008A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,330.37507614415694A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A483.16965914395865,593.7128277905049,0,0,1,4.934393756608301,1.624923855843008" fill="rgb(135, 117, 167)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,41.92689374965195,165.99999999999997)" pointer-events="none">
                                         <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server"  id="lblNewlyCreatedF">Newly Created: 0</text>
                                     </g>

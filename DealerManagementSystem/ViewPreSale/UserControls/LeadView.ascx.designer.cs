@@ -15,112 +15,112 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
     {
 
         /// <summary>
-        /// lbActions control.
+        /// lbtnEditLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbActions;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnEditLead;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lbtnConvertToProspect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnConvertToProspect;
 
         /// <summary>
-        /// LinkButton2 control.
+        /// lbtnLostLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnLostLead;
 
         /// <summary>
-        /// LinkButton3 control.
+        /// lbtnCancelLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnCancelLead;
 
         /// <summary>
-        /// LinkButton4 control.
+        /// lbtnAssign control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAssign;
 
         /// <summary>
-        /// LinkButton5 control.
+        /// lbtnAddFollowUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddFollowUp;
 
         /// <summary>
-        /// LinkButton6 control.
+        /// lbtnCustomerConvocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton6;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnCustomerConvocation;
 
         /// <summary>
-        /// LinkButton7 control.
+        /// lbtnAddEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton7;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddEffort;
 
         /// <summary>
-        /// LinkButton8 control.
+        /// lbtnAddExpense control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton8;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddExpense;
 
         /// <summary>
-        /// LinkButton9 control.
+        /// lbtnAddFinancialInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton9;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddFinancialInfo;
 
         /// <summary>
-        /// LinkButton10 control.
+        /// lbtnAddProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton10;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddProduct;
 
         /// <summary>
-        /// LinkButton11 control.
+        /// lbtnAddQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton11;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddQuotation;
 
         /// <summary>
         /// lblLeadNumber control.

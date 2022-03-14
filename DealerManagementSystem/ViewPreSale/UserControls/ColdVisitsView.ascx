@@ -15,8 +15,8 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbActions" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
                 <asp:LinkButton ID="lbtnStatusChangeToClose" runat="server" OnClick="lbActions_Click">Status Change to Close</asp:LinkButton>
                 <asp:LinkButton ID="lbtnStatusChangeToCancel" runat="server" OnClick="lbActions_Click">Status Change to Cancel</asp:LinkButton>
             </div>
@@ -273,10 +273,12 @@
         <span id="PopupDialogue">Cold Visit Effort </span><a href="#" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
 
-        <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
         </div>
@@ -292,10 +294,11 @@
             <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-
-    <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-        <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
         </div>

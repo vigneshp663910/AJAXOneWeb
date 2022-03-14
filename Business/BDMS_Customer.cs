@@ -749,7 +749,7 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return result;
         }
-        public List<PDMS_Customer> GetCustomerFromSQL(int? CustomerID, string CustomerCode)
+        public List<PDMS_Customer> GetCustomerFromSQL(long? CustomerID, string CustomerCode)
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Customer> Customers = new List<PDMS_Customer>();
@@ -812,20 +812,30 @@ namespace Business
             }
             return Customers;
         }
-        public int UpdateCustomerCodeFromSapToSql(int? CustomerID, string CustomerCode)
+        public int UpdateCustomerCodeFromSapToSql(long CustomerID)
         {
+            //int? CustomerID, string CustomerCode
             TraceLogger.Log(DateTime.Now);
             int success = 0;
             try
             {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(CustomerID, null);
+                string CustomerCode = Customer[0].CustomerCode;
+                if (string.IsNullOrEmpty(CustomerCode))
                 {
-                    DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
-                    DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+                    CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+                    if (!string.IsNullOrEmpty(CustomerCode))
+                    { 
+                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        {
+                            DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
+                            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
 
-                    DbParameter[] Params = new DbParameter[2] { CustomerIDP, CustomerCodeP };
-                    success = provider.Insert("ZDMS_UpdateCustomer", Params);
-                    scope.Complete();
+                            DbParameter[] Params = new DbParameter[2] { CustomerIDP, CustomerCodeP };
+                            success = provider.Insert("ZDMS_UpdateCustomer", Params);
+                            scope.Complete();
+                        }
+                    }
                 }
                 return success;
             }

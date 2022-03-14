@@ -15,22 +15,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
     {
 
         /// <summary>
-        /// lbActions control.
+        /// lbtnAddEffort control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbActions;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddEffort;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lbtnAddExpense control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddExpense;
 
         /// <summary>
         /// lbtnStatusChangeToClose control.

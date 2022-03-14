@@ -73,13 +73,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillEffort();
             fillExpense();
 
-            lbtnStatusChangeToClose.Visible = true;
-            lbtnStatusChangeToCancel.Visible = true;
-            if ((ColdVisit.Status.StatusID== 2) || (ColdVisit.Status.StatusID == 3))
-            {                 
-                lbtnStatusChangeToClose.Visible = false;
-                lbtnStatusChangeToCancel.Visible = false;
-            }
+          
+            ActionControlMange();
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -325,6 +320,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = Results.Message;
             lblMessage.ForeColor = Color.Green;
             fillSupportDocument();
+        }
+        void ActionControlMange()
+        { 
+            lbtnStatusChangeToClose.Visible = true;
+            lbtnStatusChangeToCancel.Visible = true;
+            if ((ColdVisit.Status.StatusID == 2) || (ColdVisit.Status.StatusID == 3))
+            {
+                lbtnStatusChangeToClose.Visible = false;
+                lbtnStatusChangeToCancel.Visible = false;
+            } 
         }
     }
 }

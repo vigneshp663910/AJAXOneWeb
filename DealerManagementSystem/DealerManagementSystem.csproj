@@ -244,6 +244,8 @@
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewAdmin\UserMobileApproval.aspx" />
+    <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
     <Content Include="ViewMarketing\ActivityActual.aspx" />
@@ -691,6 +693,20 @@
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserMobileApproval.aspx.cs">
+      <DependentUpon>UserMobileApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserMobileApproval.aspx.designer.cs">
+      <DependentUpon>UserMobileApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserMobileManagement.aspx.cs">
+      <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
+      <DependentUpon>UserMobileManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPSparePart.aspx.cs">
       <DependentUpon>ABPSparePart.aspx</DependentUpon>

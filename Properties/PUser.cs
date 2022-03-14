@@ -233,6 +233,7 @@ namespace Properties
     {
         public int UserMobileID { get; set; }
         public int UserID { get; set; }
+        public PUser User { get; set; }
         public string DeviceId { get; set; }
         public string ModelNumber { get; set; }
         public string VersionCode { get; set; }

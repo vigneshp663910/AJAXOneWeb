@@ -71,7 +71,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 UC_Quotation.FillMaster();
                 UC_Quotation.FillQuotation(Quotation);
             }
-            else if (lbActions.Text == "Update Financier Info")
+            else if (lbActions.Text == "Edit Financier Info")
             {
                 new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
                 new DDLBind(ddlIncoterms, new BDMS_Master().GetIncoterms(null, null, null), "IncoTerms", "IncoTermsID");
@@ -602,6 +602,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillFollowUp();
             fillEffort();
             fillExpense();
+            ActionControlMange();
         }
         
         
@@ -813,6 +814,32 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
             Response.BinaryWrite(mybytes); // create the file
             Response.Flush(); // send it to the client to download
+        }
+        void ActionControlMange()
+        {
+            lbtnEditQuotation.Visible = true;
+            lbtnEditFinancier.Visible = true;
+            lbtnAddProduct.Visible = true;
+            lbtnAddCompetitor.Visible = true;
+            lbtnAddQuotationNote.Visible = true;
+            lbtnAddFollowUp.Visible = true;
+            lbtnAddEffort.Visible = true;
+            lbtnAddExpense.Visible = true;
+            lbtnGenerateQuotation.Visible = true;
+            lbtnPrintPDF.Visible = true;
+
+
+            //lbtnEditQuotation.Visible = false;
+            //lbtnEditFinancier.Visible = false;
+            //lbtnAddProduct.Visible = false;
+            //lbtnAddCompetitor.Visible = false;
+            //lbtnAddQuotationNote.Visible = false;
+            //lbtnAddFollowUp.Visible = false;
+            //lbtnAddEffort.Visible = false;
+            //lbtnAddExpense.Visible = false;
+            //lbtnGenerateQuotation.Visible = false;
+            //lbtnPrintPDF.Visible = false;
+
         }
     }
 }

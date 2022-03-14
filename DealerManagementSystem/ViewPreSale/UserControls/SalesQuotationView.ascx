@@ -10,16 +10,16 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbActions" runat="server" OnClick="lbActions_Click">Edit Quotation Basic Info</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Update Financier Info</asp:LinkButton>
-                <asp:LinkButton ID="lbtnStatusChangeToClose" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                <asp:LinkButton ID="lbtnStatusChangeToCancel" runat="server" OnClick="lbActions_Click">Add Competitor</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Add Quotation Note</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton5" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton6" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton7" runat="server" OnClick="lbActions_Click">Print PDF</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEditQuotation" runat="server" OnClick="lbActions_Click">Edit Quotation Basic Info</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEditFinancier" runat="server" OnClick="lbActions_Click">Edit Financier Info</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddCompetitor" runat="server" OnClick="lbActions_Click">Add Competitor</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddQuotationNote" runat="server" OnClick="lbActions_Click">Add Quotation Note</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
+                <asp:LinkButton ID="lbtnGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnPrintPDF" runat="server" OnClick="lbActions_Click">Print PDF</asp:LinkButton>
             </div>
         </div>
     </div>

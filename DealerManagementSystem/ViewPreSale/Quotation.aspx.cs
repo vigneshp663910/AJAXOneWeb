@@ -31,7 +31,18 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!IsPostBack)
             {
-                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
+                if (Request.QueryString["Quotation"] != null)
+                {
+                    divColdVisitView.Visible = true;
+                    btnBackToList.Visible = true;
+                    divList.Visible = false; 
+                    UC_QuotationView.fillViewQuotation(Convert.ToInt64(Request.QueryString["Quotation"]));
+                    Label lblMessageView = ((Label)UC_QuotationView.FindControl("lblMessage"));
+                    lblMessageView.Text = "Your request successfully processed";
+                    lblMessage.Visible=true;
+                    lblMessageView.ForeColor = Color.Green;
+                }
+                    List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID",true, "All Country");
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null); 

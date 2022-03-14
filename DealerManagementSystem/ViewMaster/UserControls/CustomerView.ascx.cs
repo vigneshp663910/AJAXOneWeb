@@ -20,19 +20,35 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 {
     public partial class CustomerView : System.Web.UI.UserControl
     { 
-        public long CustomerID
+        //public long CustomerID
+        //{
+        //    get
+        //    {
+        //        if (Session["CustomerID"] == null)
+        //        {
+        //            Session["CustomerID"] = 0;
+        //        }
+        //        return Convert.ToInt64(Session["CustomerID"]);
+        //    }
+        //    set
+        //    {
+        //        Session["CustomerID"] = value;
+        //    }
+        //}
+
+        public PDMS_Customer Customer
         {
             get
             {
-                if (Session["CustomerID"] == null)
+                if (Session["CustomerView"] == null)
                 {
-                    Session["CustomerID"] = 0;
+                    Session["CustomerView"] =  new PDMS_Customer();
                 }
-                return Convert.ToInt64(Session["CustomerID"]);
+                return (PDMS_Customer)Session["CustomerView"];
             }
             set
             {
-                Session["CustomerID"] = value;
+                Session["CustomerView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -45,13 +61,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.Text = "";
             if (!IsPostBack)
             {
-
+                ActionControlMange();
             }
         }
         public void fillCustomer(long CustomerID)
         { 
-            this.CustomerID = CustomerID;
-            PDMS_Customer Customer = new PDMS_Customer();
+           // this.CustomerID = CustomerID; ;
             Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
              lblContactPerson.Text = Customer.ContactPerson;
@@ -89,19 +104,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillLead();
             fillVisit();
             fillSupportDocument();
+            ActionControlMange();
         }
 
         public void fillLead()
         {
             PLeadSearch S = new PLeadSearch(); 
-            S.CustomerID = CustomerID; 
+            S.CustomerID = Customer.CustomerID; 
             List<PLead> Leads = new BLead().GetLead(S);
             gvLead.DataSource = Leads;
             gvLead.DataBind(); 
         }
         public void fillVisit()
         {  
-            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, CustomerID, null, null, null, null, null, null);
+            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, Customer.CustomerID, null, null, null, null, null, null);
             gvColdVisit.DataBind();
         }
 
@@ -117,7 +133,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PCustomerAttribute Attribute = new PCustomerAttribute();
-            Attribute.CustomerID = CustomerID;
+            Attribute.CustomerID = Customer.CustomerID;
             Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = Convert.ToInt32(ddlAttributeMain.SelectedValue) };
             Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = Convert.ToInt32(ddlAttributeSub.SelectedValue) };
             Attribute.Remark = txtRemark.Text.Trim();
@@ -154,7 +170,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             PCustomerProduct Product = new PCustomerProduct();
             Product.CustomerProductID = 0;
-            Product.CustomerID = CustomerID;
+            Product.CustomerID = Customer.CustomerID;
             Product.Make = new PMake() { MakeID = Convert.ToInt32(ddlMake.SelectedValue) };
             Product.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
             Product.Product = new PProduct() { ProductID = Convert.ToInt32(ddlProduct.SelectedValue) };
@@ -195,7 +211,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PCustomerRelation Relation = new PCustomerRelation();
-            Relation.CustomerID = CustomerID;
+            Relation.CustomerID = Customer.CustomerID;
             Relation.ContactName = txtPersonName.Text.Trim();
             Relation.Mobile = txtMobile.Text.Trim();
             Relation.Relation = new PRelation() { RelationID = Convert.ToInt32(ddlRelation.SelectedValue) };
@@ -234,7 +250,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PCustomerResponsibleEmployee Relation = new PCustomerResponsibleEmployee();
-            Relation.CustomerID = CustomerID;
+            Relation.CustomerID = Customer.CustomerID;
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(ddlEmployee.SelectedValue) };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
@@ -266,7 +282,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             PCustomerFleet Fleet = new PCustomerFleet();
             Fleet.CustomerFleetID = 0;
-            Fleet.CustomerID = CustomerID;
+            Fleet.CustomerID = Customer.CustomerID;
             Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
@@ -290,32 +306,32 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         void fillAttribute()
         {
-            gvAttribute.DataSource = new BDMS_Customer().GetCustomerAttribute(CustomerID, null);
+            gvAttribute.DataSource = new BDMS_Customer().GetCustomerAttribute(Customer.CustomerID, null);
             gvAttribute.DataBind();
         }
         void fillProduct()
         {
-            gvProduct.DataSource = new BDMS_Customer().GetCustomerProduct(CustomerID, null, null, null, null);
+            gvProduct.DataSource = new BDMS_Customer().GetCustomerProduct(Customer.CustomerID, null, null, null, null);
             gvProduct.DataBind();
         }
         void fillRelation()
         {
-            gvRelation.DataSource = new BDMS_Customer().GetCustomerRelation(CustomerID, null);
+            gvRelation.DataSource = new BDMS_Customer().GetCustomerRelation(Customer.CustomerID, null);
             gvRelation.DataBind();
         }
         void fillResponsible()
         { 
-            gvEmployee.DataSource = new BDMS_Customer().GetCustomerResponsibleEmployee( null, CustomerID);
+            gvEmployee.DataSource = new BDMS_Customer().GetCustomerResponsibleEmployee( null, Customer.CustomerID);
             gvEmployee.DataBind();
         }
         void fillFleet()
         {
-            gvFleet.DataSource = new BDMS_Customer().GetCustomerFleet(null, CustomerID);
+            gvFleet.DataSource = new BDMS_Customer().GetCustomerFleet(null, Customer.CustomerID);
             gvFleet.DataBind();
         }
         void fillSupportDocument()
         {
-            gvSupportDocument.DataSource = new BDMS_Customer().GetAttachedFileCustomer( CustomerID);
+            gvSupportDocument.DataSource = new BDMS_Customer().GetAttachedFileCustomer(Customer.CustomerID);
             gvSupportDocument.DataBind();
         }
           
@@ -331,7 +347,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             } 
             PDMS_Customer Customer = UC_Customer.ReadCustomer();
-            Customer.CustomerID = CustomerID;
+            Customer.CustomerID = Customer.CustomerID;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
             string result = new BAPI().ApiPut("Customer", Customer);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", Customer));
@@ -345,7 +361,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             MPE_Customer.Hide();
-            fillCustomer(CustomerID);
+            fillCustomer(Customer.CustomerID);
         } 
          
         protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
@@ -355,7 +371,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblCustomerAttributeID = (Label)gvRow.FindControl("lblCustomerAttributeID");
             PCustomerAttribute Attribute = new PCustomerAttribute();
             Attribute.CustomerAttributeID = Convert.ToInt64(lblCustomerAttributeID.Text);
-            Attribute.CustomerID = CustomerID;  
+            Attribute.CustomerID = Customer.CustomerID;  
              
             Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = 0 };
             Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0};
@@ -385,7 +401,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblCustomerrProductID = (Label)gvRow.FindControl("lblCustomerProductID");
             PCustomerProduct Product = new PCustomerProduct();
             Product.CustomerProductID = Convert.ToInt64(lblCustomerrProductID.Text);
-            Product.CustomerID = CustomerID;
+            Product.CustomerID = Customer.CustomerID;
             Product.Make = new PMake() { MakeID = 0 };
             Product.ProductType = new PProductType() { ProductTypeID = 0 };
             Product.Product = new PProduct() { ProductID = 0 };
@@ -412,7 +428,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblCustomerRelationID = (Label)gvRow.FindControl("lblCustomerRelationID");
             PCustomerRelation Relation = new PCustomerRelation();
             Relation.CustomerRelationID = Convert.ToInt64(lblCustomerRelationID.Text);
-            Relation.CustomerID = CustomerID;
+            Relation.CustomerID = Customer.CustomerID;
             Relation.Relation = new PRelation() { RelationID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
@@ -433,7 +449,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblCustomerResponsibleEmployeeID = (Label)gvRow.FindControl("lblCustomerResponsibleEmployeeID");
             PCustomerResponsibleEmployee Relation = new PCustomerResponsibleEmployee();
             Relation.CustomerResponsibleEmployeeID = Convert.ToInt64(lblCustomerResponsibleEmployeeID.Text);
-            Relation.CustomerID = CustomerID;
+            Relation.CustomerID = Customer.CustomerID;
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
            // PApiResult s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
@@ -458,7 +474,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblCustomerFleetID = (Label)gvRow.FindControl("lblCustomerFleetID"); 
             PCustomerFleet Fleet = new PCustomerFleet();
             Fleet.CustomerFleetID = Convert.ToInt64(lblCustomerFleetID.Text);
-            Fleet.CustomerID = CustomerID;
+            Fleet.CustomerID = Customer.CustomerID;
             Fleet.Fleet = new PDMS_Customer() { CustomerID = 0 };
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
@@ -479,9 +495,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Edit Customer")
             {
-                MPE_Customer.Show();
-                PDMS_Customer Customer = new PDMS_Customer();
-                Customer = new BDMS_Customer().GetCustomer(CustomerID, "", "", null, null, null, null)[0];
+                MPE_Customer.Show();  
                 UC_Customer.FillMaster();
                 UC_Customer.FillCustomer(Customer);
             }
@@ -514,13 +528,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             else if (lbActions.Text == "Verified Customer")
             {
-                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + CustomerID + "&UserID=" + PSession.User.UserID;
+                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
                     lblMessage.Text = "Updated successfully";
                     lblMessage.ForeColor = Color.Green;
-                    fillCustomer(CustomerID);
+                    fillCustomer(Customer.CustomerID);
                 }
                 else
                 {
@@ -531,13 +545,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             else if (lbActions.Text == "In Activate Customer")
             {
-                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + CustomerID + "&UserID=" + PSession.User.UserID;
+                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
                     lblMessage.Text = "Updated successfully";
                     lblMessage.ForeColor = Color.Green;
-                    fillCustomer(CustomerID);
+                    fillCustomer(Customer.CustomerID);
                 }
                 else
                 {
@@ -545,6 +559,26 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     lblMessage.ForeColor = Color.Red;
                 }
                 lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "Sync to Sap")
+            {
+
+             long C =   new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer.CustomerID);
+             //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                //if (Convert.ToBoolean(s) == true)
+                if (C != 0)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+                fillCustomer(Customer.CustomerID);
             }
         }
 
@@ -705,7 +739,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             F.FileType = file.ContentType;             
             F.FileSize = size;
             F.AttachedFileID = 0;
-            F.ReferenceID = CustomerID;
+            F.ReferenceID = Customer.CustomerID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
@@ -765,7 +799,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
             PAttachedFile F = new PAttachedFile();
             F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-            F.ReferenceID = CustomerID;
+            F.ReferenceID = Customer.CustomerID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
             lblMessage.Visible = true;
@@ -782,5 +816,41 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             } 
         }
 
+        void ActionControlMange()
+        {
+            lbtnActivateCustomer.Visible = false;
+            lbtnInActivateCustomer.Visible = true;
+
+            lbEditCustomer.Visible = true;
+            lbAddAttribute.Visible = true;
+            lbAddProduct.Visible = true;
+            lbAddRelation.Visible = true;
+            lbAddFleet.Visible = true;
+            lbAddResponsibleEmployee.Visible = true;
+            lbtnVerifiedCustomer.Visible = true;
+            lbtnSyncToSap.Visible = true;
+            if (Customer.IsVerified)
+            {
+                lbtnVerifiedCustomer.Visible = false;
+            }
+            if(Customer.IsActive)
+            {
+               
+            }
+            else
+            {
+                lbtnActivateCustomer.Visible = true;
+                lbtnInActivateCustomer.Visible = false;
+
+                lbEditCustomer.Visible = false;
+                lbAddAttribute.Visible = false;
+                lbAddProduct.Visible = false;
+                lbAddRelation.Visible = false;
+                lbAddFleet.Visible = false;
+                lbAddResponsibleEmployee.Visible = false;
+                lbtnVerifiedCustomer.Visible = false;
+                lbtnSyncToSap.Visible = false;
+            }
+        }
     }
 }

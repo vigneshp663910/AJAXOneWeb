@@ -145,16 +145,11 @@
                                     <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lbViewCustomer" runat="server" OnClick="lbViewCustomer_Click">
-                                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" />
+                                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerFullName")%>' runat="server" />
                                             </asp:LinkButton><asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Customer Name 2">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCustomerName2" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName2")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                     
                                     <asp:TemplateField HeaderText="Contact Person">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -173,6 +168,19 @@
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "EMail")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="District">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="State">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     
 
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />

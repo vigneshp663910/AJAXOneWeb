@@ -16,18 +16,18 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbActions" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Convert to Prospect</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="lbActions_Click">Cancel Lead</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton5" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton6" runat="server" OnClick="lbActions_Click">Customer Convocation</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton7" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton8" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton9" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton10" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton11" runat="server" OnClick="lbActions_Click">Add Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEditLead" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
+                <asp:LinkButton ID="lbtnConvertToProspect" runat="server" OnClick="lbActions_Click">Convert to Prospect</asp:LinkButton>
+                <asp:LinkButton ID="lbtnLostLead" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
+                <asp:LinkButton ID="lbtnCancelLead" runat="server" OnClick="lbActions_Click">Cancel Lead</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAssign" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
+                <asp:LinkButton ID="lbtnCustomerConvocation" runat="server" OnClick="lbActions_Click">Customer Convocation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Add Quotation</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -500,8 +500,10 @@
             <asp:Button ID="PopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageAssignEngineer" runat="server" Text="" CssClass="message" Visible="false" />
-        <UC:UC_AssignSE ID="UC_AssignSE" runat="server"></UC:UC_AssignSE>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageAssignEngineer" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_AssignSE ID="UC_AssignSE" runat="server"></UC:UC_AssignSE>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />
         </div>
@@ -513,8 +515,10 @@
 <asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height: 400px">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
-        <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveFollowUp" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFollowUp_Click" />
         </div>
@@ -526,8 +530,10 @@
 <asp:Panel ID="pnlConvocation" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Convocation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
-        <UC:UC_CustomerConvocation ID="UC_CustomerConvocation" runat="server"></UC:UC_CustomerConvocation>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_CustomerConvocation ID="UC_CustomerConvocation" runat="server"></UC:UC_CustomerConvocation>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveustomerConvocation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConvocation_Click" />
         </div>
@@ -558,8 +564,10 @@
             <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
-        <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
         </div>
@@ -576,8 +584,10 @@
         </a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
-        <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
         </div>
@@ -594,8 +604,10 @@
         </a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
-        <UC:UC_Product ID="UC_Product" runat="server"></UC:UC_Product>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_Product ID="UC_Product" runat="server"></UC:UC_Product>
+        </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
         </div>
@@ -610,10 +622,10 @@
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-    <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
+
     <div class="col-md-12">
         <div class="model-scroll">
-
+            <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
         </div>
         <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
@@ -629,17 +641,18 @@
         </a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
-        <div class="col-md-2 text-right">
-            <label>Reason</label>
+        <div class="model-scroll">
+            <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+            <div class="col-md-2 text-right">
+                <label>Reason</label>
+            </div>
+            <div class="col-md-10">
+                <asp:TextBox ID="txtLostReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnLostReasonUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnLostReasonUpdate_Click" />
+            </div>
         </div>
-        <div class="col-md-10">
-            <asp:TextBox ID="txtLostReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnLostReasonUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnLostReasonUpdate_Click" />
-        </div>
-
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_LostReason" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLostReason" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
@@ -652,17 +665,18 @@
         </a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
-        <div class="col-md-2 text-right">
-            <label>Reason</label>
+        <div class="model-scroll">
+            <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+            <div class="col-md-2 text-right">
+                <label>Reason</label>
+            </div>
+            <div class="col-md-10">
+                <asp:TextBox ID="txtRejectedBySalesReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnRejectedBySalesUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnRejectedBySalesUpdate_Click" />
+            </div>
         </div>
-        <div class="col-md-10">
-            <asp:TextBox ID="txtRejectedBySalesReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="btnRejectedBySalesUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnRejectedBySalesUpdate_Click" />
-        </div>
-
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_RejectedBySales" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRejectedBySales" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />

@@ -55,153 +55,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public PUserMobile GetUserIDByIMEI(string IMEI)
-        {
-            PUserMobile UserMobile = null;
-            try
-            {
-                DateTime tracerStart = DateTime.Now;
-                DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-                DbParameter[] userParams = new DbParameter[1] { IMEIP };
 
-                using (DataSet userDataSet = provider.Select("GetUserIDByIMEI", userParams))
-                {
-                    if (userDataSet != null)
-                        foreach (DataRow dr in userDataSet.Tables[0].Rows)
-                        {
-                            UserMobile = new PUserMobile();
-                            UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
-                            UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-                            //UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
-                            UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            UserMobile.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? (int?)null : Convert.ToInt32(dr["ApprovedBy"]);
-                            UserMobile.ApprovedOn = DBNull.Value == dr["ApprovedOn"] ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
-                            UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
-                        }
-                }
-                TraceLogger.Log(tracerStart);
-                return UserMobile;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-
-        }
-        //public List<PUserMobile> GetUserIDForApproval(string IMEI)
-        //{
-        //    List<PUserMobile> UserMobiles = new List<PUserMobile>();
-
-        //    PUserMobile UserMobile = null;
-        //    try
-        //    {
-        //        DateTime tracerStart = DateTime.Now;
-        //        DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-        //        DbParameter[] userParams = new DbParameter[1] { IMEIP };
-
-        //        using (DataSet userDataSet = provider.Select("GetUserIDForApproval", userParams))
-        //        {
-        //            if (userDataSet != null)
-        //                foreach (DataRow dr in userDataSet.Tables[0].Rows)
-        //                {
-        //                    UserMobile = new PUserMobile();
-        //                    UserMobiles.Add(UserMobile);
-        //                    UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
-        //                    UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-        //                    UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
-        //                    UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-        //                    UserMobile.UserName = Convert.ToString(dr["UserName"]);
-        //                    UserMobile.Name = Convert.ToString(dr["ContactName"]);
-        //                    UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
-        //                }
-        //        }
-        //        TraceLogger.Log(tracerStart);
-        //        return UserMobiles;
-        //    }
-        //    catch (LMSException lmsEx)
-        //    {
-        //        throw lmsEx;
-        //    }
-        //    catch (LMSFunctionalException lmsfExe)
-        //    {
-        //        throw lmsfExe;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new LMSException(ErrorCode.GENE, ex);
-        //    }
-
-        //}
-        public Boolean InserUserMobileIMEI(int UserID, string IMEI)
-        {
-            Boolean UserMobile = false;
-            try
-            {
-                DateTime tracerStart = DateTime.Now;
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-                DbParameter[] userParams = new DbParameter[2] { UserIDP, IMEIP };
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Select("InserUserMobileIMEI", userParams);
-                    UserMobile = true;
-                    scope.Complete();
-                }
-
-                TraceLogger.Log(tracerStart);
-                return UserMobile;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-        public Boolean ApproveUserMobileIMEI(int UserMobileID)
-        {
-            Boolean UserMobile = false;
-            try
-            {
-                DateTime tracerStart = DateTime.Now;
-                DbParameter UserMobileIDP = provider.CreateParameter("UserMobileID", UserMobileID, DbType.Int32);
-                DbParameter[] userParams = new DbParameter[1] { UserMobileIDP };
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Select("ApproveUserMobileIMEI", userParams);
-                    UserMobile = true;
-                    scope.Complete();
-                }
-                TraceLogger.Log(tracerStart);
-                return UserMobile;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
         public DataTable AuthenticateUserByUserNameOrMobileOrEmail(string userName, String password)
         {
             try
@@ -1481,6 +1335,98 @@ namespace Business
         {
             string endPoint = "User/UserByToken";
             return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+
+        public PUserMobile GetUserIDByIMEI(string IMEI)
+        {
+            PUserMobile UserMobile = null;
+            try
+            {
+                DateTime tracerStart = DateTime.Now;
+                DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
+                DbParameter[] userParams = new DbParameter[1] { IMEIP };
+
+                using (DataSet userDataSet = provider.Select("GetUserIDByIMEI", userParams))
+                {
+                    if (userDataSet != null)
+                        foreach (DataRow dr in userDataSet.Tables[0].Rows)
+                        {
+                            UserMobile = new PUserMobile();
+                            UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
+                            UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
+                            //UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
+                            UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+                            UserMobile.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? (int?)null : Convert.ToInt32(dr["ApprovedBy"]);
+                            UserMobile.ApprovedOn = DBNull.Value == dr["ApprovedOn"] ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
+                            UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
+                        }
+                }
+                TraceLogger.Log(tracerStart);
+                return UserMobile;
+            }
+            catch (LMSException lmsEx)
+            {
+                throw lmsEx;
+            }
+            catch (LMSFunctionalException lmsfExe)
+            {
+                throw lmsfExe;
+            }
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+
+        }
+        public List<PUserMobile> GetUserMobileForApproval()
+        {
+            string endPoint = "User/UserMobileForApproval";
+            return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
+        public PApiResult ApproveUserMobile(int UserMobileID)
+        {
+            string endPoint = "User/ApproveUserMobile?UserMobileID=" + UserMobileID;
+            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        //public Boolean InserUserMobileIMEI(int UserID, string IMEI)
+        //{
+        //    Boolean UserMobile = false;
+        //    try
+        //    {
+        //        DateTime tracerStart = DateTime.Now;
+        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //        DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
+        //        DbParameter[] userParams = new DbParameter[2] { UserIDP, IMEIP };
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            provider.Select("InserUserMobileIMEI", userParams);
+        //            UserMobile = true;
+        //            scope.Complete();
+        //        }
+
+        //        TraceLogger.Log(tracerStart);
+        //        return UserMobile;
+        //    }
+        //    catch (LMSException lmsEx)
+        //    {
+        //        throw lmsEx;
+        //    }
+        //    catch (LMSFunctionalException lmsfExe)
+        //    {
+        //        throw lmsfExe;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new LMSException(ErrorCode.GENE, ex);
+        //    }
+        //}
+        public List<PUserMobile> GetUserMobileManage(int? DealerID,string  FromDate, string ToDate)
+        {
+            string endPoint = "User/UserMobileManage?DealerID=" + DealerID+ "&FromDate="+ FromDate + "&ToDate=" + ToDate;
+            return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
         }
     }
 }
