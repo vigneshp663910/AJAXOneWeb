@@ -6,7 +6,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12">
-        <asp:TabContainer ID="tbConCompetratiorProduct" runat="server" ToolTip="Competratior Product" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
+        <asp:TabContainer ID="tbConCompetratiorProduct" runat="server" ToolTip="Competratior Product" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp:TabPanel ID="tbPnlMake" runat="server" HeaderText="Make" Font-Bold="True" ToolTip="Make">
                 <contenttemplate>
                     <div class="col-md-12">
@@ -52,6 +52,7 @@
                     </div>
                 </contenttemplate>
             </asp:TabPanel>
+
             <asp:TabPanel ID="tbPnlProductType" runat="server" HeaderText="Product Type" Font-Bold="True" ToolTip="Product Type">
                 <contenttemplate>
                     <div class="col-md-12">
@@ -102,6 +103,7 @@
                     </div>
                 </contenttemplate>
             </asp:TabPanel>
+
             <asp:TabPanel ID="tbPnlProduct" runat="server" HeaderText="Product" Font-Bold="True" ToolTip="Product">
                 <contenttemplate>
                     <div class="col-md-12">
