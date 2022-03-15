@@ -70,6 +70,7 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            // Boolean d = UC_Customer.Visible;
             MPE_Customer.Show();
             PColdVisit ColdVisitList = new PColdVisit();
             lblMessageColdVisit.ForeColor = Color.Red;

@@ -4,6 +4,79 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+        .page-main-container .col, .page-main-container .col-1, .page-main-container .col-10, .page-main-container .col-11, .page-main-container .col-12, .page-main-container .col-2, .page-main-container .col-3, .page-main-container .col-4,
+        .page-main-container .col-5, .page-main-container .col-6, .page-main-container .col-7, .page-main-container .col-8, .page-main-container .col-9, .page-main-container .col-auto, .page-main-container .col-lg, .page-main-container .col-lg-1,
+        .page-main-container .col-lg-10, .page-main-container .col-lg-11, .page-main-container .col-lg-12, .page-main-container .col-lg-2, .page-main-container .col-lg-3, .page-main-container .col-lg-4, .page-main-container .col-lg-5,
+        .page-main-container .col-lg-6, .page-main-container .col-lg-7, .page-main-container .col-lg-8, .page-main-container .col-lg-9, .page-main-container .col-lg-auto, .page-main-container .col-md, .page-main-container .col-md-1,
+        .page-main-container .col-md-10, .page-main-container .col-md-11, .page-main-container .col-md-12, .page-main-container .col-md-2, .page-main-container .col-md-3, .page-main-container .col-md-4, .page-main-container .col-md-5,
+        .page-main-container .col-md-6, .page-main-container .col-md-7, .page-main-container .col-md-8, .page-main-container .col-md-9, .page-main-container .col-md-auto, .page-main-container .col-sm, .page-main-container .col-sm-1,
+        .page-main-container .col-sm-10, .page-main-container .col-sm-11, .page-main-container .col-sm-12, .page-main-container .col-sm-2, .page-main-container .col-sm-3, .page-main-container .col-sm-4, .page-main-container .col-sm-5,
+        .page-main-container .col-sm-6, .page-main-container .col-sm-7, .page-main-container .col-sm-8, .page-main-container .col-sm-9, .page-main-container .col-sm-auto, .page-main-container .col-xl, .page-main-container .col-xl-1,
+        .page-main-container .col-xl-10, .page-main-container .col-xl-11, .page-main-container .col-xl-12, .page-main-container .col-xl-2, .page-main-container .col-xl-3, .page-main-container .col-xl-4, .page-main-container .col-xl-5,
+        .page-main-container .col-xl-6, .page-main-container .col-xl-7, .page-main-container .col-xl-8, .page-main-container .col-xl-9, .page-main-container .col-xl-auto {
+            display: initial;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .page-main-container {
+            width: 100%;
+            position: relative;
+        }
+
+            .page-main-container .form-container .form-control {
+                height: 35px;
+                padding: 0px 7px;
+            }
+
+            .page-main-container .form-container .InputButton {
+                height: 34px;
+            }
+
+        .form-container {
+            padding: 30px 25px;
+            background: #f9f9f9;
+        }
+
+        .page-main-container tr {
+            background: none;
+            border: none;
+        }
+
+        .form-container .file-upload {
+            padding: 2px;
+            height: auto;
+            display: block;
+            width: 100%;
+        }
+
+        .form-container-fields {
+            border: 1px solid #369;
+            padding: 25px;
+            position: relative;
+            border-radius: 5px;
+        }
+
+            .form-container-fields .label {
+                margin-bottom: 3px;
+                display: inline-block;
+                font-weight: 600;
+            }
+
+            .form-container-fields .field-label {
+                font-size: 14pt;
+                font-family: Arial;
+                text-align: left;
+                color: #3E4095;
+                position: absolute;
+                top: -17px;
+                left: 10px;
+                background: #f9f9f9;
+                padding: 3px 15px;
+                font-weight: 600;
+            }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -69,84 +142,53 @@
             }
         });
     </script>
-    <div class="container">
-        <div class="col2">
-            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
-            <table style="padding-left: 20px;">
-                <tr>
-                    <td colspan="2">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
 
-                        <table>
-                            <tr>
-                                <td colspan="2">
-                                    <div style="height: 20px;">
+    <div class="container-fluid form-container">
+        <div class="form-container-fields">
+            <span class="field-label">Task Status</span>
+            <div class="row">
 
-                                        <span style="font-size: 14pt; font-family: Arial; text-align: left; color: #3E4095;">Task Status</span>
+                <div class="col-md-2 col-sm-6">
+                    <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="label"></asp:Label>
+                    <asp:ListBox ID="lbStatus" runat="server" SelectionMode="Multiple" CssClass="TextBox form-control" ></asp:ListBox>
 
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <asp:Label ID="lblTicketType" runat="server" Text="Ticket Type" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <asp:Label ID="Label3" runat="server" Text="Ticket From" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketFrom" runat="server" CssClass="TextBox form-control"></asp:TextBox>
+                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtTicketFrom" PopupButtonID="txtTicketFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtTicketFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
 
-                                        <div style="height: 5px; background-color: #3665c2;"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <br />
-                        <table> 
-                            <tr>
-                                <td>
-                                    <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox"></asp:TextBox></td>
-                                <td style="width: 30px"></td>
-                                <td>
-                                    <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="label"></asp:Label></td>
-                                <td>
-                                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList></td>
-                                <td style="width: 30px"></td>
-                                <td>
-                                    <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="label"></asp:Label></td>
-                                <td>
-                                    <asp:ListBox ID="lbStatus" runat="server" SelectionMode="Multiple" CssClass="TextBox" Height="50px"></asp:ListBox>
-                                </td> 
-                            </tr> 
-                            <tr>
-                                <td>
-                                    <asp:Label ID="lblTicketType" runat="server" Text="Ticket Type" CssClass="label"></asp:Label></td>
-                                <td>
-                                    <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox"></asp:DropDownList></td>
-                                <td style="width: 30px"></td>
-                                <td>
-                                    <asp:Label ID="Label3" runat="server" Text="Ticket From" CssClass="label"></asp:Label></td>
-                                <td>
-                                    <asp:TextBox ID="txtTicketFrom" runat="server" CssClass="TextBox"></asp:TextBox>
-                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtTicketFrom" PopupButtonID="txtTicketFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtTicketFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-
-                                </td>
-                                <td></td>
-                                <td>
-                                    <asp:Label ID="Label2" runat="server" Text="Ticket To" CssClass="label"></asp:Label></td>
-                                <td>
-                                    <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox"></asp:TextBox>
-                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTicketTo" PopupButtonID="txtTicketTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtTicketTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>
-                                    <asp:Button ID="btnSave" runat="server" Text="Search" CssClass="InputButton" OnClick="btnSave_Click" /></td>
-                            </tr>
-
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <br />
-
-            <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
-                <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="TableView" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <asp:Label ID="Label2" runat="server" Text="Ticket To" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox form-control"></asp:TextBox>
+                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTicketTo" PopupButtonID="txtTicketTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtTicketTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnSave" runat="server" Text="Search" CssClass="InputButton btn Save" OnClick="btnSave_Click" />
+                    <asp:Button ID="btnExcel" runat="server" Text="Excel" CssClass="InputButton btn Save" OnClick="btnExcel_Click" />
+                </div>
+            </div>
+        </div>
+        <div class="form-container-fields">
+            <span class="field-label">Report</span>
+            <div class="row">
+                <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                     <Columns>
                         <asp:TemplateField HeaderText="Ticket ID">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -234,12 +276,16 @@
                         <asp:TemplateField>
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Button ID="btnReassign" runat="server" Text="Reassign" CssClass="InputButton" OnClick="btnReassign_Click" />
+                                <asp:Button ID="btnReassign" runat="server" Text="Reassign" CssClass="InputButton btn Save" Width="80px" Height="30px" OnClick="btnReassign_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                 </asp:GridView>
-                <asp:Button ID="btnExcel" runat="server" Text="Excel" CssClass="InputButton" OnClick="btnExcel_Click" />
             </div>
         </div>
     </div>

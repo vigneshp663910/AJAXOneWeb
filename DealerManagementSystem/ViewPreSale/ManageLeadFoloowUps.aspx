@@ -11,10 +11,8 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
-                        <div class="col-md-2 text-right">
-                            <label>State</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12"  style="display: none">
+                            <label class="modal-label">State</label>
                             <asp:DropDownList ID="ddlFollow" runat="server" CssClass="form-control">
                                 <asp:ListItem>Today's Follow-ups</asp:ListItem>
                                 <asp:ListItem>Future Follow-ups</asp:ListItem>
@@ -22,10 +20,8 @@
                                 <asp:ListItem>Cancelled Follow-ups</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>State</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12"  style="display: none">
+                            <label class="modal-label">State</label>
                             <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control">
                                 <asp:ListItem>My Own Follow-ups</asp:ListItem>
                                 <asp:ListItem>Assigned Follow-ups</asp:ListItem>
@@ -33,24 +29,18 @@
                             </asp:DropDownList>
                         </div>
 
-                        <div class="col-md-2 text-right">
-                            <label>Date From</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-2 text-right">
-                            <label>Date To</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Date To</label>
                             <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-2 text-right">
-                            <label>Customer</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                                 <div id="div1" class="fieldset-borderAuto" style="display: none">
@@ -65,10 +55,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <label>Mobile</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-12 text-center">
@@ -82,7 +70,7 @@
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                         <div class="col-md-12 Report">
-                            <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed" EmptyDataText="No Data Found">
+                            <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -175,6 +163,11 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
+                                <AlternatingRowStyle BackColor="White" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
                         </div>
                     </fieldset>
@@ -193,13 +186,13 @@
         <div class="col-md-12">
             <div class="col-md-12">
                 <fieldset class="fieldset-border" id="Fieldset5" runat="server">
-                    <div class="col-md-12"> 
+                    <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Remark</label>
                         </div>
                         <div class="col-md-4">
                             <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                        </div> 
+                        </div>
                     </div>
                 </fieldset>
             </div>

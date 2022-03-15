@@ -243,18 +243,18 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
-                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date From</label> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date To</label> 
+                            <label class="modal-label">Date To</label>
                             <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 
-                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer</label> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                                 <div id="div1" class="fieldset-borderAuto" style="display: none">
@@ -269,16 +269,16 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Mobile</label> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Country</label> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
                         </div>
-                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">State</label> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">State</label>
                             <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
                         </div>
 
@@ -358,7 +358,6 @@
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
-
                         </div>
                     </fieldset>
                 </div>
@@ -387,8 +386,6 @@
             <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
-
-
         <div class="col-md-12">
             <div style="display: none">
                 <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
@@ -443,9 +440,9 @@
                             <label class="modal-label">Importance</label>
                             <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
                         </div>
-                          <div class="col-md-6 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Location</label>
-                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"   ></asp:TextBox>
+                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <label class="modal-label">Remark</label>
