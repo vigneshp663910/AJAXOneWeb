@@ -42,7 +42,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             ddlAssignedTo.DataTextField = "ContactName";
             ddlAssignedTo.DataValueField = "UserID";
             List<PUser> user = new BUser().GetAllUsers();
-            ddlAssignedTo.DataSource = user.Where(M => M.ExternalReferenceID == PSession.User.ExternalReferenceID && M.UserID != PSession.User.UserID && M.SystemCategoryID == (short)SystemCategory.Support).ToList();
+            ddlAssignedTo.DataSource = user;
             ddlAssignedTo.DataBind();
             ddlAssignedTo.Items.Insert(0, new ListItem("Select", "0"));
         }

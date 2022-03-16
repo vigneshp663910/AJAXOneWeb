@@ -6,7 +6,7 @@
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <style>
+    <%--<style>
         .Popup {
             display: block;
             z-index: 1002;
@@ -74,11 +74,25 @@
         .modalBackground {
             background-color: #000000bd;
         }
-    </style>
+    </style>--%>
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
     <script type="text/javascript">  
+
+        $(document).ready(function () {
+            var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
+            if (txtCustomerID.value != "") {
+                document.getElementById('divCustomerViewID').style.display = "block";
+                document.getElementById('divCustomerCreateID').style.display = "none";
+
+                document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_txtCustomerNameS').value;
+                document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_txtContactPersonS').value;
+                document.getElementById('lblMobile').innerText = document.getElementById('MainContent_txtMobileS').value;
+            }
+        });
+
+
         $(function () {
             $("#MainContent_txtCustomer").autocomplete({
                 source: function (request, response) {
@@ -192,6 +206,12 @@
             document.getElementById('lblContactPerson').innerText = ContactPerson.innerText;
             document.getElementById('lblMobile').innerText = Mobile.innerText;
 
+            document.getElementById('MainContent_txtCustomerNameS').value = CustomerName.innerText;
+            document.getElementById('MainContent_txtContactPersonS').value = ContactPerson.innerText;
+            document.getElementById('MainContent_txtMobileS').value = Mobile.innerText;
+
+
+
             document.getElementById('UCdivAuto').style.display = "none";
 
             document.getElementById('divCustomerViewID').style.display = "block";
@@ -245,13 +265,10 @@
                     <div class="col-md-2 text-left">
                         <label>Lead Date From</label>
                         <asp:TextBox ID="txtLeadDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-
                     </div>
-
                     <div class="col-md-2 text-left">
                         <label>Lead Date To</label>
                         <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-
                     </div>
                     <div class="col-md-2 text-left">
                         <label>Progress Status</label>
@@ -313,90 +330,92 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+            <div class="col-md-12">
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
-                        <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Lead Number">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLeadID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadID")%>' runat="server" Visible="false" />
-                                    <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "LeadNumber")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate","{0:d}")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Category" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend> 
+                        <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Lead Number">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLeadID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "LeadNumber")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate","{0:d}")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Qualification.Qualification")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Source" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Status" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Type" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Dealer Code" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" Width="75px" Height="25px" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                    </asp:GridView>
+                                <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Qualification.Qualification")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Source" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Status" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Type" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dealer Code" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" Width="75px" Height="25px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView> 
+                    </fieldset>
                 </div>
-            </fieldset>
+            </div>
         </div>
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
@@ -416,18 +435,22 @@
         <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
 
+
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogue">Add Lead</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
+            <div style="display: none">
+                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCustomerNameS" runat="server" />
+                <asp:TextBox ID="txtContactPersonS" runat="server" />
+                <asp:TextBox ID="txtMobileS" runat="server" />
+            </div>
             <div class="model-scroll">
                 <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
                 <fieldset class="fieldset-border">
-                    <div style="display: none">
-                        <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
-                    </div>
                     <div id="divCustomerViewID" style="display: none">
                         <fieldset class="fieldset-border">
                             <div class="col-md-12">

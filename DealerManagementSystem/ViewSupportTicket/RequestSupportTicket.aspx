@@ -69,11 +69,7 @@
     </style>
     <div class="page-main-container">
         <div class="col2">
-            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Visible="false" />
-            <%--<table width="100%" border>
-                <tr>
-                    <td>--%>
-                        
+            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Visible="false" /> 
                         <div class="container-fluid form-container">
                             <div class="form-container-fields">
                                 <span class="field-label">New Task</span>
@@ -103,7 +99,7 @@
                                 <div class="col-md-6 col-sm-6">
                                      <asp:Label ID="Label2" runat="server" Text="Contact Name" CssClass="label"></asp:Label>
                                     <span style="color: red">*</span>
-                                    <asp:TextBox ID="txtContactName" runat="server" Style="position: relative;" CssClass="TextBox form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txtContactName" runat="server"  CssClass="TextBox form-control"></asp:TextBox>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                      <asp:Label ID="Label3" runat="server" Text="Mobile No" CssClass="label"></asp:Label>

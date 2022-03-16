@@ -26,7 +26,7 @@ namespace DealerManagementSystem.ViewPreSale
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Cold Visit');</script>");
 
-            lblMessage.Text = "";
+              lblMessage.Text = "";
             lblMessageColdVisit.Text = "";
 
             if (!IsPostBack)
@@ -71,6 +71,9 @@ namespace DealerManagementSystem.ViewPreSale
         protected void btnSave_Click(object sender, EventArgs e)
         {
             // Boolean d = UC_Customer.Visible;
+
+            
+
             MPE_Customer.Show();
             PColdVisit ColdVisitList = new PColdVisit();
             lblMessageColdVisit.ForeColor = Color.Red;
@@ -81,6 +84,10 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 ColdVisitList.Customer = new PDMS_Customer();
                 ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+
+                string script = "<script  type='text/javascript' >document.getElementById('divCustomerViewID').style.display = 'block'; document.getElementById('divCustomerCreateID').style.display = 'none' </ script > ";
+
+                ClientScript.RegisterStartupScript(this.GetType(), "Script1", script);
             }
             else
             {

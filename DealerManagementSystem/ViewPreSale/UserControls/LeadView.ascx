@@ -512,10 +512,10 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none; height: 400px">
+<asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
-        <div class="model-scroll">
+        <div class="model-scroll"> 
             <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
         </div>
@@ -537,7 +537,6 @@
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveustomerConvocation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConvocation_Click" />
         </div>
-
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Convocation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlConvocation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
@@ -551,7 +550,6 @@
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveFinancial" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFinancial_Click" />
         </div>
-
     </div>
 
 </asp:Panel>

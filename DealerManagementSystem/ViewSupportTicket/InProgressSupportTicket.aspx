@@ -164,7 +164,9 @@
         <br />
         <div class="form-container-fields">
             <span class="field-label">Report</span>
-            <div class="row">
+           <%-- <div class="row">--%>
+                 <div class="col-md-12">
+                <div class="col-md-12 Report">
                 <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                     <Columns>
                         <asp:TemplateField HeaderText="">
@@ -268,12 +270,12 @@
                                 <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Department">
+                      <%--  <asp:TemplateField HeaderText="Department">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.Department.DepartmentName")%>' runat="server"></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <asp:TemplateField>
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
@@ -293,7 +295,9 @@
                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                 </asp:GridView>
-            </div>
+                    </div>
+                     </div>
+            <%--</div>--%>
 
             <asp:Panel ID="pnResolve" runat="server" Visible="false">
                 <br />

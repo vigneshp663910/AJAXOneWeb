@@ -46,14 +46,14 @@ namespace DealerManagementSystem.ViewSupportTicket
                 FillResolutionType();
 
                 FillTickets(null);
-                if (PSession.User.UserTypeID == (short)UserTypes.Manager || PSession.User.UserTypeID == (short)UserTypes.Admin)
-                {
-                    gvTickets.Columns[17].Visible = true;
-                }
-                else if (PSession.User.UserTypeID == (short)UserTypes.Associate)
-                {
-                    gvTickets.Columns[17].Visible = false;
-                }
+                //if (PSession.User.UserTypeID == (short)UserTypes.Manager || PSession.User.UserTypeID == (short)UserTypes.Admin)
+                //{
+                //    gvTickets.Columns[17].Visible = true;
+                //}
+                //else if (PSession.User.UserTypeID == (short)UserTypes.Associate)
+                //{
+                //    gvTickets.Columns[17].Visible = false;
+                //}
             }
             if (IsPostBack && fu.PostedFile != null)
             {

@@ -82,7 +82,8 @@ namespace DealerManagementSystem.ViewPreSale
         
 
         protected void btnSave_Click(object sender, EventArgs e)
-        { 
+        {
+            MPE_Customer.Show();
             PLead Lead = new PLead();
             lblMessageLead.ForeColor = Color.Red;
             lblMessageLead.Visible = true;
@@ -94,9 +95,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else
             {
-                Message = UC_Customer.ValidationCustomer();
-               
-                MPE_Customer.Show();
+                Message = UC_Customer.ValidationCustomer(); 
                 if (!string.IsNullOrEmpty(Message))
                 {
                     lblMessageLead.Text = Message;

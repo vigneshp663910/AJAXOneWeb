@@ -115,45 +115,40 @@
                         <asp:TemplateField HeaderText="Ticket ID">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:LinkButton ID="lbTicketNo" runat="server" OnClick="lbTicketNo_Click">
-                                    <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "TicketID")%>' runat="server" />
-                                </asp:LinkButton>
+                                <%--<asp:LinkButton ID="lbTicketNo" runat="server" OnClick="lbTicketNo_Click">--%>
+                                    <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "HeaderID")%>' runat="server" />
+                               <%-- </asp:LinkButton>--%>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Category">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTicketCategory" Text='<%# DataBinder.Eval(Container.DataItem, "TicketCategory.TicketCategory")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTicketCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="SubCategory">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTicketSubCategory" Text='<%# DataBinder.Eval(Container.DataItem, "TicketSubCategory.TicketSubCategory")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTicketSubCategory" Text='<%# DataBinder.Eval(Container.DataItem, "SubCategory.SubCategory")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <%--  <asp:TemplateField HeaderText="Repeat">
-                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                <ItemTemplate>
-                    <asp:Label ID="lblRepeat" Text='<%# DataBinder.Eval(Container.DataItem, "Repeat")%>' runat="server"></asp:Label>
-                </ItemTemplate>
-             </asp:TemplateField>--%>
+                      
                         <asp:TemplateField HeaderText="Severity">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTicketSeverity" Text='<%# DataBinder.Eval(Container.DataItem, "TicketSeverity.TicketSeverity")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTicketSeverity" Text='<%# DataBinder.Eval(Container.DataItem, "Severity.Severity")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Ticket Type">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTicketType" Text='<%# DataBinder.Eval(Container.DataItem, "TicketType.TicketType")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTicketType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Description">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTicketDescription" Text='<%# DataBinder.Eval(Container.DataItem, "TicketDescription")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTicketDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Description")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
@@ -161,19 +156,25 @@
                         <asp:TemplateField HeaderText="Status">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTicketStatus" Text='<%# DataBinder.Eval(Container.DataItem, "TicketStatus.TicketStatus")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTicketStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Created By">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.EmployeeName")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Created On">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                          <asp:TemplateField HeaderText="">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="InputButton btn Save" Width="80px" Height="30px" OnClick="btnClose_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -189,9 +190,9 @@
                         <asp:TemplateField HeaderText="Ticket ID">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:LinkButton ID="lbTicketNo" runat="server" OnClick="lbTicketNo_Click">
+                              <%--  <asp:LinkButton ID="lbTicketNo" runat="server" OnClick="lbTicketNo_Click">--%>
                                     <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "TicketID")%>' runat="server" />
-                                </asp:LinkButton>
+                               <%-- </asp:LinkButton>--%>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Description">
@@ -254,7 +255,7 @@
                                 <asp:Label ID="lblResolution" Text='<%# DataBinder.Eval(Container.DataItem, "Resolution")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
+                       
                     </Columns>
                     <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />

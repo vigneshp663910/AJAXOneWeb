@@ -270,7 +270,7 @@
                         <asp:TemplateField HeaderText="">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="InputButton" OnClick="btnClose_Click" />
+                                <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="InputButton btn Save" Width="80px" Height="30px" OnClick="btnClose_Click" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField>

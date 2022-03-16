@@ -10,8 +10,20 @@
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
     <script type="text/javascript">  
+
+        $(document).ready(function () {
+            var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
+            if (txtCustomerID.value != "") {
+                document.getElementById('divCustomerViewID').style.display = "block";
+                document.getElementById('divCustomerCreateID').style.display = "none";
+
+                document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_txtCustomerNameS').value;
+                document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_txtContactPersonS').value;
+                document.getElementById('lblMobile').innerText = document.getElementById('MainContent_txtMobileS').value;
+            }
+        });
+
         $(function () {
-            debugger
             $("#MainContent_txtCustomer").autocomplete({
                 source: function (request, response) {
                     debugger
@@ -44,7 +56,6 @@
                 },
                 minLength: 3 //This is the Char length of inputTextBox    
             });
-
             $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
                 source: function (request, response) {
                     debugger
@@ -147,7 +158,7 @@
             document.getElementById('divAuto').style.display = "none";
         }
         function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-
+            debugger
             var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
             txtCustomerID.value = CustomerID.innerText;
 
@@ -158,6 +169,17 @@
             document.getElementById('lblCustomerName').innerText = CustomerName.innerText;
             document.getElementById('lblContactPerson').innerText = ContactPerson.innerText;
             document.getElementById('lblMobile').innerText = Mobile.innerText;
+
+
+            //document.getElementById('MainContent_lblCustomerName').innerText = CustomerName.innerText;
+            //document.getElementById('MainContent_lblContactPerson').innerText = ContactPerson.innerText;
+            //document.getElementById('MainContent_lblMobile').innerText = Mobile.innerText;
+
+            document.getElementById('MainContent_txtCustomerNameS').value = CustomerName.innerText;
+            document.getElementById('MainContent_txtContactPersonS').value = ContactPerson.innerText;
+            document.getElementById('MainContent_txtMobileS').value = Mobile.innerText;
+
+
 
             document.getElementById('UCdivAuto').style.display = "none";
 
@@ -360,10 +382,7 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                </div>
-            </div>
-        </div>
-        <div>
+                 </div></div></div><div>
             <div class="" id="boxHere"></div>
             <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
@@ -383,12 +402,13 @@
 
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+            <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div style="display: none">
-                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCustomerID" runat="server" /><asp:TextBox ID="txtCustomerNameS" runat="server" />
+                <asp:TextBox ID="txtContactPersonS" runat="server" /><asp:TextBox ID="txtMobileS" runat="server" />
+
             </div>
             <div class="model-scroll">
                 <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
@@ -397,31 +417,22 @@
                         <div class="col-md-12">
 
                             <div class="col-md-2 text-right">
-                                <label>Customer Name</label>
-                            </div>
-                            <div class="col-md-4">
+                                <label>Customer Name</label> </div><div class="col-md-4">
                                 <label id="lblCustomerName"></label>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <label>Contact Person</label>
-                            </div>
-                            <div class="col-md-4">
-                                <label id="lblContactPerson"></label>
-                            </div>
 
-                            <div class="col-md-2 text-right">
-                                <label>Mobile</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2 text-right">
+                                <label>Contact Person</label> </div><div class="col-md-4">
+                                <label id="lblContactPerson"></label>
+
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label>Mobile</label> </div><div class="col-md-4">
                                 <label id="lblMobile"></label>
                             </div>
                         </div>
                         <div id="divChangeCustomer">
-                            <label>Change Customer</label>
-                        </div>
-                    </fieldset>
-                </div>
-                <div id="divCustomerCreateID">
+                            <label>Change Customer</label> </div></fieldset> </div><div id="divCustomerCreateID">
                     <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                 </div>
 
@@ -429,29 +440,15 @@
                     <div class="col-md-12">
 
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Cold Visit Date</label>
-                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                            <label class="modal-label">Cold Visit Date</label> <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox></div><div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Action Type</label> <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Action Type</label>
-                            <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Importance</label> <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Importance</label>
-                            <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Location</label>
-                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                            <label class="modal-label">Remark</label>
-                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-            <div class="col-md-12 text-center">
+                            <label class="modal-label">Location</label> <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox></div><div class="col-md-12 col-sm-12">
+                            <label class="modal-label">Remark</label> <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox></div></div></fieldset> </div><div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
             </div>
         </div>

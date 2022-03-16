@@ -204,6 +204,33 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.TextBox txtCustomerID;
 
         /// <summary>
+        /// txtCustomerNameS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerNameS;
+
+        /// <summary>
+        /// txtContactPersonS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContactPersonS;
+
+        /// <summary>
+        /// txtMobileS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMobileS;
+
+        /// <summary>
         /// lblMessageColdVisit control.
         /// </summary>
         /// <remarks>

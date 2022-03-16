@@ -1,6 +1,7 @@
 ﻿using Business;
 using Properties;
 using System;
+using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -85,10 +86,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int? TicketType = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
+             
 
-            int? AssignedTo = PSession.User.UserID;
-
-            //  gvTickets.DataSource = new BTickets().GetTicketForClose(1, 1, TicketCategoryID, TicketSubCategoryID, TicketSeverity, TicketType, AssignedBy, AssignedTo);
+              gvTickets.DataSource = new BTickets().GetTicketToClose(null, TicketCategoryID, TicketSubCategoryID, TicketType, PSession.User.UserID, null);
             gvTickets.DataBind();
         }
 
@@ -113,6 +113,20 @@ namespace DealerManagementSystem.ViewSupportTicket
             FillTickets();
             gvTickets.PageIndex = e.NewPageIndex;
             gvTickets.DataBind();
+        }
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+
+            PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null)[0];
+
+            new BTickets().UpdateTicketClosedStatus(H.HeaderID);
+
+            FillTickets();
+            lblMessage.Text = "Ticket is  successfully updated.";
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Visible = true;
         }
     }
 }
