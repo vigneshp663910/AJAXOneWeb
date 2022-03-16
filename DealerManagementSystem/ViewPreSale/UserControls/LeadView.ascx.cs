@@ -14,21 +14,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class LeadView : System.Web.UI.UserControl
     {
-        public long LeadID
-        {
-            get
-            {
-                if (Session["LeadID"] == null)
-                {
-                    Session["LeadID"] = 0;
-                }
-                return Convert.ToInt64(Session["LeadID"]);
-            }
-            set
-            {
-                Session["LeadID"] = value;
-            }
-        }
+        //public long LeadID
+        //{
+        //    get
+        //    {
+        //        if (Session["LeadID"] == null)
+        //        {
+        //            Session["LeadID"] = 0;
+        //        }
+        //        return Convert.ToInt64(Session["LeadID"]);
+        //    }
+        //    set
+        //    {
+        //        Session["LeadID"] = value;
+        //    }
+        //}
         public PLead Lead
         {
             get
@@ -57,8 +57,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageQuotation.Text = ""; 
         }
         public void fillViewLead(long LeadID)
-        {
-            this.LeadID = LeadID;
+        { 
             Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
@@ -78,17 +77,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
             lblLocation.Text = Location;
 
-            fillAssignSalesEngineer(LeadID);
-            fillFollowUp(LeadID);
-            fillConvocation(LeadID);
-            fillFinancial(LeadID);
-            fillEffort(LeadID);
-            fillExpense(LeadID);
-            fillProduct(LeadID);
+            fillAssignSalesEngineer();
+            fillFollowUp();
+            fillConvocation();
+            fillFinancial();
+            fillEffort();
+            fillExpense();
+            fillProduct();
 
             ActionControlMange();
         }
-
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
@@ -119,14 +117,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if(lbActions.Text == "Assign")
             {
-                MPE_AssignSE.Show();
-                fillAssignSalesEngineer(LeadID);
+                MPE_AssignSE.Show(); 
+                UC_AssignSE.FillMaster();
             }
             else if (lbActions.Text == "Add Follow-up")
             {
                 MPE_FollowUp.Show(); 
 
-                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,true);
+                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID,true);
                 List<PUser> U = new List<PUser>();
                 foreach (PLeadSalesEngineer SE in SalesEngineer)
                 {
@@ -137,13 +135,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Customer Convocation")
             {
-                MPE_Convocation.Show();
-                fillConvocation(LeadID);
+                MPE_Convocation.Show(); 
+                UC_CustomerConvocation.FillMaster(Lead.LeadID);
             }
             else if (lbActions.Text == "Financial Info")
             {
-                MPE_Financial.Show();
-                fillFinancial(LeadID);
+                MPE_Financial.Show(); 
+                UC_Financial.FillMaster();
             }
             else if (lbActions.Text == "Add Effort")
             { 
@@ -153,8 +151,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
                 ddlSalesEngineer.Enabled = false;
 
-                MPE_Effort.Show();
-                fillEffort(LeadID);
+                MPE_Effort.Show(); 
+
+                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, true);
+                List<PUser> U = new List<PUser>();
+                foreach (PLeadSalesEngineer SE in SalesEngineer)
+                {
+                    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
+                }
+                new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID", false);
             }
             else if (lbActions.Text == "Add Expense")
             { 
@@ -163,20 +168,25 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
                 ddlSalesEngineer.Enabled = false;
                 MPE_Expense.Show();
-                fillExpense(LeadID);
+                List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, true);
+                List<PUser> U = new List<PUser>();
+                foreach (PLeadSalesEngineer SE in SalesEngineer)
+                {
+                    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
+                }
+                new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID", false);
             }
             else if (lbActions.Text == "Add Product")
             {
                 MPE_Product.Show();
-                fillProduct(LeadID);
+                UC_Product.FillMaster(); 
             }
-            else if (lbActions.Text == "Add Quotation")
+            else if (lbActions.Text == "Convert to Quotation")
             {
                 MPE_Quotation.Show();
                 UC_Quotation.FillMaster();
             }
-        }
-  
+        }  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
 
@@ -189,11 +199,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageEffort.Text = Message;
                 return;
             }
-            PLeadEffort Lead = new PLeadEffort();
-            Lead = UC_Effort.ReadEffort();
-            Lead.LeadEffortID = 0;
-            Lead.LeadID = LeadID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Lead));
+            PLeadEffort Effort = new PLeadEffort();
+            Effort = UC_Effort.ReadEffort();
+            Effort.LeadEffortID = 0;
+            Effort.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Effort", Effort));
 
             if (Results.Status == PApplication.Failure)
             {
@@ -203,7 +213,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ShowMessage(Results);
 
             MPE_Effort.Hide();
-            fillEffort(Lead.LeadID);
+            fillEffort();
         }
         protected void btnSaveExpense_Click(object sender, EventArgs e)
         {
@@ -216,11 +226,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageExpense.Text = Message;
                 return;
             }
-            PLeadExpense Lead = new PLeadExpense();
-            Lead = UC_Expense.ReadExpense();
-            Lead.LeadExpenseID = 0;
-            Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Expense", Lead));
+            PLeadExpense Expense = new PLeadExpense();
+            Expense = UC_Expense.ReadExpense();
+            Expense.LeadExpenseID = 0;
+            Expense.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Expense", Expense));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageExpense.Text = Results.Message;
@@ -229,7 +239,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ShowMessage(Results);
 
             MPE_Expense.Hide();
-            fillExpense(Lead.LeadID);
+            fillExpense();
         }
         protected void lblFinancialAdd_Click(object sender, EventArgs e)
         {
@@ -237,17 +247,17 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             DropDownList ddlBankNameF = (DropDownList)gvFinancial.FooterRow.FindControl("ddlBankNameF");
             TextBox txtFinancePercentageF = (TextBox)gvFinancial.FooterRow.FindControl("txtFinancePercentageF");
             TextBox txtRemarkF = (TextBox)gvFinancial.FooterRow.FindControl("txtRemarkF");
-            PLeadFinancial Lead = new PLeadFinancial();
-            Lead.LeadFinancialID = 0;
-            Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
-            Lead.BankName = new PBankName { BankNameID = Convert.ToInt32(ddlBankNameF.SelectedValue) };
-            Lead.FinancePercentage = Convert.ToDecimal(txtFinancePercentageF.Text.Trim());
-            Lead.Remark = txtRemarkF.Text;
+            PLeadFinancial Financial = new PLeadFinancial();
+            Financial.LeadFinancialID = 0;
+            Financial.LeadID = Lead.LeadID;
+            Financial.BankName = new PBankName { BankNameID = Convert.ToInt32(ddlBankNameF.SelectedValue) };
+            Financial.FinancePercentage = Convert.ToDecimal(txtFinancePercentageF.Text.Trim());
+            Financial.Remark = txtRemarkF.Text;
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
            
            
-            fillFinancial(Lead.LeadID);
+            fillFinancial();
         }
         protected void btnSaveFollowUp_Click(object sender, EventArgs e)
         {
@@ -260,11 +270,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageFollowUp.Text = Message;
                 return;
             }
-            PLeadFollowUp Lead = new PLeadFollowUp();
-            Lead = UC_FollowUp.ReadFollowUp();
-            Lead.LeadFollowUpID = 0;
-            Lead.LeadID = LeadID;
-            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", Lead));
+            PLeadFollowUp FollowUp = new PLeadFollowUp();
+            FollowUp = UC_FollowUp.ReadFollowUp();
+            FollowUp.LeadFollowUpID = 0;
+            FollowUp.LeadID = Lead.LeadID;
+            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", FollowUp));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageFollowUp.Text = Results.Message;
@@ -273,9 +283,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ShowMessage(Results);
 
             MPE_FollowUp.Hide();
-            fillFollowUp(Lead.LeadID);
+            fillFollowUp();
         }
-
         protected void btnSaveustomerConvocation_Click(object sender, EventArgs e)
         {
             MPE_Convocation.Show();
@@ -287,10 +296,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageConvocation.Text = Message;
                 return;
             }
-            PLeadConvocation Lead = new PLeadConvocation();
-            Lead = UC_CustomerConvocation.ReadConvocation();
-            Lead.LeadID = LeadID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Lead));
+            PLeadConvocation Convocation = new PLeadConvocation();
+            Convocation = UC_CustomerConvocation.ReadConvocation();
+            Convocation.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Convocation));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageConvocation.Text = Results.Message;
@@ -299,9 +308,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ShowMessage(Results);
 
             MPE_Convocation.Hide();
-            fillConvocation(Lead.LeadID);
+            fillConvocation();
         }
-
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
             MPE_AssignSE.Show();
@@ -314,10 +322,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageAssignEngineer.Text = Message;
                 return;
             }
-            PLeadSalesEngineer Lead = new PLeadSalesEngineer();
-            Lead = UC_AssignSE.ReadAssignSE();
-            Lead.LeadID = LeadID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Lead));
+            PLeadSalesEngineer Engineer = new PLeadSalesEngineer();
+            Engineer = UC_AssignSE.ReadAssignSE();
+            Engineer.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Engineer));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageAssignEngineer.Text = Results.Message;
@@ -327,9 +335,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             MPE_AssignSE.Hide();
             tbpCust.ActiveTabIndex = 0;
 
-            fillAssignSalesEngineer(Lead.LeadID);
+            fillAssignSalesEngineer();
         }
-
         protected void btnSaveFinancial_Click(object sender, EventArgs e)
         {
             MPE_Financial.Show();
@@ -341,10 +348,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageFinancial.Text = Message;
                 return;
             }
-            PLeadFinancial Lead = new PLeadFinancial();
-            Lead = UC_Financial.ReadFinancial();
-            Lead.LeadID = LeadID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Lead));
+            PLeadFinancial Financial = new PLeadFinancial();
+            Financial = UC_Financial.ReadFinancial();
+            Financial.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Financial", Financial));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageFinancial.Text = Results.Message;
@@ -352,9 +359,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             ShowMessage(Results);
             MPE_Financial.Hide();
-            fillFinancial(LeadID);
+            fillFinancial();
         }
-
         protected void btnSaveProduct_Click(object sender, EventArgs e)
         {
             MPE_Product.Show();
@@ -366,10 +372,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageProduct.Text = Message;
                 return;
             }
-            PLeadProduct Lead = new PLeadProduct();
-            Lead = UC_Product.ReadProduct();
-            Lead.LeadID = LeadID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Lead));
+            PLeadProduct Product = new PLeadProduct();
+            Product = UC_Product.ReadProduct();
+            Product.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Product", Product));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageProduct.Text = Results.Message;
@@ -377,71 +383,54 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             ShowMessage(Results);
             MPE_Product.Hide();
-            fillProduct(LeadID);
+            fillProduct();
         }
-
-        void fillAssignSalesEngineer(long LeadID)
+        void fillAssignSalesEngineer()
         { 
-            gvSalesEngineer.DataSource = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID, null);
+            gvSalesEngineer.DataSource = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, null);
             gvSalesEngineer.DataBind();
-            UC_AssignSE.FillMaster();
+            
         }
-        void fillFollowUp(long LeadID)
+        void fillFollowUp()
         {
-            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUpByID(LeadID, null); 
+            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUpByID(Lead.LeadID, null); 
             gvFollowUp.DataSource = FollowUp;
             gvFollowUp.DataBind();
 
            
         }
-        void fillConvocation(long LeadID)
+        void fillConvocation()
         { 
-            gvConvocation.DataSource = new BLead().GetLeadConvocation(LeadID, PSession.User.UserID); ;
+            gvConvocation.DataSource = new BLead().GetLeadConvocation(Lead.LeadID, PSession.User.UserID); ;
             gvConvocation.DataBind();
-            UC_CustomerConvocation.FillMaster(LeadID);
         }
-        void fillFinancial(long LeadID)
+        void fillFinancial()
         { 
-            gvFinancial.DataSource = new BLead().GetLeadFinancial(LeadID, PSession.User.UserID);
+            gvFinancial.DataSource = new BLead().GetLeadFinancial(Lead.LeadID, PSession.User.UserID);
             gvFinancial.DataBind();
-            UC_Financial.FillMaster();
         }
-        void fillEffort(long LeadID)
+        void fillEffort()
         {
-            gvEffort.DataSource = new BLead().GetLeadEffort(LeadID, PSession.User.UserID);
+            gvEffort.DataSource = new BLead().GetLeadEffort(Lead.LeadID, PSession.User.UserID);
             gvEffort.DataBind();
 
 
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,true);
-            List<PUser> U = new List<PUser>();
-            foreach (PLeadSalesEngineer SE in SalesEngineer)
-            {
-                U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            }
-            new DDLBind((DropDownList)UC_Effort.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID",false);
         }
-        void fillExpense(long LeadID)
+        void fillExpense()
         {
-            gvExpense.DataSource = new BLead().GetLeadExpense(LeadID, PSession.User.UserID);
+            gvExpense.DataSource = new BLead().GetLeadExpense(Lead.LeadID, PSession.User.UserID);
             gvExpense.DataBind();
 
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,true);
-            List<PUser> U = new List<PUser>();
-            foreach (PLeadSalesEngineer SE in SalesEngineer)
-            {
-                U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            }
-            new DDLBind((DropDownList)UC_Expense.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
+         
         }
-        void fillProduct(long LeadID)
+        void fillProduct()
         {
-            gvProduct.DataSource = new BLead().GetLeadProduct(LeadID, PSession.User.UserID);
+            gvProduct.DataSource = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
             gvProduct.DataBind();
-            UC_Product.FillMaster();
+            
            
 
         }
-
         void fillLeadEdit()
         {
             txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");
@@ -476,7 +465,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void fillSupportDocument()
         {
-            gvSupportDocument.DataSource = new BLead().GetAttachedFileLead(LeadID);
+            gvSupportDocument.DataSource = new BLead().GetAttachedFileLead(Lead.LeadID);
             gvSupportDocument.DataBind();
         }
         protected void btnAddFile_Click(object sender, EventArgs e)
@@ -505,7 +494,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             F.FileType = file.ContentType;
             F.FileSize = size;
             F.AttachedFileID = 0;
-            F.ReferenceID = LeadID;
+            F.ReferenceID = Lead.LeadID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/AttachedFile", F));
@@ -517,7 +506,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             } 
             fillSupportDocument();
         }
-
         protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
         {
             try
@@ -553,14 +541,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Response.End();
             }
         }
-
         protected void lbSupportDocumentDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
             PAttachedFile F = new PAttachedFile();
             F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-            F.ReferenceID = LeadID;
+            F.ReferenceID = Lead.LeadID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/AttachedFile", F));
             ShowMessage(Results);
@@ -571,7 +558,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             } 
             fillSupportDocument();
         }
-
         protected void BtnSaveQuotation_Click(object sender, EventArgs e)
         {
             MPE_Quotation.Show();
@@ -596,8 +582,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Response.Redirect("Quotation.aspx?Quotation=" + Results.Data);
             ShowMessage(Results);
             MPE_Quotation.Hide(); 
-        }
-         
+        }         
         protected void btnLostReasonUpdate_Click(object sender, EventArgs e)
         {
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
@@ -611,7 +596,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtLostReason.Text = "";
             fillViewLead(Lead.LeadID);
         }
-
         protected void btnRejectedBySalesUpdate_Click(object sender, EventArgs e)
         {
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=7&Reason=" + txtRejectedBySalesReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
@@ -625,7 +609,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtRejectedBySalesReason.Text = "";
             fillViewLead(Lead.LeadID);
         }
-
         protected void btnLeadEdit_Click(object sender, EventArgs e)
         {
             MPE_Lead.Show();
@@ -717,7 +700,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             return Message;
         }
-
         void ShowMessage(PApiResult Results)
         {
             lblMessage.Text = Results.Message;
@@ -754,6 +736,5 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
              
         }
-
     }
 }

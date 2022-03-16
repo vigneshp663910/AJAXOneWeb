@@ -346,11 +346,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessageCustomerEdit.Text = Message;
                 return;
             } 
-            PDMS_Customer Customer = UC_Customer.ReadCustomer();
-            Customer.CustomerID = Customer.CustomerID;
-            Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            PDMS_Customer CustomerU = UC_Customer.ReadCustomer();
+            CustomerU.CustomerID = Customer.CustomerID;
+            CustomerU.CreatedBy = new PUser { UserID = PSession.User.UserID };
             string result = new BAPI().ApiPut("Customer", Customer);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", Customer));
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", CustomerU));
 
             if (Result.Status == PApplication.Failure)
             {
