@@ -321,11 +321,11 @@
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="UserID / Email / Mobile"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="UserID / Email / Mobile" CausesValidation="false"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                         ControlToValidate="txtUsername" ToolTip="<%$ Resources:Resource,ttpUsername %>" ForeColor="Red"><img src="images/error_info.png" alt="info" />
 
-                                    </asp:RequiredFieldValidator>
+                                    </asp:RequiredFieldValidator>--%>
                                     <%-- <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required>--%>
                                 </div>
                                 <div>
@@ -334,7 +334,7 @@
                                 </div>
                                 <div>
                                     <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
                                 </div>
@@ -344,7 +344,7 @@
                             </div>
                             <div class="col-md-12">
                                 <br />
-                                <asp:LinkButton ID="LnkForgotPassword" runat="server" OnClick="lForgetPassword_Click">Forgot password?</asp:LinkButton>
+                                <asp:LinkButton ID="LnkForgotPassword" runat="server" OnClick="lForgetPassword_Click" CausesValidation="false">Forgot password?</asp:LinkButton>
                                 <%--<br />
                                 <br />
                                 <label>Don't have ajax account?</label>

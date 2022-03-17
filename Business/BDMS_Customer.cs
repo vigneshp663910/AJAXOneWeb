@@ -837,10 +837,16 @@ namespace Business
                         }
                     }
                 }
+                else
+                {
+                    string SUBRC= new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer);
+                    if (SUBRC == "0") { success = 1; }
+                }
                 return success;
             }
             catch (Exception e1)
             {
+                throw e1;
             }
             TraceLogger.Log(DateTime.Now);
             return success;
