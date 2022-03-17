@@ -303,12 +303,27 @@
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" Width="250px" />
                     </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Department</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Designation</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                    </div>
+
                     <div class="col-md-3 text-right">
                         <label>Reporting To</label>
                     </div>
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
-                    </div>
+                    </div> 
+
                     <div class="col-md-3 text-right">
                         <label>SAP Emp Code</label>
                     </div>

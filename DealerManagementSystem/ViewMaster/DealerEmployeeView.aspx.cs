@@ -112,8 +112,13 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
                     FillDealerEmployeeRole(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
+                    new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                 }
             }
+        }
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
 
         private PDMS_DealerEmployeeAttachedFile CreateUploadedFile(HttpPostedFile file)
@@ -346,10 +351,13 @@ namespace DealerManagementSystem.ViewMaster
             }
             long DealerEmployeeRoleID = (long)ViewState["ActiveRoleID"];
             int OfficeCodeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            int? DealerDepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue); 
+            int? DealerDesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+
             int? ReportingTo = ddlReportingTo.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReportingTo.SelectedValue);
 
 
-            if (new BDMS_Dealer().UpdateDealerEmployeeRole(DealerEmployeeRoleID, OfficeCodeID, ReportingTo, txtSAPEmpCode.Text.Trim(), PSession.User.UserID))
+            if (new BDMS_Dealer().UpdateDealerEmployeeRole(DealerEmployeeRoleID, OfficeCodeID, DealerDepartmentID, DealerDesignationID, ReportingTo, txtSAPEmpCode.Text.Trim(), PSession.User.UserID))
             {
                 lblMessage.Text = "Role updated successfully ";
                 lblMessage.ForeColor = Color.Green;

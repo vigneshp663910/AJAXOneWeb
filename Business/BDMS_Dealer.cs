@@ -984,20 +984,27 @@ namespace Business
             return true;
         }
 
-        public Boolean UpdateDealerEmployeeRole(long DealerEmployeeRoleID, int OfficeCodeID, int? ReportingTo, string SAPEmpCode, int UserID)
+        public Boolean UpdateDealerEmployeeRole(long DealerEmployeeRoleID, int OfficeCodeID,int? DealerDepartmentID,int? DealerDesignationID, int? ReportingTo, string SAPEmpCode, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             try
             {
                 DbParameter DealerEmployeeRoleIDP = provider.CreateParameter("DealerEmployeeRoleID", DealerEmployeeRoleID, DbType.Int64);
                 DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", OfficeCodeID, DbType.Int32);
+
+                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+
+
                 DbParameter ReportingToP = provider.CreateParameter("ReportingTo", ReportingTo, DbType.Int32);
                 DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+
+
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
 
-                    DbParameter[] Params = new DbParameter[5] { DealerEmployeeRoleIDP, OfficeCodeIDP, ReportingToP, SAPEmpCodeP, UserIDP };
+                    DbParameter[] Params = new DbParameter[7] { DealerEmployeeRoleIDP, OfficeCodeIDP, DealerDepartmentIDP, DealerDesignationIDP, ReportingToP, SAPEmpCodeP, UserIDP };
                     provider.Insert("ZDMS_UpdateDealerEmployeeRole", Params);
                     scope.Complete();
                 }
