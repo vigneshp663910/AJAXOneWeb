@@ -13,7 +13,9 @@ namespace DealerManagementSystem.ViewAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Manage Mobile User');</script>");
+
+            if (!IsPostBack)
             {
                 fillDealer();
             }
