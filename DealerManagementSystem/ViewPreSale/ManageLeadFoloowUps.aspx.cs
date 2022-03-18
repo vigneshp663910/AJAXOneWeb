@@ -40,6 +40,8 @@ namespace DealerManagementSystem.ViewPreSale
         {
             if (!IsPostBack)
             {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Manage Follow up');</script>");
+
                 txtDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FillFollowUps();
             }
