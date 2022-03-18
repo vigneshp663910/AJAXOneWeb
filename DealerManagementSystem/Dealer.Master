@@ -1927,7 +1927,7 @@
 
                         <div style="float: right; padding-right: 0.5em;">
 
-                            <div class="dropdown">
+                            <div class="dropdown" style="display:none">
                                 <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
                             </div>
 

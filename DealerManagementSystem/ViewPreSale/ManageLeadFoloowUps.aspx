@@ -11,7 +11,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
-                        <div class="col-md-2 col-sm-12"  style="display: none">
+                      <%--  <div class="col-md-2 col-sm-12"  style="display: none">
                             <label class="modal-label">State</label>
                             <asp:DropDownList ID="ddlFollow" runat="server" CssClass="form-control">
                                 <asp:ListItem>Today's Follow-ups</asp:ListItem>
@@ -27,7 +27,7 @@
                                 <asp:ListItem>Assigned Follow-ups</asp:ListItem>
                                 <asp:ListItem>Team Follow-ups</asp:ListItem>
                             </asp:DropDownList>
-                        </div>
+                        </div>--%>
 
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
@@ -42,25 +42,14 @@
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
-                                <div id="div1" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div2" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div3" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div4" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div5" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                            </div>
+                            
                         </div>
-                        <div class="col-md-2 col-sm-12">
+                    <%--    <div class="col-md-2 col-sm-12"  >
                             <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
+                        </div>--%>
                         <div class="col-md-12 text-center">
-                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve"></asp:Button>
+                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         </div>
                     </div>
                 </fieldset>

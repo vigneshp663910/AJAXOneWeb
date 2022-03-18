@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,10 +17,12 @@ namespace DealerManagementSystem.Account
 
         protected void btnLogOutYes_Click(object sender, EventArgs e)
         {
-            Session.Abandon();
-            Request.Cookies.Clear();
-            Session.Clear();
-            Session.RemoveAll();
+            //Session.Abandon();
+            //Request.Cookies.Clear();
+            //Session.Clear();
+            //Session.RemoveAll();
+
+            PSession.User = null;
             Response.Redirect("/Account/SignOut.htm");
             
         }

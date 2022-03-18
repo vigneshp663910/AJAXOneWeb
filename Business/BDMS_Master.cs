@@ -114,9 +114,9 @@ namespace Business
             string endPoint = "Master/ProductType?ProductTypeID=" + MarketSegmentID + "&ProductType=" + MarketSegment;
             return JsonConvert.DeserializeObject<List<PProductType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PProduct> GetProduct(int? ProductID, string Product)
+        public List<PProduct> GetProduct(int? ProductID, int? MakeID, int? ProductTypeID, string Product)
         {
-            string endPoint = "Master/Product?ProductID=" + ProductID + "&Product=" + Product;
+            string endPoint = "Master/Product?ProductID=" + ProductID + "&MakeID=" + MakeID + "&ProductTypeID=" + ProductTypeID + "&Product=" + Product;
             return JsonConvert.DeserializeObject<List<PProduct>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 

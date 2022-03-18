@@ -97,8 +97,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Add Competitor")
             {
                 new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
-                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-                new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID"); 
                 MPE_Competitor.Show();
             }
             else if (lbActions.Text == "Add Quotation Note")
@@ -555,30 +554,26 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblQuotationType.Text = Quotation.QuotationType.QuotationType;
             lblQuotationStatus.Text = Quotation.Status.SalesQuotationStatus;
             lblValidFrom.Text = Quotation.ValidFrom == null ? "" : ((DateTime)Quotation.ValidFrom).ToLongDateString();
-            lblValidTo.Text = Quotation.ValidTo == null ? "" : ((DateTime)Quotation.ValidTo).ToLongDateString();  
-            lblPricingDate.Text = Quotation.PricingDate == null ? "" : ((DateTime)Quotation.PricingDate).ToLongDateString();  
+            lblValidTo.Text = Quotation.ValidTo == null ? "" : ((DateTime)Quotation.ValidTo).ToLongDateString();
+            lblPricingDate.Text = Quotation.PricingDate == null ? "" : ((DateTime)Quotation.PricingDate).ToLongDateString();
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
-            lblLeadNumber.Text = Quotation.Lead.LeadNumber;
-            lblLeadDate.Text = Quotation.Lead.LeadDate.ToShortDateString();
-            lblDealer.Text = Quotation.RefQuotationNo;
-            //lblRemarks.Text = Quotation.RefQuotationNo;
-            lblCustomer.Text = Quotation.RefQuotationNo;
+            
+            //lblRemarks.Text = Quotation.RefQuotationNo; 
 
-            lblContactPerson.Text = Quotation.RefQuotationNo;
-            lblMobile.Text = Quotation.RefQuotationNo;
+            //lblContactPerson.Text = Quotation.RefQuotationNo;
+            //lblMobile.Text = Quotation.RefQuotationNo;
 
-            lblEmail.Text = Quotation.RefQuotationNo;
-            lblLocation.Text = Quotation.RefQuotationNo;
-            lblImportance.Text = Quotation.RefQuotationNo;
+            //lblEmail.Text = Quotation.RefQuotationNo;
+            //lblLocation.Text = Quotation.RefQuotationNo;
+            //lblImportance.Text = Quotation.RefQuotationNo;
 
 
-
-            //this.LeadID = LeadID;
-            //PLeadSearch S = new PLeadSearch();
+             
+            PLeadSearch S = new PLeadSearch();
             //S.LeadID = LeadID;
-            //Lead = new BLead().GetLead(S)[0];
+            Lead = new BLead().GetLead(S)[0];
             //lblLeadNumber.Text = Lead.LeadNumber;
             //lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
             //lblCategory.Text = Lead.Category.Category;
@@ -603,6 +598,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillEffort();
             fillExpense();
             ActionControlMange();
+
+            UC_LeadView.fillViewLead(Quotation.Lead);
+            CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
+            if (Quotation.ShipTo != null)
+                CustomerViewShifTo.fillCustomer(Quotation.ShipTo);
         }
         
         
@@ -746,7 +746,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void GenerateQuotation()
         {
             PSalesQuotation Q = Quotation;
-            string QuotationNo= new SQuotation().getQuotationIntegration(Q);
+            DataTable DtResult = new SQuotation().getQuotationIntegration(Q);
+            lblMessage.Text = "";
+            foreach (DataRow dr in DtResult.Rows)
+            {
+                if (dr["Type"].ToString() == "S")
+                {
+                    lblMessage.Text = dr["Message"].ToString();
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Green;
+                }
+                else
+                {
+                    lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                }
+            }
         }
         void GeneratePDF()
         {
@@ -769,12 +785,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             P[0] = new ReportParameter("QuotationType", Q.QuotationType.QuotationType, false);
             P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
             P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
-            P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName+" "+ Q.Lead.Customer.CustomerName2, false);
+            P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
             P[4] = new ReportParameter("CustomerAddress1", Q.Lead.Customer.Address1, false);
             P[5] = new ReportParameter("CustomerAddress2", Q.Lead.Customer.Address2, false);
             P[6] = new ReportParameter("CustomerAddress3", Q.Lead.Customer.Address3, false);
             P[7] = new ReportParameter("City", Q.Lead.Customer.City, false);
-            P[8] = new ReportParameter("District", (Q.Lead.Customer.District==null)?"": Q.Lead.Customer.District.District, false);
+            P[8] = new ReportParameter("District", (Q.Lead.Customer.District == null) ? "" : Q.Lead.Customer.District.District, false);
             P[9] = new ReportParameter("State", (Q.Lead.Customer.State == null) ? "" : Q.Lead.Customer.State.State, false);
             P[10] = new ReportParameter("Country", (Q.Lead.Customer.Country == null) ? "" : Q.Lead.Customer.Country.Country, false);
             P[11] = new ReportParameter("PinCode", Q.Lead.Customer.Pincode, false);
@@ -800,11 +816,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
             }
-                
+
             ReportDataSource rds = new ReportDataSource();
             rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
             rds.Value = dtItem;
-            report.DataSources.Add(rds);;
+            report.DataSources.Add(rds); ;
 
             Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
 
@@ -840,6 +856,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnGenerateQuotation.Visible = false;
             //lbtnPrintPDF.Visible = false;
 
+        }
+
+        protected void FillProduct(object sender, EventArgs e)
+        {
+            MPE_Competitor.Show();
+
+            int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
+            int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, MakeID, ProductTypeID, null), "Product", "ProductID");
         }
     }
 }

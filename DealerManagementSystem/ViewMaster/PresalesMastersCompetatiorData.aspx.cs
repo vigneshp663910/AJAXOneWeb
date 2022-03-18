@@ -351,7 +351,7 @@ namespace DealerManagementSystem.ViewMaster
             int? ProductID = (int?)null;
             string Product = (string)null;
 
-            List<PProduct> product = new BDMS_Master().GetProduct(ProductID, Product);
+            List<PProduct> product = new BDMS_Master().GetProduct(ProductID,null,null, Product);
             gvProduct.DataSource = product;
             gvProduct.DataBind();
             if (product.Count == 0)

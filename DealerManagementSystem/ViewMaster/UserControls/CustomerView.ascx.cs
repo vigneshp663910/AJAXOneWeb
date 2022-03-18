@@ -508,7 +508,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-                new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+                
                 MPE_Product.Show();
             }
             else if (lbActions.Text == "Add Relation")
@@ -851,6 +851,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lbtnVerifiedCustomer.Visible = false;
                 lbtnSyncToSap.Visible = false;
             }
+        }
+
+        protected void FillProduct(object sender, EventArgs e)
+        {
+            MPE_Product.Show();
+             
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, Convert.ToInt32(ddlMake.SelectedValue), Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
         }
     }
 }

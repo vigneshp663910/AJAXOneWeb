@@ -38,11 +38,20 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            FillFollowUps();
+            if (!IsPostBack)
+            {
+                txtDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                FillFollowUps();
+            }
         }
         void FillFollowUps()
         {
-            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(null, null, null, null, PSession.User.UserID);
+            long? LeadID = null;
+            int? SalesEngineerUserID = null;
+            //DateTime? From = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
+            //DateTime? To = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
+            int? DealerID =  null;
+            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
             gvFollowUp.DataSource = FollowUp;
             gvFollowUp.DataBind();
         }
@@ -85,6 +94,11 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.Text = "Removed successfully";
                 lblMessage.ForeColor = Color.Green;
             }
+            FillFollowUps();
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
             FillFollowUps();
         }
     }

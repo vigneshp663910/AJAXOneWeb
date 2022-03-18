@@ -1,0 +1,39 @@
+﻿using Business;
+using Properties;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace DealerManagementSystem.ViewPreSale.UserControls
+{
+    public partial class LeadViewHeader : System.Web.UI.UserControl
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+        public void fillViewLead(PLead Lead)
+        { 
+            lblLeadNumber.Text = Lead.LeadNumber;
+            lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
+            lblCategory.Text = Lead.Category.Category;
+            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
+            lblQualification.Text = Lead.Qualification.Qualification;
+            lblSource.Text = Lead.Source.Source;
+            lblStatus.Text = Lead.Status.Status;
+            lblType.Text = Lead.Type.Type;
+            lblDealer.Text = Lead.Dealer.DealerCode;
+            lblRemarks.Text = Lead.Remarks;
+            lblCustomer.Text = Lead.Customer.CustomerFullName;
+            lblContactPerson.Text = Lead.Customer.ContactPerson;
+            lblMobile.Text = Lead.Customer.Mobile;
+            lblEmail.Text = Lead.Customer.Email;
+
+            string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
+            lblLocation.Text = Location; 
+        }
+    }
+}

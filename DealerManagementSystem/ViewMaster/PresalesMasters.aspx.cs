@@ -1384,7 +1384,9 @@ namespace DealerManagementSystem.ViewMaster
             int? ProductID = (int?)null;
             string Product = (string)null;
 
-            List<PProduct> product = new BDMS_Master().GetProduct(ProductID, Product);
+           // int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
+           // int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
+            List<PProduct> product = new BDMS_Master().GetProduct(ProductID,null,null, Product);
             gvProduct.DataSource = product;
             gvProduct.DataBind();
             if (product.Count == 0)

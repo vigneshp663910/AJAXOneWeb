@@ -1,0 +1,38 @@
+﻿using Business;
+using Properties;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace DealerManagementSystem.ViewMaster.UserControls
+{
+    public partial class CustomerViewHeader : System.Web.UI.UserControl
+    { 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+        public void fillCustomer(PDMS_Customer Customer)
+        { 
+            lblCustomer.Text = Customer.CustomerFullName;
+            lblContactPerson.Text = Customer.ContactPerson;
+            lblMobile.Text = Customer.Mobile;
+            lblAlternativeMobile.Text = Customer.AlternativeMobile;
+            lblEmail.Text = Customer.Email;
+            lblGSTIN.Text = Customer.GSTIN;
+            lblPAN.Text = Customer.PAN;
+
+            string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
+            lblAddress.Text = Address;
+
+            cbVerified.Checked = Customer.IsVerified;
+            cbIsActive.Checked = Customer.IsActive;
+            cbOrderBlock.Checked = Customer.OrderBlock;
+            cbDeliveryBlock.Checked = Customer.DeliveryBlock;
+            cbBillingBlock.Checked = Customer.BillingBlock; 
+        }
+    }
+}

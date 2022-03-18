@@ -1,5 +1,6 @@
 ﻿using Business;
 using Properties;
+using SapIntegration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -61,16 +62,20 @@ namespace DealerManagementSystem.Account
         private void FillDealerEmployeeRole(int DealerEmployeeID)
         {
             List<PDMS_DealerEmployeeRole> Role = new BDMS_Dealer().GetDealerEmployeeRole(null, DealerEmployeeID, null, null);
+
+            PDMS_Customer Dealer = new SCustomer().getCustomerAddress("9005");
             lblCompanyName.Text = Role[0].Dealer.DealerName;
             lblCompanyCode.Text = Role[0].DealerOffice.OfficeName;
-            lblAddress.Text = Role[0].DealerOffice.Address1;
-            lblCity.Text = Role[0].DealerOffice.City;
-            lblPincode.Text = Role[0].DealerOffice.Pincode;
+            lblAddress.Text = Dealer.Address1;
+            lblCountry.Text = Dealer.GSTIN;
+            lblState.Text = Dealer.State.State;
+            lblCity.Text = Dealer.City;
+            lblPincode.Text = Dealer.Pincode;
 
             lblContactNo1.Text = "";
             lblContactNo2.Text = "";
-            lblEmail.Text = Role[0].DealerOffice.Email;
-            lblMobileNumber.Text = Role[0].DealerOffice.Mobile;
+            lblEmail.Text = Dealer.Email;
+            lblMobileNumber.Text = Dealer.Mobile;
             lblRegistrationDate.Text = "";
             lblActivationDate.Text = "";
             lblURL.Text = "";

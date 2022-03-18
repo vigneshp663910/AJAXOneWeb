@@ -770,11 +770,11 @@
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Make</label>
-                        <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" />
+                        <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" OnSelectedIndexChanged="FillProduct" AutoPostBack="true" />
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Product Type</label>
-                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
+                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"  OnSelectedIndexChanged="FillProduct" AutoPostBack="true" />
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Product</label>

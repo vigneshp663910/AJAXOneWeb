@@ -2,6 +2,7 @@
 using SAP.Middleware.Connector;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -9,214 +10,83 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public string getQuotationIntegration(PSalesQuotation pSalesQuotation)
+        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation)
         {
-            string QuotationNo=null;
+            string QuotationNo = null;
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
+
+            if (pSalesQuotation.ShipTo != null)
+            {
+                tagListBapi.SetValue("SHIP_TO_PARTY", "0000300525");
+            }
+            else
+            {
+                if (pSalesQuotation.Lead.Customer.CustomerCode != null)
+                {
+                    tagListBapi.SetValue("SHIP_TO_PARTY", "0000300525");
+                }
+            }
+
+            if (pSalesQuotation.Lead.Customer.CustomerCode != null)
+            {
+                tagListBapi.SetValue("SOLD_TO_PARTY", "0000300525");
+            }
+
+
+
             IRfcStructure QTHeader = tagListBapi.GetStructure("QUOTATION_HEADER_IN");
-            QTHeader.SetValue("REFOBJTYPE", "");
-            QTHeader.SetValue("REFOBJKEY", "");
-            QTHeader.SetValue("REFDOCTYPE", "");            
             QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
-            QTHeader.SetValue("COLLECT_NO", "");
-            QTHeader.SetValue("SALES_ORG", "");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
+            QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QTHeader.SetValue("DISTR_CHAN", "GT");
             QTHeader.SetValue("DIVISION", "CM");
-            QTHeader.SetValue("SALES_GRP", pSalesQuotation.Lead.Customer.SalesGroup);
-            QTHeader.SetValue("SALES_OFF", pSalesQuotation.Lead.Customer.SalesOffice);
-            QTHeader.SetValue("REQ_DATE_H", "");
-            QTHeader.SetValue("DATE_TYPE", "");
-            QTHeader.SetValue("PURCH_DATE", "");
-            QTHeader.SetValue("PO_METHOD", "");
-            QTHeader.SetValue("PO_SUPPLEM", "");
-            QTHeader.SetValue("REF_1", "");
-            QTHeader.SetValue("NAME", pSalesQuotation.Lead.Customer.CustomerCode);
-            QTHeader.SetValue("TELEPHONE", pSalesQuotation.Lead.Customer.Mobile);
-            QTHeader.SetValue("PRICE_GRP", pSalesQuotation.PriceGroup.PriceGroupCode);
-            QTHeader.SetValue("CUST_GROUP", "GT");
-            QTHeader.SetValue("SALES_DIST", pSalesQuotation.Lead.Customer.SalesDistrict);
-            QTHeader.SetValue("PRICE_LIST", "");
-            QTHeader.SetValue("INCOTERMS1", "");
-            QTHeader.SetValue("INCOTERMS2", "");
-            QTHeader.SetValue("PMNTTRMS", "");
-            QTHeader.SetValue("DLV_BLOCK", "");
-            QTHeader.SetValue("BILL_BLOCK", "");
-            QTHeader.SetValue("ORD_REASON", "");
-            QTHeader.SetValue("COMPL_DLV", "");
-            QTHeader.SetValue("PRICE_DATE", pSalesQuotation.PricingDate);
-            QTHeader.SetValue("QT_VALID_F", pSalesQuotation.ValidFrom);
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
-            QTHeader.SetValue("CT_VALID_F", "");
-            QTHeader.SetValue("CT_VALID_T", pSalesQuotation.ValidTo);
-            QTHeader.SetValue("CUST_GRP1", "");
-            QTHeader.SetValue("CUST_GRP2", "");
-            QTHeader.SetValue("CUST_GRP3", "");
-            QTHeader.SetValue("CUST_GRP4", "");
-            QTHeader.SetValue("CUST_GRP5", "");
-            QTHeader.SetValue("PURCH_NO_C", "");
-            QTHeader.SetValue("PURCH_NO_S", "");
-            QTHeader.SetValue("PO_DAT_S", "");
-            QTHeader.SetValue("PO_METH_S", "");
-            QTHeader.SetValue("REF_1_S", "");
-            QTHeader.SetValue("SD_DOC_CAT", "");
-            QTHeader.SetValue("DOC_DATE", "");
-            QTHeader.SetValue("WAR_DATE", "");
-            QTHeader.SetValue("SHIP_COND", "");
-            QTHeader.SetValue("PP_SEARCH", "");
-            QTHeader.SetValue("DUN_COUNT", "0");
-            QTHeader.SetValue("DUN_DATE", "");
-            QTHeader.SetValue("DLVSCHDUSE", "");
-            QTHeader.SetValue("PLDLVSTYP", "");
-            QTHeader.SetValue("REF_DOC", "");
-            QTHeader.SetValue("COMP_CDE_B", "");
-            QTHeader.SetValue("ALTTAX_CLS", "");
-            QTHeader.SetValue("TAX_CLASS2", "");
-            QTHeader.SetValue("TAX_CLASS3", "");
-            QTHeader.SetValue("TAX_CLASS4", "");
-            QTHeader.SetValue("TAX_CLASS5", "");
-            QTHeader.SetValue("TAX_CLASS6", "");
-            QTHeader.SetValue("TAX_CLASS7", "");
-            QTHeader.SetValue("TAX_CLASS8", "");
-            QTHeader.SetValue("TAX_CLASS9", "");
-            QTHeader.SetValue("REF_DOC_L", "");
-            QTHeader.SetValue("ASS_NUMBER", "");
-            QTHeader.SetValue("REFDOC_CAT", "");
-            QTHeader.SetValue("ORDCOMB_IN", "");
-            QTHeader.SetValue("BILL_SCHED", "");
-            QTHeader.SetValue("INVO_SCHED", "");
-            QTHeader.SetValue("MN_INVOICE", "");
-            QTHeader.SetValue("EXRATE_FI", "");
-            QTHeader.SetValue("ADD_VAL_DY", "00");
-            QTHeader.SetValue("FIX_VAL_DY", "");
-            QTHeader.SetValue("PYMT_METH", "");
-            QTHeader.SetValue("ACCNT_ASGN", "");
-            QTHeader.SetValue("EXCHG_RATE", "0.00000");
-            QTHeader.SetValue("BILL_DATE", "");
-            QTHeader.SetValue("SERV_DATE", "");
-            QTHeader.SetValue("DUNN_KEY", "");
-            QTHeader.SetValue("DUNN_BLOCK", "");
-            QTHeader.SetValue("PMTGAR_PRO", "");
-            QTHeader.SetValue("DEPARTM_NO", "");
-            QTHeader.SetValue("REC_POINT", "");
-            QTHeader.SetValue("DOC_NUM_FI", "");
-            QTHeader.SetValue("CSTCNDGRP1", "");
-            QTHeader.SetValue("CSTCNDGRP2", "");
-            QTHeader.SetValue("CSTCNDGRP3", "");
-            QTHeader.SetValue("CSTCNDGRP4", "");
-            QTHeader.SetValue("CSTCNDGRP5", "");
-            QTHeader.SetValue("DLV_TIME", "");
-            QTHeader.SetValue("CURRENCY", "");
-            QTHeader.SetValue("CURR_ISO", "");
-            QTHeader.SetValue("CREATED_BY", "");
-            QTHeader.SetValue("TAXDEP_CTY", "");
-            QTHeader.SetValue("TAXDST_CTY", "");
-            QTHeader.SetValue("EUTRI_DEAL", "");
-            QTHeader.SetValue("MAST_CONTR", "");
-            QTHeader.SetValue("REF_PROC", "");
-            QTHeader.SetValue("CHKPRTAUTH", "");
-            QTHeader.SetValue("CMLQTY_DAT", "");
-            QTHeader.SetValue("VERSION", "");
-            QTHeader.SetValue("NOTIF_NO", "");
-            QTHeader.SetValue("WBS_ELEM", "");
-            QTHeader.SetValue("EXCH_RATE_FI_V", "");
-            QTHeader.SetValue("EXCHG_RATE_V", "0.00000");
-            QTHeader.SetValue("FKK_CONACCT", "");
-            QTHeader.SetValue("CAMPAIGN", "0000000000000000000000");
-            QTHeader.SetValue("DOC_CLASS", "");
-            QTHeader.SetValue("H_CURR", "");
-            QTHeader.SetValue("H_CURR_ISO", "");
-            QTHeader.SetValue("SHIP_TYPE", "");
-            QTHeader.SetValue("S_PROC_IND", "");
-            QTHeader.SetValue("REF_DOC_L_LONG", "");
-            QTHeader.SetValue("LINE_TIME", "");
-            QTHeader.SetValue("CALC_MOTIVE", "");
-            QTHeader.SetValue("PSM_PSTNG_DATE", "");
-            QTHeader.SetValue("TREASURY_ACC_SYMBOL", "");
-            QTHeader.SetValue("BUSINESS_EVENT_TCODE", "");
-            QTHeader.SetValue("MODIFICATION_ALLOWED", "");
-            QTHeader.SetValue("CANCELLATION_ALLOWED", "");
-            QTHeader.SetValue("PAYMENT_METHODS", "");
-            QTHeader.SetValue("BUSINESS_PARTNER_NO", "");
-            QTHeader.SetValue("REPORTING_FREQ", "");
-            QTHeader.SetValue("SEPA_MANDATE_ID", "");
-            QTHeader.SetValue("SD_DOC_CAT_LONG", "");
-            QTHeader.SetValue("REFDOC_CAT_LONG", "");
-            QTHeader.SetValue("INCOTERMSV", pSalesQuotation.Lead.Customer);
-            QTHeader.SetValue("INCOTERMS2L", "");
-            QTHeader.SetValue("INCOTERMS3L", "");
 
-            IRfcStructure QTH_Financier = tagListBapi.GetStructure("FINANCIER_FIELDS");
-            QTH_Financier.SetValue("VBELN", "");
-            QTH_Financier.SetValue("ZFINCOD", "");
-            QTH_Financier.SetValue("ZADVAMT", "");
-            QTH_Financier.SetValue("ZFINAMT", "");
-            QTH_Financier.SetValue("ZCREDIT_DAYS", "");
-            QTH_Financier.SetValue("ZSTATUS", "");
-            QTH_Financier.SetValue("ZZDONO", "");
-            QTH_Financier.SetValue("ZZDODATE", "");
-            QTH_Financier.SetValue("ZZFREIGHT", "");
-            QTH_Financier.SetValue("ZBENDO", "");
-            QTH_Financier.SetValue("ZTOT", "");
-            QTH_Financier.SetValue("ZSUBAMT", "");
+            IRfcTable QT_Item = tagListBapi.GetTable("QUOTATION_ITEMS_IN");
+            for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
+            {
+                QT_Item.Append();
+                QT_Item.SetValue("ITM_NUMBER", pSalesQuotation.QuotationItems[i].Item);//"000010"
+                QT_Item.SetValue("MATERIAL", pSalesQuotation.QuotationItems[i].Material.MaterialCode);//"L.900.508"
+                QT_Item.SetValue("PLANT", pSalesQuotation.QuotationItems[i].Plant.PlantCode);//"P003"
+                QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty);//"1.000"
+            }
 
-            IRfcStructure QT_Item = tagListBapi.GetStructure("QUOTATION_ITEMS_IN");
-            QT_Item.SetValue("ITM_NUMBER", "");
-            QT_Item.SetValue("HG_LV_ITEM", "");
-            QT_Item.SetValue("PO_ITM_NO", "");
-            QT_Item.SetValue("MATERIAL", "");
-            QT_Item.SetValue("ALT_TO_ITM", "");
-            QT_Item.SetValue("CUST_MAT22", "");
-            QT_Item.SetValue("BATCH", "");
-            QT_Item.SetValue("DLV_GROUP", "");
-            QT_Item.SetValue("PART_DLV", "");
-            QT_Item.SetValue("REASON_REJ", "");
-            QT_Item.SetValue("BILL_BLOCK", "");
-            QT_Item.SetValue("BILL_DATE", "");
-            QT_Item.SetValue("PLANT", "");
-            QT_Item.SetValue("STORE_LOC", "");
-            QT_Item.SetValue("TARGET_QTY", "");
-            QT_Item.SetValue("TARGET_QU", "");
-            QT_Item.SetValue("T_UNIT_ISO", "");
-            QT_Item.SetValue("ITEM_CATEG", "");
-            QT_Item.SetValue("SHORT_TEXT", "");
-            QT_Item.SetValue("PRC_GROUP1", "");
-            QT_Item.SetValue("PRC_GROUP2", "");
-            QT_Item.SetValue("PRC_GROUP3", "");
-            QT_Item.SetValue("PRC_GROUP4", "");
-            QT_Item.SetValue("PRC_GROUP5", "");
-            QT_Item.SetValue("PROD_HIERA", "");
-            QT_Item.SetValue("MATL_GROUP", "");
-            QT_Item.SetValue("PURCH_NO_C", "");
-            QT_Item.SetValue("PURCH_DATE", "");
-            QT_Item.SetValue("PO_METHOD", "");
-            QT_Item.SetValue("REF_1", "");
-            QT_Item.SetValue("PURCH_NO_S", "");
-            QT_Item.SetValue("PO_DAT_S", "");
-            QT_Item.SetValue("PO_METH_S", "");
-            QT_Item.SetValue("REF_1_S", "");
-            QT_Item.SetValue("POITM_NO_S", "");
-            QT_Item.SetValue("PRICE_GRP", "");
-            QT_Item.SetValue("CUST_GROUP", "");
-            QT_Item.SetValue("SALES_DIST", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
-            QT_Item.SetValue("", "");
+
+            //IRfcTable QT_TEXT = tagListBapi.GetTable("QUOTATION_TEXT");
+            //for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
+            //{
+            //    QT_TEXT.Append();
+            //    QT_TEXT.SetValue("TEXT_ID", "MOB");
+            //    QT_TEXT.SetValue("TEXT_LINE", "123456789");
+            //}
 
             tagListBapi.Invoke(SAP.RfcDes());
-            return QuotationNo;
+            QuotationNo = tagListBapi.GetValue("P_QUOTATION_NO").ToString();
+            IRfcTable table = tagListBapi.GetTable("RETURN");
+            string Msg = table.GetValue("MESSAGE").ToString();
+            string Type = table.GetValue("Type").ToString();
+
+            DataTable dtRet = new DataTable();
+
+            for (int Column = 0; Column < 4; Column++)
+            {
+                RfcElementMetadata rfcEMD = table.GetElementMetadata(Column);
+                dtRet.Columns.Add(rfcEMD.Name);
+            }
+
+            foreach (IRfcStructure row in table)
+            {
+                DataRow dr = dtRet.NewRow();
+                for (int Column = 0; Column < 4; Column++)
+                {
+                    RfcElementMetadata rfcEMD = table.GetElementMetadata(Column);
+                    dr[rfcEMD.Name] = row.GetString(rfcEMD.Name);
+                    // Console.WriteLine("{0} is {1}", rfcEMD.Documentation, dr[rfcEMD.Name]);
+                }
+                dtRet.Rows.Add(dr);
+            }
+            if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
+            return dtRet;
         }
     }
 }

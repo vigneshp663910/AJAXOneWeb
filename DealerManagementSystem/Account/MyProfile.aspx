@@ -115,7 +115,7 @@
                     </div>
 
                     <div class="col-md-3 text-right">
-                        <label>Role</label>
+                        <label>Department</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblRole" runat="server" CssClass="label"></asp:Label>
@@ -130,7 +130,7 @@
                     </div>
 
                     <div class="col-md-3 text-right">
-                        <label>-</label>
+                        <label></label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lbl_" runat="server" CssClass="label"></asp:Label>

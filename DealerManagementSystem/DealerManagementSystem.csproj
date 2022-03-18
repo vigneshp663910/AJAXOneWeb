@@ -329,6 +329,7 @@
     <Content Include="ViewAdmin\UserManagement.aspx" />
     <Content Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerAutocomplete.ascx" />
+    <Content Include="ViewMaster\UserControls\CustomerViewHeader.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
@@ -349,6 +350,7 @@
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
+    <Content Include="ViewPreSale\UserControls\LeadViewHeader.ascx" />
     <Content Include="ViewPreSale\UserControls\QuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
@@ -1061,6 +1063,13 @@
     <Compile Include="ViewMaster\UserControls\CustomerAutocomplete.ascx.designer.cs">
       <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\UserControls\CustomerViewHeader.ascx.cs">
+      <DependentUpon>CustomerViewHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\CustomerViewHeader.ascx.designer.cs">
+      <DependentUpon>CustomerViewHeader.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1200,6 +1209,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadView.ascx.designer.cs">
       <DependentUpon>LeadView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\LeadViewHeader.ascx.cs">
+      <DependentUpon>LeadViewHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\LeadViewHeader.ascx.designer.cs">
+      <DependentUpon>LeadViewHeader.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.cs">
       <DependentUpon>QuotationView.ascx</DependentUpon>

@@ -53,6 +53,8 @@ namespace Properties
     {
         public int ProductID { get; set; }
         public string Product { get; set; }
+        public PMake Make { get; set; }
+        public PProductType ProductType { get; set; }
     }
     [Serializable]
     public class PImportance

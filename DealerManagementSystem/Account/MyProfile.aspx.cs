@@ -55,9 +55,10 @@ namespace DealerManagementSystem.Account
                 lblContactNo2.Text = Emp.ContactNumber1;
                 lblEmergencyContact.Text = Emp.EmergencyContactNumber;
                 lblEmpID.Text = Emp.DealerEmployeeID.ToString();
-                lblUserID.Text = PSession.UserId.ToString() + "/" + PSession.User.UserName;
-                //lblRole.Text = PSession.User.UserID.ToString();
-                //lblRole.Text = PSession.User.DealerEmployeeID.ToString();
+                //lblUserID.Text = PSession.UserId.ToString() + "/" + PSession.User.UserName;
+                lblUserID.Text =  PSession.User.UserName;
+                lbDesignation.Text = PSession.User.Designation.DealerDesignation;
+                lblRole.Text = PSession.User.Department.DealerDepartment;// PSession.User.DealerEmployeeID.ToString();
                 //lblRole.Text = PSession.UserIPAddress;
                 //lblRole.Text = PSession.User.UserPlants.ToString();
 

@@ -4,6 +4,10 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddFollowUp.ascx" TagPrefix="UC" TagName="UC_FollowUp" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Effort.ascx" TagPrefix="UC" TagName="UC_Effort" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Expense.ascx" TagPrefix="UC" TagName="UC_Expense" %>
+
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewShifTo" %>
+<%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -306,97 +310,22 @@
     </asp:TabPanel>
     <asp:TabPanel ID="TabLead" runat="server" HeaderText="Lead">
         <ContentTemplate>
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Lead Number : </label>
-                        <asp:Label ID="lblLeadNumber" runat="server"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Visit Date : </label>
-                        <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Dealer : </label>
-                        <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Remarks : </label>
-                        <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Customer : </label>
-                        <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
-            </div>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
+            </div> 
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Contact Person : </label>
-                        <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Mobile : </label>
-                        <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Email : </label>
-                        <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Address : </label>
-                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Importance : </label>
-                        <asp:Label ID="lblImportance" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Status : </label>
-                        <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
             </div>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Ship to party">
         <ContentTemplate>
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Contact Person : </label>
-                        <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Mobile : </label>
-                        <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Email : </label>
-                        <asp:Label ID="Label3" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Address : </label>
-                        <asp:Label ID="Label4" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Importance : </label>
-                        <asp:Label ID="Label5" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Status : </label>
-                        <asp:Label ID="Label6" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_CustomerViewShifTo ID="CustomerViewShifTo" runat="server"></UC:UC_CustomerViewShifTo>
             </div>
         </ContentTemplate>
     </asp:TabPanel>
@@ -647,11 +576,11 @@
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Competitor</label>
-                    <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" />
+                    <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control"  OnSelectedIndexChanged="FillProduct" AutoPostBack="true"/>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Competitor Product Type</label>
-                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"  OnSelectedIndexChanged="FillProduct" AutoPostBack="true"/>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Competitor Products</label>
@@ -874,9 +803,9 @@
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 
- <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
-    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
-    <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
+<script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+<script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
+<link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
 <script type="text/javascript">
     function InIEvent() { }
 
@@ -884,7 +813,7 @@
 
     var prm = Sys.WebForms.PageRequestManager.getInstance();
     if (prm != null) {
-       
+
         prm.add_endRequest(function (sender, e) {
             $("#MainContent_UC_QuotationView_txtMaterial").autocomplete({
                 source: function (request, response) {
@@ -920,7 +849,7 @@
     $(function () {
 
         $("#MainContent_UC_QuotationView_txtMaterial").autocomplete({
-           
+
             source: function (request, response) {
                 debugger;
                 var param = { input: $('#MainContent_UC_QuotationView_txtMaterial').val() };
@@ -950,6 +879,6 @@
     });
 
 
-     
+
 </script>
 

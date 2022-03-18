@@ -22,7 +22,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public void FillMaster()
         {
             new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+            // new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
         }
         public PLeadProduct ReadProduct()
         {
@@ -65,6 +65,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 txtRemark.BorderColor = Color.Red;
             }
             return Message;
+        }
+
+        protected void FillProduct(object sender, EventArgs e)
+        {  
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, 1, Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
         }
     }
 }

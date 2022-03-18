@@ -76,8 +76,8 @@
 </style>
 
 
-<%--<asp:UpdatePanel ID="updatepnl" runat="server">
-    <ContentTemplate>--%>
+<asp:UpdatePanel ID="updatepnl" runat="server">
+    <ContentTemplate>
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
 
@@ -225,5 +225,5 @@
 
             </div>
         </fieldset>
-<%--    </ContentTemplate>
-</asp:UpdatePanel>--%>
+    </ContentTemplate>
+</asp:UpdatePanel>
