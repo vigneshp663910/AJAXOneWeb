@@ -260,7 +260,6 @@
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
     <Content Include="ViewMaster\PresalesMasters.aspx" />
-    <Content Include="ViewMaster\PresalesMastersCompetatiorData.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
     <Content Include="ProcessFlow\Dealer_Org1.png" />
     <Content Include="ProcessFlow\OrgChart.aspx" />
@@ -807,13 +806,6 @@
     </Compile>
     <Compile Include="ViewMaster\PresalesMasters.aspx.designer.cs">
       <DependentUpon>PresalesMasters.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewMaster\PresalesMastersCompetatiorData.aspx.cs">
-      <DependentUpon>PresalesMastersCompetatiorData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewMaster\PresalesMastersCompetatiorData.aspx.designer.cs">
-      <DependentUpon>PresalesMastersCompetatiorData.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
