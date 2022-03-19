@@ -17,21 +17,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class SalesQuotationView : System.Web.UI.UserControl
     {
-        private PLead Lead
-        {
-            get
-            {
-                if (Session["PLead"] == null)
-                {
-                    Session["PLead"] = new PLead();
-                }
-                return (PLead)Session["PLead"];
-            }
-            set
-            {
-                Session["PLead"] = value;
-            }
-        }
+        //private PLead Lead
+        //{
+        //    get
+        //    {
+        //        if (Session["PLead"] == null)
+        //        {
+        //            Session["PLead"] = new PLead();
+        //        }
+        //        return (PLead)Session["PLead"];
+        //    }
+        //    set
+        //    {
+        //        Session["PLead"] = value;
+        //    }
+        //}
         public PSalesQuotation Quotation
         {
             get
@@ -47,7 +47,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["SalesQuotationView"] = value;
             }
         }
-         
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
@@ -405,7 +404,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PSalesQuotation Sq = new PSalesQuotation();
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.QuotationID = Quotation.QuotationID;
-            Sq.Lead = new PLead { LeadID = Lead.LeadID };
+            Sq.Lead = new PLead { LeadID = Quotation.Lead.LeadID };
             Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
@@ -430,33 +429,59 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageFollowUp.Text = Message;
                 return;
             }
-            PLeadFollowUp Lead = new PLeadFollowUp();
-            Lead = UC_FollowUp.ReadFollowUp();
-            Lead.LeadFollowUpID = 0;
-            Lead.LeadID = Quotation.QuotationID;
-
-
-            PSalesQuotationFollowUp SalesQuotation = new PSalesQuotationFollowUp();
-
-            SalesQuotation.FollowUpDate = Lead.FollowUpDate;
-            SalesQuotation.FollowUpNote = Lead.FollowUpNote;
-            SalesQuotation.SalesEngineer = Lead.SalesEngineer;
-            SalesQuotation.CreatedBy = Lead.CreatedBy;
-
-            SalesQuotation.SalesQuotationFollowUpID = 0;
-            SalesQuotation.SalesQuotationID = Quotation.QuotationID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/FollowUp", SalesQuotation));
+            PLeadFollowUp FollowUp = new PLeadFollowUp();
+            FollowUp = UC_FollowUp.ReadFollowUp();
+            FollowUp.LeadFollowUpID = 0;
+            FollowUp.LeadID = Quotation.Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUp", FollowUp));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = Results.Message;
+                lblMessageFollowUp.Text = Results.Message;
                 return;
             }
-            lblMessage.Text = "Updated Successfully";
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green;
+            ShowMessage(Results);
+
             MPE_FollowUp.Hide();
             fillFollowUp();
         }
+        //protected void btnSaveFollowUp_Click(object sender, EventArgs e)
+        //{
+        //    MPE_FollowUp.Show();
+        //    string Message = UC_FollowUp.ValidationFollowUp();
+        //    lblMessageFollowUp.ForeColor = Color.Red;
+        //    lblMessageFollowUp.Visible = true;
+        //    if (!string.IsNullOrEmpty(Message))
+        //    {
+        //        lblMessageFollowUp.Text = Message;
+        //        return;
+        //    }
+        //    PLeadFollowUp FollowUp = new PLeadFollowUp();
+        //    FollowUp = UC_FollowUp.ReadFollowUp();
+        //    FollowUp.LeadFollowUpID = 0;
+        //    FollowUp.LeadID = Quotation.QuotationID;
+
+
+        //    PSalesQuotationFollowUp SalesQuotation = new PSalesQuotationFollowUp();
+
+        //    SalesQuotation.FollowUpDate = FollowUp.FollowUpDate;
+        //    SalesQuotation.FollowUpNote = FollowUp.FollowUpNote;
+        //    SalesQuotation.SalesEngineer = FollowUp.SalesEngineer;
+        //    SalesQuotation.CreatedBy = Lead.CreatedBy;
+
+        //    SalesQuotation.SalesQuotationFollowUpID = 0;
+        //    SalesQuotation.SalesQuotationID = Quotation.QuotationID;
+        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/FollowUp", SalesQuotation));
+        //    if (Results.Status == PApplication.Failure)
+        //    {
+        //        lblMessageEffort.Text = Results.Message;
+        //        return;
+        //    }
+        //    lblMessage.Text = "Updated Successfully";
+        //    lblMessage.Visible = true;
+        //    lblMessage.ForeColor = Color.Green;
+        //    MPE_FollowUp.Hide();
+        //    fillFollowUp();
+        //}
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
 
@@ -559,37 +584,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
-            
-            //lblRemarks.Text = Quotation.RefQuotationNo; 
-
-            //lblContactPerson.Text = Quotation.RefQuotationNo;
-            //lblMobile.Text = Quotation.RefQuotationNo;
-
-            //lblEmail.Text = Quotation.RefQuotationNo;
-            //lblLocation.Text = Quotation.RefQuotationNo;
-            //lblImportance.Text = Quotation.RefQuotationNo;
-
-
              
-            PLeadSearch S = new PLeadSearch();
-            //S.LeadID = LeadID;
-            Lead = new BLead().GetLead(S)[0];
-            //lblLeadNumber.Text = Lead.LeadNumber;
-            //lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
-            //lblCategory.Text = Lead.Category.Category;
-            //lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
-            //lblQualification.Text = Lead.Qualification.Qualification;
-            //lblSource.Text = Lead.Source.Source;
-            //lblStatus.Text = Lead.Status.Status;
-            //lblType.Text = Lead.Type.Type;
-            //lblDealer.Text = Lead.Dealer.DealerCode;
-            //lblRemarks.Text = Lead.Remarks;
-            //lblCustomer.Text = Lead.Customer.CustomerFullName;
-            //lblContactPerson.Text = Lead.Customer.ContactPerson;
-            //lblMobile.Text = Lead.Customer.Mobile;
-            //lblEmail.Text = Lead.Customer.Email;
-
-
             fillFinancier();
             fillProduct();
             fillCompetitor();
@@ -603,13 +598,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
             if (Quotation.ShipTo != null)
                 CustomerViewShifTo.fillCustomer(Quotation.ShipTo);
-        }
-        
-        
-
-     
-
-        
+        }        
         public string ValidationFinancier()
         {
             string Message = "";
@@ -670,7 +659,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             return Message;
         }
-
         protected void lblCompetitorRemove_Click(object sender, EventArgs e)
         {
 
@@ -679,9 +667,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
 
         }
-
-
-
         public void fillFinancier()
         {
             if (Quotation.Financier != null)
@@ -713,19 +698,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void fillFollowUp()
         {
-            List<PSalesQuotationFollowUp> FollowUp = new BSalesQuotation().GetSalesQuotationFollowUpByID(Quotation.QuotationID, null);
+            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUpByID(Quotation.Lead.LeadID, null);
             gvFollowUp.DataSource = FollowUp;
-            gvFollowUp.DataBind();
-
-            //DropDownList ddlSalesEngineer = (DropDownList)gvFollowUp.FooterRow.FindControl("ddlSalesEngineer");
-
-            //List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID);
-            //List<PUser> U = new List<PUser>();
-            //foreach (PLeadSalesEngineer SE in SalesEngineer)
-            //{
-            //    U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            //}
-            
+            gvFollowUp.DataBind(); 
         }
         void fillEffort()
         {
@@ -742,7 +717,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
         }
-
         void GenerateQuotation()
         {
             PSalesQuotation Q = Quotation;
@@ -857,7 +831,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnPrintPDF.Visible = false;
 
         }
-
         protected void FillProduct(object sender, EventArgs e)
         {
             MPE_Competitor.Show();
@@ -865,6 +838,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
             int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, MakeID, ProductTypeID, null), "Product", "ProductID");
+        }
+        void ShowMessage(PApiResult Results)
+        {
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

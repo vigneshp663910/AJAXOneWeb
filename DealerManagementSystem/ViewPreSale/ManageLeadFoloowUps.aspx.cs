@@ -70,7 +70,6 @@ namespace DealerManagementSystem.ViewPreSale
             }
             MPE_FoloowUpStatus.Show();
         }
-
         protected void btnFoloowUpStatus_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -98,7 +97,6 @@ namespace DealerManagementSystem.ViewPreSale
             }
             FillFollowUps();
         }
-
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillFollowUps();
