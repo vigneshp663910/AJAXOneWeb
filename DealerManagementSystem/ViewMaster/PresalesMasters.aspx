@@ -345,7 +345,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            
+
             <asp:TabPanel ID="tpnlExpence" runat="server" HeaderText="Type Of Expense" Font-Bold="True" ToolTip="Type Of Expense...">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -409,7 +409,7 @@
             </asp:TabPanel>
 
             <asp:TabPanel ID="tbPnlMake" runat="server" HeaderText="Make" Font-Bold="True" ToolTip="Make">
-                <contenttemplate>
+                <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
@@ -451,18 +451,18 @@
                             </fieldset>
                         </div>
                     </div>
-                </contenttemplate>
+                </ContentTemplate>
             </asp:TabPanel>
 
             <asp:TabPanel ID="tbPnlProductType" runat="server" HeaderText="Product Type" Font-Bold="True" ToolTip="Product Type">
-                <contenttemplate>
+                <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvProductType" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" AllowPaging="True" ShowFooter="True" OnPageIndexChanging="gvProductType_PageIndexChanging" >
+                                        EmptyDataText="No Data Found" AllowPaging="True" ShowFooter="True" OnPageIndexChanging="gvProductType_PageIndexChanging">
                                         <Columns>
                                             <asp:TemplateField HeaderText="RId">
                                                 <ItemTemplate>
@@ -479,7 +479,7 @@
                                                     <asp:TextBox ID="txtProductType" runat="server" placeholder="Product Type" CssClass="form-control"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            
+
                                             <asp:TemplateField HeaderText="Action">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="lnkBtnProductTypeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProductTypeID")%>' OnClick="lnkBtnProductTypeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
@@ -502,23 +502,69 @@
                             </fieldset>
                         </div>
                     </div>
-                </contenttemplate>
+                </ContentTemplate>
             </asp:TabPanel>
 
             <asp:TabPanel ID="tbPnlProduct" runat="server" HeaderText="Product" Font-Bold="True" ToolTip="Product">
-                <contenttemplate>
+                <ContentTemplate>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specifiy Criteria</legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-2 text-right">
+                                        <label>Make</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMake_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2 text-right">
+                                        <label>Product Type</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvProduct_PageIndexChanging" >
+                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvProduct_PageIndexChanging" OnDataBound="gvProduct_DataBound">
                                         <Columns>
                                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                 </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Make" SortExpression="Make">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblProductMake" Text='<%# DataBinder.Eval(Container.DataItem, "Make.Make")%>' runat="server" />
+                                                    <asp:Label ID="lblProductMakeID" Text='<%# DataBinder.Eval(Container.DataItem, "Make.MakeID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                                <%--<FooterTemplate>
+                                                    <asp:TextBox ID="txtProductMake" runat="server" placeholder="Make" CssClass="form-control"></asp:TextBox>
+                                                </FooterTemplate>--%>
+                                                <FooterTemplate>
+                                                    <asp:DropDownList ID="ddlProductMakeF" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                </FooterTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Product Type" SortExpression="ProductType">
+                                                <ItemStyle VerticalAlign="Middle" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
+                                                    <asp:Label ID="lblProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductTypeID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                                <%--<FooterTemplate>
+                                                    <asp:TextBox ID="txtPProductType" runat="server" placeholder="Product Type" CssClass="form-control"></asp:TextBox>
+                                                </FooterTemplate>--%>
+                                                <FooterTemplate>
+                                                    <asp:DropDownList ID="ddlProductTypeF" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                </FooterTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Product" SortExpression="Product">
                                                 <ItemStyle VerticalAlign="Middle" />
@@ -529,7 +575,7 @@
                                                     <asp:TextBox ID="txtProduct" runat="server" placeholder="Product" CssClass="form-control"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            
+
                                             <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="lnkBtnProductEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProductID")%>' OnClick="lnkBtnProductEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
@@ -550,7 +596,7 @@
                             </fieldset>
                         </div>
                     </div>
-                </contenttemplate>
+                </ContentTemplate>
             </asp:TabPanel>
 
         </asp:TabContainer>

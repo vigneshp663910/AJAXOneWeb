@@ -425,18 +425,18 @@ namespace Business
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("InsertUpdateMake", Params);
+                    success = provider.Insert("InsertOrUpdateMake", Params);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertUpdateMake", sqlEx);
+                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateMake", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertUpdateMake", ex);
+                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateMake", ex);
                 throw ex;
             }
             return success;
@@ -455,48 +455,50 @@ namespace Business
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("InsertUpdateProductType", Params);
+                    success = provider.Insert("InsertOrUpdateProductType", Params);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertUpdateProductType", sqlEx);
+                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateProductType", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertUpdateProductType", ex);
+                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateProductType", ex);
                 throw ex;
             }
             return success;
         }
 
-        public int InsertOrUpdateProduct(int? ProductID, string Product, Boolean IsActive, int UserID)
+        public int InsertOrUpdateProduct(int? ProductID, int MakeID, int ProductTypeID, string Product, Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             int success = 0;
             DbParameter ProductIDP = provider.CreateParameter("ProductID", ProductID, DbType.Int32);
+            DbParameter MakeIDP = provider.CreateParameter("MakeID", MakeID, DbType.Int32);
+            DbParameter ProductTypeIDP = provider.CreateParameter("ProductTypeID", ProductTypeID, DbType.Int32);
             DbParameter ProductP = provider.CreateParameter("Product", Product, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[4] { ProductIDP, ProductP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[6] { ProductIDP, MakeIDP, ProductTypeIDP, ProductP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("InsertUpdateProduct", Params);
+                    success = provider.Insert("InsertOrUpdateProduct", Params);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertUpdateProduct", sqlEx);
+                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateProduct", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertUpdateProduct", ex);
+                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateProduct", ex);
                 throw ex;
             }
             return success;

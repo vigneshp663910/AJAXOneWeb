@@ -39,6 +39,9 @@ namespace DealerManagementSystem.ViewMaster
                     List<PExpenseType> pExpenseTypes = new BPresalesMasters().GetExpenseType(null, null);
                     new DDLBind(ddlExpenseType, pExpenseTypes, "ExpenseType", "ExpenseTypeID");
 
+                    new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID", true, "Select");
+                    new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select");
+
                     SearchLeadSource();
                     SearchActionType();
                     SearchCustomerAttributeMain();
@@ -1379,14 +1382,56 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
+        protected void ddlMake_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                GetProduct();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                GetProduct();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void gvProduct_DataBound(object sender, EventArgs e)
+        {
+            try
+            {
+              
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
         private void GetProduct()
         {
-            int? ProductID = (int?)null;
-            string Product = (string)null;
+            int? ProductID = null;
+            string Product = null;
 
-           // int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
-           // int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
-            List<PProduct> product = new BDMS_Master().GetProduct(ProductID,null,null, Product);
+            int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
+            int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
+            List<PProduct> product = new BDMS_Master().GetProduct(ProductID,MakeID, ProductTypeID, Product);
             gvProduct.DataSource = product;
             gvProduct.DataBind();
             if (product.Count == 0)
@@ -1396,6 +1441,11 @@ namespace DealerManagementSystem.ViewMaster
                 gvProduct.DataSource = pProduct;
                 gvProduct.DataBind();
             }
+            DropDownList ddlProductMake = gvProduct.FooterRow.FindControl("ddlProductMakeF") as DropDownList;
+            new DDLBind(ddlProductMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID", true, "Select");
+
+            DropDownList ddlProductTypeF = gvProduct.FooterRow.FindControl("ddlProductTypeF") as DropDownList;
+            new DDLBind(ddlProductTypeF, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select");
         }
 
         protected void gvProduct_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -1414,18 +1464,33 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 int success = 0;
                 Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
-
+                DropDownList ddlGProductMake = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductMakeF");
+                DropDownList ddlGProductType = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductTypeF");
                 string Product = ((TextBox)gvProduct.FooterRow.FindControl("txtProduct")).Text.Trim();
+                
+                if (ddlGProductMake.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select Product Make";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if (ddlGProductType.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select Product Type";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (string.IsNullOrEmpty(Product))
                 {
                     lblMessage.Text = "Please enter Product";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-
+                int MakeID = Convert.ToInt32(ddlGProductMake.SelectedValue);
+                int ProductTypeID = Convert.ToInt32(ddlGProductType.SelectedValue);
                 if (BtnAddOrUpdateProduct.Text == "Add")
                 {
-                    success = new BPresalesMasters().InsertOrUpdateProduct(null, Product, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateProduct(null, MakeID, ProductTypeID, Product, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         GetProduct();
@@ -1448,7 +1513,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    success = new BPresalesMasters().InsertOrUpdateProduct(Convert.ToInt32(HiddenID.Value), Product, true, PSession.User.UserID);
+                    success = new BPresalesMasters().InsertOrUpdateProduct(Convert.ToInt32(HiddenID.Value), MakeID, ProductTypeID, Product, true, PSession.User.UserID);
                     if (success == 1)
                     {
                         HiddenID.Value = null;
@@ -1487,11 +1552,19 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 LinkButton lnkBtnProductEdit = (LinkButton)sender;
+                DropDownList ddlProductMakeF = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductMakeF");
+                DropDownList ddlProductTypeF = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductTypeF");
                 TextBox txtProduct = (TextBox)gvProduct.FooterRow.FindControl("txtProduct");
                 Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
                 GridViewRow row = (GridViewRow)(lnkBtnProductEdit.NamingContainer);
-                string Make = ((Label)row.FindControl("lblProduct")).Text.Trim();
-                txtProduct.Text = Make;
+                Label lblProductMakeID = (Label)row.FindControl("lblProductMakeID");
+                ddlProductMakeF.SelectedValue = lblProductMakeID.Text;
+
+                Label lblProductTypeID = (Label)row.FindControl("lblProductTypeID");
+                ddlProductTypeF.SelectedValue = lblProductTypeID.Text;
+
+                string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
+                txtProduct.Text = Product;
                 HiddenID.Value = Convert.ToString(lnkBtnProductEdit.CommandArgument);
                 BtnAddOrUpdateProduct.Text = "Update";
             }
@@ -1511,11 +1584,17 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 int success = 0;
+
                 LinkButton lnkBtnProductDelete = (LinkButton)sender;
                 int ProductID = Convert.ToInt32(lnkBtnProductDelete.CommandArgument);
                 GridViewRow row = (GridViewRow)(lnkBtnProductDelete.NamingContainer);
+                int ProductMakeID = Convert.ToInt32(((Label)row.FindControl("lblProductMakeID")).Text.Trim());
+                int ProductTypeID = Convert.ToInt32(((Label)row.FindControl("lblProductTypeID")).Text.Trim());
                 string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
-                success = new BPresalesMasters().InsertOrUpdateProduct(ProductID, Product, false, PSession.User.UserID);
+
+
+
+                success = new BPresalesMasters().InsertOrUpdateProduct(ProductID, ProductMakeID, ProductTypeID, Product, false, PSession.User.UserID);
                 if (success == 1)
                 {
                     HiddenID.Value = null;
