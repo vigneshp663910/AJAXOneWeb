@@ -76,10 +76,10 @@ namespace Properties
         public Boolean BillingBlock { get; set; }
         public Boolean IsShipTo { get; set; }
 
-        public string SalesOrganization { get; set; }
-        public string SalesOffice { get; set; }
-        public string SalesGroup { get; set; }
-        public string SalesDistrict { get; set; }
+        //public string SalesOrganization { get; set; }
+        //public string SalesOffice { get; set; }
+        //public string SalesGroup { get; set; }
+        //public string SalesDistrict { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerShipTo

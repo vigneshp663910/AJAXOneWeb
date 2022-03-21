@@ -588,7 +588,97 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillFleet();
         }
 
-      
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Edit Customer")
+            {
+                MPE_Customer.Show();  
+                UC_Customer.FillMaster();
+                UC_Customer.FillCustomer(Customer);
+            }
+            else if (lbActions.Text == "Add Attribute")
+            {
+                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");
+                MPE_Attribute.Show();
+            }
+            else if (lbActions.Text == "Add Product")
+            {
+                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M=> M.MakeID !=1), "Make", "MakeID");
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+                
+                MPE_Product.Show();
+            }
+            else if (lbActions.Text == "Add Relation")
+            {
+                new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                MPE_Relation.Show();
+            }
+            else if (lbActions.Text == "Add Fleet")
+            {
+                // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                MPE_Fleed.Show();
+            }
+            else if (lbActions.Text == "Add Responsible Employee")
+            {
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                MPE_ResponsibleEmp.Show();
+            }
+            else if (lbActions.Text == "Verified Customer")
+            {
+                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "In Activate Customer")
+            {
+                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "Sync to Sap")
+            {
+
+             long C =   new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer);
+             //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                //if (Convert.ToBoolean(s) == true)
+                if (C != 0)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+                fillCustomer(Customer.CustomerID);
+            }
+        }
 
         protected void ddlAttributeMain_SelectedIndexChanged(object sender, EventArgs e)
         { 
