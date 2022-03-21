@@ -233,7 +233,32 @@ namespace Properties
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
     }
+    [Serializable]
+    public class PSalesQuotationQuestionaries
+    {
+        public long SalesQuotationQuestionariesID { get; set; }
+        public PSalesQuotationQuestionariesMain QuestionariesMainID { get; set; }
+        public PSalesQuotationQuestionariesSub QuestionariesSubID { get; set; }
+        public PSalesQuotation SalesQuotation { get; set; }
+        public PDMS_MainApplication MainApplication { get; set; }
+        public PDMS_SubApplication SubApplication { get; set; }
+        public string ProjectName { get; set; }
+        public int TotalConcrete { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationQuestionariesMain
+    {
+        public int SalesQuestionariesMainID { get; set; }
+        public string SalesQuestionariesMain { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationQuestionariesSub
+    {
+        public int SalesQuotationQuestionariesSubID { get; set; }
+        public int SalesQuotationQuestionariesMainID { get; set; }
+        public string SalesQuotationQuestionariesSub { get; set; }
+    }
 
-
-     
 }

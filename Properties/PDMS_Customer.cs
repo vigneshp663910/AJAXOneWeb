@@ -74,6 +74,7 @@ namespace Properties
         public Boolean OrderBlock { get; set; }
         public Boolean DeliveryBlock { get; set; }
         public Boolean BillingBlock { get; set; }
+        public Boolean IsShipTo { get; set; }
 
         //public string SalesOrganization { get; set; }
         //public string SalesOffice { get; set; }
