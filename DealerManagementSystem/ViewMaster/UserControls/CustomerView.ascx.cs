@@ -563,7 +563,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             else if (lbActions.Text == "Sync to Sap")
             {
 
-             long C =   new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer.CustomerID);
+             long C =   new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer);
              //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 //if (Convert.ToBoolean(s) == true)
                 if (C != 0)
