@@ -59,7 +59,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             new DDLBind(ddlIncoterms, new BDMS_Master().GetIncoterms(null, null, null), "IncoTerm", "IncoTermID");
             new DDLBind(ddlPaymentTerms, new BDMS_Master().GetPaymentTerms(null, null, null), "PaymentTerm", "PaymentTermID");
-            new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID"); 
+            new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Add Competitor")
             {
                 new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M => M.MakeID != 1), "Make", "MakeID");
-                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID"); 
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
                 MPE_Competitor.Show();
             }
             else if (lbActions.Text == "Add Quotation Note")
@@ -195,7 +195,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sqf.FinancierAmount = Convert.ToDecimal(txtFinancierAmount.Text.Trim());
             Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Financier", Sqf));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Financier", Sqf));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageFinancier.Text = Results.Message;
@@ -226,10 +226,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             for (int i = 0; i < gvProduct.Rows.Count; i++)
             {
-                Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode"); 
-                if (lblMaterialCode.Text == Material) 
-                { 
-                    lblMessageProduct.Text = "Material " + Material + " already available"; 
+                Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode");
+                if (lblMaterialCode.Text == Material)
+                {
+                    lblMessageProduct.Text = "Material " + Material + " already available";
                     return;
                 }
             }
@@ -244,7 +244,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Boolean IsWarrenty = false;
             //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
             //{
-                 OrderType = "DEFAULT_SEC_AUART";
+            OrderType = "DEFAULT_SEC_AUART";
             //    Customer = SDMS_ICTicket.Customer.CustomerCode;
             //    Vendor = SDMS_ICTicket.Dealer.DealerCode;
             //}
@@ -345,13 +345,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
 
             PDMS_WebQuotationItem Item = new PDMS_WebQuotationItem();
-           // Item.WebQuotationItemID = Convert.ToInt64(gvMaterial.DataKeys[gvRow.RowIndex].Value);
+            // Item.WebQuotationItemID = Convert.ToInt64(gvMaterial.DataKeys[gvRow.RowIndex].Value);
 
             if (new BDMS_WebQuotation().InsertOrUpdateWebQuotationItem(Item))
             {
                 lblMessage.Text = "Material is Removed successfully";
                 lblMessage.ForeColor = Color.Green;
-              //  FillMaterial();
+                //  FillMaterial();
             }
             else
             {
@@ -587,7 +587,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
-             
+
             fillFinancier();
             fillProduct();
             fillCompetitor();
@@ -601,7 +601,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
             if (Quotation.ShipTo != null)
                 CustomerViewShifTo.fillCustomer(Quotation.ShipTo);
-        }        
+        }
         public string ValidationFinancier()
         {
             string Message = "";
@@ -646,7 +646,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (ddlProduct.SelectedValue == "0")
             {
                 Message = "Please select the Product";
-            } 
+            }
             return Message;
         }
         public string ValidationNote()
@@ -703,7 +703,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUpByID(Quotation.Lead.LeadID, null);
             gvFollowUp.DataSource = FollowUp;
-            gvFollowUp.DataBind(); 
+            gvFollowUp.DataBind();
         }
         void fillEffort()
         {
@@ -711,7 +711,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvEffort.DataBind();
 
 
- 
+
         }
         void fillExpense()
         {
@@ -757,7 +757,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Warning[] warnings;
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
-            ReportParameter[] P = new ReportParameter[21];
+            ReportParameter[] P = new ReportParameter[40];
 
             P[0] = new ReportParameter("QuotationType", Q.QuotationType.QuotationType, false);
             P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
@@ -773,14 +773,82 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             P[11] = new ReportParameter("PinCode", Q.Lead.Customer.Pincode, false);
             P[12] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
             P[13] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-            P[14] = new ReportParameter("Attention", "", false);
-            P[15] = new ReportParameter("Subject", "", false);
-            P[16] = new ReportParameter("Reference", "", false);
-            P[17] = new ReportParameter("Annexure", "", false);
-            P[18] = new ReportParameter("AnnexureRef", "", false);
-            P[19] = new ReportParameter("AnnexureDate", "", false);
-            P[20] = new ReportParameter("CompanyName", "", false);
+            P[14] = new ReportParameter("Attention", "KIND ATTENTION", false);
+            P[15] = new ReportParameter("Subject", "Subject", false);
+            P[16] = new ReportParameter("Reference", "Reference", false);
+            P[17] = new ReportParameter("Annexure", "Annexure", false);
+            P[18] = new ReportParameter("AnnexureRef", "AnnexureRef", false);
+            P[19] = new ReportParameter("AnnexureDate", "AnnexureDate", false);
+            P[20] = new ReportParameter("CompanyName", "CompanyName", false);
+            P[21] = new ReportParameter("CompanyAddress", "CompanyAddress", false);
+            P[22] = new ReportParameter("TCSTax", "TCSTax Persent", false);
+            P[23] = new ReportParameter("Delivery", "Delivery", false);
+            P[24] = new ReportParameter("InWordsTotalAmount", "ZERO RUPEES Only", false);
+            P[25] = new ReportParameter("TotalAmount", "00000.000", false);
+            P[26] = new ReportParameter("Note", "Note", false);
+            
+            if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CM")
+            {
+                //P[27] = new ReportParameter("WarrantyDeliveryHours", Q.QuotationItems[0].Material.Model.Division, false);
+            }
+            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "DP")
+            {
+                P[27] = new ReportParameter("WarrantyDeliveryHours", "2000", false);
+            }
+            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
+            {
+                P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);
+            }
+            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CP")
+            {
+                P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);
+            }
+            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "TM")
+            {
+                P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);
+            }
 
+            P[28] = new ReportParameter("ConcernName", "ConcernName", false);
+            P[29] = new ReportParameter("ConcernDesignation", "ConcernDesignation", false);
+            P[30] = new ReportParameter("ConcernMobile", "ConcernMobile", false);
+            P[31] = new ReportParameter("MaterialText", "MaterialText", false);
+            if (Q.QuotationItems[0].Plant.PlantCode == "P001")
+            {
+                P[32] = new ReportParameter("FactoryName", "FactoryName", false);
+                P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
+                P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
+                P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
+                P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                P[37] = new ReportParameter("TCSTaxTerms", "", false);
+            }
+            else if (Q.QuotationItems[0].Plant.PlantCode == "P002")
+            {
+                P[32] = new ReportParameter("FactoryName", "FactoryName", false);
+                P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
+                P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
+                P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
+                P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                P[37] = new ReportParameter("TCSTaxTerms", "", false);
+            }
+            else if (Q.QuotationItems[0].Plant.PlantCode == "P003")
+            {
+                P[32] = new ReportParameter("FactoryName", "FactoryName", false);
+                P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
+                P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
+                P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
+                P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                P[37] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
+            }
+            if(Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
+            {
+                P[38] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
+                P[39] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
+            }
+            else 
+            {
+                P[38] = new ReportParameter("ErectionCommissoningHead", "", false);
+                P[39] = new ReportParameter("ErectionCommissoning", "", false);
+            }
             report.ReportPath = Server.MapPath("~/Print/VigneshMachineQuotation.rdlc");
             report.SetParameters(P);
 
