@@ -506,7 +506,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             else if (lbActions.Text == "Add Product")
             {
-                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
+                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M=> M.MakeID !=1), "Make", "MakeID");
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
                 
                 MPE_Product.Show();

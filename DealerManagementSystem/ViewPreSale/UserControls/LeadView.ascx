@@ -515,7 +515,7 @@
 <asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
-        <div class="model-scroll"> 
+        <div class="model-scroll">
             <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
         </div>
@@ -626,7 +626,9 @@
             <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
         </div>
-        <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
+        </div>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />

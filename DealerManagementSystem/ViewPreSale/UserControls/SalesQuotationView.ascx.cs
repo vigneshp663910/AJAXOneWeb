@@ -95,7 +95,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Competitor")
             {
-                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID");
+                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M => M.MakeID != 1), "Make", "MakeID");
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID"); 
                 MPE_Competitor.Show();
             }
@@ -274,8 +274,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Item.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
             Item.Qty = Convert.ToInt32(txtQty.Text);
             Item.Rate = MaterialTax.BasePrice;
-            Item.Discount = Convert.ToDecimal(txtDiscount.Text);
-            Item.TaxableValue = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(txtDiscount.Text);
+            decimal P = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text));
+            decimal Discount = P * Convert.ToDecimal(txtDiscount.Text) / 100;
+            Item.Discount = Discount;
+
+            Item.TaxableValue = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text)) - Discount;
 
             Item.CGST = MaterialTax.SGST;
             Item.SGST = MaterialTax.SGST;

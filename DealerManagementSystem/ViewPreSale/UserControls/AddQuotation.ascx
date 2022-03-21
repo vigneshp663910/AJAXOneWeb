@@ -18,7 +18,7 @@
                     <label class="modal-label">Quotation Type</label>
                     <asp:DropDownList ID="ddlQuotationType" runat="server" CssClass="form-control" />
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12"  style="display:none">
                     <label class="modal-label">Status</label>
                     <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
                 </div>
@@ -67,7 +67,7 @@
                     <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div> --%>
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12" style="display:none">
                     <label class="modal-label">User Status Remarks</label>
                     <asp:DropDownList ID="ddlUserStatusRemarks" runat="server" CssClass="form-control" />
                 </div>
@@ -75,7 +75,7 @@
                     <label class="modal-label">Ship To Party</label>
                     <asp:TextBox ID="txtShipParty" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Commission Agent</label>
                     <asp:CheckBox ID="cbCommissionAgent" runat="server" />
                 </div>
