@@ -28,11 +28,19 @@ namespace Properties
 
     }
     [Serializable]
+    public class PCurrency
+    {
+        public int CurrencyID { get; set; }
+        public string Currency { get; set; }
+    }
+    [Serializable]
     public class PDMS_Country
     {
         public int CountryID { get; set; }
         public string Country { get; set; }
         public string CountryCode { get; set; }
+        public PCurrency Currency { get; set; }
+        public string SalesOrganization { get; set; }
     }
     [Serializable]
     public class PDMS_State
@@ -60,6 +68,7 @@ namespace Properties
         public PDMS_State State { get; set; }
         public PDMS_Country Country { get; set; }
         public PDMS_Dealer Dealer { get; set; }
+        public PSalesOffice SalesOffice { get; set; }
     }
     [Serializable]
     public class PDMS_Tehsil
@@ -78,4 +87,14 @@ namespace Properties
         public PDMS_Tehsil Tehsil { get; set; }
 
     }
+    [Serializable]
+    public class PSalesOffice
+    {
+        public int SalesOfficeID { get; set; }
+        public string SalesOffice { get; set; }
+        public string SalesGroup { get; set; }
+        public string SalesOfficeDescription { get; set; }
+        public string SalesGroupDescription { get; set; } 
+    }
+    
 }

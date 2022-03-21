@@ -53,7 +53,14 @@ namespace Business
                             MML.Add(new PDMS_Country()
                             {
                                 CountryID = Convert.ToInt32(dr["CountryID"]),
-                                Country = Convert.ToString(dr["Country"])
+                                Country = Convert.ToString(dr["Country"]),
+                                CountryCode = Convert.ToString(dr["CountryCode"]),
+                                Currency = new PCurrency()
+                                {
+                                    CurrencyID = Convert.ToInt32(dr["CurrencyID"]),
+                                    Currency = Convert.ToString(dr["Currency"])
+                                },
+                                SalesOrganization = Convert.ToString(dr["SalesOrganization"]),
                             });
                         }
                     }
@@ -178,15 +185,17 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateAddressCountry(int? CountryID, string Country, string CountryCode, Boolean IsActive, int UserID)
+        public Boolean InsertOrUpdateAddressCountry(int? CountryID, string Country, string CountryCode, int CurrencyID, string SalesOrganization, Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
             DbParameter CountryP = provider.CreateParameter("Country", string.IsNullOrEmpty(Country) ? null : Country, DbType.String);
             DbParameter CountryCodeP = provider.CreateParameter("CountryCode", string.IsNullOrEmpty(CountryCode) ? null : CountryCode, DbType.String);
+            DbParameter CurrencyIDP = provider.CreateParameter("CurrencyID", CurrencyID, DbType.Int32);
+            DbParameter SalesOrganizationP = provider.CreateParameter("SalesOrganization", string.IsNullOrEmpty(SalesOrganization) ? null : SalesOrganization, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[5] { CountryIDP, CountryP, CountryCodeP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[7] { CountryIDP, CountryP, CountryCodeP, CurrencyIDP, SalesOrganizationP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -527,6 +536,37 @@ namespace Business
             }
             TraceLogger.Log(DateTime.Now);
             return false;
+        }
+
+        public List<PCurrency> GetCurrency(int? CurrencyID, string Currency)
+        {
+            List<PCurrency> MML = new List<PCurrency>();
+            try
+            {
+                DbParameter CurrencyIDP = provider.CreateParameter("CurrencyID", CurrencyID, DbType.Int32);
+                DbParameter CurrencyP = provider.CreateParameter("Currency", string.IsNullOrEmpty(Currency) ? null : Currency, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { CurrencyIDP, CurrencyP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetCurrency", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PCurrency()
+                            {
+                                CurrencyID = Convert.ToInt32(dr["CurrencyID"]),
+                                Currency = Convert.ToString(dr["Currency"])
+                                
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return MML;
         }
     }
 }

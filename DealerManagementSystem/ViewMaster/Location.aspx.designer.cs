@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// HiddenID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenID;
+
+        /// <summary>
         /// tbpLocation control.
         /// </summary>
         /// <remarks>
@@ -67,15 +76,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchCountry;
-
-        /// <summary>
-        /// BtnAddCountry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddCountry;
 
         /// <summary>
         /// gvCountry control.
@@ -130,15 +130,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchRegion;
-
-        /// <summary>
-        /// BtnAddRegion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddRegion;
 
         /// <summary>
         /// gvRegion control.
@@ -211,15 +202,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchState;
-
-        /// <summary>
-        /// BtnAddState control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddState;
 
         /// <summary>
         /// gvState control.
