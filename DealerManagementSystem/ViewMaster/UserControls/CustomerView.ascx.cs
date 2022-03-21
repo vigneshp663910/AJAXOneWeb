@@ -105,8 +105,106 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillVisit();
             fillSupportDocument();
             ActionControlMange();
+            fillShipTo();
         }
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Edit Customer")
+            {
+                MPE_Customer.Show();
+                UC_Customer.FillMaster();
+                UC_Customer.FillCustomer(Customer);
+            }
+            else if (lbActions.Text == "Add Attribute")
+            {
+                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");
+                MPE_Attribute.Show();
+            }
+            else if (lbActions.Text == "Add Product")
+            {
+                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M => M.MakeID != 1), "Make", "MakeID");
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
 
+                MPE_Product.Show();
+            }
+            else if (lbActions.Text == "Add Relation")
+            {
+                new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                MPE_Relation.Show();
+            }
+            else if (lbActions.Text == "Add Fleet")
+            {
+                // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                MPE_Fleed.Show();
+            }
+            else if (lbActions.Text == "Add Responsible Employee")
+            {
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                MPE_ResponsibleEmp.Show();
+            }
+            else if (lbActions.Text == "Verified Customer")
+            {
+                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "In Activate Customer")
+            {
+                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                if (Convert.ToBoolean(s) == true)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "Sync to Sap")
+            {
+
+                long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer.CustomerID);
+                //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                //if (Convert.ToBoolean(s) == true)
+                if (C != 0)
+                {
+                    lblMessage.Text = "Updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    fillCustomer(Customer.CustomerID);
+                }
+                else
+                {
+                    lblMessage.Text = "Something went wrong try again.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+                fillCustomer(Customer.CustomerID);
+            }
+            else if (lbActions.Text == "Add Fleet")
+            {
+                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                ddlCountry.SelectedValue = "1";
+                new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                MPE_ShipTo.Show();
+            }
+        }
         public void fillLead()
         {
             PLeadSearch S = new PLeadSearch(); 
@@ -490,97 +588,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillFleet();
         }
 
-        protected void lbActions_Click(object sender, EventArgs e)
-        {
-            LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Edit Customer")
-            {
-                MPE_Customer.Show();  
-                UC_Customer.FillMaster();
-                UC_Customer.FillCustomer(Customer);
-            }
-            else if (lbActions.Text == "Add Attribute")
-            {
-                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");
-                MPE_Attribute.Show();
-            }
-            else if (lbActions.Text == "Add Product")
-            {
-                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M=> M.MakeID !=1), "Make", "MakeID");
-                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-                
-                MPE_Product.Show();
-            }
-            else if (lbActions.Text == "Add Relation")
-            {
-                new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
-                MPE_Relation.Show();
-            }
-            else if (lbActions.Text == "Add Fleet")
-            {
-                // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
-                MPE_Fleed.Show();
-            }
-            else if (lbActions.Text == "Add Responsible Employee")
-            {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                MPE_ResponsibleEmp.Show();
-            }
-            else if (lbActions.Text == "Verified Customer")
-            {
-                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
-                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                if (Convert.ToBoolean(s) == true)
-                {
-                    lblMessage.Text = "Updated successfully";
-                    lblMessage.ForeColor = Color.Green;
-                    fillCustomer(Customer.CustomerID);
-                }
-                else
-                {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
-                }
-                lblMessage.Visible = true;
-            }
-            else if (lbActions.Text == "In Activate Customer")
-            {
-                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
-                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                if (Convert.ToBoolean(s) == true)
-                {
-                    lblMessage.Text = "Updated successfully";
-                    lblMessage.ForeColor = Color.Green;
-                    fillCustomer(Customer.CustomerID);
-                }
-                else
-                {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
-                }
-                lblMessage.Visible = true;
-            }
-            else if (lbActions.Text == "Sync to Sap")
-            {
-
-             long C =   new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer.CustomerID);
-             //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                //if (Convert.ToBoolean(s) == true)
-                if (C != 0)
-                {
-                    lblMessage.Text = "Updated successfully";
-                    lblMessage.ForeColor = Color.Green;
-                    fillCustomer(Customer.CustomerID);
-                }
-                else
-                {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
-                }
-                lblMessage.Visible = true;
-                fillCustomer(Customer.CustomerID);
-            }
-        }
+      
 
         protected void ddlAttributeMain_SelectedIndexChanged(object sender, EventArgs e)
         { 
@@ -858,6 +866,188 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             MPE_Product.Show();
              
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, Convert.ToInt32(ddlMake.SelectedValue), Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
+        }
+
+        protected void btnShipTo_Click(object sender, EventArgs e)
+        {
+            string Message = ValidationShipTo();
+            lblMessageShipTo.ForeColor = Color.Red;
+            lblMessageShipTo.Visible = true;
+            MPE_ShipTo.Show();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageShipTo.Text = Message;
+                return;
+            }
+            PDMS_CustomerShipTo ShipTo = ReadShipTo();
+            string result = new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo);
+            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+            if (result == "0")
+            {
+                MPE_Customer.Show();
+                lblMessageShipTo.Text = "Customer is not updated successfully ";
+                return;
+            }
+            else
+            {
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "Customer is updated successfully ";
+            }
+            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null);
+            gvShipTo.DataSource = Leads;
+            gvShipTo.DataBind();
+            FillClean();
+            MPE_ShipTo.Hide();
+        }
+        public string ValidationShipTo() 
+        {
+            long longCheck; 
+            string Message = ""; 
+            txtContactPerson.BorderColor = Color.Silver;
+            txtMobile.BorderColor = Color.Silver; 
+            txtAddress1.BorderColor = Color.Silver;
+            txtPincode.BorderColor = Color.Silver;
+
+            ddlCountry.BorderColor = Color.Silver;
+            ddlState.BorderColor = Color.Silver;
+            ddlDistrict.BorderColor = Color.Silver;
+              
+            if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Contact Person";
+                txtContactPerson.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Mobile";
+                txtMobile.BorderColor = Color.Red;
+            }
+            else if (txtMobile.Text.Trim().Length != 10)
+            {
+                Message = Message + "<br/>Mobile Length should be 10 digit";
+                txtMobile.BorderColor = Color.Red;
+            }
+            else if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Mobile should be 10 digit";
+                txtMobile.BorderColor = Color.Red;
+            } 
+            else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Address1";
+                txtAddress1.BorderColor = Color.Red;
+            } 
+            else if (ddlCountry.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Country";
+                ddlCountry.BorderColor = Color.Red;
+            }
+            else if (ddlState.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the State";
+                ddlState.BorderColor = Color.Red;
+            }
+            else if (ddlDistrict.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the District";
+                ddlDistrict.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Postal";
+                txtPincode.BorderColor = Color.Red;
+            }
+            else if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Pincode should be in digit";
+                txtPincode.BorderColor = Color.Red;
+            }
+            return Message;
+        }
+        void fillShipTo()
+        {
+            gvShipTo.DataSource = new BDMS_Customer().GetCustomerFleet(null, Customer.CustomerID);
+            gvShipTo.DataBind();
+        }
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_ShipTo.Show();
+            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            
+        } 
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_ShipTo.Show();
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+         } 
+        protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_ShipTo.Show();
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null); 
+            new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
+        }
+
+        public PDMS_CustomerShipTo ReadShipTo()
+        {
+            PDMS_CustomerShipTo Customer = new PDMS_CustomerShipTo();  
+            Customer.ContactPerson = txtContactPerson.Text.Trim();
+            Customer.Mobile = txtMobile.Text.Trim(); 
+            Customer.Email = txtEmail.Text.Trim();
+            Customer.Address1 = txtAddress1.Text.Trim();
+            Customer.Address2 = txtAddress2.Text.Trim();
+            Customer.Address3 = txtAddress3.Text.Trim();
+            Customer.City = txtCity.Text.Trim();
+            Customer.Pincode = txtPincode.Text.Trim();
+
+            Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
+            Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
+            Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
+            if (ddlTehsil.SelectedValue != "0")
+            {
+                Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
+            } 
+            Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            return Customer;
+        }
+        public void FillCustomer(PDMS_CustomerShipTo Customer)
+        {  
+            txtContactPerson.Text = Customer.ContactPerson;
+            txtMobile.Text = Customer.Mobile; 
+            txtEmail.Text = Customer.Email;
+            txtAddress1.Text = Customer.Address1;
+            txtAddress2.Text = Customer.Address2;
+            txtAddress3.Text = Customer.Address3;
+            txtCity.Text = Customer.City;
+            txtPincode.Text = Customer.Pincode;
+            ddlCountry.SelectedValue = Convert.ToString(Customer.Country.CountryID);
+            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+
+            ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+
+            ddlDistrict.SelectedValue = Convert.ToString(Customer.District.DistrictID);
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+            new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
+            if (Customer.Tehsil != null)
+            {
+                ddlTehsil.SelectedValue = Convert.ToString(Customer.Tehsil.TehsilID);
+            } 
+        }
+        public void FillClean()
+        {
+            
+            txtContactPerson.Text = "";
+            txtMobile.Text = ""; 
+            txtEmail.Text = "";
+            txtAddress1.Text = "";
+            txtAddress2.Text = "";
+            txtAddress3.Text = "";
+            txtCity.Text = "";
+            txtPincode.Text = "";
+            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+            ddlCountry.SelectedValue = "1";
+            new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
         }
     }
 }

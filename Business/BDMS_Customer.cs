@@ -876,5 +876,12 @@ namespace Business
                 InsertOrUpdateCustomerSap(C.CustomerCode);
             }
         }
+
+        public List<PDMS_CustomerShipTo> GetCustomerShopTo(long CustomerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/ShipTo?CustomerID=" + CustomerID;
+            return JsonConvert.DeserializeObject<List<PDMS_CustomerShipTo>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        } 
     }
 }
