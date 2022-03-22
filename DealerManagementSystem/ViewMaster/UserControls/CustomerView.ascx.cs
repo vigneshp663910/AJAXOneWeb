@@ -180,7 +180,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             else if (lbActions.Text == "Sync to Sap")
             {
 
-                long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer.CustomerID);
+                long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer);
                 //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 //if (Convert.ToBoolean(s) == true)
                 if (C != 0)
@@ -197,7 +197,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.Visible = true;
                 fillCustomer(Customer.CustomerID);
             }
-            else if (lbActions.Text == "Add Fleet")
+            else if (lbActions.Text == "Add ShipTo")
             {
                 new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 ddlCountry.SelectedValue = "1";
@@ -903,7 +903,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             long longCheck; 
             string Message = ""; 
             txtContactPerson.BorderColor = Color.Silver;
-            txtMobile.BorderColor = Color.Silver; 
+            txtMobileShipTo.BorderColor = Color.Silver; 
             txtAddress1.BorderColor = Color.Silver;
             txtPincode.BorderColor = Color.Silver;
 
@@ -916,20 +916,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Message = Message + "<br/>Please enter the Contact Person";
                 txtContactPerson.BorderColor = Color.Red;
             }
-            else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            else if (string.IsNullOrEmpty(txtMobileShipTo.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Mobile";
-                txtMobile.BorderColor = Color.Red;
+                txtMobileShipTo.BorderColor = Color.Red;
             }
-            else if (txtMobile.Text.Trim().Length != 10)
+            else if (txtMobileShipTo.Text.Trim().Length != 10)
             {
                 Message = Message + "<br/>Mobile Length should be 10 digit";
-                txtMobile.BorderColor = Color.Red;
+                txtMobileShipTo.BorderColor = Color.Red;
             }
-            else if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            else if (!long.TryParse(txtMobileShipTo.Text.Trim(), out longCheck))
             {
                 Message = Message + "<br/>Mobile should be 10 digit";
-                txtMobile.BorderColor = Color.Red;
+                txtMobileShipTo.BorderColor = Color.Red;
             } 
             else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
@@ -965,7 +965,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         void fillShipTo()
         {
-            gvShipTo.DataSource = new BDMS_Customer().GetCustomerFleet(null, Customer.CustomerID);
+            gvShipTo.DataSource = new BDMS_Customer().GetCustomerShopTo(null,Customer.CustomerID);
             gvShipTo.DataBind();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -988,25 +988,26 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         public PDMS_CustomerShipTo ReadShipTo()
         {
-            PDMS_CustomerShipTo Customer = new PDMS_CustomerShipTo();  
-            Customer.ContactPerson = txtContactPerson.Text.Trim();
-            Customer.Mobile = txtMobile.Text.Trim(); 
-            Customer.Email = txtEmail.Text.Trim();
-            Customer.Address1 = txtAddress1.Text.Trim();
-            Customer.Address2 = txtAddress2.Text.Trim();
-            Customer.Address3 = txtAddress3.Text.Trim();
-            Customer.City = txtCity.Text.Trim();
-            Customer.Pincode = txtPincode.Text.Trim();
+            PDMS_CustomerShipTo ShipTo = new PDMS_CustomerShipTo();
+            ShipTo.CustomerID = Customer.CustomerID;
+            ShipTo.ContactPerson = txtContactPerson.Text.Trim();
+            ShipTo.Mobile = txtMobile.Text.Trim();
+            ShipTo.Email = txtEmail.Text.Trim();
+            ShipTo.Address1 = txtAddress1.Text.Trim();
+            ShipTo.Address2 = txtAddress2.Text.Trim();
+            ShipTo.Address3 = txtAddress3.Text.Trim();
+            ShipTo.City = txtCity.Text.Trim();
+            ShipTo.Pincode = txtPincode.Text.Trim();
 
-            Customer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
-            Customer.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
-            Customer.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
+            ShipTo.Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) };
+            ShipTo.State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) };
+            ShipTo.District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) };
             if (ddlTehsil.SelectedValue != "0")
             {
-                Customer.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
-            } 
-            Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            return Customer;
+                ShipTo.Tehsil = new PDMS_Tehsil() { TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue) };
+            }
+            ShipTo.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            return ShipTo;
         }
         public void FillCustomer(PDMS_CustomerShipTo Customer)
         {  

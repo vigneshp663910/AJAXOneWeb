@@ -132,7 +132,7 @@
                 <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                 <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
                 <asp:LinkButton ID="lbAddFleet" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
-                <asp:LinkButton ID="lbAddResponsibleEmployee" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton> 
+                <asp:LinkButton ID="lbAddResponsibleEmployee" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
                 <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
                 <asp:LinkButton ID="lbtnInActivateCustomer" runat="server" OnClick="lbActions_Click">In Activate Customer</asp:LinkButton>
                 <asp:LinkButton ID="lbtnActivateCustomer" runat="server" OnClick="lbActions_Click">Activate Customer</asp:LinkButton>
@@ -698,7 +698,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Fleet">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Ship To Party">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
@@ -710,31 +710,92 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                        <asp:Label ID="lblCustomerFleetID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerFleetID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblCustomerShipToID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerShipToID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.CustomerName")%>' runat="server" />
+                                        <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerCode")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Person">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.ContactPerson")%>' runat="server" />
+                                        <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "ContactPerson")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Mobile">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.Mobile")%>' runat="server" />
+                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="EMail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.EMail")%>' runat="server" />
+                                        <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "EMail")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Address1">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address1")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Address2">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAddress2" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Address3">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Country">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.Country")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="State">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="District">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Tehsil">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTehsil" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil.Tehsil")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="City">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCity" Text='<%# DataBinder.Eval(Container.DataItem, "City")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="PinCode">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblPinCode" Text='<%# DataBinder.Eval(Container.DataItem, "PinCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Active">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsActive" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
@@ -829,7 +890,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Product Type</label>
-                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"  OnSelectedIndexChanged="FillProduct" AutoPostBack="true" />
+                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" OnSelectedIndexChanged="FillProduct" AutoPostBack="true" />
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Product</label>
@@ -865,24 +926,24 @@
             <asp:Label ID="lblMessageRelation" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset4" runat="server">
                 <div class="col-md-12">
-                      <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Person Name</label> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Person Name</label>
                         <asp:TextBox ID="txtPersonName" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Mobile</label> 
+                        <label class="modal-label">Mobile</label>
                         <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Birth Date</label> 
+                        <label class="modal-label">Birth Date</label>
                         <asp:TextBox ID="txtBirthDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                     </div>
-                     <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Anniversary Date</label> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Anniversary Date</label>
                         <asp:TextBox ID="txtAnniversaryDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                     </div>
-                     <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">Relation</label> 
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Relation</label>
                         <asp:DropDownList ID="ddlRelation" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine" />
                     </div>
                 </div>
@@ -902,14 +963,14 @@
             <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-    
-     <div class="col-md-12">
+
+    <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageFleet" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Customer Name</label> 
+                        <label class="modal-label">Customer Name</label>
                         <asp:TextBox ID="txtFleet" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                         <div id="FleDivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">
                             <div id="FleDiv1" class="fieldset-border">
@@ -946,16 +1007,16 @@
     </div>
     <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-         <div class="model-scroll">
+        <div class="model-scroll">
 
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
-                   <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Dealer</label> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
                     <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Employee</label> 
+                        <label class="modal-label">Employee</label>
                         <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                     </div>
                 </div>
@@ -975,71 +1036,72 @@
             <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-    <asp:Label ID="lblMessageShipTo" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-         <div class="model-scroll"> 
-            <fieldset class="fieldset-border" id="Fieldset6" runat="server">
-            <div class="col-md-12"> 
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Contact Person</label> 
-                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtContactPerson" WatermarkText="Contact Person" WatermarkCssClass="WatermarkCssClass" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Mobile</label> 
-                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
-                </div> 
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Email</label> 
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email" MaxLength="40"></asp:TextBox>
-                    <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtEmail" WatermarkText="Email"  />--%>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Address 1</label>
-                    <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Address 2</label> 
-                    <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender8" runat="server" TargetControlID="txtAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Address 3</label> 
-                    <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID="txtAddress3" WatermarkText="Address 3" WatermarkCssClass="WatermarkCssClass" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Country</label> 
-                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">State</label> 
-                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">District</label> 
-                    <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Tehsil</label> 
-                    <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="form-control" DataTextField="Tehsil" DataValueField="TehsilID" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">PinCode</label> 
-                    <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender10" runat="server" TargetControlID="txtPincode" WatermarkText="Pincode" WatermarkCssClass="WatermarkCssClass" />
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">City</label> 
-                    <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID="txtCity" WatermarkText="City" WatermarkCssClass="WatermarkCssClass" />
-                </div>
 
- 
-            </div>
-        </fieldset>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageShipTo" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset6" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Contact Person</label>
+                        <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtContactPerson" WatermarkText="Contact Person" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Mobile</label>
+                        <asp:TextBox ID="txtMobileShipTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Email</label>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email" MaxLength="40"></asp:TextBox>
+                        <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtEmail" WatermarkText="Email"  />--%>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 1</label>
+                        <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 2</label>
+                        <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender8" runat="server" TargetControlID="txtAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 3</label>
+                        <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID="txtAddress3" WatermarkText="Address 3" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Country</label>
+                        <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">State</label>
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">District</label>
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Tehsil</label>
+                        <asp:DropDownList ID="ddlTehsil" runat="server" CssClass="form-control" DataTextField="Tehsil" DataValueField="TehsilID" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">PinCode</label>
+                        <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender10" runat="server" TargetControlID="txtPincode" WatermarkText="Pincode" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">City</label>
+                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID="txtCity" WatermarkText="City" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+
+
+                </div>
+            </fieldset>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnShipTo" runat="server" Text="Save" CssClass="btn Save" OnClick="btnShipTo_Click" />

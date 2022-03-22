@@ -879,10 +879,10 @@ namespace Business
             }
         }
 
-        public List<PDMS_CustomerShipTo> GetCustomerShopTo(long CustomerID)
+        public List<PDMS_CustomerShipTo> GetCustomerShopTo(long? CustomerShipToID, long? CustomerID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Customer/ShipTo?CustomerID=" + CustomerID;
+            string endPoint = "Customer/ShipTo?CustomerShipToID=" + CustomerShipToID + "&CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PDMS_CustomerShipTo>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         } 
     }
