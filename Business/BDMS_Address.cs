@@ -330,9 +330,10 @@ namespace Business
                                     StateID = Convert.ToInt32(dr["StateID"]),
                                     State = Convert.ToString(dr["State"]),                                   
                                 },
-                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
+                                Country =  new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
+                                    Country= Convert.ToString(dr["Country"])
                                 }
                             });
                         }
@@ -345,17 +346,18 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int StateID, int DealerID, string District, string DistrictSAP,Boolean IsActive, int UserID)
+        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int DealerID, string District, string DistrictSAP,Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+            DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
             DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter DistrictP = provider.CreateParameter("District", District, DbType.String);
             DbParameter DistrictSAPP = provider.CreateParameter("DistrictSAP", string.IsNullOrEmpty(DistrictSAP) ? null : DistrictSAP, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[7] { DistrictIDP, StateIDP, DealerIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[8] { DistrictIDP, CountryIDP, StateIDP, DealerIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -416,14 +418,17 @@ namespace Business
                                 District = new PDMS_District()
                                 {
                                     DistrictID= Convert.ToInt32(dr["DistrictID"]),
+                                    District = Convert.ToString(dr["District"]),
                                 },
                                 State = new PDMS_State()
                                 {
                                     StateID = Convert.ToInt32(dr["StateID"]),
+                                    State = Convert.ToString(dr["State"]),
                                 },
                                 Country = new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
+                                    Country = Convert.ToString(dr["Country"]),
                                 }
                             });
                         }
