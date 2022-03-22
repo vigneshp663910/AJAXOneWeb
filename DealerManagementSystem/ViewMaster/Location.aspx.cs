@@ -101,7 +101,7 @@ namespace DealerManagementSystem.ViewMaster
                     LCountry = new BDMS_Address().GetCountry(null, null);
                     LRegion = new BDMS_Address().GetRegion(null, null, null);
                     LState = new BDMS_Address().GetState(null, null, null, null);
-                    LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null);
+                    LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
                     LDealer = new BDMS_Dealer().GetDealer(null, null);
                     FillCountry();
                     FillRegion();
@@ -191,7 +191,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, null);
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, null, null);
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = LDistrict;
@@ -378,7 +378,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     District = txtDistrict.Text.Trim();
                 }
-                List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District);
+                List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
                 if (MML.Count == 0)
                 {
                     MML.Add(new PDMS_District());
@@ -2145,7 +2145,7 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlGCityState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
 
                 DropDownList ddlGCityDistrict = gvCity.FooterRow.FindControl("ddlGCityDistrict") as DropDownList;
-                new DDLBind(ddlGCityDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null), "District", "DistrictID", true, "Select District");
+                new DDLBind(ddlGCityDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID", true, "Select District");
 
             }
             catch (Exception Ex)
