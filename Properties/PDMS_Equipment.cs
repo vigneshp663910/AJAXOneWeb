@@ -61,6 +61,7 @@ namespace Properties
         public string DivisionCode { get; set; }
         public string DivisionDescription { get; set; }
         public string UOM { get; set; }
+        public string WarrantyDeliveryHours { get; set; }
     }
 
     //public class PDMS_DispatchType

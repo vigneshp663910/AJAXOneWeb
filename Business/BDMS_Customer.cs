@@ -781,24 +781,26 @@ namespace Business
                             Customer.Address3 = Convert.ToString(dr["Address3"]);
                             Customer.District = new PDMS_District();
                             Customer.District.District = Convert.ToString(dr["District"]);
+                            Customer.District.SalesOffice = new PSalesOffice();
+                            Customer.District.SalesOffice.SalesOffice = Convert.ToString(dr["SalesOffice"]);
+                            Customer.District.SalesOffice.SalesGroup = Convert.ToString(dr["SalesGroup"]);
                             Customer.Pincode = Convert.ToString(dr["Pincode"]);
                             Customer.City = Convert.ToString(dr["City"]);
                             Customer.Country = new PDMS_Country();
                             Customer.Country.CountryID = Convert.ToInt32(dr["CountryID"]);
                             Customer.Country.CountryCode = Convert.ToString(dr["CountryCode"]);
+                            Customer.Country.SalesOrganization = Convert.ToString(dr["SalesOrganization"]);
                             Customer.State = new PDMS_State();
                             Customer.State.StateID = Convert.ToInt32(dr["StateID"]);
                             Customer.State.StateCode = Convert.ToString(dr["StateCode"]);
+                            Customer.State.Region = new PDMS_Region();
+                            Customer.State.Region.Region = Convert.ToString(dr["Region"]);
                             Customer.Mobile = Convert.ToString(dr["Mobile"]);
                             Customer.AlternativeMobile = Convert.ToString(dr["AlternativeMobile"]);
                             Customer.Email = Convert.ToString(dr["EMail"]);
                             Customer.GSTIN = Convert.ToString(dr["GSTNo"]);
                             Customer.PAN = Convert.ToString(dr["PAN"]);
                             Customer.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-                            Customer.SalesOrganization= Convert.ToString(dr["SalesOrganization"]);
-                            Customer.SalesOffice = Convert.ToString(dr["SalesOffice"]);
-                            Customer.SalesGroup = Convert.ToString(dr["SalesGroup"]);
-                            Customer.SalesDistrict = Convert.ToString(dr["SalesDistrict"]);
                         }
                     }
                 }
@@ -812,23 +814,23 @@ namespace Business
             }
             return Customers;
         }
-        public int UpdateCustomerCodeFromSapToSql(long CustomerID)
+        public int UpdateCustomerCodeFromSapToSql(PDMS_Customer Customer)
         {
             //int? CustomerID, string CustomerCode
             TraceLogger.Log(DateTime.Now);
             int success = 0;
             try
             {
-                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(CustomerID, null);
-                string CustomerCode = Customer[0].CustomerCode;
-                if (string.IsNullOrEmpty(CustomerCode))
+                //List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(CustomerID, null);
+               // string CustomerCode = Customer[0].CustomerCode;
+                if (string.IsNullOrEmpty(Customer.CustomerCode))
                 {
-                    CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+                    string CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
                     if (!string.IsNullOrEmpty(CustomerCode))
                     { 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-                            DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
+                            DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
                             DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
 
                             DbParameter[] Params = new DbParameter[2] { CustomerIDP, CustomerCodeP };
@@ -876,5 +878,12 @@ namespace Business
                 InsertOrUpdateCustomerSap(C.CustomerCode);
             }
         }
+
+        public List<PDMS_CustomerShipTo> GetCustomerShopTo(long? CustomerShipToID, long? CustomerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/ShipTo?CustomerShipToID=" + CustomerShipToID + "&CustomerID=" + CustomerID;
+            return JsonConvert.DeserializeObject<List<PDMS_CustomerShipTo>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        } 
     }
 }

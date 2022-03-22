@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -501,49 +502,52 @@ namespace Business
 
         public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode)
         {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Material> SOIs = new List<PDMS_Material>();
-            PDMS_Material SOI = new PDMS_Material();
-            try
-            {
-                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
-                DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
-                DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
+            string endPoint = "Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode;
+            return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
-                using (DataSet DataSet = provider.Select("ZDMS_GetMaterialList", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            SOI = new PDMS_Material();
-                            SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
-                            SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
-                            SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
-                            SOI.BaseUnit = Convert.ToString(dr["BaseUnit"]);
-                            SOI.MaterialType = Convert.ToString(dr["MaterialType"]);
-                            SOI.MaterialGroup = Convert.ToString(dr["MaterialGroup"]);
-                            SOI.WeightUnit = Convert.ToString(dr["WeightUnit"]);
-                            //  SOI.MaterialDivision = Convert.ToString(dr["MaterialDivision"]);
-                            SOI.GrossWeight = DBNull.Value == dr["GrossWeight"] ? 0 : Convert.ToDecimal(dr["GrossWeight"]);
-                            SOI.NetWeight = DBNull.Value == dr["NetWeight"] ? 0 : Convert.ToDecimal(dr["NetWeight"]);
-                            SOI.HSN = Convert.ToString(dr["HSNCode"]);
-                            SOI.TaxPercentage = DBNull.Value == dr["TaxPercentage"] ? 0 : Convert.ToDecimal(dr["TaxPercentage"]);
-                            SOI.CurrentPrice = DBNull.Value == dr["CurrentPrice"] ? 0 : Convert.ToDecimal(dr["CurrentPrice"]);
-                            SOI.IsMainServiceMaterial = DBNull.Value == dr["IsMainServiceMaterial"] ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]);
-                            SOIs.Add(SOI);
-                        }
-                        return SOIs;
-                        TraceLogger.Log(DateTime.Now);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Material", "GetMaterial", ex);
-                throw ex;
-            }
-            return SOIs;
+            //TraceLogger.Log(DateTime.Now);
+            //List<PDMS_Material> SOIs = new List<PDMS_Material>();
+            //PDMS_Material SOI = new PDMS_Material();
+            //try
+            //{
+            //    DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
+            //    DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
+            //    DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
+
+            //    using (DataSet DataSet = provider.Select("ZDMS_GetMaterialList", Params))
+            //    {
+            //        if (DataSet != null)
+            //        {
+            //            foreach (DataRow dr in DataSet.Tables[0].Rows)
+            //            {
+            //                SOI = new PDMS_Material();
+            //                SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
+            //                SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
+            //                SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
+            //                SOI.BaseUnit = Convert.ToString(dr["BaseUnit"]);
+            //                SOI.MaterialType = Convert.ToString(dr["MaterialType"]);
+            //                SOI.MaterialGroup = Convert.ToString(dr["MaterialGroup"]);
+            //                SOI.WeightUnit = Convert.ToString(dr["WeightUnit"]);
+            //                //  SOI.MaterialDivision = Convert.ToString(dr["MaterialDivision"]);
+            //                SOI.GrossWeight = DBNull.Value == dr["GrossWeight"] ? 0 : Convert.ToDecimal(dr["GrossWeight"]);
+            //                SOI.NetWeight = DBNull.Value == dr["NetWeight"] ? 0 : Convert.ToDecimal(dr["NetWeight"]);
+            //                SOI.HSN = Convert.ToString(dr["HSNCode"]);
+            //                SOI.TaxPercentage = DBNull.Value == dr["TaxPercentage"] ? 0 : Convert.ToDecimal(dr["TaxPercentage"]);
+            //                SOI.CurrentPrice = DBNull.Value == dr["CurrentPrice"] ? 0 : Convert.ToDecimal(dr["CurrentPrice"]);
+            //                SOI.IsMainServiceMaterial = DBNull.Value == dr["IsMainServiceMaterial"] ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]);
+            //                SOIs.Add(SOI);
+            //            }
+            //            return SOIs;
+            //            TraceLogger.Log(DateTime.Now);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    new FileLogger().LogMessage("BDMS_Material", "GetMaterial", ex);
+            //    throw ex;
+            //}
+            //return SOIs;
         }
 
         public int IntegrationMaterialFromEccSap()

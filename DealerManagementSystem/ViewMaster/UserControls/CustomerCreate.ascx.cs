@@ -82,6 +82,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
             Customer.SendSMS = cbSendSMS.Checked;
             Customer.SendEmail = cbSendEmail.Checked;
+            Customer.IsShipTo = cbShipTo.Checked;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
             return Customer;
         }
@@ -120,6 +121,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtDOAnniversary.Text = Customer.DOAnniversary == null ? "" : ((DateTime)Customer.DOAnniversary).ToString("yyyy-MM-dd");
             cbSendSMS.Checked = Customer.SendSMS;
             cbSendEmail.Checked = Customer.SendEmail;
+            cbShipTo.Checked = Customer.IsShipTo;
         }
 
         public void FillClean()
