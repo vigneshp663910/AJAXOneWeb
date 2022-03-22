@@ -25,7 +25,7 @@
         <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="fldCountry" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Select Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -131,7 +131,7 @@
         <asp1:TabPanel ID="tbpnlRegion" runat="server" HeaderText="Region">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Select Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -218,7 +218,7 @@
         <asp1:TabPanel ID="tbpnlState" runat="server" HeaderText="State">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="fldState" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Select Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -256,7 +256,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvState" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvState_RowDataBound" OnPageIndexChanging="gvState_PageIndexChanging">
+                        <asp:GridView ID="gvState" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found" OnRowDataBound="gvState_RowDataBound" OnPageIndexChanging="gvState_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -277,7 +277,8 @@
                                         </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Country">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblGSCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server"></asp:Label>  <%--Visible="false"--%>
+                                        <asp:Label ID="lblGSCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.Country")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblGSCountryID" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server" Visible="false"></asp:Label><%--Visible="false"--%>
                                         <%--<asp:DropDownList ID="ddlGSCountry" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGSCountry_SelectedIndexChanged"></asp:DropDownList>--%>
                                     </ItemTemplate>
                                     <FooterTemplate>
@@ -286,7 +287,8 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Region">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblRegion" Text='<%# DataBinder.Eval(Container.DataItem, "Region")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblGSRegion" Text='<%# DataBinder.Eval(Container.DataItem, "Region.Region")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblGSRegionID" Text='<%# DataBinder.Eval(Container.DataItem, "Region.RegionID")%>' runat="server" Visible="false"></asp:Label>
                                         <%--<asp:DropDownList ID="ddlGSRegion" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>--%>
                                     </ItemTemplate>
                                     <FooterTemplate>
@@ -296,19 +298,19 @@
                                 <asp:TemplateField HeaderText="State">
                                     <ItemTemplate>
                                         <%--<asp:TextBox ID="txtGRState" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "State")%>' Enabled="false"></asp:TextBox>--%>
-                                        <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblGSState" Text='<%# DataBinder.Eval(Container.DataItem, "State")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:TextBox ID="txtGRState" runat="server" placeholder ="State" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtGSState" runat="server" placeholder ="State" CssClass="form-control"></asp:TextBox>
                                     </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="StateCode">
                                     <ItemTemplate>
                                         <%--<asp:TextBox ID="txtGRStateCode" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "StateCode")%>' Enabled="false"></asp:TextBox>--%>
-                                        <asp:Label ID="lblStateCode" Text='<%# DataBinder.Eval(Container.DataItem, "StateCode")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblGSStateCode" Text='<%# DataBinder.Eval(Container.DataItem, "StateCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:TextBox ID="txtGRStateCode" runat="server" placeholder="State Code" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtGSStateCode" runat="server" placeholder="State Code" CssClass="form-control"></asp:TextBox>
                                     </FooterTemplate>
                                 </asp:TemplateField>
                                 <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
@@ -346,16 +348,16 @@
         <asp1:TabPanel ID="tbpnlDistrict" runat="server" HeaderText="District">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
-                            <label>Country</label><span class="Mandatory">*</span>
+                            <label>Country</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlDCountry" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDCountry_SelectedIndexChanged"></asp:DropDownList>
                         </div>
                         <div class="col-md-2 text-right">
-                            <label>State</label><span class="Mandatory">*</span>
+                            <label>State</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlDState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDState_SelectedIndexChanged"></asp:DropDownList>
@@ -363,27 +365,27 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
-                            <label>DealerCode</label><span class="Mandatory">*</span>
+                            <label>DealerCode</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlDDealer" runat="server" CssClass="form-control"></asp:DropDownList>
                         </div>
                         <div class="col-md-2 text-right">
-                            <label>District</label><span class="Mandatory">*</span>
+                            <label>District</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:TextBox ID="txtDistrict" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2">
                             <asp:Button ID="BtnSearchDistrict" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchDistrict_Click"></asp:Button>
-                            <asp:Button ID="BtnAddDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddDistrict_Click"></asp:Button>
+                            <%--<asp:Button ID="BtnAddDistrict" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddDistrict_Click"></asp:Button>--%>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvDistrict" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvDistrict_RowDataBound" OnPageIndexChanging="gvDistrict_PageIndexChanging">
+                        <asp:GridView ID="gvDistrict" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found" OnRowDataBound="gvDistrict_RowDataBound" OnPageIndexChanging="gvDistrict_PageIndexChanging">
                             <Columns>
                                 <%--<asp:TemplateField HeaderText="Select">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -398,38 +400,63 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Country">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server" Visible="false"></asp:Label>
-                                        <asp:DropDownList ID="ddlGDCountry" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGDCountry_SelectedIndexChanged"></asp:DropDownList>
+                                        <asp:Label ID="lblGDCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.Country")%>' runat="server"></asp:Label> <%--Visible="false"--%>
+                                        <asp:Label ID="lblGDCountryID" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server" Visible="false"></asp:Label>
+                                        <%--<asp:DropDownList ID="ddlGDCountry" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGDCountry_SelectedIndexChanged"></asp:DropDownList>--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="ddlGDCountry" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlGDCountry_SelectedIndexChanged"></asp:DropDownList>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="State">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' runat="server" Visible="false"></asp:Label>
-                                        <asp:DropDownList ID="ddlGDState" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
+                                        <asp:Label ID="lblGDState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server"></asp:Label> <%--Visible="false"--%>
+                                        <asp:Label ID="lblGDStateID" Text='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' runat="server" Visible="false"></asp:Label>
+                                        <%--<asp:DropDownList ID="ddlGDState" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="ddlGDState" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="DealerCode">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealer" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerID")%>' runat="server" Visible="false"></asp:Label>
-                                        <asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
+                                        <asp:Label ID="lblGDDealer" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label><%-- Visible="false"--%>
+                                        <asp:Label ID="lblGDDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerID")%>' runat="server" Visible="false"></asp:Label>
+                                        <%--<asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="District">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' Enabled="false"></asp:TextBox>
+                                        <%--<asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' Enabled="false"></asp:TextBox>--%>
+                                        <asp:Label ID="lblGDDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
+                                <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="ImageDEdit" runat="server" ImageUrl="~/Images/Edit1.png" OnClick="ImageDEdit_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
                                         <asp:ImageButton ID="ImageDUpdate" runat="server" ImageUrl="~/Images/Save.png" OnClick="ImageDUpdate_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' Visible="false" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>--%>
                                         <%--<asp:Button ID="btnDDelete" runat="server" Font-Size="11px" Text="Delete" CssClass="btn btn-danger btn-sm" OnClick="btnDDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />--%>
-                                        <asp:ImageButton ID="ImageDDelete" runat="server" ImageUrl="~/Images/Delete1.png" OnClick="ImageDDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
+                                        <%--<asp:ImageButton ID="ImageDDelete" runat="server" ImageUrl="~/Images/Delete1.png" OnClick="ImageDDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />
                                     </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkBtnDistrictEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' OnClick="lnkBtnDistrictEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="lnkBtnDistrictDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' OnClick="lnkBtnDistrictDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Button ID="BtnAddOrUpdateDistrict" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddOrUpdateDistrict_Click" Width="70px" Height="33px" />
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
@@ -445,16 +472,16 @@
         <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="City">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
-                            <label>Country</label><span class="Mandatory">*</span>
+                            <label>Country</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlCityCountry" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCityCountry_SelectedIndexChanged"></asp:DropDownList>
                         </div>
                         <div class="col-md-2 text-right">
-                            <label>State</label><span class="Mandatory">*</span>
+                            <label>State</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlCityState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCityState_SelectedIndexChanged"></asp:DropDownList>
@@ -462,27 +489,27 @@
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
-                            <label>District</label><span class="Mandatory">*</span>
+                            <label>District</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlCityDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
                         </div>
                         <div class="col-md-2 text-right">
-                            <label>City</label><span class="Mandatory">*</span>
+                            <label>City</label><%--<span class="Mandatory">*</span>--%>
                         </div>
                         <div class="col-md-3">
                             <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2">
                             <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
-                            <asp:Button ID="BtnAddCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddCity_Click"></asp:Button>
+                            <%--<asp:Button ID="BtnAddCity" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddCity_Click"></asp:Button>--%>
                         </div>
                     </div>
                 </fieldset>
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvCity" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvCity_RowDataBound" OnPageIndexChanging="gvCity_PageIndexChanging">
+                        <asp:GridView ID="gvCity" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found" OnRowDataBound="gvCity_RowDataBound" OnPageIndexChanging="gvCity_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -491,38 +518,64 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Country">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server" Visible="false"></asp:Label>
-                                        <asp:DropDownList ID="ddlGCityCountry" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGCityCountry_SelectedIndexChanged"></asp:DropDownList>
+                                        <asp:Label ID="lblGCityCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country.Country")%>' runat="server"></asp:Label> <%--Visible="false"--%>
+                                        <asp:Label ID="lblGCityCountryID" Text='<%# DataBinder.Eval(Container.DataItem, "Country.CountryID")%>' runat="server" Visible="false"></asp:Label>
+                                        <%--<asp:DropDownList ID="ddlGCityCountry" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGCityCountry_SelectedIndexChanged"></asp:DropDownList>--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="ddlGCityCountry" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlGCityCountry_SelectedIndexChanged"></asp:DropDownList>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="State">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' runat="server" Visible="false"></asp:Label>
-                                        <asp:DropDownList ID="ddlGCityState" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGCityState_SelectedIndexChanged"></asp:DropDownList>
+                                        <asp:Label ID="lblGCityState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server"></asp:Label>  <%--Visible="false"--%>
+                                        <asp:Label ID="lblGCityStateID" Text='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' runat="server" Visible="false"></asp:Label>
+                                        <%--<asp:DropDownList ID="ddlGCityState" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlGCityState_SelectedIndexChanged"></asp:DropDownList>--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="ddlGCityState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlGCityState_SelectedIndexChanged"></asp:DropDownList>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="District">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.DistrictID")%>' runat="server" Visible="false"></asp:Label>
-                                        <asp:DropDownList ID="ddlGCityDistrict" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
+                                        <asp:Label ID="lblGCityDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server"></asp:Label>  <%--Visible="false"--%>
+                                        <asp:Label ID="lblGCityDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "District.DistrictID")%>' runat="server" Visible="false"></asp:Label> 
+                                        <%--<asp:DropDownList ID="ddlGCityDistrict" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:DropDownList ID="ddlGCityDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="City">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtGCity" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' Enabled="false" />
+                                        <asp:Label ID="lblGCity" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' runat="server"></asp:Label>
+                                        <%--<asp:Label ID="lblGCityID" Text='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' runat="server" Visible="false"></asp:Label>--%>
+                                        <%--<asp:TextBox ID="txtGCity" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' Enabled="false" />--%>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:TextBox ID="txtGCity" runat="server" placeholder="City" CssClass="form-control"/>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
+                                <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:ImageButton ID="ImageCityEdit" runat="server" ImageUrl="~/Images/Edit1.png" OnClick="ImageCityEdit_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' />
                                         <asp:ImageButton ID="ImageCityUpdate" runat="server" ImageUrl="~/Images/Save.png" OnClick="ImageCityUpdate_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' Visible="false" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>--%>
                                         <%--<asp:Button ID="btnDDelete" runat="server" Font-Size="11px" Text="Delete" CssClass="btn btn-danger btn-sm" OnClick="btnDDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' />--%>
-                                        <asp:ImageButton ID="ImageCityDelete" runat="server" ImageUrl="~/Images/Delete1.png" OnClick="ImageCityDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' />
+                                        <%--<asp:ImageButton ID="ImageCityDelete" runat="server" ImageUrl="~/Images/Delete1.png" OnClick="ImageCityDelete_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' />
                                     </ItemTemplate>
+                                </asp:TemplateField>--%>
+                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkBtnCityEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' OnClick="lnkBtnCityEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="lnkBtnCityDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' OnClick="lnkBtnCityDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Button ID="BtnAddOrUpdateCity" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddOrUpdateCity_Click" Width="70px" Height="33px" />
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />

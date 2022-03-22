@@ -191,7 +191,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, null);
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = LDistrict;
@@ -277,7 +277,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                int? CountryID = null, RegionID = null, StateID = null, DistrictID = null;
+                int? CountryID = null, RegionID = null, StateID = null, DistrictID = null, DealerID = null;
                 string district = null;
                 if (ddlCityCountry.SelectedValue != "0")
                 {
@@ -287,7 +287,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
-                FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
+                FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID,  district);
             }
             catch (Exception Ex)
             {
@@ -321,10 +321,11 @@ namespace DealerManagementSystem.ViewMaster
                 if (ddlSCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
-                }
-                if (ddlSRegion.SelectedValue != "0")
-                {
-                    RegionID = Convert.ToInt32(ddlSRegion.SelectedValue);
+
+                    if (ddlSRegion.SelectedValue != "0")
+                    {
+                        RegionID = Convert.ToInt32(ddlSRegion.SelectedValue);
+                    }
                 }
                 if (!string.IsNullOrEmpty(txtState.Text))
                 {
@@ -335,8 +336,17 @@ namespace DealerManagementSystem.ViewMaster
                     StateCode = txtStateCode.Text.Trim();
                 }
                 List<PDMS_State> MML = new BDMS_Address().GetState(CountryID, RegionID, null, State);
+                if (MML.Count == 0)
+                {
+                    MML.Add(new PDMS_State());
+                }
                 gvState.DataSource = MML;
                 gvState.DataBind();
+                DropDownList ddlGSCountry = gvState.FooterRow.FindControl("ddlGSCountry") as DropDownList;
+                new DDLBind(ddlGSCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+
+                DropDownList ddlGSRegion = gvState.FooterRow.FindControl("ddlGSRegion") as DropDownList;
+                new DDLBind(ddlGSRegion, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID", true, "Select Region");
             }
             catch (Exception Ex)
             {
@@ -349,7 +359,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                int? CountryID = null, RegionID = null, StateID = null, DistrictID = null;
+                int? CountryID = null, RegionID = null, StateID = null, DistrictID = null, DealerID = null;
                 string District = null;
                 if (ddlDCountry.SelectedValue != "0")
                 {
@@ -359,14 +369,32 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     StateID = Convert.ToInt32(ddlDState.SelectedValue);
                 }
+                if (ddlDDealer.SelectedValue != "0")
+                {
+                    DealerID = Convert.ToInt32(ddlDDealer.SelectedValue);
+                }
+
                 if (!string.IsNullOrEmpty(txtDistrict.Text))
                 {
                     District = txtDistrict.Text.Trim();
                 }
-                List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
+                List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District);
+                if (MML.Count == 0)
+                {
+                    MML.Add(new PDMS_District());
+                }
                 ViewState["gvDistrict"] = MML;
                 gvDistrict.DataSource = MML;
                 gvDistrict.DataBind();
+                
+                DropDownList ddlGDCountry = gvDistrict.FooterRow.FindControl("ddlGDCountry") as DropDownList;
+                new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+
+                DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
+                new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+
+                DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
+                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null), "DealerName", "DealerID", true, "Select Dealer");
             }
             catch (Exception Ex)
             {
@@ -386,6 +414,10 @@ namespace DealerManagementSystem.ViewMaster
                     country = txtCountry.Text.Trim();
                 }
                 List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, country);
+                if (MML.Count == 0)
+                {
+                    MML.Add(new PDMS_Country());
+                }
                 ViewState["gvCountry"] = MML;
                 gvCountry.DataSource = MML;
                 gvCountry.DataBind();
@@ -414,6 +446,10 @@ namespace DealerManagementSystem.ViewMaster
                     Region = txtRRegion.Text.Trim();
                 }
                 List<PDMS_Region> MML = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
+                if (MML.Count == 0)
+                {
+                    MML.Add(new PDMS_Region());
+                }
                 gvRegion.DataSource = MML;
                 gvRegion.DataBind();
                 DropDownList ddlGRCountry = gvRegion.FooterRow.FindControl("ddlGRCountry") as DropDownList;
@@ -1029,6 +1065,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             FillGridRegion();
         }
+        
         protected void gvRegion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
@@ -1045,6 +1082,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
         //protected void ImageREdit_Click(object sender, ImageClickEventArgs e)
         //{
         //    try
@@ -1173,74 +1211,170 @@ namespace DealerManagementSystem.ViewMaster
         //        lblMessage.ForeColor = Color.Red;
         //    }
         //}
-        protected void BtnAddState_Click(object sender, EventArgs e)
+        //protected void BtnAddState_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = string.Empty;
+        //        Boolean Success = true;
+        //        string Message = "";
+
+        //        if (ddlSCountry.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select Country";
+        //            Success = false;
+        //        }
+        //        if (ddlSRegion.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select Region";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtState.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the State";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtStateCode.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the StateCode";
+        //            Success = false;
+        //        }
+        //        List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlSCountry.SelectedValue), Convert.ToInt32(ddlSRegion.SelectedValue), null, txtStateCode.Text.Trim());
+        //        if (MML.Count > 0)
+        //        {
+        //            Message = Message + "<br/> State is already found...!";
+        //            Success = false;
+        //        }
+        //        lblMessage.Text = Message;
+        //        if (Success == false)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Success = new BDMS_Address().InsertOrUpdateAddressState(null, txtState.Text.Trim(), txtStateCode.Text.Trim(), null, Convert.ToInt32(ddlSCountry.SelectedValue), true, Convert.ToInt32(ddlSRegion.SelectedValue), PSession.User.UserID);
+        //            if (Success == true)
+        //            {
+        //                lblMessage.Text = "State is Added successfully";
+        //                lblMessage.ForeColor = Color.Green;
+        //                FillGridState();
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "State is not Added successfully";
+        //                lblMessage.ForeColor = Color.Red;
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+        protected void BtnSearchState_Click(object sender, EventArgs e)
+        {
+            FillGridState();
+        }
+
+        protected void BtnAddOrUpdateState_Click(object sender, EventArgs e)
         {
             try
             {
+                lblMessage.Text = string.Empty;
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
-                lblMessage.Text = string.Empty;
                 Boolean Success = true;
-                string Message = "";
+                Button BtnAddOrUpdateRegion = (Button)gvState.FooterRow.FindControl("BtnAddOrUpdateState");
 
-                if (ddlSCountry.SelectedValue == "0")
+                DropDownList ddlGSCountry = (DropDownList)gvState.FooterRow.FindControl("ddlGSCountry");
+                if (ddlGSCountry.SelectedValue == "0")
                 {
-                    Message = Message + "<br/> Please Select Country";
-                    Success = false;
-                }
-                if (ddlSRegion.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select Region";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtState.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the State";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtStateCode.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the StateCode";
-                    Success = false;
-                }
-                List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlSCountry.SelectedValue), Convert.ToInt32(ddlSRegion.SelectedValue), null, txtStateCode.Text.Trim());
-                if (MML.Count > 0)
-                {
-                    Message = Message + "<br/> State is already found...!";
-                    Success = false;
-                }
-                lblMessage.Text = Message;
-                if (Success == false)
-                {
+                    lblMessage.Text = "Please select Country.";
+                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                else
+                DropDownList ddlGSRegion = (DropDownList)gvState.FooterRow.FindControl("ddlGSRegion");
+                if (ddlGSRegion.SelectedValue == "0")
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressState(null, txtState.Text.Trim(), txtStateCode.Text.Trim(), null, Convert.ToInt32(ddlSCountry.SelectedValue), true, Convert.ToInt32(ddlSRegion.SelectedValue), PSession.User.UserID);
+                    lblMessage.Text = "Please select Region.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                string State = ((TextBox)gvState.FooterRow.FindControl("txtGRState")).Text.Trim();
+                if (string.IsNullOrEmpty(State))
+                {
+                    lblMessage.Text = "Please enter State.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                string StateCode = ((TextBox)gvState.FooterRow.FindControl("txtGRStateCode")).Text.Trim();
+                if (string.IsNullOrEmpty(State))
+                {
+                    lblMessage.Text = "Please enter State Code.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                if (BtnAddOrUpdateRegion.Text == "Add")
+                {
+                    Success = new BDMS_Address().InsertOrUpdateAddressState(null, State, StateCode, null, Convert.ToInt32(ddlSCountry.SelectedValue), true, Convert.ToInt32(ddlSRegion.SelectedValue), PSession.User.UserID);
                     if (Success == true)
                     {
-                        lblMessage.Text = "State is Added successfully";
-                        lblMessage.ForeColor = Color.Green;
                         FillGridState();
+                        lblMessage.Text = "State is added successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "State is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
                     }
                     else
                     {
-                        lblMessage.Text = "State is not Added successfully";
+                        lblMessage.Text = "State not created successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+                else
+                {
+                    Success = new BDMS_Address().InsertOrUpdateAddressState(Convert.ToInt32(HiddenID.Value), State, StateCode, null, Convert.ToInt32(ddlGSCountry.SelectedValue), true, Convert.ToInt32(ddlGSRegion.SelectedValue), PSession.User.UserID);
+
+                    if (Success == true)
+                    {
+                        HiddenID.Value = null;
+                        FillGridState();
+                        lblMessage.Text = "State successfully updated.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "State already found";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "State not updated successfully...!";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
                 }
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
-        }
-        protected void BtnSearchState_Click(object sender, EventArgs e)
-        {
-            FillGridState();
         }
 
         protected void gvState_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -1249,16 +1383,16 @@ namespace DealerManagementSystem.ViewMaster
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    DropDownList ddlGSCountry = (e.Row.FindControl("ddlGSCountry") as DropDownList);
-                    DropDownList ddlGSRegion = (e.Row.FindControl("ddlGSRegion") as DropDownList);
+                    //DropDownList ddlGSCountry = (e.Row.FindControl("ddlGSCountry") as DropDownList);
+                    //DropDownList ddlGSRegion = (e.Row.FindControl("ddlGSRegion") as DropDownList);
 
-                    FillCountryDLL(ddlGSCountry);
-                    string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
-                    ddlGSCountry.SelectedValue = CountryID;
+                    //FillCountryDLL(ddlGSCountry);
+                    //string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
+                    //ddlGSCountry.SelectedValue = CountryID;
 
-                    FillRegionDLL(ddlGSRegion, Convert.ToInt32(CountryID), null, null);
-                    string RegionID = !string.IsNullOrEmpty((e.Row.FindControl("lblRegion") as Label).Text) ? (e.Row.FindControl("lblRegion") as Label).Text : "0";
-                    ddlGSRegion.SelectedValue = RegionID;
+                    //FillRegionDLL(ddlGSRegion, Convert.ToInt32(CountryID), null, null);
+                    //string RegionID = !string.IsNullOrEmpty((e.Row.FindControl("lblRegion") as Label).Text) ? (e.Row.FindControl("lblRegion") as Label).Text : "0";
+                    //ddlGSRegion.SelectedValue = RegionID;
                 }
             }
             catch (Exception Ex)
@@ -1268,379 +1402,481 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void ImageSEdit_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                lblMessage.Text = "";
-                ImageButton ImageSEdit = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageSEdit.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageSEdit.NamingContainer);
-                ImageButton ImageSUpdate = (ImageButton)row.FindControl("ImageSUpdate");
-                DropDownList ddlGSCountry = (DropDownList)row.FindControl("ddlGSCountry");
-                DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
-                TextBox txtGRState = (TextBox)row.FindControl("txtGRState");
-                TextBox txtGRStateCode = (TextBox)row.FindControl("txtGRStateCode");
-                ddlGSCountry.Enabled = true;
-                ddlGSRegion.Enabled = true;
-                txtGRState.Enabled = true;
-                txtGRStateCode.Enabled = true;
-                ImageSUpdate.Visible = true;
-                ImageSEdit.Visible = false;
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void ImageSUpdate_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                string Message = "";
-                Boolean Success = true;
-                ImageButton ImageSUpdate = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageSUpdate.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageSUpdate.NamingContainer);
-                ImageButton ImageSEdit = (ImageButton)row.FindControl("ImageSEdit");
-                DropDownList ddlGSCountry = (DropDownList)row.FindControl("ddlGSCountry");
-                DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
-                TextBox txtGRState = (TextBox)row.FindControl("txtGRState");
-                TextBox txtGRStateCode = (TextBox)row.FindControl("txtGRStateCode");
-                if (ddlGSCountry.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select Country";
-                    Success = false;
-                }
-                if (ddlGSRegion.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select Region";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtGRState.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the State";
-                    Success = false;
-                }
-                List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlGSCountry.SelectedValue), Convert.ToInt32(ddlGSRegion.SelectedValue), null, txtGRState.Text.Trim());
-                if (MML.Count > 0)
-                {
-                    Message = Message + "<br/> State is already found...!";
-                    Success = false;
-                }
-                lblMessage.Text = Message;
-                if (Success == false)
-                {
-                    return;
-                }
-                else
-                {
-                    Success = new BDMS_Address().InsertOrUpdateAddressState(Convert.ToInt32(id), txtGRState.Text.Trim(), txtGRStateCode.Text.Trim(), null, Convert.ToInt32(ddlGSCountry.SelectedValue), true, Convert.ToInt32(ddlGSRegion.SelectedValue), PSession.User.UserID);
-                    if (Success == false)
-                    {
-                        lblMessage.Text = "State is not successfully updated";
-                        lblMessage.ForeColor = Color.Red;
-                        lblMessage.Visible = true;
 
-                    }
-                    else
-                    {
-                        lblMessage.Text = "State was successfully updated.";
-                        lblMessage.ForeColor = Color.Green;
-                        lblMessage.Visible = true;
-                        ddlGSCountry.Enabled = false;
-                        ddlGSRegion.Enabled = false;
-                        txtGRState.Enabled = false;
-                        txtGRStateCode.Enabled = false;
-                        ImageSUpdate.Visible = false;
-                        ImageSEdit.Visible = true;
-                        FillGridState();
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void ImageSDelete_Click(object sender, ImageClickEventArgs e)
+        //protected void ImageSEdit_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = "";
+        //        ImageButton ImageSEdit = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageSEdit.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageSEdit.NamingContainer);
+        //        ImageButton ImageSUpdate = (ImageButton)row.FindControl("ImageSUpdate");
+        //        DropDownList ddlGSCountry = (DropDownList)row.FindControl("ddlGSCountry");
+        //        DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
+        //        TextBox txtGRState = (TextBox)row.FindControl("txtGRState");
+        //        TextBox txtGRStateCode = (TextBox)row.FindControl("txtGRStateCode");
+        //        ddlGSCountry.Enabled = true;
+        //        ddlGSRegion.Enabled = true;
+        //        txtGRState.Enabled = true;
+        //        txtGRStateCode.Enabled = true;
+        //        ImageSUpdate.Visible = true;
+        //        ImageSEdit.Visible = false;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+
+        //protected void ImageSUpdate_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        string Message = "";
+        //        Boolean Success = true;
+        //        ImageButton ImageSUpdate = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageSUpdate.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageSUpdate.NamingContainer);
+        //        ImageButton ImageSEdit = (ImageButton)row.FindControl("ImageSEdit");
+        //        DropDownList ddlGSCountry = (DropDownList)row.FindControl("ddlGSCountry");
+        //        DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
+        //        TextBox txtGRState = (TextBox)row.FindControl("txtGRState");
+        //        TextBox txtGRStateCode = (TextBox)row.FindControl("txtGRStateCode");
+        //        if (ddlGSCountry.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select Country";
+        //            Success = false;
+        //        }
+        //        if (ddlGSRegion.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select Region";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtGRState.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the State";
+        //            Success = false;
+        //        }
+        //        List<PDMS_State> MML = new BDMS_Address().GetState(Convert.ToInt32(ddlGSCountry.SelectedValue), Convert.ToInt32(ddlGSRegion.SelectedValue), null, txtGRState.Text.Trim());
+        //        if (MML.Count > 0)
+        //        {
+        //            Message = Message + "<br/> State is already found...!";
+        //            Success = false;
+        //        }
+        //        lblMessage.Text = Message;
+        //        if (Success == false)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Success = new BDMS_Address().InsertOrUpdateAddressState(Convert.ToInt32(id), txtGRState.Text.Trim(), txtGRStateCode.Text.Trim(), null, Convert.ToInt32(ddlGSCountry.SelectedValue), true, Convert.ToInt32(ddlGSRegion.SelectedValue), PSession.User.UserID);
+        //            if (Success == false)
+        //            {
+        //                lblMessage.Text = "State is not successfully updated";
+        //                lblMessage.ForeColor = Color.Red;
+        //                lblMessage.Visible = true;
+
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "State was successfully updated.";
+        //                lblMessage.ForeColor = Color.Green;
+        //                lblMessage.Visible = true;
+        //                ddlGSCountry.Enabled = false;
+        //                ddlGSRegion.Enabled = false;
+        //                txtGRState.Enabled = false;
+        //                txtGRStateCode.Enabled = false;
+        //                ImageSUpdate.Visible = false;
+        //                ImageSEdit.Visible = true;
+        //                FillGridState();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+        //protected void ImageSDelete_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = "";
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        Boolean Success = true;
+        //        ImageButton ImageSDelete = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageSDelete.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageSDelete.NamingContainer);
+        //        DropDownList ddlGSCountry = (DropDownList)row.FindControl("ddlGSCountry");
+        //        DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
+        //        TextBox txtGRState = (TextBox)row.FindControl("txtGRState");
+        //        TextBox txtGRStateCode = (TextBox)row.FindControl("txtGRStateCode");
+
+        //        Success = new BDMS_Address().InsertOrUpdateAddressState(Convert.ToInt32(id), txtGRState.Text.Trim(), txtGRStateCode.Text.Trim(), null, Convert.ToInt32(ddlGSCountry.SelectedValue), false, Convert.ToInt32(ddlGSRegion.SelectedValue), PSession.User.UserID);
+        //        if (Success == false)
+        //        {
+        //            lblMessage.Text = "State is not successfully Deleted";
+        //            lblMessage.ForeColor = Color.Red;
+        //            lblMessage.Visible = true;
+
+        //        }
+        //        else
+        //        {
+        //            lblMessage.Text = "State was successfully Deleted.";
+        //            lblMessage.ForeColor = Color.Green;
+        //            lblMessage.Visible = true;
+        //            FillGridState();
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+        protected void lnkBtnStateEdit_Click(object sender, EventArgs e)
         {
             try
             {
-                lblMessage.Text = "";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                Boolean Success = true;
-                ImageButton ImageSDelete = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageSDelete.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageSDelete.NamingContainer);
-                DropDownList ddlGSCountry = (DropDownList)row.FindControl("ddlGSCountry");
-                DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
-                TextBox txtGRState = (TextBox)row.FindControl("txtGRState");
-                TextBox txtGRStateCode = (TextBox)row.FindControl("txtGRStateCode");
-
-                Success = new BDMS_Address().InsertOrUpdateAddressState(Convert.ToInt32(id), txtGRState.Text.Trim(), txtGRStateCode.Text.Trim(), null, Convert.ToInt32(ddlGSCountry.SelectedValue), false, Convert.ToInt32(ddlGSRegion.SelectedValue), PSession.User.UserID);
-                if (Success == false)
-                {
-                    lblMessage.Text = "State is not successfully Deleted";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
-
-                }
-                else
-                {
-                    lblMessage.Text = "State was successfully Deleted.";
-                    lblMessage.ForeColor = Color.Green;
-                    lblMessage.Visible = true;
-                    FillGridState();
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void BtnAddDistrict_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
                 lblMessage.Text = string.Empty;
-                Boolean Success = true;
-                string Message = "";
-                if (ddlDCountry.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select Country";
-                    Success = false;
-                }
-                if (ddlDState.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select State";
-                    Success = false;
-                }
-                if (ddlDDealer.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select DealerCode";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtDistrict.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the District";
-                    Success = false;
-                }
-                List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlDCountry.SelectedValue), null, Convert.ToInt32(ddlDState.SelectedValue), null, txtDistrict.Text.Trim());
-                if (MML.Count > 0)
-                {
-                    Message = Message + "<br/> District is already found...!";
-                    Success = false;
-                }
-                lblMessage.Text = Message;
-                if (Success == false)
-                {
-                    return;
-                }
-                else
-                {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlDState.SelectedValue), Convert.ToInt32(ddlDDealer.SelectedValue), txtDistrict.Text.Trim(), null, true, PSession.User.UserID);
-                    if (Success == true)
-                    {
-                        lblMessage.Text = "District is Added successfully";
-                        lblMessage.ForeColor = Color.Green;
-                        FillGridDistrict();
-                    }
-                    else
-                    {
-                        lblMessage.Text = "District is not Added successfully";
-                        lblMessage.ForeColor = Color.Red;
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
                 lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                LinkButton lnkBtnStateEdit = (LinkButton)sender;
+                DropDownList ddlGSCountry = (DropDownList)gvState.FooterRow.FindControl("ddlGSCountry");
+                DropDownList ddlGSRegion = (DropDownList)gvState.FooterRow.FindControl("ddlGSRegion");
+                TextBox txtGSState = (TextBox)gvState.FooterRow.FindControl("txtGSState");
+                TextBox txtGSStateCode = (TextBox)gvState.FooterRow.FindControl("txtGSStateCode");
+                Button BtnAddOrUpdateState = (Button)gvState.FooterRow.FindControl("BtnAddOrUpdateState");
+                GridViewRow row = (GridViewRow)(lnkBtnStateEdit.NamingContainer);
+                Label lblGSCountry = (Label)row.FindControl("lblGSCountry");
+                ddlGSCountry.SelectedValue = lblGSCountry.Text;
+                Label lblGSRegion = (Label)row.FindControl("lblGSRegion");
+                ddlGSRegion.SelectedValue = lblGSRegion.Text;
+                Label lblGSState = (Label)row.FindControl("lblGSState");
+                txtGSState.Text = lblGSState.Text;
+                Label lblGSStateCode = (Label)row.FindControl("lblGSStateCode");
+                txtGSState.Text = lblGSStateCode.Text;
+                HiddenID.Value = Convert.ToString(lnkBtnStateEdit.CommandArgument);
+                BtnAddOrUpdateState.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
+
+        protected void lnkBtnStateDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                Boolean success = true;
+                LinkButton lnkBtnStateDelete = (LinkButton)sender;
+                int StateID = Convert.ToInt32(lnkBtnStateDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnStateDelete.NamingContainer);
+                int CountryID = Convert.ToInt32(((Label)row.FindControl("lblGSCountryID")).Text.Trim());
+                int RegionID = Convert.ToInt32(((Label)row.FindControl("lblGSRegionID")).Text.Trim());
+                string State = ((Label)row.FindControl("lblGSState")).Text.Trim();
+                string StateCode = ((Label)row.FindControl("lblGSStateCode")).Text.Trim();
+
+                success = new BDMS_Address().InsertOrUpdateAddressState(CountryID, State, StateCode, null, CountryID, false, RegionID, PSession.User.UserID);
+                if (success == true)
+                {
+                    HiddenID.Value = null;
+                    FillGridCountry();
+                    lblMessage.Text = "State deleted successfully";
+                    lblMessage.ForeColor = Color.Green;
+                }
+                else if (success == false)
+                {
+                    lblMessage.Text = "State not deleted successfully";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
+        //protected void BtnAddDistrict_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = string.Empty;
+        //        Boolean Success = true;
+        //        string Message = "";
+        //        if (ddlDCountry.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select Country";
+        //            Success = false;
+        //        }
+        //        if (ddlDState.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select State";
+        //            Success = false;
+        //        }
+        //        if (ddlDDealer.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select DealerCode";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtDistrict.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the District";
+        //            Success = false;
+        //        }
+        //        List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlDCountry.SelectedValue), null, Convert.ToInt32(ddlDState.SelectedValue), null, txtDistrict.Text.Trim());
+        //        if (MML.Count > 0)
+        //        {
+        //            Message = Message + "<br/> District is already found...!";
+        //            Success = false;
+        //        }
+        //        lblMessage.Text = Message;
+        //        if (Success == false)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlDState.SelectedValue), Convert.ToInt32(ddlDDealer.SelectedValue), txtDistrict.Text.Trim(), null, true, PSession.User.UserID);
+        //            if (Success == true)
+        //            {
+        //                lblMessage.Text = "District is Added successfully";
+        //                lblMessage.ForeColor = Color.Green;
+        //                FillGridDistrict();
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "District is not Added successfully";
+        //                lblMessage.ForeColor = Color.Red;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
         protected void BtnSearchDistrict_Click(object sender, EventArgs e)
         {
             FillGridDistrict();
         }
+
+
+        protected void lnkBtnDistrictEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                LinkButton lnkBtnDistrictEdit = (LinkButton)sender;
+                DropDownList ddlGDCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDCountry");
+                DropDownList ddlGDState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDState");
+                DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");
+                TextBox txtGDDistrict = (TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict");
+                Button BtnAddOrUpdateDistrict = (Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateDistrict");
+                GridViewRow row = (GridViewRow)(lnkBtnDistrictEdit.NamingContainer);
+                Label lblGDCountry = (Label)row.FindControl("lblGDCountry");
+                ddlGDCountry.SelectedValue = lblGDCountry.Text;
+                Label lblGDState = (Label)row.FindControl("lblGDState");
+                ddlGDState.SelectedValue = lblGDState.Text;
+                Label lblGDDealer = (Label)row.FindControl("lblGDDealer");
+                ddlGDDealer.Text = lblGDDealer.Text;
+                Label lblGDDistrict = (Label)row.FindControl("lblGDDistrict");
+                txtGDDistrict.Text = lblGDDistrict.Text;
+                HiddenID.Value = Convert.ToString(lnkBtnDistrictEdit.CommandArgument);
+                BtnAddOrUpdateDistrict.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void lnkBtnDistrictDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                Boolean success = true;
+                LinkButton lnkBtnDistrictDelete = (LinkButton)sender;
+                int DistrictID = Convert.ToInt32(lnkBtnDistrictDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnDistrictDelete.NamingContainer);
+                int CountryID = Convert.ToInt32(((Label)row.FindControl("lblGDCountryID")).Text.Trim());
+                int StateID = Convert.ToInt32(((Label)row.FindControl("lblGDStateID")).Text.Trim());
+                int DealerID = Convert.ToInt32(((Label)row.FindControl("lblGDDealerID")).Text.Trim());
+                string District = ((Label)row.FindControl("lblGDDistrict")).Text.Trim();
+
+                success = new BDMS_Address().InsertOrUpdateAddressDistrict(DistrictID, CountryID, StateID, DealerID, District, null, false, PSession.User.UserID);
+                if (success == true)
+                {
+                    HiddenID.Value = null;
+                    FillGridCountry();
+                    lblMessage.Text = "District deleted successfully";
+                    lblMessage.ForeColor = Color.Green;
+                }
+                else if (success == false)
+                {
+                    lblMessage.Text = "District not deleted successfully";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
+        protected void BtnAddOrUpdateDistrict_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                Boolean Success = true;
+                Button BtnAddOrUpdateDistrict = (Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateDistrict");
+
+                DropDownList ddlGDCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDCountry");
+                if (ddlGDCountry.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select Country.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                DropDownList ddlGDState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDState");
+                if (ddlGDState.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select State.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");
+                if (ddlGDDealer.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select Dealer.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                string District = ((TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict")).Text.Trim();
+                if (string.IsNullOrEmpty(District))
+                {
+                    lblMessage.Text = "Please enter District.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                if (BtnAddOrUpdateDistrict.Text == "Add")
+                {
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), District, null, true, PSession.User.UserID);
+                    if (Success == true)
+                    {
+                        FillGridDistrict();
+                        lblMessage.Text = "District is added successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "District is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "District not created successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+                else
+                {
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(HiddenID.Value), Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), District, null, true, PSession.User.UserID);
+
+                    if (Success == true)
+                    {
+                        HiddenID.Value = null;
+                        FillGridDistrict();
+                        lblMessage.Text = "District successfully updated.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "District already found";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "District not updated successfully...!";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+
         protected void gvDistrict_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    DropDownList ddlGDCountry = (e.Row.FindControl("ddlGDCountry") as DropDownList);
-                    DropDownList ddlGDState = (e.Row.FindControl("ddlGDState") as DropDownList);
-                    DropDownList ddlGDDealer = (e.Row.FindControl("ddlGDDealer") as DropDownList);
+                    //DropDownList ddlGDCountry = (e.Row.FindControl("ddlGDCountry") as DropDownList);
+                    //DropDownList ddlGDState = (e.Row.FindControl("ddlGDState") as DropDownList);
+                    //DropDownList ddlGDDealer = (e.Row.FindControl("ddlGDDealer") as DropDownList);
 
-                    FillCountryDLL(ddlGDCountry);
-                    string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
-                    ddlGDCountry.SelectedValue = CountryID;
+                    //FillCountryDLL(ddlGDCountry);
+                    //string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
+                    //ddlGDCountry.SelectedValue = CountryID;
 
-                    FillStateDLL(ddlGDState, Convert.ToInt32(CountryID), null, null, null);
-                    string StateID = !string.IsNullOrEmpty((e.Row.FindControl("lblState") as Label).Text) ? (e.Row.FindControl("lblState") as Label).Text : "0";
-                    ddlGDState.SelectedValue = StateID;
+                    //FillStateDLL(ddlGDState, Convert.ToInt32(CountryID), null, null, null);
+                    //string StateID = !string.IsNullOrEmpty((e.Row.FindControl("lblState") as Label).Text) ? (e.Row.FindControl("lblState") as Label).Text : "0";
+                    //ddlGDState.SelectedValue = StateID;
 
-                    FillDealerDLL(ddlGDDealer, null, null);
-                    string DealerID = !string.IsNullOrEmpty((e.Row.FindControl("lblDealer") as Label).Text) ? (e.Row.FindControl("lblDealer") as Label).Text : "0";
-                    ddlGDDealer.SelectedValue = DealerID;
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void ImageDEdit_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                lblMessage.Text = "";
-                ImageButton ImageDEdit = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageDEdit.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageDEdit.NamingContainer);
-                ImageButton ImageDUpdate = (ImageButton)row.FindControl("ImageDUpdate");
-                DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
-                DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
-                DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
-                TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
-                ddlGDCountry.Enabled = true;
-                ddlGDState.Enabled = true;
-                ddlGDDealer.Enabled = true;
-                txtGDDistrict.Enabled = true;
-                ImageDUpdate.Visible = true;
-                ImageDEdit.Visible = false;
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void ImageDUpdate_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                string Message = "";
-                Boolean Success = true;
-                ImageButton ImageDUpdate = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageDUpdate.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageDUpdate.NamingContainer);
-                ImageButton ImageDEdit = (ImageButton)row.FindControl("ImageDEdit");
-                DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
-                DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
-                DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
-                TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
-
-                if (ddlGDCountry.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select the Country";
-                    Success = false;
-                }
-                if (ddlGDState.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select the State";
-                    Success = false;
-                }
-                if (ddlGDDealer.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select the DealerCode";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtGDDistrict.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the District";
-                    Success = false;
-                }
-                List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlGDCountry.SelectedValue), null, Convert.ToInt32(ddlGDState.SelectedValue), null, txtGDDistrict.Text.Trim());
-                if (MML.Count > 0)
-                {
-                    Message = Message + "<br/> District is already found...!";
-                    Success = false;
-                }
-                lblMessage.Text = Message;
-                if (Success == false)
-                {
-                    return;
-                }
-                else
-                {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), txtGDDistrict.Text.Trim(), null, true, PSession.User.UserID);
-                    if (Success == false)
-                    {
-                        lblMessage.Text = "District is not successfully updated";
-                        lblMessage.ForeColor = Color.Red;
-                        lblMessage.Visible = true;
-
-                    }
-                    else
-                    {
-                        lblMessage.Text = "District was successfully updated.";
-                        lblMessage.ForeColor = Color.Green;
-                        lblMessage.Visible = true;
-                        ddlGDCountry.Enabled = false;
-                        ddlGDState.Enabled = false;
-                        ddlGDDealer.Enabled = false;
-                        txtGDDistrict.Enabled = false;
-                        ImageDUpdate.Visible = false;
-                        ImageDEdit.Visible = true;
-                        FillGridDistrict();
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void ImageDDelete_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                lblMessage.Text = "";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                Boolean Success = true;
-                ImageButton ImageDDelete = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageDDelete.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageDDelete.NamingContainer);
-                DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
-                DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
-                DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
-                TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
-                Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), txtGDDistrict.Text.Trim(), null, false, PSession.User.UserID);
-                if (Success == false)
-                {
-                    lblMessage.Text = "District is not successfully Deleted";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
-
-                }
-                else
-                {
-                    lblMessage.Text = "District was successfully Deleted.";
-                    lblMessage.ForeColor = Color.Green;
-                    lblMessage.Visible = true;
-                    FillGridDistrict();
+                    //FillDealerDLL(ddlGDDealer, null, null);
+                    //string DealerID = !string.IsNullOrEmpty((e.Row.FindControl("lblDealer") as Label).Text) ? (e.Row.FindControl("lblDealer") as Label).Text : "0";
+                    //ddlGDDealer.SelectedValue = DealerID;
                 }
             }
             catch (Exception Ex)
@@ -1651,69 +1887,219 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
-        protected void BtnAddCity_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                lblMessage.Text = string.Empty;
-                Boolean Success = true;
-                string Message = "";
-                if (ddlCityCountry.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select Country";
-                    Success = false;
-                }
-                if (ddlCityState.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select State";
-                    Success = false;
-                }
-                if (ddlCityDistrict.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Select District";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtCity.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the City";
-                    Success = false;
-                }
-                List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCityCountry.SelectedValue), Convert.ToInt32(ddlCityState.SelectedValue), Convert.ToInt32(ddlCityDistrict.SelectedValue), txtCity.Text.Trim());
-                if (MML.Count > 0)
-                {
-                    Message = Message + "<br/> City is already found...!";
-                    Success = false;
-                }
-                lblMessage.Text = Message;
-                if (Success == false)
-                {
-                    return;
-                }
-                else
-                {
-                    Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlCityDistrict.SelectedValue), txtCity.Text.Trim(), true, PSession.User.UserID);
-                    if (Success == true)
-                    {
-                        lblMessage.Text = "City is Added successfully";
-                        lblMessage.ForeColor = Color.Green;
-                        FillGridTehsil();
-                    }
-                    else
-                    {
-                        lblMessage.Text = "City is not Added successfully";
-                        lblMessage.ForeColor = Color.Red;
-                    }
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
+        //protected void ImageDEdit_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = "";
+        //        ImageButton ImageDEdit = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageDEdit.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageDEdit.NamingContainer);
+        //        ImageButton ImageDUpdate = (ImageButton)row.FindControl("ImageDUpdate");
+        //        DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
+        //        DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+        //        DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
+        //        TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
+        //        ddlGDCountry.Enabled = true;
+        //        ddlGDState.Enabled = true;
+        //        ddlGDDealer.Enabled = true;
+        //        txtGDDistrict.Enabled = true;
+        //        ImageDUpdate.Visible = true;
+        //        ImageDEdit.Visible = false;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+        //protected void ImageDUpdate_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        string Message = "";
+        //        Boolean Success = true;
+        //        ImageButton ImageDUpdate = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageDUpdate.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageDUpdate.NamingContainer);
+        //        ImageButton ImageDEdit = (ImageButton)row.FindControl("ImageDEdit");
+        //        DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
+        //        DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+        //        DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
+        //        TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
+
+        //        if (ddlGDCountry.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select the Country";
+        //            Success = false;
+        //        }
+        //        if (ddlGDState.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select the State";
+        //            Success = false;
+        //        }
+        //        if (ddlGDDealer.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select the DealerCode";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtGDDistrict.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the District";
+        //            Success = false;
+        //        }
+        //        List<PDMS_District> MML = new BDMS_Address().GetDistrict(Convert.ToInt32(ddlGDCountry.SelectedValue), null, Convert.ToInt32(ddlGDState.SelectedValue), null, txtGDDistrict.Text.Trim());
+        //        if (MML.Count > 0)
+        //        {
+        //            Message = Message + "<br/> District is already found...!";
+        //            Success = false;
+        //        }
+        //        lblMessage.Text = Message;
+        //        if (Success == false)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), txtGDDistrict.Text.Trim(), null, true, PSession.User.UserID);
+        //            if (Success == false)
+        //            {
+        //                lblMessage.Text = "District is not successfully updated";
+        //                lblMessage.ForeColor = Color.Red;
+        //                lblMessage.Visible = true;
+
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "District was successfully updated.";
+        //                lblMessage.ForeColor = Color.Green;
+        //                lblMessage.Visible = true;
+        //                ddlGDCountry.Enabled = false;
+        //                ddlGDState.Enabled = false;
+        //                ddlGDDealer.Enabled = false;
+        //                txtGDDistrict.Enabled = false;
+        //                ImageDUpdate.Visible = false;
+        //                ImageDEdit.Visible = true;
+        //                FillGridDistrict();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+        //protected void ImageDDelete_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = "";
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        Boolean Success = true;
+        //        ImageButton ImageDDelete = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageDDelete.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageDDelete.NamingContainer);
+        //        DropDownList ddlGDCountry = (DropDownList)row.FindControl("ddlGDCountry");
+        //        DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+        //        DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
+        //        TextBox txtGDDistrict = (TextBox)row.FindControl("txtGDDistrict");
+        //        Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(id), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), txtGDDistrict.Text.Trim(), null, false, PSession.User.UserID);
+        //        if (Success == false)
+        //        {
+        //            lblMessage.Text = "District is not successfully Deleted";
+        //            lblMessage.ForeColor = Color.Red;
+        //            lblMessage.Visible = true;
+
+        //        }
+        //        else
+        //        {
+        //            lblMessage.Text = "District was successfully Deleted.";
+        //            lblMessage.ForeColor = Color.Green;
+        //            lblMessage.Visible = true;
+        //            FillGridDistrict();
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+
+
+        //protected void BtnAddCity_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = string.Empty;
+        //        Boolean Success = true;
+        //        string Message = "";
+        //        if (ddlCityCountry.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select Country";
+        //            Success = false;
+        //        }
+        //        if (ddlCityState.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select State";
+        //            Success = false;
+        //        }
+        //        if (ddlCityDistrict.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Select District";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtCity.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the City";
+        //            Success = false;
+        //        }
+        //        List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(Convert.ToInt32(ddlCityCountry.SelectedValue), Convert.ToInt32(ddlCityState.SelectedValue), Convert.ToInt32(ddlCityDistrict.SelectedValue), txtCity.Text.Trim());
+        //        if (MML.Count > 0)
+        //        {
+        //            Message = Message + "<br/> City is already found...!";
+        //            Success = false;
+        //        }
+        //        lblMessage.Text = Message;
+        //        if (Success == false)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlCityDistrict.SelectedValue), txtCity.Text.Trim(), true, PSession.User.UserID);
+        //            if (Success == true)
+        //            {
+        //                lblMessage.Text = "City is Added successfully";
+        //                lblMessage.ForeColor = Color.Green;
+        //                FillGridTehsil();
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "City is not Added successfully";
+        //                lblMessage.ForeColor = Color.Red;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
 
         protected void BtnSearchCity_Click(object sender, EventArgs e)
         {
@@ -1728,29 +2114,141 @@ namespace DealerManagementSystem.ViewMaster
                 if (ddlCityCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
+
+                    if (ddlCityState.SelectedValue != "0")
+                    {
+                        StateID = Convert.ToInt32(ddlCityState.SelectedValue);
+
+                        if (ddlCityDistrict.SelectedValue != "0")
+                        {
+                            DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
+                        }
+                    }
                 }
-                if (ddlCityState.SelectedValue != "0")
-                {
-                    StateID = Convert.ToInt32(ddlCityState.SelectedValue);
-                }
-                if (ddlCityDistrict.SelectedValue != "0")
-                {
-                    DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
-                }
+                
                 if (!string.IsNullOrEmpty(txtCity.Text))
                 {
                     Tehsil = txtCity.Text.Trim();
                 }
                 List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
+                if(MML.Count ==0)
+                {
+                    MML.Add(new PDMS_Tehsil());
+                }
                 gvCity.DataSource = MML;
                 gvCity.DataBind();
                 //throw new NotImplementedException();
+                DropDownList ddlGCityCountry = gvCity.FooterRow.FindControl("ddlGCityCountry") as DropDownList;
+                new DDLBind(ddlGCityCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+
+                DropDownList ddlGCityState = gvCity.FooterRow.FindControl("ddlGCityState") as DropDownList;
+                new DDLBind(ddlGCityState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+
+                DropDownList ddlGCityDistrict = gvCity.FooterRow.FindControl("ddlGCityDistrict") as DropDownList;
+                new DDLBind(ddlGCityDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null), "District", "DistrictID", true, "Select District");
+
             }
             catch (Exception Ex)
             {
                 lblMessage.Visible = true;
                 lblMessage.Text = Ex.ToString();
                 lblMessage.ForeColor = Color.Red;
+            }
+        }
+
+        protected void BtnAddOrUpdateCity_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                Boolean Success = true;
+                Button BtnAddOrUpdateCity = (Button)gvCity.FooterRow.FindControl("BtnAddOrUpdateCity");
+
+                DropDownList ddlGCityCountry = (DropDownList)gvCity.FooterRow.FindControl("ddlGCityCountry");
+                if (ddlGCityCountry.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select Country.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                DropDownList ddlGCityState = (DropDownList)gvCity.FooterRow.FindControl("ddlGCityState");
+                if (ddlGCityState.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select State.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                DropDownList ddlGCityDistrict = (DropDownList)gvCity.FooterRow.FindControl("ddlGCityDistrict");
+                if (ddlGCityDistrict.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select District.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                string City = ((TextBox)gvCity.FooterRow.FindControl("txtGCity")).Text.Trim();
+                if (string.IsNullOrEmpty(City))
+                {
+                    lblMessage.Text = "Please enter City.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                if (BtnAddOrUpdateCity.Text == "Add")
+                {
+                    Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlGCityDistrict.SelectedValue), City, true, PSession.User.UserID);
+                    if (Success == true)
+                    {
+                        FillGridTehsil();
+                        lblMessage.Text = "City is added successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "City is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "City not created successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+                else
+                {
+                    Success = new BDMS_Address().InsertOrUpdateAddressTehsil(Convert.ToInt32(HiddenID.Value), Convert.ToInt32(ddlGCityDistrict.SelectedValue), City, true, PSession.User.UserID);
+
+                    if (Success == true)
+                    {
+                        HiddenID.Value = null;
+                        FillGridTehsil();
+                        lblMessage.Text = "City successfully updated.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "City already found";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "City not updated successfully...!";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
 
@@ -1760,21 +2258,21 @@ namespace DealerManagementSystem.ViewMaster
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    DropDownList ddlGCityCountry = (e.Row.FindControl("ddlGCityCountry") as DropDownList);
-                    DropDownList ddlGCityState = (e.Row.FindControl("ddlGCityState") as DropDownList);
-                    DropDownList ddlGCityDistrict = (e.Row.FindControl("ddlGCityDistrict") as DropDownList);
+                    //DropDownList ddlGCityCountry = (e.Row.FindControl("ddlGCityCountry") as DropDownList);
+                    //DropDownList ddlGCityState = (e.Row.FindControl("ddlGCityState") as DropDownList);
+                    //DropDownList ddlGCityDistrict = (e.Row.FindControl("ddlGCityDistrict") as DropDownList);
 
-                    FillCountryDLL(ddlGCityCountry);
-                    string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
-                    ddlGCityCountry.SelectedValue = CountryID;
+                    //FillCountryDLL(ddlGCityCountry);
+                    //string CountryID = !string.IsNullOrEmpty((e.Row.FindControl("lblCountry") as Label).Text) ? (e.Row.FindControl("lblCountry") as Label).Text : "0";
+                    //ddlGCityCountry.SelectedValue = CountryID;
 
-                    FillStateDLL(ddlGCityState, Convert.ToInt32(CountryID), null, null, null);
-                    string StateID = !string.IsNullOrEmpty((e.Row.FindControl("lblState") as Label).Text) ? (e.Row.FindControl("lblState") as Label).Text : "0";
-                    ddlGCityState.SelectedValue = StateID;
+                    //FillStateDLL(ddlGCityState, Convert.ToInt32(CountryID), null, null, null);
+                    //string StateID = !string.IsNullOrEmpty((e.Row.FindControl("lblState") as Label).Text) ? (e.Row.FindControl("lblState") as Label).Text : "0";
+                    //ddlGCityState.SelectedValue = StateID;
 
-                    FillDistrictDLL(ddlGCityDistrict, Convert.ToInt32(CountryID), null, Convert.ToInt32(StateID), null, null);
-                    string DistrictID = (e.Row.FindControl("lblDistrict") as Label).Text;
-                    ddlGCityDistrict.SelectedValue = DistrictID;
+                    //FillDistrictDLL(ddlGCityDistrict, Convert.ToInt32(CountryID), null, Convert.ToInt32(StateID), null, null);
+                    //string DistrictID = (e.Row.FindControl("lblDistrict") as Label).Text;
+                    //ddlGCityDistrict.SelectedValue = DistrictID;
                 }
             }
             catch (Exception Ex)
@@ -1784,148 +2282,225 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void ImageCityEdit_Click(object sender, ImageClickEventArgs e)
+
+        //protected void ImageCityEdit_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = "";
+        //        ImageButton ImageCityEdit = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageCityEdit.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageCityEdit.NamingContainer);
+        //        ImageButton ImageCityUpdate = (ImageButton)row.FindControl("ImageCityUpdate");
+        //        DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
+        //        DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
+        //        DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
+        //        TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
+        //        ddlGCityCountry.Enabled = true;
+        //        ddlGCityState.Enabled = true;
+        //        ddlGCityDistrict.Enabled = true;
+        //        txtGCity.Enabled = true;
+        //        ImageCityUpdate.Visible = true;
+        //        ImageCityEdit.Visible = false;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+
+        //protected void ImageCityUpdate_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        string Message = "";
+        //        Boolean Success = true;
+        //        ImageButton ImageCityUpdate = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageCityUpdate.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageCityUpdate.NamingContainer);
+        //        ImageButton ImageCityEdit = (ImageButton)row.FindControl("ImageCityEdit");
+        //        DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
+        //        DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
+        //        DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
+        //        TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
+        //        if (ddlGCityCountry.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Enter the Country";
+        //            Success = false;
+        //        }
+        //        if (ddlGCityState.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Enter the State";
+        //            Success = false;
+        //        }
+        //        if (ddlGCityDistrict.SelectedValue == "0")
+        //        {
+        //            Message = Message + "<br/> Please Enter the District";
+        //            Success = false;
+        //        }
+        //        if (string.IsNullOrEmpty(txtGCity.Text.Trim()))
+        //        {
+        //            Message = Message + "<br/> Please Enter the City";
+        //            Success = false;
+        //        }
+        //        List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(Convert.ToInt32(ddlGCityCountry.SelectedValue), Convert.ToInt32(ddlGCityState.SelectedValue), Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim());
+        //        if (MML.Count > 0)
+        //        {
+        //            Message = Message + "<br/> City is already found...!";
+        //            Success = false;
+        //        }
+        //        lblMessage.Text = Message;
+        //        if (Success == false)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim(), true, PSession.User.UserID);
+        //            if (Success == false)
+        //            {
+        //                lblMessage.Text = "City is not successfully updated";
+        //                lblMessage.ForeColor = Color.Red;
+        //                lblMessage.Visible = true;
+
+        //            }
+        //            else
+        //            {
+        //                lblMessage.Text = "City was successfully updated.";
+        //                lblMessage.ForeColor = Color.Green;
+        //                lblMessage.Visible = true;
+        //                ddlGCityCountry.Enabled = false;
+        //                ddlGCityState.Enabled = false;
+        //                ddlGCityDistrict.Enabled = false;
+        //                txtGCity.Enabled = false;
+        //                ImageCityUpdate.Visible = false;
+        //                ImageCityEdit.Visible = true;
+        //                FillGridTehsil();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+        //protected void ImageCityDelete_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = "";
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        Boolean Success = true;
+        //        ImageButton ImageCityDelete = (ImageButton)sender;
+        //        long id = Convert.ToInt32(ImageCityDelete.CommandArgument);
+        //        GridViewRow row = (GridViewRow)(ImageCityDelete.NamingContainer);
+        //        DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
+        //        DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
+        //        DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
+        //        TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
+        //        Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim(), false, PSession.User.UserID);
+        //        if (Success == false)
+        //        {
+        //            lblMessage.Text = "City is not successfully Deleted";
+        //            lblMessage.ForeColor = Color.Red;
+        //            lblMessage.Visible = true;
+
+        //        }
+        //        else
+        //        {
+        //            lblMessage.Text = "City was successfully Deleted.";
+        //            lblMessage.ForeColor = Color.Green;
+        //            lblMessage.Visible = true;
+        //            FillGridTehsil();
+        //        }
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.Text = Ex.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+
+        protected void lnkBtnCityEdit_Click(object sender, EventArgs e)
         {
             try
             {
-                lblMessage.Text = "";
-                ImageButton ImageCityEdit = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageCityEdit.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageCityEdit.NamingContainer);
-                ImageButton ImageCityUpdate = (ImageButton)row.FindControl("ImageCityUpdate");
-                DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
-                DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
-                TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
-                ddlGCityCountry.Enabled = true;
-                ddlGCityState.Enabled = true;
-                ddlGCityDistrict.Enabled = true;
-                txtGCity.Enabled = true;
-                ImageCityUpdate.Visible = true;
-                ImageCityEdit.Visible = false;
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
+                lblMessage.Text = string.Empty;
                 lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                LinkButton lnkBtnCityEdit = (LinkButton)sender;
+                DropDownList ddlGCityCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGCityCountry");
+                DropDownList ddlGCityState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGCityState");
+                DropDownList ddlGCityDistrict = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGCityDistrict");
+                TextBox txtGCity = (TextBox)gvDistrict.FooterRow.FindControl("txtGCity");
+                Button BtnAddOrUpdateCity = (Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateCity");
+                GridViewRow row = (GridViewRow)(lnkBtnCityEdit.NamingContainer);
+                Label lblGCityCountry = (Label)row.FindControl("lblGCityCountry");
+                ddlGCityCountry.SelectedValue = lblGCityCountry.Text;
+                Label lblGCityState = (Label)row.FindControl("lblGCityState");
+                ddlGCityState.SelectedValue = lblGCityState.Text;
+                Label lblGCityDistrict = (Label)row.FindControl("lblGCityDistrict");
+                ddlGCityDistrict.Text = lblGCityDistrict.Text;
+                Label lblGCity = (Label)row.FindControl("lblGCity");
+                txtGCity.Text = lblGCity.Text;
+                HiddenID.Value = Convert.ToString(lnkBtnCityEdit.CommandArgument);
+                BtnAddOrUpdateCity.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
-        protected void ImageCityUpdate_Click(object sender, ImageClickEventArgs e)
+
+        protected void lnkBtnCityDelete_Click(object sender, EventArgs e)
         {
             try
             {
+                lblMessage.Text = string.Empty;
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
-                string Message = "";
-                Boolean Success = true;
-                ImageButton ImageCityUpdate = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageCityUpdate.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageCityUpdate.NamingContainer);
-                ImageButton ImageCityEdit = (ImageButton)row.FindControl("ImageCityEdit");
-                DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
-                DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
-                TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
-                if (ddlGCityCountry.SelectedValue == "0")
+                Boolean success = true;
+                LinkButton lnkBtnCityDelete = (LinkButton)sender;
+                int TehsilID = Convert.ToInt32(lnkBtnCityDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnCityDelete.NamingContainer);
+                int CountryID = Convert.ToInt32(((Label)row.FindControl("lblGCityCountryID")).Text.Trim());
+                int StateID = Convert.ToInt32(((Label)row.FindControl("lblGCityStateID")).Text.Trim());
+                int DistrictID = Convert.ToInt32(((Label)row.FindControl("lblGCityDistrictID")).Text.Trim());
+                string City = ((Label)row.FindControl("lblGCity")).Text.Trim();
+
+                success = new BDMS_Address().InsertOrUpdateAddressTehsil(TehsilID, DistrictID, City, false, PSession.User.UserID);
+                if (success == true)
                 {
-                    Message = Message + "<br/> Please Enter the Country";
-                    Success = false;
+                    HiddenID.Value = null;
+                    FillGridCountry();
+                    lblMessage.Text = "City deleted successfully";
+                    lblMessage.ForeColor = Color.Green;
                 }
-                if (ddlGCityState.SelectedValue == "0")
+                else if (success == false)
                 {
-                    Message = Message + "<br/> Please Enter the State";
-                    Success = false;
-                }
-                if (ddlGCityDistrict.SelectedValue == "0")
-                {
-                    Message = Message + "<br/> Please Enter the District";
-                    Success = false;
-                }
-                if (string.IsNullOrEmpty(txtGCity.Text.Trim()))
-                {
-                    Message = Message + "<br/> Please Enter the City";
-                    Success = false;
-                }
-                List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(Convert.ToInt32(ddlGCityCountry.SelectedValue), Convert.ToInt32(ddlGCityState.SelectedValue), Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim());
-                if (MML.Count > 0)
-                {
-                    Message = Message + "<br/> City is already found...!";
-                    Success = false;
-                }
-                lblMessage.Text = Message;
-                if (Success == false)
-                {
+                    lblMessage.Text = "City not deleted successfully";
+                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                else
-                {
-                    Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim(), true, PSession.User.UserID);
-                    if (Success == false)
-                    {
-                        lblMessage.Text = "City is not successfully updated";
-                        lblMessage.ForeColor = Color.Red;
-                        lblMessage.Visible = true;
-
-                    }
-                    else
-                    {
-                        lblMessage.Text = "City was successfully updated.";
-                        lblMessage.ForeColor = Color.Green;
-                        lblMessage.Visible = true;
-                        ddlGCityCountry.Enabled = false;
-                        ddlGCityState.Enabled = false;
-                        ddlGCityDistrict.Enabled = false;
-                        txtGCity.Enabled = false;
-                        ImageCityUpdate.Visible = false;
-                        ImageCityEdit.Visible = true;
-                        FillGridTehsil();
-                    }
-                }
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-        protected void ImageCityDelete_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                lblMessage.Text = "";
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
-                Boolean Success = true;
-                ImageButton ImageCityDelete = (ImageButton)sender;
-                long id = Convert.ToInt32(ImageCityDelete.CommandArgument);
-                GridViewRow row = (GridViewRow)(ImageCityDelete.NamingContainer);
-                DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
-                DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
-                TextBox txtGCity = (TextBox)row.FindControl("txtGCity");
-                Success = new BDMS_Address().InsertOrUpdateAddressTehsil(null, Convert.ToInt32(ddlGCityDistrict.SelectedValue), txtGCity.Text.Trim(), false, PSession.User.UserID);
-                if (Success == false)
-                {
-                    lblMessage.Text = "City is not successfully Deleted";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
-
-                }
-                else
-                {
-                    lblMessage.Text = "City was successfully Deleted.";
-                    lblMessage.ForeColor = Color.Green;
-                    lblMessage.Visible = true;
-                    FillGridTehsil();
-                }
-            }
-            catch (Exception Ex)
-            {
-                lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
-                lblMessage.ForeColor = Color.Red;
             }
         }
 
@@ -1951,7 +2526,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void ddlCityState_SelectedIndexChanged(object sender, EventArgs e)
         {
-                FillDistrictDLL(ddlCityDistrict, Convert.ToInt32(ddlCityCountry.SelectedValue), null, Convert.ToInt32(ddlCityState.SelectedValue), null, null);
+                FillDistrictDLL(ddlCityDistrict, Convert.ToInt32(ddlCityCountry.SelectedValue), null, Convert.ToInt32(ddlCityState.SelectedValue),  null,null);
         }
 
         protected void ddlGSCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -1986,7 +2561,7 @@ namespace DealerManagementSystem.ViewMaster
             GridViewRow row = (GridViewRow)(ddlGCityState.NamingContainer);
             DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
             DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
-            FillDistrictDLL(ddlGCityDistrict, Convert.ToInt32(ddlGCityCountry.SelectedValue), null, Convert.ToInt32(ddlGCityState.SelectedValue), null, null);
+            FillDistrictDLL(ddlGCityDistrict, Convert.ToInt32(ddlGCityCountry.SelectedValue), null, Convert.ToInt32(ddlGCityState.SelectedValue), null,  null);
         }
 
         protected void gvDistrict_PageIndexChanging(object sender, GridViewPageEventArgs e)

@@ -267,15 +267,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button BtnSearchDistrict;
 
         /// <summary>
-        /// BtnAddDistrict control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddDistrict;
-
-        /// <summary>
         /// gvDistrict control.
         /// </summary>
         /// <remarks>
@@ -337,15 +328,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchCity;
-
-        /// <summary>
-        /// BtnAddCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddCity;
 
         /// <summary>
         /// gvCity control.
