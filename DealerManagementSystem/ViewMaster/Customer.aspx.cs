@@ -99,13 +99,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
-            divCustomerView.Visible = true;
-            divList.Visible = false;
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
-            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
-
-            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
+            
             //CustomerView ucCustomerView = (CustomerView)LoadControl("~/ViewPreSale/UserControls/CustomerView.ascx");
             //ucCustomerView.ID = "ucCustomerView";
 
@@ -148,6 +142,17 @@ namespace DealerManagementSystem.ViewMaster
                 Emp.Add(div);
             }
             return Emp;
+        }
+
+        protected void btnViewCustomer_Click(object sender, EventArgs e)
+        {
+            divCustomerView.Visible = true;
+            divList.Visible = false;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
+            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
+
+            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
         }
     }
 }

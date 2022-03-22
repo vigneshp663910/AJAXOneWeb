@@ -698,10 +698,10 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Ship To Party">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Ship To Party" Height="350px">
         <ContentTemplate>
             <div class="col-md-12">
-                <div class="col-md-12 Report">
+                <div class="col-md-12 Report" style="height: 325px">
                     <div class="table-responsive">
                         <asp:GridView ID="gvShipTo" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                             EmptyDataText="No Data Found">
@@ -798,11 +798,19 @@
                                         <asp:Label ID="lblIsActive" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                            <%--    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lbFleetDelete" runat="server" OnClick="lbFleetDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                        <div class="dropdown btnactions"> 
+                                            <div class="btn Approval">Actions</div>
+                                            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                                <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Edit ShipTo</asp:LinkButton>
+                                                <asp:LinkButton ID="lbtnInActivateCustomer" runat="server" OnClick="lbActions_Click">In Activate ShipTo</asp:LinkButton>
+                                                <asp:LinkButton ID="lbtnActivateCustomer" runat="server" OnClick="lbActions_Click">Activate ShipTo</asp:LinkButton>
+                                                <asp:LinkButton ID="lbtnSyncToSap" runat="server" OnClick="lbActions_Click">ShipTo Sync to Sap</asp:LinkButton>
+                                           </div>
+                                         </div>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />

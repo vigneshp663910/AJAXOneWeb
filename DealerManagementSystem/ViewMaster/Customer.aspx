@@ -110,7 +110,7 @@
                             <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        
+
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
@@ -144,12 +144,13 @@
 
                                     <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="lbViewCustomer" runat="server" OnClick="lbViewCustomer_Click">
-                                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerFullName")%>' runat="server" />
-                                            </asp:LinkButton><asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
+                                            <%--  <asp:LinkButton ID="lbViewCustomer" runat="server" OnClick="lbViewCustomer_Click">--%>
+                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerFullName")%>' runat="server" />
+                                            <%--   </asp:LinkButton>--%>
+                                            <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     
+
                                     <asp:TemplateField HeaderText="Contact Person">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -174,13 +175,17 @@
                                             <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="State">
+                                    <asp:TemplateField HeaderText="State">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewCustomer" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewCustomer_Click" Width="75px" Height="25px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
 
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
@@ -189,9 +194,13 @@
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
+
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divCustomerView" runat="server" visible="false">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divCustomerView" runat="server" visible="false">
             <div class="" id="boxHere"></div>
             <div class="back-buttton" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
@@ -210,7 +219,8 @@
     <div class="col-md-12">
         <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Create Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <span id="PopupDialogue">Create Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
             </div>
             <div class="col-md-12">
                 <div class="model-scroll">
