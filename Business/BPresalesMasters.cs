@@ -431,12 +431,12 @@ namespace Business
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateMake", sqlEx);
+                new FileLogger().LogMessage("BPreSalesMaster", "InsertOrUpdateMake", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BTestSN", "InsertOrUpdateMake", ex);
+                new FileLogger().LogMessage("BPreSalesMaster", "InsertOrUpdateMake", ex);
                 throw ex;
             }
             return success;

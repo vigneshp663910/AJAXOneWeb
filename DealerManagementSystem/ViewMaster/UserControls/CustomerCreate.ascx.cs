@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
         }
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,6 +82,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
             Customer.SendSMS = cbSendSMS.Checked;
             Customer.SendEmail = cbSendEmail.Checked;
+            Customer.IsShipTo = cbShipTo.Checked;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
             return Customer;
         }
@@ -106,7 +107,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
 
             ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
 
             ddlDistrict.SelectedValue = Convert.ToString(Customer.District.DistrictID);
             List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
@@ -120,6 +121,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtDOAnniversary.Text = Customer.DOAnniversary == null ? "" : ((DateTime)Customer.DOAnniversary).ToString("yyyy-MM-dd");
             cbSendSMS.Checked = Customer.SendSMS;
             cbSendEmail.Checked = Customer.SendEmail;
+            cbShipTo.Checked = Customer.IsShipTo;
         }
 
         public void FillClean()

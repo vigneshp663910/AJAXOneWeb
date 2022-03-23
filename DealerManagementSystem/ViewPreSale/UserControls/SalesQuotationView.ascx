@@ -312,7 +312,7 @@
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
-            </div> 
+            </div>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
@@ -576,11 +576,11 @@
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Competitor</label>
-                    <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control"  OnSelectedIndexChanged="FillProduct" AutoPostBack="true"/>
+                    <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" OnSelectedIndexChanged="FillProduct" AutoPostBack="true" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Competitor Product Type</label>
-                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"  OnSelectedIndexChanged="FillProduct" AutoPostBack="true"/>
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" OnSelectedIndexChanged="FillProduct" AutoPostBack="true" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Competitor Products</label>
@@ -642,7 +642,9 @@
 
             <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
         </div>
-        <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
+        </div>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />

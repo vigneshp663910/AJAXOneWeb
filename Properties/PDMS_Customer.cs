@@ -74,11 +74,43 @@ namespace Properties
         public Boolean OrderBlock { get; set; }
         public Boolean DeliveryBlock { get; set; }
         public Boolean BillingBlock { get; set; }
+        public Boolean IsShipTo { get; set; }
 
-        public string SalesOrganization { get; set; }
-        public string SalesOffice { get; set; }
-        public string SalesGroup { get; set; }
-        public string SalesDistrict { get; set; }
+        //public string SalesOrganization { get; set; }
+        //public string SalesOffice { get; set; }
+        //public string SalesGroup { get; set; }
+        //public string SalesDistrict { get; set; }
+    }
+    [Serializable]
+    public class PDMS_CustomerShipTo
+    {
+        public long CustomerShipToID { get; set; }
+        public long CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerCodeWithOutZero
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(CustomerCode))
+                    return "";
+                return Convert.ToString(Convert.ToInt64(CustomerCode));
+            }
+
+        }
+        public string ContactPerson { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Pincode { get; set; }
+        public PDMS_Country Country { get; set; }
+        public PDMS_State State { get; set; }
+        public PDMS_District District { get; set; }
+        public PDMS_Tehsil Tehsil { get; set; }
+        public string City { get; set; }
+        public PUser CreatedBy { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PCustomerTitle

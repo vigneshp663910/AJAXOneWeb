@@ -89,7 +89,7 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null), "District", "DistrictID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
         }
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)

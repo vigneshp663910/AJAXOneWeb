@@ -53,7 +53,14 @@ namespace Business
                             MML.Add(new PDMS_Country()
                             {
                                 CountryID = Convert.ToInt32(dr["CountryID"]),
-                                Country = Convert.ToString(dr["Country"])
+                                Country = Convert.ToString(dr["Country"]),
+                                CountryCode = Convert.ToString(dr["CountryCode"]),
+                                Currency = new PCurrency()
+                                {
+                                    CurrencyID = Convert.ToInt32(dr["CurrencyID"]),
+                                    Currency = Convert.ToString(dr["Currency"])
+                                },
+                                SalesOrganization = Convert.ToString(dr["SalesOrganization"]),
                             });
                         }
                     }
@@ -178,15 +185,17 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateAddressCountry(int? CountryID, string Country, string CountryCode, Boolean IsActive, int UserID)
+        public Boolean InsertOrUpdateAddressCountry(int? CountryID, string Country, string CountryCode, int CurrencyID, string SalesOrganization, Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
             DbParameter CountryP = provider.CreateParameter("Country", string.IsNullOrEmpty(Country) ? null : Country, DbType.String);
             DbParameter CountryCodeP = provider.CreateParameter("CountryCode", string.IsNullOrEmpty(CountryCode) ? null : CountryCode, DbType.String);
+            DbParameter CurrencyIDP = provider.CreateParameter("CurrencyID", CurrencyID, DbType.Int32);
+            DbParameter SalesOrganizationP = provider.CreateParameter("SalesOrganization", string.IsNullOrEmpty(SalesOrganization) ? null : SalesOrganization, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[5] { CountryIDP, CountryP, CountryCodeP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[7] { CountryIDP, CountryP, CountryCodeP, CurrencyIDP, SalesOrganizationP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -272,11 +281,11 @@ namespace Business
             return false;
         }
 
-        public void GetDistrict(DropDownList ddl,int? CountryID,int? RegionID, int? DistrictID, int? StateID, string District)
+        public void GetDistrict(DropDownList ddl,int? CountryID,int? RegionID, int? DistrictID, int? StateID, string District, int? DealerID)
         {
             try
             {
-                List<PDMS_District> MML = GetDistrict(CountryID, RegionID, StateID, DistrictID, District);
+                List<PDMS_District> MML = GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID);
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = MML;
@@ -288,7 +297,7 @@ namespace Business
             catch (Exception ex)
             { }
         }
-        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID, int? StateID, int? DistrictID, string District)
+        public List<PDMS_District> GetDistrict(int? CountryID,int? RegionID, int? StateID, int? DistrictID, string District,int? DealerID)
         {
             List<PDMS_District> MML = new List<PDMS_District>();
             try
@@ -321,9 +330,10 @@ namespace Business
                                     StateID = Convert.ToInt32(dr["StateID"]),
                                     State = Convert.ToString(dr["State"]),                                   
                                 },
-                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
+                                Country =  new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
+                                    Country= Convert.ToString(dr["Country"])
                                 }
                             });
                         }
@@ -336,17 +346,18 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int StateID, int DealerID, string District, string DistrictSAP,Boolean IsActive, int UserID)
+        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int DealerID, string District, string DistrictSAP,Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+            DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
             DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter DistrictP = provider.CreateParameter("District", District, DbType.String);
             DbParameter DistrictSAPP = provider.CreateParameter("DistrictSAP", string.IsNullOrEmpty(DistrictSAP) ? null : DistrictSAP, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[7] { DistrictIDP, StateIDP, DealerIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[8] { DistrictIDP, CountryIDP, StateIDP, DealerIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -407,14 +418,17 @@ namespace Business
                                 District = new PDMS_District()
                                 {
                                     DistrictID= Convert.ToInt32(dr["DistrictID"]),
+                                    District = Convert.ToString(dr["District"]),
                                 },
                                 State = new PDMS_State()
                                 {
                                     StateID = Convert.ToInt32(dr["StateID"]),
+                                    State = Convert.ToString(dr["State"]),
                                 },
                                 Country = new PDMS_Country()
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
+                                    Country = Convert.ToString(dr["Country"]),
                                 }
                             });
                         }
@@ -527,6 +541,37 @@ namespace Business
             }
             TraceLogger.Log(DateTime.Now);
             return false;
+        }
+
+        public List<PCurrency> GetCurrency(int? CurrencyID, string Currency)
+        {
+            List<PCurrency> MML = new List<PCurrency>();
+            try
+            {
+                DbParameter CurrencyIDP = provider.CreateParameter("CurrencyID", CurrencyID, DbType.Int32);
+                DbParameter CurrencyP = provider.CreateParameter("Currency", string.IsNullOrEmpty(Currency) ? null : Currency, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { CurrencyIDP, CurrencyP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetCurrency", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PCurrency()
+                            {
+                                CurrencyID = Convert.ToInt32(dr["CurrencyID"]),
+                                Currency = Convert.ToString(dr["Currency"])
+                                
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return MML;
         }
     }
 }
