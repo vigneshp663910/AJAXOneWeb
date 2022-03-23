@@ -228,13 +228,16 @@
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
+    <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Project_Plan_PV2.png" />
+    <Content Include="ProcessFlow\V0_DMPM.png" />
     <Content Include="ProcessFlow\V0_Physical_Inventory.png" />
     <Content Include="ProcessFlow\V0_Procurment_Process_OE_CoDealer.png" />
     <Content Include="ProcessFlow\V0_Purchse_Return.png" />
     <Content Include="ProcessFlow\V0_Secondary_Sales.png" />
     <Content Include="ProcessFlow\V0_Stock_Transfer.png" />
+    <Content Include="ProcessFlow\V0_WebMobileUserID.png" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
@@ -258,6 +261,7 @@
     <Content Include="ViewMaster\Application.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
     <Content Include="ViewMaster\PresalesMasters.aspx" />
     <Content Include="ViewMaster\tab_MaterialMasterPages.aspx" />
@@ -265,7 +269,6 @@
     <Content Include="ProcessFlow\OrgChart.aspx" />
     <Content Include="ViewMaster\tab_MaterialMaster.aspx" />
     <Content Include="ProcessFlow\Parts_Org2.png" />
-    <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Process_Flow.aspx" />
     <Content Include="ProcessFlow\ProjectTeam.aspx" />
     <Content Include="ProcessFlow\Project_Plan_PV1.png" />
@@ -792,6 +795,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\Material.aspx.cs">
+      <DependentUpon>Material.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\Material.aspx.designer.cs">
+      <DependentUpon>Material.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>

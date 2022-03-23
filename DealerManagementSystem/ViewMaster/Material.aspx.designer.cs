@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ProcessFlow
+namespace DealerManagementSystem.ViewMaster
 {
 
 
-    public partial class Process_Flow
+    public partial class Material
     {
 
         /// <summary>
@@ -24,192 +24,228 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tcProcess_Flow control.
+        /// HiddenID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tcProcess_Flow;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenID;
 
         /// <summary>
-        /// tbPre_Sales control.
+        /// tabConMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbPre_Sales;
+        protected global::AjaxControlToolkit.TabContainer tabConMaterial;
 
         /// <summary>
-        /// Image1 control.
+        /// tabPnlMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::AjaxControlToolkit.TabPanel tabPnlMaterial;
 
         /// <summary>
-        /// tpProcurement control.
+        /// txtMaterialCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpProcurement;
+        protected global::System.Web.UI.WebControls.TextBox txtMaterialCode;
 
         /// <summary>
-        /// tcProcurement control.
+        /// cbActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tcProcurement;
+        protected global::System.Web.UI.WebControls.CheckBox cbActive;
 
         /// <summary>
-        /// tpP1 control.
+        /// btnMaterialSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpP1;
+        protected global::System.Web.UI.WebControls.Button btnMaterialSearch;
 
         /// <summary>
-        /// Image2 control.
+        /// btnMaterialExportExcel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image2;
+        protected global::System.Web.UI.WebControls.Button btnMaterialExportExcel;
 
         /// <summary>
-        /// tpP2 control.
+        /// lblRowCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpP2;
+        protected global::System.Web.UI.WebControls.Label lblRowCount;
 
         /// <summary>
-        /// Image3 control.
+        /// ibtnMaterialArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image3;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnMaterialArrowLeft;
 
         /// <summary>
-        /// tpP3 control.
+        /// ibtnMaterialArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpP3;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnMaterialArrowRight;
 
         /// <summary>
-        /// Image4 control.
+        /// gvMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image4;
+        protected global::System.Web.UI.WebControls.GridView gvMaterial;
 
         /// <summary>
-        /// tpPartsSales control.
+        /// tablPnlMaterialPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpPartsSales;
+        protected global::AjaxControlToolkit.TabPanel tablPnlMaterialPrice;
 
         /// <summary>
-        /// Image5 control.
+        /// txtMaterialCodePrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image5;
+        protected global::System.Web.UI.WebControls.TextBox txtMaterialCodePrice;
 
         /// <summary>
-        /// tpService control.
+        /// btnMaterialPriceSerach control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpService;
+        protected global::System.Web.UI.WebControls.Button btnMaterialPriceSerach;
 
         /// <summary>
-        /// Image6 control.
+        /// gvMaterialPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6;
+        protected global::System.Web.UI.WebControls.GridView gvMaterialPrice;
 
         /// <summary>
-        /// tpInventory control.
+        /// tablPnlMaterSupersede control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpInventory;
+        protected global::AjaxControlToolkit.TabPanel tablPnlMaterSupersede;
 
         /// <summary>
-        /// Image7 control.
+        /// txtMaterialCodeSupersede control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image7;
+        protected global::System.Web.UI.WebControls.TextBox txtMaterialCodeSupersede;
 
         /// <summary>
-        /// tpDealerManpower control.
+        /// btnMaterailSupersedeSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpDealerManpower;
+        protected global::System.Web.UI.WebControls.Button btnMaterailSupersedeSearch;
 
         /// <summary>
-        /// Image8 control.
+        /// btnMaterailSupersedeExportExcel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image8;
+        protected global::System.Web.UI.WebControls.Button btnMaterailSupersedeExportExcel;
 
         /// <summary>
-        /// tpDMWebMobileUserId control.
+        /// lblMaterialSupersedeCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpDMWebMobileUserId;
+        protected global::System.Web.UI.WebControls.Label lblMaterialSupersedeCount;
 
         /// <summary>
-        /// Image9 control.
+        /// ibtnMaterialSupersedeArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image9;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnMaterialSupersedeArrowLeft;
+
+        /// <summary>
+        /// ibtnMaterialSupersedeArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnMaterialSupersedeArrowRight;
+
+        /// <summary>
+        /// gvMaterialSupersede control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvMaterialSupersede;
+
+        /// <summary>
+        /// tabPnlReOrderLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tabPnlReOrderLevel;
+
+        /// <summary>
+        /// tabPnlEquipment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tabPnlEquipment;
     }
 }
