@@ -135,5 +135,29 @@ namespace Business
             string endPoint = "Lead/LeadCountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&UserID=" + UserID;
             return JsonConvert.DeserializeObject<List<PLeadStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PLeadQuestionariesMain> GetLeadQuestionariesMain(int? LeadQuestionariesMainID, string LeadQuestionariesMain)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/QuestionariesMain?LeadQuestionariesMainID=" + LeadQuestionariesMainID + "&LeadQuestionariesMain=" + LeadQuestionariesMain;
+            return JsonConvert.DeserializeObject<List<PLeadQuestionariesMain>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+        public List<PLeadQuestionariesSub> GetLeadQuestionariesSub(int? LeadQuestionariesSubID, int? LeadQuestionariesMainID, string LeadQuestionariesSub)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/QuestionariesSub?LeadQuestionariesSubID=" + LeadQuestionariesSubID + "&LeadQuestionariesMainID=" + LeadQuestionariesMainID + "&LeadQuestionariesSub=" + LeadQuestionariesSub;
+            return JsonConvert.DeserializeObject<List<PLeadQuestionariesSub>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+        public List<PLeadQuestionaries> GetLeadQuestionaries(long LeadID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/Questionaries?LeadID=" + LeadID;
+            return JsonConvert.DeserializeObject<List<PLeadQuestionaries>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
     }
 }
