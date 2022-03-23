@@ -413,7 +413,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvMake" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMake_PageIndexChanging">
@@ -459,7 +459,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvProductType" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" AllowPaging="True" ShowFooter="True" OnPageIndexChanging="gvProductType_PageIndexChanging">
@@ -531,7 +531,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvProduct_PageIndexChanging" OnDataBound="gvProduct_DataBound">
