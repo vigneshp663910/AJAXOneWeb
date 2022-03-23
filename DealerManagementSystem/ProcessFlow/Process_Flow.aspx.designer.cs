@@ -24,22 +24,22 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tbpProcess_Flow control.
+        /// tcProcess_Flow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tbpProcess_Flow;
+        protected global::AjaxControlToolkit.TabContainer tcProcess_Flow;
 
         /// <summary>
-        /// tbpnPre_Sales control.
+        /// tbPre_Sales control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbpnPre_Sales;
+        protected global::AjaxControlToolkit.TabPanel tbPre_Sales;
 
         /// <summary>
         /// Image1 control.
@@ -51,31 +51,31 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Image Image1;
 
         /// <summary>
-        /// tpService control.
+        /// tpProcurement control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpService;
+        protected global::AjaxControlToolkit.TabPanel tpProcurement;
 
         /// <summary>
-        /// TabContainer1 control.
+        /// tcProcurement control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer1;
+        protected global::AjaxControlToolkit.TabContainer tcProcurement;
 
         /// <summary>
-        /// TabPanel1 control.
+        /// tpP1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel1;
+        protected global::AjaxControlToolkit.TabPanel tpP1;
 
         /// <summary>
         /// Image2 control.
@@ -87,13 +87,13 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Image Image2;
 
         /// <summary>
-        /// TabPanel2 control.
+        /// tpP2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel2;
+        protected global::AjaxControlToolkit.TabPanel tpP2;
 
         /// <summary>
         /// Image3 control.
@@ -105,13 +105,13 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Image Image3;
 
         /// <summary>
-        /// TabPanel3 control.
+        /// tpP3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel3;
+        protected global::AjaxControlToolkit.TabPanel tpP3;
 
         /// <summary>
         /// Image4 control.
@@ -141,13 +141,13 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Image Image5;
 
         /// <summary>
-        /// tpServiceOrg control.
+        /// tpService control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpServiceOrg;
+        protected global::AjaxControlToolkit.TabPanel tpService;
 
         /// <summary>
         /// Image6 control.
@@ -159,13 +159,13 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Image Image6;
 
         /// <summary>
-        /// tplInventory control.
+        /// tpInventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tplInventory;
+        protected global::AjaxControlToolkit.TabPanel tpInventory;
 
         /// <summary>
         /// Image7 control.
@@ -175,5 +175,41 @@ namespace DealerManagementSystem.ProcessFlow
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Image7;
+
+        /// <summary>
+        /// tpDealerManpower control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpDealerManpower;
+
+        /// <summary>
+        /// Image8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image8;
+
+        /// <summary>
+        /// tpDMWebMobileUserId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpDMWebMobileUserId;
+
+        /// <summary>
+        /// Image9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image9;
     }
 }
