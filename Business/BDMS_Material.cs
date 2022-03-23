@@ -611,5 +611,47 @@ namespace Business
             }
             return SOIs.Count();
         }
+
+        public List<PDMS_Material> GetMaterialSupersede(int? MaterialID, string MaterialCode)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_Material> SOIs = new List<PDMS_Material>();
+            PDMS_Material SOI = new PDMS_Material();
+            try
+            {
+                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
+                DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
+
+                using (DataSet DataSet = provider.Select("GetMaterialSupersede", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+
+                            SOI = new PDMS_Material();
+                            SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
+                            SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
+                            SOI.Supersede = new PSupersede();
+                            SOI.Supersede.Material = Convert.ToString(dr["SupersedeCode"]);
+                            SOI.Supersede.MaterialDescription = Convert.ToString(dr["SupersedeMaterailDescription"]);
+                            SOI.Supersede.ValidFrom = Convert.ToDateTime(dr["ValidFrom"]);
+                            SOI.Supersede.ValidTo = Convert.ToDateTime(dr["ValidTo"]);
+                            SOI.Supersede.Description = Convert.ToString(dr["SupersedeRemarks"]);
+                            SOIs.Add(SOI);
+                        }
+                        return SOIs;
+                        TraceLogger.Log(DateTime.Now);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialSupersede", ex);
+                throw ex;
+            }
+            return SOIs;
+        }
     }
 }
