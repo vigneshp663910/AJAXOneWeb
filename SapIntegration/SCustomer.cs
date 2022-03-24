@@ -2,6 +2,7 @@
 using SAP.Middleware.Connector;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -70,7 +71,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_SORG", Customer.Country.SalesOrganization);
             tagListBapi.SetValue("P_DIS_CH", (country == 1) ? "GT" : "EX");
             tagListBapi.SetValue("P_DIVISION", "CM");
-            tagListBapi.SetValue("P_ACC_GROUP", (country == 1) ? "AJGT" : "AJIC");
+            tagListBapi.SetValue("P_ACC_GROUP", (Customer.IsShipTo==true)? "AJSH":(country == 1) ? "AJGT" : "AJIC");
             tagListBapi.SetValue("P_TITLE", Customer.Title.Title);
             tagListBapi.SetValue("P_NAME1", Customer.CustomerName);
             tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
@@ -78,8 +79,8 @@ namespace SapIntegration
             tagListBapi.SetValue("P_NAME4", "");
             tagListBapi.SetValue("P_STREET2", Customer.Address1);
             tagListBapi.SetValue("P_STREET3", Customer.Address2);
-            tagListBapi.SetValue("P_STREET4", Customer.Tehsil.Tehsil);
-            tagListBapi.SetValue("P_HOUSE_NO", Customer.Address3);
+            tagListBapi.SetValue("P_STREET4", Customer.Address3/*Customer.Tehsil.Tehsil*/);
+            tagListBapi.SetValue("P_HOUSE_NO", "");
             tagListBapi.SetValue("P_DISTRICT", Customer.District.District);
             tagListBapi.SetValue("P_POSTCODE", Customer.Pincode);
             tagListBapi.SetValue("P_CITY", Customer.City);
@@ -99,10 +100,10 @@ namespace SapIntegration
             tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
             tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
             tagListBapi.SetValue("P_CUS_GROUP", "GT");
-            tagListBapi.SetValue("P_CURRENCY", (country == 1 && country == 2 && country == 3) ? "INR" : "USD");
+            tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
             tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
-            tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 && country == 2 && country == 3) ? "07" : "08");
-            tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 && country == 2 && country == 3) ? "7" : "9");
+            tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 || country == 2 || country == 3) ? "07" : "08");
+            tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 || country == 2 || country == 3) ? "7" : "9");
             tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
             tagListBapi.SetValue("P_DEL_PRIORITY", "2");
             tagListBapi.SetValue("P_ORD_COMB_IND", "X");//Checkbox
@@ -125,7 +126,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_TAX_CLASS9", (country == 1) ? "0" : "1");
 
             tagListBapi.Invoke(SAP.RfcDes());
-            string CustomerCode=!string.IsNullOrEmpty(tagListBapi.GetValue("CUSTOMER").ToString())? tagListBapi.GetValue("CUSTOMER").ToString().Remove(0, 4) :"";
+            string CustomerCode = !string.IsNullOrEmpty(tagListBapi.GetValue("CUSTOMER").ToString()) ? tagListBapi.GetValue("CUSTOMER").ToString().Remove(0, 4) : "";
 
             return CustomerCode;
         }
@@ -139,7 +140,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_SORG", Customer.Country.SalesOrganization);
             tagListBapi.SetValue("P_DIS_CH", (country == 1) ? "GT" : "EX");
             tagListBapi.SetValue("P_DIVISION", "CM");
-            //tagListBapi.SetValue("P_ACC_GROUP", (country == 1) ? "AJGT" : "AJIC");
+            //tagListBapi.SetValue("P_ACC_GROUP", (Customer.IsShipTo == true) ? "AJSH" : (country == 1) ? "AJGT" : "AJIC");
             tagListBapi.SetValue("P_TITLE", Customer.Title.Title);
             tagListBapi.SetValue("P_NAME1", Customer.CustomerName);
             tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
@@ -147,8 +148,8 @@ namespace SapIntegration
             tagListBapi.SetValue("P_NAME4", "");
             tagListBapi.SetValue("P_STREET2", Customer.Address1);
             tagListBapi.SetValue("P_STREET3", Customer.Address2);
-            tagListBapi.SetValue("P_STREET4", (Customer.Tehsil==null)?"": Customer.Tehsil.Tehsil);
-            tagListBapi.SetValue("P_HOUSE_NO", Customer.Address3);
+            tagListBapi.SetValue("P_STREET4", Customer.Address3/*Customer.Tehsil.Tehsil*/);
+            tagListBapi.SetValue("P_HOUSE_NO", "");
             tagListBapi.SetValue("P_DISTRICT", Customer.District.District);
             tagListBapi.SetValue("P_POSTCODE", Customer.Pincode);
             tagListBapi.SetValue("P_CITY", Customer.City);
@@ -168,10 +169,10 @@ namespace SapIntegration
             tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
             tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
             tagListBapi.SetValue("P_CUS_GROUP", "GT");
-            tagListBapi.SetValue("P_CURRENCY", (country == 1 && country == 2 && country == 3) ? "INR" : "USD");
+            tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
             tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
-            tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 && country == 2 && country == 3) ? "07" : "08");
-            tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 && country == 2 && country == 3) ? "7" : "9");
+            tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 || country == 2 || country == 3) ? "07" : "08");
+            tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 || country == 2 || country == 3) ? "7" : "9");
             tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
             tagListBapi.SetValue("P_DEL_PRIORITY", "2");
             tagListBapi.SetValue("P_ORD_COMB_IND", "X");//Checkbox
@@ -194,7 +195,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_TAX_CLASS9", (country == 1) ? "0" : "1");
 
             tagListBapi.Invoke(SAP.RfcDes());
-            string SUBRC= tagListBapi.GetValue("P_SUBRC").ToString();
+            string SUBRC = tagListBapi.GetValue("P_SUBRC").ToString();
 
             return SUBRC;
         }

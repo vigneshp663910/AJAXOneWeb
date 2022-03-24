@@ -44,6 +44,12 @@ namespace SapIntegration
             QTHeader.SetValue("DIVISION", "CM");
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
+            IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
+            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", pSalesQuotation.QuotationDate);
+            QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
+            QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product);
+            QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", "");
+
             IRfcTable QT_Item = tagListBapi.GetTable("QUOTATION_ITEMS_IN");
             for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
             {

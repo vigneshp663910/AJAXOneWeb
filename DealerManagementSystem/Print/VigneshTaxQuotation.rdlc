@@ -117,48 +117,6 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox19">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox19</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>3</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.6cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="Textbox30">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -940,15 +898,14 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <Top>0.9525cm</Top>
             <Left>0.66464cm</Left>
-            <Height>9.34796cm</Height>
-            <Width>18.75387cm</Width>
+            <Height>8.74796cm</Height>
+            <Width>18.75386cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2222,7 +2179,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>3.4133in</Height>
+                  <Height>4.24663in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2452,6 +2409,63 @@
                               </TextRuns>
                               <Style />
                             </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Note: Tax Collected at Source (TCS) indicated above will be applicable subjected to the conditions/limits
+prescribed.The same will be validatedat the time of final invoicing and will be levied if applicable on 01st October
+2020 onwards.</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
@@ -2523,8 +2537,8 @@
             <DataSetName>SalesTaxQuotationItem</DataSetName>
             <Top>4.04488in</Top>
             <Left>0.66464cm</Left>
-            <Height>5.29439in</Height>
-            <Width>7.38341in</Width>
+            <Height>6.12772in</Height>
+            <Width>7.38335in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2568,7 +2582,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>9.33927in</Height>
+        <Height>10.1726in</Height>
         <Style />
       </Body>
       <Width>7.85342in</Width>
@@ -2759,6 +2773,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>0.66464cm</Left>
               <Height>2.66375cm</Height>
               <Width>18.75387cm</Width>
