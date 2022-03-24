@@ -24,6 +24,7 @@
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
                 <asp:LinkButton ID="lbtnGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnPrintPDF" runat="server" OnClick="lbActions_Click">Print PDF</asp:LinkButton>
+                <asp:LinkButton ID="lbtnPrintTaxQuotation" runat="server" OnClick="lbActions_Click">Print Tax Quotation</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -704,7 +705,7 @@
             <asp:Panel ID="pnlMaterial" runat="server">
                 <div class="rf-p " id="txnHistory:inputFiltersPanel">
                     <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body">
-                        <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" ShowFooter="true" DataKeyNames="QuotationItemID">
+                        <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CsAsClass="TableGrid" Width="100%" ShowFooter="true" DataKeyNames="QuotationItemID">
                             <Columns>
                                 <asp:TemplateField HeaderText="Material">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -879,8 +880,4 @@
             minLength: 2 //This is the Char length of inputTextBox  
         });
     });
-
-
-
 </script>
-

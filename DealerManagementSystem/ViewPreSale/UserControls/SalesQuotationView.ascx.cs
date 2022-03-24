@@ -162,10 +162,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 GenerateQuotation();
                 fillViewQuotation(Quotation.QuotationID);
-            }
+            }            
             else if (lbActions.Text == "Print PDF")
             {
                 GeneratePDF();
+            }
+            else if (lbActions.Text == "Print Tax Quotation")
+            {
+                PrintTaxQuotation();
             }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
@@ -256,7 +260,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
-            PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
+            //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
+            PDMS_ServiceMaterial MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
 
             if (MaterialTax.BasePrice <= 0)
             {
@@ -743,13 +748,164 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void GeneratePDF()
         {
+            try
+            {
+                lblMessage.Text = "";
+                PSalesQuotation Q = Quotation;
+
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                Random r = new Random();
+                string FileName = "QT_" + r.Next(0, 1000000) + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+                ReportParameter[] P = new ReportParameter[40];
+                //Q.Lead.Dealer.
+                P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
+                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+                P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
+                P[4] = new ReportParameter("CustomerAddress1", Q.Lead.Customer.Address1, false);
+                P[5] = new ReportParameter("CustomerAddress2", Q.Lead.Customer.Address2, false);
+                P[6] = new ReportParameter("CustomerAddress3", Q.Lead.Customer.Address3, false);
+                P[7] = new ReportParameter("City", Q.Lead.Customer.City, false);
+                P[8] = new ReportParameter("District", (Q.Lead.Customer.District == null) ? "" : Q.Lead.Customer.District.District, false);
+                P[9] = new ReportParameter("State", (Q.Lead.Customer.State == null) ? "" : Q.Lead.Customer.State.State, false);
+                P[10] = new ReportParameter("Country", (Q.Lead.Customer.Country == null) ? "" : Q.Lead.Customer.Country.Country, false);
+                P[11] = new ReportParameter("PinCode", Q.Lead.Customer.Pincode, false);
+                P[12] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
+                P[13] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
+                P[14] = new ReportParameter("Attention", "KIND ATTENTION", false);
+                P[15] = new ReportParameter("Subject", "Subject", false);
+                P[16] = new ReportParameter("Reference", "Reference", false);
+                P[17] = new ReportParameter("Annexure", "Annexure", false);
+                P[18] = new ReportParameter("AnnexureRef", "AnnexureRef", false);
+                P[19] = new ReportParameter("AnnexureDate", "AnnexureDate", false);
+                P[20] = new ReportParameter("CompanyName", "CompanyName", false);
+                P[21] = new ReportParameter("CompanyAddress", "CompanyAddress", false);
+                P[22] = new ReportParameter("TCSTax", "TCSTax Persent", false);
+                P[23] = new ReportParameter("Delivery", "Delivery", false);
+                P[24] = new ReportParameter("InWordsTotalAmount", "ZERO RUPEES Only", false);
+                P[25] = new ReportParameter("TotalAmount", "00000.000", false);
+                P[26] = new ReportParameter("Note", "Note", false);
+
+                if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CM")
+                {
+                    P[27] = new ReportParameter("WarrantyDeliveryHours", "2000", false);//2000
+                }
+                else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "DP")
+                {
+                    P[27] = new ReportParameter("WarrantyDeliveryHours", "2000", false);//2000
+                }
+                else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
+                {
+                    P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
+                }
+                else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CP")
+                {
+                    P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
+                }
+                else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "TM")
+                {
+                    P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
+                }
+                else
+                {
+                    lblMessage.Text = "Division Not Available";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                P[28] = new ReportParameter("ConcernName", "ConcernName", false);
+                P[29] = new ReportParameter("ConcernDesignation", "ConcernDesignation", false);
+                P[30] = new ReportParameter("ConcernMobile", "ConcernMobile", false);
+                P[31] = new ReportParameter("MaterialText", "MaterialText", false);
+                if (Q.QuotationItems[0].Plant.PlantCode == "P001")
+                {
+                    P[32] = new ReportParameter("FactoryName", "FactoryName", false);
+                    P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
+                    P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
+                    P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
+                    P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                    P[37] = new ReportParameter("TCSTaxTerms", "", false);
+                }
+                else if (Q.QuotationItems[0].Plant.PlantCode == "P002")
+                {
+                    P[32] = new ReportParameter("FactoryName", "FactoryName", false);
+                    P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
+                    P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
+                    P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
+                    P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                    P[37] = new ReportParameter("TCSTaxTerms", "", false);
+                }
+                else if (Q.QuotationItems[0].Plant.PlantCode == "P003")
+                {
+                    P[32] = new ReportParameter("FactoryName", "FactoryName", false);
+                    P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
+                    P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
+                    P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
+                    P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                    P[37] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
+                }
+                if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
+                {
+                    P[38] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
+                    P[39] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
+                }
+                else
+                {
+                    P[38] = new ReportParameter("ErectionCommissoningHead", "", false);
+                    P[39] = new ReportParameter("ErectionCommissoning", "", false);
+                }
+                report.ReportPath = Server.MapPath("~/Print/VigneshMachineQuotation.rdlc");
+                report.SetParameters(P);
+
+                DataTable dtItem = new DataTable();
+                dtItem.Columns.Add("TechnicalSpecification");
+                dtItem.Columns.Add("Units");
+                dtItem.Columns.Add("UnitPriceINR");
+                dtItem.Columns.Add("AmountINR");
+                for (int i = 0; i < Q.QuotationItems.Count(); i++)
+                {
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
+                }
+
+                ReportDataSource rds = new ReportDataSource();
+                rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
+                rds.Value = dtItem;
+                report.DataSources.Add(rds); ;
+
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                Response.Flush(); // send it to the client to download
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+        void PrintTaxQuotation()
+        {
+            lblMessage.Text = "";
             PSalesQuotation Q = Quotation;
 
             string contentType = string.Empty;
             contentType = "application/pdf";
             var CC = CultureInfo.CurrentCulture;
             Random r = new Random();
-            string FileName = "QT_" + r.Next(0, 1000000) + ".pdf";
+            string FileName = "QT_Tax" + r.Next(0, 1000000) + ".pdf";
             string extension;
             string encoding;
             string mimeType;
@@ -757,113 +913,147 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Warning[] warnings;
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
-            ReportParameter[] P = new ReportParameter[40];
+            ReportParameter[] P = new ReportParameter[54];
 
-            P[0] = new ReportParameter("QuotationType", Q.QuotationType.QuotationType, false);
+            PDMS_Customer Customer = Q.Lead.Customer;
+            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            PDMS_Customer CustomerShipTo = Q.Lead.Customer;
+            string CustomerAddressShipTo1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddressShipTo2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State)+ (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
             P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
             P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
             P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
-            P[4] = new ReportParameter("CustomerAddress1", Q.Lead.Customer.Address1, false);
-            P[5] = new ReportParameter("CustomerAddress2", Q.Lead.Customer.Address2, false);
-            P[6] = new ReportParameter("CustomerAddress3", Q.Lead.Customer.Address3, false);
-            P[7] = new ReportParameter("City", Q.Lead.Customer.City, false);
-            P[8] = new ReportParameter("District", (Q.Lead.Customer.District == null) ? "" : Q.Lead.Customer.District.District, false);
-            P[9] = new ReportParameter("State", (Q.Lead.Customer.State == null) ? "" : Q.Lead.Customer.State.State, false);
-            P[10] = new ReportParameter("Country", (Q.Lead.Customer.Country == null) ? "" : Q.Lead.Customer.Country.Country, false);
-            P[11] = new ReportParameter("PinCode", Q.Lead.Customer.Pincode, false);
-            P[12] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
-            P[13] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-            P[14] = new ReportParameter("Attention", "KIND ATTENTION", false);
-            P[15] = new ReportParameter("Subject", "Subject", false);
-            P[16] = new ReportParameter("Reference", "Reference", false);
-            P[17] = new ReportParameter("Annexure", "Annexure", false);
-            P[18] = new ReportParameter("AnnexureRef", "AnnexureRef", false);
-            P[19] = new ReportParameter("AnnexureDate", "AnnexureDate", false);
-            P[20] = new ReportParameter("CompanyName", "CompanyName", false);
-            P[21] = new ReportParameter("CompanyAddress", "CompanyAddress", false);
-            P[22] = new ReportParameter("TCSTax", "TCSTax Persent", false);
-            P[23] = new ReportParameter("Delivery", "Delivery", false);
-            P[24] = new ReportParameter("InWordsTotalAmount", "ZERO RUPEES Only", false);
-            P[25] = new ReportParameter("TotalAmount", "00000.000", false);
-            P[26] = new ReportParameter("Note", "Note", false);
+            P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+            P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);          
+            P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
+            P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
+            P[8] = new ReportParameter("KindAttn", "KIND ATTENTION", false);
+            P[9] = new ReportParameter("CustomerStateCode", "", false);
+            P[10] = new ReportParameter("CustomerGST", "", false);
+            P[11] = new ReportParameter("CustomerPAN", "", false);
+            P[12] = new ReportParameter("AmountInWord", "", false);
+            P[13] = new ReportParameter("TotalAmount", "", false);
+            P[14] = new ReportParameter("Tax", "", false);
+            P[15] = new ReportParameter("TCS", "", false);
+            P[16] = new ReportParameter("SubTotal", "", false);
+            P[17] = new ReportParameter("LifeTimeTax", "", false);
+            P[18] = new ReportParameter("GrandTotal", "", false);
+            P[19] = new ReportParameter("YourRef", "", false);
+            P[20] = new ReportParameter("RevNo", "", false);
+            P[21] = new ReportParameter("ShipToCustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
+            P[22] = new ReportParameter("ShipToCustomerAddress1", CustomerAddressShipTo1, false);
+            P[23] = new ReportParameter("ShipToCustomerAddress2", CustomerAddressShipTo2, false); 
+            P[24] = new ReportParameter("ShipToMobile", Q.Lead.Customer.Mobile, false);
+            P[25] = new ReportParameter("ShipToEMail", Q.Lead.Customer.Email, false);
+            P[26] = new ReportParameter("ShipToCustomerStateCode", "", false);
+            P[27] = new ReportParameter("ShipToCustomerGST", "", false);
+            P[28] = new ReportParameter("SoldToPartyBPCode", "", false);
+            P[29] = new ReportParameter("ShipToPartyBPCode", "", false);
+            P[30] = new ReportParameter("Hypothecation", "", false);
+            string Div = Q.QuotationItems[0].Material.Model.Division.DivisionCode;
+            if (Div == "CM" || Div == "DP"|| Div == "BP" || Div == "TM")
+            {
+                P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
+                P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
+                P[33] = new ReportParameter("TermsOfPayment", "TERMS OF PAYMENT TEXT" + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
+                P[34] = new ReportParameter("PaymentTermAccName", "NAME        : " + "Ajax Engineering Pvt.Ltd.", false);
+                P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME   : " + "State Bank of India", false);
+                P[36] = new ReportParameter("PaymentTermBankAddress", ", P.B.No.1, Peenya, Tumkur Road, Peenya Industrial Estate, 1st Stage, Bangalore - 560 058");
+                P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + "10308201660", false);
+                P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE   : " + "SBIN0003024", false);
+                P[39] = new ReportParameter("Delivery", "Delivery : " + "With in 2 weeks from the date of receipt of full payment.", false);
+                P[40] = new ReportParameter("TransitInsurance", "Transit Insurance: Customer to arrange and send the same before dispatch", false);
+                P[41] = new ReportParameter("Transportation", "Transportation : To-pay basis to customer's account.", false);
+                P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + "30 Days from the date of issue of tax Quotation", false);
+                P[43] = new ReportParameter("Note", "Note : " + "NOTE TEXT", false);
+            }
+            else if (Div == "CP")
+            {
+                P[31] = new ReportParameter("TermsandConditionHead", "", false);
+                P[32] = new ReportParameter("PaymentTerms", "", false);
+                P[33] = new ReportParameter("TermsOfPayment", "", false);
+                P[34] = new ReportParameter("PaymentTermAccName", "", false);
+                P[35] = new ReportParameter("PaymentTermBankName", "", false);
+                P[36] = new ReportParameter("PaymentTermBankAddress", "");
+                P[37] = new ReportParameter("PaymentTermAccNo", "", false);
+                P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
+                P[39] = new ReportParameter("Delivery", "", false);
+                P[40] = new ReportParameter("TransitInsurance", "", false);
+                P[41] = new ReportParameter("Transportation", "", false);
+                P[42] = new ReportParameter("Validity", "", false);
+                P[43] = new ReportParameter("Note", "", false);
+            }
+            else
+            {
+                lblMessage.Text = "Division Not Available";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             
-            if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CM")
-            {
-                //P[27] = new ReportParameter("WarrantyDeliveryHours", Q.QuotationItems[0].Material.Model.Division, false);
-            }
-            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "DP")
-            {
-                P[27] = new ReportParameter("WarrantyDeliveryHours", "2000", false);
-            }
-            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
-            {
-                P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);
-            }
-            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CP")
-            {
-                P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);
-            }
-            else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "TM")
-            {
-                P[27] = new ReportParameter("WarrantyDeliveryHours", "1000", false);
-            }
+            P[44] = new ReportParameter("Name", "", false);
+            P[45] = new ReportParameter("Designation", "", false);
+            P[46] = new ReportParameter("MobileNo", "", false);
 
-            P[28] = new ReportParameter("ConcernName", "ConcernName", false);
-            P[29] = new ReportParameter("ConcernDesignation", "ConcernDesignation", false);
-            P[30] = new ReportParameter("ConcernMobile", "ConcernMobile", false);
-            P[31] = new ReportParameter("MaterialText", "MaterialText", false);
-            if (Q.QuotationItems[0].Plant.PlantCode == "P001")
-            {
-                P[32] = new ReportParameter("FactoryName", "FactoryName", false);
-                P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
-                P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
-                P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
-                P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
-                P[37] = new ReportParameter("TCSTaxTerms", "", false);
-            }
-            else if (Q.QuotationItems[0].Plant.PlantCode == "P002")
-            {
-                P[32] = new ReportParameter("FactoryName", "FactoryName", false);
-                P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
-                P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
-                P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
-                P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
-                P[37] = new ReportParameter("TCSTaxTerms", "", false);
-            }
-            else if (Q.QuotationItems[0].Plant.PlantCode == "P003")
-            {
-                P[32] = new ReportParameter("FactoryName", "FactoryName", false);
-                P[33] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
-                P[34] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
-                P[35] = new ReportParameter("FactoryFax", "FactoryFax", false);
-                P[36] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
-                P[37] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
-            }
-            if(Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
-            {
-                P[38] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
-                P[39] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
-            }
-            else 
-            {
-                P[38] = new ReportParameter("ErectionCommissoningHead", "", false);
-                P[39] = new ReportParameter("ErectionCommissoning", "", false);
-            }
-            report.ReportPath = Server.MapPath("~/Print/VigneshMachineQuotation.rdlc");
-            report.SetParameters(P);
+            
 
             DataTable dtItem = new DataTable();
-            dtItem.Columns.Add("TechnicalSpecification");
-            dtItem.Columns.Add("Units");
-            dtItem.Columns.Add("UnitPriceINR");
-            dtItem.Columns.Add("AmountINR");
-            for (int i = 0; i < Q.QuotationItems.Count(); i++)
+            dtItem.Columns.Add("SNO");
+            dtItem.Columns.Add("Material");
+            dtItem.Columns.Add("Description");
+            dtItem.Columns.Add("HSN");
+            dtItem.Columns.Add("UOM");
+            dtItem.Columns.Add("Qty");
+            dtItem.Columns.Add("Rate");
+            dtItem.Columns.Add("Total");
+            dtItem.Columns.Add("Discount");
+            dtItem.Columns.Add("Value");
+            dtItem.Columns.Add("CGSTPer");
+            dtItem.Columns.Add("CGSTVal");
+            dtItem.Columns.Add("SGSTPer");
+            dtItem.Columns.Add("SGSTVal");
+
+            int i = 0;
+
+            foreach (PSalesQuotationItem item in Q.QuotationItems)
             {
-                dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
+                i = i + 1;
+                if (item.SGST != 0)
+                {
+                    P[47] = new ReportParameter("CGST_Header", "CGST %", false);
+                    P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
+                    P[49] = new ReportParameter("SGST_Header", "SGST %", false);
+                    P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
+                    dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.CGST, item.CGSTValue, item.SGST, item.SGSTValue);
+                }
+                else
+                {
+                    P[47] = new ReportParameter("CGST_Header", "", false);
+                    P[48] = new ReportParameter("CGSTVal_Header", "", false);
+                    P[49] = new ReportParameter("SGST_Header", "IGST %", false);
+                    P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
+                    dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
+                }
             }
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
+            string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+
+
+            //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
+
+            P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
+            P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
+            P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
+            report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
+            report.SetParameters(P);
 
             ReportDataSource rds = new ReportDataSource();
-            rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
+            rds.Name = "SalesTaxQuotationItem";//This refers to the dataset name in the RDLC file  
             rds.Value = dtItem;
             report.DataSources.Add(rds); ;
 
