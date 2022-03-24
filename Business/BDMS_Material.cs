@@ -502,7 +502,7 @@ namespace Business
 
         public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode)
         {
-            string endPoint = "Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode;
+            string endPoint = "Material/Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode;
             return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
             //TraceLogger.Log(DateTime.Now);

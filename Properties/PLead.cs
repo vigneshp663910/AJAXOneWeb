@@ -192,4 +192,27 @@ namespace Properties
         public int? StateID { get; set; }
         public string Name { get; set; }
     }
+    [Serializable]
+    public class PLeadQuestionaries
+    {
+        public long LeadQuestionariesID { get; set; }
+        public long LeadID { get; set; }
+        public PLeadQuestionariesMain QuestionariesMain { get; set; }
+        public PLeadQuestionariesSub QuestionariesSub { get; set; }
+        public string Remark { get; set; }
+        public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PLeadQuestionariesMain
+    {
+        public int LeadQuestionariesMainID { get; set; }
+        public string LeadQuestionariesMain { get; set; }
+    }
+    [Serializable]
+    public class PLeadQuestionariesSub
+    {
+        public int LeadQuestionariesSubID { get; set; }
+        public PLeadQuestionariesMain QuestionariesMain { get; set; }
+        public string LeadQuestionariesSub { get; set; }
+    }
 }

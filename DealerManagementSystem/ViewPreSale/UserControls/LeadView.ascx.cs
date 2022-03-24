@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillEffort();
             fillExpense();
             fillProduct();
-
+            fillQuestionaries();
             ActionControlMange();
         }
         protected void lbActions_Click(object sender, EventArgs e)
@@ -185,6 +185,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 MPE_Quotation.Show();
                 UC_Quotation.FillMaster();
+            }
+            else if (lbActions.Text == "Add Questionaries")
+            {
+                new DDLBind(ddlQuestionariesMain, new BLead().GetLeadQuestionariesMain(null, null), "LeadQuestionariesMain", "LeadQuestionariesMainID");
+                MPE_Questionaries.Show();
             }
         }  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
@@ -735,6 +740,107 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddQuotation.Visible = false;
 
              
+        }
+
+        protected void ddlQuestionariesMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlQuestionariesSub, new BLead().GetLeadQuestionariesSub(null, Convert.ToInt32(ddlQuestionariesMain.SelectedValue), null), "LeadQuestionariesSub", "LeadQuestionariesSubID");
+            MPE_Questionaries.Show();
+        }
+
+        public string ValidationQuestionaries()
+        {
+            string Message = "";
+            ddlQuestionariesMain.BorderColor = Color.Silver;
+            ddlQuestionariesSub.BorderColor = Color.Silver;
+            txtRemark.BorderColor = Color.Silver;
+            if (ddlQuestionariesMain.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Questionaries Main";
+                ddlQuestionariesMain.BorderColor = Color.Red;
+            }
+
+            else if (ddlQuestionariesSub.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Questionaries Sub";
+                ddlQuestionariesSub.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            {
+                Message = "Please enter the Remark";
+                txtRemark.BorderColor = Color.Red;
+            }
+            return Message;
+        }
+        protected void btnSaveMarketSegment_Click(object sender, EventArgs e)
+        {
+            lblMessageQuestionaries.Visible = true;
+            lblMessageQuestionaries.ForeColor = Color.Red;
+            MPE_Questionaries.Show();
+            string Message = ValidationQuestionaries();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageQuestionaries.Text = Message;
+                return;
+            }
+            PLeadQuestionaries Questionaries = new PLeadQuestionaries();
+            Questionaries.LeadID = Lead.LeadID;
+            Questionaries.QuestionariesMain = new PLeadQuestionariesMain() { LeadQuestionariesMainID = Convert.ToInt32(ddlQuestionariesMain.SelectedValue) };
+            Questionaries.QuestionariesSub = new PLeadQuestionariesSub() { LeadQuestionariesSubID = Convert.ToInt32(ddlQuestionariesSub.SelectedValue) };
+            Questionaries.Remark = txtRemark.Text.Trim();
+            Questionaries.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Questionaries", Questionaries));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageQuestionaries.Text = Results.Message;
+                return;
+            }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
+            ddlQuestionariesMain.Items.Clear();
+            ddlQuestionariesSub.Items.Clear();
+            txtRemark.Text = "";
+            tbpCust.ActiveTabIndex = 0;
+            MPE_Questionaries.Hide();
+            fillQuestionaries();
+        }
+        void fillQuestionaries()
+        {
+            gvQuestionaries.DataSource = new BLead().GetLeadQuestionaries(Lead.LeadID);
+            gvQuestionaries.DataBind();
+        }
+        protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
+        {
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblLeadQuestionariesID = (Label)gvRow.FindControl("lblLeadQuestionariesID");
+            PLeadQuestionaries Questionaries = new PLeadQuestionaries();
+            Questionaries.LeadQuestionariesID = Convert.ToInt64(lblLeadQuestionariesID.Text);
+            Questionaries.LeadID = Lead.LeadID;
+
+            Questionaries.QuestionariesMain = new PLeadQuestionariesMain() { LeadQuestionariesMainID = 0 };
+            Questionaries.QuestionariesSub = new PLeadQuestionariesSub() { LeadQuestionariesSubID = 0 };
+            Questionaries.Remark = txtRemark.Text.Trim();
+            Questionaries.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+
+            Questionaries.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Questionaries", Questionaries));
+            lblMessage.Visible = true;
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
+
+            fillQuestionaries();
+
         }
     }
 }

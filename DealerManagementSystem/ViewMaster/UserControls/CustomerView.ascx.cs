@@ -399,9 +399,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             fillFleet();
         }
-
-
-
+         
         void fillAttribute()
         {
             gvAttribute.DataSource = new BDMS_Customer().GetCustomerAttribute(Customer.CustomerID, null);
@@ -446,8 +444,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             } 
             PDMS_Customer CustomerU = UC_Customer.ReadCustomer();
             CustomerU.CustomerID = Customer.CustomerID;
-            CustomerU.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            string result = new BAPI().ApiPut("Customer", Customer);
+            CustomerU.CreatedBy = new PUser { UserID = PSession.User.UserID }; 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", CustomerU));
 
             if (Result.Status == PApplication.Failure)

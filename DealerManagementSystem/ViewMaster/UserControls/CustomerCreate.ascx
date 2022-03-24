@@ -220,10 +220,7 @@
                     <label class="modal-label">Send Email</label> 
                     <asp:CheckBox ID="cbSendEmail" runat="server" />
                 </div>
-                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Ship To</label> 
-                    <asp:CheckBox ID="cbShipTo" runat="server" />
-                </div>
+                
             </div>
         </fieldset>
     </ContentTemplate>
