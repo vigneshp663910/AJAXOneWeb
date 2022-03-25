@@ -599,8 +599,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             UC_LeadView.fillViewLead(Quotation.Lead);
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
-            if (Quotation.ShipTo != null)
-                CustomerViewShifTo.fillCustomer(Quotation.ShipTo);
+            //if (Quotation.ShipTo != null)
+            //    CustomerViewShifTo.fillCustomer(Quotation.ShipTo);
         }
         public string ValidationFinancier()
         {

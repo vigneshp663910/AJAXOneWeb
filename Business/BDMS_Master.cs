@@ -156,5 +156,10 @@ namespace Business
             string endPoint = "Master/Plant?PlantID=" + PlantID + "&PlantCode=" + PlantCode;
             return JsonConvert.DeserializeObject<List<PPlant>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PDMS_Division> GetDivision(int? DivisionID, string DivisionCode)
+        {
+            string endPoint = "Master/Division?DivisionID=" + DivisionID + "&DivisionCode=" + DivisionCode;
+            return JsonConvert.DeserializeObject<List<PDMS_Division>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 } 

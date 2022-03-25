@@ -32,6 +32,9 @@ namespace Properties
         public string EInvoiceFTPUserID { get; set; }
         public string EInvoiceFTPPassword { get; set; }
         public DateTime? EInvoiceDate { get; set; }
+        public string AuthorityName { get; set; }
+        public string AuthorityDesignation { get; set; }
+        public string AuthorityMobile { get; set; } 
         public List<PDMS_Customer> Customer { get; set; }
     }
        [Serializable]

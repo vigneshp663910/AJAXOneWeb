@@ -109,7 +109,6 @@
     <Compile Include="BDMS_ICTicket.cs" />
     <Compile Include="BDMS_ICTicketFSR.cs" />
     <Compile Include="BDMS_ICTicketTSIR.cs" />
-    <Compile Include="BDMS_IncoTerm.cs" />
     <Compile Include="BDMS_MachineMaintenanceLevel.cs" />
     <Compile Include="BDMS_Master.cs" />
     <Compile Include="BDMS_Material.cs" />

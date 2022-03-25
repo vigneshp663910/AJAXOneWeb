@@ -205,7 +205,7 @@ namespace Business
         }
 
 
-        public String ApiPut(string EndPoint, object obj)
+        public String ApiPut(string EndPoint, object obj = null)
         {
             // JsonResult JsonContent = new JsonResult();
             string AccessToken = PSession.AccessToken;

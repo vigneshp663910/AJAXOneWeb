@@ -15,7 +15,22 @@ using Newtonsoft.Json;
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class AddQuotation : System.Web.UI.UserControl
-    { 
+    {
+        public PLead Lead
+        {
+            get
+            {
+                if (Session["LeadView"] == null)
+                {
+                    Session["LeadView"] = new PLead();
+                }
+                return (PLead)Session["LeadView"];
+            }
+            set
+            {
+                Session["LeadView"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         { 
             if (!IsPostBack)
@@ -36,58 +51,48 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlUserStatusRemarks, new BSalesQuotation().GetSaleQuotationRejectionReason(null, null), "Reason", "SalesQuotationRejectionReasonID");
 
             //new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
-
-
-           
+             
+            new DDLBind(ddlShipParty, new BDMS_Customer().GetCustomerShopTo(null, Lead.Customer.CustomerID), "CustomerCode", "CustomerShipToID");
         }
-         
-       
+
+
         public PSalesQuotation ReadSalesQuotation()
         {
-            PSalesQuotation Sq = new PSalesQuotation();  
+            PSalesQuotation Sq = new PSalesQuotation();
             Sq.QuotationType = new PSalesQuotationType() { QuotationTypeID = Convert.ToInt32(ddlQuotationType.SelectedValue) };
             Sq.Status = new PSalesQuotationStatus() { SalesQuotationStatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
-            Sq.ValidFrom = string.IsNullOrEmpty(txtValidFrom.Text.Trim())?(DateTime?)null: Convert.ToDateTime(txtValidFrom.Text.Trim());
+            Sq.ValidFrom = string.IsNullOrEmpty(txtValidFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtValidFrom.Text.Trim());
             Sq.ValidTo = string.IsNullOrEmpty(txtValidTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtValidTo.Text.Trim());
             Sq.PricingDate = string.IsNullOrEmpty(txtPricingDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPricingDate.Text.Trim());
             Sq.PriceGroup = ddlPriceGroup.SelectedValue == "0" ? null : new PPriceGroup() { PriceGroupID = Convert.ToInt32(ddlPriceGroup.SelectedValue) };
             Sq.UserStatus = ddlUserStatus.SelectedValue == "0" ? null : new PSalesQuotationUserStatus() { SalesQuotationUserStatusID = Convert.ToInt32(ddlUserStatus.SelectedValue) };
-            
+
             Sq.UserStatusRemarks = ddlUserStatusRemarks.SelectedValue == "0" ? null : new PSaleQuotationRejectionReason() { SalesQuotationRejectionReasonID = Convert.ToInt32(ddlUserStatusRemarks.SelectedValue) };
-          
+
             Sq.RequestedDeliveryDate = string.IsNullOrEmpty(txtRequestedDeliveryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDeliveryDate.Text.Trim());
             Sq.CommissionAgent = cbCommissionAgent.Checked;
+            Sq.ShipTo = ddlShipParty.SelectedValue == "0" ? null : new PDMS_CustomerShipTo() { CustomerShipToID = Convert.ToInt64(ddlShipParty.SelectedValue) };
 
-            if (!string.IsNullOrEmpty(txtShipParty.Text.Trim()))
-            {
-                Sq.ShipTo = new BDMS_Customer().GetCustomerSQL(null, txtShipParty.Text.Trim())[0];
-            }
             Sq.CreatedBy = new PUser { UserID = PSession.User.UserID };
-
             return Sq;
         }
         public string ValidationSalesQuotation()
         {
             string Message = "";
-             ddlQuotationType.BorderColor = Color.Silver;
+            ddlQuotationType.BorderColor = Color.Silver;
             ddlStatus.BorderColor = Color.Silver;
-            txtShipParty.BorderColor = Color.Silver;
-            List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomerSQL(null, txtShipParty.Text.Trim());
+
             if (ddlQuotationType.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the Quotation Type";
                 ddlQuotationType.BorderColor = Color.Red;
             }
-            else if (ddlStatus.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Quotation Status";
-                ddlStatus.BorderColor = Color.Red;
-            }
-            else if ((Cust.Count == 0) && (!string.IsNullOrEmpty(txtShipParty.Text.Trim())))
-            {
-                Message = Message + "<br/>Please select the Ship To";
-                txtShipParty.BorderColor = Color.Red;
-            }
+            //else if (ddlStatus.SelectedValue == "0")
+            //{
+            //    Message = Message + "<br/>Please select the Quotation Status";
+            //    ddlStatus.BorderColor = Color.Red;
+            //}
+
             //if (string.IsNullOrEmpty(txtFinancePercentage.Text.Trim()))
             //{
             //    Message = Message + "<br/>Please enter the Finance Percentage";
@@ -111,8 +116,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             cbCommissionAgent.Checked = Sq.CommissionAgent;
             ddlPriceGroup.SelectedValue = Sq.PriceGroup == null ? "0" : Convert.ToString(Sq.PriceGroup.PriceGroupID);
             ddlUserStatus.SelectedValue = Sq.UserStatus == null ? "0" : Convert.ToString(Sq.UserStatus.SalesQuotationUserStatusID);
-            ddlUserStatusRemarks.SelectedValue = Sq.UserStatusRemarks == null ? "0" : Convert.ToString(Sq.UserStatusRemarks.SalesQuotationRejectionReasonID); 
-            txtShipParty.Text = Sq.ShipTo == null ? "" : Sq.ShipTo.CustomerCode;  
+            ddlUserStatusRemarks.SelectedValue = Sq.UserStatusRemarks == null ? "0" : Convert.ToString(Sq.UserStatusRemarks.SalesQuotationRejectionReasonID);
+            ddlShipParty.SelectedValue = Sq.ShipTo == null ? "0" : Convert.ToString(Sq.ShipTo.CustomerShipToID);  
         }
 
     }

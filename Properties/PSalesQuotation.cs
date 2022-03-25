@@ -28,7 +28,7 @@ namespace Properties
         public decimal? NetValue { get; set; }
 
         //Ajax product    
-        public PDMS_Customer ShipTo { get; set; }
+        public PDMS_CustomerShipTo ShipTo { get; set; }
         public PSalesQuotationFinancier Financier { get; set; }
         public PSalesQuotationItem QuotationItem { get; set; }
         public List<PSalesQuotationItem> QuotationItems { get; set; }
@@ -40,6 +40,11 @@ namespace Properties
         public string InvoiceNo { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public PUser CreatedBy { get; set; }
+
+        public decimal TCSValue { get; set; }
+        public decimal TCSTax { get; set; }
+        public decimal LifeTimeValue { get; set; }
+        public decimal LifeTimeTax { get; set; }
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }

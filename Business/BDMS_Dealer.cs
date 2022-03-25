@@ -40,6 +40,10 @@ namespace Business
                             Dealer.DealerCode = Convert.ToString(Dr["DealerCode"]);
                             Dealer.DealerName = Convert.ToString(Dr["DealerName"]);
 
+                            Dealer.AuthorityName = Convert.ToString(Dr["AuthorityName"]);
+                            Dealer.AuthorityDesignation = Convert.ToString(Dr["AuthorityDesignation"]);
+                            Dealer.AuthorityMobile = Convert.ToString(Dr["AuthorityMobile"]);
+
                             Dealer.IsEInvoice = Dr["EInvoiceDate"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsEInvoice"]);
                             Dealer.EInvoiceDate = Dr["EInvoiceDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(Dr["EInvoiceDate"]);
                             Dealer.EInvoiceFTPPath = Convert.ToString(Dr["EInvoiceFTPPath"]);
