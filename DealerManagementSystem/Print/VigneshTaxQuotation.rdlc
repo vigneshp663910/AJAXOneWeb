@@ -11,7 +11,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="SalesTaxQuotationItem">
       <Query>
         <DataSourceName>DS</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -57,12 +57,20 @@
           <DataField>Value</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CGST">
-          <DataField>CGST</DataField>
+        <Field Name="CGSTPer">
+          <DataField>CGSTPer</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TValue">
-          <DataField>TValue</DataField>
+        <Field Name="CGSTVal">
+          <DataField>CGSTVal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SGSTPer">
+          <DataField>SGSTPer</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SGSTVal">
+          <DataField>SGSTVal</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -81,9 +89,9 @@
       <Body>
         <ReportItems>
           <Line Name="Line2">
-            <Left>20.31682cm</Left>
+            <Left>19.92312cm</Left>
             <Height>0cm</Height>
-            <Width>-20.31682cm</Width>
+            <Width>-19.89349cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -94,58 +102,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.2403cm</Width>
+                  <Width>4.85224cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.17884cm</Width>
+                  <Width>4.79078cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.88604cm</Width>
+                  <Width>9.11084cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
-                <TablixRow>
-                  <Height>0.6cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox19">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Parameters!QuotationType.Value</Value>
-                                  <Style>
-                                    <FontSize>12pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox19</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>3</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
                 <TablixRow>
                   <Height>0.6cm</Height>
                   <TablixCells>
@@ -170,7 +136,15 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value xml:space="preserve"> </Value>
+                                  <Value> - Rev - </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!RevNo.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -309,31 +283,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!City.Value</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>,</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!District.Value</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>-</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!PinCode.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -344,19 +294,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!State.Value</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>,</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!Country.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -543,7 +481,15 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Under Hypothecation With:</Value>
+                                  <Value>Under Hypothecation With: </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!Hypothecation.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -556,7 +502,15 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>BP CODE: 612901</Value>
+                                  <Value>BP CODE: </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!SoldToPartyBPCode.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -618,7 +572,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerName.Value</Value>
+                                  <Value>=Parameters!ShipToCustomerName.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -633,7 +587,7 @@
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerAddress1.Value</Value>
+                                  <Value>=Parameters!ShipToCustomerAddress1.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -650,7 +604,7 @@
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerAddress2.Value</Value>
+                                  <Value>=Parameters!ShipToCustomerAddress2.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -663,37 +617,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!City.Value</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>,</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!District.Value</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>-</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!PinCode.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -704,33 +628,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!State.Value</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>,</Value>
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!Country.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
+                              <Style />
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -741,7 +645,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!Mobile.Value</Value>
+                                  <Value>=Parameters!ShipToMobile.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -760,7 +664,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!EMail.Value</Value>
+                                  <Value>=Parameters!ShipToEMail.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -824,7 +728,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerStateCode.Value</Value>
+                                  <Value>=Parameters!ShipToCustomerStateCode.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -843,7 +747,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerGST.Value</Value>
+                                  <Value>=Parameters!ShipToCustomerGST.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -895,7 +799,15 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>BP CODE: 612901</Value>
+                                  <Value>BP CODE: </Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!ShipToPartyBPCode.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -986,14 +898,14 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <Top>0.23446cm</Top>
-            <Height>9.34796cm</Height>
-            <Width>20.30518cm</Width>
+            <Top>0.9525cm</Top>
+            <Left>0.66464cm</Left>
+            <Height>8.74796cm</Height>
+            <Width>18.75386cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1005,51 +917,51 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.38537in</Width>
+                  <Width>0.34174in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66484in</Width>
+                  <Width>0.62121in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.85721in</Width>
+                  <Width>0.81358in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64312in</Width>
+                  <Width>0.59949in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.51116in</Width>
+                  <Width>0.46753in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.37736in</Width>
+                  <Width>0.33373in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.56211in</Width>
+                  <Width>0.36606in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78061in</Width>
+                  <Width>0.73698in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73181in</Width>
+                  <Width>0.68818in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.68411in</Width>
+                  <Width>0.64048in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.44642in</Width>
+                  <Width>0.40279in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.3196in</Width>
+                  <Width>0.42839in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.51957in</Width>
+                  <Width>0.47594in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.51088in</Width>
+                  <Width>0.46725in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.46955in</Height>
+                  <Height>0.55288in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1430,7 +1342,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Parameters!CGST_Header.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -1467,7 +1379,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Parameters!CGSTVal_Header.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -1504,7 +1416,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>IGST % *</Value>
+                                  <Value>=Parameters!SGST_Header.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1537,7 +1449,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>IGST Value *</Value>
+                                  <Value>=Parameters!SGSTVal_Header.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1816,7 +1728,7 @@
                           <rd:DefaultName>Total</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Style>Solid</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1890,14 +1802,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox99">
+                        <Textbox Name="CGSTPer">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>0.00</Value>
+                                  <Value>=Fields!CGSTPer.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1906,7 +1818,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox99</rd:DefaultName>
+                          <rd:DefaultName>CGSTPer</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1921,14 +1833,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox94">
+                        <Textbox Name="CGSTVal">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>0.00</Value>
+                                  <Value>=Fields!CGSTVal.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1937,7 +1849,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox94</rd:DefaultName>
+                          <rd:DefaultName>CGSTVal</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1959,7 +1871,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!CGST.Value</Value>
+                                  <Value>=Fields!SGSTPer.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1984,14 +1896,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TValue">
+                        <Textbox Name="SGSTVal">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TValue.Value</Value>
+                                  <Value>=Fields!SGSTVal.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2000,7 +1912,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TValue</rd:DefaultName>
+                          <rd:DefaultName>SGSTVal</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2266,79 +2178,19 @@
                     <TablixCell />
                   </TablixCells>
                 </TablixRow>
-              </TablixRows>
-            </TablixBody>
-            <TablixColumnHierarchy>
-              <TablixMembers>
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-              </TablixMembers>
-            </TablixColumnHierarchy>
-            <TablixRowHierarchy>
-              <TablixMembers>
-                <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Details2" />
-                </TablixMember>
-                <TablixMember>
-                  <KeepWithGroup>Before</KeepWithGroup>
-                </TablixMember>
-              </TablixMembers>
-            </TablixRowHierarchy>
-            <RepeatRowHeaders>true</RepeatRowHeaders>
-            <FixedRowHeaders>true</FixedRowHeaders>
-            <DataSetName>DataSet1</DataSetName>
-            <Top>3.95113in</Top>
-            <Height>1.79776in</Height>
-            <Width>7.99417in</Width>
-            <ZIndex>2</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Tablix>
-          <Tablix Name="Tablix6">
-            <TablixBody>
-              <TablixColumns>
-                <TablixColumn>
-                  <Width>5.2403cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>5.17884cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>9.88604cm</Width>
-                </TablixColumn>
-              </TablixColumns>
-              <TablixRows>
                 <TablixRow>
-                  <Height>10.49542cm</Height>
+                  <Height>4.24663in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox20">
+                        <Textbox Name="Textbox3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>TERMS &amp; CONDITIONS:</Value>
+                                  <Value>=Parameters!TermsandConditionHead.Value</Value>
                                   <Style>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -2353,14 +2205,31 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>Payment Terms </Value>
+                                  <Value>=Parameters!PaymentTerms.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>: along with order, balance payment against proforma
-                            invoice prior to dispatch . All payment to be made in favour of :</Value>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>: </Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!TermsOfPayment.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -2373,11 +2242,71 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>NAME : Ajax Engineering Pvt.Ltd.
-                            BANK NAME : State Bank of India, P.B.No.1, Peenya, Tumkur Road,
-                                                   Peenya Industrial Estate, 1st Stage, Bangalore - 560 058
-                            ACCOUNT NO. : 10308201660
-                            IFSC CODE : SBIN0003024</Value>
+                                  <Value>=Parameters!PaymentTermAccName.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>.
+                            </Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!PaymentTermBankName.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>, </Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!PaymentTermBankAddress.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve">
+                            </Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!PaymentTermAccNo.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve">
+                            </Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!PaymentTermIFSCCode.Value</Value>
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -2388,8 +2317,31 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>
-Delivery : With in 2 weeks from the date of receipt of full payment.</Value>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Parameters!Delivery.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve">
+</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!TransitInsurance.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2400,21 +2352,27 @@ Delivery : With in 2 weeks from the date of receipt of full payment.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>
-Transit Insurance: Customer to arrange and send the same before dispatch</Value>
+                                  <Value xml:space="preserve">
+</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
                                 <TextRun>
-                                  <Value>
-Transportation : To-pay basis to customer's account.
-Validity :This offer is valid till : 09-03-2022</Value>
+                                  <Value>=Parameters!Transportation.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve">
+</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!Validity.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2436,7 +2394,14 @@ Validity :This offer is valid till : 09-03-2022</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>* GST Calculated Including TCS</Value>
+                                  <Value xml:space="preserve">
+</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!Note.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2447,8 +2412,18 @@ Validity :This offer is valid till : 09-03-2022</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>
-Note :</Value>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2492,7 +2467,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox19</rd:DefaultName>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2503,9 +2478,20 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>3</ColSpan>
+                        <ColSpan>14</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                   </TablixCells>
@@ -2517,33 +2503,92 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
-                <TablixMember />
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details2" />
+                </TablixMember>
+                <TablixMember>
+                  <KeepWithGroup>Before</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <KeepWithGroup>Before</KeepWithGroup>
+                </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <Top>14.88302cm</Top>
-            <Height>10.49542cm</Height>
-            <Width>20.30518cm</Width>
-            <ZIndex>3</ZIndex>
+            <DataSetName>SalesTaxQuotationItem</DataSetName>
+            <Top>4.04488in</Top>
+            <Left>0.66464cm</Left>
+            <Height>6.12772in</Height>
+            <Width>7.38335in</Width>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox29">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!QuotationType.Value</Value>
+                    <Style>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox29</rd:DefaultName>
+            <Top>0.15558cm</Top>
+            <Left>7.66809cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.8989cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>9.99151in</Height>
+        <Height>10.1726in</Height>
         <Style />
       </Body>
-      <Width>7.99875in</Width>
+      <Width>7.85342in</Width>
       <Page>
         <PageHeader>
-          <Height>2.54cm</Height>
+          <Height>2.06375cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2551,8 +2596,8 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Source>Embedded</Source>
               <Value>AjaxNewLogo</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.42016cm</Top>
-              <Left>0.46143cm</Left>
+              <Top>0.10266cm</Top>
+              <Left>0.49107cm</Left>
               <Height>1.68521cm</Height>
               <Width>5.09833cm</Width>
               <Style>
@@ -2568,9 +2613,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Label>Name</Label>
-                      <Value>AJAX ENGINEERING PRIVATE LIMITED</Value>
-                      <ToolTip>ff</ToolTip>
+                      <Value>=Parameters!CompanyName.Value</Value>
                       <MarkupType>HTML</MarkupType>
                       <Style>
                         <FontStyle>Normal</FontStyle>
@@ -2584,7 +2627,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>#253/1, 11th Main, 3rd Phase,Peenya Indl Area,Bangalore - 560058</Value>
+                      <Value>=Parameters!CompanyAddress1.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontWeight>Normal</FontWeight>
@@ -2602,7 +2645,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>CIN:U28920KA1992PTC013306, GST: 29AABCA2035K1ZT, </Value>
+                      <Value>=Parameters!CompanyAddress2.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontWeight>Normal</FontWeight>
@@ -2611,49 +2654,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                     </TextRun>
                   </TextRuns>
                   <LeftIndent>0cm</LeftIndent>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                    <LineHeight>11pt</LineHeight>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>PAN:AABCA2035K</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Normal</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <LeftIndent>0cm</LeftIndent>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                    <LineHeight>11pt</LineHeight>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>T : 91 80 6720 0082,6720 0083, Email : customercare@ajax-engg.com </Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Normal</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value xml:space="preserve"> </Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontSize>9pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <LeftIndent>0cm</LeftIndent>
+                  <RightIndent>0.15486in</RightIndent>
                   <Style>
                     <TextAlign>Left</TextAlign>
                     <LineHeight>11pt</LineHeight>
@@ -2661,9 +2662,8 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.12912cm</Top>
-              <Left>7.78721cm</Left>
-              <Height>2.23449cm</Height>
+              <Left>7.81685cm</Left>
+              <Height>1.78787cm</Height>
               <Width>12.13083cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
@@ -2684,7 +2684,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>4.33917cm</Height>
+          <Height>4.49792cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2692,10 +2692,9 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Source>Embedded</Source>
               <Value>QuotationFooter</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>3.42125cm</Top>
-              <Left>0.01164cm</Left>
-              <Height>0.91792cm</Height>
-              <Width>20.29354cm</Width>
+              <Top>3.45425cm</Top>
+              <Height>0.94438cm</Height>
+              <Width>19.92312cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2720,31 +2719,44 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value />
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
                       <Value xml:space="preserve">
 </Value>
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>Sugin Selva Kumar C
-Zonal Manager- Key Accounts
-7708063628</Value>
+                      <Value>=Parameters!Name.Value</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">
+</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!Designation.Value</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">
+</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!MobileNo.Value</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
+                  <Style />
                 </Paragraph>
                 <Paragraph>
                   <TextRuns>
@@ -2761,13 +2773,14 @@ Zonal Manager- Key Accounts
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
-              <Top>0.17639cm</Top>
-              <Height>2.63729cm</Height>
-              <Width>20.30518cm</Width>
+              <Top>0cm</Top>
+              <Left>0.66464cm</Left>
+              <Height>2.66375cm</Height>
+              <Width>18.75387cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
-                  <Style>None</Style>
+                  <Style>Solid</Style>
                 </Border>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -2802,8 +2815,8 @@ Zonal Manager- Key Accounts
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
-              <Top>2.95479cm</Top>
-              <Left>9.62545cm</Left>
+              <Top>2.84014cm</Top>
+              <Left>9.61188cm</Left>
               <Height>0.473cm</Height>
               <Width>2.09783cm</Width>
               <ZIndex>2</ZIndex>
@@ -2826,10 +2839,10 @@ Zonal Manager- Key Accounts
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
-        <LeftMargin>2cm</LeftMargin>
-        <RightMargin>2cm</RightMargin>
-        <TopMargin>2cm</TopMargin>
-        <BottomMargin>2cm</BottomMargin>
+        <LeftMargin>0.5cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>0cm</TopMargin>
+        <BottomMargin>0cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
@@ -2986,11 +2999,245 @@ Zonal Manager- Key Accounts
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="RevNo">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCustomerName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCustomerAddress1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCustomerAddress2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCity">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToDistrict">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToPinCode">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToState">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCountry">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToMobile">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToEMail">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCustomerStateCode">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToCustomerGST">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SoldToPartyBPCode">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ShipToPartyBPCode">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Hypothecation">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TermsandConditionHead">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentTerms">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TermsOfPayment">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentTermAccName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentTermBankName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentTermBankAddress">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentTermAccNo">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PaymentTermIFSCCode">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Delivery">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TransitInsurance">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Transportation">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Validity">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Note">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Name">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Designation">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="MobileNo">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CGST_Header">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CGSTVal_Header">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SGST_Header">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SGSTVal_Header">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyAddress1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyAddress2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>7</NumberOfRows>
+      <NumberOfRows>19</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -3116,6 +3363,201 @@ Zonal Manager- Key Accounts
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>6</RowIndex>
           <ParameterName>YourRef</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>RevNo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>ShipToCustomerName</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>ShipToCustomerAddress1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>ShipToCustomerAddress2</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>ShipToCity</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>ShipToDistrict</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>ShipToPinCode</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>ShipToState</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>ShipToCountry</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>ShipToMobile</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>ShipToEMail</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>ShipToCustomerStateCode</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>ShipToCustomerGST</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>SoldToPartyBPCode</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>ShipToPartyBPCode</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>11</RowIndex>
+          <ParameterName>Hypothecation</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>11</RowIndex>
+          <ParameterName>TermsandConditionHead</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>12</RowIndex>
+          <ParameterName>PaymentTerms</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>12</RowIndex>
+          <ParameterName>TermsOfPayment</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>12</RowIndex>
+          <ParameterName>PaymentTermAccName</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>12</RowIndex>
+          <ParameterName>PaymentTermBankName</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>13</RowIndex>
+          <ParameterName>PaymentTermBankAddress</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>13</RowIndex>
+          <ParameterName>PaymentTermAccNo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>13</RowIndex>
+          <ParameterName>PaymentTermIFSCCode</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>14</RowIndex>
+          <ParameterName>Delivery</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>15</RowIndex>
+          <ParameterName>TransitInsurance</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>15</RowIndex>
+          <ParameterName>Transportation</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>15</RowIndex>
+          <ParameterName>Validity</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>15</RowIndex>
+          <ParameterName>Note</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>16</RowIndex>
+          <ParameterName>Name</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>16</RowIndex>
+          <ParameterName>Designation</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>16</RowIndex>
+          <ParameterName>MobileNo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>16</RowIndex>
+          <ParameterName>CGST_Header</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>17</RowIndex>
+          <ParameterName>CGSTVal_Header</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>17</RowIndex>
+          <ParameterName>SGST_Header</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>17</RowIndex>
+          <ParameterName>SGSTVal_Header</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>17</RowIndex>
+          <ParameterName>CompanyName</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>18</RowIndex>
+          <ParameterName>CompanyAddress1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>18</RowIndex>
+          <ParameterName>CompanyAddress2</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

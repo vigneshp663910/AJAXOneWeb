@@ -44,6 +44,12 @@ namespace SapIntegration
             QTHeader.SetValue("DIVISION", "CM");
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
+            IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
+            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", pSalesQuotation.QuotationDate);
+            QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
+            QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product);
+            QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", "");
+
             IRfcTable QT_Item = tagListBapi.GetTable("QUOTATION_ITEMS_IN");
             for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
             {
@@ -148,6 +154,60 @@ namespace SapIntegration
             }
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
             return dtRet;
+        }
+        public PDMS_ServiceMaterial getMaterialTaxForQuotation(string Customer, string MaterialCode,  Boolean IsWarrenty)
+        {
+            PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial();
+
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_QUO");
+            tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(10, '0'));
+            
+            IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
+            long n;
+            if (long.TryParse(MaterialCode, out n))
+            {
+                MaterialCode = MaterialCode.PadLeft(18, '0');
+            }
+
+            IT_SO_ITEMS.Append();
+            IT_SO_ITEMS.SetValue("ITEM_NO", 1);
+            IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);
+            //IT_SO_ITEMS.SetValue("QUANTITY", Quantity);
+
+
+            tagListBapi.Invoke(SAP.RfcDes());
+            IRfcTable tagTable = tagListBapi.GetTable("IT_SO_COND");
+            IRfcStructure ES_ERROR = tagListBapi.GetStructure("ES_ERROR");
+            string ConditionType;
+            for (int i = 0; i < tagTable.RowCount; i++)
+            {
+                tagTable.CurrentIndex = i;
+                ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
+                if ((ConditionType == "ZOSG") || (ConditionType == "JOSG"))
+                {
+                    Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+                    Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                }
+                else if (ConditionType == "ZOIG")
+                {
+                    Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+                    Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                }
+                else if ((ConditionType == "ZPRP") || (ConditionType == "ZASS"))
+                {
+                    if (IsWarrenty)
+                    {
+                        if (ConditionType == "ZASS")
+                            Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                    }
+                    else
+                    {
+                        if (ConditionType == "ZPRP")
+                            Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                    }
+                }
+            }
+            return Material;
         }
     }
 }

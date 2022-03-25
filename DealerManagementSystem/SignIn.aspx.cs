@@ -142,6 +142,20 @@ namespace DealerManagementSystem
             try
             {
                 Session["LoginID"] = "";
+                if (string.IsNullOrEmpty(txtUsername.Text))
+                {
+                    lblMessage.Text = "Please Enter UserName...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    lblMessage.Text = "Please Enter Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if ((txtUsername.Text == "admin") && (txtPassword.Text == "p123"))
                 {
                     Session["LoginID"] = txtUsername.Text;

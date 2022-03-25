@@ -52,21 +52,21 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.94994cm</Width>
+                  <Width>5.60598cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.26188cm</Width>
+                  <Width>1.91792cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.36021cm</Width>
+                  <Width>3.01625cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>7.36896cm</Width>
+                  <Width>7.025cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>7.39125cm</Height>
+                  <Height>7.49708cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -448,12 +448,13 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>SalesQuotationItem</DataSetName>
-            <Top>0.52599cm</Top>
-            <Height>7.39125cm</Height>
-            <Width>18.94099cm</Width>
+            <Top>0.10117cm</Top>
+            <Left>0.635cm</Left>
+            <Height>7.49708cm</Height>
+            <Width>17.56515cm</Width>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
               </Border>
             </Style>
           </Tablix>
@@ -473,18 +474,18 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.28382cm</Width>
+                  <Width>1.82521cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>7.82715cm</Width>
+                  <Width>7.36854cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8.83001cm</Width>
+                  <Width>8.3714cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>55.17197cm</Height>
+                  <Height>55.22489cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1482,21 +1483,17 @@ Yours faithfully,</Value>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
-                <TablixMember>
-                  <Group Name="Details1" />
-                  <TablixMembers>
-                    <TablixMember />
-                  </TablixMembers>
-                </TablixMember>
+                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>13.93155cm</Top>
-            <Height>55.17197cm</Height>
-            <Width>18.94098cm</Width>
+            <Top>12.83106cm</Top>
+            <Left>0.635cm</Left>
+            <Height>55.22489cm</Height>
+            <Width>17.56515cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
               </Border>
             </Style>
           </Tablix>
@@ -1504,16 +1501,16 @@ Yours faithfully,</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.14462cm</Width>
+                  <Width>5.80066cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.2865cm</Width>
+                  <Width>2.94254cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.239cm</Width>
+                  <Width>3.89504cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.27087cm</Width>
+                  <Width>4.92691cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2044,22 +2041,22 @@ Yours faithfully,</Value>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>7.92606cm</Top>
-            <Left>0.00001cm</Left>
-            <Height>5.22251cm</Height>
-            <Width>18.94099cm</Width>
+            <Top>7.60856cm</Top>
+            <Left>0.635cm</Left>
+            <Height>5.2225cm</Height>
+            <Width>17.56515cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
               </Border>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>27.33111in</Height>
+        <Height>27.16097in</Height>
         <Style />
       </Body>
-      <Width>7.45709in</Width>
+      <Width>7.45708in</Width>
       <Page>
         <PageHeader>
           <Height>2.92982cm</Height>
@@ -2140,7 +2137,7 @@ Yours faithfully,</Value>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>3.06323cm</Height>
+          <Height>3.03677cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2215,7 +2212,7 @@ Yours faithfully,</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox34</rd:DefaultName>
-              <Top>0.08625cm</Top>
+              <Top>0.40375cm</Top>
               <Height>1.0498cm</Height>
               <Width>18.94098cm</Width>
               <Style>
@@ -2249,7 +2246,19 @@ Yours faithfully,</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>Page : </Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
                       <Value>=Globals!PageNumber</Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
+                      <Value>/</Value>
+                      <Style />
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!TotalPages</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
