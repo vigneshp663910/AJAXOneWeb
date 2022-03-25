@@ -62,16 +62,16 @@ namespace SapIntegration
             }
             return Custs;
         }
-        public string CreateCustomerInSAP(PDMS_Customer Customer)
+        public string CreateCustomerInSAP(PDMS_Customer Customer, Boolean IsShipTo)
         {
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CREATE_NEW");
             Int32 country = Customer.Country.CountryID;
-            tagListBapi.SetValue("MODE", "N");
+            if (IsShipTo == false) tagListBapi.SetValue("MODE", "N");
             tagListBapi.SetValue("P_COMPANYCODE", "AF");
             tagListBapi.SetValue("P_SORG", Customer.Country.SalesOrganization);
             tagListBapi.SetValue("P_DIS_CH", (country == 1) ? "GT" : "EX");
             tagListBapi.SetValue("P_DIVISION", "CM");
-            tagListBapi.SetValue("P_ACC_GROUP", (Customer.IsShipTo==true)? "AJSH":(country == 1) ? "AJGT" : "AJIC");
+            tagListBapi.SetValue("P_ACC_GROUP", (IsShipTo==true)? "AJSH":(country == 1) ? "AJGT" : "AJIC");
             tagListBapi.SetValue("P_TITLE", Customer.Title.Title);
             tagListBapi.SetValue("P_NAME1", Customer.CustomerName);
             tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
@@ -94,17 +94,17 @@ namespace SapIntegration
             tagListBapi.SetValue("P_PANNO", Customer.PAN);
             tagListBapi.SetValue("P_CONTACT", Customer.ContactPerson);
             tagListBapi.SetValue("P_CONTACT2", Customer.ContactPerson);
-            tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
-            tagListBapi.SetValue("P_SALES_DISTRICT", Customer.State.Region.Region);
-            tagListBapi.SetValue("P_ORD_PROB", "100");
-            tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
-            tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
+            if (IsShipTo == false) tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
+            if (IsShipTo == false) tagListBapi.SetValue("P_SALES_DISTRICT", Customer.State.Region.Region);
+            if (IsShipTo == false) tagListBapi.SetValue("P_ORD_PROB", "100");
+            if (IsShipTo == false) tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
+            if (IsShipTo == false) tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
             tagListBapi.SetValue("P_CUS_GROUP", "GT");
-            tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
-            tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
+            if (IsShipTo == false) tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
+            if (IsShipTo == false) tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
             tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 || country == 2 || country == 3) ? "07" : "08");
             tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 || country == 2 || country == 3) ? "7" : "9");
-            tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
+            if (IsShipTo == false) tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
             tagListBapi.SetValue("P_DEL_PRIORITY", "2");
             tagListBapi.SetValue("P_ORD_COMB_IND", "X");//Checkbox
             tagListBapi.SetValue("P_SHIP_COND", "01");
@@ -113,7 +113,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_INV_LIST_SCH", "AF");
             tagListBapi.SetValue("P_INCO_TERMS", "EXW");
             tagListBapi.SetValue("P_INCO_TERMS1", "EX WORKS");
-            tagListBapi.SetValue("P_PYMT_TERMS", "C000");
+            if (IsShipTo == false) tagListBapi.SetValue("P_PYMT_TERMS", "C000");
             tagListBapi.SetValue("P_ACC_GROUP1", (country == 1) ? "01" : "02");
             tagListBapi.SetValue("P_TAX_CLASS1", (country == 1) ? "0" : "1");
             tagListBapi.SetValue("P_TAX_CLASS2", (country == 1) ? "0" : "1");
@@ -130,11 +130,11 @@ namespace SapIntegration
 
             return CustomerCode;
         }
-        public string ChangeCustomerInSAP(PDMS_Customer  Customer)
+        public string ChangeCustomerInSAP(PDMS_Customer  Customer, Boolean IsShipTo)
         {
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CHANGE_NEW");
             Int32 country = Customer.Country.CountryID;
-            tagListBapi.SetValue("MODE", "N");
+            if (IsShipTo == false) tagListBapi.SetValue("MODE", "N");
             tagListBapi.SetValue("P_CUSTOMER", Customer.CustomerCode);
             tagListBapi.SetValue("P_COMPANYCODE", "AF");
             tagListBapi.SetValue("P_SORG", Customer.Country.SalesOrganization);
@@ -163,17 +163,17 @@ namespace SapIntegration
             tagListBapi.SetValue("P_PANNO", Customer.PAN);
             tagListBapi.SetValue("P_CONTACT", Customer.ContactPerson);
             tagListBapi.SetValue("P_CONTACT2", Customer.ContactPerson);
-            tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
-            tagListBapi.SetValue("P_SALES_DISTRICT", Customer.State.Region.Region);
-            tagListBapi.SetValue("P_ORD_PROB", "100");
-            tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
-            tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
+            if (IsShipTo == false) tagListBapi.SetValue("P_GL", (country == 1) ? "166104" : "166102");
+            if (IsShipTo == false) tagListBapi.SetValue("P_SALES_DISTRICT", Customer.State.Region.Region);
+            if (IsShipTo == false) tagListBapi.SetValue("P_ORD_PROB", "100");
+            if (IsShipTo == false) tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
+            if (IsShipTo == false) tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
             tagListBapi.SetValue("P_CUS_GROUP", "GT");
-            tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
-            tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
+            if (IsShipTo == false) tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
+            if (IsShipTo == false) tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
             tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 || country == 2 || country == 3) ? "07" : "08");
             tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 || country == 2 || country == 3) ? "7" : "9");
-            tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
+            if (IsShipTo == false) tagListBapi.SetValue("P_CUST_STAT_GRP", "1");
             tagListBapi.SetValue("P_DEL_PRIORITY", "2");
             tagListBapi.SetValue("P_ORD_COMB_IND", "X");//Checkbox
             tagListBapi.SetValue("P_SHIP_COND", "01");
@@ -182,7 +182,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_INV_LIST_SCH", "AF");
             tagListBapi.SetValue("P_INCO_TERMS", "EXW");
             tagListBapi.SetValue("P_INCO_TERMS1", "EX WORKS");
-            tagListBapi.SetValue("P_PYMT_TERMS", "C000");
+            if (IsShipTo == false) tagListBapi.SetValue("P_PYMT_TERMS", "C000");
             tagListBapi.SetValue("P_ACC_GROUP1", (country == 1) ? "01" : "02");
             tagListBapi.SetValue("P_TAX_CLASS1", (country == 1) ? "0" : "1");
             tagListBapi.SetValue("P_TAX_CLASS2", (country == 1) ? "0" : "1");

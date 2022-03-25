@@ -814,7 +814,7 @@ namespace Business
             }
             return Customers;
         }
-        public int UpdateCustomerCodeFromSapToSql(PDMS_Customer Customer)
+        public int UpdateCustomerCodeFromSapToSql(PDMS_Customer Customer, Boolean IsShipTo)
         {
             //int? CustomerID, string CustomerCode
             TraceLogger.Log(DateTime.Now);
@@ -825,7 +825,7 @@ namespace Business
                // string CustomerCode = Customer[0].CustomerCode;
                 if (string.IsNullOrEmpty(Customer.CustomerCode))
                 {
-                    string CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
+                    string CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
                     if (!string.IsNullOrEmpty(CustomerCode))
                     { 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -841,7 +841,7 @@ namespace Business
                 }
                 else
                 {
-                    string SUBRC= new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer);
+                    string SUBRC= new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
                     if (SUBRC == "0") { success = 1; }
                 }
                 return success;

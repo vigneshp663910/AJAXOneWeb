@@ -170,7 +170,7 @@ namespace SapIntegration
             }
 
             IT_SO_ITEMS.Append();
-            IT_SO_ITEMS.SetValue("ITEM_NO", 1);
+            IT_SO_ITEMS.SetValue("ITEM_NO", 000010);
             IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);
             //IT_SO_ITEMS.SetValue("QUANTITY", Quantity);
 

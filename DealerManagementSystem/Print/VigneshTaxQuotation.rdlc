@@ -102,13 +102,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.85224cm</Width>
+                  <Width>4.79525cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.79078cm</Width>
+                  <Width>4.73379cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.11084cm</Width>
+                  <Width>9.05385cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -547,7 +547,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value> Delivered (Ship To):</Value>
+                                  <Value>Delivered (Ship To):</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -566,12 +566,6 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
                                   <Value>=Parameters!ShipToCustomerName.Value</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
@@ -582,10 +576,6 @@
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
-                                <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style />
-                                </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!ShipToCustomerAddress1.Value</Value>
                                   <Style />
@@ -599,10 +589,6 @@
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
-                                <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style />
-                                </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!ShipToCustomerAddress2.Value</Value>
                                   <Style />
@@ -639,7 +625,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value> Phone No.: </Value>
+                                  <Value>Phone No.: </Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -658,7 +644,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value> Email: </Value>
+                                  <Value>Email: </Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -722,7 +708,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value> GST State Code : </Value>
+                                  <Value>GST State Code : </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -739,7 +725,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value> BUYER GSTIN/UIN No : </Value>
+                                  <Value>BUYER GSTIN/UIN No : </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -903,9 +889,9 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <Top>0.9525cm</Top>
-            <Left>0.66464cm</Left>
+            <Left>0.635cm</Left>
             <Height>8.74796cm</Height>
-            <Width>18.75386cm</Width>
+            <Width>18.58289cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -917,46 +903,46 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.34174in</Width>
+                  <Width>0.35593in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.62121in</Width>
+                  <Width>0.58073in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.81358in</Width>
+                  <Width>0.72619in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59949in</Width>
+                  <Width>0.61368in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.46753in</Width>
+                  <Width>0.48172in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.33373in</Width>
+                  <Width>0.34792in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.36606in</Width>
+                  <Width>0.38025in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73698in</Width>
+                  <Width>0.73034in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.68818in</Width>
+                  <Width>0.5982in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64048in</Width>
+                  <Width>0.65467in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.40279in</Width>
+                  <Width>0.41698in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.42839in</Width>
+                  <Width>0.44258in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.47594in</Width>
+                  <Width>0.49013in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.46725in</Width>
+                  <Width>0.48609in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1747,7 +1733,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Discount.Value</Value>
+                                  <Value>0.00</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1929,7 +1915,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.09488in</Height>
+                  <Height>1.26155in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2005,7 +1991,15 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>TCS @ 0.100%</Value>
+                                  <Value>TCS @ </Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!TCSPer.Value</Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>%</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2088,12 +2082,15 @@
                                   <Value>=Parameters!TotalAmount.Value</Value>
                                   <Style />
                                 </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
                                 <TextRun>
-                                  <Value>+</Value>
-                                  <Style />
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!Tax.Value</Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2213,12 +2210,6 @@
                                 <TextRun>
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>: </Value>
-                                  <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2236,7 +2227,7 @@
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve">
-                            </Value>
+</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2249,7 +2240,7 @@
                                 </TextRun>
                                 <TextRun>
                                   <Value>.
-                            </Value>
+</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -2274,7 +2265,7 @@
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve">
-                            </Value>
+</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -2287,7 +2278,7 @@
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve">
-                            </Value>
+</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -2457,8 +2448,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Note: Tax Collected at Source (TCS) indicated above will be applicable subjected to the conditions/limits
-prescribed.The same will be validatedat the time of final invoicing and will be levied if applicable on 01st October
-2020 onwards.</Value>
+prescribed.The same will be validatedat the time of final invoicing and will be levied if applicable on 01st October 2020 onwards.</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2535,10 +2525,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>SalesTaxQuotationItem</DataSetName>
-            <Top>4.04488in</Top>
-            <Left>0.66464cm</Left>
-            <Height>6.12772in</Height>
-            <Width>7.38335in</Width>
+            <Top>4.0171in</Top>
+            <Left>0.66213cm</Left>
+            <Height>6.29439in</Height>
+            <Width>7.30541in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2582,10 +2572,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>10.1726in</Height>
+        <Height>10.33927in</Height>
         <Style />
       </Body>
-      <Width>7.85342in</Width>
+      <Width>7.84375in</Width>
       <Page>
         <PageHeader>
           <Height>2.06375cm</Height>
@@ -2664,7 +2654,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Left>7.81685cm</Left>
               <Height>1.78787cm</Height>
-              <Width>12.13083cm</Width>
+              <Width>12.10627cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2776,7 +2766,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Top>0cm</Top>
               <Left>0.66464cm</Left>
               <Height>2.66375cm</Height>
-              <Width>18.75387cm</Width>
+              <Width>18.55575cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -3233,6 +3223,12 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="TCSPer">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -3558,6 +3554,11 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>18</RowIndex>
           <ParameterName>CompanyAddress2</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>18</RowIndex>
+          <ParameterName>TCSPer</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
