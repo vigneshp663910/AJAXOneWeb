@@ -573,5 +573,23 @@ namespace Business
             { }
             return MML;
         }
+
+        public void GetSalesOrganization(DropDownList ddl, int? CountryID, string Country)
+        {
+            try
+            {
+                List<PDMS_Country> MML = GetCountry(CountryID, Country);
+                MML.Distinct();
+                ddl.DataValueField = "SalesOrganization";
+                ddl.DataTextField = "SalesOrganization";
+                ddl.DataSource = MML.Distinct();
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("Select Sales Organization", "0"));
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+        }
     }
 }

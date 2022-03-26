@@ -42,7 +42,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvCountry" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvCountry_PageIndexChanging">
+                        <asp:GridView ID="gvCountry" runat="server" AutoGenerateColumns="false" PageSize="10" AllowPaging="true" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" OnPageIndexChanging="gvCountry_PageIndexChanging">  <%--EmptyDataText="No Data Found"--%>
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
@@ -93,7 +93,8 @@
                                                     <asp:Label ID="lblGCSalesOrganization" Text='<%# DataBinder.Eval(Container.DataItem, "SalesOrganization")%>' runat="server" />
                                                 </ItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtGCSalesOrganization" runat="server" placeholder="Sales Organization" CssClass="form-control"></asp:TextBox>
+                                                    <%--<asp:TextBox ID="txtGCSalesOrganization" runat="server" placeholder="Sales Organization" CssClass="form-control"></asp:TextBox>--%>
+                                                    <asp:DropDownList ID="ddlGCSalesOrganization" runat="server" CssClass="form-control"></asp:DropDownList>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                 <%--<asp:TemplateField ItemStyle-Width="20px">
@@ -589,4 +590,42 @@
             </ContentTemplate>
         </asp1:TabPanel>
     </asp1:TabContainer>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GridRowDisable('MainContent_tbpLocation_tbpnlCountry_gvCountry', 'MainContent_tbpLocation_tbpnlCountry_gvCountry_lblGCCountry_')
+            GridRowDisable('MainContent_tbpLocation_tbpnlRegion_gvRegion', 'MainContent_tbpLocation_tbpnlRegion_gvRegion_lblGRRegion_')
+            GridRowDisable('MainContent_tbpLocation_tbpnlState_gvState', 'MainContent_tbpLocation_tbpnlState_gvState_lblGSState_')
+            GridRowDisable('MainContent_tbpLocation_tbpnlDistrict_gvDistrict', 'MainContent_tbpLocation_tbpnlDistrict_gvDistrict_lblGDDistrict_')
+            GridRowDisable('MainContent_tbpLocation_tbpnlCity_gvCity', 'MainContent_tbpLocation_tbpnlCity_gvCity_lblGCity_')
+            //var gvCountry = document.getElementById('MainContent_tbpLocation_tbpnlCountry_gvCountry');
+
+            //if (gvCountry != null) {
+            //    for (var i = 0; i < gvCountry.rows.length - 1; i++) {
+            //        var lblGCCountry = document.getElementById('MainContent_tbpLocation_tbpnlCountry_gvCountry_lblGCCountry_' + i);
+            //        if (lblGCCountry != null) {
+            //            if (lblGCCountry.innerHTML == "") {
+            //                lblGCCountry.parentNode.parentNode.style.display = "none";
+            //            }
+            //        }
+            //    }
+            //}
+        });
+
+        function GridRowDisable(gv,lbl)
+        {
+            var gvCountry = document.getElementById(gv); 
+            if (gvCountry != null) {
+                for (var i = 0; i < gvCountry.rows.length - 1; i++) {
+                    var lblGCCountry = document.getElementById(lbl + i);
+                    if (lblGCCountry != null) {
+                        if (lblGCCountry.innerHTML == "") {
+                            lblGCCountry.parentNode.parentNode.style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </asp:Content>
+
+

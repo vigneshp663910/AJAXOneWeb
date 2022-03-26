@@ -423,6 +423,11 @@ namespace DealerManagementSystem.ViewMaster
                 gvCountry.DataBind();
                 DropDownList ddlGCCountryCurrency = gvCountry.FooterRow.FindControl("ddlGCCountryCurrency") as DropDownList;
                 new DDLBind(ddlGCCountryCurrency, new BDMS_Address().GetCurrency(null, null), "Currency", "CurrencyID", true, "Select Country Currency");
+
+                DropDownList ddlGCSalesOrganization = gvCountry.FooterRow.FindControl("ddlGCSalesOrganization") as DropDownList;
+                //new DDLBind(ddlGCSalesOrganization, new BDMS_Address().GetCountry(null, null), "SalesOrganization", "SalesOrganization", true, "Select Sales Organization");
+
+                new BDMS_Address().GetSalesOrganization(ddlGCSalesOrganization, null, null);
             }
             catch (Exception Ex)
             {
@@ -545,7 +550,8 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                string SalesOrganization = ((TextBox)gvCountry.FooterRow.FindControl("txtGCSalesOrganization")).Text.Trim();
+                //string SalesOrganization = ((TextBox)gvCountry.FooterRow.FindControl("txtGCSalesOrganization")).Text.Trim();
+                DropDownList ddlGCSalesOrganization = (DropDownList)gvCountry.FooterRow.FindControl("ddlGCSalesOrganization");
                 if (string.IsNullOrEmpty(Country))
                 {
                     lblMessage.Text = "Please enter Sales Organization.";
@@ -555,7 +561,8 @@ namespace DealerManagementSystem.ViewMaster
                 int CountryCurrencyID = Convert.ToInt32(ddlGCCountryCurrency.SelectedValue);
                 if (BtnAddOrUpdateCountry.Text == "Add")
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, Country, CountryCode, CountryCurrencyID, SalesOrganization, true, PSession.User.UserID);
+                    //Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, Country, CountryCode, CountryCurrencyID, SalesOrganization, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
                     if (Success == true)
                     {
                         FillGridCountry(); ;
@@ -577,8 +584,9 @@ namespace DealerManagementSystem.ViewMaster
                     }
                 }
                 else
-                {                    
-                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(Convert.ToInt32(HiddenID.Value), Country, CountryCode, CountryCurrencyID, SalesOrganization, true, PSession.User.UserID);
+                {
+                    //Success = new BDMS_Address().InsertOrUpdateAddressCountry(Convert.ToInt32(HiddenID.Value), Country, CountryCode, CountryCurrencyID, SalesOrganization, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(Convert.ToInt32(HiddenID.Value), Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
                     if (Success == true)
                     {
                         HiddenID.Value = null;
@@ -798,7 +806,8 @@ namespace DealerManagementSystem.ViewMaster
                 TextBox txtGCCountry = (TextBox)gvCountry.FooterRow.FindControl("txtGCCountry");
                 TextBox txtGCCountryCode = (TextBox)gvCountry.FooterRow.FindControl("txtGCCountryCode");
                 DropDownList ddlGCCountryCurrency = (DropDownList)gvCountry.FooterRow.FindControl("ddlGCCountryCurrency");
-                TextBox txtGCSalesOrganization = (TextBox)gvCountry.FooterRow.FindControl("txtGCSalesOrganization");
+                //TextBox txtGCSalesOrganization = (TextBox)gvCountry.FooterRow.FindControl("txtGCSalesOrganization");
+                DropDownList ddlGCSalesOrganization = (DropDownList)gvCountry.FooterRow.FindControl("ddlGCSalesOrganization");
                 Button BtnAddOrUpdateCountry = (Button)gvCountry.FooterRow.FindControl("BtnAddOrUpdateCountry");
                 GridViewRow row = (GridViewRow)(lnkBtnCountryEdit.NamingContainer);
                 Label lblGCCountry = (Label)row.FindControl("lblGCCountry");
@@ -808,7 +817,8 @@ namespace DealerManagementSystem.ViewMaster
                 Label lblGCCountryCurrencyID = (Label)row.FindControl("lblGCCountryCurrencyID");
                 ddlGCCountryCurrency.SelectedValue = lblGCCountryCurrencyID.Text;
                 Label lblGCSalesOrganization = (Label)row.FindControl("lblGCSalesOrganization");
-                txtGCSalesOrganization.Text = lblGCSalesOrganization.Text;
+                //txtGCSalesOrganization.Text = lblGCSalesOrganization.Text;
+                ddlGCSalesOrganization.SelectedValue = lblGCSalesOrganization.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnCountryEdit.CommandArgument);
                 BtnAddOrUpdateCountry.Text = "Update";
             }

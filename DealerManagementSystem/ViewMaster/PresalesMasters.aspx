@@ -72,7 +72,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tpnlTypeOfActivity" runat="server" HeaderText="Type Of Activity" Font-Bold="True" ToolTip="Type Of Activity...">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -137,7 +136,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tpnlCustomerAttributeMain" runat="server" HeaderText="Customer Attribute Main" Font-Bold="True" ToolTip="Customer Attribute Main...">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -202,7 +200,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tpnlCustomerAttributeSub" runat="server" HeaderText="Customer Attribute Sub" Font-Bold="True" ToolTip="Customer Attribute Sub...">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -283,7 +280,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tpnlEffort" runat="server" HeaderText="Type Of Effort" Font-Bold="True" ToolTip="Types Of Effort...">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -345,7 +341,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tpnlExpence" runat="server" HeaderText="Type Of Expense" Font-Bold="True" ToolTip="Type Of Expense...">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -407,7 +402,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tbPnlMake" runat="server" HeaderText="Make" Font-Bold="True" ToolTip="Make">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -453,7 +447,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tbPnlProductType" runat="server" HeaderText="Product Type" Font-Bold="True" ToolTip="Product Type">
                 <ContentTemplate>
                     <div class="col-md-12">
@@ -504,8 +497,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
-            <asp:TabPanel ID="tbPnlProduct" runat="server" HeaderText="Product" Font-Bold="True" ToolTip="Product">
+            <asp:TabPanel ID="tbPnlProduct" runat="server" HeaderText="Model" Font-Bold="True" ToolTip="Model">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -566,7 +558,7 @@
                                                     <asp:DropDownList ID="ddlProductTypeF" runat="server" CssClass="form-control"></asp:DropDownList>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Product" SortExpression="Product">
+                                            <asp:TemplateField HeaderText="Model" SortExpression="Model">
                                                 <ItemStyle VerticalAlign="Middle" />
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product")%>' runat="server" />
@@ -598,7 +590,6 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
         </asp:TabContainer>
     </div>
 </asp:Content>

@@ -51,6 +51,10 @@ namespace DealerManagementSystem.ViewMaster
             {
                 try
                 {
+                    //List<PLeadSource> Source = new BPresalesMasters().GetDivsion(null, null);
+                    //new DDLBind(ddlDivsion, Source, "Division", "DivisionID");
+                    //GetDivision();
+                    //GetModel();
                     //GetMaterial();
                     //GetMaterialPrice();
                     //GetMaterialSupersede();
@@ -62,6 +66,22 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
+        //private void GetDivision()
+        //{
+        //    int? MakeID = (int?)null;
+        //    string Make = (string)null;
+
+        //    List<PDMS_Division> division = new BDMS_Division().GetDivision((MakeID, Make);
+        //    gvDivision.DataSource = division;
+        //    gvDivision.DataBind();
+        //    if (division.Count == 0)
+        //    {
+        //        PDMS_Division pDivsison = new PDMS_Division();
+        //        division.Add(pDivsison);
+        //        gvDivision.DataSource = division;
+        //        gvDivision.DataBind();
+        //    }
+        //}
         protected void ibtnMaterialArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvMaterial.PageIndex > 0)
