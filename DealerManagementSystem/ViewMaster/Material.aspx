@@ -8,8 +8,7 @@
     <div class="col-md-12">
         <asp:TabContainer ID="tabConMaterial" runat="server" ToolTip="Material" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp:TabPanel ID="tabbPnlDivision" runat="server" HeaderText="Division" Font-Bold="True" ToolTip="<Division...">
-                <ContentTemplate>
-                    
+                <ContentTemplate>                   
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
@@ -27,26 +26,26 @@
                                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Division Code" HeaderStyle-Width="120px">
+                                                        <asp:TemplateField HeaderText="Division Code" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="120px">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "DivisionCode")%>' runat="server" />
                                                             </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Division Description">
+                                                            <asp:TemplateField HeaderText="Division Description" ItemStyle-HorizontalAlign="Center">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblDivisionDescription" Text='<%# DataBinder.Eval(Container.DataItem, "DivisionDescription")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Unit of Measurement">
+                                                        <asp:TemplateField HeaderText="Unit of Measurement" ItemStyle-HorizontalAlign="Center">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblUnitOfMeasurement" Text='<%# DataBinder.Eval(Container.DataItem, "UOM")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Warranty Delivery Hours">
-                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <asp:TemplateField HeaderText="Warranty Delivery Hours" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblWarrantyDeliveryHours" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyDeliveryHours")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
@@ -79,7 +78,7 @@
                                         <label>Division</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlDivsion" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDivsion_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDivision_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                     </div>
                                 </div>
                             </fieldset>
@@ -94,8 +93,8 @@
                                     <td>
                                         <span id="txnHistory2:refreshDataGroup">
                                             <div style="background-color: white">
-                                                <asp:GridView ID="gvModel" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
-                                                    OnPageIndexChanging="gvModel_PageIndexChanging" Width="100%">
+                                                <asp:GridView ID="gvMaterailModel" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found"
+                                                    OnPageIndexChanging="gvMaterailModel_PageIndexChanging" Width="100%">
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                             <ItemTemplate>
@@ -105,7 +104,7 @@
                                                         <asp:TemplateField HeaderText="Division">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division")%>' runat="server"></asp:Label>
+                                                                <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division.DivisionCode")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Model" HeaderStyle-Width="120px">
@@ -234,13 +233,34 @@
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
 
-                                                        <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialGroup%>">
-                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <asp:TemplateField HeaderText="Division Code">
+                                                            <%--<ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblMaterialGroup" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialGroup")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>--%>
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-
+                                                        <asp:TemplateField HeaderText="Mode Code">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblModeCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelCode")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Mode">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblMode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Model")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Model Description">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelDescription")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Reso, GrossWeight%>">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
@@ -570,14 +590,12 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tabPnlReOrderLevel" runat="server" HeaderText="Re-Order Level" Font-Bold="True" ToolTip="<Re-Order Level...">
                 <ContentTemplate>
                     <h3>Re-OrderLevel</h3>
                     <p>Re-Order Level Master</p>
                 </ContentTemplate>
             </asp:TabPanel>
-
             <asp:TabPanel ID="tabPnlEquipment" runat="server" HeaderText="Equipment" Font-Bold="True" ToolTip="<Equipment...">
                 <ContentTemplate>
                     <h3>Equipment Master</h3>

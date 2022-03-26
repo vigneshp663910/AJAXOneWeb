@@ -51,10 +51,9 @@ namespace DealerManagementSystem.ViewMaster
             {
                 try
                 {
-                    //List<PLeadSource> Source = new BPresalesMasters().GetDivsion(null, null);
-                    //new DDLBind(ddlDivsion, Source, "Division", "DivisionID");
-                    //GetDivision();
-                    //GetModel();
+                    new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionCode", "DivisionID", true, "Select Division");
+                    GetDivision();
+                    GetMaterailModel();
                     //GetMaterial();
                     //GetMaterialPrice();
                     //GetMaterialSupersede();
@@ -65,23 +64,57 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
+        private void GetDivision()
+        {
+            int? DivisionID = (int?)null;
+            string Division = (string)null;
 
-        //private void GetDivision()
-        //{
-        //    int? MakeID = (int?)null;
-        //    string Make = (string)null;
+            List<PDMS_Division> division = new BDMS_Master().GetDivision(DivisionID,Division);
+            gvDivision.DataSource = division;
+            gvDivision.DataBind();
+            if (division.Count == 0)
+            {
+                PDMS_Division pDivsison = new PDMS_Division();
+                division.Add(pDivsison);
+                gvDivision.DataSource = division;
+                gvDivision.DataBind();
+            }
+        }
+        protected void gvDivision_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GetDivision();
+            gvDivision.PageIndex = e.NewPageIndex;
+            gvDivision.DataBind();
+        }
+        private void GetMaterailModel()
+        {
+            int? MaterailID = (int?)null;
+            string Materail = (string)null;
 
-        //    List<PDMS_Division> division = new BDMS_Division().GetDivision((MakeID, Make);
-        //    gvDivision.DataSource = division;
-        //    gvDivision.DataBind();
-        //    if (division.Count == 0)
-        //    {
-        //        PDMS_Division pDivsison = new PDMS_Division();
-        //        division.Add(pDivsison);
-        //        gvDivision.DataSource = division;
-        //        gvDivision.DataBind();
-        //    }
-        //}
+            List<PDMS_Model> materailModel = new BDMS_Model().GetModel(MaterailID, Materail);
+            gvMaterailModel.DataSource = materailModel;
+            gvMaterailModel.DataBind();
+            if (materailModel.Count == 0)
+            {
+                PDMS_Model pMaterailModel = new PDMS_Model();
+                materailModel.Add(pMaterailModel);
+                gvDivision.DataSource = materailModel;
+                gvDivision.DataBind();
+            }
+        }
+
+        protected void gvMaterailModel_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GetMaterailModel();
+            gvMaterailModel.PageIndex = e.NewPageIndex;
+            gvMaterailModel.DataBind();
+        }
+
+        protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetMaterailModel();
+        }
+
         protected void ibtnMaterialArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvMaterial.PageIndex > 0)

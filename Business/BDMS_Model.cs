@@ -46,8 +46,11 @@ namespace Business
                              MML.Add(new PDMS_Model()
                              {
                                  ModelID = Convert.ToInt32(dr["ModelID"]),
+                                 ModelDescription= Convert.ToString(dr["ModelDescription"]),
                                  ModelCodeModelDescription = Convert.ToString(dr["ModelCode"]) + " - " + Convert.ToString(dr["Model"]) + " - " + Convert.ToString(dr["ModelDescription"]),
-                                 Model = Convert.ToString(dr["Model"])
+                                 Model = Convert.ToString(dr["Model"]),
+                                 ModelCode= Convert.ToString(dr["ModelCode"]),
+                                 Division = new PDMS_Division() { DivisionCode = Convert.ToString(dr["DivisionCode"]) , DivisionDescription= Convert.ToString(dr["DivisionDescription"]) }
                              });
                          }
                      }

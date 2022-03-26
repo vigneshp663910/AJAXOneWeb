@@ -69,22 +69,22 @@ namespace DealerManagementSystem.ViewMaster
         protected global::AjaxControlToolkit.TabPanel tabPnlModel;
 
         /// <summary>
-        /// ddlDivsion control.
+        /// ddlDivision control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDivsion;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
 
         /// <summary>
-        /// gvModel control.
+        /// gvMaterailModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvModel;
+        protected global::System.Web.UI.WebControls.GridView gvMaterailModel;
 
         /// <summary>
         /// tabPnlMaterial control.
