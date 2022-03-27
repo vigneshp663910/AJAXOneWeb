@@ -798,7 +798,7 @@
                                         <asp:Label ID="lblIsActive" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                            <%--    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <div class="dropdown btnactions"> 
                                             <div class="btn Approval">Actions</div>
@@ -810,7 +810,7 @@
                                            </div>
                                          </div>
                                     </ItemTemplate>
-                                </asp:TemplateField>--%>
+                                </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -1106,7 +1106,6 @@
                         <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID="txtCity" WatermarkText="City" WatermarkCssClass="WatermarkCssClass" />
                     </div>
-
 
                 </div>
             </fieldset>

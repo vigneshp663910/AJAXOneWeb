@@ -113,17 +113,19 @@ namespace Properties
     public class PPlant
     {
         #region Properties
-        public String City { get; set; }
-        public String State { get; set; }
         public Int32 PlantID { get; set; }
-        public String Country { get; set; }
-        public String Postcode { get; set; }
         public String PlantCode { get; set; }
         public String PlantName { get; set; }
+        public String Address1 { get; set; }
+        public String Address2 { get; set; }
+        public String Address3 { get; set; }
+        public PDMS_Country Country { get; set; }
+        public PDMS_State State { get; set; }
+        public PDMS_District District { get; set; }
+        public String City { get; set; }
+        public String Postcode { get; set; }
+
         public Boolean IsActive { get; set; }
-        public String AddressLine1 { get; set; }
-        public String AddressLine2 { get; set; }
-        public String AddressLine3 { get; set; }
         public bool IsUpdate { get; set; }
         #endregion
     }
