@@ -73,6 +73,21 @@ namespace DealerManagementSystem.ViewMaster
                 Session["PDMS_District"] = value;
             }
         }
+        public List<PSalesOffice> LSalesOffice
+        {
+            get
+            {
+                if (Session["PSalesOffice"] == null)
+                {
+                    Session["PSalesOffice"] = new List<PSalesOffice>();
+                }
+                return (List<PSalesOffice>)Session["PSalesOffice"];
+            }
+            set
+            {
+                Session["PSalesOffice"] = value;
+            }
+        }
         public List<PDMS_Dealer> LDealer
         {
             get
@@ -101,6 +116,7 @@ namespace DealerManagementSystem.ViewMaster
                     LCountry = new BDMS_Address().GetCountry(null, null);
                     LRegion = new BDMS_Address().GetRegion(null, null, null);
                     LState = new BDMS_Address().GetState(null, null, null, null);
+                    LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
                     LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
                     LDealer = new BDMS_Dealer().GetDealer(null, null);
                     FillCountry();
@@ -195,6 +211,24 @@ namespace DealerManagementSystem.ViewMaster
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = LDistrict;
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("Select", "0"));
+            }
+            catch (Exception Ex)
+            {
+                lblMessage.Visible = true;
+                lblMessage.Text = Ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        private void FillSalesOfficeDLL(DropDownList ddl, int? SalesOfficeID, string SalesOffice)
+        {
+            try
+            {
+                LSalesOffice = new BDMS_Address().GetSalesOffice(SalesOfficeID, SalesOffice);
+                ddl.DataValueField = "SalesOfficeID";
+                ddl.DataTextField = "SalesOffice";
+                ddl.DataSource = LSalesOffice;
                 ddl.DataBind();
                 ddl.Items.Insert(0, new ListItem("Select", "0"));
             }
@@ -392,6 +426,9 @@ namespace DealerManagementSystem.ViewMaster
 
                 DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
                 new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+
+                DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
+                new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
 
                 DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
                 new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null), "DealerName", "DealerID", true, "Select Dealer");
@@ -1745,9 +1782,10 @@ namespace DealerManagementSystem.ViewMaster
                 int CountryID = Convert.ToInt32(((Label)row.FindControl("lblGDCountryID")).Text.Trim());
                 int StateID = Convert.ToInt32(((Label)row.FindControl("lblGDStateID")).Text.Trim());
                 int DealerID = Convert.ToInt32(((Label)row.FindControl("lblGDDealerID")).Text.Trim());
+                int SalesOfficeID = Convert.ToInt32(((Label)row.FindControl("lblGDSalesOfficeID")).Text.Trim());
                 string District = ((Label)row.FindControl("lblGDDistrict")).Text.Trim();
 
-                success = new BDMS_Address().InsertOrUpdateAddressDistrict(DistrictID, CountryID, StateID, DealerID, District, null, false, PSession.User.UserID);
+                success = new BDMS_Address().InsertOrUpdateAddressDistrict(DistrictID, CountryID, StateID, DealerID, SalesOfficeID, District, null, false, PSession.User.UserID);
                 if (success == true)
                 {
                     HiddenID.Value = null;
@@ -1794,6 +1832,13 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                DropDownList ddlGDSalesOffice = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDSalesOffice");
+                if (ddlGDSalesOffice.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select SalesOffice.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");
                 if (ddlGDDealer.SelectedValue == "0")
                 {
@@ -1811,7 +1856,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateDistrict.Text == "Add")
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), District, null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), Convert.ToInt32(ddlGDSalesOffice.SelectedValue), District, null, true, PSession.User.UserID);
                     if (Success == true)
                     {
                         FillGridDistrict();
@@ -1834,7 +1879,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 else
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(HiddenID.Value), Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), District, null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(HiddenID.Value), Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), Convert.ToInt32(ddlGDSalesOffice.SelectedValue), District, null, true, PSession.User.UserID);
 
                     if (Success == true)
                     {
@@ -2552,8 +2597,10 @@ namespace DealerManagementSystem.ViewMaster
             DropDownList ddlGDCountry = (DropDownList)sender;
             GridViewRow row = (GridViewRow)(ddlGDCountry.NamingContainer);
             DropDownList ddlGDState = (DropDownList)row.FindControl("ddlGDState");
+            DropDownList ddlGDSalesOffice = (DropDownList)row.FindControl("ddlGDSalesOffice");
             DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
             FillStateDLL(ddlGDState, Convert.ToInt32(ddlGDCountry.SelectedValue), null, null, null);
+            FillSalesOfficeDLL(ddlGDSalesOffice, null, null);
             FillDealerDLL(ddlGDDealer, null, null);
         }
 
