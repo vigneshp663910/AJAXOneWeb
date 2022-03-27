@@ -1160,7 +1160,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-                P[54] = new ReportParameter("TCSPer", "", false);
+                P[54] = new ReportParameter("TCSPer", Q.TCSTax.ToString(), false);
                 report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
                 report.SetParameters(P);
 
