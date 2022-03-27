@@ -228,7 +228,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
 
                 PDMS_Customer CustomerS = new BDMS_Customer().GetCustomerByID(Customer.CustomerID);
-
+                CustomerS.CustomerCode = ShipTo.CustomerCode;
                 CustomerS.CustomerID = ShipTo.CustomerShipToID;
                 CustomerS.Address1 = ShipTo.Address1;
                 CustomerS.Address2 = ShipTo.Address2;
