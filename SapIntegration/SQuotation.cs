@@ -10,7 +10,7 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation)
+        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts)
         {
             string QuotationNo = null;
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
@@ -48,7 +48,7 @@ namespace SapIntegration
             QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", pSalesQuotation.QuotationDate);
             QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product);
-            QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", "");
+            QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", leadProducts[0].Product);
 
             IRfcTable QT_Item = tagListBapi.GetTable("QUOTATION_ITEMS_IN");
             for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
@@ -155,13 +155,13 @@ namespace SapIntegration
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
             return dtRet;
         }
-        public PDMS_ServiceMaterial getMaterialTaxForQuotation(string Customer, string MaterialCode,  Boolean IsWarrenty)
+        public PDMS_ServiceMaterial getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty)
         {
             PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial();
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_QUO");
             tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(10, '0'));
-            
+
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
             long n;
             if (long.TryParse(MaterialCode, out n))
@@ -208,6 +208,21 @@ namespace SapIntegration
                 }
             }
             return Material;
+        }
+        public string getMaterialTextForQuotation(string MaterialCode)
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("READ_TEXT");
+            tagListBapi.SetValue("ID", "0001");
+            tagListBapi.SetValue("LANGUAGE", "EN");
+            tagListBapi.SetValue("NAME", MaterialCode);//"L.900.508         AJF GT");
+            tagListBapi.SetValue("OBJECT", "MVKE");
+            tagListBapi.SetValue("ARCHIVE_HANDLE", "0");
+            tagListBapi.SetValue("LOCAL_CAT", "");
+            tagListBapi.Invoke(SAP.RfcDes());
+            IRfcTable tagTable = tagListBapi.GetTable("LINES");
+            string ConditionType;
+
+            return "";
         }
     }
 }

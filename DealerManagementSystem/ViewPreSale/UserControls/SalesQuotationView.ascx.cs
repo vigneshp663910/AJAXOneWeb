@@ -734,7 +734,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void GenerateQuotation()
         {
             PSalesQuotation Q = Quotation;
-            DataTable DtResult = new SQuotation().getQuotationIntegration(Q);
+            List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+            DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts);
             lblMessage.Text = "";
             foreach (DataRow dr in DtResult.Rows)
             {
@@ -778,6 +779,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
+                PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
+                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+
+                List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+
                 string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
                 foreach (PSalesQuotationNote Note in Q.Notes)
                 {
@@ -807,8 +814,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ReportParameter[] P = new ReportParameter[35];
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
-                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+                P[1] = new ReportParameter("QuotationNo", Q.RefQuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.RefQuotationDate.ToString("dd.MM.yyyy"), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -857,34 +864,41 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
                 P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
                 P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
-                P[23] = new ReportParameter("MaterialText", "MaterialText", false);
-                if (Q.QuotationItems[0].Plant.PlantCode == "P001")
+                string MaterialText = string.Empty;
+                try
                 {
-                    P[24] = new ReportParameter("FactoryName", "FactoryName", false);
-                    P[25] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
-                    P[26] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
-                    P[27] = new ReportParameter("FactoryFax", "FactoryFax", false);
-                    P[28] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
-                    P[29] = new ReportParameter("TCSTaxTerms", "", false);
+                    MaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508         AJF GT");                    
                 }
-                else if (Q.QuotationItems[0].Plant.PlantCode == "P002")
+                catch(Exception ex)
                 {
-                    P[24] = new ReportParameter("FactoryName", "FactoryName", false);
-                    P[25] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
-                    P[26] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
-                    P[27] = new ReportParameter("FactoryFax", "FactoryFax", false);
-                    P[28] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
-                    P[29] = new ReportParameter("TCSTaxTerms", "", false);
+                    lblMessage.Text = ex.Message.ToString();
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
                 }
-                else if (Q.QuotationItems[0].Plant.PlantCode == "P003")
+                P[23] = new ReportParameter("MaterialText", MaterialText, false);
+                List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
+                string PlantAddress1 = (Plant[0].Address1 + (string.IsNullOrEmpty(Plant[0].Address2) ? "" : "," + Plant[0].Address2) + (string.IsNullOrEmpty(Plant[0].Address3) ? "" : "," + Plant[0].Address3)).Trim(',', ' ');
+                string PlantAddress2 = (Plant[0].City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Plant[0].State.State) + (string.IsNullOrEmpty(Plant[0].Country.Country) ? "" : "," + Plant[0].Country.Country)).Trim(',', ' ');
+
+                if (Q.QuotationItems[0].Plant.PlantCode == "P003")
                 {
-                    P[24] = new ReportParameter("FactoryName", "FactoryName", false);
-                    P[25] = new ReportParameter("FactoryAddress", "FactoryAddress", false);
-                    P[26] = new ReportParameter("FactoryPhoneno", "FactoryPhoneno", false);
-                    P[27] = new ReportParameter("FactoryFax", "FactoryFax", false);
-                    P[28] = new ReportParameter("FactoryWebsite", "FactoryWebsite", false);
+                    P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
+                    P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
+                    P[26] = new ReportParameter("FactoryPhoneno", Ajax.Mobile, false);
+                    P[27] = new ReportParameter("FactoryFax", "", false);
+                    P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
                     P[29] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
                 }
+                else if (Q.QuotationItems[0].Plant.PlantCode == "P001")
+                {
+                    P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
+                    P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
+                    P[26] = new ReportParameter("FactoryPhoneno", Ajax.Mobile, false);
+                    P[27] = new ReportParameter("FactoryFax", "", false);
+                    P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
+                    P[29] = new ReportParameter("TCSTaxTerms", "", false);
+                }
+                
                 if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
                 {
                     P[30] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
@@ -896,9 +910,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[31] = new ReportParameter("ErectionCommissoning", "", false);
                 }
 
-                PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
-                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+                
 
                 P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
@@ -1001,12 +1013,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
-                //var Attension = Q.Notes.Where(Note => Note.Note.Note == "Kind Attention");
-                //var Attension1 = (Q.Notes.Where(m => m.Note.Note == "Kind Attention")).ToList()[0].Note;
-
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
-                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+                P[1] = new ReportParameter("QuotationNo", Q.RefQuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.RefQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1164,7 +1173,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-                P[54] = new ReportParameter("TCSPer", "", false);
+                P[54] = new ReportParameter("TCSPer", Q.TCSTax.ToString(), false);
                 report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
                 report.SetParameters(P);
 

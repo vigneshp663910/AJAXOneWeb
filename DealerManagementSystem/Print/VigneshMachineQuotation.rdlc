@@ -2169,14 +2169,6 @@ Yours faithfully,</Value>
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>,F: </Value>
-                      <Style />
-                    </TextRun>
-                    <TextRun>
-                      <Value>=Parameters!FactoryFax.Value</Value>
-                      <Style />
-                    </TextRun>
-                    <TextRun>
                       <Value>, </Value>
                       <Style />
                     </TextRun>
