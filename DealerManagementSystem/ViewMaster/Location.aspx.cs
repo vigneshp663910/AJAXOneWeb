@@ -2561,7 +2561,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             DropDownList ddlGCityCountry = (DropDownList)sender;
             GridViewRow row = (GridViewRow)(ddlGCityCountry.NamingContainer);
-            DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGDState");
+            DropDownList ddlGCityState = (DropDownList)row.FindControl("ddlGCityState");
             FillStateDLL(ddlGCityState, Convert.ToInt32(ddlGCityCountry.SelectedValue), null, null, null);
         }
 
