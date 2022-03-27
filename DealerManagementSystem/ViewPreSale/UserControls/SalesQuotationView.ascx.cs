@@ -776,20 +776,33 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
+                List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+
                 string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
                 foreach (PSalesQuotationNote Note in Q.Notes)
                 {
-                    if (Note.SalesQuotationNoteID == 1) { Reference = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 2) { KindAttention = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 3) { QNote = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 4) { Hypothecation = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 5) { TermsOfPayment = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 6) { Delivery = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 7) { Validity = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 8) { Foc = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 9) { MarginMoney = Note.Remark; }
-                    if (Note.SalesQuotationNoteID == 10) { Subject = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
                 }
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+
+                if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+                if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+                if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+                if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+                if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+                if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+                if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+                if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
 
                 ReportParameter[] P = new ReportParameter[35];
                 //Q.Lead.Dealer.
@@ -841,9 +854,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //    return;
                 //}
 
-                P[20] = new ReportParameter("ConcernName", "ConcernName", false);
-                P[21] = new ReportParameter("ConcernDesignation", "ConcernDesignation", false);
-                P[22] = new ReportParameter("ConcernMobile", "ConcernMobile", false);
+                P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
+                P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
+                P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
                 P[23] = new ReportParameter("MaterialText", "MaterialText", false);
                 if (Q.QuotationItems[0].Plant.PlantCode == "P001")
                 {
@@ -890,7 +903,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[34] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-                
+
 
                 DataTable dtItem = new DataTable();
                 dtItem.Columns.Add("TechnicalSpecification");
@@ -923,232 +936,259 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             catch (Exception ex)
             {
-
-            }
-        }
-        void PrintTaxQuotation()
-        {
-            lblMessage.Text = "";
-            PSalesQuotation Q = Quotation;
-
-            string contentType = string.Empty;
-            contentType = "application/pdf";
-            var CC = CultureInfo.CurrentCulture;
-            Random r = new Random();
-            string FileName = "QT_Tax" + r.Next(0, 1000000) + ".pdf";
-            string extension;
-            string encoding;
-            string mimeType;
-            string[] streams;
-            Warning[] warnings;
-            LocalReport report = new LocalReport();
-            report.EnableExternalImages = true;
-            ReportParameter[] P = new ReportParameter[55];
-
-            PDMS_Customer Customer = Q.Lead.Customer;
-            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-            PDMS_Customer CustomerShipTo = Q.Lead.Customer;
-            string CustomerAddressShipTo1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            string CustomerAddressShipTo2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-            string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "";
-            foreach (PSalesQuotationNote Note in Q.Notes)
-            {
-                if (Note.SalesQuotationNoteID == 1) { Reference = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 2) { KindAttention = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 3) { QNote = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 4) { Hypothecation = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 5) { TermsOfPayment = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 6) { Delivery = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 7) { Validity = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 8) { Foc = Note.Remark; }
-                if (Note.SalesQuotationNoteID == 9) { MarginMoney = Note.Remark; }
-            }
-
-            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-
-            //var Attension = Q.Notes.Where(Note => Note.Note.Note == "Kind Attention");
-            //var Attension1 = (Q.Notes.Where(m => m.Note.Note == "Kind Attention")).ToList()[0].Note;
-
-            P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
-            P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
-            P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
-            P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
-            P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-            P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-            P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
-            P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-            P[8] = new ReportParameter("KindAttn", KindAttention, false);
-            P[9] = new ReportParameter("CustomerStateCode", Q.Lead.Customer.State.StateCode, false);
-            P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN, false);
-            P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN, false);
-
-            P[19] = new ReportParameter("YourRef", Reference, false);
-            P[20] = new ReportParameter("RevNo", "", false);
-            P[21] = new ReportParameter("ShipToCustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
-            P[22] = new ReportParameter("ShipToCustomerAddress1", CustomerAddressShipTo1, false);
-            P[23] = new ReportParameter("ShipToCustomerAddress2", CustomerAddressShipTo2, false);
-            P[24] = new ReportParameter("ShipToMobile", Q.Lead.Customer.Mobile, false);
-            P[25] = new ReportParameter("ShipToEMail", Q.Lead.Customer.Email, false);
-            P[26] = new ReportParameter("ShipToCustomerStateCode", "", false);
-            P[27] = new ReportParameter("ShipToCustomerGST", "", false);
-            P[28] = new ReportParameter("SoldToPartyBPCode", Q.Lead.Customer.CustomerCode, false);
-            P[29] = new ReportParameter("ShipToPartyBPCode", "", false);
-            P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
-            string Div = Q.QuotationItems[0].Material.Model.Division.DivisionCode;
-            if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM")
-            {
-                P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
-                P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
-                P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
-                if (DealerBank.Count > 0)
-                {
-                    P[34] = new ReportParameter("PaymentTermAccName", "NAME        : " + DealerBank[0].DealerName, false);
-                    P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME   : " + DealerBank[0].DealerBank.BankName, false);
-                    P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-                    P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + DealerBank[0].DealerBank.AcNumber, false);
-                    P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE   : " + DealerBank[0].DealerBank.IfscCode, false);
-                }
-                else
-                {
-                    lblMessage.Text = "Bank Details Not Found";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                P[39] = new ReportParameter("Delivery", "Delivery : " + Delivery, false);
-                P[40] = new ReportParameter("TransitInsurance", "Transit Insurance: Customer to arrange and send the same before dispatch", false);
-                P[41] = new ReportParameter("Transportation", "Transportation : To-pay basis to customer's account.", false);
-                P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + Validity, false);
-                P[43] = new ReportParameter("Note", "Note : " + QNote, false);
-            }
-            else if (Div == "CP")
-            {
-                P[31] = new ReportParameter("TermsandConditionHead", "", false);
-                P[32] = new ReportParameter("PaymentTerms", "", false);
-                P[33] = new ReportParameter("TermsOfPayment", "", false);
-                P[34] = new ReportParameter("PaymentTermAccName", "", false);
-                P[35] = new ReportParameter("PaymentTermBankName", "", false);
-                P[36] = new ReportParameter("PaymentTermBankAddress", "");
-                P[37] = new ReportParameter("PaymentTermAccNo", "", false);
-                P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
-                P[39] = new ReportParameter("Delivery", "", false);
-                P[40] = new ReportParameter("TransitInsurance", "", false);
-                P[41] = new ReportParameter("Transportation", "", false);
-                P[42] = new ReportParameter("Validity", "", false);
-                P[43] = new ReportParameter("Note", "", false);
-            }
-            else
-            {
-                lblMessage.Text = "Division Not Available";
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-
-            P[44] = new ReportParameter("Name", "VIGNESH", false);
-            P[45] = new ReportParameter("Designation", "DEVELOPER", false);
-            P[46] = new ReportParameter("MobileNo", "9000000000", false);
-
-
-
-            DataTable dtItem = new DataTable();
-            dtItem.Columns.Add("SNO");
-            dtItem.Columns.Add("Material");
-            dtItem.Columns.Add("Description");
-            dtItem.Columns.Add("HSN");
-            dtItem.Columns.Add("UOM");
-            dtItem.Columns.Add("Qty");
-            dtItem.Columns.Add("Rate");
-            dtItem.Columns.Add("Total");
-            dtItem.Columns.Add("Discount");
-            dtItem.Columns.Add("Value");
-            dtItem.Columns.Add("CGSTPer");
-            dtItem.Columns.Add("CGSTVal");
-            dtItem.Columns.Add("SGSTPer");
-            dtItem.Columns.Add("SGSTVal");
-
-            int i = 0;
-            decimal TaxSubTotal = 0;
-            decimal TCSSubTotal = 0;
-            decimal SubTotal = 0;
-            decimal Lifetimetax = 0;
-            decimal GrandTotal = 0;
-            foreach (PSalesQuotationItem item in Q.QuotationItems)
+        }
+        void PrintTaxQuotation()
+        {
+            try
             {
-                i = i + 1;
-                if (item.SGST != 0)
+                lblMessage.Text = "";
+                PSalesQuotation Q = Quotation;
+
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                Random r = new Random();
+                string FileName = "QT_Tax" + r.Next(0, 1000000) + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+                ReportParameter[] P = new ReportParameter[55];
+
+                PDMS_Customer Customer = Q.Lead.Customer;
+                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+                PDMS_Customer CustomerShipTo = new PDMS_Customer();
+                if (Q.ShipTo != null) { CustomerShipTo = CustomerShipTo = new BDMS_Customer().GetCustomerByID(Q.ShipTo.CustomerID); } else { CustomerShipTo = Q.Lead.Customer; }
+            ;
+                string CustomerAddressShipTo1 = (CustomerShipTo.Address1 + (string.IsNullOrEmpty(CustomerShipTo.Address2) ? "" : "," + CustomerShipTo.Address2) + (string.IsNullOrEmpty(CustomerShipTo.Address3) ? "" : "," + CustomerShipTo.Address3)).Trim(',', ' ');
+                string CustomerAddressShipTo2 = (CustomerShipTo.City + (string.IsNullOrEmpty(CustomerShipTo.State.State) ? "" : "," + CustomerShipTo.State.State) + (string.IsNullOrEmpty(CustomerShipTo.Country.Country) ? "" : "," + CustomerShipTo.Country.Country) + (string.IsNullOrEmpty(CustomerShipTo.Pincode) ? "" : "-" + CustomerShipTo.Pincode)).Trim(',', ' ');
+
+                string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "";
+
+                foreach (PSalesQuotationNote Note in Q.Notes)
                 {
-                    P[47] = new ReportParameter("CGST_Header", "CGST %", false);
-                    P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
-                    P[49] = new ReportParameter("SGST_Header", "SGST %", false);
-                    P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
-                    dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                        item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.CGST, item.CGSTValue, item.SGST, item.SGSTValue);
-                    TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
-                    TCSSubTotal = Q.TCSValue;
-                    SubTotal = TaxSubTotal + TCSSubTotal;
-                    Lifetimetax = Q.LifeTimeValue;
-                    GrandTotal = SubTotal + Lifetimetax;
-                    P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                    P[13] = new ReportParameter("TotalAmount", TaxSubTotal.ToString(), false);
-                    P[14] = new ReportParameter("Tax", "", false);
-                    P[15] = new ReportParameter("TCS", TCSSubTotal.ToString(), false);
-                    P[16] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
-                    P[17] = new ReportParameter("LifeTimeTax", Lifetimetax.ToString(), false);
-                    P[18] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
+                    if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
+                }
+
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+
+                if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+                if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+                if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+                if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+                if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+                if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+                if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+
+                List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+
+                //var Attension = Q.Notes.Where(Note => Note.Note.Note == "Kind Attention");
+                //var Attension1 = (Q.Notes.Where(m => m.Note.Note == "Kind Attention")).ToList()[0].Note;
+
+                P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
+                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+                P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
+                P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+                P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+                P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
+                P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
+                P[8] = new ReportParameter("KindAttn", KindAttention, false);
+                P[9] = new ReportParameter("CustomerStateCode", Q.Lead.Customer.State.StateCode, false);
+                P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN, false);
+                P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN, false);
+
+                P[19] = new ReportParameter("YourRef", Reference, false);
+                P[20] = new ReportParameter("RevNo", "", false);
+                P[21] = new ReportParameter("ShipToCustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
+                P[22] = new ReportParameter("ShipToCustomerAddress1", CustomerAddressShipTo1, false);
+                P[23] = new ReportParameter("ShipToCustomerAddress2", CustomerAddressShipTo2, false);
+                P[24] = new ReportParameter("ShipToMobile", CustomerShipTo.Mobile, false);
+                P[25] = new ReportParameter("ShipToEMail", CustomerShipTo.Email, false);
+                P[26] = new ReportParameter("ShipToCustomerStateCode", CustomerShipTo.State.StateCode, false);
+                P[27] = new ReportParameter("ShipToCustomerGST", Q.Lead.Customer.GSTIN, false);
+                P[28] = new ReportParameter("SoldToPartyBPCode", Q.Lead.Customer.CustomerCode, false);
+                P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
+                P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
+                string Div = Q.QuotationItems[0].Material.Model.Division.DivisionCode;
+                if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM")
+                {
+                    P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
+                    P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
+                    P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
+                    if (DealerBank.Count > 0)
+                    {
+                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                  : " + DealerBank[0].DealerName, false);
+                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME       : " + DealerBank[0].DealerBank.BankName, false);
+                        P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
+                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + DealerBank[0].DealerBank.AcNumber, false);
+                        P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Bank Details Not Found";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    P[39] = new ReportParameter("Delivery", "Delivery : " + Delivery, false);
+                    P[40] = new ReportParameter("TransitInsurance", "Transit Insurance: Customer to arrange and send the same before dispatch", false);
+                    P[41] = new ReportParameter("Transportation", "Transportation : To-pay basis to customer's account.", false);
+                    P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + Validity, false);
+                    P[43] = new ReportParameter("Note", "Note : " + QNote, false);
+                }
+                else if (Div == "CP")
+                {
+                    P[31] = new ReportParameter("TermsandConditionHead", "", false);
+                    P[32] = new ReportParameter("PaymentTerms", "", false);
+                    P[33] = new ReportParameter("TermsOfPayment", "", false);
+                    P[34] = new ReportParameter("PaymentTermAccName", "", false);
+                    P[35] = new ReportParameter("PaymentTermBankName", "", false);
+                    P[36] = new ReportParameter("PaymentTermBankAddress", "");
+                    P[37] = new ReportParameter("PaymentTermAccNo", "", false);
+                    P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
+                    P[39] = new ReportParameter("Delivery", "", false);
+                    P[40] = new ReportParameter("TransitInsurance", "", false);
+                    P[41] = new ReportParameter("Transportation", "", false);
+                    P[42] = new ReportParameter("Validity", "", false);
+                    P[43] = new ReportParameter("Note", "", false);
                 }
                 else
                 {
-                    P[47] = new ReportParameter("CGST_Header", "", false);
-                    P[48] = new ReportParameter("CGSTVal_Header", "", false);
-                    P[49] = new ReportParameter("SGST_Header", "IGST %", false);
-                    P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
-                    dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                        item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
-                    TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
-                    TCSSubTotal = Q.TCSValue;
-                    SubTotal = TaxSubTotal + TCSSubTotal;
-                    Lifetimetax = Q.LifeTimeValue;
-                    GrandTotal = SubTotal + Lifetimetax;
-                    P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                    P[13] = new ReportParameter("TotalAmount", TaxSubTotal.ToString(), false);
-                    P[14] = new ReportParameter("Tax", Q.TCSTax.ToString(), false);
-                    P[15] = new ReportParameter("TCS", TCSSubTotal.ToString(), false);
-                    P[16] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
-                    P[17] = new ReportParameter("LifeTimeTax", Lifetimetax.ToString(), false);
-                    P[18] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    lblMessage.Text = "Division Not Available";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
                 }
+
+                P[44] = new ReportParameter("Name", DealerBank[0].AuthorityName, false);
+                P[45] = new ReportParameter("Designation", DealerBank[0].AuthorityDesignation, false);
+                P[46] = new ReportParameter("MobileNo", DealerBank[0].AuthorityMobile, false);
+
+
+
+                DataTable dtItem = new DataTable();
+                dtItem.Columns.Add("SNO");
+                dtItem.Columns.Add("Material");
+                dtItem.Columns.Add("Description");
+                dtItem.Columns.Add("HSN");
+                dtItem.Columns.Add("UOM");
+                dtItem.Columns.Add("Qty");
+                dtItem.Columns.Add("Rate");
+                dtItem.Columns.Add("Total");
+                dtItem.Columns.Add("Discount");
+                dtItem.Columns.Add("Value");
+                dtItem.Columns.Add("CGSTPer");
+                dtItem.Columns.Add("CGSTVal");
+                dtItem.Columns.Add("SGSTPer");
+                dtItem.Columns.Add("SGSTVal");
+
+                int i = 0;
+                decimal TaxSubTotal = 0;
+                decimal TCSSubTotal = 0;
+                decimal SubTotal = 0;
+                decimal Lifetimetax = 0;
+                decimal GrandTotal = 0;
+                foreach (PSalesQuotationItem item in Q.QuotationItems)
+                {
+                    i = i + 1;
+                    if (item.SGST != 0)
+                    {
+                        P[47] = new ReportParameter("CGST_Header", "CGST %", false);
+                        P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
+                        P[49] = new ReportParameter("SGST_Header", "SGST %", false);
+                        P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
+                        dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
+                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.CGST, item.CGSTValue, item.SGST, item.SGSTValue);
+                        TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
+                        TCSSubTotal = Q.TCSValue;
+                        SubTotal = TaxSubTotal + TCSSubTotal;
+                        Lifetimetax = Q.LifeTimeValue;
+                        GrandTotal = SubTotal + Lifetimetax;
+                        P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                        P[13] = new ReportParameter("TotalAmount", TaxSubTotal.ToString(), false);
+                        P[14] = new ReportParameter("Tax", "", false);
+                        P[15] = new ReportParameter("TCS", TCSSubTotal.ToString(), false);
+                        P[16] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
+                        P[17] = new ReportParameter("LifeTimeTax", Lifetimetax.ToString(), false);
+                        P[18] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    }
+                    else
+                    {
+                        P[47] = new ReportParameter("CGST_Header", "", false);
+                        P[48] = new ReportParameter("CGSTVal_Header", "", false);
+                        P[49] = new ReportParameter("SGST_Header", "IGST %", false);
+                        P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
+                        dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
+                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
+                        TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
+                        TCSSubTotal = Q.TCSValue;
+                        SubTotal = TaxSubTotal + TCSSubTotal;
+                        Lifetimetax = Q.LifeTimeValue;
+                        GrandTotal = SubTotal + Lifetimetax;
+                        P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                        P[13] = new ReportParameter("TotalAmount", TaxSubTotal.ToString(), false);
+                        P[14] = new ReportParameter("Tax", Q.TCSTax.ToString(), false);
+                        P[15] = new ReportParameter("TCS", TCSSubTotal.ToString(), false);
+                        P[16] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
+                        P[17] = new ReportParameter("LifeTimeTax", Lifetimetax.ToString(), false);
+                        P[18] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    }
+                }
+                PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
+                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+
+
+                //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
+
+                P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
+                P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
+                P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
+                P[54] = new ReportParameter("TCSPer", "", false);
+                report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
+                report.SetParameters(P);
+
+                ReportDataSource rds = new ReportDataSource();
+                rds.Name = "SalesTaxQuotationItem";//This refers to the dataset name in the RDLC file  
+                rds.Value = dtItem;
+                report.DataSources.Add(rds); ;
+
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                Response.Flush(); // send it to the client to download
             }
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-            string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
-            string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-
-            //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-
-            P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
-            P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-            P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-            P[54] = new ReportParameter("TCSPer", "", false);
-            report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
-            report.SetParameters(P);
-
-            ReportDataSource rds = new ReportDataSource();
-            rds.Name = "SalesTaxQuotationItem";//This refers to the dataset name in the RDLC file  
-            rds.Value = dtItem;
-            report.DataSources.Add(rds); ;
-
-            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-            Response.Buffer = true;
-            Response.Clear();
-            Response.ContentType = mimeType;
-            Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-            Response.BinaryWrite(mybytes); // create the file
-            Response.Flush(); // send it to the client to download
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
         }
         void ActionControlMange()
         {
