@@ -34,6 +34,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlCountry.SelectedValue == "1") { txtPincode.MaxLength = 6; }  else { txtPincode.MaxLength = 10; }
             List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
         }
