@@ -116,7 +116,7 @@ namespace SapIntegration
                       {
                           InvoiceItem.Discount = InvoiceItem.Discount + ((InvoiceItem.Rate * Convert.ToDecimal(IT_COND.GetString("KBETR")) / 1000) * InvoiceItem.Qty);
                       }
-                      else if ((ConditionType == "ZDE2") || (ConditionType == "ZSD1") || (ConditionType == "ZDD2") || (ConditionType == "ZWAR") || (ConditionType == "ZCD2")
+                      else if ((ConditionType == "ZDE2") || (ConditionType == " ") || (ConditionType == "ZDD2") || (ConditionType == "ZWAR") || (ConditionType == "ZCD2")
                            || (ConditionType == "ZDD6") || (ConditionType == "ZCD4"))
                       {
                           InvoiceItem.Discount = InvoiceItem.Discount + (Convert.ToDecimal(IT_COND.GetString("KBETR")) * InvoiceItem.Qty);

@@ -169,7 +169,7 @@ namespace SapIntegration
             if (IsShipTo == false) tagListBapi.SetValue("P_SALES_OFFICE", Customer.District.SalesOffice.SalesOffice);
             if (IsShipTo == false) tagListBapi.SetValue("P_SALES_GROUP", Customer.District.SalesOffice.SalesGroup);
             tagListBapi.SetValue("P_CUS_GROUP", "GT");
-            if (IsShipTo == false) tagListBapi.SetValue("P_CURRENCY", (country == 1 || country == 2 || country == 3) ? "INR" : "USD");
+            if (IsShipTo == false) tagListBapi.SetValue("P_CURRENCY", Customer.Country.Currency.Currency);
             if (IsShipTo == false) tagListBapi.SetValue("P_EXG_RATE_TYPE", (country == 1) ? "" : "SELL");
             tagListBapi.SetValue("P_PRICE_GROUP", (country == 1 || country == 2 || country == 3) ? "07" : "08");
             tagListBapi.SetValue("P_PRICING_PROCED", (country == 1 || country == 2 || country == 3) ? "7" : "9");
