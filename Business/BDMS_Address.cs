@@ -426,12 +426,12 @@ namespace Business
         }
         public List<PDMS_Region> GetRegion(int? CountryID, int? RegionID, string Region)
         {
-            string endPoint = "Location/Country?CountryID=" + CountryID + "&RegionID=" + RegionID + "&Region=" + Region;
+            string endPoint = "Location/Region?CountryID=" + CountryID + "&RegionID=" + RegionID + "&Region=" + Region;
             return JsonConvert.DeserializeObject<List<PDMS_Region>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDMS_State> GetState(int? CountryID, int? RegionID, int? StateID, string State)
         {
-            string endPoint = "Location/Country?CountryID=" + CountryID + "&RegionID=" + RegionID + "&StateID=" + StateID + "&State=" + State;
+            string endPoint = "Location/State?CountryID=" + CountryID + "&RegionID=" + RegionID + "&StateID=" + StateID + "&State=" + State;
             return JsonConvert.DeserializeObject<List<PDMS_State>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
              
         }
