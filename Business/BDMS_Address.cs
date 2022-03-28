@@ -335,7 +335,7 @@ namespace Business
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
                                     Country= Convert.ToString(dr["Country"])
                                 },
-                                SalesOffice = new PSalesOffice()
+                                SalesOffice = DBNull.Value == dr["SalesOfficeID"] ? null : new PSalesOffice()
                                 {
                                     SalesOfficeID = Convert.ToInt32(dr["SalesOfficeID"]),
                                     SalesOffice = Convert.ToString(dr["SalesOffice"])
