@@ -832,7 +832,7 @@ namespace Business
                         {
                             DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
                             DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                            DbParameter IsShipToP = provider.CreateParameter("IsShipTo", CustomerCode, DbType.Boolean);
+                            DbParameter IsShipToP = provider.CreateParameter("IsShipTo", IsShipTo, DbType.Boolean);
 
                             DbParameter[] Params = new DbParameter[3] { CustomerIDP, CustomerCodeP, IsShipToP };
                             success = provider.Insert("ZDMS_UpdateCustomer", Params);

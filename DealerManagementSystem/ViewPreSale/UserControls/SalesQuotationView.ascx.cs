@@ -334,7 +334,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Competitor", Sqf));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = Results.Message;
+                lblMessageCompetitor.Text = Results.Message;
                 return;
             }
             lblMessage.Text = "Updated Successfully";
@@ -674,12 +674,53 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return Message;
         }
         protected void lblCompetitorRemove_Click(object sender, EventArgs e)
-        {
+        { 
+            lblMessage.Visible = true; 
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblSalesQuotationCompetitorID = (Label)gvRow.FindControl("lblSalesQuotationCompetitorID");
 
+            PSalesQuotationCompetitor Sqf = new PSalesQuotationCompetitor();
+            Sqf.SalesQuotationCompetitorID = Convert.ToInt64(lblSalesQuotationCompetitorID.Text); 
+            Sqf.Make = new PMake() {};
+            Sqf.ProductType = new PProductType() {};
+            Sqf.Product = new PProduct() {};
+
+            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Competitor", Sqf));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = "Updated Successfully"; 
+            lblMessage.ForeColor = Color.Green;
+            MPE_Competitor.Hide();
+            tbpCust.ActiveTabIndex = 2;
+            fillViewQuotation(Quotation.QuotationID); 
         }
         protected void lblNoteRemove_Click(object sender, EventArgs e)
         {
-
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblSalesQuotationNoteID = (Label)gvRow.FindControl("lblSalesQuotationNoteID");
+             
+            PSalesQuotationNote Sqf = new PSalesQuotationNote();
+            Sqf.SalesQuotationNoteID = Convert.ToInt64(lblSalesQuotationNoteID.Text); 
+            Sqf.Note = new PSalesQuotationNoteList() {}; 
+            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Note", Sqf));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.ForeColor = Color.Green;
+            MPE_Competitor.Hide();
+            tbpCust.ActiveTabIndex = 3;
+            fillViewQuotation(Quotation.QuotationID);
         }
         public void fillFinancier()
         {

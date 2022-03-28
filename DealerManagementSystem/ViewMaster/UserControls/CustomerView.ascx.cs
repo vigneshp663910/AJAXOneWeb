@@ -197,9 +197,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 fillCustomer(Customer.CustomerID);
             }
             else if (lbActions.Text == "Add ShipTo")
-            {
-
+            { 
                 Session["CustomerShipToID"] = 0;
+                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 ddlCountry.SelectedValue = "1";
                 new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                 MPE_ShipTo.Show();
@@ -211,15 +211,47 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 PDMS_CustomerShipTo ShipTo =   new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text),null)[0];
                 FillCustomerShipToEdit(ShipTo);
                 MPE_ShipTo.Show();
-                Session["CustomerShipToID"] = Convert.ToInt64(lblCustomerShipToID.Text);
+                Session["CustomerShipToID"] = Convert.ToInt64(lblCustomerShipToID.Text); 
             }
             else if (lbActions.Text == "In Activate ShipTo")
             {
-                
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
+                PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0]; 
+                ShipTo.IsActive = false;
+                ShipTo.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                fillShipTo(); 
             }
             else if (lbActions.Text == "Activate ShipTo")
             {
-               
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
+                PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
+                ShipTo.IsActive = true;
+                ShipTo.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                fillShipTo();
             }
             else if (lbActions.Text == "ShipTo Sync to Sap")
             {
@@ -932,12 +964,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PDMS_CustomerShipTo ShipTo = ReadShipTo();
-            ShipTo.CustomerShipToID = Convert.ToInt64(Session["CustomerShipToID"]);  
-
+            ShipTo.CustomerShipToID = Convert.ToInt64(Session["CustomerShipToID"]);
+            ShipTo.IsActive = true;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageFleet.Text = Results.Message;
+                lblMessageShipTo.Text = Results.Message;
                 return;
             }
             lblMessage.Text = Results.Message;

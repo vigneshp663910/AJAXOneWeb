@@ -56,7 +56,7 @@ namespace Properties
     public class PDMS_Region
     {
         public int RegionID { get; set; }
-        public string Region { get; set; } 
+        public string Region { get; set; }
         public PDMS_Country Country { get; set; }
     }
     [Serializable]
@@ -94,7 +94,6 @@ namespace Properties
         public string SalesOffice { get; set; }
         public string SalesGroup { get; set; }
         public string SalesOfficeDescription { get; set; }
-        public string SalesGroupDescription { get; set; } 
+        public string SalesGroupDescription { get; set; }
     }
-    
 }
