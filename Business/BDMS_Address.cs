@@ -334,6 +334,11 @@ namespace Business
                                 {
                                     CountryID = Convert.ToInt32(dr["CountryID"]),
                                     Country= Convert.ToString(dr["Country"])
+                                },
+                                SalesOffice = DBNull.Value == dr["SalesOfficeID"] ? null : new PSalesOffice()
+                                {
+                                    SalesOfficeID = Convert.ToInt32(dr["SalesOfficeID"]),
+                                    SalesOffice = Convert.ToString(dr["SalesOffice"])
                                 }
                             });
                         }
@@ -346,18 +351,19 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int DealerID, string District, string DistrictSAP,Boolean IsActive, int UserID)
+        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int DealerID, int SalesOfficeID, string District, string DistrictSAP,Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
             DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-            DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+            DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);            
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter SalesOfficeIDP = provider.CreateParameter("SalesOfficeID", SalesOfficeID, DbType.Int32);
             DbParameter DistrictP = provider.CreateParameter("District", District, DbType.String);
             DbParameter DistrictSAPP = provider.CreateParameter("DistrictSAP", string.IsNullOrEmpty(DistrictSAP) ? null : DistrictSAP, DbType.String);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[8] { DistrictIDP, CountryIDP, StateIDP, DealerIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[9] { DistrictIDP, CountryIDP, StateIDP, DealerIDP, SalesOfficeIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -590,6 +596,36 @@ namespace Business
             { }
             catch (Exception ex)
             { }
+        }
+        public List<PSalesOffice> GetSalesOffice(int? SalesOfficeID, string SalesOffice)
+        {
+            List<PSalesOffice> MML = new List<PSalesOffice>();
+            try
+            {
+                DbParameter SalesOfficeIDP = provider.CreateParameter("SalesOfficeID", SalesOfficeID, DbType.Int32);
+                DbParameter SalesOfficeP = provider.CreateParameter("SalesOffice", string.IsNullOrEmpty(SalesOffice) ? null : SalesOffice, DbType.String);
+
+                DbParameter[] Params = new DbParameter[2] { SalesOfficeIDP, SalesOfficeP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetSalesOffice", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PSalesOffice()
+                            {
+                                SalesOfficeID = Convert.ToInt32(dr["SalesOfficeID"]),
+                                SalesOffice = Convert.ToString(dr["SalesOffice"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return MML;
         }
     }
 }
