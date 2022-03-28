@@ -34,7 +34,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
+            new DDLBind(ddlState, State, "State", "StateID");
         }
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)

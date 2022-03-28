@@ -3,6 +3,16 @@
 
 <script type="text/javascript"> 
     $(function () {
+        $('#UCdiv0').click(function () {
+            document.getElementById('UCdiv0').style.display = "none";
+            document.getElementById('UCdiv1').style.display = "none";
+            document.getElementById('UCdiv2').style.display = "none";
+            document.getElementById('UCdiv3').style.display = "none";
+            document.getElementById('UCdiv4').style.display = "none";
+            document.getElementById('UCdiv5').style.display = "none";
+        });
+    });
+    $(function () {
         $('#UCdiv1').click(function () {
             var CustomerID = document.getElementById('lblCustomerID1')
             var CustomerName = document.getElementById('lblCustomerName1')
@@ -49,6 +59,14 @@
     });
     $('#txtEmail').watermark('Required information');
 
+
+    $("#txtCustomerName").change(function () {
+        debugger
+        alert("The text has been changed.");
+    });
+    function ShowID(obj) { 
+        document.getElementById('UCdivAuto').style.display = "none"; 
+    }
 </script>
 <style>
     .fieldset-borderAuto {
@@ -88,9 +106,13 @@
 
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Customer Name</label>
-                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver"
+                        AutoCompleteType="Disabled"></asp:TextBox>
                     <%--<div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">--%>
                     <div id="UCdivAuto" class="custom-auto-complete"> 
+                        <div id="UCdiv0" class="auto-item"   style="display: none"> 
+                            Click Here to now Customer
+                        </div> 
                         <div id="UCdiv1" class="auto-item"  style="display: none"> 
                         </div> 
                         <div id="UCdiv2" class="auto-item"  style="display: none">

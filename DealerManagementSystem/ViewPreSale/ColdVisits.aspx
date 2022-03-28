@@ -24,38 +24,39 @@
         });
 
         $(function () {
-            $("#MainContent_txtCustomer").autocomplete({
-                source: function (request, response) {
-                    debugger
-                    var param = { CustS: $('#MainContent_txtCustomer').val() };
-                    $.ajax({
-                        type: 'POST',
-                        contentType: "application/json; charset=utf-8",
-                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                        url: "ColdVisits.aspx/GetCustomer",
-                        data: JSON.stringify(param),
-                        dataType: 'JSON',
-                        success: function (data) {
-                            debugger
-                            document.getElementById('divAuto').style.display = "block";
-                            var n = 0;
-                            for (var i = 1; i <= 5; i++) {
-                                $(('#div' + i)).empty();
-                                document.getElementById('div' + i).style.display = "none";
-                            }
-                            $.map(data.d, function (item) {
-                                n = n + 1;
-                                document.getElementById('div' + n).style.display = "block";
-                                document.getElementById("div" + n).innerHTML = item;
-                            })
-                        },
-                        error: function () {
-                            alert("Error");
-                        }
-                    });
-                },
-                minLength: 3 //This is the Char length of inputTextBox    
-            });
+            //$("#MainContent_txtCustomer").autocomplete({
+            //    source: function (request, response) {
+            //        debugger
+            //        var param = { CustS: $('#MainContent_txtCustomer').val() };
+            //        $.ajax({
+            //            type: 'POST',
+            //            contentType: "application/json; charset=utf-8",
+            //            /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
+            //            url: "ColdVisits.aspx/GetCustomer",
+            //            data: JSON.stringify(param),
+            //            dataType: 'JSON',
+            //            success: function (data) {
+            //                debugger
+            //                document.getElementById('divAuto').style.display = "block";
+            //                var n = 0;
+            //                for (var i = 1; i <= 5; i++) {
+            //                    $(('#div' + i)).empty();
+            //                    document.getElementById('div' + i).style.display = "none";
+            //                }
+            //                $.map(data.d, function (item) {
+            //                    n = n + 1;
+            //                    document.getElementById('div' + n).style.display = "block";
+            //                    document.getElementById("div" + n).innerHTML = item;
+            //                })
+
+            //            },
+            //            error: function () {
+            //                alert("Error");
+            //            }
+            //        });
+            //    },
+            //    minLength: 3 //This is the Char length of inputTextBox    
+            //});
             $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
                 source: function (request, response) {
                     debugger
@@ -79,6 +80,10 @@
                                 document.getElementById('UCdiv' + n).style.display = "block";
                                 document.getElementById("UCdiv" + n).innerHTML = item;
                             })
+                            if (n == 0)
+                                document.getElementById('UCdiv0').style.display = "none";
+                            else
+                                document.getElementById('UCdiv0').style.display = "block";
                         },
                         error: function () {
                             alert("Error");
@@ -197,7 +202,7 @@
                 document.getElementById('divCustomerCreateID').style.display = "block";
             });
         });
-
+ 
     </script>
     <style>
         .fieldset-borderAuto {

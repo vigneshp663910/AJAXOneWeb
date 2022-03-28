@@ -199,6 +199,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             else if (lbActions.Text == "Add ShipTo")
             { 
                 Session["CustomerShipToID"] = 0;
+                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 ddlCountry.SelectedValue = "1";
                 new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                 MPE_ShipTo.Show();
