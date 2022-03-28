@@ -1352,14 +1352,14 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                string State = ((TextBox)gvState.FooterRow.FindControl("txtGRState")).Text.Trim();
+                string State = ((TextBox)gvState.FooterRow.FindControl("txtGSState")).Text.Trim();
                 if (string.IsNullOrEmpty(State))
                 {
                     lblMessage.Text = "Please enter State.";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                string StateCode = ((TextBox)gvState.FooterRow.FindControl("txtGRStateCode")).Text.Trim();
+                string StateCode = ((TextBox)gvState.FooterRow.FindControl("txtGSStateCode")).Text.Trim();
                 if (string.IsNullOrEmpty(State))
                 {
                     lblMessage.Text = "Please enter State Code.";
