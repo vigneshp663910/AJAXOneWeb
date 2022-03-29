@@ -294,7 +294,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
 
-            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
+            if (MaterialTax.SGST!=0)
             {
                 MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
                 MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
@@ -317,7 +317,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //  Quotation.QuotationItems = Item;
             MPE_Product.Hide();
             tbpSaleQuotation.ActiveTabIndex = 1;
-            fillProduct();
+            fillViewQuotation(Quotation.QuotationID);
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
@@ -1185,7 +1185,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.CGST, item.CGSTValue, item.SGST, item.SGSTValue);
+                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.SGST, item.TaxableValue*item.SGST/100, item.SGST, item.TaxableValue * item.SGST / 100);
                         TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
                         TCSSubTotal = Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
