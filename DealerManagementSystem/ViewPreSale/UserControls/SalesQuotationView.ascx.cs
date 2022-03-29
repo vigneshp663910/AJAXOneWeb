@@ -791,6 +791,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void GenerateQuotation()
         {
+            lblMessage.Text = "";
             PSalesQuotation Q = Quotation;
             List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
             string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
@@ -807,23 +808,44 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
                 if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
             }
-            DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts);
-            lblMessage.Text = "";
-            foreach (DataRow dr in DtResult.Rows)
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+            if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+            if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+            if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+            if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+            if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+            if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+            if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+            if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
+
+            if (Q.QuotationItems.Count > 0 && leadProducts.Count>0 && Q.Competitor.Count>0) 
             {
-                if (dr["Type"].ToString() == "S")
+                DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts);
+                foreach (DataRow dr in DtResult.Rows)
                 {
-                    lblMessage.Text = dr["Message"].ToString();
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Green;
-                }
-                else
-                {
-                    lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
+                    if (dr["Type"].ToString() == "S")
+                    {
+                        lblMessage.Text = dr["Message"].ToString();
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                    }
                 }
             }
+            else
+            {
+                lblMessage.Text ="Quotation Not Generated Successfully...!";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+            }
+
+            
         }
         void GeneratePDF()
         {
