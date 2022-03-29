@@ -79,7 +79,7 @@ namespace DealerManagementSystem.ViewService
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
                 new BDMS_TypeOfWarranty().GetTypeOfWarrantyDDL(ddlTypeOfWarranty, null, null);
-                new BDMS_Model().GetTypeOfWarrantyDDL(ddlModelID, null, null);
+                new BDMS_Model().GetTypeOfWarrantyDDL(ddlModelID, null, null, null);
                 //   ICTicketStatus = new BDMS_ICTicketTSIR().GetTSIRStatus(null, null);
                 new BDMS_ICTicketTSIR().GetTSIRStatusDDL(ddlTsirStatus, null, null);
             }
