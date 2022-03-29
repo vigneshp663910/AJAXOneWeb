@@ -171,6 +171,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 PrintTaxQuotation();
             }
+            else if (lbActions.Text == "Add Visit")
+            {
+                MPE_Visit.Show();
+                new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+                new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
+            }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
@@ -261,39 +267,48 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-            PDMS_ServiceMaterial MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
+            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
 
-            if (MaterialTax.BasePrice <= 0)
+
+
+            if (MaterialTax.Rate <= 0)
             {
                 lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
                 return;
             }
 
-            PSalesQuotationItem Item = new PSalesQuotationItem();
-            Item.SalesQuotationID = Quotation.QuotationID;
-            Item.Material = new PDMS_Material();
-            Item.Material.MaterialCode = MM.MaterialCode;
-            Item.Material.MaterialID = MM.MaterialID;
+            //PSalesQuotationItem Item = new PSalesQuotationItem();
+            MaterialTax.SalesQuotationID = Quotation.QuotationID;
+            MaterialTax.Material = new PDMS_Material();
+            MaterialTax.Material.MaterialCode = MM.MaterialCode;
+            MaterialTax.Material.MaterialID = MM.MaterialID;
             //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-            Item.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
-            Item.Qty = Convert.ToInt32(txtQty.Text);
-            Item.Rate = MaterialTax.BasePrice;
-            decimal P = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text));
-            decimal Discount = P * Convert.ToDecimal(txtDiscount.Text) / 100;
-            Item.Discount = Discount;
+            MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+            MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
+            //MaterialTax.Rate = MaterialTax.Rate;
+            decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
 
-            Item.TaxableValue = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text)) - Discount;
+            Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
+            MaterialTax.Discount = (Discount > 0) ? P * (Discount / 100) : 0;
 
-            Item.CGST = MaterialTax.SGST;
-            Item.SGST = MaterialTax.SGST;
-            Item.IGST = MaterialTax.IGST;
-            Item.CGSTValue = MaterialTax.SGSTValue;
-            Item.SGSTValue = MaterialTax.SGSTValue;
-            Item.IGSTValue = MaterialTax.IGSTValue;
-            Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
+            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
+            {
+                MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                MaterialTax.IGSTValue = 0;
+            }
+            else
+            {
+                MaterialTax.CGSTValue = 0;
+                MaterialTax.SGSTValue = 0;
+                MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
+            }
+            MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
@@ -613,6 +628,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
 
             fillShifTo();
+            fillVisit();
         }
         public string ValidationFinancier()
         {
@@ -967,8 +983,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 decimal GrandTotal = 0;
                 for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
-                    GrandTotal = Q.QuotationItems[i].NetValue;
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].Qty* Q.QuotationItems[i].Rate);
+                    GrandTotal = Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate;
                     P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                     P[17] = new ReportParameter("TotalAmount", GrandTotal.ToString(), false);
                 }
@@ -1304,6 +1320,79 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 tbpSaleQuotation.Tabs[6].Visible = false;
             }
+        }
+
+        protected void btnSaveVisit_Click(object sender, EventArgs e)
+        {
+            MPE_Visit.Show();
+            PColdVisit ColdVisitList = new PColdVisit();
+            lblMessageColdVisit.ForeColor = Color.Red;
+            lblMessageColdVisit.Visible = true;
+            string Message = "";
+
+            Message = ValidationColdVisit();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageColdVisit.Text = Message;
+                return;
+            }
+            ColdVisitList.Customer = new PDMS_Customer() { CustomerID = Quotation.Lead.Customer.CustomerID };
+            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+            ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+            ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.Remark = txtVisitRemark.Text.Trim();
+            ColdVisitList.Location = txtLocation.Text.Trim();
+            ColdVisitList.ReferenceID = Quotation.QuotationID;
+            ColdVisitList.ReferenceTableID = 2;
+            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit", ColdVisitList));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageColdVisit.Text = Results.Message;
+                return;
+            }
+
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Text = Results.Message;
+            MPE_Visit.Hide();
+            fillVisit();
+        }
+        void fillVisit()
+        {
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Quotation.QuotationID);
+            gvVisit.DataSource = Visit;
+            gvVisit.DataBind();
+        }
+        public string ValidationColdVisit()
+        {
+            string Message = "";
+            txtColdVisitDate.BorderColor = Color.Silver;
+            txtVisitRemark.BorderColor = Color.Silver;
+            ddlActionType.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+            {
+                Message = "Please enter the Cold Visit Date";
+                txtColdVisitDate.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
+                Message = Message + "Please enter the Location";
+                txtLocation.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtVisitRemark.Text.Trim()))
+            {
+                Message = Message + "Please enter the Remark";
+                txtVisitRemark.BorderColor = Color.Red;
+            }
+
+            else if (ddlActionType.SelectedValue == "0")
+            {
+                Message = Message + "Please select the Action Type";
+                ddlActionType.BorderColor = Color.Red;
+            }
+            return Message;
         }
     }
 }

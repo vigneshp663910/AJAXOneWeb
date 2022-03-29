@@ -56,10 +56,8 @@ namespace DealerManagementSystem.ViewPreSale
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-            int? DistrictID = null;
-
-
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
+            
+            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
             gvLead.DataSource = Leads;
             gvLead.DataBind();
         }
@@ -130,7 +128,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "Customer is updated successfully ";
             }
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null);
+            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null);
             gvLead.DataSource = Leads;
             gvLead.DataBind();
             UC_Customer.FillClean();
@@ -150,7 +148,7 @@ namespace DealerManagementSystem.ViewPreSale
             else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
                 Message = Message + "Please enter the Location";
-                txtRemark.BorderColor = Color.Red;
+                txtLocation.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             {
