@@ -261,39 +261,48 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-            PDMS_ServiceMaterial MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
+            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
 
-            if (MaterialTax.BasePrice <= 0)
+
+
+            if (MaterialTax.Rate <= 0)
             {
                 lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
                 return;
             }
 
-            PSalesQuotationItem Item = new PSalesQuotationItem();
-            Item.SalesQuotationID = Quotation.QuotationID;
-            Item.Material = new PDMS_Material();
-            Item.Material.MaterialCode = MM.MaterialCode;
-            Item.Material.MaterialID = MM.MaterialID;
+            //PSalesQuotationItem Item = new PSalesQuotationItem();
+            MaterialTax.SalesQuotationID = Quotation.QuotationID;
+            MaterialTax.Material = new PDMS_Material();
+            MaterialTax.Material.MaterialCode = MM.MaterialCode;
+            MaterialTax.Material.MaterialID = MM.MaterialID;
             //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-            Item.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
-            Item.Qty = Convert.ToInt32(txtQty.Text);
-            Item.Rate = MaterialTax.BasePrice;
-            decimal P = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text));
-            decimal Discount = P * Convert.ToDecimal(txtDiscount.Text) / 100;
-            Item.Discount = Discount;
+            MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+            MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
+            //MaterialTax.Rate = MaterialTax.Rate;
+            decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
 
-            Item.TaxableValue = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text)) - Discount;
+            Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
+            MaterialTax.Discount=(Discount > 0) ? P * (Discount / 100):0;
 
-            Item.CGST = MaterialTax.SGST;
-            Item.SGST = MaterialTax.SGST;
-            Item.IGST = MaterialTax.IGST;
-            Item.CGSTValue = MaterialTax.SGSTValue;
-            Item.SGSTValue = MaterialTax.SGSTValue;
-            Item.IGSTValue = MaterialTax.IGSTValue;
-            Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text))-Convert.ToDecimal(MaterialTax.Discount);
 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
+            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
+            {
+                MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                MaterialTax.IGSTValue = 0;
+            }
+            else
+            {
+                MaterialTax.CGSTValue = 0;
+                MaterialTax.SGSTValue = 0;
+                MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
+            }
+            MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
@@ -674,18 +683,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return Message;
         }
         protected void lblCompetitorRemove_Click(object sender, EventArgs e)
-        { 
-            lblMessage.Visible = true; 
+        {
+            lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblSalesQuotationCompetitorID = (Label)gvRow.FindControl("lblSalesQuotationCompetitorID");
 
             PSalesQuotationCompetitor Sqf = new PSalesQuotationCompetitor();
-            Sqf.SalesQuotationCompetitorID = Convert.ToInt64(lblSalesQuotationCompetitorID.Text); 
-            Sqf.Make = new PMake() {};
-            Sqf.ProductType = new PProductType() {};
-            Sqf.Product = new PProduct() {};
+            Sqf.SalesQuotationCompetitorID = Convert.ToInt64(lblSalesQuotationCompetitorID.Text);
+            Sqf.Make = new PMake() { };
+            Sqf.ProductType = new PProductType() { };
+            Sqf.Product = new PProduct() { };
 
-            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Competitor", Sqf));
             if (Results.Status == PApplication.Failure)
             {
@@ -693,22 +702,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            lblMessage.Text = "Updated Successfully"; 
+            lblMessage.Text = "Updated Successfully";
             lblMessage.ForeColor = Color.Green;
             MPE_Competitor.Hide();
             tbpCust.ActiveTabIndex = 2;
-            fillViewQuotation(Quotation.QuotationID); 
+            fillViewQuotation(Quotation.QuotationID);
         }
         protected void lblNoteRemove_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblSalesQuotationNoteID = (Label)gvRow.FindControl("lblSalesQuotationNoteID");
-             
+
             PSalesQuotationNote Sqf = new PSalesQuotationNote();
-            Sqf.SalesQuotationNoteID = Convert.ToInt64(lblSalesQuotationNoteID.Text); 
-            Sqf.Note = new PSalesQuotationNoteList() {}; 
-            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            Sqf.SalesQuotationNoteID = Convert.ToInt64(lblSalesQuotationNoteID.Text);
+            Sqf.Note = new PSalesQuotationNoteList() { };
+            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Note", Sqf));
             if (Results.Status == PApplication.Failure)
             {
@@ -908,9 +917,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string MaterialText = string.Empty;
                 try
                 {
-                    MaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508         AJF GT");                    
+                    MaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508         AJF GT");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     lblMessage.Text = ex.Message.ToString();
                     lblMessage.Visible = true;
@@ -939,7 +948,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
                     P[29] = new ReportParameter("TCSTaxTerms", "", false);
                 }
-                
+
                 if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
                 {
                     P[30] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
@@ -951,7 +960,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[31] = new ReportParameter("ErectionCommissoning", "", false);
                 }
 
-                
+
 
                 P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);

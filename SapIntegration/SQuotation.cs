@@ -18,7 +18,7 @@ namespace SapIntegration
             {
                 tagListBapi.SetValue("QUOTATION_NO", pSalesQuotation.QuotationNo);
             }
-            if (pSalesQuotation.ShipTo.CustomerCode != null)
+            if (pSalesQuotation.ShipTo != null)
             {
                 tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
             }
@@ -155,12 +155,16 @@ namespace SapIntegration
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
             return dtRet;
         }
-        public PDMS_ServiceMaterial getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty)
+        public PSalesQuotationItem getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty)
         {
-            PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial();
 
+            PSalesQuotationItem Material = new PSalesQuotationItem();
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_QUO");
-            tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(10, '0'));
+            tagListBapi.SetValue("DOC_TYPE", "ZMQT");
+            tagListBapi.SetValue("SALES_ORG", "AJF");
+            tagListBapi.SetValue("DISTR_CHAN", "GT");
+            tagListBapi.SetValue("DIVISION", "CM");
+            tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(6, '0'));
 
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
             long n;
@@ -170,8 +174,8 @@ namespace SapIntegration
             }
 
             IT_SO_ITEMS.Append();
-            IT_SO_ITEMS.SetValue("ITEM_NO", 000010);
-            IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);
+            IT_SO_ITEMS.SetValue("ITEM_NO", "000010");
+            IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);//"L.900.508"
             //IT_SO_ITEMS.SetValue("QUANTITY", Quantity);
 
 
@@ -183,27 +187,27 @@ namespace SapIntegration
             {
                 tagTable.CurrentIndex = i;
                 ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
-                if ((ConditionType == "ZOSG") || (ConditionType == "JOSG"))
+                if ((ConditionType == "JOCG") || (ConditionType == "JOSG"))
                 {
                     Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
                     Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                 }
-                else if (ConditionType == "ZOIG")
+                else if (ConditionType == "JOIG")
                 {
                     Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
                     Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                 }
-                else if ((ConditionType == "ZPRP") || (ConditionType == "ZASS"))
+                else if ((ConditionType == "ZAEP") || (ConditionType == "ZASS"))
                 {
                     if (IsWarrenty)
                     {
                         if (ConditionType == "ZASS")
-                            Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                            Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                     }
                     else
                     {
-                        if (ConditionType == "ZPRP")
-                            Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                        if (ConditionType == "ZAEP")
+                            Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                     }
                 }
             }
