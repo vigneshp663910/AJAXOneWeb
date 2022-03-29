@@ -86,6 +86,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillProduct();
             fillQuestionaries();
             ActionControlMange();
+            fillVisit();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -97,7 +98,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Convert to Prospect")
             {
-                string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=4" + "&UserID=" + PSession.User.UserID;
+                string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)); 
                 ShowMessage(Results);
                 if (Results.Status == PApplication.Failure)
@@ -190,6 +191,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 new DDLBind(ddlQuestionariesMain, new BLead().GetLeadQuestionariesMain(null, null), "LeadQuestionariesMain", "LeadQuestionariesMainID");
                 MPE_Questionaries.Show();
+            }
+            else if (lbActions.Text == "Add Visit")
+            {
+                MPE_Visit.Show(); 
+                new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+                new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
             }
         }  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
@@ -431,10 +438,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void fillProduct()
         {
             gvProduct.DataSource = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
-            gvProduct.DataBind();
-            
-           
-
+            gvProduct.DataBind(); 
         }
         void fillLeadEdit()
         {
@@ -841,6 +845,79 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             fillQuestionaries();
 
+        }
+
+        protected void btnSaveVisit_Click(object sender, EventArgs e)
+        {
+            MPE_Visit.Show();
+            PColdVisit ColdVisitList = new PColdVisit();
+            lblMessageColdVisit.ForeColor = Color.Red;
+            lblMessageColdVisit.Visible = true;
+            string Message = "";
+
+            Message = ValidationColdVisit();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageColdVisit.Text = Message;
+                return;
+            } 
+            ColdVisitList.Customer = new PDMS_Customer() { CustomerID = Lead.Customer.CustomerID };
+            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+            ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+            ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.Remark = txtVisitRemark.Text.Trim();
+            ColdVisitList.Location = txtLocation.Text.Trim();
+            ColdVisitList.ReferenceID = Lead.LeadID;
+            ColdVisitList.ReferenceTableID = 1;
+            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID }; 
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit", ColdVisitList));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageQuestionaries.Text = Results.Message;
+                return;
+            }
+
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Text = Results.Message;
+            MPE_Visit.Hide();
+            fillVisit();
+        }
+        void fillVisit()
+        {
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 1, Lead.LeadID);
+            gvVisit.DataSource = Visit;
+            gvVisit.DataBind(); 
+        }
+        public string ValidationColdVisit()
+        {
+            string Message = "";
+            txtColdVisitDate.BorderColor = Color.Silver;
+            txtVisitRemark.BorderColor = Color.Silver;
+            ddlActionType.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+            {
+                Message = "Please enter the Cold Visit Date";
+                txtColdVisitDate.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
+                Message = Message + "Please enter the Location";
+                txtLocation.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtVisitRemark.Text.Trim()))
+            {
+                Message = Message + "Please enter the Remark";
+                txtVisitRemark.BorderColor = Color.Red;
+            }
+
+            else if (ddlActionType.SelectedValue == "0")
+            {
+                Message = Message + "Please select the Action Type";
+                ddlActionType.BorderColor = Color.Red;
+            }
+            return Message;
         }
     }
 }

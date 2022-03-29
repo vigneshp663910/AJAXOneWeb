@@ -51,7 +51,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 try
                 {
-                    new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionCode", "DivisionID", true, "Select Division");
+                    new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
                     GetDivision();
                     GetMaterailModel();
                     //GetMaterial();
@@ -90,17 +90,16 @@ namespace DealerManagementSystem.ViewMaster
         {
             int? MaterailID = (int?)null;
             string Materail = (string)null;
+            int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
 
-            List<PDMS_Model> materailModel = new BDMS_Model().GetModel(MaterailID, Materail);
-            gvMaterailModel.DataSource = materailModel;
-            gvMaterailModel.DataBind();
+            List<PDMS_Model> materailModel = new BDMS_Model().GetModel(MaterailID, Materail, DivisionID); 
             if (materailModel.Count == 0)
             {
                 PDMS_Model pMaterailModel = new PDMS_Model();
-                materailModel.Add(pMaterailModel);
-                gvDivision.DataSource = materailModel;
-                gvDivision.DataBind();
+                materailModel.Add(pMaterailModel); 
             }
+            gvMaterailModel.DataSource = materailModel;
+            gvMaterailModel.DataBind();
         }
 
         protected void gvMaterailModel_PageIndexChanging(object sender, GridViewPageEventArgs e)

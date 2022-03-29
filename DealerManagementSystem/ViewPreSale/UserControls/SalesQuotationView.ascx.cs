@@ -171,6 +171,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 PrintTaxQuotation();
             }
+            else if (lbActions.Text == "Add Visit")
+            {
+                MPE_Visit.Show();
+                new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+                new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
+            }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
@@ -288,7 +294,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
 
-            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
+            if (MaterialTax.SGST!=0)
             {
                 MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
                 MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
@@ -311,7 +317,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //  Quotation.QuotationItems = Item;
             MPE_Product.Hide();
             tbpSaleQuotation.ActiveTabIndex = 1;
-            fillProduct();
+            fillViewQuotation(Quotation.QuotationID);
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
@@ -622,6 +628,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
 
             fillShifTo();
+            fillVisit();
         }
         public string ValidationFinancier()
         {
@@ -976,8 +983,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 decimal GrandTotal = 0;
                 for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
-                    GrandTotal = Q.QuotationItems[i].NetValue;
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].Qty* Q.QuotationItems[i].Rate);
+                    GrandTotal = Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate;
                     P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                     P[17] = new ReportParameter("TotalAmount", GrandTotal.ToString(), false);
                 }
@@ -1178,7 +1185,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.CGST, item.CGSTValue, item.SGST, item.SGSTValue);
+                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.SGST, item.TaxableValue*item.SGST/100, item.SGST, item.TaxableValue * item.SGST / 100);
                         TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
                         TCSSubTotal = Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
@@ -1313,6 +1320,79 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 tbpSaleQuotation.Tabs[6].Visible = false;
             }
+        }
+
+        protected void btnSaveVisit_Click(object sender, EventArgs e)
+        {
+            MPE_Visit.Show();
+            PColdVisit ColdVisitList = new PColdVisit();
+            lblMessageColdVisit.ForeColor = Color.Red;
+            lblMessageColdVisit.Visible = true;
+            string Message = "";
+
+            Message = ValidationColdVisit();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageColdVisit.Text = Message;
+                return;
+            }
+            ColdVisitList.Customer = new PDMS_Customer() { CustomerID = Quotation.Lead.Customer.CustomerID };
+            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+            ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+            ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.Remark = txtVisitRemark.Text.Trim();
+            ColdVisitList.Location = txtLocation.Text.Trim();
+            ColdVisitList.ReferenceID = Quotation.QuotationID;
+            ColdVisitList.ReferenceTableID = 2;
+            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit", ColdVisitList));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageColdVisit.Text = Results.Message;
+                return;
+            }
+
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Text = Results.Message;
+            MPE_Visit.Hide();
+            fillVisit();
+        }
+        void fillVisit()
+        {
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Quotation.QuotationID);
+            gvVisit.DataSource = Visit;
+            gvVisit.DataBind();
+        }
+        public string ValidationColdVisit()
+        {
+            string Message = "";
+            txtColdVisitDate.BorderColor = Color.Silver;
+            txtVisitRemark.BorderColor = Color.Silver;
+            ddlActionType.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+            {
+                Message = "Please enter the Cold Visit Date";
+                txtColdVisitDate.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
+                Message = Message + "Please enter the Location";
+                txtLocation.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtVisitRemark.Text.Trim()))
+            {
+                Message = Message + "Please enter the Remark";
+                txtVisitRemark.BorderColor = Color.Red;
+            }
+
+            else if (ddlActionType.SelectedValue == "0")
+            {
+                Message = Message + "Please select the Action Type";
+                ddlActionType.BorderColor = Color.Red;
+            }
+            return Message;
         }
     }
 }
