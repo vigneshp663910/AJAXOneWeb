@@ -261,39 +261,48 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-            PDMS_ServiceMaterial MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
+            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
 
-            if (MaterialTax.BasePrice <= 0)
+
+
+            if (MaterialTax.Rate <= 0)
             {
                 lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
                 return;
             }
 
-            PSalesQuotationItem Item = new PSalesQuotationItem();
-            Item.SalesQuotationID = Quotation.QuotationID;
-            Item.Material = new PDMS_Material();
-            Item.Material.MaterialCode = MM.MaterialCode;
-            Item.Material.MaterialID = MM.MaterialID;
+            //PSalesQuotationItem Item = new PSalesQuotationItem();
+            MaterialTax.SalesQuotationID = Quotation.QuotationID;
+            MaterialTax.Material = new PDMS_Material();
+            MaterialTax.Material.MaterialCode = MM.MaterialCode;
+            MaterialTax.Material.MaterialID = MM.MaterialID;
             //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-            Item.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
-            Item.Qty = Convert.ToInt32(txtQty.Text);
-            Item.Rate = MaterialTax.BasePrice;
-            decimal P = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text));
-            decimal Discount = P * Convert.ToDecimal(txtDiscount.Text) / 100;
-            Item.Discount = Discount;
+            MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+            MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
+            //MaterialTax.Rate = MaterialTax.Rate;
+            decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
 
-            Item.TaxableValue = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text)) - Discount;
+            Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
+            MaterialTax.Discount = (Discount > 0) ? P * (Discount / 100) : 0;
 
-            Item.CGST = MaterialTax.SGST;
-            Item.SGST = MaterialTax.SGST;
-            Item.IGST = MaterialTax.IGST;
-            Item.CGSTValue = MaterialTax.SGSTValue;
-            Item.SGSTValue = MaterialTax.SGSTValue;
-            Item.IGSTValue = MaterialTax.IGSTValue;
-            Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
+            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
+            {
+                MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                MaterialTax.IGSTValue = 0;
+            }
+            else
+            {
+                MaterialTax.CGSTValue = 0;
+                MaterialTax.SGSTValue = 0;
+                MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
+            }
+            MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
@@ -967,7 +976,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 decimal GrandTotal = 0;
                 for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
                     GrandTotal = Q.QuotationItems[i].NetValue;
                     P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                     P[17] = new ReportParameter("TotalAmount", GrandTotal.ToString(), false);

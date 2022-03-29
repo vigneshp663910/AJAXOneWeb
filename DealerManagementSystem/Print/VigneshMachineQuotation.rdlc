@@ -1472,16 +1472,16 @@ Yours faithfully,</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.80066cm</Width>
+                  <Width>10.0803cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.94254cm</Width>
+                  <Width>2.30093cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.89504cm</Width>
+                  <Width>2.45967cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.92691cm</Width>
+                  <Width>2.72426cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1503,7 +1503,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
@@ -1535,7 +1537,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox6</rd:DefaultName>
@@ -1567,7 +1571,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox8</rd:DefaultName>
@@ -1599,7 +1605,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox10</rd:DefaultName>
@@ -1690,7 +1698,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox7</rd:DefaultName>
@@ -1722,7 +1732,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox9</rd:DefaultName>
@@ -1754,7 +1766,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox11</rd:DefaultName>
