@@ -13,32 +13,32 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
                     <div class="col-md-12">
 
-                       <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date From</label>  
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp1:CalendarExtender>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp1:TextBoxWatermarkExtender>
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date To</label> 
+                            <label class="modal-label">Date To</label>
                             <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <asp1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp1:TextBoxWatermarkExtender>
                         </div>
 
-                       <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer</label> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Mobile</label> 
+                            <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Country</label> 
+                            <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" />
                         </div>
 
@@ -134,7 +134,7 @@
 
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
+                   </div></div></div><div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">
@@ -149,7 +149,7 @@
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
 
-    <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
+ <%--   <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
@@ -180,7 +180,7 @@
                         <div id="divChangeCustomer">
                             <label>Change Customer</label> </div></fieldset> </div><%--  <div id="divCustomerCreateID">
                     <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-                </div>--%><fieldset class="fieldset-border">
+                </div><fieldset class="fieldset-border">
                     <div class="col-md-12">
 
                         <div class="col-md-6 col-sm-12">
@@ -196,6 +196,7 @@
             </div>
         </div>
     </asp:Panel>
-    <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />--%>
+
 
 </asp:Content>

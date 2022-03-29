@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Quotation');</script>");
 
             lblMessage.Text = "";
-            lblMessageColdVisit.Text = "";
+            //lblMessageColdVisit.Text = "";
 
             if (!IsPostBack)
             {
@@ -76,88 +76,88 @@ namespace DealerManagementSystem.ViewPreSale
             gvQuotation.DataSource = Quotations;
             gvQuotation.DataBind();
         }
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            MPE_Customer.Show();
-            PColdVisit ColdVisitList = new PColdVisit();
-            lblMessageColdVisit.ForeColor = Color.Red;
-            lblMessageColdVisit.Visible = true;
-            string Message = ""; 
-            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
-            {
-                ColdVisitList.Customer = new PDMS_Customer();
-                ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
-            }
-            else
-            {
-                //Message = UC_Customer.ValidationCustomer();
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    MPE_Customer.Show();
+        //    PColdVisit ColdVisitList = new PColdVisit();
+        //    lblMessageColdVisit.ForeColor = Color.Red;
+        //    lblMessageColdVisit.Visible = true;
+        //    string Message = ""; 
+        //    if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+        //    {
+        //        ColdVisitList.Customer = new PDMS_Customer();
+        //        ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+        //    }
+        //    else
+        //    {
+        //        //Message = UC_Customer.ValidationCustomer();
 
-                //if (!string.IsNullOrEmpty(Message))
-                //{
-                //    lblMessageColdVisit.Text = Message;
-                //    return;
-                //}
-                //ColdVisitList.Customer = UC_Customer.ReadCustomer();
-            }
+        //        //if (!string.IsNullOrEmpty(Message))
+        //        //{
+        //        //    lblMessageColdVisit.Text = Message;
+        //        //    return;
+        //        //}
+        //        //ColdVisitList.Customer = UC_Customer.ReadCustomer();
+        //    }
 
-            Message = ValidationColdVisit();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageColdVisit.Text = Message;
-                return;
-            }
+        //    Message = ValidationColdVisit();
+        //    if (!string.IsNullOrEmpty(Message))
+        //    {
+        //        lblMessageColdVisit.Text = Message;
+        //        return;
+        //    }
 
-            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
-            ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
-            ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
-            ColdVisitList.Remark = txtRemark.Text.Trim();
+        //    ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+        //    ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+        //    ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+        //    ColdVisitList.Remark = txtRemark.Text.Trim();
 
-            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
-            string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
+        //    ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
+        //    string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
 
-            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-            if (result == "0")
-            {
-                MPE_Customer.Show();
-                lblMessageColdVisit.Text = "Customer is not updated successfully ";
-                return;
-            }
-            else
-            {
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Text = "Customer is updated successfully ";
-            }
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null);
-            gvQuotation.DataSource = Leads;
-            gvQuotation.DataBind();
-           // UC_Customer.FillClean();
-            MPE_Customer.Hide();
-        }
-        public string ValidationColdVisit()
-        {
-            string Message = "";
-            txtColdVisitDate.BorderColor = Color.Silver;
-            txtRemark.BorderColor = Color.Silver;
-            ddlActionType.BorderColor = Color.Silver;
-            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
-            {
-                Message = "Please enter the Cold Visit Date";
-                txtColdVisitDate.BorderColor = Color.Red;
-            }
-            if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Remark";
-                txtRemark.BorderColor = Color.Red;
-            }
+        //    result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+        //    if (result == "0")
+        //    {
+        //        MPE_Customer.Show();
+        //        lblMessageColdVisit.Text = "Customer is not updated successfully ";
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.ForeColor = Color.Green;
+        //        lblMessage.Text = "Customer is updated successfully ";
+        //    }
+        //    List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null);
+        //    gvQuotation.DataSource = Leads;
+        //    gvQuotation.DataBind();
+        //   // UC_Customer.FillClean();
+        //    MPE_Customer.Hide();
+        //}
+        //public string ValidationColdVisit()
+        //{
+        //    string Message = "";
+        //    txtColdVisitDate.BorderColor = Color.Silver;
+        //    txtRemark.BorderColor = Color.Silver;
+        //    ddlActionType.BorderColor = Color.Silver;
+        //    if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+        //    {
+        //        Message = "Please enter the Cold Visit Date";
+        //        txtColdVisitDate.BorderColor = Color.Red;
+        //    }
+        //    if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please enter the Remark";
+        //        txtRemark.BorderColor = Color.Red;
+        //    }
 
-            if (ddlActionType.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Action Type";
-                ddlActionType.BorderColor = Color.Red;
-            }
-            return Message;
-        }
+        //    if (ddlActionType.SelectedValue == "0")
+        //    {
+        //        Message = Message + "<br/>Please select the Action Type";
+        //        ddlActionType.BorderColor = Color.Red;
+        //    }
+        //    return Message;
+        //}
          
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
@@ -179,13 +179,13 @@ namespace DealerManagementSystem.ViewPreSale
             divList.Visible = true;
         }
 
-        protected void btnAddColdVisit_Click(object sender, EventArgs e)
-        {
-            MPE_Customer.Show();
-            //UC_Customer.FillMaster();
-            new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
-            new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
-        }
+        //protected void btnAddColdVisit_Click(object sender, EventArgs e)
+        //{
+        //    MPE_Customer.Show();
+        //    //UC_Customer.FillMaster();
+        //    new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+        //    new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
+        //}
         
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

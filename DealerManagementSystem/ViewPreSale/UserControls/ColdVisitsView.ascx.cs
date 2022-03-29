@@ -54,7 +54,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             this.ColdVisitID = ColdVisitID;
 
-            ColdVisit = new BColdVisit().GetColdVisit(ColdVisitID,null, null, null, null, null, null, null, null, null)[0];
+            ColdVisit = new BColdVisit().GetColdVisit(ColdVisitID,null, null, null, null, null, null, null, null, null, null)[0];
             lblLeadNumber.Text = ColdVisit.ColdVisitNumber;
             lblLeadDate.Text = ColdVisit.ColdVisitDate.ToShortDateString();// Convert.ToString(Lead.ColdVisitDate); 
                                                                            //  lblRemarks.Text = ColdVisit.Remarks; 

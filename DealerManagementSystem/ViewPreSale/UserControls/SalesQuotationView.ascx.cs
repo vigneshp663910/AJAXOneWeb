@@ -171,6 +171,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 PrintTaxQuotation();
             }
+            else if (lbActions.Text == "Add Visit")
+            {
+                MPE_Visit.Show();
+                new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+                new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
+            }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
@@ -613,6 +619,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
 
             fillShifTo();
+            fillVisit();
         }
         public string ValidationFinancier()
         {
@@ -1304,6 +1311,79 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 tbpSaleQuotation.Tabs[6].Visible = false;
             }
+        }
+
+        protected void btnSaveVisit_Click(object sender, EventArgs e)
+        {
+            MPE_Visit.Show();
+            PColdVisit ColdVisitList = new PColdVisit();
+            lblMessageColdVisit.ForeColor = Color.Red;
+            lblMessageColdVisit.Visible = true;
+            string Message = "";
+
+            Message = ValidationColdVisit();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageColdVisit.Text = Message;
+                return;
+            }
+            ColdVisitList.Customer = new PDMS_Customer() { CustomerID = Quotation.Lead.Customer.CustomerID };
+            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+            ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+            ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.Remark = txtVisitRemark.Text.Trim();
+            ColdVisitList.Location = txtLocation.Text.Trim();
+            ColdVisitList.ReferenceID = Quotation.QuotationID;
+            ColdVisitList.ReferenceTableID = 2;
+            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit", ColdVisitList));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageColdVisit.Text = Results.Message;
+                return;
+            }
+
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Text = Results.Message;
+            MPE_Visit.Hide();
+            fillVisit();
+        }
+        void fillVisit()
+        {
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Quotation.QuotationID);
+            gvVisit.DataSource = Visit;
+            gvVisit.DataBind();
+        }
+        public string ValidationColdVisit()
+        {
+            string Message = "";
+            txtColdVisitDate.BorderColor = Color.Silver;
+            txtVisitRemark.BorderColor = Color.Silver;
+            ddlActionType.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+            {
+                Message = "Please enter the Cold Visit Date";
+                txtColdVisitDate.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
+                Message = Message + "Please enter the Location";
+                txtLocation.BorderColor = Color.Red;
+            }
+            else if (string.IsNullOrEmpty(txtVisitRemark.Text.Trim()))
+            {
+                Message = Message + "Please enter the Remark";
+                txtVisitRemark.BorderColor = Color.Red;
+            }
+
+            else if (ddlActionType.SelectedValue == "0")
+            {
+                Message = Message + "Please select the Action Type";
+                ddlActionType.BorderColor = Color.Red;
+            }
+            return Message;
         }
     }
 }

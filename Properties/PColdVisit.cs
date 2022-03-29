@@ -18,6 +18,8 @@ namespace Properties
         public string Remark { get; set; }
         public string Location { get; set; }
         public PUser CreatedBy { get; set; }
+        public long? ReferenceTableID { get; set; }
+        public long? ReferenceID { get; set; }
     }
     public class PActionType
     {

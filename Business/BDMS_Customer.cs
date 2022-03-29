@@ -478,7 +478,7 @@ namespace Business
                 Customer.GSTIN = ConfigurationManager.AppSettings["EGSTIN"];
                 Customer.PAN = ConfigurationManager.AppSettings["EPAN"];
                 Customer.Email = ConfigurationManager.AppSettings["EMAIL"];
-                //  Customer.MOBILE = ConfigurationManager.AppSettings["EInvoiveDate"]; 
+                Customer.Mobile = ConfigurationManager.AppSettings["Mobile"];
 
                 
             }
