@@ -7,6 +7,13 @@ namespace DealerManagementSystem
 {
     public partial class Home : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
@@ -14,8 +21,7 @@ namespace DealerManagementSystem
                 new DDLBind(ddlDealer, PSession.User.Dealer, "ContactName", "DID", true,"All Dealer");
                 new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID",true, "All Country"); 
                 new DDLBind(ddlZone, new BDMS_Address().GetRegion(null, null,null), "Region", "RegionID", true, "All Zone");
-               // new DDLBind(ddlEngineer, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Engineer");
-
+                //new DDLBind(ddlEngineer, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Engineer");
 
                 //new DDLBind(ddlDivision, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Product");
                 //new DDLBind(ddlModel, new BDMS_Service().Get(null, null), "Title", "TitleID", true, "All Model");
@@ -25,7 +31,6 @@ namespace DealerManagementSystem
                 FillModel();
                 FillFiscalYear();
             }
-
         }
         void FillDivision()
         {
