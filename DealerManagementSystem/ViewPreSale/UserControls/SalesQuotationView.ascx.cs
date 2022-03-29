@@ -1200,7 +1200,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
                             item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.SGST, item.TaxableValue*item.SGST/100, item.SGST, item.TaxableValue * item.SGST / 100);
-                        TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
+
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
+                        decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
                         TCSSubTotal = Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
                         Lifetimetax = Q.LifeTimeValue;
@@ -1221,7 +1226,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
                             item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
-                        TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
+
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + IGSTValues;
                         TCSSubTotal = Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
                         Lifetimetax = Q.LifeTimeValue;
