@@ -5,8 +5,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/Effort.ascx" TagPrefix="UC" TagName="UC_Effort" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Expense.ascx" TagPrefix="UC" TagName="UC_Expense" %>
 
-<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
-<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewShifTo" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %> 
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <div class="col-md-12">
     <div class="action-btn">
@@ -89,7 +88,7 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-<asp:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
+<asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
     <asp:TabPanel ID="tpnlFinancier" runat="server" HeaderText="Financier" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
             <div class="col-md-12">
@@ -141,6 +140,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
+                                         <asp:Label ID="lblSalesQuotationItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotationItemID")%>' runat="server" Visible="false"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Material Desc">
@@ -323,10 +323,70 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Ship to party">
+    <asp:TabPanel ID="tabShipToAdress" runat="server" HeaderText="Ship to Adress">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
-                <UC:UC_CustomerViewShifTo ID="CustomerViewShifTo" runat="server"></UC:UC_CustomerViewShifTo>
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Customer</legend>
+                    <div class="col-md-12 View">
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Contact Person : </label>
+                                <asp:Label ID="lblShipToContactPerson" runat="server" CssClass="label"></asp:Label>
+                            </div> 
+                            <div class="col-md-12">
+                                <label>Mobile : </label>
+                                <asp:Label ID="lblShipToMobile" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Email : </label> 
+                                <asp:Label ID="lblShipToEmail" runat="server" CssClass="label"></asp:Label>
+                            </div> 
+                            <div class="col-md-12">
+                                <label>PinCode : </label>
+                                <asp:Label ID="lblShipToPinCode" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Address 1 : </label>
+                                <asp:Label ID="lblShipToAddress1" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Address 2 : </label>
+                                <asp:Label ID="lblShipToAddress2" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Address 3 : </label>
+                                <asp:Label ID="lblShipToAddress3" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                             <div class="col-md-12">
+                                <label>City : </label>
+                                <asp:Label ID="lblShipToCity" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Country : </label>
+                                <asp:Label ID="lblShipToCountry" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>State : </label>
+                                <asp:Label ID="lblShipToState" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>District : </label>
+                                <asp:Label ID="lblShipToDistrict" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Tehsil : </label>
+                                <asp:Label ID="lblShipToTehsil" runat="server" CssClass="label"></asp:Label>
+                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                </fieldset>
             </div>
         </ContentTemplate>
     </asp:TabPanel>
