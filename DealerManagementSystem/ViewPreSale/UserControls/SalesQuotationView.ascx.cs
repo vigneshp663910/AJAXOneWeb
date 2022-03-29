@@ -207,7 +207,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             Quotation.Financier = Sqf;
             MPE_Financier.Hide();
-            tbpCust.ActiveTabIndex = 0;
+            tbpSaleQuotation.ActiveTabIndex = 0;
             fillViewQuotation(Quotation.QuotationID);
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
@@ -261,48 +261,39 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
+            PDMS_ServiceMaterial MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
 
-
-
-            if (MaterialTax.Rate <= 0)
+            if (MaterialTax.BasePrice <= 0)
             {
                 lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
                 return;
             }
 
-            //PSalesQuotationItem Item = new PSalesQuotationItem();
-            MaterialTax.SalesQuotationID = Quotation.QuotationID;
-            MaterialTax.Material = new PDMS_Material();
-            MaterialTax.Material.MaterialCode = MM.MaterialCode;
-            MaterialTax.Material.MaterialID = MM.MaterialID;
+            PSalesQuotationItem Item = new PSalesQuotationItem();
+            Item.SalesQuotationID = Quotation.QuotationID;
+            Item.Material = new PDMS_Material();
+            Item.Material.MaterialCode = MM.MaterialCode;
+            Item.Material.MaterialID = MM.MaterialID;
             //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-            MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
-            MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
-            //MaterialTax.Rate = MaterialTax.Rate;
-            decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
+            Item.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+            Item.Qty = Convert.ToInt32(txtQty.Text);
+            Item.Rate = MaterialTax.BasePrice;
+            decimal P = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text));
+            decimal Discount = P * Convert.ToDecimal(txtDiscount.Text) / 100;
+            Item.Discount = Discount;
 
-            Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
-            MaterialTax.Discount=(Discount > 0) ? P * (Discount / 100):0;
+            Item.TaxableValue = (MaterialTax.BasePrice * Convert.ToDecimal(txtQty.Text)) - Discount;
 
-            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text))-Convert.ToDecimal(MaterialTax.Discount);
+            Item.CGST = MaterialTax.SGST;
+            Item.SGST = MaterialTax.SGST;
+            Item.IGST = MaterialTax.IGST;
+            Item.CGSTValue = MaterialTax.SGSTValue;
+            Item.SGSTValue = MaterialTax.SGSTValue;
+            Item.IGSTValue = MaterialTax.IGSTValue;
+            Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
-            {
-                MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
-                MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
-                MaterialTax.IGSTValue = 0;
-            }
-            else
-            {
-                MaterialTax.CGSTValue = 0;
-                MaterialTax.SGSTValue = 0;
-                MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
-            }
-            MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageEffort.Text = Results.Message;
@@ -310,7 +301,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             //  Quotation.QuotationItems = Item;
             MPE_Product.Hide();
-            tbpCust.ActiveTabIndex = 1;
+            tbpSaleQuotation.ActiveTabIndex = 1;
             fillProduct();
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
@@ -350,28 +341,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             MPE_Competitor.Hide();
-            tbpCust.ActiveTabIndex = 2;
+            tbpSaleQuotation.ActiveTabIndex = 2;
             fillViewQuotation(Quotation.QuotationID);
         }
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-
-            PDMS_WebQuotationItem Item = new PDMS_WebQuotationItem();
-            // Item.WebQuotationItemID = Convert.ToInt64(gvMaterial.DataKeys[gvRow.RowIndex].Value);
-
-            if (new BDMS_WebQuotation().InsertOrUpdateWebQuotationItem(Item))
+            Label lblSalesQuotationItemID = (Label)gvRow.FindControl("lblSalesQuotationItemID");
+            //List<PSalesQuotationItem> Item = new List<PSalesQuotationItem>();
+            PSalesQuotationItem Item = (PSalesQuotationItem)Quotation.QuotationItems.Where(M => M.SalesQuotationItemID == Convert.ToInt64(lblSalesQuotationItemID.Text)).ToList()[0];
+             
+            Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "Material is Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-                //  FillMaterial();
+                lblMessage.Text = Results.Message;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Material is not Removed successfully";
-                lblMessage.ForeColor = Color.Red;
-            }
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green; 
+            tbpSaleQuotation.ActiveTabIndex = 1;
+            fillViewQuotation(Quotation.QuotationID);
         }
         protected void btnNoteRemark_Click(object sender, EventArgs e)
         {
@@ -397,14 +389,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Note", Sqf));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = Results.Message;
+                lblMessage.Text = Results.Message;
                 return;
             }
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             MPE_Note.Hide();
-            tbpCust.ActiveTabIndex = 3;
+            tbpSaleQuotation.ActiveTabIndex = 3;
             fillViewQuotation(Quotation.QuotationID);
         }
         protected void BtnSaveQuotation_Click(object sender, EventArgs e)
@@ -619,8 +611,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             UC_LeadView.fillViewLead(Quotation.Lead);
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
-            //if (Quotation.ShipTo != null)
-            //    CustomerViewShifTo.fillCustomer(Quotation.ShipTo);
+
+            fillShifTo();
         }
         public string ValidationFinancier()
         {
@@ -683,18 +675,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return Message;
         }
         protected void lblCompetitorRemove_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
+        { 
+            lblMessage.Visible = true; 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblSalesQuotationCompetitorID = (Label)gvRow.FindControl("lblSalesQuotationCompetitorID");
 
             PSalesQuotationCompetitor Sqf = new PSalesQuotationCompetitor();
-            Sqf.SalesQuotationCompetitorID = Convert.ToInt64(lblSalesQuotationCompetitorID.Text);
-            Sqf.Make = new PMake() { };
-            Sqf.ProductType = new PProductType() { };
-            Sqf.Product = new PProduct() { };
+            Sqf.SalesQuotationCompetitorID = Convert.ToInt64(lblSalesQuotationCompetitorID.Text); 
+            Sqf.Make = new PMake() {};
+            Sqf.ProductType = new PProductType() {};
+            Sqf.Product = new PProduct() {};
 
-            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Competitor", Sqf));
             if (Results.Status == PApplication.Failure)
             {
@@ -702,22 +694,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            lblMessage.Text = "Updated Successfully";
+            lblMessage.Text = "Updated Successfully"; 
             lblMessage.ForeColor = Color.Green;
             MPE_Competitor.Hide();
-            tbpCust.ActiveTabIndex = 2;
-            fillViewQuotation(Quotation.QuotationID);
+            tbpSaleQuotation.ActiveTabIndex = 2;
+            fillViewQuotation(Quotation.QuotationID); 
         }
         protected void lblNoteRemove_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblSalesQuotationNoteID = (Label)gvRow.FindControl("lblSalesQuotationNoteID");
-
+             
             PSalesQuotationNote Sqf = new PSalesQuotationNote();
-            Sqf.SalesQuotationNoteID = Convert.ToInt64(lblSalesQuotationNoteID.Text);
-            Sqf.Note = new PSalesQuotationNoteList() { };
-            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            Sqf.SalesQuotationNoteID = Convert.ToInt64(lblSalesQuotationNoteID.Text); 
+            Sqf.Note = new PSalesQuotationNoteList() {}; 
+            Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/Note", Sqf));
             if (Results.Status == PApplication.Failure)
             {
@@ -728,7 +720,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = "Updated Successfully";
             lblMessage.ForeColor = Color.Green;
             MPE_Competitor.Hide();
-            tbpCust.ActiveTabIndex = 3;
+            tbpSaleQuotation.ActiveTabIndex = 3;
             fillViewQuotation(Quotation.QuotationID);
         }
         public void fillFinancier()
@@ -917,9 +909,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string MaterialText = string.Empty;
                 try
                 {
-                    MaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508         AJF GT");
+                    MaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508         AJF GT");                    
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     lblMessage.Text = ex.Message.ToString();
                     lblMessage.Visible = true;
@@ -948,7 +940,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
                     P[29] = new ReportParameter("TCSTaxTerms", "", false);
                 }
-
+                
                 if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
                 {
                     P[30] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
@@ -960,7 +952,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[31] = new ReportParameter("ErectionCommissoning", "", false);
                 }
 
-
+                
 
                 P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
@@ -1288,6 +1280,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+
+        void fillShifTo()
+        {
+            if (Quotation.ShipTo != null)
+            {
+                //PDMS_CustomerShipTo ShipTo=  new BDMS_Customer().GetCustomerShopTo(null, Customer.CustomerID);
+                lblShipToContactPerson.Text = Quotation.ShipTo.ContactPerson;
+                lblShipToMobile.Text = Quotation.ShipTo.Mobile;
+                lblShipToEmail.Text = Quotation.ShipTo.Email;
+                lblShipToAddress1.Text = Quotation.ShipTo.Address1;
+                lblShipToAddress2.Text = Quotation.ShipTo.Address2;
+                lblShipToAddress3.Text = Quotation.ShipTo.Address3;
+                lblShipToCountry.Text = Quotation.ShipTo.Country.Country;
+                lblShipToState.Text = Quotation.ShipTo.State.State;
+                lblShipToDistrict.Text = Quotation.ShipTo.District.District;
+                lblShipToTehsil.Text = Quotation.ShipTo.Tehsil.Tehsil;
+                lblShipToPinCode.Text = Quotation.ShipTo.Pincode;
+                lblShipToCity.Text = Quotation.ShipTo.City; 
+            } 
+            else
+            {
+                tbpSaleQuotation.Tabs[6].Visible = false;
+            }
         }
     }
 }

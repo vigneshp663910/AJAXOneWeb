@@ -560,11 +560,11 @@ namespace DealerManagementSystem.ViewMaster
         }
         void SearchCustomerAttributeSub()
         {
-            int? CustomerAttributeMainID = ddlCustomerAttributeMain.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCustomerAttributeMain.SelectedValue);
+            int? CustomerAttributeMainID = ddlSCustomerAttributeMain.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCustomerAttributeMain.SelectedValue);
             int? CustomerAttributeSubID = ddlCustomerAttributeSub.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCustomerAttributeSub.SelectedValue);
             string CustomerAttributeSub = ddlCustomerAttributeSub.SelectedValue == "0" ? (string)null : ddlCustomerAttributeSub.SelectedItem.Text.Trim();
 
-            List<PCustomerAttributeSub> pCustomerAttributeSubs = new BPresalesMasters().GetCustomerAttributeSub(CustomerAttributeMainID, CustomerAttributeSubID, CustomerAttributeSub);
+            List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeMainID, CustomerAttributeSubID, CustomerAttributeSub);
 
             gvCustomerAttributeSub.DataSource = pCustomerAttributeSubs;
             gvCustomerAttributeSub.DataBind();

@@ -353,7 +353,6 @@
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadViewHeader.ascx" />
-    <Content Include="ViewPreSale\UserControls\QuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
@@ -1218,13 +1217,6 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadViewHeader.ascx.designer.cs">
       <DependentUpon>LeadViewHeader.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.cs">
-      <DependentUpon>QuotationView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\UserControls\QuotationView.ascx.designer.cs">
-      <DependentUpon>QuotationView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.cs">
       <DependentUpon>SalesQuotationView.ascx</DependentUpon>
