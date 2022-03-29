@@ -19,7 +19,7 @@
                                         <label>Lead Source</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlLeadSource" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlLeadSource" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchLeadSource_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchLeadSource_Click"></asp:Button>
@@ -83,7 +83,7 @@
                                         <label>Action Type</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchActionType_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchActionType_Click"></asp:Button>
@@ -147,7 +147,7 @@
                                         <label>Attribute Main</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeMain_Click" ></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
@@ -211,13 +211,13 @@
                                         <label>Attribute Main</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlSCustomerAttributeMain" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlSCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeSub_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2 text-right">
                                         <label>Attribute Sub</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCustomerAttributeSub" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlCustomerAttributeSub" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeSub_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
