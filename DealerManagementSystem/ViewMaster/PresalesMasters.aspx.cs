@@ -1068,20 +1068,15 @@ namespace DealerManagementSystem.ViewMaster
         }
 
         private void GetMake()
-        {
-            int? MakeID = (int?)null;
-            string Make = (string)null;
-
-            List<PMake> make = new BDMS_Master().GetMake(MakeID, Make);
-            gvMake.DataSource = make;
-            gvMake.DataBind();
+        { 
+            List<PMake> make = new BDMS_Master().GetMake(null, null); 
             if (make.Count == 0)
             {
                 PMake pMake = new PMake();
-                make.Add(pMake);
-                gvMake.DataSource = make;
-                gvMake.DataBind();
+                make.Add(pMake); 
             }
+            gvMake.DataSource = make;
+            gvMake.DataBind();
         }
 
         protected void gvMake_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -1229,16 +1224,14 @@ namespace DealerManagementSystem.ViewMaster
             int? ProductTypeID = (int?)null;
             string ProductType = (string)null;
 
-            List<PProductType> productType = new BDMS_Master().GetProductType(ProductTypeID, ProductType);
-            gvProductType.DataSource = productType;
-            gvProductType.DataBind();
+            List<PProductType> productType = new BDMS_Master().GetProductType(ProductTypeID, ProductType); 
             if (productType.Count == 0)
             {
                 PProductType pProductType = new PProductType();
-                productType.Add(pProductType);
-                gvProductType.DataSource = pProductType;
-                gvProductType.DataBind();
+                productType.Add(pProductType); 
             }
+            gvProductType.DataSource = productType;
+            gvProductType.DataBind();
         }
 
         protected void gvProductType_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -1431,15 +1424,14 @@ namespace DealerManagementSystem.ViewMaster
             int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
             int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
             List<PProduct> product = new BDMS_Master().GetProduct(ProductID,MakeID, ProductTypeID, Product);
-            gvProduct.DataSource = product;
-            gvProduct.DataBind();
+           
             if (product.Count == 0)
             {
                 PProduct pProduct = new PProduct();
-                product.Add(pProduct);
-                gvProduct.DataSource = pProduct;
-                gvProduct.DataBind();
+                product.Add(pProduct); 
             }
+            gvProduct.DataSource = product;
+            gvProduct.DataBind();
             DropDownList ddlProductMake = gvProduct.FooterRow.FindControl("ddlProductMakeF") as DropDownList;
             new DDLBind(ddlProductMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID", true, "Select");
 

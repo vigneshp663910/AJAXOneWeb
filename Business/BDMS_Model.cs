@@ -18,25 +18,26 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public void GetTypeOfWarrantyDDL(DropDownList ddl, int? ModelID, string Model)
+        public void GetTypeOfWarrantyDDL(DropDownList ddl, int? ModelID, string Model, int? DivisionID)
          {
 
              ddl.DataValueField = "ModelID";
              ddl.DataTextField = "Model";
-             ddl.DataSource = GetModel(ModelID, Model);
+             ddl.DataSource = GetModel(ModelID, Model, DivisionID);
              ddl.DataBind();
              ddl.Items.Insert(0, new ListItem("Select", "0"));
          }
 
-        public List<PDMS_Model> GetModel(int? ModelID, string Model)
+        public List<PDMS_Model> GetModel(int? ModelID, string Model, int? DivisionID)
          {
              List<PDMS_Model> MML = new List<PDMS_Model>();
              try
              {
                  DbParameter ModelIDP = provider.CreateParameter("ModelID", ModelID, DbType.Int32);
                  DbParameter ModelP = provider.CreateParameter("Model", string.IsNullOrEmpty(Model) ? null : Model, DbType.String);
+                 DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
 
-                 DbParameter[] Params = new DbParameter[2] { ModelIDP, ModelP };
+                DbParameter[] Params = new DbParameter[3] { ModelIDP, ModelP, DivisionIDP };
                  using (DataSet DataSet = provider.Select("ZDMS_GetModel", Params))
                  {
                      if (DataSet != null)
