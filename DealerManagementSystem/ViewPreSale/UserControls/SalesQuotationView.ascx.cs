@@ -976,8 +976,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 decimal GrandTotal = 0;
                 for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].NetValue);
-                    GrandTotal = Q.QuotationItems[i].NetValue;
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, Q.QuotationItems[i].Rate, Q.QuotationItems[i].Qty* Q.QuotationItems[i].Rate);
+                    GrandTotal = Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate;
                     P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                     P[17] = new ReportParameter("TotalAmount", GrandTotal.ToString(), false);
                 }
