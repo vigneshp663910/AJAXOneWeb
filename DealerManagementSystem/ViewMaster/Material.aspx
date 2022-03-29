@@ -184,7 +184,7 @@
                                                     <div style="float: left">
                                                         <table>
                                                             <tr>
-                                                                <td>Material Report</td>
+                                                                <td>Material(s):</td>
 
                                                                 <td>
                                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>

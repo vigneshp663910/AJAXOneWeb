@@ -14,6 +14,21 @@ namespace DealerManagementSystem.ViewMaster
 {
     public partial class Customer : System.Web.UI.Page
     {
+        public List<PDMS_Customer> Cust
+        {
+            get
+            {
+                if (Session["Customer"] == null)
+                {
+                    Session["Customer"] = new List<PDMS_Customer>();
+                }
+                return (List<PDMS_Customer>)Session["Customer"];
+            }
+            set
+            {
+                Session["Customer"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -45,6 +60,32 @@ namespace DealerManagementSystem.ViewMaster
         {
             SearchCustomer();
         }
+
+        protected void ibtnCustArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomer.PageIndex > 0)
+            {
+                gvCustomer.PageIndex = gvCustomer.PageIndex - 1;
+                CustBind(gvCustomer, lblRowCount, Cust);
+            }
+        }
+        protected void ibtnCustArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomer.PageCount > gvCustomer.PageIndex)
+            {
+                gvCustomer.PageIndex = gvCustomer.PageIndex + 1;
+                CustBind(gvCustomer, lblRowCount, Cust);
+            }
+        }
+
+
+        void CustBind(GridView gv, Label lbl, List<PDMS_Customer> Cust)
+        {
+            gv.DataSource = Cust;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Cust.Count;
+        }
+
         void SearchCustomer()
         {
             long? CustomerID = null;
@@ -55,10 +96,26 @@ namespace DealerManagementSystem.ViewMaster
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             int? DistrictID = null;
-            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
+            Cust = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
 
-            gvCustomer.DataSource = Leads;
+            gvCustomer.DataSource = Cust;
             gvCustomer.DataBind();
+
+
+            if (Cust.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnCustArrowLeft.Visible = false;
+                ibtnCustArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnCustArrowLeft.Visible = true;
+                ibtnCustArrowRight.Visible = true;
+                lblRowCount.Text = (((gvCustomer.PageIndex) * gvCustomer.PageSize) + 1) + " - " + (((gvCustomer.PageIndex) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Cust.Count;
+            }
+
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
