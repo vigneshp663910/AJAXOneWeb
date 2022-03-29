@@ -793,6 +793,20 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             PSalesQuotation Q = Quotation;
             List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+            string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
+            foreach (PSalesQuotationNote Note in Q.Notes)
+            {
+                if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
+            }
             DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts);
             lblMessage.Text = "";
             foreach (DataRow dr in DtResult.Rows)
