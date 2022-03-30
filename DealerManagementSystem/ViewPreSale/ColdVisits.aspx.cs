@@ -121,8 +121,6 @@ namespace DealerManagementSystem.ViewPreSale
                 lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Lead1.Count;
             }
 
-
-
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
