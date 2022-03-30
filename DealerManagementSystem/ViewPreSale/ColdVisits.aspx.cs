@@ -44,6 +44,49 @@ namespace DealerManagementSystem.ViewPreSale
         {
             FillClodVisit();
         }
+
+        public List<PColdVisit> Lead1
+        {
+            get
+            {
+                if (Session["Lead1"] == null)
+                {
+                    Session["Lead1"] = new List<PColdVisit>();
+                }
+                return (List<PColdVisit>)Session["Lead1"];
+            }
+            set
+            {
+                Session["Lead1"] = value;
+            }
+        }
+
+        protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvLead.PageIndex > 0)
+            {
+                gvLead.PageIndex = gvLead.PageIndex - 1;
+                LeadBind(gvLead, lblRowCount, Lead1);
+            }
+        }
+        protected void ibtnLeadArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvLead.PageCount > gvLead.PageIndex)
+            {
+                gvLead.PageIndex = gvLead.PageIndex + 1;
+                LeadBind(gvLead, lblRowCount, Lead1);
+            }
+        }
+
+        void LeadBind(GridView gv, Label lbl, List<PColdVisit> Lead1)
+        {
+            gv.DataSource = Lead1;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Lead1.Count;
+        }
+
+
+
         void FillClodVisit()
         {
             DateTime? ColdVisitDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
@@ -57,9 +100,29 @@ namespace DealerManagementSystem.ViewPreSale
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
-            gvLead.DataSource = Leads;
+            //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
+
+            Lead1 = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null);
+
+            gvLead.DataSource = Lead1;
             gvLead.DataBind();
+
+            if (Lead1.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnLeadArrowLeft.Visible = false;
+                ibtnLeadArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnLeadArrowLeft.Visible = true;
+                ibtnLeadArrowRight.Visible = true;
+                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Lead1.Count;
+            }
+
+
+
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {

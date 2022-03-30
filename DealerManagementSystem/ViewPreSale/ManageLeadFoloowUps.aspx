@@ -57,8 +57,28 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
+
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Follow Up:</td>
+
+                                                <td>
+                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnFUArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnFUArrowLeft_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnFUArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnFUArrowRight_Click" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                             <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">

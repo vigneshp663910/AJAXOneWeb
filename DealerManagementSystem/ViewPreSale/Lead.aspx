@@ -337,7 +337,27 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend> 
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>Lead(s):</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnLeadArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnLeadArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnLeadArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnLeadArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                             PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found">
                             <Columns>
@@ -416,7 +436,7 @@
                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView> 
+                        </asp:GridView>
                     </fieldset>
                 </div>
             </div>
