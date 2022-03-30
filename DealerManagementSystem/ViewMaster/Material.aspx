@@ -92,6 +92,26 @@
                                     <tr>
                                     <td>
                                         <span id="txnHistory2:refreshDataGroup">
+                                            <div class="boxHead">
+                                                <div class="logheading">
+                                                    <div style="float: left">
+                                                        <table>
+                                                            <tr>
+                                                                <td>SAP Material Group | Model(s):</td>
+
+                                                                <td>
+                                                                    <asp:Label ID="lblRowCountM" runat="server" CssClass="label"></asp:Label></td>
+                                                                <td>
+                                                                    <asp:ImageButton ID="ibtnModelArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnModelArrowLeft_Click" /></td>
+                                                                <td>
+                                                                    <asp:ImageButton ID="ibtnModelArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnModelArrowRight_Click" /></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             <div style="background-color: white">
                                                 <asp:GridView ID="gvMaterailModel" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found"
                                                     OnPageIndexChanging="gvMaterailModel_PageIndexChanging" Width="100%">

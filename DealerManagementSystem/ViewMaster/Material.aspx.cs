@@ -28,6 +28,24 @@ namespace DealerManagementSystem.ViewMaster
                 Session["Material"] = value;
             }
         }
+
+
+        public List<PDMS_Model> MatModel
+        {
+            get
+            {
+                if (Session["MaterialM"] == null)
+                {
+                    Session["MaterialM"] = new List<PDMS_Model>();
+                }
+                return (List<PDMS_Model>)Session["MaterialM"];
+            }
+            set
+            {
+                Session["MaterialM"] = value;
+            }
+        }
+
         public List<PDMS_Material> MaterialSupersede
         {
             get
@@ -86,26 +104,70 @@ namespace DealerManagementSystem.ViewMaster
             gvDivision.PageIndex = e.NewPageIndex;
             gvDivision.DataBind();
         }
+
+        protected void ibtnModelArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvMaterailModel.PageIndex > 0)
+            {
+                gvMaterailModel.PageIndex = gvMaterailModel.PageIndex - 1;
+                MaterialModelBind(gvMaterailModel, lblRowCountM, MatModel);
+            }
+        }
+        protected void ibtnModelArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvMaterailModel.PageCount > gvMaterailModel.PageIndex)
+            {
+                gvMaterailModel.PageIndex = gvMaterailModel.PageIndex + 1;
+                MaterialModelBind(gvMaterailModel, lblRowCountM, MatModel);
+            }
+        }
+
+        void MaterialModelBind(GridView gv, Label lbl, List<PDMS_Model> MatModel)
+        {
+            gv.DataSource = MatModel;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + MatModel.Count;
+        }
+
+
         private void GetMaterailModel()
         {
             int? MaterailID = (int?)null;
             string Materail = (string)null;
             int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
 
-            List<PDMS_Model> materailModel = new BDMS_Model().GetModel(MaterailID, Materail, DivisionID); 
-            if (materailModel.Count == 0)
+            //List<PDMS_Model> materailModel = new BDMS_Model().GetModel(MaterailID, Materail, DivisionID);
+
+            MatModel = new BDMS_Model().GetModel(MaterailID, Materail, DivisionID);
+            if (MatModel.Count == 0)
             {
                 PDMS_Model pMaterailModel = new PDMS_Model();
-                materailModel.Add(pMaterailModel); 
+                MatModel.Add(pMaterailModel); 
             }
-            gvMaterailModel.DataSource = materailModel;
+            gvMaterailModel.DataSource = MatModel;
             gvMaterailModel.DataBind();
+
+            if (MatModel.Count == 0)
+            {
+                lblRowCountM.Visible = false;
+                ibtnModelArrowLeft.Visible = false;
+                ibtnModelArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountM.Visible = true;
+                ibtnModelArrowLeft.Visible = true;
+                ibtnModelArrowRight.Visible = true;
+                lblRowCountM.Text = (((gvMaterailModel.PageIndex) * gvMaterailModel.PageSize) + 1) + " - " + (((gvMaterailModel.PageIndex) * gvMaterailModel.PageSize) + gvMaterailModel.Rows.Count) + " of " + MatModel.Count;
+            }
+
         }
 
         protected void gvMaterailModel_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            GetMaterailModel();
+           
             gvMaterailModel.PageIndex = e.NewPageIndex;
+            GetMaterailModel();
             gvMaterailModel.DataBind();
         }
 
