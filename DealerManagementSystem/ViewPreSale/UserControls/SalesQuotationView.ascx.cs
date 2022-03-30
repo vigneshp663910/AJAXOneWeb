@@ -292,7 +292,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
             MaterialTax.Discount = (Discount > 0) ? P * (Discount / 100) : 0;
 
-            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
+            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));// - Convert.ToDecimal(MaterialTax.Discount);
 
             if (MaterialTax.SGST!=0)
             {
@@ -1117,8 +1117,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
                 P[8] = new ReportParameter("KindAttn", KindAttention, false);
                 P[9] = new ReportParameter("CustomerStateCode", Q.Lead.Customer.State.StateCode, false);
-                P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN, false);
-                P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN, false);
+                P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
+                P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN.ToUpper(), false) ;
 
                 P[19] = new ReportParameter("YourRef", Reference, false);
                 P[20] = new ReportParameter("RevNo", "", false);
@@ -1128,7 +1128,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[24] = new ReportParameter("ShipToMobile", CustomerShipTo.Mobile, false);
                 P[25] = new ReportParameter("ShipToEMail", CustomerShipTo.Email, false);
                 P[26] = new ReportParameter("ShipToCustomerStateCode", CustomerShipTo.State.StateCode, false);
-                P[27] = new ReportParameter("ShipToCustomerGST", Q.Lead.Customer.GSTIN, false);
+                P[27] = new ReportParameter("ShipToCustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
                 P[28] = new ReportParameter("SoldToPartyBPCode", Q.Lead.Customer.CustomerCode, false);
                 P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
                 P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
@@ -1221,7 +1221,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.SGST, item.TaxableValue*item.SGST/100, item.SGST, item.TaxableValue * item.SGST / 100);
+                            String.Format("{0:n}", item.Rate), String.Format("{0:n}", item.Qty * item.Rate), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.TaxableValue*item.SGST/100), item.SGST, String.Format("{0:n}", item.TaxableValue * item.SGST / 100));
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
@@ -1233,12 +1233,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         Lifetimetax = Q.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                        P[13] = new ReportParameter("TotalAmount", TaxSubTotal.ToString(), false);
+                        P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
                         P[14] = new ReportParameter("Tax", "", false);
-                        P[15] = new ReportParameter("TCS", TCSSubTotal.ToString(), false);
-                        P[16] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
-                        P[17] = new ReportParameter("LifeTimeTax", Lifetimetax.ToString(), false);
-                        P[18] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                        P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
+                        P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
+                        P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
+                        P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
                     }
                     else
                     {
@@ -1258,12 +1258,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         Lifetimetax = Q.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                        P[13] = new ReportParameter("TotalAmount", TaxSubTotal.ToString(), false);
-                        P[14] = new ReportParameter("Tax", Q.TCSTax.ToString(), false);
-                        P[15] = new ReportParameter("TCS", TCSSubTotal.ToString(), false);
-                        P[16] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
-                        P[17] = new ReportParameter("LifeTimeTax", Lifetimetax.ToString(), false);
-                        P[18] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                        P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
+                        P[14] = new ReportParameter("Tax", "", false);
+                        P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
+                        P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
+                        P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
+                        P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
                     }
                 }
                 PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
