@@ -25,7 +25,7 @@
         <asp1:TabPanel ID="tbpnlCountry" runat="server" HeaderText="Country" Font-Bold="True" ToolTip="List of Countries...">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="fldCountry" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -133,7 +133,7 @@
         <asp1:TabPanel ID="tbpnlRegion" runat="server" HeaderText="Region">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -220,7 +220,7 @@
         <asp1:TabPanel ID="tbpnlState" runat="server" HeaderText="State">
             <ContentTemplate>
                 <fieldset class="fieldset-border" id="fldState" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -349,7 +349,7 @@
         <asp1:TabPanel ID="tbpnlDistrict" runat="server" HeaderText="District">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
@@ -486,7 +486,7 @@
         <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="City">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Search Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-right">
                             <label>Country</label><%--<span class="Mandatory">*</span>--%>
