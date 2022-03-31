@@ -72,7 +72,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Division</label>
@@ -167,7 +167,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Material Code</label>
@@ -184,8 +184,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnMaterialSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
-                                        &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" />
+                                        <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
+                                        &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px"/>
                                     </div>
                                 </div>
                             </fieldset>
@@ -356,7 +356,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Material Code</label>
@@ -366,7 +366,7 @@
                                     </div>
                                     
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnMaterialPriceSerach" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialPriceSerach_Click" OnClientClick="return dateValidation();" />
+                                        <asp:Button ID="btnMaterialPriceSerach" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialPriceSerach_Click" OnClientClick="return dateValidation();" />
                                         </div>
                                 </div>
                             </fieldset>
@@ -501,7 +501,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Material Code</label>
@@ -511,8 +511,8 @@
                                     </div>
                                     
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnMaterailSupersedeSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterailSupersedeSearch_Click" OnClientClick="return dateValidation();" />
-                                        &nbsp;<asp:Button ID="btnMaterailSupersedeExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnMaterialSupersedeExportExcel_Click" />
+                                        <asp:Button ID="btnMaterailSupersedeSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterailSupersedeSearch_Click" OnClientClick="return dateValidation();" />
+                                        &nbsp;<asp:Button ID="btnMaterailSupersedeExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSupersedeExportExcel_Click" Width="125px"/>
                                     </div>
                                 </div>
                             </fieldset>

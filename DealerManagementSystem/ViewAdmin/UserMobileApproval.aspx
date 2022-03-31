@@ -11,7 +11,7 @@
         <div class="col-md-12" id="divList" runat="server">
 
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvUserIMEI" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" Width="100%" DataKeyNames="UserMobileID">

@@ -22,7 +22,7 @@
                                         <asp:DropDownList ID="ddlLeadSource" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchLeadSource_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchLeadSource_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchLeadSource_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -86,7 +86,7 @@
                                         <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchActionType_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchActionType_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchActionType_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -150,7 +150,7 @@
                                         <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeMain_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -220,7 +220,7 @@
                                         <asp:DropDownList ID="ddlCustomerAttributeSub" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeSub_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
