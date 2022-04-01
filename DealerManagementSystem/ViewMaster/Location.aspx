@@ -192,7 +192,7 @@
                                                     <div style="float: left">
                                                         <table>
                                                             <tr>
-                                                                <td>Region:</td>
+                                                                <td>Region(s):</td>
 
                                                                 <td>
                                                                     <asp:Label ID="lblRowCountR" runat="server" CssClass="label"></asp:Label></td>
