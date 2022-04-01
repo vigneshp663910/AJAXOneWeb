@@ -21,12 +21,12 @@
                                                 <asp:GridView ID="gvDivision" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
                                                     OnPageIndexChanging="gvDivision_PageIndexChanging" Width="100%">
                                                     <Columns>
-                                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" >
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="90px">
+                                                        <asp:TemplateField HeaderText="Division Code" ItemStyle-HorizontalAlign="Center">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "DivisionCode")%>' runat="server" />
@@ -38,14 +38,14 @@
                                                                 <asp:Label ID="lblDivisionDescription" Text='<%# DataBinder.Eval(Container.DataItem, "DivisionDescription")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="UOM" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="70px">
-                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <asp:TemplateField HeaderText="UOM" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblUnitOfMeasurement" Text='<%# DataBinder.Eval(Container.DataItem, "UOM")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Warranty Delivery Hours" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="140px">
-                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                                        <asp:TemplateField HeaderText="Warranty Delivery Hours" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblWarrantyDeliveryHours" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyDeliveryHours")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
