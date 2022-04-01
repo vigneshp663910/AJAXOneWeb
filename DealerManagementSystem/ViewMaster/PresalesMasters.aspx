@@ -22,7 +22,7 @@
                                         <asp:DropDownList ID="ddlLeadSource" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchLeadSource_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchLeadSource_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchLeadSource_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -86,7 +86,7 @@
                                         <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchActionType_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchActionType_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchActionType_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -147,10 +147,10 @@
                                         <label>Attribute Main</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeMain_Click" ></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeMain_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -220,7 +220,7 @@
                                         <asp:DropDownList ID="ddlCustomerAttributeSub" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeSub_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -525,6 +525,26 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                    <div class="boxHead">
+                                        <div class="logheading">
+                                            <div style="float: left">
+                                                <table>
+                                                    <tr>
+                                                        <td>Model :</td>
+
+                                                        <td>
+                                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnModelArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnModelArrowLeft_Click" /></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnModelArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnModelArrowRight_Click" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvProduct_PageIndexChanging" OnDataBound="gvProduct_DataBound">
                                         <Columns>

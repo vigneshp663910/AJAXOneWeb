@@ -46,7 +46,7 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
                         <label>Dealer</label>

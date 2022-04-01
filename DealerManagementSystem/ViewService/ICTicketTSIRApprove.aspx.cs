@@ -95,7 +95,7 @@ namespace DealerManagementSystem.ViewService
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
 
-                new BDMS_Model().GetTypeOfWarrantyDDL(ddlModelID, null, null);
+                new BDMS_Model().GetTypeOfWarrantyDDL(ddlModelID, null, null, null);
                 ICTicketStatus = new BDMS_ICTicketTSIR().GetTSIRStatus(null, null);
 
                 ViewState["TsirStatusID"] = 0;

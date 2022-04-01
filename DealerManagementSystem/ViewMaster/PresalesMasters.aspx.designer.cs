@@ -312,6 +312,33 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
 
         /// <summary>
+        /// lblRowCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCount;
+
+        /// <summary>
+        /// ibtnModelArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnModelArrowLeft;
+
+        /// <summary>
+        /// ibtnModelArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnModelArrowRight;
+
+        /// <summary>
         /// gvProduct control.
         /// </summary>
         /// <remarks>

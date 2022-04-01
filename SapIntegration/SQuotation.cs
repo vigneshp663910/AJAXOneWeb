@@ -45,10 +45,10 @@ namespace SapIntegration
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
-            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", pSalesQuotation.QuotationDate);
-            QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
-            QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product);
-            QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", leadProducts[0].Product);
+            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", pSalesQuotation.RefQuotationDate);
+            QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make.Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
+            QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product.Product);
+            QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", leadProducts[0].Product.Product);
 
             IRfcTable QT_Item = tagListBapi.GetTable("QUOTATION_ITEMS_IN");
             for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
@@ -60,10 +60,25 @@ namespace SapIntegration
                 QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty);//"1.000"
             }
 
+            string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
+            foreach (PSalesQuotationNote Note in pSalesQuotation.Notes)
+            {
+                if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
+            }
+
             IRfcTable QT_TEXT = tagListBapi.GetTable("QUOTATION_TEXT");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "REF");//Reference
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", Reference);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "NAME");//Name
             QT_TEXT.SetValue("TEXT_LINE", "");
@@ -78,13 +93,13 @@ namespace SapIntegration
             QT_TEXT.SetValue("TEXT_LINE", "");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0013");//Terms of payment
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", TermsOfPayment);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "SOR1");//source
             QT_TEXT.SetValue("TEXT_LINE", "");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "KA01");//Kind Attention
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", KindAttention);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "MOD1");//Model
             QT_TEXT.SetValue("TEXT_LINE", "");
@@ -93,13 +108,13 @@ namespace SapIntegration
             QT_TEXT.SetValue("TEXT_LINE", "");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "DL01");//Delivery
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", Delivery);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "NOTE");//Note - CBC and Printers
             QT_TEXT.SetValue("TEXT_LINE", "");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0001");//Hypothecation
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", Hypothecation);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZCST");//CST No
             QT_TEXT.SetValue("TEXT_LINE", "");
@@ -114,19 +129,19 @@ namespace SapIntegration
             QT_TEXT.SetValue("TEXT_LINE", "");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZMN");//Margin  money
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", MarginMoney);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZVA");//Validity date
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", Validity);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZDLR");//DMS Order confirmation
             QT_TEXT.SetValue("TEXT_LINE", "");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZFC");//Foc
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", Foc);
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0002");//Header note 1
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", QNote);
 
 
             tagListBapi.Invoke(SAP.RfcDes());

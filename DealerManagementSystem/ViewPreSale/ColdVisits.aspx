@@ -268,7 +268,7 @@
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Selection</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
@@ -319,8 +319,27 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Cold Visit(s):</td>
+
+                                                <td>
+                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnLeadArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnLeadArrowLeft_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnLeadArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnLeadArrowRight_Click" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                             <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -343,7 +362,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action Type">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType.ActionType")%>' runat="server" />
                                         </ItemTemplate>
@@ -356,19 +375,19 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Contact Person">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.ContactPerson")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Mobile">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EMail">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
                                         </ItemTemplate>
