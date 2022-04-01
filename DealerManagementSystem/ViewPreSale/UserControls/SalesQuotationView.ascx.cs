@@ -177,6 +177,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
             }
+            else if (lbActions.Text == "Generate Quotation To Part")
+            {
+                new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+            }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
@@ -294,7 +298,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
 
-            if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
+            if (MaterialTax.SGST!=0)
             {
                 MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
                 MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
@@ -317,7 +321,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //  Quotation.QuotationItems = Item;
             MPE_Product.Hide();
             tbpSaleQuotation.ActiveTabIndex = 1;
-            fillProduct();
+            fillViewQuotation(Quotation.QuotationID);
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
@@ -791,25 +795,61 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void GenerateQuotation()
         {
+            lblMessage.Text = "";
             PSalesQuotation Q = Quotation;
             List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-            DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts);
-            lblMessage.Text = "";
-            foreach (DataRow dr in DtResult.Rows)
+            string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
+            foreach (PSalesQuotationNote Note in Q.Notes)
             {
-                if (dr["Type"].ToString() == "S")
+                if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
+                if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
+            }
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+            if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+            if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+            if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+            if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+            if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+            if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+            if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+            if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
+
+            if (Q.QuotationItems.Count > 0 && leadProducts.Count>0 && Q.Competitor.Count>0) 
+            {
+                DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts);
+                foreach (DataRow dr in DtResult.Rows)
                 {
-                    lblMessage.Text = dr["Message"].ToString();
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Green;
-                }
-                else
-                {
-                    lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
+                    if (dr["Type"].ToString() == "S")
+                    {
+                        lblMessage.Text = dr["Message"].ToString();
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                    }
                 }
             }
+            else
+            {
+                lblMessage.Text ="Quotation Not Generated Successfully...!";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+            }
+
+            
         }
         void GeneratePDF()
         {
@@ -1185,8 +1225,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.CGST, item.CGSTValue, item.SGST, item.SGSTValue);
-                        TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
+                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, item.SGST, item.TaxableValue*item.SGST/100, item.SGST, item.TaxableValue * item.SGST / 100);
+
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
+                        decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
                         TCSSubTotal = Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
                         Lifetimetax = Q.LifeTimeValue;
@@ -1207,7 +1252,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
                             item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
-                        TaxSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue;
+
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + IGSTValues;
                         TCSSubTotal = Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
                         Lifetimetax = Q.LifeTimeValue;

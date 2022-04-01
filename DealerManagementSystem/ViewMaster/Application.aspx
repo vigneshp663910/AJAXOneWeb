@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Application.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Application" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -8,7 +9,7 @@
     <div class="col-md-12">
         <asp:TabContainer ID="tbpApplication" runat="server" ToolTip="Applications..." Font-Bold="True" Font-Size="Medium">
             <asp:TabPanel ID="tpnlMainApplication" runat="server" HeaderText="MainApplication" Font-Bold="True" ToolTip="MainApplication...">
-                <contenttemplate>
+                <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <fieldset class="fieldset-border">
@@ -51,14 +52,14 @@
                             </fieldset>
                         </div>
                     </div>
-                </contenttemplate>
+                </ContentTemplate>
             </asp:TabPanel>
             <asp:TabPanel ID="tpnlSubApplication" runat="server" HeaderText="SubApplication" Font-Bold="True" ToolTip="SubApplication...">
-                <contenttemplate>
+                <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>MainApplication</label>
@@ -75,6 +76,26 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                    <div class="boxHead">
+                                        <div class="logheading">
+                                            <div style="float: left">
+                                                <table>
+                                                    <tr>
+                                                        <td>Sub Application(s):</td>
+
+                                                        <td>
+                                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnSubAppArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnSubAppArrowLeft_Click" /></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnSubAppArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnSubAppArrowRight_Click" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <asp:GridView ID="gvSubApplication" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvSubApplication_PageIndexChanging" OnDataBound="gvSubApplication_DataBound">
                                         <Columns>
@@ -122,7 +143,7 @@
                             </fieldset>
                         </div>
                     </div>
-                </contenttemplate>
+                </ContentTemplate>
             </asp:TabPanel>
         </asp:TabContainer>
 

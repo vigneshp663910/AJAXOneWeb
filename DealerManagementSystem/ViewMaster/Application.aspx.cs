@@ -12,6 +12,23 @@ namespace DealerManagementSystem.ViewMaster
 {
     public partial class Application : System.Web.UI.Page
     {
+
+        public List<PDMS_SubApplication> subApp
+        {
+            get
+            {
+                if (Session["PDMS_SubApplication"] == null)
+                {
+                    Session["PDMS_SubApplication"] = new List<PDMS_SubApplication>();
+                }
+                return (List<PDMS_SubApplication>)Session["PDMS_SubApplication"];
+            }
+            set
+            {
+                Session["PDMS_SubApplication"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Application');</script>");
@@ -31,24 +48,65 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
+
+
+
+        protected void ibtnSubAppArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvSubApplication.PageIndex > 0)
+            {
+                gvSubApplication.PageIndex = gvSubApplication.PageIndex - 1;
+                SubAppBind(gvSubApplication, lblRowCount, subApp);
+            }
+        }
+        protected void ibtnSubAppArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvSubApplication.PageCount > gvSubApplication.PageIndex)
+            {
+                gvSubApplication.PageIndex = gvSubApplication.PageIndex + 1;
+                SubAppBind(gvSubApplication, lblRowCount, subApp);
+            }
+        }
+
+        void SubAppBind(GridView gv, Label lbl, List<PDMS_SubApplication> subApp)
+        {
+            gv.DataSource = subApp;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + subApp.Count;
+        }
+
+
         void SearchSubApplication()
         {
             int? SubApplicationID = null;
             string SubApplicationName = null;
             int? MainApplicationID = ddlMainApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMainApplication.SelectedValue);
 
-            List<PDMS_SubApplication> subApplications = new BDMS_Service().GetSubApplication(MainApplicationID, SubApplicationID, SubApplicationName);
+            subApp = new BDMS_Service().GetSubApplication(MainApplicationID, SubApplicationID, SubApplicationName);
 
-            gvSubApplication.DataSource = subApplications;
+            gvSubApplication.DataSource = subApp;
             gvSubApplication.DataBind();
-            if (subApplications.Count == 0)
+            if (subApp.Count == 0)
             {
-                PDMS_SubApplication pDMS_SubApplication = new PDMS_SubApplication();
-                subApplications.Add(pDMS_SubApplication);
-                gvSubApplication.DataSource = subApplications;
+                subApp.Add(new PDMS_SubApplication() { });
+                gvSubApplication.DataSource = subApp;
                 gvSubApplication.DataBind();
+                lblRowCount.Visible = false;
+                ibtnSubAppArrowLeft.Visible = false;
+                ibtnSubAppArrowRight.Visible = false; 
+            } 
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnSubAppArrowLeft.Visible = true;
+                ibtnSubAppArrowRight.Visible = true;
+                lblRowCount.Text = (((gvSubApplication.PageIndex) * gvSubApplication.PageSize) + 1) + " - " + (((gvSubApplication.PageIndex) * gvSubApplication.PageSize) + gvSubApplication.Rows.Count) + " of " + subApp.Count;
             }
+
+
         }
+
+
         void SearchMainApplication()
         {
             //int? MainApplicationID = ddlMainApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMainApplication.SelectedValue);
@@ -187,8 +245,9 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void gvSubApplication_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            SearchSubApplication();
+            
             gvSubApplication.PageIndex = e.NewPageIndex;
+            SearchSubApplication();
             gvSubApplication.DataBind();
         }
 

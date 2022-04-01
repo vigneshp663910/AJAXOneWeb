@@ -35,17 +35,17 @@ namespace DealerManagementSystem.ViewPreSale
                 {
                     divColdVisitView.Visible = true;
                     btnBackToList.Visible = true;
-                    divList.Visible = false; 
+                    divList.Visible = false;
                     UC_QuotationView.fillViewQuotation(Convert.ToInt64(Request.QueryString["Quotation"]));
                     Label lblMessageView = ((Label)UC_QuotationView.FindControl("lblMessage"));
                     lblMessageView.Text = "Your request successfully processed";
-                    lblMessage.Visible=true;
+                    lblMessage.Visible = true;
                     lblMessageView.ForeColor = Color.Green;
                 }
-                    List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-                new DDLBind(ddlSCountry, Country, "Country", "CountryID",true, "All Country");
+                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
+                new DDLBind(ddlSCountry, Country, "Country", "CountryID", true, "All Country");
                 ddlSCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null); 
+                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
             }
         }
 
@@ -53,6 +53,50 @@ namespace DealerManagementSystem.ViewPreSale
         {
             FillQuotation();
         }
+
+        public List<PSalesQuotation> Quote
+        {
+            get
+            {
+                if (Session["Quote"] == null)
+                {
+                    Session["Quote"] = new List<PSalesQuotation>();
+                }
+                return (List<PSalesQuotation>)Session["Quote"];
+            }
+            set
+            {
+                Session["Quote"] = value;
+            }
+        }
+
+        protected void ibtnQuoteArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvQuotation.PageIndex > 0)
+            {
+                gvQuotation.PageIndex = gvQuotation.PageIndex - 1;
+                QuoteBind(gvQuotation, lblRowCount, Quote);
+            }
+        }
+
+
+        protected void ibtnQuoteArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvQuotation.PageCount > gvQuotation.PageIndex)
+            {
+                gvQuotation.PageIndex = gvQuotation.PageIndex + 1;
+                QuoteBind(gvQuotation, lblRowCount, Quote);
+            }
+        }
+
+        void QuoteBind(GridView gv, Label lbl, List<PSalesQuotation> Quote)
+        {
+            gv.DataSource = Quote ;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Quote.Count ;
+        }
+
+
         void FillQuotation()
         {
             long? SalesQuotationID = null;
@@ -70,11 +114,26 @@ namespace DealerManagementSystem.ViewPreSale
             int? DealerID = null;
             string CustomerCode = null;
 
-
-            List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate
-          , QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
-            gvQuotation.DataSource = Quotations;
+            //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
+            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
+            gvQuotation.DataSource = Quote;
             gvQuotation.DataBind();
+
+
+            if (Quote.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnQuoteArrowLeft.Visible = false;
+                ibtnQuoteArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnQuoteArrowLeft.Visible = true;
+                ibtnQuoteArrowRight.Visible = true;
+                lblRowCount.Text = (((gvQuotation.PageIndex) * gvQuotation.PageSize) + 1) + " - " + (((gvQuotation.PageIndex) * gvQuotation.PageSize) + gvQuotation.Rows.Count) + " of " + Quote.Count;
+            }
+
         }
         //protected void btnSave_Click(object sender, EventArgs e)
         //{
@@ -158,7 +217,7 @@ namespace DealerManagementSystem.ViewPreSale
         //    }
         //    return Message;
         //}
-         
+
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
             //divCustomerView.Visible = true;
@@ -173,7 +232,7 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)
-        { 
+        {
             divColdVisitView.Visible = false;
             btnBackToList.Visible = false;
             divList.Visible = true;
@@ -186,7 +245,7 @@ namespace DealerManagementSystem.ViewPreSale
         //    new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
         //    new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
         //}
-        
+
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvQuotation.PageIndex = e.NewPageIndex;
@@ -194,10 +253,10 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void btnViewQuotation_Click(object sender, EventArgs e)
-        { 
+        {
             divColdVisitView.Visible = true;
             btnBackToList.Visible = true;
-            divList.Visible = false; 
+            divList.Visible = false;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblQuotationID = (Label)gvRow.FindControl("lblQuotationID");
             UC_QuotationView.fillViewQuotation(Convert.ToInt64(lblQuotationID.Text));

@@ -796,5 +796,345 @@ namespace Business
 
         }
 
+        public void CreateQuotationInPartsPortal(long SalesQuotationID)
+        {
+            PSalesQuotation SQ = GetSalesQuotationByID(SalesQuotationID);
+            //PDMS_SalesOrderJSON SalesOrder = new PDMS_SalesOrderJSON(); 
+            try
+            {
+                List<string> Query = new List<string>();
+                DataTable dtLocation = new NpgsqlServer().ExecuteReader("SELECT  p_office, p_location FROM  dmmer_location where r_default = true and   s_tenant_id = " + SQ.Lead.Dealer.DealerCode + " limit 1");
+
+                string Location = "";
+                string Office = "";
+
+                if (dtLocation.Rows.Count == 1)
+                {
+                    Location = Convert.ToString(dtLocation.Rows[0]["p_location"]);
+                    Office = Convert.ToString(dtLocation.Rows[0]["p_office"]);
+                }
+                DataTable QuotationNumberCheck = new NpgsqlServer().ExecuteReader("SELECT count(*) FROM  dssor_sales_order_hdr where r_ext_id = '" + SQ.RefQuotationNo + "' and   s_tenant_id = " + SQ.Lead.Dealer.DealerCode + " limit 1");
+
+                if (Convert.ToInt32(QuotationNumberCheck.Rows[0][0]) != 0)
+                {
+                    return;
+                }
+                Query = QuotationForPartsPortal(SQ, Location, Office);
+
+                if (new NpgsqlServer().UpdateTransactionsJSNQuotation(Query, SQ.Lead.Dealer.DealerCode))
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessageService("BDMS_SalesOrder", "CreateQuotationForJSN", ex);
+                throw ex;
+            }
+        }
+
+         List<string> QuotationForPartsPortal(PSalesQuotation SQ, string Location, string Office)
+        {
+
+            // -f_po_id,f_bill_to,s_modified_by
+            List<string> Query = new List<string>();
+
+            string Query1S = "insert into dssor_sales_order_hdr (s_establishment,p_so_id,r_order_date";
+            string Query1V = " VALUES (1000,'@@QuotationNumber'," + SQ.RefQuotationDate;
+
+            Query1S = Query1S + ",s_tenant_id";
+            Query1V = Query1V + "," + SQ.Lead.Dealer.DealerCode;
+
+            Query1S = Query1S + ",f_customer_id";
+            Query1V = Query1V + ",'" + SQ.Lead.Customer.CustomerCode + "'";
+
+            Query1S = Query1S + ",f_ship_to";
+            Query1V = Query1V + ",'" + SQ.Lead.Customer.CustomerCode + "01_1" + "'";
+
+            Query1S = Query1S + ",f_location";
+            Query1V = Query1V + ",'" + Location + "'";
+
+            Query1S = Query1S + ",f_currency";
+            Query1V = Query1V + ",'" + "INR" + "'";
+
+            Query1S = Query1S + ",f_office";
+            Query1V = Query1V + ",'" + Office + "'";
+
+
+            Query1S = Query1S + ",r_ext_id";
+            Query1V = Query1V + ",'" + SQ.RefQuotationNo + "'";
+
+
+            //Query1S = Query1S + ",r_tax_amt";
+            //Query1V = Query1V + "," + SalesOrderResults.r_tax_amt;
+
+            Query1S = Query1S + ",r_discount_amt_additional";
+            Query1V = Query1V + ",0";
+
+            //if (!string.IsNullOrEmpty(SalesOrderResults.s_created_on))
+            //{
+            //    Query1S = Query1S + ",s_created_on";
+            //    Query1V = Query1V + ",'" + SalesOrderResults.s_created_on + "'";
+            //}
+
+            Query1S = Query1S + ",s_status";
+            Query1V = Query1V + ",'QUOTATION'";
+
+            Query1S = Query1S + ",r_net_amt";
+            Query1V = Query1V + ",0";
+
+            Query1S = Query1S + ",r_discount_amt";
+            Query1V = Query1V + ",0";
+
+            Query1S = Query1S + ",f_order_type";
+            Query1V = Query1V + ",208";
+            Query1S = Query1S + ",s_object_type";
+            Query1V = Query1V + ",208";
+
+
+            Query1S = Query1S + ",r_exp_del_date";
+            Query1V = Query1V + ",'" + SQ.RequestedDeliveryDate + "'";
+
+
+            Query1S = Query1S + ",f_sales_office";
+            Query1V = Query1V + ",'KA10'";
+
+            Query1S = Query1S + ",channel";
+            Query1V = Query1V + ",'LG'";
+
+
+            Query1S = Query1S + ",f_division";
+            Query1V = Query1V + ",'" + SQ.QuotationItems[0].Material.Model.Division.DivisionCode + "'";
+
+            Query1S = Query1S + ",r_activity_id";
+            Query1V = Query1V + ",1";
+
+
+
+            Query1S = Query1S + ",r_req_del_date";
+            Query1V = Query1V + ",'" + SQ.RequestedDeliveryDate + "'";
+
+
+
+            //if (!string.IsNullOrEmpty(SalesOrderResults.f_ship_to))
+            //{
+            //    Query1S = Query1S + ",f_ship_to";
+            //    Query1V = Query1V + ",'" + SalesOrderResults.f_ship_to + "'";
+            //}
+
+
+
+            Query1S = Query1S + ",r_gross_amt";
+            Query1V = Query1V + "," + SQ.GrossValue;
+
+            Query1S = Query1S + ",r_tcs_amt";
+            Query1V = Query1V + "," + SQ.TCSValue;
+
+            Query1S = Query1S + ",r_cess_amt";
+            Query1V = Query1V + ",0";
+
+
+            Query1S = Query1S + " )";
+            Query1V = Query1V + " )";
+            Query.Add(Query1S + Query1V);
+
+            foreach (PSalesQuotationItem Item in SQ.QuotationItems)
+            {
+                string Query1SItem = "insert into dssor_sales_order_item (s_establishment,p_so_id";
+                string Query1VItem = " VALUES (1000,'@@QuotationNumber'";
+
+                Query1SItem = Query1SItem + ",s_tenant_id";
+                Query1VItem = Query1VItem + "," + SQ.Lead.Dealer.DealerCode;
+
+
+                Query1SItem = Query1SItem + ",p_so_item";
+                Query1VItem = Query1VItem + "," + Item.Item;
+
+
+                Query1SItem = Query1SItem + ",f_location";
+                Query1VItem = Query1VItem + ",'" + Location + "'";
+
+                //if (!string.IsNullOrEmpty(SalesOrderItems.s_created_on))
+                //{
+                //    Query1SItem = Query1SItem + ",s_created_on";
+                //    Query1VItem = Query1VItem + ",'" + SalesOrderItems.s_created_on + "'";
+                //}
+
+                //if (!string.IsNullOrEmpty(SalesOrderItems.s_created_by))
+                //{
+                //    Query1SItem = Query1SItem + ",s_created_by";
+                //    Query1VItem = Query1VItem + ",'" + SalesOrderItems.s_created_by + "'";
+                //}
+
+
+                Query1SItem = Query1SItem + ",f_uom";
+                Query1VItem = Query1VItem + ",'" + Item.Material.BaseUnit + "'";
+
+
+                Query1SItem = Query1SItem + ",r_tax_amt";
+                Query1VItem = Query1VItem + "," + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
+
+                Query1SItem = Query1SItem + ",s_status";
+                Query1VItem = Query1VItem + ",'QUOTATION'";
+
+                Query1SItem = Query1SItem + ",r_hgl_item";
+                Query1VItem = Query1VItem + ",0";
+
+                Query1SItem = Query1SItem + ",f_office";
+                Query1VItem = Query1VItem + ",'" + Office + "'";
+
+                Query1SItem = Query1SItem + ",r_exp_del_date";
+                Query1VItem = Query1VItem + ",'" + SQ.RequestedDeliveryDate + "'";
+
+                Query1SItem = Query1SItem + ",f_oem_id";
+                Query1VItem = Query1VItem + ",'AF'";
+
+                Query1SItem = Query1SItem + ",f_material_id";
+                Query1VItem = Query1VItem + ",'" + Item.Material.MaterialCode + "'";
+
+                Query1SItem = Query1SItem + ",r_order_qty";
+                Query1VItem = Query1VItem + "," + Item.Qty;
+
+                Query1SItem = Query1SItem + ",r_item_type";
+                Query1VItem = Query1VItem + ",0";
+
+                Query1SItem = Query1SItem + ",r_add_discount_amt";
+                Query1VItem = Query1VItem + ",0";
+
+                Query1SItem = Query1SItem + ",r_net_amt";
+                Query1VItem = Query1VItem + ",0";
+
+                Query1SItem = Query1SItem + ",f_mat_division";
+                Query1VItem = Query1VItem + ",'" + Item.Material.Model.Division.DivisionCode + "'";
+
+                Query1SItem = Query1SItem + ",d_material_desc";
+                Query1VItem = Query1VItem + ",'" + Item.Material.MaterialDescription + "'";
+
+                // is_ack r_delv_qty 
+
+                Query1SItem = Query1SItem + ",r_pending_qty";
+                Query1VItem = Query1VItem + ",0";
+
+                Query1SItem = Query1SItem + ",r_gross_amt";
+                Query1VItem = Query1VItem + "," + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue + Item.TaxableValue;
+
+                Query1SItem = Query1SItem + ",r_discount_amt";
+                Query1VItem = Query1VItem + ",0";
+
+                Query1SItem = Query1SItem + ",s_object_type";
+                Query1VItem = Query1VItem + ",208";
+
+                Query1SItem = Query1SItem + ",channel";
+                Query1VItem = Query1VItem + ",'LG'";
+
+                //  r_tcs_amt   r_cess_amt r_delv_amt  r_stock_qqty r_stock_oqty 
+
+                Query1SItem = Query1SItem + " )";
+                Query1VItem = Query1VItem + " )";
+                Query.Add(Query1SItem + Query1VItem);
+
+                //foreach (PDMS_dssor_sales_order_item_condsJSON SOIC in SalesOrderItems.dssor_sales_order_item_conds)
+                //{
+
+                //    string Query1SItemC = "insert into dssor_sales_order_cond (s_establishment,p_so_id";
+                //    string Query1VItemC = " VALUES (1000,'@@QuotationNumber'";
+
+                //    if (!string.IsNullOrEmpty(SOIC.p_so_item))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",p_so_item";
+                //        Query1VItemC = Query1VItemC + "," + SOIC.p_so_item;
+                //    }
+
+                //    Query1SItemC = Query1SItemC + ",s_tenant_id";
+                //    Query1VItemC = Query1VItemC + "," + DealerCode;
+
+                //    if (!string.IsNullOrEmpty(SOIC.p_condition_type))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",p_condition_type";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.p_condition_type + "'";
+                //    }
+
+                //    if (!string.IsNullOrEmpty(SOIC.f_currency))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",f_currency";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.f_currency + "'";
+                //    }
+
+                //    if (!string.IsNullOrEmpty(SOIC.r_cond_amt))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",r_cond_amt";
+                //        if (SOIC.r_cond_amt.Contains('-'))
+                //        {
+                //            Query1VItemC = Query1VItemC + ",-" + SOIC.r_cond_amt.Replace("-", "");
+                //        }
+                //        else
+                //        {
+                //            Query1VItemC = Query1VItemC + "," + SOIC.r_cond_amt;
+                //        }
+                //    }
+
+                //    if (!string.IsNullOrEmpty(SOIC.r_base_amt))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",r_base_amt";
+                //        Query1VItemC = Query1VItemC + "," + SOIC.r_base_amt;
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.r_order_qty))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",r_order_qty";
+                //        Query1VItemC = Query1VItemC + "," + SOIC.r_order_qty;
+                //    }
+
+                //    if (!string.IsNullOrEmpty(SOIC.r_pric_date))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",r_pric_date";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.r_pric_date + "'";
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.s_created_by))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",s_created_by";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.s_created_by + "'";
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.s_created_on))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",s_created_on";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.s_created_on + "'";
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.r_cond_grp))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",r_cond_grp";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.r_cond_grp + "'";
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.d_cond_desc))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",d_cond_desc";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.d_cond_desc + "'";
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.r_cond_cls))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",r_cond_cls";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.r_cond_cls + "'";
+                //    }
+                //    if (!string.IsNullOrEmpty(SOIC.f_percentage))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",f_percentage";
+                //        Query1VItemC = Query1VItemC + "," + SOIC.f_percentage;
+                //    }
+
+                //    //  s_sync_status s_action     
+
+                //    if (!string.IsNullOrEmpty(SOIC.channel))
+                //    {
+                //        Query1SItemC = Query1SItemC + ",channel";
+                //        Query1VItemC = Query1VItemC + ",'" + SOIC.channel + "'";
+                //    }
+
+
+                //    Query1SItemC = Query1SItemC + " )";
+                //    Query1VItemC = Query1VItemC + " )";
+
+                //    Query.Add(Query1SItemC + Query1VItemC);
+                //}
+            }
+            return Query;
+        }
     }
 }

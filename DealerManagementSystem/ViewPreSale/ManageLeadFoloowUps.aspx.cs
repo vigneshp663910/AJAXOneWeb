@@ -46,6 +46,50 @@ namespace DealerManagementSystem.ViewPreSale
                 FillFollowUps();
             }
         }
+
+
+        public List<PLeadFollowUp> FU
+        {
+            get
+            {
+                if (Session["FU"] == null)
+                {
+                    Session["FU"] = new List<PLeadFollowUp>();
+                }
+                return (List<PLeadFollowUp>)Session["FU"];
+            }
+            set
+            {
+                Session["FU"] = value;
+            }
+        }
+
+        protected void ibtnFUArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvFollowUp.PageIndex > 0)
+            {
+                gvFollowUp.PageIndex = gvFollowUp.PageIndex - 1;
+                FUBind(gvFollowUp, lblRowCount, FU);
+            }
+        }
+        protected void ibtnFUArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvFollowUp.PageCount > gvFollowUp.PageIndex)
+            {
+                gvFollowUp.PageIndex = gvFollowUp.PageIndex + 1;
+                FUBind(gvFollowUp, lblRowCount, FU);
+            }
+        }
+
+        void FUBind(GridView gv, Label lbl, List<PLeadFollowUp> FU)
+        {
+            gv.DataSource = FU;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + FU.Count;
+        }
+
+
+
         void FillFollowUps()
         {
             long? LeadID = null;
@@ -53,9 +97,27 @@ namespace DealerManagementSystem.ViewPreSale
             //DateTime? From = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             //DateTime? To = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
             int? DealerID =  null;
-            List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
-            gvFollowUp.DataSource = FollowUp;
+            //List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
+
+            FU = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
+
+            gvFollowUp.DataSource = FU;
             gvFollowUp.DataBind();
+
+            if (FU.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnFUArrowLeft.Visible = false;
+                ibtnFUArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnFUArrowLeft.Visible = true;
+                ibtnFUArrowRight.Visible = true;
+                lblRowCount.Text = (((gvFollowUp.PageIndex) * gvFollowUp.PageSize) + 1) + " - " + (((gvFollowUp.PageIndex) * gvFollowUp.PageSize) + gvFollowUp.Rows.Count) + " of " + FU.Count;
+            }
+
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {

@@ -564,7 +564,7 @@ namespace DealerManagementSystem.ViewMaster
             int? CustomerAttributeSubID = ddlCustomerAttributeSub.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCustomerAttributeSub.SelectedValue);
             string CustomerAttributeSub = ddlCustomerAttributeSub.SelectedValue == "0" ? (string)null : ddlCustomerAttributeSub.SelectedItem.Text.Trim();
 
-            List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeMainID, CustomerAttributeSubID, CustomerAttributeSub);
+            List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID,CustomerAttributeMainID,  CustomerAttributeSub);
 
             gvCustomerAttributeSub.DataSource = pCustomerAttributeSubs;
             gvCustomerAttributeSub.DataBind();
@@ -1416,6 +1416,51 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
+        public List<PProduct> Prod
+        {
+            get
+            {
+                if (Session["Product"] == null)
+                {
+                    Session["Product"] = new List<PProduct>();
+                }
+                return (List<PProduct>)Session["Product"];
+            }
+            set
+            {
+                Session["Product"] = value;
+            }
+        }
+
+
+        protected void ibtnModelArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvProduct.PageIndex > 0)
+            {
+                gvProduct.PageIndex = gvProduct.PageIndex - 1;
+                ProductBind(gvProduct, lblRowCount, Prod);
+            }
+        }
+
+
+        protected void ibtnModelArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvProduct.PageCount > gvProduct.PageIndex)
+            {
+                gvProduct.PageIndex = gvProduct.PageIndex + 1;
+                ProductBind(gvProduct, lblRowCount, Prod);
+            }
+        }
+
+
+        void ProductBind(GridView gv, Label lbl, List<PProduct> Prod)
+        {
+            gv.DataSource = Prod;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Prod.Count;
+        }
+
+
         private void GetProduct()
         {
             int? ProductID = null;
@@ -1423,26 +1468,43 @@ namespace DealerManagementSystem.ViewMaster
 
             int? MakeID = ddlMake.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMake.SelectedValue);
             int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
-            List<PProduct> product = new BDMS_Master().GetProduct(ProductID,MakeID, ProductTypeID, Product);
-           
-            if (product.Count == 0)
+            //List<PProduct> product = new BDMS_Master().GetProduct(ProductID,MakeID, ProductTypeID, Product);
+            Prod = new BDMS_Master().GetProduct(ProductID, MakeID, ProductTypeID, Product);
+
+            if (Prod.Count == 0)
             {
                 PProduct pProduct = new PProduct();
-                product.Add(pProduct); 
+                Prod.Add(pProduct); 
             }
-            gvProduct.DataSource = product;
+            gvProduct.DataSource = Prod;
             gvProduct.DataBind();
             DropDownList ddlProductMake = gvProduct.FooterRow.FindControl("ddlProductMakeF") as DropDownList;
             new DDLBind(ddlProductMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID", true, "Select");
 
             DropDownList ddlProductTypeF = gvProduct.FooterRow.FindControl("ddlProductTypeF") as DropDownList;
             new DDLBind(ddlProductTypeF, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select");
+
+
+            if (Prod.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnModelArrowLeft.Visible = false;
+                ibtnModelArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnModelArrowLeft.Visible = true;
+                ibtnModelArrowRight.Visible = true;
+                lblRowCount.Text = (((gvProduct.PageIndex) * gvProduct.PageSize) + 1) + " - " + (((gvProduct.PageIndex) * gvProduct.PageSize) + gvProduct.Rows.Count) + " of " + Prod.Count;
+            }
+
         }
 
         protected void gvProduct_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GetProduct();
+        {           
             gvProduct.PageIndex = e.NewPageIndex;
+            GetProduct();
             gvProduct.DataBind();
         }
 
