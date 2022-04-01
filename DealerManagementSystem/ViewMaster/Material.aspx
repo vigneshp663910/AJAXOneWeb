@@ -186,9 +186,9 @@
                                         <label>Material Status</label>
                                        <%--<asp:CheckBox ID="cbActive" runat="server" Checked="true" />--%>
                                         <asp:DropDownList ID="ddlMaterialStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true">
-                                            <asp:ListItem Value="0"> Select</asp:ListItem>
+                                            <asp:ListItem Value=""> Select</asp:ListItem>
                                             <asp:ListItem Value="1"> Active</asp:ListItem>
-                                            <asp:ListItem Value="2"> Inactive</asp:ListItem>
+                                            <asp:ListItem Value="0"> Inactive</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                     <div class="col-md-12 text-center">

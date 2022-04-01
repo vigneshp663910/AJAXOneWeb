@@ -500,10 +500,10 @@ namespace Business
             return Materials;
         }
 
-        public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode,int? DivitionID,int? ModelID,string IsActive)
+        public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode,int? DivisionID,int? ModelID,string IsActive)
         {
             string endPoint = "Material/Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode 
-                + "&DivitionID=" + DivitionID + "&ModelID=" + ModelID + "&IsActive=" + IsActive;
+                + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&IsActive=" + IsActive;
             return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
             //TraceLogger.Log(DateTime.Now);
