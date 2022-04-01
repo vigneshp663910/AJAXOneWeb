@@ -588,7 +588,7 @@ namespace DealerManagementSystem.UserControls
 
             Label lblMaterialCode = (Label)gvServiceCharges.Rows[gvRow.RowIndex].FindControl("lblMaterialCode");
 
-            PDMS_Material Material = new BDMS_Material().GetMaterialListSQL(null, lblMaterialCode.Text)[0];
+            PDMS_Material Material = new BDMS_Material().GetMaterialListSQL(null, lblMaterialCode.Text, null, null, null)[0];
             if (Material.IsMainServiceMaterial)
             {
                 lblMessage.Text = "You cannot remove main service material (" + lblMaterialCode.Text + ")";
