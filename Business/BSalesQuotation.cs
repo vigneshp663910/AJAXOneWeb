@@ -832,7 +832,7 @@ namespace Business
             }
         }
 
-        List<string> QuotationForPartsPortal(PSalesQuotation SQ, string Location, string Office)
+         List<string> QuotationForPartsPortal(PSalesQuotation SQ, string Location, string Office)
         {
 
             // -f_po_id,f_bill_to,s_modified_by

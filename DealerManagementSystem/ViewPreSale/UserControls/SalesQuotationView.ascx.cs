@@ -177,6 +177,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
             }
+            else if (lbActions.Text == "Generate Quotation To Part")
+            {
+                new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+            }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
