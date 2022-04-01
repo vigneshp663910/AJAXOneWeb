@@ -52,7 +52,7 @@
                         <label>Dealer</label>
                     </div>
                     <div class="col-md-3">
-                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"/>
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-3 text-right">
                         <label>Aadhaar Card No</label>
@@ -395,12 +395,12 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role Assigning</legend>
                     <div class="col-md-12">
-                        <div class="col-md-3 text-right">
-                        <label>Login User Name</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
-                    </div>
+                      <%--  <div class="col-md-3 text-right">
+                            <label>Login User Name</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
+                        </div>--%>
                         <div class="col-md-3 text-right">
                             <label>Dealer Office</label>
                         </div>

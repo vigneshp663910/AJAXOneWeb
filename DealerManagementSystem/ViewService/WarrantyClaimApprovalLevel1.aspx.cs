@@ -668,7 +668,7 @@ namespace DealerManagementSystem.ViewService
                 Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
                 Label lblMaterial = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterial");
 
-                PDMS_Material Mat = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text)[0];
+                PDMS_Material Mat = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text, null, null, null)[0];
                 if (Mat.MaterialGroup == "887" || Mat.IsMainServiceMaterial == true)
                 { }
                 else if (lblCategory.Text == "Warranty.")
@@ -763,7 +763,7 @@ namespace DealerManagementSystem.ViewService
                 Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
 
                 Label lblMaterial = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterial");
-                PDMS_Material Mat = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text)[0];
+                PDMS_Material Mat = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text, null, null, null)[0];
                 if (Mat.MaterialGroup == "887")
                 { }
                 else if (lblCategory.Text == "Warranty.")
@@ -859,7 +859,7 @@ namespace DealerManagementSystem.ViewService
                 }
                 Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
                 Label lblMaterial = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterial");
-                PDMS_Material Mat = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text)[0];
+                PDMS_Material Mat = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text, null, null, null)[0];
                 if (Mat.MaterialGroup == "887")
                 { }
                 else if (lblCategory.Text == "Warranty.")

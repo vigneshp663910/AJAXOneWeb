@@ -70,6 +70,8 @@ namespace DealerManagementSystem.ViewMaster
                 try
                 {
                     new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
+                    new DDLBind(ddlDivisionMC, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
+                    new DDLBind(ddlMaterialModel, new BDMS_Model().GetModel(null, null, null), "ModelDescription", "ModelID", true, "Select Model");
                     GetDivision();
                     GetMaterailModel();
                     //GetMaterial();
@@ -87,7 +89,7 @@ namespace DealerManagementSystem.ViewMaster
             int? DivisionID = (int?)null;
             string Division = (string)null;
 
-            List<PDMS_Division> division = new BDMS_Master().GetDivision(DivisionID,Division);
+            List<PDMS_Division> division = new BDMS_Master().GetDivision(DivisionID, Division);
             gvDivision.DataSource = division;
             gvDivision.DataBind();
             if (division.Count == 0)
@@ -142,7 +144,7 @@ namespace DealerManagementSystem.ViewMaster
             if (MatModel.Count == 0)
             {
                 PDMS_Model pMaterailModel = new PDMS_Model();
-                MatModel.Add(pMaterailModel); 
+                MatModel.Add(pMaterailModel);
             }
             gvMaterailModel.DataSource = MatModel;
             gvMaterailModel.DataBind();
@@ -165,7 +167,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void gvMaterailModel_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-           
+
             gvMaterailModel.PageIndex = e.NewPageIndex;
             GetMaterailModel();
             gvMaterailModel.DataBind();
@@ -194,31 +196,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void btnMaterialSearch_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Mat = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCode.Text.Trim());
-                gvMaterial.PageIndex = 0;
-                gvMaterial.DataSource = Mat;
-                gvMaterial.DataBind();
-
-                if (Mat.Count == 0)
-                {
-                    lblRowCount.Visible = false;
-                    ibtnMaterialArrowLeft.Visible = false;
-                    ibtnMaterialArrowRight.Visible = false;
-                }
-                else
-                {
-                    lblRowCount.Visible = true;
-                    ibtnMaterialArrowLeft.Visible = true;
-                    ibtnMaterialArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvMaterial.PageIndex) * gvMaterial.PageSize) + 1) + " - " + (((gvMaterial.PageIndex) * gvMaterial.PageSize) + gvMaterial.Rows.Count) + " of " + Mat.Count;
-                }
-            }
-            catch (Exception e1)
-            {
-                DisplayErrorMessage(e1);
-            }
+            FillMaterial();
         }
         protected void gvMaterial_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -237,7 +215,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     return;
                 }
-                gvMaterialPrice.DataSource = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCodePrice.Text.Trim());
+                gvMaterialPrice.DataSource = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCodePrice.Text.Trim(), null, null, null);
                 gvMaterialPrice.DataBind();
             }
             catch (Exception e1)
@@ -356,6 +334,36 @@ namespace DealerManagementSystem.ViewMaster
             lblMessage.Text = Message;
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
+        }
+
+
+        void FillMaterial()
+        {
+            try
+            {
+                Mat = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCode.Text.Trim(), null, null, null);
+                gvMaterial.PageIndex = 0;
+                gvMaterial.DataSource = Mat;
+                gvMaterial.DataBind();
+
+                if (Mat.Count == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnMaterialArrowLeft.Visible = false;
+                    ibtnMaterialArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCount.Visible = true;
+                    ibtnMaterialArrowLeft.Visible = true;
+                    ibtnMaterialArrowRight.Visible = true;
+                    lblRowCount.Text = (((gvMaterial.PageIndex) * gvMaterial.PageSize) + 1) + " - " + (((gvMaterial.PageIndex) * gvMaterial.PageSize) + gvMaterial.Rows.Count) + " of " + Mat.Count;
+                }
+            }
+            catch (Exception e1)
+            {
+                DisplayErrorMessage(e1);
+            }
         }
     }
 }
