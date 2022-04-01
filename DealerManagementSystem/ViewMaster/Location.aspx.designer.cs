@@ -78,6 +78,33 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button BtnSearchCountry;
 
         /// <summary>
+        /// lblRowCountN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountN;
+
+        /// <summary>
+        /// ibtnCountryArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCountryArrowLeft;
+
+        /// <summary>
+        /// ibtnCountryArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCountryArrowRight;
+
+        /// <summary>
         /// gvCountry control.
         /// </summary>
         /// <remarks>
@@ -130,6 +157,33 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchRegion;
+
+        /// <summary>
+        /// lblRowCountR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountR;
+
+        /// <summary>
+        /// ibtnRegionArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnRegionArrowLeft;
+
+        /// <summary>
+        /// ibtnRegionArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnRegionArrowRight;
 
         /// <summary>
         /// gvRegion control.
@@ -204,6 +258,33 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button BtnSearchState;
 
         /// <summary>
+        /// lblRowCountS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountS;
+
+        /// <summary>
+        /// ibtnStateArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnStateArrowLeft;
+
+        /// <summary>
+        /// ibtnStateArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnStateArrowRight;
+
+        /// <summary>
         /// gvState control.
         /// </summary>
         /// <remarks>
@@ -267,6 +348,33 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button BtnSearchDistrict;
 
         /// <summary>
+        /// lblRowCountD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountD;
+
+        /// <summary>
+        /// ibtnDistrictArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDistrictArrowLeft;
+
+        /// <summary>
+        /// ibtnDistrictArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDistrictArrowRight;
+
+        /// <summary>
         /// gvDistrict control.
         /// </summary>
         /// <remarks>
@@ -328,6 +436,33 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearchCity;
+
+        /// <summary>
+        /// lblRowCountC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountC;
+
+        /// <summary>
+        /// ibtnCityArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCityArrowLeft;
+
+        /// <summary>
+        /// ibtnCityArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCityArrowRight;
 
         /// <summary>
         /// gvCity control.

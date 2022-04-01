@@ -58,6 +58,7 @@ namespace DealerManagementSystem.ViewMaster
                 Session["PDMS_State"] = value;
             }
         }
+
         public List<PDMS_District> LDistrict
         {
             get
@@ -73,6 +74,24 @@ namespace DealerManagementSystem.ViewMaster
                 Session["PDMS_District"] = value;
             }
         }
+
+        public List<PDMS_Tehsil> LTehsil
+        {
+            get
+            {
+                if (Session["PDMS_Tehsil"] == null)
+                {
+                    Session["PDMS_Tehsil"] = new List<PDMS_Tehsil>();
+                }
+                return (List<PDMS_Tehsil>)Session["PDMS_Tehsil"];
+            }
+            set
+            {
+                Session["PDMS_Tehsil"] = value;
+            }
+        }
+
+
         public List<PSalesOffice> LSalesOffice
         {
             get
@@ -346,6 +365,33 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void ibtnStateArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvState.PageIndex > 0)
+            {
+                gvState.PageIndex = gvState.PageIndex - 1;
+                StateBind(gvState, lblRowCountS, LState);
+            }
+        }
+        protected void ibtnStateArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvState.PageCount > gvState.PageIndex)
+            {
+                gvState.PageIndex = gvState.PageIndex + 1;
+                StateBind(gvState, lblRowCountS, LState);
+            }
+        }
+
+        void StateBind(GridView gv, Label lbl, List<PDMS_State> LState)
+        {
+            gv.DataSource = LState;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LState.Count;
+        }
+
+
+
         private void FillGridState()
         {
             try
@@ -369,13 +415,33 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     StateCode = txtStateCode.Text.Trim();
                 }
-                List<PDMS_State> MML = new BDMS_Address().GetState(CountryID, RegionID, null, State);
-                if (MML.Count == 0)
+
+                //List<PDMS_State> MML = new BDMS_Address().GetState(CountryID, RegionID, null, State);
+                LState = new BDMS_Address().GetState(CountryID, RegionID, null, State);
+
+                if (LState.Count == 0)
                 {
-                    MML.Add(new PDMS_State());
+                    LState.Add(new PDMS_State());
                 }
-                gvState.DataSource = MML;
+                gvState.DataSource = LState;
                 gvState.DataBind();
+
+                if (LState.Count == 0)
+                {
+                    lblRowCountS.Visible = false;
+                    ibtnStateArrowLeft.Visible = false;
+                    ibtnStateArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCountS.Visible = true;
+                    ibtnStateArrowLeft.Visible = true;
+                    ibtnStateArrowRight.Visible = true;
+                    lblRowCountS.Text = (((gvState.PageIndex) * gvState.PageSize) + 1) + " - " + (((gvState.PageIndex) * gvState.PageSize) + gvState.Rows.Count) + " of " + LState.Count;
+                }
+
+
+
                 DropDownList ddlGSCountry = gvState.FooterRow.FindControl("ddlGSCountry") as DropDownList;
                 new DDLBind(ddlGSCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
 
@@ -389,6 +455,34 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+
+
+        protected void ibtnDistrictArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDistrict.PageIndex > 0)
+            {
+                gvDistrict.PageIndex = gvDistrict.PageIndex - 1;
+                DistrictBind(gvDistrict, lblRowCountD, LDistrict);
+            }
+        }
+        protected void ibtnDistrictArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDistrict.PageCount > gvDistrict.PageIndex)
+            {
+                gvDistrict.PageIndex = gvDistrict.PageIndex + 1;
+                DistrictBind(gvDistrict, lblRowCountD, LDistrict);
+            }
+        }
+
+        void DistrictBind(GridView gv, Label lbl, List<PDMS_District> LDistrict)
+        {
+            gv.DataSource = LDistrict;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LDistrict.Count;
+        }
+
+
         private void FillGridDistrict()
         {
             try
@@ -412,15 +506,34 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     District = txtDistrict.Text.Trim();
                 }
-                List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
-                if (MML.Count == 0)
-                {
-                    MML.Add(new PDMS_District());
-                }
-                ViewState["gvDistrict"] = MML;
-                gvDistrict.DataSource = MML;
-                gvDistrict.DataBind();
                 
+                //List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
+
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, null);
+                if (LDistrict.Count == 0)
+                {
+                    LDistrict.Add(new PDMS_District());
+                }
+                ViewState["gvDistrict"] = LDistrict;
+                gvDistrict.DataSource = LDistrict;
+                gvDistrict.DataBind();
+
+
+                if (LDistrict.Count == 0)
+                {
+                    lblRowCountD.Visible = false;
+                    ibtnDistrictArrowLeft.Visible = false;
+                    ibtnDistrictArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCountD.Visible = true;
+                    ibtnDistrictArrowLeft.Visible = true;
+                    ibtnDistrictArrowRight.Visible = true;
+                    lblRowCountD.Text = (((gvDistrict.PageIndex) * gvDistrict.PageSize) + 1) + " - " + (((gvDistrict.PageIndex) * gvDistrict.PageSize) + gvDistrict.Rows.Count) + " of " + LDistrict.Count;
+                }
+
+
                 DropDownList ddlGDCountry = gvDistrict.FooterRow.FindControl("ddlGDCountry") as DropDownList;
                 new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
 
@@ -440,6 +553,32 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void ibtnCountryArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCountry.PageIndex > 0)
+            {
+                gvCountry.PageIndex = gvCountry.PageIndex - 1;
+                CountryBind(gvCountry, lblRowCountN, LCountry);
+            }
+        }
+        protected void ibtnCountryArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCountry.PageCount > gvCountry.PageIndex)
+            {
+                gvCountry.PageIndex = gvCountry.PageIndex + 1;
+                CountryBind(gvCountry, lblRowCountN, LCountry);
+            }
+        }
+
+        void CountryBind(GridView gv, Label lbl, List<PDMS_Country> LCountry)
+        {
+            gv.DataSource = LCountry;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LCountry.Count;
+        }
+
+
         private void FillGridCountry()
         {
             try
@@ -450,14 +589,30 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     country = txtCountry.Text.Trim();
                 }
-                List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, country);
-                if (MML.Count == 0)
+                //List<PDMS_Country> MML = new BDMS_Address().GetCountry(CountryID, country);
+                LCountry = new BDMS_Address().GetCountry(CountryID, country);
+                if (LCountry.Count == 0)
                 {
-                    MML.Add(new PDMS_Country());
+                    LCountry.Add(new PDMS_Country());
                 }
-                ViewState["gvCountry"] = MML;
-                gvCountry.DataSource = MML;
+                ViewState["gvCountry"] = LCountry;
+                gvCountry.DataSource = LCountry;
                 gvCountry.DataBind();
+
+                if (LCountry.Count == 0)
+                {
+                    lblRowCountN.Visible = false;
+                    ibtnCountryArrowLeft.Visible = false;
+                    ibtnCountryArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCountN.Visible = true;
+                    ibtnCountryArrowLeft.Visible = true;
+                    ibtnCountryArrowRight.Visible = true;
+                    lblRowCountN.Text = (((gvCountry.PageIndex) * gvCountry.PageSize) + 1) + " - " + (((gvCountry.PageIndex) * gvCountry.PageSize) + gvCountry.Rows.Count) + " of " + LCountry.Count;
+                }
+
                 DropDownList ddlGCCountryCurrency = gvCountry.FooterRow.FindControl("ddlGCCountryCurrency") as DropDownList;
                 new DDLBind(ddlGCCountryCurrency, new BDMS_Address().GetCurrency(null, null), "Currency", "CurrencyID", true, "Select Country Currency");
 
@@ -473,6 +628,34 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+
+        protected void ibtnRegionArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvRegion.PageIndex > 0)
+            {
+                gvRegion.PageIndex = gvRegion.PageIndex - 1;
+                RegionBind(gvRegion, lblRowCountR, LRegion);
+            }
+        }
+        protected void ibtnRegionArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvRegion.PageCount > gvRegion.PageIndex)
+            {
+                gvRegion.PageIndex = gvRegion.PageIndex + 1;
+                RegionBind(gvRegion, lblRowCountR, LRegion);
+            }
+        }
+
+        void RegionBind(GridView gv, Label lbl, List<PDMS_Region> LRegion)
+        {
+            gv.DataSource = LRegion;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LRegion.Count;
+        }
+
+
+
         private void FillGridRegion()
         {
             try
@@ -487,13 +670,32 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     Region = txtRRegion.Text.Trim();
                 }
-                List<PDMS_Region> MML = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
-                if (MML.Count == 0)
+                //List<PDMS_Region> MML = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
+
+                LRegion = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
+
+                if (LRegion.Count == 0)
                 {
-                    MML.Add(new PDMS_Region());
+                    LRegion.Add(new PDMS_Region());
                 }
-                gvRegion.DataSource = MML;
+                gvRegion.DataSource = LRegion;
                 gvRegion.DataBind();
+
+
+                if (LRegion.Count == 0)
+                {
+                    lblRowCountR.Visible = false;
+                    ibtnRegionArrowLeft.Visible = false;
+                    ibtnRegionArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCountR.Visible = true;
+                    ibtnRegionArrowLeft.Visible = true;
+                    ibtnRegionArrowRight.Visible = true;
+                    lblRowCountR.Text = (((gvRegion.PageIndex) * gvRegion.PageSize) + 1) + " - " + (((gvRegion.PageIndex) * gvRegion.PageSize) + gvRegion.Rows.Count) + " of " + LRegion.Count;
+                }
+
                 DropDownList ddlGRCountry = gvRegion.FooterRow.FindControl("ddlGRCountry") as DropDownList;
                 new DDLBind(ddlGRCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
             }
@@ -2160,6 +2362,33 @@ namespace DealerManagementSystem.ViewMaster
         {
             FillGridTehsil();
         }
+
+
+        protected void ibtnCityArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCity.PageIndex > 0)
+            {
+                gvCity.PageIndex = gvCity.PageIndex - 1;
+                CityBind(gvCity, lblRowCountC, LTehsil);
+            }
+        }
+        protected void ibtnCityArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCity.PageCount > gvCity.PageIndex)
+            {
+                gvCity.PageIndex = gvCity.PageIndex + 1;
+                CityBind(gvCity, lblRowCountC, LTehsil);
+            }
+        }
+
+        void CityBind(GridView gv, Label lbl, List<PDMS_Tehsil> LTehsil)
+        {
+            gv.DataSource = LTehsil;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LTehsil.Count;
+        }
+
+
         private void FillGridTehsil()
         {
             try
@@ -2185,14 +2414,33 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     Tehsil = txtCity.Text.Trim();
                 }
-                List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
-                if(MML.Count ==0)
+                
+                //List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
+
+                LTehsil = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
+                if (LTehsil.Count ==0)
                 {
-                    MML.Add(new PDMS_Tehsil());
+                    LTehsil.Add(new PDMS_Tehsil());
                 }
-                gvCity.DataSource = MML;
+                gvCity.DataSource = LTehsil;
                 gvCity.DataBind();
                 //throw new NotImplementedException();
+
+                if (LTehsil.Count == 0)
+                {
+                    lblRowCountC.Visible = false;
+                    ibtnCityArrowLeft.Visible = false;
+                    ibtnCityArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCountC.Visible = true;
+                    ibtnCityArrowLeft.Visible = true;
+                    ibtnCityArrowRight.Visible = true;
+                    lblRowCountC.Text = (((gvCity.PageIndex) * gvCity.PageSize) + 1) + " - " + (((gvCity.PageIndex) * gvCity.PageSize) + gvCity.Rows.Count) + " of " + LTehsil.Count;
+                }
+
+
                 DropDownList ddlGCityCountry = gvCity.FooterRow.FindControl("ddlGCityCountry") as DropDownList;
                 new DDLBind(ddlGCityCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
 
@@ -2623,36 +2871,41 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void gvDistrict_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillGridDistrict();
+            //FillGridDistrict();
             gvDistrict.PageIndex = e.NewPageIndex;
+            FillGridDistrict();
             gvDistrict.DataBind();
         }
 
         protected void gvCity_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillGridTehsil();
+            //FillGridTehsil();
             gvCity.PageIndex = e.NewPageIndex;
+            FillGridTehsil();
             gvCity.DataBind();
         }
 
         protected void gvState_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillGridState();
+            //FillGridState();
             gvState.PageIndex = e.NewPageIndex;
+            FillGridState();
             gvState.DataBind();
         }
 
         protected void gvRegion_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillGridRegion();
+            //FillGridRegion();
             gvRegion.PageIndex = e.NewPageIndex;
+            FillGridRegion();
             gvRegion.DataBind();
         }
 
         protected void gvCountry_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillGridCountry();
+            //FillGridCountry();
             gvCountry.PageIndex = e.NewPageIndex;
+            FillGridCountry();
             gvCountry.DataBind();
             DropDownList ddlGCCountryCurrency = gvCountry.FooterRow.FindControl("ddlGCCountryCurrency") as DropDownList;
             new DDLBind(ddlGCCountryCurrency, new BDMS_Address().GetCurrency(null, null), "Currency", "CurrencyID", true, "Select Country Currency");
