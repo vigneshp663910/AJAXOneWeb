@@ -263,7 +263,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //    Vendor = SDMS_ICTicket.Dealer.DealerCode;
             //}
             Material = Material.Split(' ')[0];
-            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material)[0];
+            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
             if (string.IsNullOrEmpty(MM.MaterialCode))
             {
                 lblMessageProduct.Text = "Please check the Material";
