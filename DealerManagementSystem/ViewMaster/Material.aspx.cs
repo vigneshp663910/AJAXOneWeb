@@ -341,7 +341,11 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                Mat = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCode.Text.Trim(), null, null, null);
+                int? DivisionID = ddlDivisionMC.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivisionMC.SelectedValue);
+                int? ModelID = ddlMaterialModel.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMaterialModel.SelectedValue);
+
+               // Boolean? IsActive = ddlMaterialStatus.SelectedValue==""? (Boolean?)null: Convert.ToBoolean(ddlMaterialStatus.SelectedValue) ;
+                Mat = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCode.Text.Trim(), DivisionID, ModelID, ddlMaterialStatus.SelectedValue);
                 gvMaterial.PageIndex = 0;
                 gvMaterial.DataSource = Mat;
                 gvMaterial.DataBind();
