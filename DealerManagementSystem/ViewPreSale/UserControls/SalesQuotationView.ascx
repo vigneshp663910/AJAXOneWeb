@@ -25,6 +25,7 @@
                 <asp:LinkButton ID="lbtnPrintPDF" runat="server" OnClick="lbActions_Click">Print PDF</asp:LinkButton>
                 <asp:LinkButton ID="lbtnPrintTaxQuotation" runat="server" OnClick="lbActions_Click">Print Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Generate Quotation To Part</asp:LinkButton>
             </div>
         </div>
     </div>

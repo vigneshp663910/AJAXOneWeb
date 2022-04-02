@@ -25,7 +25,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12" id="divList" runat="server">
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Criteria</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Year</label>
@@ -55,7 +55,7 @@
             </div>
         </fieldset>
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Listing</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
             <div class="col-md-12 Report">
                 <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound">
                     <Columns>

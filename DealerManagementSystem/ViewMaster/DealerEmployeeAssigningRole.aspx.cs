@@ -249,7 +249,7 @@ namespace DealerManagementSystem.ViewMaster
             PDMS_DealerEmployeeRole Role = new PDMS_DealerEmployeeRole();
             Role.DealerEmployeeID = (int)ViewState["DealerEmployeeID"];
             Role.Dealer = new PDMS_Dealer();
-            Role.LoginUserName = Convert.ToString(txtLoginUserName.Text.Trim());
+            //Role.LoginUserName = Convert.ToString(txtLoginUserName.Text.Trim());
             Role.Dealer.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
             Role.Dealer.DealerOffice = new PDMS_DealerOffice();
             Role.Dealer.DealerOffice.OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
@@ -355,12 +355,12 @@ namespace DealerManagementSystem.ViewMaster
             ddlDesignation.BorderColor = Color.Silver;
             Boolean Ret = true;
             string Message = "";
-            if (string.IsNullOrEmpty(txtLoginUserName.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Login User Name";
-                Ret = false;
-                txtLoginUserName.BorderColor = Color.Red;
-            }
+            //if (string.IsNullOrEmpty(txtLoginUserName.Text.Trim()))
+            //{
+            //    Message = Message + "<br/>Please enter the Login User Name";
+            //    Ret = false;
+            //    txtLoginUserName.BorderColor = Color.Red;
+            //}
             if (string.IsNullOrEmpty(txtDateOfJoining.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Date of Joining";

@@ -220,6 +220,50 @@ namespace DealerManagementSystem.ViewPreSale
         {
             FillLead();
         }
+
+
+        public List<PLead> Lead1
+        {
+            get
+            {
+                if (Session["Lead1"] == null)
+                {
+                    Session["Lead1"] = new List<PLead>();
+                }
+                return (List<PLead>)Session["Lead1"];
+            }
+            set
+            {
+                Session["Lead1"] = value;
+            }
+        }
+
+
+        protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvLead.PageIndex > 0)
+            {
+                gvLead.PageIndex = gvLead.PageIndex - 1;
+                LeadBind(gvLead, lblRowCount, Lead1);
+            }
+        }
+        protected void ibtnLeadArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvLead.PageCount > gvLead.PageIndex)
+            {
+                gvLead.PageIndex = gvLead.PageIndex + 1;
+                LeadBind(gvLead, lblRowCount, Lead1);
+            }
+        }
+
+        void LeadBind(GridView gv, Label lbl, List<PLead> Lead1)
+        {
+            gv.DataSource = Lead1;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Lead1.Count;
+        }
+
+
         void FillLead()
         {
             PLeadSearch S = new PLeadSearch();
@@ -237,10 +281,29 @@ namespace DealerManagementSystem.ViewPreSale
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
-            List<PLead> Leads = new BLead().GetLead(S);
-            gvLead.DataSource = Leads;
+            //List<PLead> Leads = new BLead().GetLead(S);
+            Lead1 = new BLead().GetLead(S);
+
+            gvLead.DataSource = Lead1;
             gvLead.DataBind();
+
+
+            if (Lead1.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnLeadArrowLeft.Visible = false;
+                ibtnLeadArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnLeadArrowLeft.Visible = true;
+                ibtnLeadArrowRight.Visible = true;
+                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Lead1.Count;
+            }
+
         }
+
 
         //protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         //{

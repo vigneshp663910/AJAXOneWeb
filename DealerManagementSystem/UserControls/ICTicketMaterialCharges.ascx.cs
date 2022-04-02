@@ -338,7 +338,7 @@ namespace DealerManagementSystem.UserControls
 
             decimal Available = 0;
             Boolean IsIGST = true;
-            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material)[0];
+            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material,null,null,null)[0];
 
 
             decimal QtyF = Convert.ToDecimal(txtQtyF.Text);
@@ -365,7 +365,7 @@ namespace DealerManagementSystem.UserControls
             }
             else
             {
-                PDMS_Material MM_SQL = new BDMS_Material().GetMaterialListSQL(null, Material)[0];
+                PDMS_Material MM_SQL = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
                 Available = Convert.ToDecimal(txtQtyF.Text);
 
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SDMS_ICTicket.Dealer.DealerCode);
@@ -485,7 +485,7 @@ namespace DealerManagementSystem.UserControls
             }
 
 
-            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, lblMaterialCode.Text)[0];
+            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, lblMaterialCode.Text, null, null, null)[0];
             string Status = "";
             if (MM.MaterialGroup != "887")
             {
@@ -1045,7 +1045,7 @@ namespace DealerManagementSystem.UserControls
                 {
                     int ServiceTypeID = SDMS_ICTicket.ServiceType.ServiceTypeID;
                     Label lblMaterialCode = (Label)gvMaterial.Rows[gvRow.RowIndex].FindControl("lblMaterialCode");
-                    PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, lblMaterialCode.Text)[0];
+                    PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, lblMaterialCode.Text, null, null, null)[0];
                     decimal Available = 0;
                     string Qty = new NpgsqlServer().ExecuteScalar("select  r_available_qty from  dmstr_stock where s_tenant_id = " + SDMS_ICTicket.Dealer.DealerCode + " and p_material ='" + lblMaterialCode.Text + "' and p_office ='" + SDMS_ICTicket.DealerOffice.OfficeCode + "' and  p_stock_type='SALE'");
                     Available = Convert.ToDecimal("0" + Qty.Trim());

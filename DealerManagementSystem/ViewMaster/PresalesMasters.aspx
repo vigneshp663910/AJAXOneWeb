@@ -22,7 +22,7 @@
                                         <asp:DropDownList ID="ddlLeadSource" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchLeadSource_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchLeadSource_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchLeadSource" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchLeadSource_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -33,39 +33,60 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
-                                    <asp:GridView ID="gvLeadSource" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvLeadSource_PageIndexChanging">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="LeadSource" SortExpression="LeadSource">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblLeadSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source")%>' runat="server" />
-                                                    <asp:Label ID="lblLeadSourceID" Text='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' runat="server" Visible="false" />
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:TextBox ID="txtLeadSource" runat="server" placeholder="Lead Source" CssClass="form-control"></asp:TextBox>
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lblLeadSourceEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' OnClick="lblLeadSourceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                                    <asp:LinkButton ID="lblLeadSourceDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' OnClick="lblLeadSourceDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:Button ID="BtnAddLeadSource" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddLeadSource_Click" Width="70px" Height="33px" />
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
+
+                                    <span id="txnHistory2:refreshDataGroup">
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>Enquiry Source(s):</td>
+
+                                                            <td>
+                                                                <asp:Label ID="lblRowCountE" runat="server" CssClass="label"></asp:Label></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnLeadArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnLeadArrowLeft_Click" /></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnLeadArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnLeadArrowRight_Click" /></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <asp:GridView ID="gvLeadSource" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                            EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvLeadSource_PageIndexChanging">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="LeadSource" SortExpression="LeadSource">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblLeadSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source")%>' runat="server" />
+                                                        <asp:Label ID="lblLeadSourceID" Text='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' runat="server" Visible="false" />
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:TextBox ID="txtLeadSource" runat="server" placeholder="Lead Source" CssClass="form-control"></asp:TextBox>
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lblLeadSourceEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' OnClick="lblLeadSourceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lblLeadSourceDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' OnClick="lblLeadSourceDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:Button ID="BtnAddLeadSource" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddLeadSource_Click" Width="70px" Height="33px" />
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                            <FooterStyle ForeColor="White" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                        </asp:GridView>
                                 </div>
                             </fieldset>
                         </div>
@@ -86,7 +107,7 @@
                                         <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchActionType_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchActionType_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchActionType" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchActionType_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -147,10 +168,10 @@
                                         <label>Attribute Main</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeMain_Click" ></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlCustomerAttributeMain" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeMain_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchCustomerAttributeMain" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchCustomerAttributeMain_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -220,7 +241,7 @@
                                         <asp:DropDownList ID="ddlCustomerAttributeSub" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="btnSearchCustomerAttributeSub_Click"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Search" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
+                                        <asp:Button ID="btnSearchCustomerAttributeSub" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearchCustomerAttributeSub_Click"></asp:Button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -525,6 +546,26 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                    <div class="boxHead">
+                                        <div class="logheading">
+                                            <div style="float: left">
+                                                <table>
+                                                    <tr>
+                                                        <td>Model :</td>
+
+                                                        <td>
+                                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnModelArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnModelArrowLeft_Click" /></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnModelArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnModelArrowRight_Click" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvProduct_PageIndexChanging" OnDataBound="gvProduct_DataBound">
                                         <Columns>

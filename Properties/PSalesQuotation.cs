@@ -41,6 +41,7 @@ namespace Properties
         public DateTime? InvoiceDate { get; set; }
         public PUser CreatedBy { get; set; }
 
+        public decimal GrossValue { get; set; }        
         public decimal TCSValue { get; set; }
         public decimal TCSTax { get; set; }
         public decimal LifeTimeValue { get; set; }
