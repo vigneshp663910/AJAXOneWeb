@@ -86,15 +86,15 @@ namespace DealerManagementSystem.ViewPreSale
         {
             get
             {
-                if (Session["VT"] == null)
+                if (Session["PVisitTarget"] == null)
                 {
-                    Session["VT"] = new List<PVisitTarget>();
+                    Session["PVisitTarget"] = new List<PVisitTarget>();
                 }
-                return (List<PVisitTarget>)Session["VT"];
+                return (List<PVisitTarget>)Session["PVisitTarget"];
             }
             set
             {
-                Session["VT"] = value;
+                Session["PVisitTarget"] = value;
             }
         }
 
@@ -141,10 +141,11 @@ namespace DealerManagementSystem.ViewPreSale
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? DepartmentID = null;
             int? DealerEmployeeID = null;
-            gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
+            //gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
 
             // TO VERIFY WITH JOHN
             VT = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
+            gvVisitTarget.DataSource = VT;
             gvVisitTarget.DataBind();
 
             if (VT.Count == 0)
