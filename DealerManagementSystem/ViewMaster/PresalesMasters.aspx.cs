@@ -1038,12 +1038,58 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
             }
         }
+
+
+        public List<PExpenseType> ExpenseTypes
+        {
+            get
+            {
+                if (Session["ExpenseTypes"] == null)
+                {
+                    Session["ExpenseTypes"] = new List<PExpenseType>();
+                }
+                return (List<PExpenseType>)Session["ExpenseTypes"];
+            }
+            set
+            {
+                Session["ExpenseTypes"] = value;
+            }
+        }
+
+        protected void ibtnExpenseArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvExpenseType.PageIndex > 0)
+            {
+                gvExpenseType.PageIndex = gvExpenseType.PageIndex - 1;
+                ExpenseTypeBind(gvExpenseType, lblRowCountEx, ExpenseTypes);
+            }
+        }
+        protected void ibtnExpenseArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvExpenseType.PageCount > gvExpenseType.PageIndex)
+            {
+                gvExpenseType.PageIndex = gvExpenseType.PageIndex + 1;
+                ExpenseTypeBind(gvExpenseType, lblRowCountEx, ExpenseTypes);
+            }
+        }
+
+        void ExpenseTypeBind(GridView gv, Label lbl, List<PExpenseType> ExpenseTypes)
+        {
+            gv.DataSource = ExpenseTypes;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + ExpenseTypes.Count;
+        }
+
+
+
         void SearchExpenseType()
         {
             int? ExpenseTypeID = ddlExpenseType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlExpenseType.SelectedValue);
             string ExpenseType = ddlExpenseType.SelectedValue == "0" ? (string)null : ddlExpenseType.SelectedItem.Text.Trim();
 
-            List<PExpenseType> ExpenseTypes = new BPresalesMasters().GetExpenseType(ExpenseTypeID, ExpenseType);
+            //List<PExpenseType> ExpenseTypes = new BPresalesMasters().GetExpenseType(ExpenseTypeID, ExpenseType);
+
+            ExpenseTypes = new BPresalesMasters().GetExpenseType(ExpenseTypeID, ExpenseType);
 
             gvExpenseType.DataSource = ExpenseTypes;
             gvExpenseType.DataBind();
@@ -1054,6 +1100,23 @@ namespace DealerManagementSystem.ViewMaster
                 gvExpenseType.DataSource = ExpenseTypes;
                 gvExpenseType.DataBind();
             }
+
+
+
+            if (ExpenseTypes.Count == 0)
+            {
+                lblRowCountEx.Visible = false;
+                ibtnExpenseArrowLeft.Visible = false;
+                ibtnModelArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountEx.Visible = true;
+                ibtnExpenseArrowLeft.Visible = true;
+                ibtnExpenseArrowRight.Visible = true;
+                lblRowCountEx.Text = (((gvExpenseType.PageIndex) * gvExpenseType.PageSize) + 1) + " - " + (((gvExpenseType.PageIndex) * gvExpenseType.PageSize) + gvExpenseType.Rows.Count) + " of " + ExpenseTypes.Count;
+            }
+
         }
         protected void ddlExpenseType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1061,8 +1124,9 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void gvExpenseType_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            SearchExpenseType();
+            //SearchExpenseType();
             gvExpenseType.PageIndex = e.NewPageIndex;
+            SearchExpenseType();
             gvExpenseType.DataBind();
         }
         protected void BtnAddExpenseType_Click(object sender, EventArgs e)
@@ -1196,22 +1260,82 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
+        public List<PMake> ProdMake
+        {
+            get
+            {
+                if (Session["ProdMake"] == null)
+                {
+                    Session["ProdMake"] = new List<PMake>();
+                }
+                return (List<PMake>)Session["ProdMake"];
+            }
+            set
+            {
+                Session["ProdMake"] = value;
+            }
+        }
+
+
+        protected void ibtnMakeArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvMake.PageIndex > 0)
+            {
+                gvMake.PageIndex = gvMake.PageIndex - 1;
+                MakeBind(gvMake, lblRowCountMk, ProdMake);
+            }
+        }
+        protected void ibtnMakeArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvMake.PageCount > gvMake.PageIndex)
+            {
+                gvMake.PageIndex = gvMake.PageIndex + 1;
+                MakeBind(gvMake, lblRowCountMk, ProdMake);
+            }
+        }
+
+        void MakeBind(GridView gv, Label lbl, List<PMake> ProdMake)
+        {
+            gv.DataSource = ProdMake;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + ProdMake.Count;
+        }
+
+
+
         private void GetMake()
         { 
-            List<PMake> make = new BDMS_Master().GetMake(null, null); 
-            if (make.Count == 0)
+            //List<PMake> make = new BDMS_Master().GetMake(null, null);
+            ProdMake = new BDMS_Master().GetMake(null, null);
+            if (ProdMake.Count == 0)
             {
                 PMake pMake = new PMake();
-                make.Add(pMake); 
+                ProdMake.Add(pMake); 
             }
-            gvMake.DataSource = make;
+            gvMake.DataSource = ProdMake;
             gvMake.DataBind();
+
+            if (ProdMake.Count == 0)
+            {
+                lblRowCountMk.Visible = false;
+                ibtnMakeArrowLeft.Visible = false;
+                ibtnMakeArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountMk.Visible = true;
+                ibtnMakeArrowLeft.Visible = true;
+                ibtnMakeArrowRight.Visible = true;
+                lblRowCountMk.Text = (((gvMake.PageIndex) * gvMake.PageSize) + 1) + " - " + (((gvMake.PageIndex) * gvMake.PageSize) + gvMake.Rows.Count) + " of " + ProdMake.Count;
+            }
+
         }
 
         protected void gvMake_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            GetMake();
+            //GetMake();
             gvMake.PageIndex = e.NewPageIndex;
+            GetMake();
             gvMake.DataBind();
         }
 

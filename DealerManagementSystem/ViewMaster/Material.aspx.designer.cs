@@ -87,22 +87,22 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblRowCountM;
 
         /// <summary>
-        /// ibtnModelArrowLeft control.
+        /// ibtnModelArrowLeft1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnModelArrowLeft;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnModelArrowLeft1;
 
         /// <summary>
-        /// ibtnModelArrowRight control.
+        /// ibtnModelArrowRight1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnModelArrowRight;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnModelArrowRight1;
 
         /// <summary>
         /// gvMaterailModel control.

@@ -57,7 +57,28 @@
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
             <div class="col-md-12 Report">
-                <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound">
+
+                <div class="boxHead">
+                    <div class="logheading">
+                        <div style="float: left">
+                            <table>
+                                <tr>
+                                    <td>Visit Target(s):</td>
+
+                                    <td>
+                                        <asp:Label ID="lblRowCountV" runat="server" CssClass="label"></asp:Label></td>
+                                    <td>
+                                        <asp:ImageButton ID="ibtnVTArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnVTArrowLeft_Click" /></td>
+                                    <td>
+                                        <asp:ImageButton ID="ibtnVTArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnVTArrowRight_Click" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <asp:GridView ID="gvVisitTarget" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound"  OnPageIndexChanging="gvVisitTarget_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="35px">
                             <ItemTemplate>
