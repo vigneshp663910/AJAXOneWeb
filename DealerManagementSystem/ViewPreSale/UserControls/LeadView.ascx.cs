@@ -76,6 +76,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
             lblLocation.Text = Location;
+            lblTotalEffort.Text = Convert.ToString(Lead.TotalEffort);
+            lblTotalExpense.Text = Convert.ToString(Lead.TotalExpense);
+             
 
             fillAssignSalesEngineer();
             fillFollowUp();
@@ -225,7 +228,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ShowMessage(Results);
 
             MPE_Effort.Hide();
-            fillEffort();
+            fillViewLead(Lead.LeadID);
         }
         protected void btnSaveExpense_Click(object sender, EventArgs e)
         {
@@ -251,7 +254,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ShowMessage(Results);
 
             MPE_Expense.Hide();
-            fillExpense();
+            fillViewLead(Lead.LeadID);
         }
         protected void lblFinancialAdd_Click(object sender, EventArgs e)
         {

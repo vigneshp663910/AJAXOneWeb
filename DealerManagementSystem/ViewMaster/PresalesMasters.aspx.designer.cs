@@ -69,6 +69,33 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Button btnSearchLeadSource;
 
         /// <summary>
+        /// lblRowCountE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountE;
+
+        /// <summary>
+        /// ibtnLeadArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnLeadArrowLeft;
+
+        /// <summary>
+        /// ibtnLeadArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnLeadArrowRight;
+
+        /// <summary>
         /// gvLeadSource control.
         /// </summary>
         /// <remarks>
@@ -184,6 +211,33 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearchCustomerAttributeSub;
+
+        /// <summary>
+        /// lblRowCountS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountS;
+
+        /// <summary>
+        /// ibtnCASArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCASArrowLeft;
+
+        /// <summary>
+        /// ibtnCASArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCASArrowRight;
 
         /// <summary>
         /// gvCustomerAttributeSub control.

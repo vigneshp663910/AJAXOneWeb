@@ -85,6 +85,14 @@
                     <asp:Label ID="lblUserStatus" runat="server"></asp:Label>
                 </div>
             </div>
+              <div class="col-md-4">
+                <label>Total Effort : </label>
+                <asp:Label ID="lblTotalEffort" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-4">
+                <label>Total Expense : </label>
+                <asp:Label ID="lblTotalExpense" runat="server" CssClass="label"></asp:Label>
+            </div>
         </div>
     </fieldset>
 </div>

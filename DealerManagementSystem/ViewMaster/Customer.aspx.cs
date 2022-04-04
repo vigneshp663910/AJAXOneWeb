@@ -52,7 +52,8 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
-                new DDLBind(ddlState, State, "State", "StateID"); 
+                new DDLBind(ddlState, State, "State", "StateID");
+                new BDMS_Dealer().LoadDealerDDL(ddlDealer);
             }
         }
 
@@ -95,9 +96,8 @@ namespace DealerManagementSystem.ViewMaster
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-            int? DistrictID = null;
-            Cust = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID);
-
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            Cust = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID); 
             gvCustomer.DataSource = Cust;
             gvCustomer.DataBind();
 

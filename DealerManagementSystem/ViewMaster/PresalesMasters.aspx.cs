@@ -60,22 +60,87 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
+
+
+
+        public List<PLeadSource> LLead
+        {
+            get
+            {
+                if (Session["PLeadSource"] == null)
+                {
+                    Session["PLeadSource"] = new List<PLeadSource>();
+                }
+                return (List<PLeadSource>)Session["PLeadSource"];
+            }
+            set
+            {
+                Session["PLeadSource"] = value;
+            }
+        }
+
+
+        protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvLeadSource.PageIndex > 0)
+            {
+                gvLeadSource.PageIndex = gvLeadSource.PageIndex - 1;
+                LeadBind(gvLeadSource, lblRowCountE, LLead);
+            }
+        }
+
+
+        protected void ibtnLeadArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvLeadSource.PageCount > gvLeadSource.PageIndex)
+            {
+                gvLeadSource.PageIndex = gvLeadSource.PageIndex + 1;
+                LeadBind(gvLeadSource, lblRowCountE, LLead);
+            }
+        }
+
+        void LeadBind(GridView gv, Label lbl, List<PLeadSource> LLead)
+        {
+            gv.DataSource = LLead;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LLead.Count;
+        }
+
+
         void SearchLeadSource()
         {
             int? LeadSourceID = ddlLeadSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlLeadSource.SelectedValue);
             string LeadSource = ddlLeadSource.SelectedValue == "0" ? (string)null : ddlLeadSource.SelectedItem.Text.Trim();
 
-            List<PLeadSource> leadSources = new BPresalesMasters().GetLeadSource(LeadSourceID, LeadSource);
+            //List<PLeadSource> leadSources = new BPresalesMasters().GetLeadSource(LeadSourceID, LeadSource);
 
-            gvLeadSource.DataSource = leadSources;
+            LLead = new BPresalesMasters().GetLeadSource(LeadSourceID, LeadSource);
+
+            gvLeadSource.DataSource = LLead;
             gvLeadSource.DataBind();
-            if (leadSources.Count == 0)
+            if (LLead.Count == 0)
             {
                 PLeadSource pLeadSource = new PLeadSource();
-                leadSources.Add(pLeadSource);
-                gvLeadSource.DataSource = leadSources;
+                LLead.Add(pLeadSource);
+                gvLeadSource.DataSource = LLead;
                 gvLeadSource.DataBind();
             }
+
+
+            if (LLead.Count == 0)
+            {
+                lblRowCountE.Visible = false;
+                ibtnLeadArrowLeft.Visible = false;
+                ibtnLeadArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountE.Visible = true;
+                ibtnLeadArrowLeft.Visible = true;
+                ibtnLeadArrowRight.Visible = true;
+                lblRowCountE.Text = (((gvLeadSource.PageIndex) * gvLeadSource.PageSize) + 1) + " - " + (((gvLeadSource.PageIndex) * gvLeadSource.PageSize) + gvLeadSource.Rows.Count) + " of " + LLead.Count;
+            }
+
         }
         protected void btnSearchLeadSource_Click(object sender, EventArgs e)
         {
@@ -92,8 +157,9 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void gvLeadSource_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            SearchLeadSource();
+            //SearchLeadSource();
             gvLeadSource.PageIndex = e.NewPageIndex;
+            SearchLeadSource();
             gvLeadSource.DataBind();
         }
         protected void BtnAddLeadSource_Click(object sender, EventArgs e)
@@ -558,22 +624,84 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
             }
         }
+
+
+        public List<PCustomerAttributeSub> CAS
+        {
+            get
+            {
+                if (Session["CAS"] == null)
+                {
+                    Session["CAS"] = new List<PCustomerAttributeSub>();
+                }
+                return (List<PCustomerAttributeSub>)Session["CAS"];
+            }
+            set
+            {
+                Session["CAS"] = value;
+            }
+        }
+
+        protected void ibtnCASArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomerAttributeSub.PageIndex > 0)
+            {
+                gvCustomerAttributeSub.PageIndex = gvCustomerAttributeSub.PageIndex - 1;
+                CASBind(gvCustomerAttributeSub, lblRowCountS, CAS);
+            }
+        }
+        protected void ibtnCASArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomerAttributeSub.PageCount > gvCustomerAttributeSub.PageIndex)
+            {
+                gvCustomerAttributeSub.PageIndex = gvCustomerAttributeSub.PageIndex + 1;
+                CASBind(gvCustomerAttributeSub, lblRowCountS, CAS);
+            }
+        }
+
+        void CASBind(GridView gv, Label lbl, List<PCustomerAttributeSub> CAS)
+        {
+            gv.DataSource = CAS;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + CAS.Count;
+        }
+
+
+
+
         void SearchCustomerAttributeSub()
         {
             int? CustomerAttributeMainID = ddlSCustomerAttributeMain.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCustomerAttributeMain.SelectedValue);
             int? CustomerAttributeSubID = ddlCustomerAttributeSub.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCustomerAttributeSub.SelectedValue);
             string CustomerAttributeSub = ddlCustomerAttributeSub.SelectedValue == "0" ? (string)null : ddlCustomerAttributeSub.SelectedItem.Text.Trim();
 
-            List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID,CustomerAttributeMainID,  CustomerAttributeSub);
+            //List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID,CustomerAttributeMainID,  CustomerAttributeSub);
 
-            gvCustomerAttributeSub.DataSource = pCustomerAttributeSubs;
+            CAS = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID, CustomerAttributeMainID, CustomerAttributeSub);
+
+            gvCustomerAttributeSub.DataSource = CAS;
             gvCustomerAttributeSub.DataBind();
-            if (pCustomerAttributeSubs.Count == 0)
+            if (CAS.Count == 0)
             {
                 PCustomerAttributeSub pCustomerAttributeSub = new PCustomerAttributeSub();
-                pCustomerAttributeSubs.Add(pCustomerAttributeSub);
-                gvCustomerAttributeSub.DataSource = pCustomerAttributeSubs;
+                CAS.Add(pCustomerAttributeSub);
+                gvCustomerAttributeSub.DataSource = CAS;
                 gvCustomerAttributeSub.DataBind();
+            }
+
+
+            if (CAS.Count == 0)
+            {
+                lblRowCountS.Visible = false;
+                ibtnCASArrowLeft.Visible = false;
+                ibtnCASArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountS.Visible = true;
+                ibtnModelArrowLeft.Visible = true;
+                ibtnModelArrowRight.Visible = true;
+                lblRowCountS.Text = (((gvCustomerAttributeSub.PageIndex) * gvCustomerAttributeSub.PageSize) + 1) + " - " + (((gvCustomerAttributeSub.PageIndex) * gvCustomerAttributeSub.PageSize) + gvCustomerAttributeSub.Rows.Count) + " of " + CAS.Count;
             }
         }
         protected void btnSearchCustomerAttributeSub_Click(object sender, EventArgs e)
@@ -591,8 +719,9 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void gvCustomerAttributeSub_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            SearchCustomerAttributeSub();
+            //SearchCustomerAttributeSub();
             gvCustomerAttributeSub.PageIndex = e.NewPageIndex;
+            SearchCustomerAttributeSub();
             gvCustomerAttributeSub.DataBind();
         }
         protected void gvCustomerAttributeSub_DataBound(object sender, EventArgs e)

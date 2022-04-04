@@ -45,12 +45,9 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
              //   new DDLBind(ddlCountry, Country, "Country", "CountryID");
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
-              //  new DDLBind(ddlCCountry, Country, "Country", "CountryID");
-
-               
+              //  new DDLBind(ddlCCountry, Country, "Country", "CountryID"); 
            
                // ddlCountry.SelectedValue = "1";
-
                 List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
               //  new DDLBind(ddlState, State, "State", "StateID");
                 new DDLBind(ddlSState, State, "State", "StateID");
@@ -75,6 +72,15 @@ namespace DealerManagementSystem.ViewPreSale
                 //cbCustomers.DataBind();
 
                 //cbCustomers.Items.Insert(0, new ListItem("Select", "0"));
+
+                if(Session["leadStatusID"] != null)
+                {
+                    ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
+                    txtLeadDateFrom.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToString("yyyy-MM-dd");
+                    Session["leadStatusID"] = null;
+                    Session["leadDateFrom"] = null;
+                    FillLead();
+                }
 
             }
         }
@@ -263,7 +269,6 @@ namespace DealerManagementSystem.ViewPreSale
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Lead1.Count;
         }
 
-
         void FillLead()
         {
             PLeadSearch S = new PLeadSearch();
@@ -353,8 +358,7 @@ namespace DealerManagementSystem.ViewPreSale
         {
             new DDLBind(ddlSState, new BDMS_Address().GetState(Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
         }
- 
-      
+       
         //protected void cbNewCustomer_CheckedChanged(object sender, EventArgs e)
         //{
         //    if(cbNewCustomer.Checked)
@@ -368,8 +372,7 @@ namespace DealerManagementSystem.ViewPreSale
         //        pnlOldCustomerName.Visible = true;
         //    }
         //}
-  
-         
+           
         protected void btnAddLead_Click(object sender, EventArgs e)
         {
             MPE_Customer.Show();

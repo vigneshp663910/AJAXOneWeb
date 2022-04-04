@@ -46,6 +46,8 @@ namespace Properties
         public decimal TCSTax { get; set; }
         public decimal LifeTimeValue { get; set; }
         public decimal LifeTimeTax { get; set; }
+        public decimal TotalEffort { get; set; }
+        public decimal TotalExpense { get; set; }
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
