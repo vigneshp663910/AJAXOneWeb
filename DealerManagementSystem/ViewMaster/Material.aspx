@@ -543,7 +543,7 @@
                                                         <div style="float: left">
                                                             <table>
                                                                 <tr>
-                                                                    <td>Material Supersede Report</td>
+                                                                    <td>Material Supersede :</td>
 
                                                                     <td>
                                                                         <asp:Label ID="lblMaterialSupersedeCount" runat="server" CssClass="label"></asp:Label></td>
