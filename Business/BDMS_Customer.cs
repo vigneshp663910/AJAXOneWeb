@@ -602,11 +602,11 @@ namespace Business
         }
 
 
-        public List<PDMS_Customer> GetCustomer(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID)
+        public List<PDMS_Customer> GetCustomer(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DealerID)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Customer?CustomerID=" + CustomerID + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile
-                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID;
+                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 

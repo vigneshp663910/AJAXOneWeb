@@ -151,9 +151,10 @@
         .funnel-chart {
             padding-top: 15px;
         }
-        .funnel-chart .chart-label {
-            font-size: 15px;
-        }
+
+            .funnel-chart .chart-label {
+                font-size: 15px;
+            }
     </style>
 
 </asp:Content>
@@ -178,7 +179,7 @@
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">
                             <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
-                            <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
                             <span>Today</span> 
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
@@ -208,8 +209,8 @@
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblNewlyCreated" runat="server" Text="0"></asp:Label>
-                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
-                                        <div class="desc">Newly Created</div>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
+                                       <div class="desc"> <asp:LinkButton ID="lbtnNewlyCreated" runat="server"  style="color: white;" OnClick="lbActions_Click">Newly Created</asp:LinkButton>  </div>
                                     </div>
                                 </a>
                             </div>
@@ -217,10 +218,9 @@
                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
-                                       
-                                        <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
-                                         <div class="desc">Assigned</div>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
+                                        <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label> 
+                                       <div class="desc"> <asp:LinkButton ID="lbtnAssigned" runat="server"  style="color: white;" OnClick="lbActions_Click">Assigned</asp:LinkButton>  </div>
                                     </div>
                                 </a>
                             </div>
@@ -231,7 +231,7 @@
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         
                                          <asp:Label ID="lblProspect" runat="server" Text="0"></asp:Label>
-                                        <div class="desc">Prospect</div>
+                                      <div class="desc">  <asp:LinkButton ID="lbtnProspect" runat="server"  style="color: white;" OnClick="lbActions_Click">Prospect</asp:LinkButton> </div> 
                                     </div>
                                 </a>
                             </div>
@@ -241,7 +241,7 @@
                                     <div class="details" style="color: white;">
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         <asp:Label ID="lblWon" runat="server" Text="0"></asp:Label>
-                                        <div class="desc">Won</div>
+                                       <div class="desc"> <asp:LinkButton ID="lbtnWon" runat="server"  style="color: white;" OnClick="lbActions_Click">Won</asp:LinkButton> </div>
                                         
                                     </div>
                                 </a>
@@ -251,7 +251,7 @@
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                          <asp:Label ID="lblLost" runat="server" Text="0"></asp:Label>
-                                        <div class="desc">Lost</div>
+                                        <div class="desc"> <asp:LinkButton ID="lbtnLost" runat="server" style="color: white;" OnClick="lbActions_Click">Lost</asp:LinkButton></div>
                                        
                                     </div>
                                 </a>
@@ -261,8 +261,7 @@
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblCancelled" runat="server" Text="0"></asp:Label>
-                                        <div class="desc">Cancelled</div>
-                                        
+                                       <div class="desc"> <asp:LinkButton ID="lbtnCancelled" runat="server" style="color: white;"  OnClick="lbActions_Click">Cancelled</asp:LinkButton> </div>
                                     </div>
                                 </a>
                             </div>
@@ -349,6 +348,8 @@
                     <svg width="350" height="300">
                         <defs></defs><g cursor="default" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="12px" font-weight="400"><g cursor="default"><g><rect width="350" height="300" fill="rgba(0,0,0,0)"></rect>
                             <g transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,341,8)">
+                                
+                                 
                                 <g>
                                     <path d="M174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,236.87035240905414A483.16965914395865,593.7128277905049,0,0,1,284,221.33333333333326A3.786666666666663,55.333333333333286,0,0,0,284,110.66666666666669A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,95.12964759094581" fill="rgb(104, 193, 130)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,232.88061079530988,165.99999999999997)" pointer-events="none">

@@ -60,6 +60,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Label lblNewlyCreated;
 
         /// <summary>
+        /// lbtnNewlyCreated control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnNewlyCreated;
+
+        /// <summary>
         /// lblAssigned control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssigned;
+
+        /// <summary>
+        /// lbtnAssigned control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAssigned;
 
         /// <summary>
         /// lblProspect control.
@@ -78,6 +96,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Label lblProspect;
 
         /// <summary>
+        /// lbtnProspect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnProspect;
+
+        /// <summary>
         /// lblWon control.
         /// </summary>
         /// <remarks>
@@ -85,6 +112,15 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblWon;
+
+        /// <summary>
+        /// lbtnWon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnWon;
 
         /// <summary>
         /// lblLost control.
@@ -96,6 +132,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Label lblLost;
 
         /// <summary>
+        /// lbtnLost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnLost;
+
+        /// <summary>
         /// lblCancelled control.
         /// </summary>
         /// <remarks>
@@ -103,6 +148,15 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCancelled;
+
+        /// <summary>
+        /// lbtnCancelled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnCancelled;
 
         /// <summary>
         /// rbWeekF control.

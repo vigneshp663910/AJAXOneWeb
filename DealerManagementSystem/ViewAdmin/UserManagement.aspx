@@ -5,37 +5,29 @@
 
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                    <div class="col-md-12">
-
-                        <div class="col-md-2 text-right">
-                            <label>User ID</label>
-                        </div>
-
-                        <div class="col-md-2">
-                            <asp:TextBox ID="txtEmp" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <label>Name</label>
-                        </div>
-
-                        <div class="col-md-2">
-                            <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
-
-                        <div class="col-md-2">
-                            <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
-                        </div>
-
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 text-left">
+                         <label>Dealer</label> 
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
+                    </div> 
+                    <div class="col-md-2 text-left">
+                        <label>User ID</label>
+                        <asp:TextBox ID="txtEmp" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div> 
+                    <div class="col-md-2 text-left">
+                        <label>Name</label>
+                        <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div> 
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                     </div>
-                </fieldset>
-            </div>
+
+                </div>
+            </fieldset>
         </div>
     </div>
-
     <asp:Panel ID="pnlUser" runat="server">
         <%--<div>
             <div class="diveField">
@@ -87,7 +79,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblContactName" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>'></asp:Label>
-                                        <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' Visible="false" ></asp:TextBox>
+                                        <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Mail">
@@ -101,7 +93,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblContactNumber" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'></asp:Label>
-                                        <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' Visible="false" ></asp:TextBox>
+                                        <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Is Technician" ItemStyle-Width="80px">
@@ -115,7 +107,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblExternalReferenceID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ExternalReferenceID")%>'></asp:Label>
-                                        <asp:TextBox ID="txtExternalReferenceID" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ExternalReferenceID")%>' Visible="false" ></asp:TextBox>
+                                        <asp:TextBox ID="txtExternalReferenceID" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ExternalReferenceID")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Is Locked" ItemStyle-Width="80px">
@@ -123,6 +115,13 @@
                                     <ItemTemplate>
                                         <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
                                         <asp:CheckBox ID="cbIsLocked" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Is Enabled" ItemStyle-Width="80px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
+                                    <ItemTemplate>
+                                        <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
+                                        <asp:CheckBox ID="cbIsEnabled" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsEnabled")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" ItemStyle-Width="140px">

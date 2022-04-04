@@ -98,6 +98,10 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer  Name</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>

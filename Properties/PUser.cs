@@ -35,7 +35,7 @@ namespace Properties
         public PContactDetail ContactDetail { get; set; }
         public List<PUserModuleAccess> AccessModules { get; set; }
         public List<PModuleAccess> DMSModules { get; set; }
-        public List<PSubModuleChile> SubModuleChile { get; set; }
+        public List<PSubModuleChild> SubModuleChild { get; set; }
         public PUserType UserType { get; set; }
         public string EnableDisableReason { get; set; }
         public bool IsUpdate { get; set; }
@@ -167,7 +167,7 @@ namespace Properties
         #endregion
     }
     [Serializable]
-    public class PSubModuleChile
+    public class PSubModuleChild
     {
         #region Properties
         public int SubModuleChildID { get; set; }
