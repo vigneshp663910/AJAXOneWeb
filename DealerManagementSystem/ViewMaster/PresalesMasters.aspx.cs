@@ -624,22 +624,84 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
             }
         }
+
+
+        public List<PCustomerAttributeSub> CAS
+        {
+            get
+            {
+                if (Session["CAS"] == null)
+                {
+                    Session["CAS"] = new List<PCustomerAttributeSub>();
+                }
+                return (List<PCustomerAttributeSub>)Session["CAS"];
+            }
+            set
+            {
+                Session["CAS"] = value;
+            }
+        }
+
+        protected void ibtnCASArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomerAttributeSub.PageIndex > 0)
+            {
+                gvCustomerAttributeSub.PageIndex = gvCustomerAttributeSub.PageIndex - 1;
+                CASBind(gvCustomerAttributeSub, lblRowCountS, CAS);
+            }
+        }
+        protected void ibtnCASArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomerAttributeSub.PageCount > gvCustomerAttributeSub.PageIndex)
+            {
+                gvCustomerAttributeSub.PageIndex = gvCustomerAttributeSub.PageIndex + 1;
+                CASBind(gvCustomerAttributeSub, lblRowCountS, CAS);
+            }
+        }
+
+        void CASBind(GridView gv, Label lbl, List<PCustomerAttributeSub> CAS)
+        {
+            gv.DataSource = CAS;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + CAS.Count;
+        }
+
+
+
+
         void SearchCustomerAttributeSub()
         {
             int? CustomerAttributeMainID = ddlSCustomerAttributeMain.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCustomerAttributeMain.SelectedValue);
             int? CustomerAttributeSubID = ddlCustomerAttributeSub.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCustomerAttributeSub.SelectedValue);
             string CustomerAttributeSub = ddlCustomerAttributeSub.SelectedValue == "0" ? (string)null : ddlCustomerAttributeSub.SelectedItem.Text.Trim();
 
-            List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID,CustomerAttributeMainID,  CustomerAttributeSub);
+            //List<PCustomerAttributeSub> pCustomerAttributeSubs = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID,CustomerAttributeMainID,  CustomerAttributeSub);
 
-            gvCustomerAttributeSub.DataSource = pCustomerAttributeSubs;
+            CAS = new BDMS_Customer().GetCustomerAttributeSub(CustomerAttributeSubID, CustomerAttributeMainID, CustomerAttributeSub);
+
+            gvCustomerAttributeSub.DataSource = CAS;
             gvCustomerAttributeSub.DataBind();
-            if (pCustomerAttributeSubs.Count == 0)
+            if (CAS.Count == 0)
             {
                 PCustomerAttributeSub pCustomerAttributeSub = new PCustomerAttributeSub();
-                pCustomerAttributeSubs.Add(pCustomerAttributeSub);
-                gvCustomerAttributeSub.DataSource = pCustomerAttributeSubs;
+                CAS.Add(pCustomerAttributeSub);
+                gvCustomerAttributeSub.DataSource = CAS;
                 gvCustomerAttributeSub.DataBind();
+            }
+
+
+            if (CAS.Count == 0)
+            {
+                lblRowCountS.Visible = false;
+                ibtnCASArrowLeft.Visible = false;
+                ibtnCASArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountS.Visible = true;
+                ibtnModelArrowLeft.Visible = true;
+                ibtnModelArrowRight.Visible = true;
+                lblRowCountS.Text = (((gvCustomerAttributeSub.PageIndex) * gvCustomerAttributeSub.PageSize) + 1) + " - " + (((gvCustomerAttributeSub.PageIndex) * gvCustomerAttributeSub.PageSize) + gvCustomerAttributeSub.Rows.Count) + " of " + CAS.Count;
             }
         }
         protected void btnSearchCustomerAttributeSub_Click(object sender, EventArgs e)
@@ -657,8 +719,9 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void gvCustomerAttributeSub_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            SearchCustomerAttributeSub();
+            //SearchCustomerAttributeSub();
             gvCustomerAttributeSub.PageIndex = e.NewPageIndex;
+            SearchCustomerAttributeSub();
             gvCustomerAttributeSub.DataBind();
         }
         protected void gvCustomerAttributeSub_DataBound(object sender, EventArgs e)
