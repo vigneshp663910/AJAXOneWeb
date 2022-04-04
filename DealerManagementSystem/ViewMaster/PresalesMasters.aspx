@@ -252,6 +252,28 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                    <span id="txnHistory2z:refreshDataGroup">
+                                                <div class="boxHead">
+                                                    <div class="logheading">
+                                                        <div style="float: left">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Customer Attribute Sub:</td>
+
+                                                                    <td>
+                                                                        <asp:Label ID="lblRowCountS" runat="server" CssClass="label"></asp:Label></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnCASArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnCASArrowLeft_Click" /></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnCASArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnCASArrowRight_Click" /></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
                                     <asp:GridView ID="gvCustomerAttributeSub" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvCustomerAttributeSub_PageIndexChanging" OnDataBound="gvCustomerAttributeSub_DataBound">
                                         <Columns>

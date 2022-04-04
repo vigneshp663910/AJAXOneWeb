@@ -819,24 +819,60 @@ namespace Business
             //int? CustomerID, string CustomerCode
             TraceLogger.Log(DateTime.Now);
             int success = 0;
+            string Message = string.Empty;
             try
             {
                 //List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(CustomerID, null);
                // string CustomerCode = Customer[0].CustomerCode;
                 if (string.IsNullOrEmpty(Customer.CustomerCode))
                 {
-                    string CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
-                    if (!string.IsNullOrEmpty(CustomerCode))
-                    { 
-                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                        {
-                            DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
-                            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                            DbParameter IsShipToP = provider.CreateParameter("IsShipTo", IsShipTo, DbType.Boolean);
+                    //string CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
+                    //if (!string.IsNullOrEmpty(CustomerCode))
+                    //{ 
+                    //    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                    //    {
+                    //        DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
+                    //        DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+                    //        DbParameter IsShipToP = provider.CreateParameter("IsShipTo", IsShipTo, DbType.Boolean);
 
-                            DbParameter[] Params = new DbParameter[3] { CustomerIDP, CustomerCodeP, IsShipToP };
-                            success = provider.Insert("ZDMS_UpdateCustomer", Params);
-                            scope.Complete();
+                    //        DbParameter[] Params = new DbParameter[3] { CustomerIDP, CustomerCodeP, IsShipToP };
+                    //        success = provider.Insert("ZDMS_UpdateCustomer", Params);
+                    //        scope.Complete();
+                    //    }
+                    //}
+
+                    DataTable DtResult = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
+                    foreach (DataRow dr in DtResult.Rows)
+                    {
+                        if (dr["MSGTYP"].ToString() == "S")
+                        {
+                            Message = dr["MSGV1"].ToString();
+
+                            if (!string.IsNullOrEmpty(Message))
+                            {
+                                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                                {
+                                    DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
+                                    DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", Message, DbType.String);
+                                    DbParameter IsShipToP = provider.CreateParameter("IsShipTo", IsShipTo, DbType.Boolean);
+
+                                    DbParameter[] Params = new DbParameter[3] { CustomerIDP, CustomerCodeP, IsShipToP };
+                                    success = provider.Insert("ZDMS_UpdateCustomer", Params);
+                                    scope.Complete();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                Message += dr["MSGV1"].ToString() + Environment.NewLine + "\n";
+                                throw new Exception(Message);
+                            }
+                            catch(Exception ex)
+                            {
+                                throw ex;
+                            }
                         }
                     }
                 }

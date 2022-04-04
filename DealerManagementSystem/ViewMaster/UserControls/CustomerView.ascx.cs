@@ -109,189 +109,198 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Edit Customer")
+            try
             {
-                MPE_Customer.Show();
-                UC_Customer.FillMaster();
-                UC_Customer.FillCustomer(Customer);
-            }
-            else if (lbActions.Text == "Add Attribute")
-            {
-                new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");
-                MPE_Attribute.Show();
-            }
-            else if (lbActions.Text == "Add Product")
-            {
-                new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M => M.MakeID != 1), "Make", "MakeID");
-                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+                LinkButton lbActions = ((LinkButton)sender);
+                if (lbActions.Text == "Edit Customer")
+                {
+                    MPE_Customer.Show();
+                    UC_Customer.FillMaster();
+                    UC_Customer.FillCustomer(Customer);
+                }
+                else if (lbActions.Text == "Add Attribute")
+                {
+                    new DDLBind(ddlAttributeMain, new BDMS_Customer().GetCustomerAttributeMain(null, null), "AttributeMain", "AttributeMainID");
+                    MPE_Attribute.Show();
+                }
+                else if (lbActions.Text == "Add Product")
+                {
+                    new DDLBind(ddlMake, new BDMS_Master().GetMake(null, null).Where(M => M.MakeID != 1), "Make", "MakeID");
+                    new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
 
-                MPE_Product.Show();
-            }
-            else if (lbActions.Text == "Add Relation")
-            {
-                new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
-                MPE_Relation.Show();
-            }
-            else if (lbActions.Text == "Add Fleet")
-            {
-                // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
-                MPE_Fleed.Show();
-            }
-            else if (lbActions.Text == "Add Responsible Employee")
-            {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                MPE_ResponsibleEmp.Show();
-            }
-            else if (lbActions.Text == "Verified Customer")
-            {
-                string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
-                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                if (Convert.ToBoolean(s) == true)
+                    MPE_Product.Show();
+                }
+                else if (lbActions.Text == "Add Relation")
                 {
-                    lblMessage.Text = "Updated successfully";
-                    lblMessage.ForeColor = Color.Green;
+                    new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                    MPE_Relation.Show();
+                }
+                else if (lbActions.Text == "Add Fleet")
+                {
+                    // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
+                    MPE_Fleed.Show();
+                }
+                else if (lbActions.Text == "Add Responsible Employee")
+                {
+                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    MPE_ResponsibleEmp.Show();
+                }
+                else if (lbActions.Text == "Verified Customer")
+                {
+                    string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                    string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                    if (Convert.ToBoolean(s) == true)
+                    {
+                        lblMessage.Text = "Updated successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        fillCustomer(Customer.CustomerID);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something went wrong try again.";
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    lblMessage.Visible = true;
+                }
+                else if (lbActions.Text == "In Activate Customer")
+                {
+                    string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                    string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                    if (Convert.ToBoolean(s) == true)
+                    {
+                        lblMessage.Text = "Updated successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        fillCustomer(Customer.CustomerID);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something went wrong try again.";
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    lblMessage.Visible = true;
+                }
+                else if (lbActions.Text == "Sync to Sap")
+                {
+                    long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer, false);
+                    //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                    //if (Convert.ToBoolean(s) == true)
+                    if (C != 0)
+                    {
+                        lblMessage.Text = "Updated successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        fillCustomer(Customer.CustomerID);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something went wrong try again.";
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    lblMessage.Visible = true;
                     fillCustomer(Customer.CustomerID);
                 }
-                else
+                else if (lbActions.Text == "Add ShipTo")
                 {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
+                    Session["CustomerShipToID"] = 0;
+                    new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                    ddlCountry.SelectedValue = "1";
+                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    MPE_ShipTo.Show();
                 }
-                lblMessage.Visible = true;
-            }
-            else if (lbActions.Text == "In Activate Customer")
-            {
-                string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
-                string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                if (Convert.ToBoolean(s) == true)
+                else if (lbActions.Text == "Edit ShipTo")
                 {
-                    lblMessage.Text = "Updated successfully";
-                    lblMessage.ForeColor = Color.Green;
-                    fillCustomer(Customer.CustomerID);
+                    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                    Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
+                    PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
+                    FillCustomerShipToEdit(ShipTo);
+                    MPE_ShipTo.Show();
+                    Session["CustomerShipToID"] = Convert.ToInt64(lblCustomerShipToID.Text);
                 }
-                else
+                else if (lbActions.Text == "In Activate ShipTo")
                 {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
-                }
-                lblMessage.Visible = true;
-            }
-            else if (lbActions.Text == "Sync to Sap")
-            {
-                long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer,false);
-                //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                //if (Convert.ToBoolean(s) == true)
-                if (C != 0)
-                {
-                    lblMessage.Text = "Updated successfully";
-                    lblMessage.ForeColor = Color.Green;
-                    fillCustomer(Customer.CustomerID);
-                }
-                else
-                {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
-                }
-                lblMessage.Visible = true;
-                fillCustomer(Customer.CustomerID);
-            }
-            else if (lbActions.Text == "Add ShipTo")
-            { 
-                Session["CustomerShipToID"] = 0;
-                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-                ddlCountry.SelectedValue = "1";
-                new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-                MPE_ShipTo.Show();
-            }
-            else if (lbActions.Text == "Edit ShipTo")
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID"); 
-                PDMS_CustomerShipTo ShipTo =   new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text),null)[0];
-                FillCustomerShipToEdit(ShipTo);
-                MPE_ShipTo.Show();
-                Session["CustomerShipToID"] = Convert.ToInt64(lblCustomerShipToID.Text); 
-            }
-            else if (lbActions.Text == "In Activate ShipTo")
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
-                PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0]; 
-                ShipTo.IsActive = false;
-                ShipTo.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
-                if (Results.Status == PApplication.Failure)
-                {
+                    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                    Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
+                    PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
+                    ShipTo.IsActive = false;
+                    ShipTo.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessage.Text = Results.Message;
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                     lblMessage.Text = Results.Message;
                     lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
+                    lblMessage.ForeColor = Color.Green;
+                    fillShipTo();
                 }
-                lblMessage.Text = Results.Message;
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Green;
-                fillShipTo(); 
-            }
-            else if (lbActions.Text == "Activate ShipTo")
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
-                PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
-                ShipTo.IsActive = true;
-                ShipTo.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
-                if (Results.Status == PApplication.Failure)
+                else if (lbActions.Text == "Activate ShipTo")
                 {
+                    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                    Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
+                    PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
+                    ShipTo.IsActive = true;
+                    ShipTo.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/CustomerShipTo", ShipTo));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessage.Text = Results.Message;
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                     lblMessage.Text = Results.Message;
                     lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                lblMessage.Text = Results.Message;
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Green;
-                fillShipTo();
-            }
-            else if (lbActions.Text == "ShipTo Sync to Sap")
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
-                PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
-
-                PDMS_Customer CustomerS = new BDMS_Customer().GetCustomerByID(Customer.CustomerID);
-                CustomerS.CustomerCode = ShipTo.CustomerCode;
-                CustomerS.CustomerID = ShipTo.CustomerShipToID;
-                CustomerS.Address1 = ShipTo.Address1;
-                CustomerS.Address2 = ShipTo.Address2;
-                CustomerS.Address3 = ShipTo.Address3;
-                CustomerS.ContactPerson = ShipTo.ContactPerson;
-                CustomerS.Mobile = ShipTo.Mobile;
-                CustomerS.Email = ShipTo.Email;
-                CustomerS.Country = ShipTo.Country;
-                CustomerS.State = ShipTo.State;
-                CustomerS.District = ShipTo.District;
-                CustomerS.Tehsil = ShipTo.Tehsil;
-                CustomerS.Pincode = ShipTo.Pincode;
-                CustomerS.City = ShipTo.City;
-
-                long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(CustomerS, true);
-
-                //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                //if (Convert.ToBoolean(s) == true)
-                if (C != 0)
-                {
-                    lblMessage.Text = "Updated successfully";
                     lblMessage.ForeColor = Color.Green;
+                    fillShipTo();
+                }
+                else if (lbActions.Text == "ShipTo Sync to Sap")
+                {
+                    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                    Label lblCustomerShipToID = (Label)gvRow.FindControl("lblCustomerShipToID");
+                    PDMS_CustomerShipTo ShipTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(lblCustomerShipToID.Text), null)[0];
+
+                    PDMS_Customer CustomerS = new BDMS_Customer().GetCustomerByID(Customer.CustomerID);
+                    CustomerS.CustomerCode = ShipTo.CustomerCode;
+                    CustomerS.CustomerID = ShipTo.CustomerShipToID;
+                    CustomerS.Address1 = ShipTo.Address1;
+                    CustomerS.Address2 = ShipTo.Address2;
+                    CustomerS.Address3 = ShipTo.Address3;
+                    CustomerS.ContactPerson = ShipTo.ContactPerson;
+                    CustomerS.Mobile = ShipTo.Mobile;
+                    CustomerS.Email = ShipTo.Email;
+                    CustomerS.Country = ShipTo.Country;
+                    CustomerS.State = ShipTo.State;
+                    CustomerS.District = ShipTo.District;
+                    CustomerS.Tehsil = ShipTo.Tehsil;
+                    CustomerS.Pincode = ShipTo.Pincode;
+                    CustomerS.City = ShipTo.City;
+
+                    long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(CustomerS, true);
+
+                    //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                    //if (Convert.ToBoolean(s) == true)
+                    if (C != 0)
+                    {
+                        lblMessage.Text = "Updated successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        fillCustomer(Customer.CustomerID);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something went wrong try again.";
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    lblMessage.Visible = true;
                     fillCustomer(Customer.CustomerID);
                 }
-                else
-                {
-                    lblMessage.Text = "Something went wrong try again.";
-                    lblMessage.ForeColor = Color.Red;
-                }
+            }
+            catch(Exception ex)
+            {
+                lblMessage.Text = ex.Message;
                 lblMessage.Visible = true;
-                fillCustomer(Customer.CustomerID);
+                lblMessage.ForeColor = Color.Red;
             }
         }
         public void fillLead()
