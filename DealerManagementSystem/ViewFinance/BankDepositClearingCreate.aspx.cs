@@ -116,7 +116,7 @@ namespace DealerManagementSystem.ViewFinance
             }
             else if (!string.IsNullOrEmpty(txtCustomer.Text.Trim()))
             {
-                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, txtCustomer.Text.Trim());
+                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtCustomer.Text.Trim());
                 if (Customer.Count == 1)
                 {
                     Bank.Customer = new PDMS_Customer() { CustomerID = Customer[0].CustomerID, CustomerCode = Customer[0].CustomerCode };

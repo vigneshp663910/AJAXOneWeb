@@ -1100,7 +1100,7 @@ namespace Business
             ddl.DataTextField = "CodeWithName";
             ddl.DataSource = PSession.User.Dealer;
             ddl.DataBind(); 
-           // ddl.Items.Insert(0, new ListItem("Select", "0"));
+           ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }

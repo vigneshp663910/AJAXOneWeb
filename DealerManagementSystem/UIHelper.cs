@@ -8,12 +8,12 @@ namespace DealerManagementSystem
 {
     public static class UIHelper
     {
-        private const String redirectToPasswordChange = "/ChangePassword.aspx";
+        private const String redirectToPasswordChange = "/Account/ChangePassword.aspx";
         //private const String redirectOnSuccessfulLogin = "Home.aspx";
         //private const String redirectOnCreateUserCancel = "Home.aspx";
         private const String sessionFailureRedirectionPage = "/Login.aspx";
         //private const String redirectOnCreateSupplierASNCancel = "Home.aspx";
-        private const String redirectOnUserManagementCancel = "/UserManagement.aspx";
+        private const String redirectOnUserManagementCancel = "/ViewAdmin/UserManagement.aspx";
         private const String redirectOnCreateUserSuccess = "/AuthorizeUser.aspx";
         private const String redirectOnAccessViolation = "/ForbidAccess.aspx";
         private const String redirectAfterChangePassword = "/Login.aspx";
