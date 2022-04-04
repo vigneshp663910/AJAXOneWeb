@@ -554,7 +554,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             MPE_Effort.Hide();
-            fillEffort();
+            fillViewQuotation(Quotation.QuotationID);
         }
         protected void btnSaveExpense_Click(object sender, EventArgs e)
         {
@@ -593,7 +593,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             MPE_Expense.Hide();
-            fillExpense();
+            fillViewQuotation(Quotation.QuotationID);
         }
         public void fillViewQuotation(long QuotationID)
         {
@@ -618,6 +618,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
+
+            lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
+            lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
 
             fillFinancier();
             fillProduct();

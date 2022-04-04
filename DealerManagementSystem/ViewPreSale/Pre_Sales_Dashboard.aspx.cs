@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
@@ -125,6 +126,52 @@ namespace DealerManagementSystem.ViewPreSale
         protected void rbStatusF_CheckedChanged(object sender, EventArgs e)
         {
             FillFunnel();
+        }
+
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Newly Created")
+            {
+                Session["leadStatusID"] = 1;
+            }
+            else if (lbActions.Text == "Assigned")
+            {
+                Session["leadStatusID"] = 2;
+            }
+            else if (lbActions.Text == "Prospect")
+            {
+                Session["leadStatusID"] = 3;
+            }
+            else if (lbActions.Text == "Won")
+            {
+                Session["leadStatusID"] = 5;
+            }
+            else if (lbActions.Text == "Lost")
+            {
+                Session["leadStatusID"] = 6;
+            }
+            else if (lbActions.Text == "Cancelled")
+            {
+                Session["leadStatusID"] = 7;
+            }
+            if(rbToday.Checked)
+            {
+                Session["leadDateFrom"] = DateTime.Now; 
+            }
+            else if (rbWeek.Checked)
+            {
+                Session["leadDateFrom"] = DateTime.Now.AddDays(-7);
+            }
+            else if (rbMonth.Checked)
+            {
+                Session["leadDateFrom"] = DateTime.Now.AddMonths(-1);
+            }
+            else
+            {
+                Session["leadDateFrom"] = DateTime.Now.AddYears(-1);
+            }
+            Response.Redirect("lead.aspx");
         }
     }
 }

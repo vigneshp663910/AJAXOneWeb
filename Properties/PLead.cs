@@ -42,6 +42,8 @@ namespace Properties
         public List<PLeadConvocation> Convocation { get; set; }
         public PLeadFinancial Financial { get; set; }
         public List<PLeadFollowUp> FollowUp { get; set; }
+        public decimal TotalEffort { get; set; }
+        public decimal TotalExpense { get; set; }
     }
     [Serializable]
     public class PLeadSalesEngineer

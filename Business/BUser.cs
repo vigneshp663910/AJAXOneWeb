@@ -1321,10 +1321,10 @@ namespace Business
 
 
 
-        public List<PSubModuleChile> GetSubModuleChileByUserID(Int64 UserId)
+        public List<PSubModuleChild> GetSubModuleChileByUserID(Int64 UserId)
         {
             string endPoint = "User/SubModuleChileByUserID?UserId=" + UserId;
-            return JsonConvert.DeserializeObject<List<PSubModuleChile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
         public PApiResult Login(UserAuthentication UserA)

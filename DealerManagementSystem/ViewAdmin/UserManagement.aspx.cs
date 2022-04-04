@@ -12,6 +12,13 @@ namespace DealerManagementSystem.ViewAdmin
 {
     public partial class UserManagement : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         public List<PModuleAccess> ModuleAccess
         {
             get
@@ -28,15 +35,15 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
 
-        public List<PSubModuleChile> SubModuleChile
+        public List<PSubModuleChild> SubModuleChile
         {
             get
             {
                 if (Session["SubModuleChile"] == null)
                 {
-                    Session["SubModuleChile"] = new List<PSubModuleChile>();
+                    Session["SubModuleChile"] = new List<PSubModuleChild>();
                 }
-                return (List<PSubModuleChile>)Session["SubModuleChile"];
+                return (List<PSubModuleChild>)Session["SubModuleChile"];
             }
             set
             {
@@ -52,6 +59,7 @@ namespace DealerManagementSystem.ViewAdmin
 
                 FillUser();
                 fillDashboard();
+                fillDealerDLL();
             }
         }
         void FillUser()
@@ -248,6 +256,14 @@ namespace DealerManagementSystem.ViewAdmin
             List<PDealer> dealer = new BDealer().GetDealerList(null, "", "");
             dlDealer.DataSource = dealer;
             dlDealer.DataBind();
+        }
+
+        void fillDealerDLL()
+        { 
+            ddlDealer.DataTextField = "CodeWithName";
+            ddlDealer.DataValueField = "DID";
+            ddlDealer.DataSource = PSession.User.Dealer;
+            ddlDealer.DataBind();
         }
 
         protected void cbAllDealer_CheckedChanged(object sender, EventArgs e)
