@@ -171,20 +171,15 @@
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     
-                                    <div class="col-md-2 text-right">
+                                    <div class="col-md-2 text-left">
                                         <label>Division</label>
                                         <asp:DropDownList ID="ddlDivisionMC" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
                                     </div>
-                                    <div class="col-md-2 text-right">
+                                    <div class="col-md-2 text-left">
                                         <label>Material Model</label>
                                         <asp:DropDownList ID="ddlMaterialModel" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
                                     </div>
-                                    <div class="col-md-2 text-right">
-                                        <label>Material Code</label>
-                                         <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
-                                    </div>
-
-                                    <div class="col-md-2 text-right">
+                                    <div class="col-md-2 text-left">
                                         <label>Material Status</label>
                                        <%--<asp:CheckBox ID="cbActive" runat="server" Checked="true" />--%>
                                         <asp:DropDownList ID="ddlMaterialStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true">
@@ -193,9 +188,11 @@
                                             <asp:ListItem Value="0"> Inactive</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
-                                 <%--   <div class="col-md-12 text-center">--%>
-                                     <div class="col-md-2 text-right">
-                                      <br />
+                                    <div class="col-md-2 text-left">
+                                        <label>Material Code</label>
+                                         <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-12 text-center">
                                         <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
                                         &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />
                                     </div>

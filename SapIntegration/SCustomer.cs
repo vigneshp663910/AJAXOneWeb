@@ -62,7 +62,7 @@ namespace SapIntegration
             }
             return Custs;
         }
-        public string CreateCustomerInSAP(PDMS_Customer Customer, Boolean IsShipTo)
+        public DataTable CreateCustomerInSAP(PDMS_Customer Customer, Boolean IsShipTo)
         {
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CREATE_NEW");
             Int32 country = Customer.Country.CountryID;
@@ -129,7 +129,30 @@ namespace SapIntegration
             tagListBapi.Invoke(SAP.RfcDes());
             string CustomerCode = !string.IsNullOrEmpty(tagListBapi.GetValue("CUSTOMER").ToString()) ? tagListBapi.GetValue("CUSTOMER").ToString().Remove(0, 4) : "";
 
-            return CustomerCode;
+            IRfcTable table = tagListBapi.GetTable("IT_STATUS");
+
+            DataTable dtRet = new DataTable();
+
+            for (int Column = 0; Column < 13; Column++)
+            {
+                RfcElementMetadata rfcEMD = table.GetElementMetadata(Column);
+                dtRet.Columns.Add(rfcEMD.Name);
+            }
+
+            foreach (IRfcStructure row in table)
+            {
+                DataRow dr = dtRet.NewRow();
+                for (int Column = 0; Column < 13; Column++)
+                {
+                    RfcElementMetadata rfcEMD = table.GetElementMetadata(Column);
+                    dr[rfcEMD.Name] = row.GetString(rfcEMD.Name);
+                    // Console.WriteLine("{0} is {1}", rfcEMD.Documentation, dr[rfcEMD.Name]);
+                }
+                dtRet.Rows.Add(dr);
+            }
+            if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("", "", "", "S", "", "", "", CustomerCode, "", "", "", "", ""); }
+
+            return dtRet;
         }
         public string ChangeCustomerInSAP(PDMS_Customer  Customer, Boolean IsShipTo)
         {
