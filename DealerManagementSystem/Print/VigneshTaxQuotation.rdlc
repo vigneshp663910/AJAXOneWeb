@@ -89,9 +89,9 @@
       <Body>
         <ReportItems>
           <Line Name="Line2">
-            <Left>19.92312cm</Left>
+            <Left>20.38456cm</Left>
             <Height>0cm</Height>
-            <Width>-19.89349cm</Width>
+            <Width>-20.35493cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -102,13 +102,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.79525cm</Width>
+                  <Width>5.36819cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.73379cm</Width>
+                  <Width>5.30673cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.05385cm</Width>
+                  <Width>9.62679cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -126,12 +126,14 @@
                                 <TextRun>
                                   <Value>Ref No : </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!QuotationNo.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -139,6 +141,7 @@
                                   <Value> - Rev - </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -147,6 +150,7 @@
                                   <Value>=Parameters!RevNo.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -181,12 +185,14 @@
                                 <TextRun>
                                   <Value>Date : </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!QuotationDate.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -210,7 +216,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>7.48446cm</Height>
+                  <Height>6.63779cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -224,6 +230,7 @@
                                   <Value>Reciever (Bill To) :</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -236,6 +243,7 @@
                                 <TextRun>
                                   <Value>=Parameters!CustomerName.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -251,12 +259,14 @@
                                 <TextRun>
                                   <Value>=Parameters!CustomerAddress1.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>,</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -268,12 +278,14 @@
                                 <TextRun>
                                   <Value>=Parameters!CustomerAddress2.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>,</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -285,36 +297,26 @@
                                 <TextRun>
                                   <Value />
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
                                   <Value>Phone No.: </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!Mobile.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -328,18 +330,21 @@
                                 <TextRun>
                                   <Value>Email: </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!EMail.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve">   </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -353,6 +358,7 @@
                                 <TextRun>
                                   <Value />
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -367,6 +373,7 @@
                                   <Value>Kind Attn : </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -375,6 +382,7 @@
                                   <Value>=Parameters!KindAttn.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -402,12 +410,14 @@
                                 <TextRun>
                                   <Value>GST State Code : </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!CustomerStateCode.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -420,6 +430,7 @@
                                   <Value>RECEIVER GSTIN/UIN No : </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -428,6 +439,7 @@
                                   <Value>=Parameters!CustomerGST.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -438,18 +450,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PAN : </Value>
+                                  <Value>PAN :  </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -458,6 +462,7 @@
                                   <Value>=Parameters!CustomerPAN.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -484,6 +489,7 @@
                                   <Value>Under Hypothecation With: </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -492,6 +498,7 @@
                                   <Value>=Parameters!Hypothecation.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -505,6 +512,7 @@
                                   <Value>BP CODE: </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -513,6 +521,7 @@
                                   <Value>=Parameters!SoldToPartyBPCode.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -550,6 +559,7 @@
                                   <Value>Delivered (Ship To):</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -557,6 +567,7 @@
                                 <TextRun>
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -568,6 +579,7 @@
                                 <TextRun>
                                   <Value>=Parameters!ShipToCustomerName.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -578,11 +590,15 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!ShipToCustomerAddress1.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                  </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>,</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -591,21 +607,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!ShipToCustomerAddress2.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                  </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>,</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
                                   <Style>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -616,6 +625,7 @@
                                 <TextRun>
                                   <Value />
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -627,12 +637,14 @@
                                 <TextRun>
                                   <Value>Phone No.: </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!ShipToMobile.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -646,18 +658,21 @@
                                 <TextRun>
                                   <Value>Email: </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!ShipToEMail.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve">   </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -710,12 +725,14 @@
                                 <TextRun>
                                   <Value>GST State Code : </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!ShipToCustomerStateCode.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -728,6 +745,7 @@
                                   <Value>BUYER GSTIN/UIN No : </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -736,6 +754,7 @@
                                   <Value>=Parameters!ShipToCustomerGST.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -788,6 +807,7 @@
                                   <Value>BP CODE: </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -796,6 +816,7 @@
                                   <Value>=Parameters!ShipToPartyBPCode.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -888,10 +909,10 @@
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <Top>0.9525cm</Top>
-            <Left>0.66464cm</Left>
-            <Height>8.74796cm</Height>
-            <Width>18.58289cm</Width>
+            <Top>0.635cm</Top>
+            <Left>0.08284cm</Left>
+            <Height>7.90129cm</Height>
+            <Width>20.30172cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -903,46 +924,46 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.35593in</Width>
+                  <Width>0.22051in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.58073in</Width>
+                  <Width>0.6224in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.72619in</Width>
+                  <Width>1.01847in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.61368in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.48172in</Width>
+                  <Width>0.37755in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.34792in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.38025in</Width>
+                  <Width>0.6815in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73034in</Width>
+                  <Width>0.69781in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.5982in</Width>
+                  <Width>0.39915in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.65396in</Width>
+                  <Width>0.69563in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.41698in</Width>
+                  <Width>0.45865in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.44258in</Width>
+                  <Width>0.74297in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.49013in</Width>
+                  <Width>0.4693in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.49748in</Width>
+                  <Width>0.64915in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -959,7 +980,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Sl.</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -994,7 +1019,9 @@
                                   <Value>Part No</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1031,7 +1058,9 @@
                                   <Value>Description</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1068,9 +1097,9 @@
                                   <Value>HSN / ACS</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1107,9 +1136,9 @@
                                   <Value>UOM</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1143,10 +1172,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Qty.</Value>
+                                  <Value>Qty</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1183,7 +1214,9 @@
                                   <Value>Rate (INR)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1220,7 +1253,9 @@
                                   <Value>Total Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1247,17 +1282,19 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox89">
+                        <Textbox Name="Textbox10">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Discount</Value>
+                                  <Value>Disc</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1267,7 +1304,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox89</rd:DefaultName>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1294,7 +1331,9 @@
                                   <Value>Taxable Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1331,7 +1370,9 @@
                                   <Value>=Parameters!CGST_Header.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1368,7 +1409,9 @@
                                   <Value>=Parameters!CGSTVal_Header.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -1403,7 +1446,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!SGST_Header.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1436,7 +1483,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!SGSTVal_Header.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1474,7 +1525,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SNO.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1487,6 +1541,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1505,7 +1560,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Material.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1518,6 +1576,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1536,7 +1595,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Description.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1549,6 +1611,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1569,8 +1632,8 @@
                                   <Value>=Fields!HSN.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>11pt</FontSize>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -1586,6 +1649,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1606,8 +1670,8 @@
                                   <Value>=Fields!UOM.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>11pt</FontSize>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
@@ -1623,6 +1687,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1641,7 +1706,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Qty.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1654,6 +1722,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1672,7 +1741,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Rate.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1685,6 +1758,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1703,7 +1777,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Total.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1716,6 +1794,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1733,8 +1812,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>0.00</Value>
-                                  <Style />
+                                  <Value>=Fields!Discount.Value</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1747,6 +1829,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1765,7 +1848,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Value.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1778,6 +1865,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1796,7 +1884,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CGSTPer.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1809,6 +1901,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1827,7 +1920,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CGSTVal.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1840,6 +1937,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1858,7 +1956,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SGSTPer.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1871,6 +1973,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1889,7 +1992,11 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SGSTVal.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <Format>#,0.00;(#,0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1902,6 +2009,7 @@
                             <Border>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1913,7 +2021,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.26155in</Height>
+                  <Height>0.9803in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1926,6 +2034,7 @@
                                 <TextRun>
                                   <Value>In Words : </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1933,6 +2042,7 @@
                                   <Value>=Parameters!AmountInWord.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1940,6 +2050,7 @@
                                   <Value> Only</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1979,7 +2090,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Sub Total (Taxable Value + Taxes)</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1990,15 +2104,24 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>TCS @ </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!TCSPer.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>%</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2009,7 +2132,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Sub Total</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2020,7 +2146,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Life time tax</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2043,6 +2172,8 @@
                                 <TextRun>
                                   <Value>TOTAL PAYABLE</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2078,18 +2209,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!TotalAmount.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2100,7 +2223,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!TCS.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2111,7 +2237,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!SubTotal.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2122,7 +2251,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Parameters!LifeTimeTax.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2145,6 +2277,8 @@
                                 <TextRun>
                                   <Value>=Parameters!GrandTotal.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2209,10 +2343,10 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>SalesTaxQuotationItem</DataSetName>
-            <Top>3.8297in</Top>
-            <Left>0.66464cm</Left>
-            <Height>2.04776in</Height>
-            <Width>7.3161in</Width>
+            <Top>3.31581in</Top>
+            <Left>0.07808cm</Left>
+            <Height>1.76651in</Height>
+            <Width>7.99468in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2229,6 +2363,7 @@
                   <TextRun>
                     <Value>=Parameters!QuotationType.Value</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -2240,9 +2375,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox29</rd:DefaultName>
-            <Top>0.15558cm</Top>
             <Left>7.66809cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.62053cm</Height>
             <Width>3.8989cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -2259,18 +2393,18 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.17666cm</Width>
+                  <Width>6.7496cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.17666cm</Width>
+                  <Width>6.7496cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.22957cm</Width>
+                  <Width>6.80251cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>10.72445cm</Height>
+                  <Height>8.13153cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2283,7 +2417,7 @@
                                 <TextRun>
                                   <Value>=Parameters!TermsandConditionHead.Value</Value>
                                   <Style>
-                                    <FontSize>11pt</FontSize>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2298,24 +2432,32 @@
                                 <TextRun>
                                   <Value>=Parameters!PaymentTerms.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!TermsOfPayment.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2329,6 +2471,7 @@
                                 <TextRun>
                                   <Value>=Parameters!PaymentTermAccName.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2336,24 +2479,28 @@
                                   <Value>.
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!PaymentTermBankName.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>, </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!PaymentTermBankAddress.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2361,12 +2508,14 @@
                                   <Value xml:space="preserve">
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!PaymentTermAccNo.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2374,23 +2523,14 @@
                                   <Value xml:space="preserve">
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!PaymentTermIFSCCode.Value</Value>
                                   <Style>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2413,6 +2553,8 @@
                                 <TextRun>
                                   <Value>=Parameters!Delivery.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2420,12 +2562,16 @@
                                   <Value xml:space="preserve">
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!TransitInsurance.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2438,12 +2584,16 @@
                                   <Value xml:space="preserve">
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!Transportation.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2451,23 +2601,16 @@
                                   <Value xml:space="preserve">
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!Validity.Value</Value>
                                   <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2480,12 +2623,16 @@
                                   <Value xml:space="preserve">
 </Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!Note.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2497,39 +2644,8 @@
                                 <TextRun>
                                   <Value />
                                   <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2542,6 +2658,8 @@
                                   <Value>Note: Tax Collected at Source (TCS) indicated above will be applicable subjected to the conditions/limits
 prescribed.The same will be validatedat the time of final invoicing and will be levied if applicable on 01st October 2020 onwards.</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2581,10 +2699,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>14.92875cm</Top>
-            <Left>0.66464cm</Left>
-            <Height>10.72445cm</Height>
-            <Width>18.58289cm</Width>
+            <Top>12.98847cm</Top>
+            <Left>0.08284cm</Left>
+            <Height>8.13153cm</Height>
+            <Width>20.30172cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2593,13 +2711,13 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>10.34969in</Height>
+        <Height>8.43996in</Height>
         <Style />
       </Body>
-      <Width>7.84375in</Width>
+      <Width>8.09707in</Width>
       <Page>
         <PageHeader>
-          <Height>2.06375cm</Height>
+          <Height>2.15829cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2607,7 +2725,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Source>Embedded</Source>
               <Value>AjaxNewLogo</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.10266cm</Top>
+              <Top>0.42016cm</Top>
               <Left>0.49107cm</Left>
               <Height>1.68521cm</Height>
               <Width>5.09833cm</Width>
@@ -2673,9 +2791,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Left>7.81685cm</Left>
-              <Height>1.78787cm</Height>
-              <Width>12.10627cm</Width>
+              <Top>0.3175cm</Top>
+              <Left>11.06021cm</Left>
+              <Height>1.52329cm</Height>
+              <Width>9.32435cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2705,7 +2824,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Sizing>FitProportional</Sizing>
               <Top>3.45425cm</Top>
               <Height>0.94438cm</Height>
-              <Width>19.92312cm</Width>
+              <Width>20.38456cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2721,6 +2840,8 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                     <TextRun>
                       <Value>For AJAX ENGINEERING PRIVATE LIMITED</Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -2732,11 +2853,16 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                     <TextRun>
                       <Value xml:space="preserve">
 </Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
+                      </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=Parameters!Name.Value</Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -2744,12 +2870,16 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                       <Value xml:space="preserve">
 </Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=Parameters!Designation.Value</Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -2757,12 +2887,16 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                       <Value xml:space="preserve">
 </Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=Parameters!MobileNo.Value</Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -2774,6 +2908,8 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                     <TextRun>
                       <Value>This is a SAP system generated quotation - hence no need of signature.</Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -2784,10 +2920,9 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
-              <Top>0cm</Top>
-              <Left>0.66464cm</Left>
-              <Height>2.66375cm</Height>
-              <Width>18.55575cm</Width>
+              <Left>0.08284cm</Left>
+              <Height>2.73431cm</Height>
+              <Width>20.30172cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2849,9 +2984,9 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
           </Style>
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
-        <PageWidth>21cm</PageWidth>
+        <PageWidth>22cm</PageWidth>
         <LeftMargin>0.5cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
+        <RightMargin>0.5cm</RightMargin>
         <TopMargin>0cm</TopMargin>
         <BottomMargin>0cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
