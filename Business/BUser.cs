@@ -331,7 +331,7 @@ namespace Business
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
 
                 DbParameter IsEnabledP = provider.CreateParameter("IsEnabled", IsEnabled, DbType.Boolean);
-                DbParameter ContactNameP = provider.CreateParameter("ContactName", ContactName, DbType.Boolean);
+                DbParameter ContactNameP = provider.CreateParameter("ContactName", ContactName, DbType.String);
 
                 DbParameter[] userParams = new DbParameter[7] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP, IsEnabledP, ContactNameP };
 
