@@ -867,7 +867,14 @@ namespace Business
                         if (dr["MSGTYP"].ToString() == "S")
                         {
                             Message = dr["MSGV1"].ToString();
-                            success = 1;
+                            if (Message == "0")
+                            {
+                                success = 1;
+                            }
+                            else
+                            {
+                                throw new Exception(Message);
+                            }
                         }
                         else
                         {
