@@ -27,7 +27,6 @@
                             <asp:ListItem Value="1">Active</asp:ListItem>
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
-                        <%--<asp:CheckBox ID="ChkIsEnabled" runat="server" Text="IsEnabled"/>--%>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
@@ -65,6 +64,26 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <%-- <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">--%>
+
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>Users(s):</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnUserArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnUserArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvEmployee_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="User Id">
