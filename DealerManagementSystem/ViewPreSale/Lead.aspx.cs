@@ -51,18 +51,24 @@ namespace DealerManagementSystem.ViewPreSale
                 List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
               //  new DDLBind(ddlState, State, "State", "StateID");
                 new DDLBind(ddlSState, State, "State", "StateID");
-               // new DDLBind(ddlCState, State, "State", "StateID");
+                // new DDLBind(ddlCState, State, "State", "StateID");
+
+
+                List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
+                new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
+
 
                 List<PLeadProgressStatus > ProgressStatus = new BLead().GetLeadProgressStatus(null, null);
                 new DDLBind(ddlSProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
-                new DDLBind(ddlProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
+               // new DDLBind(ddlProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
 
                 List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
-                new DDLBind(ddlStatus, Status, "Status", "StatusID");
+               // new DDLBind(ddlStatus, Status, "Status", "StatusID");
 
-                ddlProgressStatus.SelectedValue = "1";
-                ddlStatus.SelectedValue = "1";
+                //ddlProgressStatus.SelectedValue = "1";
+                //ddlStatus.SelectedValue = "1";
+
                 txtLeadDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
  
                 txtLeadDate.TextMode = TextBoxMode.Date;
@@ -118,9 +124,10 @@ namespace DealerManagementSystem.ViewPreSale
             }
 
             Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
+            Lead.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
 
-            Lead.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
-            Lead.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
+            //Lead.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
+            //Lead.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
 
             Lead.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
             Lead.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
@@ -156,29 +163,36 @@ namespace DealerManagementSystem.ViewPreSale
         public string ValidationLead()
         {
             string Message = ""; 
-            txtLeadDate.BorderColor = Color.Silver; 
-            ddlStatus.BorderColor = Color.Silver;
-            ddlProgressStatus.BorderColor = Color.Silver;
+            txtLeadDate.BorderColor = Color.Silver;
+            ddlProductType.BorderColor = Color.Silver;
+            //ddlStatus.BorderColor = Color.Silver;
+            //ddlProgressStatus.BorderColor = Color.Silver;
             ddlCategory.BorderColor = Color.Silver;
             ddlQualification.BorderColor = Color.Silver;
             ddlSource.BorderColor = Color.Silver;
-            ddlStatus.BorderColor = Color.Silver;
+            ddlLeadType.BorderColor = Color.Silver;
             txtRemarks.BorderColor = Color.Silver;
             if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
             {
                 Message = "Please enter the Lead Date"; 
                 txtLeadDate.BorderColor = Color.Red;
             }
-            else if (ddlStatus.SelectedValue == "0")
+            else if (ddlProductType.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Status"; 
-                ddlStatus.BorderColor = Color.Red;
+                Message = Message + "<br/>Please select the Product Type";
+                ddlProductType.BorderColor = Color.Red;
             }
-            else if (ddlProgressStatus.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Progress Status";
-                ddlProgressStatus.BorderColor = Color.Red;
-            }
+
+            //else if (ddlStatus.SelectedValue == "0")
+            //{
+            //    Message = Message + "<br/>Please select the Status";
+            //    ddlStatus.BorderColor = Color.Red;
+            //}
+            //else if (ddlProgressStatus.SelectedValue == "0")
+            //{
+            //    Message = Message + "<br/>Please select the Progress Status";
+            //    ddlProgressStatus.BorderColor = Color.Red;
+            //}
             else if (ddlCategory.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the Category";
@@ -197,7 +211,7 @@ namespace DealerManagementSystem.ViewPreSale
             else if (ddlLeadType.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the LeadType";
-                ddlStatus.BorderColor = Color.Red;
+                ddlLeadType.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
             {
