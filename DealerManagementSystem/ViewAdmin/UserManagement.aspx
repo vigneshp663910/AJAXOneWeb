@@ -20,6 +20,14 @@
                         <label>Name</label>
                         <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
+                    <div class="col-md-2 text-left">
+                        <label>IsEnabled</label>
+                        <asp:DropDownList ID="ddlIsEnabled" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
+                            <asp:ListItem Value="1">Active</asp:ListItem>
+                            <asp:ListItem Value="2">InActive</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                     </div>
