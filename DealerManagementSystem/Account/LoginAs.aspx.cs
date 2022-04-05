@@ -23,7 +23,7 @@ namespace DealerManagementSystem.Account
         {
             bool? IsEnabled = null;
             if (ddlIsEnabled.SelectedValue == "1") { IsEnabled = true; } else if (ddlIsEnabled.SelectedValue == "2") { IsEnabled = false; }
-            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled);
+            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled,null);
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvEmployee.DataSource = u;

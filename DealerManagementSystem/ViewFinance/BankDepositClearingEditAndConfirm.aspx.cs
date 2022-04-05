@@ -52,7 +52,7 @@ namespace DealerManagementSystem.ViewFinance
                 }
 
 
-                List<PUser> u = new BUser().GetUsers(null, null, null, "", null,null);
+                List<PUser> u = new BUser().GetUsers(null, null, null, "", null,null,null);
                 u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer);
 
 

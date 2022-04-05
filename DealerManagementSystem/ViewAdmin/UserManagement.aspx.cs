@@ -112,13 +112,14 @@ namespace DealerManagementSystem.ViewAdmin
             //    EmpId = Convert.ToInt32(txtEmp.Text);
             //}
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            string ContactName = null; if (!string.IsNullOrEmpty(txtContactName.Text)) { ContactName = txtContactName.Text; }
             bool? IsEnabled = null;
             if (ddlIsEnabled.SelectedValue == "1") { IsEnabled = true; } else if (ddlIsEnabled.SelectedValue == "2") { IsEnabled = false; }
-            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled);
+            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName);
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
 
-            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled);
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName);
             UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvUser.DataSource = UserLst;
 
