@@ -152,14 +152,14 @@ namespace DealerManagementSystem.ViewMaster
             if (MatModel.Count == 0)
             {
                 lblRowCountM.Visible = false;
-                ibtnModelArrowLeft.Visible = false;
-                ibtnModelArrowRight.Visible = false;
+                ibtnModelArrowLeft1.Visible = false;
+                ibtnModelArrowRight1.Visible = false;
             }
             else
             {
                 lblRowCountM.Visible = true;
-                ibtnModelArrowLeft.Visible = true;
-                ibtnModelArrowRight.Visible = true;
+                ibtnModelArrowLeft1.Visible = true;
+                ibtnModelArrowRight1.Visible = true;
                 lblRowCountM.Text = (((gvMaterailModel.PageIndex) * gvMaterailModel.PageSize) + 1) + " - " + (((gvMaterailModel.PageIndex) * gvMaterailModel.PageSize) + gvMaterailModel.Rows.Count) + " of " + MatModel.Count;
             }
 

@@ -406,6 +406,27 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                    <span id="txnHistory2p:refreshDataGroup">
+                                                <div class="boxHead">
+                                                    <div class="logheading">
+                                                        <div style="float: left">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Expense Type(s):</td>
+
+                                                                    <td>
+                                                                        <asp:Label ID="lblRowCountEx" runat="server" CssClass="label"></asp:Label></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnExpenseArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnExpenseArrowLeft_Click" /></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnExpenseArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnExpenseArrowRight_Click" /></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                     <asp:GridView ID="gvExpenseType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvExpenseType_PageIndexChanging">
                                         <Columns>
@@ -452,6 +473,27 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                     <span id="txnHistory3z:refreshDataGroup">
+                                                <div class="boxHead">
+                                                    <div class="logheading">
+                                                        <div style="float: left">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Make(s):</td>
+
+                                                                    <td>
+                                                                        <asp:Label ID="lblRowCountMk" runat="server" CssClass="label"></asp:Label></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnMakeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMakeArrowLeft_Click" /></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnMakeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMakeArrowRight_Click" /></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                     <asp:GridView ID="gvMake" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMake_PageIndexChanging">
                                         <Columns>

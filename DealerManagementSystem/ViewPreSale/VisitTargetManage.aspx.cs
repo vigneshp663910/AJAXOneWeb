@@ -81,6 +81,57 @@ namespace DealerManagementSystem.ViewPreSale
             }
         }
 
+
+        public List<PVisitTarget> VT
+        {
+            get
+            {
+                if (Session["PVisitTarget"] == null)
+                {
+                    Session["PVisitTarget"] = new List<PVisitTarget>();
+                }
+                return (List<PVisitTarget>)Session["PVisitTarget"];
+            }
+            set
+            {
+                Session["PVisitTarget"] = value;
+            }
+        }
+
+        protected void gvVisitTarget_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+            gvVisitTarget.PageIndex = e.NewPageIndex;
+            FillVisitTarget();
+            gvVisitTarget.DataBind();
+        }
+
+
+        protected void ibtnVTArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvVisitTarget.PageIndex > 0)
+            {
+                gvVisitTarget.PageIndex = gvVisitTarget.PageIndex - 1;
+                VTBind(gvVisitTarget, lblRowCountV, VT);
+            }
+        }
+        protected void ibtnVTArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvVisitTarget.PageCount > gvVisitTarget.PageIndex)
+            {
+                gvVisitTarget.PageIndex = gvVisitTarget.PageIndex + 1;
+                VTBind(gvVisitTarget, lblRowCountV, VT);
+            }
+        }
+
+        void VTBind(GridView gv, Label lbl, List<PVisitTarget> VT)
+        {
+            gv.DataSource = VT;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + VT.Count;
+        }
+
+
         void FillVisitTarget()
         {
             BtnSearch.Text = "Retrieve";
@@ -90,10 +141,28 @@ namespace DealerManagementSystem.ViewPreSale
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? DepartmentID = null;
             int? DealerEmployeeID = null;
-            gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
-            gvVisitTarget.DataBind();
-        }
+            //gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
 
+            // TO VERIFY WITH JOHN
+            VT = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
+            gvVisitTarget.DataSource = VT;
+            gvVisitTarget.DataBind();
+
+            if (VT.Count == 0)
+            {
+                lblRowCountV.Visible = false;
+                ibtnVTArrowLeft.Visible = false;
+                ibtnVTArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCountV.Visible = true;
+                ibtnVTArrowLeft.Visible = true;
+                ibtnVTArrowRight.Visible = true;
+                lblRowCountV.Text = (((gvVisitTarget.PageIndex) * gvVisitTarget.PageSize) + 1) + " - " + (((gvVisitTarget.PageIndex) * gvVisitTarget.PageSize) + gvVisitTarget.Rows.Count) + " of " + VT.Count;
+            }
+
+        }
 
 
         void Update()
