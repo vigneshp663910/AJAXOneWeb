@@ -89,6 +89,18 @@
                             <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
 
+                        <div class="col-md-2 text-right">
+                            <label>IsEnabled</label>
+                        </div>
+
+                        <div class="col-md-2">
+                            <asp:DropDownList ID="ddlIsEnabled" runat="server" CssClass="form-control">
+                                <asp:ListItem Value="0">ALL</asp:ListItem>
+                                <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
+                                <asp:ListItem Value="2">InActive</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+
                         <div class="col-md-2">
                             <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                         </div>
@@ -118,19 +130,19 @@
                                     <asp:LinkButton ID="lnkUserID" runat="server" OnClick="lbEmpId_Click">
                                         <asp:TextBox ID="txtUserID" runat="server" CssClass="TextBox" Text='<%# DataBinder.Eval(Container.DataItem, "UserID")%>' Width="100%" Visible="false" />
                                         <asp:Label ID="lblUserName" runat="server" CssClass="TextBox" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>' Width="100%" Height="22px"></asp:Label>
-                                    </asp:LinkButton>                            
+                                    </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="User Name">
                                 <ItemStyle VerticalAlign="Middle" />
                                 <ItemTemplate>
-                                    <asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="300px"></asp:Label>                           
+                                    <asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="300px"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remarks">
                                 <ItemStyle VerticalAlign="Middle" />
                                 <ItemTemplate>
-                                    <%--<asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="500px"></asp:Label>--%>                           
+                                    <%--<asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="500px"></asp:Label>--%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

@@ -23,8 +23,8 @@
                     <div class="col-md-2 text-left">
                         <label>IsEnabled</label>
                         <asp:DropDownList ID="ddlIsEnabled" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
-                            <asp:ListItem Value="1">Active</asp:ListItem>
+                            <asp:ListItem Value="0">ALL</asp:ListItem>
+                            <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
                     </div>
