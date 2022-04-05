@@ -98,7 +98,10 @@
     <ContentTemplate>
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-
+                 <div class="col-md-6 col-sm-12">
+                    <label>Dealer</label> 
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"  AutoPostBack="true"  />
+                </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Title</label>
                     <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control" />
@@ -186,12 +189,12 @@
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Country</label>
 
-                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" Enabled="false" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">State</label>
 
-                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true"  Enabled="false" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">District</label>
