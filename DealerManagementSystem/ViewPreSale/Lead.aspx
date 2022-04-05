@@ -306,7 +306,7 @@
                     <div class="col-md-2 text-left">
                         <label>Customer</label>
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
+                     <%--   <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                             <div id="div1" class="fieldset-borderAuto" style="display: none">
                             </div>
                             <div id="div2" class="fieldset-borderAuto" style="display: none">
@@ -317,7 +317,7 @@
                             </div>
                             <div id="div5" class="fieldset-borderAuto" style="display: none">
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                     <div class="col-md-2 text-left">
                         <label>Country</label>
@@ -377,6 +377,11 @@
                                 <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate","{0:d}")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                  <asp:TemplateField HeaderText="Product Type" SortExpression="Country">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Category" SortExpression="Country">
@@ -516,13 +521,18 @@
                                 <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
                             <div class="col-md-6 col-sm-12">
+                                <label>Product Type</label>
+                                <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
+                            </div>
+
+                            <%-- <div class="col-md-6 col-sm-12">
                                 <label>Status</label>
                                 <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <label>Progress Status</label>
                                 <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
-                            </div>
+                            </div>--%>
                             <div class="col-md-6 col-sm-12">
                                 <label>Category</label>
                                 <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />

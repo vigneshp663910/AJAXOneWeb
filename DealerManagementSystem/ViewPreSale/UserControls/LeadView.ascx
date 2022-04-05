@@ -817,8 +817,11 @@
                         <label>Lead Date</label>
                         <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>
-
                     <div class="col-md-6 col-sm-12">
+                        <label>Product Type</label>
+                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
+                    </div>
+                    <%--<div class="col-md-6 col-sm-12">
                         <label>Status</label>
                         <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
                     </div>
@@ -826,7 +829,7 @@
                     <div class="col-md-6 col-sm-12">
                         <label>Progress Status</label>
                         <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
-                    </div>
+                    </div>--%>
                     <div class="col-md-6 col-sm-12">
                         <label>Category</label>
                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
