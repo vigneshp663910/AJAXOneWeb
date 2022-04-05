@@ -980,16 +980,16 @@
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Customer Name</label>
                         <asp:TextBox ID="txtFleet" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                        <div id="FleDivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">
-                            <div id="FleDiv1" class="fieldset-border">
+                        <div id="FleDivAuto" style="position: absolute; background-color: red; z-index: 1;">
+                            <div id="FleDiv1" class="fieldset-borderAuto" style="display: none">
                             </div>
-                            <div id="FleDiv2" class="fieldset-border">
+                            <div id="FleDiv2"  class="fieldset-borderAuto" style="display: none">
                             </div>
-                            <div id="FleDiv3" class="fieldset-border">
+                            <div id="FleDiv3"  class="fieldset-borderAuto" style="display: none">
                             </div>
-                            <div id="FleDiv4" class="fieldset-border">
+                            <div id="FleDiv4"  class="fieldset-borderAuto" style="display: none">
                             </div>
-                            <div id="FleDiv5" class="fieldset-border">
+                            <div id="FleDiv5"  class="fieldset-borderAuto" style="display: none">
                             </div>
                         </div>
                     </div>

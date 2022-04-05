@@ -10,8 +10,7 @@ namespace Properties
     public class PLead
     {
         public long LeadID { get; set; }
-        public DateTime LeadDate { get; set; }
-
+        public DateTime LeadDate { get; set; } 
         public string LeadNumber { get; set; }
         public PLeadCategory Category { get; set; }
         public PLeadProgressStatus ProgressStatus { get; set; }
@@ -44,6 +43,7 @@ namespace Properties
         public List<PLeadFollowUp> FollowUp { get; set; }
         public decimal TotalEffort { get; set; }
         public decimal TotalExpense { get; set; }
+        public PProductType ProductType { get; set; }
     }
     [Serializable]
     public class PLeadSalesEngineer
