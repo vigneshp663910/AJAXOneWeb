@@ -1071,6 +1071,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
          } 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlCountry.SelectedValue == "1") { txtPincode.MaxLength = 6; } else { txtPincode.MaxLength = 10; }
             MPE_ShipTo.Show();
             List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null); 
             new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");

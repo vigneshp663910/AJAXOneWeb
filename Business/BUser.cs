@@ -305,36 +305,32 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID)
+        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID,int? DealerID)
         {
             List<PUser> users = new List<PUser>();
             DateTime traceStartTime = DateTime.Now;
             DataTable usersDataTable = new DataTable();
             try
             {
-                DbParameter UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP;
-
-                if (UserID != null)
-                    UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                else
-                    UserIDP = provider.CreateParameter("UserID", DBNull.Value, DbType.Int64);
+                DbParameter  UserNameP,  ExternalReferenceIDP;
+                 
+                    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64); 
 
                 if (!string.IsNullOrEmpty(UserName))
                     UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
                 else
                     UserNameP = provider.CreateParameter("UserName", DBNull.Value, DbType.String);
-
-                if (UserTypeID != null)
-                    UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
-                else
-                    UserTypeIDP = provider.CreateParameter("UserTypeID", DBNull.Value, DbType.Int32);
+                 
+                    DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32); 
 
                 if (!string.IsNullOrEmpty(ExternalReferenceID))
                     ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", ExternalReferenceID, DbType.String);
                 else
                     ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", DBNull.Value, DbType.String);
 
-                DbParameter[] userParams = new DbParameter[4] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP };
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+
+                DbParameter[] userParams = new DbParameter[5] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP };
 
                 using (DataSet usersDataSet = provider.Select("GetUsers", userParams))
                 {
@@ -1333,8 +1329,9 @@ namespace Business
         }
         public PUser GetUserByToken()
         {
+            UserAuthentication UserA = new UserAuthentication();
             string endPoint = "User/UserByToken";
-            return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA)).Data));
         }
 
 

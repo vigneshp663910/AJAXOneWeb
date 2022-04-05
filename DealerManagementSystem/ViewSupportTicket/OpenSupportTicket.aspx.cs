@@ -221,7 +221,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 btnSendForApproval.Visible = false;
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
-                PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "")[0];
+                PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "", null)[0];
                 //  PEmployee EmployeeApproval = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(ddlapprovar.SelectedValue), null, "", "", "")[0];
 
                 string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRequestForApproval.htm");
