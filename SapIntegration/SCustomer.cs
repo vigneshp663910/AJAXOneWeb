@@ -144,6 +144,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_PANNO", Customer.PAN);
             tagListBapi.SetValue("P_CONTACT", Customer.ContactPerson);
             tagListBapi.SetValue("P_CONTACT2", Customer.ContactPerson);
+            //tagListBapi.SetValue("P_DOC_NO", "");
 
             tagListBapi.Invoke(SAP.RfcDes());
             string SUBRC = tagListBapi.GetValue("P_SUBRC").ToString();
