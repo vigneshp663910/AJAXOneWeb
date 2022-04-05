@@ -56,10 +56,10 @@ namespace DealerManagementSystem.ViewAdmin
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
-
+                fillDealerDLL();
                 FillUser();
                 fillDashboard();
-                fillDealerDLL();
+               
             }
         }
         void FillUser()
@@ -69,7 +69,8 @@ namespace DealerManagementSystem.ViewAdmin
             //{
             //    EmpId = Convert.ToInt32(txtEmp.Text);
             //}
-            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "");
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID);
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvUser.DataSource = u;
@@ -77,6 +78,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void lbEmpId_Click(object sender, EventArgs e)
         {
+            divList.Visible = false;
             pnlUser.Visible = false;
             pnlModule.Visible = true;
             pnlDealer.Visible = false;
@@ -122,8 +124,8 @@ namespace DealerManagementSystem.ViewAdmin
             PUser u = new BUser().GetUserDetails(UserID);
             lblUserID.Text = u.UserName.ToString();
             lblUserName.Text = u.ContactName;
-            if (u.UserTypeID != (short)UserTypes.Dealer)
-            {
+            //if (u.UserTypeID != (short)UserTypes.Dealer)
+            //{
                 pnlDealer.Visible = true;
                 List<PDealer> Dealer = new BDealer().GetDealerByUserID(UserID);
 
@@ -136,7 +138,7 @@ namespace DealerManagementSystem.ViewAdmin
                         cbSMId.Checked = true;
                     }
                 }
-            }
+            //}
 
             List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardByUserID(UserID);
 
@@ -202,6 +204,7 @@ namespace DealerManagementSystem.ViewAdmin
 
                 lblMessage.Text = "It is updated successfully";
                 lblMessage.ForeColor = Color.Green;
+                divList.Visible = true;
             }
             else
             {
@@ -295,11 +298,13 @@ namespace DealerManagementSystem.ViewAdmin
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
+            divList.Visible = true;
             btnUpdate.Visible = false;
             btnBack.Visible = false;
             pnlDealer.Visible = false;
             pnlModule.Visible = false;
             pnlUser.Visible = true;
+
         }
 
         protected void cbAllDashboard_CheckedChanged(object sender, EventArgs e)
@@ -347,6 +352,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
+            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
 
 
             lblPassWord.Visible = false;
@@ -363,6 +369,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             cbIsTechnician.Enabled = true;
             cbIsLocked.Enabled = true;
+            cbIsEnabled.Enabled = true;
 
         }
 
@@ -391,6 +398,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
+            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
 
             lblPassWord.Visible = true;
             lblContactName.Visible = true;
@@ -406,6 +414,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             cbIsTechnician.Enabled = false;
             cbIsLocked.Enabled = false;
+            cbIsEnabled.Enabled = false;
         }
 
         protected void GvbtnUpdate_Click(object sender, EventArgs e)
@@ -436,6 +445,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
+            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
 
             //if (string.IsNullOrEmpty(txtState.Text.Trim()))
             //{
@@ -453,6 +463,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             userDAO.IsTechnician = cbIsTechnician.Checked;
             userDAO.IsLocked = cbIsLocked.Checked;
+            userDAO.IsEnabled = cbIsEnabled.Checked;
 
             userDAO.UpdatedBy = PSession.User.UserID;
             userDAO.UpdatedOn = DateTime.Now;
@@ -480,6 +491,7 @@ namespace DealerManagementSystem.ViewAdmin
 
                 cbIsTechnician.Enabled = false;
                 cbIsLocked.Enabled = false;
+                cbIsEnabled.Enabled = false;
 
                 lblPassWord.Text = txtPassWord.Text.Trim();
                 lblContactName.Text = txtContactName.Text.Trim();
