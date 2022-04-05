@@ -112,10 +112,14 @@ namespace DealerManagementSystem.ViewAdmin
             //    EmpId = Convert.ToInt32(txtEmp.Text);
             //}
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID);
+            //List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID);
+            ////u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID);
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-            u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-            gvUser.DataSource = u;
+            UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            gvUser.DataSource = UserLst;
             gvUser.DataBind();
 
             if (UserLst.Count == 0)

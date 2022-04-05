@@ -62,7 +62,7 @@
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>Users(s):</td>
+                                            <td>User(s):</td>
 
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -110,7 +110,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Number">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="right" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblContactNumber" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'></asp:Label>
                                         <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' Visible="false"></asp:TextBox>
@@ -163,7 +163,7 @@
                                 </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="PassWord">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblPassWord" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>'></asp:Label>
                                         <asp:TextBox ID="txtPassWord" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>' Visible="false"></asp:TextBox>
