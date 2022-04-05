@@ -9,17 +9,25 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-left">
-                         <label>Dealer</label> 
+                        <label>Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
-                    </div> 
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>User ID</label>
                         <asp:TextBox ID="txtEmp" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div> 
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>Name</label>
                         <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div> 
+                    </div>
+                    <div class="col-md-2 text-left">
+                        <label>IsEnabled</label>
+                        <asp:DropDownList ID="ddlIsEnabled" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
+                            <asp:ListItem Value="1">Active</asp:ListItem>
+                            <asp:ListItem Value="2">InActive</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                     </div>
@@ -56,6 +64,26 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
                         <%-- <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">--%>
+
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>User(s):</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnUserArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnUserArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvEmployee_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="User Id">
@@ -90,7 +118,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Number">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="right" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblContactNumber" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'></asp:Label>
                                         <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' Visible="false"></asp:TextBox>
@@ -117,7 +145,7 @@
                                         <asp:CheckBox ID="cbIsLocked" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Is Enabled" ItemStyle-Width="80px">
+                                <asp:TemplateField HeaderText="Is Enabled" ItemStyle-Width="80px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>
                                         <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
@@ -143,7 +171,7 @@
                                 </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="PassWord">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="150px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblPassWord" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>'></asp:Label>
                                         <asp:TextBox ID="txtPassWord" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>' Visible="false"></asp:TextBox>

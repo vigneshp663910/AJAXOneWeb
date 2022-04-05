@@ -69,6 +69,15 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.TextBox txtContactName;
 
         /// <summary>
+        /// ddlIsEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlIsEnabled;
+
+        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,33 @@ namespace DealerManagementSystem.ViewAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlUser;
+
+        /// <summary>
+        /// lblRowCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCount;
+
+        /// <summary>
+        /// ibtnUserArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnUserArrowLeft;
+
+        /// <summary>
+        /// ibtnUserArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnUserArrowRight;
 
         /// <summary>
         /// gvUser control.

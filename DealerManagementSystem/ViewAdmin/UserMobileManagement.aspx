@@ -30,6 +30,26 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                 <div class="col-md-12 Report">
+
+                    <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>User(s):</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnUserArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnUserArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvUser_PageIndexChanging" EmptyDataText="No Data Found">
                        <Columns>

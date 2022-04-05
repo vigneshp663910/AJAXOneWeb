@@ -31,6 +31,50 @@ namespace DealerManagementSystem.ViewAdmin
             gvUser.PageIndex = e.NewPageIndex;
             fillUser();
         }
+
+        public List<PUser> UserLst
+        {
+            get
+            {
+                if (Session["PUser"] == null)
+                {
+                    Session["PUser"] = new List<PUser>();
+                }
+                return (List<PUser>)Session["PUser"];
+            }
+            set
+            {
+                Session["PUser"] = value;
+            }
+        }
+
+
+        protected void ibtnUserArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvUser.PageIndex > 0)
+            {
+                gvUser.PageIndex = gvUser.PageIndex - 1;
+                UserBind(gvUser, lblRowCount, UserLst);
+            }
+        }
+        protected void ibtnUserArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvUser.PageCount > gvUser.PageIndex)
+            {
+                gvUser.PageIndex = gvUser.PageIndex + 1;
+                UserBind(gvUser, lblRowCount, UserLst);
+            }
+        }
+
+        void UserBind(GridView gv, Label lbl, List<PUser> UserLst)
+        {
+            gv.DataSource = UserLst;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + UserLst.Count;
+        }
+
+
+
         void fillUser()
         {
             try
@@ -38,6 +82,23 @@ namespace DealerManagementSystem.ViewAdmin
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
                 gvUser.DataSource = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
                 gvUser.DataBind();
+
+                //UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+
+                if (UserLst.Count == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnUserArrowLeft.Visible = false;
+                    ibtnUserArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCount.Visible = true;
+                    ibtnUserArrowLeft.Visible = true;
+                    ibtnUserArrowRight.Visible = true;
+                    lblRowCount.Text = (((gvUser.PageIndex) * gvUser.PageSize) + 1) + " - " + (((gvUser.PageIndex) * gvUser.PageSize) + gvUser.Rows.Count) + " of " + UserLst.Count;
+                }
+
             }
             catch (Exception ex)
             {

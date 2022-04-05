@@ -305,7 +305,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID,int? DealerID)
+        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID,int? DealerID,bool? IsEnabled)
         {
             List<PUser> users = new List<PUser>();
             DateTime traceStartTime = DateTime.Now;
@@ -330,7 +330,9 @@ namespace Business
 
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
 
-                DbParameter[] userParams = new DbParameter[5] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP };
+                DbParameter IsEnabledP = provider.CreateParameter("IsEnabled", IsEnabled, DbType.Boolean);
+
+                DbParameter[] userParams = new DbParameter[6] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP, IsEnabledP };
 
                 using (DataSet usersDataSet = provider.Select("GetUsers", userParams))
                 {

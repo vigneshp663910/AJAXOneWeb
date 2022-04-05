@@ -38,7 +38,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlCountry.SelectedValue == "1") { txtPincode.MaxLength = 6; }  else { txtPincode.MaxLength = 10; }
             List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
         }
@@ -50,6 +49,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlCountry.SelectedValue == "1") { txtPincode.MaxLength = 6; } else { txtPincode.MaxLength = 10; }
             //List<PDMS_District> District   new BDMS_Address().GetDistrict(1, null, null, null, null);
             List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
             //ddlCountry.SelectedValue = Convert.ToString(Tehsil[0].Country.CountryID);
