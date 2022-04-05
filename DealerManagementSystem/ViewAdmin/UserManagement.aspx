@@ -9,17 +9,26 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-left">
-                         <label>Dealer</label> 
+                        <label>Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
-                    </div> 
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>User ID</label>
                         <asp:TextBox ID="txtEmp" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div> 
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>Name</label>
                         <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div> 
+                    </div>
+                    <div class="col-md-2 text-left">
+                        <label>IsEnabled</label>
+                        <asp:DropDownList ID="ddlIsEnabled" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
+                            <asp:ListItem Value="1">Active</asp:ListItem>
+                            <asp:ListItem Value="2">InActive</asp:ListItem>
+                        </asp:DropDownList>
+                        <%--<asp:CheckBox ID="ChkIsEnabled" runat="server" Text="IsEnabled"/>--%>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                     </div>
@@ -117,7 +126,7 @@
                                         <asp:CheckBox ID="cbIsLocked" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Is Enabled" ItemStyle-Width="80px">
+                                <asp:TemplateField HeaderText="Is Enabled" ItemStyle-Width="80px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>
                                         <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
