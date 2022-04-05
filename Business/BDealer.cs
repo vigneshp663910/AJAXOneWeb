@@ -61,6 +61,8 @@ namespace Business
                             Dealer.IsActive = Convert.ToBoolean(Convert.ToString(dr["IsActive"]));
                             Dealer.HeadOfficeID = Convert.ToString(dr["HeadOfficeID"]).Trim();
                             Dealer.StateCode = Convert.ToString(dr["StateCode"]).Trim();
+                            Dealer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]) };
+                            Dealer.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) };
                             Dealers.Add(Dealer);
                         }
                     }
@@ -180,6 +182,8 @@ namespace Business
                             Dealer.IsActive = Convert.ToBoolean(Convert.ToString(EmployeeRow["IsActive"]));
                             Dealer.HeadOfficeID = Convert.ToString(EmployeeRow["HeadOfficeID"]).Trim();
                             Dealer.StateCode = Convert.ToString(EmployeeRow["StateCode"]).Trim();
+                            Dealer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(EmployeeRow["CountryID"]) };
+                            Dealer.State = new PDMS_State() { StateID = Convert.ToInt32(EmployeeRow["StateID"]) };
                             Dealers.Add(Dealer);
                         }
                     }

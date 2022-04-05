@@ -71,7 +71,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         private void FillDealerEmployeeManageLeaving()
         {
-            EmployeeManageLeave = new BDMS_Dealer().GetDealerEmployeeManageLeaving(Convert.ToInt32(ddlDealer.SelectedValue), "");
+            EmployeeManageLeave = new BDMS_Dealer().GetDealerEmployeeManageLeaving(Convert.ToInt32(ddlDealer.SelectedValue), txtName.Text.Trim());
             gvDealerEmployee.DataSource = EmployeeManageLeave;
             gvDealerEmployee.DataBind();
         }

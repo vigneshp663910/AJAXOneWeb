@@ -26,5 +26,8 @@ namespace Properties
         public string EInvoiveFTPUserID { get; set; }
         public string EInvoiveFTPPassword { get; set; }
         public string EInvoiveDate { get; set; }
+
+        public PDMS_Country Country { get; set; }
+        public PDMS_State State { get; set; }
     }
 }
