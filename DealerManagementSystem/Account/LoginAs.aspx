@@ -73,7 +73,7 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
 
-                        <div class="col-md-2 text-right">
+                        <div class="col-md-1 text-right">
                             <label>User ID</label>
                         </div>
 
@@ -81,7 +81,7 @@
                             <asp:TextBox ID="txtEmp" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-2 text-right">
+                        <div class="col-md-1 text-right">
                             <label>Name</label>
                         </div>
 
@@ -115,6 +115,26 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                 <div class="col-md-12 Report">
+
+                    <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>User(s):</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnUserArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnUserArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnUserArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     <asp:GridView ID="gvEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEmployee_PageIndexChanging">
                         <Columns>

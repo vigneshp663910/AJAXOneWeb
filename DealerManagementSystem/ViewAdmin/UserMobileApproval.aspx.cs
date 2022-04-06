@@ -37,12 +37,75 @@ namespace DealerManagementSystem.ViewAdmin
             fillUser();
             lblMessage.Visible = true;
         }
+
+        public List<PUserMobile> UserLst
+        {
+            get
+            {
+                if (Session["PUser"] == null)
+                {
+                    Session["PUser"] = new List<PUserMobile>();
+                }
+                return (List<PUserMobile>)Session["PUser"];
+            }
+            set
+            {
+                Session["PUser"] = value;
+            }
+        }
+
+
+        protected void ibtnUserArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvUserIMEI.PageIndex > 0)
+            {
+                gvUserIMEI.PageIndex = gvUserIMEI.PageIndex - 1;
+                UserBind(gvUserIMEI, lblRowCount, UserLst);
+            }
+        }
+        protected void ibtnUserArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvUserIMEI.PageCount > gvUserIMEI.PageIndex)
+            {
+                gvUserIMEI.PageIndex = gvUserIMEI.PageIndex + 1;
+                UserBind(gvUserIMEI, lblRowCount, UserLst);
+            }
+        }
+
+        void UserBind(GridView gv, Label lbl, List<PUserMobile> UserLst)
+        {
+            gv.DataSource = UserLst;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + UserLst.Count;
+        }
+
         void fillUser()
         {
             try
             { 
-                gvUserIMEI.DataSource = new BUser().GetUserMobileForApproval();
+                //gvUserIMEI.DataSource = new BUser().GetUserMobileForApproval();
+                //gvUserIMEI.DataBind();
+
+
+                UserLst = new BUser().GetUserMobileForApproval();
+                gvUserIMEI.DataSource = UserLst;
                 gvUserIMEI.DataBind();
+
+
+                if (UserLst.Count == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnUserArrowLeft.Visible = false;
+                    ibtnUserArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCount.Visible = true;
+                    ibtnUserArrowLeft.Visible = true;
+                    ibtnUserArrowRight.Visible = true;
+                    lblRowCount.Text = (((gvUserIMEI.PageIndex) * gvUserIMEI.PageSize) + 1) + " - " + (((gvUserIMEI.PageIndex) * gvUserIMEI.PageSize) + gvUserIMEI.Rows.Count) + " of " + UserLst.Count;
+                }
+
             }
             catch (Exception ex)
             { 
