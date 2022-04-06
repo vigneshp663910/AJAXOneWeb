@@ -271,7 +271,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty);
+            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty, Quotation.Lead.ProductType.Division.DivisionCode);
 
 
 
@@ -801,30 +801,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = "";
             PSalesQuotation Q = Quotation;
             List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-            string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
-            foreach (PSalesQuotationNote Note in Q.Notes)
-            {
-                if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
-                if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
-            }
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Red;
-            if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-            if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-            if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-            if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-            if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-            if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-            if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-            if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
+            //string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
+            //foreach (PSalesQuotationNote Note in Q.Notes)
+            //{
+            //    if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
+            //    if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
+            //}
+            //lblMessage.Visible = true;
+            //lblMessage.ForeColor = Color.Red;
+            //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+            //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+            //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+            //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+            //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+            //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+            //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+            //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
 
             if (Q.QuotationItems.Count > 0 && leadProducts.Count>0 && Q.Competitor.Count>0) 
             {
@@ -903,19 +903,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
 
-                if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-                if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-                if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-                if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-                if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-                if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-                if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-                if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
+                //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+                //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+                //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+                //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+                //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+                //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+                //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+                //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
 
                 ReportParameter[] P = new ReportParameter[35];
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
-                P[1] = new ReportParameter("QuotationNo", Q.RefQuotationNo, false);
+                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
                 P[2] = new ReportParameter("QuotationDate", Q.RefQuotationDate.ToString("dd.MM.yyyy"), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
@@ -1104,19 +1104,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
 
-                if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-                if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-                if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-                if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-                if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-                if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-                if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
+                //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
+                //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
+                //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
+                //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
+                //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
+                //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
+                //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
 
                 List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
-                P[1] = new ReportParameter("QuotationNo", Q.RefQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.RefQuotationDate.ToString(), false);
+                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
