@@ -404,7 +404,7 @@ namespace DealerManagementSystem.ViewService
                         gvFileAttached.DataBind();
                     }
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
-                    List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicket("", "", lblICTicketID.Text, null, null, null, null);
+                    List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicket(null, "", lblICTicketID.Text, null, null, null, null);
                     if (SOIs.Count == 1)
                     {
                         List<PAttachedFile> UploadedFile = new BDMS_ICTicket().GetICTicketAttachedFile(SOIs[0].ICTicketID, null);

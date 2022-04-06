@@ -672,10 +672,10 @@ namespace Business
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
 
-        public List<PDMS_Customer> GetCustomerAutocomplete(string Customer)
+        public List<PDMS_Customer> GetCustomerAutocomplete(string Customer, int IsDealerMapping)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Customer/CustomerAutocomplete?Customer=" + Customer;
+            string endPoint = "Customer/CustomerAutocomplete?Customer=" + Customer + "&IsDealerMapping=" + IsDealerMapping;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
