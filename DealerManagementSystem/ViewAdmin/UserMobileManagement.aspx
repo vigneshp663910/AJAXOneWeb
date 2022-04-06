@@ -22,7 +22,8 @@
                         <label>Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                     </div> 
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-2">
+                        <br />
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button> 
                     </div>
                 </div>
@@ -36,7 +37,7 @@
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>User(s):</td>
+                                            <td>Mobile User(s):</td>
 
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -53,6 +54,12 @@
                     <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvUser_PageIndexChanging" EmptyDataText="No Data Found">
                        <Columns>
+                           <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="User ID">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
