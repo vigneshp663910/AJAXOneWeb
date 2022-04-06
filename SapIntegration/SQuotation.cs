@@ -41,7 +41,7 @@ namespace SapIntegration
             QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
             QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QTHeader.SetValue("DISTR_CHAN", "GT");
-            QTHeader.SetValue("DIVISION", "CM");
+            QTHeader.SetValue("DIVISION", pSalesQuotation.Lead.ProductType.Division.DivisionCode);
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
@@ -57,7 +57,7 @@ namespace SapIntegration
                 QT_Item.SetValue("ITM_NUMBER", pSalesQuotation.QuotationItems[i].Item);//"000010"
                 QT_Item.SetValue("MATERIAL", pSalesQuotation.QuotationItems[i].Material.MaterialCode);//"L.900.508"
                 QT_Item.SetValue("PLANT", pSalesQuotation.QuotationItems[i].Plant.PlantCode);//"P003"
-                QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty);//"1.000"
+                QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty.ToString("0.000"));//"1.000"
             }
 
             string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
