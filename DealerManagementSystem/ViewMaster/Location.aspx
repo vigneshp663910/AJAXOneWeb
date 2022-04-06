@@ -547,7 +547,7 @@
                                                     <asp:Label ID="lblGDDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server"></asp:Label>
                                                 </ItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control"></asp:TextBox>
+                                                    <asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control" MaxLength="40"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
