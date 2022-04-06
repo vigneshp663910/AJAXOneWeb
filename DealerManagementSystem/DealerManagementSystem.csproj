@@ -232,6 +232,7 @@
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Project_Plan_PV2.png" />
     <Content Include="ProcessFlow\V0_DMPM.png" />
+    <Content Include="ProcessFlow\V0_Implementation.png" />
     <Content Include="ProcessFlow\V0_Physical_Inventory.png" />
     <Content Include="ProcessFlow\V0_Procurment_Process_OE_CoDealer.png" />
     <Content Include="ProcessFlow\V0_Purchse_Return.png" />
