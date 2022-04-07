@@ -101,6 +101,14 @@
             </ContentTemplate>
         </asp1:TabPanel>
 
+        <asp1:TabPanel ID="tpImplementtionProcess" runat="server" HeaderText="Implementation">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image10" runat="server" ImageUrl="~/ProcessFlow/V0_Implementation.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+
 
     </asp1:TabContainer>
     <%--    </div>--%>

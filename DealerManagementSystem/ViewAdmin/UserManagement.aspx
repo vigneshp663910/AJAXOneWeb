@@ -28,7 +28,8 @@
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-2">
+                        <br />
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                     </div>
 
@@ -86,6 +87,13 @@
 
                         <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvEmployee_PageIndexChanging">
                             <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
                                 <asp:TemplateField HeaderText="User Id">
                                     <ItemStyle BorderStyle="None" Width="150px" HorizontalAlign="Left" />
                                     <ItemTemplate>

@@ -32,15 +32,15 @@ namespace DealerManagementSystem.ViewAdmin
             fillUser();
         }
 
-        public List<PUser> UserLst
+        public List<PUserMobile> UserLst
         {
             get
             {
                 if (Session["PUser"] == null)
                 {
-                    Session["PUser"] = new List<PUser>();
+                    Session["PUser"] = new List<PUserMobile>();
                 }
-                return (List<PUser>)Session["PUser"];
+                return (List<PUserMobile>)Session["PUser"];
             }
             set
             {
@@ -66,7 +66,7 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
 
-        void UserBind(GridView gv, Label lbl, List<PUser> UserLst)
+        void UserBind(GridView gv, Label lbl, List<PUserMobile> UserLst)
         {
             gv.DataSource = UserLst;
             gv.DataBind();
@@ -80,10 +80,12 @@ namespace DealerManagementSystem.ViewAdmin
             try
             {
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
-                gvUser.DataSource = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
-                gvUser.DataBind();
+                //gvUser.DataSource = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+                //gvUser.DataBind();
 
-                //UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+                gvUser.DataSource = UserLst;
+                gvUser.DataBind();
 
                 if (UserLst.Count == 0)
                 {

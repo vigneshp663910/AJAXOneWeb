@@ -3,6 +3,7 @@ using SAP.Middleware.Connector;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -41,7 +42,7 @@ namespace SapIntegration
             QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
             QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QTHeader.SetValue("DISTR_CHAN", "GT");
-            QTHeader.SetValue("DIVISION", "CM");
+            QTHeader.SetValue("DIVISION", pSalesQuotation.Lead.ProductType.Division.DivisionCode);
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
@@ -57,7 +58,8 @@ namespace SapIntegration
                 QT_Item.SetValue("ITM_NUMBER", pSalesQuotation.QuotationItems[i].Item);//"000010"
                 QT_Item.SetValue("MATERIAL", pSalesQuotation.QuotationItems[i].Material.MaterialCode);//"L.900.508"
                 QT_Item.SetValue("PLANT", pSalesQuotation.QuotationItems[i].Plant.PlantCode);//"P003"
-                QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty);//"1.000"
+                QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty.ToString("#,###,###,###,###.000"));//"1.000"
+                QT_Item.SetValue("TARGET_QU", pSalesQuotation.QuotationItems[i].Material.BaseUnit);
             }
 
             string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
@@ -79,70 +81,91 @@ namespace SapIntegration
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "REF");//Reference
             QT_TEXT.SetValue("TEXT_LINE", Reference);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "NAME");//Name
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "DS01");//Designation
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "MOB");//Mobile NO
             QT_TEXT.SetValue("TEXT_LINE", "123456789");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "SE01");//Sales Engineer
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0013");//Terms of payment
             QT_TEXT.SetValue("TEXT_LINE", TermsOfPayment);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "SOR1");//source
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "KA01");//Kind Attention
             QT_TEXT.SetValue("TEXT_LINE", KindAttention);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "MOD1");//Model
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "IN01");//Inquiry NO
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "DL01");//Delivery
             QT_TEXT.SetValue("TEXT_LINE", Delivery);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "NOTE");//Note - CBC and Printers
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0001");//Hypothecation
             QT_TEXT.SetValue("TEXT_LINE", Hypothecation);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZCST");//CST No
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZRE");//revision
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZMM");//Balance
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZSC");//Special Charges
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZMN");//Margin  money
-            QT_TEXT.SetValue("TEXT_LINE", MarginMoney);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZVA");//Validity date
-            QT_TEXT.SetValue("TEXT_LINE", Validity);
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZDLR");//DMS Order confirmation
-            QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.Append();
-            QT_TEXT.SetValue("TEXT_ID", "ZFC");//Foc
-            QT_TEXT.SetValue("TEXT_LINE", Foc);
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0002");//Header note 1
             QT_TEXT.SetValue("TEXT_LINE", QNote);
-
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZVA");//Validity date
+            QT_TEXT.SetValue("TEXT_LINE", Validity);
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZMN");//Margin  money
+            QT_TEXT.SetValue("TEXT_LINE", MarginMoney);
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZFC");//Foc
+            QT_TEXT.SetValue("TEXT_LINE", Foc);
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "NAME");//Name
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "DS01");//Designation
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "SE01");//Sales Engineer
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "SOR1");//source
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "MOD1");//Model
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "IN01");//Inquiry NO
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "NOTE");//Note - CBC and Printers
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZCST");//CST No
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZRE");//revision
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZMM");//Balance
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZSC");//Special Charges
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.Append();
+            QT_TEXT.SetValue("TEXT_ID", "ZDLR");//DMS Order confirmation
+            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("LANGU", "EN");
 
             tagListBapi.Invoke(SAP.RfcDes());
             QuotationNo = tagListBapi.GetValue("P_QUOTATION_NO").ToString();
@@ -170,7 +193,7 @@ namespace SapIntegration
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
             return dtRet;
         }
-        public PSalesQuotationItem getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty)
+        public PSalesQuotationItem getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty,string DivisionCode)
         {
 
             PSalesQuotationItem Material = new PSalesQuotationItem();
@@ -178,7 +201,7 @@ namespace SapIntegration
             tagListBapi.SetValue("DOC_TYPE", "ZMQT");
             tagListBapi.SetValue("SALES_ORG", "AJF");
             tagListBapi.SetValue("DISTR_CHAN", "GT");
-            tagListBapi.SetValue("DIVISION", "CM");
+            tagListBapi.SetValue("DIVISION", DivisionCode);
             tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(6, '0'));
 
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");

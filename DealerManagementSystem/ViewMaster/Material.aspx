@@ -192,7 +192,8 @@
                                         <label>Material Code</label>
                                          <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
                                     </div>
-                                    <div class="col-md-12 text-center">
+                                    <div class="col-md-2 text-center">
+                                        <br />
                                         <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
                                         &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />
                                     </div>
