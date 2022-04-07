@@ -188,7 +188,7 @@ namespace Business
                     Customer.GSTIN = Convert.ToString(dr["GSTIN"]).Trim();
                     Customer.PAN = Convert.ToString(dr["PAN"]).Trim();
                     Customer.Email = Convert.ToString(dr["EMAIL"]).Trim();
-                    Customer.Mobile  = Convert.ToString(dr["MOBILE"]).Trim();
+                    Customer.Mobile = Convert.ToString(dr["MOBILE"]).Trim();
                     Customers.Add(Customer);
                 }
                 return Customers;
@@ -393,7 +393,7 @@ namespace Business
 + " left Join  doohr_bp_statutory bps on bps.p_bp_id =bp.p_bp_id and bps.r_statutory_type='GSTIN' left Join  doohr_bp_statutory bpsPan on bpsPan.p_bp_id =bp.p_bp_id and bpsPan.r_statutory_type='PAN' "
 + " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20 where  p_office_type_id='ST' and bp.p_bp_id = '" + CustomerCode + "' and  bp.s_tenant_id = " + DealerCode
 + "group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ");
-                 foreach (DataRow dr in dt.Rows)
+                foreach (DataRow dr in dt.Rows)
                 {
                     Customer = new PDMS_Customer();
                     Customer.CustomerCode = Convert.ToString(dr["p_bp_id"]);
@@ -411,9 +411,9 @@ namespace Business
                     Customer.GSTIN = Convert.ToString(dr["GSTIN"]);
                     Customer.State.StateCode = Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "";
                     Customer.PAN = Convert.ToString(dr["PAN"]);
-                    
+
                 }
-                 return Customer; 
+                return Customer;
             }
             catch (Exception ex)
             {
@@ -422,7 +422,7 @@ namespace Business
             }
             return Customer;
         }
-        public PDMS_Customer GetCustomerAddressFromPG_p_office_id(String DealerCode, String CustomerCode,string p_office_id)
+        public PDMS_Customer GetCustomerAddressFromPG_p_office_id(String DealerCode, String CustomerCode, string p_office_id)
         {
             TraceLogger.Log(DateTime.Now);
             PDMS_Customer Customer = new PDMS_Customer();
@@ -469,7 +469,7 @@ namespace Business
             try
             {
                 Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
-              //  Customer.OrgName = ConfigurationManager.AppSettings["EOrgName"];
+                //  Customer.OrgName = ConfigurationManager.AppSettings["EOrgName"];
                 Customer.Address1 = ConfigurationManager.AppSettings["EAddress1"];
                 Customer.Address2 = ConfigurationManager.AppSettings["EAddress2"];
                 Customer.City = ConfigurationManager.AppSettings["ECity"];
@@ -480,7 +480,7 @@ namespace Business
                 Customer.Email = ConfigurationManager.AppSettings["EMAIL"];
                 Customer.Mobile = ConfigurationManager.AppSettings["Mobile"];
 
-                
+
             }
             catch (Exception ex)
             {
@@ -507,20 +507,20 @@ namespace Business
             }
             else
             {
-                return "Please update correct GST Number"; 
+                return "Please update correct GST Number";
             }
 
             if (!new BDMS_EInvoice().ValidatePincode(Customer.Pincode.Substring(0, 2), Customer.State.StateCode))
             {
-                return "Please check Customer Pincode and Statecode"; 
+                return "Please check Customer Pincode and Statecode";
             }
             if (string.IsNullOrEmpty(Customer.Address12.Trim()))
             {
-                return "Please update Customer Address"; 
+                return "Please update Customer Address";
             }
             return "";
         }
-        public List<PDMS_Customer>  GetCustomerSQL(int? CustomerID, string CustomerCode)
+        public List<PDMS_Customer> GetCustomerByCode(int? CustomerID, string CustomerCode)
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Customer> Customers = new List<PDMS_Customer>();
@@ -530,23 +530,23 @@ namespace Business
                 DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
                 DbParameter[] Params = new DbParameter[2] { CustomerIDP, CustomerCodeP };
 
-                   PDMS_Customer Customer = new PDMS_Customer();
-                   using (DataSet DataSet = provider.Select("ZDMS_GetCustomer", Params))
-                   {
-                       if (DataSet != null)
-                       {
-                           foreach (DataRow dr in DataSet.Tables[0].Rows)
-                           {
-                               Customer = new PDMS_Customer();
-                               Customers.Add(Customer);
-                               Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
-                               Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                               Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                               
-                           }
-                       }
-                   }
-                 
+                PDMS_Customer Customer = new PDMS_Customer();
+                using (DataSet DataSet = provider.Select("GetCustomerByCode", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Customer = new PDMS_Customer();
+                            Customers.Add(Customer);
+                            Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
+                            Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+
+                        }
+                    }
+                }
+
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception ex)
@@ -622,7 +622,7 @@ namespace Business
             string endPoint = "Customer/Title?TitleID=" + TitleID + "&Title=" + Title;
             return JsonConvert.DeserializeObject<List<PCustomerTitle>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PCustomerAttribute> GetCustomerAttribute(long? CustomerID,int? CreatedBy)
+        public List<PCustomerAttribute> GetCustomerAttribute(long? CustomerID, int? CreatedBy)
         {
             string endPoint = "Customer/Attribute?CustomerID=" + CustomerID + "&CreatedBy=" + CreatedBy;
             return JsonConvert.DeserializeObject<List<PCustomerAttribute>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
@@ -652,7 +652,7 @@ namespace Business
 
         public List<PCustomerResponsibleEmployee> GetCustomerResponsibleEmployee(long? CustomerResponsibleEmployeeID, long? CustomerID)
         {
-            string endPoint = "Customer/ResponsibleEmployee?CustomerResponsibleEmployeeID=" + CustomerResponsibleEmployeeID + "&CustomerID=" + CustomerID ;
+            string endPoint = "Customer/ResponsibleEmployee?CustomerResponsibleEmployeeID=" + CustomerResponsibleEmployeeID + "&CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PCustomerResponsibleEmployee>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
@@ -666,18 +666,18 @@ namespace Business
             string endPoint = "Customer/AttachedFile?CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PAttachedFile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public  PAttachedFile GetAttachedFileCustomerForDownload(string DocumentName)
+        public PAttachedFile GetAttachedFileCustomerForDownload(string DocumentName)
         {
             string endPoint = "Customer/AttachedFileForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
 
-        public List<PDMS_Customer> GetCustomerAutocomplete(string Customer)
+        public List<PDMS_Customer> GetCustomerAutocomplete(string Customer, int IsDealerMapping)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Customer/CustomerAutocomplete?Customer=" + Customer;
+            string endPoint = "Customer/CustomerAutocomplete?Customer=" + Customer + "&IsDealerMapping=" + IsDealerMapping;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-            
+
         }
         public List<PDMS_Customer> GetDealerCustomer(int? DealerID, string DealerCode)
         {
@@ -728,7 +728,7 @@ namespace Business
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    result=provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
+                    result = provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
                     if (result != 0)
                     {
                         result = Convert.ToInt32(OutValue.Value);
@@ -749,101 +749,146 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return result;
         }
-        public List<PDMS_Customer> GetCustomerFromSQL(long? CustomerID, string CustomerCode)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Customer> Customers = new List<PDMS_Customer>();
-            try
-            {
-                DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
-                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                DbParameter[] Params = new DbParameter[2] { CustomerIDP, CustomerCodeP };
+        //public List<PDMS_Customer> GetCustomerFromSQL(long? CustomerID, string CustomerCode)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    List<PDMS_Customer> Customers = new List<PDMS_Customer>();
+        //    try
+        //    {
+        //        DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
+        //        DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+        //        DbParameter[] Params = new DbParameter[2] { CustomerIDP, CustomerCodeP };
 
-                PDMS_Customer Customer = new PDMS_Customer();
-                using (DataSet DataSet = provider.Select("ZDMS_GetCustomer", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Customer = new PDMS_Customer();
-                            Customers.Add(Customer);
-                            Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
-                            Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                            Customer.CustomerName2 = Convert.ToString(dr["CustomerName2"]);
-                            Customer.Title = new PCustomerTitle();
-                            Customer.Title.Title = Convert.ToString(dr["Title"]);
-                            Customer.Address1 = Convert.ToString(dr["Address1"]);
-                            Customer.Address2 = Convert.ToString(dr["Address2"]);
-                            Customer.Tehsil = new PDMS_Tehsil();
-                            Customer.Tehsil.Tehsil = Convert.ToString(dr["Tehsil"]);
-                            Customer.Address3 = Convert.ToString(dr["Address3"]);
-                            Customer.District = new PDMS_District();
-                            Customer.District.District = Convert.ToString(dr["District"]);
-                            Customer.District.SalesOffice = new PSalesOffice();
-                            Customer.District.SalesOffice.SalesOffice = Convert.ToString(dr["SalesOffice"]);
-                            Customer.District.SalesOffice.SalesGroup = Convert.ToString(dr["SalesGroup"]);
-                            Customer.Pincode = Convert.ToString(dr["Pincode"]);
-                            Customer.City = Convert.ToString(dr["City"]);
-                            Customer.Country = new PDMS_Country();
-                            Customer.Country.CountryID = Convert.ToInt32(dr["CountryID"]);
-                            Customer.Country.CountryCode = Convert.ToString(dr["CountryCode"]);
-                            Customer.Country.SalesOrganization = Convert.ToString(dr["SalesOrganization"]);
-                            Customer.State = new PDMS_State();
-                            Customer.State.StateID = Convert.ToInt32(dr["StateID"]);
-                            Customer.State.StateCode = Convert.ToString(dr["StateCode"]);
-                            Customer.State.Region = new PDMS_Region();
-                            Customer.State.Region.Region = Convert.ToString(dr["Region"]);
-                            Customer.Mobile = Convert.ToString(dr["Mobile"]);
-                            Customer.AlternativeMobile = Convert.ToString(dr["AlternativeMobile"]);
-                            Customer.Email = Convert.ToString(dr["EMail"]);
-                            Customer.GSTIN = Convert.ToString(dr["GSTNo"]);
-                            Customer.PAN = Convert.ToString(dr["PAN"]);
-                            Customer.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-                        }
-                    }
-                }
+        //        PDMS_Customer Customer = new PDMS_Customer();
+        //        using (DataSet DataSet = provider.Select("ZDMS_GetCustomer", Params))
+        //        {
+        //            if (DataSet != null)
+        //            {
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
+        //                    Customer = new PDMS_Customer();
+        //                    Customers.Add(Customer);
+        //                    Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
+        //                    Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+        //                    Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+        //                    Customer.CustomerName2 = Convert.ToString(dr["CustomerName2"]);
+        //                    Customer.Title = new PCustomerTitle();
+        //                    Customer.Title.Title = Convert.ToString(dr["Title"]);
+        //                    Customer.Address1 = Convert.ToString(dr["Address1"]);
+        //                    Customer.Address2 = Convert.ToString(dr["Address2"]);
+        //                    Customer.Tehsil = new PDMS_Tehsil();
+        //                    Customer.Tehsil.Tehsil = Convert.ToString(dr["Tehsil"]);
+        //                    Customer.Address3 = Convert.ToString(dr["Address3"]);
+        //                    Customer.District = new PDMS_District();
+        //                    Customer.District.District = Convert.ToString(dr["District"]);
+        //                    Customer.District.SalesOffice = new PSalesOffice();
+        //                    Customer.District.SalesOffice.SalesOffice = Convert.ToString(dr["SalesOffice"]);
+        //                    Customer.District.SalesOffice.SalesGroup = Convert.ToString(dr["SalesGroup"]);
+        //                    Customer.Pincode = Convert.ToString(dr["Pincode"]);
+        //                    Customer.City = Convert.ToString(dr["City"]);
+        //                    Customer.Country = new PDMS_Country();
+        //                    Customer.Country.CountryID = Convert.ToInt32(dr["CountryID"]);
+        //                    Customer.Country.CountryCode = Convert.ToString(dr["CountryCode"]);
+        //                    Customer.Country.SalesOrganization = Convert.ToString(dr["SalesOrganization"]);
+        //                    Customer.State = new PDMS_State();
+        //                    Customer.State.StateID = Convert.ToInt32(dr["StateID"]);
+        //                    Customer.State.StateCode = Convert.ToString(dr["StateCode"]);
+        //                    Customer.State.Region = new PDMS_Region();
+        //                    Customer.State.Region.Region = Convert.ToString(dr["Region"]);
+        //                    Customer.Mobile = Convert.ToString(dr["Mobile"]);
+        //                    Customer.AlternativeMobile = Convert.ToString(dr["AlternativeMobile"]);
+        //                    Customer.Email = Convert.ToString(dr["EMail"]);
+        //                    Customer.GSTIN = Convert.ToString(dr["GSTNo"]);
+        //                    Customer.PAN = Convert.ToString(dr["PAN"]);
+        //                    Customer.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+        //                }
+        //            }
+        //        }
 
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
-                throw ex;
-            }
-            return Customers;
-        }
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
+        //        throw ex;
+        //    }
+        //    return Customers;
+        //}
         public int UpdateCustomerCodeFromSapToSql(PDMS_Customer Customer, Boolean IsShipTo)
         {
             //int? CustomerID, string CustomerCode
             TraceLogger.Log(DateTime.Now);
             int success = 0;
+            string Message = string.Empty;
             try
             {
-                //List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(CustomerID, null);
-               // string CustomerCode = Customer[0].CustomerCode;
                 if (string.IsNullOrEmpty(Customer.CustomerCode))
                 {
-                    string CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
-                    if (!string.IsNullOrEmpty(CustomerCode))
-                    { 
-                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                    DataTable DtResult = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
+                    foreach (DataRow dr in DtResult.Rows)
+                    {
+                        if (dr["MSGTYP"].ToString() == "S")
                         {
-                            DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
-                            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                            DbParameter IsShipToP = provider.CreateParameter("IsShipTo", IsShipTo, DbType.Boolean);
+                            Message = dr["MSGV1"].ToString();
 
-                            DbParameter[] Params = new DbParameter[3] { CustomerIDP, CustomerCodeP, IsShipToP };
-                            success = provider.Insert("ZDMS_UpdateCustomer", Params);
-                            scope.Complete();
+                            if (!string.IsNullOrEmpty(Message))
+                            {
+                                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                                {
+                                    DbParameter CustomerIDP = provider.CreateParameter("CustomerID", Customer.CustomerID, DbType.Int32);
+                                    DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", Message, DbType.String);
+                                    DbParameter IsShipToP = provider.CreateParameter("IsShipTo", IsShipTo, DbType.Boolean);
+
+                                    DbParameter[] Params = new DbParameter[3] { CustomerIDP, CustomerCodeP, IsShipToP };
+                                    success = provider.Insert("ZDMS_UpdateCustomer", Params);
+                                    scope.Complete();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                Message += dr["MSGV1"].ToString() + Environment.NewLine + "\n";
+                                throw new Exception(Message);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
                         }
                     }
                 }
                 else
                 {
-                    string SUBRC= new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
-                    if (SUBRC == "0") { success = 1; }
+                    DataTable DtResult = new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
+                    foreach (DataRow dr in DtResult.Rows)
+                    {
+                        if (dr["MSGTYP"].ToString() == "S")
+                        {
+                            Message = dr["MSGV1"].ToString();
+                            if (Message == "0")
+                            {
+                                success = 1;
+                            }
+                            else
+                            {
+                                throw new Exception(Message);
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                Message += dr["MSGV1"].ToString() + Environment.NewLine + "\n";
+                                throw new Exception(Message);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
+                        }
+                    }
                 }
                 return success;
             }
@@ -857,8 +902,8 @@ namespace Business
 
 
         public void UpdateCustomerAddressFromSapToSql()
-        { 
-            List<PDMS_Customer> Customers = new List<PDMS_Customer>(); 
+        {
+            List<PDMS_Customer> Customers = new List<PDMS_Customer>();
             PDMS_Customer Customer = new PDMS_Customer();
             using (DataSet DataSet = provider.Select("GetCustomerForUpdateAddressFromSapToSql"))
             {
@@ -874,7 +919,7 @@ namespace Business
                 }
             }
 
-            foreach(PDMS_Customer C in Customers)
+            foreach (PDMS_Customer C in Customers)
             {
                 InsertOrUpdateCustomerSap(C.CustomerCode);
             }
@@ -885,6 +930,6 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Customer/ShipTo?CustomerShipToID=" + CustomerShipToID + "&CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PDMS_CustomerShipTo>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        } 
+        }
     }
 }

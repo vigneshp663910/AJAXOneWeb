@@ -19,14 +19,78 @@ namespace DealerManagementSystem.Account
                 FillUser();
             }
         }
+
+        public List<PUser> UserLst
+        {
+            get
+            {
+                if (Session["PUser"] == null)
+                {
+                    Session["PUser"] = new List<PUser>();
+                }
+                return (List<PUser>)Session["PUser"];
+            }
+            set
+            {
+                Session["PUser"] = value;
+            }
+        }
+
+        protected void ibtnUserArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvEmployee.PageIndex > 0)
+            {
+                gvEmployee.PageIndex = gvEmployee.PageIndex - 1;
+                UserBind(gvEmployee, lblRowCount, UserLst);
+            }
+        }
+        protected void ibtnUserArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvEmployee.PageCount > gvEmployee.PageIndex)
+            {
+                gvEmployee.PageIndex = gvEmployee.PageIndex + 1;
+                UserBind(gvEmployee, lblRowCount, UserLst);
+            }
+        }
+
+        void UserBind(GridView gv, Label lbl, List<PUser> UserLst)
+        {
+            gv.DataSource = UserLst;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + UserLst.Count;
+        }
+
+
         void FillUser()
         {
+            bool? IsEnabled = null;
+            if (ddlIsEnabled.SelectedValue == "1") { IsEnabled = true; } else if (ddlIsEnabled.SelectedValue == "2") { IsEnabled = false; }
+            //List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled,null);
+            ////u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
 
-            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "");
-            //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-            u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-            gvEmployee.DataSource = u;
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled, null);
+            UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            gvEmployee.DataSource = UserLst;
+
+            //gvEmployee.DataSource = u;
             gvEmployee.DataBind();
+
+
+            if (UserLst.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnUserArrowLeft.Visible = false;
+                ibtnUserArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnUserArrowLeft.Visible = true;
+                ibtnUserArrowRight.Visible = true;
+                lblRowCount.Text = (((gvEmployee.PageIndex) * gvEmployee.PageSize) + 1) + " - " + (((gvEmployee.PageIndex) * gvEmployee.PageSize) + gvEmployee.Rows.Count) + " of " + UserLst.Count;
+            }
+
         }
         protected void lbEmpId_Click(object sender, EventArgs e)
         {

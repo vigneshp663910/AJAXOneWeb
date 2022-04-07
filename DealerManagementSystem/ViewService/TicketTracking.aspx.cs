@@ -135,7 +135,7 @@ namespace DealerManagementSystem.ViewService
         void FillICTicket()
         {
             gvICTickets.PageIndex = 0;
-            gvICTickets.DataSource = new BDMS_ICTicket().GetICTicket("", "", txtICTicket.Text.Trim(), null, null, null, null);
+            gvICTickets.DataSource = new BDMS_ICTicket().GetICTicket(null, "", txtICTicket.Text.Trim(), null, null, null, null);
             gvICTickets.DataBind();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -103,40 +104,45 @@ namespace Business
         }
         public List<PDMS_Dealer> GetDealerBankDetails(int? DealerID, string DealerCode, int? DealerBankID)
         {
-            List<PDMS_Dealer> Dealers = new List<PDMS_Dealer>();
-            PDMS_Dealer Dealer = null;
-            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-            DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
-            DbParameter DealerBankIDP = provider.CreateParameter("DealerBankID", DealerBankID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
-            try
-            {
-                using (DataSet DS = provider.Select("ZDMS_GetDealerBankDetails", Params))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            Dealer = new PDMS_Dealer();
-                            Dealer.DealerID = Convert.ToInt32(dr["DealerID"]);
-                            Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
-                            Dealer.DealerName = Convert.ToString(dr["DealerName"]);
-                            Dealer.DealerBank = new PDMS_DealerBankDetails();
-                            Dealer.DealerBank.DealerBankID = Convert.ToInt32(dr["DealerBankID"]);
-                            Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
-                            Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
-                            Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
-                            Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]); 
-                            Dealers.Add(Dealer); 
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Dealers;
+
+            string endPoint = "Dealer/BankDetails?DealerID=" + DealerID + "&DealerCode=" + DealerCode + "&DealerBankID=" + DealerBankID;
+            return JsonConvert.DeserializeObject<List<PDMS_Dealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+
+            //List<PDMS_Dealer> Dealers = new List<PDMS_Dealer>();
+            //PDMS_Dealer Dealer = null;
+            //DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            //DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
+            //DbParameter DealerBankIDP = provider.CreateParameter("DealerBankID", DealerBankID, DbType.Int32);
+            //DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+            //try
+            //{
+            //    using (DataSet DS = provider.Select("ZDMS_GetDealerBankDetails", Params))
+            //    {
+            //        if (DS != null)
+            //        {
+            //            foreach (DataRow dr in DS.Tables[0].Rows)
+            //            {
+            //                Dealer = new PDMS_Dealer();
+            //                Dealer.DealerID = Convert.ToInt32(dr["DealerID"]);
+            //                Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
+            //                Dealer.DealerName = Convert.ToString(dr["DealerName"]);
+            //                Dealer.DealerBank = new PDMS_DealerBankDetails();
+            //                Dealer.DealerBank.DealerBankID = Convert.ToInt32(dr["DealerBankID"]);
+            //                Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
+            //                Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
+            //                Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
+            //                Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]); 
+            //                Dealers.Add(Dealer); 
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{ }
+            //catch (Exception ex)
+            //{ }
+            //return Dealers;
         }
         public Boolean InsertOrUpdateDealerBankDetails(PDMS_DealerBankDetails BankDetails, int UserID)
         {
@@ -1100,7 +1106,7 @@ namespace Business
             ddl.DataTextField = "CodeWithName";
             ddl.DataSource = PSession.User.Dealer;
             ddl.DataBind(); 
-           // ddl.Items.Insert(0, new ListItem("Select", "0"));
+           ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }

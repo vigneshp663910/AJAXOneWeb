@@ -8,7 +8,7 @@
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12">
         <asp:TabContainer ID="tbpPresalesMasters" runat="server" ToolTip="Presales Masters..." Font-Bold="True" Font-Size="Medium">
-            <asp:TabPanel ID="tpnlSourceOfEnquiry" runat="server" HeaderText="Source Of Enquiry" Font-Bold="True" ToolTip="Source Of Enquiry...">
+            <asp:TabPanel ID="tpnlSourceOfEnquiry" runat="server" HeaderText="Source Of Lead" Font-Bold="True" ToolTip="Source Of Enquiry...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -40,7 +40,7 @@
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Enquiry Source(s):</td>
+                                                            <td>Lead Source(s):</td>
 
                                                             <td>
                                                                 <asp:Label ID="lblRowCountE" runat="server" CssClass="label"></asp:Label></td>
@@ -62,7 +62,7 @@
                                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="LeadSource" SortExpression="LeadSource">
+                                                <asp:TemplateField HeaderText="Lead Source" SortExpression="LeadSource">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblLeadSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source")%>' runat="server" />
                                                         <asp:Label ID="lblLeadSourceID" Text='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' runat="server" Visible="false" />
@@ -406,6 +406,27 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                    <span id="txnHistory2p:refreshDataGroup">
+                                                <div class="boxHead">
+                                                    <div class="logheading">
+                                                        <div style="float: left">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Expense Type(s):</td>
+
+                                                                    <td>
+                                                                        <asp:Label ID="lblRowCountEx" runat="server" CssClass="label"></asp:Label></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnExpenseArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnExpenseArrowLeft_Click" /></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnExpenseArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnExpenseArrowRight_Click" /></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                     <asp:GridView ID="gvExpenseType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvExpenseType_PageIndexChanging">
                                         <Columns>
@@ -452,6 +473,27 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
+
+                                     <span id="txnHistory3z:refreshDataGroup">
+                                                <div class="boxHead">
+                                                    <div class="logheading">
+                                                        <div style="float: left">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Make(s):</td>
+
+                                                                    <td>
+                                                                        <asp:Label ID="lblRowCountMk" runat="server" CssClass="label"></asp:Label></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnMakeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMakeArrowLeft_Click" /></td>
+                                                                    <td>
+                                                                        <asp:ImageButton ID="ibtnMakeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMakeArrowRight_Click" /></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                     <asp:GridView ID="gvMake" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMake_PageIndexChanging">
                                         <Columns>

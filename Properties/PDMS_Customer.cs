@@ -73,7 +73,9 @@ namespace Properties
         public Boolean IsActive { get; set; }
         public Boolean OrderBlock { get; set; }
         public Boolean DeliveryBlock { get; set; }
-        public Boolean BillingBlock { get; set; }  
+        public Boolean BillingBlock { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerShipTo

@@ -713,7 +713,7 @@ namespace Business
                     long? CustomerID = null;
                     if (!string.IsNullOrEmpty(Equ.Customer.CustomerCodeWithOutZero))
                     {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Customer.CustomerCodeWithOutZero);
+                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Customer.CustomerCodeWithOutZero);
                         if (Customer.Count == 0)
                         {
                             CustomerID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
@@ -727,7 +727,7 @@ namespace Business
                     long? ShipToPartyID = null;
                     if (!string.IsNullOrEmpty(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero))
                     {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
+                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
                         if (Customer.Count == 0)
                         {
                             ShipToPartyID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
@@ -741,7 +741,7 @@ namespace Business
                     long? Buyer1stID = null;
                     if (!string.IsNullOrEmpty(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero))
                     {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
+                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
 
                         if (Customer.Count == 0)
                         {
@@ -755,7 +755,7 @@ namespace Business
                     long? Buyer2ndID = null;
                     if (!string.IsNullOrEmpty(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero))
                     {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerSQL(null, Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
+                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
                         if (Customer.Count == 0)
                         {
                             Buyer2ndID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);

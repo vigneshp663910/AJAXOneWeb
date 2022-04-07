@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         private void FillDealerEmployeeManageRole()
         {
-            EmployeeManageRole = new BDMS_Dealer().GetDealerEmployeeManageRole(Convert.ToInt32(ddlDealer.SelectedValue), AadhaarCardNo, "");
+            EmployeeManageRole = new BDMS_Dealer().GetDealerEmployeeManageRole(Convert.ToInt32(ddlDealer.SelectedValue), AadhaarCardNo, txtName.Text.Trim()); 
             gvDealerEmployee.DataSource = EmployeeManageRole;
             gvDealerEmployee.DataBind();
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + EmployeeManageRole.Count;

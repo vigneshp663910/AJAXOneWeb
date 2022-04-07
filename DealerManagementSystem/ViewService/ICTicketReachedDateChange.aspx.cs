@@ -38,7 +38,7 @@ namespace DealerManagementSystem.ViewService
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            List<PDMS_ICTicket> ICTickets = new BDMS_ICTicket().GetICTicket("", "", txtICTicket.Text.Trim(), null, null, null, null);
+            List<PDMS_ICTicket> ICTickets = new BDMS_ICTicket().GetICTicket(null, "", txtICTicket.Text.Trim(), null, null, null, null);
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Red;
             if (string.IsNullOrEmpty(txtICTicket.Text.Trim()))

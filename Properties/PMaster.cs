@@ -47,6 +47,8 @@ namespace Properties
     {
         public int ProductTypeID { get; set; }
         public string ProductType { get; set; }
+        public PDMS_Division Division { get; set; }
+
     }
     [Serializable]
     public class PProduct

@@ -48,7 +48,8 @@
                             <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>--%>
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-2">
+                            <br />
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         </div>
                     </div>

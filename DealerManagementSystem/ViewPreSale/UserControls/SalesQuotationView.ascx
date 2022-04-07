@@ -5,7 +5,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/Effort.ascx" TagPrefix="UC" TagName="UC_Effort" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Expense.ascx" TagPrefix="UC" TagName="UC_Expense" %>
 
-<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %> 
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <div class="col-md-12">
     <div class="action-btn">
@@ -85,7 +85,7 @@
                     <asp:Label ID="lblUserStatus" runat="server"></asp:Label>
                 </div>
             </div>
-              <div class="col-md-4">
+            <div class="col-md-4">
                 <label>Total Effort : </label>
                 <asp:Label ID="lblTotalEffort" runat="server" CssClass="label"></asp:Label>
             </div>
@@ -150,7 +150,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
-                                         <asp:Label ID="lblSalesQuotationItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotationItemID")%>' runat="server" Visible="false"></asp:Label>
+                                        <asp:Label ID="lblSalesQuotationItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotationItemID")%>' runat="server" Visible="false"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Material Desc">
@@ -343,15 +343,15 @@
                             <div class="col-md-12">
                                 <label>Contact Person : </label>
                                 <asp:Label ID="lblShipToContactPerson" runat="server" CssClass="label"></asp:Label>
-                            </div> 
+                            </div>
                             <div class="col-md-12">
                                 <label>Mobile : </label>
                                 <asp:Label ID="lblShipToMobile" runat="server" CssClass="label"></asp:Label>
                             </div>
                             <div class="col-md-12">
-                                <label>Email : </label> 
+                                <label>Email : </label>
                                 <asp:Label ID="lblShipToEmail" runat="server" CssClass="label"></asp:Label>
-                            </div> 
+                            </div>
                             <div class="col-md-12">
                                 <label>PinCode : </label>
                                 <asp:Label ID="lblShipToPinCode" runat="server" CssClass="label"></asp:Label>
@@ -370,7 +370,7 @@
                                 <label>Address 3 : </label>
                                 <asp:Label ID="lblShipToAddress3" runat="server" CssClass="label"></asp:Label>
                             </div>
-                             <div class="col-md-12">
+                            <div class="col-md-12">
                                 <label>City : </label>
                                 <asp:Label ID="lblShipToCity" runat="server" CssClass="label"></asp:Label>
                             </div>
@@ -392,8 +392,8 @@
                                 <label>Tehsil : </label>
                                 <asp:Label ID="lblShipToTehsil" runat="server" CssClass="label"></asp:Label>
                             </div>
-                            
-                           
+
+
                         </div>
                     </div>
                 </fieldset>
@@ -545,7 +545,7 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-     <asp:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="List of Countries...">
+    <asp:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
@@ -578,8 +578,8 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Location" SortExpression="Country">
-                                    <ItemTemplate> 
-                                        <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" /> 
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Remark">
@@ -587,7 +587,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField> 
+                                </asp:TemplateField>
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <%-- <asp:Button ID="btnViewColdVisit" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewColdVisit_Click" Width="50px" Height="33px" />--%>
@@ -682,7 +682,7 @@
                     <asp:TextBox ID="txtQty" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Discount Percentage</label>
+                    <label class="modal-label">Discount</label>
                     <asp:TextBox ID="txtDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
             </div>
@@ -832,7 +832,7 @@
         <span id="PopupDialogue">Add Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button12" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12"> 
+    <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">

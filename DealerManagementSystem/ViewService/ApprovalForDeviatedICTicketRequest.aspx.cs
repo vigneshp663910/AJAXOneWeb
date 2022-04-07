@@ -42,23 +42,18 @@ namespace DealerManagementSystem.ViewService
                     txtRequestedDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtRequestedDateTo.Text = DateTime.Now.ToShortDateString();
 
-                    if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                    {
-                        ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                        ddlDealerCode.Enabled = false;
+                    //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
+                    //{ 
+                    //    PDealer DealerF = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
+                    //    ddlDealerF.Items.Add(new ListItem(PSession.User.ExternalReferenceID, DealerF.DID.ToString()));
+                    //    ddlDealerF.Enabled = false;
+                    //}
+                    //else
+                    //{ 
+                    //    ddlDealerF.Enabled = true; 
+                    //}
 
-
-                        PDealer DealerF = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                        ddlDealerF.Items.Add(new ListItem(PSession.User.ExternalReferenceID, DealerF.DID.ToString()));
-                        ddlDealerF.Enabled = false;
-                    }
-                    else
-                    {
-                        ddlDealerCode.Enabled = true;
-                        ddlDealerF.Enabled = true;
-                        fillDealer();
-                    }
-
+                    fillDealer();
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
                     ibtnArrowRight.Visible = false;
@@ -87,8 +82,8 @@ namespace DealerManagementSystem.ViewService
                 return;
             }
 
-            string DealerCode = ddlDealerCode.SelectedValue;
-            List<PDMS_ICTicket> ICTicket = new BDMS_ICTicket().GetICTicketManage(DealerCode, "", txtICTicketNumber.Text.Trim(), null, null, null, null, null, null);
+            long DealerID = Convert.ToInt64( ddlDealerCode.SelectedValue);
+            List<PDMS_ICTicket> ICTicket = new BDMS_ICTicket().GetICTicketManage(DealerID, "", txtICTicketNumber.Text.Trim(), null, null, null, null, null, null);
 
             //var SOIs1 = (from S in ICTicket
             //             join D in PSession.User.Dealer on S.Dealer.DealerCode equals D.UserName
@@ -127,7 +122,7 @@ namespace DealerManagementSystem.ViewService
         void fillDealer()
         {
             ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
+            ddlDealerCode.DataValueField = "DID";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("Select", "0"));

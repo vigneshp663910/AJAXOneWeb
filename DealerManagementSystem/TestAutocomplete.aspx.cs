@@ -24,22 +24,22 @@ namespace DealerManagementSystem
             }
         }
 
-        [WebMethod]
-        public static List<string> GetEmpNames(string empName)
-        {
-            List<string> Emp = new List<string>();
+        //[WebMethod]
+        //public static List<string> GetEmpNames(string empName)
+        //{
+        //    List<string> Emp = new List<string>();
 
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(empName);
-            int i = 0;
-            foreach (PDMS_Customer cust in Customer)
-            {
-                i = i + 1;
-                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label><table><tr><td><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"
-           + "<tr><td>" + cust.ContactPerson + "</td><td>" + cust.Mobile + "</td></tr></ table >";
-                Emp.Add(div);
-            }
-            return Emp;
-        }
+        //    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(empName);
+        //    int i = 0;
+        //    foreach (PDMS_Customer cust in Customer)
+        //    {
+        //        i = i + 1;
+        //        string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label><table><tr><td><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"
+        //   + "<tr><td>" + cust.ContactPerson + "</td><td>" + cust.Mobile + "</td></tr></ table >";
+        //        Emp.Add(div);
+        //    }
+        //    return Emp;
+        //}
 
 
         //[WebMethod]

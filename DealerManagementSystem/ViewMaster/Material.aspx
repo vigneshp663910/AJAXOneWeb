@@ -22,24 +22,24 @@
                                                     <asp:GridView ID="gvDivision" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
                                                         OnPageIndexChanging="gvDivision_PageIndexChanging" Width="100%">
                                                         <Columns>
-                                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Division Code" ItemStyle-HorizontalAlign="Center">
+                                                            <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "DivisionCode")%>' runat="server" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Division Description" ItemStyle-HorizontalAlign="Center">
+                                                            <asp:TemplateField HeaderText="Division Description" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="250px">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblDivisionDescription" Text='<%# DataBinder.Eval(Container.DataItem, "DivisionDescription")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="UOM" ItemStyle-HorizontalAlign="Center">
+                                                            <asp:TemplateField HeaderText="UOM" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="60px">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblUnitOfMeasurement" Text='<%# DataBinder.Eval(Container.DataItem, "UOM")%>' runat="server"></asp:Label>
@@ -103,9 +103,9 @@
                                                                     <td>
                                                                         <asp:Label ID="lblRowCountM" runat="server" CssClass="label"></asp:Label></td>
                                                                     <td>
-                                                                        <asp:ImageButton ID="ibtnModelArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnModelArrowLeft_Click" /></td>
+                                                                        <asp:ImageButton ID="ibtnModelArrowLeft1" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnModelArrowLeft_Click" /></td>
                                                                     <td>
-                                                                        <asp:ImageButton ID="ibtnModelArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnModelArrowRight_Click" /></td>
+                                                                        <asp:ImageButton ID="ibtnModelArrowRight1" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnModelArrowRight_Click" /></td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -192,7 +192,8 @@
                                         <label>Material Code</label>
                                          <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
                                     </div>
-                                    <div class="col-md-12 text-center">
+                                    <div class="col-md-2 text-center">
+                                        <br />
                                         <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
                                         &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />
                                     </div>

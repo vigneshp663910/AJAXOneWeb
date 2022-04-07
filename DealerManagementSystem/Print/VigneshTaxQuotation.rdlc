@@ -105,15 +105,15 @@
                   <Width>5.36819cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.30673cm</Width>
+                  <Width>4.46006cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.62679cm</Width>
+                  <Width>10.47346cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.63545cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -216,7 +216,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6.63779cm</Height>
+                  <Height>6.67324cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -843,7 +843,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6635cm</Height>
+                  <Height>0.69895cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -911,8 +911,8 @@
             <FixedRowHeaders>true</FixedRowHeaders>
             <Top>0.635cm</Top>
             <Left>0.08284cm</Left>
-            <Height>7.90129cm</Height>
-            <Width>20.30172cm</Width>
+            <Height>8.00765cm</Height>
+            <Width>20.30171cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1812,7 +1812,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Discount.Value</Value>
+                                  <Value>0.0</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2343,10 +2343,10 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>SalesTaxQuotationItem</DataSetName>
-            <Top>3.31581in</Top>
-            <Left>0.07808cm</Left>
+            <Top>3.40262in</Top>
+            <Left>0.08284cm</Left>
             <Height>1.76651in</Height>
-            <Width>7.99468in</Width>
+            <Width>7.99469in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2699,10 +2699,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>12.98847cm</Top>
+            <Top>13.12958cm</Top>
             <Left>0.08284cm</Left>
             <Height>8.13153cm</Height>
-            <Width>20.30172cm</Width>
+            <Width>20.30171cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2714,10 +2714,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
         <Height>8.43996in</Height>
         <Style />
       </Body>
-      <Width>8.09707in</Width>
+      <Width>8.11969in</Width>
       <Page>
         <PageHeader>
-          <Height>2.15829cm</Height>
+          <Height>2.74037cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2742,10 +2742,28 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
+                      <Value>CORPORATE OFFICE:</Value>
+                      <MarkupType>HTML</MarkupType>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>Blue</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
                       <Value>=Parameters!CompanyName.Value</Value>
                       <MarkupType>HTML</MarkupType>
                       <Style>
                         <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>12pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                         <TextDecoration>None</TextDecoration>
                       </Style>
@@ -2759,6 +2777,28 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                       <Value>=Parameters!CompanyAddress1.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>,</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!CompanyAddress2.Value</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>Normal</FontWeight>
                         <TextDecoration>None</TextDecoration>
                       </Style>
@@ -2774,9 +2814,51 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!CompanyAddress2.Value</Value>
+                      <Value>=Parameters!CompanyCINandGST.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <LeftIndent>0cm</LeftIndent>
+                  <RightIndent>0.15486in</RightIndent>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                    <LineHeight>11pt</LineHeight>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Parameters!CompanyPAN.Value</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <LeftIndent>0cm</LeftIndent>
+                  <RightIndent>0.15486in</RightIndent>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                    <LineHeight>11pt</LineHeight>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Parameters!CompanyTelephoneandEmail.Value</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>Normal</FontWeight>
                         <TextDecoration>None</TextDecoration>
                       </Style>
@@ -2791,10 +2873,9 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.3175cm</Top>
-              <Left>11.06021cm</Left>
-              <Height>1.52329cm</Height>
-              <Width>9.32435cm</Width>
+              <Left>9.61188cm</Left>
+              <Height>2.51107cm</Height>
+              <Width>10.77267cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2920,6 +3001,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>0.08284cm</Left>
               <Height>2.73431cm</Height>
               <Width>20.30172cm</Width>
@@ -3385,11 +3467,29 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="CompanyCINandGST">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyPAN">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CompanyTelephoneandEmail">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>19</NumberOfRows>
+      <NumberOfRows>20</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -3715,6 +3815,21 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>18</RowIndex>
           <ParameterName>TCSPer</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>18</RowIndex>
+          <ParameterName>CompanyCINandGST</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>19</RowIndex>
+          <ParameterName>CompanyPAN</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>19</RowIndex>
+          <ParameterName>CompanyTelephoneandEmail</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

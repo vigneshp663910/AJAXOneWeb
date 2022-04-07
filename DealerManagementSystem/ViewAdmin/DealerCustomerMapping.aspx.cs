@@ -27,6 +27,48 @@ namespace DealerManagementSystem.ViewAdmin
             Dealer = new BDMS_Dealer().GetDealer(null, null);
             new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
         }
+
+
+        public List<PDMS_Customer> Customer
+        {
+            get
+            {
+                if (Session["Customer"] == null)
+                {
+                    Session["Customer"] = new List<PDMS_Customer>();
+                }
+                return (List<PDMS_Customer>)Session["Customer"];
+            }
+            set
+            {
+                Session["Customer"] = value;
+            }
+        }
+
+        protected void ibtnDCArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomer.PageIndex > 0)
+            {
+                gvCustomer.PageIndex = gvCustomer.PageIndex - 1;
+                DCBind(gvCustomer, lblRowCount, Customer);
+            }
+        }
+        protected void ibtnDCArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvCustomer.PageCount > gvCustomer.PageIndex)
+            {
+                gvCustomer.PageIndex = gvCustomer.PageIndex + 1;
+                DCBind(gvCustomer, lblRowCount, Customer);
+            }
+        }
+
+        void DCBind(GridView gv, Label lbl, List<PDMS_Customer> Customer)
+        {
+            gv.DataSource = Customer;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Customer.Count;
+        }
+
         void FillCustomer()
         {
             int? DealerID = null;
@@ -35,9 +77,27 @@ namespace DealerManagementSystem.ViewAdmin
             {
                 DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue.Trim());
             }
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
+
+            //List<PDMS_Customer> Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
+            Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
             gvCustomer.DataSource = Customer;
             gvCustomer.DataBind();
+
+            if (Customer.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnDCArrowLeft.Visible = false;
+                ibtnDCArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnDCArrowLeft.Visible = true;
+                ibtnDCArrowRight.Visible = true;
+                lblRowCount.Text = (((gvCustomer.PageIndex) * gvCustomer.PageSize) + 1) + " - " + (((gvCustomer.PageIndex) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Customer.Count;
+            }
+
+
         }
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
