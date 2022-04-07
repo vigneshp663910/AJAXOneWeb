@@ -19,10 +19,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                
             }
         }
-        public void FillMaster()
+        public void FillMaster(PLead Lead)
         {
             new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
-            // new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null), "Product", "ProductID");
+            ddlProductType.SelectedValue = Convert.ToString(Lead.ProductType.ProductTypeID);
+            ddlProductType.Enabled = false;
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, 1, Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
         }
         public PLeadProduct ReadProduct()
         {

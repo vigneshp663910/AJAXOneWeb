@@ -381,7 +381,7 @@ namespace Business
             return SOIs;
         }
 
-        public List<string> GetMaterialAutocomplete(string Material, string MaterialType)
+        public List<string> GetMaterialAutocomplete(string Material, string MaterialType,int? Divi)
         {
             List<string> Materials = new List<string>();
             try

@@ -270,7 +270,7 @@ namespace DealerManagementSystem.ViewPreSale
         [WebMethod]
         public static List<string> SearchSMaterial(string input)
         {
-            List<string> Materials = new BDMS_Material().GetMaterialAutocomplete(input, "");
+            List<string> Materials = new BDMS_Material().GetMaterialAutocomplete(input, "",null);
             return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
         }
     }

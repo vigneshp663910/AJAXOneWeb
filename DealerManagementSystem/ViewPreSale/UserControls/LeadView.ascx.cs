@@ -122,7 +122,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if(lbActions.Text == "Assign")
             {
                 MPE_AssignSE.Show(); 
-                UC_AssignSE.FillMaster();
+                UC_AssignSE.FillMaster(Lead);
             }
             else if (lbActions.Text == "Add Follow-up")
             {
@@ -183,7 +183,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Add Product")
             {
                 MPE_Product.Show();
-                UC_Product.FillMaster(); 
+                UC_Product.FillMaster(Lead); 
             }
             else if (lbActions.Text == "Convert to Quotation")
             {
