@@ -1074,7 +1074,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Warning[] warnings;
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
-                ReportParameter[] P = new ReportParameter[55];
+                ReportParameter[] P = new ReportParameter[58];
 
                 PDMS_Customer Customer = Q.Lead.Customer;
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
@@ -1284,6 +1284,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
                 P[54] = new ReportParameter("TCSPer", Q.TCSTax.ToString(), false);
+                P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
+                P[56] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
+                P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + "," + Ajax.AlternativeMobile + ",Email:" + Ajax.Email);
                 report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
                 report.SetParameters(P);
 
