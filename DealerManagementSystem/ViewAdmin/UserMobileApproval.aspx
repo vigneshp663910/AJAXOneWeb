@@ -109,7 +109,7 @@
                                         <asp:Label ID="lblFCMTokenId" Text='<%# DataBinder.Eval(Container.DataItem, "FCMTokenId")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lblApprove" runat="server" OnClick="lblApprove_Click">Approve</asp:LinkButton>
