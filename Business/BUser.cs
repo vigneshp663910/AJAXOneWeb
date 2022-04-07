@@ -96,7 +96,8 @@ namespace Business
                 DataTable userDataTable = new DataTable();
 
                 DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String);
-                DbParameter[] userParams = new DbParameter[1] { userIDParams };
+                DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
+                DbParameter[] userParams = new DbParameter[2] { userIDParams, DMSP };
 
                 using (DataSet userDataSet = provider.Select("AuthenticateUser", userParams))
                 {
@@ -222,7 +223,8 @@ namespace Business
                 DataTable userDataTable = new DataTable();
 
                 DbParameter userIDParams = provider.CreateParameter("UserID", userID, DbType.Int64);
-                DbParameter[] userParams = new DbParameter[1] { userIDParams };
+                DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
+                DbParameter[] userParams = new DbParameter[2] { userIDParams, DMSP };
 
                 using (DataSet userDataSet = provider.Select("GetUserDetails", userParams))
                 {
@@ -1144,7 +1146,8 @@ namespace Business
                 DbParameter userIdP = provider.CreateParameter("UserId", UserId, DbType.Int64);
                 DbParameter ModuleMasterIDP = provider.CreateParameter("ModuleMasterID", ModuleMasterID, DbType.Int32);
                 DbParameter SubModuleMasterIDP = provider.CreateParameter("SubModuleMasterID", SubModuleMasterID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { userIdP, ModuleMasterIDP, SubModuleMasterIDP };
+                DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
+                DbParameter[] Params = new DbParameter[4] { userIdP, ModuleMasterIDP, SubModuleMasterIDP, DMSP };
 
                 using (DataSet ds = provider.Select("GetDMSModuleByUserID", Params))
                 {

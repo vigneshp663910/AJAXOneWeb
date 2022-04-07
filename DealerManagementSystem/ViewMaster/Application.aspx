@@ -8,7 +8,7 @@
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12">
         <asp:TabContainer ID="tbpApplication" runat="server" ToolTip="Applications..." Font-Bold="True" Font-Size="Medium">
-            <asp:TabPanel ID="tpnlMainApplication" runat="server" HeaderText="MainApplication" Font-Bold="True" ToolTip="MainApplication...">
+            <asp:TabPanel ID="tpnlMainApplication" runat="server" HeaderText="Main Application" Font-Bold="True" ToolTip="MainApplication...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
@@ -23,7 +23,7 @@
                                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="MainApplication" SortExpression="MainApplication">
+                                            <asp:TemplateField HeaderText="Main Application" SortExpression="MainApplication">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication")%>' runat="server" />
                                                     <asp:Label ID="lblSubModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' runat="server" Visible="false" />
@@ -54,7 +54,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tpnlSubApplication" runat="server" HeaderText="SubApplication" Font-Bold="True" ToolTip="SubApplication...">
+            <asp:TabPanel ID="tpnlSubApplication" runat="server" HeaderText="Sub Application" Font-Bold="True" ToolTip="SubApplication...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -104,7 +104,7 @@
                                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="MainApplication" SortExpression="MainApplication">
+                                            <asp:TemplateField HeaderText="Main Application" SortExpression="MainApplication">
                                                 <ItemStyle VerticalAlign="Middle" />
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication.MainApplication")%>' runat="server" />
@@ -114,7 +114,7 @@
                                                     <asp:DropDownList ID="ddlGMainApplication" runat="server" CssClass="form-control"></asp:DropDownList>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="SubApplication" SortExpression="SubApplication">
+                                            <asp:TemplateField HeaderText="Sub Application" SortExpression="SubApplication">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblSubApplication" Text='<%# DataBinder.Eval(Container.DataItem, "SubApplication")%>' runat="server" />
                                                     <asp:Label ID="lblSubModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "SubApplicationID")%>' runat="server" Visible="false" />

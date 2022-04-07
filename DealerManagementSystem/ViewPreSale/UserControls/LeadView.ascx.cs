@@ -188,7 +188,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Convert to Quotation")
             {
                 MPE_Quotation.Show();
-                UC_Quotation.FillMaster();
+                UC_Quotation.FillMaster(Lead);
             }
             else if (lbActions.Text == "Add Questionaries")
             {
