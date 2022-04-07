@@ -105,15 +105,15 @@
                   <Width>5.36819cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.30673cm</Width>
+                  <Width>4.46006cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.62679cm</Width>
+                  <Width>10.47346cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.63545cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -216,7 +216,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6.63779cm</Height>
+                  <Height>6.67324cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -843,7 +843,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6635cm</Height>
+                  <Height>0.69895cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -911,7 +911,7 @@
             <FixedRowHeaders>true</FixedRowHeaders>
             <Top>0.635cm</Top>
             <Left>0.08284cm</Left>
-            <Height>7.90129cm</Height>
+            <Height>8.00765cm</Height>
             <Width>20.30171cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -1812,7 +1812,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Discount.Value</Value>
+                                  <Value>0.0</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2343,8 +2343,8 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>SalesTaxQuotationItem</DataSetName>
-            <Top>3.34706in</Top>
-            <Left>0.07805cm</Left>
+            <Top>3.40262in</Top>
+            <Left>0.08284cm</Left>
             <Height>1.76651in</Height>
             <Width>7.99469in</Width>
             <ZIndex>2</ZIndex>
@@ -2699,7 +2699,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>12.98847cm</Top>
+            <Top>13.12958cm</Top>
             <Left>0.08284cm</Left>
             <Height>8.13153cm</Height>
             <Width>20.30171cm</Width>
@@ -2714,10 +2714,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
         <Height>8.43996in</Height>
         <Style />
       </Body>
-      <Width>8.09707in</Width>
+      <Width>8.11969in</Width>
       <Page>
         <PageHeader>
-          <Height>2.87267cm</Height>
+          <Height>2.74037cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2873,10 +2873,9 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.3175cm</Top>
-              <Left>9.15521cm</Left>
-              <Height>2.24648cm</Height>
-              <Width>11.22934cm</Width>
+              <Left>9.61188cm</Left>
+              <Height>2.51107cm</Height>
+              <Width>10.77267cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>

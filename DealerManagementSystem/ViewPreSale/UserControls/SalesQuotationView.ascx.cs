@@ -296,7 +296,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
             MaterialTax.Discount = (Discount > 0) ? P * (Discount / 100) : 0;
 
-            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));// - Convert.ToDecimal(MaterialTax.Discount);
+            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text))- Convert.ToDecimal(MaterialTax.Discount);
 
             if (MaterialTax.SGST!=0)
             {
@@ -801,6 +801,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = "";
             PSalesQuotation Q = Quotation;
             List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+            Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+            Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+            Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
             //string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
             //foreach (PSalesQuotationNote Note in Q.Notes)
             //{
@@ -912,11 +916,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
                 //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
 
-                ReportParameter[] P = new ReportParameter[35];
+                ReportParameter[] P = new ReportParameter[38];
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.RefQuotationDate.ToString("dd.MM.yyyy"), false);
+                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1016,7 +1020,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[34] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-
+                P[35] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
+                P[36] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
+                P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
 
                 DataTable dtItem = new DataTable();
                 dtItem.Columns.Add("TechnicalSpecification");
@@ -1254,7 +1260,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "IGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            item.Rate, item.Qty * item.Rate, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
+                            item.TaxableValue, item.TaxableValue, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
@@ -1286,7 +1292,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[54] = new ReportParameter("TCSPer", Q.TCSTax.ToString(), false);
                 P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
                 P[56] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
-                P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + "," + Ajax.AlternativeMobile + ",Email:" + Ajax.Email);
+                P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
                 report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
                 report.SetParameters(P);
 
