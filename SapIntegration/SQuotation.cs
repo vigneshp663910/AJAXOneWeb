@@ -36,7 +36,7 @@ namespace SapIntegration
                 tagListBapi.SetValue("SOLD_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
             }
 
-
+            
 
             IRfcStructure QTHeader = tagListBapi.GetStructure("QUOTATION_HEADER_IN");
             QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
@@ -84,7 +84,7 @@ namespace SapIntegration
             QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "MOB");//Mobile NO
-            QT_TEXT.SetValue("TEXT_LINE", "123456789");
+            QT_TEXT.SetValue("TEXT_LINE", pSalesQuotation.Lead.Dealer.AuthorityMobile);
             QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "0013");//Terms of payment
@@ -120,11 +120,11 @@ namespace SapIntegration
             QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "NAME");//Name
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", pSalesQuotation.Lead.Dealer.AuthorityName);
             QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "DS01");//Designation
-            QT_TEXT.SetValue("TEXT_LINE", "");
+            QT_TEXT.SetValue("TEXT_LINE", pSalesQuotation.Lead.Dealer.AuthorityDesignation);
             QT_TEXT.SetValue("LANGU", "EN");            
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "SE01");//Sales Engineer

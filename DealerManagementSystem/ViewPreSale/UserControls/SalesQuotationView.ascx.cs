@@ -801,6 +801,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = "";
             PSalesQuotation Q = Quotation;
             List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+            Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+            Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+            Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
             //string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
             //foreach (PSalesQuotationNote Note in Q.Notes)
             //{
@@ -912,7 +916,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
                 //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
 
-                ReportParameter[] P = new ReportParameter[35];
+                ReportParameter[] P = new ReportParameter[38];
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
@@ -1016,7 +1020,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[34] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-
+                P[35] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
+                P[36] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
+                P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
 
                 DataTable dtItem = new DataTable();
                 dtItem.Columns.Add("TechnicalSpecification");
