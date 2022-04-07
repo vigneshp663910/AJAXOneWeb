@@ -8,7 +8,7 @@
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12">
         <asp:TabContainer ID="tbpPresalesMasters" runat="server" ToolTip="Presales Masters..." Font-Bold="True" Font-Size="Medium">
-            <asp:TabPanel ID="tpnlSourceOfEnquiry" runat="server" HeaderText="Source Of Enquiry" Font-Bold="True" ToolTip="Source Of Enquiry...">
+            <asp:TabPanel ID="tpnlSourceOfEnquiry" runat="server" HeaderText="Source Of Lead" Font-Bold="True" ToolTip="Source Of Enquiry...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -40,7 +40,7 @@
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Enquiry Source(s):</td>
+                                                            <td>Lead Source(s):</td>
 
                                                             <td>
                                                                 <asp:Label ID="lblRowCountE" runat="server" CssClass="label"></asp:Label></td>
@@ -62,7 +62,7 @@
                                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="LeadSource" SortExpression="LeadSource">
+                                                <asp:TemplateField HeaderText="Lead Source" SortExpression="LeadSource">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblLeadSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source")%>' runat="server" />
                                                         <asp:Label ID="lblLeadSourceID" Text='<%# DataBinder.Eval(Container.DataItem, "SourceID")%>' runat="server" Visible="false" />

@@ -584,7 +584,7 @@
                     </div>
                 </ContentTemplate>
             </asp1:TabPanel>
-            <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="City">
+            <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="Tehsil">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
@@ -612,10 +612,10 @@
                                         <asp:DropDownList ID="ddlCityDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2 text-right">
-                                        <label>City</label><%--<span class="Mandatory">*</span>--%>
+                                        <label>Tehsil</label><%--<span class="Mandatory">*</span>--%>
                                     </div>
                                     <div class="col-md-3">
-                                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" />
+                                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"  placeholder="Tehsil" />
                                     </div>
                                     <div class="col-md-2">
                                         <asp:Button ID="BtnSearchCity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchCity_Click"></asp:Button>
@@ -633,7 +633,7 @@
                                                     <div style="float: left">
                                                         <table>
                                                             <tr>
-                                                                <td>Cities:</td>
+                                                                <td>Tehsil:</td>
 
                                                                 <td>
                                                                     <asp:Label ID="lblRowCountC" runat="server" CssClass="label"></asp:Label></td>
@@ -687,14 +687,14 @@
                                                     <asp:DropDownList ID="ddlGCityDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="City">
+                                            <asp:TemplateField HeaderText="Tehsil">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblGCity" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' runat="server"></asp:Label>
                                                     <%--<asp:Label ID="lblGCityID" Text='<%# DataBinder.Eval(Container.DataItem, "TehsilID")%>' runat="server" Visible="false"></asp:Label>--%>
                                                     <%--<asp:TextBox ID="txtGCity" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Tehsil")%>' Enabled="false" />--%>
                                                 </ItemTemplate>
                                                 <FooterTemplate>
-                                                    <asp:TextBox ID="txtGCity" runat="server" placeholder="City" CssClass="form-control" />
+                                                    <asp:TextBox ID="txtGCity" runat="server" placeholder="Tehsil" CssClass="form-control" />
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">

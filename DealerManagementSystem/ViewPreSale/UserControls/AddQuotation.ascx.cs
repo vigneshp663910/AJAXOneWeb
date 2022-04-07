@@ -16,28 +16,28 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class AddQuotation : System.Web.UI.UserControl
     {
-        public PLead Lead
-        {
-            get
-            {
-                if (Session["LeadView"] == null)
-                {
-                    Session["LeadView"] = new PLead();
-                }
-                return (PLead)Session["LeadView"];
-            }
-            set
-            {
-                Session["LeadView"] = value;
-            }
-        }
+        //public PLead Lead
+        //{
+        //    get
+        //    {
+        //        if (Session["LeadView"] == null)
+        //        {
+        //            Session["LeadView"] = new PLead();
+        //        }
+        //        return (PLead)Session["LeadView"];
+        //    }
+        //    set
+        //    {
+        //        Session["LeadView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         { 
             if (!IsPostBack)
             {    
             }
         }
-        public void FillMaster()
+        public void FillMaster(PLead Lead)
         {
             //FillGetDealerOffice(); 
             new DDLBind(ddlQuotationType, new BSalesQuotation().GetSalesQuotationType(null, null), "QuotationType", "QuotationTypeID");

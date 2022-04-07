@@ -67,7 +67,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (lbActions.Text == "Edit Quotation Basic Info")
             {
                 MPE_Quotation.Show();
-                UC_Quotation.FillMaster();
+                UC_Quotation.FillMaster(Quotation.Lead);
                 UC_Quotation.FillQuotation(Quotation);
             }
             else if (lbActions.Text == "Edit Financier Info")
