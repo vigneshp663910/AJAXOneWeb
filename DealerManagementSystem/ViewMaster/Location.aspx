@@ -119,7 +119,13 @@
                                                 </ItemTemplate>
                                                 <FooterTemplate>
                                                     <%--<asp:TextBox ID="txtGCSalesOrganization" runat="server" placeholder="Sales Organization" CssClass="form-control"></asp:TextBox>--%>
-                                                    <asp:DropDownList ID="ddlGCSalesOrganization" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                    <asp:DropDownList ID="ddlGCSalesOrganization" runat="server" CssClass="form-control">
+                                                        <asp:ListItem Value="0">Select Sales Organization</asp:ListItem>
+                                                        <asp:ListItem Value="AJE">AJE</asp:ListItem>
+                                                        <asp:ListItem Value="AJF">AJF</asp:ListItem>
+                                                        <asp:ListItem Value="AJI">AJI</asp:ListItem>
+                                                    </asp:DropDownList>
+
                                                 </FooterTemplate>
                                             </asp:TemplateField>
                                             <%--<asp:TemplateField ItemStyle-Width="20px">
@@ -167,14 +173,15 @@
                                         <label>Country</label><%--<span class="Mandatory">*</span>--%>
                                     </div>
                                     <div class="col-md-3">
-                                        <asp:DropDownList ID="ddlRCountry" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlRCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlRCountry_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2 text-right">
                                         <%--<span class="Mandatory">*</span>--%>
                                         <label>Region</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <asp:TextBox ID="txtRRegion" runat="server" CssClass="form-control" MaxLength="10" />
+                                        <%--<asp:TextBox ID="txtRRegion" runat="server" CssClass="form-control" MaxLength="10" />--%>
+                                        <asp:DropDownList ID="ddlRRegion" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:Button ID="BtnSearchRegion" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearchRegion_Click"></asp:Button>

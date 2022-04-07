@@ -374,7 +374,6 @@ namespace Business
             try
             {
                 List<PDMS_Country> MML = GetCountry(CountryID, Country);
-                MML.Distinct();
                 ddl.DataValueField = "SalesOrganization";
                 ddl.DataTextField = "SalesOrganization";
                 ddl.DataSource = MML.Distinct();

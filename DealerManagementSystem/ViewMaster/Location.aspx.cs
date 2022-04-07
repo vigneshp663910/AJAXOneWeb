@@ -281,6 +281,10 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 int? CountryID = null;
+                if (ddlRCountry.SelectedValue != "0")
+                {
+                    FillRegionDLL(ddlRRegion, CountryID, null, null);
+                }
                 if (ddlSCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
@@ -619,7 +623,7 @@ namespace DealerManagementSystem.ViewMaster
                 DropDownList ddlGCSalesOrganization = gvCountry.FooterRow.FindControl("ddlGCSalesOrganization") as DropDownList;
                 //new DDLBind(ddlGCSalesOrganization, new BDMS_Address().GetCountry(null, null), "SalesOrganization", "SalesOrganization", true, "Select Sales Organization");
 
-                new BDMS_Address().GetSalesOrganization(ddlGCSalesOrganization, null, null);
+                //new BDMS_Address().GetSalesOrganization(ddlGCSalesOrganization, null, null);
             }
             catch (Exception Ex)
             {
@@ -665,11 +669,13 @@ namespace DealerManagementSystem.ViewMaster
                 if (ddlRCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlRCountry.SelectedValue);
+                    if (ddlRRegion.SelectedValue != "0") //&& !string.IsNullOrEmpty(ddlRRegion.SelectedValue)
+                    {
+                        RegionID = Convert.ToInt32(ddlRRegion.SelectedValue);
+                    }
                 }
-                if (!string.IsNullOrEmpty(txtRRegion.Text))
-                {
-                    Region = txtRRegion.Text.Trim();
-                }
+                //if (!string.IsNullOrEmpty(ddlRRegion.Text))
+                
                 //List<PDMS_Region> MML = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
 
                 LRegion = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
@@ -785,15 +791,15 @@ namespace DealerManagementSystem.ViewMaster
                 DropDownList ddlGCCountryCurrency = (DropDownList)gvCountry.FooterRow.FindControl("ddlGCCountryCurrency");
                 if (ddlGCCountryCurrency.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please enter Country Currency.";
+                    lblMessage.Text = "Please select Country Currency.";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
                 //string SalesOrganization = ((TextBox)gvCountry.FooterRow.FindControl("txtGCSalesOrganization")).Text.Trim();
                 DropDownList ddlGCSalesOrganization = (DropDownList)gvCountry.FooterRow.FindControl("ddlGCSalesOrganization");
-                if (string.IsNullOrEmpty(Country))
+                if (ddlGCSalesOrganization.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please enter Sales Organization.";
+                    lblMessage.Text = "Please select Sales Organization.";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -804,7 +810,8 @@ namespace DealerManagementSystem.ViewMaster
                     Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
                     if (Success == true)
                     {
-                        FillGridCountry(); ;
+                        FillGridCountry();
+                        FillCountryDLL();
                         lblMessage.Text = "Country is added successfully.";
                         lblMessage.ForeColor = Color.Green;
                         return;
@@ -1210,7 +1217,8 @@ namespace DealerManagementSystem.ViewMaster
                 if (success == true)
                 {
                     HiddenID.Value = null;
-                    FillGridCountry();
+                    FillGridRegion();
+                    FillRegionDLL(ddlRRegion, Convert.ToInt32(ddlRCountry.SelectedValue), null, null);
                     lblMessage.Text = "Region deleted successfully";
                     lblMessage.ForeColor = Color.Green;
                 }
@@ -1260,6 +1268,7 @@ namespace DealerManagementSystem.ViewMaster
                     if (Success == true)
                     {
                         FillGridRegion();
+                        FillRegionDLL(ddlRRegion, Convert.ToInt32(ddlRCountry.SelectedValue), null, null);
                         lblMessage.Text = "Region is added successfully.";
                         lblMessage.ForeColor = Color.Green;
                         return;
@@ -1284,6 +1293,7 @@ namespace DealerManagementSystem.ViewMaster
                     {
                         HiddenID.Value = null;
                         FillGridRegion();
+                        FillRegionDLL(ddlRRegion, Convert.ToInt32(ddlRCountry.SelectedValue), null, null);
                         lblMessage.Text = "Region successfully updated.";
                         lblMessage.ForeColor = Color.Green;
                         return;
@@ -2810,6 +2820,10 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlSCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillRegionDLL(ddlSRegion, Convert.ToInt32(ddlSCountry.SelectedValue), null, null);
+        }
+        protected void ddlRCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillRegionDLL(ddlRRegion, Convert.ToInt32(ddlRCountry.SelectedValue), null, null);
         }
 
         protected void ddlDCountry_SelectedIndexChanged(object sender, EventArgs e)
