@@ -91,7 +91,7 @@ namespace DealerManagementSystem.ViewService
                 long? ICTicketID = 0;
                 if (!string.IsNullOrEmpty(txtICTicketNumber.Text.Trim()))
                 {
-                    List<PDMS_ICTicket> IC = new BDMS_ICTicket().GetICTicket("", "", txtICTicketNumber.Text.Trim(), null, null, null, null);
+                    List<PDMS_ICTicket> IC = new BDMS_ICTicket().GetICTicket(null, "", txtICTicketNumber.Text.Trim(), null, null, null, null);
                     foreach (PDMS_ICTicket t in IC)
                     {
                         if (t.ServiceStatus.ServiceStatusID != (short)DMS_ServiceStatus.Declined)

@@ -12,9 +12,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class AssignSE : System.Web.UI.UserControl
     {
-        public void FillMaster()
-        { 
-            new DDLBind(ddlSalesEngineer, new BUser().GetAllUsers(), "ContactName", "UserID");
+        public void FillMaster(PLead Lead)
+        {
+            List<PUser> User = new BUser().GetUsers(null, null, null, null, Lead.Dealer.DealerID, true, null);
+            new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID");
         }
         public PLeadSalesEngineer ReadAssignSE()
         {

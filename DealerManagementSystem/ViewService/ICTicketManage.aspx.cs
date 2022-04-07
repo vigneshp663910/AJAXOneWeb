@@ -71,16 +71,17 @@ namespace DealerManagementSystem.ViewService
                     txtICLoginDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtICLoginDateTo.Text = DateTime.Now.ToShortDateString();
                 }
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
+                //{
+                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
+                //    ddlDealerCode.Enabled = false;
+                //}
+                //else
+                //{
+                //    ddlDealerCode.Enabled = true;
+                //    fillDealer();
+                //}
+                fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -106,8 +107,8 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 TraceLogger.Log(DateTime.Now);
-                //     int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?) null: Convert.ToInt32( ddlDealerCode.SelectedValue);
-                string DealerCode = ddlDealerCode.SelectedValue == "0" ? "" : ddlDealerCode.SelectedValue;
+                      int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?) null: Convert.ToInt32( ddlDealerCode.SelectedValue);
+              //  string DealerCode = ddlDealerCode.SelectedValue == "0" ? "" : ddlDealerCode.SelectedValue;
                 DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
                 DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim());
                 int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
@@ -124,7 +125,7 @@ namespace DealerManagementSystem.ViewService
                     Division = ddlDivision.SelectedValue;
                 }
 
-                SOIs = new BDMS_ICTicket().GetICTicketManage(DealerCode, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, TechnicianID, ServiceTypeID, Division);
+                SOIs = new BDMS_ICTicket().GetICTicketManage(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, TechnicianID, ServiceTypeID, Division);
 
                 if (ddlDealerCode.SelectedValue == "0")
                 {
@@ -290,7 +291,7 @@ namespace DealerManagementSystem.ViewService
         void fillDealer()
         {
             ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
+            ddlDealerCode.DataValueField = "DID";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
 

@@ -94,6 +94,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         public void FillCustomer(PDMS_Customer Customer)
         {
+            divDealer.Visible = false;
+            if(!string.IsNullOrEmpty(Customer.CustomerCode))
+            {
+                txtCustomerName.Enabled = false;
+                txtCustomerName2.Enabled = false;
+                txtGSTIN.Enabled = false;
+                txtPAN.Enabled = false;
+            }
             txtCustomerName.Text = Customer.CustomerName;
             txtCustomerName2.Text = Customer.CustomerName2;
             txtGSTIN.Text = Customer.GSTIN;
