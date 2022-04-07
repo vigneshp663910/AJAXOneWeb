@@ -682,7 +682,7 @@
                     <asp:TextBox ID="txtQty" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Discount Percentage</label>
+                    <label class="modal-label">Discount</label>
                     <asp:TextBox ID="txtDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
             </div>

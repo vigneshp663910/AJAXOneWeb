@@ -251,20 +251,36 @@ namespace SapIntegration
             }
             return Material;
         }
-        public string getMaterialTextForQuotation(string MaterialCode)
+        public DataTable getMaterialTextForQuotation(string MaterialCode)
         {
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("READ_TEXT");
-            tagListBapi.SetValue("ID", "0001");
-            tagListBapi.SetValue("LANGUAGE", "EN");
-            tagListBapi.SetValue("NAME", MaterialCode);//"L.900.508         AJF GT");
-            tagListBapi.SetValue("OBJECT", "MVKE");
-            tagListBapi.SetValue("ARCHIVE_HANDLE", "0");
-            tagListBapi.SetValue("LOCAL_CAT", "");
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZREAD_TEXT");
+            tagListBapi.SetValue("MATERIAL", MaterialCode);//"L.900.508         AJF GT");
+            tagListBapi.SetValue("SALES_ORG", "AJF");
+            tagListBapi.SetValue("DIST_CHANNEL", "GT");
             tagListBapi.Invoke(SAP.RfcDes());
             IRfcTable tagTable = tagListBapi.GetTable("LINES");
+            DataTable dtRet = new DataTable();
+
+            for (int Column = 0; Column < 2; Column++)
+            {
+                RfcElementMetadata rfcEMD = tagTable.GetElementMetadata(Column);
+                dtRet.Columns.Add(rfcEMD.Name);
+            }
+
+            foreach (IRfcStructure row in tagTable)
+            {
+                DataRow dr = dtRet.NewRow();
+                for (int Column = 0; Column < 2; Column++)
+                {
+                    RfcElementMetadata rfcEMD = tagTable.GetElementMetadata(Column);
+                    dr[rfcEMD.Name] = row.GetString(rfcEMD.Name);
+                    // Console.WriteLine("{0} is {1}", rfcEMD.Documentation, dr[rfcEMD.Name]);
+                }
+                dtRet.Rows.Add(dr);
+            }
             string ConditionType;
 
-            return "";
+            return dtRet;
         }
     }
 }

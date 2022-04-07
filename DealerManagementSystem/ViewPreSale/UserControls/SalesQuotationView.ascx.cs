@@ -294,7 +294,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
 
             Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
-            MaterialTax.Discount = (Discount > 0) ? P * (Discount / 100) : 0;
+            MaterialTax.Discount = Discount;/*(Discount > 0) ? P * (Discount / 100) : 0;*/
 
             MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text))- Convert.ToDecimal(MaterialTax.Discount);
 
@@ -927,7 +927,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
                 P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
                 P[8] = new ReportParameter("Attention", KindAttention, false);
-                P[9] = new ReportParameter("Subject", Subject, false);
+                P[9] = new ReportParameter("Subject", Q.QuotationItems[0].Material.MaterialDescription, false);
                 P[10] = new ReportParameter("Reference", Reference, false);
                 P[11] = new ReportParameter("Annexure", "A-I", false);
                 P[12] = new ReportParameter("AnnexureRef", Q.RefQuotationNo, false);
@@ -969,16 +969,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
                 P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
                 P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
-                string MaterialText = string.Empty;
+                DataTable DTMaterialText = new DataTable();
                 try
                 {
-                    MaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508         AJF GT");                    
+                    DTMaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508");                    
                 }
                 catch(Exception ex)
                 {
                     lblMessage.Text = ex.Message.ToString();
                     lblMessage.Visible = true;
                     lblMessage.ForeColor = Color.Red;
+                }
+                string MaterialText = string.Empty;
+                int sno = 0;
+                foreach(DataRow dr in DTMaterialText.Rows)
+                {
+                    MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•","#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
                 }
                 P[23] = new ReportParameter("MaterialText", MaterialText, false);
                 List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
@@ -1234,7 +1240,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            String.Format("{0:n}", item.Rate), String.Format("{0:n}", item.Qty * item.Rate), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.TaxableValue*item.SGST/100), item.SGST, String.Format("{0:n}", item.TaxableValue * item.SGST / 100));
+                            String.Format("{0:n}", item.TaxableValue), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.TaxableValue*item.SGST/100), item.SGST, String.Format("{0:n}", item.TaxableValue * item.SGST / 100));
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
