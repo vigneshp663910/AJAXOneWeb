@@ -811,7 +811,7 @@ namespace DealerManagementSystem.ViewMaster
                     if (Success == true)
                     {
                         FillGridCountry();
-                        FillCountryDLL();
+                        FillCountry();
                         lblMessage.Text = "Country is added successfully.";
                         lblMessage.ForeColor = Color.Green;
                         return;
