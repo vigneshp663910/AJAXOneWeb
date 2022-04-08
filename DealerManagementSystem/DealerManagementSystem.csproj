@@ -178,7 +178,9 @@
     <Content Include="Ajax\Images\apple.png" />
     <Content Include="Ajax\Images\apple__v259.png" />
     <Content Include="Ajax\Images\bg01.jpg" />
+    <Content Include="Ajax\Images\bg04r.png" />
     <Content Include="Ajax\Images\bg05q.png" />
+    <Content Include="Ajax\Images\bg05qr.png" />
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
