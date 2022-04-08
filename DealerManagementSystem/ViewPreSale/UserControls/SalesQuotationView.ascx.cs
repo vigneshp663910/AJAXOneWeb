@@ -1240,7 +1240,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            String.Format("{0:n}", item.TaxableValue), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.TaxableValue*item.SGST/100), item.SGST, String.Format("{0:n}", item.TaxableValue * item.SGST / 100));
+                            String.Format("{0:n}", item.TaxableValue/item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
@@ -1266,7 +1266,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "IGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            item.TaxableValue, item.TaxableValue, item.Discount, item.TaxableValue, null, null, item.IGST, item.IGSTValue);
+                            String.Format("{0:n}", item.TaxableValue/item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
