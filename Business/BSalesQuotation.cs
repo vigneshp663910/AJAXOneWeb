@@ -926,8 +926,8 @@ namespace Business
             Query1S = Query1S + ",r_gross_amt";
             Query1V = Query1V + "," + SQ.GrossValue;
 
-            Query1S = Query1S + ",r_tcs_amt";
-            Query1V = Query1V + "," + SQ.TCSValue;
+            //Query1S = Query1S + ",r_tcs_amt";
+            //Query1V = Query1V + "," + SQ.TCSValue;
 
             Query1S = Query1S + ",r_cess_amt";
             Query1V = Query1V + ",0";

@@ -118,9 +118,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 UC_FollowUp.FillMaster();
             }
             else if (lbActions.Text == "Add Effort")
-            {
-
-
+            { 
                 DropDownList ddlSalesEngineer = (DropDownList)UC_Effort.FindControl("ddlSalesEngineer");
                 DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
 
@@ -140,7 +138,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Expense")
             {
-
                 DropDownList ddlSalesEngineer = (DropDownList)UC_Expense.FindControl("ddlSalesEngineer");
                 DropDownList ddlExpenseType = (DropDownList)UC_Expense.FindControl("ddlExpenseType");
 
@@ -180,6 +177,36 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Generate Quotation To Part")
             {
                 new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+            }
+            else if (lbActions.Text == "Generate Commission Claim")
+            {
+                //string Message = ValidationFinancier();
+                //lblMessageFinancier.ForeColor = Color.Red;
+                //lblMessageFinancier.Visible = true;
+
+                //if (!string.IsNullOrEmpty(Message))
+                //{
+                //    lblMessage.Text = Message;
+                //    return;
+                //}
+
+                lblMessage.Visible = true;
+                PSalesQuotation Sqf = new PSalesQuotation();
+                Sqf.QuotationID = Quotation.QuotationID; 
+                Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesCommission", Sqf));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }  
+                tbpSaleQuotation.ActiveTabIndex = 0;
+                fillViewQuotation(Quotation.QuotationID);
+                lblMessage.Text = "Updated Successfully";
+                
+                lblMessage.ForeColor = Color.Green;
             }
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
@@ -636,6 +663,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             fillShifTo();
             fillVisit();
+            fillSalesCommissionClaim();
         }
         public string ValidationFinancier()
         {
@@ -1247,9 +1275,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
 
                         TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
-                        TCSSubTotal = Q.TCSValue;
+                        TCSSubTotal = item.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
-                        Lifetimetax = Q.LifeTimeValue;
+                        Lifetimetax = item.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                         P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
@@ -1272,9 +1300,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
 
                         TaxSubTotal = TaxableValues + IGSTValues;
-                        TCSSubTotal = Q.TCSValue;
+                        TCSSubTotal = item.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
-                        Lifetimetax = Q.LifeTimeValue;
+                        Lifetimetax = item.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                         P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
@@ -1295,7 +1323,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-                P[54] = new ReportParameter("TCSPer", Q.TCSTax.ToString(), false);
+                P[54] = new ReportParameter("TCSPer", "0", false);
                 P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
                 P[56] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
@@ -1460,6 +1488,17 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ddlActionType.BorderColor = Color.Red;
             }
             return Message;
+        }
+
+
+        void fillSalesCommissionClaim()
+        {
+            List<PSalesCommissionClaim> claim = new BSalesCommissionClaim().GetSalesCommissionClaim(null, Quotation.QuotationID, null, null, null, null, null);
+            gvSalesCommission.DataSource = claim;
+            gvSalesCommission.DataBind();
+            gvSalesCommissionItem.DataSource = claim;
+            gvSalesCommissionItem.DataBind();
+            
         }
     }
 }

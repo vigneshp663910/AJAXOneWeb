@@ -357,7 +357,10 @@
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadViewHeader.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
+    <Content Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaim.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaimApprove.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -376,6 +379,7 @@
     <Content Include="ViewSales\SalesOrder.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
+    <Content Include="ViewSales\UserControls\SalesCommissionClaimView.ascx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
     <Content Include="ViewService\ApproveDeclinedICTicket.aspx" />
@@ -1228,12 +1232,33 @@
     <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.designer.cs">
       <DependentUpon>SalesQuotationView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.cs">
+      <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.designer.cs">
+      <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaim.aspx.cs">
+      <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaim.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimApprove.aspx.cs">
+      <DependentUpon>SalesCommissionClaimApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimApprove.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
@@ -1360,6 +1385,13 @@
     </Compile>
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesCommissionClaimView.ascx.cs">
+      <DependentUpon>SalesCommissionClaimView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesCommissionClaimView.ascx.designer.cs">
+      <DependentUpon>SalesCommissionClaimView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
