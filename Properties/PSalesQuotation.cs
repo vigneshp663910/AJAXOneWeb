@@ -44,6 +44,8 @@ namespace Properties
         public decimal GrossValue { get; set; }
         public decimal TotalEffort { get; set; }
         public decimal TotalExpense { get; set; }
+        public decimal LifeTimeValue { get; set; }
+        public decimal LifeTimeTax { get; set; }
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
@@ -108,8 +110,7 @@ namespace Properties
         public decimal IGSTValue { get; set; }
         public decimal TCSValue { get; set; }
         public decimal TCSTax { get; set; }
-        public decimal LifeTimeValue { get; set; }
-        public decimal LifeTimeTax { get; set; }
+       
         //public Decimal TaxPersent { get; set; }
         //public Decimal TaxValue { get; set; }
         public Decimal NetValue { get; set; }
