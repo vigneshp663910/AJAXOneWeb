@@ -170,7 +170,7 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
-                                    
+
                                     <div class="col-md-2 text-left">
                                         <label>Division</label>
                                         <asp:DropDownList ID="ddlDivisionMC" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="col-md-2 text-left">
                                         <label>Material Status</label>
-                                       <%--<asp:CheckBox ID="cbActive" runat="server" Checked="true" />--%>
+                                        <%--<asp:CheckBox ID="cbActive" runat="server" Checked="true" />--%>
                                         <asp:DropDownList ID="ddlMaterialStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true">
                                             <asp:ListItem Value=""> Select</asp:ListItem>
                                             <asp:ListItem Value="1"> Active</asp:ListItem>
@@ -190,12 +190,17 @@
                                     </div>
                                     <div class="col-md-2 text-left">
                                         <label>Material Code</label>
-                                         <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-1 text-right">
                                         <br />
                                         <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
-                                        &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />
+                                        <%-- &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />--%>
+                                    </div>
+
+                                    <div class="col-md-1 text-left">
+                                        <br />
+                                        <asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />
                                     </div>
                                 </div>
                             </fieldset>
@@ -520,9 +525,11 @@
                                         <asp:TextBox ID="txtMaterialCodeSupersede" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-1 text-right">
                                         <asp:Button ID="btnMaterailSupersedeSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterailSupersedeSearch_Click" OnClientClick="return dateValidation();" />
-                                        &nbsp;<asp:Button ID="btnMaterailSupersedeExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSupersedeExportExcel_Click" Width="125px" />
+                                    </div>
+                                    <div class="col-md-1 text-left">
+                                        <asp:Button ID="btnMaterailSupersedeExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSupersedeExportExcel_Click" Width="125px" />
                                     </div>
                                 </div>
                             </fieldset>

@@ -213,13 +213,13 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Image Image9;
 
         /// <summary>
-        /// tpImplementtionProcess control.
+        /// tpImplementaionProcess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpImplementtionProcess;
+        protected global::AjaxControlToolkit.TabPanel tpImplementaionProcess;
 
         /// <summary>
         /// Image10 control.
@@ -229,5 +229,23 @@ namespace DealerManagementSystem.ProcessFlow
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Image10;
+
+        /// <summary>
+        /// tpSalesCommision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpSalesCommision;
+
+        /// <summary>
+        /// Image11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image11;
     }
 }
