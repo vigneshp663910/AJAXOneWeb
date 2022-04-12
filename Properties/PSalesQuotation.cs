@@ -37,8 +37,8 @@ namespace Properties
         public List<PSalesQuotationNote> Notes { get; set; }
         public string SalesOrderNo { get; set; }
         public DateTime? SalesOrderDate { get; set; }
-        public string InvoiceNo { get; set; }
-        public DateTime? InvoiceDate { get; set; }
+        public string SalesInvoiceNumber { get; set; }
+        public DateTime? SalesInvoiceDate { get; set; }
         public PUser CreatedBy { get; set; }
 
         public decimal GrossValue { get; set; }

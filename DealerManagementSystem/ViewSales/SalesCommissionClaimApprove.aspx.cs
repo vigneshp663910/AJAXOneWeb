@@ -85,8 +85,7 @@ namespace DealerManagementSystem.ViewSales
                     lblStatus.Text = "You have no permission to approve";
                     btnSearch.Visible = false;
                     btnExportExcel.Visible = false;
-                }
-                new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                } 
                 fillClaimApproval();
             }
         }
@@ -127,10 +126,10 @@ namespace DealerManagementSystem.ViewSales
                     DealerCode = ddlDealerCode.SelectedValue;
                 }
 
-                ClaimDateFrom = Convert.ToString(txtICLoginDateFrom.Text.Trim()); 
-                ClaimDateTo = Convert.ToString(txtICLoginDateTo.Text.Trim()); 
-                InvoiceDateF = Convert.ToString(txtClaimDateF.Text.Trim()); 
-                InvoiceDateT = Convert.ToString(txtClaimDateT.Text.Trim());
+               ClaimDateFrom = Convert.ToString(txtClaimDateF.Text.Trim()); 
+                ClaimDateTo = Convert.ToString(txtClaimDateT.Text.Trim()); 
+                //InvoiceDateF = Convert.ToString(txtInvoiceDateF.Text.Trim()); 
+                //InvoiceDateT = Convert.ToString(txtInvoiceDateT.Text.Trim());
                 
 
                 //  StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
@@ -149,10 +148,7 @@ namespace DealerManagementSystem.ViewSales
                 {
                     StatusID = 3;
                 }
-                string DivisionID = ddlDivision.SelectedValue == "0" ? null : ddlDivision.SelectedValue;
-
-
-
+                
 
                 SDMS_WarrantyClaimHeader = new BSalesCommissionClaim().GetSalesCommissionClaimApproval(SalesCommissionClaimID, SalesQuotationID, DealerID,
                     ClaimDateFrom, ClaimDateTo, InvoiceNumber, InvoiceDateF, InvoiceDateT, StatusID);
@@ -305,8 +301,9 @@ namespace DealerManagementSystem.ViewSales
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
 
-                    List<PSalesCommissionClaim> supplierPurchaseOrderLines = new List<PSalesCommissionClaim>();
-                    supplierPurchaseOrderLines = (List<PSalesCommissionClaim>)SDMS_WarrantyClaimHeader.Where(s => s.SalesCommissionClaimID == SalesCommissionClaimID);
+                    //List<PSalesCommissionClaim> supplierPurchaseOrderLines = new List<PSalesCommissionClaim>();
+                    //supplierPurchaseOrderLines = (List<PSalesCommissionClaim>)SDMS_WarrantyClaimHeader.Where(s => s.SalesCommissionClaimID == SalesCommissionClaimID);
+                    List<PSalesCommissionClaim> supplierPurchaseOrderLines = SDMS_WarrantyClaimHeader; 
 
                     supplierPOLinesGrid.DataSource = supplierPurchaseOrderLines;
                     supplierPOLinesGrid.DataBind();
