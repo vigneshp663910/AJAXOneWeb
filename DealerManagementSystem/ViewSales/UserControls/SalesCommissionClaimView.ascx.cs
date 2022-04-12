@@ -70,8 +70,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblApproved2On.Text = Claim.Approved2On == null ? "" : ((DateTime)Claim.Approved2On).ToLongDateString();
             lblApproved3By.Text = Claim.Approved3By == null ? "" : Claim.Approved3By.ContactName;
             lblApproved3On.Text = Claim.Approved3On == null ? "" : ((DateTime)Claim.Approved3On).ToLongDateString(); 
-            lblInvoiceNumber.Text = Claim.Quotation.InvoiceNo;
-            lblInvoiceDate.Text = ((DateTime)Claim.Quotation.InvoiceDate).ToLongDateString();
+            lblInvoiceNumber.Text = Claim.Quotation.SalesInvoiceNumber;
+            lblInvoiceDate.Text = ((DateTime)Claim.Quotation.SalesInvoiceDate).ToLongDateString();
 
             lblMaterial.Text = Claim.ClaimItem.Material.MaterialCode;
             lblMaterialDescription.Text = Claim.ClaimItem.Material.MaterialDescription;
