@@ -247,6 +247,7 @@
     <Content Include="ProcessFlow\V0_Secondary_Sales.png" />
     <Content Include="ProcessFlow\V0_Stock_Transfer.png" />
     <Content Include="ProcessFlow\V0_WebMobileUserID.png" />
+    <Content Include="ProcessFlow\V1_SalesCommision.png" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
