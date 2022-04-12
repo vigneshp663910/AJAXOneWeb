@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using Microsoft.Reporting.WebForms;
 using System.Data;
+using System.IO;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
@@ -252,106 +253,109 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         protected void btnProductSave_Click(object sender, EventArgs e)
         {
-            MPE_Product.Show();
-            string Message = ValidationProduct();
-            lblMessageProduct.ForeColor = Color.Red;
-            lblMessageProduct.Visible = true;
-
-            if (!string.IsNullOrEmpty(Message))
+            try
             {
-                lblMessageProduct.Text = Message;
-                return;
-            }
-            string Material = txtMaterial.Text.Trim();
+                MPE_Product.Show();
+                string Message = ValidationProduct();
+                lblMessageProduct.ForeColor = Color.Red;
+                lblMessageProduct.Visible = true;
 
-
-            for (int i = 0; i < gvProduct.Rows.Count; i++)
-            {
-                Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode");
-                if (lblMaterialCode.Text == Material)
+                if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessageProduct.Text = "Material " + Material + " already available";
+                    lblMessageProduct.Text = Message;
                     return;
                 }
+                string Material = txtMaterial.Text.Trim();
+
+
+                for (int i = 0; i < gvProduct.Rows.Count; i++)
+                {
+                    Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode");
+                    if (lblMaterialCode.Text == Material)
+                    {
+                        lblMessageProduct.Text = "Material " + Material + " already available";
+                        return;
+                    }
+                }
+
+
+
+                string OrderType = "";
+                string Customer = Quotation.Lead.Customer.CustomerCode;
+                string Vendor = "";
+                string IV_SEC_SALES = "";
+                string PRICEDATE = "";
+                Boolean IsWarrenty = false;
+                OrderType = "DEFAULT_SEC_AUART";
+                Material = Material.Split(' ')[0];
+                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
+                if (string.IsNullOrEmpty(MM.MaterialCode))
+                {
+                    lblMessageProduct.Text = "Please check the Material";
+                    return;
+                }
+                decimal Qty = Convert.ToDecimal(txtQty.Text);
+                PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty, Qty);
+
+
+
+                if (MaterialTax.Rate <= 0)
+                {
+                    lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
+                    return;
+                }
+
+                //PSalesQuotationItem Item = new PSalesQuotationItem();
+                MaterialTax.SalesQuotationID = Quotation.QuotationID;
+                MaterialTax.Material = new PDMS_Material();
+                MaterialTax.Material.MaterialCode = MM.MaterialCode;
+                MaterialTax.Material.MaterialID = MM.MaterialID;
+                //Item.Material.MaterialDescription = MM.MaterialDescription;
+
+                MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+                MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
+                //MaterialTax.Rate = MaterialTax.Rate;
+                decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
+
+                Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
+                MaterialTax.Discount = Discount;/*(Discount > 0) ? P * (Discount / 100) : 0;*/
+
+                MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text)) - Convert.ToDecimal(MaterialTax.Discount);
+
+                if (MaterialTax.SGST != 0)
+                {
+                    MaterialTax.CGST = MaterialTax.SGST;
+                    MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                    MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
+                    MaterialTax.IGSTValue = 0;
+                }
+                else
+                {
+                    MaterialTax.CGST = 0;
+                    MaterialTax.CGSTValue = 0;
+                    MaterialTax.SGSTValue = 0;
+                    MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
+                }
+                MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessageEffort.Text = Results.Message;
+                    return;
+                }
+                MPE_Product.Hide();
+                tbpSaleQuotation.ActiveTabIndex = 1;
+                fillViewQuotation(Quotation.QuotationID);
+                lblMessage.Text = "Updated Successfully";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
             }
-
-
-
-            string OrderType = "";
-            string Customer = Quotation.Lead.Customer.CustomerCode;
-            string Vendor = "";
-            string IV_SEC_SALES = "";
-            string PRICEDATE = "";
-            Boolean IsWarrenty = false;
-            //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
-            //{
-            OrderType = "DEFAULT_SEC_AUART";
-            //    Customer = SDMS_ICTicket.Customer.CustomerCode;
-            //    Vendor = SDMS_ICTicket.Dealer.DealerCode;
-            //}
-            Material = Material.Split(' ')[0];
-            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
-            if (string.IsNullOrEmpty(MM.MaterialCode))
+            catch(Exception ex)
             {
-                lblMessageProduct.Text = "Please check the Material";
+                lblMessageProduct.Text = ex.Message.ToString();
+                lblMessageProduct.ForeColor = Color.Red;
                 return;
             }
-            decimal Qty = Convert.ToDecimal(txtQty.Text);
-            //PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, Qty, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-            PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Customer, Material, IsWarrenty, Quotation.Lead.ProductType.Division.DivisionCode);
-
-
-
-            if (MaterialTax.Rate <= 0)
-            {
-                lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
-                return;
-            }
-
-            //PSalesQuotationItem Item = new PSalesQuotationItem();
-            MaterialTax.SalesQuotationID = Quotation.QuotationID;
-            MaterialTax.Material = new PDMS_Material();
-            MaterialTax.Material.MaterialCode = MM.MaterialCode;
-            MaterialTax.Material.MaterialID = MM.MaterialID;
-            //Item.Material.MaterialDescription = MM.MaterialDescription;
-
-            MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
-            MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
-            //MaterialTax.Rate = MaterialTax.Rate;
-            decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
-
-            Decimal.TryParse(txtDiscount.Text, out Decimal Discount);
-            MaterialTax.Discount = Discount;/*(Discount > 0) ? P * (Discount / 100) : 0;*/
-
-            MaterialTax.TaxableValue = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text))- Convert.ToDecimal(MaterialTax.Discount);
-
-            if (MaterialTax.SGST!=0)
-            {
-                MaterialTax.CGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
-                MaterialTax.SGSTValue = MaterialTax.TaxableValue * MaterialTax.SGST / 100;
-                MaterialTax.IGSTValue = 0;
-            }
-            else
-            {
-                MaterialTax.CGSTValue = 0;
-                MaterialTax.SGSTValue = 0;
-                MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
-            }
-            MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessageEffort.Text = Results.Message;
-                return;
-            }
-            //  Quotation.QuotationItems = Item;
-            MPE_Product.Hide();
-            tbpSaleQuotation.ActiveTabIndex = 1;
-            fillViewQuotation(Quotation.QuotationID);
-            lblMessage.Text = "Updated Successfully";
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green;
         }
         protected void btnCompetitorSave_Click(object sender, EventArgs e)
         {
@@ -1165,7 +1169,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[8] = new ReportParameter("KindAttn", KindAttention, false);
                 P[9] = new ReportParameter("CustomerStateCode", Q.Lead.Customer.State.StateCode, false);
                 P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
-                P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN.ToUpper(), false) ;
+                P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN.ToUpper(), false);
 
                 P[19] = new ReportParameter("YourRef", Reference, false);
                 P[20] = new ReportParameter("RevNo", "", false);
@@ -1268,16 +1272,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            String.Format("{0:n}", item.TaxableValue/item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
+                            String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
                         decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
 
                         TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
-                        TCSSubTotal = item.TCSValue;
+                        TCSSubTotal = item.TCSValue;// Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
-                        Lifetimetax = item.LifeTimeValue;
+                        Lifetimetax = item.LifeTimeValue;//Q.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                         P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
@@ -1294,15 +1298,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[49] = new ReportParameter("SGST_Header", "IGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
                         dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                            String.Format("{0:n}", item.TaxableValue/item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
+                            String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
 
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
 
                         TaxSubTotal = TaxableValues + IGSTValues;
-                        TCSSubTotal = item.TCSValue;
+                        TCSSubTotal = item.TCSValue;// Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
-                        Lifetimetax = item.LifeTimeValue;
+                        Lifetimetax = item.LifeTimeValue;//Q.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                         P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
@@ -1323,7 +1327,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
                 P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                 P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-                P[54] = new ReportParameter("TCSPer", "0", false);
+                P[54] = new ReportParameter("TCSPer", Q.QuotationItems[0].TCSTax.ToString(), false);
                 P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
                 P[56] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
@@ -1337,12 +1341,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
 
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                Response.Flush(); // send it to the client to download
+                //Response.Buffer = true;
+                //Response.Clear();
+                //Response.ContentType = mimeType;
+                //Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                //Response.BinaryWrite(mybytes); // create the file
+                //Response.Flush(); // send it to the client to download
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                Response.Redirect("PDF.aspx?FileName=" + FileName, false);
             }
             catch (Exception ex)
             {
