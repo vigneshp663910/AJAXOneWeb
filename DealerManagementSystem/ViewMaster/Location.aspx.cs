@@ -125,6 +125,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Location');</script>");
+            lblMessage.Text = "";
 
             if (!IsPostBack)
             {
@@ -132,7 +133,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     Label lblProjectTitle = (Label)Master.FindControl("lblProjectTitle");
                     lblProjectTitle.Text = "Location";
-                    LCountry = new BDMS_Address().GetCountry(null, null);
+                    FillCountry();
                     LRegion = new BDMS_Address().GetRegion(null, null, null);
                     LState = new BDMS_Address().GetState(null, null, null, null);
                     LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
@@ -157,6 +158,8 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
+
+                LCountry = new BDMS_Address().GetCountry(null, null);
                 FillCountryDLL(ddlRCountry);
                 FillCountryDLL(ddlSCountry);
                 FillCountryDLL(ddlDCountry);
@@ -804,55 +807,34 @@ namespace DealerManagementSystem.ViewMaster
                     return;
                 }
                 int CountryCurrencyID = Convert.ToInt32(ddlGCCountryCurrency.SelectedValue);
+                int? CountryID = null;
                 if (BtnAddOrUpdateCountry.Text == "Add")
                 {
-                    //Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, Country, CountryCode, CountryCurrencyID, SalesOrganization, true, PSession.User.UserID);
-                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(null, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
-                    if (Success == true)
-                    {
-                        FillGridCountry();
-                        FillCountry();
-                        lblMessage.Text = "Country is added successfully.";
-                        lblMessage.ForeColor = Color.Green;
-                        return;
-                    }
-                    else if (Success == false)
-                    {
-                        lblMessage.Text = "Country is already found.";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Country not created successfully.";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
                 }
                 else
                 {
-                    //Success = new BDMS_Address().InsertOrUpdateAddressCountry(Convert.ToInt32(HiddenID.Value), Country, CountryCode, CountryCurrencyID, SalesOrganization, true, PSession.User.UserID);
-                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(Convert.ToInt32(HiddenID.Value), Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
-                    if (Success == true)
-                    {
-                        HiddenID.Value = null;
-                        FillGridCountry();
-                        lblMessage.Text = "Country successfully updated.";
-                        lblMessage.ForeColor = Color.Green;
-                        return;
-                    }
-                    else if (Success == false)
-                    {
-                        lblMessage.Text = "Country already found";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Country not updated successfully...!";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
+                    CountryID = Convert.ToInt32(HiddenID.Value);
+                }
+                Success = new BDMS_Address().InsertOrUpdateAddressCountry(CountryID, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
+                if (Success == true)
+                {
+                    FillGridCountry();
+                    lblMessage.Text = "Country is added successfully.";
+                    lblMessage.ForeColor = Color.Green;
+                    FillCountry();
+                    return;
+                }
+                else if (Success == false)
+                {
+                    lblMessage.Text = "Country is already found.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                else
+                {
+                    lblMessage.Text = "Country not created successfully.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
                 }
             }
             catch (Exception ex)
@@ -1097,6 +1079,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     HiddenID.Value = null;
                     FillGridCountry();
+                    FillCountry();
                     lblMessage.Text = "Country deleted successfully";
                     lblMessage.ForeColor = Color.Green;
                 }
