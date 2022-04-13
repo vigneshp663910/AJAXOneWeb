@@ -65,7 +65,7 @@ namespace SapIntegration
                 QUOTATION_CONDITIONS.Append();
                 QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
                 QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZCD4");
-                QUOTATION_CONDITIONS.SetValue("COND_VALUE", /*pSalesQuotation.QuotationItems[0].Discount*/"100000");
+                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.QuotationItems[0].Discount);
             }
             if (pSalesQuotation.LifeTimeTax > 0)
             {
