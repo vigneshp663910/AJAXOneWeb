@@ -40,11 +40,6 @@ namespace SapIntegration
             tagListBapi.SetValue("QUO_VALID_TO", pSalesQuotation.ValidTo);
 
             IRfcStructure QTHeader = tagListBapi.GetStructure("QUOTATION_HEADER_IN");
-            //QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
-            //QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
-            //QTHeader.SetValue("DISTR_CHAN", "GT");
-            //QTHeader.SetValue("DIVISION", pSalesQuotation.Lead.ProductType.Division.DivisionCode);
-            //QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
             QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", Visit[0].ColdVisitDate);
@@ -61,27 +56,23 @@ namespace SapIntegration
                 q = q + 1;
                 QT_Item.SetValue("ITM_NUMBER", "0000" + q + "0");//"000010"
                 QT_Item.SetValue("MATERIAL", pSalesQuotation.QuotationItems[i].Material.MaterialCode);//"L.900.508"
-                //QT_Item.SetValue("PLANT", pSalesQuotation.QuotationItems[i].Plant.PlantCode);//"P003"
                 QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty.ToString("#,###,###,###,###.000"));//"1.000"
-                //QT_Item.SetValue("TARGET_QU", pSalesQuotation.QuotationItems[i].Material.BaseUnit);
             }
 
             IRfcTable QUOTATION_CONDITIONS = tagListBapi.GetTable("QUOTATION_CONDITIONS_IN");
             if (pSalesQuotation.QuotationItems[0].Discount > 0)
             {
                 QUOTATION_CONDITIONS.Append();
-                QUOTATION_CONDITIONS.SetValue("UPDATEFLAG", "I");
                 QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
                 QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZCD4");
-                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.QuotationItems[0].Discount);
+                QUOTATION_CONDITIONS.SetValue("COND_VALUE", /*pSalesQuotation.QuotationItems[0].Discount*/"100000");
             }
-            if (pSalesQuotation.LifeTimeValue > 0)
+            if (pSalesQuotation.LifeTimeTax > 0)
             {
                 QUOTATION_CONDITIONS.Append();
-                QUOTATION_CONDITIONS.SetValue("UPDATEFLAG", "I");
                 QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
                 QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZLTT");
-                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.LifeTimeValue);
+                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.LifeTimeTax);
             }
 
 

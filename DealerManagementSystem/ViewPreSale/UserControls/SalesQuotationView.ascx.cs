@@ -1095,8 +1095,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 decimal GrandTotal = 0;
                 for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate), String.Format("{0:n}", Q.QuotationItems[i].Qty* Q.QuotationItems[i].Rate));
-                    GrandTotal += Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate;
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty +" "+Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate- Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty* Q.QuotationItems[i].Rate)- Q.QuotationItems[i].Discount));
+                    GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate)- Convert.ToDecimal(Q.QuotationItems[i].Discount);
 
                     P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                     P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
@@ -1307,7 +1307,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
                         TCSSubTotal = TaxSubTotal*item.TCSTax/100;// Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
-                        Lifetimetax = Q.LifeTimeValue;//Q.LifeTimeValue;
+                        Lifetimetax = SubTotal* Q.LifeTimeTax / 100;//Q.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                         P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
@@ -1332,7 +1332,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         TaxSubTotal = TaxableValues + IGSTValues;
                         TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
-                        Lifetimetax = Q.LifeTimeValue;//Q.LifeTimeValue;
+                        Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
                         GrandTotal = SubTotal + Lifetimetax;
                         P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                         P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);

@@ -89,9 +89,9 @@
       <Body>
         <ReportItems>
           <Line Name="Line2">
-            <Left>20.38456cm</Left>
+            <Left>19.82893cm</Left>
             <Height>0cm</Height>
-            <Width>-20.35493cm</Width>
+            <Width>-19.7993cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -102,13 +102,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.28cm</Width>
+                  <Width>5.17416cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.37187cm</Width>
+                  <Width>4.26603cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.38527cm</Width>
+                  <Width>10.27943cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -912,7 +912,7 @@
             <Top>0.635cm</Top>
             <Left>0.08284cm</Left>
             <Height>8.00764cm</Height>
-            <Width>20.03713cm</Width>
+            <Width>19.71963cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -924,46 +924,46 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.21293in</Width>
+                  <Width>0.20401in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.61482in</Width>
+                  <Width>0.6059in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.01089in</Width>
+                  <Width>1.00197in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6061in</Width>
+                  <Width>0.59718in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.36997in</Width>
+                  <Width>0.36105in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.34034in</Width>
+                  <Width>0.33142in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.67392in</Width>
+                  <Width>0.665in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69023in</Width>
+                  <Width>0.68131in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.39157in</Width>
+                  <Width>0.38265in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.68805in</Width>
+                  <Width>0.67913in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.45107in</Width>
+                  <Width>0.44215in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73539in</Width>
+                  <Width>0.72647in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.46172in</Width>
+                  <Width>0.4528in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64157in</Width>
+                  <Width>0.63265in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2346,7 +2346,7 @@
             <Top>3.40262in</Top>
             <Left>0.08284cm</Left>
             <Height>1.76651in</Height>
-            <Width>7.88863in</Width>
+            <Width>7.76363in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2393,13 +2393,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.66141cm</Width>
+                  <Width>6.55557cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.66141cm</Width>
+                  <Width>6.55557cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.71432cm</Width>
+                  <Width>6.60848cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2702,7 +2702,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
             <Top>13.12958cm</Top>
             <Left>0.08284cm</Left>
             <Height>8.13153cm</Height>
-            <Width>20.03713cm</Width>
+            <Width>19.71963cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2714,10 +2714,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
         <Height>8.43996in</Height>
         <Style />
       </Body>
-      <Width>8.02542in</Width>
+      <Width>7.84833in</Width>
       <Page>
         <PageHeader>
-          <Height>3.05787cm</Height>
+          <Height>3.26954cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2873,9 +2873,10 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>0.3175cm</Top>
               <Left>9.61188cm</Left>
-              <Height>2.72274cm</Height>
-              <Width>10.50809cm</Width>
+              <Height>2.8462cm</Height>
+              <Width>10.19059cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2895,7 +2896,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>4.49792cm</Height>
+          <Height>4.84188cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2904,8 +2905,8 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Value>QuotationFooter</Value>
               <Sizing>FitProportional</Sizing>
               <Top>3.45425cm</Top>
-              <Height>0.94438cm</Height>
-              <Width>20.11997cm</Width>
+              <Height>1.38763cm</Height>
+              <Width>19.80247cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3004,7 +3005,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Top>0cm</Top>
               <Left>0.08284cm</Left>
               <Height>2.73431cm</Height>
-              <Width>20.03713cm</Width>
+              <Width>19.71963cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -3066,7 +3067,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
           </Style>
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
-        <PageWidth>22cm</PageWidth>
+        <PageWidth>21cm</PageWidth>
         <LeftMargin>0.5cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
         <TopMargin>0cm</TopMargin>
