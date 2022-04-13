@@ -46,6 +46,8 @@ namespace Properties
         public decimal TotalExpense { get; set; }
         public decimal LifeTimeValue { get; set; }
         public decimal LifeTimeTax { get; set; }
+        public string RevisionNumber { get; set; }
+        public DateTime FirstVisitDate { get; set; }
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
@@ -117,6 +119,7 @@ namespace Properties
         public PPlant Plant { get; set; }
         public PSaleQuotationRejectionReason RejectionReason { get; set; }
         public PUser CreatedBy { get; set; }
+        public string SapFlag { get; set; }
     }
 
     [Serializable]
