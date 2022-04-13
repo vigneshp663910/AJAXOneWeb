@@ -11,9 +11,10 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts)
+        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit)
         {
             string QuotationNo = null;
+            
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
             if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
             {
@@ -36,31 +37,54 @@ namespace SapIntegration
                 tagListBapi.SetValue("SOLD_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
             }
 
-            
+            tagListBapi.SetValue("QUO_VALID_TO", pSalesQuotation.ValidTo);
 
             IRfcStructure QTHeader = tagListBapi.GetStructure("QUOTATION_HEADER_IN");
             //QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
             //QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             //QTHeader.SetValue("DISTR_CHAN", "GT");
             //QTHeader.SetValue("DIVISION", pSalesQuotation.Lead.ProductType.Division.DivisionCode);
-            QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
+            //QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
-            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", pSalesQuotation.RefQuotationDate);
+            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", Visit[0].ColdVisitDate);
             QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make.Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product.Product);
             QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", leadProducts[0].Product.Product);
 
             IRfcTable QT_Item = tagListBapi.GetTable("QUOTATION_ITEMS_IN");
+            int q = 0;
             for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
             {
                 QT_Item.Append();
-                QT_Item.SetValue("ITM_NUMBER", pSalesQuotation.QuotationItems[i].Item);//"000010"
+                QT_Item.SetValue("UPDATEFLAG", "I");
+                q = q + 1;
+                QT_Item.SetValue("ITM_NUMBER", "0000" + q + "0");//"000010"
                 QT_Item.SetValue("MATERIAL", pSalesQuotation.QuotationItems[i].Material.MaterialCode);//"L.900.508"
-                QT_Item.SetValue("PLANT", pSalesQuotation.QuotationItems[i].Plant.PlantCode);//"P003"
+                //QT_Item.SetValue("PLANT", pSalesQuotation.QuotationItems[i].Plant.PlantCode);//"P003"
                 QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty.ToString("#,###,###,###,###.000"));//"1.000"
-                QT_Item.SetValue("TARGET_QU", pSalesQuotation.QuotationItems[i].Material.BaseUnit);
+                //QT_Item.SetValue("TARGET_QU", pSalesQuotation.QuotationItems[i].Material.BaseUnit);
             }
+
+            IRfcTable QUOTATION_CONDITIONS = tagListBapi.GetTable("QUOTATION_CONDITIONS_IN");
+            if (pSalesQuotation.QuotationItems[0].Discount > 0)
+            {
+                QUOTATION_CONDITIONS.Append();
+                QUOTATION_CONDITIONS.SetValue("UPDATEFLAG", "I");
+                QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
+                QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZCD4");
+                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.QuotationItems[0].Discount);
+            }
+            if (pSalesQuotation.LifeTimeValue > 0)
+            {
+                QUOTATION_CONDITIONS.Append();
+                QUOTATION_CONDITIONS.SetValue("UPDATEFLAG", "I");
+                QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
+                QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZLTT");
+                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.LifeTimeValue);
+            }
+
+
 
             string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
             foreach (PSalesQuotationNote Note in pSalesQuotation.Notes)
@@ -125,15 +149,15 @@ namespace SapIntegration
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "DS01");//Designation
             QT_TEXT.SetValue("TEXT_LINE", pSalesQuotation.Lead.Dealer.AuthorityDesignation);
-            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "SE01");//Sales Engineer
             QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "SOR1");//source
             QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "MOD1");//Model
             QT_TEXT.SetValue("TEXT_LINE", "");
@@ -141,11 +165,11 @@ namespace SapIntegration
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "IN01");//Inquiry NO
             QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "NOTE");//Note - CBC and Printers
             QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZCST");//CST No
             QT_TEXT.SetValue("TEXT_LINE", "");
@@ -161,7 +185,7 @@ namespace SapIntegration
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZSC");//Special Charges
             QT_TEXT.SetValue("TEXT_LINE", "");
-            QT_TEXT.SetValue("LANGU", "EN");            
+            QT_TEXT.SetValue("LANGU", "EN");
             QT_TEXT.Append();
             QT_TEXT.SetValue("TEXT_ID", "ZDLR");//DMS Order confirmation
             QT_TEXT.SetValue("TEXT_LINE", "");
@@ -193,12 +217,12 @@ namespace SapIntegration
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
             return dtRet;
         }
-        public PSalesQuotationItem getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty,decimal qty)
+        public PSalesQuotationItem getMaterialTaxForQuotation(PSalesQuotation Quotation, string MaterialCode, Boolean IsWarrenty, decimal qty)
         {
 
             PSalesQuotationItem Material = new PSalesQuotationItem();
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_QUO");
-            tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(6, '0'));
+            tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Quotation.Lead.Customer.CustomerCode) ? "" : Quotation.Lead.Customer.CustomerCode.Trim().PadLeft(6, '0'));
 
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
             long n;
@@ -206,56 +230,71 @@ namespace SapIntegration
             {
                 MaterialCode = MaterialCode.PadLeft(18, '0');
             }
-
+            int q = 0;
+            foreach (PSalesQuotationItem item in Quotation.QuotationItems)
+            {
+                if (item.Material.MaterialCode != null)
+                {
+                    q = q + 1;
+                    IT_SO_ITEMS.Append();
+                    IT_SO_ITEMS.SetValue("ITEM_NO", "0000" + q + "0");//To Discuss
+                    IT_SO_ITEMS.SetValue("MATERIAL", item.Material.MaterialCode);//"L.900.508"
+                    IT_SO_ITEMS.SetValue("QUANTITY", item.Qty);
+                }
+            }
             IT_SO_ITEMS.Append();
-            IT_SO_ITEMS.SetValue("ITEM_NO", "000010");//To Discuss
+            IT_SO_ITEMS.SetValue("ITEM_NO", "0000" + q + 1 + "0");//To Discuss
             IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);//"L.900.508"
             IT_SO_ITEMS.SetValue("QUANTITY", qty);
 
             tagListBapi.Invoke(SAP.RfcDes());
             IRfcTable tagTable = tagListBapi.GetTable("IT_SO_COND");
             IRfcStructure ES_ERROR = tagListBapi.GetStructure("ES_ERROR");
-            
+
             string ConditionType;
             for (int i = 0; i < tagTable.RowCount; i++)
             {
                 tagTable.CurrentIndex = i;
-                ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
-                if ((ConditionType == "JOCG") || (ConditionType == "JOSG"))
+                if (MaterialCode == tagTable.CurrentRow.GetString("MATERIAL"))
                 {
-                    Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
-                    Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
-                }
-                else if (ConditionType == "JOIG")
-                {
-                    Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
-                    Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
-                }
-                else if ((ConditionType == "ZAEP") || (ConditionType == "ZASS"))
-                {
-                    if (IsWarrenty)
+                    ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
+                    if ((ConditionType == "JOCG") || (ConditionType == "JOSG"))
                     {
-                        if (ConditionType == "ZASS")
-                            Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                        Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+                        Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                     }
-                    else
+                    else if (ConditionType == "JOIG")
                     {
-                        if (ConditionType == "ZAEP")
-                            Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                        Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+                        Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                     }
-                }
-                else if(ConditionType== "ZTC1")
-                {
-                    Material.TCSTax= Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE"));
-                    Material.TCSValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                    else if ((ConditionType == "ZAEP") || (ConditionType == "ZASS"))
+                    {
+                        if (IsWarrenty)
+                        {
+                            if (ConditionType == "ZASS")
+                                Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                        }
+                        else
+                        {
+                            if (ConditionType == "ZAEP")
+                                Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                        }
+                    }
+                    else if (ConditionType == "ZTC1")
+                    {
+                        Material.TCSTax = Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE"));
+                        Material.TCSValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                    }
                 }
             }
-            if (tagTable.RowCount == 0) 
+            if (tagTable.RowCount == 0)
             {
                 string Type = ES_ERROR.GetValue("Type").ToString();
                 string Message = ES_ERROR.GetValue("Message").ToString();
-                try {
-                throw new Exception(Message);
+                try
+                {
+                    throw new Exception(Message);
                 }
                 catch (Exception ex)
                 {
