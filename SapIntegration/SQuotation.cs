@@ -39,10 +39,10 @@ namespace SapIntegration
             
 
             IRfcStructure QTHeader = tagListBapi.GetStructure("QUOTATION_HEADER_IN");
-            QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
-            QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
-            QTHeader.SetValue("DISTR_CHAN", "GT");
-            QTHeader.SetValue("DIVISION", pSalesQuotation.Lead.ProductType.Division.DivisionCode);
+            //QTHeader.SetValue("DOC_TYPE", "ZMQT"/*pSalesQuotation.QuotationType.QuotationType*/);
+            //QTHeader.SetValue("SALES_ORG", "AJF");//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
+            //QTHeader.SetValue("DISTR_CHAN", "GT");
+            //QTHeader.SetValue("DIVISION", pSalesQuotation.Lead.ProductType.Division.DivisionCode);
             QTHeader.SetValue("QT_VALID_T", pSalesQuotation.ValidTo);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
@@ -193,15 +193,11 @@ namespace SapIntegration
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
             return dtRet;
         }
-        public PSalesQuotationItem getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty,string DivisionCode)
+        public PSalesQuotationItem getMaterialTaxForQuotation(string Customer, string MaterialCode, Boolean IsWarrenty,decimal qty)
         {
 
             PSalesQuotationItem Material = new PSalesQuotationItem();
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_QUO");
-            tagListBapi.SetValue("DOC_TYPE", "ZMQT");
-            tagListBapi.SetValue("SALES_ORG", "AJF");
-            tagListBapi.SetValue("DISTR_CHAN", "GT");
-            tagListBapi.SetValue("DIVISION", DivisionCode);
             tagListBapi.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer) ? "" : Customer.Trim().PadLeft(6, '0'));
 
             IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
@@ -212,14 +208,14 @@ namespace SapIntegration
             }
 
             IT_SO_ITEMS.Append();
-            IT_SO_ITEMS.SetValue("ITEM_NO", "000010");
+            IT_SO_ITEMS.SetValue("ITEM_NO", "000010");//To Discuss
             IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);//"L.900.508"
-            //IT_SO_ITEMS.SetValue("QUANTITY", Quantity);
-
+            IT_SO_ITEMS.SetValue("QUANTITY", qty);
 
             tagListBapi.Invoke(SAP.RfcDes());
             IRfcTable tagTable = tagListBapi.GetTable("IT_SO_COND");
             IRfcStructure ES_ERROR = tagListBapi.GetStructure("ES_ERROR");
+            
             string ConditionType;
             for (int i = 0; i < tagTable.RowCount; i++)
             {
@@ -248,6 +244,23 @@ namespace SapIntegration
                             Material.Rate = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
                     }
                 }
+                else if(ConditionType== "ZTC1")
+                {
+                    Material.TCSTax= Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE"));
+                    Material.TCSValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                }
+            }
+            if (tagTable.RowCount == 0) 
+            {
+                string Type = ES_ERROR.GetValue("Type").ToString();
+                string Message = ES_ERROR.GetValue("Message").ToString();
+                try {
+                throw new Exception(Message);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
             return Material;
         }
@@ -255,8 +268,8 @@ namespace SapIntegration
         {
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZREAD_TEXT");
             tagListBapi.SetValue("MATERIAL", MaterialCode);//"L.900.508         AJF GT");
-            tagListBapi.SetValue("SALES_ORG", "AJF");
-            tagListBapi.SetValue("DIST_CHANNEL", "GT");
+            //tagListBapi.SetValue("SALES_ORG", "AJF");
+            //tagListBapi.SetValue("DIST_CHANNEL", "GT");
             tagListBapi.Invoke(SAP.RfcDes());
             IRfcTable tagTable = tagListBapi.GetTable("LINES");
             DataTable dtRet = new DataTable();

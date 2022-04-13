@@ -146,6 +146,7 @@
     <Compile Include="BNotification.cs" />
     <Compile Include="BOrganization.cs" />
     <Compile Include="BPreSale.cs" />
+    <Compile Include="BSalesCommissionClaim.cs" />
     <Compile Include="BSalesQuotation.cs" />
     <Compile Include="BSMS.cs" />
     <Compile Include="BTest.cs" />

@@ -7,12 +7,120 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ProcessFlow
+namespace DealerManagementSystem.ViewSales.UserControls
 {
 
 
-    public partial class Process_Flow
+    public partial class SalesCommissionClaimView
     {
+
+        /// <summary>
+        /// lblClaimNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClaimNumber;
+
+        /// <summary>
+        /// lblClaimDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClaimDate;
+
+        /// <summary>
+        /// lblInvoiceNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvoiceNumber;
+
+        /// <summary>
+        /// lblInvoiceDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvoiceDate;
+
+        /// <summary>
+        /// lblDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDealer;
+
+        /// <summary>
+        /// lblRequestedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRequestedBy;
+
+        /// <summary>
+        /// lblApproved1By control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved1By;
+
+        /// <summary>
+        /// lblApproved1On control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved1On;
+
+        /// <summary>
+        /// lblApproved2By control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved2By;
+
+        /// <summary>
+        /// lblApproved2On control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved2On;
+
+        /// <summary>
+        /// lblApproved3By control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved3By;
+
+        /// <summary>
+        /// lblApproved3On control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved3On;
 
         /// <summary>
         /// lblMessage control.
@@ -24,228 +132,156 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tcProcess_Flow control.
+        /// tbpSaleQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tcProcess_Flow;
+        protected global::AjaxControlToolkit.TabContainer tbpSaleQuotation;
 
         /// <summary>
-        /// tbPre_Sales control.
+        /// tpnlProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tbPre_Sales;
+        protected global::AjaxControlToolkit.TabPanel tpnlProduct;
 
         /// <summary>
-        /// Image1 control.
+        /// UC_SalesQuotationView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.SalesQuotationViewHeader UC_SalesQuotationView;
 
         /// <summary>
-        /// tpProcurement control.
+        /// TabLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpProcurement;
+        protected global::AjaxControlToolkit.TabPanel TabLead;
 
         /// <summary>
-        /// tcProcurement control.
+        /// UC_LeadView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tcProcurement;
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.LeadViewHeader UC_LeadView;
 
         /// <summary>
-        /// tpP1 control.
+        /// TabPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpP1;
+        protected global::AjaxControlToolkit.TabPanel TabPanel1;
 
         /// <summary>
-        /// Image2 control.
+        /// lblMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image2;
+        protected global::System.Web.UI.WebControls.Label lblMaterial;
 
         /// <summary>
-        /// tpP2 control.
+        /// lblMaterialDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpP2;
+        protected global::System.Web.UI.WebControls.Label lblMaterialDescription;
 
         /// <summary>
-        /// Image3 control.
+        /// lblQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image3;
+        protected global::System.Web.UI.WebControls.Label lblQty;
 
         /// <summary>
-        /// tpP3 control.
+        /// lblAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpP3;
+        protected global::System.Web.UI.WebControls.Label lblAmount;
 
         /// <summary>
-        /// Image4 control.
+        /// lblBaseTax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image4;
+        protected global::System.Web.UI.WebControls.Label lblBaseTax;
 
         /// <summary>
-        /// tpPartsSales control.
+        /// lblApproved1Amount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpPartsSales;
+        protected global::System.Web.UI.WebControls.Label lblApproved1Amount;
 
         /// <summary>
-        /// Image5 control.
+        /// lblApproved2Amount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image5;
+        protected global::System.Web.UI.WebControls.Label lblApproved2Amount;
 
         /// <summary>
-        /// tpService control.
+        /// lblApproved3Amount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpService;
+        protected global::System.Web.UI.WebControls.Label lblApproved3Amount;
 
         /// <summary>
-        /// Image6 control.
+        /// lblApproved1Remarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6;
+        protected global::System.Web.UI.WebControls.Label lblApproved1Remarks;
 
         /// <summary>
-        /// tpInventory control.
+        /// lblApproved2Remarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpInventory;
+        protected global::System.Web.UI.WebControls.Label lblApproved2Remarks;
 
         /// <summary>
-        /// Image7 control.
+        /// lblApproved3Remarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image7;
-
-        /// <summary>
-        /// tpDealerManpower control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpDealerManpower;
-
-        /// <summary>
-        /// Image8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image8;
-
-        /// <summary>
-        /// tpDMWebMobileUserId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpDMWebMobileUserId;
-
-        /// <summary>
-        /// Image9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image9;
-
-        /// <summary>
-        /// tpImplementaionProcess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpImplementaionProcess;
-
-        /// <summary>
-        /// Image10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image10;
-
-        /// <summary>
-        /// tpSalesCommision control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpSalesCommision;
-
-        /// <summary>
-        /// Image11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image11;
+        protected global::System.Web.UI.WebControls.Label lblApproved3Remarks;
     }
 }

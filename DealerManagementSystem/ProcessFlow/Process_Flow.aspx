@@ -101,10 +101,18 @@
             </ContentTemplate>
         </asp1:TabPanel>
 
-        <asp1:TabPanel ID="tpImplementtionProcess" runat="server" HeaderText="Implementation">
+        <asp1:TabPanel ID="tpImplementaionProcess" runat="server" HeaderText="Implementation">
             <ContentTemplate>
                 <fieldset class="fieldset-border">
                     <asp:Image ID="Image10" runat="server" ImageUrl="~/ProcessFlow/V0_Implementation.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+
+        <asp1:TabPanel ID="tpSalesCommision" runat="server" HeaderText="SalesCommision">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image11" runat="server" ImageUrl="~/ProcessFlow/V1_SalesCommision.png" />
                 </fieldset>
             </ContentTemplate>
         </asp1:TabPanel>

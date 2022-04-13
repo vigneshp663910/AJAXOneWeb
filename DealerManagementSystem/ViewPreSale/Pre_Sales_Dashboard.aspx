@@ -24,10 +24,26 @@
         }
 
             .portlet.box.green > .portlet-title {
-                background-color: #32c5d2;
-                /*  background-color: #00CED1;*/
+
+               /* background-color: #1679dd;*/
+               /*  background-color:burlywood;*/
+               /*   background-color:cadetblue;*/
+                
+                 /*background-color:darkcyan;*/
+               /*     background-color:darkgray;*/
+                   
+              
+
+                /* background-color:lightsteelblue;*/
+
+                /* background-color:mediumseagreen;*/
+
+                 background-color:mediumturquoise;
+
+               /* background-color: #32c5d2;*/
+              /*    background-color: #00CED1;*/
                 /* background-color: #0000cc;*/
-                /*   background-color: #000099;*/
+             /*      background-color: #000099;*/
             }
 
         .portlet.box > .portlet-title {

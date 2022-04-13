@@ -37,17 +37,15 @@ namespace Properties
         public List<PSalesQuotationNote> Notes { get; set; }
         public string SalesOrderNo { get; set; }
         public DateTime? SalesOrderDate { get; set; }
-        public string InvoiceNo { get; set; }
-        public DateTime? InvoiceDate { get; set; }
+        public string SalesInvoiceNumber { get; set; }
+        public DateTime? SalesInvoiceDate { get; set; }
         public PUser CreatedBy { get; set; }
 
-        public decimal GrossValue { get; set; }        
-        public decimal TCSValue { get; set; }
-        public decimal TCSTax { get; set; }
-        public decimal LifeTimeValue { get; set; }
-        public decimal LifeTimeTax { get; set; }
+        public decimal GrossValue { get; set; }
         public decimal TotalEffort { get; set; }
         public decimal TotalExpense { get; set; }
+        public decimal LifeTimeValue { get; set; }
+        public decimal LifeTimeTax { get; set; }
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
@@ -110,7 +108,9 @@ namespace Properties
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
-
+        public decimal TCSValue { get; set; }
+        public decimal TCSTax { get; set; }
+       
         //public Decimal TaxPersent { get; set; }
         //public Decimal TaxValue { get; set; }
         public Decimal NetValue { get; set; }

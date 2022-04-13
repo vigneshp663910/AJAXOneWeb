@@ -13,6 +13,8 @@
             background: linear-gradient(to right, #4e97d5, #30526f );
            /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
            /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
+           /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
+            background-image:url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');
            /* scroll*/
               
         }
@@ -78,7 +80,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   <%-- <div id="div1">--%>
+    <div id="div1">
         <%--<div class="container">--%>
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
@@ -218,7 +220,7 @@
         <%-- <div id="div1">
         <asp:Image ID="Image1" runat="server" ImageUrl="~/Ajax/Images/bg01.jpg" Height="100%" />
     </div>--%>
-  <%--  </div>--%>
+    </div>
 
 
 </asp:Content>
