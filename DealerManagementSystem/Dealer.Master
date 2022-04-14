@@ -896,7 +896,7 @@
             }
 
         .modal-label {
-            display: block;
+            display: block;           
         }
 
         #MainContent_UC_Customer_cbSendSMS, #MainContent_UC_Customer_cbSendEmail {
@@ -1897,7 +1897,16 @@
 
                             <asp:Label ID="lblQuality" runat="server"></asp:Label>
                         </div>
-                        <div id="icoDashBoard" style="float: right;">
+
+                        <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='/Home.aspx'><i class="fa fa-fw fa-print font-white" style="color: lightgray"></i></a>                             
+                            </div>
+                        </div>
+
+
+                        <div id="icoDashBoard" style="float: right; padding-right: 0.3em;">
                             <div class="dropdown">
 
                                 <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
