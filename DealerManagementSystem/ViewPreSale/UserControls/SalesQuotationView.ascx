@@ -142,7 +142,7 @@
     </asp:TabPanel>
     <asp:TabPanel ID="tpnlProduct" runat="server" HeaderText="Product">
         <ContentTemplate>
-            <div class="col-md-12">
+          <%--  <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -172,61 +172,61 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Qty">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Basic Price">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblRate" Text='<%# DataBinder.Eval(Container.DataItem, "Rate")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Discount">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "Discount")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Taxable Value">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxableValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="CGST %">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "CGST")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="CGST Value">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblCGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "CGSTValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SGST %">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "SGST")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SGST Value">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SGSTValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="IGST %">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "IGST")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="IGST Value">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "IGSTValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
@@ -245,12 +245,12 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+          <%--  </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabCompetitor" runat="server" HeaderText="Competitor">
         <ContentTemplate>
-            <div class="col-md-12">
+          <%--  <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvCompetitor" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -293,12 +293,12 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+        <%--    </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TaQuotationNote" runat="server" HeaderText="Quotation Note">
         <ContentTemplate>
-            <div class="col-md-12">
+           <%-- <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvNote" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -329,7 +329,7 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+         <%--   </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabLead" runat="server" HeaderText="Lead">
@@ -556,7 +556,7 @@
     </asp:TabPanel>
     <asp:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
-            <div class="col-md-12">
+          <%--  <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvVisit" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -568,13 +568,13 @@
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cold Visit No">
+                                <asp:TemplateField HeaderText="Cold Visit No" ItemStyle-Width="125px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblColdVisitID" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitID")%>' runat="server" Visible="false" /><asp:Label ID="lblColdVisitNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitNumber")%>' runat="server" />
                                     </ItemTemplate>
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Cold Visit Date">
+                                <asp:TemplateField HeaderText="Cold Visit Date" ItemStyle-Width="125px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
@@ -608,12 +608,12 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+        <%--    </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Claim" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
-            <div class="col-md-12">
+         <%--   <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvSalesCommission" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -679,7 +679,7 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+         <%--   </div>--%>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
