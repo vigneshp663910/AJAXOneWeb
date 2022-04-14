@@ -93,7 +93,7 @@
                 <div class="table-responsive">
                     <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -152,12 +152,12 @@
 
     <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
         <ContentTemplate>
-            <div class="col-md-12">
+          <%--  <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -199,7 +199,7 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+         <%--   </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">

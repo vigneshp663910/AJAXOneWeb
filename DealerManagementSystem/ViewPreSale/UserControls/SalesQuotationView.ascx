@@ -413,12 +413,12 @@
     </asp:TabPanel>
     <asp:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up">
         <ContentTemplate>
-            <div class="col-md-12">
+          <%--  <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
                         <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right">
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" /><itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
@@ -448,7 +448,7 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+     <%--       </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
     <asp:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
@@ -458,7 +458,7 @@
                     <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="Sales Engineer">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
                                 </ItemTemplate>
@@ -511,7 +511,7 @@
                 <div class="table-responsive">
                     <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" /><itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
@@ -562,7 +562,7 @@
                         <asp:GridView ID="gvVisit" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
-                                <asp:TemplateField HeaderText="RId">
+                                <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" /><itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
@@ -584,7 +584,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType.ActionType")%>' runat="server" />
                                     </ItemTemplate>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Location" SortExpression="Country">
                                     <ItemTemplate>

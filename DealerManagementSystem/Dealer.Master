@@ -21,7 +21,7 @@
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <style>
+    <style>
         .col-md-12 {
             padding: 0px 12px 12px 12px;
         }
@@ -336,7 +336,7 @@
                 vertical-align: middle;
                 padding-left: 5px;
             }
-        
+
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
 
@@ -872,12 +872,14 @@
         }
 
             .View label {
-                font: message-box;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                font-weight: initial;
+                font-size: 17px;
             }
 
             .View .label {
-                font-weight: 700;
-                font-family: "Open Sans",sans-serif;
+                font-weight: bold;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
                 /*font-size: large;*/
                 font: 16px;
             }
@@ -896,7 +898,7 @@
             }
 
         .modal-label {
-            display: block;           
+            display: block;
         }
 
         #MainContent_UC_Customer_cbSendSMS, #MainContent_UC_Customer_cbSendEmail {
@@ -934,6 +936,7 @@
             margin-right: 20px;
             margin-top: -6px;
         }
+
         .lead-back-btn .back-buttton #MainContent_btnBackToList {
             margin-right: 10px;
         }
@@ -1157,85 +1160,103 @@
             }
         /*Report pages*/
         .report-container tr > td {
-          padding:15px;
+            padding: 15px;
         }
+
         .report-container .boxHead {
-            overflow:hidden;
+            overflow: hidden;
             position: relative;
         }
-        .report-container .boxHead .logheading {
-            float: left;
-        }
-        .report-container .boxHead .order-show {
-            float: right;
-        }
+
+            .report-container .boxHead .logheading {
+                float: left;
+            }
+
+            .report-container .boxHead .order-show {
+                float: right;
+            }
+
         .report-container .report-panel {
             margin-top: 15px
         }
-        .report-container .report-panel .form-control {
-            height: 35px;
-            padding: 0px 7px;
-        }
-        .report-container .report-panel input.form-control {
-            height: 35px;
-            padding: 0px 10px;
-        }
+
+            .report-container .report-panel .form-control {
+                height: 35px;
+                padding: 0px 7px;
+            }
+
+            .report-container .report-panel input.form-control {
+                height: 35px;
+                padding: 0px 10px;
+            }
+
         .report-panel .col, .report-panel .col-1, .report-panel .col-10, .report-panel .col-11, .report-panel .col-12, .report-panel .col-2, .report-panel .col-3, .report-panel .col-4,
-        .report-panel .col-5, .report-panel .col-6, .report-panel .col-7, .report-panel .col-8, .report-panel .col-9, .report-panel .col-auto, .report-panel .col-lg, .report-panel .col-lg-1, 
-        .report-panel .col-lg-10, .report-panel .col-lg-11, .report-panel .col-lg-12, .report-panel .col-lg-2, .report-panel .col-lg-3, .report-panel .col-lg-4, .report-panel .col-lg-5, 
-        .report-panel .col-lg-6, .report-panel .col-lg-7, .report-panel .col-lg-8, .report-panel .col-lg-9, .report-panel .col-lg-auto, .report-panel .col-md, .report-panel .col-md-1, 
-        .report-panel .col-md-10, .report-panel .col-md-11, .report-panel .col-md-12, .report-panel .col-md-2, .report-panel .col-md-3, .report-panel .col-md-4, .report-panel .col-md-5, 
-        .report-panel .col-md-6, .report-panel .col-md-7, .report-panel .col-md-8, .report-panel .col-md-9, .report-panel .col-md-auto, .report-panel .col-sm, .report-panel .col-sm-1, 
-        .report-panel .col-sm-10, .report-panel .col-sm-11, .report-panel .col-sm-12, .report-panel .col-sm-2, .report-panel .col-sm-3, .report-panel .col-sm-4, .report-panel .col-sm-5, 
-        .report-panel .col-sm-6, .report-panel .col-sm-7, .report-panel .col-sm-8, .report-panel .col-sm-9, .report-panel .col-sm-auto, .report-panel .col-xl, .report-panel .col-xl-1, 
-        .report-panel .col-xl-10, .report-panel .col-xl-11, .report-panel .col-xl-12, .report-panel .col-xl-2, .report-panel .col-xl-3, .report-panel .col-xl-4, .report-panel .col-xl-5, 
+        .report-panel .col-5, .report-panel .col-6, .report-panel .col-7, .report-panel .col-8, .report-panel .col-9, .report-panel .col-auto, .report-panel .col-lg, .report-panel .col-lg-1,
+        .report-panel .col-lg-10, .report-panel .col-lg-11, .report-panel .col-lg-12, .report-panel .col-lg-2, .report-panel .col-lg-3, .report-panel .col-lg-4, .report-panel .col-lg-5,
+        .report-panel .col-lg-6, .report-panel .col-lg-7, .report-panel .col-lg-8, .report-panel .col-lg-9, .report-panel .col-lg-auto, .report-panel .col-md, .report-panel .col-md-1,
+        .report-panel .col-md-10, .report-panel .col-md-11, .report-panel .col-md-12, .report-panel .col-md-2, .report-panel .col-md-3, .report-panel .col-md-4, .report-panel .col-md-5,
+        .report-panel .col-md-6, .report-panel .col-md-7, .report-panel .col-md-8, .report-panel .col-md-9, .report-panel .col-md-auto, .report-panel .col-sm, .report-panel .col-sm-1,
+        .report-panel .col-sm-10, .report-panel .col-sm-11, .report-panel .col-sm-12, .report-panel .col-sm-2, .report-panel .col-sm-3, .report-panel .col-sm-4, .report-panel .col-sm-5,
+        .report-panel .col-sm-6, .report-panel .col-sm-7, .report-panel .col-sm-8, .report-panel .col-sm-9, .report-panel .col-sm-auto, .report-panel .col-xl, .report-panel .col-xl-1,
+        .report-panel .col-xl-10, .report-panel .col-xl-11, .report-panel .col-xl-12, .report-panel .col-xl-2, .report-panel .col-xl-3, .report-panel .col-xl-4, .report-panel .col-xl-5,
         .report-panel .col-xl-6, .report-panel .col-xl-7, .report-panel .col-xl-8, .report-panel .col-xl-9, .report-panel .col-xl-auto {
             display: initial;
         }
+
         .report-container .report-panel button, .report-container .report-panel input {
             height: 30px;
         }
+
         .custom-auto-complete {
             position: absolute;
             background-color: #f7f7f7;
             z-index: 1;
             width: 97%;
-            border-top:0;
+            border-top: 0;
             border: 1px solid #ddd;
             box-shadow: 2px 2px 6px 0px #cecaca;
         }
-        .custom-auto-complete .auto-item {
-            border-bottom: 1px solid #ddd;
-            padding:10px;
-        }
-        .custom-auto-complete .auto-item:last-child {
-            border-bottom: none;
-        }
-        .custom-auto-complete .auto-item p {
-            color: #000;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin: 0px;
-        }
-        .custom-auto-complete .auto-item p > span{
-            color: forestgreen;
-            font-weight:bold;
-        }
-        .custom-auto-complete .auto-item p label span{
-            font-weight:bold;
-        }
-        .custom-auto-complete .auto-item p label{
-            font-weight:normal;
-        }
-        .custom-auto-complete .auto-item .customer-info {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .custom-auto-complete .auto-item .customer-info label:last-child {
-            color:#009AD7;
-        }
+
+            .custom-auto-complete .auto-item {
+                border-bottom: 1px solid #ddd;
+                padding: 10px;
+            }
+
+                .custom-auto-complete .auto-item:last-child {
+                    border-bottom: none;
+                }
+
+                .custom-auto-complete .auto-item p {
+                    color: #000;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin: 0px;
+                }
+
+                    .custom-auto-complete .auto-item p > span {
+                        color: forestgreen;
+                        font-weight: bold;
+                    }
+
+                    .custom-auto-complete .auto-item p label span {
+                        font-weight: bold;
+                    }
+
+                    .custom-auto-complete .auto-item p label {
+                        font-weight: normal;
+                    }
+
+                .custom-auto-complete .auto-item .customer-info {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+
+                    .custom-auto-complete .auto-item .customer-info label:last-child {
+                        color: #009AD7;
+                    }
+
         @media only screen and (min-width: 992px) {
             .closed-sidebar {
                 width: 50px;
@@ -1258,10 +1279,10 @@
                     display: block !important;
                 }
 
-                .closed-sidebar #main-menu > li:hover span {
-                    display: inline !important;
-                    padding-left: 30px;
-                }
+                    .closed-sidebar #main-menu > li:hover span {
+                        display: inline !important;
+                        padding-left: 30px;
+                    }
 
                 .closed-sidebar #main-menu > li > .w3-bar-block {
                     display: none !important;
@@ -1281,7 +1302,7 @@
                     -o-border-radius: 0 0 4px 4px;
                     border-radius: 0 0 4px 4px;
                     background: #505a65;
-                    max-height:400px;
+                    max-height: 400px;
                     overflow: auto;
                 }
 
@@ -1371,14 +1392,78 @@
                 width: 70px;
             }
         }
-         @media only screen and (max-width: 576px) {
-            .order-xs-last{-ms-flex-order:13;order:13}.order-xs-0{-ms-flex-order:0;order:0}.order-xs-1{-ms-flex-order:1;order:1}
-        .order-xs-2{-ms-flex-order:2;order:2}.order-xs-3{-ms-flex-order:3;order:3}.order-xs-4{-ms-flex-order:4;order:4}
-        .order-xs-5{-ms-flex-order:5;order:5}.order-xs-6{-ms-flex-order:6;order:6}.order-xs-7{-ms-flex-order:7;order:7}
-         .order-xs-8{-ms-flex-order:8;order:8}.order-xs-9{-ms-flex-order:9;order:9}.order-xs-10{-ms-flex-order:10;order:10} 
-         .order-xs-11{-ms-flex-order:11;order:11}.order-xs-12{-ms-flex-order:12;order:12}
-        }
 
+        @media only screen and (max-width: 576px) {
+            .order-xs-last {
+                -ms-flex-order: 13;
+                order: 13
+            }
+
+            .order-xs-0 {
+                -ms-flex-order: 0;
+                order: 0
+            }
+
+            .order-xs-1 {
+                -ms-flex-order: 1;
+                order: 1
+            }
+
+            .order-xs-2 {
+                -ms-flex-order: 2;
+                order: 2
+            }
+
+            .order-xs-3 {
+                -ms-flex-order: 3;
+                order: 3
+            }
+
+            .order-xs-4 {
+                -ms-flex-order: 4;
+                order: 4
+            }
+
+            .order-xs-5 {
+                -ms-flex-order: 5;
+                order: 5
+            }
+
+            .order-xs-6 {
+                -ms-flex-order: 6;
+                order: 6
+            }
+
+            .order-xs-7 {
+                -ms-flex-order: 7;
+                order: 7
+            }
+
+            .order-xs-8 {
+                -ms-flex-order: 8;
+                order: 8
+            }
+
+            .order-xs-9 {
+                -ms-flex-order: 9;
+                order: 9
+            }
+
+            .order-xs-10 {
+                -ms-flex-order: 10;
+                order: 10
+            }
+
+            .order-xs-11 {
+                -ms-flex-order: 11;
+                order: 11
+            }
+
+            .order-xs-12 {
+                -ms-flex-order: 12;
+                order: 12
+            }
+        }
     </style>
     <script>
         window.onload = function () {
@@ -1901,7 +1986,7 @@
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
-                                <a href='/Home.aspx'><i class="fa fa-fw fa-print font-white" style="color: lightgray"></i></a>                             
+                                <a href='/Home.aspx'><i class="fa fa-fw fa-print font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
 
@@ -1938,7 +2023,7 @@
 
                         <div style="float: right; padding-right: 0.5em;">
 
-                            <div class="dropdown" style="display:none">
+                            <div class="dropdown" style="display: none">
                                 <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
                             </div>
 
