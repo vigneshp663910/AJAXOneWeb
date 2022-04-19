@@ -99,9 +99,24 @@ namespace DealerManagementSystem.Account
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
             int UserID = Convert.ToInt32(((TextBox)gvEmployee.Rows[index].FindControl("txtUserID")).Text);
-         
-            AddToSession(UserID);
+
+
+            PApiResult Results = new BUser().GetTokenByID(UserID);
+
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                lblMessage.Text = Results.Message;
+                lblMessage.Visible = true;
+                return;
+            }
+            PSession.AccessToken = Convert.ToString(Results.Data);
+            PSession.User = new BUser().GetUserByToken();
+            // UIHelper.UserAudit();
             Response.Redirect(UIHelper.RedirectToHomePage);
+
+            //AddToSession(UserID);
+            //Response.Redirect(UIHelper.RedirectToHomePage);
         }
 
 

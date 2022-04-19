@@ -202,16 +202,16 @@ namespace DealerManagementSystem.ViewService
                 PDMS_WarrantyClaimDebitNote DebitNote = new BDMS_WarrantyClaimDebitNote().getWarrantyClaimDebitNoteReport(Convert.ToInt64(lblWarrantyClaimDebitNoteID.Text), null, null, null, null, null, PSession.User.UserID)[0];
                 PDMS_WarrantyClaimInvoice OriginalInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(null, "", null, null, null, null, DebitNote.InvoiceNumber)[0];
 
-                if ((OriginalInvoice.Dealer.IsEInvoice) && (PDMS_EInvoice.EInvoiveDate <= DebitNote.DebitNoteDate))
-                {
-                    if (string.IsNullOrEmpty(DebitNote.IRN))
-                    {
-                        lblMessage.Text = "E Invoice Not generated.";
-                        lblMessage.ForeColor = Color.Red;
-                        lblMessage.Visible = true;
-                        return;
-                    }
-                }
+                //if ((OriginalInvoice.Dealer.IsEInvoice) && (PDMS_EInvoice.EInvoiveDate <= DebitNote.DebitNoteDate))
+                //{
+                //    if (string.IsNullOrEmpty(DebitNote.IRN))
+                //    {
+                //        lblMessage.Text = "E Invoice Not generated.";
+                //        lblMessage.ForeColor = Color.Red;
+                //        lblMessage.Visible = true;
+                //        return;
+                //    }
+                //}
 
                 PAttachedFile UploadedFile = DebitFile(DebitNote, OriginalInvoice);
 
@@ -306,19 +306,19 @@ namespace DealerManagementSystem.ViewService
                 report.EnableExternalImages = true;
 
                 ReportParameter[] P = null;
-                if (PDMS_EInvoice.EInvoiveDate <= DebitNote.DebitNoteDate)
-                {
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimDebitNoteESigned(DebitNote.WarrantyClaimDebitNoteID);
-                    P = new ReportParameter[21];
-                    P[19] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, DebitNote.DebitNoteNumber), false);
-                    P[20] = new ReportParameter("IRN", "IRN : " + DebitNote.IRN, false);
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimDebitNoteQRCode.rdlc");
-                }
-                else
-                {
+                //if (PDMS_EInvoice.EInvoiveDate <= DebitNote.DebitNoteDate)
+                //{
+                //    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimDebitNoteESigned(DebitNote.WarrantyClaimDebitNoteID);
+                //    P = new ReportParameter[21];
+                //    P[19] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, DebitNote.DebitNoteNumber), false);
+                //    P[20] = new ReportParameter("IRN", "IRN : " + DebitNote.IRN, false);
+                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimDebitNoteQRCode.rdlc");
+                //}
+                //else
+                //{
                     P = new ReportParameter[19];
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimDebitNote.rdlc");
-                }
+                //}
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
                 P[0] = new ReportParameter("DealerCode", DebitNote.Dealer.DealerCode, false);
