@@ -98,6 +98,7 @@ namespace DealerManagementSystem
 
                 userDetails = new BUser().GetUserByToken();
                 PSession.User = userDetails;
+                UIHelper.UserAudit();
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
                     Redirect(UIHelper.RedirectToPasswordChange);

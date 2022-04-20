@@ -369,6 +369,9 @@
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimApprove.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaimCreate.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaimInvoice.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewSales\MonthlyProcurement.aspx" />
@@ -1274,6 +1277,27 @@
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimApprove.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimCreate.aspx.cs">
+      <DependentUpon>SalesCommissionClaimCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimCreate.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimInvoice.aspx.cs">
+      <DependentUpon>SalesCommissionClaimInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimInvoice.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx.cs">
+      <DependentUpon>SalesCommissionClaimInvoiceCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimInvoiceCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>

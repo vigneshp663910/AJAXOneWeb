@@ -1340,6 +1340,12 @@ namespace Business
             return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA)).Data));
         }
 
+        public PApiResult GetTokenByID(int userID)
+        {
+            string endPoint = "User/GetTokenByID?userID=" + userID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+
 
         public PUserMobile GetUserIDByIMEI(string IMEI)
         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
@@ -53,8 +54,56 @@ namespace DealerManagementSystem
                 menu();
             }
         }
+        //StringBuilder ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, StringBuilder MenuDMS, [Optional] string MainMenu)
+        //{
+        //    List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
+        //    if (SMsCount.Count() == 0)
+        //    {
+        //        //return MenuDMS + "<a href='/" + SMs[0].ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].DisplayName1.Replace(" ", "") + "','" + MainMenu + "')>" + SMs[0].DisplayName1 + "</a>";
+        //         MenuDMS.Append(MenuDMS + "<a href='/" + SMs[0].ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].DisplayName1.Replace(" ", "") + "','" + MainMenu + "')><i class='fa fa-bolt' style='color: #2fb7c3'></i>&nbsp;<span>" + SMs[0].DisplayName1 + "</span></a>");
+        //        return MenuDMS;
+        //    }
+        //    foreach (PSubModuleAccess SM in SMsCount)
+        //    {
+        //        List<PSubModuleAccess> PA1s = SMs.Where(x => x.ParentMenu == SM.SubModuleName).ToList();
+        //        if (PA1s.Count() == 0)
+        //        {
+        //            MenuDMS.Append("<div class='menu-item'>");
+        //            MenuDMS.Append("<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button w3-padding' onclick=ParentMenuClick('" + SM.ParentMenu.Replace(" ", "") + "','" + MainMenu + "')><i class='fa fa-mercury' style='color: #db6e6e'></i>&nbsp;<span>" + SM.DisplayName1 + "</span></a>");
+        //            MenuDMS.Append("</div>");
+        //        }
+        //        else
+        //        {
+        //            MenuDMS.Append("<div class='menu-item'>");
+        //            MenuDMS.Append("<a onclick=Menu('" + SM.DisplayName1.Replace(" ", "") + "','" + SM.ParentMenu.Replace(" ", "") + "','i" + SM.DisplayName1.Replace(" ", "") + "') href='javascript:void(0)' class='w3-bar-item w3-button w3-block w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'><i class='fa fa-mercury' style='color: #db6e6e'></i>&nbsp;<span>" + SM.DisplayName1 + "</span><i id='i" + SM.DisplayName1.Replace(" ", "") + "' class='sub-menu-icon fa fa-angle-down fa-2x' style='color: lightgray'></i></a>");
+        //            MenuDMS.Append("<div id='" + SM.DisplayName1.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>");
+        //            MenuDMS  = ReMenu(PA1s, SM.SubModuleName, MenuDMS, SM.ParentMenu);
+        //            MenuDMS.Append("</div>");
+        //            MenuDMS.Append("</div>");
+        //        }
+        //    }
+        //    return MenuDMS;
+        //}
+        //private void menu()
+        //{
+        //    StringBuilder MenuDMS = new StringBuilder();
+        //    MenuDMS.Append("<nav id='main-nav'>");
+        //    MenuDMS.Append("<ul id='main-menu' class='sm sm-blue'>");
+        //    // MenuDMS += "<li class='menu-item-list'>";
 
-        string ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, string MenuDMS, [Optional] string MainMenu)
+        //    foreach (PModuleAccess AM in PSession.User.DMSModules)
+        //    {
+        //        MenuDMS.Append("<li class='menu-item-list'><a href='javascript:void(0)' onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "') class='w3-button w3-block w3-blue w3-left-align w3-padding' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" +
+        //            "<i class='" + AM.ModuleAwesomeIco + " fa-sm' style='color: #2fa8b3'></i>&nbsp;<span>" + AM.ModuleName.Replace(" ", "") + "</span><i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color: lightgray'></i></a>");
+        //        MenuDMS.Append("<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-medium' runat='server'>");
+        //        MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS, AM.ModuleName.Replace(" ", ""));
+        //        MenuDMS.Append("</div></li>");
+        //    } 
+        //    MenuDMS.Append("</ul>");
+        //    MenuDMS.Append("</nav>");
+        //    MenuNew.InnerHtml = MenuDMS.ToString();
+        //}
+        string ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, String MenuDMS, [Optional] string MainMenu)
         {
             List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
             if (SMsCount.Count() == 0)
@@ -85,7 +134,7 @@ namespace DealerManagementSystem
         }
         private void menu()
         {
-            string MenuDMS = "<nav id='main-nav'>";
+            String MenuDMS = "<nav id='main-nav'>";
             MenuDMS += "<ul id='main-menu' class='sm sm-blue'>";
             // MenuDMS += "<li class='menu-item-list'>";
 

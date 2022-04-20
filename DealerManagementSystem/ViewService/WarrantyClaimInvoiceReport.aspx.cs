@@ -265,6 +265,13 @@ namespace DealerManagementSystem.ViewService
                         lblMessage.Visible = true;
                         return;
                     }
+                    else if (inv.CGSTValue + inv.SGSTValue + inv.IGSTValue == 0)
+                    {
+                        lblMessage.Text = "GST Value Missed. Please contact admin";
+                        lblMessage.ForeColor = Color.Red;
+                        lblMessage.Visible = true;
+                        return;
+                    }
                 }
                 if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
                 {

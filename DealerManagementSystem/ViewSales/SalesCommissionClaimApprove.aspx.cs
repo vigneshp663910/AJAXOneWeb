@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -107,32 +108,17 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
-                TraceLogger.Log(DateTime.Now);
-
-                long? SalesCommissionClaimID = null;
-                long? SalesQuotationID = null;
-                int? DealerID = null;
-                string ClaimDateFrom = null;
-                string ClaimDateTo = null;
-                string InvoiceNumber = null;
-                string InvoiceDateF = null;
-                string InvoiceDateT = null;
-                int? StatusID = null;
-
-                string DealerCode = "";
-
+                TraceLogger.Log(DateTime.Now); 
+                int? DealerID = null; 
+                string ClaimNumber = null; 
+                string ClaimDateFrom = Convert.ToString(txtClaimDateF.Text.Trim());
+                string ClaimDateTo = Convert.ToString(txtClaimDateT.Text.Trim());
+                int? StatusID = null; 
                 if (ddlDealerCode.SelectedValue != "0")
                 {
-                    DealerCode = ddlDealerCode.SelectedValue;
-                }
+                    DealerID = Convert.ToInt32( ddlDealerCode.SelectedValue);
+                } 
 
-               ClaimDateFrom = Convert.ToString(txtClaimDateF.Text.Trim()); 
-                ClaimDateTo = Convert.ToString(txtClaimDateT.Text.Trim()); 
-                //InvoiceDateF = Convert.ToString(txtInvoiceDateF.Text.Trim()); 
-                //InvoiceDateT = Convert.ToString(txtInvoiceDateT.Text.Trim());
-                
-
-                //  StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
                 string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
                 string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
                 string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
@@ -148,11 +134,8 @@ namespace DealerManagementSystem.ViewSales
                 {
                     StatusID = 3;
                 }
-                
 
-                SDMS_WarrantyClaimHeader = new BSalesCommissionClaim().GetSalesCommissionClaimApproval(SalesCommissionClaimID, SalesQuotationID, DealerID,
-                    ClaimDateFrom, ClaimDateTo, InvoiceNumber, InvoiceDateF, InvoiceDateT, StatusID);
-                 
+                SDMS_WarrantyClaimHeader = new BSalesCommissionClaim().GetSalesCommissionClaimApproval(DealerID, ClaimNumber, ClaimDateFrom, ClaimDateTo, StatusID); 
                 gvICTickets.PageIndex = 0;
                 gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
                 gvICTickets.DataBind();
@@ -168,6 +151,58 @@ namespace DealerManagementSystem.ViewSales
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
                     lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
+                }
+
+                foreach (GridViewRow grv in gvICTickets.Rows)
+                {
+                    for (int i = 0; i < gvICTickets.Rows.Count; i++)
+                    {
+                        if (StatusID == 1)
+                        { 
+                            Button btnApproved1By = (Button)gvICTickets.Rows[i].FindControl("btnApproved1By");
+                            Label lblApproved1By = (Label)gvICTickets.Rows[i].FindControl("lblApproved1By");
+                            btnApproved1By.Visible = true;
+                            lblApproved1By.Visible = false;
+
+                            Label lblAmount = (Label)gvICTickets.Rows[i].FindControl("lblAmount");
+                            TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Amount");
+                            txtApproved1Amount.Text = lblAmount.Text;
+                            txtApproved1Amount.Enabled = true;
+
+                            TextBox txtApproved1Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Remarks");
+                            txtApproved1Remarks.Enabled = true;
+                        }
+                        else if (StatusID == 2)
+                        {
+
+                            Button btnApproved2By = (Button)gvICTickets.Rows[i].FindControl("btnApproved2By");
+                            Label lblApproved2By = (Label)gvICTickets.Rows[i].FindControl("lblApproved2By");
+                            btnApproved2By.Visible = true;
+                            lblApproved2By.Visible = false; 
+                            TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Amount");
+                            TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Amount");
+                            txtApproved2Amount.Text = txtApproved1Amount.Text;
+                            txtApproved2Amount.Enabled = true;
+
+                            TextBox txtApproved2Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Remarks");
+                            txtApproved2Remarks.Enabled = true;
+                        }
+                        else if (StatusID == 3)
+                        {
+
+                            Button btnApproved3By = (Button)gvICTickets.Rows[i].FindControl("btnApproved3By");
+                            Label lblApproved3By = (Label)gvICTickets.Rows[i].FindControl("lblApproved3By");
+                            btnApproved3By.Visible = true;
+                            lblApproved3By.Visible = false;
+                            TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Amount");
+                            TextBox txtApproved3Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved3Amount");
+                            txtApproved3Amount.Text = txtApproved2Amount.Text;
+                            txtApproved3Amount.Enabled = true; 
+
+                            TextBox txtApproved3Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved3Remarks");
+                            txtApproved3Remarks.Enabled = true;
+                        }
+                    }
                 }
                 TraceLogger.Log(DateTime.Now);
             }
@@ -297,72 +332,7 @@ namespace DealerManagementSystem.ViewSales
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    long SalesCommissionClaimID = Convert.ToInt64(gvICTickets.DataKeys[e.Row.RowIndex].Value);
-                    GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
-                    Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
-
-                    //List<PSalesCommissionClaim> supplierPurchaseOrderLines = new List<PSalesCommissionClaim>();
-                    //supplierPurchaseOrderLines = (List<PSalesCommissionClaim>)SDMS_WarrantyClaimHeader.Where(s => s.SalesCommissionClaimID == SalesCommissionClaimID);
-                    List<PSalesCommissionClaim> supplierPurchaseOrderLines = SDMS_WarrantyClaimHeader; 
-
-                    supplierPOLinesGrid.DataSource = supplierPurchaseOrderLines;
-                    supplierPOLinesGrid.DataBind();
-
-                    string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                    string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                    string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
-                    Label lblStatus = (Label)e.Row.FindControl("lblStatus");
-                    if (lblStatus.Text == "REQUESTED")
-                    {
-                        if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
-                        {
-                            Button btnApproved1By = (Button)e.Row.FindControl("btnApproved1By");
-                            Label lblApproved1By = (Label)e.Row.FindControl("lblApproved1By");
-                            btnApproved1By.Visible = true;
-                            lblApproved1By.Visible = false;
-                            for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-                            {
-                                Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount"); 
-                                TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
-                                txtApproved1Amount.Text = lblAmount.Text;
-                                txtApproved1Amount.Enabled = true;  
-                            }
-                        } 
-                    }
-                    else if (lblStatus.Text == "APPROVED L1")
-                    {
-                        if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
-                        {
-                            Button btnApproved2By = (Button)e.Row.FindControl("btnApproved2By");
-                            Label lblApproved2By = (Label)e.Row.FindControl("lblApproved2By");
-                            btnApproved2By.Visible = true;
-                            lblApproved2By.Visible = false;
-                            for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-                            { 
-                                TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
-                                TextBox txtApproved2Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved2Amount");
-                                txtApproved2Amount.Text = txtApproved1Amount.Text;
-                                txtApproved2Amount.Enabled = true; 
-                            }
-                        }
-                    }
-                    else if(lblStatus.Text == "APPROVED L2")
-                    {
-                        if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
-                        {
-                            Button btnApproved3By = (Button)e.Row.FindControl("btnApproved3By");
-                            Label lblApproved3By = (Label)e.Row.FindControl("lblApproved3By");
-                            btnApproved3By.Visible = true;
-                            lblApproved3By.Visible = false;
-                            for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-                            { 
-                                TextBox txtApproved2Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved2Amount");
-                                TextBox txtApproved3Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved3Amount");
-                                txtApproved3Amount.Text = txtApproved2Amount.Text;
-                                txtApproved3Amount.Enabled = true; 
-                            }
-                        }
-                    }
+                   
                 }
                 TraceLogger.Log(traceStartTime);
             }
@@ -371,203 +341,114 @@ namespace DealerManagementSystem.ViewSales
                 new FileLogger().LogMessage("DMS_MTTR_Report", "fillMTTR", ex);
                 throw ex;
             }
-        }
-
-
+        } 
         protected void btnApproved1By_Click(object sender, EventArgs e)
         {
-            //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            //GridView supplierPOLinesGrid = (GridView)gvICTickets.Rows[gvRow.RowIndex].FindControl("gvICTicketItems");
-            //Label lblWarrantyInvoiceHeaderID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblWarrantyInvoiceHeaderID");
-            //Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
-
-            //Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-
-            //List<PDMS_WarrantyInvoiceItem> Claims = new List<PDMS_WarrantyInvoiceItem>();
-            //for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-            //{
-            //    Label lblWarrantyInvoiceItemID = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblWarrantyInvoiceItemID");
-            //    DropDownList ddlMaterialStatusRemarks1 = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlMaterialStatusRemarks1");
-
-            //    TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
-
-            //    DropDownList ddlApproved1Remarks = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlApproved1Remarks");
-            //    Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount"); 
-            //    decimal Amount = Convert.ToDecimal(lblAmount.Text);
-            //    decimal parsedValue;
-            //    if (!decimal.TryParse(txtApproved1Amount.Text, out parsedValue))
-            //    {
-            //        lblMessage.Text = "Please Enter decimal value in approve amount !";
-            //        txtApproved1Amount.Focus();
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    if (Amount < Convert.ToDecimal(txtApproved1Amount.Text))
-            //    {
-            //        lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
-            //        txtApproved1Amount.Focus();
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
-            //    Label lblMaterial = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterial"); 
-            //    Claims.Add(new PDMS_WarrantyInvoiceItem()
-            //    {
-            //        WarrantyInvoiceItemID = Convert.ToInt64(lblWarrantyInvoiceItemID.Text),
-            //        WarrantyInvoiceHeaderID = Convert.ToInt64(lblWarrantyInvoiceHeaderID.Text),
-            //        MaterialStatusRemarks1 = ddlMaterialStatusRemarks1.SelectedValue == "0" ? "" : ddlMaterialStatusRemarks1.SelectedItem.Text,
-            //        Approved1Amount = Convert.ToDecimal(txtApproved1Amount.Text),
-            //        Approved1Remarks = ddlApproved1Remarks.SelectedValue == "0" ? "" : ddlApproved1Remarks.SelectedItem.Text,
-            //    });
-            //}
-            //if (new BDMS_WarrantyClaim().ApproveWarrantyClaims1(Claims, PSession.User.UserID, 1))
-            //{
-            //    lblMessage.Text = "Claime number " + lblInvoiceNumber.Text + " is approved";
-            //    lblMessage.ForeColor = Color.Green;
-            //    SDMS_WarrantyClaimHeader.RemoveAll(m => m.InvoiceNumber == lblInvoiceNumber.Text);
-            //    gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
-            //    gvICTickets.DataBind();
-            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-            //}
-            //else
-            //{
-            //    lblMessage.Text = "Claime number " + lblInvoiceNumber.Text + " is not approved";
-            //    lblMessage.ForeColor = Color.Red;
-            //}
-            //lblMessage.Visible = true;
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblClaimNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimNumber");
+            Label lblSalesCommissionClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimID");
+            TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved1Amount");
+            TextBox txtApproved1Remarks = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved1Remarks");
+            Label lblAmount = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblAmount");
+            decimal Amount = Convert.ToDecimal(lblAmount.Text);
+            decimal parsedValue;
+            if (!decimal.TryParse(txtApproved1Amount.Text, out parsedValue))
+            {
+                lblMessage.Text = "Please Enter decimal value in approve amount !";
+                txtApproved1Amount.Focus();
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (Amount < Convert.ToDecimal(txtApproved1Amount.Text))
+            {
+                lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
+                txtApproved1Amount.Focus();
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            string endPoint = "SalesCommission/ApproveClaim?SalesCommissionClaimID=" + Convert.ToInt64(lblSalesCommissionClaimID.Text) + "&ApproveLevel=1" + "&ApprovedAmount=" + Convert.ToDecimal(txtApproved1Amount.Text)
+                + "&ApprovedRemarks=" + txtApproved1Remarks.Text;
+            Approve(endPoint, lblClaimNumber.Text, Convert.ToInt64(lblSalesCommissionClaimID.Text));
         }
 
+        void Approve(string endPoint, string  ClaimNumber,long SalesCommissionClaimID)
+        {
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = "Claime number " + ClaimNumber + " is not approved";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = "Claime number " + ClaimNumber + " is approved";
+            lblMessage.ForeColor = Color.Green;
+            SDMS_WarrantyClaimHeader.RemoveAll(m => m.SalesCommissionClaimID == SalesCommissionClaimID);
+            gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
+            gvICTickets.DataBind();
+            lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
+
+        }
         protected void btnApproved2By_Click(object sender, EventArgs e)
         {
-            //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            //GridView supplierPOLinesGrid = (GridView)gvICTickets.Rows[gvRow.RowIndex].FindControl("gvICTicketItems");
-            //Label lblWarrantyInvoiceHeaderID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblWarrantyInvoiceHeaderID"); 
-            //Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
-            //Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            
-            //List<PDMS_WarrantyInvoiceItem> Claims = new List<PDMS_WarrantyInvoiceItem>();
-            //for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-            //{
-            //    Label lblWarrantyInvoiceItemID = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblWarrantyInvoiceItemID");
-            //    DropDownList ddlMaterialStatusRemarks2 = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlMaterialStatusRemarks2");
-            //    TextBox txtApproved2Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved2Amount");
-            //    DropDownList ddlApproved2Remarks = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlApproved2Remarks");
-            //    Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount");
-            //    decimal parsedValue;
-            //    if (!decimal.TryParse(txtApproved2Amount.Text, out parsedValue))
-            //    {
-            //        lblMessage.Text = "Please Enter decimal value in approve amount !";
-            //        txtApproved2Amount.Focus();
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    decimal Amount = Convert.ToDecimal(lblAmount.Text);
-            //    if (Amount < Convert.ToDecimal(txtApproved2Amount.Text))
-            //    {
-            //        lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
-            //        txtApproved2Amount.Focus();
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
-
-            //    Label lblMaterial = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterial");
-                 
-            //    Claims.Add(new PDMS_WarrantyInvoiceItem()
-            //    {
-            //        WarrantyInvoiceItemID = Convert.ToInt64(lblWarrantyInvoiceItemID.Text),
-            //        WarrantyInvoiceHeaderID = Convert.ToInt64(lblWarrantyInvoiceHeaderID.Text), 
-            //        MaterialStatusRemarks1 = ddlMaterialStatusRemarks2.SelectedValue == "0" ? "" : ddlMaterialStatusRemarks2.SelectedItem.Text,
-            //        Approved1Amount = Convert.ToDecimal(txtApproved2Amount.Text),
-            //        Approved1Remarks = ddlApproved2Remarks.SelectedValue == "0" ? "" : ddlApproved2Remarks.SelectedItem.Text,
-            //    });
-            //}
-
-            //if (new BDMS_WarrantyClaim().ApproveWarrantyClaims1(Claims, PSession.User.UserID, 2))
-            //{
-            //    lblMessage.Text = "Invoice number " + lblInvoiceNumber.Text + " is approved";
-            //    lblMessage.ForeColor = Color.Green; 
-            //    SDMS_WarrantyClaimHeader.RemoveAll(m => m.InvoiceNumber == lblInvoiceNumber.Text);
-            //    gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
-            //    gvICTickets.DataBind();
-            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-
-            //}
-            //else
-            //{
-            //    lblMessage.Text = "Invoice number " + lblInvoiceNumber.Text + " is not approved";
-            //    lblMessage.ForeColor = Color.Red;
-            //}
-            //lblMessage.Visible = true;
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblClaimNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimNumber");
+            Label lblSalesCommissionClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimID");
+            TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved2Amount");
+            TextBox txtApproved2Remarks = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved2Remarks");
+            Label lblAmount = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblAmount");
+            decimal parsedValue;
+            if (!decimal.TryParse(txtApproved2Amount.Text, out parsedValue))
+            {
+                lblMessage.Text = "Please Enter decimal value in approve amount !";
+                txtApproved2Amount.Focus(); 
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            decimal Amount = Convert.ToDecimal(lblAmount.Text);
+            if (Amount < Convert.ToDecimal(txtApproved2Amount.Text))
+            {
+                lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
+                txtApproved2Amount.Focus(); 
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            string endPoint = "SalesCommission/ApproveClaim?SalesCommissionClaimID=" + Convert.ToInt64(lblSalesCommissionClaimID.Text) + "&ApproveLevel=2" + "&ApprovedAmount=" + Convert.ToDecimal(txtApproved2Amount.Text)
+                + "&ApprovedRemarks=" + txtApproved2Remarks.Text;
+            Approve(endPoint, lblClaimNumber.Text, Convert.ToInt64(lblSalesCommissionClaimID.Text));
         }
-
         protected void btnApproved3By_Click(object sender, EventArgs e)
         {
-            //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            //GridView supplierPOLinesGrid = (GridView)gvICTickets.Rows[gvRow.RowIndex].FindControl("gvICTicketItems");
-            //Label lblWarrantyInvoiceHeaderID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblWarrantyInvoiceHeaderID"); 
-            //Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
-            //Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-             
-            //List<PDMS_WarrantyInvoiceItem> Claims = new List<PDMS_WarrantyInvoiceItem>();
-            //for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-            //{
-            //    Label lblWarrantyInvoiceItemID = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblWarrantyInvoiceItemID");
-            //    DropDownList ddlMaterialStatusRemarks3 = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlMaterialStatusRemarks3");
-            //    TextBox txtApproved3Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved3Amount");
-            //    DropDownList ddlApproved3Remarks = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlApproved3Remarks");
-            //    Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount");
-            //    decimal parsedValue;
-            //    if (!decimal.TryParse(txtApproved3Amount.Text, out parsedValue))
-            //    {
-            //        lblMessage.Text = "Please Enter decimal value in approve amount !";
-            //        txtApproved3Amount.Focus();
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    decimal Amount = Convert.ToDecimal(lblAmount.Text);
-            //    if (Amount < Convert.ToDecimal(txtApproved3Amount.Text))
-            //    {
-            //        lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
-            //        txtApproved3Amount.Focus();
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
-            //    Label lblMaterial = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterial");
-               
-                
-            //    Claims.Add(new PDMS_WarrantyInvoiceItem()
-            //    {
-            //        WarrantyInvoiceItemID = Convert.ToInt64(lblWarrantyInvoiceItemID.Text),
-            //        WarrantyInvoiceHeaderID = Convert.ToInt64(lblWarrantyInvoiceHeaderID.Text), 
-            //        Approved1Amount = Convert.ToDecimal(txtApproved3Amount.Text),
-            //        Approved1Remarks = ddlApproved3Remarks.SelectedValue == "0" ? "" : ddlApproved3Remarks.SelectedItem.Text,
-            //    });
-            //}
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblClaimNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimNumber");
+            Label lblSalesCommissionClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimID");
 
-            //if (new BDMS_WarrantyClaim().ApproveWarrantyClaims1(Claims, PSession.User.UserID, 3))
-            //{
-            //    lblMessage.Text = "Invoice number " + lblInvoiceNumber.Text + " is approved";
-            //    lblMessage.ForeColor = Color.Green; 
-            //    SDMS_WarrantyClaimHeader.RemoveAll(m => m.InvoiceNumber == lblInvoiceNumber.Text);
-            //    gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
-            //    gvICTickets.DataBind();
-            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-
-            //}
-            //else
-            //{
-            //    lblMessage.Text = "Invoice number " + lblInvoiceNumber.Text + " is not approved";
-            //    lblMessage.ForeColor = Color.Red;
-            //}
-            //lblMessage.Visible = true;
+            TextBox txtApproved3Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved3Amount");
+            TextBox txtApproved3Remarks = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved3Remarks");
+            Label lblAmount = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblAmount");
+            decimal parsedValue;
+            if (!decimal.TryParse(txtApproved3Amount.Text, out parsedValue))
+            {
+                lblMessage.Text = "Please Enter decimal value in approve amount !";
+                txtApproved3Amount.Focus();
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            decimal Amount = Convert.ToDecimal(lblAmount.Text);
+            if (Amount < Convert.ToDecimal(txtApproved3Amount.Text))
+            {
+                lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
+                txtApproved3Amount.Focus();
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            string endPoint = "SalesCommission/ApproveClaim?SalesCommissionClaimID=" + Convert.ToInt64(lblSalesCommissionClaimID.Text) + "&ApproveLevel=3" + "&ApprovedAmount=" + Convert.ToDecimal(txtApproved3Amount.Text)
+           + "&ApprovedRemarks=" + txtApproved3Remarks.Text;
+            Approve(endPoint, lblClaimNumber.Text, Convert.ToInt64(lblSalesCommissionClaimID.Text));
         }
         void fillDealer()
         {

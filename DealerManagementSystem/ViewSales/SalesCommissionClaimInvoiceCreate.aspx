@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SalesCommissionClaim.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SalesCommissionClaim" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SalesCommissionClaimInvoiceCreate.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SalesCommissionClaimInvoiceCreate" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewSales/UserControls/SalesCommissionClaimView.ascx" TagPrefix="UC" TagName="UC_ClaimView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -29,8 +28,7 @@
                         </div>
 
                         <div class="col-md-12 text-center">
-                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnAddQuotation" runat="server" CssClass="btn Save" Text="Add Quotation" OnClick="btnAddQuotation_Click" Width="150px" Visible="false"></asp:Button>
+                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button> 
                         </div>
                     </div>
                 </fieldset>

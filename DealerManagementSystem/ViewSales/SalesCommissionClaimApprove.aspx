@@ -123,7 +123,7 @@
                                 <asp:TemplateField HeaderText="Claim Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="SalesCommissionClaimID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimID")%>' runat="server" Visible="false"></asp:Label>
+                                        <asp:Label ID="lblSalesCommissionClaimID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimID")%>' runat="server" Visible="false"></asp:Label>
                                         <asp:Label ID="lblClaimNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimNumber")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -252,17 +252,16 @@
                                                             <td>
                                                                 <asp:TextBox ID="txtApproved2Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved2Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved2Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
                                                             
                                                             <td>
                                                                 <asp:TextBox ID="txtApproved3Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
 
                                                         </tr>
                                                     </table>
-                                                    <asp:GridView ID="gvICTicketItems" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
-                                                        <Columns>
+                                                  
 
                                                             <%--  <asp:TemplateField HeaderText="Material Desc" HeaderStyle-Width="150px">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -283,14 +282,7 @@
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>--%>
                                                              
-                                                        </Columns>
-                                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                                        <FooterStyle ForeColor="White" />
-                                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-
-                                                    </asp:GridView>
+                                                       
                                                 </div>
                                             </td>
                                         </tr>

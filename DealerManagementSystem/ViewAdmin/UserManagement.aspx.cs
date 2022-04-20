@@ -333,6 +333,7 @@ namespace DealerManagementSystem.ViewAdmin
             ddlDealer.DataValueField = "DID";
             ddlDealer.DataSource = PSession.User.Dealer;
             ddlDealer.DataBind();
+            ddlDealer.Items.Insert(0, new ListItem("All", "0"));
         }
 
         protected void cbAllDealer_CheckedChanged(object sender, EventArgs e)

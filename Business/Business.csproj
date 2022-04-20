@@ -90,7 +90,6 @@
     <Compile Include="BAttachedFile.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
-    <Compile Include="BDepartment.cs" />
     <Compile Include="BDMS_Address.cs" />
     <Compile Include="BDMS_AvailabilityOfOtherMachine.cs" />
     <Compile Include="BDMS_BankDepositClearing.cs" />
