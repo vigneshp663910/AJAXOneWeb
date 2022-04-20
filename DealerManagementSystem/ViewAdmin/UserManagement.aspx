@@ -166,10 +166,10 @@
                                             <tr>
                                                 <td style="border-bottom-width: 0px; border-right-width: 0px;">
                                                     <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="InputButton" OnClick="btnEdit_Click" Width="60px" Height="20px" Font-Size="X-Small" />
-                                                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="GvbtnUpdate_Click" Width="60px" Height="20px" Visible="false" />
+                                                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="GvbtnUpdate_Click" Width="60px" Height="20px" Font-Size="X-Small" Visible="false" />
                                                 </td>
                                                 <td style="border-bottom-width: 0px; border-right-width: 0px;">
-                                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" OnClick="btnCancel_Click" Width="60px" Height="20px" Visible="false" />
+                                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" OnClick="btnCancel_Click" Width="60px" Height="20px" Font-Size="X-Small" Visible="false" />
                                                 </td>
                                             </tr>
                                         </table>
