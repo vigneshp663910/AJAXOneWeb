@@ -1198,7 +1198,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN.ToUpper(), false);
 
                 P[19] = new ReportParameter("YourRef", Reference, false);
-                P[20] = new ReportParameter("RevNo", "", false);
+                P[20] = new ReportParameter("RevNo", Q.RevisionNumber, false);
                 P[21] = new ReportParameter("ShipToCustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[22] = new ReportParameter("ShipToCustomerAddress1", CustomerAddressShipTo1, false);
                 P[23] = new ReportParameter("ShipToCustomerAddress2", CustomerAddressShipTo2, false);
