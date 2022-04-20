@@ -193,13 +193,17 @@
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\newicon.gif" />
     <Content Include="Ajax\Images\Operator1.png" />
+    <Content Include="Ajax\Images\Operator5.png" />
     <Content Include="Ajax\Images\Pre-Sales3.jpg" />
     <Content Include="Ajax\Images\Pre-Sales4.jpg" />
+    <Content Include="Ajax\Images\Pre-Sales5.jpg" />
     <Content Include="Ajax\Images\QuotationFooter.jpg" />
     <Content Include="Ajax\Images\Service1.jpg" />
+    <Content Include="Ajax\Images\Service5.jpg" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Ajax\Images\ThankYou1.jpg" />
+    <Content Include="Ajax\Images\User5.jpg" />
     <Content Include="autocomplete\jquery-ui.css" />
     <Content Include="autocomplete\jquery-ui.js" />
     <Content Include="BackUp\Home1.aspx" />

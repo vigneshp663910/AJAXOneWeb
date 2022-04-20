@@ -495,7 +495,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">2</td>
-                             <td style="text-align: center"><asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/Pre-Sales4.jpg" Width="30" Height="30" /></td>
+                             <td style="text-align: center"><asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/Pre-Sales5.jpg" Width="30" Height="30" /></td>
                             <td>Pre-Sales</td>
                             <td>Offline</td>
                             <td>RoleBased</td>
@@ -505,7 +505,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">3</td>
-                             <td style="text-align: center"><asp:Image ID="Image3" runat="server" ImageUrl="~/Ajax/Images/Service1.jpg" Width="50" Height="30" /></td>
+                             <td style="text-align: center"><asp:Image ID="Image3" runat="server" ImageUrl="~/Ajax/Images/Service5.jpg" Width="50" Height="30" /></td>
                             <td>Service</td>
                             <td>Offline</td>
                             <td>RoleBased</td>
@@ -515,7 +515,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">4</td>
-                             <td style="text-align: center"><asp:Image ID="Image4" runat="server" ImageUrl="~/Images/User.jpg" Width="30" Height="30" /></td>
+                             <td style="text-align: center"><asp:Image ID="Image4" runat="server" ImageUrl="~/Ajax/Images/User5.jpg" Width="30" Height="30" /></td>
                             <td>Customer</td>
                             <td>Online</td>
                             <td>Standard</td>
@@ -525,7 +525,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">5</td>
-                             <td style="text-align: center"><asp:Image ID="Image5" runat="server" ImageUrl="~/Ajax/Images/Operator1.png" Width="30" Height="30" /></td>
+                             <td style="text-align: center"><asp:Image ID="Image5" runat="server" ImageUrl="~/Ajax/Images/Operator5.png" Width="30" Height="30" /></td>
                             <td>Operator</td>
                             <td>Online</td>
                             <td>Standard</td>
