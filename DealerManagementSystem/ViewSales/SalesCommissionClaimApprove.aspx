@@ -68,39 +68,28 @@
 
                     </div>
                     <div class="col-md-2 text-left">
-                        <label>Dealer</label>
+                        <label>Status</label>
                         <asp:Label ID="lblStatus" runat="server" CssClass="label" Text="Status"></asp:Label>
                     </div>
-                    <div class="col-md-2 text-left">
-                        <label>Dealer</label>
-                    </div>
 
-                    <div class="col-md-2 text-left">
-                        <label>Dealer</label>
-                    </div>
-                    <div class="col-md-2 text-left">
-                        <label>Dealer</label>
-                    </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" />
-
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" /> 
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Save" Width="100px" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" /> 
                     </div>
                 </div>
             </fieldset>
+            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
+
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
-
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend> 
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>Lead(s):</td>
-
+                                            <td>Claim :</td> 
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -240,7 +229,8 @@
                                                             </td>
                                                             <td>
                                                                 <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Material.MaterialCode")%>' runat="server"></asp:Label></td>
-                                                            <td> <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Qty")%>' runat="server"></asp:Label></td>
+                                                            <td>
+                                                                <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Qty")%>' runat="server"></asp:Label></td>
                                                             <td>
                                                                 <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Amount")%>' runat="server"></asp:Label></td>
                                                             <td>
@@ -253,36 +243,34 @@
                                                                 <asp:TextBox ID="txtApproved2Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
                                                             <td>
                                                                 <asp:TextBox ID="txtApproved2Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
-                                                            
+
                                                             <td>
                                                                 <asp:TextBox ID="txtApproved3Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
 
                                                         </tr>
                                                     </table>
-                                                  
 
-                                                            <%--  <asp:TemplateField HeaderText="Material Desc" HeaderStyle-Width="150px">
+
+                                                    <%--  <asp:TemplateField HeaderText="Material Desc" HeaderStyle-Width="150px">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.MaterialDesc")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>--%>
-                                                            <%--   <asp:TemplateField HeaderText="Delivery Number" HeaderStyle-Width="78px">
+                                                    <%--   <asp:TemplateField HeaderText="Delivery Number" HeaderStyle-Width="78px">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblDeliveryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryNumber")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
-                                                                </asp:TemplateField>--%> 
-                                                            <%--   <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="42px">
+                                                                </asp:TemplateField>--%>
+                                                    <%--   <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="42px">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblUnitOM" Text='<%# DataBinder.Eval(Container.DataItem, "UnitOM")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>--%>
-                                                             
-                                                       
                                                 </div>
                                             </td>
                                         </tr>
@@ -304,54 +292,7 @@
     </div>
 
 
-    <div class="logheading">Filter : Claim Approval</div>
-    <div class="col2">
-        <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
-        <table id="txnHistory:panelGridid" style="height: 100%; width: 100%">
-            <tr>
-                <td>
-                    <span id="txnHistory1:refreshDataGroup">
-                        <div class="boxHead">
-                            <div class="logheading">
-                                <div style="float: left">
-                                    <table>
-                                        <tr>
-                                            <td>Claim Approval</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div style="background-color: white" class="tablefixedWidth" id="tablefixedWidthID">
-                        </div>
-                    </span>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <style type="text/css">
-        .modalBackground {
-            background-color: Black;
-            filter: alpha(opacity=90);
-            opacity: 0.8;
-        }
-
-        .modalPopup {
-            background-color: #FFFFFF;
-            border-width: 3px;
-            border-style: solid;
-            border-color: black;
-            padding-top: 10px;
-            padding-left: 10px;
-            width: 98%;
-            /*height: 140px;*/
-        }
-    </style>
 </asp:Content>
 
 

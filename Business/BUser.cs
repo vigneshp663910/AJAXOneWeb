@@ -1232,7 +1232,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessDealer, List<int> Dashboard, long CreatedBy)
+        public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, long CreatedBy)
         {
             List<PUser> users = new List<PUser>();
             DateTime traceStartTime = DateTime.Now;
@@ -1241,9 +1241,9 @@ namespace Business
             {
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
                 DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
 
-
-                DbParameter[] userParams = new DbParameter[2] { UserIDP, CreatedByP };
+                DbParameter[] userParams = new DbParameter[3] { UserIDP, CreatedByP, DMSP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     provider.Insert("DeactivateUserAccess", userParams, false);
@@ -1255,6 +1255,14 @@ namespace Business
                         DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
                         provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
+                    }
+                    foreach (int SubModuleChildID in AccessModuleC)
+                    {
+                        DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                        DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
+                        DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
+                        provider.Insert("InsertOrUpdateUserSubModuleChildAccess", MParams, false);
                     }
                     foreach (int DealerID in AccessDealer)
                     {
@@ -1321,7 +1329,11 @@ namespace Business
             }
         }
 
-
+        public List<PSubModuleChild> GetSubModuleChileAll(int? SubModuleMasterID)
+        {
+            string endPoint = "User/SubModuleChileAll?SubModuleMasterID=" + SubModuleMasterID;
+            return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
 
         public List<PSubModuleChild> GetSubModuleChileByUserID(Int64 UserId)
         {

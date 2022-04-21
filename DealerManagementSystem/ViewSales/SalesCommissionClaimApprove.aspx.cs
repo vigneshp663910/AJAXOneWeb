@@ -61,32 +61,28 @@ namespace DealerManagementSystem.ViewSales
                 }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
-                ibtnArrowRight.Visible = false;  
+                ibtnArrowRight.Visible = false;
 
-                string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
-                if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
-                {
-                    // ddlStatus.SelectedValue = "1";
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval1).Count() != 0)
+                { 
                     lblStatus.Text = "L1 Approve";
                 }
-                else if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval2).Count() != 0)
                 {
-                    // ddlStatus.SelectedValue = "3";
                     lblStatus.Text = "L2 Approve";
                 }
-                else if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval3).Count() != 0)
                 {
-                    // ddlStatus.SelectedValue = "3";
                     lblStatus.Text = "L3 Approve";
-                }
+                } 
                 else
                 {
                     lblStatus.Text = "You have no permission to approve";
                     btnSearch.Visible = false;
                     btnExportExcel.Visible = false;
                 } 
+
                 fillClaimApproval();
             }
         }
@@ -113,24 +109,23 @@ namespace DealerManagementSystem.ViewSales
                 string ClaimNumber = null; 
                 string ClaimDateFrom = Convert.ToString(txtClaimDateF.Text.Trim());
                 string ClaimDateTo = Convert.ToString(txtClaimDateT.Text.Trim());
-                int? StatusID = null; 
+                int StatusID = 0; 
                 if (ddlDealerCode.SelectedValue != "0")
                 {
                     DealerID = Convert.ToInt32( ddlDealerCode.SelectedValue);
-                } 
+                }
 
-                string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
-                if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval1).Count() != 0)
                 {
                     StatusID = 1;
                 }
-                else if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval2).Count() != 0)
                 {
                     StatusID = 2;
                 }
-                else if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval3).Count() != 0)
                 {
                     StatusID = 3;
                 }
@@ -174,7 +169,6 @@ namespace DealerManagementSystem.ViewSales
                         }
                         else if (StatusID == 2)
                         {
-
                             Button btnApproved2By = (Button)gvICTickets.Rows[i].FindControl("btnApproved2By");
                             Label lblApproved2By = (Label)gvICTickets.Rows[i].FindControl("lblApproved2By");
                             btnApproved2By.Visible = true;
@@ -189,7 +183,6 @@ namespace DealerManagementSystem.ViewSales
                         }
                         else if (StatusID == 3)
                         {
-
                             Button btnApproved3By = (Button)gvICTickets.Rows[i].FindControl("btnApproved3By");
                             Label lblApproved3By = (Label)gvICTickets.Rows[i].FindControl("lblApproved3By");
                             btnApproved3By.Visible = true;
@@ -457,32 +450,6 @@ namespace DealerManagementSystem.ViewSales
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
-        }
-        protected void lnkDownload_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-
-                LinkButton lnkDownload = (LinkButton)sender;
-                GridViewRow gvRow = (GridViewRow)lnkDownload.Parent.Parent;
-                Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
-
-                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-                PAttachedFile UploadedFile = new BDMS_ICTicket().GetICTicketAttachedFile(null, AttachedFileID)[0];
-
-                Response.AddHeader("Content-type", UploadedFile.FileType);
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName);
-                HttpContext.Current.Response.Charset = "utf-16";
-                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                Response.BinaryWrite(UploadedFile.AttachedFile);
-                Response.Flush();
-                Response.End();
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
         
     }
