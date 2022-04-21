@@ -35,7 +35,7 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
 
-        public List<PSubModuleChild> SubModuleChile
+        public List<PSubModuleChild> SubModuleChileByUserID
         {
             get
             {
@@ -160,6 +160,7 @@ namespace DealerManagementSystem.ViewAdmin
             gvModule.DataSource = AccessModule;
             gvModule.DataBind();
             fillDealer();
+            SubModuleChileByUserID = new BUser().GetSubModuleChileByUserID(UserID);
             List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByUser(UserID, null, null);
 
             if (EAccessModule.Count() != 0)
@@ -217,11 +218,14 @@ namespace DealerManagementSystem.ViewAdmin
                     cbSMId.Checked = true;
                 }
             }
+
+            
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             List<int> AccessM = new List<int>();
+            List<int> AccessSCM = new List<int>();
             for (int j = 0; j < gvModule.Rows.Count; j++)
             {
                 DataList dlModule = (DataList)gvModule.Rows[j].FindControl("dlModule");
@@ -232,6 +236,16 @@ namespace DealerManagementSystem.ViewAdmin
                     if (cbSMId.Checked)
                     {
                         AccessM.Add(dlModuleID);
+                    }
+                    DataList dlChildModule = (DataList)dlModule.Items[i].FindControl("dlChildModule");
+                    for (int k = 0; k < dlChildModule.Items.Count; k++)
+                    {
+                        int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[k].ToString());
+                        CheckBox cbChildId = (CheckBox)dlChildModule.Items[k].FindControl("cbChildId");
+                        if (cbChildId.Checked)
+                        {
+                            AccessSCM.Add(SubModuleChildID);
+                        }
                     }
                 }
             }
@@ -255,7 +269,7 @@ namespace DealerManagementSystem.ViewAdmin
                     AccessDB.Add(dlDashboardID);
                 }
             }
-            if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessD, AccessDB, PSession.User.UserID))
+            if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, PSession.User.UserID))
             {
                 //List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
                 //ModuleAccess = AccessModule;
@@ -576,6 +590,47 @@ namespace DealerManagementSystem.ViewAdmin
         protected void gvSubModuleChild_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
+        }
+
+        protected void dlModule_DataBinding(object sender, EventArgs e)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                 
+
+
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("DMS_MTTR_Report", "fillMTTR", ex);
+                throw ex;
+            }
+        }
+
+        protected void dlModule_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label lblSubModuleMasterID = (Label)e.Item.FindControl("lblSubModuleMasterID");
+                DataList dlChildModule = (DataList)e.Item.FindControl("dlChildModule");
+
+                List<PSubModuleChild> supplierPurchaseOrderLines = new List<PSubModuleChild>();
+                supplierPurchaseOrderLines = new BUser().GetSubModuleChileAll(Convert.ToInt32(lblSubModuleMasterID.Text));
+                dlChildModule.DataSource = supplierPurchaseOrderLines;
+                dlChildModule.DataBind();
+
+                for (int i = 0; i < dlChildModule.Items.Count; i++)
+                {
+                    int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[i].ToString());
+                    if (SubModuleChileByUserID.Where(A => A.SubModuleChildID == SubModuleChildID).Count() != 0)
+                    {
+                        CheckBox cbSMId = (CheckBox)dlChildModule.Items[i].FindControl("cbChildId");
+                        cbSMId.Checked = true;
+                    }
+                }
+            }
         }
     }
 }

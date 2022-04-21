@@ -240,8 +240,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <asp:DataList ID="dlModule" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="6" CellSpacing="10" DataKeyField="SubModuleMasterID">
+                                    <td style="padding-left: 50px">
+                                        <br />
+                                        <asp:DataList ID="dlModule" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="1" CellSpacing="10" DataKeyField="SubModuleMasterID" OnItemDataBound="dlModule_ItemDataBound">
                                             <ItemTemplate>
                                                 <div class="item">
                                                     <span>
@@ -251,8 +252,25 @@
                                                     </span>
                                                     <span><%# Eval("SubModuleName") %></span>
                                                 </div>
+                                                <div style="padding-left: 50px">
+                                                    <asp:Label ID="lblSubModuleMasterID" runat="server" Text='<%# Eval("SubModuleMasterID") %>' Font-Bold="true" Font-Size="15px" Visible="false"></asp:Label>
+                                                    <asp:DataList ID="dlChildModule" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="1" CellSpacing="10" DataKeyField="SubModuleChildID">
+                                                        <ItemTemplate>
+                                                            <div class="item">
+                                                                <span>
+                                                                    <strong>
+                                                                        <asp:CheckBox ID="cbChildId" runat="server" />
+                                                                    </strong>
+                                                                </span>
+                                                                <span><%# Eval("ChildName") %></span>
+                                                            </div>
+                                                        </ItemTemplate>
+                                                    </asp:DataList>
+
+                                                </div>
                                             </ItemTemplate>
                                         </asp:DataList>
+                                        <br />
                                     </td>
                                 </tr>
                             </table>

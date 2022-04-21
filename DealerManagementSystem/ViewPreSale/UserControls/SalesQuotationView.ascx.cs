@@ -49,7 +49,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
         }
         protected void Page_Load(object sender, EventArgs e)
-        {
+        { 
             lblMessage.Visible = false;
         }
         public void FillMaster()
@@ -119,7 +119,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 UC_FollowUp.FillMaster();
             }
             else if (lbActions.Text == "Add Effort")
-            { 
+            {
                 DropDownList ddlSalesEngineer = (DropDownList)UC_Effort.FindControl("ddlSalesEngineer");
                 DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
 
@@ -157,8 +157,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             }
             else if (lbActions.Text == "Generate Quotation")
-            {
-                GenerateQuotation();
+            { 
+                GenerateQuotation(new PSalesQuotationItem());
                 fillViewQuotation(Quotation.QuotationID);
             }
             else if (lbActions.Text == "Print PDF")
@@ -175,40 +175,27 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
             }
-            else if (lbActions.Text == "Generate Quotation To Part")
-            {
-                new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
-            }
-            else if (lbActions.Text == "Generate Commission Claim")
-            {
-                //string Message = ValidationFinancier();
-                //lblMessageFinancier.ForeColor = Color.Red;
-                //lblMessageFinancier.Visible = true;
+             
+            //else if (lbActions.Text == "Generate Commission Claim")
+            //{ 
+            //    lblMessage.Visible = true;
+            //    PSalesQuotation Sqf = new PSalesQuotation();
+            //    Sqf.QuotationID = Quotation.QuotationID; 
+            //    Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-                //if (!string.IsNullOrEmpty(Message))
-                //{
-                //    lblMessage.Text = Message;
-                //    return;
-                //}
-
-                lblMessage.Visible = true;
-                PSalesQuotation Sqf = new PSalesQuotation();
-                Sqf.QuotationID = Quotation.QuotationID; 
-                Sqf.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesCommission", Sqf));
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }  
-                tbpSaleQuotation.ActiveTabIndex = 0;
-                fillViewQuotation(Quotation.QuotationID);
-                lblMessage.Text = "Updated Successfully";
+            //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesCommission", Sqf));
+            //    if (Results.Status == PApplication.Failure)
+            //    {
+            //        lblMessage.Text = Results.Message;
+            //        lblMessage.ForeColor = Color.Red;
+            //        return;
+            //    }  
+            //    tbpSaleQuotation.ActiveTabIndex = 0;
+            //    fillViewQuotation(Quotation.QuotationID);
+            //    lblMessage.Text = "Updated Successfully";
                 
-                lblMessage.ForeColor = Color.Green;
-            }
+            //    lblMessage.ForeColor = Color.Green;
+            //}
         }
         protected void btnFinancier_Click(object sender, EventArgs e)
         {
@@ -336,7 +323,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     MaterialTax.SGSTValue = 0;
                     MaterialTax.IGSTValue = MaterialTax.TaxableValue * MaterialTax.IGST / 100;
                 }
-                if(MaterialTax.SGSTValue==0 && MaterialTax.IGSTValue == 0)
+                if (MaterialTax.SGSTValue == 0 && MaterialTax.IGSTValue == 0)
                 {
                     lblMessageProduct.Text = "GST Tax value not found this material..!";
                     return;
@@ -346,13 +333,58 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = "TCS Tax value not found this material..!";
                     return;
                 }
-                    MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+                MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessageProduct.Text = Results.Message;
                     return;
                 }
+                if (Quotation.QuotationNo != null)
+                {
+
+                    GenerateQuotation(MaterialTax);
+                    //PSalesQuotation Q = Quotation;
+                    //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+                    //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                    //Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+                    //Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+                    //Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
+                    //List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
+                    //if (Visit[0].ColdVisitDate == null)
+                    //{
+                    //    lblMessage.Text = "Visit Date Not Found";
+                    //    lblMessage.Visible = true;
+                    //    lblMessage.ForeColor = Color.Green;
+                    //}
+
+                    //if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
+                    //{
+                    //    DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, MaterialTax);
+                    //    foreach (DataRow dr in DtResult.Rows)
+                    //    {
+                    //        if (dr["Type"].ToString() == "S")
+                    //        {
+                    //            lblMessage.Text = dr["Message"].ToString();
+                    //            lblMessage.Visible = true;
+                    //            lblMessage.ForeColor = Color.Green;
+                    //        }
+                    //        else
+                    //        {
+                    //            lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                    //            lblMessage.Visible = true;
+                    //            lblMessage.ForeColor = Color.Red;
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    lblMessage.Text = "Quotation Not Updated Successfully...!";
+                    //    lblMessage.Visible = true;
+                    //    lblMessage.ForeColor = Color.Red;
+                    //}
+                }
+
                 MPE_Product.Hide();
                 tbpSaleQuotation.ActiveTabIndex = 1;
                 fillViewQuotation(Quotation.QuotationID);
@@ -360,13 +392,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Green;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblMessageProduct.Text = ex.Message.ToString();
                 lblMessageProduct.ForeColor = Color.Red;
                 return;
             }
         }
+
         protected void btnCompetitorSave_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
@@ -411,7 +444,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Label lblSalesQuotationItemID = (Label)gvRow.FindControl("lblSalesQuotationItemID");
             //List<PSalesQuotationItem> Item = new List<PSalesQuotationItem>();
             PSalesQuotationItem Item = (PSalesQuotationItem)Quotation.QuotationItems.Where(M => M.SalesQuotationItemID == Convert.ToInt64(lblSalesQuotationItemID.Text)).ToList()[0];
-             
+            Item.SapFlag = "D";
             Item.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", Item));
             if (Results.Status == PApplication.Failure)
@@ -419,12 +452,56 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Text = Results.Message;
                 return;
             }
+            if (Quotation.QuotationNo != null)
+            {
+                GenerateQuotation(Item);
+                //PSalesQuotation Q = Quotation;
+                //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+                //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                //Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+                //Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+                //Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
+                //List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
+                //if (Visit[0].ColdVisitDate == null)
+                //{
+                //    lblMessage.Text = "Visit Date Not Found";
+                //    lblMessage.Visible = true;
+                //    lblMessage.ForeColor = Color.Green;
+                //}
+
+                //if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
+                //{
+                //    DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, Item);
+                //    foreach (DataRow dr in DtResult.Rows)
+                //    {
+                //        if (dr["Type"].ToString() == "S")
+                //        {
+                //            lblMessage.Text = dr["Message"].ToString();
+                //            lblMessage.Visible = true;
+                //            lblMessage.ForeColor = Color.Green;
+                //        }
+                //        else
+                //        {
+                //            lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                //            lblMessage.Visible = true;
+                //            lblMessage.ForeColor = Color.Red;
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "Quotation Not Updated Successfully...!";
+                //    lblMessage.Visible = true;
+                //    lblMessage.ForeColor = Color.Red;
+                //}
+            }
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green; 
+            lblMessage.ForeColor = Color.Green;
             tbpSaleQuotation.ActiveTabIndex = 1;
             fillViewQuotation(Quotation.QuotationID);
         }
+
         protected void btnNoteRemark_Click(object sender, EventArgs e)
         {
             MPE_Note.Show();
@@ -826,10 +903,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void fillEffort()
         {
             gvEffort.DataSource = new BSalesQuotation().GetSalesQuotationEffort(Quotation.QuotationID, PSession.User.UserID);
-            gvEffort.DataBind();
-
-
-
+            gvEffort.DataBind(); 
         }
         void fillExpense()
         {
@@ -838,76 +912,68 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
         }
-        void GenerateQuotation()
+        void GenerateQuotation(PSalesQuotationItem QuotationItem)
         {
             try
             {
-                lblMessage.Text = "";
-                PSalesQuotation Q = Quotation;
-                List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-                List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-                Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
-                Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
-                Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
-                List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
-                if (Visit[0].ColdVisitDate==null)
-                {
-                    lblMessage.Text = "Visit Date Not Found";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Green;
-                }
-                //string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
-                //foreach (PSalesQuotationNote Note in Q.Notes)
-                //{
-                //    if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
-                //    if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
-                //}
-                //lblMessage.Visible = true;
-                //lblMessage.ForeColor = Color.Red;
-                //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-                //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-                //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-                //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-                //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-                //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-                //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-                //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
-
-                if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
-                {
-                    DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit);
-                    foreach (DataRow dr in DtResult.Rows)
+                
+                if (Quotation.CommissionAgent)
+                { 
+                    PSalesQuotation Q = Quotation;
+                    List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+                    List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                    Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+                    Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+                    Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
+                    List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
+                    if (Visit[0].ColdVisitDate == null)
                     {
-                        if (dr["Type"].ToString() == "S")
+                        lblMessage.Text = "Visit Date Not Found";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    } 
+                    if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
+                    {
+                        DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, QuotationItem);
+                        foreach (DataRow dr in DtResult.Rows)
                         {
-                            lblMessage.Text = dr["Message"].ToString();
-                            lblMessage.Visible = true;
-                            lblMessage.ForeColor = Color.Green;
+                            if (dr["Type"].ToString() == "S")
+                            {
+                                lblMessage.Text = dr["Message"].ToString();
+                                lblMessage.Visible = true;
+                                lblMessage.ForeColor = Color.Green;
+                            }
+                            else
+                            {
+                                lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                                lblMessage.Visible = true;
+                                lblMessage.ForeColor = Color.Red;
+                            }
                         }
-                        else
-                        {
-                            lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
-                            lblMessage.Visible = true;
-                            lblMessage.ForeColor = Color.Red;
-                        }
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Quotation Not Generated Successfully...!";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
                     }
                 }
                 else
                 {
-                    lblMessage.Text = "Quotation Not Generated Successfully...!";
+                    PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageProduct.Text = Results.Message;
+                        return;
+                    }
+                    fillViewQuotation(Quotation.QuotationID);
+                    lblMessage.Text = "Updated Successfully";
                     lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.ForeColor = Color.Green;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.Visible = true;
@@ -915,13 +981,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             
         }
+
         void GeneratePDF()
         {
             try
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
-
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;

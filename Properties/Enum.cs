@@ -466,7 +466,18 @@ namespace Properties
         EquipmentPopulationReportForAE
 
     }
-
+    public enum SubModuleChildMaster
+    {
+        Modules = 1,
+        Roles,
+        Users,
+        UserRoles,
+        LoginLogs,
+        TransactionLogs,
+        SalesCommClaimAproval1,
+        SalesCommClaimAproval2,
+        SalesCommClaimAproval3, 
+    }
     public enum DMS_WarrantyClaimStatus
     {
         REQUESTED = 1,
