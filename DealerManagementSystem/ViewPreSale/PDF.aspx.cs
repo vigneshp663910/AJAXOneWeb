@@ -49,7 +49,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
             int numberOfPages = pdfReader.NumberOfPages;
             ifrm_dcbform.Attributes["height"] = numberOfPages * 1140 + "px";
-            ifrm_dcbform.Src = Path.Combine("~/Backup", Path.GetFileName(tempfilename)) + "?page=hsn#toolbar=0";
+            ifrm_dcbform.Src = Path.Combine("~/Backup", Path.GetFileName(tempfilename));
         }
     }
 }

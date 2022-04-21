@@ -123,13 +123,13 @@ namespace DealerManagementSystem.ViewMaster
         protected global::AjaxControlToolkit.TabPanel tbpnlRegion;
 
         /// <summary>
-        /// Fieldset1 control.
+        /// fldRegion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldRegion;
 
         /// <summary>
         /// ddlRCountry control.
@@ -303,6 +303,15 @@ namespace DealerManagementSystem.ViewMaster
         protected global::AjaxControlToolkit.TabPanel tbpnlDistrict;
 
         /// <summary>
+        /// fldDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldDistrict;
+
+        /// <summary>
         /// ddlDCountry control.
         /// </summary>
         /// <remarks>
@@ -391,6 +400,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel tbpnlCity;
+
+        /// <summary>
+        /// fldCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldCity;
 
         /// <summary>
         /// ddlCityCountry control.
