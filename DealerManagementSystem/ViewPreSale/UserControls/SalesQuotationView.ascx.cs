@@ -157,8 +157,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             }
             else if (lbActions.Text == "Generate Quotation")
-            {
-                GenerateQuotation();
+            { 
+                GenerateQuotation(new PSalesQuotationItem());
                 fillViewQuotation(Quotation.QuotationID);
             }
             else if (lbActions.Text == "Print PDF")
@@ -342,45 +342,47 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 if (Quotation.QuotationNo != null)
                 {
-                    PSalesQuotation Q = Quotation;
-                    List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-                    List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-                    Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
-                    Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
-                    Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
-                    List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
-                    if (Visit[0].ColdVisitDate == null)
-                    {
-                        lblMessage.Text = "Visit Date Not Found";
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Green;
-                    }
 
-                    if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
-                    {
-                        DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, MaterialTax);
-                        foreach (DataRow dr in DtResult.Rows)
-                        {
-                            if (dr["Type"].ToString() == "S")
-                            {
-                                lblMessage.Text = dr["Message"].ToString();
-                                lblMessage.Visible = true;
-                                lblMessage.ForeColor = Color.Green;
-                            }
-                            else
-                            {
-                                lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
-                                lblMessage.Visible = true;
-                                lblMessage.ForeColor = Color.Red;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Quotation Not Updated Successfully...!";
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Red;
-                    }
+                    GenerateQuotation(MaterialTax);
+                    //PSalesQuotation Q = Quotation;
+                    //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+                    //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                    //Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+                    //Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+                    //Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
+                    //List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
+                    //if (Visit[0].ColdVisitDate == null)
+                    //{
+                    //    lblMessage.Text = "Visit Date Not Found";
+                    //    lblMessage.Visible = true;
+                    //    lblMessage.ForeColor = Color.Green;
+                    //}
+
+                    //if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
+                    //{
+                    //    DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, MaterialTax);
+                    //    foreach (DataRow dr in DtResult.Rows)
+                    //    {
+                    //        if (dr["Type"].ToString() == "S")
+                    //        {
+                    //            lblMessage.Text = dr["Message"].ToString();
+                    //            lblMessage.Visible = true;
+                    //            lblMessage.ForeColor = Color.Green;
+                    //        }
+                    //        else
+                    //        {
+                    //            lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                    //            lblMessage.Visible = true;
+                    //            lblMessage.ForeColor = Color.Red;
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    lblMessage.Text = "Quotation Not Updated Successfully...!";
+                    //    lblMessage.Visible = true;
+                    //    lblMessage.ForeColor = Color.Red;
+                    //}
                 }
 
                 MPE_Product.Hide();
@@ -452,45 +454,46 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             if (Quotation.QuotationNo != null)
             {
-                PSalesQuotation Q = Quotation;
-                List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-                List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-                Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
-                Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
-                Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
-                List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
-                if (Visit[0].ColdVisitDate == null)
-                {
-                    lblMessage.Text = "Visit Date Not Found";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Green;
-                }
+                GenerateQuotation(Item);
+                //PSalesQuotation Q = Quotation;
+                //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+                //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                //Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
+                //Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
+                //Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
+                //List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
+                //if (Visit[0].ColdVisitDate == null)
+                //{
+                //    lblMessage.Text = "Visit Date Not Found";
+                //    lblMessage.Visible = true;
+                //    lblMessage.ForeColor = Color.Green;
+                //}
 
-                if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
-                {
-                    DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, Item);
-                    foreach (DataRow dr in DtResult.Rows)
-                    {
-                        if (dr["Type"].ToString() == "S")
-                        {
-                            lblMessage.Text = dr["Message"].ToString();
-                            lblMessage.Visible = true;
-                            lblMessage.ForeColor = Color.Green;
-                        }
-                        else
-                        {
-                            lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
-                            lblMessage.Visible = true;
-                            lblMessage.ForeColor = Color.Red;
-                        }
-                    }
-                }
-                else
-                {
-                    lblMessage.Text = "Quotation Not Updated Successfully...!";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                }
+                //if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
+                //{
+                //    DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, Item);
+                //    foreach (DataRow dr in DtResult.Rows)
+                //    {
+                //        if (dr["Type"].ToString() == "S")
+                //        {
+                //            lblMessage.Text = dr["Message"].ToString();
+                //            lblMessage.Visible = true;
+                //            lblMessage.ForeColor = Color.Green;
+                //        }
+                //        else
+                //        {
+                //            lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                //            lblMessage.Visible = true;
+                //            lblMessage.ForeColor = Color.Red;
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "Quotation Not Updated Successfully...!";
+                //    lblMessage.Visible = true;
+                //    lblMessage.ForeColor = Color.Red;
+                //}
             }
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
@@ -909,7 +912,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
         }
-        void GenerateQuotation()
+        void GenerateQuotation(PSalesQuotationItem QuotationItem)
         {
             try
             {
@@ -932,7 +935,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     } 
                     if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
                     {
-                        DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit);
+                        DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, QuotationItem);
                         foreach (DataRow dr in DtResult.Rows)
                         {
                             if (dr["Type"].ToString() == "S")
