@@ -11,10 +11,10 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit)
+        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit, PSalesQuotationItem QuotationItem)
         {
             string QuotationNo = null;
-            
+
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
             if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
             {
@@ -53,17 +53,47 @@ namespace SapIntegration
             for (int i = 0; i < pSalesQuotation.QuotationItems.Count; i++)
             {
                 QT_Item.Append();
-                QT_Item.SetValue("UPDATEFLAG", "I");
+                string UPDATEFLAG = string.Empty;
+                if (QuotationItem.Material != null)
+                {
+                    if (pSalesQuotation.QuotationItems[i].Material.MaterialCode == QuotationItem.Material.MaterialCode) { UPDATEFLAG = "D"; }
+                    else
+                    {
+                        UPDATEFLAG = (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo)) ? "U" : "I";
+                    }
+                }
+                else
+                {
+                    UPDATEFLAG = (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo)) ? "U" : "I";
+                }
+                QT_Item.SetValue("UPDATEFLAG", UPDATEFLAG);
                 q = q + 1;
                 QT_Item.SetValue("ITM_NUMBER", "0000" + q + "0");//"000010"
                 QT_Item.SetValue("MATERIAL", pSalesQuotation.QuotationItems[i].Material.MaterialCode);//"L.900.508"
                 QT_Item.SetValue("TARGET_QTY", pSalesQuotation.QuotationItems[i].Qty.ToString("#,###,###,###,###.000"));//"1.000"
 
-                if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
+                //if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
+                //{
+                //    QT_Item.SetValue("REASON_REJ", "83");
+                //}
+            }
+            if (QuotationItem.Material != null)
+            {
+                if (QuotationItem.SapFlag != "D")
                 {
-                    QT_Item.SetValue("REASON_REJ", "83");
+                    QT_Item.Append();
+                    QT_Item.SetValue("UPDATEFLAG", "I");
+                    q = q + 1;
+                    QT_Item.SetValue("ITM_NUMBER", "0000" + q + "0");//"000010"
+                    QT_Item.SetValue("MATERIAL", QuotationItem.Material.MaterialCode);//"L.900.508"
+                    QT_Item.SetValue("TARGET_QTY", QuotationItem.Qty.ToString("#,###,###,###,###.000"));//"1.000"
+                    //if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
+                    //{
+                    //    QT_Item.SetValue("REASON_REJ", "83");
+                    //}
                 }
             }
+
 
             IRfcTable QUOTATION_CONDITIONS = tagListBapi.GetTable("QUOTATION_CONDITIONS_IN");
             if (pSalesQuotation.QuotationItems[0].Discount > 0)
