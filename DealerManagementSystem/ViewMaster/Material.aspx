@@ -8,7 +8,7 @@
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12">
         <asp:TabContainer ID="tabConMaterial" runat="server" ToolTip="Material" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
-            <asp:TabPanel ID="tabbPnlDivision" runat="server" HeaderText="Division" Font-Bold="True" ToolTip="<Division...">
+            <asp:TabPanel ID="tabbPnlDivision" runat="server" HeaderText="Division" Font-Bold="True" ToolTip="Division...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
@@ -68,7 +68,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tabPnlModel" runat="server" HeaderText="Model" Font-Bold="True" ToolTip="<Division...">
+            <asp:TabPanel ID="tabPnlModel" runat="server" HeaderText="Model" Font-Bold="True" ToolTip="Model...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -163,7 +163,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tabPnlMaterial" runat="server" HeaderText="Material" Font-Bold="True" ToolTip="<Material...">
+            <asp:TabPanel ID="tabPnlMaterial" runat="server" HeaderText="Material" Font-Bold="True" ToolTip="Material...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -366,7 +366,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tablPnlMaterialPrice" runat="server" HeaderText="Material Price" Font-Bold="True" ToolTip="<Material Price...">
+            <asp:TabPanel ID="tablPnlMaterialPrice" runat="server" HeaderText="Material Price" Font-Bold="True" ToolTip="Material Price...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -511,7 +511,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tablPnlMaterSupersede" runat="server" HeaderText="Material Supersede" Font-Bold="True" ToolTip="<Material supersede...">
+            <asp:TabPanel ID="tablPnlMaterSupersede" runat="server" HeaderText="Material Supersede" Font-Bold="True" ToolTip="Material Supersede...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -627,13 +627,13 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tabPnlReOrderLevel" runat="server" HeaderText="Re-Order Level" Font-Bold="True" ToolTip="<Re-Order Level...">
+            <asp:TabPanel ID="tabPnlReOrderLevel" runat="server" HeaderText="Re-Order Level" Font-Bold="True" ToolTip="Re-Order Level...">
                 <ContentTemplate>
                     <h3>Re-OrderLevel</h3>
                     <p>Re-Order Level Master</p>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tabPnlEquipment" runat="server" HeaderText="Equipment" Font-Bold="True" ToolTip="<Equipment...">
+            <asp:TabPanel ID="tabPnlEquipment" runat="server" HeaderText="Equipment" Font-Bold="True" ToolTip="Equipment...">
                 <ContentTemplate>
                     <h3>Equipment Master</h3>
                     <p>Equipment Master</p>
