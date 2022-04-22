@@ -62,8 +62,17 @@ namespace DealerManagementSystem.Account
         private void FillDealerEmployeeRole(int DealerEmployeeID)
         {
             List<PDMS_DealerEmployeeRole> Role = new BDMS_Dealer().GetDealerEmployeeRole(null, DealerEmployeeID, null, null);
+            PDMS_Customer Dealer = new PDMS_Customer();
+            if (Role[0].Dealer.DealerCode == "2000")
+            {
+                Dealer = new BDMS_Customer().GetCustomerAE();
+            }
+            else 
+            {
+                Dealer = new SCustomer().getCustomerAddress(Role[0].Dealer.DealerCode);
+            }
 
-            PDMS_Customer Dealer = new SCustomer().getCustomerAddress("9005");
+            
             lblCompanyName.Text = Role[0].Dealer.DealerName;
             lblCompanyCode.Text = Role[0].DealerOffice.OfficeName;
             lblAddress.Text = Dealer.Address1;
