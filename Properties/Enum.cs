@@ -468,15 +468,16 @@ namespace Properties
     }
     public enum SubModuleChildMaster
     {
-        Modules = 1,
-        Roles,
-        Users,
-        UserRoles,
-        LoginLogs,
-        TransactionLogs,
-        SalesCommClaimAproval1,
-        SalesCommClaimAproval2,
-        SalesCommClaimAproval3, 
+        TsirCheck = 1,
+        TsirApprove,
+        TsirCancel,
+        ClaimApproval1,
+        ClaimApproval2,
+        ClaimApproval3,
+        ClaimCancel,
+        SalesCommClaimApproval1,
+        SalesCommClaimApproval2,
+        SalesCommClaimApproval3,
     }
     public enum DMS_WarrantyClaimStatus
     {

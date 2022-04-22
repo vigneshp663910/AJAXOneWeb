@@ -39,12 +39,12 @@ namespace DealerManagementSystem.ViewSales
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Sales Commission Claim');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Sales Commission Claim');</script>");
 
             lblMessage.Text = "";  
             if (!IsPostBack)
             {
-                
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
             }
         }
 
@@ -80,20 +80,18 @@ namespace DealerManagementSystem.ViewSales
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Claim.Count;
         } 
         void FillClaim()
-        {
-
+        { 
             long? SalesCommissionClaimID = null;
-            long? SalesQuotationID = null;
+            long? SalesQuotationID = null; 
 
-           string ClaimNumber= null;
-            string ClaimDateFrom = null;
-            string ClaimDateTo = null;
-            int? StatusID = null; 
-            int? DealerID = null; 
+            string ClaimNumber= txtClaimNumber.Text.Trim();
+            string ClaimDateFrom = txtDateFrom.Text.Trim();
+            string ClaimDateTo = txtDateTo.Text.Trim();
+            int? StatusID = ddlStatus.SelectedValue=="0"?(int?)null: Convert.ToInt32(ddlStatus.SelectedValue); 
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); ;
             Claim = new BSalesCommissionClaim().GetSalesCommissionClaim(SalesCommissionClaimID, SalesQuotationID, ClaimNumber, ClaimDateFrom, ClaimDateTo, StatusID, DealerID);
             gvQuotation.DataSource = Claim;
-            gvQuotation.DataBind();
-
+            gvQuotation.DataBind(); 
 
             if (Claim.Count == 0)
             {
@@ -107,8 +105,7 @@ namespace DealerManagementSystem.ViewSales
                 ibtnQuoteArrowLeft.Visible = true;
                 ibtnQuoteArrowRight.Visible = true;
                 lblRowCount.Text = (((gvQuotation.PageIndex) * gvQuotation.PageSize) + 1) + " - " + (((gvQuotation.PageIndex) * gvQuotation.PageSize) + gvQuotation.Rows.Count) + " of " + Claim.Count;
-            }
-
+            } 
         }
        
 

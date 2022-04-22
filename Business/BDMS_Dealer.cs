@@ -245,6 +245,63 @@ namespace Business
             }
             return EmployeeID;
         }
+        public int InsertOrUpdateAjaxEmployee(PDMS_DealerEmployee Emp, PDMS_DealerEmployeeRole EmpRole, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            int EmployeeID = 0;
+            try
+            {
+                DbParameter DealerEmployeeID = provider.CreateParameter("DealerEmployeeID", Emp.DealerEmployeeID, DbType.Int32);
+                DbParameter Name = provider.CreateParameter("Name", Emp.Name.ToUpper(), DbType.String);
+                DbParameter FatherName = provider.CreateParameter("FatherName", Emp.FatherName.ToUpper(), DbType.String);
+                DbParameter DOB = provider.CreateParameter("DOB", Emp.DOB, DbType.DateTime);
+                DbParameter ContactNumber = provider.CreateParameter("ContactNumber", Emp.ContactNumber, DbType.String);
+                DbParameter ContactNumber1 = provider.CreateParameter("ContactNumber1", Emp.ContactNumber1, DbType.String);
+              
+               
+                DbParameter Email = provider.CreateParameter("Email", Emp.Email, DbType.String);
+                DbParameter Address = provider.CreateParameter("Address", Emp.Address.ToUpper(), DbType.String);
+                DbParameter StateID = provider.CreateParameter("StateID", Emp.State == null ? (int?)null : Emp.State.StateID, DbType.Int32);
+                DbParameter DistrictID = provider.CreateParameter("DistrictID", Emp.District == null ? (int?)null : Emp.District.DistrictID, DbType.Int32);
+                DbParameter TehsilID = provider.CreateParameter("TehsilID", Emp.Tehsil == null ? (int?)null : Emp.Tehsil.TehsilID, DbType.Int32);
+                DbParameter Village = provider.CreateParameter("Village", Emp.Village, DbType.String);
+                DbParameter BloodGroupID = provider.CreateParameter("BloodGroupID", Emp.BloodGroup == null ? (int?)null : Emp.BloodGroup.BloodGroupID, DbType.Int32);
+                DbParameter EmergencyContactNumber = provider.CreateParameter("EmergencyContactNumber", Emp.EmergencyContactNumber, DbType.String);
+                DbParameter Location = provider.CreateParameter("Location", Emp.Location, DbType.String);
+                DbParameter AadhaarCardNo = provider.CreateParameter("AadhaarCardNo", Emp.AadhaarCardNo, DbType.String);
+                DbParameter EqucationalQualificationID = provider.CreateParameter("EqucationalQualificationID", Emp.EqucationalQualification == null ? (int?)null : Emp.EqucationalQualification.EqucationalQualificationID, DbType.Int64);
+                DbParameter TotalExperience = provider.CreateParameter("TotalExperience", Emp.TotalExperience, DbType.Decimal);
+
+                DbParameter OfficeID = provider.CreateParameter("OfficeCodeID", EmpRole.DealerOffice.OfficeID, DbType.DateTime);
+                DbParameter SAPEmpCode = provider.CreateParameter("SAPEmpCode", EmpRole.SAPEmpCode, DbType.DateTime);
+                DbParameter DateOfJoining = provider.CreateParameter("DateOfJoining", EmpRole.DateOfJoining, DbType.DateTime);
+                DbParameter DealerDepartmentID = provider.CreateParameter("DealerDepartmentID", EmpRole.DealerDepartment.DealerDepartmentID, DbType.Int32);
+                DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", EmpRole.DealerDesignation.DealerDesignationID, DbType.Int32);
+                DbParameter ReportingTo = provider.CreateParameter("ReportingTo", EmpRole.ReportingTo == null ? (int?)null : EmpRole.ReportingTo.DealerEmployeeID, DbType.Int32);
+
+
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValueDParam = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                { 
+                    DbParameter[] Params = new DbParameter[26] { DealerEmployeeID, Name, FatherName, DOB, ContactNumber,ContactNumber1, Email, Address, StateID, DistrictID, TehsilID, Village,BloodGroupID,EmergencyContactNumber
+                     ,Location,AadhaarCardNo,EqucationalQualificationID,TotalExperience,
+                     OfficeID,SAPEmpCode,DateOfJoining,DealerDepartmentID,DealerDesignationID,ReportingTo,UserIDP,OutValueDParam};
+
+                    provider.Insert("ZDMS_InsertOrUpdateAjaxEmployee", Params);
+                    scope.Complete();
+                    EmployeeID = Convert.ToInt32(OutValueDParam.Value);
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessageService("BDMS_Dealer", "ZDMS_InsertOrUpdateAjaxEmployee", ex);
+                return 0;
+            }
+            return EmployeeID;
+        }
         public Int64 InsertOrUpdateDealerEmployeeAttachedFile(PDMS_DealerEmployeeAttachedFile AttachedFile, int UserID)
         {
 

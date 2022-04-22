@@ -735,7 +735,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void ActionControlMange()
         {
             lbtnEditLead.Visible = true;
-            lbtnConvertToProspect.Visible = true;
+            //lbtnConvertToProspect.Visible = true;
             lbtnLostLead.Visible = true;
             lbtnCancelLead.Visible = true;
             lbtnAssign.Visible = true;

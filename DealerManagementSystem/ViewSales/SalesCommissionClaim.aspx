@@ -4,7 +4,7 @@
 <%@ Register Src="~/ViewSales/UserControls/SalesCommissionClaimView.ascx" TagPrefix="UC" TagName="UC_ClaimView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server"> 
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -12,7 +12,14 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Claim Number</label>
+                            <asp:TextBox ID="txtClaimNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -26,7 +33,16 @@
                             <asp1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp1:TextBoxWatermarkExtender>
                         </div>
-
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Status</label>
+                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
+                                <asp:ListItem Value="0" Text="All"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="Requested"></asp:ListItem>
+                                <asp:ListItem Value="2" Text="Approved Level 1"></asp:ListItem>
+                                <asp:ListItem Value="3" Text="Approved Level 2"></asp:ListItem>
+                                <asp:ListItem Value="4" Text="Approved"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddQuotation" runat="server" CssClass="btn Save" Text="Add Quotation" OnClick="btnAddQuotation_Click" Width="150px" Visible="false"></asp:Button>
@@ -101,7 +117,7 @@
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Approved 3 By" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Approved 3 By" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server" />
                                         </ItemTemplate>

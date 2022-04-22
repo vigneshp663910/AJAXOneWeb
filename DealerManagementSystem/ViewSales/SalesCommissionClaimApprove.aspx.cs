@@ -64,15 +64,15 @@ namespace DealerManagementSystem.ViewSales
                 ibtnArrowRight.Visible = false;
 
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval1).Count() != 0)
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval1).Count() != 0)
                 { 
                     lblStatus.Text = "L1 Approve";
                 }
-                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval2).Count() != 0)
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval2).Count() != 0)
                 {
                     lblStatus.Text = "L2 Approve";
                 }
-                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval3).Count() != 0)
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
                 {
                     lblStatus.Text = "L3 Approve";
                 } 
@@ -117,15 +117,15 @@ namespace DealerManagementSystem.ViewSales
 
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
 
-                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval1).Count() != 0)
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval1).Count() != 0)
                 {
                     StatusID = 1;
                 }
-                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval2).Count() != 0)
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval2).Count() != 0)
                 {
                     StatusID = 2;
                 }
-                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimAproval3).Count() != 0)
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
                 {
                     StatusID = 3;
                 }

@@ -33,7 +33,12 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         void FillStatusCount()
-        { 
+        {
+            lblOpen.Text = "0";
+            lblAssigned.Text = "0";
+            lblQuotation.Text = "0";
+            lblWon.Text = "0";
+            lblLost.Text = "0"; 
             int? DealerID = null;
             if (rbToday.Checked)
             {
@@ -55,7 +60,7 @@ namespace DealerManagementSystem.ViewPreSale
             if ((Status.Where(m => m.StatusID == 1).Count() != 0))
             {
                 var ss = Status.Where(m => m.StatusID == 1).ToList();
-                lblNewlyCreated.Text = ss[0].Count.ToString();
+                lblOpen.Text = ss[0].Count.ToString();
             }
 
             if ((Status.Where(m => m.StatusID == 2).Count() != 0))
@@ -66,7 +71,7 @@ namespace DealerManagementSystem.ViewPreSale
             if ((Status.Where(m => m.StatusID == 3).Count() != 0))
             {
                 var ss = Status.Where(m => m.StatusID == 3).ToList();
-                lblProspect.Text = ss[0].Count.ToString();
+                lblQuotation.Text = ss[0].Count.ToString();
             }
             if ((Status.Where(m => m.StatusID == 4).Count() != 0))
             {
@@ -80,7 +85,12 @@ namespace DealerManagementSystem.ViewPreSale
             }           
         }
         void FillFunnel()
-        { 
+        {
+
+            lblNewlyCreatedF.InnerText = "Newly Created: 0" ;
+            lblConvertToProspectF.InnerText = "0";
+            lblWonF.InnerText = "0";
+
             if (rbWeekF.Checked)
             {
                 FromF = DateTime.Now.AddDays(-7);
@@ -131,7 +141,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Newly Created")
+            if (lbActions.Text == "Open")
             {
                 Session["leadStatusID"] = 1;
             }
@@ -139,7 +149,7 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 Session["leadStatusID"] = 2;
             }
-            else if (lbActions.Text == "Prospect")
+            else if (lbActions.Text == "Quotation")
             {
                 Session["leadStatusID"] = 3;
             }

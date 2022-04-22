@@ -24,26 +24,19 @@
         }
 
             .portlet.box.green > .portlet-title {
-
-               /* background-color: #1679dd;*/
-               /*  background-color:burlywood;*/
-               /*   background-color:cadetblue;*/
-                
-                 /*background-color:darkcyan;*/
-               /*     background-color:darkgray;*/
-                   
-              
-
+                /* background-color: #1679dd;*/
+                /*  background-color:burlywood;*/
+                /*   background-color:cadetblue;*/
+                /*background-color:darkcyan;*/
+                /*     background-color:darkgray;*/
                 /* background-color:lightsteelblue;*/
-
                 /* background-color:mediumseagreen;*/
 
-                 background-color:mediumturquoise;
-
-               /* background-color: #32c5d2;*/
-              /*    background-color: #00CED1;*/
+                background-color: mediumturquoise;
+                /* background-color: #32c5d2;*/
+                /*    background-color: #00CED1;*/
                 /* background-color: #0000cc;*/
-             /*      background-color: #000099;*/
+                /*      background-color: #000099;*/
             }
 
         .portlet.box > .portlet-title {
@@ -189,13 +182,13 @@
         <div class="lead-static">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption" style="font-size: 25px;">
-                        Lead Activity Statistics             
+                    <div class="caption" style="font-size: 25px;">                        Lead Activity Statistics             
                 <div class="actions" style="float: right;">
-                    <div class="btn-group btn-group-devided" data-toggle="buttons">
-                        <label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">
+                    <div class="btn-group btn-group-devided">
+                        <%--<label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">--%>
+                        <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
                             <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
-                            <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
+                            <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" /> 
                             <span>Today</span> 
                         </label>
                         <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
@@ -221,38 +214,38 @@
                     <div id="divEnquiryStat">
                         <div id="divLeadStatistics" class="row no-margin" style="font-size: medium; text-align: right;">
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
-                                <a class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
+                                <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <asp:Label ID="lblNewlyCreated" runat="server" Text="0"></asp:Label>
+                                        <asp:Label ID="lblOpen" runat="server" Text="0"></asp:Label>
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
-                                       <div class="desc"> <asp:LinkButton ID="lbtnNewlyCreated" runat="server"  style="color: white;" OnClick="lbActions_Click">Newly Created</asp:LinkButton>  </div>
+                                       <div class="desc"> <asp:LinkButton ID="lbtnNewlyCreated" runat="server"  style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>  </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #3598dc;">
-                                <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
+                                <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
                                         <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label> 
                                        <div class="desc"> <asp:LinkButton ID="lbtnAssigned" runat="server"  style="color: white;" OnClick="lbActions_Click">Assigned</asp:LinkButton>  </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #32c5d2;">
-                                <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0);" onclick="VisitMyEnquiries('Prospect');">
+                                <div class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0);" onclick="VisitMyEnquiries('Prospect');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         
-                                         <asp:Label ID="lblProspect" runat="server" Text="0"></asp:Label>
-                                      <div class="desc">  <asp:LinkButton ID="lbtnProspect" runat="server"  style="color: white;" OnClick="lbActions_Click">Prospect</asp:LinkButton> </div> 
+                                         <asp:Label ID="lblQuotation" runat="server" Text="0"></asp:Label>
+                                      <div class="desc">  <asp:LinkButton ID="lbtnProspect" runat="server"  style="color: white;" OnClick="lbActions_Click">Quotation</asp:LinkButton> </div> 
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #26c281;">
-                                <a class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');">
+                                <div class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
@@ -260,26 +253,26 @@
                                        <div class="desc"> <asp:LinkButton ID="lbtnWon" runat="server"  style="color: white;" OnClick="lbActions_Click">Won</asp:LinkButton> </div>
                                         
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d91e18;">
-                                <a class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
+                                <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                          <asp:Label ID="lblLost" runat="server" Text="0"></asp:Label>
                                         <div class="desc"> <asp:LinkButton ID="lbtnLost" runat="server" style="color: white;" OnClick="lbActions_Click">Lost</asp:LinkButton></div>
                                        
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 1px; background-color: #d05454;">
-                                <a class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');">
+                                <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblCancelled" runat="server" Text="0"></asp:Label>
                                        <div class="desc"> <asp:LinkButton ID="lbtnCancelled" runat="server" style="color: white;"  OnClick="lbActions_Click">Cancelled</asp:LinkButton> </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -287,18 +280,14 @@
             </div> 
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption" style="font-size: 25px;">
-                        Lead Statistics Funnel
-  
+                    <div class="caption" style="font-size: 25px;"> Lead Statistics Funnel   
                     <div class="actions" style="float: right;">
                         <div class="btn-group btn-group-devided" >
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                <%-- <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">--%>
-                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel"   OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" Checked="true"  >
-                                      
+                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel"   OnCheckedChanged="rbStatusF_CheckedChanged"  AutoPostBack="true" Checked="true"  > 
                                 </asp:RadioButton>
-                              Week
-                           
+                              Week 
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                 <%--<input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">--%>
@@ -376,7 +365,7 @@
                                     <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(50 197 210)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,123.08669335814801,165.99999999999997)" pointer-events="none">
                                         <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  >
-                                            Convert To Prospect: 
+                                            Convert To Quotation: 
                                         </text>
                                         
                                         <%--  <asp:Label ID="lblConvertToProspect" Text="52" runat="server" /> --%>

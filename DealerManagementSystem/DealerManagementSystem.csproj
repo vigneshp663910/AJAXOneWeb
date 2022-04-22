@@ -273,6 +273,7 @@
     <Content Include="ViewMarketing\LostCustomerData.aspx" />
     <Content Include="ViewMaster\AjaxEmployeeManage.aspx" />
     <Content Include="ViewMaster\Application.aspx" />
+    <Content Include="ViewMaster\CreateAjaxEmployee.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
@@ -802,6 +803,13 @@
     </Compile>
     <Compile Include="ViewMaster\Application.aspx.designer.cs">
       <DependentUpon>Application.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\CreateAjaxEmployee.aspx.cs">
+      <DependentUpon>CreateAjaxEmployee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\CreateAjaxEmployee.aspx.designer.cs">
+      <DependentUpon>CreateAjaxEmployee.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Customer.aspx.cs">
       <DependentUpon>Customer.aspx</DependentUpon>

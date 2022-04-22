@@ -51,13 +51,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.RadioButton rbYear;
 
         /// <summary>
-        /// lblNewlyCreated control.
+        /// lblOpen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewlyCreated;
+        protected global::System.Web.UI.WebControls.Label lblOpen;
 
         /// <summary>
         /// lbtnNewlyCreated control.
@@ -87,13 +87,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.LinkButton lbtnAssigned;
 
         /// <summary>
-        /// lblProspect control.
+        /// lblQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProspect;
+        protected global::System.Web.UI.WebControls.Label lblQuotation;
 
         /// <summary>
         /// lbtnProspect control.
