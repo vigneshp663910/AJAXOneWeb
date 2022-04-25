@@ -340,7 +340,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = Results.Message;
                     return;
                 }
-                if (Quotation.QuotationNo != null)
+                if (!string.IsNullOrEmpty(Quotation.QuotationNo))
                 {
 
                     GenerateQuotation(MaterialTax);
@@ -452,7 +452,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Text = Results.Message;
                 return;
             }
-            if (Quotation.QuotationNo != null)
+            if (!string.IsNullOrEmpty(Quotation.QuotationNo))
             {
                 GenerateQuotation(Item);
                 //PSalesQuotation Q = Quotation;
@@ -935,22 +935,54 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     } 
                     if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
                     {
-                        DataTable DtResult = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, QuotationItem);
-                        foreach (DataRow dr in DtResult.Rows)
+                        //list[0] as Subrc [1] as Number [2] as Type [3] as Message [4] as QuotationNo [5] as QuotationDate
+                        List<string> list = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, QuotationItem);
+                        if (list != null)
                         {
-                            if (dr["Type"].ToString() == "S")
+                            if (list[2] == "S")
                             {
-                                lblMessage.Text = dr["Message"].ToString();
+                                lblMessage.Text = (list[3].ToString()=="")?"Record Was Updated":list[3].ToString();
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Green;
                             }
+                            else if(list[0]=="0")
+                            {
+                                if (list[2] == "S")
+                                {
+                                    lblMessage.Text = list[3].ToString();
+                                    lblMessage.Visible = true;
+                                    lblMessage.ForeColor = Color.Green;
+                                }
+                                else
+                                {
+                                    lblMessage.Text = "Record was updated";
+                                    lblMessage.Visible = true;
+                                    lblMessage.ForeColor = Color.Green;
+                                }
+                            }
                             else
                             {
-                                lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                                lblMessage.Text = list[3].ToString() + Environment.NewLine + "\n";
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Red;
                             }
                         }
+                        
+                        //foreach (DataRow dr in DtResult.Rows)
+                        //{
+                        //    if (dr["Type"].ToString() == "S")
+                        //    {
+                        //        lblMessage.Text = dr["Message"].ToString();
+                        //        lblMessage.Visible = true;
+                        //        lblMessage.ForeColor = Color.Green;
+                        //    }
+                        //    else
+                        //    {
+                        //        lblMessage.Text += dr["Message"].ToString() + Environment.NewLine + "\n";
+                        //        lblMessage.Visible = true;
+                        //        lblMessage.ForeColor = Color.Red;
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -1409,6 +1441,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
                     }
                 }
+
+                Boolean Success = false;
+                
+                Success = new BSalesQuotation().InsertSalesQuotationRevision(Q, CustomerAddress1, CustomerAddress2, CustomerAddressShipTo1, CustomerAddressShipTo2,
+                    KindAttention, Hypothecation, Reference, TermsOfPayment, Delivery, QNote, Validity, Convert.ToDecimal(GrandTotal));
+                if (Success == false)
+                {
+                    return;
+                }
+
                 PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
                 string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
                 string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
@@ -1423,6 +1465,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
                 P[56] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
+
                 report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
                 report.SetParameters(P);
 
