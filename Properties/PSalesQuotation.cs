@@ -12,6 +12,7 @@ namespace Properties
         public long QuotationID { get; set; }
         public string RefQuotationNo { get; set; }
         public DateTime RefQuotationDate { get; set; }
+        public string RevisionNumber { get; set; }
         public string QuotationNo { get; set; }
         public DateTime? QuotationDate { get; set; }
         public DateTime? RequestedDeliveryDate { get; set; }
@@ -35,19 +36,19 @@ namespace Properties
         public List<PSalesQuotationCompetitor> Competitor { get; set; }
         public PLead Lead { get; set; }
         public List<PSalesQuotationNote> Notes { get; set; }
-        public string SalesOrderNo { get; set; }
-        public DateTime? SalesOrderDate { get; set; }
+        public string SaleOrderNumber { get; set; }
+        public DateTime? SaleOrderDate { get; set; }
+        public string DeliveryNumber { get; set; }
+        public DateTime? DeliveryDate { get; set; }
         public string SalesInvoiceNumber { get; set; }
         public DateTime? SalesInvoiceDate { get; set; }
+        public string EquipmentSerialNo { get; set; }
         public PUser CreatedBy { get; set; }
 
         public decimal GrossValue { get; set; }
         public decimal TotalEffort { get; set; }
         public decimal TotalExpense { get; set; }
-        public decimal LifeTimeValue { get; set; }
-        public decimal LifeTimeTax { get; set; }
-        public string RevisionNumber { get; set; }
-        public DateTime FirstVisitDate { get; set; }
+        public decimal LifeTimeTax { get; set; }        
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }

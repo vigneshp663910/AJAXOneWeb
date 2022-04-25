@@ -15,33 +15,24 @@
 
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
-                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="None"></asp:TextBox>
                             <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp1:CalendarExtender>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp1:TextBoxWatermarkExtender>
                         </div>
 
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date To</label>
-                            <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="None"></asp:TextBox>
                             <asp1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp1:TextBoxWatermarkExtender>
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer</label>
-                            <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
+                            <label class="modal-label">Quotation</label>
+                            <asp:TextBox ID="txtQuotation" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="None"></asp:TextBox>
+                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtQuotation" WatermarkText="Quotation" WatermarkCssClass="WatermarkCssClass" />
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Mobile</label>
-                            <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Country</label>
-                            <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" />
-                        </div>
-
+                       
 
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>

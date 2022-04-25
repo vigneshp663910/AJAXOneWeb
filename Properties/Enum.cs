@@ -477,7 +477,8 @@ namespace Properties
         ClaimCancel,
         SalesCommClaimApproval1,
         SalesCommClaimApproval2,
-        SalesCommClaimApproval3,
+        SalesCommClaimApproval3=10,
+        EmployeeEdit
     }
     public enum DMS_WarrantyClaimStatus
     {

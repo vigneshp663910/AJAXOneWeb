@@ -27,11 +27,7 @@ namespace DealerManagementSystem.ViewSales
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Sales Commission Claim Create');</script>"); 
             lblMessage.Text = ""; 
             if (!IsPostBack)
-            { 
-                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-                new DDLBind(ddlSCountry, Country, "Country", "CountryID", true, "All Country");
-                ddlSCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
+            {  
             }
         }
 
@@ -82,16 +78,10 @@ namespace DealerManagementSystem.ViewSales
 
 
         void FillQuotation()
-        {  
-          
-            string QuotationNo = null;
-            DateTime? QuotationDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
-            DateTime? QuotationDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());  
-
-            int? DealerID = null; 
-             Quote = new BSalesCommissionClaim().GetSalesQuotationForClaimCreate( QuotationNo, QuotationDateFrom, QuotationDateTo,  DealerID);
+        {
+            Quote = new BSalesCommissionClaim().GetSalesQuotationForClaimCreate(txtQuotation.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
             gvQuotation.DataSource = Quote;
-            gvQuotation.DataBind(); 
+            gvQuotation.DataBind();
             if (Quote.Count == 0)
             {
                 lblRowCount.Visible = false;
@@ -104,9 +94,8 @@ namespace DealerManagementSystem.ViewSales
                 ibtnQuoteArrowLeft.Visible = true;
                 ibtnQuoteArrowRight.Visible = true;
                 lblRowCount.Text = (((gvQuotation.PageIndex) * gvQuotation.PageSize) + 1) + " - " + (((gvQuotation.PageIndex) * gvQuotation.PageSize) + gvQuotation.Rows.Count) + " of " + Quote.Count;
-            } 
+            }
         }
-   
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divColdVisitView.Visible = false;

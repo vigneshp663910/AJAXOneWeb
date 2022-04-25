@@ -1,4 +1,6 @@
-﻿using System.Web.Optimization;
+﻿using Microsoft.AspNet.SignalR.Configuration;
+using System;
+using System.Web.Optimization;
 
 namespace DealerManagementSystem
 {
@@ -28,6 +30,8 @@ namespace DealerManagementSystem
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
+           
+            
         }
     }
 }

@@ -272,8 +272,8 @@ namespace Business
                 DbParameter EqucationalQualificationID = provider.CreateParameter("EqucationalQualificationID", Emp.EqucationalQualification == null ? (int?)null : Emp.EqucationalQualification.EqucationalQualificationID, DbType.Int64);
                 DbParameter TotalExperience = provider.CreateParameter("TotalExperience", Emp.TotalExperience, DbType.Decimal);
 
-                DbParameter OfficeID = provider.CreateParameter("OfficeCodeID", EmpRole.DealerOffice.OfficeID, DbType.DateTime);
-                DbParameter SAPEmpCode = provider.CreateParameter("SAPEmpCode", EmpRole.SAPEmpCode, DbType.DateTime);
+                DbParameter OfficeID = provider.CreateParameter("OfficeCodeID", EmpRole.DealerOffice.OfficeID, DbType.Int32);
+                DbParameter SAPEmpCode = provider.CreateParameter("SAPEmpCode", EmpRole.SAPEmpCode, DbType.String);
                 DbParameter DateOfJoining = provider.CreateParameter("DateOfJoining", EmpRole.DateOfJoining, DbType.DateTime);
                 DbParameter DealerDepartmentID = provider.CreateParameter("DealerDepartmentID", EmpRole.DealerDepartment.DealerDepartmentID, DbType.Int32);
                 DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", EmpRole.DealerDesignation.DealerDesignationID, DbType.Int32);
@@ -497,7 +497,7 @@ namespace Business
                                 DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
                                 Name = Convert.ToString(dr["Name"]),
                                 FatherName = Convert.ToString(dr["FatherName"]),
-                                DOB = Convert.ToDateTime(dr["DOB"]),
+                                DOB = DBNull.Value == dr["DOB"] ?(DateTime?) null : Convert.ToDateTime(dr["DOB"]),
                                 ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 Email = Convert.ToString(dr["EmailID"]),
                                 State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
@@ -630,7 +630,7 @@ namespace Business
 
                                 Name = Convert.ToString(dr["Name"]),
                                 FatherName = Convert.ToString(dr["FatherName"]),
-                                DOB =  Convert.ToDateTime(dr["DOB"]),
+                                DOB = DBNull.Value == dr["DOB"] ? (DateTime?)null : Convert.ToDateTime(dr["DOB"]),
                                 ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 ContactNumber1 = Convert.ToString(dr["ContactNumber1"]),
                                 Email = Convert.ToString(dr["EmailID"]),
@@ -931,7 +931,7 @@ namespace Business
             }
             return true;
         }
-        public List<PDMS_DealerEmployeeRole> GetDealerEmployeeRole(int? DealerEmployeeRoleID, int? DealerEmployeeID, int? DealerID, Boolean? IsActive)
+        public List<PDMS_DealerEmployeeRole> GetDealerEmployeeRole(long? DealerEmployeeRoleID, int? DealerEmployeeID, int? DealerID, Boolean? IsActive)
         {
             List<PDMS_DealerEmployeeRole> EMP = new List<PDMS_DealerEmployeeRole>();
             try
@@ -1109,7 +1109,7 @@ namespace Business
                                 DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
                                 Name = Convert.ToString(dr["Name"]),
                                 FatherName = Convert.ToString(dr["FatherName"]),
-                                DOB = Convert.ToDateTime(dr["DOB"]),
+                                DOB = DBNull.Value == dr["DOB"] ?(DateTime?) null : Convert.ToDateTime(dr["DOB"]),
                        //         ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 Email = Convert.ToString(dr["EmailID"]),
                                 State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
@@ -1139,7 +1139,7 @@ namespace Business
                                     DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
                                     ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
                                     DateOfLeaving = DBNull.Value == dr["DateOfLeaving"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfLeaving"]),
-                                    DateOfJoining = Convert.ToDateTime(dr["DateOfJoining"]),
+                                    DateOfJoining = DBNull.Value == dr["DateOfJoining"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfJoining"]),
                                     IsActive = Convert.ToBoolean(dr["IsActive"]),
                                     SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
                                 },

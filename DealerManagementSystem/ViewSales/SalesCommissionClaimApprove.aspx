@@ -73,8 +73,8 @@
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" /> 
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Save" Width="100px" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" /> 
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Save" Width="100px" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" />
                     </div>
                 </div>
             </fieldset>
@@ -83,13 +83,13 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend> 
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>Claim :</td> 
+                                            <td>Claim :</td>
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -122,9 +122,6 @@
                                         <asp:Label ID="lblClaimDate" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
-
-
                                 <%--                                    <asp:TemplateField HeaderText="Cust. Code">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -158,7 +155,7 @@
                                 <asp:TemplateField HeaderText="Apr.1 By" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Button ID="btnApproved1By" runat="server" Text="Approve" CssClass="InputButton" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved1By_Click" />
+                                        <asp:Button ID="btnApproved1By" runat="server" Text="Approve" CssClass="btn Save" Width="80px" Height="30px" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved1By_Click" />
                                         <asp:Label ID="lblApproved1By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1By.ContactName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -171,7 +168,7 @@
                                 <asp:TemplateField HeaderText="Apr.2 By" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Button ID="btnApproved2By" runat="server" Text="Approve" CssClass="InputButton" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved2By_Click" />
+                                        <asp:Button ID="btnApproved2By" runat="server" Text="Approve" CssClass="btn Save" Width="80px" Height="30px" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved2By_Click" />
                                         <asp:Label ID="lblApproved2By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved2By.ContactName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -185,7 +182,7 @@
                                 <asp:TemplateField HeaderText="Apr.3 By" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Button ID="btnApproved3By" runat="server" Text="Approve" CssClass="InputButton" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved3By_Click" />
+                                        <asp:Button ID="btnApproved3By" runat="server" Text="Approve" CssClass="btn Save" Width="80px" Height="30px" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved3By_Click" />
                                         <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -196,6 +193,7 @@
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="SalesCommissionClaimID-<%# Eval("SalesCommissionClaimID") %>" style="display: inline; position: relative;">
+
                                                     <table>
                                                         <tr>
                                                             <td>
@@ -236,22 +234,21 @@
                                                             <td>
                                                                 <asp:Label ID="lblBaseTax" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.BaseTax")%>' runat="server"></asp:Label></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved1Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved1Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Amount")%>' CssClass="form-control"  Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved1Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved1Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Remarks")%>' CssClass="form-control"   Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved2Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved2Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Amount")%>' CssClass="form-control"  Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved2Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved2Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' CssClass="form-control"   Enabled="false" /></td>
 
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved3Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Amount")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved3Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Amount")%>' CssClass="form-control" Enabled="false" /></td>
                                                             <td>
-                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Remarks")%>' CssClass="input" Width="70px" Enabled="false" /></td>
+                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Remarks")%>' CssClass="form-control"   Enabled="false" /></td>
 
                                                         </tr>
                                                     </table>
-
 
                                                     <%--  <asp:TemplateField HeaderText="Material Desc" HeaderStyle-Width="150px">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

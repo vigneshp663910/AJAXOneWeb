@@ -1,7 +1,9 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -72,9 +74,9 @@ namespace DealerManagementSystem.ViewSales
         }
         void FillClaim()
         { 
-            string ClaimNumber = null;
-            string ClaimDateFrom = null;
-            string ClaimDateTo = null; 
+            string ClaimNumber = txtClaimNumber.Text.Trim();
+            string ClaimDateFrom = txtDateFrom.Text.Trim();
+            string ClaimDateTo = txtDateTo.Text.Trim(); 
             int? DealerID = null;
             Claim = new BSalesCommissionClaim().GetSalesCommissionClaimForInvoiceCreate(DealerID, ClaimNumber, ClaimDateFrom, ClaimDateTo);
             gvQuotation.DataSource = Claim;
@@ -129,6 +131,25 @@ namespace DealerManagementSystem.ViewSales
             Label lblSalesCommissionClaimID = (Label)gvRow.FindControl("lblSalesCommissionClaimID");
             UC_ClaimView.fillViewSalesCommission(Convert.ToInt64(lblSalesCommissionClaimID.Text));
         }
-         
+
+        protected void btnCreateInvoice_Click(object sender, EventArgs e)
+        {   
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblSalesCommissionClaimID = (Label)gvRow.FindControl("lblSalesCommissionClaimID");
+
+            lblMessage.Visible = true;
+
+            string endPoint = "SalesCommission/CreateClaimInvoice?SalesCommissionClaimID=" + lblSalesCommissionClaimID.Text;
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.ForeColor = Color.Green;
+        }
     }
 }

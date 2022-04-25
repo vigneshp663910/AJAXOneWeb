@@ -224,8 +224,8 @@ namespace Business
             try
             {
                 List<PDMS_Tehsil> MML = GetTehsil(CountryID, StateID,DistrictID, Tehsil);
-                ddl.DataValueField = "DistrictID";
-                ddl.DataTextField = "District";
+                ddl.DataValueField = "TehsilID";
+                ddl.DataTextField = "Tehsil";
                 ddl.DataSource = MML;
                 ddl.DataBind();
                 ddl.Items.Insert(0, new ListItem("Select", "0"));

@@ -45,12 +45,24 @@ namespace DealerManagementSystem.ViewMaster
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
 
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+
+              int DealerID =  new BDMS_Dealer().GetDealer(null,"2000")[0].DealerID;
+                new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
+                FillGetDealerOffice(DealerID);
                 if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
                 {
                     FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));   
                     btnBack.Visible = true; 
                 }
             }
+        }
+        private void FillGetDealerOffice(int DealerID)
+        {
+            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlDealerOffice.DataValueField = "OfficeID";
+            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
+            ddlDealerOffice.DataBind();
+            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,8 +71,7 @@ namespace DealerManagementSystem.ViewMaster
                 new BDMS_Address().GetDistrict(ddlDistrict, null, null, null, Convert.ToInt32(ddlState.SelectedValue), null, null);
         }
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlDistrict.SelectedValue != "0")
+        { 
                 new BDMS_Address().GetTehsil(ddlTehsil, null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
         }
 
@@ -109,7 +120,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             Emp.TotalExperience = string.IsNullOrEmpty(txtTotalExperience.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtTotalExperience.Text.Trim());
 
-            Emp.PANNo = txtPANNo.Text.Trim();
+         
             Emp.EmergencyContactNumber = txtEmergencyContactNumber.Text.Trim();
             if (ddlBloodGroup.SelectedValue != "0")
             {
@@ -117,10 +128,9 @@ namespace DealerManagementSystem.ViewMaster
             }
 
             PDMS_DealerEmployeeRole Role = new PDMS_DealerEmployeeRole();
-            Role.DealerEmployeeID = (int)ViewState["DealerEmployeeID"];
-            Role.Dealer = new PDMS_Dealer(); 
-            Role.Dealer.DealerOffice = new PDMS_DealerOffice();
-            Role.Dealer.DealerOffice.OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            Role.DealerEmployeeID = (int)ViewState["DealerEmployeeID"]; 
+            Role.DealerOffice = new PDMS_DealerOffice();
+            Role.DealerOffice.OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
             Role.DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
             Role.SAPEmpCode = txtAadhaarCardNo.Text.Trim();
             Role.DealerDepartment = new PDMS_DealerDepartment();
@@ -163,8 +173,7 @@ namespace DealerManagementSystem.ViewMaster
             txtAddress.Text = Emp.Address;
             txtLocation.Text = Emp.Location;
             txtAadhaarCardNo.Text = Emp.AadhaarCardNo;
-            txtTotalExperience.Text = Convert.ToString(Emp.TotalExperience);
-            txtPANNo.Text = Emp.PANNo;
+            txtTotalExperience.Text = Convert.ToString(Emp.TotalExperience); 
             
             txtEmergencyContactNumber.Text = Emp.EmergencyContactNumber;
             if (Emp.BloodGroup != null)
@@ -189,7 +198,11 @@ namespace DealerManagementSystem.ViewMaster
             if (Emp.EqucationalQualification != null)
             {
                 ddlEqucationalQualification.SelectedValue = Convert.ToString(Emp.EqucationalQualification.EqucationalQualificationID);
-            }             
+            }
+            if (Emp.DealerEmployeeRole != null)
+            {
+                FillDealerEmployeeRole(Emp.DealerEmployeeRole.DealerEmployeeRoleID);
+            }
         }        
         protected void btnBack_Click(object sender, EventArgs e)
         {
@@ -211,8 +224,7 @@ namespace DealerManagementSystem.ViewMaster
             txtTotalExperience.BorderColor = Color.Silver;
             txtAddress.BorderColor = Color.Silver;
             txtLocation.BorderColor = Color.Silver;
-            txtAadhaarCardNo.BorderColor = Color.Silver;
-            txtPANNo.BorderColor = Color.Silver;
+            txtAadhaarCardNo.BorderColor = Color.Silver; 
 
             ddlEqucationalQualification.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
@@ -300,12 +312,7 @@ namespace DealerManagementSystem.ViewMaster
                 txtAadhaarCardNo.BorderColor = Color.Red;
             }
 
-            if (string.IsNullOrEmpty(txtPANNo.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the PAN No";
-                Ret = false;
-                txtPANNo.BorderColor = Color.Red;
-            }
+            
            
             lblMessage.Text = Message;
             if (!Ret)
@@ -360,9 +367,7 @@ namespace DealerManagementSystem.ViewMaster
             txtTotalExperience.BorderColor = Color.Silver;
             txtAddress.BorderColor = Color.Silver;
             txtLocation.BorderColor = Color.Silver;
-            txtAadhaarCardNo.BorderColor = Color.Silver;
-            txtPANNo.BorderColor = Color.Silver;
-            
+            txtAadhaarCardNo.BorderColor = Color.Silver; 
 
             ddlEqucationalQualification.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
@@ -470,6 +475,16 @@ namespace DealerManagementSystem.ViewMaster
         {
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
+        private void FillDealerEmployeeRole(long DealerEmployeeRoleID)
+        {
+            PDMS_DealerEmployeeRole Role = new BDMS_Dealer().GetDealerEmployeeRole(DealerEmployeeRoleID, null, null, null)[0];
 
+            ddlDealerOffice.SelectedValue = Convert.ToString(Role.DealerOffice.OfficeID);
+            ddlDepartment.SelectedValue = Convert.ToString(Role.DealerDepartment.DealerDepartmentID);
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+            ddlDesignation.SelectedValue = Convert.ToString(Role.DealerDesignation.DealerDesignationID);
+            ddlReportingTo.SelectedValue = Role.ReportingTo == null ? "0" : Convert.ToString(Role.ReportingTo.DealerEmployeeID);
+            txtDateOfJoining.Text = Convert.ToString(Role.DateOfJoining);
+        }
     }
 }

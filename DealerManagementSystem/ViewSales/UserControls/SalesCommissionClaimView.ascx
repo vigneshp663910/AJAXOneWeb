@@ -77,21 +77,8 @@
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
 <asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
-    <asp:TabPanel ID="tpnlProduct" runat="server" HeaderText="Quotation">
-        <ContentTemplate>
-            <div class="col-md-12 field-margin-top">
-                <UC:UC_SalesQuotationView ID="UC_SalesQuotationView" runat="server"></UC:UC_SalesQuotationView>
-            </div>
-        </ContentTemplate>
-    </asp:TabPanel>
-    <asp:TabPanel ID="TabLead" runat="server" HeaderText="Lead">
-        <ContentTemplate>
-            <div class="col-md-12 field-margin-top">
-                <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
-            </div>
-        </ContentTemplate>
-    </asp:TabPanel>
-    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Approver Remark" Font-Bold="True" ToolTip="List of Countries...">
+   
+    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Quotation Material" Font-Bold="True" ToolTip="List of Countries...">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <fieldset class="fieldset-border">
@@ -151,6 +138,20 @@
                            
                         </div>
                 </fieldset>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+     <asp:TabPanel ID="tpnlProduct" runat="server" HeaderText="Quotation">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_SalesQuotationView ID="UC_SalesQuotationView" runat="server"></UC:UC_SalesQuotationView>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="TabLead" runat="server" HeaderText="Lead">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
             </div>
         </ContentTemplate>
     </asp:TabPanel>

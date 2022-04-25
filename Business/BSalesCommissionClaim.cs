@@ -10,10 +10,9 @@ namespace Business
 {
    public class BSalesCommissionClaim
     {
-        public List<PSalesQuotation> GetSalesQuotationForClaimCreate(string QuotationNo, DateTime? QuotationDateFrom, DateTime? QuotationDateTo, int? DealerID)
+        public List<PSalesQuotation> GetSalesQuotationForClaimCreate(string QuotationNo, string QuotationDateFrom, string QuotationDateTo)
         {
-            string endPoint = "SalesCommission/SalesQuotationForClaimCreate?QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo
-               + "&DealerID=" + DealerID;
+            string endPoint = "SalesCommission/SalesQuotationForClaimCreate?QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo;
             return JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public int InsertSalesCommissionClaim(long SalesQuotationID)
@@ -39,12 +38,18 @@ namespace Business
         {
             string endPoint = "SalesCommission/ClaimForApproval?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
-
+        } 
         public List<PSalesCommissionClaim> GetSalesCommissionClaimForInvoiceCreate(int? DealerID, string ClaimNumber, string ClaimDateFrom, string ClaimDateTo)
         {
             string endPoint = "SalesCommission/ClaimForInvoiceCreate?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo;
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
-        } 
+        }
+
+        public List<PSalesCommissionClaimInvoice> GetSalesCommissionClaimInvoice(int? DealerID, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo)
+        {
+            string endPoint = "SalesCommission/SalesCommissionClaimInvoice?DealerID=" + DealerID + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo;
+            return JsonConvert.DeserializeObject<List<PSalesCommissionClaimInvoice>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
     }
 }

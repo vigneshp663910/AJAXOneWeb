@@ -1122,7 +1122,7 @@
             .table.table-bordered.table-condensed.Grid tr:last-child td table td {
                 padding: 2px 5px;
                 font-size: 10px;
-                background: #369;
+                /*  background: #369;*/
             }
 
                 .table.table-bordered.table-condensed.Grid tr:last-child td table td span {
@@ -1567,7 +1567,6 @@
 
     </script>
 
-
     <script>
         function SetScreenTitle(as_pagetitle) {
             //alert(as_pagetitle);
@@ -1577,8 +1576,6 @@
 
 
     </script>
-
-
 
     <script>
         /*const {hidden} = require("modernizr");*/
@@ -1760,7 +1757,6 @@
 
     </script>
 
-
     <script>
 <%--
         function MenuMaster() {
@@ -1839,6 +1835,8 @@
             });
         });
     </script>
+
+     
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

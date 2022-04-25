@@ -73,7 +73,7 @@ namespace Properties
         public string Name { get; set; }
         public string FatherName { get; set; }
         public PDMS_DealerEmployeeAttachedFile Photo { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         public string ContactNumber { get; set; }
         public string ContactNumber1 { get; set; } 
         public string Email { get; set; }
@@ -147,7 +147,7 @@ namespace Properties
         public PDMS_DealerOffice DealerOffice { get; set; }
         public int DealerEmployeeID { get; set; }
         public PDMS_DealerEmployee DealerEmployee { get; set; }
-        public DateTime DateOfJoining { get; set; }
+        public DateTime? DateOfJoining { get; set; }
         public PDMS_DealerDepartment DealerDepartment { get; set; }
         public PDMS_DealerDesignation DealerDesignation { get; set; }
         public PDMS_DealerEmployee ReportingTo { get; set; }

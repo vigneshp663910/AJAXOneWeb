@@ -60,35 +60,7 @@
         function escapeRegExp(string) {
             return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         }
-        function PANNo(event) {
-            if (event.key == " ")
-                return false;
-            var val = document.getElementById("<%=txtPANNo.ClientID %>").value;
-            var v = 0;
-            var sVal;
-            var str = "";
-            for (v = 0; v < val.length; v++) {
-                sVal = val.substring(v, v + 1);
-
-                if (((str + sVal).length < 6) || ((str + sVal).length == 10)) {
-                    if (sVal.search(/^[a-zA-Z]+$/) === -1) {
-                    }
-                    else {
-                        str = str + sVal;
-                    }
-                }
-                else if ((str + sVal).length < 10) {
-                    if (isNaN(sVal)) {
-
-                    }
-                    else {
-                        str = str + sVal;
-                    }
-                }
-                // alert(sVal);
-            }
-            document.getElementById("<%=txtPANNo.ClientID %>").value = str;
-        }
+       
     </script>
     <style>
         .uppercase {
@@ -196,13 +168,7 @@
                     <div class="col-md-3">
                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <label>PANNo</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtPANNo" runat="server" CssClass="uppercase form-control" AutoComplete="SP" MaxLength="10" onkeyUp="return PANNo(event);"></asp:TextBox>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPANNo" WatermarkText="WWWWW DDDD W"></asp:TextBoxWatermarkExtender>
-                    </div>
+                   
                     <div class="col-md-3 text-right">
                         <label>Emergency Contact</label>
                     </div>

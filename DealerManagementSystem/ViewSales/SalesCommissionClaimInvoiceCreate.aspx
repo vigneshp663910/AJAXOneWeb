@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SalesCommissionClaimInvoiceCreate.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SalesCommissionClaimInvoiceCreate" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewSales/UserControls/SalesCommissionClaimView.ascx" TagPrefix="UC" TagName="UC_ClaimView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-     <label class="modal-label">Date From</label>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -12,7 +12,10 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Claim Number</label>
+                            <asp:TextBox ID="txtClaimNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -28,7 +31,7 @@
                         </div>
 
                         <div class="col-md-12 text-center">
-                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button> 
+                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
@@ -100,7 +103,7 @@
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Approved 3 By" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Approved 3 By" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server" />
                                         </ItemTemplate>
@@ -113,6 +116,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
+                                            <asp:Button ID="btnCreateInvoice" runat="server" Text="Create Invoice" CssClass="btn Back" OnClick="btnCreateInvoice_Click" Width="120px" Height="33px" />
                                             <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -128,6 +132,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>

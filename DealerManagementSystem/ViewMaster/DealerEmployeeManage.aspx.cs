@@ -92,10 +92,16 @@ namespace DealerManagementSystem.ViewMaster
             List<PSubModuleAccess> sub = user.Find(m => m.ModuleMasterID == (short)DMS_MenuMain.Master).SubModuleAccess;
             Boolean EditAlloved = false;
 
-            if ((sub.Where(m => m.SubModuleMasterID == (short)DMS_MenuSub.DealerEmployeeApproval).Count() != 0))
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EmployeeEdit).Count() != 0)
             {
                 EditAlloved = true;
             }
+            //if ((sub.Where(m => m.SubModuleMasterID == (short)DMS_MenuSub.DealerEmployeeApproval).Count() != 0))
+            //{
+            //    EditAlloved = true;
+            //}
             for (int i = 0; i < gvDealerEmployee.Rows.Count; i++)
             {
                 Label lblCreatedByID = (Label)gvDealerEmployee.Rows[i].FindControl("lblCreatedByID");
@@ -205,7 +211,7 @@ namespace DealerManagementSystem.ViewMaster
                      , "" // Emp.DealerEmployeeRole.DealerDepartment.DealerDepartment
                       , "" //  Emp.DealerEmployeeRole.DealerDesignation.DealerDesignation
                       , Emp.FatherName
-                      , Emp.DOB.ToShortDateString()
+                      , Emp.DOB == null ? "" : ((DateTime)Emp.DOB).ToShortDateString()
                        , Emp.ContactNumber1
                         , "" //  Emp.DealerEmployeeRole.DealerOffice.OfficeName
                       , "" //  Emp.DealerEmployeeRole.ReportingTo == null ? "" : Emp.DealerEmployeeRole.ReportingTo.Name
@@ -228,7 +234,7 @@ namespace DealerManagementSystem.ViewMaster
                      , Emp.Name
                      , Emp.ContactNumber
                     , Emp.Email
-                     , Emp.DealerEmployeeRole.DateOfJoining.ToShortDateString()
+                     , Emp.DealerEmployeeRole.DateOfJoining == null ? "" : ((DateTime)Emp.DealerEmployeeRole.DateOfJoining).ToShortDateString()  
                     , Emp.DealerEmployeeRole.DateOfLeaving == null ? "" : ((DateTime)Emp.DealerEmployeeRole.DateOfLeaving).ToShortDateString()
 
                        , Emp.DealerEmployeeRole.Dealer.DealerCode
@@ -238,7 +244,7 @@ namespace DealerManagementSystem.ViewMaster
                          , Emp.DealerEmployeeRole.DealerDepartment.DealerDepartment
                          , Emp.DealerEmployeeRole.DealerDesignation.DealerDesignation
                          , Emp.FatherName
-                          , Emp.DOB.ToShortDateString()
+                          , Emp.DOB == null ? "" : ((DateTime)Emp.DOB).ToShortDateString()
                            , Emp.ContactNumber1
                            , Emp.DealerEmployeeRole.DealerOffice.OfficeName
                          , Emp.DealerEmployeeRole.ReportingTo == null ? "" : Emp.DealerEmployeeRole.ReportingTo.Name
@@ -260,7 +266,16 @@ namespace DealerManagementSystem.ViewMaster
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "DealerEmployeeCreate.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
+            string url = "";
+           Label lblDealerCode = (Label)gvDealerEmployee.Rows[index].FindControl("lblDealerCode");
+            if (lblDealerCode.Text == "2000")
+            {
+                url = "CreateAjaxEmployee.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
+            }
+            else
+            {
+                url = "DealerEmployeeCreate.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
+            } 
             Response.Redirect(url);
         }
         protected void lbView_Click(object sender, EventArgs e)
