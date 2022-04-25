@@ -1141,5 +1141,45 @@ namespace Business
         //    }
         //    return Query;
         //}
+        public Boolean InsertSalesQuotationRevision(PSalesQuotation Quotation, string SoldToAddress1, string SoldToAddress2, string ShipToAddress1, string ShipToAddress2, string KindAttention,
+            string Hypothecation, string Reference, string TermsOfPayment, string Delivery, string QNote, string Validity,decimal GrandTotal)
+        {
+            int success = 0;
+            DbParameter SalesQuotationIDP = provider.CreateParameter("SalesQuotationID", Quotation.QuotationID, DbType.Int32);
+            DbParameter SoldToAddress1P = provider.CreateParameter("SoldToAddress1", SoldToAddress1, DbType.String);
+            DbParameter SoldToAddress2P = provider.CreateParameter("SoldToAddress2", SoldToAddress2, DbType.String);
+            DbParameter ShipToAddress1P = provider.CreateParameter("ShipToAddress1", ShipToAddress1, DbType.String);
+            DbParameter ShipToAddress2P = provider.CreateParameter("ShipToAddress2", ShipToAddress2, DbType.String);
+            DbParameter KindAttentionP = provider.CreateParameter("KindAttention", KindAttention, DbType.String);
+            DbParameter HypothecationP = provider.CreateParameter("Hypothecation", Hypothecation, DbType.String);
+            DbParameter ReferenceP = provider.CreateParameter("Reference", Reference, DbType.String);
+            DbParameter TermsOfPaymentP = provider.CreateParameter("TermsOfPayment", TermsOfPayment, DbType.String);
+            DbParameter DeliveryP = provider.CreateParameter("Delivery", Delivery, DbType.String);
+            DbParameter QNoteP = provider.CreateParameter("QNote", QNote, DbType.String);
+            DbParameter ValidityP = provider.CreateParameter("Validity", Validity, DbType.String);
+            DbParameter GrandTotalP = provider.CreateParameter("GrandTotal", GrandTotal.ToString("0.000"), DbType.Decimal);
+            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
+            DbParameter[] Params = new DbParameter[14] { SalesQuotationIDP, SoldToAddress1P, SoldToAddress2P, ShipToAddress1P, ShipToAddress2P, 
+                KindAttentionP,HypothecationP,ReferenceP,TermsOfPaymentP,DeliveryP,QNoteP,ValidityP,GrandTotalP,OutValue};
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("InsertSalesQuotationRevision", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BSalesQuotation", "InsertSalesQuotationRevision", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BSalesQuotation", " InsertSalesQuotationRevision", ex);
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -13,31 +13,35 @@ namespace SapIntegration
     {
         public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit, PSalesQuotationItem QuotationItem)
         {
-            string QuotationNo = null;
+            string QuotationNo = null, QuotationDate = null;
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
             if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
             {
                 tagListBapi.SetValue("QUOTATION_NO", pSalesQuotation.QuotationNo);
             }
-            if (pSalesQuotation.ShipTo != null)
+            if (string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
             {
-                tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
-            }
-            else
-            {
+                if (pSalesQuotation.ShipTo != null)
+                {
+                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
+                }
+                else
+                {
+                    if (pSalesQuotation.Lead.Customer.CustomerCode != null)
+                    {
+                        tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
+                    }
+                }
+
                 if (pSalesQuotation.Lead.Customer.CustomerCode != null)
                 {
-                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
+                    tagListBapi.SetValue("SOLD_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
                 }
             }
-
-            if (pSalesQuotation.Lead.Customer.CustomerCode != null)
-            {
-                tagListBapi.SetValue("SOLD_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
-            }
-
             tagListBapi.SetValue("QUO_VALID_TO", pSalesQuotation.ValidTo);
+            //tagListBapi.SetValue("INCOTERMS1", "EXF");
+            //tagListBapi.SetValue("INCOTERMS2", "FRT-AJAX,INS-CUST");
 
             IRfcStructure QTHeader = tagListBapi.GetStructure("QUOTATION_HEADER_IN");
             QTHeader.SetValue("PRICE_DATE", pSalesQuotation.PricingDate);
@@ -56,15 +60,15 @@ namespace SapIntegration
                 string UPDATEFLAG = string.Empty;
                 if (QuotationItem.Material != null)
                 {
-                    if (pSalesQuotation.QuotationItems[i].Material.MaterialCode == QuotationItem.Material.MaterialCode) { UPDATEFLAG = "D"; }
-                    else
-                    {
-                        UPDATEFLAG = (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo)) ? "U" : "I";
-                    }
+                    if (pSalesQuotation.QuotationItems[i].Material.MaterialCode == QuotationItem.Material.MaterialCode) { UPDATEFLAG = QuotationItem.SapFlag; }
+                    //else
+                    //{
+                    //    UPDATEFLAG = (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo)) ? "" : "I";
+                    //}
                 }
                 else
                 {
-                    UPDATEFLAG = (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo)) ? "U" : "I";
+                    //UPDATEFLAG = (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo)) ? "" : "I";
                 }
                 QT_Item.SetValue("UPDATEFLAG", UPDATEFLAG);
                 q = q + 1;
@@ -76,13 +80,16 @@ namespace SapIntegration
                 //{
                 //    QT_Item.SetValue("REASON_REJ", "83");
                 //}
+                //QT_Item.SetValue("DISCOUNT_PER", "");
+                QT_Item.SetValue("DISCOUNT_VALUE", pSalesQuotation.QuotationItems[i].Discount);
+                QT_Item.SetValue("LIFE_TIME_TAX", pSalesQuotation.LifeTimeTax);
             }
             if (QuotationItem.Material != null)
             {
                 if (QuotationItem.SapFlag != "D")
                 {
                     QT_Item.Append();
-                    QT_Item.SetValue("UPDATEFLAG", "I");
+                    QT_Item.SetValue("UPDATEFLAG", "");
                     q = q + 1;
                     QT_Item.SetValue("ITM_NUMBER", "0000" + q + "0");//"000010"
                     QT_Item.SetValue("MATERIAL", QuotationItem.Material.MaterialCode);//"L.900.508"
@@ -91,25 +98,27 @@ namespace SapIntegration
                     //{
                     //    QT_Item.SetValue("REASON_REJ", "83");
                     //}
+                    QT_Item.SetValue("DISCOUNT_VALUE", QuotationItem.Discount);
+                    QT_Item.SetValue("LIFE_TIME_TAX", pSalesQuotation.LifeTimeTax);
                 }
             }
 
 
-            IRfcTable QUOTATION_CONDITIONS = tagListBapi.GetTable("QUOTATION_CONDITIONS_IN");
-            if (pSalesQuotation.QuotationItems[0].Discount > 0)
-            {
-                QUOTATION_CONDITIONS.Append();
-                QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
-                QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZCD4");
-                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.QuotationItems[0].Discount);
-            }
-            if (pSalesQuotation.LifeTimeTax > 0)
-            {
-                QUOTATION_CONDITIONS.Append();
-                QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
-                QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZLTT");
-                QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.LifeTimeTax);
-            }
+            //IRfcTable QUOTATION_CONDITIONS = tagListBapi.GetTable("QUOTATION_CONDITIONS_IN");
+            //if (pSalesQuotation.QuotationItems[0].Discount > 0)
+            //{
+            //    QUOTATION_CONDITIONS.Append();
+            //    QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000010");//"000010"
+            //    QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZCD4");
+            //    QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.QuotationItems[0].Discount);
+            //}
+            //if (pSalesQuotation.LifeTimeTax > 0)
+            //{
+            //    QUOTATION_CONDITIONS.Append();
+            //    QUOTATION_CONDITIONS.SetValue("ITM_NUMBER", "000000");//"000010"
+            //    QUOTATION_CONDITIONS.SetValue("COND_TYPE", "ZLTT");
+            //    QUOTATION_CONDITIONS.SetValue("COND_VALUE", pSalesQuotation.LifeTimeTax);
+            //}
 
 
 
@@ -220,6 +229,8 @@ namespace SapIntegration
 
             tagListBapi.Invoke(SAP.RfcDes());
             QuotationNo = tagListBapi.GetValue("P_QUOTATION_NO").ToString();
+            QuotationDate = tagListBapi.GetValue("P_DATE").ToString();
+            string P_RESULT = tagListBapi.GetValue("P_RESULT").ToString();
             IRfcTable table = tagListBapi.GetTable("RETURN");
 
             DataTable dtRet = new DataTable();
@@ -242,6 +253,25 @@ namespace SapIntegration
                 dtRet.Rows.Add(dr);
             }
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("S", "", "", QuotationNo); }
+
+            List<string> list = new List<string>();
+
+            string Subrc = "", Number = "", Type = "", Message = "", QtNo = "", QtDate = "";
+            foreach (DataRow dr in dtRet.Rows)
+            {
+                Subrc = P_RESULT;
+                Number = dr["NUMBER"].ToString();
+                Type = dr["TYPE"].ToString();
+                Message = dr["MESSAGE"].ToString();
+                QtNo = QuotationNo;
+                QtDate = QuotationDate;
+            }
+            list.Add(Subrc);
+            list.Add(Number);
+            list.Add(Type);
+            list.Add(Message);
+            list.Add(QtNo);
+            list.Add(QtDate);
             return dtRet;
         }
         public PSalesQuotationItem getMaterialTaxForQuotation(PSalesQuotation Quotation, string MaterialCode, Boolean IsWarrenty, decimal qty)

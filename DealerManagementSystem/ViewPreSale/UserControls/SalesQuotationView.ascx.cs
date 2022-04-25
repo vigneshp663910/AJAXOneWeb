@@ -340,7 +340,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = Results.Message;
                     return;
                 }
-                if (Quotation.QuotationNo != null)
+                if (!string.IsNullOrEmpty(Quotation.QuotationNo))
                 {
 
                     GenerateQuotation(MaterialTax);
@@ -452,7 +452,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Text = Results.Message;
                 return;
             }
-            if (Quotation.QuotationNo != null)
+            if (!string.IsNullOrEmpty(Quotation.QuotationNo))
             {
                 GenerateQuotation(Item);
                 //PSalesQuotation Q = Quotation;
@@ -1409,6 +1409,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
                     }
                 }
+
+                Boolean Success = false;
+                
+                Success = new BSalesQuotation().InsertSalesQuotationRevision(Q, CustomerAddress1, CustomerAddress2, CustomerAddressShipTo1, CustomerAddressShipTo2,
+                    KindAttention, Hypothecation, Reference, TermsOfPayment, Delivery, QNote, Validity, Convert.ToDecimal(GrandTotal));
+                if (Success == false)
+                {
+                    return;
+                }
+
                 PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
                 string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
                 string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
@@ -1423,6 +1433,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
                 P[56] = new ReportParameter("CompanyPAN", "PAN:" + Ajax.PAN);
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email);
+
                 report.ReportPath = Server.MapPath("~/Print/VigneshTaxQuotation.rdlc");
                 report.SetParameters(P);
 
