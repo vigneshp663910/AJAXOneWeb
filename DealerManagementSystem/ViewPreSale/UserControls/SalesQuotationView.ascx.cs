@@ -941,11 +941,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         {
                             if (list[2] == "S")
                             {
-                                lblMessage.Text = list[3].ToString();
+                                lblMessage.Text = (list[3].ToString()=="")?"Record Was Updated":list[3].ToString();
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Green;
                             }
-                            else if(list[2]=="0")
+                            else if(list[0]=="0")
                             {
                                 if (list[2] == "S")
                                 {
