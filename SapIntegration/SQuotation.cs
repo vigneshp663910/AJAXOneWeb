@@ -11,7 +11,7 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public DataTable getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit, PSalesQuotationItem QuotationItem)
+        public List<string> getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit, PSalesQuotationItem QuotationItem)
         {
             string QuotationNo = null, QuotationDate = null;
 
@@ -272,7 +272,7 @@ namespace SapIntegration
             list.Add(Message);
             list.Add(QtNo);
             list.Add(QtDate);
-            return dtRet;
+            return list;
         }
         public PSalesQuotationItem getMaterialTaxForQuotation(PSalesQuotation Quotation, string MaterialCode, Boolean IsWarrenty, decimal qty)
         {
