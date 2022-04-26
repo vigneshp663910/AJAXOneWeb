@@ -161,9 +161,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 GenerateQuotation(new PSalesQuotationItem());
                 fillViewQuotation(Quotation.QuotationID);
             }
-            else if (lbActions.Text == "Print PDF")
+            else if (lbActions.Text == "Print Machine Quotation")
             {
-                GeneratePDF();
+                PrintMachineQuotation();
             }
             else if (lbActions.Text == "Print Tax Quotation")
             {
@@ -1006,7 +1006,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             
         }
 
-        void GeneratePDF()
+        void PrintMachineQuotation()
         {
             try
             {
@@ -1026,14 +1026,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 report.EnableExternalImages = true;
 
                 PDMS_Customer Customer = Q.Lead.Customer;
-                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
                 PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
-                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
+                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
                 List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
 
@@ -1200,12 +1200,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
 
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                Response.Flush(); // send it to the client to download
+                //Response.Buffer = true;
+                //Response.Clear();
+                //Response.ContentType = mimeType;
+                //Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                //Response.BinaryWrite(mybytes); // create the file
+                //Response.Flush(); // send it to the client to download
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                Response.Redirect("PDF.aspx?FileName=" + FileName, false);
             }
             catch (Exception ex)
             {
@@ -1237,14 +1241,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ReportParameter[] P = new ReportParameter[58];
 
                 PDMS_Customer Customer = Q.Lead.Customer;
-                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : "," + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 PDMS_Customer CustomerShipTo = new PDMS_Customer();
                 if (Q.ShipTo != null) { CustomerShipTo = CustomerShipTo = new BDMS_Customer().GetCustomerByID(Q.ShipTo.CustomerID); } else { CustomerShipTo = Q.Lead.Customer; }
             ;
-                string CustomerAddressShipTo1 = (CustomerShipTo.Address1 + (string.IsNullOrEmpty(CustomerShipTo.Address2) ? "" : "," + CustomerShipTo.Address2) + (string.IsNullOrEmpty(CustomerShipTo.Address3) ? "" : "," + CustomerShipTo.Address3)).Trim(',', ' ');
-                string CustomerAddressShipTo2 = (CustomerShipTo.City + (string.IsNullOrEmpty(CustomerShipTo.State.State) ? "" : "," + CustomerShipTo.State.State) + (string.IsNullOrEmpty(CustomerShipTo.Country.Country) ? "" : "," + CustomerShipTo.Country.Country) + (string.IsNullOrEmpty(CustomerShipTo.Pincode) ? "" : "-" + CustomerShipTo.Pincode)).Trim(',', ' ');
+                string CustomerAddressShipTo1 = (CustomerShipTo.Address1 + (string.IsNullOrEmpty(CustomerShipTo.Address2) ? "" : ", " + CustomerShipTo.Address2) + (string.IsNullOrEmpty(CustomerShipTo.Address3) ? "" : ", " + CustomerShipTo.Address3)).Trim(',', ' ');
+                string CustomerAddressShipTo2 = (CustomerShipTo.City + (string.IsNullOrEmpty(CustomerShipTo.State.State) ? "" : ", " + CustomerShipTo.State.State) + (string.IsNullOrEmpty(CustomerShipTo.Country.Country) ? "" : ", " + CustomerShipTo.Country.Country) + (string.IsNullOrEmpty(CustomerShipTo.Pincode) ? "" : "-" + CustomerShipTo.Pincode)).Trim(',', ' ');
 
                 string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "";
 
@@ -1498,7 +1502,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnAddEffort.Visible = true;
             lbtnAddExpense.Visible = true;
             lbtnGenerateQuotation.Visible = true;
-            lbtnPrintPDF.Visible = true;
+            lbtnPrintMachineQuotation.Visible = true;
 
 
             //lbtnEditQuotation.Visible = false;
@@ -1510,7 +1514,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddEffort.Visible = false;
             //lbtnAddExpense.Visible = false;
             //lbtnGenerateQuotation.Visible = false;
-            //lbtnPrintPDF.Visible = false;
+            //lbtnPrintMachineQuotation.Visible = false;
 
         }
         protected void FillProduct(object sender, EventArgs e)
