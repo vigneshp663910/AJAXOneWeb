@@ -925,11 +925,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
                     Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
                     List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
-                    if (Visit[0].ColdVisitDate == null)
+                    if (Visit.Count == 0)
                     {
                         lblMessage.Text = "Visit Date Not Found";
                         lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Green;
+                        lblMessage.ForeColor = Color.Red;
                         return;
                     } 
                     if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
