@@ -317,11 +317,6 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SignIn.aspx" />
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll" />
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll" />
-    <Content Include="SqlServerTypes\x86\msvcr120.dll" />
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll" />
     <Content Include="Test.aspx" />
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="TestDealerOld.aspx" />
@@ -695,7 +690,6 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
