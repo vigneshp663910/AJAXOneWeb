@@ -113,7 +113,8 @@ namespace Properties
         public decimal IGSTValue { get; set; }
         public decimal TCSValue { get; set; }
         public decimal TCSTax { get; set; }
-       
+        public decimal LifeTimeValue { get; set; }
+        public decimal LifeTimeTax { get; set; }
         //public Decimal TaxPersent { get; set; }
         //public Decimal TaxValue { get; set; }
         public Decimal NetValue { get; set; }

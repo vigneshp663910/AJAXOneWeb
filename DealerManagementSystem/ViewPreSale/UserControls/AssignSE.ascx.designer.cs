@@ -24,12 +24,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
-        /// ddlSalesEngineer control.
+        /// ddlDealerSalesEngineer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSalesEngineer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerSalesEngineer;
+
+        /// <summary>
+        /// ddlAjaxSalesEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAjaxSalesEngineer;
     }
 }

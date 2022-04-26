@@ -915,8 +915,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void GenerateQuotation(PSalesQuotationItem QuotationItem)
         {
             try
-            {
-                
+            { 
                 if (Quotation.CommissionAgent)
                 { 
                     PSalesQuotation Q = Quotation;
@@ -939,34 +938,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         List<string> list = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, QuotationItem);
                         if (list != null)
                         {
-                            if (list[2] == "S")
+
+                            if ((list[2] == "S") || (list[0] == "0"))
                             {
-                                lblMessage.Text = (list[3].ToString()=="")?"Record Was Updated":list[3].ToString();
+                                lblMessage.Text = (list[3].ToString() == "") ? "Record Was Updated" : list[3].ToString();
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Green;
-                            }
-                            else if(list[0]=="0")
-                            {
-                                if (list[2] == "S")
-                                {
-                                    lblMessage.Text = list[3].ToString();
-                                    lblMessage.Visible = true;
-                                    lblMessage.ForeColor = Color.Green;
-                                }
-                                else
-                                {
-                                    lblMessage.Text = "Record was updated";
-                                    lblMessage.Visible = true;
-                                    lblMessage.ForeColor = Color.Green;
-                                }
+                                string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + ",QuotationNo" + list[0] + ",QuotationDate" + list[0];
+                                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                             }
                             else
                             {
                                 lblMessage.Text = list[3].ToString() + Environment.NewLine + "\n";
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Red;
-                            }
+                            } 
                         }
+
+
                         
                         //foreach (DataRow dr in DtResult.Rows)
                         //{
