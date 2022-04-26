@@ -946,7 +946,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                                 lblMessage.ForeColor = Color.Green;
                                 if (!string.IsNullOrEmpty(list[4]) && !string.IsNullOrEmpty(list[5]))
                                 {
-                                    string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + ",QuotationNo=" + list[4] + ",QuotationDate=" + list[5];
+                                    string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + "&QuotationNo=" + list[4] + "&QuotationDate=" + list[5] +"";
                                     PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                                 }
                             }
@@ -955,7 +955,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                                 lblMessage.Text = list[3].ToString() + Environment.NewLine + "\n";
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Red;
-                            } 
+                            }
                         }
 
 
