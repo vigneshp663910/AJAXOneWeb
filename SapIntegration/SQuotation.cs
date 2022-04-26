@@ -264,7 +264,7 @@ namespace SapIntegration
                 Type = dr["TYPE"].ToString();
                 Message = dr["MESSAGE"].ToString();
                 QtNo = QuotationNo;
-                QtDate = Convert.ToDateTime(QuotationDate).ToString();
+                QtDate = Convert.ToDateTime(QuotationDate).ToString("dd-MM-yyyy");
             }
             list.Add(Subrc);
             list.Add(Number);
