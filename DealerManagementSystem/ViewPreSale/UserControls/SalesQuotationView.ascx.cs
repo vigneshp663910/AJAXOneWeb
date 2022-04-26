@@ -944,8 +944,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                                 lblMessage.Text = (list[3].ToString() == "") ? "Record Was Updated" : list[3].ToString();
                                 lblMessage.Visible = true;
                                 lblMessage.ForeColor = Color.Green;
-                                string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + ",QuotationNo" + list[0] + ",QuotationDate" + list[0];
-                                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                                if (!string.IsNullOrEmpty(list[4]) && !string.IsNullOrEmpty(list[5]))
+                                {
+                                    string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + ",QuotationNo=" + list[4] + ",QuotationDate=" + list[5];
+                                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                                }
                             }
                             else
                             {
