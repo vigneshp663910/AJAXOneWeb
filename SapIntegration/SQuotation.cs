@@ -22,20 +22,21 @@ namespace SapIntegration
             }
             if (string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
             {
-                if (pSalesQuotation.ShipTo != null)
-                {
-                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
-                }
-                else
-                {
-                    if (pSalesQuotation.Lead.Customer.CustomerCode != null)
-                    {
-                        tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
-                    }
-                }
+                //if (pSalesQuotation.ShipTo != null)
+                //{
+                //    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
+                //}
+                //else
+                //{
+                //    if (pSalesQuotation.Lead.Customer.CustomerCode != null)
+                //    {
+                //        tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
+                //    }
+                //}
 
                 if (pSalesQuotation.Lead.Customer.CustomerCode != null)
                 {
+                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
                     tagListBapi.SetValue("SOLD_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
                 }
             }
