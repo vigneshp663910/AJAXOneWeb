@@ -48,7 +48,9 @@ namespace Business
                     {
                         int success = 0;
                         DbParameter SmsID = provider.CreateParameter("SmsID", s.SmsID, DbType.Int32);
-                        DbParameter[] Params = new DbParameter[1] { SmsID };
+                        DbParameter PhoneNumber = provider.CreateParameter("PhoneNumber", s.PhoneNumber, DbType.String);
+                        DbParameter Message = provider.CreateParameter("Message", s.Message, DbType.String);
+                        DbParameter[] Params = new DbParameter[3] { SmsID, PhoneNumber, Message };
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
