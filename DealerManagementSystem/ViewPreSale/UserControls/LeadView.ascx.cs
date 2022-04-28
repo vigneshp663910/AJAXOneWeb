@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
-            lblCategory.Text = Lead.Category.Category;
+            lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
             lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
             lblQualification.Text = Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source.Source;
@@ -137,10 +137,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind((DropDownList)UC_FollowUp.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
                 UC_FollowUp.FillMaster();
             }
-            else if (lbActions.Text == "Customer Convocation")
+            else if (lbActions.Text == "Customer Conversation")
             {
                 MPE_Convocation.Show(); 
                 UC_CustomerConvocation.FillMaster(Lead.LeadID);
+
+                
             }
             else if (lbActions.Text == "Financial Info")
             {
@@ -339,6 +341,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             PLeadSalesEngineer Engineer = new PLeadSalesEngineer();
             Engineer = UC_AssignSE.ReadAssignSE();
+            List<PLeadSalesEngineer> EngineerSE = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, true);
+            if(EngineerSE.Count !=0)
+            {
+                if(EngineerSE[0].SalesEngineer.UserID == Engineer.SalesEngineer.UserID)
+                {
+                    lblMessageAssignEngineer.Text = "Already this engineer assigned";
+                    return;
+                }
+            }
+
             Engineer.LeadID = Lead.LeadID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/SalesEngineer", Engineer));
             if (Results.Status == PApplication.Failure)
@@ -351,6 +363,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             tbpCust.ActiveTabIndex = 0;
 
             fillAssignSalesEngineer();
+            fillFollowUp();
         }
         protected void btnSaveFinancial_Click(object sender, EventArgs e)
         {
@@ -732,36 +745,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
         }
-        void ActionControlMange()
-        {
-            lbtnEditLead.Visible = true;
-            //lbtnConvertToProspect.Visible = true;
-            lbtnLostLead.Visible = true;
-            lbtnCancelLead.Visible = true;
-            lbtnAssign.Visible = true;
-            lbtnAddFollowUp.Visible = true;
-            lbtnCustomerConvocation.Visible = true;
-            lbtnAddEffort.Visible = true;
-            lbtnAddExpense.Visible = true;
-            lbtnAddFinancialInfo.Visible = true;
-            lbtnAddProduct.Visible = true;
-            lbtnAddQuotation.Visible = true;
-
-            //lbtnEditLead.Visible = false;
-            //lbtnConvertToProspect.Visible = false;
-            //lbtnLostLead.Visible = false;
-            //lbtnCancelLead.Visible = false;
-            //lbtnAssign.Visible = false;
-            //lbtnAddFollowUp.Visible = false;
-            //lbtnCustomerConvocation.Visible = false;
-            //lbtnAddEffort.Visible = false;
-            //lbtnAddExpense.Visible = false;
-            //lbtnAddFinancialInfo.Visible = false;
-            //lbtnAddProduct.Visible = false;
-            //lbtnAddQuotation.Visible = false;
-
-             
-        }
+       
 
         protected void ddlQuestionariesMain_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -936,5 +920,93 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             return Message;
         }
+
+        void ActionControlMange()
+        {
+            //lbtnEditLead.Visible = false;
+            //lbtnConvertToProspect.Visible = false;
+            //lbtnLostLead.Visible = false;
+            //lbtnCancelLead.Visible = false;
+            //lbtnAssign.Visible = false;
+            //lbtnAddFollowUp.Visible = false;
+            //lbtnCustomerConvocation.Visible = false;
+            //lbtnAddEffort.Visible = false;
+            //lbtnAddExpense.Visible = false;
+            //lbtnAddFinancialInfo.Visible = false;
+            //lbtnAddProduct.Visible = false;
+            //lbtnAddQuotation.Visible = false;
+
+
+            lbtnEditLead.Visible = true; 
+            lbtnAssign.Visible = true;
+            lbtnAddFollowUp.Visible = true;
+            lbtnCustomerConvocation.Visible = true;
+            lbtnAddEffort.Visible = true;
+            lbtnAddExpense.Visible = true;
+            lbtnAddFinancialInfo.Visible = true;
+            lbtnAddProduct.Visible = true;
+            lbtnAddQuotation.Visible = true;
+            lbtAddQuestionaries.Visible = true;
+            lbtnAddVisit.Visible = true;
+            lbtnLostLead.Visible = true;
+            lbtnCancelLead.Visible = true;
+
+            
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
+            {
+                lbtnEditLead.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AssignLead).Count() == 0)
+            {
+                lbtnAssign.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddFollowUpLead).Count() == 0)
+            {
+                lbtnAddFollowUp.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerConversationLead).Count() == 0)
+            {
+                lbtnCustomerConvocation.Visible = false;
+            }   
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddEffortLead).Count() == 0)
+            {
+                lbtnAddEffort.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddExpenseLead).Count() == 0)
+            {
+                lbtnAddExpense.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.FinancialInfoLead).Count() == 0)
+            {
+                lbtnAddFinancialInfo.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddProductLead).Count() == 0)
+            {
+                lbtnAddProduct.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ConvertToQuotationLead).Count() == 0)
+            {
+                lbtnAddQuotation.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddQuestionariesLead).Count() == 0)
+            {
+                lbtAddQuestionaries.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddVisitLead).Count() == 0)
+            {
+                lbtnAddVisit.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.LostLead).Count() == 0)
+            {
+                lbtnLostLead.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CancelLead).Count() == 0)
+            {
+                lbtnCancelLead.Visible = false;
+            }
+        }
+
     }
 }

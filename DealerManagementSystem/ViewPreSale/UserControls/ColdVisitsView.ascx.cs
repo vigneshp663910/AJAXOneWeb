@@ -75,6 +75,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
           
             ActionControlMange();
+
+            
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -329,7 +331,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lbtnStatusChangeToClose.Visible = false;
                 lbtnStatusChangeToCancel.Visible = false;
-            } 
+            }
+
+            if (ColdVisit.ReferenceID != null)
+            {
+                lbtnAddEffort.Visible = false;
+                lbtnAddExpense.Visible = false;
+                tbpCust.Visible = false;
+            }
         }
     }
 }

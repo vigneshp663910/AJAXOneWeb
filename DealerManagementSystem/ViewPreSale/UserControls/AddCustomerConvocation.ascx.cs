@@ -21,7 +21,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillMaster(long LeadID)
         {
-            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID,null);
+            List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(LeadID, PSession.User.UserID, true);
             List<PUser> U = new List<PUser>();
             foreach (PLeadSalesEngineer SE in SalesEngineer)
             {

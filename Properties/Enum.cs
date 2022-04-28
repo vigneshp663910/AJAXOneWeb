@@ -477,8 +477,22 @@ namespace Properties
         ClaimCancel,
         SalesCommClaimApproval1,
         SalesCommClaimApproval2,
-        SalesCommClaimApproval3=10,
-        EmployeeEdit
+        SalesCommClaimApproval3 = 10,
+        EmployeeEdit,
+        EditLead,
+        AssignLead,
+        AddFollowUpLead,
+        CustomerConversationLead,
+        AddEffortLead,
+        AddExpenseLead,
+        FinancialInfoLead,
+        AddProductLead,
+        ConvertToQuotationLead = 20,
+        AddQuestionariesLead,
+        AddVisitLead,
+        LostLead,
+        CancelLead,
+        EditVisitTarget,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -536,8 +550,8 @@ namespace Properties
 
     public enum Jobs
     {
-        WarrantyClaimFromPostgre = 1,
-        WarrantyClaimAbove50KFromPostgre = 2,
+        SendSMS = 1,
+        SendMail = 2,
         ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,

@@ -71,19 +71,17 @@ namespace Business
             {
                 switch (JobName)
                 {
-                    //case Jobs.WarrantyClaimFromPostgre:
-                    //    new FileLogger().LogMessageService("Started", "WarrantyClaimFromPostgre", null);
-                    //    C = new BDMS_WarrantyClaim().InsertWarrantyInvoice("", false);
-                    //    new FileLogger().LogMessageService("Ended", "Warranty Claim from Postgre Total Record " + C.ToString(), null);
-                    //    break;
-                    //case Jobs.WarrantyClaimAbove50KFromPostgre:
-                    //    new FileLogger().LogMessageService("Started", "WarrantyClaimAbove50KFromPostgre", null);
-                    //    string Filter = " where inv.p_inv_id in ( select InvoiceNumber  from  ( select   invg.p_inv_id as  InvoiceNumber , sum(invig.r_gross_amt) Sum_Value FROM   dsinr_inv_item invig  inner JOIN dsinr_inv_hdr invg ON ( invig.k_id = invg.p_id AND invig.s_tenant_id = invg.s_tenant_id and  d_inv_type_desc = 'Warranty Invoice'  )  where 1 = 1  ";
-                    //    Filter = Filter + " and inv.r_inv_date  = '" + DateTime.Now.ToShortDateString().Split('/')[1] + "/" + DateTime.Now.ToShortDateString().Split('/')[0] + "/" + DateTime.Now.ToShortDateString().Split('/')[2] + "'";
-                    //    Filter = Filter + "  group by invg.p_inv_id  ,invg.s_tenant_id )	t where Sum_Value >= 50000) ";
-                    //    C = new BDMS_WarrantyClaim().InsertWarrantyInvoice(Filter, false);
-                    //    new FileLogger().LogMessageService("Ended", "Warranty Claim from Postgre Above 50K Total Record " + C.ToString(), null);
-                    //    break;
+                    case Jobs.SendSMS:
+                        new FileLogger().LogMessageService("Started", "SendSMS", null);
+                        C = new BSmsManager().Start(); 
+                        new FileLogger().LogMessageService("Ended", "Send SMS Total Record " + C.ToString(), null);
+                        break;
+                    case Jobs.SendMail:
+                        new FileLogger().LogMessageService("Started", "SendSMS", null);
+                        C = new EmailManager().Start(); 
+                        new FileLogger().LogMessageService("Ended", "Send Mail Total Record " + C.ToString(), null);
+                        break;
+
                     case Jobs.ICTicketIntegrationFromCRM:
                         new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
                         C = new BDMS_ICTicket().IntegrationICTicket();
@@ -122,23 +120,24 @@ namespace Business
                         new BDMS_WarrantyClaim().UpdateWarrantyClaimMachineSerialNumberForModel();
                         new FileLogger().LogMessageService("Ended", "Model For Claim", null);
                         break;
-                    case Jobs.Category:
-                        new FileLogger().LogMessageService("Started", "Category", null);
-                        new BDMS_Category().IntegrationCategory();
-                        new FileLogger().LogMessageService("Ended", "Category", null);
-                        break;
-                    case Jobs.ICTicketIntegrationVerification:
-                        break;
+                    //case Jobs.Category:
+                    //    new FileLogger().LogMessageService("Started", "Category", null);
+                    //    new BDMS_Category().IntegrationCategory();
+                    //    new FileLogger().LogMessageService("Ended", "Category", null);
+                    //    break;
+
+                    //case Jobs.ICTicketIntegrationVerification:
+                    //    break;
                     case Jobs.QuotationForJSN:
                         new FileLogger().LogMessageService("Started", "QuotationForJSN", null);
                         new BDMS_SalesOrder().CreateQuotationForJSN();
                         new FileLogger().LogMessageService("Ended", "QuotationForJSN", null);
                         break;
-                    case Jobs.IntegrationSalesOrder:
-                        new FileLogger().LogMessageService("Started", "", null);
+                    //case Jobs.IntegrationSalesOrder:
+                    //    new FileLogger().LogMessageService("Started", "", null);
 
-                        new FileLogger().LogMessageService("Ended", "", null);
-                        break;
+                    //    new FileLogger().LogMessageService("Ended", "", null);
+                    //    break;
                     case Jobs.IntegrationSalesOrderInvoice:
                         new FileLogger().LogMessageService("Started", "IntegrationSalesOrderInvoice", null);
                         new BDMS_SalesOrder().IntegrationSalesOrderInvoice();

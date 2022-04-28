@@ -909,7 +909,7 @@ namespace DealerManagementSystem.ViewService
             string Message = "Greetings from Ajax.  " + sRandomOTP + " is the one time password (OTP) for acknowledging FSR " + FSRNumber + ". Click below link to acknowledge. Do not share it with anyone. " + URL;
             if (!string.IsNullOrEmpty(Customer.Mobile.Trim()))
             {
-                new BSMS().SendSMS(Customer.Mobile, Message);
+                new BSmsManager().SendSMS(Customer.Mobile, Message);
             }
         }
         private string GenerateRandomOTP(int iOTPLength, string[] saAllowedCharacters)

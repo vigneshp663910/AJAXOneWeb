@@ -69,7 +69,7 @@ namespace DealerManagementSystem.Account
             ////u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
 
-            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled, null);
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled, null, null, null);
             UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             gvEmployee.DataSource = UserLst;
 

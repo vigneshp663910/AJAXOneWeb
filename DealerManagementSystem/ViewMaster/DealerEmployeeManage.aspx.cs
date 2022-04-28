@@ -87,9 +87,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             gvDealerEmployee.DataBind();
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
-
-            List<PModuleAccess> user = PSession.User.DMSModules;
-            List<PSubModuleAccess> sub = user.Find(m => m.ModuleMasterID == (short)DMS_MenuMain.Master).SubModuleAccess;
+             
             Boolean EditAlloved = false;
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;

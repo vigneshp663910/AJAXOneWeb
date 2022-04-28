@@ -307,55 +307,11 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID,int? DealerID,bool? IsEnabled,string ContactName)
+        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID,int? DealerID,bool? IsEnabled,string ContactName, int? DealerDepartmentID, int? DealerDesignationID)
         {
-            List<PUser> users = new List<PUser>();
-            DateTime traceStartTime = DateTime.Now;
-            DataTable usersDataTable = new DataTable();
-            try
-            {
-                DbParameter  UserNameP,  ExternalReferenceIDP;
-                 
-                    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64); 
-
-                if (!string.IsNullOrEmpty(UserName))
-                    UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
-                else
-                    UserNameP = provider.CreateParameter("UserName", DBNull.Value, DbType.String);
-                 
-                    DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32); 
-
-                if (!string.IsNullOrEmpty(ExternalReferenceID))
-                    ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", ExternalReferenceID, DbType.String);
-                else
-                    ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", DBNull.Value, DbType.String);
-
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-
-                DbParameter IsEnabledP = provider.CreateParameter("IsEnabled", IsEnabled, DbType.Boolean);
-                DbParameter ContactNameP = provider.CreateParameter("ContactName", ContactName, DbType.String);
-
-                DbParameter[] userParams = new DbParameter[7] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP, IsEnabledP, ContactNameP };
-
-                using (DataSet usersDataSet = provider.Select("GetUsers", userParams))
-                {
-                    if (usersDataSet != null)
-                        foreach (DataRow usersRow in usersDataSet.Tables[0].Rows)
-                            users.Add(ConvertToUserVO(usersRow));
-                }
-                // This call is for track the status and logged into the trace logeer
-                TraceLogger.Log(traceStartTime);
-                return users;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
+            string endPoint = "User/GetUsers?UserID=" + UserID + "&UserName=" + UserName + "&UserTypeID=" + UserTypeID + "&ExternalReferenceID=" + ExternalReferenceID + "&DealerID=" + DealerID
+                 + "&IsEnabled=" + IsEnabled + "&ContactName=" + ContactName + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID;
+            return JsonConvert.DeserializeObject<List<PUser>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         /// <summary>
         /// This method is used to call UpdateUser method from DAO layer 

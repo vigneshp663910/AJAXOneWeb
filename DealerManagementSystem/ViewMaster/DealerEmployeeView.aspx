@@ -269,7 +269,13 @@
                                     <HeaderStyle Width="75px" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
-
+                                 <asp:TemplateField HeaderText="Login User Name">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblLoginUserName" Text='<%# DataBinder.Eval(Container.DataItem, "LoginUserName" )%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                    <HeaderStyle Width="75px" />
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Active">
                                     <ItemTemplate>
                                         <%--   <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive" )%>' runat="server"></asp:Label>--%>

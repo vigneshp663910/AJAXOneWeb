@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -27,6 +28,12 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditVisitTarget).Count() != 0)
+                {
+                    btnEdit.Visible = true;
+                }
             }
         }
 

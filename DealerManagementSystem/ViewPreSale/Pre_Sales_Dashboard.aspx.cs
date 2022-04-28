@@ -82,7 +82,12 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 var ss = Status.Where(m => m.StatusID == 5).ToList();
                 lblLost.Text = ss[0].Count.ToString();
-            }           
+            }
+            if ((Status.Where(m => m.StatusID == 6).Count() != 0))
+            {
+                var ss = Status.Where(m => m.StatusID == 6).ToList();
+                lblCancelled.Text = ss[0].Count.ToString();
+            }
         }
         void FillFunnel()
         {
@@ -105,28 +110,32 @@ namespace DealerManagementSystem.ViewPreSale
             }
 
             List<PLeadStatus> StatusF = new BLead().GetLeadCountByStatus(FromF, ToF, null, PSession.User.UserID);
-            int NewlyCreated = 0;
+
+            int Open = 0, Assigned = 0, Quotation = 0, Won = 0; 
             if ((StatusF.Where(m => m.StatusID == 1).Count() != 0))
             {
                 var ss = StatusF.Where(m => m.StatusID == 1).ToList();
-                NewlyCreated = ss[0].Count;
+                Open = ss[0].Count;
             }
             if ((StatusF.Where(m => m.StatusID == 2).Count() != 0))
             {
                 var ss = StatusF.Where(m => m.StatusID == 2).ToList();
-                NewlyCreated = NewlyCreated + ss[0].Count;
+                Assigned = ss[0].Count;
             }
-            lblNewlyCreatedF.InnerText = "Newly Created: " + NewlyCreated.ToString();
+            
             if ((StatusF.Where(m => m.StatusID == 3).Count() != 0))
             {
                 var ss = StatusF.Where(m => m.StatusID == 3).ToList();
-                lblConvertToProspectF.InnerText = ss[0].Count.ToString();
+                Quotation = ss[0].Count; 
             }
             if ((StatusF.Where(m => m.StatusID == 4).Count() != 0))
             {
                 var ss = StatusF.Where(m => m.StatusID == 4).ToList();
-                lblWonF.InnerText = "Won: " + ss[0].Count.ToString();
+                Won = ss[0].Count;
             }
+            lblNewlyCreatedF.InnerText = "Newly Created: " + (Open + Assigned).ToString();
+            lblConvertToProspectF.InnerText = (Quotation + Won).ToString();
+            lblWonF.InnerText = "Won: " + Won.ToString();
         }
 
         protected void rbStatus_CheckedChanged(object sender, EventArgs e)

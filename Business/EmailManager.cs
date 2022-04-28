@@ -24,6 +24,49 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
+        public int Start()
+        {
+            int Total = 0;
+            List<PMailManager> Sms = new List<PMailManager>();
+            try
+            {
+                using (DataSet ds = provider.Select(" "))
+                {
+                    if (ds != null)
+                    {
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            Sms.Add(new PMailManager()
+                            {
+                                MailID = Convert.ToInt64(dr["MailID"]),
+                                MailTo = Convert.ToString(dr["MailTo"]),
+                                Subject = Convert.ToString(dr["Subject"]),
+                                Message = Convert.ToString(dr["Message"]),
+                            });
+                        }
+                    }
+                }
+                foreach (PMailManager s in Sms)
+                {
+                    if (MailSend(s.MailTo, s.Subject, s.Message))
+                    {
+                        int success = 0;
+                        DbParameter MailID = provider.CreateParameter("MailID", s.MailID, DbType.Int32);
+                        DbParameter[] Params = new DbParameter[1] { MailID };
+
+                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        {
+                            success = provider.Insert("", Params);
+                            scope.Complete();
+                        }
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return Total;
+        }
 
 
         public void MailSend(string mailTo, string Subject, string messageBody, long TicketID)
@@ -307,8 +350,9 @@ namespace Business
             }
         }
 
-        public void MailSend(string mailTo, string Subject, string messageBody)
+        public Boolean MailSend(string mailTo, string Subject, string messageBody)
         {
+            Boolean success = false;
             try
             {
                 //   new FileLogger().LogTrack("MailSend", "Start");
@@ -336,11 +380,13 @@ namespace Business
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(mailMessage);
                 // new FileLogger().LogTrack("MailSend", "End");
+                success = true;
             }
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("EmailManager", "MailSend", ex);
             }
+            return success;
         }
         public void SendSMS(string Mobile, string messageBody)
         {
@@ -382,5 +428,12 @@ namespace Business
                 new FileLogger().LogMessage("EmailManager", "SMSSend", ex);
             }
         }
+    }
+    class PMailManager
+    {
+        public long MailID { get; set; }
+        public string MailTo { get; set; }
+        public string Subject { get; set; }
+        public string Message { get; set; }
     }
 }

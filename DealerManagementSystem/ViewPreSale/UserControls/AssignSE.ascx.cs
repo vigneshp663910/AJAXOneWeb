@@ -15,12 +15,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
     {
         public void FillMaster(PLead Lead)
         {
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Lead.Dealer.DealerID, true, null);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Lead.Dealer.DealerID, true, null, null, 4);
 
             new DDLBind(ddlDealerSalesEngineer, DealerUser, "ContactName", "UserID");
 
             int AjaxDealerID = Convert.ToInt32(ConfigurationManager.AppSettings["AjaxDealerID"]);
-            List<PUser> AjaxUser = new BUser().GetUsers(null, null, null, null, AjaxDealerID, true, null);
+            List<PUser> AjaxUser = new BUser().GetUsers(null, null, null, null, AjaxDealerID, true, null, null, 4);
 
             new DDLBind(ddlAjaxSalesEngineer, AjaxUser, "ContactName", "UserID");
         }

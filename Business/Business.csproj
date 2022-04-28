@@ -147,7 +147,7 @@
     <Compile Include="BPreSale.cs" />
     <Compile Include="BSalesCommissionClaim.cs" />
     <Compile Include="BSalesQuotation.cs" />
-    <Compile Include="BSMS.cs" />
+    <Compile Include="BSmsManager.cs" />
     <Compile Include="BTest.cs" />
     <Compile Include="BTestSN.cs" />
     <Compile Include="BTicketCategory.cs" />
