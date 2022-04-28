@@ -30,7 +30,7 @@ namespace Business
             List<PMailManager> Sms = new List<PMailManager>();
             try
             {
-                using (DataSet ds = provider.Select(" "))
+                using (DataSet ds = provider.Select("getMailSendInfoToSendMail"))
                 {
                     if (ds != null)
                     {
@@ -38,10 +38,10 @@ namespace Business
                         {
                             Sms.Add(new PMailManager()
                             {
-                                MailID = Convert.ToInt64(dr["MailID"]),
+                                MailID = Convert.ToInt64(dr["MailSendInfoID"]),
                                 MailTo = Convert.ToString(dr["MailTo"]),
                                 Subject = Convert.ToString(dr["Subject"]),
-                                Message = Convert.ToString(dr["Message"]),
+                                Message = Convert.ToString(dr["MessageBody"]),
                             });
                         }
                     }
@@ -51,12 +51,15 @@ namespace Business
                     if (MailSend(s.MailTo, s.Subject, s.Message))
                     {
                         int success = 0;
-                        DbParameter MailID = provider.CreateParameter("MailID", s.MailID, DbType.Int32);
+                        DbParameter MailID = provider.CreateParameter("MailSendInfoID", s.MailID, DbType.Int32);
+                        DbParameter MailTo = provider.CreateParameter("MailTo", s.MailTo, DbType.String);
+                        DbParameter Subject = provider.CreateParameter("Subject", s.Subject, DbType.String);
+                        DbParameter MessageBody = provider.CreateParameter("MessageBody", s.Message, DbType.String);
                         DbParameter[] Params = new DbParameter[1] { MailID };
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-                            success = provider.Insert("", Params);
+                            success = provider.Insert("updateMailSendInfo", Params);
                             scope.Complete();
                         }
                     }
