@@ -55,7 +55,7 @@ namespace Business
                         DbParameter MailTo = provider.CreateParameter("MailTo", s.MailTo, DbType.String);
                         DbParameter Subject = provider.CreateParameter("Subject", s.Subject, DbType.String);
                         DbParameter MessageBody = provider.CreateParameter("MessageBody", s.Message, DbType.String);
-                        DbParameter[] Params = new DbParameter[1] { MailID };
+                        DbParameter[] Params = new DbParameter[4] { MailID, MailTo, Subject, MessageBody };
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {

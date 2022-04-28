@@ -81,5 +81,15 @@ namespace DealerManagementSystem
         {
             new BDMS_Customer().UpdateCustomerAddressFromSapToSql();
         }
+
+        protected void btnSMS_Click(object sender, EventArgs e)
+        {
+            new BSmsManager().Start();
+        }
+
+        protected void btnMail_Click(object sender, EventArgs e)
+        {
+            new EmailManager().Start();
+        }
     }
 }
