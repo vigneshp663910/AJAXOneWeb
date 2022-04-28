@@ -96,13 +96,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnGenerateQuotation;
 
         /// <summary>
-        /// lbtnPrintPDF control.
+        /// lbtnPrintMachineQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnPrintPDF;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnPrintMachineQuotation;
 
         /// <summary>
         /// lbtnPrintTaxQuotation control.

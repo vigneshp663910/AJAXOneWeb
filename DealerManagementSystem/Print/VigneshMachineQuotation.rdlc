@@ -752,7 +752,7 @@
             <Top>7.50493cm</Top>
             <Left>0.08367cm</Left>
             <Height>6.64271cm</Height>
-            <Width>19.25849cm</Width>
+            <Width>19.25848cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1341,7 +1341,7 @@
             <Top>0.3175cm</Top>
             <Left>0.08368cm</Left>
             <Height>7.18743cm</Height>
-            <Width>19.25848cm</Width>
+            <Width>19.25847cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2534,9 +2534,9 @@ Yours faithfully,</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Left>9.00964cm</Left>
+              <Left>9.64464cm</Left>
               <Height>2.5915cm</Height>
-              <Width>10.33252cm</Width>
+              <Width>9.69751cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
