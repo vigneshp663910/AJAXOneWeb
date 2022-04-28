@@ -85,25 +85,13 @@
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblContactNo2" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Registration Date</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="lblRegistrationDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
+                    </div> 
                     <div class="col-md-3 text-right">
                         <label>Activation Date</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblActivationDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Service Request Url</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="lblURL" runat="server" CssClass="label"></asp:Label>
-                    </div>
+                    </div> 
                 </div>
             </fieldset>
             

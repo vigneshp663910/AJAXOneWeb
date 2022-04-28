@@ -13,12 +13,12 @@ namespace DealerManagementSystem.Account
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Company Profile');</script>");
-
-            PUser userDetails = (PUser)Session["userDetails"];
-            //FillDealerEmployee(Convert.ToInt32(userDetails.DealerEmployeeID));        
-            //FillDealerEmployeeRole(Convert.ToInt32(userDetails.DealerEmployeeID));
-            FillDealerEmployee(1450);
-            FillDealerEmployeeRole(1450);
+            PUser userDetails = PSession.User;
+            //PUser userDetails = (PUser)Session["userDetails"];
+            FillDealerEmployee(Convert.ToInt32(userDetails.DealerEmployeeID));
+            FillDealerEmployeeRole(Convert.ToInt32(userDetails.DealerEmployeeID));
+            //FillDealerEmployee(1450);
+            //FillDealerEmployeeRole(1450);
             //FillDealerEmployee(1166);
             //FillDealerEmployeeRole(1166);
         }
@@ -85,9 +85,9 @@ namespace DealerManagementSystem.Account
             lblContactNo2.Text = "";
             lblEmail.Text = Dealer.Email;
             lblMobileNumber.Text = Dealer.Mobile;
-            lblRegistrationDate.Text = "";
+          //  lblRegistrationDate.Text = "";
             lblActivationDate.Text = "";
-            lblURL.Text = "";
+           // lblURL.Text = "";
             if (Role[0].DealerOffice.State != null)
             {
                 lblState.Text = Role[0].DealerOffice.State;

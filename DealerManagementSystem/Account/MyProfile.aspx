@@ -92,12 +92,12 @@
                         <asp:Label ID="lblEmpID" runat="server" CssClass="label"></asp:Label>
                     </div>
                     
-                    <div class="col-md-3 text-right">
+                  <%--  <div class="col-md-3 text-right">
                         <label>MobileNumber</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblMobileNumber" runat="server" CssClass="label"></asp:Label>
-                    </div>
+                    </div>--%>
 
                     <div class="col-md-3 text-right">
                         <label>User ID</label>
@@ -108,7 +108,7 @@
 
                     
                     <div class="col-md-3 text-right">
-                        <label>Contact No 1</label>
+                        <label>(SMS) Contact No 1</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblContactNo1" runat="server" CssClass="label"></asp:Label>
@@ -127,13 +127,6 @@
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblContactNo2" runat="server" CssClass="label"></asp:Label>
-                    </div>
-
-                    <div class="col-md-3 text-right">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="lbl_" runat="server" CssClass="label"></asp:Label>
                     </div>
 
                     

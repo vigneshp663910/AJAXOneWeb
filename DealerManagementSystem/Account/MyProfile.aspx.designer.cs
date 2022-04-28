@@ -132,15 +132,6 @@ namespace DealerManagementSystem.Account
         protected global::System.Web.UI.WebControls.Label lblEmpID;
 
         /// <summary>
-        /// lblMobileNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMobileNumber;
-
-        /// <summary>
         /// lblUserID control.
         /// </summary>
         /// <remarks>
@@ -175,15 +166,6 @@ namespace DealerManagementSystem.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblContactNo2;
-
-        /// <summary>
-        /// lbl_ control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_;
 
         /// <summary>
         /// lblEmergencyContact control.

@@ -962,7 +962,8 @@ namespace Business
                                 DateOfLeaving = DBNull.Value== dr["DateOfLeaving"]?(DateTime?)null: Convert.ToDateTime(dr["DateOfLeaving"]),
                                 WishToLeave = DBNull.Value == dr["WishToLeave"] ? (Boolean?)null : Convert.ToBoolean(dr["WishToLeave"]),
                                 IsActive = Convert.ToBoolean(dr["IsActive"]),
-                                SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
+                                SAPEmpCode = Convert.ToString(dr["SAPEmpCode"]),
+                                LoginUserName = Convert.ToString(dr["LoginUserName"]),
                             });
                         }
                     }

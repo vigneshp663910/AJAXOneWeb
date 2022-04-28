@@ -462,6 +462,7 @@
     <Content Include="ViewService\ApproveDeclinedICTicket.aspx" />
     <Content Include="ViewService\ApproveDeviatedCliamApprove.aspx" />
     <Content Include="ViewService\ApproveDeviatedICTicket.aspx" />
+    <Content Include="ViewService\ICTicketCreate.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
     <Content Include="ViewService\ICTicketProcess.aspx" />
@@ -1513,6 +1514,13 @@
     </Compile>
     <Compile Include="ViewService\ApproveDeviatedICTicket.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\ICTicketCreate.aspx.cs">
+      <DependentUpon>ICTicketCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketCreate.aspx.designer.cs">
+      <DependentUpon>ICTicketCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketFSRManage.aspx.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>

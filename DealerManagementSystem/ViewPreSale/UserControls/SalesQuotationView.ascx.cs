@@ -1502,7 +1502,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnAddEffort.Visible = true;
             lbtnAddExpense.Visible = true;
             lbtnGenerateQuotation.Visible = true;
-            lbtnPrintMachineQuotation.Visible = true;
+          //  lbtnPrintMachineQuotation.Visible = true;
 
 
             //lbtnEditQuotation.Visible = false;

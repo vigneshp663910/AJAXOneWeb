@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -815,6 +816,11 @@ namespace Business
             }
 
             TraceLogger.Log(DateTime.Now);
+        }
+        public List<PDMS_EquipmentHeader> GetEquipmentForCreateICTicket(long? EquipmentHeaderID, string EquipmentSerialNo, string Customer)
+        {
+             string endPoint = "Equipment/EquipmentForCreateICTicket?EquipmentHeaderID=" + EquipmentHeaderID + "&EquipmentSerialNo=" + EquipmentSerialNo + "&Customer=" + Customer;
+            return JsonConvert.DeserializeObject<List<PDMS_EquipmentHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

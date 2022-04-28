@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.Account
+namespace DealerManagementSystem.ViewService
 {
 
 
-    public partial class CompanyProfile
+    public partial class ICTicketCreate
     {
 
         /// <summary>
@@ -24,129 +24,138 @@ namespace DealerManagementSystem.Account
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// ibtnPhoto control.
+        /// divList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnPhoto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// lblCompanyName control.
+        /// Fieldset1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompanyName;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
-        /// lblCompanyCode control.
+        /// txtCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompanyCode;
+        protected global::System.Web.UI.WebControls.TextBox txtCustomer;
 
         /// <summary>
-        /// lblAddress control.
+        /// txtEquipment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtEquipment;
 
         /// <summary>
-        /// lblCity control.
+        /// BtnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCity;
+        protected global::System.Web.UI.WebControls.Button BtnSearch;
 
         /// <summary>
-        /// lblState control.
+        /// gvEquipment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblState;
+        protected global::System.Web.UI.WebControls.GridView gvEquipment;
 
         /// <summary>
-        /// lblCountry control.
+        /// Fieldset2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCountry;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
 
         /// <summary>
-        /// lblPincode control.
+        /// txtContactNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPincode;
+        protected global::System.Web.UI.WebControls.TextBox txtContactNumber;
 
         /// <summary>
-        /// lblEmail control.
+        /// txtContactPerson control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtContactPerson;
 
         /// <summary>
-        /// lblMobileNumber control.
+        /// txtComplaintDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMobileNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtComplaintDescription;
 
         /// <summary>
-        /// lblWebsite control.
+        /// txtInformation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWebsite;
+        protected global::System.Web.UI.WebControls.TextBox txtInformation;
 
         /// <summary>
-        /// lblContactNo1 control.
+        /// txtRequestedDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactNo1;
+        protected global::System.Web.UI.WebControls.TextBox txtRequestedDate;
 
         /// <summary>
-        /// lblContactNo2 control.
+        /// ddlCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactNo2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
 
         /// <summary>
-        /// lblActivationDate control.
+        /// ddlState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblActivationDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlState;
+
+        /// <summary>
+        /// ddlDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDistrict;
     }
 }
