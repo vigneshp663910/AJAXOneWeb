@@ -24,7 +24,7 @@ namespace SapIntegration
             {
                 if (pSalesQuotation.ShipTo != null)
                 {
-                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
+                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
                 }
                 else
                 {
@@ -229,7 +229,7 @@ namespace SapIntegration
 
             tagListBapi.Invoke(SAP.RfcDes());
             QuotationNo = tagListBapi.GetValue("P_QUOTATION_NO").ToString();
-            QuotationDate = tagListBapi.GetValue("P_DATE").ToString();
+            QuotationDate = (QuotationNo=="")?null:tagListBapi.GetValue("P_DATE").ToString();
             string P_RESULT = tagListBapi.GetValue("P_RESULT").ToString();
             IRfcTable table = tagListBapi.GetTable("RETURN");
 
