@@ -27,7 +27,7 @@ namespace Business
             List<PSmsManager> Sms = new List<PSmsManager>(); 
             try
             { 
-                using (DataSet ds = provider.Select(""))
+                using (DataSet ds = provider.Select("GetSMSSendInfo"))
                 {
                     if (ds != null)
                     {
@@ -35,7 +35,7 @@ namespace Business
                         {
                             Sms.Add(new PSmsManager()
                             {
-                                SmsID = Convert.ToInt64(dr["DID"]),
+                                SmsID = Convert.ToInt64(dr["SmsID"]),
                                 PhoneNumber = Convert.ToString(dr["PhoneNumber"]),
                                 Message = Convert.ToString(dr["Message"]),
                             }); 
@@ -48,11 +48,13 @@ namespace Business
                     {
                         int success = 0;
                         DbParameter SmsID = provider.CreateParameter("SmsID", s.SmsID, DbType.Int32);
-                        DbParameter[] Params = new DbParameter[1] { SmsID };
+                        DbParameter PhoneNumber = provider.CreateParameter("PhoneNumber", s.PhoneNumber, DbType.String);
+                        DbParameter Message = provider.CreateParameter("Message", s.Message, DbType.String);
+                        DbParameter[] Params = new DbParameter[3] { SmsID, PhoneNumber, Message };
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-                            success = provider.Insert("", Params);
+                            success = provider.Insert("InsertOrUpdateSMSSendInfo", Params);
                             scope.Complete();
                         }
                     }

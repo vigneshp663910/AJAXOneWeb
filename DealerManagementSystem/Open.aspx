@@ -101,6 +101,24 @@
                     <asp:Button ID="btnUpdateAddressFromSapToSql" runat="server" Text="Update Address From SapToSql" OnClick="btnUpdateAddressFromSapToSql_Click" />
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label3" runat="server" Text="SMS"></asp:Label>
+                </td>
+
+                <td>
+                    <asp:Button ID="btnSMS" runat="server" Text="Update SMS" OnClick="btnSMS_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label4" runat="server" Text="Mail"></asp:Label>
+                </td>
+
+                <td>
+                    <asp:Button ID="btnMail" runat="server" Text="Update Mail" OnClick="btnMail_Click" />
+                </td>
+            </tr>
         </table>
     </form>
 </body>
