@@ -54,7 +54,7 @@ namespace Business
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
-                            success = provider.Insert("InsertSMSSendInfo", Params);
+                            success = provider.Insert("InsertOrUpdateSMSSendInfo", Params);
                             scope.Complete();
                         }
                     }
