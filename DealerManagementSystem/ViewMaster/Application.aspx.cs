@@ -93,8 +93,8 @@ namespace DealerManagementSystem.ViewMaster
                 gvSubApplication.DataBind();
                 lblRowCount.Visible = false;
                 ibtnSubAppArrowLeft.Visible = false;
-                ibtnSubAppArrowRight.Visible = false; 
-            } 
+                ibtnSubAppArrowRight.Visible = false;
+            }
             else
             {
                 lblRowCount.Visible = true;
@@ -103,6 +103,26 @@ namespace DealerManagementSystem.ViewMaster
                 lblRowCount.Text = (((gvSubApplication.PageIndex) * gvSubApplication.PageSize) + 1) + " - " + (((gvSubApplication.PageIndex) * gvSubApplication.PageSize) + gvSubApplication.Rows.Count) + " of " + subApp.Count;
             }
 
+            Boolean EditAlloved = false;
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EmployeeEdit).Count() != 0)
+            {
+                EditAlloved = true;
+            }
+            for (int i = 0; i < gvSubApplication.Rows.Count; i++)
+            {
+                LinkButton lblSubApplicationEdit = (LinkButton)gvSubApplication.Rows[i].FindControl("lblSubApplicationEdit");
+                if (EditAlloved == true)
+                {
+                    lblSubApplicationEdit.Visible = true;
+                }
+                else
+                {
+                    lblSubApplicationEdit.Visible = false;
+                }
+            }
 
         }
 
@@ -124,6 +144,26 @@ namespace DealerManagementSystem.ViewMaster
                 mainApplications.Add(pDMS_MainApplication);
                 gvMainApplication.DataSource = mainApplications;
                 gvMainApplication.DataBind();
+            }
+            Boolean EditAlloved = false;
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EmployeeEdit).Count() != 0)
+            {
+                EditAlloved = true;
+            }
+            for (int i = 0; i < gvMainApplication.Rows.Count; i++)
+            {
+                LinkButton lblMainApplicationEdit = (LinkButton)gvMainApplication.Rows[i].FindControl("lblMainApplicationEdit");
+                if (EditAlloved == true)
+                {
+                    lblMainApplicationEdit.Visible = true;
+                }
+                else
+                {
+                    lblMainApplicationEdit.Visible = false;
+                }
             }
         }
 
@@ -245,7 +285,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void gvSubApplication_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            
+
             gvSubApplication.PageIndex = e.NewPageIndex;
             SearchSubApplication();
             gvSubApplication.DataBind();
