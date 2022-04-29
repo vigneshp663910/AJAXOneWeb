@@ -3,8 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
-
+<asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">    
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById(obj);
@@ -12,11 +11,11 @@
 
             if (gvObject.style.display == "none") {
                 gvObject.style.display = "inline";
-                imageID.src = "Images/grid_collapse.png";
+                imageID.src = "/Images/grid_collapse.png";
             }
             else {
                 gvObject.style.display = "none";
-                imageID.src = "Images/grid_expand.png";
+                imageID.src = "/Images/grid_expand.png";
             }
         }
 
@@ -106,7 +105,7 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <a href="javascript:collapseExpand('SalesCommissionClaimID-<%# Eval("SalesCommissionClaimID") %>');">
-                                            <img id="imageInvoiceNumber-<%# Eval("SalesCommissionClaimID") %>" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="10" width="10" /></a>
+                                            <img id="imageInvoiceNumber-<%# Eval("SalesCommissionClaimID") %>" alt="Click to show/hide orders" border="0" src="/Images/grid_collapse.png" height="10" width="10" /></a>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Claim Number">

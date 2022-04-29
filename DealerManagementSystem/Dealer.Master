@@ -1108,6 +1108,7 @@
         .table.table-bordered.table-condensed.Grid th {
             padding: 0.3rem 0.75rem;
             font-size: 14px;
+            text-align: center;
         }
 
         .table.table-bordered.table-condensed.Grid td {
