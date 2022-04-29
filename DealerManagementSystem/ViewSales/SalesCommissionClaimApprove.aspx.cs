@@ -104,15 +104,15 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
-                TraceLogger.Log(DateTime.Now); 
-                int? DealerID = null; 
-                string ClaimNumber = null; 
+                TraceLogger.Log(DateTime.Now);
+                int? DealerID = null;
+                string ClaimNumber = null;
                 string ClaimDateFrom = Convert.ToString(txtClaimDateF.Text.Trim());
                 string ClaimDateTo = Convert.ToString(txtClaimDateT.Text.Trim());
-                int StatusID = 0; 
+                int StatusID = 0;
                 if (ddlDealerCode.SelectedValue != "0")
                 {
-                    DealerID = Convert.ToInt32( ddlDealerCode.SelectedValue);
+                    DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue);
                 }
 
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -129,74 +129,9 @@ namespace DealerManagementSystem.ViewSales
                 {
                     StatusID = 3;
                 }
-
-                SDMS_WarrantyClaimHeader = new BSalesCommissionClaim().GetSalesCommissionClaimApproval(DealerID, ClaimNumber, ClaimDateFrom, ClaimDateTo, StatusID); 
+                SDMS_WarrantyClaimHeader = new BSalesCommissionClaim().GetSalesCommissionClaimApproval(DealerID, ClaimNumber, ClaimDateFrom, ClaimDateTo, StatusID);
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
-                gvICTickets.DataBind();
-                if (SDMS_WarrantyClaimHeader.Count == 0)
-                {
-                    lblRowCount.Visible = false;
-                    ibtnArrowLeft.Visible = false;
-                    ibtnArrowRight.Visible = false;
-                }
-                else
-                {
-                    lblRowCount.Visible = true;
-                    ibtnArrowLeft.Visible = true;
-                    ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-                }
-
-                foreach (GridViewRow grv in gvICTickets.Rows)
-                {
-                    for (int i = 0; i < gvICTickets.Rows.Count; i++)
-                    {
-                        if (StatusID == 1)
-                        { 
-                            Button btnApproved1By = (Button)gvICTickets.Rows[i].FindControl("btnApproved1By");
-                            Label lblApproved1By = (Label)gvICTickets.Rows[i].FindControl("lblApproved1By");
-                            btnApproved1By.Visible = true;
-                            lblApproved1By.Visible = false;
-
-                            Label lblAmount = (Label)gvICTickets.Rows[i].FindControl("lblAmount");
-                            TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Amount");
-                            txtApproved1Amount.Text = lblAmount.Text;
-                            txtApproved1Amount.Enabled = true;
-
-                            TextBox txtApproved1Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Remarks");
-                            txtApproved1Remarks.Enabled = true;
-                        }
-                        else if (StatusID == 2)
-                        {
-                            Button btnApproved2By = (Button)gvICTickets.Rows[i].FindControl("btnApproved2By");
-                            Label lblApproved2By = (Label)gvICTickets.Rows[i].FindControl("lblApproved2By");
-                            btnApproved2By.Visible = true;
-                            lblApproved2By.Visible = false; 
-                            TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Amount");
-                            TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Amount");
-                            txtApproved2Amount.Text = txtApproved1Amount.Text;
-                            txtApproved2Amount.Enabled = true;
-
-                            TextBox txtApproved2Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Remarks");
-                            txtApproved2Remarks.Enabled = true;
-                        }
-                        else if (StatusID == 3)
-                        {
-                            Button btnApproved3By = (Button)gvICTickets.Rows[i].FindControl("btnApproved3By");
-                            Label lblApproved3By = (Label)gvICTickets.Rows[i].FindControl("lblApproved3By");
-                            btnApproved3By.Visible = true;
-                            lblApproved3By.Visible = false;
-                            TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Amount");
-                            TextBox txtApproved3Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved3Amount");
-                            txtApproved3Amount.Text = txtApproved2Amount.Text;
-                            txtApproved3Amount.Enabled = true; 
-
-                            TextBox txtApproved3Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved3Remarks");
-                            txtApproved3Remarks.Enabled = true;
-                        }
-                    }
-                }
+                ClaimBind();
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -377,8 +312,7 @@ namespace DealerManagementSystem.ViewSales
             lblMessage.Text = "Claime number " + ClaimNumber + " is approved";
             lblMessage.ForeColor = Color.Green;
             SDMS_WarrantyClaimHeader.RemoveAll(m => m.SalesCommissionClaimID == SalesCommissionClaimID);
-            gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
-            gvICTickets.DataBind();
+            ClaimBind();
             lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
 
         }
@@ -451,6 +385,92 @@ namespace DealerManagementSystem.ViewSales
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-        
+
+
+        void ClaimBind()
+        {
+            int StatusID = 0;
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval1).Count() != 0)
+            {
+                StatusID = 1;
+            }
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval2).Count() != 0)
+            {
+                StatusID = 2;
+            }
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
+            {
+                StatusID = 3;
+            }
+
+            gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
+            gvICTickets.DataBind(); 
+            if (SDMS_WarrantyClaimHeader.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnArrowLeft.Visible = true;
+                ibtnArrowRight.Visible = true;
+                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
+            }
+
+            foreach (GridViewRow grv in gvICTickets.Rows)
+            {
+                for (int i = 0; i < gvICTickets.Rows.Count; i++)
+                {
+                    if (StatusID == 1)
+                    {
+                        Button btnApproved1By = (Button)gvICTickets.Rows[i].FindControl("btnApproved1By");
+                        Label lblApproved1By = (Label)gvICTickets.Rows[i].FindControl("lblApproved1By");
+                        btnApproved1By.Visible = true;
+                        lblApproved1By.Visible = false;
+
+                        Label lblAmount = (Label)gvICTickets.Rows[i].FindControl("lblAmount");
+                        TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Amount");
+                        txtApproved1Amount.Text = lblAmount.Text;
+                        txtApproved1Amount.Enabled = true;
+
+                        TextBox txtApproved1Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Remarks");
+                        txtApproved1Remarks.Enabled = true;
+                    }
+                    else if (StatusID == 2)
+                    {
+                        Button btnApproved2By = (Button)gvICTickets.Rows[i].FindControl("btnApproved2By");
+                        Label lblApproved2By = (Label)gvICTickets.Rows[i].FindControl("lblApproved2By");
+                        btnApproved2By.Visible = true;
+                        lblApproved2By.Visible = false;
+                        TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved1Amount");
+                        TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Amount");
+                        txtApproved2Amount.Text = txtApproved1Amount.Text;
+                        txtApproved2Amount.Enabled = true;
+
+                        TextBox txtApproved2Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Remarks");
+                        txtApproved2Remarks.Enabled = true;
+                    }
+                    else if (StatusID == 3)
+                    {
+                        Button btnApproved3By = (Button)gvICTickets.Rows[i].FindControl("btnApproved3By");
+                        Label lblApproved3By = (Label)gvICTickets.Rows[i].FindControl("lblApproved3By");
+                        btnApproved3By.Visible = true;
+                        lblApproved3By.Visible = false;
+                        TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved2Amount");
+                        TextBox txtApproved3Amount = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved3Amount");
+                        txtApproved3Amount.Text = txtApproved2Amount.Text;
+                        txtApproved3Amount.Enabled = true;
+
+                        TextBox txtApproved3Remarks = (TextBox)gvICTickets.Rows[i].FindControl("txtApproved3Remarks");
+                        txtApproved3Remarks.Enabled = true;
+                    }
+                }
+            }
+        }
+
     }
 }
