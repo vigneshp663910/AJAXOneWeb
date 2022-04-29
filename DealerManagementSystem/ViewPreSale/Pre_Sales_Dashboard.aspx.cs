@@ -111,7 +111,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             List<PLeadStatus> StatusF = new BLead().GetLeadCountByStatus(FromF, ToF, null, PSession.User.UserID);
 
-            int Open = 0, Assigned = 0, Quotation = 0, Won = 0; 
+            int Open = 0, Assigned = 0, Quotation = 0, Won = 0, Lost = 0, Cancel = 0; 
             if ((StatusF.Where(m => m.StatusID == 1).Count() != 0))
             {
                 var ss = StatusF.Where(m => m.StatusID == 1).ToList();
@@ -131,9 +131,20 @@ namespace DealerManagementSystem.ViewPreSale
             if ((StatusF.Where(m => m.StatusID == 4).Count() != 0))
             {
                 var ss = StatusF.Where(m => m.StatusID == 4).ToList();
+               
                 Won = ss[0].Count;
             }
-            lblNewlyCreatedF.InnerText = "Newly Created: " + (Open + Assigned).ToString();
+            if ((StatusF.Where(m => m.StatusID == 5).Count() != 0))
+            {
+                var ss = StatusF.Where(m => m.StatusID == 5).ToList();
+                Lost = ss[0].Count;
+            }
+            if ((StatusF.Where(m => m.StatusID == 6).Count() != 0))
+            {
+                var ss = StatusF.Where(m => m.StatusID == 6).ToList();
+                Cancel = ss[0].Count;
+            }
+            lblNewlyCreatedF.InnerText = "Newly Created: " + (Open + Assigned + Quotation + Won + Lost + Cancel).ToString();
             lblConvertToProspectF.InnerText = (Quotation + Won).ToString();
             lblWonF.InnerText = "Won: " + Won.ToString();
         }

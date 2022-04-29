@@ -80,7 +80,7 @@
                         <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
                             <asp:ListItem Value="-1">All</asp:ListItem>
                             <asp:ListItem Value="0">Inactive</asp:ListItem>
-                            <asp:ListItem Value="1">Active</asp:ListItem>
+                            <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-3 text-right">
