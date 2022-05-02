@@ -569,7 +569,8 @@ namespace Properties
         SendMailMttrEscalationMatrix = 17,
         IntegrationEquipmentFromSAP = 18,
         IntegrationMaterialFromEccSap = 19,
-        GetPurchaseOrderIntegration = 20
+        GetPurchaseOrderIntegration = 20,
+        CustomerIntegration    
     }
 
     public enum DashboardControl

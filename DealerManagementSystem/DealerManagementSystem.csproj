@@ -2056,6 +2056,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Print\DMS_SalesClaimInvoice.rdlc" />
     <EmbeddedResource Include="Print\VigneshMachineQuotation.rdlc" />
     <EmbeddedResource Include="Print\VigneshTaxQuotation.rdlc" />
   </ItemGroup>
