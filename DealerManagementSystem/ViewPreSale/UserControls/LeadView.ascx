@@ -201,7 +201,7 @@
             <%--</div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlConvocation" runat="server" HeaderText="Convocation">
+    <asp1:TabPanel ID="tpnlConvocation" runat="server" HeaderText="Conversation">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -225,12 +225,12 @@
                                     <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Convocation" SortExpression="Country">
+                            <asp:TemplateField HeaderText="Conversation" SortExpression="Country">
                                 <ItemTemplate>
                                     <asp:Label ID="lblConvocation" Text='<%# DataBinder.Eval(Container.DataItem, "Convocation")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Convocation Date" SortExpression="Country">
+                            <asp:TemplateField HeaderText="Conversation Date" SortExpression="Country">
                                 <ItemTemplate>
                                     <asp:Label ID="lblConvocationDate" Text='<%# DataBinder.Eval(Container.DataItem, "ConvocationDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
@@ -649,7 +649,7 @@
 
 
 <asp:Panel ID="pnlConvocation" runat="server" CssClass="Popup" Style="display: none">
-    <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Convocation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
+    <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Conversation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
