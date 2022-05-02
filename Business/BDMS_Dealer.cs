@@ -21,13 +21,14 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PDMS_Dealer> GetDealer(int? DealerID, string DealerCode)
+        public List<PDMS_Dealer> GetDealer(int? DealerID, string DealerCode,int? UserID)
         {
             List<PDMS_Dealer> Dealers = new List<PDMS_Dealer>();
             PDMS_Dealer Dealer = null;
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
-            DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[3] { DealerIDP, DealerCodeP, UserIDP };
             try
             {
                 using (DataSet DS = provider.Select("ZDMS_GetDealer", Params))

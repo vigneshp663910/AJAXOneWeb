@@ -123,21 +123,12 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
 
         /// <summary>
-        /// UC_CustomerView control.
+        /// UC_DealerView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerView UC_CustomerView;
-
-        /// <summary>
-        /// ph_usercontrols_1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_1;
+        protected global::DealerManagementSystem.ViewMaster.UserControls.DealerView UC_DealerView;
     }
 }

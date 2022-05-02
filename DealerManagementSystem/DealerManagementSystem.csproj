@@ -409,6 +409,7 @@
     <Content Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerAutocomplete.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerViewHeader.ascx" />
+    <Content Include="ViewMaster\UserControls\DealerView.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
@@ -1144,6 +1145,13 @@
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerViewHeader.ascx.designer.cs">
       <DependentUpon>CustomerViewHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\DealerView.ascx.cs">
+      <DependentUpon>DealerView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\DealerView.ascx.designer.cs">
+      <DependentUpon>DealerView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.cs">
       <DependentUpon>Organization.aspx</DependentUpon>

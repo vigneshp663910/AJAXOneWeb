@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
 
-              int DealerID =  new BDMS_Dealer().GetDealer(null,"2000")[0].DealerID;
+              int DealerID =  new BDMS_Dealer().GetDealer(null,"2000", null)[0].DealerID;
                 new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
                 FillGetDealerOffice(DealerID);
                 if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))

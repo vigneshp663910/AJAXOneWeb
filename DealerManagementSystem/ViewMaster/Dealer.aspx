@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Dealer.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Dealer" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-<%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
+<%@ Register Src="~/ViewMaster/UserControls/DealerView.ascx" TagPrefix="UC" TagName="UC_DealerView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -46,47 +46,7 @@
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
-    <script type="text/javascript">  
-        $(function () {
 
-            $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
-                source: function (request, response) {
-                    var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
-                    txtCustomerID.value = "";
-                    var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
-                    $.ajax({
-                        type: 'POST',
-                        contentType: "application/json; charset=utf-8",
-                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                        url: "Customer.aspx/GetCustomer",
-                        data: JSON.stringify(param),
-                        dataType: 'JSON',
-                        success: function (data) {
-                            var UCdivAuto = document.getElementById('FleDivAuto');
-                            UCdivAuto.style.display = "block";
-                            /* document.getElementById('UCdivAuto').style.display = "block";*/
-                            var n = 0;
-                            for (var i = 1; i <= 5; i++) {
-                                $(('#div' + i)).empty();
-                                document.getElementById('FleDiv' + i).style.display = "none";
-                            }
-                            $.map(data.d, function (item) {
-                                n = n + 1;
-                                document.getElementById('FleDiv' + n).style.display = "block";
-                                document.getElementById("FleDiv" + n).innerHTML = item;
-                            })
-                        },
-                        error: function () {
-                            alert("Error fedrfve");
-                        }
-                    });
-                },
-                minLength: 3 //This is the Char length of inputTextBox    
-            });
-        });
-
-
-    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -101,18 +61,7 @@
                             <label class="modal-label">Dealer</label>
                             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                         </div>
-                        <%--<div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Country</label>
-                            <asp:DropDownList ID="ddlDSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDSCountry_SelectedIndexChanged" AutoPostBack="true" />
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">State</label>
-                            <asp:DropDownList ID="ddlDState" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">District</label>
-                            <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" />
-                        </div>--%>
+
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddDealer" runat="server" CssClass="btn Save" Text="Create Dealer" OnClick="btnAddDealer_Click" Width="150px"></asp:Button>
@@ -139,7 +88,7 @@
                                                 <td>
                                                     <asp:ImageButton ID="ibtnDealerArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnDealerArrowLeft_Click" /></td>
                                                 <td>
-                                                    <asp:ImageButton ID="ibtnDealerArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerArrowRight_Click"/></td>
+                                                    <asp:ImageButton ID="ibtnDealerArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerArrowRight_Click" /></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -157,17 +106,20 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Name">
+                                    <asp:TemplateField HeaderText="Code">
+                                        <ItemTemplate> 
+                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" /> 
+                                            <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Name">
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <%--  <asp:LinkButton ID="lbViewCustomer" runat="server" OnClick="lbViewCustomer_Click">--%>
-                                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
-                                            <%--   </asp:LinkButton>--%>
-                                            <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                    
-                                    <asp:TemplateField HeaderText="Mobile">
+                                   <%-- <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Phone")%>' runat="server" />
@@ -178,13 +130,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "MailID1")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--<asp:TemplateField HeaderText="District">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="State">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -196,7 +142,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "State.Country")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewCustomer" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewDealer_Click" Width="75px" Height="25px" />
@@ -223,15 +169,13 @@
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
             <div class="col-md-12" runat="server" id="tblDashboard">
-                <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
-                <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
-                <div class="col-md-12 text-center">
-                </div>
+                <UC:UC_DealerView ID="UC_DealerView" runat="server"></UC:UC_DealerView>
+
             </div>
         </div>
-      
-        
-      <%--  <div class="col-md-12">
+
+
+        <%--  <div class="col-md-12">
         <asp:Panel ID="pnlDealer" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
                 <span id="PopupDialogue">Create Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
