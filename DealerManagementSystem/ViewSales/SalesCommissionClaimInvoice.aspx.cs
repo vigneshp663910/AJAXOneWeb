@@ -82,7 +82,7 @@ namespace DealerManagementSystem.ViewSales
                 string InvoiceDateFrom = txtDateFrom.Text.Trim();
                 string InvoiceDateTo = txtDateTo.Text.Trim();
 
-                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo);
+                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null,DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo);
                 gvClaimInvoice.PageIndex = 0;
                 gvClaimInvoice.DataSource = Invoices;
                 gvClaimInvoice.DataBind();
@@ -176,59 +176,69 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
-                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                //Label lblWarrantyClaimInvoiceID = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblWarrantyClaimInvoiceID");
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblSalesCommissionClaimInvoiceID = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimInvoiceID");
 
-                //PDMS_WarrantyClaimInvoice SOIs = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(Convert.ToInt64(lblWarrantyClaimInvoiceID.Text), "", null, null, null, null, "")[0];
+                PSalesCommissionClaimInvoice SOIs = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text), null, null, null, null)[0];
 
-                //foreach (PDMS_WarrantyClaimInvoiceItem inv in SOIs.InvoiceItems)
-                //{
-                //    if (string.IsNullOrEmpty(inv.HSNCode))
-                //    {
-                //        lblMessage.Text = "HSN Code Missed. Please contact admin";
-                //        lblMessage.ForeColor = Color.Red;
-                //        lblMessage.Visible = true;
-                //        return;
-                //    }
-                //    else if (inv.CGSTValue + inv.SGSTValue + inv.IGSTValue == 0)
-                //    {
-                //        lblMessage.Text = "GST Value Missed. Please contact admin";
-                //        lblMessage.ForeColor = Color.Red;
-                //        lblMessage.Visible = true;
-                //        return;
-                //    }
-                //}
-                //if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
-                //{
-                //    if (string.IsNullOrEmpty(SOIs.IRN))
-                //    {
-                //        PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(SOIs.WarrantyClaimInvoiceID);
-                //        if (!string.IsNullOrEmpty(EInvoiceSigned.Comments))
-                //        {
-                //            lblMessage.Text = EInvoiceSigned.Comments;
-                //        }
-                //        else
-                //        {
-                //            lblMessage.Text = "E Invoice Not generated.";
-                //        }
-                //        lblMessage.ForeColor = Color.Red;
-                //        lblMessage.Visible = true;
-                //        return;
-                //    }
-                //} 
-                //PAttachedFile UploadedFile = new BDMS_WarrantyClaimInvoice().GetWarrantyClaimInvoiceFile(Convert.ToInt64(lblWarrantyClaimInvoiceID.Text));
-                //if (UploadedFile == null)
-                //{
-                //    UploadedFile = new BDMS_WarrantyClaimInvoice().GetWarrantyClaimInvoiceFile(Convert.ToInt64(lblWarrantyClaimInvoiceID.Text)); 
-                //}
 
-                //Response.AddHeader("Content-type", UploadedFile.FileType);
-                //Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName + "." + UploadedFile.FileType);
-                //HttpContext.Current.Response.Charset = "utf-16";
-                //HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                //Response.BinaryWrite(UploadedFile.AttachedFile);
-                //Response.Flush();
-                //Response.End();
+                if (string.IsNullOrEmpty(SOIs.InvoiceItem.Material.HSN))
+                {
+                    lblMessage.Text = "HSN Code Missed. Please contact admin";
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Visible = true;
+                    return;
+                }
+                else if (SOIs.InvoiceItem.CGSTValue + SOIs.InvoiceItem.SGSTValue + SOIs.InvoiceItem.IGSTValue == 0)
+                {
+                    lblMessage.Text = "GST Value Missed. Please contact admin";
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Visible = true;
+                    return;
+                }
+
+                if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
+                {
+                    if (string.IsNullOrEmpty(SOIs.IRN))
+                    {
+                        PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SOIs.SalesCommissionClaimInvoiceID);
+                        if (!string.IsNullOrEmpty(EInvoiceSigned.Comments))
+                        {
+                            lblMessage.Text = EInvoiceSigned.Comments;
+                        }
+                        else
+                        {
+                            lblMessage.Text = "E Invoice Not generated.";
+                        }
+                        lblMessage.ForeColor = Color.Red;
+                        lblMessage.Visible = true;
+                        return;
+                    }
+                }
+                PAttachedFile UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
+                if (UploadedFile == null)
+                {
+                    UploadedFile = new BDMS_WarrantyClaimInvoice().GetWarrantyClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
+                }
+
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName + "." + UploadedFile.FileType);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+
+
+
+
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName + "." + UploadedFile.FileType);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
