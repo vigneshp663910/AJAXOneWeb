@@ -2065,8 +2065,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Print\DMS_SalesClaimInvoice.rdlc" />
-    <EmbeddedResource Include="Print\VigneshMachineQuotation.rdlc" />
-    <EmbeddedResource Include="Print\VigneshTaxQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.S3.3.7.7.20\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
