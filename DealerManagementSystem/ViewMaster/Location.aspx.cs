@@ -138,7 +138,7 @@ namespace DealerManagementSystem.ViewMaster
                     LState = new BDMS_Address().GetState(null, null, null, null);
                     LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
                     LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
-                    LDealer = new BDMS_Dealer().GetDealer(null, null);
+                    LDealer = new BDMS_Dealer().GetDealer(null, null, null);
                     FillCountry();
                     FillRegion();
                     FillState();
@@ -265,7 +265,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode);
+                LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode, null);
                 ddl.DataValueField = "DealerID";
                 ddl.DataTextField = "DealerCode";
                 ddl.DataSource = LDealer;
@@ -551,7 +551,7 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
 
                 DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
-                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null), "DealerName", "DealerID", true, "Select Dealer");
+                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerName", "DealerID", true, "Select Dealer");
             }
             catch (Exception Ex)
             {

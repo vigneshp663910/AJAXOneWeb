@@ -14,7 +14,7 @@ namespace DealerManagementSystem.ViewMaster
 {
     public partial class Dealer : System.Web.UI.Page
     {
-        public List<PDealer> DealerList
+        public List<PDMS_Dealer> DealerList
         {
             get
             {
@@ -22,7 +22,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     Session["Dealer"] = new List<PDMS_Dealer>();
                 }
-                return (List<PDealer>)Session["Dealer"];
+                return (List<PDMS_Dealer>)Session["Dealer"];
             }
             set
             {
@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewMaster
         }
 
 
-        void DealerBind(GridView gv, Label lbl, List<PDealer> DealerList)
+        void DealerBind(GridView gv, Label lbl, List<PDMS_Dealer> DealerList)
         {
             gv.DataSource = DealerList;
             gv.DataBind();
@@ -94,9 +94,8 @@ namespace DealerManagementSystem.ViewMaster
             //int? StateID = ddlDState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDState.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
 
-            List<PDealer> Dealer1 = PSession.User.Dealer;
-
-            DealerList = Dealer1;
+            DealerList   = new BDMS_Dealer().GetDealer(DealerID, "", PSession.User.UserID);
+             
             gvDealer.DataSource = DealerList;
             gvDealer.DataBind();
 
@@ -153,16 +152,7 @@ namespace DealerManagementSystem.ViewMaster
         //    UC_Customer.FillClean();
         //    MPE_Customer.Hide();
         //}
-        protected void lbViewCustomer_Click(object sender, EventArgs e)
-        {
-
-            //CustomerView ucCustomerView = (CustomerView)LoadControl("~/ViewPreSale/UserControls/CustomerView.ascx");
-            //ucCustomerView.ID = "ucCustomerView";
-
-            //PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
-            //phDashboard.Controls.Add(ucCustomerView);
-            //ucCustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text)); 
-        }
+       
 
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
@@ -184,13 +174,12 @@ namespace DealerManagementSystem.ViewMaster
        
         protected void btnViewDealer_Click(object sender, EventArgs e)
         {
-            //divDealerView.Visible = true;
-            //divDealerList.Visible = false;
-            //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            //DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
-            //Label lblCDealerID = (Label)gvRow.FindControl("lblDealerID");
+            divDealerView.Visible = true;
+            divDealerList.Visible = false;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent; 
+            Label lblCDealerID = (Label)gvRow.FindControl("lblDealerID");
 
-            //UC_CustomerView.filldealer(Convert.ToInt64(lbldealerID.Text));
+         //  UC_DealerView.filldealer(Convert.ToInt64(lblCDealerID.Text));
         }
 
         protected void gvDealer_PageIndexChanging(object sender, GridViewPageEventArgs e)
