@@ -105,7 +105,14 @@ namespace Business
             }
             return SOIs.Count();
         }
-        public int IntegrationMaterial()
+
+        public void IntegrationMaterial()
+        {
+            IntegrationMaterialMaster();
+            IntegrationMaterialSupersede();
+
+        }
+        public int IntegrationMaterialMaster()
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Material> SOIs = new List<PDMS_Material>();
@@ -141,7 +148,7 @@ namespace Business
                     DbParameter DivisionCode = provider.CreateParameter("DivisionCode", Material.Model.Division.DivisionCode, DbType.String);
                     DbParameter DivisionDescription = provider.CreateParameter("DivisionDescription", Material.Model.Division.DivisionDescription, DbType.String);
                     DbParameter IsActive = provider.CreateParameter("IsActive", Material.IsActive, DbType.Boolean);
-                    
+
 
 
                     DbParameter[] Params = new DbParameter[22] { MaterialCode,ValidFrom,ValidTo, MaterialDescription, BaseUnit,MaterialType

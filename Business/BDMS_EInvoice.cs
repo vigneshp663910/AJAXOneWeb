@@ -963,14 +963,44 @@ namespace Business
             { }
             return InvoiceE;
         }
-        public PDMS_EInvoiceSigned getWarrantyClaimDebitNoteESigned(long InvoiceID)
+        //public PDMS_EInvoiceSigned getWarrantyClaimDebitNoteESigned(long InvoiceID)
+        //{
+        //    PDMS_EInvoiceSigned InvoiceE = new PDMS_EInvoiceSigned();
+        //    try
+        //    {
+        //        DbParameter InvoiceIDP = provider.CreateParameter("InvoiceID", InvoiceID, DbType.Int64);
+        //        DbParameter[] Params = new DbParameter[1] { InvoiceIDP };
+        //        using (DataSet DataSet = provider.Select("ZDMS_GetWarrantyClaimDebitNoteESigned", Params))
+        //        {
+        //            if (DataSet != null)
+        //            {
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
+        //                    InvoiceE.RefInvoiceID = Convert.ToInt64(dr["RefInvoiceID"]);
+        //                    InvoiceE.IRN = Convert.ToString(dr["IRN"]);
+        //                    InvoiceE.SignedQRCode = Convert.ToString(dr["SignedQRCode"]);
+        //                    InvoiceE.SignedInvoice = Convert.ToString(dr["SignedInvoice"]);
+        //                    InvoiceE.Comments = Convert.ToString(dr["Comments"]);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return InvoiceE;
+        //}
+
+
+        public PDMS_EInvoiceSigned getSalesCommissionClaimInvoiceESigned(long InvoiceID)
         {
             PDMS_EInvoiceSigned InvoiceE = new PDMS_EInvoiceSigned();
             try
             {
                 DbParameter InvoiceIDP = provider.CreateParameter("InvoiceID", InvoiceID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[1] { InvoiceIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetWarrantyClaimDebitNoteESigned", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_getSalesCommissionClaimInvoiceESigned", Params))
                 {
                     if (DataSet != null)
                     {
@@ -991,6 +1021,7 @@ namespace Business
             { }
             return InvoiceE;
         }
+
         public PDMS_EInvoiceSigned getActivityInvoiceESigned(long InvoiceID)
         {
             PDMS_EInvoiceSigned InvoiceE = new PDMS_EInvoiceSigned();

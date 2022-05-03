@@ -150,6 +150,7 @@ namespace DealerManagementSystem.ViewSales
             }
             lblMessage.Text = "Updated Successfully";
             lblMessage.ForeColor = Color.Green;
+            FillClaim();
         }
     }
 }
