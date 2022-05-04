@@ -35,7 +35,8 @@ namespace Properties
         public string AuthorityName { get; set; }
         public string AuthorityDesignation { get; set; }
         public string AuthorityMobile { get; set; } 
-        public List<PDMS_Customer> Customer { get; set; }
+        public List<PDMS_Customer> Customer { get; set; } 
+        public Boolean IsActive { get; set; }
     }
        [Serializable]
     public class PDMS_DealerOffice

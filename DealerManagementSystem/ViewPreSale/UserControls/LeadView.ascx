@@ -4,7 +4,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AssignSE.ascx" TagPrefix="UC" TagName="UC_AssignSE" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Effort.ascx" TagPrefix="UC" TagName="UC_Effort" %>
 <%@ Register Src="~/ViewPreSale/UserControls/Expense.ascx" TagPrefix="UC" TagName="UC_Expense" %>
-<%@ Register Src="~/ViewPreSale/UserControls/AddCustomerConvocation.ascx" TagPrefix="UC" TagName="UC_CustomerConvocation" %>
+<%@ Register Src="~/ViewPreSale/UserControls/AddCustomerConversation.ascx" TagPrefix="UC" TagName="UC_CustomerConversation" %> 
 <%@ Register Src="~/ViewPreSale/UserControls/AddFollowUp.ascx" TagPrefix="UC" TagName="UC_FollowUp" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddFinancial.ascx" TagPrefix="UC" TagName="UC_Financial" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLeadProduct.ascx" TagPrefix="UC" TagName="UC_Product" %>
@@ -19,7 +19,7 @@
                 <asp:LinkButton ID="lbtnEditLead" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton> 
                 <asp:LinkButton ID="lbtnAssign" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                <asp:LinkButton ID="lbtnCustomerConvocation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnCustomerConversation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
@@ -116,7 +116,7 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
-    <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="Sales Engineer" Font-Bold="True" ToolTip="List of Countries...">
+    <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="Sales Engineer" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -201,11 +201,11 @@
             <%--</div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlConvocation" runat="server" HeaderText="Conversation">
+    <asp1:TabPanel ID="tpnlConversation" runat="server" HeaderText="Conversation">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvConvocation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                    <asp:GridView ID="gvConversation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
                                 <ItemTemplate>
@@ -227,12 +227,12 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Conversation" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblConvocation" Text='<%# DataBinder.Eval(Container.DataItem, "Convocation")%>' runat="server" />
+                                    <asp:Label ID="lblConversation" Text='<%# DataBinder.Eval(Container.DataItem, "Conversation")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Conversation Date" SortExpression="Country">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblConvocationDate" Text='<%# DataBinder.Eval(Container.DataItem, "ConvocationDate","{0:d}")%>' runat="server" />
+                                    <asp:Label ID="lblConversationDate" Text='<%# DataBinder.Eval(Container.DataItem, "ConversationDate","{0:d}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -501,7 +501,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlQuestionaries" runat="server" HeaderText="Questionaries" Font-Bold="True" ToolTip="List of Countries...">
+    <asp1:TabPanel ID="tpnlQuestionaries" runat="server" HeaderText="Questionaries" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <%--  <div class="col-md-12">--%>
             <div class="col-md-12 Report">
@@ -551,7 +551,7 @@
             <%--  </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="List of Countries...">
+    <asp1:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <%--  <div class="col-md-12">--%>
             <div class="col-md-12 Report">
@@ -648,19 +648,19 @@
 <ajaxToolkit:ModalPopupExtender ID="MPE_FollowUp" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFollowUp" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
-<asp:Panel ID="pnlConvocation" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlConversation" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Conversation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageConvocation" runat="server" Text="" CssClass="message" Visible="false" />
-            <UC:UC_CustomerConvocation ID="UC_CustomerConvocation" runat="server"></UC:UC_CustomerConvocation>
+            <asp:Label ID="lblMessageConversation" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_CustomerConversation ID="UC_CustomerConversation" runat="server"></UC:UC_CustomerConversation>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveustomerConvocation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConvocation_Click" />
+            <asp:Button ID="btnSaveustomerConversation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConversation_Click" />
         </div>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_Convocation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlConvocation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Conversation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlConversation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlFinancial" runat="server" CssClass="Popup" Style="display: none">

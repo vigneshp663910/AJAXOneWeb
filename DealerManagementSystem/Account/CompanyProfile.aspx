@@ -63,7 +63,7 @@
                         <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>MobileNumber</label>
+                        <label>Primary Contact No</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblMobileNumber" runat="server" CssClass="label"></asp:Label>
@@ -75,13 +75,13 @@
                         <asp:Label ID="lblWebsite" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Contact No 1</label>
+                        <label>Alter Native Contact No</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblContactNo1" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Contact No 2</label>
+                        <label>WhatsApp No</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblContactNo2" runat="server" CssClass="label"></asp:Label>

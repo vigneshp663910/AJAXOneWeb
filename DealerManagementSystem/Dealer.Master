@@ -1120,17 +1120,17 @@
             padding: 3px 8px;
         }
 
-            .table.table-bordered.table-condensed.Grid tr:last-child td table td {
+            /*.table.table-bordered.table-condensed.Grid tr:last-child td table td {
                 padding: 2px 5px;
-                font-size: 10px;
+                font-size: 10px;*/
                 /*  background: #369;*/
-            }
+            /*}*/
 
-                .table.table-bordered.table-condensed.Grid tr:last-child td table td span {
+                /*.table.table-bordered.table-condensed.Grid tr:last-child td table td span {
                     font-size: 10px;
                     background: none;
                     color: #6ea9e3;
-                }
+                }*/
 
         .lead-static .portlet .btn-group.btn-group-devided {
             vertical-align: initial;
@@ -1848,6 +1848,7 @@
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+                       <%-- <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
                     </div>
 
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">

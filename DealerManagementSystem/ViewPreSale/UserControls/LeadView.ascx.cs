@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageEffort.Text = "";
             lblMessageExpense.Text = "";
             lblMessageFollowUp.Text = "";
-            lblMessageConvocation.Text = "";
+            lblMessageConversation.Text = "";
             lblMessageAssignEngineer.Text = "";
             lblMessageFinancial.Text = "";
             lblMessageProduct.Text = "";
@@ -82,7 +82,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             fillAssignSalesEngineer();
             fillFollowUp();
-            fillConvocation();
+            fillConversation();
             fillFinancial();
             fillEffort();
             fillExpense();
@@ -139,8 +139,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Customer Conversation")
             {
-                MPE_Convocation.Show(); 
-                UC_CustomerConvocation.FillMaster(Lead.LeadID);
+                MPE_Conversation.Show(); 
+                UC_CustomerConversation.FillMaster(Lead.LeadID);
 
                 
             }
@@ -302,30 +302,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             MPE_FollowUp.Hide();
             fillFollowUp();
         }
-        protected void btnSaveustomerConvocation_Click(object sender, EventArgs e)
+        protected void btnSaveustomerConversation_Click(object sender, EventArgs e)
         {
-            MPE_Convocation.Show();
-            string Message = UC_CustomerConvocation.ValidationConvocation();
-            lblMessageConvocation.ForeColor = Color.Red;
-            lblMessageConvocation.Visible = true;
+            MPE_Conversation.Show();
+            string Message = UC_CustomerConversation.ValidationConversation();
+            lblMessageConversation.ForeColor = Color.Red;
+            lblMessageConversation.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageConvocation.Text = Message;
+                lblMessageConversation.Text = Message;
                 return;
             }
-            PLeadConvocation Convocation = new PLeadConvocation();
-            Convocation = UC_CustomerConvocation.ReadConvocation();
-            Convocation.LeadID = Lead.LeadID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Convocation", Convocation));
+            PLeadConversation Conversation = new PLeadConversation();
+            Conversation = UC_CustomerConversation.ReadConversation();
+            Conversation.LeadID = Lead.LeadID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Conversation", Conversation));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageConvocation.Text = Results.Message;
+                lblMessageConversation.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
 
-            MPE_Convocation.Hide();
-            fillConvocation();
+            MPE_Conversation.Hide();
+            fillConversation();
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -427,10 +427,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
            
         }
-        void fillConvocation()
+        void fillConversation()
         { 
-            gvConvocation.DataSource = new BLead().GetLeadConvocation(Lead.LeadID, PSession.User.UserID); ;
-            gvConvocation.DataBind();
+            gvConversation.DataSource = new BLead().GetLeadConversation(Lead.LeadID, PSession.User.UserID); ;
+            gvConversation.DataBind();
         }
         void fillFinancial()
         { 
@@ -929,7 +929,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnCancelLead.Visible = false;
             //lbtnAssign.Visible = false;
             //lbtnAddFollowUp.Visible = false;
-            //lbtnCustomerConvocation.Visible = false;
+            //lbtnCustomerConversation.Visible = false;
             //lbtnAddEffort.Visible = false;
             //lbtnAddExpense.Visible = false;
             //lbtnAddFinancialInfo.Visible = false;
@@ -940,7 +940,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnEditLead.Visible = true; 
             lbtnAssign.Visible = true;
             lbtnAddFollowUp.Visible = true;
-            lbtnCustomerConvocation.Visible = true;
+            lbtnCustomerConversation.Visible = true;
             lbtnAddEffort.Visible = true;
             lbtnAddExpense.Visible = true;
             lbtnAddFinancialInfo.Visible = true;
@@ -968,7 +968,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerConversationLead).Count() == 0)
             {
-                lbtnCustomerConvocation.Visible = false;
+                lbtnCustomerConversation.Visible = false;
             }   
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddEffortLead).Count() == 0)
             {

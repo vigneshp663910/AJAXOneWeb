@@ -78,11 +78,11 @@ namespace Business
             //  TraceLogger.Log(DateTime.Now);
 
         }
-        public List<PLeadConvocation> GetLeadConvocation(long LeadID, int UserID)
+        public List<PLeadConversation> GetLeadConversation(long LeadID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Lead/Convocation?LeadID=" + LeadID + "&UserID=" + UserID;
-            return JsonConvert.DeserializeObject<List<PLeadConvocation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            string endPoint = "Lead/Conversation?LeadID=" + LeadID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List< PLeadConversation >> (JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
 
         }

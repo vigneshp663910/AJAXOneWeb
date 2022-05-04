@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
-    public partial class AddCustomerConvocation : System.Web.UI.UserControl
+    public partial class AddCustomerConversation : System.Web.UI.UserControl
     {
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,27 +30,27 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID");
             new DDLBind( ddlProgressStatus , new BLead().GetLeadProgressStatus(null, null), "ProgressStatus", "ProgressStatusID"); 
         } 
-        public PLeadConvocation ReadConvocation()
+        public PLeadConversation ReadConversation()
         {
-            PLeadConvocation Lead = new PLeadConvocation();
-            Lead.LeadConvocationID = 0;
+            PLeadConversation Lead = new PLeadConversation();
+            Lead.LeadConversationID = 0;
             Lead.LeadID = Convert.ToInt64(ViewState["LeadID"]);
             Lead.SalesEngineer = new PUser { UserID = Convert.ToInt32(ddlSalesEngineer.SelectedValue) };
             Lead.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
-            Lead.ConvocationDate = Convert.ToDateTime(txtConvocationDate.Text.Trim());
-            Lead.Convocation = txtConvocation.Text.Trim(); 
+            Lead.ConversationDate = Convert.ToDateTime(txtConversationDate.Text.Trim());
+            Lead.Conversation = txtConversation.Text.Trim(); 
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
             return Lead;
         }
 
-        public string ValidationConvocation()
+        public string ValidationConversation()
         {
             string Message = "";
             ddlSalesEngineer.BorderColor = Color.Silver;
             ddlProgressStatus.BorderColor = Color.Silver; 
-            txtConvocationDate.BorderColor = Color.Silver;
-            txtConvocation.BorderColor = Color.Silver;
+            txtConversationDate.BorderColor = Color.Silver;
+            txtConversation.BorderColor = Color.Silver;
 
             if (ddlSalesEngineer.SelectedValue == "0")
             {
@@ -62,15 +62,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Message = Message + "<br/>Please select the Progress Status";
                 ddlProgressStatus.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtConvocationDate.Text.Trim()))
+            if (string.IsNullOrEmpty(txtConversationDate.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Date";
-                txtConvocationDate.BorderColor = Color.Red;
+                txtConversationDate.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtConvocation.Text.Trim()))
+            if (string.IsNullOrEmpty(txtConversation.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Convocation";
-                txtConvocation.BorderColor = Color.Red;
+                Message = Message + "<br/>Please enter the Conversation";
+                txtConversation.BorderColor = Color.Red;
             }
             return Message;
         }

@@ -278,6 +278,11 @@
                 transform: translateY(-50%);
             }
         }
+
+        .care {
+            font-family: Proxima Nova;
+            font-size: 12px;
+        }
     </style>
 
 
@@ -290,9 +295,18 @@
                     <div class="split left">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
                         <div class="vertical-center" style="padding: 198px; text-align: center">
-                            <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />
+                            <%-- <asp:Image ID="ImageCompanyLogo1" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />--%>
+                            <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="50" Width="150" />
                             <h3 style="font-family: Calibri; color: white;">DEALER MANAGEMENT SYSTEM</h3>
+                            <%--<div>
+                                <h5 class="care">Need Help? Let us know</h5>
+                                <li class="fa fa-phone text-white">
+                                    <a class="care text-white" href="tel:+91 08066905995">+91 08067200014</a></li>
+                                <li class="fa fa-envelope text-white">
+                                    <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
+                            </div>--%>
                         </div>
+
                     </div>
                     <%--<div class="split bottom" style="padding: 128px; background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
                         <h2>Ajax-XXXXXXXXXXXX</h2>
@@ -301,7 +315,8 @@
                 <div id="LoginRight" class="right split" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
                         <div id="ImageCompanyLogoRight" style="text-align: center;">
-                            <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />
+                            <%-- <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />--%>
+                            <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/AJAXOneB.png" Height="40" Width="150" />
                         </div>
                         <br />
                         <div style="text-align: center;">
@@ -485,7 +500,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">1</td>
-                            <td style="text-align: center"><asp:Image ID="ImgjxOne" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="30" Height="30" /></td>
+                            <td style="text-align: center">
+                                <asp:Image ID="ImgjxOne" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="30" Height="30" /></td>
                             <td>AJAX One</td>
                             <td>Online</td>
                             <td>All</td>
@@ -495,7 +511,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">2</td>
-                             <td style="text-align: center"><asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/Pre-Sales5.jpg" Width="30" Height="30" /></td>
+                            <td style="text-align: center">
+                                <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/Pre-Sales5.jpg" Width="30" Height="30" /></td>
                             <td>Pre-Sales</td>
                             <td>Offline</td>
                             <td>RoleBased</td>
@@ -505,7 +522,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">3</td>
-                             <td style="text-align: center"><asp:Image ID="Image3" runat="server" ImageUrl="~/Ajax/Images/Service5.jpg" Width="50" Height="30" /></td>
+                            <td style="text-align: center">
+                                <asp:Image ID="Image3" runat="server" ImageUrl="~/Ajax/Images/Service5.jpg" Width="50" Height="30" /></td>
                             <td>Service</td>
                             <td>Offline</td>
                             <td>RoleBased</td>
@@ -515,7 +533,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">4</td>
-                             <td style="text-align: center"><asp:Image ID="Image4" runat="server" ImageUrl="~/Ajax/Images/User5.jpg" Width="30" Height="30" /></td>
+                            <td style="text-align: center">
+                                <asp:Image ID="Image4" runat="server" ImageUrl="~/Ajax/Images/User5.jpg" Width="30" Height="30" /></td>
                             <td>Customer</td>
                             <td>Online</td>
                             <td>Standard</td>
@@ -525,7 +544,8 @@
                         </tr>
                         <tr>
                             <td style="text-align: right">5</td>
-                             <td style="text-align: center"><asp:Image ID="Image5" runat="server" ImageUrl="~/Ajax/Images/Operator5.png" Width="30" Height="30" /></td>
+                            <td style="text-align: center">
+                                <asp:Image ID="Image5" runat="server" ImageUrl="~/Ajax/Images/Operator5.png" Width="30" Height="30" /></td>
                             <td>Operator</td>
                             <td>Online</td>
                             <td>Standard</td>

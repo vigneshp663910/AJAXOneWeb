@@ -185,6 +185,12 @@
                                         <asp:TextBox ID="txtPassWord" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Last Login Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLastLoginDate" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "LastLoginDate")%>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />

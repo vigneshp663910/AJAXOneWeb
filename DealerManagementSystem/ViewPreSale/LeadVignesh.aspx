@@ -190,7 +190,7 @@
                                             <asp:ListItem>Edit Lead</asp:ListItem>
                                             <asp:ListItem>Edit Financial Info</asp:ListItem>
                                             <asp:ListItem>Assign</asp:ListItem>
-                                            <asp:ListItem>Customer Convocation</asp:ListItem>
+                                            <asp:ListItem>Customer Conversation</asp:ListItem>
                                             <asp:ListItem>Convert to Prospect</asp:ListItem>
                                             <asp:ListItem>Lost Lead</asp:ListItem>
                                             <asp:ListItem>Cancel Lead</asp:ListItem>

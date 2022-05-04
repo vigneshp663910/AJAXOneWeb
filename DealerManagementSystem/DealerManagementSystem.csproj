@@ -191,6 +191,8 @@
     <Content Include="Account\SignOut.aspx" />
     <Content Include="Account\SignOut.htm" />
     <Content Include="Ajax\Images\Ajax-New-Logo.png" />
+    <Content Include="Ajax\Images\AJAXOneB.png" />
+    <Content Include="Ajax\Images\AJAXOneW.png" />
     <Content Include="Ajax\Images\ajax_logow.png" />
     <Content Include="Ajax\Images\AJAX_TitleBar.png" />
     <Content Include="Ajax\Images\android__v259.png" />
@@ -421,7 +423,7 @@
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
-    <Content Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
@@ -1230,12 +1232,12 @@
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.cs">
-      <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
+    <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.cs">
+      <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.designer.cs">
-      <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
+    <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.designer.cs">
+      <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFinancial.ascx.cs">
       <DependentUpon>AddFinancial.ascx</DependentUpon>
@@ -2065,8 +2067,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Print\DMS_SalesClaimInvoice.rdlc" />
-    <EmbeddedResource Include="Print\VigneshMachineQuotation.rdlc" />
-    <EmbeddedResource Include="Print\VigneshTaxQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.S3.3.7.7.20\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />

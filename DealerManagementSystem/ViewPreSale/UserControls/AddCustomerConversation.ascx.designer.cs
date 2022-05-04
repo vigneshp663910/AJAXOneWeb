@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
 
 
-    public partial class AddCustomerConvocation
+    public partial class AddCustomerConversation
     {
 
         /// <summary>
@@ -42,21 +42,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlProgressStatus;
 
         /// <summary>
-        /// txtConvocationDate control.
+        /// txtConversationDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConvocationDate;
+        protected global::System.Web.UI.WebControls.TextBox txtConversationDate;
 
         /// <summary>
-        /// txtConvocation control.
+        /// txtConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConvocation;
+        protected global::System.Web.UI.WebControls.TextBox txtConversation;
     }
 }
