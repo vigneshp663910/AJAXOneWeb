@@ -81,7 +81,7 @@ namespace Business
                         C = new EmailManager().Start();
                         new FileLogger().LogMessageService("Ended", "Send Mail Total Record " + C.ToString(), null);
                         break;
-                    case Jobs.MaterialIntegrationFromPostgre:
+                    case Jobs.MaterialIntegrationFromSAP:
                         new FileLogger().LogMessageService("Started", "MaterialIntegrationFromPostgre", null);
                         new BDMS_Material().IntegrationMaterial();
                         new FileLogger().LogMessageService("Ended", "MaterialIntegrationFromPostgre", null);
@@ -90,6 +90,12 @@ namespace Business
                         new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
                         new BAPI().ApiGet("Customer/CustomerMiss");
                         new BAPI().ApiGet("Customer/CustomerShipToMiss");
+                        new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
+                        break;
+
+                    case Jobs.UpdateSalesQuotationDeliveryDetails:
+                        new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
+                        new BAPI().ApiGet("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails"); 
                         new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                         break;
 

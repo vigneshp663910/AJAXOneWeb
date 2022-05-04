@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -35,6 +36,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
              new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(CountryID, null, Dealer.State.StateID, null,null, Dealer.DID), "District", "DistrictID");
             // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
             fillDealer();
+            CheckDealet();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -158,11 +160,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
 
         public string ValidationCustomer()
-            {
+        {
             long longCheck;
-            
 
-            string Message = ""; 
+
+            string Message = "";
             txtCustomerName.BorderColor = Color.Silver;
             txtGSTIN.BorderColor = Color.Silver;
             txtPAN.BorderColor = Color.Silver;
@@ -189,7 +191,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Message = " GST Number " + txtGSTIN.Text.Trim() + " is not correct";
                 txtGSTIN.BorderColor = Color.Red;
                 return Message;
-            } 
+            }
 
             if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
             {
@@ -200,8 +202,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     txtPAN.BorderColor = Color.Red;
                     return Message;
                 }
-            } 
-            
+            }
+
             if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Contact Person";
@@ -242,7 +244,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 return Message;
             }
-              if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+            if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Address1";
                 txtAddress1.BorderColor = Color.Red;
@@ -272,19 +274,35 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 Message = Message + "<br/>Pincode should be in digit";
                 txtPincode.BorderColor = Color.Red;
-            }  
+            }
             return Message;
         }
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List <PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
-             
+            List<PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
+
             int CountryID = Dealer[0].Country.CountryID;
             ddlCountry.SelectedValue = Convert.ToString(CountryID);
             new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
-            ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);  
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Dealer[0].Country.CountryID, null, Dealer[0].State.StateID, null, null, Dealer[0].DID), "District", "DistrictID"); 
+            ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Dealer[0].Country.CountryID, null, Dealer[0].State.StateID, null, null, Dealer[0].DID), "District", "DistrictID");
+
+            CheckDealet();
+
+        }
+        void CheckDealet()
+        {
+            if (ddlDealer.SelectedValue == ConfigurationManager.AppSettings["AjaxDealerID"])
+            {
+                ddlCountry.Enabled = true;
+                ddlState.Enabled = true;
+            }
+            else
+            {
+                ddlCountry.Enabled = false;
+                ddlState.Enabled = false;
+            }
         }
         void fillDealer()
         {

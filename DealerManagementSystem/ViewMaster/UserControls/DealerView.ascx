@@ -172,7 +172,7 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
-    <asp1:TabPanel ID="tpnlAttribute" runat="server" HeaderText="Dealer Office" Font-Bold="True" ToolTip="List of Countries...">
+    <asp1:TabPanel ID="tpnlAttribute" runat="server" HeaderText="Dealer Office" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
@@ -340,7 +340,8 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel> 
+    </asp1:TabPanel>
+    
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">

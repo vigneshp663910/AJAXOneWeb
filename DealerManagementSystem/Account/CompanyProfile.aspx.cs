@@ -73,13 +73,14 @@ namespace DealerManagementSystem.Account
             }
 
             
-            lblCompanyName.Text = Role[0].Dealer.DealerName;
-            lblCompanyCode.Text = Role[0].DealerOffice.OfficeName;
+            lblCompanyName.Text = Dealer.CustomerName;
+            lblCompanyCode.Text = Role[0].Dealer.DealerCode;
             lblAddress.Text = Dealer.Address1;
-            lblCountry.Text = Dealer.GSTIN;
+            // lblCountry.Text = Dealer.GSTIN;
             lblState.Text = Dealer.State.State;
             lblCity.Text = Dealer.City;
             lblPincode.Text = Dealer.Pincode;
+            lblCountry.Text = Dealer.Country == null ? "" : Dealer.Country.Country; 
 
             lblContactNo1.Text = "";
             lblContactNo2.Text = "";
@@ -88,11 +89,11 @@ namespace DealerManagementSystem.Account
           //  lblRegistrationDate.Text = "";
             lblActivationDate.Text = "";
            // lblURL.Text = "";
-            if (Role[0].DealerOffice.State != null)
-            {
-                lblState.Text = Role[0].DealerOffice.State;
-                lblCountry.Text = Role[0].DealerOffice.Country;
-            }
+            //if (Role[0].DealerOffice.State != null)
+            //{
+            //    lblState.Text = Role[0].DealerOffice.State;
+            //    lblCountry.Text = Role[0].DealerOffice.Country;
+            //}
         }
     }
 }

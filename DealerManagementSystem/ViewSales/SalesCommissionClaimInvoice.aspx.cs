@@ -218,7 +218,7 @@ namespace DealerManagementSystem.ViewSales
                 PAttachedFile UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 if (UploadedFile == null)
                 {
-                    UploadedFile = new BDMS_WarrantyClaimInvoice().GetWarrantyClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
+                    UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 }
 
                 Response.AddHeader("Content-type", UploadedFile.FileType);
@@ -228,104 +228,6 @@ namespace DealerManagementSystem.ViewSales
                 Response.BinaryWrite(UploadedFile.AttachedFile);
                 Response.Flush();
                 Response.End();
-
-
-
-
-                Response.AddHeader("Content-type", UploadedFile.FileType);
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName + "." + UploadedFile.FileType);
-                HttpContext.Current.Response.Charset = "utf-16";
-                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                Response.BinaryWrite(UploadedFile.AttachedFile);
-                Response.Flush();
-                Response.End();
-
-                DataTable CommissionDT = new DataTable();
-                CommissionDT.Columns.Add("SNO");
-                CommissionDT.Columns.Add("Material");
-                CommissionDT.Columns.Add("Description");
-                CommissionDT.Columns.Add("HSN");
-                CommissionDT.Columns.Add("Qty");
-                CommissionDT.Columns.Add("Rate");
-                CommissionDT.Columns.Add("Value", typeof(decimal));
-                CommissionDT.Columns.Add("CGST");
-                CommissionDT.Columns.Add("SGST");
-                CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
-                CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
-                CommissionDT.Columns.Add("Amount", typeof(decimal));
-
-                CommissionDT.Rows.Add(1, "Material", "Desc", 9876, 1, 10, 100, 18, 18, 18, 180, 100 + 18 + 18);
-
-
-                string contentType = string.Empty;
-                contentType = "application/pdf";
-                var CC = CultureInfo.CurrentCulture;
-                string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
-                string extension;
-                string encoding;
-                string mimeType;
-                string[] streams;
-                Warning[] warnings;
-
-                LocalReport report = new LocalReport();
-                report.EnableExternalImages = true;
-
-                ReportParameter[] P = null;
-
-                P = new ReportParameter[21];
-                P[19] = new ReportParameter("QRCodeImg", "");
-                P[20] = new ReportParameter("IRN", "IRN : ", false);
-                report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_SalesClaimInvoice.rdlc");
-
-
-                //   ViewState["Month"] = ddlMonth.SelectedValue;
-                P[0] = new ReportParameter("DealerCode", "", false);
-                P[1] = new ReportParameter("Annexure", "", false);
-                P[2] = new ReportParameter("DateOfClaim", "", false);
-                P[3] = new ReportParameter("DealerName", "", false);
-                P[4] = new ReportParameter("Address1", "", false);
-                P[5] = new ReportParameter("Address2", "", false);
-                P[6] = new ReportParameter("Contact", "Contact", false);
-                P[7] = new ReportParameter("GSTIN", "", false);
-                P[8] = new ReportParameter("GST_Header", "", false);
-                P[9] = new ReportParameter("GrandTotal", "", false);
-                P[10] = new ReportParameter("AmountInWord", "", false);
-                P[11] = new ReportParameter("InvoiceNumber", "", false);
-                P[12] = new ReportParameter("PeriodFrom", "", false);
-                P[13] = new ReportParameter("PeriodTo", "", false);
-                P[14] = new ReportParameter("PAN", "", false);
-                //DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
-                //string NewLogo = "0";
-                //if (NewLogoDate <= ClaimInvoice.InvoiceDate)
-                //{
-                //    NewLogo = "1";
-                //}
-                P[15] = new ReportParameter("NewLogo", "", false);
-                P[16] = new ReportParameter("TCSValue", "", false);
-                P[17] = new ReportParameter("TCSSubTotal", "", false);
-                P[18] = new ReportParameter("TCSTax", "", false);
-
-
-
-
-                ReportDataSource rds = new ReportDataSource();
-                rds.Name = "SalesCommisionInvoice";//This refers to the dataset name in the RDLC file  
-                rds.Value = CommissionDT;
-                report.DataSources.Add(rds);
-                report.SetParameters(P);
-                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-                PAttachedFile InvF = new PAttachedFile();
-
-                InvF.FileType = mimeType;
-                InvF.AttachedFile = mybytes;
-                InvF.AttachedFileID = 0;
-
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                Response.Flush(); // send it to the client to download
                 //var uploadPath = Server.MapPath("~/Backup");
                 //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
                 //File.WriteAllBytes(tempfilenameandlocation, mybytes);

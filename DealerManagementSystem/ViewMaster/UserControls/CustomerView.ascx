@@ -211,7 +211,7 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Customer Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
-    <asp1:TabPanel ID="tpnlAttribute" runat="server" HeaderText="Attribute" Font-Bold="True" ToolTip="List of Countries...">
+    <asp1:TabPanel ID="tpnlAttribute" runat="server" HeaderText="Attribute" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">

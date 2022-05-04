@@ -78,7 +78,7 @@
 
 <asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
    
-    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Quotation Material" Font-Bold="True" ToolTip="List of Countries...">
+    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Quotation Material" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <fieldset class="fieldset-border">

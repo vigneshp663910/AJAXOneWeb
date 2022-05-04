@@ -570,7 +570,9 @@ namespace Properties
         IntegrationEquipmentFromSAP = 18,
         IntegrationMaterialFromEccSap = 19,
         GetPurchaseOrderIntegration = 20,
-        CustomerIntegration    
+        MaterialIntegrationFromSAP = 21,
+        CustomerIntegration =22  ,
+        UpdateSalesQuotationDeliveryDetails = 23 
     }
 
     public enum DashboardControl

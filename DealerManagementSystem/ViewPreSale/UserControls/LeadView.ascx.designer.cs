@@ -42,13 +42,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnAddFollowUp;
 
         /// <summary>
-        /// lbtnCustomerConvocation control.
+        /// lbtnCustomerConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnCustomerConvocation;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnCustomerConversation;
 
         /// <summary>
         /// lbtnAddEffort control.
@@ -348,22 +348,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.GridView gvFollowUp;
 
         /// <summary>
-        /// tpnlConvocation control.
+        /// tpnlConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlConvocation;
+        protected global::AjaxControlToolkit.TabPanel tpnlConversation;
 
         /// <summary>
-        /// gvConvocation control.
+        /// gvConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvConvocation;
+        protected global::System.Web.UI.WebControls.GridView gvConversation;
 
         /// <summary>
         /// tpnlFinancial control.
@@ -618,13 +618,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_FollowUp;
 
         /// <summary>
-        /// pnlConvocation control.
+        /// pnlConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlConvocation;
+        protected global::System.Web.UI.WebControls.Panel pnlConversation;
 
         /// <summary>
         /// Button2 control.
@@ -636,40 +636,40 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
-        /// lblMessageConvocation control.
+        /// lblMessageConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageConvocation;
+        protected global::System.Web.UI.WebControls.Label lblMessageConversation;
 
         /// <summary>
-        /// UC_CustomerConvocation control.
+        /// UC_CustomerConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewPreSale.UserControls.AddCustomerConvocation UC_CustomerConvocation;
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.AddCustomerConversation UC_CustomerConversation;
 
         /// <summary>
-        /// btnSaveustomerConvocation control.
+        /// btnSaveustomerConversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveustomerConvocation;
+        protected global::System.Web.UI.WebControls.Button btnSaveustomerConversation;
 
         /// <summary>
-        /// MPE_Convocation control.
+        /// MPE_Conversation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Convocation;
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Conversation;
 
         /// <summary>
         /// pnlFinancial control.

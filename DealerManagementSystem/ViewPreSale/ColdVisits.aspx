@@ -392,6 +392,12 @@
                                             <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewColdVisit" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewColdVisit_Click" Width="50px" Height="33px" />

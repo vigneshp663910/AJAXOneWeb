@@ -193,7 +193,7 @@
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="SalesCommissionClaimID-<%# Eval("SalesCommissionClaimID") %>" style="display: inline; position: relative;">
 
-                                                    <table>
+                                                    <table CssClass="table table-bordered table-condensed Grid">
                                                         <tr>
                                                             <td>
                                                                 <label>SAC / HSN Code</label></td>

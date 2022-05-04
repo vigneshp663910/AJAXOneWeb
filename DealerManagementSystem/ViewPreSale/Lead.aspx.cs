@@ -347,10 +347,10 @@ namespace DealerManagementSystem.ViewPreSale
             //    MPE_FollowUp.Show();
             //    fillFollowUp(Convert.ToInt64(lblLeadID.Text));
             //}
-            //else if (ddlAction.Text == "Customer Convocation")
+            //else if (ddlAction.Text == "Customer Conversation")
             //{
-            //    MPE_Convocation.Show();
-            //    fillConvocation(Convert.ToInt64(lblLeadID.Text)); 
+            //    MPE_Conversation.Show();
+            //    fillConversation(Convert.ToInt64(lblLeadID.Text)); 
             //}            
             //else if (ddlAction.Text == "Edit Financial Info")
             //{

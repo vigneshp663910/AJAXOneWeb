@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Web.Services;
 using System.Web.UI;
@@ -48,7 +49,7 @@ namespace DealerManagementSystem.ViewPreSale
             ddlMonth.Items.Insert(0, new ListItem("All", "0"));
             for (int i = 1; i <= 12; i++)
             {
-                ddlMonth.Items.Insert(i, new ListItem(i.ToString(), i.ToString()));
+                ddlMonth.Items.Insert(i, new ListItem(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i).Substring(0,3), i.ToString())); 
             }
         }
 

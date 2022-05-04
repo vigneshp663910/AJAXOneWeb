@@ -15,6 +15,10 @@ namespace DealerManagementSystem.ViewPreSale
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["Title"] != null)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('" + Request.QueryString["Title"].ToString() + "');</script>");
+            }
             PdfReader pdfReader;
             if (Request.QueryString["FileName"] != null)
             {
