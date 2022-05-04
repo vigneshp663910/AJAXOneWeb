@@ -1120,17 +1120,17 @@
             padding: 3px 8px;
         }
 
-            .table.table-bordered.table-condensed.Grid tr:last-child td table td {
+            /*.table.table-bordered.table-condensed.Grid tr:last-child td table td {
                 padding: 2px 5px;
-                font-size: 10px;
+                font-size: 10px;*/
                 /*  background: #369;*/
-            }
+            /*}*/
 
-                .table.table-bordered.table-condensed.Grid tr:last-child td table td span {
+                /*.table.table-bordered.table-condensed.Grid tr:last-child td table td span {
                     font-size: 10px;
                     background: none;
                     color: #6ea9e3;
-                }
+                }*/
 
         .lead-static .portlet .btn-group.btn-group-devided {
             vertical-align: initial;

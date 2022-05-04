@@ -83,20 +83,20 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="RefQuoteID">
+                                    <asp:TemplateField HeaderText="RefQuote ID">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQuotationID" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationID")%>' runat="server" Visible="false" />
                                             <asp:Label ID="lblRefQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "RefQuotationNo")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="RefQuoteDate">
+                                    <asp:TemplateField HeaderText="RefQuote Date">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblRefQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "RefQuotationDate")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="QuoteNo">
+                                    <asp:TemplateField HeaderText="Quote No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationNo")%>' runat="server" />

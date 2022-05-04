@@ -185,7 +185,7 @@ namespace Business
                 //CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 //CommissionDT.Columns.Add("Amount", typeof(decimal));
 
-                
+
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -222,10 +222,10 @@ namespace Business
                     P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
                     P[24] = new ReportParameter("SGSTValue", item.SGSTValue.ToString(), false);
                     P[25] = new ReportParameter("CGSTValue", item.CGSTValue.ToString(), false);
-                    P[39] = new ReportParameter("SGST", "SGST @ "+ item.SGST, false);
-                    P[40] = new ReportParameter("CGST", "CGST @ " + item.CGST, false);                   
+                    P[39] = new ReportParameter("SGST", "SGST @ " + item.SGST, false);
+                    P[40] = new ReportParameter("CGST", "CGST @ " + item.CGST, false);
                     //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue);
-                    GrandTotal = (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue;                    
+                    GrandTotal = (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue;
                     P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
                     P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                 }
@@ -235,9 +235,9 @@ namespace Business
                     P[24] = new ReportParameter("SGSTValue", "", false);
                     P[25] = new ReportParameter("CGSTValue", item.IGSTValue.ToString(), false);
                     P[39] = new ReportParameter("", "", false);
-                    P[40] = new ReportParameter("CGST", "IGST @ " + item.IGST, false);                   
+                    P[40] = new ReportParameter("CGST", "IGST @ " + item.IGST, false);
                     //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.IGST, null, item.IGSTValue, null, (item.Qty * item.Rate) + item.IGSTValue);
-                    GrandTotal = (item.Qty * item.Rate) + item.IGSTValue;                    
+                    GrandTotal = (item.Qty * item.Rate) + item.IGSTValue;
                     P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
                     P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                 }
@@ -245,7 +245,7 @@ namespace Business
                 P[0] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
                 P[1] = new ReportParameter("CompanyAddress1", DealerAddress1, false);
                 P[2] = new ReportParameter("CompanyAddress2", DealerAddress2, false);
-                P[3] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
+                P[3] = new ReportParameter("QuotationType", "TAX INVOICE", false);
                 P[4] = new ReportParameter("InvoiceNo", SalesCommissionClaimInvoice.InvoiceNumber, false);
                 P[5] = new ReportParameter("InvoiceDate", SalesCommissionClaimInvoice.InvoiceDate.ToString(), false);
                 P[6] = new ReportParameter("IncomeTaxPAN", Dealer.PAN, false);
@@ -259,11 +259,11 @@ namespace Business
                 P[14] = new ReportParameter("ServiceCategory", "", false);
                 P[15] = new ReportParameter("HSNCode", item.Material.HSN, false);
                 P[16] = new ReportParameter("Placeofsupply", "", false);
-                P[17] = new ReportParameter("Model", item.Material.Model.ModelCode+" - "+ item.Material.MaterialDivision, false);
+                P[17] = new ReportParameter("Model", item.Material.Model.ModelCode + " - " + item.Material.MaterialDivision, false);
                 P[18] = new ReportParameter("SerialNo", "", false);
                 P[19] = new ReportParameter("MInvoiceNo", "", false);
                 P[20] = new ReportParameter("MInvoiceDate", "", false);
-                P[21] = new ReportParameter("CustomerName", SalesCommissionClaimInvoice.Customer.CustomerName+" "+ SalesCommissionClaimInvoice.Customer.CustomerName2, false);
+                P[21] = new ReportParameter("CustomerName", SalesCommissionClaimInvoice.Customer.CustomerName + " " + SalesCommissionClaimInvoice.Customer.CustomerName2, false);
                 P[22] = new ReportParameter("CustomerCode", SalesCommissionClaimInvoice.Customer.CustomerCode, false);
                 P[28] = new ReportParameter("ClaimNo", "", false);
                 P[29] = new ReportParameter("ClaimDate", "", false);
@@ -275,7 +275,7 @@ namespace Business
                 P[35] = new ReportParameter("AjaxCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN, false);
                 P[36] = new ReportParameter("AjaxPAN", "PAN:" + Ajax.PAN, false);
                 P[38] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
-                
+
 
 
                 //ReportDataSource rds = new ReportDataSource();
