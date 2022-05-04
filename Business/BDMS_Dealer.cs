@@ -57,6 +57,7 @@ namespace Business
                             Dealer.Mobile = Convert.ToString(Dr["Phone"]);
                             Dealer.TL = new PUser() { ContactName= Convert.ToString(Dr["TeamLead"])  };
                             Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
+                            Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
                             Dealers.Add(Dealer);                             
                         }
                     }

@@ -49,6 +49,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Session["DealerOffice"] = value;
             }
         }
+
+        public List<PDMS_DealerEmployee> DealerEmployeeList
+        {
+            get
+            {
+                if (Session["DealerEmployee"] == null)
+                {
+                    Session["DealerEmployee"] = new List<PDMS_DealerOffice>();
+                }
+                return (List<PDMS_DealerEmployee>)Session["DealerEmployee"];
+            }
+            set
+            {
+                Session["DealerOffice"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -65,15 +81,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblDealerName.Text = Dealer.DealerName;
             lblMobile.Text = Dealer.Mobile;
             lblEmail.Text = Dealer.Email;
-            //cbIsActive.Checked = Dealer.IsActive;
+            cbIsActive.Checked = Dealer.IsActive;
             lblDealerCountry.Text = Dealer.Country;
             lblDealerState.Text = Dealer.StateN.State;
-            lblTeamLead.Text = Dealer.TL.ContactName;
-            lblSerivceManager.Text = Dealer.SM.ContactName;
+            //lblTeamLead.Text = Dealer.TL.ContactName;
+            //lblSerivceManager.Text = Dealer.SM.ContactName;
+            lbtnInActivateDealer.Visible = true;
+            if (!Dealer.IsActive)
+            {
+                lbtnInActivateDealer.Visible = false;
+            }
 
             fillDealerOffice();
             fillDealerEmployee();
-            //fillDealerCustomer();
+            fillNotification();
             ActionControlMange();
         }
         protected void lbActions_Click(object sender, EventArgs e)
@@ -216,7 +237,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         void fillDealerOffice()
         {
-            gvDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Dealer.DealerID, null, null);
+            DealerOfficeList = new BDMS_Dealer().GetDealerOffice(Dealer.DealerID, null, null);
+            gvDealerOffice.DataSource = DealerOfficeList;
             gvDealerOffice.DataBind();
         }
         void fillDealerEmployee()
@@ -225,11 +247,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gvDealerEmployee.DataBind();
         }
 
-        //void fillRelation()
-        //{
-        //    gvRelation.DataSource = new BDMS_Customer().GetCustomerRelation(Customer.CustomerID, null);
-        //    gvRelation.DataBind();
-        //}
+        void fillNotification()
+        {
+            gvNotification.DataSource = new BDMS_Dealer().GetDealerNotification(Dealer.DealerID);
+            gvNotification.DataBind();
+        }
 
         //protected void btnUpdateDealer_Click(object sender, EventArgs e)
         //{
@@ -259,12 +281,42 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         //    //  fillCustomer(Customer.CustomerID);
         //}
 
+        protected void ibtnDealerOfficeArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDealerOffice.PageIndex > 0)
+            {
+                gvDealerOffice.PageIndex = gvDealerOffice.PageIndex - 1;
+                DealerOfficeBind(gvDealerOffice, lblRowCount, DealerOfficeList);
+            }
+        }
+        protected void ibtnDealerOfficeArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDealerOffice.PageCount > gvDealerOffice.PageIndex)
+            {
+                gvDealerOffice.PageIndex = gvDealerOffice.PageIndex + 1;
+                DealerOfficeBind(gvDealerOffice, lblRowCount, DealerOfficeList);
+            }
+        }
+
+        void DealerOfficeBind(GridView gv, Label lbl, List<PDMS_DealerOffice> DealerList)
+        {
+            gv.DataSource = DealerOfficeList;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerOfficeList.Count;
+        }
+
+        protected void gvDealerOffice_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDealerOffice.PageIndex = e.NewPageIndex;
+            fillDealerOffice();
+        }
+
         protected void ibtnDealerEmployeeArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerEmployee.PageIndex > 0)
             {
                 gvDealerEmployee.PageIndex = gvDealerEmployee.PageIndex - 1;
-                DealerEmployeeBind(gvDealerEmployee, lblRowCount, DealerOfficeList);
+                DealerEmployeeBind(gvDealerEmployee, lblRowCount, DealerEmployeeList);
             }
         }
         protected void ibtnDealerEmployeeArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -272,15 +324,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             if (gvDealerEmployee.PageCount > gvDealerEmployee.PageIndex)
             {
                 gvDealerEmployee.PageIndex = gvDealerEmployee.PageIndex + 1;
-                DealerEmployeeBind(gvDealerEmployee, lblRowCount, DealerOfficeList);
+                DealerEmployeeBind(gvDealerEmployee, lblRowCount, DealerEmployeeList);
             }
         }
 
-        void DealerEmployeeBind(GridView gv, Label lbl, List<PDMS_DealerOffice> DealerList)
+        void DealerEmployeeBind(GridView gv, Label lbl, List<PDMS_DealerEmployee> DealerEmployeeList)
         {
-            gv.DataSource = DealerList;
+            gv.DataSource = DealerEmployeeList;
             gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerList.Count;
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerEmployeeList.Count;
         }
 
         protected void gvDealerEmployee_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -320,24 +372,57 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillDealerOffice();
 
         }
-       
+
+        protected void lnkBtnNotificationDelete_Click(object sender, EventArgs e)
+        {
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblDealerNotificationID = (Label)gvRow.FindControl("lblDealerNotificationID");
+            PDealerNotification DealerNotification = new PDealerNotification();
+            DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationID.Text);
+            DealerNotification.IsActive = false;
+
+            //Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = 0 };
+            //Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0 };
+            //Attribute.Remark = txtRemark.Text.Trim();
+            //Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+
+
+            //Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
+            lblMessage.Visible = true;
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
+
+            fillNotification();
+
+        }
+
         void ActionControlMange()
         {
+
             lbtnActivateDealer.Visible = false;
             lbtnInActivateDealer.Visible = true;
 
             lbEditDealer.Visible = true;
-            //if (Dealer.IsActive)
-            //{
 
-            //}
-            //else
-            //{
+            if (Dealer.IsActive)
+            {
+
+            }
+            else
+            {
                 lbtnActivateDealer.Visible = true;
                 lbtnInActivateDealer.Visible = false;
 
                 lbEditDealer.Visible = false;
-            //}
+            }
         }       
         
     }

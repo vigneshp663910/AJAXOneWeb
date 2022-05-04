@@ -141,7 +141,7 @@
                                             <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Team Lead">
+                                   <%-- <asp:TemplateField HeaderText="Team Lead">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTL" Text='<%# DataBinder.Eval(Container.DataItem, "TL.ContactName")%>' runat="server" />
@@ -152,7 +152,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblSM" Text='<%# DataBinder.Eval(Container.DataItem, "SM.ContactName")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewCustomer" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewDealer_Click" Width="75px" Height="25px" />
