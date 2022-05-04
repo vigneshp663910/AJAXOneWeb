@@ -1848,6 +1848,7 @@
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+                       <%-- <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
                     </div>
 
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
