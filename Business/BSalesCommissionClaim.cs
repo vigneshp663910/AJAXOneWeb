@@ -202,7 +202,7 @@ namespace Business
                 ReportParameter[] P = null;
                 if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
                 {
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
                     P = new ReportParameter[43];
                     P[41] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
                     P[42] = new ReportParameter("IRN", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
