@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Customer');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Dealer');</script>");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master <i class= '+ '"' + 'fa fa-angle-double-down fa-2x' + '"'> </i>Customer');</script>");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master < i class='fa fa-fw fa-home font-white' style='color: lightgray'></i> Customer');</script>");
 
@@ -177,9 +177,9 @@ namespace DealerManagementSystem.ViewMaster
             divDealerView.Visible = true;
             divDealerList.Visible = false;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent; 
-            Label lblCDealerID = (Label)gvRow.FindControl("lblDealerID");
+            Label lblDealerID = (Label)gvRow.FindControl("lblDealerID");
 
-         //  UC_DealerView.filldealer(Convert.ToInt64(lblCDealerID.Text));
+            UC_DealerView.filldealer(Convert.ToInt32(lblDealerID.Text));
         }
 
         protected void gvDealer_PageIndexChanging(object sender, GridViewPageEventArgs e)

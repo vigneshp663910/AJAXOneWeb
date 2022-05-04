@@ -75,7 +75,6 @@
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
 
-
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
@@ -94,7 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <asp:GridView ID="gvDealer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                 EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealer_PageIndexChanging">
@@ -122,37 +120,37 @@
                                     <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Phone")%>' runat="server" />
+                                            <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EMail">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "MailID1")%>' runat="server" />
+                                            <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Email")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="State">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
+                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "StateN.State")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Country">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "State.Country")%>' runat="server" />
+                                            <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Team Lead">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTL" Text='<%# DataBinder.Eval(Container.DataItem, "TeamLead")%>' runat="server" />
+                                            <asp:Label ID="lblTL" Text='<%# DataBinder.Eval(Container.DataItem, "TL.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Service Manager">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSM" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceManager")%>' runat="server" />
+                                            <asp:Label ID="lblSM" Text='<%# DataBinder.Eval(Container.DataItem, "SM.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField>
@@ -168,7 +166,6 @@
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
-
 
                         </div>
                     </fieldset>

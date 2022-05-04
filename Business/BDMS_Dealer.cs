@@ -52,6 +52,11 @@ namespace Business
                             Dealer.EInvoiceFTPUserID = Convert.ToString(Dr["EInvoiceFTPUserID"]);
                             Dealer.EInvoiceFTPPassword = Convert.ToString(Dr["EInvoiceFTPPassword"]);
                             Dealer.StateN = DBNull.Value == Dr["StateID"] ? null : new PDMS_State() { StateID = Convert.ToInt32(Dr["StateID"]), State = Convert.ToString(Dr["State"]) };
+                            Dealer.Country = Convert.ToString(Dr["Country"]);
+                            Dealer.Email = Convert.ToString(Dr["MailID"]);
+                            Dealer.Mobile = Convert.ToString(Dr["Phone"]);
+                            Dealer.TL = new PUser() { ContactName= Convert.ToString(Dr["TeamLead"])  };
+                            Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
                             Dealers.Add(Dealer);                             
                         }
                     }
