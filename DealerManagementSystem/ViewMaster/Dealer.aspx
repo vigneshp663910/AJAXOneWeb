@@ -119,7 +119,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                   <%-- <asp:TemplateField HeaderText="Mobile">
+                                    <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Phone")%>' runat="server" />
@@ -142,7 +142,19 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "State.Country")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Team Lead">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTL" Text='<%# DataBinder.Eval(Container.DataItem, "TeamLead")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Service Manager">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSM" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceManager")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewCustomer" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewDealer_Click" Width="75px" Height="25px" />

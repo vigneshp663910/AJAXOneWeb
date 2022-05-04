@@ -727,5 +727,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
         }
+
+        protected void btnFleed_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnResponsibleEmp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
