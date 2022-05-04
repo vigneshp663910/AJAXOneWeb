@@ -109,7 +109,7 @@
 
                         <asp:TemplateField HeaderText="Month" SortExpression="Month" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
-                                <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "Month")%>' runat="server" />
+                                <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "MonthName")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
 

@@ -98,7 +98,7 @@
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
 <asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
-    <asp:TabPanel ID="tpnlFinancier" runat="server" HeaderText="Financier" Font-Bold="True" ToolTip="List of Countries...">
+    <asp:TabPanel ID="tpnlFinancier" runat="server" HeaderText="Financier" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-4">
@@ -552,7 +552,7 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="List of Countries...">
+    <asp:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="">
         <ContentTemplate>
           <%--  <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
@@ -609,7 +609,7 @@
         <%--    </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Claim" Font-Bold="True" ToolTip="List of Countries...">
+    <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Claim" Font-Bold="True" ToolTip="">
         <ContentTemplate>
          <%--   <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
@@ -843,7 +843,7 @@
                     <asp:TextBox ID="txtQty" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Discount</label>
+                    <label class="modal-label">Discount Amount</label>
                     <asp:TextBox ID="txtDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
             </div>

@@ -38,7 +38,7 @@ namespace Properties
 
         public PUser AssignedTo { get; set; }
         public List<PLeadSalesEngineer> SalesEngineer { get; set; }
-        public List<PLeadConvocation> Convocation { get; set; }
+        public List<PLeadConversation> Conversation { get; set; }
         public PLeadFinancial Financial { get; set; }
         public List<PLeadFollowUp> FollowUp { get; set; }
         public decimal TotalEffort { get; set; }
@@ -63,13 +63,13 @@ namespace Properties
         }
     }
     [Serializable]
-    public class PLeadConvocation
+    public class PLeadConversation
     {
-        public long LeadConvocationID { get; set; }
+        public long LeadConversationID { get; set; }
         public long LeadID { get; set; }
         public PLeadProgressStatus ProgressStatus { get; set; }
-        public string Convocation { get; set; }
-        public DateTime ConvocationDate { get; set; }
+        public string Conversation { get; set; }
+        public DateTime ConversationDate { get; set; }
         public PUser SalesEngineer { get; set; }
         public PUser CreatedBy { get; set; }
     }

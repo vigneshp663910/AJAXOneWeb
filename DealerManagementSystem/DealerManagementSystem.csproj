@@ -421,7 +421,7 @@
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
-    <Content Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
@@ -1230,12 +1230,12 @@
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.cs">
-      <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
+    <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.cs">
+      <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\UserControls\AddCustomerConvocation.ascx.designer.cs">
-      <DependentUpon>AddCustomerConvocation.ascx</DependentUpon>
+    <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.designer.cs">
+      <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFinancial.ascx.cs">
       <DependentUpon>AddFinancial.ascx</DependentUpon>

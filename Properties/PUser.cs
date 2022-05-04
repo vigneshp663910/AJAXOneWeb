@@ -52,6 +52,7 @@ namespace Properties
         public PUsersDesignation UsersDesignation { get; set; }
         public string OTP { get; set; }
         public DateTime OTPExpiry { get; set; }
+        public DateTime? LastLoginDate { get; set; }
         #endregion
     }
     [Serializable]

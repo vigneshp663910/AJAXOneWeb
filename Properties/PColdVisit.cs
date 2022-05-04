@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,12 @@ namespace Properties
         public long VisitTargetID { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
+        public string MonthName {
+            get
+            {
+                return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
+            }
+        }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerEmployee Employee { get; set; }
         public int NewCustomerTarget { get; set; }
