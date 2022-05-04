@@ -1172,5 +1172,20 @@ namespace Business
             ddl.DataBind(); 
            ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
+
+
+        
+        public List<PDealerNotification> GetDealerNotification(int? DealerID)
+        {
+            string endPoint = "Dealer/DealerNotification?DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<List<PDealerNotification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
+        public List<PDealerNotificationModule> GetDealerNotificationModule()
+        {
+            string endPoint = "Dealer/DealerNotificationModule";
+            return JsonConvert.DeserializeObject<List<PDealerNotificationModule>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
     }
 }
