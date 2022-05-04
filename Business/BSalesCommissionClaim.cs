@@ -17,7 +17,7 @@ using System.Web;
 
 namespace Business
 {
-   public class BSalesCommissionClaim
+    public class BSalesCommissionClaim
     {
         private IDataAccess provider;
 
@@ -50,11 +50,11 @@ namespace Business
         {
             string endPoint = "SalesCommission/ClaimForApproval?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        } 
+        }
         public List<PSalesCommissionClaim> GetSalesCommissionClaimForInvoiceCreate(int? DealerID, string ClaimNumber, string ClaimDateFrom, string ClaimDateTo)
         {
             string endPoint = "SalesCommission/ClaimForInvoiceCreate?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo;
-            return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
+            return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
         public List<PSalesCommissionClaimInvoice> GetSalesCommissionClaimInvoice(long? SalesCommissionClaimInvoiceID, int? DealerID, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo)
@@ -85,7 +85,7 @@ namespace Business
                             };
                         }
                     }
-                } 
+                }
                 if (Files == null)
                 {
                     InsertSalesCommissionClaimInvoiceFile(SalesCommissionClaimInvoiceID, SalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID));
@@ -98,7 +98,7 @@ namespace Business
                 new FileLogger().LogMessage("BDMS_WarrantyClaimInvoice", "GetWarrantyClaimInvoiceFile", ex);
                 return null;
             }
-        
+
         }
 
         //private  PAttachedFile GetSalesCommissionClaimInvoiceFile_(long SalesCommissionClaimInvoiceID)
@@ -159,35 +159,33 @@ namespace Business
         {
             try
             {
-                PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(SalesCommissionClaimInvoiceID, "", null, null, null, 3, "")[0];
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null)[0];
+
+                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SalesCommissionClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
-                PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "", "", "", false, 1)[0];
-
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
-                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
+                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
 
-                DataTable CommissionDT = new DataTable();
-                CommissionDT.Columns.Add("SNO");
-                CommissionDT.Columns.Add("Material");
-                CommissionDT.Columns.Add("Description");
-                CommissionDT.Columns.Add("HSN");
-                CommissionDT.Columns.Add("Qty");
-                CommissionDT.Columns.Add("Rate");
-                CommissionDT.Columns.Add("Value", typeof(decimal));
-                CommissionDT.Columns.Add("CGST");
-                CommissionDT.Columns.Add("SGST");
-                CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
-                CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
-                CommissionDT.Columns.Add("Amount", typeof(decimal));
 
-                CommissionDT.Rows.Add(1, "Material", "Desc", 9876, 1, 10, 100, 18, 18, 18, 180, 100 + 18 + 18);
+                //DataTable CommissionDT = new DataTable();
+                //CommissionDT.Columns.Add("SNO");
+                //CommissionDT.Columns.Add("Material");
+                //CommissionDT.Columns.Add("Description");
+                //CommissionDT.Columns.Add("HSN");
+                //CommissionDT.Columns.Add("Qty");
+                //CommissionDT.Columns.Add("Rate");
+                //CommissionDT.Columns.Add("Value", typeof(decimal));
+                //CommissionDT.Columns.Add("CGST");
+                //CommissionDT.Columns.Add("SGST");
+                //CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
+                //CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
+                //CommissionDT.Columns.Add("Amount", typeof(decimal));
 
-
+                
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -202,75 +200,96 @@ namespace Business
                 report.EnableExternalImages = true;
 
                 ReportParameter[] P = null;
-
-                P = new ReportParameter[21];
-                P[19] = new ReportParameter("QRCodeImg", "");
-                P[20] = new ReportParameter("IRN", "IRN : ", false);
-                report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_SalesClaimInvoice.rdlc");
-
-
-                //   ViewState["Month"] = ddlMonth.SelectedValue;
-                P[0] = new ReportParameter("DealerCode", "", false);
-                P[1] = new ReportParameter("Annexure", "", false);
-                P[2] = new ReportParameter("DateOfClaim", "", false);
-                P[3] = new ReportParameter("DealerName", "", false);
-                P[4] = new ReportParameter("Address1", "", false);
-                P[5] = new ReportParameter("Address2", "", false);
-                P[6] = new ReportParameter("Contact", "Contact", false);
-                P[7] = new ReportParameter("GSTIN", "", false);
-                P[8] = new ReportParameter("GST_Header", "", false);
-                P[9] = new ReportParameter("GrandTotal", "", false);
-                P[10] = new ReportParameter("AmountInWord", "", false);
-                P[11] = new ReportParameter("InvoiceNumber", "", false);
-                P[12] = new ReportParameter("PeriodFrom", "", false);
-                P[13] = new ReportParameter("PeriodTo", "", false);
-                P[14] = new ReportParameter("PAN", "", false);
-                //DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
-                //string NewLogo = "0";
-                //if (NewLogoDate <= ClaimInvoice.InvoiceDate)
-                //{
-                //    NewLogo = "1";
-                //}
-                P[15] = new ReportParameter("NewLogo", "", false);
-                P[16] = new ReportParameter("TCSValue", "", false);
-                P[17] = new ReportParameter("TCSSubTotal", "", false);
-                P[18] = new ReportParameter("TCSTax", "", false);
-
-
-                string StateCode = Dealer.State.StateCode;
-                string GST_Header = "";
-                int i = 0;
-                decimal TCSSubTotal = 0;
-                foreach (PDMS_WarrantyClaimInvoiceItem item in ClaimInvoice.InvoiceItems)
+                if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
                 {
-
-                    i = i + 1;
-                    if (item.SGST != 0)
-                    {
-                        GST_Header = "CGST & SGST";
-                        CommissionDT.Rows.Add(i, item.Material, item.MaterialDesc, item.HSNCode, item.Qty, item.Rate, item.ApprovedValue, item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, item.ApprovedValue + item.CGSTValue + item.SGSTValue);
-                        TCSSubTotal = TCSSubTotal + item.ApprovedValue + item.CGSTValue + item.SGSTValue;
-                    }
-                    else
-                    {
-                        GST_Header = "IGST";
-                        CommissionDT.Rows.Add(i, item.Material, item.MaterialDesc, item.HSNCode, item.Qty, item.Rate, item.ApprovedValue, item.IGST, null, item.IGSTValue, null, item.ApprovedValue + item.IGSTValue);
-                        TCSSubTotal = TCSSubTotal + item.ApprovedValue + item.IGSTValue;
-                    }
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
+                    P = new ReportParameter[43];
+                    P[41] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
+                    P[42] = new ReportParameter("IRN", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotationQRCode.rdlc");
+                }
+                else
+                {
+                    P = new ReportParameter[41];
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotation.rdlc");
                 }
 
-                ReportDataSource rds = new ReportDataSource();
-                rds.Name = "SalesCommisionInvoice";//This refers to the dataset name in the RDLC file  
-                rds.Value = CommissionDT;
-                report.DataSources.Add(rds);
+                string StateCode = Dealer.State.StateCode;
+                decimal GrandTotal = 0;
+                PSalesCommissionClaimInvoiceItem item = SalesCommissionClaimInvoice.InvoiceItem;
+                if (item.SGST != 0)
+                {
+                    P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
+                    P[24] = new ReportParameter("SGSTValue", item.SGSTValue.ToString(), false);
+                    P[25] = new ReportParameter("CGSTValue", item.CGSTValue.ToString(), false);
+                    P[39] = new ReportParameter("SGST", "SGST @ "+ item.SGST, false);
+                    P[40] = new ReportParameter("CGST", "CGST @ " + item.CGST, false);                   
+                    //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue);
+                    GrandTotal = (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue;                    
+                    P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                }
+                else
+                {
+                    P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
+                    P[24] = new ReportParameter("SGSTValue", "", false);
+                    P[25] = new ReportParameter("CGSTValue", item.IGSTValue.ToString(), false);
+                    P[39] = new ReportParameter("", "", false);
+                    P[40] = new ReportParameter("CGST", "IGST @ " + item.IGST, false);                   
+                    //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.IGST, null, item.IGSTValue, null, (item.Qty * item.Rate) + item.IGSTValue);
+                    GrandTotal = (item.Qty * item.Rate) + item.IGSTValue;                    
+                    P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                }
+
+                P[0] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
+                P[1] = new ReportParameter("CompanyAddress1", DealerAddress1, false);
+                P[2] = new ReportParameter("CompanyAddress2", DealerAddress2, false);
+                P[3] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
+                P[4] = new ReportParameter("InvoiceNo", SalesCommissionClaimInvoice.InvoiceNumber, false);
+                P[5] = new ReportParameter("InvoiceDate", SalesCommissionClaimInvoice.InvoiceDate.ToString(), false);
+                P[6] = new ReportParameter("IncomeTaxPAN", Dealer.PAN, false);
+                P[7] = new ReportParameter("ITGST", Dealer.GSTIN, false);
+                P[8] = new ReportParameter("ITGSTStateCode", Dealer.State.StateCode, false);
+                P[9] = new ReportParameter("ITGSTState", Dealer.State.State, false);
+                P[10] = new ReportParameter("CustomerStateCode", Ajax.State.StateCode, false);
+                P[11] = new ReportParameter("AFPAN", Ajax.PAN, false);
+                P[12] = new ReportParameter("AFGSTN", Ajax.GSTIN, false);
+                P[13] = new ReportParameter("Nameofservice", "", false);
+                P[14] = new ReportParameter("ServiceCategory", "", false);
+                P[15] = new ReportParameter("HSNCode", item.Material.HSN, false);
+                P[16] = new ReportParameter("Placeofsupply", "", false);
+                P[17] = new ReportParameter("Model", item.Material.Model.ModelCode+" - "+ item.Material.MaterialDivision, false);
+                P[18] = new ReportParameter("SerialNo", "", false);
+                P[19] = new ReportParameter("MInvoiceNo", "", false);
+                P[20] = new ReportParameter("MInvoiceDate", "", false);
+                P[21] = new ReportParameter("CustomerName", SalesCommissionClaimInvoice.Customer.CustomerName+" "+ SalesCommissionClaimInvoice.Customer.CustomerName2, false);
+                P[22] = new ReportParameter("CustomerCode", SalesCommissionClaimInvoice.Customer.CustomerCode, false);
+                P[28] = new ReportParameter("ClaimNo", "", false);
+                P[29] = new ReportParameter("ClaimDate", "", false);
+                P[30] = new ReportParameter("AccDocNo", "", false);
+                P[31] = new ReportParameter("AccYear", "", false);
+                P[32] = new ReportParameter("AjaxName", Ajax.CustomerFullName, false);
+                P[33] = new ReportParameter("AjaxAddress1", AjaxCustomerAddress1, false);
+                P[34] = new ReportParameter("AjaxAddress2", AjaxCustomerAddress2, false);
+                P[35] = new ReportParameter("AjaxCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN, false);
+                P[36] = new ReportParameter("AjaxPAN", "PAN:" + Ajax.PAN, false);
+                P[38] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
+                
+
+
+                //ReportDataSource rds = new ReportDataSource();
+                //rds.Name = "SalesCommisionInvoice";//This refers to the dataset name in the RDLC file  
+                //rds.Value = CommissionDT;
+                //report.DataSources.Add(rds);
                 report.SetParameters(P);
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
                 PAttachedFile InvF = new PAttachedFile();
 
                 InvF.FileType = mimeType;
                 InvF.AttachedFile = mybytes;
-                InvF.AttachedFileID = 0; 
-                 
+                InvF.AttachedFileID = 0;
+
                 return InvF;
             }
             catch (Exception ex)

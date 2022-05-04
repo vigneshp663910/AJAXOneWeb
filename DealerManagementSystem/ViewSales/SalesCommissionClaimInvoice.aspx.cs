@@ -218,7 +218,7 @@ namespace DealerManagementSystem.ViewSales
                 PAttachedFile UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 if (UploadedFile == null)
                 {
-                    UploadedFile = new BDMS_WarrantyClaimInvoice().GetWarrantyClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
+                    UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 }
 
                 Response.AddHeader("Content-type", UploadedFile.FileType);
