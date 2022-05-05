@@ -326,6 +326,7 @@
     <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
+    <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
@@ -739,6 +740,13 @@
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DefaultUserModule.aspx.cs">
+      <DependentUpon>DefaultUserModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DefaultUserModule.aspx.designer.cs">
+      <DependentUpon>DefaultUserModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>

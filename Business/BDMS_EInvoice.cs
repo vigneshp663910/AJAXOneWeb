@@ -1000,7 +1000,7 @@ namespace Business
             {
                 DbParameter InvoiceIDP = provider.CreateParameter("InvoiceID", InvoiceID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[1] { InvoiceIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_getSalesCommissionClaimInvoiceESigned", Params))
+                using (DataSet DataSet = provider.Select("GetSalesCommissionClaimInvoiceESigned", Params))
                 {
                     if (DataSet != null)
                     {
