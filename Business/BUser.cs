@@ -1475,7 +1475,7 @@ namespace Business
                 DbParameter[] userParams = new DbParameter[2] { DealerDesignationIDP, CreatedByP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    provider.Insert("DeactivateUserAccess", userParams, false);
+                    provider.Insert("DeactivateDefaultUserAccess", userParams, false);
 
                     foreach (int SubModuleAccessID in AccessModule)
                     {
@@ -1483,7 +1483,7 @@ namespace Business
                         DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
                         DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] MParams = new DbParameter[3] { DealerDesignationIDMP, SubModuleAccessIDP, CreatedByMP };
-                        provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
+                        provider.Insert("InsertOrUpdateDefaultUserModuleAccess", MParams, false);
                     }
                     foreach (int SubModuleChildID in AccessModuleC)
                     {
@@ -1491,7 +1491,7 @@ namespace Business
                         DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
                         DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] MParams = new DbParameter[3] { DealerDesignationIDMP, SubModuleAccessIDP, CreatedByMP };
-                        provider.Insert("InsertOrUpdateUserSubModuleChildAccess", MParams, false);
+                        provider.Insert("InsertOrUpdateDefaultUserSubModuleChildAccess", MParams, false);
                     }
 
                     foreach (int DashboardID in Dashboard)
@@ -1500,7 +1500,7 @@ namespace Business
                         DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
                         DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] DParams = new DbParameter[3] { DealerDesignationIDDP, DashboardIDP, CreatedByDP };
-                        provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+                        provider.Insert("InsertOrUpdateDefaultUserDashboardAccess", DParams, false);
                     }
 
                     scope.Complete();

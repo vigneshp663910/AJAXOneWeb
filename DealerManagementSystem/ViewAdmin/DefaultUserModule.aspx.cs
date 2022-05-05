@@ -140,13 +140,14 @@ namespace DealerManagementSystem.ViewAdmin
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
             int DealerDesignationID = Convert.ToInt32(((Label)gvDealerDesignation.Rows[index].FindControl("lblDealerDesignationID")).Text);
+            SubModuleChileByUserID = new BUser().GetSubModuleChileByDealerDesignationID(DealerDesignationID);
             ViewState["DealerDesignationID"] = DealerDesignationID;
 
             List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
             ModuleAccess = AccessModule;
             gvModule.DataSource = AccessModule;
             gvModule.DataBind(); 
-            SubModuleChileByUserID = new BUser().GetSubModuleChileByDealerDesignationID(DealerDesignationID);
+            
             List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByByDealerDesignationID(DealerDesignationID);
 
             if (EAccessModule.Count() != 0)
@@ -177,20 +178,20 @@ namespace DealerManagementSystem.ViewAdmin
             //PUser u = new BUser().GetUserDetails(UserID);
             //lblUserID.Text = u.UserName.ToString();
             //lblUserName.Text = u.ContactName;
-          
-             
 
-            //List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardByUserID(UserID);
 
-            //for (int i = 0; i < dlDashboard.Items.Count; i++)
-            //{
-            //    int DashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
-            //    if (Dashboard.Where(A => A.DashboardID == DashboardID).Count() != 0)
-            //    {
-            //        CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
-            //        cbSMId.Checked = true;
-            //    }
-            //}
+
+            List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardByDealerDesignationID(DealerDesignationID);
+
+            for (int i = 0; i < dlDashboard.Items.Count; i++)
+            {
+                int DashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
+                if (Dashboard.Where(A => A.DashboardID == DashboardID).Count() != 0)
+                {
+                    CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
+                    cbSMId.Checked = true;
+                }
+            }
 
 
         }
@@ -233,7 +234,7 @@ namespace DealerManagementSystem.ViewAdmin
                     AccessDB.Add(dlDashboardID);
                 }
             }
-            if (new BUser().InsertOrUpdateDefaultUserPermition(Convert.ToInt32(ViewState["EId"]), AccessM, AccessSCM, AccessDB, PSession.User.UserID))
+            if (new BUser().InsertOrUpdateDefaultUserPermition(Convert.ToInt32(ViewState["DealerDesignationID"]), AccessM, AccessSCM, AccessDB, PSession.User.UserID))
             { 
                 btnUpdate.Visible = false;
                 btnBack.Visible = false;

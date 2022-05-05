@@ -47,15 +47,15 @@
 
                         <asp:GridView ID="gvDealerDesignation" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvDealerDesignation_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center"  >
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="User Id">
-                                    <ItemStyle BorderStyle="None" Width="150px" HorizontalAlign="Left" />
+                                <asp:TemplateField HeaderText="Designation">
+                                    <ItemStyle BorderStyle="None"   HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerDesignationID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDesignationID")%>' Visible="false"></asp:Label>
                                         <asp:LinkButton ID="lbRole" runat="server" OnClick="lbRole_Click"> 
@@ -66,17 +66,12 @@
                                
 
                                 <asp:TemplateField HeaderText="Department">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None"   />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerDepartment" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "Department.DealerDepartment")%>'></asp:Label>
                                           </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="DealerDesignation">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
-                                    <ItemTemplate>
-                                        
-                                         </ItemTemplate>
-                                </asp:TemplateField> 
+                               
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />

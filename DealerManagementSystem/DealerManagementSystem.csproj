@@ -420,6 +420,7 @@
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PDF.aspx" />
+    <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
@@ -1205,6 +1206,13 @@
     </Compile>
     <Compile Include="ViewPreSale\PDF.aspx.designer.cs">
       <DependentUpon>PDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\PreSalesReport.aspx.cs">
+      <DependentUpon>PreSalesReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\PreSalesReport.aspx.designer.cs">
+      <DependentUpon>PreSalesReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
