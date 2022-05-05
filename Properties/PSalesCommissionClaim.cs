@@ -56,7 +56,9 @@ namespace Properties
         public long SalesCommissionClaimInvoiceID { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime? InvoiceDate { get; set; }
-        public PDMS_Customer Customer { get; set; }
+
+        public PSalesCommissionClaim Claim { get; set; }
+        public PSalesQuotation Quotation { get; set; }
         public PDMS_Dealer Dealer { get; set; }
 
         public int GrandTotal { get; set; }
@@ -65,7 +67,7 @@ namespace Properties
 
         public PUser CreatedBy { get; set; }
 
-        public PSalesQuotation Quotation { get; set; }
+
         public string IRN { get; set; }
         public DateTime? IRNDate { get; set; }
         public string SAPDoc { get; set; }
@@ -96,7 +98,6 @@ namespace Properties
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
     }
-
     [Serializable]
     public class PSalesCommissionClaimInvoiceDetails
     {
