@@ -294,7 +294,9 @@
                 <div id="LoginLeft" class="left split">
                     <div class="split left">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
+                       
                         <div class="vertical-center" style="padding: 198px; text-align: center">
+                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="35" Width="48" />
                             <%-- <asp:Image ID="ImageCompanyLogo1" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />--%>
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="50" Width="150" />
                             <h3 style="font-family: Calibri; color: white;">DEALER MANAGEMENT SYSTEM</h3>
@@ -315,7 +317,8 @@
                 <div id="LoginRight" class="right split" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
                         <div id="ImageCompanyLogoRight" style="text-align: center;">
-                            <%-- <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />--%>
+                            <%--<asp:Image ID="Image7" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="30" Width="40" />--%>
+                            <%-- <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />--%>                        
                             <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/AJAXOneB.png" Height="40" Width="150" />
                         </div>
                         <br />
