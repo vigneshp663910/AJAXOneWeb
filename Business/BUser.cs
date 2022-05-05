@@ -1405,5 +1405,120 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
+
+        public List<PModuleAccess> GetDMSModuleByByDealerDesignationID(Int32 DealerDesignationID)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PModuleAccess> MAs = new List<PModuleAccess>();
+            int ID = 0;
+            PModuleAccess MA = null;
+            try
+            {
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64); 
+                DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
+
+                using (DataSet ds = provider.Select("GetDMSModuleByDealerDesignationID", Params))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            if (ID != Convert.ToInt32(dr["ModuleMasterID"]))
+                            {
+                                MA = new PModuleAccess();
+                                MAs.Add(MA);
+                                MA.ModuleMasterID = Convert.ToInt32(dr["ModuleMasterID"]);
+                                MA.ModuleName = Convert.ToString(dr["ModuleName"]);
+                                MA.ModuleAwesomeIco = Convert.ToString(dr["ModuleAwesomeIco"]);
+                                MA.SubModuleAccess = new List<PSubModuleAccess>();
+                                ID = Convert.ToInt32(dr["ModuleMasterID"]);
+                                MA.SubModuleAccessID = Convert.ToInt32(dr["SubModuleMasterID"]);
+                            }
+                            MA.SubModuleAccess.Add(new PSubModuleAccess()
+                            {
+                                SubModuleMasterID = Convert.ToInt32(dr["SubModuleMasterID"]),
+                                SubModuleName = Convert.ToString(dr["SubModuleName"]),
+                                ParentMenu = Convert.ToString(dr["ParentMenu"]),
+                                ModuleAction = Convert.ToString(dr["ModuleAction"]),
+                                DisplayName1 = Convert.ToString(dr["DisplayName1"])
+                            });
+                        }
+                }
+                // This call is for track the status and loged into the trace logeer
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+        }
+        public List<PSubModuleChild> GetSubModuleChileByDealerDesignationID(Int32 DealerDesignationID)
+        {
+            string endPoint = "User/SubModuleChileByDealerDesignationID?DealerDesignationID=" + DealerDesignationID;
+            return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public Boolean InsertOrUpdateDefaultUserPermition(int DealerDesignationID, List<int> AccessModule, List<int> AccessModuleC, List<int> Dashboard, long CreatedBy)
+        {
+            List<PUser> users = new List<PUser>();
+            DateTime traceStartTime = DateTime.Now;
+            DataTable usersDataTable = new DataTable();
+            try
+            {
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64); 
+
+                DbParameter[] userParams = new DbParameter[2] { DealerDesignationIDP, CreatedByP };
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("DeactivateUserAccess", userParams, false);
+
+                    foreach (int SubModuleAccessID in AccessModule)
+                    {
+                        DbParameter DealerDesignationIDMP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                        DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
+                        DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] MParams = new DbParameter[3] { DealerDesignationIDMP, SubModuleAccessIDP, CreatedByMP };
+                        provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
+                    }
+                    foreach (int SubModuleChildID in AccessModuleC)
+                    {
+                        DbParameter DealerDesignationIDMP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                        DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
+                        DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] MParams = new DbParameter[3] { DealerDesignationIDMP, SubModuleAccessIDP, CreatedByMP };
+                        provider.Insert("InsertOrUpdateUserSubModuleChildAccess", MParams, false);
+                    }
+
+                    foreach (int DashboardID in Dashboard)
+                    {
+                        DbParameter DealerDesignationIDDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                        DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { DealerDesignationIDDP, DashboardIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+                    }
+
+                    scope.Complete();
+                    // This call is for track the status and logged into the trace logeer
+                    TraceLogger.Log(traceStartTime);
+                }
+                return true;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+            return false;
+        }
     }
 }
