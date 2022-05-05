@@ -383,6 +383,7 @@
                                     <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
+                                            
                                             <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
