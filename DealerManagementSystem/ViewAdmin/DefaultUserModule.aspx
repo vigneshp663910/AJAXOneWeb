@@ -31,7 +31,7 @@
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>User(s):</td>
+                                            <td>Role(s):</td>
 
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -47,14 +47,14 @@
 
                         <asp:GridView ID="gvDealerDesignation" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvDealerDesignation_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="User Id">
+                                <asp:TemplateField HeaderText="Role / Designation">
                                     <ItemStyle BorderStyle="None" Width="150px" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerDesignationID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDesignationID")%>' Visible="false"></asp:Label>
@@ -71,7 +71,7 @@
                                         <asp:Label ID="lblDealerDepartment" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "Department.DealerDepartment")%>'></asp:Label>
                                           </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="DealerDesignation">
+                                <asp:TemplateField HeaderText="Remarks">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
                                     <ItemTemplate>
                                         
