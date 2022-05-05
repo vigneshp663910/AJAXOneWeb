@@ -88,6 +88,7 @@
             </div>
             <div class="col-md-4">
                 <label>Mobile : </label>
+               <%-- <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a>--%>
                 <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">

@@ -294,19 +294,21 @@
                 <div id="LoginLeft" class="left split">
                     <div class="split left">
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
-                       
+
                         <div class="vertical-center" style="padding: 198px; text-align: center">
                             <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="35" Width="48" />
                             <%-- <asp:Image ID="ImageCompanyLogo1" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />--%>
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="50" Width="150" />
-                            <h3 style="font-family: Calibri; color: white;">DEALER MANAGEMENT SYSTEM</h3>
-                            <%--<div>
-                                <h5 class="care">Need Help? Let us know</h5>
-                                <li class="fa fa-phone text-white">
-                                    <a class="care text-white" href="tel:+91 08066905995">+91 08067200014</a></li>
-                                <li class="fa fa-envelope text-white">
-                                    <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
-                            </div>--%>
+                            <h3 style="font-family: Calibri; color: white; margin-top: 5px">DEALER MANAGEMENT SYSTEM</h3>
+
+                        </div>
+
+                        <div class="vertical-center" style="padding: 198px; padding-left:230px; padding-bottom:10px;text-align: center;margin-top:200px; font-family:sans-serif;">
+                            <h5 class="care  text-white" style="margin-top: 200px; font-family:Proxima Nova;">NEED HELP ? LET US KNOW</h5>
+                            <li class="fa fa-phone text-white">
+                                <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>
+                            <li class="fa fa-envelope text-white">
+                                <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
                         </div>
 
                     </div>
@@ -318,7 +320,7 @@
                     <div class="col-md-12 vertical-center" style="width: 80%">
                         <div id="ImageCompanyLogoRight" style="text-align: center;">
                             <%--<asp:Image ID="Image7" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="30" Width="40" />--%>
-                            <%-- <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />--%>                        
+                            <%-- <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />--%>
                             <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/AJAXOneB.png" Height="40" Width="150" />
                         </div>
                         <br />
