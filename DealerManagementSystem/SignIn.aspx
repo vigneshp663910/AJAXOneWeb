@@ -304,9 +304,9 @@
                         </div>
 
                         <div class="vertical-center" style="padding: 198px; padding-left:230px; padding-bottom:10px;text-align: center;margin-top:200px; font-family:sans-serif;">
-                            <h5 class="care  text-white" style="margin-top: 200px; font-family:Proxima Nova;">NEED HELP ? LET US KNOW</h5>
+                            <h5 class="care  text-white" style="margin-top: 200px; font-family:Proxima Nova;">NEED HELP ? &nbsp;LET US KNOW</h5>
                             <li class="fa fa-phone text-white">
-                                <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>
+                                <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <li class="fa fa-envelope text-white">
                                 <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
                         </div>
