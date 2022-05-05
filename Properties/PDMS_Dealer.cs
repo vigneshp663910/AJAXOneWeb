@@ -175,4 +175,22 @@ namespace Properties
         public int BloodGroupID { get; set; }
         public string BloodGroup { get; set; }
     }
+    [Serializable]
+    public class PDealerNotification
+    {
+        public int DealerNotificationID { get; set; }
+        public PDealerNotificationModule Module { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public PUser User { get; set; }
+        public Boolean IsSMS { get; set; }
+        public Boolean IsMail { get; set; }
+        public Boolean IsActive { get; set; }
+    }
+
+    [Serializable]
+    public class PDealerNotificationModule
+    {
+        public int DealerNotificationModuleID { get; set; }
+        public string ModuleName { get; set; }
+    }
 }

@@ -52,6 +52,12 @@ namespace Business
                             Dealer.EInvoiceFTPUserID = Convert.ToString(Dr["EInvoiceFTPUserID"]);
                             Dealer.EInvoiceFTPPassword = Convert.ToString(Dr["EInvoiceFTPPassword"]);
                             Dealer.StateN = DBNull.Value == Dr["StateID"] ? null : new PDMS_State() { StateID = Convert.ToInt32(Dr["StateID"]), State = Convert.ToString(Dr["State"]) };
+                            Dealer.Country = Convert.ToString(Dr["Country"]);
+                            Dealer.Email = Convert.ToString(Dr["MailID"]);
+                            Dealer.Mobile = Convert.ToString(Dr["Phone"]);
+                            Dealer.TL = new PUser() { ContactName= Convert.ToString(Dr["TeamLead"])  };
+                            Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
+                            Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
                             Dealers.Add(Dealer);                             
                         }
                     }
@@ -1166,6 +1172,21 @@ namespace Business
             ddl.DataSource = PSession.User.Dealer;
             ddl.DataBind(); 
            ddl.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+
+        
+        public List<PDealerNotification> GetDealerNotification(int? DealerID)
+        {
+            string endPoint = "Dealer/DealerNotification?DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<List<PDealerNotification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
+        public List<PDealerNotificationModule> GetDealerNotificationModule()
+        {
+            string endPoint = "Dealer/DealerNotificationModule";
+            return JsonConvert.DeserializeObject<List<PDealerNotificationModule>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
         }
     }
 }

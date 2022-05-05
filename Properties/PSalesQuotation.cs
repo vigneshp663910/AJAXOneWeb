@@ -32,6 +32,7 @@ namespace Properties
         public PDMS_CustomerShipTo ShipTo { get; set; }
         public PSalesQuotationFinancier Financier { get; set; }
         public PSalesQuotationItem QuotationItem { get; set; }
+        public PDMS_Model Model { get; set; }
         public List<PSalesQuotationItem> QuotationItems { get; set; }
         public List<PSalesQuotationCompetitor> Competitor { get; set; }
         public PLead Lead { get; set; }
@@ -48,7 +49,7 @@ namespace Properties
         public decimal GrossValue { get; set; }
         public decimal TotalEffort { get; set; }
         public decimal TotalExpense { get; set; }
-        public decimal LifeTimeTax { get; set; }        
+        public decimal LifeTimeTax { get; set; }
 
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }

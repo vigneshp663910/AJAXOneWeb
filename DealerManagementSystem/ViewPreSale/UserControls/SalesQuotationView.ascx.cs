@@ -1224,7 +1224,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 var uploadPath = Server.MapPath("~/Backup");
                 var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
                 File.WriteAllBytes(tempfilenameandlocation, mybytes);
-                Response.Redirect("PDF.aspx?FileName=" + FileName, false);
+                Response.Redirect("PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
             }
             catch (Exception ex)
             {
@@ -1510,7 +1510,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 var uploadPath = Server.MapPath("~/Backup");
                 var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
                 File.WriteAllBytes(tempfilenameandlocation, mybytes);
-                Response.Redirect("PDF.aspx?FileName=" + FileName, false);
+                Response.Redirect("PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
             }
             catch (Exception ex)
             {
