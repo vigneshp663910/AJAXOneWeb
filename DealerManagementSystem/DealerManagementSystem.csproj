@@ -259,6 +259,7 @@
     <Content Include="JSAutocomplete\ajax\ui1.8.22jquery-ui.js" />
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
+    <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />
@@ -421,7 +422,6 @@
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
-    <Content Include="ViewPreSale\PDF.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
@@ -672,6 +672,13 @@
     </Compile>
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PDF.aspx.cs">
+      <DependentUpon>PDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PDF.aspx.designer.cs">
+      <DependentUpon>PDF.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\DMM_Process.aspx.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
@@ -1201,13 +1208,6 @@
     </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.designer.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\PDF.aspx.cs">
-      <DependentUpon>PDF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\PDF.aspx.designer.cs">
-      <DependentUpon>PDF.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\PreSalesReport.aspx.cs">
       <DependentUpon>PreSalesReport.aspx</DependentUpon>
