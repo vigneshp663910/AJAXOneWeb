@@ -207,6 +207,7 @@
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
+    <Content Include="Ajax\Images\feedback.png" />
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\newicon.gif" />
     <Content Include="Ajax\Images\Operator1.png" />
