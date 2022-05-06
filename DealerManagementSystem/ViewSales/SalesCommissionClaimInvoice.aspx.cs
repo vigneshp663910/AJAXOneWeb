@@ -199,26 +199,25 @@ namespace DealerManagementSystem.ViewSales
                 }
 
 
-                //if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
-                //{
-                //    if (string.IsNullOrEmpty(SOIs.IRN))
-                //    {
-                //        PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SOIs.SalesCommissionClaimInvoiceID);
-                //        if (!string.IsNullOrEmpty(EInvoiceSigned.Comments))
-                //        {
-                //            lblMessage.Text = EInvoiceSigned.Comments;
-                //        }
-                //        else
-                //        {
-                //            lblMessage.Text = "E Invoice Not generated.";
-                //        }
-                //        lblMessage.ForeColor = Color.Red;
-                //        lblMessage.Visible = true;
-                //        return;
-                //    }
-                //}
+                if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
+                {
+                    if (string.IsNullOrEmpty(SOIs.IRN))
+                    {
+                        PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SOIs.SalesCommissionClaimInvoiceID);
+                        if (!string.IsNullOrEmpty(EInvoiceSigned.Comments))
+                        {
+                            lblMessage.Text = EInvoiceSigned.Comments;
+                        }
+                        else
+                        {
+                            lblMessage.Text = "E Invoice Not generated.";
+                        }
+                        lblMessage.ForeColor = Color.Red;
+                        lblMessage.Visible = true;
+                        return;
+                    }
+                }
 
-                //PAttachedFile UploadedFile = SalesCommissionClaimInvoice1(Convert.ToInt32(lblSalesCommissionClaimInvoiceID.Text));
 
                 PAttachedFile UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 if (UploadedFile == null)
@@ -391,19 +390,19 @@ namespace DealerManagementSystem.ViewSales
                 report.EnableExternalImages = true;
                 ReportParameter[] P = null;
 
-                //if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
-                //{
-                //    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
-                //    P = new ReportParameter[42];
-                //    P[40] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
-                //    P[41] = new ReportParameter("IRN", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
-                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotationQRCode.rdlc");
-                //}
-                //else
-                //{
+                if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
+                {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
+                    P = new ReportParameter[42];
+                    P[40] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
+                    P[41] = new ReportParameter("IRNNo", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotationQRCode.rdlc");
+                }
+                else
+                {
                     P = new ReportParameter[40];
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotation.rdlc");
-                //}
+                }
 
                 string StateCode = Dealer.State.StateCode;
                 decimal GrandTotal = 0;
@@ -467,7 +466,6 @@ namespace DealerManagementSystem.ViewSales
                 P[36] = new ReportParameter("AjaxPAN", "PAN:" + Ajax.PAN, false);
                 P[37] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
 
-                report.ReportPath = HttpContext.Current.Server.MapPath("../Print/SalesCommisionTaxQuotation.rdlc");
                 report.SetParameters(P);
                 
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  

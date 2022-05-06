@@ -122,10 +122,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox111</rd:DefaultName>
-            <Top>17.0512cm</Top>
-            <Left>0.13579cm</Left>
+            <Top>19.5912cm</Top>
+            <Left>0.1208cm</Left>
             <Height>0.98806cm</Height>
-            <Width>19.68164cm</Width>
+            <Width>19.70813cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -286,6 +286,36 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value />
+                    <MarkupType>HTML</MarkupType>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <MarkupType>HTML</MarkupType>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
                     <Value>Authorized Signatory</Value>
                     <MarkupType>HTML</MarkupType>
                     <Style>
@@ -300,9 +330,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox111</rd:DefaultName>
-            <Top>12.06002cm</Top>
+            <Top>14.28252cm</Top>
             <Left>0.13577cm</Left>
-            <Height>4.99118cm</Height>
+            <Height>5.30868cm</Height>
             <Width>14.64906cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -319,10 +349,10 @@
             <Source>External</Source>
             <Value>=Parameters!QRCodeImg.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>12.08648cm</Top>
-            <Left>14.81743cm</Left>
-            <Height>5cm</Height>
-            <Width>5cm</Width>
+            <Top>14.48537cm</Top>
+            <Left>14.89066cm</Left>
+            <Height>4.79715cm</Height>
+            <Width>4.72659cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -361,6 +391,34 @@
                   </TextRun>
                   <TextRun>
                     <Value>=Parameters!InvoiceDate.Value</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!IRNNo.Value</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -1308,7 +1366,7 @@
             <rd:DefaultName>Textbox111</rd:DefaultName>
             <Top>11.40801cm</Top>
             <Left>0.13579cm</Left>
-            <Height>0.67847cm</Height>
+            <Height>2.90097cm</Height>
             <Width>19.69314cm</Width>
             <ZIndex>16</ZIndex>
             <Style>
@@ -1356,11 +1414,23 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Line Name="Line1">
+            <Top>14.28252cm</Top>
+            <Left>19.82893cm</Left>
+            <Height>5.30868cm</Height>
+            <Width>0cm</Width>
+            <ZIndex>18</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
         </ReportItems>
-        <Height>7.11943in</Height>
+        <Height>8.10207in</Height>
         <Style />
       </Body>
-      <Width>7.85875in</Width>
+      <Width>7.8518in</Width>
       <Page>
         <PageHeader>
           <Height>3.26954cm</Height>
