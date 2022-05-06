@@ -1993,7 +1993,9 @@
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
-                                <a href='/Home.aspx'><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
+                                <a href='tel:+91 08067200014'><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
+
+                              
                             </div>
                         </div>
 
