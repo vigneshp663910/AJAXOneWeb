@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewPreSale
+namespace DealerManagementSystem
 {
     public partial class PDF : System.Web.UI.Page
     {

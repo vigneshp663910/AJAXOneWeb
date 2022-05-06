@@ -227,16 +227,16 @@ namespace DealerManagementSystem.ViewSales
                     UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 }
 
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = UploadedFile.FileType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName+".pdf");
-                Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
-                Response.Flush(); // send it to the client to download
+                //Response.Buffer = true;
+                //Response.Clear();
+                //Response.ContentType = UploadedFile.FileType;
+                //Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName+".pdf");
+                //Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
+                //Response.Flush(); // send it to the client to download
                 //var uploadPath = Server.MapPath("~/Backup");
-                //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-                //File.WriteAllBytes(tempfilenameandlocation, mybytes);
-                //Response.Redirect("PDF.aspx?FileName=" + FileName, false);
+                //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(UploadedFile.FileName + ".pdf"));
+                //File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
+                Response.Redirect("../PDF.aspx?FileName=" + UploadedFile.FileName + ".pdf" + "&Title=Sales » Sales Commision » Claim Invoice", false);
             }
             catch (Exception ex)
             {
@@ -381,7 +381,7 @@ namespace DealerManagementSystem.ViewSales
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = "SC_Tax" + r.Next(0, 1000000) + ".pdf";
+                string FileName = "Inv - " + SalesCommissionClaimInvoice.InvoiceNumber + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -471,6 +471,10 @@ namespace DealerManagementSystem.ViewSales
                 
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
                 PAttachedFile InvF = new PAttachedFile();
+
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
 
                 InvF.FileType = mimeType;
                 InvF.AttachedFile = mybytes;
