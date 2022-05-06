@@ -202,7 +202,7 @@
                                 <asp:TemplateField HeaderText="PDF">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="~/FileFormat/Pdf_Icon.jpg" OnClick="ibPDF_Click" />
+                                        <asp:ImageButton ID="ibPDF" runat="server" Height="50px" Width="60px" ImageUrl="~/Images/pdf_dload.png" OnClick="ibPDF_Click" />
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" style="display: none; position: relative;">
