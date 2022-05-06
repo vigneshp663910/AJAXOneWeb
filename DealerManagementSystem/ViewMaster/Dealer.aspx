@@ -104,7 +104,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="Left">
+                                    <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="Center" >
                                         <ItemTemplate> 
                                             <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" /> 
                                             <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />

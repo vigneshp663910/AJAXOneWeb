@@ -91,9 +91,9 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbEditDealer" runat="server" OnClick="lbActions_Click">Edit Dealer</asp:LinkButton>
-                <asp:LinkButton ID="lbAddDealerOffice" runat="server" OnClick="lbActions_Click">Add Dealer Office</asp:LinkButton>
+                <asp:LinkButton ID="lbAddDealerOffice" runat="server" OnClick="lbActions_Click">Add Branch Office</asp:LinkButton>
                 <asp:LinkButton ID="lbAddNotification" runat="server" OnClick="lbActions_Click">Add Notification</asp:LinkButton>
-                <asp:LinkButton ID="lbtnInActivateDealer" runat="server" OnClick="lbActions_Click">In Activate Dealer</asp:LinkButton>
+                <asp:LinkButton ID="lbtnInActivateDealer" runat="server" OnClick="lbActions_Click">DeActivate Dealer</asp:LinkButton>
                 <asp:LinkButton ID="lbtnActivateDealer" runat="server" OnClick="lbActions_Click">Activate Dealer</asp:LinkButton>
             </div>
         </div>
@@ -163,7 +163,7 @@
                         <div style="float: left">
                             <table>
                                 <tr>
-                                    <td>Dealer Office(s):</td>
+                                    <td>Branch Office(s):</td>
 
                                     <td>
                                         <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label></td>
@@ -232,7 +232,7 @@
                         <div style="float: left">
                             <table>
                                 <tr>
-                                    <td>Dealer Employee(s):</td>
+                                    <td>Employee(s):</td>
 
                                     <td>
                                         <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>

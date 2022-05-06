@@ -1986,6 +1986,27 @@
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
+                                <a href='/Account/SignOut.aspx'><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
+
+                        <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='/Home.aspx'><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
+
+                         <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='/Home.aspx'><i class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
+
+                        <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
                                 <a href='/Home.aspx'><i class="fa fa-fw fa-print font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
