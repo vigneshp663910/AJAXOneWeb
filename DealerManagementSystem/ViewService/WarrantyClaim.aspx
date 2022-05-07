@@ -183,7 +183,7 @@
                 <div class="col-md-12">
                     <div class="col-md-12 Report">
                         <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Filter : Warranty Claim Raised</legend>
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Claim Raised</legend>
                             <div class="col-md-12 Report">
 
 
@@ -192,7 +192,6 @@
                                         <div style="float: left">
                                             <table>
                                                 <tr>
-                                                    <td>Warranty Claim Raised</td>
                                                     <td>
                                                         <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                     <td>
