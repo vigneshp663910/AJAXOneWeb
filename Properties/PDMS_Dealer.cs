@@ -138,6 +138,7 @@ namespace Properties
     {
         public int DealerDesignationID { get; set; }
         public string DealerDesignation { get; set; }
+        public PDMS_DealerDepartment Department { get; set; }
     }
     [Serializable]
     public class PDMS_DealerEmployeeRole

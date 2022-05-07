@@ -1848,7 +1848,7 @@
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-                       <%-- <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
+                      <%--  <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
                     </div>
 
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
@@ -1981,6 +1981,29 @@
                         <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
 
                             <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                        </div>
+
+                        <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='/Account/SignOut.aspx'><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
+
+                        <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='tel:+91 08067200014'><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
+
+                              
+                            </div>
+                        </div>
+
+                         <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='/Home.aspx'><i class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
+                            </div>
                         </div>
 
                         <div style="float: right; padding-right: 0.3em;">

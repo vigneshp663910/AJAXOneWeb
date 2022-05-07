@@ -74,6 +74,34 @@ namespace Business
             { }
             return Dashboard;
         }
+        public List<PDMS_Dashboard> GetDashboardByDealerDesignationID(int DealerDesignationID)
+        {
+            List<PDMS_Dashboard> Dashboard = new List<PDMS_Dashboard>();
+            DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
+            try
+            {
+                using (DataSet ds = provider.Select("GetDashboardByDealerDesignationID", Params))
+                {
+                    if (ds != null)
+                    {
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            Dashboard.Add(new PDMS_Dashboard()
+                            {
+                                DashboardID = Convert.ToInt32(dr["DashboardID"]),
+                                DashboardName = Convert.ToString(dr["DashboardName"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Dashboard;
+        }
 
         public List<PDMS_ICTicket> GetDashboardTransactionStatistics(int? DealerID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int UserID)
         {

@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks; 
@@ -156,6 +157,15 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Lead/Questionaries?LeadID=" + LeadID;
             return JsonConvert.DeserializeObject<List<PLeadQuestionaries>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+
+        }
+
+        public DataTable GetPreSaleReport()
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/PreSaleReport"; 
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
 
         }

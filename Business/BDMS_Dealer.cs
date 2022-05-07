@@ -759,7 +759,17 @@ namespace Business
         }
         public void GetDealerDesignationDDL(DropDownList ddl,int? DealerDepartmentID, int? DealerDesignationID, string DealerDesignation)
         {
-            List<PDMS_DealerDesignation> Qualification = new List<PDMS_DealerDesignation>();
+            List<PDMS_DealerDesignation> Qualification = GetDealerDesignation(DealerDepartmentID, DealerDesignationID, DealerDesignation); 
+            ddl.DataValueField = "DealerDesignationID";
+            ddl.DataTextField = "DealerDesignation";
+            ddl.DataSource = Qualification;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        public List<PDMS_DealerDesignation> GetDealerDesignation(int? DealerDepartmentID, int? DealerDesignationID, string DealerDesignation)
+        {
+            List<PDMS_DealerDesignation> Designation = new List<PDMS_DealerDesignation>();
             try
             {
                 DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
@@ -769,17 +779,23 @@ namespace Business
                     DealerDesignationP = provider.CreateParameter("DealerDesignation", DealerDesignation, DbType.String);
                 else
                     DealerDesignationP = provider.CreateParameter("DealerDesignation", null, DbType.String);
-                DbParameter[] Params = new DbParameter[3] { DealerDepartmentIDP,DealerDesignationIDP, DealerDesignationP };
+                DbParameter[] Params = new DbParameter[3] { DealerDepartmentIDP, DealerDesignationIDP, DealerDesignationP };
                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerDesignation", Params))
                 {
                     if (DataSet != null)
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            Qualification.Add(new PDMS_DealerDesignation()
+                            Designation.Add(new PDMS_DealerDesignation()
                             {
                                 DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]),
-                                DealerDesignation = Convert.ToString(dr["DealerDesignation"])
+                                DealerDesignation = Convert.ToString(dr["DealerDesignation"]),
+                                Department = new PDMS_DealerDepartment()
+                                {
+                                    DealerDepartmentID = Convert.ToInt32(dr["DealerDepartmentID"]),
+                                    DealerDepartment = Convert.ToString(dr["DealerDepartment"]),
+                                }
+
                             });
                         }
                     }
@@ -789,11 +805,8 @@ namespace Business
             { }
             catch (Exception ex)
             { }
-            ddl.DataValueField = "DealerDesignationID";
-            ddl.DataTextField = "DealerDesignation";
-            ddl.DataSource = Qualification;
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select", "0"));
+
+            return Designation;
         }
 
         public void GetDealerEmployeeDDL(DropDownList ddl, int? DealerID)

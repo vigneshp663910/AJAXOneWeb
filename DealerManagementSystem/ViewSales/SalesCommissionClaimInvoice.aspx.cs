@@ -1,6 +1,7 @@
 ﻿using Business;
 using Microsoft.Reporting.WebForms;
 using Properties;
+using SapIntegration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,6 +45,7 @@ namespace DealerManagementSystem.ViewSales
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Sales Commision » Claim Invoice');</script>");
 
             if (PSession.User == null)
             {
@@ -182,20 +184,21 @@ namespace DealerManagementSystem.ViewSales
                 PSalesCommissionClaimInvoice SOIs = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text), null, null, null, null)[0];
 
 
-                if (string.IsNullOrEmpty(SOIs.InvoiceItem.Material.HSN))
-                {
-                    lblMessage.Text = "HSN Code Missed. Please contact admin";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
-                    return;
-                }
-                else if (SOIs.InvoiceItem.CGSTValue + SOIs.InvoiceItem.SGSTValue + SOIs.InvoiceItem.IGSTValue == 0)
+                //if (string.IsNullOrEmpty(SOIs.InvoiceItem.Material.HSN))
+                //{
+                //    lblMessage.Text = "HSN Code Missed. Please contact admin";
+                //    lblMessage.ForeColor = Color.Red;
+                //    lblMessage.Visible = true;
+                //    return;
+                //}
+                if (SOIs.InvoiceItem.CGSTValue + SOIs.InvoiceItem.SGSTValue + SOIs.InvoiceItem.IGSTValue == 0)
                 {
                     lblMessage.Text = "GST Value Missed. Please contact admin";
                     lblMessage.ForeColor = Color.Red;
                     lblMessage.Visible = true;
                     return;
                 }
+
 
                 if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
                 {
@@ -215,23 +218,25 @@ namespace DealerManagementSystem.ViewSales
                         return;
                     }
                 }
+
+
                 PAttachedFile UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 if (UploadedFile == null)
                 {
+                    new BSalesCommissionClaim().InsertSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text), SalesCommissionClaimInvoice1(Convert.ToInt32(lblSalesCommissionClaimInvoiceID.Text)));
                     UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 }
 
-                Response.AddHeader("Content-type", UploadedFile.FileType);
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName + "." + UploadedFile.FileType);
-                HttpContext.Current.Response.Charset = "utf-16";
-                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                Response.BinaryWrite(UploadedFile.AttachedFile);
-                Response.Flush();
-                Response.End();
+                //Response.Buffer = true;
+                //Response.Clear();
+                //Response.ContentType = UploadedFile.FileType;
+                //Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName+".pdf");
+                //Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
+                //Response.Flush(); // send it to the client to download
                 //var uploadPath = Server.MapPath("~/Backup");
-                //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-                //File.WriteAllBytes(tempfilenameandlocation, mybytes);
-                //Response.Redirect("PDF.aspx?FileName=" + FileName, false);
+                //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(UploadedFile.FileName + ".pdf"));
+                //File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
+                Response.Redirect("../PDF.aspx?FileName=" + UploadedFile.FileName + ".pdf" + "&Title=Sales » Sales Commision » Claim Invoice", false);
             }
             catch (Exception ex)
             {
@@ -355,6 +360,135 @@ namespace DealerManagementSystem.ViewSales
                 new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
             }
             new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
+        }
+        public PAttachedFile SalesCommissionClaimInvoice1(long SalesCommissionClaimInvoiceID)
+        {
+            try
+            {
+                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null)[0];
+
+                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SalesCommissionClaimInvoice.Dealer.DealerCode);
+                string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+                PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+                string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
+                string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+
+                //PSalesCommissionClaim salesCommissionClaim = GetSalesCommissionClaimByID(SalesCommissionClaimInvoice.SalesCommissionClaimID);
+
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                Random r = new Random();
+                string FileName = "Inv - " + SalesCommissionClaimInvoice.InvoiceNumber + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+                ReportParameter[] P = null;
+
+                if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
+                {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
+                    P = new ReportParameter[42];
+                    P[40] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
+                    P[41] = new ReportParameter("IRNNo", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotationQRCode.rdlc");
+                }
+                else
+                {
+                    P = new ReportParameter[40];
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotation.rdlc");
+                }
+
+                string StateCode = Dealer.State.StateCode;
+                decimal GrandTotal = 0;
+                PSalesCommissionClaimInvoiceItem item = SalesCommissionClaimInvoice.InvoiceItem;
+                if (item.SGST != 0)
+                {
+                    P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
+                    P[24] = new ReportParameter("SGSTValue", item.SGSTValue.ToString(), false);
+                    P[25] = new ReportParameter("CGSTValue", item.CGSTValue.ToString(), false);
+                    P[38] = new ReportParameter("SGST", "SGST @ " + item.SGST, false);
+                    P[39] = new ReportParameter("CGST", "CGST @ " + item.CGST, false);
+                    //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue);
+                    GrandTotal = (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue;
+                    P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                }
+                else
+                {
+                    P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
+                    P[24] = new ReportParameter("SGSTValue", "", false);
+                    P[25] = new ReportParameter("CGSTValue", item.IGSTValue.ToString(), false);
+                    P[38] = new ReportParameter("SGST", "", false);
+                    P[39] = new ReportParameter("CGST", "IGST @ " + item.IGST.ToString(), false);
+                    //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.IGST, null, item.IGSTValue, null, (item.Qty * item.Rate) + item.IGSTValue);
+                    GrandTotal = (item.Qty * item.Rate) + item.IGSTValue;
+                    P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
+                    P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                }
+
+                P[0] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
+                P[1] = new ReportParameter("CompanyAddress1", DealerAddress1, false);
+                P[2] = new ReportParameter("CompanyAddress2", DealerAddress2, false);
+                P[3] = new ReportParameter("QuotationType", "TAX INVOICE", false);
+                P[4] = new ReportParameter("InvoiceNo", SalesCommissionClaimInvoice.InvoiceNumber, false);
+                P[5] = new ReportParameter("InvoiceDate", SalesCommissionClaimInvoice.InvoiceDate.ToString(), false);
+                P[6] = new ReportParameter("IncomeTaxPAN", Dealer.PAN, false);
+                P[7] = new ReportParameter("ITGST", Dealer.GSTIN, false);
+                P[8] = new ReportParameter("ITGSTStateCode", Dealer.State.StateCode, false);
+                P[9] = new ReportParameter("ITGSTState", Dealer.State.State, false);
+                P[10] = new ReportParameter("CustomerStateCode", Ajax.State.StateCode, false);
+                P[11] = new ReportParameter("AFPAN", Ajax.PAN, false);
+                P[12] = new ReportParameter("AFGSTN", Ajax.GSTIN, false);
+                P[13] = new ReportParameter("Nameofservice", "Sales Commission", false);
+                P[14] = new ReportParameter("ServiceCategory", "Services provided for a fee/commission or contract basis on retail trade", false);
+                P[15] = new ReportParameter("HSNCode", "996211", false);
+                P[16] = new ReportParameter("Placeofsupply", "Karnataka", false);
+                P[17] = new ReportParameter("Model", (SalesCommissionClaimInvoice.Quotation.Model.ModelCode == null) ? "" : SalesCommissionClaimInvoice.Quotation.Model.ModelCode + " - " + SalesCommissionClaimInvoice.Quotation.Model.Division.DivisionDescription, false);
+                P[18] = new ReportParameter("SerialNo", (item.Material.MaterialSerialNumber == null) ? "" : item.Material.MaterialSerialNumber, false);
+                P[19] = new ReportParameter("MInvoiceNo", SalesCommissionClaimInvoice.Quotation.SalesInvoiceNumber, false);
+                P[20] = new ReportParameter("MInvoiceDate", SalesCommissionClaimInvoice.Quotation.SalesInvoiceDate.ToString(), false);
+                P[21] = new ReportParameter("CustomerName", (SalesCommissionClaimInvoice.Claim.Quotation == null) ? "" : SalesCommissionClaimInvoice.Claim.Quotation.Lead.Customer.CustomerName + " " + SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerName2, false);
+                P[22] = new ReportParameter("CustomerCode", (SalesCommissionClaimInvoice.Claim.Quotation == null) ? "" : SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerCode, false);
+                P[28] = new ReportParameter("ClaimNo", SalesCommissionClaimInvoice.Claim.ClaimNumber, false);
+                P[29] = new ReportParameter("ClaimDate", SalesCommissionClaimInvoice.Claim.ClaimDate.ToString(), false);
+                P[30] = new ReportParameter("AccDocNo", "", false);
+                P[31] = new ReportParameter("AccYear", (SalesCommissionClaimInvoice.InvoiceDate==null)?"":Convert.ToDateTime(SalesCommissionClaimInvoice.InvoiceDate).ToString("yyyy"), false);
+                P[32] = new ReportParameter("AjaxName", Ajax.CustomerFullName, false);
+                P[33] = new ReportParameter("AjaxAddress1", AjaxCustomerAddress1, false);
+                P[34] = new ReportParameter("AjaxAddress2", AjaxCustomerAddress2, false);
+                P[35] = new ReportParameter("AjaxCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN, false);
+                P[36] = new ReportParameter("AjaxPAN", "PAN:" + Ajax.PAN, false);
+                P[37] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
+
+                report.SetParameters(P);
+                
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+                PAttachedFile InvF = new PAttachedFile();
+
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+
+                InvF.FileType = mimeType;
+                InvF.AttachedFile = mybytes;
+                InvF.AttachedFileID = 0;
+                InvF.FileName = FileName;
+                return InvF;
+            }
+            catch (Exception ex)
+            {
+                //  lblMessage.Text = "Please Contact Administrator. " + ex.Message;
+                //   lblMessage.ForeColor = Color.Red;
+                //  lblMessage.Visible = true;
+            }
+            return null;
         }
     }
 }

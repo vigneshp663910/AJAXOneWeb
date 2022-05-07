@@ -193,8 +193,10 @@
     <Content Include="Ajax\Images\Ajax-New-Logo.png" />
     <Content Include="Ajax\Images\AJAXOneB.png" />
     <Content Include="Ajax\Images\AJAXOneW.png" />
+    <Content Include="Ajax\Images\AJAXTLogo.png" />
     <Content Include="Ajax\Images\ajax_logow.png" />
     <Content Include="Ajax\Images\AJAX_TitleBar.png" />
+    <Content Include="Ajax\Images\AJAX_TitleBar1.png" />
     <Content Include="Ajax\Images\android__v259.png" />
     <Content Include="Ajax\Images\apple.png" />
     <Content Include="Ajax\Images\apple__v259.png" />
@@ -205,6 +207,7 @@
     <Content Include="Ajax\Images\dms4.jpg" />
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
+    <Content Include="Ajax\Images\feedback.png" />
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\newicon.gif" />
     <Content Include="Ajax\Images\Operator1.png" />
@@ -245,6 +248,7 @@
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\hsizegrip.png" />
+    <Content Include="Images\pdf_dload.png" />
     <Content Include="Images\Playstore.png" />
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
@@ -256,6 +260,7 @@
     <Content Include="JSAutocomplete\ajax\ui1.8.22jquery-ui.js" />
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
+    <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />
@@ -325,6 +330,7 @@
     <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
+    <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
@@ -417,7 +423,7 @@
     <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
-    <Content Include="ViewPreSale\PDF.aspx" />
+    <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
@@ -668,6 +674,13 @@
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PDF.aspx.cs">
+      <DependentUpon>PDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PDF.aspx.designer.cs">
+      <DependentUpon>PDF.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProcessFlow\DMM_Process.aspx.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -738,6 +751,13 @@
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DefaultUserModule.aspx.cs">
+      <DependentUpon>DefaultUserModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DefaultUserModule.aspx.designer.cs">
+      <DependentUpon>DefaultUserModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
@@ -1190,12 +1210,12 @@
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.designer.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\PDF.aspx.cs">
-      <DependentUpon>PDF.aspx</DependentUpon>
+    <Compile Include="ViewPreSale\PreSalesReport.aspx.cs">
+      <DependentUpon>PreSalesReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\PDF.aspx.designer.cs">
-      <DependentUpon>PDF.aspx</DependentUpon>
+    <Compile Include="ViewPreSale\PreSalesReport.aspx.designer.cs">
+      <DependentUpon>PreSalesReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
@@ -2066,7 +2086,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Print\DMS_SalesClaimInvoice.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />

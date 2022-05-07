@@ -39,11 +39,11 @@
 
             if (gvObject.style.display == "none") {
                 gvObject.style.display = "inline";
-                imageID.src = "Images/grid_collapse.png";
+                imageID.src = "../Images/grid_collapse.png";
             }
             else {
                 gvObject.style.display = "none";
-                imageID.src = "Images/grid_expand.png";
+                imageID.src = "../Images/grid_expand.png";
             }
         }
 
@@ -116,7 +116,7 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <a href="javascript:collapseExpand('SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>');">
-                                            <img id="imageSalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" alt="Click to show/hide orders" border="0" src="Images/grid_expand.png" height="10" width="10" /></a>
+                                            <img id="imageSalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_expand.png" height="10" width="10" /></a>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Invoice Number">
@@ -202,7 +202,7 @@
                                 <asp:TemplateField HeaderText="PDF">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="~/FileFormat/Pdf_Icon.jpg" OnClick="ibPDF_Click" />
+                                        <asp:ImageButton ID="ibPDF" runat="server" Height="50px" Width="60px" ImageUrl="~/Images/pdf_dload.png" OnClick="ibPDF_Click" />
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" style="display: none; position: relative;">

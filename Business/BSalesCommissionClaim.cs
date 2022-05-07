@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ using System.Web;
 
 namespace Business
 {
-    public class BSalesCommissionClaim
+   public class BSalesCommissionClaim
     {
         private IDataAccess provider;
 
@@ -50,11 +51,11 @@ namespace Business
         {
             string endPoint = "SalesCommission/ClaimForApproval?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
+        } 
         public List<PSalesCommissionClaim> GetSalesCommissionClaimForInvoiceCreate(int? DealerID, string ClaimNumber, string ClaimDateFrom, string ClaimDateTo)
         {
             string endPoint = "SalesCommission/ClaimForInvoiceCreate?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo;
-            return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
 
         public List<PSalesCommissionClaimInvoice> GetSalesCommissionClaimInvoice(long? SalesCommissionClaimInvoiceID, int? DealerID, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo)
@@ -85,12 +86,12 @@ namespace Business
                             };
                         }
                     }
-                }
-                if (Files == null)
-                {
-                    InsertSalesCommissionClaimInvoiceFile(SalesCommissionClaimInvoiceID, SalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID));
-                    //Files = GetSalesCommissionClaimInvoiceFile_(SalesCommissionClaimInvoiceID);
-                }
+                } 
+                //if (Files == null)
+                //{
+                //    InsertSalesCommissionClaimInvoiceFile(SalesCommissionClaimInvoiceID, SalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID));
+                //    //Files = GetSalesCommissionClaimInvoiceFile_(SalesCommissionClaimInvoiceID);
+                //}
                 return Files;
             }
             catch (Exception ex)
@@ -98,7 +99,7 @@ namespace Business
                 new FileLogger().LogMessage("BDMS_WarrantyClaimInvoice", "GetWarrantyClaimInvoiceFile", ex);
                 return null;
             }
-
+        
         }
 
         //private  PAttachedFile GetSalesCommissionClaimInvoiceFile_(long SalesCommissionClaimInvoiceID)
@@ -169,50 +170,66 @@ namespace Business
                 string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
                 string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
+                //PSalesCommissionClaim salesCommissionClaim = GetSalesCommissionClaimByID(SalesCommissionClaimInvoice.SalesCommissionClaimID);
+
+                DataTable CommissionDT = new DataTable();
+                CommissionDT.Columns.Add("SNO");
+                CommissionDT.Columns.Add("Material");
+                CommissionDT.Columns.Add("Description");
+                CommissionDT.Columns.Add("HSN");
+                CommissionDT.Columns.Add("Qty");
+                CommissionDT.Columns.Add("Rate");
+                CommissionDT.Columns.Add("Value", typeof(decimal));
+                CommissionDT.Columns.Add("CGST");
+                CommissionDT.Columns.Add("SGST");
+                CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
+                CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
+                CommissionDT.Columns.Add("Amount", typeof(decimal));
 
 
-                //DataTable CommissionDT = new DataTable();
-                //CommissionDT.Columns.Add("SNO");
-                //CommissionDT.Columns.Add("Material");
-                //CommissionDT.Columns.Add("Description");
-                //CommissionDT.Columns.Add("HSN");
-                //CommissionDT.Columns.Add("Qty");
-                //CommissionDT.Columns.Add("Rate");
-                //CommissionDT.Columns.Add("Value", typeof(decimal));
-                //CommissionDT.Columns.Add("CGST");
-                //CommissionDT.Columns.Add("SGST");
-                //CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
-                //CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
-                //CommissionDT.Columns.Add("Amount", typeof(decimal));
+                //string contentType = string.Empty;
+                //contentType = "application/pdf";
+                //var CC = CultureInfo.CurrentCulture;
+                //string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
+                //string extension;
+                //string encoding;
+                //string mimeType;
+                //string[] streams;
+                //Warning[] warnings;
 
+                //LocalReport report = new LocalReport();
+                //report.EnableExternalImages = true;
+
+                //ReportParameter[] P = null;
 
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
-                string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
+                Random r = new Random();
+                string FileName = "SC_Tax" + r.Next(0, 1000000) + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
                 string[] streams;
                 Warning[] warnings;
-
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
-
                 ReportParameter[] P = null;
-                if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
-                {
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
-                    P = new ReportParameter[43];
-                    P[41] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
-                    P[42] = new ReportParameter("IRN", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotationQRCode.rdlc");
-                }
-                else
-                {
-                    P = new ReportParameter[41];
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotation.rdlc");
-                }
+
+
+                //if ((SalesCommissionClaimInvoice.Dealer.IsEInvoice) && (SalesCommissionClaimInvoice.Dealer.EInvoiceDate <= SalesCommissionClaimInvoice.InvoiceDate))
+                //{
+                //    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getSalesCommissionClaimInvoiceESigned(SalesCommissionClaimInvoiceID);
+                //    P = new ReportParameter[42];
+                //    P[40] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SalesCommissionClaimInvoice.InvoiceNumber), false);
+                //    P[41] = new ReportParameter("IRN", "IRN : " + SalesCommissionClaimInvoice.IRN, false);
+                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotationQRCode.rdlc");
+                //}
+                //else
+                //{
+                P = new ReportParameter[40];
+                    //report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/SalesCommisionTaxQuotation.rdlc");
+                //}
 
                 string StateCode = Dealer.State.StateCode;
                 decimal GrandTotal = 0;
@@ -222,8 +239,8 @@ namespace Business
                     P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
                     P[24] = new ReportParameter("SGSTValue", item.SGSTValue.ToString(), false);
                     P[25] = new ReportParameter("CGSTValue", item.CGSTValue.ToString(), false);
-                    P[39] = new ReportParameter("SGST", "SGST @ " + item.SGST, false);
-                    P[40] = new ReportParameter("CGST", "CGST @ " + item.CGST, false);
+                    P[38] = new ReportParameter("SGST", "SGST @ " + item.SGST, false);
+                    P[39] = new ReportParameter("CGST", "CGST @ " + item.CGST, false);
                     //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue);
                     GrandTotal = (item.Qty * item.Rate) + item.CGSTValue + item.SGSTValue;
                     P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
@@ -234,8 +251,8 @@ namespace Business
                     P[23] = new ReportParameter("Amount", (item.Qty * item.Rate).ToString(), false);
                     P[24] = new ReportParameter("SGSTValue", "", false);
                     P[25] = new ReportParameter("CGSTValue", item.IGSTValue.ToString(), false);
-                    P[39] = new ReportParameter("", "", false);
-                    P[40] = new ReportParameter("CGST", "IGST @ " + item.IGST, false);
+                    P[38] = new ReportParameter("SGST", "", false);
+                    P[39] = new ReportParameter("CGST", "IGST @ " + item.IGST.ToString(), false);
                     //CommissionDT.Rows.Add(1, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Rate, (item.Qty * item.Rate), item.IGST, null, item.IGSTValue, null, (item.Qty * item.Rate) + item.IGSTValue);
                     GrandTotal = (item.Qty * item.Rate) + item.IGSTValue;
                     P[26] = new ReportParameter("GrandTotal", GrandTotal.ToString(), false);
@@ -255,18 +272,18 @@ namespace Business
                 P[10] = new ReportParameter("CustomerStateCode", Ajax.State.StateCode, false);
                 P[11] = new ReportParameter("AFPAN", Ajax.PAN, false);
                 P[12] = new ReportParameter("AFGSTN", Ajax.GSTIN, false);
-                P[13] = new ReportParameter("Nameofservice", "", false);
-                P[14] = new ReportParameter("ServiceCategory", "", false);
-                P[15] = new ReportParameter("HSNCode", item.Material.HSN, false);
-                P[16] = new ReportParameter("Placeofsupply", "", false);
-                P[17] = new ReportParameter("Model", item.Material.Model.ModelCode + " - " + item.Material.MaterialDivision, false);
-                P[18] = new ReportParameter("SerialNo", "", false);
-                P[19] = new ReportParameter("MInvoiceNo", "", false);
-                P[20] = new ReportParameter("MInvoiceDate", "", false);
-                P[21] = new ReportParameter("CustomerName", SalesCommissionClaimInvoice.Customer.CustomerName + " " + SalesCommissionClaimInvoice.Customer.CustomerName2, false);
-                P[22] = new ReportParameter("CustomerCode", SalesCommissionClaimInvoice.Customer.CustomerCode, false);
-                P[28] = new ReportParameter("ClaimNo", "", false);
-                P[29] = new ReportParameter("ClaimDate", "", false);
+                P[13] = new ReportParameter("Nameofservice", "Sales Commission", false);
+                P[14] = new ReportParameter("ServiceCategory", "Services provided for a fee/commission or contract basis on retail trade", false);
+                P[15] = new ReportParameter("HSNCode", "996211", false);
+                P[16] = new ReportParameter("Placeofsupply", "Karnataka", false);
+                P[17] = new ReportParameter("Model", (SalesCommissionClaimInvoice.Quotation.Model.ModelCode==null)?"": SalesCommissionClaimInvoice.Quotation.Model.ModelCode + " - " + SalesCommissionClaimInvoice.Quotation.Model.Division.DivisionDescription, false);
+                P[18] = new ReportParameter("SerialNo", (item.Material.MaterialSerialNumber==null)?"":item.Material.MaterialSerialNumber, false);
+                P[19] = new ReportParameter("MInvoiceNo", SalesCommissionClaimInvoice.Quotation.SalesInvoiceNumber, false);
+                P[20] = new ReportParameter("MInvoiceDate", SalesCommissionClaimInvoice.Quotation.SalesInvoiceDate.ToString(), false);
+                P[21] = new ReportParameter("CustomerName", (SalesCommissionClaimInvoice.Claim.Quotation==null) ? "" : SalesCommissionClaimInvoice.Claim.Quotation.Lead.Customer.CustomerName + " " + SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerName2, false);
+                P[22] = new ReportParameter("CustomerCode", (SalesCommissionClaimInvoice.Claim.Quotation == null) ? "" : SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerCode, false);
+                P[28] = new ReportParameter("ClaimNo", SalesCommissionClaimInvoice.Claim.ClaimNumber, false);
+                P[29] = new ReportParameter("ClaimDate", SalesCommissionClaimInvoice.Claim.ClaimDate.ToString(), false);
                 P[30] = new ReportParameter("AccDocNo", "", false);
                 P[31] = new ReportParameter("AccYear", "", false);
                 P[32] = new ReportParameter("AjaxName", Ajax.CustomerFullName, false);
@@ -274,22 +291,27 @@ namespace Business
                 P[34] = new ReportParameter("AjaxAddress2", AjaxCustomerAddress2, false);
                 P[35] = new ReportParameter("AjaxCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN, false);
                 P[36] = new ReportParameter("AjaxPAN", "PAN:" + Ajax.PAN, false);
-                P[38] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
+                P[37] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
+
+                string pic = Path.GetFileName("SalesCommisionTaxQuotation.rdlc");//image name
+                string path = Path.GetFullPath(Path.Combine(HttpContext.Current.Server.MapPath("../../"), @"Print/"));//path in my project api
+                string path2 = Path.Combine(path, Path.GetFileName(pic));//try combine path folder in api + image name
 
 
-
-                //ReportDataSource rds = new ReportDataSource();
-                //rds.Name = "SalesCommisionInvoice";//This refers to the dataset name in the RDLC file  
-                //rds.Value = CommissionDT;
-                //report.DataSources.Add(rds);
+                report.ReportPath = path2;
                 report.SetParameters(P);
+
+                ReportDataSource rds = new ReportDataSource();
+                rds.Name = "SalesCommisionInvoice";//This refers to the dataset name in the RDLC file  
+                rds.Value = CommissionDT;
+                report.DataSources.Add(rds);
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
                 PAttachedFile InvF = new PAttachedFile();
 
                 InvF.FileType = mimeType;
                 InvF.AttachedFile = mybytes;
                 InvF.AttachedFileID = 0;
-
+                InvF.FileName = FileName;
                 return InvF;
             }
             catch (Exception ex)
@@ -299,6 +321,6 @@ namespace Business
                 //  lblMessage.Visible = true;
             }
             return null;
-        }
+        }        
     }
 }

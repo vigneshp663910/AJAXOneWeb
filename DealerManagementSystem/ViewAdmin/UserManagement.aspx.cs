@@ -153,6 +153,7 @@ namespace DealerManagementSystem.ViewAdmin
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
             int UserID = Convert.ToInt32(((Label)gvUser.Rows[index].FindControl("lblUserID")).Text);
+            SubModuleChileByUserID = new BUser().GetSubModuleChileByUserID(UserID);
             ViewState["EId"] = UserID;
 
             List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
@@ -160,7 +161,7 @@ namespace DealerManagementSystem.ViewAdmin
             gvModule.DataSource = AccessModule;
             gvModule.DataBind();
             fillDealer();
-            SubModuleChileByUserID = new BUser().GetSubModuleChileByUserID(UserID);
+            
             List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByUser(UserID, null, null);
 
             if (EAccessModule.Count() != 0)
