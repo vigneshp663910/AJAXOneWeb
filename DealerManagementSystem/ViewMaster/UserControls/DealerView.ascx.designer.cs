@@ -15,49 +15,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
     {
 
         /// <summary>
-        /// lbEditDealer control.
+        /// lnkBtnAddNotification control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbEditDealer;
-
-        /// <summary>
-        /// lbAddDealerOffice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAddDealerOffice;
-
-        /// <summary>
-        /// lbAddNotification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAddNotification;
-
-        /// <summary>
-        /// lbtnInActivateDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnInActivateDealer;
-
-        /// <summary>
-        /// lbtnActivateDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnActivateDealer;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnAddNotification;
 
         /// <summary>
         /// lblDealerCode control.
@@ -150,31 +114,31 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::AjaxControlToolkit.TabPanel tpnlDealerOffice;
 
         /// <summary>
-        /// Label1 control.
+        /// lblRowCountDealerOffice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblRowCountDealerOffice;
 
         /// <summary>
-        /// ImageButton1 control.
+        /// ibtnDealerOfficeArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDealerOfficeArrowLeft;
 
         /// <summary>
-        /// ImageButton2 control.
+        /// ibtnDealerOfficeArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDealerOfficeArrowRight;
 
         /// <summary>
         /// gvDealerOffice control.
@@ -195,13 +159,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::AjaxControlToolkit.TabPanel tpnlDealerEmployee;
 
         /// <summary>
-        /// lblRowCount control.
+        /// lblRowCountDealerEmployee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCount;
+        protected global::System.Web.UI.WebControls.Label lblRowCountDealerEmployee;
 
         /// <summary>
         /// ibtnDealerEmployeeArrowLeft control.
@@ -240,13 +204,40 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::AjaxControlToolkit.TabPanel tpnlDealerNotification;
 
         /// <summary>
-        /// gvNotification control.
+        /// lblRowCountDealerNotification control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvNotification;
+        protected global::System.Web.UI.WebControls.Label lblRowCountDealerNotification;
+
+        /// <summary>
+        /// ibtnDealerNotificationArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDealerNotificationArrowLeft;
+
+        /// <summary>
+        /// ibtnDealerNotificationArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDealerNotificationArrowRight;
+
+        /// <summary>
+        /// gvDealerNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDealerNotification;
 
         /// <summary>
         /// pnlDealer control.
@@ -292,6 +283,96 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_Dealer;
+
+        /// <summary>
+        /// pnlAddNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddNotification;
+
+        /// <summary>
+        /// btnAddNotificationClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddNotificationClose;
+
+        /// <summary>
+        /// lblMessageAddNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageAddNotification;
+
+        /// <summary>
+        /// Fieldset5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset5;
+
+        /// <summary>
+        /// ddlDealerNotificationModule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerNotificationModule;
+
+        /// <summary>
+        /// ddlEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
+
+        /// <summary>
+        /// cbSendSMS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbSendSMS;
+
+        /// <summary>
+        /// cbSendEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbSendEmail;
+
+        /// <summary>
+        /// btnAddNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddNotification;
+
+        /// <summary>
+        /// MPE_AddNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_AddNotification;
 
         /// <summary>
         /// lnkMPE control.

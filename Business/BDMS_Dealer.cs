@@ -539,7 +539,8 @@ namespace Business
                                     SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
                                 },
                                 IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
-                         //       CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
+                                //       CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
+                                
                             });
                         }
                     }

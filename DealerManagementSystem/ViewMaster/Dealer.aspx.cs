@@ -115,43 +115,7 @@ namespace DealerManagementSystem.ViewMaster
             }
 
         }
-        //protected void ddlDSCountry_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    new DDLBind(ddlDState, new BDMS_Address().GetState(Convert.ToInt32(ddlDSCountry.SelectedValue), null, null, null), "State", "StateID");
-        //}
-
-        //protected void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    string Message = UC_Customer.ValidationCustomer();
-        //    lblMessageCustomer.ForeColor = Color.Red;
-        //    lblMessageCustomer.Visible = true;
-        //    MPE_Customer.Show();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageCustomer.Text = Message;
-        //        return;
-        //    }
-        //    PDMS_Customer cust = UC_Customer.ReadCustomer();
-        //    string result = new BAPI().ApiPut("Customer", cust);
-        //    result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-        //    if (result == "0")
-        //    {
-        //        MPE_Customer.Show();
-        //        lblMessageCustomer.Text = "Customer is not updated successfully ";
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Green;
-        //        lblMessage.Text = "Customer is updated successfully ";
-        //    }
-        //    List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null);
-        //    gvDealer.DataSource = Leads;
-        //    gvDealer.DataBind();
-        //    UC_Customer.FillClean();
-        //    MPE_Customer.Hide();
-        //}
+        
        
 
         protected void btnBackToList_Click(object sender, EventArgs e)
