@@ -510,7 +510,7 @@
                             <td>AJAX One</td>
                             <td>Online</td>
                             <td>All</td>
-                            <td style="text-align: center"><a href="https://play.google.com/store/apps/details?id=com.ajaxengg.hr_app">Install</a></td>
+                            <td style="text-align: center"><a href="https://play.google.com/store/apps/details?id=com.ajaxengg.sales_webview">Install</a></td>
                             <td style="text-align: center">Install</td>
                             <td style="width: 550px; text-align: left">Includes both Pre-Sales & Service</td>
                         </tr>

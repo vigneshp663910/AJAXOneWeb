@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewSales
                 string InvoiceDateFrom = txtDateFrom.Text.Trim();
                 string InvoiceDateTo = txtDateTo.Text.Trim();
 
-                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null,DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo);
+                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo);
                 gvClaimInvoice.PageIndex = 0;
                 gvClaimInvoice.DataSource = Invoices;
                 gvClaimInvoice.DataBind();
@@ -227,16 +227,16 @@ namespace DealerManagementSystem.ViewSales
                     UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 }
 
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = UploadedFile.FileType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName+".pdf");
-                Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
-                Response.Flush(); // send it to the client to download
+                //Response.Buffer = true;
+                //Response.Clear();
+                //Response.ContentType = UploadedFile.FileType;
+                //Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName+".pdf");
+                //Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
+                //Response.Flush(); // send it to the client to download
                 //var uploadPath = Server.MapPath("~/Backup");
-                //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-                //File.WriteAllBytes(tempfilenameandlocation, mybytes);
-                //Response.Redirect("PDF.aspx?FileName=" + FileName, false);
+                //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(UploadedFile.FileName + ".pdf"));
+                //File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
+                Response.Redirect("../PDF.aspx?FileName=" + UploadedFile.FileName + ".pdf" + "&Title=Sales » Sales Commision » Claim Invoice", false);
             }
             catch (Exception ex)
             {
@@ -381,7 +381,7 @@ namespace DealerManagementSystem.ViewSales
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = "SC_Tax" + r.Next(0, 1000000) + ".pdf";
+                string FileName = "Inv - " + SalesCommissionClaimInvoice.InvoiceNumber + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -433,7 +433,7 @@ namespace DealerManagementSystem.ViewSales
                     P[27] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                 }
 
-                P[0] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
+                P[0] = new ReportParameter("CompanyName", Dealer.CustomerName + " " + Dealer.CustomerName2, false);
                 P[1] = new ReportParameter("CompanyAddress1", DealerAddress1, false);
                 P[2] = new ReportParameter("CompanyAddress2", DealerAddress2, false);
                 P[3] = new ReportParameter("QuotationType", "TAX INVOICE", false);
@@ -459,7 +459,7 @@ namespace DealerManagementSystem.ViewSales
                 P[28] = new ReportParameter("ClaimNo", SalesCommissionClaimInvoice.Claim.ClaimNumber, false);
                 P[29] = new ReportParameter("ClaimDate", SalesCommissionClaimInvoice.Claim.ClaimDate.ToString(), false);
                 P[30] = new ReportParameter("AccDocNo", "", false);
-                P[31] = new ReportParameter("AccYear", (SalesCommissionClaimInvoice.InvoiceDate==null)?"":Convert.ToDateTime(SalesCommissionClaimInvoice.InvoiceDate).ToString("yyyy"), false);
+                P[31] = new ReportParameter("AccYear", (SalesCommissionClaimInvoice.InvoiceDate == null) ? "" : Convert.ToDateTime(SalesCommissionClaimInvoice.InvoiceDate).ToString("yyyy"), false);
                 P[32] = new ReportParameter("AjaxName", Ajax.CustomerFullName, false);
                 P[33] = new ReportParameter("AjaxAddress1", AjaxCustomerAddress1, false);
                 P[34] = new ReportParameter("AjaxAddress2", AjaxCustomerAddress2, false);
@@ -468,9 +468,13 @@ namespace DealerManagementSystem.ViewSales
                 P[37] = new ReportParameter("AjaxTelephoneandEmail", "T:" + Ajax.Mobile + ",Email:" + Ajax.Email, false);
 
                 report.SetParameters(P);
-                
+
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
                 PAttachedFile InvF = new PAttachedFile();
+
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
 
                 InvF.FileType = mimeType;
                 InvF.AttachedFile = mybytes;

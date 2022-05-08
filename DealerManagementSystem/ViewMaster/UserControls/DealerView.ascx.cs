@@ -56,23 +56,41 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 if (Session["DealerEmployee"] == null)
                 {
-                    Session["DealerEmployee"] = new List<PDMS_DealerOffice>();
+                    Session["DealerEmployee"] = new List<PDMS_DealerEmployee>();
                 }
                 return (List<PDMS_DealerEmployee>)Session["DealerEmployee"];
             }
             set
             {
-                Session["DealerOffice"] = value;
+                Session["DealerEmployee"] = value;
             }
         }
+
+        public List<PDealerNotification> DealerNotificationList
+        {
+            get
+            {
+                if (Session["DealerNotification"] == null)
+                {
+                    Session["DealerNotification"] = new List<PDealerNotification>();
+                }
+                return (List<PDealerNotification>)Session["DealerNotification"];
+            }
+            set
+            {
+                Session["DealerNotification"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
             if (!IsPostBack)
             {
-                ActionControlMange();
+                //ActionControlMange();
             }
         }
+
         public void filldealer(int DealerID)
         {
             Dealer = new BDMS_Dealer().GetDealer(DealerID, "", null)[0];
@@ -86,27 +104,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblDealerState.Text = Dealer.StateN.State;
             //lblTeamLead.Text = Dealer.TL.ContactName;
             //lblSerivceManager.Text = Dealer.SM.ContactName;
-            lbtnInActivateDealer.Visible = true;
-            if (!Dealer.IsActive)
-            {
-                lbtnInActivateDealer.Visible = false;
-            }
-
+            
             fillDealerOffice();
             fillDealerEmployee();
-            fillNotification();
+            fillDealerNotification();
             ActionControlMange();
         }
-        protected void lbActions_Click(object sender, EventArgs e)
+
+        protected void lnkBtnActions_Click(object sender, EventArgs e)
         {
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
-                if (lbActions.Text == "Edit Dealer")
+               if (lbActions.Text == "Add Dealer Notification")
                 {
-                    MPE_Dealer.Show();
-                    UC_Dealer.FillMaster();
-                    //UC_Dealer.FillDealer(Dealer);
+                    List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, null,null);
+                    new DDLBind(ddlDealerNotificationModule, new BDMS_Dealer().GetDealerNotificationModule(), "ModuleName", "DealerNotificationModuleID");
+                    new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
+                    MPE_AddNotification.Show();
                 }
             }
             catch (Exception ex)
@@ -117,192 +132,54 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
         }
 
-        //protected void btnSaveMarketSegment_Click(object sender, EventArgs e)
-        //{
-        //    lblMessageAttribute.Visible = true;
-        //    lblMessageAttribute.ForeColor = Color.Red;
-        //    MPE_Attribute.Show();
-        //    string Message = ValidationAttribute();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageAttribute.Text = Message;
-        //        return;
-        //    }
-        //    PCustomerAttribute Attribute = new PCustomerAttribute();
-        //    Attribute.CustomerID = Customer.CustomerID;
-        //    Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = Convert.ToInt32(ddlAttributeMain.SelectedValue) };
-        //    Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = Convert.ToInt32(ddlAttributeSub.SelectedValue) };
-        //    Attribute.Remark = txtRemark.Text.Trim();
-        //    Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Attribute", Attribute));
-        //    if (Results.Status == PApplication.Failure)
-        //    {
-        //        lblMessageAttribute.Text = Results.Message;
-        //        return;
-        //    }
-        //    lblMessage.Text = Results.Message;
-        //    lblMessage.Visible = true;
-        //    lblMessage.ForeColor = Color.Green;
-
-        //    ddlAttributeMain.Items.Clear();
-        //    ddlAttributeSub.Items.Clear();
-        //    txtRemark.Text = "";
-        //    tbpCust.ActiveTabIndex = 0;
-        //    MPE_Attribute.Hide();
-        //    fillAttribute();
-        //}
-        //protected void btnSaveProduct_Click(object sender, EventArgs e)
-        //{
-        //    lblMessageProduct.Visible = true;
-        //    lblMessageProduct.ForeColor = Color.Red;
-
-        //    MPE_Product.Show();
-        //    string Message = ValidationProduct();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageProduct.Text = Message;
-        //        return;
-        //    }
-        //    PCustomerProduct Product = new PCustomerProduct();
-        //    Product.CustomerProductID = 0;
-        //    Product.CustomerID = Customer.CustomerID;
-        //    Product.Make = new PMake() { MakeID = Convert.ToInt32(ddlMake.SelectedValue) };
-        //    Product.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
-        //    Product.Product = new PProduct() { ProductID = Convert.ToInt32(ddlProduct.SelectedValue) };
-        //    Product.Quantity = Convert.ToInt32(txtQuantity.Text.Trim());
-        //    Product.Remark = txtRemarkProduct.Text.Trim();
-
-        //    Product.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Product", Product));
-        //    if (Results.Status == PApplication.Failure)
-        //    {
-        //        lblMessageProduct.Text = Results.Message;
-        //        return;
-        //    }
-
-        //    lblMessage.Text = Results.Message;
-        //    lblMessage.Visible = true;
-        //    lblMessage.ForeColor = Color.Green;
-
-
-        //    ddlMake.Items.Clear();
-        //    ddlProductType.Items.Clear();
-        //    ddlProduct.Items.Clear();
-        //    txtQuantity.Text = "";
-        //    tbpCust.ActiveTabIndex = 1;
-        //    MPE_Product.Hide();
-        //    fillProduct();
-        //}
-        //protected void btnSaveRelation_Click(object sender, EventArgs e)
-        //{
-        //    lblMessageRelation.Visible = true;
-        //    lblMessageRelation.ForeColor = Color.Red;
-        //    MPE_Relation.Show();
-        //    string Message = ValidationRelation();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageRelation.Text = Message;
-        //        return;
-        //    }
-        //    PCustomerRelation Relation = new PCustomerRelation();
-        //    Relation.CustomerID = Customer.CustomerID;
-        //    Relation.ContactName = txtPersonName.Text.Trim();
-        //    Relation.Mobile = txtMobile.Text.Trim();
-        //    Relation.Relation = new PRelation() { RelationID = Convert.ToInt32(ddlRelation.SelectedValue) };
-        //    Relation.DOB = string.IsNullOrEmpty(txtBirthDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtBirthDate.Text.Trim());
-        //    Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
-        //    Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
-        //    if (Results.Status == PApplication.Failure)
-        //    {
-        //        lblMessageRelation.Text = Results.Message;
-        //        return;
-        //    }
-
-        //    lblMessage.Text = Results.Message;
-        //    lblMessage.Visible = true;
-        //    lblMessage.ForeColor = Color.Green;
-
-        //    ddlRelation.Items.Clear();
-        //    txtPersonName.Text = "";
-        //    txtMobile.Text = "";
-        //    txtBirthDate.Text = "";
-        //    txtAnniversaryDate.Text = "";
-        //    tbpCust.ActiveTabIndex = 2;
-        //    MPE_Relation.Hide();
-        //    fillRelation();
-        //}
-
         void fillDealerOffice()
         {
             DealerOfficeList = new BDMS_Dealer().GetDealerOffice(Dealer.DealerID, null, null);
-            gvDealerOffice.DataSource = DealerOfficeList;
-            gvDealerOffice.DataBind();
+            DealerOfficeBind();
+            //gvDealerOffice.DataSource = DealerOfficeList;
+            //gvDealerOffice.DataBind();
         }
+
         void fillDealerEmployee()
         {
-            gvDealerEmployee.DataSource = new BDMS_Dealer().GetDealerEmployeeManage(Dealer.DealerID, null, null, null, null, null, null);
-            gvDealerEmployee.DataBind();
+            DealerEmployeeList = new BDMS_Dealer().GetDealerEmployeeByDealerID(Dealer.DealerID, null, null, null, null);
+            DealerEmployeeBind();
+            //gvDealerEmployee.DataSource = DealerEmployeeList;
+            //gvDealerEmployee.DataBind();
         }
 
-        void fillNotification()
+        void fillDealerNotification()
         {
-            gvNotification.DataSource = new BDMS_Dealer().GetDealerNotification(Dealer.DealerID);
-            gvNotification.DataBind();
+
+            DealerNotificationList = new BDMS_Dealer().GetDealerNotification(Dealer.DealerID);
+            DealerNotificationBind();
+            //gvDealerNotification.DataSource = DealerNotificationList;
+            //gvDealerNotification.DataBind();
         }
-
-        //protected void btnUpdateDealer_Click(object sender, EventArgs e)
-        //{
-        //    string Message = UC_Dealer.ValidationCustomer();
-        //    lblMessageDealerEdit.ForeColor = Color.Red;
-        //    lblMessageDealerEdit.Visible = true;
-        //    MPE_Dealer.Show();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageDealerEdit.Text = Message;
-        //        return;
-        //    }
-        //    PDMS_Dealer DealerU = UC_Dealer.ReadCustomer();
-        //    DealerU.DealerID = Dealer.DealerID;
-        //    DealerU.CreatedBy = new PUser { UserID = PSession.User.UserID };
-        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", CustomerU));
-
-        //    if (Result.Status == PApplication.Failure)
-        //    {
-        //        lblMessageDealerEdit.Text = Result.Message;
-        //        return;
-        //    }
-        //    lblMessage.Text = Result.Message;
-        //    lblMessage.Visible = true;
-        //    lblMessage.ForeColor = Color.Green;
-        //    MPE_Dealer.Hide();
-        //    //  fillCustomer(Customer.CustomerID);
-        //}
 
         protected void ibtnDealerOfficeArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerOffice.PageIndex > 0)
             {
                 gvDealerOffice.PageIndex = gvDealerOffice.PageIndex - 1;
-                DealerOfficeBind(gvDealerOffice, lblRowCount, DealerOfficeList);
+                DealerOfficeBind();
             }
         }
+
         protected void ibtnDealerOfficeArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerOffice.PageCount > gvDealerOffice.PageIndex)
             {
                 gvDealerOffice.PageIndex = gvDealerOffice.PageIndex + 1;
-                DealerOfficeBind(gvDealerOffice, lblRowCount, DealerOfficeList);
+                DealerOfficeBind();
             }
         }
 
-        void DealerOfficeBind(GridView gv, Label lbl, List<PDMS_DealerOffice> DealerList)
+        void DealerOfficeBind()
         {
-            gv.DataSource = DealerOfficeList;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerOfficeList.Count;
+            gvDealerOffice.DataSource = DealerOfficeList;
+            gvDealerOffice.DataBind();
+            lblRowCountDealerOffice.Text = (((gvDealerOffice.PageIndex) * gvDealerOffice.PageSize) + 1) + " - " + (((gvDealerOffice.PageIndex) * gvDealerOffice.PageSize) + gvDealerOffice.Rows.Count) + " of " + DealerOfficeList.Count;
         }
 
         protected void gvDealerOffice_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -316,23 +193,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             if (gvDealerEmployee.PageIndex > 0)
             {
                 gvDealerEmployee.PageIndex = gvDealerEmployee.PageIndex - 1;
-                DealerEmployeeBind(gvDealerEmployee, lblRowCount, DealerEmployeeList);
+                DealerEmployeeBind();
             }
         }
+
         protected void ibtnDealerEmployeeArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerEmployee.PageCount > gvDealerEmployee.PageIndex)
             {
                 gvDealerEmployee.PageIndex = gvDealerEmployee.PageIndex + 1;
-                DealerEmployeeBind(gvDealerEmployee, lblRowCount, DealerEmployeeList);
+                DealerEmployeeBind();
             }
         }
 
-        void DealerEmployeeBind(GridView gv, Label lbl, List<PDMS_DealerEmployee> DealerEmployeeList)
+        void DealerEmployeeBind()
         {
-            gv.DataSource = DealerEmployeeList;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerEmployeeList.Count;
+            gvDealerEmployee.DataSource = DealerEmployeeList;
+            gvDealerEmployee.DataBind();
+            lblRowCountDealerEmployee.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + DealerEmployeeList.Count;
         }
 
         protected void gvDealerEmployee_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -375,20 +253,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void lnkBtnNotificationDelete_Click(object sender, EventArgs e)
         {
-
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblDealerNotificationID = (Label)gvRow.FindControl("lblDealerNotificationID");
+            Label lblDealerNotificationModuleID = (Label)gvRow.FindControl("lblDealerNotificationModuleID");
+            Label lblUserID = (Label)gvRow.FindControl("lblUserID");
+            Label lblIsSMS = (Label)gvRow.FindControl("lblIsSMS");
+            Label lblIsMail = (Label)gvRow.FindControl("lblIsMail");
             PDealerNotification DealerNotification = new PDealerNotification();
             DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationID.Text);
+
+            DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Dealer.DealerID };
+            DealerNotification.User = new PUser() { UserID = Convert.ToInt32(lblUserID.Text) };
+            DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(lblDealerNotificationModuleID.Text) };
+            DealerNotification.IsSMS = Convert.ToBoolean(lblIsSMS.Text);
+            DealerNotification.IsMail = Convert.ToBoolean(lblIsMail.Text);
             DealerNotification.IsActive = false;
 
-            //Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = 0 };
-            //Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0 };
-            //Attribute.Remark = txtRemark.Text.Trim();
-            //Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-
-            //Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
             lblMessage.Visible = true;
             if (Result.Status == PApplication.Failure)
@@ -400,30 +280,98 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
 
-            fillNotification();
+            fillDealerNotification();
 
         }
 
         void ActionControlMange()
+        {           
+        }
+
+        protected void btnAddNotification_Click(object sender, EventArgs e)
         {
-
-            lbtnActivateDealer.Visible = false;
-            lbtnInActivateDealer.Visible = true;
-
-            lbEditDealer.Visible = true;
-
-            if (Dealer.IsActive)
+            MPE_AddNotification.Show();
+            lblMessageAddNotification.Visible = true;
+            lblMessageAddNotification.ForeColor = Color.Red;
+            string Message = ValidationAddNotification();
+            if (!string.IsNullOrEmpty(Message))
             {
-
+                lblMessageAddNotification.Text = Message;
+                return;
             }
-            else
+            PDealerNotification DealerNotification = new PDealerNotification();
+            DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Dealer.DealerID };
+            DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
+            DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
+            DealerNotification.IsSMS = cbSendSMS.Checked;
+            DealerNotification.IsMail = cbSendEmail.Checked;
+            DealerNotification.IsActive = true;
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
+            if (Results.Status == PApplication.Failure)
             {
-                lbtnActivateDealer.Visible = true;
-                lbtnInActivateDealer.Visible = false;
-
-                lbEditDealer.Visible = false;
+                lblMessageAddNotification.Text = Results.Message;
+                return;
             }
-        }       
-        
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
+            ddlEmployee.Items.Clear();
+            tbpDealer.ActiveTabIndex = 3;
+            MPE_AddNotification.Hide();
+            fillDealerNotification();
+        }
+
+        public string ValidationAddNotification()
+        {
+            string Message = "";
+            ddlDealerNotificationModule.BorderColor = Color.Silver;
+            if ((ddlDealerNotificationModule.SelectedValue == "0") || (ddlDealerNotificationModule.SelectedValue == ""))
+            {
+                Message = Message + "<br/>Please select the Employee";
+                ddlDealerNotificationModule.BorderColor = Color.Red;
+            }
+            ddlEmployee.BorderColor = Color.Silver;
+            if ((ddlEmployee.SelectedValue == "0") || (ddlEmployee.SelectedValue == ""))
+            {
+                Message = Message + "<br/>Please select the Employee";
+                ddlEmployee.BorderColor = Color.Red;
+            }
+
+            return Message;
+        }
+
+        protected void ibtnDealerNotificationArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDealerNotification.PageIndex > 0)
+            {
+                gvDealerNotification.PageIndex = gvDealerEmployee.PageIndex - 1;
+                DealerNotificationBind();
+            }
+        }
+
+        protected void ibtnDealerNotificationArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDealerNotification.PageCount > gvDealerNotification.PageIndex)
+            {
+                gvDealerNotification.PageIndex = gvDealerNotification.PageIndex + 1;
+                DealerNotificationBind();
+            }
+        }
+
+        void DealerNotificationBind()
+        {
+            gvDealerNotification.DataSource = DealerNotificationList;
+            gvDealerNotification.DataBind();
+            lblRowCountDealerNotification.Text = (((gvDealerNotification.PageIndex) * gvDealerNotification.PageSize) + 1) + " - " + (((gvDealerNotification.PageIndex) * gvDealerNotification.PageSize) + gvDealerNotification.Rows.Count) + " of " + DealerNotificationList.Count;
+        }
+
+        protected void gvDealerNotification_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDealerNotification.PageIndex = e.NewPageIndex;
+            fillDealerNotification();
+        }
+
     }
 }

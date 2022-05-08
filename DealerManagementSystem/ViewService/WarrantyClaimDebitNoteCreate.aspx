@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaimDebitNoteCreate.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyClaimDebitNoteCreate" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById(obj);
@@ -21,116 +22,68 @@
             win.focus();
         }
     </script>
-    <div class="container">
-        <div class="col2">
-            <%--  <div class="rf-p " id="txnHistory:j_idt1289">
-                <div class="rf-p-b " id="txnHistory:j_idt1289_body">
-                    <div style="width: 100%; height: 50px; background-color: #f2f2f2;">
-                        <br />
-                        <span style="font-family: Franklin Gothic Medium; color: black!important; font-size: 20px; margin-left: 9px;">Claim Request List</span>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Code</label>
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" BorderColor="Silver" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Invoice Number</label>
+                        <asp:TextBox ID="txtInvoiceNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Invoice Date From</label>
+                        <asp:TextBox ID="txtInvoiceDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" AutoComplete="Off"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtInvoiceDateFrom" PopupButtonID="txtInvoiceDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtInvoiceDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Invoice Date To</label>
+                        <asp:TextBox ID="txtInvoiceDateTo" runat="server" CssClass="form-control" BorderColor="Silver" AutoComplete="Off"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtInvoiceDateTo" PopupButtonID="txtInvoiceDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtInvoiceDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Claim Number</label>
+                        <asp:TextBox ID="txtClaimNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Invoice Type</label>
+                        <asp:DropDownList ID="ddlInvoiceTypeID" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="0">All</asp:ListItem>
+                            <asp:ListItem Value="1">NEPI & Commission</asp:ListItem>
+                            <asp:ListItem Value="2">Warranty Below 50K</asp:ListItem>
+                            <asp:ListItem Value="3">Warranty Above 50K</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">ICTicket Number</label>
+                        <asp:TextBox ID="txtICTicketNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
                     </div>
                 </div>
-            </div>--%>
-            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
-            <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%">
-                <tr>
-                    <td>
-                        <div class="boxHead">
-                            <div class="logheading">Filter : Invoice</div>
-                            <div style="float: right; padding-top: 0px">
-                                <a href="javascript:collapseExpand();">
-                                    <img id="imageID" runat="server" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="22" width="22" /></a>
-                            </div>
-                        </div>
-                        <asp:Panel ID="pnlFilterContent" runat="server">
-                            <div class="rf-p " id="txnHistory:inputFiltersPanel">
-                                <div class="rf-p-b " id="txnHistory:inputFiltersPanel_body">
-                                    <table class="labeltxt">
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label1" runat="server" CssClass="label" Text="Dealer Code"></asp:Label></td>
-                                            <td colspan="3">
-                                                <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="TextBox" Width="250px" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label4" runat="server" CssClass="label" Text="Invoice Number"></asp:Label></td>
-                                            <td>
-                                                <asp:TextBox ID="txtInvoiceNumber" runat="server" CssClass="input"></asp:TextBox>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Invoice</legend>
+                    <div class="col-md-12 Report">
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label5" runat="server" CssClass="label" Text="Invoice Date From"></asp:Label></td>
-                                            <td>
-                                                <asp:TextBox ID="txtInvoiceDateFrom" runat="server" CssClass="input" AutoComplete="Off"></asp:TextBox>
-                                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtInvoiceDateFrom" PopupButtonID="txtInvoiceDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtInvoiceDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-
-                                            </td>
-                                            <td style="width: 20px"></td>
-                                            <td>
-                                                <asp:Label ID="Label6" runat="server" CssClass="label" Text="Invoice Date To"></asp:Label>
-                                            </td>
-                                            <td>
-                                                <asp:TextBox ID="txtInvoiceDateTo" runat="server" CssClass="input" AutoComplete="Off"></asp:TextBox>
-                                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtInvoiceDateTo" PopupButtonID="txtInvoiceDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtInvoiceDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label2" runat="server" CssClass="label" Text="Claim Number"></asp:Label></td>
-                                            <td>
-                                                <asp:TextBox ID="txtClaimNumber" runat="server" CssClass="input"></asp:TextBox>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label7" runat="server" CssClass="label" Text="ICTicket Number"></asp:Label></td>
-                                            <td>
-                                                <asp:TextBox ID="txtICTicketNumber" runat="server" CssClass="input"></asp:TextBox>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:Label ID="Label3" runat="server" CssClass="label" Text="Invoice Type"></asp:Label></td>
-                                            <td>
-                                                <asp:DropDownList ID="ddlInvoiceTypeID" runat="server" CssClass="TextBox">
-                                                    <asp:ListItem Value="0">All</asp:ListItem>
-                                                    <asp:ListItem Value="1">NEPI & Commission</asp:ListItem>
-                                                    <asp:ListItem Value="2">Warranty Below 50K</asp:ListItem>
-                                                    <asp:ListItem Value="3">Warranty Above 50K</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" align="right">
-                                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </asp:Panel>
-                    </td>
-                </tr>
-            </table>
-            <table id="txnHistory:panelGridid" style="height: 100%; width: 100%">
-                <tr>
-                    <td>
-                        <span id="txnHistory1:refreshDataGroup">
-                            <div class="boxHead">
+                    <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Invoice</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -142,6 +95,30 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col2">
+            <%--  <div class="rf-p " id="txnHistory:j_idt1289">
+                <div class="rf-p-b " id="txnHistory:j_idt1289_body">
+                    <div style="width: 100%; height: 50px; background-color: #f2f2f2;">
+                        <br />
+                        <span style="font-family: Franklin Gothic Medium; color: black!important; font-size: 20px; margin-left: 9px;">Claim Request List</span>
+                    </div>
+                </div>
+            </div>--%>
+
+
+            <table id="txnHistory:panelGridid" style="height: 100%; width: 100%">
+                <tr>
+                    <td>
+                        <span id="txnHistory1:refreshDataGroup">
+                            
                             <div style="background-color: white">
                                 <asp:GridView ID="gvClaimInvoice" runat="server" AutoGenerateColumns="false" Width="100%" DataKeyNames="WarrantyClaimInvoiceID" OnRowDataBound="gvICTickets_RowDataBound" CssClass="TableGrid" AllowPaging="true" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
                                     <Columns>
@@ -249,7 +226,7 @@
                                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                         <ItemTemplate>
                                                                             <asp:Label ID="lblApprovedValue" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovedValue","{0:n}")%>' runat="server"></asp:Label>
-                                                                             <%-- <asp:Label ID="lblApprovedValue" Text="0" runat="server"></asp:Label>--%>
+                                                                            <%-- <asp:Label ID="lblApprovedValue" Text="0" runat="server"></asp:Label>--%>
                                                                         </ItemTemplate>
                                                                     </asp:TemplateField>
 
@@ -313,13 +290,13 @@
                                                                     <asp:TemplateField HeaderText="Remarks">
                                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtRemarks" runat="server" CssClass="TextBox" AutoComplete="Off"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" AutoComplete="Off"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </asp:TemplateField>
                                                                     <asp:TemplateField HeaderText="Attachment">
                                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                         <ItemTemplate>
-                                                                            <asp:FileUpload ID="fu" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
+                                                                            <asp:FileUpload ID="fu" runat="server" Style="position: relative;" CssClass="form-control" ViewStateMode="Inherit" Width="200px" />
                                                                         </ItemTemplate>
                                                                     </asp:TemplateField>
                                                                 </Columns>
