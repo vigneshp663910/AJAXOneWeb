@@ -333,6 +333,9 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewDashboard\LeadStatusAssigned.ascx" />
+    <Content Include="ViewDashboard\LeadStatusOpen.ascx" />
+    <Content Include="ViewDashboard\LeadStatusQuotation.ascx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
     <Content Include="ViewMarketing\ActivityActual.aspx" />
@@ -784,6 +787,27 @@
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.cs">
+      <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.designer.cs">
+      <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadStatusOpen.ascx.cs">
+      <DependentUpon>LeadStatusOpen.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadStatusOpen.ascx.designer.cs">
+      <DependentUpon>LeadStatusOpen.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadStatusQuotation.ascx.cs">
+      <DependentUpon>LeadStatusQuotation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadStatusQuotation.ascx.designer.cs">
+      <DependentUpon>LeadStatusQuotation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPSparePart.aspx.cs">
       <DependentUpon>ABPSparePart.aspx</DependentUpon>

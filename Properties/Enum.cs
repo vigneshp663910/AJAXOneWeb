@@ -581,13 +581,16 @@ namespace Properties
         ICTicketEscalationOnBreakdownCount,
         ICTicketTransactionStatics,
         DebitNoteAcknowledgePending,
-        //WarrantyMaterialAnalysis,
-        //ICTicketEscalationOnBreakdownLevel1,
+        LeadStatusOpen,
+        LeadStatusAssigned,
+        LeadStatusQuotation,
+        //LeadStatusAssigned,
+        //LeadStatusAssigned,
+        //LeadStatusAssigned, 
+
         //ICTicketEscalationOnBreakdownLevel2,
         //ICTicketEscalationOnBreakdownLevel3,
-        //ICTicketEscalationOnBreakdownLevel4,
-
-
+        //ICTicketEscalationOnBreakdownLevel4, 
     }
     public enum FSRAttachedFileName
     {

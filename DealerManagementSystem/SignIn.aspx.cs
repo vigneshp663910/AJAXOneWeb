@@ -182,6 +182,13 @@ namespace DealerManagementSystem
                 
                 userDetails = new BUser().GetUserByToken();
                 PSession.User = userDetails;
+                if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
+                {
+                    lblMessage.ForeColor =  Color.Red;
+                    lblMessage.Text = "You are not allowed to use";
+                    lblMessage.Visible = true;
+                    return;
+                } 
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
                     Redirect(UIHelper.RedirectToPasswordChange);

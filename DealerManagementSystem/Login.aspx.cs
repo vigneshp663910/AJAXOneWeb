@@ -1,6 +1,7 @@
 ﻿using Business;
 using Properties;
 using System;
+using System.Drawing;
 using System.Web.UI;
 
 namespace DealerManagementSystem
@@ -98,6 +99,15 @@ namespace DealerManagementSystem
 
                 userDetails = new BUser().GetUserByToken();
                 PSession.User = userDetails;
+
+                if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = "You are not allowed to use";
+                    lblMessage.Visible = true;
+                    return;
+                }
+
                 UIHelper.UserAudit();
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {

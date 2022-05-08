@@ -161,10 +161,14 @@ namespace Business
 
         }
 
-        public DataTable GetPreSaleReport()
+        public DataTable GetPreSaleReport(string Lead,string LeadDateFrom, string LeadDateTo,string Quotation, string QuotationDateFrom, string QuotationDateTo
+            , string Invoice, string InvoiceDateFrom, string InvoiceDateTo, string CustomerCode, string CustomerName, int? CountryID, int? StateID, int? DealerID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Lead/PreSaleReport"; 
+            string endPoint = "Lead/PreSaleReport?Lead=" + Lead + "&LeadDateFrom=" + LeadDateFrom + "&LeadDateTo=" + LeadDateTo + "&Quotation=" + Quotation
+                 + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo + "&Invoice=" + Invoice 
+                 + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName
+                 + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
 

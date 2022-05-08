@@ -53,6 +53,8 @@ namespace Properties
         public string OTP { get; set; }
         public DateTime OTPExpiry { get; set; }
         public DateTime? LastLoginDate { get; set; }
+        public Boolean ajaxOne { get; set; }
+        public Boolean ajaxOneDealer { get; set; }
         #endregion
     }
     [Serializable]

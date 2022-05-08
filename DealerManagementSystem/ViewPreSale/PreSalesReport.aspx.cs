@@ -25,9 +25,9 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Cold Visit');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Report');</script>");
 
-            lblMessage.Text = ""; 
+            lblMessage.Text = "";
 
             if (!IsPostBack)
             {
@@ -36,10 +36,9 @@ namespace DealerManagementSystem.ViewPreSale
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID");
-
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
             }
         }
-
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillClodVisit();
@@ -87,16 +86,25 @@ namespace DealerManagementSystem.ViewPreSale
 
         void FillClodVisit()
         {
-            DateTime? ColdVisitDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
-            DateTime? ColdVisitDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim()); 
-            long? CustomerID = null;
-            string CustomerCode = null;
-            string CustomerName = txtCustomer.Text.Trim();
-            string Mobile = txtMobile.Text.Trim(); 
+
+            string Lead = txtLead.Text.Trim();
+            string LeadDateFrom = txtLeadDateFrom.Text.Trim();
+             string LeadDateTo = txtLeadDateTo.Text.Trim(); 
+            string Quotation = txtQuotation.Text.Trim();
+            string QuotationDateFrom = txtQuotationDateFrom.Text.Trim();
+            string QuotationDateTo = txtQuotationDateTo.Text.Trim();
+             string Invoice = txtInvoice.Text.Trim();
+            string InvoiceDateFrom = txtInvoiceDateFrom.Text.Trim();
+            string InvoiceDateTo = txtInvoiceDateTo.Text.Trim();
+            string CustomerCode = txtCustomerCode.Text.Trim();
+            string CustomerName = txtCustomerName.Text.Trim();
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
 
-            SalesReport = new BLead().GetPreSaleReport(); 
+
+            SalesReport = new BLead().GetPreSaleReport(Lead, LeadDateFrom, LeadDateTo, Quotation, QuotationDateFrom, QuotationDateTo
+            , Invoice, InvoiceDateFrom, InvoiceDateTo, CustomerCode, CustomerName, CountryID, StateID, DealerID);
             gvLead.DataSource = SalesReport;
             gvLead.DataBind();
 
