@@ -222,6 +222,7 @@
     <Content Include="Ajax\Images\star-fill-lg.png" />
     <Content Include="Ajax\Images\ThankYou1.jpg" />
     <Content Include="Ajax\Images\User5.jpg" />
+    <Content Include="Ajax\Images\UserGuide.png" />
     <Content Include="autocomplete\jquery-ui.css" />
     <Content Include="autocomplete\jquery-ui.js" />
     <Content Include="BackUp\Home1.aspx" />
@@ -233,6 +234,10 @@
     <Content Include="CSS\jquery-ui.css" />
     <Content Include="CSS\StyleSheet1.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Help\Help.aspx" />
+    <Content Include="Help\HelpDoc.aspx" />
+    <Content Include="Help\UserGuide.aspx" />
+    <Content Include="Help\Files\V1_AJAXOne.mp4" />
     <Content Include="Home.aspx" />
     <Content Include="HomeWithTiles.aspx" />
     <Content Include="Images\apple.png" />
@@ -250,9 +255,11 @@
     <Content Include="Images\hsizegrip.png" />
     <Content Include="Images\pdf_dload.png" />
     <Content Include="Images\Playstore.png" />
+    <Content Include="Images\Preview.png" />
     <Content Include="Images\Save.png" />
     <Content Include="Images\Update.png" />
     <Content Include="Images\User.jpg" />
+    <Content Include="Images\vplay.png" />
     <Content Include="Images\vsizegrip.png" />
     <Content Include="JSAutocomplete\ajax\1.8.3jquery.min.js" />
     <Content Include="JSAutocomplete\ajax\jquery-1.8.0.js" />
@@ -285,6 +292,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Help\Files\V1_AJAXOne.pdf" />
+    <Content Include="Help\Files\V1_AJAXOne.pps" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -662,6 +671,27 @@
     </Compile>
     <Compile Include="DealerOld.Master.designer.cs">
       <DependentUpon>DealerOld.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Help\Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help\HelpDoc.aspx.cs">
+      <DependentUpon>HelpDoc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\HelpDoc.aspx.designer.cs">
+      <DependentUpon>HelpDoc.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Help\UserGuide.aspx.cs">
+      <DependentUpon>UserGuide.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\UserGuide.aspx.designer.cs">
+      <DependentUpon>UserGuide.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
