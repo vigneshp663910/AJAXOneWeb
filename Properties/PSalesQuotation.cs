@@ -37,12 +37,15 @@ namespace Properties
         public List<PSalesQuotationCompetitor> Competitor { get; set; }
         public PLead Lead { get; set; }
         public List<PSalesQuotationNote> Notes { get; set; }
+        public PDMS_Material Material { get; set; }
         public string SaleOrderNumber { get; set; }
         public DateTime? SaleOrderDate { get; set; }
         public string DeliveryNumber { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public string SalesInvoiceNumber { get; set; }
         public DateTime? SalesInvoiceDate { get; set; }
+        public string AccountNumber { get; set; }
+        public DateTime? AccountDate { get; set; }
         public string EquipmentSerialNo { get; set; }
         public PUser CreatedBy { get; set; }
 
@@ -246,5 +249,5 @@ namespace Properties
         public decimal Amount { get; set; }
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
-    } 
+    }
 }

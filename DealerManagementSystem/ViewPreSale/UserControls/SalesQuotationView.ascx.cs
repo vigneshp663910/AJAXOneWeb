@@ -281,6 +281,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = "Please check the Material";
                     return;
                 }
+                else if ((MM.Model.Division.DivisionCode != Quotation.Lead.ProductType.Division.DivisionCode) && (MM.MaterialType == "FERT"))
+                {
+                    lblMessageProduct.Text = "Please check the Material";
+                    return;
+                }
                 decimal Qty = Convert.ToDecimal(txtQty.Text);
                 PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Quotation, Material, IsWarrenty, Qty);
 

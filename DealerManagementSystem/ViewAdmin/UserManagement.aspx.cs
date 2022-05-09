@@ -435,6 +435,7 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
+            CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
 
 
             lblPassWord.Visible = false;
@@ -452,6 +453,7 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsTechnician.Enabled = true;
             cbIsLocked.Enabled = true;
             cbIsEnabled.Enabled = true;
+            cbAjaxOne.Enabled = true;
 
         }
 
@@ -481,6 +483,7 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
+            CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
 
             lblPassWord.Visible = true;
             lblContactName.Visible = true;
@@ -497,6 +500,7 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsTechnician.Enabled = false;
             cbIsLocked.Enabled = false;
             cbIsEnabled.Enabled = false;
+            cbAjaxOne.Enabled = false;
         }
 
         protected void GvbtnUpdate_Click(object sender, EventArgs e)
@@ -528,6 +532,7 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
+            CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
 
             //if (string.IsNullOrEmpty(txtState.Text.Trim()))
             //{
@@ -546,6 +551,7 @@ namespace DealerManagementSystem.ViewAdmin
             userDAO.IsTechnician = cbIsTechnician.Checked;
             userDAO.IsLocked = cbIsLocked.Checked;
             userDAO.IsEnabled = cbIsEnabled.Checked;
+            userDAO.ajaxOne = cbAjaxOne.Checked;
 
             userDAO.UpdatedBy = PSession.User.UserID;
             userDAO.UpdatedOn = DateTime.Now;
@@ -574,6 +580,7 @@ namespace DealerManagementSystem.ViewAdmin
                 cbIsTechnician.Enabled = false;
                 cbIsLocked.Enabled = false;
                 cbIsEnabled.Enabled = false;
+                cbAjaxOne.Enabled = false;
 
                 lblPassWord.Text = txtPassWord.Text.Trim();
                 lblContactName.Text = txtContactName.Text.Trim();

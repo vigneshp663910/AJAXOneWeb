@@ -388,13 +388,11 @@ namespace Business
             return SOIs;
         }
 
-        public List<string> GetMaterialAutocomplete(string Material, string MaterialType,int? Divi)
+        public List<string> GetMaterialAutocomplete(string Material, string MaterialType,int? DivisionID)
         {
             List<string> Materials = new List<string>();
             try
-            {
-
-
+            { 
                 DbParameter MaterialP;
                 DbParameter MaterialTypeP;
 
@@ -407,8 +405,9 @@ namespace Business
                     MaterialTypeP = provider.CreateParameter("MaterialType", MaterialType, DbType.String);
                 else
                     MaterialTypeP = provider.CreateParameter("MaterialType", null, DbType.String);
+                DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[3] { MaterialP, MaterialTypeP, DivisionIDP };
 
-                DbParameter[] Params = new DbParameter[2] { MaterialP, MaterialTypeP };
                 using (DataSet DataSet = provider.Select("ZDMS_GetMaterialAutocomplete", Params))
                 {
                     if (DataSet != null)
