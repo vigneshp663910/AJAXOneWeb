@@ -130,7 +130,7 @@
                                 <asp:TemplateField HeaderText="PDF">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 40px; width: 60px;" />
+                                        <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Cancel">
