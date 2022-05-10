@@ -122,6 +122,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     new DDLBind(ddlDealerNotificationModule, new BDMS_Dealer().GetDealerNotificationModule(), "ModuleName", "DealerNotificationModuleID");
                     new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
                     MPE_AddNotification.Show();
+                    int AFDealerID = Convert.ToInt32(ConfigurationManager.AppSettings["AjaxDealerID"]);
+                    if (Dealer.DealerID == AFDealerID)
+                    {
+                        lblDealer.Visible = true;
+                        ddlDealer.Visible = true;
+                    }
+                    else
+                    {
+                        lblDealer.Visible = false;
+                        ddlDealer.Visible = false;
+                    }
+                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", false);
+                    ddlDealer.SelectedValue = Convert.ToString(Dealer.DealerID);
                 }
             }
             catch (Exception ex)
@@ -293,6 +306,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             MPE_AddNotification.Show();
             lblMessageAddNotification.Visible = true;
             lblMessageAddNotification.ForeColor = Color.Red;
+           
+            
             string Message = ValidationAddNotification();
             if (!string.IsNullOrEmpty(Message))
             {
@@ -300,7 +315,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PDealerNotification DealerNotification = new PDealerNotification();
-            DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Dealer.DealerID };
+            DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(ddlDealer.SelectedValue) };
             DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
             DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
             DealerNotification.IsSMS = cbSendSMS.Checked;
