@@ -121,14 +121,18 @@
                                 <asp:TemplateField HeaderText="Mail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMail" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>'></asp:Label>
+                                        <asp:Label ID="lblMail" runat="server" CssClass="label"  >
+                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Mail")%>'><%# DataBinder.Eval(Container.DataItem, "Mail")%></a>
+                                        </asp:Label>
                                         <asp:TextBox ID="txtMail" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="right" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblContactNumber" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'></asp:Label>
+                                        <asp:Label ID="lblContactNumber" runat="server" CssClass="label"> 
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
+                                        </asp:Label>
                                         <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -191,10 +195,10 @@
                                         <asp:Label ID="lblLastLoginDate" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "LastLoginDate")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Ajax One" ItemStyle-Width="80px">
+                                <asp:TemplateField HeaderText="Ajax One" ItemStyle-Width="80px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>
-                                         <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
+                                        <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 

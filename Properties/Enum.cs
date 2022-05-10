@@ -634,5 +634,13 @@ namespace Properties
     {
         ServiceChargesAddOrRemove = 1
     }
-
+    public enum LeadStatus
+    {
+        Open = 1,
+        Assigned,
+        Quotation,
+        Won,
+        Lost,
+        Cancelled,
+    }
 }
