@@ -149,7 +149,7 @@ namespace Business
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BHome", "coTg_Insert_AppsFeedBack", sqlEx);
+                new FileLogger().LogMessage("BFeedback", "coTg_Insert_AppsFeedBack", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
