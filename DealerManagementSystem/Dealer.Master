@@ -1,5 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Dealer.master.cs" Inherits="DealerManagementSystem.Dealer" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <!DOCTYPE html>
 
@@ -1120,13 +1121,13 @@
             padding: 3px 8px;
         }
 
-            /*.table.table-bordered.table-condensed.Grid tr:last-child td table td {
+        /*.table.table-bordered.table-condensed.Grid tr:last-child td table td {
                 padding: 2px 5px;
                 font-size: 10px;*/
-                /*  background: #369;*/
-            /*}*/
+        /*  background: #369;*/
+        /*}*/
 
-                /*.table.table-bordered.table-condensed.Grid tr:last-child td table td span {
+        /*.table.table-bordered.table-condensed.Grid tr:last-child td table td span {
                     font-size: 10px;
                     background: none;
                     color: #6ea9e3;
@@ -1466,6 +1467,149 @@
             }
         }
     </style>
+    <%-- FeedBack Window Starting --%>
+        <style type="text/css">
+        .loinFooter {
+            text-align: center;
+        }
+
+        .Background {
+            background-color: Black;
+            filter: alpha(opacity=90);
+            opacity: 0.8;
+        }
+
+        .FeedBackHeader {
+            border: 1px solid #333;
+            background: #333 url(Ajax/Images/Feedbackheader.png) 50% 50% repeat-x;
+            color: #fff;
+            font-weight: bold;
+            cursor: move;
+            padding: 0.4em 1em;
+            position: relative;
+            border-radius: 6px;
+            font-family: Segoe UI,Arial,sans-serif;
+            font-size: 1.1em;
+        }
+
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .PopupFeedback {
+            display: block;
+            z-index: 1002;
+            outline: 0px;
+            height: auto;
+            width: 800px;
+            top: 128px;
+            left: 283px;
+            position: absolute;
+            padding: 0.2em;
+            overflow: hidden;
+            border-radius: 6px;
+            border: 1px solid #CCC;
+            background: #fefefe 50% bottom repeat-x;
+            color: #666;
+            font-family: Segoe UI,Arial,sans-serif;
+            font-size: 1.1em;
+            margin: 0 1% 0 1%;
+        }
+
+        .lbl {
+            font-size: 16px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .FeedBackHeader a {
+            color: #fff;
+        }
+
+        #FeedBackDialogue {
+            float: left;
+            font-size: 13px;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+
+        .FeedBackClose {
+            float: right;
+            color: black;
+            font-size: 8px;
+            width: 15px;
+            height: 15px;
+            padding: inherit;
+        }
+
+        .FeedBackBtn {
+            border: 1px solid #333;
+            background: #333 url(Ajax/Images/Feedbackheader.png) 50% 50% repeat-x;
+            color: #fff;
+            font-weight: bold;
+            /*padding: 0.4em 1em;*/
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+
+        @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
+            .text-input {
+                width: 100%;
+                padding: 1px;
+            }
+
+            .PopupFeedback {
+                width: 100%;
+                left: initial !important;
+            }
+        }
+
+        @media screen and (min-device-width: 500px) and (max-device-width: 2000px) {
+            .text-input {
+                width: 600px;
+            }
+        }
+        .tbFeedback tr{
+            background-color:inherit;
+        }
+    </style>
+    <%-- FeedBack Window Ending --%>
+    <%--Started Rating--%>
+    <%--Below for these Rating Related--%>
+    <style type="text/css">
+        .rating-star-block .star.outline {
+            background: url("~Ajax/Images/star-empty-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        }
+
+        .rating-star-block .star.filled {
+            background: url("~Ajax/Images/star-fill-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        }
+
+        .rating-star-block .star {
+            color: rgba(0,0,0,0);
+            display: inline-block;
+            height: 24px;
+            overflow: hidden;
+            text-indent: -999em;
+            width: 24px;
+        }
+
+        a {
+            color: #005782;
+            text-decoration: none;
+        }
+        @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
+            .feed {
+                width: 305px;
+            }
+        }
+    </style>
+    <%--Above for these Rating Related--%>
+    <%--Ended Rating--%>
     <script>
         window.onload = function () {
             if (screen.width < 450) {
@@ -1837,7 +1981,7 @@
         });
     </script>
 
-     
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -1848,7 +1992,7 @@
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-                      <%--  <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
+                        <%--  <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
                     </div>
 
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
@@ -1995,23 +2139,23 @@
                             <div class="dropdown">
                                 <a href='tel:+91 08067200014'><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
 
-                              
+
                             </div>
                         </div>
 
-                         <div style="float: right; padding-right: 0.3em;">
+                        <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
-                                <a href='/Home.aspx'><i class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
+                                <a href='/Home.aspx'><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
 
-                        <!-- <div style="float: right; padding-right: 0.3em;">
+                        <%--<div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
                                 <a href='/Home.aspx'><i class="fa fa-fw fa-print font-white" style="color: lightgray"></i></a>
                             </div>
-                        </div> -->
+                        </div>--%>
 
 
                         <div id="icoDashBoard" style="float: right; padding-right: 0.3em;">
@@ -2072,6 +2216,52 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <%--  </div>--%>
+            <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="LnkComment"
+                BackgroundCssClass="Background">
+            </cc1:ModalPopupExtender>
+            <asp:Panel ID="Panl1" runat="server" CssClass="PopupFeedback" align="center" Style="display: none">
+                <div class="FeedBackHeader clearfix"><span id="FeedBackDialogue">Feedback</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="FeedBackClose" runat="server" Text="X" CssClass="FeedBackClose" OnClick="FeedBackClose_Click" /></a></div>
+                <div id="FeedBack">
+                    <form id="user_contact">
+                        <br>
+                        <table class="tbFeedback">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 100%">
+                                        <asp:Label ID="lblFeedbackErrMsg" runat="server" Text="" Visible="false"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" style="text-align: left; width: 20%"><b>Ratings</b></td>
+                                    <td>
+                                        <asp:HiddenField ID="HiddenStar" runat="server" Visible="false" />
+                                        <div class="rating-star-block" id='div'>
+                                            <%--<input type="hidden" class="articleID" value='' />
+                                    Current Score :<span class="CurrentScore"></span><br />
+                                    <div class="yourScore">Your Score : </div>--%>
+                                            <a class="star outline" href="#" rating="1" title="vote 1" id="Star1" runat="server" onserverclick="Star1_ServerClick">vote 1</a>
+                                            <a class="star outline" href="#" rating="2" title="vote 2" id="Star2" runat="server" onserverclick="Star2_ServerClick">vote 2</a>
+                                            <a class="star outline" href="#" rating="3" title="vote 3" id="Star3" runat="server" onserverclick="Star3_ServerClick">vote 3</a>
+                                            <a class="star outline" href="#" rating="4" title="vote 4" id="Star4" runat="server" onserverclick="Star4_ServerClick">vote 4</a>
+                                            <a class="star outline" href="#" rating="5" title="vote 5" id="Star5" runat="server" onserverclick="Star5_ServerClick">vote 5</a>
+                                        </div>
+                                    </td>
+                                    <tr>
+                                        <td valign="top" style="text-align: left; width: 20%"><b>Comments</b></td>
+                                        <td>
+                                            <asp:TextBox ID="textfeedback" runat="server" Rows="8" TextMode="MultiLine" class="validate[required] text-input feed"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div>
+                    <asp:Button ID="BtnSubmit" runat="server" Text="Submit" CssClass="FeedBackBtn" OnClick="BtnSubmit_Click" />
+                    <asp:Button ID="BtnClear" runat="server" Text="Clear" CssClass="FeedBackBtn" OnClick="BtnClear_Click" />
+                </div>
+                <br />
+            </asp:Panel>
         </div>
     </form>
 

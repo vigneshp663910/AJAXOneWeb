@@ -34,4 +34,12 @@ namespace Properties
         public int Answer { get; set; } 
         public string Remark { get; set; } 
     }
+    [Serializable]
+    public class PComment
+    {
+        public int? ModuleNo { get; set; }
+        public int? UserID { get; set; }
+        public string Comments { get; set; }
+        public int? Ratings { get; set; }
+    }
 }
