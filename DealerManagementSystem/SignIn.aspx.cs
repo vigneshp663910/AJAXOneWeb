@@ -344,8 +344,13 @@ namespace DealerManagementSystem
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text,"Reset") == 1)
                     {
-                        AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+                        PUser user = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                        txtUsername.Text = user.UserName;
+                        txtPassword.Text = txtRRetypePassword.Text;
+                        login();
+                        //AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+
                     }
                     else
                     {
@@ -375,8 +380,12 @@ namespace DealerManagementSystem
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOldPassword.Text.Trim(), txtCNewPassword.Text.Trim(), txtCRetypePassword.Text,"Change") == 1)
                     {
-                        AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
+                        PUser user = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                        txtUsername.Text = user.UserName;
+                        txtPassword.Text = txtRRetypePassword.Text;
+                        login();
+                        //AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
                     }
                     else
                     {
