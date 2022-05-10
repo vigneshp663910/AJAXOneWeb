@@ -1582,11 +1582,11 @@
     <%--Below for these Rating Related--%>
     <style type="text/css">
         .rating-star-block .star.outline {
-            background: url("~Ajax/Images/star-empty-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+            background: url("Ajax/Images/star-empty-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
         }
 
         .rating-star-block .star.filled {
-            background: url("~Ajax/Images/star-fill-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+            background: url("Ajax/Images/star-fill-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
         }
 
         .rating-star-block .star {

@@ -184,8 +184,8 @@ namespace DealerManagementSystem
                 return;
             }
             PComment Comment = new PComment();
-            Comment.ModuleNo = 113;
-            Comment.UserID = PSession.Emp.EID;
+            Comment.ModuleNo = 203;
+            Comment.UserID = PSession.User.UserID;
             Comment.Comments = textfeedback.Text.Trim();
             Comment.Ratings = Convert.ToInt32(HiddenStar.Value);
             long success = new BFeedback().coTg_Insert_AppsFeedBack(Comment);
