@@ -84,8 +84,8 @@ namespace DealerManagementSystem.Account
 
             lblContactNo1.Text = "";
             lblContactNo2.Text = "";
-            lblEmail.Text = Dealer.Email;
-            lblMobileNumber.Text = Dealer.Mobile;
+            lblEmail.Text = "<a href='mailto:" + Dealer.Email + "'>" + Dealer.Email + "</a>";
+            lblMobileNumber.Text = "<a href='tel:" + Dealer.Mobile + "'>" + Dealer.Mobile + "</a>";  
           //  lblRegistrationDate.Text = "";
             lblActivationDate.Text = "";
            // lblURL.Text = "";

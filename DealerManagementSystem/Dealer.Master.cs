@@ -3,6 +3,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -150,6 +151,117 @@ namespace DealerManagementSystem
             MenuDMS += "</ul>";
             MenuDMS += "</nav>";
             MenuNew.InnerHtml = MenuDMS;
+        }
+        protected void BtnClear_Click(object sender, EventArgs e)
+        {
+            lblFeedbackErrMsg.Text = string.Empty;
+            textfeedback.Text = string.Empty;
+            Star1.Attributes.Add("class", "star outline");
+            Star2.Attributes.Add("class", "star outline");
+            Star3.Attributes.Add("class", "star outline");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            mp1.Show();
+        }
+
+        protected void BtnSubmit_Click(object sender, EventArgs e)
+        {
+            lblFeedbackErrMsg.Text = string.Empty;
+            if (textfeedback.Text == "")
+            {
+                lblFeedbackErrMsg.ForeColor = Color.Red;
+                lblFeedbackErrMsg.Text = "Please Enter Query...!";
+                lblFeedbackErrMsg.Visible = true;
+                mp1.Show();
+                return;
+            }
+            if (HiddenStar.Value == "")
+            {
+                lblFeedbackErrMsg.ForeColor = Color.Red;
+                lblFeedbackErrMsg.Text = "Please Click Ratings...!";
+                lblFeedbackErrMsg.Visible = true;
+                mp1.Show();
+                return;
+            }
+            PComment Comment = new PComment();
+            Comment.ModuleNo = 203;
+            Comment.UserID = PSession.User.UserID;
+            Comment.Comments = textfeedback.Text.Trim();
+            Comment.Ratings = Convert.ToInt32(HiddenStar.Value);
+            long success = new BFeedback().coTg_Insert_AppsFeedBack(Comment);
+            if (success != 0)
+            {
+                Star1.Attributes.Add("class", "star outline");
+                Star2.Attributes.Add("class", "star outline");
+                Star3.Attributes.Add("class", "star outline");
+                Star4.Attributes.Add("class", "star outline");
+                Star5.Attributes.Add("class", "star outline");
+                HiddenStar.Value = "0";
+                textfeedback.Text = string.Empty;
+                mp1.Hide();
+            }
+        }
+
+        protected void FeedBackClose_Click(object sender, EventArgs e)
+        {
+            lblFeedbackErrMsg.Text = string.Empty;
+            textfeedback.Text = string.Empty;
+            mp1.Hide();
+        }
+
+        protected void Star1_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star outline");
+            Star3.Attributes.Add("class", "star outline");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "1";
+            mp1.Show();
+        }
+
+        protected void Star2_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star outline");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "2";
+            mp1.Show();
+        }
+
+        protected void Star3_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star filled");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "3";
+            mp1.Show();
+        }
+
+        protected void Star4_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star filled");
+            Star4.Attributes.Add("class", "star filled");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "4";
+            mp1.Show();
+        }
+
+        protected void Star5_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star filled");
+            Star4.Attributes.Add("class", "star filled");
+            Star5.Attributes.Add("class", "star filled");
+            HiddenStar.Value = "5";
+            mp1.Show();
         }
     }
 }

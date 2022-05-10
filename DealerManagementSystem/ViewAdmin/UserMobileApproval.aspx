@@ -57,13 +57,17 @@
                                 <asp:TemplateField HeaderText="Mail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMail" Text='<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>' runat="server"></asp:Label>
+                                         <asp:Label ID="lblMail" runat="server" CssClass="label"  >
+                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>'><%# DataBinder.Eval(Container.DataItem, "User.Mail")%></a>
+                                        </asp:Label> 
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>' runat="server"></asp:Label>
+                                         <asp:Label ID="lblContactNumber" runat="server" CssClass="label"> 
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%></a>
+                                        </asp:Label> 
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Device ID">

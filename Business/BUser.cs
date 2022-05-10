@@ -729,6 +729,7 @@ namespace Business
                 DbParameter isFirstTimeParam = provider.CreateParameter("IsFirstTime", userDAO.IsFirstTimeLogin, DbType.Boolean);
                 DbParameter isLockedParam = provider.CreateParameter("IsLocked", userDAO.IsLocked, DbType.Boolean);
                 DbParameter isEnabledParam = provider.CreateParameter("IsEnabled", userDAO.IsEnabled, DbType.Boolean);
+                DbParameter ajaxOne = provider.CreateParameter("ajaxOne", userDAO.ajaxOne, DbType.Boolean);
                 DbParameter passwordExpirationDateParam = provider.CreateParameter("PasswordExpirationDate", userDAO.PasswordExpiryDate, DbType.DateTime);
                 if (userDAO.EnableDisableReason != null)
                     enableDisableReasonParam = provider.CreateParameter("EnableDisableReason", userDAO.EnableDisableReason, DbType.String);
@@ -747,8 +748,8 @@ namespace Business
 
 
                 DbParameter OutValueP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt16(ParameterDirections.Output));
-                DbParameter[] userParams = new DbParameter[19] { contactNameParam, userNameParam, loginPasswordParam, userTypeIDParam, externalReferenceIDParam,
-                                                                     isFirstTimeParam, isLockedParam, isEnabledParam, passwordExpirationDateParam,
+                DbParameter[] userParams = new DbParameter[20] { contactNameParam, userNameParam, loginPasswordParam, userTypeIDParam, externalReferenceIDParam,
+                                                                     isFirstTimeParam, isLockedParam, isEnabledParam,ajaxOne, passwordExpirationDateParam,
                                                                     enableDisableReasonParam, createdByParam,updatedByParam,createdOnParam,updatedOnParam,MailP,PhoneP,UserIDP,IsTechnician,OutValueP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {

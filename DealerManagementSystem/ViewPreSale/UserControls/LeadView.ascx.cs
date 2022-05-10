@@ -935,8 +935,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddExpense.Visible = false;
             //lbtnAddFinancialInfo.Visible = false;
             //lbtnAddProduct.Visible = false;
-            //lbtnAddQuotation.Visible = false;
-
+            //lbtnAddQuotation.Visible = false; 
 
             lbtnEditLead.Visible = true; 
             lbtnAssign.Visible = true;
@@ -952,7 +951,28 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnLostLead.Visible = true;
             lbtnCancelLead.Visible = true;
 
-            
+            if (Lead.Status.StatusID == (short)LeadStatus.Cancelled)
+            {
+                lbtnEditLead.Visible = false;
+                lbtnAssign.Visible = false;
+                lbtnAddFollowUp.Visible = false;
+                lbtnCustomerConversation.Visible = false;
+                lbtnAddEffort.Visible = false;
+                lbtnAddExpense.Visible = false;
+                lbtnAddFinancialInfo.Visible = false;
+                lbtnAddProduct.Visible = false;
+                lbtnAddQuotation.Visible = false;
+                lbtAddQuestionaries.Visible = false;
+                lbtnAddVisit.Visible = false;
+                lbtnLostLead.Visible = false;
+                lbtnCancelLead.Visible = false;
+            }
+
+            List<PSalesQuotation>  Quote = new BSalesQuotation().GetSalesQuotationBasic(null, null, Lead.LeadID, null, null, null, null, null, null, null, null);
+            if(Quote.Count !=0)
+            {
+                lbtnAddQuotation.Visible = false;
+            }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
