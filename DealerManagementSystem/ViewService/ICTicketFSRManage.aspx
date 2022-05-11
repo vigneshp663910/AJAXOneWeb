@@ -4,12 +4,9 @@
 <%@ Register Src="~/UserControls/AvailabilityOfOtherMachine.ascx" TagPrefix="UC" TagName="UC_AvailabilityOfOtherMachine" %>
 <%@ Register Src="~/UserControls/ICTicketServiceCharges.ascx" TagPrefix="UC" TagName="DMS_ICTicketServiceCharges" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-
     <%--<script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="YDMS/YDMSStyles.css" rel="stylesheet" />
