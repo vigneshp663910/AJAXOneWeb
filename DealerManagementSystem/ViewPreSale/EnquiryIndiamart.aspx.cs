@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewMaster
+namespace DealerManagementSystem.ViewPreSale
 {
     public partial class EnquiryIndiamart : System.Web.UI.Page
     {
@@ -43,6 +43,7 @@ namespace DealerManagementSystem.ViewMaster
             Enquiry = new BEnquiryIndiamart().GetEnquiryIndiamart(DateFrom, DateTo);
             gvEnquiry.DataSource = Enquiry;
             gvEnquiry.DataBind();
+            lblRowCountEnquiryIM.Text = (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + 1) + " - " + (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + gvEnquiry.Rows.Count) + " of " + Enquiry.Rows.Count;
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
@@ -62,7 +63,7 @@ namespace DealerManagementSystem.ViewMaster
             if (gvEnquiry.PageIndex > 0)
             {
                 gvEnquiry.PageIndex = gvEnquiry.PageIndex - 1;
-                EnquiryIndiamartBind(gvEnquiry, lblRowCount, Enquiry);
+                EnquiryIndiamartBind(gvEnquiry, lblRowCountEnquiryIM, Enquiry);
             }
         }
         protected void ibtnEnquiryIMArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -70,7 +71,7 @@ namespace DealerManagementSystem.ViewMaster
             if (gvEnquiry.PageCount > gvEnquiry.PageIndex)
             {
                 gvEnquiry.PageIndex = gvEnquiry.PageIndex + 1;
-                EnquiryIndiamartBind(gvEnquiry, lblRowCount, Enquiry);
+                EnquiryIndiamartBind(gvEnquiry, lblRowCountEnquiryIM, Enquiry);
             }
         }
 

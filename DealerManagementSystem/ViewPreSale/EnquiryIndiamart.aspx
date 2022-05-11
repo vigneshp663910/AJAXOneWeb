@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Dealer.Master" CodeBehind="EnquiryIndiamart.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.EnquiryIndiamart" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Dealer.Master" CodeBehind="EnquiryIndiamart.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.EnquiryIndiamart" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -47,7 +47,7 @@
                                     <tr>
                                         <td>Enquiry Indiamart:</td>
                                         <td>
-                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <asp:Label ID="lblRowCountEnquiryIM" runat="server" CssClass="label"></asp:Label></td>
                                         <td>
                                             <asp:ImageButton ID="ibtnEnquiryIMArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnquiryIMArrowLeft_Click" /></td>
                                         <td>
@@ -60,7 +60,14 @@
 
                     <asp:GridView ID="gvEnquiry" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiry_PageIndexChanging">
-
+                        <columns>
+                                <asp:templatefield headertext="RId" itemstyle-horizontalalign="Center" itemstyle-width="25px">
+                                    <itemtemplate>
+                                        <itemstyle width="25px" horizontalalign="Center"></itemstyle>
+                                        <asp:label id="lblRowNumber" text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        </itemtemplate>
+                                </asp:templatefield>
+                            </columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
