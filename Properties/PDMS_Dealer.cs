@@ -27,6 +27,7 @@ namespace Properties
         public PDMS_DealerBankDetails DealerBank { get; set; }
         public PUser TL { get; set; }
         public PUser SM { get; set; }
+        public Boolean ServicePaidEInvoice { get; set; }
         public Boolean IsEInvoice { get; set; }
         public string EInvoiceFTPPath { get; set; }
         public string EInvoiceFTPUserID { get; set; }
