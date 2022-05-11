@@ -287,9 +287,6 @@
 
     <script type="text/javascript">
         function OTP() {
-            //$(document).ready(function () {
-            //    $("#BtnSendOTP").on("click", function () {
-                <%--if (document.getElementById("<%=BtnSendOTP.ClientID%>").disabled == true) {--%>
             var timeLeft = 15;
             var elem = document.getElementById("some_div");
             var timerId = setInterval(countdown, 1000);
@@ -306,14 +303,9 @@
             }
 
             function doSomething() {
-                /*alert("Hi");*/
                 document.getElementById("<%=BtnSendOTP.ClientID%>").value = "Resend OTP";
                 document.getElementById("<%=BtnSendOTP.ClientID%>").style.display = "inline";
             }
-            //}
-            //    });
-
-            //});
         }
 
 
