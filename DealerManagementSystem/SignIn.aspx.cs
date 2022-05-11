@@ -292,7 +292,7 @@ namespace DealerManagementSystem
                 return;
             }
             PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
-            if (userDetails.UserName != null)
+            if (!string.IsNullOrEmpty(userDetails.UserName))
             {
                 Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "", true);
             }
@@ -391,7 +391,7 @@ namespace DealerManagementSystem
         protected void BtnSendOTP_Click(object sender, EventArgs e)
         {
             PUser userDetails = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
-            if (userDetails.UserName != null)
+            if (!string.IsNullOrEmpty(userDetails.UserName))
             {
                 string Password = RandomNumber(000000, 999999).ToString("000000");
                 new BUser().UpdateResetPassword(userDetails.UserName.Trim(), LMSHelper.EncodeString(Password));
