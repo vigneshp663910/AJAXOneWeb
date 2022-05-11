@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <style>
         #div1 {
-            height: 91.9vh;
+            height: 91.70vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;

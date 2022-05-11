@@ -457,7 +457,7 @@
 
 
         .w3-sidebar {
-            height: 95%;
+            height: 95.5%;
             margin-top: 50px;
         }
 
