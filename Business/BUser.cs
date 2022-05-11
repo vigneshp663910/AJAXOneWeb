@@ -170,10 +170,13 @@ namespace Business
             try
             {
                 DateTime tracerStart = DateTime.Now;
-                using (DataTable userData = AuthenticateUser(userName))
+                if (!string.IsNullOrEmpty(userName))
                 {
-                    if (userData.Rows.Count > 0)
-                        userAuthDetails = ConvertToUser(userData.Rows[0]);
+                    using (DataTable userData = AuthenticateUser(userName))
+                    {
+                        if (userData.Rows.Count > 0)
+                            userAuthDetails = ConvertToUser(userData.Rows[0]);
+                    }
                 }
                 TraceLogger.Log(tracerStart);
                 return userAuthDetails;

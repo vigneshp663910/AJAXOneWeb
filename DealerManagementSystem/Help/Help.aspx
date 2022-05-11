@@ -38,39 +38,69 @@
                 <th width="150px">PPS</th>
 
             </tr>
-            <tr style="background-color: #FFFFFF">
+             <tr style="background-color: #FFFFFF">
                 <td align="right">1</td>
+                <td>Preface</td>
+                <td align="center">
+                    <%--<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne_Preface.pdf"><asp:Image ID="Image4" runat="server" ImageUrl="~/Images/Preview.png" width="25px" Height="25px"/></asp:HyperLink>--%></td>
+                <td align="center">
+                    <%--<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="UserGuide.aspx"><asp:Image ID="Image4" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink>--%></td>
+                <td align="center">
+                    <asp:HyperLink ID="HyperLink1c" runat="server" NavigateUrl="Files/V1_AJAXOne_Preface.pps"><asp:Image ID="Image1c" runat="server" ImageUrl="~/Images/save.png"  width="25px" Height="25px" /></asp:HyperLink></td>
+            </tr>
+            <tr style="background-color: #FFFFFF">
+                <td align="right">2</td>
+                <td>Get Started</td>
+                <td align="center">
+                    <%--<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne_GetStarted.pdf"><asp:Image ID="Image4" runat="server" ImageUrl="~/Images/Preview.png" width="25px" Height="25px"/></asp:HyperLink>--%></td>
+                <td align="center">
+                    <%--<asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="UserGuide.aspx"><asp:Image ID="Image5" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink>--%></td>
+                <td align="center">
+                    <asp:HyperLink ID="HyperLink2c" runat="server" NavigateUrl="Files/V1_AJAXOne_GetStarted.pps"><asp:Image ID="Image2c" runat="server" ImageUrl="~/Images/save.png"  width="25px" Height="25px" /></asp:HyperLink></td>
+            </tr>
+            <tr style="background-color: #FFFFFF">
+                <td align="right">3</td>
                 <td>Pre-Sales</td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne.pdf"><asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Preview.png" width="25px" Height="25px"/></asp:HyperLink></td>
+                    <%--<asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne.pdf"><asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Preview.png" width="25px" Height="25px"/>--%></asp:HyperLink></td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="UserGuide.aspx"><asp:Image ID="Image2" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink></td>
+                    <%--<asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="UserGuide.aspx"><asp:Image ID="Image2" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink>--%></td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="Files/V1_AJAxOne.pps"><asp:Image ID="Image3" runat="server" ImageUrl="~/Images/save.png"  width="25px" Height="25px" /></asp:HyperLink></td>
+                    <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="Files/V1_AJAXOne_PreSales.pps"><asp:Image ID="Image3" runat="server" ImageUrl="~/Images/save.png"  width="25px" Height="25px" /></asp:HyperLink></td>
             </tr>
              <tr style="background-color: #FFFFFF">
-                <td align="right">2</td>
+                <td align="right">4</td>
                 <td>Parts</td>
                 <td align="center">
                     <%--<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne.pdf">View</asp:HyperLink>--%></td>
                 <td align="center">
                    <%-- <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="UserGuide.aspx">Play</asp:HyperLink>--%></td>
                 <td align="center">
-                    <%--<asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="Files/V1_AJAxOne.pps">Download</asp:HyperLink>--%></td>
+                    <%--<asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="Files/V1_AJAXOne.pps">Download</asp:HyperLink>--%></td>
             </tr>
              <tr style="background-color: #FFFFFF">
-                <td align="right">3</td>
+                <td align="right">5</td>
                 <td>Service</td>
                 <td align="center">
                     <%--<asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne.pdf">View</asp:HyperLink>--%></td>
                 <td align="center">
                     <%--<asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="UserGuide.aspx">Play</asp:HyperLink>--%></td>
                 <td align="center">
-                    <%--<asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="Files/V1_AJAxOne.pps">Download</asp:HyperLink>--%></td>
+                    <%--<asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="Files/V1_AJAXOne.pps">Download</asp:HyperLink>--%></td>
+            </tr>
+             <tr style="background-color: #FFFFFF">
+                <td align="right">6</td>
+                <td>Presentation</td>
+                <td align="center">
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/V1_AJAXOne.pdf"><asp:Image ID="Image4" runat="server" ImageUrl="~/Images/Preview.png" width="25px" Height="25px"/></asp:HyperLink></td>
+                <td align="center">
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="UserGuide.aspx"><asp:Image ID="Image5" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink></td>
+                <td align="center">
+                    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="Files/V1_AJAXOne.pps"><asp:Image ID="Image6" runat="server" ImageUrl="~/Images/save.png"  width="25px" Height="25px" /></asp:HyperLink></td>
             </tr>
 
-        </table>
 
+        </table>
 
 
         <%--<div style="text-align: left; font-size: xx-large; font-family: Calibri; font-weight: bold;">

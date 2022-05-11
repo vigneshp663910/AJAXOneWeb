@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserGuide.aspx.cs" Inherits="DealerManagementSystem.Help.UserGuide" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <style>    
     </style>
@@ -13,7 +12,6 @@
     <title></title>
 </head>
 <body>   
-     <%--<embed src="\Help\Videos\V1_AJAXOne.mp4" autostart="true" width="1000" height="600" />--%>
     <embed src="\Help\Files\V1_AJAXOne.mp4" autostart="true" width="100%" height="800" />
 </body>
 </html>

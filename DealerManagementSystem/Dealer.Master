@@ -457,7 +457,7 @@
 
 
         .w3-sidebar {
-            height: 95%;
+            height: 95.5%;
             margin-top: 50px;
         }
 
@@ -2118,6 +2118,7 @@
             <br />
             <div class="project-title-outer">
                 <div class="ProjectTitle">
+                    <%--<asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="20" Width="50" />--%>
                     <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
 
                     <div id="titlebarico" style="float: right;">

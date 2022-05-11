@@ -238,7 +238,7 @@
 
         .vertical-center {
             margin: 0;
-            padding: 100px;
+            padding: 80px;
             position: absolute;
             top: 50%;
             left: 10%;
@@ -285,7 +285,62 @@
         }
     </style>
 
+    <script type="text/javascript">
+        function OTP() {
+            var timeLeft = 15;
+            var elem = document.getElementById("some_div");
+            var timerId = setInterval(countdown, 1000);
 
+            function countdown() {
+                if (timeLeft == -1) {
+                    clearTimeout(timerId);
+                    doSomething();
+                } else {
+                    document.getElementById("<%=BtnSendOTP.ClientID%>").style.display = "none";
+                    elem.innerHTML = timeLeft + ' Seconds Left';
+                    timeLeft--;
+                }
+            }
+
+            function doSomething() {
+                document.getElementById("<%=BtnSendOTP.ClientID%>").value = "Resend OTP";
+                document.getElementById("<%=BtnSendOTP.ClientID%>").style.display = "inline";
+            }
+        }
+
+
+
+
+        <%--function startTimer() {
+            var presentTime = document.getElementById('timer').innerHTML;
+            var timeArray = presentTime.split(/[:]+/);
+            var m = timeArray[0];
+            var s = checkSecond((timeArray[1] - 1));
+            if (s == 0 && m == 0) {
+                $('#<%=BtnSendOTP.ClientID %>').val="Resend OTP";
+                $('#<%=BtnSendOTP.ClientID %>').prop("disabled", "enabled");
+            }
+            if (s == 59) { m = m - 1 }
+            if (m < 0) {
+                
+                return
+            }
+
+            document.getElementById("timer").innerHTML = m + ":" + s;
+            console.log(m)
+            setTimeout(startTimer, 1000);
+
+        }
+
+        function checkSecond(sec) {
+            if (sec < 10 && sec >= 0) { sec = "0" + sec }; // add zero in front of numbers < 10
+            if (sec < 0) { sec = "59" };
+            return sec;
+        }--%>
+        
+
+        
+    </script>
 </head>
 <body>
     <div>
@@ -303,10 +358,11 @@
 
                         </div>
 
-                        <div class="vertical-center" style="padding: 198px; padding-left:230px; padding-bottom:10px;text-align: center;margin-top:200px; font-family:sans-serif;">
-                            <h5 class="care  text-white" style="margin-top: 200px; font-family:Proxima Nova;">NEED HELP ? &nbsp;LET US KNOW</h5>
+                        <div class="vertical-center" style="padding: 198px; padding-left: 230px; padding-bottom: 10px; text-align: center; margin-top: 200px; font-family: sans-serif;">
+                            <h5 class="care  text-white" style="margin-top: 200px; font-family: Proxima Nova;">NEED HELP ? &nbsp;LET US KNOW</h5>
                             <li class="fa fa-phone text-white">
-                                <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <li class="fa fa-envelope text-white">
                                 <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
                         </div>
@@ -373,7 +429,6 @@
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldResetPassword" runat="server" visible="false">
-
                             <legend style="background: none; color: #007bff; font-size: 20px;">Reset Password</legend>
                             <div class="col-md-12">
                                 <div>
@@ -381,7 +436,9 @@
                                     <label><b>OTP</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number"></asp:TextBox>
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false"/><div id="some_div"></div>
+                                    
+                                    <%--<asp:LinkButton ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" Text="Send OTP">LinkButton</asp:LinkButton>--%>
                                 </div>
                                 <div>
                                     <br />
