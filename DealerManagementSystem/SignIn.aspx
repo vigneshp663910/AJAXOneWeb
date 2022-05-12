@@ -185,7 +185,7 @@
             position: fixed;
             z-index: 1;
             top: 0;
-            overflow-x: hidden;
+            /*overflow-x: hidden;*/
             padding-top: 20px;
         }
 
