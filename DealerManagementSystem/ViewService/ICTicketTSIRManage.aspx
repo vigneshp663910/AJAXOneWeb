@@ -60,9 +60,8 @@
         <div class="col-md-12">
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Invoice</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">ICTicket TSIR Manage</legend>
                     <div class="col-md-12 Report">
-
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
@@ -79,7 +78,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="fsrID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="IC Ticket">
