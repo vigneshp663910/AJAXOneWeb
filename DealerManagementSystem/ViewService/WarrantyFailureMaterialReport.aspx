@@ -1,19 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyFailureMaterialReport.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyFailureMaterialReport" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
+    <%--<script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="YDMS/YDMSStyles.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="YDMS/YDMS_Scripts.js"></script>
-</asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="YDMS/YDMS_Scripts.js"></script>--%>
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById(obj);
@@ -21,11 +18,11 @@
 
             if (gvObject.style.display == "none") {
                 gvObject.style.display = "inline";
-                imageID.src = "Images/grid_collapse.png";
+                imageID.src = "../Images/grid_collapse.png";
             }
             else {
                 gvObject.style.display = "none";
-                imageID.src = "Images/grid_expand.png";
+                imageID.src = "../Images/grid_expand.png";
             }
         }
 
@@ -34,6 +31,9 @@
             win.focus();
         }
     </script>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
     <table id="txnHistory4:panelGridid" style="height: 100%; width: 100%">
         <tr>
             <td>
@@ -177,7 +177,7 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <a href="javascript:collapseExpand('WarrantyInvoiceHeaderID-<%# Eval("WarrantyInvoiceHeaderID") %>');">
-                                                <img id="imageWarrantyInvoiceHeaderID-<%# Eval("WarrantyInvoiceHeaderID") %>" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="10" width="10" /></a>
+                                                <img id="imageWarrantyInvoiceHeaderID-<%# Eval("WarrantyInvoiceHeaderID") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_collapse.png" height="10" width="10" /></a>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Claim" HeaderStyle-Width="62px">
