@@ -335,6 +335,13 @@ namespace DealerManagementSystem
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                if (txtRNewPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    lblMessage.Text = "Please Provide Another Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (Request.QueryString["UserID"] != null)
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text,"Reset") == 1)
@@ -373,7 +380,7 @@ namespace DealerManagementSystem
                 }
                 if(txtCNewPassword.Text.ToUpper().Contains("AJAX@123"))
                 {
-                    lblMessage.Text = "Please Change Another Password...!";
+                    lblMessage.Text = "Please Provide Another Password...!";
                     lblMessage.Visible = true;
                     lblMessage.ForeColor = Color.Red;
                     return;

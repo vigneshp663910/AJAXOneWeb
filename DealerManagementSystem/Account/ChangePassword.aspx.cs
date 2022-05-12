@@ -24,6 +24,13 @@ namespace DealerManagementSystem.Account
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                if (txtNewPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    lblMessage.Text = "Please Provide Another Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (PSession.User != null)
                 {
                     if (new BUser().ChangePassword(PSession.User.UserID, txtCurrentPassword.Text.Trim(), txtNewPassword.Text.Trim(), txtReTypeNewPassword.Text, "Change") == 1)
