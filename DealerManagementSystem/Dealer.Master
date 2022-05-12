@@ -1468,7 +1468,7 @@
         }
     </style>
     <%-- FeedBack Window Starting --%>
-        <style type="text/css">
+    <style type="text/css">
         .loinFooter {
             text-align: center;
         }
@@ -1573,8 +1573,9 @@
                 width: 600px;
             }
         }
-        .tbFeedback tr{
-            background-color:inherit;
+
+        .tbFeedback tr {
+            background-color: inherit;
         }
     </style>
     <%-- FeedBack Window Ending --%>
@@ -1602,6 +1603,7 @@
             color: #005782;
             text-decoration: none;
         }
+
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
             .feed {
                 width: 305px;
@@ -1714,9 +1716,18 @@
 
     <script>
         function SetScreenTitle(as_pagetitle) {
-            //alert(as_pagetitle);
             var lbl = document.getElementById("lblProjectTitle")
             lbl.textContent = as_pagetitle;
+
+            //if (as_pagetitle == '') {
+            //    document.getElementById("AJAXOneLogo").style.display = 'block';
+
+            //    //alert(as_pagetitle);
+            //}
+            //else {
+            //    document.getElementById("AJAXOneLogo").style.display = 'none';
+            //}
+
         }
 
 
@@ -2118,8 +2129,10 @@
             <br />
             <div class="project-title-outer">
                 <div class="ProjectTitle">
-                    <%--<asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="20" Width="50" />--%>
-                    <asp:Label ID="lblProjectTitle" runat="server" Text="Welcome" Visible="true"></asp:Label>
+                    <%--<div id="AJAXOneLogo" style="float: left;">
+                        <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="20" Width="50" />
+                    </div>--%>
+                    <asp:Label ID="lblProjectTitle" runat="server" Text="" Visible="true"></asp:Label>
 
                     <div id="titlebarico" style="float: right;">
 
