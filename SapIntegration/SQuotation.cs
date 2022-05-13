@@ -11,7 +11,7 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public List<string> getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit, PSalesQuotationItem QuotationItem)
+        public List<string> getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, DateTime VisitDate, PSalesQuotationItem QuotationItem)
         {
             string QuotationNo = null, QuotationDate = null;
 
@@ -48,7 +48,7 @@ namespace SapIntegration
             QTHeader.SetValue("PRICE_DATE", pSalesQuotation.PricingDate);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
-            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", Visit[0].ColdVisitDate);
+            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", VisitDate);
             QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make.Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product.Product);
             QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", leadProducts[0].Product.Product);
