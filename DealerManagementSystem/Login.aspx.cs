@@ -142,14 +142,17 @@ namespace DealerManagementSystem
         }
         protected void lForgetPassword_Click(object sender, EventArgs e)
         {
-            PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
-            string Password = "abc@123";
-            new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
-            string messageBody = MailFormate.ForgotPassword;
-            messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
-            messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
-            messageBody = messageBody.Replace("@@Password", Password);
-            new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+            if (!string.IsNullOrEmpty(txtUsername.Text))
+            {
+                PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
+                string Password = "abc@123";
+                new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
+                string messageBody = MailFormate.ForgotPassword;
+                messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+                messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+                messageBody = messageBody.Replace("@@Password", Password);
+                new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+            }
         }
 
 

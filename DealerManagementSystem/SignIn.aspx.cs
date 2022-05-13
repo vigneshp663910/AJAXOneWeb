@@ -163,6 +163,8 @@ namespace DealerManagementSystem
                     //Response.Redirect("Account/LoginAs.aspx");                 
                 }
 
+                
+
                 UserAuthentication userA = new UserAuthentication();
 
                 userA.UserName = txtUsername.Text;
@@ -181,6 +183,11 @@ namespace DealerManagementSystem
 
                 
                 userDetails = new BUser().GetUserByToken();
+                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    userDetails = new BUser().GetUserByToken();
+                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + userDetails.UserID + "", true);
+                }
                 PSession.User = userDetails;
                 if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
                 {
@@ -292,20 +299,8 @@ namespace DealerManagementSystem
                 return;
             }
             PUser userDetails = new BUser().GetUserDetails(txtUsername.Text.Trim());
-            if (userDetails.UserName != null)
+            if (!string.IsNullOrEmpty(userDetails.UserName))
             {
-                string Password = RandomNumber(000000, 999999).ToString("000000");
-                new BUser().UpdateResetPassword(txtUsername.Text.Trim(), LMSHelper.EncodeString(Password));
-                string messageBody = MailFormate.ForgotPassword;
-                messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
-                messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
-                messageBody = messageBody.Replace("@@Password", Password);
-                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString() + "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
-                new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
-
-                //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
-                messageBody = "Dear User, Your OTP for login is " + Password + ". From AJAX ENGG";
-                new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
                 Response.Redirect("SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "", true);
             }
             else
@@ -336,6 +331,13 @@ namespace DealerManagementSystem
                 if (string.IsNullOrEmpty(txtOTP.Text))
                 {
                     lblMessage.Text = "Please Enter OTP...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if (txtRNewPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    lblMessage.Text = "Please Provide Another Password...!";
                     lblMessage.Visible = true;
                     lblMessage.ForeColor = Color.Red;
                     return;
@@ -376,13 +378,20 @@ namespace DealerManagementSystem
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                if(txtCNewPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    lblMessage.Text = "Please Provide Another Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (Request.QueryString["UserID"] != null)
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOldPassword.Text.Trim(), txtCNewPassword.Text.Trim(), txtCRetypePassword.Text,"Change") == 1)
                     {
                         PUser user = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
                         txtUsername.Text = user.UserName;
-                        txtPassword.Text = txtRRetypePassword.Text;
+                        txtPassword.Text = txtCRetypePassword.Text;
                         login();
                         //AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
@@ -398,6 +407,35 @@ namespace DealerManagementSystem
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
 
             }
+        }
+
+        protected void BtnSendOTP_Click(object sender, EventArgs e)
+        {
+            PUser userDetails = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+            if (!string.IsNullOrEmpty(userDetails.UserName))
+            {
+                string Password = RandomNumber(000000, 999999).ToString("000000");
+                new BUser().UpdateResetPassword(userDetails.UserName.Trim(), LMSHelper.EncodeString(Password));
+                string messageBody = MailFormate.ForgotPassword;
+                messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+                messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+                messageBody = messageBody.Replace("@@Password", Password);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString() + "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
+                new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+
+                //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
+                messageBody = "Dear User, Your OTP for login is " + Password + ". From AJAX ENGG";
+                new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);                
+            }
+            else
+            {
+                lblMessage.Text = "Invalid UserName...!";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true);
+            //ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:OTP(); ", true);
         }
     }
 }

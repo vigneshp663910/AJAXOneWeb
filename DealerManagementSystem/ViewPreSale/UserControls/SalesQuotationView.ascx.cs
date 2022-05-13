@@ -939,17 +939,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
                     Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
                     List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
-                    if (Visit.Count == 0)
-                    {
-                        lblMessage.Text = "Visit Date Not Found";
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
+                    DateTime VisitDate;
+                    VisitDate = (Visit.Count != 0) ? Visit[0].ColdVisitDate : Q.RefQuotationDate;                    
                     if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
                     {
                         //list[0] as Subrc [1] as Number [2] as Type [3] as Message [4] as QuotationNo [5] as QuotationDate
-                        List<string> list = new SQuotation().getQuotationIntegration(Q, leadProducts, Visit, QuotationItem);
+                        List<string> list = new SQuotation().getQuotationIntegration(Q, leadProducts, VisitDate, QuotationItem);
                         if (list != null)
                         {
 

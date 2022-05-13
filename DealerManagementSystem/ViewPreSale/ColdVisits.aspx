@@ -311,7 +311,7 @@
 
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnAddColdVisit" runat="server" CssClass="btn Save" Text="Add Cold Visit" OnClick="btnAddColdVisit_Click" Width="150px"></asp:Button>
+                            <asp:Button ID="btnAddColdVisit" runat="server" CssClass="btn Save" Text="Add Customer Visit" OnClick="btnAddColdVisit_Click" Width="150px"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
@@ -326,7 +326,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Cold Visit(s):</td>
+                                                <td>Customer Visit(s):</td>
 
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -436,7 +436,7 @@
 
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Cold Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">

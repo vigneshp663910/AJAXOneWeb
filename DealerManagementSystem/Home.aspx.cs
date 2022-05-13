@@ -21,7 +21,10 @@ namespace DealerManagementSystem
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Welcome');</script>");
+
+            if (!IsPostBack)
             {
                 new DDLBind(ddlDealer, PSession.User.Dealer, "ContactName", "DID", true,"All Dealer");
                 new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID",true, "All Country"); 

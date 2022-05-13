@@ -361,6 +361,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
     <Content Include="ViewMaster\PresalesMasters.aspx" />
@@ -943,6 +944,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
+      <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.designer.cs">
+      <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Material.aspx.cs">
       <DependentUpon>Material.aspx</DependentUpon>
