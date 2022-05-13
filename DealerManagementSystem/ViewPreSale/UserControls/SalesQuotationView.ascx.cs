@@ -255,15 +255,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string Material = txtMaterial.Text.Trim();
 
 
-                for (int i = 0; i < gvProduct.Rows.Count; i++)
-                {
-                    Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode");
-                    if (lblMaterialCode.Text == Material)
-                    {
-                        lblMessageProduct.Text = "Material " + Material + " already available";
-                        return;
-                    }
-                }
+            
 
 
 
@@ -276,6 +268,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 OrderType = "DEFAULT_SEC_AUART";
                 Material = Material.Split(' ')[0];
                 PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
+
+                for (int i = 0; i < gvProduct.Rows.Count; i++)
+                {
+                    Label lblMaterialCode = (Label)gvProduct.Rows[i].FindControl("lblMaterialCode");
+                    if (lblMaterialCode.Text == MM.MaterialCode)
+                    {
+                        lblMessageProduct.Text = "Material " + Material + " already available";
+                        return;
+                    }
+                }
+
+
                 if (string.IsNullOrEmpty(MM.MaterialCode))
                 {
                     lblMessageProduct.Text = "Please check the Material";
@@ -304,7 +308,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MaterialTax.Material.MaterialID = MM.MaterialID;
                 //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-                MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+               MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
                 MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
                 //MaterialTax.Rate = MaterialTax.Rate;
                 decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
@@ -347,8 +351,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 if (!string.IsNullOrEmpty(Quotation.QuotationNo))
                 {
-
-                    GenerateQuotation(MaterialTax);
+                    if (Quotation.CommissionAgent)
+                    {
+                        GenerateQuotation(MaterialTax);
+                    }
                     //PSalesQuotation Q = Quotation;
                     //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
                     //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
@@ -459,7 +465,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             if (!string.IsNullOrEmpty(Quotation.QuotationNo))
             {
-                GenerateQuotation(Item);
+                if (Quotation.CommissionAgent)
+                {
+                    GenerateQuotation(Item);
+                }
                 //PSalesQuotation Q = Quotation;
                 //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
                 //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
@@ -990,6 +999,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 else
                 {
+
                     PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
                     if (Results.Status == PApplication.Failure)
                     {
