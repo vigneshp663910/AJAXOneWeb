@@ -324,7 +324,7 @@ namespace DealerManagementSystem.ViewSales
             Label lblSalesCommissionClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimID");
             TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved2Amount");
             TextBox txtApproved2Remarks = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved2Remarks");
-            Label lblAmount = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblAmount");
+            TextBox txtApproved1Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved1Amount");
             decimal parsedValue;
             if (!decimal.TryParse(txtApproved2Amount.Text, out parsedValue))
             {
@@ -333,7 +333,7 @@ namespace DealerManagementSystem.ViewSales
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            decimal Amount = Convert.ToDecimal(lblAmount.Text);
+            decimal Amount = Convert.ToDecimal(txtApproved1Amount.Text);
             if (Amount < Convert.ToDecimal(txtApproved2Amount.Text))
             {
                 lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
@@ -354,7 +354,7 @@ namespace DealerManagementSystem.ViewSales
 
             TextBox txtApproved3Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved3Amount");
             TextBox txtApproved3Remarks = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved3Remarks");
-            Label lblAmount = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblAmount");
+            TextBox txtApproved2Amount = (TextBox)gvICTickets.Rows[gvRow.RowIndex].FindControl("txtApproved2Amount");
             decimal parsedValue;
             if (!decimal.TryParse(txtApproved3Amount.Text, out parsedValue))
             {
@@ -364,7 +364,7 @@ namespace DealerManagementSystem.ViewSales
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            decimal Amount = Convert.ToDecimal(lblAmount.Text);
+            decimal Amount = Convert.ToDecimal(txtApproved2Amount.Text);
             if (Amount < Convert.ToDecimal(txtApproved3Amount.Text))
             {
                 lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
