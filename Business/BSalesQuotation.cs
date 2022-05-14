@@ -1181,5 +1181,57 @@ namespace Business
             }
             return true;
         }
+        public int GetSalesQuotationFlow()
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PSalesQuotationDocumentDetails> SalesQuotationDocumentDetails = new List<PSalesQuotationDocumentDetails>();
+            try
+            {
+                SalesQuotationDocumentDetails = new SQuotation().GetSalesQuotationFlow();
+
+                foreach (PSalesQuotationDocumentDetails SalesQuotationDocumentDetail in SalesQuotationDocumentDetails)
+                {
+                    DbParameter QuotationNo = provider.CreateParameter("QuotationNo", SalesQuotationDocumentDetail.QuotationNo, DbType.String);                                        
+                    DbParameter DocumentNumber = provider.CreateParameter("DocumentNumber", SalesQuotationDocumentDetail.DocumentNumber, DbType.String);
+                    DbParameter DocumentCode = provider.CreateParameter("DocumentCode", SalesQuotationDocumentDetail.DocumentCode, DbType.String);
+                    DbParameter DocumentName = provider.CreateParameter("DocumentName", SalesQuotationDocumentDetail.DocumentName, DbType.String);
+                    DbParameter DocumentDate = provider.CreateParameter("DocumentDate", SalesQuotationDocumentDetail.DocumentDate, DbType.DateTime);
+                    DbParameter Material = provider.CreateParameter("Material", SalesQuotationDocumentDetail.Material, DbType.String);                    
+                    DbParameter Item = provider.CreateParameter("Item", SalesQuotationDocumentDetail.Item, DbType.String);
+                    DbParameter SubSequentItem = provider.CreateParameter("SubSequentItem", SalesQuotationDocumentDetail.SubSequentItem, DbType.String);
+                    DbParameter MachineSerialNumber = provider.CreateParameter("MachineSerialNumber", SalesQuotationDocumentDetail.MachineSerialNumber, DbType.String);
+
+                    DbParameter[] Params = new DbParameter[9] { QuotationNo, DocumentNumber, DocumentCode, DocumentName, DocumentDate, Material, Item, SubSequentItem, MachineSerialNumber };
+                    try
+                    {
+                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                        {
+                            provider.Insert("InsertOrUpdateSalesQuotationDocumentDetails", Params);
+                            scope.Complete();
+                            new SQuotation().UpdateStatusSalesQuotationFlow(SalesQuotationDocumentDetail);
+                        }
+
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        new FileLogger().LogMessage("BSalesQuotation", "InsertOrUpdateSalesQuotationDocumentDetails", sqlEx);
+
+                        throw;
+                    }
+                    catch (Exception ex)
+                    {
+                        new FileLogger().LogMessage("BSalesQuotation", " InsertOrUpdateSalesQuotationDocumentDetails", ex);
+                        throw;
+                    }
+                }
+
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BSalesQuotation", "InsertOrUpdateSalesQuotationDocumentDetails", ex);
+            }
+            return SalesQuotationDocumentDetails.Count();
+        }
     }
 }

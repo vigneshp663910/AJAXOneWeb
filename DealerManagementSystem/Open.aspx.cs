@@ -91,5 +91,10 @@ namespace DealerManagementSystem
         {
             new EmailManager().Start();
         }
+
+        protected void BtnSalesQuotationDetails_Click(object sender, EventArgs e)
+        {
+            new BSalesQuotation().GetSalesQuotationFlow();
+        }
     }
 }

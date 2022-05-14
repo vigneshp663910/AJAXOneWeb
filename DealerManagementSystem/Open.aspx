@@ -119,6 +119,11 @@
                     <asp:Button ID="btnMail" runat="server" Text="Update Mail" OnClick="btnMail_Click" />
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="BtnSalesQuotationDetails" runat="server" Text="SalesQuotationDocumentDetails" OnClick="BtnSalesQuotationDetails_Click"/>
+                </td>
+            </tr>
         </table>
     </form>
 </body>
