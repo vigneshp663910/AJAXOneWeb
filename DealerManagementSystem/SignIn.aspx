@@ -272,7 +272,7 @@
                 margin: 0;
                 padding: initial;
                 position: absolute;
-                top: 50%;
+                top: 40%;
                 left: 10%;
                 -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
