@@ -76,11 +76,11 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Details Input</legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
-                        <label>Aadhaar Card No</label>
+                        <label>Aadhaar Card No / Emp Code</label>
                     </div>
                     <div class="col-md-3">
-                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14"    OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        
                     </div>  
                     <div class="col-md-3 text-right">
                         <label>Name</label>

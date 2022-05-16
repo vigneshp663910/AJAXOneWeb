@@ -51,6 +51,7 @@ namespace DealerManagementSystem.ViewMaster
                 FillGetDealerOffice(DealerID);
                 if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
                 {
+                    ViewState["DealerEmployeeID"] = Convert.ToInt32(Request.QueryString["DealerEmployeeID"]);
                     FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));   
                     btnBack.Visible = true; 
                 }
@@ -128,7 +129,7 @@ namespace DealerManagementSystem.ViewMaster
             }
 
             PDMS_DealerEmployeeRole Role = new PDMS_DealerEmployeeRole();
-            Role.DealerEmployeeID = (int)ViewState["DealerEmployeeID"]; 
+            Role.DealerEmployeeID = ViewState["DealerEmployeeID"] == null ? 0 : (int)ViewState["DealerEmployeeID"];
             Role.DealerOffice = new PDMS_DealerOffice();
             Role.DealerOffice.OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
             Role.DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
