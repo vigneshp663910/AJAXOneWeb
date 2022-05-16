@@ -88,6 +88,7 @@
     <Compile Include="BAPI.cs" />
     <Compile Include="BApplicationSetting.cs" />
     <Compile Include="BAttachedFile.cs" />
+    <Compile Include="BChangeHistory.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
     <Compile Include="BDMS_Address.cs" />

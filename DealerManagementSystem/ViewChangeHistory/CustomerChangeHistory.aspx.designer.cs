@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale
+namespace DealerManagementSystem.ViewChangeHistory
 {
 
 
-    public partial class EnquiryIndiamart
+    public partial class CustomerChangeHistory
     {
 
         /// <summary>
@@ -42,57 +42,75 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.TextBox txtDateTo;
 
         /// <summary>
-        /// btnSearch control.
+        /// txtCustomerCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
 
         /// <summary>
-        /// btnExportExcel control.
+        /// ddlCustomerField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerField;
 
         /// <summary>
-        /// lblRowCountEnquiryIM control.
+        /// btnSearchCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCountEnquiryIM;
+        protected global::System.Web.UI.WebControls.Button btnSearchCustChgHst;
 
         /// <summary>
-        /// ibtnEnquiryIMArrowLeft control.
+        /// btnExportExcelCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnEnquiryIMArrowLeft;
+        protected global::System.Web.UI.WebControls.Button btnExportExcelCustChgHst;
 
         /// <summary>
-        /// ibtnEnquiryIMArrowRight control.
+        /// lblRowCountCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnEnquiryIMArrowRight;
+        protected global::System.Web.UI.WebControls.Label lblRowCountCustChgHst;
 
         /// <summary>
-        /// gvEnquiry control.
+        /// ibtnCustChgHstArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEnquiry;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCustChgHstArrowLeft;
+
+        /// <summary>
+        /// ibtnCustChgHstArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCustChgHstArrowRight;
+
+        /// <summary>
+        /// gvCustChgHst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvCustChgHst;
     }
 }
