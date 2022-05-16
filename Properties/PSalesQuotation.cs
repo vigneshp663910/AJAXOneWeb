@@ -250,4 +250,19 @@ namespace Properties
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
     }
+
+    [Serializable]
+    public class PSalesQuotationDocumentDetails
+    {
+        public long SalesQuotationDocumentDetailsID { get; set; }        
+        public string QuotationNo { get; set; }
+        public int Item { get; set; }
+        public int SubSequentItem { get; set; }
+        public string DocumentNumber { get; set; }
+        public string DocumentCode { get; set; }
+        public string DocumentName { get; set; }
+        public DateTime? DocumentDate { get; set; }
+        public string Material { get; set; }
+        public string MachineSerialNumber { get; set; }  
+    }
 }

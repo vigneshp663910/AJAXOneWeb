@@ -163,6 +163,8 @@ namespace DealerManagementSystem
                     //Response.Redirect("Account/LoginAs.aspx");                 
                 }
 
+                
+
                 UserAuthentication userA = new UserAuthentication();
 
                 userA.UserName = txtUsername.Text;
@@ -181,6 +183,11 @@ namespace DealerManagementSystem
 
                 
                 userDetails = new BUser().GetUserByToken();
+                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    userDetails = new BUser().GetUserByToken();
+                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + userDetails.UserID + "", true);
+                }
                 PSession.User = userDetails;
                 if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
                 {
@@ -328,6 +335,13 @@ namespace DealerManagementSystem
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                if (txtRNewPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    lblMessage.Text = "Please Provide Another Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (Request.QueryString["UserID"] != null)
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text,"Reset") == 1)
@@ -364,13 +378,20 @@ namespace DealerManagementSystem
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                if(txtCNewPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    lblMessage.Text = "Please Provide Another Password...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 if (Request.QueryString["UserID"] != null)
                 {
                     if (new BUser().ChangePassword(Convert.ToInt32(Request.QueryString["UserID"].ToString()), txtOldPassword.Text.Trim(), txtCNewPassword.Text.Trim(), txtCRetypePassword.Text,"Change") == 1)
                     {
                         PUser user = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
                         txtUsername.Text = user.UserName;
-                        txtPassword.Text = txtRRetypePassword.Text;
+                        txtPassword.Text = txtCRetypePassword.Text;
                         login();
                         //AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);

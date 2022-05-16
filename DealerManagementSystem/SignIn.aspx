@@ -185,7 +185,7 @@
             position: fixed;
             z-index: 1;
             top: 0;
-            overflow-x: hidden;
+            /*overflow-x: hidden;*/
             padding-top: 20px;
         }
 
@@ -272,7 +272,7 @@
                 margin: 0;
                 padding: initial;
                 position: absolute;
-                top: 50%;
+                top: 40%;
                 left: 10%;
                 -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
@@ -568,7 +568,7 @@
                             <td>Online</td>
                             <td>All</td>
                             <td style="text-align: center"><a href="https://play.google.com/store/apps/details?id=com.ajaxengg.sales_webview">Install</a></td>
-                            <td style="text-align: center">Install</td>
+                            <td style="text-align: center"><a href="https://apps.apple.com/app/ajaxone/id1619091173">Install</a></td>
                             <td style="width: 550px; text-align: left">Includes both Pre-Sales & Service</td>
                         </tr>
                         <tr>

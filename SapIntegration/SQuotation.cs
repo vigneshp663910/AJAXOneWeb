@@ -11,7 +11,7 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-        public List<string> getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, List<PColdVisit> Visit, PSalesQuotationItem QuotationItem)
+        public List<string> getQuotationIntegration(PSalesQuotation pSalesQuotation, List<PLeadProduct> leadProducts, DateTime VisitDate, PSalesQuotationItem QuotationItem)
         {
             string QuotationNo = null, QuotationDate = null;
 
@@ -48,7 +48,7 @@ namespace SapIntegration
             QTHeader.SetValue("PRICE_DATE", pSalesQuotation.PricingDate);
 
             IRfcStructure QT_FINANCIER_FIELDS = tagListBapi.GetStructure("FINANCIER_FIELDS");
-            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", Visit[0].ColdVisitDate);
+            QT_FINANCIER_FIELDS.SetValue("ZZVISIT_DATE", VisitDate);
             QT_FINANCIER_FIELDS.SetValue("ZZCOMPETITOR", pSalesQuotation.Competitor[0].Make.Make);//pSalesQuotation.Lead.Customer.Country.SalesOrganization);
             QT_FINANCIER_FIELDS.SetValue("ZZFLD00000L", pSalesQuotation.Competitor[0].Product.Product);
             QT_FINANCIER_FIELDS.SetValue("ZZPRODUCT", leadProducts[0].Product.Product);
@@ -391,6 +391,61 @@ namespace SapIntegration
             string ConditionType;
 
             return dtRet;
+        }
+        public List<PSalesQuotationDocumentDetails> GetSalesQuotationFlow()
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_FLOW_DET");
+            tagListBapi.Invoke(SAP.RfcDes());
+            IRfcTable tagTable = tagListBapi.GetTable("IT_DETAILS");
+            DataTable dtRet = new DataTable();
+            
+            for (int Column = 0; Column < 14; Column++)
+            {
+                RfcElementMetadata rfcEMD = tagTable.GetElementMetadata(Column);
+                dtRet.Columns.Add(rfcEMD.Name);
+            }
+
+            foreach (IRfcStructure row in tagTable)
+            {
+                DataRow dr = dtRet.NewRow();
+                for (int Column = 0; Column < 14; Column++)
+                {
+                    RfcElementMetadata rfcEMD = tagTable.GetElementMetadata(Column);
+                    dr[rfcEMD.Name] = row.GetString(rfcEMD.Name);
+                }
+                dtRet.Rows.Add(dr);
+            }
+            //if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("", "", "", "S", "", "", "", SUBRC, "", "", "", "", ""); }
+            List<PSalesQuotationDocumentDetails> SalesQuotationDocumentDetails = new List<PSalesQuotationDocumentDetails>();
+            
+            foreach (DataRow dr in dtRet.Rows)
+            {
+                PSalesQuotationDocumentDetails SalesQuotationDocumentDetail = new PSalesQuotationDocumentDetails();
+                SalesQuotationDocumentDetail.QuotationNo = dr["VBELV"].ToString();
+                SalesQuotationDocumentDetail.Item = Convert.ToInt32(dr["POSNV"]);
+                SalesQuotationDocumentDetail.SubSequentItem = Convert.ToInt32(dr["POSNN"]);
+                SalesQuotationDocumentDetail.DocumentNumber = dr["VBELN"].ToString();
+                SalesQuotationDocumentDetail.DocumentCode = dr["VBTYP_N"].ToString();
+                SalesQuotationDocumentDetail.DocumentName = dr["DDTEXT"].ToString();
+                SalesQuotationDocumentDetail.DocumentDate = Convert.ToDateTime(dr["ERDAT"]);
+                SalesQuotationDocumentDetail.Material = dr["MATNR"].ToString();
+                SalesQuotationDocumentDetail.MachineSerialNumber = dr["SERNR"].ToString();
+                SalesQuotationDocumentDetails.Add(SalesQuotationDocumentDetail);
+            }
+            return SalesQuotationDocumentDetails;
+        }
+        public void UpdateStatusSalesQuotationFlow(PSalesQuotationDocumentDetails SalesQuotationDocumentDetail)
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_FLOW_DET");
+            tagListBapi.SetValue("UPDATE", "X");
+            IRfcTable tagTable = tagListBapi.GetTable("IT_UPDATE");
+            tagTable.Append();
+            tagTable.SetValue("VBELV", SalesQuotationDocumentDetail.QuotationNo);
+            tagTable.SetValue("POSNV", SalesQuotationDocumentDetail.Item);
+            tagTable.SetValue("VBELN", SalesQuotationDocumentDetail.DocumentNumber);
+            tagTable.SetValue("POSNN", SalesQuotationDocumentDetail.SubSequentItem);
+            tagTable.SetValue("VBTYP_N", SalesQuotationDocumentDetail.DocumentCode);
+            tagListBapi.Invoke(SAP.RfcDes());
         }
     }
 }

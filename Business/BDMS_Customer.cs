@@ -890,6 +890,9 @@ namespace Business
                         }
                     }
                 }
+                 
+                new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer.CustomerID);
+                 
                 return success;
             }
             catch (Exception e1)
@@ -931,5 +934,6 @@ namespace Business
             string endPoint = "Customer/ShipTo?CustomerShipToID=" + CustomerShipToID + "&CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PDMS_CustomerShipTo>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
     }
 }
