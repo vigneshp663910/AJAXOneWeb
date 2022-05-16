@@ -184,7 +184,8 @@
                         <label class="modal-label">Division</label>
                         <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" BorderColor="Silver" />
                     </div>
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-8 text-left">
+                        <label class="modal-label">-</label>
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
