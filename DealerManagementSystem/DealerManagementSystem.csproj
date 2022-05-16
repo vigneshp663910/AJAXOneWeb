@@ -344,6 +344,7 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
     <Content Include="ViewDashboard\LeadStatusAssigned.ascx" />
     <Content Include="ViewDashboard\LeadStatusOpen.ascx" />
     <Content Include="ViewDashboard\LeadStatusQuotation.ascx" />
@@ -826,6 +827,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.cs">
+      <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
+      <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.cs">
       <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>

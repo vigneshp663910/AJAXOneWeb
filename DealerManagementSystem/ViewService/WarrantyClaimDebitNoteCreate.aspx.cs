@@ -40,6 +40,7 @@ namespace DealerManagementSystem.ViewService
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » Warranty » Warranty Debit Note Create');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)
