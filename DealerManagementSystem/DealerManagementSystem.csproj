@@ -234,6 +234,7 @@
     <Content Include="CSS\jquery-ui.css" />
     <Content Include="CSS\StyleSheet1.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Geolocation.aspx" />
     <Content Include="Help\Help.aspx" />
     <Content Include="Help\HelpDoc.aspx" />
     <Content Include="Help\UserGuide.aspx" />
@@ -362,6 +363,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\LocationMap.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -673,6 +675,13 @@
     <Compile Include="DealerOld.Master.designer.cs">
       <DependentUpon>DealerOld.Master</DependentUpon>
     </Compile>
+    <Compile Include="Geolocation.aspx.cs">
+      <DependentUpon>Geolocation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Geolocation.aspx.designer.cs">
+      <DependentUpon>Geolocation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Help\Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -953,6 +962,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\LocationMap.aspx.cs">
+      <DependentUpon>LocationMap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\LocationMap.aspx.designer.cs">
+      <DependentUpon>LocationMap.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>

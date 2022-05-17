@@ -109,7 +109,7 @@ namespace DealerManagementSystem
 
         }
 
-        public static void UserAudit()
+        public static void UserAudit(string Latitude,string Longitude)
         {
             new BUser().UserAudit(new PUserAudit()
             {
@@ -119,7 +119,10 @@ namespace DealerManagementSystem
                 LoginDate = DateTime.Now,
                 LogoutDate = DateTime.Now,
                 SesionId = PSession.SessionId,
-                UserId = PSession.User.UserID
+                UserId = PSession.User.UserID,
+                Latitude = Latitude,
+                Longitude= Longitude
+
             });
 
         }

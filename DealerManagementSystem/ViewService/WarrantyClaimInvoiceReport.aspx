@@ -283,11 +283,17 @@
                                                 <asp:Label ID="lblSAPInvoiceTDSValue" Text='<%# DataBinder.Eval(Container.DataItem, "SAPInvoiceTDSValue","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="PDF">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                          <asp:TemplateField HeaderText="PDF"><%--SAP Invoice Value--%>
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="~/FileFormat/Pdf_Icon.jpg" OnClick="ibPDF_Click" />
-                                                <tr>
+                                               <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="~/FileFormat/Pdf_Icon.jpg" OnClick="ibPDF_Click" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="Generate E-Invoice">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate> 
+                                                <asp:Button ID="btnGenerateEInvoice" runat="server" Text="Generate E-Invoice" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnGenerateEInvoice_Click" />
+                                                 <tr>
                                                     <td colspan="100%" style="padding-left: 96px">
                                                         <div id="WarrantyClaimInvoiceID-<%# Eval("WarrantyClaimInvoiceID") %>" style="display: none; position: relative;">
                                                             <asp:GridView ID="gvClaimInvoiceItem" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%">

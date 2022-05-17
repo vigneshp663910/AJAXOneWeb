@@ -572,7 +572,8 @@ namespace Properties
         GetPurchaseOrderIntegration = 20,
         MaterialIntegrationFromSAP = 21,
         CustomerIntegration =22  ,
-        UpdateSalesQuotationDeliveryDetails = 23 
+        UpdateSalesQuotationDeliveryDetails = 23 ,
+        SalesQuotationDocumentsFromSap = 24
     }
 
     public enum DashboardControl

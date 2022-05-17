@@ -350,7 +350,14 @@ namespace Business
                                     DealerCode = Convert.ToString(dr["UserName"]), 
                                     DealerName = Convert.ToString(dr["ContactName"]),
                                     IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
-                                    EInvoiceDate= DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"]) 
+                                    EInvoiceDate= DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"]) ,
+                                    EInvAPI = DBNull.Value == dr["EInvAPI"] ? false : Convert.ToBoolean(dr["EInvAPI"]),
+                                    EInvUserAPI = new PEInvUserAPI()
+                                    {
+                                        Handle = Convert.ToString(dr["EInvHandle"]),
+                                        HandleType = Convert.ToString(dr["EInvHandleType"]),
+                                        Password = Convert.ToString(dr["EInvPassword"]),
+                                    }
                                 };
                                 W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
 

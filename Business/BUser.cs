@@ -869,7 +869,9 @@ namespace Business
                 DbParameter Browser = provider.CreateParameter("Browser", userAudit.Browser, DbType.String);
                 DbParameter SesionId = provider.CreateParameter("SesionId", userAudit.SesionId, DbType.String);
                 DbParameter IsSessionExpired = provider.CreateParameter("IsSessionExpired", userAudit.IsSessionExpired, DbType.Boolean);
-                DbParameter[] userParams = new DbParameter[7] { UserId, LoginDate, LogoutDate, IPAddress, Browser, SesionId, IsSessionExpired };
+                DbParameter Latitude = provider.CreateParameter("Latitude", string.IsNullOrEmpty( userAudit.Latitude)?null: userAudit.Latitude, DbType.String);
+                DbParameter Longitude = provider.CreateParameter("Longitude", string.IsNullOrEmpty(userAudit.Longitude) ? null : userAudit.Longitude, DbType.String);
+                DbParameter[] userParams = new DbParameter[9] { UserId, LoginDate, LogoutDate, IPAddress, Browser, SesionId, IsSessionExpired, Latitude, Longitude };
                 provider.Insert("InsertUpdateUserAuditDetails", userParams, false);
                 TraceLogger.Log(traceStartTime);
             }

@@ -78,6 +78,9 @@ namespace Properties
         public string Browser { get; set; }
         public string SesionId { get; set; }
         public bool IsSessionExpired { get; set; }
+
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
     }
     [Serializable]
     public class PContactDetail

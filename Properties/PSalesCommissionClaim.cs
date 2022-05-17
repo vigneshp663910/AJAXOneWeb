@@ -55,7 +55,7 @@ namespace Properties
     {
         public long SalesCommissionClaimInvoiceID { get; set; }
         public string InvoiceNumber { get; set; }
-        public DateTime? InvoiceDate { get; set; }
+        public DateTime InvoiceDate { get; set; }
 
         public PSalesCommissionClaim Claim { get; set; }
         public PSalesQuotation Quotation { get; set; }
@@ -84,7 +84,7 @@ namespace Properties
     [Serializable]
     public class PSalesCommissionClaimInvoiceItem
     {
-        public long SalesCommissionClaimItemInvoiceID { get; set; }
+        public long SalesCommissionClaimInvoiceItemID { get; set; }
         public long SalesCommissionClaimInvoiceID { get; set; }
         public string Item { get; set; }
         public PDMS_Material Material { get; set; }

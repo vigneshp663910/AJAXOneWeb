@@ -38,8 +38,17 @@ namespace Properties
         public string AuthorityMobile { get; set; } 
         public List<PDMS_Customer> Customer { get; set; } 
         public Boolean IsActive { get; set; }
+        public Boolean EInvAPI { get; set; }
+        public PEInvUserAPI EInvUserAPI { get; set; }
     }
-       [Serializable]
+    [Serializable]
+    public class PEInvUserAPI
+    {
+        public string Handle { get; set; }
+        public string HandleType { get; set; }
+        public string Password { get; set; }
+    }
+    [Serializable]
     public class PDMS_DealerOffice
     {
         public int OfficeID { get; set; }

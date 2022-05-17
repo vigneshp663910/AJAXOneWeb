@@ -11,8 +11,8 @@ namespace DealerManagementSystem
         private int NoOfAllowedLoginAttempt;
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            //txtUsername.Text = "IT.OFFICER4";
-            //txtPassword.Text = "abc@123";
+            txtUsername.Text = "IT.OFFICER4";
+            txtPassword.Text = "abc@123";
             txtUsername.Text = "IT.MGR2";
             txtPassword.Text = "ajax@123";
             login();
@@ -20,6 +20,7 @@ namespace DealerManagementSystem
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string d = hfLatitude.Value;
             NoOfAllowedLoginAttempt = Convert.ToInt16(System.Configuration.ConfigurationManager.AppSettings["NoOfAllowedLoginAttempts"]);
             if (!Page.IsPostBack)
             {
@@ -108,7 +109,7 @@ namespace DealerManagementSystem
                     return;
                 }
 
-                UIHelper.UserAudit();
+                UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
                     Redirect(UIHelper.RedirectToPasswordChange);

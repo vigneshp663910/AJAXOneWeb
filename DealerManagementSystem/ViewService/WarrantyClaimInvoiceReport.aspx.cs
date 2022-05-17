@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -439,5 +440,72 @@ namespace DealerManagementSystem.ViewService
             }
             new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
         }
+        protected void btnGenerateEInvoice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblWarrantyClaimInvoiceID = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblWarrantyClaimInvoiceID");
+
+                PDMS_WarrantyClaimInvoice SOIs = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(Convert.ToInt64(lblWarrantyClaimInvoiceID.Text), "", null, null, null, null, "")[0];
+
+                foreach (PDMS_WarrantyClaimInvoiceItem inv in SOIs.InvoiceItems)
+                {
+                    if (string.IsNullOrEmpty(inv.HSNCode))
+                    {
+                        lblMessage.Text = "HSN Code Missed. Please contact admin";
+                        lblMessage.ForeColor = Color.Red;
+                        lblMessage.Visible = true;
+                        return;
+                    }
+                    else if (inv.CGSTValue + inv.SGSTValue + inv.IGSTValue == 0)
+                    {
+                        lblMessage.Text = "GST Value Missed. Please contact admin";
+                        lblMessage.ForeColor = Color.Red;
+                        lblMessage.Visible = true;
+                        return;
+                    }
+                }
+                if ((SOIs.Dealer.IsEInvoice) && (SOIs.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
+                {
+                    if (string.IsNullOrEmpty(SOIs.IRN))
+                    {
+                        lblMessage.Visible = true;
+                        try
+                        {
+                            Label InvoiceNumber = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
+                            PApiEInv ul = new PApiEInv();
+                            ul.handle = SOIs.Dealer.EInvUserAPI.Handle;
+                            ul.handleType = SOIs.Dealer.EInvUserAPI.HandleType;
+                            ul.password = SOIs.Dealer.EInvUserAPI.Password;
+                           //string AccessToken = new JavaScriptSerializer().Deserialize<PData>(new JavaScriptSerializer().Serialize(new JavaScriptSerializer().Deserialize<PApiResult>(new BAPI().GetAccessToken(ul)).Data)).token;
+
+                            string AccessToken1 =  JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult1>(new BApiEInv().GetAccessToken(ul)).Data)).token;
+                            //new BDMS_EInvoice().GeneratEInvoiceUsingAPI(InvoiceNumber.Text, AccessToken);
+                            lblMessage.Visible = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            lblMessage.Text = ex.Message;
+                            lblMessage.ForeColor = Color.Red;
+                            lblMessage.Visible = true;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    }
+    public class PApiResult1
+    {
+        public PData Data { get; set; }
+    }
+    public class PData
+    {
+        public string token { get; set; }
     }
 }

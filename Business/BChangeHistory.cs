@@ -44,7 +44,7 @@ namespace Business
         
         public DataTable GetCustomerChangeHistory(string CustomerCode, int? ChangeHistoryFieldID, DateTime? DateFrom, DateTime? DateTo)
         {
-            DbParameter CustomerIDP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+            DbParameter CustomerIDP = provider.CreateParameter("CustomerCode",string.IsNullOrEmpty(CustomerCode)?null: CustomerCode, DbType.String);
             DbParameter ChangeHistoryFieldP = provider.CreateParameter("ChangeHistoryFieldID",  ChangeHistoryFieldID , DbType.Int32);
             DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
             DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);

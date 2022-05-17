@@ -163,6 +163,7 @@
     <Compile Include="BUserType.cs" />
     <Compile Include="BXcel.cs" />
     <Compile Include="B_HDFCBankPaymentIntegration.cs" />
+    <Compile Include="BApiEInv.cs" />
     <Compile Include="EmailManager.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

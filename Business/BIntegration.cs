@@ -99,6 +99,12 @@ namespace Business
                         new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                         break;
 
+                    case Jobs.SalesQuotationDocumentsFromSap:
+                        new FileLogger().LogMessageService("Started", "SalesQuotationDocumentsFromSap", null);
+                        new BSalesQuotation().GetSalesQuotationFlow();
+                        new FileLogger().LogMessageService("Ended", "SalesQuotationDocumentsFromSap ", null);
+                        break;
+
                         //case Jobs.ICTicketIntegrationFromCRM:
                         //    new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
                         //    C = new BDMS_ICTicket().IntegrationICTicket();

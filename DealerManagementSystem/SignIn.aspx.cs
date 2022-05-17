@@ -128,7 +128,7 @@ namespace DealerManagementSystem
             PSession.UserId = userId;
             PSession.User.Dealer = new BDealer().GetDealerByUserID(userId);
             PSession.User.DMSModules = new BUser().GetDMSModuleByUser(userId, null, null);
-            UIHelper.UserAudit();
+            UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
         }
 
         void login()

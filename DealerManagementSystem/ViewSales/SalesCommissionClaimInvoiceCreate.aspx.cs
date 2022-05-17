@@ -148,6 +148,9 @@ namespace DealerManagementSystem.ViewSales
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
+        
+            //new BDMS_EInvoice().GeneratEInvoiceForSalesCommissionClaimInvoice(Convert.ToInt64(Results.Data), AccessToken);
+
             lblMessage.Text = "Updated Successfully";
             lblMessage.ForeColor = Color.Green;
             FillClaim();
