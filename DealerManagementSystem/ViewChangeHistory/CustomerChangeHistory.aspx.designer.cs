@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewService
+namespace DealerManagementSystem.ViewChangeHistory
 {
 
 
-    public partial class WarrantyClaimAnnexureCreate
+    public partial class CustomerChangeHistory
     {
 
         /// <summary>
@@ -24,120 +24,93 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// ddlDealerCode control.
+        /// txtDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
+        protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
 
         /// <summary>
-        /// ddlYear control.
+        /// txtDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
+        protected global::System.Web.UI.WebControls.TextBox txtDateTo;
 
         /// <summary>
-        /// ddlMonth control.
+        /// txtCustomerCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
 
         /// <summary>
-        /// ddlMonthRange control.
+        /// ddlCustomerField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMonthRange;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerField;
 
         /// <summary>
-        /// ddlInvoiceTypeID control.
+        /// btnSearchCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlInvoiceTypeID;
+        protected global::System.Web.UI.WebControls.Button btnSearchCustChgHst;
 
         /// <summary>
-        /// d1 control.
+        /// btnExportExcelCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl d1;
+        protected global::System.Web.UI.WebControls.Button btnExportExcelCustChgHst;
 
         /// <summary>
-        /// Label4 control.
+        /// lblRowCountCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblRowCountCustChgHst;
 
         /// <summary>
-        /// txtDeliveryChallan control.
+        /// ibtnCustChgHstArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDeliveryChallan;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCustChgHstArrowLeft;
 
         /// <summary>
-        /// btnSearch control.
+        /// ibtnCustChgHstArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnCustChgHstArrowRight;
 
         /// <summary>
-        /// lblAnnexureNumber control.
+        /// gvCustChgHst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAnnexureNumber;
-
-        /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
-
-        /// <summary>
-        /// btnGenerate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerate;
-
-        /// <summary>
-        /// gvICTickets control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvICTickets;
+        protected global::System.Web.UI.WebControls.GridView gvCustChgHst;
     }
 }

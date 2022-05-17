@@ -1,4 +1,5 @@
 ﻿using Business;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,13 +27,20 @@ namespace DealerManagementSystem.ViewPreSale
                 Session["EnquiryIndiamart"] = value;
             }
         }
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Enquiry Indiamart');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Enquiry Indiamart');</script>");
             if (!IsPostBack)
             {
-                txtDateFrom.Text = DateTime.Now.AddDays(-1).ToShortDateString();
-                txtDateTo.Text = DateTime.Now.ToShortDateString();
+                txtDateFrom.Text = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+                txtDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
 

@@ -344,6 +344,7 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
     <Content Include="ViewDashboard\LeadStatusAssigned.ascx" />
     <Content Include="ViewDashboard\LeadStatusOpen.ascx" />
     <Content Include="ViewDashboard\LeadStatusQuotation.ascx" />
@@ -454,6 +455,7 @@
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
+    <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimApprove.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimCreate.aspx" />
@@ -825,6 +827,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.cs">
+      <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
+      <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.cs">
       <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>
@@ -1409,6 +1418,13 @@
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewReport\CustomerVisitReport.aspx.cs">
+      <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewReport\CustomerVisitReport.aspx.designer.cs">
+      <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaim.aspx.cs">
       <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>

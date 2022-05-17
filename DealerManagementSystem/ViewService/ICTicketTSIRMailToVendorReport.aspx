@@ -50,17 +50,16 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px"/>
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
             </fieldset>
         </div>
-        <div class="col-md-12">
-            <div class="col-md-12 Report">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket TSIR Mail Send Vendor</legend>
-                    <div class="col-md-12 Report">
-                        <%--<div class="boxHead">
+        <div class="col-md-12 Report">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket TSIR Mail Send Vendor</legend>
+                <div class="col-md-12 Report">
+                    <%--<div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
@@ -76,16 +75,15 @@
                                 </div>
                             </div>
                         </div>--%>
-                        <asp:GridView ID="gvICTickets" runat="server" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="40" OnPageIndexChanging="gvICTickets_PageIndexChanging">
-                            <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
-                    </div>
-                </fieldset>
-            </div>
+                    <asp:GridView ID="gvICTickets" runat="server" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="40" OnPageIndexChanging="gvICTickets_PageIndexChanging">
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </fieldset>
         </div>
     </div>
 </asp:Content>

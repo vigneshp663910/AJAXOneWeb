@@ -87,7 +87,7 @@ namespace DealerManagementSystem.ViewMaster
             Emp.Name = txtName.Text.Trim();
             Emp.FatherName = txtFatherName.Text.Trim();
 
-            Emp.DOB = Convert.ToDateTime(txtDOB.Text.Trim());
+            Emp.DOB = string.IsNullOrEmpty(txtDOB.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOB.Text.Trim());
             Emp.ContactNumber = txtContactNumber.Text.Trim();
             Emp.ContactNumber1 = txtContactNumber1.Text.Trim();
 
