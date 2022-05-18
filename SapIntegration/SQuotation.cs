@@ -22,21 +22,21 @@ namespace SapIntegration
             }
             if (string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
             {
-                //if (pSalesQuotation.ShipTo != null)
-                //{
-                //    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
-                //}
-                //else
-                //{
-                //    if (pSalesQuotation.Lead.Customer.CustomerCode != null)
-                //    {
-                //        tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
-                //    }
-                //}
+                if (pSalesQuotation.ShipTo != null)
+                {
+                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.ShipTo.CustomerCode);
+                }
+                else
+                {
+                    if (pSalesQuotation.Lead.Customer.CustomerCode != null)
+                    {
+                        tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
+                    }
+                }
 
                 if (pSalesQuotation.Lead.Customer.CustomerCode != null)
                 {
-                    tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
+                    //tagListBapi.SetValue("SHIP_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
                     tagListBapi.SetValue("SOLD_TO_PARTY", pSalesQuotation.Lead.Customer.CustomerCode);
                 }
             }
@@ -427,7 +427,10 @@ namespace SapIntegration
                 SalesQuotationDocumentDetail.DocumentNumber = dr["VBELN"].ToString();
                 SalesQuotationDocumentDetail.DocumentCode = dr["VBTYP_N"].ToString();
                 SalesQuotationDocumentDetail.DocumentName = dr["DDTEXT"].ToString();
-                SalesQuotationDocumentDetail.DocumentDate = Convert.ToDateTime(dr["ERDAT"]);
+                if (dr["ERDAT"] != "0000-00-00")
+                {
+                    SalesQuotationDocumentDetail.DocumentDate = Convert.ToDateTime(dr["ERDAT"]);
+                }
                 SalesQuotationDocumentDetail.Material = dr["MATNR"].ToString();
                 SalesQuotationDocumentDetail.MachineSerialNumber = dr["SERNR"].ToString();
                 SalesQuotationDocumentDetails.Add(SalesQuotationDocumentDetail);
