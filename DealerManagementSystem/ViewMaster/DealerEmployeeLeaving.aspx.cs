@@ -105,7 +105,7 @@ namespace DealerManagementSystem.ViewMaster
             lblName.Text = Emp.Name;
             lblFatherName.Text = Emp.FatherName;
             lblDOB.Text = Convert.ToString(Emp.DOB);
-            lblContactNumber.Text = Emp.ContactNumber;
+            lblContactNumber.Text = "<a href='tel:" + Emp.ContactNumber + "'>" + Emp.ContactNumber + "</a>";
 
             //lblDateOfJoining.Text = Convert.ToString(Emp.DateOfJoining);
             //if (Emp.DealerDepartment != null)
@@ -121,7 +121,7 @@ namespace DealerManagementSystem.ViewMaster
             //    lblReportingTo.Text = Emp.ReportingTo.Name;
             //}
 
-            lblEmail.Text = Emp.Email;
+            lblEmail.Text = "<a href='mailto:" + Emp.Email + "'>" + Emp.Email + "</a>";
             lblAddress.Text = Emp.Address;
             lblLocation.Text = Emp.Location;
             lblAadhaarCardNo.Text = Emp.AadhaarCardNo;
