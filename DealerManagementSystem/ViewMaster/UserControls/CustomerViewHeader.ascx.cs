@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         { 
             lblCustomer.Text = Customer.CustomerFullName;
             lblContactPerson.Text = Customer.ContactPerson;
-            lblMobile.Text = Customer.Mobile;
+            lblMobile.Text = "<a href='tel:" + Customer.Mobile + "'>" + Customer.Mobile + "</a>";
             lblAlternativeMobile.Text = "<a href='tel:" + Customer.AlternativeMobile + "'>" + Customer.AlternativeMobile + "</a>";
             lblEmail.Text = "<a href='mailto:" + Customer.Email + "'>" + Customer.Email + "</a>";
             lblGSTIN.Text = Customer.GSTIN;
