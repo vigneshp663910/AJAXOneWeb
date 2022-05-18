@@ -51,9 +51,9 @@ namespace DealerManagementSystem.Account
 
                 lblVillage.Text = Emp.Village;
                 lblEmail.Text = "<a href=MAILTO:" + Emp.Email + '>' + Emp.Email + "</a>";
-                lblContactNo1.Text = Emp.ContactNumber;
-                lblContactNo2.Text = Emp.ContactNumber1;
-                lblEmergencyContact.Text = Emp.EmergencyContactNumber;
+                lblContactNo1.Text = "<a href=TEL:" + Emp.ContactNumber + '>' + Emp.ContactNumber + "</a>";
+                lblContactNo2.Text = "<a href=TEL:" + Emp.ContactNumber1 + '>' + Emp.ContactNumber1 + "</a>";
+                lblEmergencyContact.Text = "<a href=TEL:" + Emp.EmergencyContactNumber + '>' + Emp.EmergencyContactNumber + "</a>";
                 lblEmpID.Text = Emp.DealerEmployeeID.ToString();
                 //lblUserID.Text = PSession.UserId.ToString() + "/" + PSession.User.UserName;
                 lblUserID.Text =  PSession.User.UserName;
