@@ -321,6 +321,48 @@ namespace Business
                 //  lblMessage.Visible = true;
             }
             return null;
-        }        
+        }
+
+        public List<PSalesCommissionClaimPrice> GetSalesCommissionClaimPrice(int? PlantID, string Material)
+        {
+            List<PSalesCommissionClaimPrice> MML = new List<PSalesCommissionClaimPrice>();
+            try
+            {
+                DbParameter PlantIDP = provider.CreateParameter("PlantID", PlantID, DbType.Int32);
+                DbParameter MaterailP = provider.CreateParameter("Material", String.IsNullOrEmpty(Material) ? null : Material, DbType.String);
+
+                DbParameter[] Params = new DbParameter[2] { PlantIDP, MaterailP };
+                using (DataSet DataSet = provider.Select("GetSalesCommissionClaimPrice", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PSalesCommissionClaimPrice()
+                            {
+                                PlantName = new PPlant()
+                                {
+                                    PlantCode = Convert.ToString(dr["PlantCode"]),
+
+                                }, 
+                                Materail = new PDMS_Material()
+                                {
+                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
+                                    MaterialCode = Convert.ToString(dr["MaterialCode"])
+                                }, 
+
+                                Percentage = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Percentage"]),
+                                Amount = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Amount"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return MML;
+        }
     }
 }
