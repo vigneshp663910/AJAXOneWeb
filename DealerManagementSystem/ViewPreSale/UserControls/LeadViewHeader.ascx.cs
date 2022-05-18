@@ -29,8 +29,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblRemarks.Text = Lead.Remarks;
             lblCustomer.Text = Lead.Customer.CustomerFullName;
             lblContactPerson.Text = Lead.Customer.ContactPerson;
-            lblMobile.Text = Lead.Customer.Mobile;
-            lblEmail.Text = Lead.Customer.Email;
+            lblMobile.Text = "<a href='tel:" + Lead.Customer.Mobile + "'>" + Lead.Customer.Mobile + "</a>";
+            lblEmail.Text = "<a href='mailto:" + Lead.Customer.Email + "'>" + Lead.Customer.Email + "</a>";
 
             string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
             lblLocation.Text = Location; 

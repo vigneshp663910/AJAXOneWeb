@@ -62,8 +62,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblLocation.Text = ColdVisit.Location;
             lblCustomer.Text = ColdVisit.Customer.CustomerFullName;
             lblContactPerson.Text = ColdVisit.Customer.ContactPerson;
-            lblMobile.Text = ColdVisit.Customer.Mobile;
-            lblEmail.Text = ColdVisit.Customer.Email;
+            lblMobile.Text = "<a href='tel:" + ColdVisit.Customer.Mobile + "'>" + ColdVisit.Customer.Mobile + "</a>";
+            lblEmail.Text = "<a href='mailto:" + ColdVisit.Customer.Email + "'>" + ColdVisit.Customer.Email + "</a>";
 
             lblStatus.Text = ColdVisit.Status.Status;
             lblImportance.Text = ColdVisit.Importance.Importance;

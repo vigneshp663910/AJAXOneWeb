@@ -1577,8 +1577,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 //PDMS_CustomerShipTo ShipTo=  new BDMS_Customer().GetCustomerShopTo(null, Customer.CustomerID);
                 lblShipToContactPerson.Text = Quotation.ShipTo.ContactPerson;
-                lblShipToMobile.Text = Quotation.ShipTo.Mobile;
-                lblShipToEmail.Text = Quotation.ShipTo.Email;
+                lblShipToMobile.Text = "<a href='tel:" + Quotation.ShipTo.Mobile + "'>" + Quotation.ShipTo.Mobile + "</a>";
+                lblShipToEmail.Text = "<a href='mailto:" + Quotation.ShipTo.Email + "'>" + Quotation.ShipTo.Email + "</a>";
                 lblShipToAddress1.Text = Quotation.ShipTo.Address1;
                 lblShipToAddress2.Text = Quotation.ShipTo.Address2;
                 lblShipToAddress3.Text = Quotation.ShipTo.Address3;
