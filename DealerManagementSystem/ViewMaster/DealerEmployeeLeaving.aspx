@@ -49,26 +49,26 @@
                                 <HeaderStyle Width="62px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Dealer Name">
+                            <asp:TemplateField HeaderText="Dealer Name" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                                <HeaderStyle Width="250px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                               
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Name">
+                            <asp:TemplateField HeaderText="Name" HeaderStyle-HorizontalAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
                                 </ItemTemplate>
                                 <HeaderStyle Width="162px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Father Name">
+                            <asp:TemplateField HeaderText="Father Name" HeaderStyle-HorizontalAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="lblFatherName" Text='<%# DataBinder.Eval(Container.DataItem, "FatherName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle Width="192px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Contact Number">
                                 <ItemTemplate>
@@ -85,27 +85,27 @@
                                         <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
                                     </asp:Label>
                                 </ItemTemplate>
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="State">
                                 <ItemTemplate>
                                     <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle Width="75px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Aadhaar Card No">
                                 <ItemTemplate>
                                     <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "AadhaarCardNo" )%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="PAN No">
                                 <ItemTemplate>
                                     <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "PANNo")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle Width="76px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Edit Role">
                                 <ItemTemplate>
