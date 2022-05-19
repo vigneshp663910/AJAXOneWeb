@@ -367,6 +367,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
@@ -987,6 +988,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\SalesCommissionClaimPrice.aspx.cs">
+      <DependentUpon>SalesCommissionClaimPrice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\SalesCommissionClaimPrice.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimPrice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\LocationMap.aspx.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>

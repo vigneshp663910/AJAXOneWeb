@@ -1380,7 +1380,7 @@ namespace Business
                                 Service.PaidServiceInvoiceID = Convert.ToInt64(dr["ServiceQuotationID"]);
                                 Service.InvoiceNumber = Convert.ToString(dr["QuotationNumber"]);
                                 Service.InvoiceDate = Convert.ToDateTime(dr["QuotationDate"]);
-                                Service.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
+                                Service.GrandTotal = (dr["GrandTotal"]== DBNull.Value) ?0:Convert.ToInt32(dr["GrandTotal"]);
                                 Service.Through = Convert.ToString(dr["Through"]);
                                 Service.LRNumber = Convert.ToString(dr["LRNumber"]);
 

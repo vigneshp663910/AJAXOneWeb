@@ -353,7 +353,9 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Mobile">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
+                                        <asp:Label ID="lblMobile" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Mobile")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Relation">
@@ -410,7 +412,9 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Mobile">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Employee.ContactNumber")%>' runat="server" />
+                                        <asp:Label ID="lblMobile" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Employee.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "Employee.ContactNumber")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
@@ -483,13 +487,17 @@
                                 <asp:TemplateField HeaderText="Mobile">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.Mobile")%>' runat="server" />
+                                        <asp:Label ID="lblMobile" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Fleet.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Fleet.Mobile")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="EMail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.EMail")%>' runat="server" />
+                                        <asp:Label ID="lblEMail" runat="server">
+                                            <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Fleet.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Fleet.EMail")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
@@ -621,13 +629,17 @@
                                 <asp:TemplateField HeaderText="Mobile">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>' runat="server" />
+                                        <asp:Label ID="lblMobile" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="EMail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>' runat="server" />
+                                        <asp:Label ID="lblEMail" runat="server">
+                                            <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -736,13 +748,17 @@
                                 <asp:TemplateField HeaderText="Mobile">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Mobile")%>' runat="server" />
+                                        <asp:Label ID="lblMobile" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Mobile")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="EMail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "EMail")%>' runat="server" />
+                                        <asp:Label ID="lblEMail" runat="server">
+                                            <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "EMail")%>'><%# DataBinder.Eval(Container.DataItem, "EMail")%></a>
+                                        </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 

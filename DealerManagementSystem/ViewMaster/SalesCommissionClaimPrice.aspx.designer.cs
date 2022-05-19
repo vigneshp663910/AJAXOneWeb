@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewService
+namespace DealerManagementSystem.ViewMaster
 {
 
 
-    public partial class TicketTracking
+    public partial class SalesCommissionClaimPrice
     {
 
         /// <summary>
@@ -24,66 +24,75 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// txtICTicket control.
+        /// HiddenID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtICTicket;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenID;
 
         /// <summary>
-        /// btnSearch control.
+        /// ddlPlant control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPlant;
 
         /// <summary>
-        /// gvPSR control.
+        /// txtMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPSR;
+        protected global::System.Web.UI.WebControls.TextBox txtMaterial;
 
         /// <summary>
-        /// gvPSC control.
+        /// btnSalCommClaimPriceSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPSC;
+        protected global::System.Web.UI.WebControls.Button btnSalCommClaimPriceSearch;
 
         /// <summary>
-        /// gvInv control.
+        /// lblRowCountSalCommClaimPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvInv;
+        protected global::System.Web.UI.WebControls.Label lblRowCountSalCommClaimPrice;
 
         /// <summary>
-        /// gvICTickets control.
+        /// ibtnSalCommClaimPriceArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvICTickets;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnSalCommClaimPriceArrowLeft;
 
         /// <summary>
-        /// gvClaimByClaimID control.
+        /// ibtnSalCommClaimPriceArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvClaimByClaimID;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnSalCommClaimPriceArrowRight;
+
+        /// <summary>
+        /// gvSalCommClaimPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSalCommClaimPrice;
     }
 }

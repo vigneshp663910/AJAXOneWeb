@@ -130,13 +130,17 @@
                                     <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMobile" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%>' runat="server" />
+                                            <asp:Label ID="lblMobile" runat="server">
+                                                <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%></a>
+                                            </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EMail">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblEMail" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%>' runat="server" />
+                                            <asp:Label ID="lblEMail" runat="server">
+                                                <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%></a>
+                                            </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField>

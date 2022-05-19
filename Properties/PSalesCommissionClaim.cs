@@ -119,4 +119,22 @@ namespace Properties
         public string disp_sup_pin { get; set; }
         public string disp_sup_stcd { get; set; }
     }
+
+    [Serializable]
+    public class PSalesCommissionClaimPrice
+    {
+        public long SalesCommissionClaimPriceID { get; set; }
+        public PPlant PlantCode { get; set; }
+        public PPlant PlantName { get; set; }
+        public PDMS_Material Materail { get; set; }
+        public PDMS_Material MaterailCode { get; set; }
+        public decimal? Percentage { get; set; }
+        public decimal? Amount { get; set; }
+        public Boolean IsActive { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        
+    }
 }

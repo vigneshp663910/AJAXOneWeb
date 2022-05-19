@@ -296,17 +296,23 @@
                                 </asp:TemplateField>--%>
                                 <asp:templatefield headertext="Contact Number" itemstyle-horizontalalign="Right">
                                     <itemtemplate>
-                                        <asp:label id="lblContactNumber" text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' runat="server" />
+                                        <asp:label id="lblContactNumber" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
+                                        </asp:label>
                                     </itemtemplate>
                                 </asp:templatefield>
                                 <asp:templatefield headertext="Emergency Contact No.">
                                     <itemtemplate>
-                                        <asp:label id="lblEmergencyContactNumber" text='<%# DataBinder.Eval(Container.DataItem, "EmergencyContactNumber")%>' runat="server" />
+                                        <asp:label id="lblEmergencyContactNumber" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "EmergencyContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "EmergencyContactNumber")%></a>
+                                        </asp:label>
                                     </itemtemplate>
                                 </asp:templatefield>
                                 <asp:templatefield headertext="Email">
                                     <itemtemplate>
-                                        <asp:label id="lblEmail" text='<%# DataBinder.Eval(Container.DataItem, "Email")%>' runat="server" />
+                                        <asp:label id="lblEmail" runat="server">
+                                            <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
+                                        </asp:label>
                                     </itemtemplate>
                                 </asp:templatefield>
                                 <asp:templatefield headertext="State">
@@ -413,12 +419,16 @@
                                 </asp:templatefield>
                                 <asp:templatefield headertext="Contact Number">
                                     <itemtemplate>
-                                        <asp:label id="lblContactNumber" text='<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>' runat="server" />
+                                        <asp:label id="lblContactNumber" runat="server">
+                                            <a href='tel:<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%></a>
+                                        </asp:label>
                                     </itemtemplate>
                                 </asp:templatefield>
                                 <asp:templatefield headertext="Email ID">
                                     <itemtemplate>
-                                        <asp:label id="lblMail" text='<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>' runat="server" />
+                                        <asp:label id="lblMail" runat="server">
+                                            <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>'><%# DataBinder.Eval(Container.DataItem, "User.Mail")%></a>
+                                        </asp:label>
                                     </itemtemplate>
                                 </asp:templatefield>
                                 <asp:templatefield headertext="SMS">

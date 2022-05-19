@@ -97,8 +97,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             lblDealerCode.Text = Dealer.DealerCode;
             lblDealerName.Text = Dealer.DealerName;
-            lblMobile.Text = Dealer.Mobile;
-            lblEmail.Text = Dealer.Email;
+            lblMobile.Text = "<a href='tel:" + Dealer.Mobile + "'>" + Dealer.Mobile + "</a>";
+            lblEmail.Text = "<a href='mailto:" + Dealer.Email + "'>" + Dealer.Email + "</a>";
             cbIsActive.Checked = Dealer.IsActive;
             lblDealerCountry.Text = Dealer.Country;
             lblDealerState.Text = Dealer.StateN.State;

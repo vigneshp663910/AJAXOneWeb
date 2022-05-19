@@ -100,14 +100,18 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Contact Number">
                             <ItemTemplate>
-                                <asp:Label ID="lblContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblContactNumber" runat="server">
+                                    <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
+                                </asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="150px" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Email">
                             <ItemTemplate>
-                                <asp:Label ID="lblEmail" Text='<%# DataBinder.Eval(Container.DataItem, "Email")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblEmail" runat="server">
+                                    <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
+                                </asp:Label>
                             </ItemTemplate>
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
