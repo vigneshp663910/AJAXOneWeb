@@ -14,7 +14,7 @@ namespace DealerManagementSystem
             txtUsername.Text = "IT.OFFICER4";
             txtPassword.Text = "abc@123";
             txtUsername.Text = "IT.MGR2";
-            txtPassword.Text = "ajax@123";
+            txtPassword.Text = "kml@123";
             login();
         }
 
