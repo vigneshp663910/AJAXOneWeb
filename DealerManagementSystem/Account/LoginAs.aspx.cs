@@ -112,7 +112,7 @@ namespace DealerManagementSystem.Account
             }
             PSession.AccessToken = Convert.ToString(Results.Data);
             PSession.User = new BUser().GetUserByToken();
-            // UIHelper.UserAudit();
+            UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
             Response.Redirect(UIHelper.RedirectToHomePage);
 
             //AddToSession(UserID);

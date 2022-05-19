@@ -1526,5 +1526,30 @@ namespace Business
             }
             return false;
         }
+
+        public DataTable GetUserLocationCurrent()
+        {    
+            try
+            {
+                //  DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                //  DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
+
+                using (DataSet ds = provider.Select("GetUserLocationCurrent"))
+                {
+                    if (ds != null)
+                        return ds.Tables[0];
+                } 
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+            return null;
+        }
     }
 }

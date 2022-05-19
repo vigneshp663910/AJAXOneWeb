@@ -9,17 +9,16 @@
 
         //mapLink.href = '';
         //mapLink.textContent = '';
-
+       
         function success(position) {
+            debugger;
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            document.getElementById('hfLatitude').value = latitude;
-            document.getElementById('hfLongitude').value = longitude;
+            document.getElementById('MainContent_hfLatitude').value = latitude;
+            document.getElementById('MainContent_hfLongitude').value = longitude;
             status.textContent = '';
             //  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-            //  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-            alert(latitude);
-            alert(longitude);
+            //  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`; 
         }
         function error() {
             status.textContent = 'Unable to retrieve your location';

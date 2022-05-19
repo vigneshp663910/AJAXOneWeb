@@ -195,7 +195,8 @@ namespace DealerManagementSystem
                     lblMessage.Text = "You are not allowed to use";
                     lblMessage.Visible = true;
                     return;
-                } 
+                }
+                UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
                     Redirect(UIHelper.RedirectToPasswordChange);

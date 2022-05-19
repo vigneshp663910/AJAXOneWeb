@@ -216,6 +216,7 @@
     <Content Include="Ajax\Images\Pre-Sales4.jpg" />
     <Content Include="Ajax\Images\Pre-Sales5.jpg" />
     <Content Include="Ajax\Images\QuotationFooter.jpg" />
+    <Content Include="Ajax\Images\SalesManLogo.jfif" />
     <Content Include="Ajax\Images\Service1.jpg" />
     <Content Include="Ajax\Images\Service5.jpg" />
     <Content Include="Ajax\Images\star-empty-lg.png" />
@@ -268,6 +269,8 @@
     <Content Include="JSAutocomplete\ajax\ui1.8.22jquery-ui.js" />
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
+    <Content Include="MapTest1.aspx" />
+    <Content Include="MapTest2.aspx" />
     <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\DMM_Process.aspx" />
@@ -294,6 +297,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Help\Files\V1_AJAXOne.pdf" />
     <Content Include="Help\Files\V1_AJAXOne.pps" />
+    <Content Include="MapTestM.Master" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -716,6 +720,27 @@
     </Compile>
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MapTest1.aspx.cs">
+      <DependentUpon>MapTest1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MapTest1.aspx.designer.cs">
+      <DependentUpon>MapTest1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MapTest2.aspx.cs">
+      <DependentUpon>MapTest2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MapTest2.aspx.designer.cs">
+      <DependentUpon>MapTest2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MapTestM.Master.cs">
+      <DependentUpon>MapTestM.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MapTestM.Master.designer.cs">
+      <DependentUpon>MapTestM.Master</DependentUpon>
     </Compile>
     <Compile Include="PDF.aspx.cs">
       <DependentUpon>PDF.aspx</DependentUpon>

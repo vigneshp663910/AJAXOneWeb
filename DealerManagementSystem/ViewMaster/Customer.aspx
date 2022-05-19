@@ -98,7 +98,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-                         <div class="col-md-2 col-sm-12">
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
                             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                         </div>
@@ -150,7 +150,7 @@
                                                 <td>
                                                     <asp:ImageButton ID="ibtnCustArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnCustArrowLeft_Click" /></td>
                                                 <td>
-                                                    <asp:ImageButton ID="ibtnCustArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnCustArrowRight_Click"/></td>
+                                                    <asp:ImageButton ID="ibtnCustArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnCustArrowRight_Click" /></td>
                                             </tr>
                                         </table>
                                     </div>
