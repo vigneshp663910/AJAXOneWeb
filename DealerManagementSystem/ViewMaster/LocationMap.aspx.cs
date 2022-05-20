@@ -37,6 +37,7 @@ namespace DealerManagementSystem.ViewMaster
             if (!IsPostBack)
             { 
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
             }
         }
         public string ConvertDataTabletoString()
@@ -71,7 +72,20 @@ namespace DealerManagementSystem.ViewMaster
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
-            DataTable dt = new BUser().GetUserLocationCurrent();
+
+            int? UserID = null;
+            int? DealerID = null;
+
+
+            int? DealerDepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            if (ddlDealer.SelectedValue != "0")
+            {
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+                
+                UserID = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
+            }
+
+            DataTable dt = new BUser().GetUserLocationCurrent(DealerID, UserID, DealerDepartmentID,PSession.User.UserID);
             foreach (DataRow dr in dt.Rows)
             {
                 row = new Dictionary<string, object>();
@@ -79,8 +93,18 @@ namespace DealerManagementSystem.ViewMaster
                 row.Add("lat", Convert.ToString(dr["Latitude"]));
                 row.Add("lng", Convert.ToString(dr["Longitude"]));
                 row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"]));
+                if (Convert.ToString(dr["DealerDepartmentID"]) == "1")
+                {
+                    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/dollar.png");
+                }
+                else if (Convert.ToString(dr["DealerDepartmentID"]) == "2")
+                {
+                    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/mechanic.png");
+                }
+                else
+                    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/parks.png");
                 rows.Add(row);
-            } 
+            }
             CurrentLocation = serializer.Serialize(rows);
         }
 

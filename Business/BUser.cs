@@ -1527,18 +1527,22 @@ namespace Business
             return false;
         }
 
-        public DataTable GetUserLocationCurrent()
-        {    
+        public DataTable GetUserLocationCurrent(int? DealerID, int? UserID, int? DealerDepartmentID, int? LoginUserID)
+        {
             try
             {
-                //  DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
-                //  DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
 
-                using (DataSet ds = provider.Select("GetUserLocationCurrent"))
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+                DbParameter LoginUserIDP = provider.CreateParameter("LoginUserID", LoginUserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[4] { DealerIDP, UserIDP, DealerDepartmentIDP, LoginUserIDP };
+
+                using (DataSet ds = provider.Select("GetUserLocationCurrent", Params))
                 {
                     if (ds != null)
                         return ds.Tables[0];
-                } 
+                }
             }
             catch (SqlException sqlEx)
             {

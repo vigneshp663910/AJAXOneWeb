@@ -36,28 +36,32 @@
                             <label class="modal-label">Employee</label>
                             <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                         </div>
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Department</label>
+                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" AutoPostBack="true" />
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
             </div>
-            <div id="map_canvas" style="width: 100%; height: 400px"></div>
+            <div id="map_canvas" style="width: 100%; height: 600px"></div>
 
         </div>
 
     </div>
 
     <script type="text/javascript">
-         const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
-       /* const image = "file:///E:/Ajax_GithubDealerManagementSystemDealerManagementSystemAjaxImagesSalesManLogo.jfif";*/
+       //  const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+        const image = "http://maps.google.com/mapfiles/kml/shapes/man.png";
 
         /*function initialize() {*/
 
         var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
         var mapOptions = {
             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-            zoom: 5,
+            zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
             //  marker:true
         };
@@ -70,7 +74,7 @@
                 position: myLatlng,
                 map: map,
                 title: data.title,
-                icon: image,
+                icon: data.image,
             });
 
             (function (marker, data) {
