@@ -47,14 +47,14 @@
 
                         <asp:GridView ID="gvDealerDesignation" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvDealerDesignation_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center"  >
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="25px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Designation">
+                                <asp:TemplateField HeaderText="Designation" HeaderStyle-Width="350px">
                                     <ItemStyle BorderStyle="None"   HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerDesignationID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDesignationID")%>' Visible="false"></asp:Label>
