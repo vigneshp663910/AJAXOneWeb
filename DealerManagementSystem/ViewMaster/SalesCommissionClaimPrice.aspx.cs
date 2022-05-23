@@ -46,6 +46,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
+
         //protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    GetSalesCommissionClaimPrice();
@@ -79,8 +80,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             gvSalCommClaimPrice.PageIndex = e.NewPageIndex;
             SalesCommClaimPriceBind(gvSalCommClaimPrice, lblRowCountSalCommClaimPrice, SalesCommClaimPrice);
-        }
-        
+        }       
         void SalesCommClaimPriceBind(GridView gv, Label lbl, List<PSalesCommissionClaimPrice> Mat)
         {
             gv.DataSource = Mat;
@@ -105,8 +105,6 @@ namespace DealerManagementSystem.ViewMaster
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
         }
-
-
         private void GetSalesCommissionClaimPrice()
         {
             try
@@ -134,10 +132,193 @@ namespace DealerManagementSystem.ViewMaster
                     ibtnSalCommClaimPriceArrowRight.Visible = true;
                     lblRowCountSalCommClaimPrice.Text = (((gvSalCommClaimPrice.PageIndex) * gvSalCommClaimPrice.PageSize) + 1) + " - " + (((gvSalCommClaimPrice.PageIndex) * gvSalCommClaimPrice.PageSize) + gvSalCommClaimPrice.Rows.Count) + " of " + SalesCommClaimPrice.Count;
                 }
+
+                DropDownList ddlGPlant = gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant") as DropDownList;
+                new DDLBind(ddlGPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID", true, "Select Plant");
             }
             catch (Exception e1)
             {
                 DisplayErrorMessage(e1);
+            }
+        }
+        protected void lnkBtnSalCommClaimPriceEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                LinkButton lnkBtnSalCommClaimPriceEdit = (LinkButton)sender;
+                DropDownList ddlGPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant");
+                //TextBox txtMaterail = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterail");
+                TextBox txtMaterailCode = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterailCode");
+                TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
+                TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
+                CheckBox chkbxFIsActive = (CheckBox)gvSalCommClaimPrice.FooterRow.FindControl("chkbxFIsActive");
+                Button BtnAddOrUpdateSalCommClaimPrice = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateSalCommClaimPrice");
+                GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceEdit.NamingContainer);
+                Label lblPlantID = (Label)row.FindControl("lblPlantID");
+                ddlGPlant.SelectedValue = lblPlantID.Text;
+                //Label lblMaterial = (Label)row.FindControl("lblMaterial");
+                //txtMaterail.Text = lblMaterial.Text;
+                Label lblMaterialCode = (Label)row.FindControl("lblMaterialCode");
+                txtMaterailCode.Text = lblMaterialCode.Text;
+                Label lblPercentage = (Label)row.FindControl("lblPercentage");
+                txtPercentage.Text = lblPercentage.Text;
+                Label lblAmount = (Label)row.FindControl("lblAmount");
+                txtAmount.Text = lblAmount.Text;
+                CheckBox chkbxGIsActive = (CheckBox)row.FindControl("chkbxGIsActive");
+                if(chkbxGIsActive.Checked)
+                {
+                    chkbxFIsActive.Checked = true;
+                }
+                else if(!chkbxGIsActive.Checked)
+                {
+                    chkbxFIsActive.Checked = false;
+                }
+                chkbxFIsActive.Enabled = true;
+                HiddenID.Value = Convert.ToString(lnkBtnSalCommClaimPriceEdit.CommandArgument);
+                BtnAddOrUpdateSalCommClaimPrice.Text = "Update";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+        protected void lnkBtnSalCommClaimPriceDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                Boolean success = true;
+                LinkButton lnkBtnSalCommClaimPriceDelete = (LinkButton)sender;
+                int SalesCommissionClaimPriceID = Convert.ToInt32(lnkBtnSalCommClaimPriceDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceDelete.NamingContainer);
+                int SalesCommissionClaimPriceID1 = Convert.ToInt32(((Label)row.FindControl("lblSalesCommissionClaimPriceID")).Text.Trim());
+                int PlantID = Convert.ToInt32(((Label)row.FindControl("lblGPlantID")).Text.Trim());
+                int MaterialID = Convert.ToInt32(((Label)row.FindControl("lblMaterialID")).Text.Trim());
+                decimal Percentage = Convert.ToDecimal(((Label)row.FindControl("lblPercentage")).Text.Trim());
+                decimal Amount = Convert.ToDecimal(((Label)row.FindControl("lblAmount")).Text.Trim());
+                bool IsActive = Convert.ToBoolean(((CheckBox)row.FindControl("chkbxGIsActive")).Text.Trim());
+
+                success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
+                if (success == true)
+                {
+                    HiddenID.Value = null;
+                    GetSalesCommissionClaimPrice();
+                    lblMessage.Text = "Sales Commission Claim Price deleted successfully";
+                    lblMessage.ForeColor = Color.Green;
+                }
+                else if (success == false)
+                {
+                    lblMessage.Text = "Sales Commission Claim Price not deleted successfully";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+        protected void BtnAddOrUpdateSalCommClaimPrice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                int SalesCommissionClaimPriceID = 0;
+               
+               
+                decimal Percentage = 0;
+                decimal Amount = 0;
+                bool IsActive = true;
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                Boolean Success = true;
+                Button BtnAddOrUpdateCountry = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateCountry");
+
+                DropDownList ddlPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlPlant");
+                if (ddlPlant.SelectedValue == "0")
+                {
+                    lblMessage.Text = "Please select Plant.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                //string Material = ((TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterail")).Text.Trim();
+                //if (string.IsNullOrEmpty(Material))
+                //{
+                //    lblMessage.Text = "Please enter Material.";
+                //    lblMessage.ForeColor = Color.Red;
+                //    return;
+                //}
+                string MaterailCode = ((TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterailCode")).Text.Trim();
+                if (string.IsNullOrEmpty(MaterailCode))
+                {
+                    lblMessage.Text = "Please enter Materail Code.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, Convert.ToString(IsActive));
+
+                TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
+                TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
+                if (string.IsNullOrEmpty(txtPercentage.Text.Trim()))
+                {
+                   
+                    if (string.IsNullOrEmpty(txtAmount.Text.Trim()))
+                    {
+                        lblMessage.Text = "Please enter Amount or Percentages.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                  
+                }
+                else
+                {
+
+                }
+                
+                if (BtnAddOrUpdateCountry.Text != "Add")
+                {
+                    SalesCommissionClaimPriceID = Convert.ToInt32(HiddenID.Value);
+                }
+
+                int PlantID = Convert.ToInt32(ddlPlant.SelectedValue);
+                int MaterialID =0;
+                Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
+                if (Success == true)
+                {
+                    GetSalesCommissionClaimPrice();
+                    lblMessage.Text = "Sales Commission Claim Price is added successfully.";
+                    lblMessage.ForeColor = Color.Green;
+                    return;
+                }
+                else if (Success == false)
+                {
+                    lblMessage.Text = "Sales Commission Claim Price is already found.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                else
+                {
+                    lblMessage.Text = "Sales Commission Claim Price not created successfully.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
     }
