@@ -128,7 +128,7 @@ namespace DealerManagementSystem.ViewService
                 List<PDMS_WarrantyInvoiceHeader> SOIs = new BDMS_WarrantyClaim().GetWarrantyInvoiceFromPostGres(Filter);
 
                 lblMessage.Text = SOIs.Count == 0 ? "No claim requested for approval" : (SOIs.Count + " Claim requested for approval");
-                lblMessage.ForeColor = Color.Green;
+                lblMessage.ForeColor = (SOIs.Count == 0)?Color.Red: Color.Green;
                 lblMessage.Visible = true;
 
                 SDMS_WarrantyClaimHeader = SOIs;
