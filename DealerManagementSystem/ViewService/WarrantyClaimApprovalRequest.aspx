@@ -9,11 +9,11 @@
 
             if (gvObject.style.display == "none") {
                 gvObject.style.display = "inline";
-                imageID.src = "Images/grid_collapse.png";
+                imageID.src = "../Images/grid_collapse.png";
             }
             else {
                 gvObject.style.display = "none";
-                imageID.src = "Images/grid_expand.png";
+                imageID.src = "../Images/grid_expand.png";
             }
         }
 
@@ -76,7 +76,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <a href="javascript:collapseExpand('InvoiceNumber-<%# Eval("InvoiceNumber") %>');">
-                                        <img id="imageInvoiceNumber-<%# Eval("InvoiceNumber") %>" alt="Click to show/hide orders" border="0" src="Images/grid_collapse.png" height="10" width="10" /></a>
+                                        <img id="imageInvoiceNumber-<%# Eval("InvoiceNumber") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_collapse.png" height="10" width="10" /></a>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Claim Number">
