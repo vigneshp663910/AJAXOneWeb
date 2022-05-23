@@ -54,27 +54,39 @@
 
     <script type="text/javascript">
        //  const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
-        const image = "http://maps.google.com/mapfiles/kml/shapes/man.png";
+       // const image = "http://maps.google.com/mapfiles/kml/shapes/man.png";
+
+        //var icon1 = {
+        //   // url: "http://maps.google.com/mapfiles/kml/shapes/man.png", // url*/
+        //    //url: "https://ajaxone.ajax-engg.com/Images/SalesEngg.png",
+        //    url: "https://ajaxone.ajax-engg.com/Images/ServiceEngg.jpg",
+        //    scaledSize: new google.maps.Size(25, 25) // size
+        //};
+
+
+       
+
 
         /*function initialize() {*/
 
         var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
         var mapOptions = {
             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-            zoom: 10,
+            zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
             //  marker:true
         };
         var infoWindow = new google.maps.InfoWindow();
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         for (i = 0; i < markers.length; i++) {
-            var data = markers[i]
+            var data = markers[i] 
             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
                 title: data.title,
-                icon: data.image,
+                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) }, 
+               // icon: data.image,
             });
 
             (function (marker, data) {

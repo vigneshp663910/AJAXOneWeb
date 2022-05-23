@@ -93,16 +93,19 @@ namespace DealerManagementSystem.ViewMaster
                 row.Add("lat", Convert.ToString(dr["Latitude"]));
                 row.Add("lng", Convert.ToString(dr["Longitude"]));
                 row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"]));
-                if (Convert.ToString(dr["DealerDepartmentID"]) == "1")
-                {
-                    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/dollar.png");
-                }
-                else if (Convert.ToString(dr["DealerDepartmentID"]) == "2")
-                {
-                    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/mechanic.png");
-                }
-                else
-                    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/parks.png");
+                //row.Add("image", "{ url: \'https://ajaxone.ajax-engg.com/Images/ServiceEngg.jpg\', scaledSize: new google.maps.Size(25, 25) }");
+
+                row.Add("image", Convert.ToString(dr["MapImage"]));
+                //if (Convert.ToString(dr["DealerDepartmentID"]) == "1")
+                //{
+                //    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/dollar.png");
+                //}
+                //else if (Convert.ToString(dr["DealerDepartmentID"]) == "2")
+                //{
+                //    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/mechanic.png");
+                //}
+                //else
+                //    row.Add("image", "http://maps.google.com/mapfiles/kml/shapes/parks.png");
                 rows.Add(row);
             }
             CurrentLocation = serializer.Serialize(rows);

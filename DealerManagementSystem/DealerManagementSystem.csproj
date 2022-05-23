@@ -367,6 +367,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
@@ -492,6 +493,7 @@
     <Content Include="ViewService\ApproveDeclinedICTicket.aspx" />
     <Content Include="ViewService\ApproveDeviatedCliamApprove.aspx" />
     <Content Include="ViewService\ApproveDeviatedICTicket.aspx" />
+    <Content Include="ViewService\ICTicket.aspx" />
     <Content Include="ViewService\ICTicketCreate.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
@@ -513,6 +515,7 @@
     <Content Include="ViewService\PaidServiceReport.aspx" />
     <Content Include="ViewService\PaidServiceReportNew.aspx" />
     <Content Include="ViewService\TicketTracking.aspx" />
+    <Content Include="ViewService\UserControls\ICTicketView.ascx" />
     <Content Include="ViewService\WarrantyClaim.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureCreate.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
@@ -988,6 +991,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserLocationTrackMap.aspx.cs">
+      <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserLocationTrackMap.aspx.designer.cs">
+      <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\SalesCommissionClaimPrice.aspx.cs">
       <DependentUpon>SalesCommissionClaimPrice.aspx</DependentUpon>
@@ -1678,6 +1688,13 @@
     <Compile Include="ViewService\ApproveDeviatedICTicket.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\ICTicket.aspx.cs">
+      <DependentUpon>ICTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicket.aspx.designer.cs">
+      <DependentUpon>ICTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\ICTicketCreate.aspx.cs">
       <DependentUpon>ICTicketCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1824,6 +1841,13 @@
     </Compile>
     <Compile Include="ViewService\TicketTracking.aspx.designer.cs">
       <DependentUpon>TicketTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketView.ascx.cs">
+      <DependentUpon>ICTicketView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketView.ascx.designer.cs">
+      <DependentUpon>ICTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaim.aspx.cs">
       <DependentUpon>WarrantyClaim.aspx</DependentUpon>

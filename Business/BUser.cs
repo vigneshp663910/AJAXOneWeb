@@ -1555,5 +1555,30 @@ namespace Business
             }
             return null;
         }
+        public DataTable GetUserLocationTrack(int UserID )
+        {
+            try
+            {
+                 
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32); 
+                DbParameter[] Params = new DbParameter[1] {  UserIDP  };
+
+                using (DataSet ds = provider.Select("GetUserLocationTrack", Params))
+                {
+                    if (ds != null)
+                        return ds.Tables[0];
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+            return null;
+        }
     }
 }

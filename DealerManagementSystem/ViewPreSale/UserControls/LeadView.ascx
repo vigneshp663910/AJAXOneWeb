@@ -287,8 +287,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>
-    </asp1:TabPanel>
+    </asp1:TabPanel> 
     <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
         <ContentTemplate>
             <div class="col-md-12 Report">
