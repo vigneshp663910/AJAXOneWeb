@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderASNReport.aspx.cs" Inherits="DealerManagementSystem.ViewSales.PurchaseOrderASNReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderInvoiceReport.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrderInvoiceReport" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
-<%@ Register Src="~/UserControls/DMS_ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>
+ 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -68,32 +67,22 @@
                             </div>
 
                               <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <asp:Label ID="Label3" runat="server" Text="Asn Number"></asp:Label>
-                                <asp:TextBox ID="txtAsnNumber" runat="server"></asp:TextBox>
+                                <asp:Label ID="Label3" runat="server" Text="Invoice Number"></asp:Label>
+                                <asp:TextBox ID="txtInvoiceNumber" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <asp:Label ID="Label6" runat="server" CssClass="label" Text="Asn Date From"></asp:Label>
-                                <asp:TextBox ID="txtAsnDateF" runat="server" CssClass="input" AutoComplete="Off"></asp:TextBox>
-                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAsnDateF" PopupButtonID="txtAsnDateF" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAsnDateF" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                                <asp:Label ID="Label6" runat="server" CssClass="label" Text="Invoice Date From"></asp:Label>
+                                <asp:TextBox ID="txtInvoiceDateF" runat="server" CssClass="input" AutoComplete="Off"></asp:TextBox>
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtInvoiceDateF" PopupButtonID="txtInvoiceDateF" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtInvoiceDateF" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                             </div>
                             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <asp:Label ID="Label9" runat="server" CssClass="label" Text="Asn Date To"></asp:Label>
-                                <asp:TextBox ID="txtAsnDateT" runat="server" CssClass="input" AutoComplete="Off"></asp:TextBox>
-                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtAsnDateT" PopupButtonID="txtAsnDateT" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAsnDateT" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                                <asp:Label ID="Label9" runat="server" CssClass="label" Text="Invoice Date To"></asp:Label>
+                                <asp:TextBox ID="txtInvoiceDateT" runat="server" CssClass="input" AutoComplete="Off"></asp:TextBox>
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtInvoiceDateT" PopupButtonID="txtInvoiceDateT" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtInvoiceDateT" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                             </div>
-                             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <asp:Label ID="Label10" runat="server" Text="ASN Status Type"></asp:Label>
-                                <asp:DropDownList ID="ddlPurchaseOrderAsnStatus" runat="server" >
-                                    <asp:ListItem Value="0">All</asp:ListItem>
-                                    <asp:ListItem Value="1">GR Pending</asp:ListItem>
-                                    <asp:ListItem Value="2">GR Partial</asp:ListItem>
-                                    <asp:ListItem Value="3">GR Done</asp:ListItem>
-                                    <asp:ListItem Value="4">Cancelled</asp:ListItem>
-                                    <asp:ListItem Value="5">Closed</asp:ListItem> 
-                                </asp:DropDownList>
-                            </div>
+
 
                             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
                                 <asp:Label ID="Label2" runat="server" Text="PO Number"></asp:Label>
@@ -115,7 +104,7 @@
                                 <asp:Label ID="Label12" runat="server" CssClass="label" Text="Material"></asp:Label>
                                 <asp:TextBox ID="txtMaterial" runat="server" CssClass="input"></asp:TextBox>
                             </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                           <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
                                 <asp:Label ID="Label4" runat="server" Text="PO Type"></asp:Label>
                                 <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" >
                                     <asp:ListItem Value="0">All</asp:ListItem>
@@ -151,7 +140,7 @@
                                         <div style="float: left">
                                             <table>
                                                 <tr>
-                                                    <td>PO ASN Report</td>
+                                                    <td>PO Invoice Report</td>
                                                     <td>
                                                         <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                     <td>

@@ -471,14 +471,14 @@
     <Content Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
-    <Content Include="ViewSales\MonthlyProcurement.aspx" />
+    <Content Include="ViewProcurement\MonthlyProcurement.aspx" />
     <Content Include="ViewSales\MonthlySales.aspx" />
-    <Content Include="ViewSales\PurchaseOrder.aspx" />
-    <Content Include="ViewSales\PurchaseOrderASNReport.aspx" />
-    <Content Include="ViewSales\PurchaseOrderInvoiceReport.aspx" />
-    <Content Include="ViewSales\PurchaseOrderN.aspx" />
-    <Content Include="ViewSales\PurchaseOrderPerformance.aspx" />
-    <Content Include="ViewSales\PurchaseOrderReport.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrder.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderASNReport.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderInvoiceReport.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderN.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderPerformance.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoiceMcReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoicePartsReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoiceReport.aspx" />
@@ -494,9 +494,11 @@
     <Content Include="ViewService\ApproveDeviatedCliamApprove.aspx" />
     <Content Include="ViewService\ApproveDeviatedICTicket.aspx" />
     <Content Include="ViewService\ICTicket.aspx" />
+    <Content Include="ViewService\ICTicketCommissionMailToReport.aspx" />
     <Content Include="ViewService\ICTicketCreate.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
+    <Content Include="ViewService\ICTicketMarginWarrantyChange.aspx" />
     <Content Include="ViewService\ICTicketProcess.aspx" />
     <Content Include="ViewService\ICTicketReachedDateChange.aspx" />
     <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
@@ -1534,11 +1536,11 @@
     <Compile Include="ViewSales\tab_ASN.aspx.designer.cs">
       <DependentUpon>tab_ASN.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\MonthlyProcurement.aspx.cs">
+    <Compile Include="ViewProcurement\MonthlyProcurement.aspx.cs">
       <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\MonthlyProcurement.aspx.designer.cs">
+    <Compile Include="ViewProcurement\MonthlyProcurement.aspx.designer.cs">
       <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\MonthlySales.aspx.cs">
@@ -1548,46 +1550,46 @@
     <Compile Include="ViewSales\MonthlySales.aspx.designer.cs">
       <DependentUpon>MonthlySales.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrder.aspx.cs">
+    <Compile Include="ViewProcurement\PurchaseOrder.aspx.cs">
       <DependentUpon>PurchaseOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrder.aspx.designer.cs">
+    <Compile Include="ViewProcurement\PurchaseOrder.aspx.designer.cs">
       <DependentUpon>PurchaseOrder.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderASNReport.aspx.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderASNReport.aspx.cs">
       <DependentUpon>PurchaseOrderASNReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderASNReport.aspx.designer.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderASNReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderASNReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderInvoiceReport.aspx.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderInvoiceReport.aspx.cs">
       <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderInvoiceReport.aspx.designer.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderInvoiceReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderN.aspx.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderN.aspx.cs">
       <DependentUpon>PurchaseOrderN.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderN.aspx.designer.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderN.aspx.designer.cs">
       <DependentUpon>PurchaseOrderN.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderPerformance.aspx.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderPerformance.aspx.cs">
       <DependentUpon>PurchaseOrderPerformance.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderPerformance.aspx.designer.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderPerformance.aspx.designer.cs">
       <DependentUpon>PurchaseOrderPerformance.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderReport.aspx.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderReport.aspx.cs">
       <DependentUpon>PurchaseOrderReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewSales\PurchaseOrderReport.aspx.designer.cs">
+    <Compile Include="ViewProcurement\PurchaseOrderReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceMcReport.aspx.cs">
@@ -1695,6 +1697,13 @@
     <Compile Include="ViewService\ICTicket.aspx.designer.cs">
       <DependentUpon>ICTicket.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\ICTicketCommissionMailToReport.aspx.cs">
+      <DependentUpon>ICTicketCommissionMailToReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketCommissionMailToReport.aspx.designer.cs">
+      <DependentUpon>ICTicketCommissionMailToReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\ICTicketCreate.aspx.cs">
       <DependentUpon>ICTicketCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1715,6 +1724,13 @@
     </Compile>
     <Compile Include="ViewService\ICTicketManage.aspx.designer.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.cs">
+      <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.designer.cs">
+      <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketProcess.aspx.cs">
       <DependentUpon>ICTicketProcess.aspx</DependentUpon>

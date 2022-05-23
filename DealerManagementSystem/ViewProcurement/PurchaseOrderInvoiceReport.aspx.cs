@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewSales
+namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrderInvoiceReport : System.Web.UI.Page
     {
