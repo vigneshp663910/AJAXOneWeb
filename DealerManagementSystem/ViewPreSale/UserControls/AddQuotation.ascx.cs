@@ -68,7 +68,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sq.UserStatus = ddlUserStatus.SelectedValue == "0" ? null : new PSalesQuotationUserStatus() { SalesQuotationUserStatusID = Convert.ToInt32(ddlUserStatus.SelectedValue) };
 
             Sq.UserStatusRemarks = ddlUserStatusRemarks.SelectedValue == "0" ? null : new PSaleQuotationRejectionReason() { SalesQuotationRejectionReasonID = Convert.ToInt32(ddlUserStatusRemarks.SelectedValue) };
-
+          
+            Sq.LifeTimeTax = string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()) ? 0 : Convert.ToDecimal(txtLifeTimeTax.Text.Trim());
+          
             Sq.RequestedDeliveryDate = string.IsNullOrEmpty(txtRequestedDeliveryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDeliveryDate.Text.Trim());
             Sq.CommissionAgent = cbCommissionAgent.Checked;
             Sq.ShipTo = ddlShipParty.SelectedValue == "0" ? null : new PDMS_CustomerShipTo() { CustomerShipToID = Convert.ToInt64(ddlShipParty.SelectedValue) };
@@ -93,11 +95,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //    ddlStatus.BorderColor = Color.Red;
             //}
 
-            //if (string.IsNullOrEmpty(txtFinancePercentage.Text.Trim()))
-            //{
-            //    Message = Message + "<br/>Please enter the Finance Percentage";
-            //    txtFinancePercentage.BorderColor = Color.Red;
-            //}
+            if (string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Finance Percentage";
+                txtLifeTimeTax.BorderColor = Color.Red;
+            }
             //if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             //{
             //    Message = Message + "<br/>Please enter the Remark";
@@ -117,7 +119,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlPriceGroup.SelectedValue = Sq.PriceGroup == null ? "0" : Convert.ToString(Sq.PriceGroup.PriceGroupID);
             ddlUserStatus.SelectedValue = Sq.UserStatus == null ? "0" : Convert.ToString(Sq.UserStatus.SalesQuotationUserStatusID);
             ddlUserStatusRemarks.SelectedValue = Sq.UserStatusRemarks == null ? "0" : Convert.ToString(Sq.UserStatusRemarks.SalesQuotationRejectionReasonID);
-            ddlShipParty.SelectedValue = Sq.ShipTo == null ? "0" : Convert.ToString(Sq.ShipTo.CustomerShipToID);  
+            ddlShipParty.SelectedValue = Sq.ShipTo == null ? "0" : Convert.ToString(Sq.ShipTo.CustomerShipToID);
+
+            txtLifeTimeTax.Text = Convert.ToString(Sq.LifeTimeTax);
         }
 
     }
