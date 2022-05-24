@@ -1120,7 +1120,7 @@ namespace Business
                 DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String); 
                 DbParameter[] Params = new DbParameter[5] { DealerIDP, AadhaarCardNoP, DistrictIDP, NameP, SAPEmpCodeP };
 
-                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeByDealerID", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeForMonthlyUserVerification", Params))
                 {
                     if (DataSet != null)
                     {
@@ -1202,5 +1202,103 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDealerNotificationModule>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
+        public List<PDMS_DealerEmployee> GetDealerEmployeeForUserMonthlyVerification(int? DealerID, string AadhaarCardNo, int? DistrictID, string Name, string SAPEmpCode)
+        {
+            List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String);
+                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+                DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
+                DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String);
+                DbParameter[] Params = new DbParameter[5] { DealerIDP, AadhaarCardNoP, DistrictIDP, NameP, SAPEmpCodeP };
+
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeForUserMonthlyVerification", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            EMP.Add(new PDMS_DealerEmployee()
+                            {
+                                DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
+                                Name = Convert.ToString(dr["Name"]),
+                                FatherName = Convert.ToString(dr["FatherName"]),
+                                DOB = DBNull.Value == dr["DOB"] ? (DateTime?)null : Convert.ToDateTime(dr["DOB"]),
+                                //         ContactNumber = Convert.ToString(dr["ContactNumber"]),
+                                Email = Convert.ToString(dr["EmailID"]),
+                                State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
+                                District = new PDMS_District() { District = Convert.ToString(dr["District"]) },
+                                Location = Convert.ToString(dr["Location"]),
+                                AadhaarCardNo = Convert.ToString(dr["AadhaarCardNo"]),
+                                PANNo = Convert.ToString(dr["PANNo"]),
+
+                                BankName = Convert.ToString(dr["BankName"]),
+                                AccountNo = Convert.ToString(dr["AccountNo"]),
+                                IFSCCode = Convert.ToString(dr["IFSCCode"]),
+                                TotalExperience = Convert.ToDecimal("0" + Convert.ToString(dr["TotalExperience"])),
+
+                                DealerEmployeeRole = DBNull.Value == dr["DealerEmployeeRoleID"] ? null : new PDMS_DealerEmployeeRole()
+                                {
+                                    DealerEmployeeRoleID = Convert.ToInt64(dr["DealerEmployeeRoleID"]),
+                                    User = new PUser() { UserID = Convert.ToInt32(dr["UserID"]), UserName = Convert.ToString(dr["UserName"]) },
+                                    Dealer = new PDMS_Dealer()
+                                    {
+                                        DealerID = Convert.ToInt32(dr["DealerID"]),
+                                        DealerCode = Convert.ToString(dr["DealerCode"]),
+                                        DealerName = Convert.ToString(dr["DealerName"]),
+                                        //      State = Convert.ToString(dr["DealerState"]),
+                                        // StateCode = Convert.ToString(dr["StateCode"])
+                                    },
+                                    DealerOffice = new PDMS_DealerOffice() { OfficeName = Convert.ToString(dr["OfficeName"]) },
+                                    DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
+                                    DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
+                                    ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
+                                    DateOfLeaving = DBNull.Value == dr["DateOfLeaving"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfLeaving"]),
+                                    DateOfJoining = DBNull.Value == dr["DateOfJoining"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfJoining"]),
+                                    IsActive = Convert.ToBoolean(dr["IsActive"]),
+                                    SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
+                                },
+                                IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
+                                //      CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
+                                
+                        });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return EMP;
+        }
+
+        public Boolean UpdateUserMontlyVerification(Int64 UserID, int VerifiedMonth, int VerifiedBy)
+        {
+            TraceLogger.Log(DateTime.Now);
+            try
+            {
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter VerifiedMonthP = provider.CreateParameter("VerifiedMonth", VerifiedMonth, DbType.Int32);
+                DbParameter VerifiedByP = provider.CreateParameter("VerifiedBy", VerifiedBy, DbType.Int32);
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+
+                    DbParameter[] Params = new DbParameter[3] { UserIDP, VerifiedMonthP, VerifiedByP };
+                    provider.Insert("UpdateUserMonthlyVerification", Params);
+                    scope.Complete();
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessageService("BDMS_Dealer", "UpdateUserMonthlyVerification", ex);
+                return false;
+            }
+            return true;
+        }
+
     }
 }

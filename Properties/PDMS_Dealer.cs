@@ -156,6 +156,7 @@ namespace Properties
         public string LoginUserName { get; set; }
         public long DealerEmployeeRoleID { get; set; }
         public PDMS_Dealer Dealer { get; set; }
+        public PUser User { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public int DealerEmployeeID { get; set; }
         public PDMS_DealerEmployee DealerEmployee { get; set; }
