@@ -255,10 +255,13 @@
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\hsizegrip.png" />
+    <Content Include="Images\Officer.png" />
     <Content Include="Images\pdf_dload.png" />
     <Content Include="Images\Playstore.png" />
     <Content Include="Images\Preview.png" />
+    <Content Include="Images\SalesEngg.png" />
     <Content Include="Images\Save.png" />
+    <Content Include="Images\ServiceEngg.png" />
     <Content Include="Images\Update.png" />
     <Content Include="Images\User.jpg" />
     <Content Include="Images\vplay.png" />
