@@ -22,34 +22,44 @@
             </fieldset>
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Failed Material Details</legend>
-                <div class="col-md-12">
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Delivery Challan Number</label>
-                        <asp:Label ID="lblDeliveryChallanNumber" runat="server" CssClass="label"></asp:Label>
+                <div class="col-md-12 View">
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <label class="modal-label">Delivery Challan Number</label>
+                            <asp:Label ID="lblDeliveryChallanNumber" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="modal-label">Transporter Name</label>
+                            <asp:Label ID="lblTransporterName" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Delivery Challan Date</label>
-                        <asp:Label ID="lblDeliveryChallanDate" runat="server" CssClass="label"></asp:Label>
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <label class="modal-label">Delivery Challan Date</label>
+                            <asp:Label ID="lblDeliveryChallanDate" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="modal-label">Docket Details</label>
+                            <asp:Label ID="lblDocketDetails" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Delivery To</label>
-                        <asp:Label ID="lblDeliveryTo" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Transporter Name</label>
-                        <asp:Label ID="lblTransporterName" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Docket Details</label>
-                        <asp:Label ID="lblDocketDetails" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Created By</label>
-                        <asp:Label ID="lblCreatedBy" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Dealer</label>
-                        <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <label class="modal-label">Delivery To</label>
+                            <asp:Label ID="lblDeliveryTo" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="modal-label">Created By</label>
+                            <asp:Label ID="lblCreatedBy" runat="server" CssClass="label"></asp:Label>
+                        </div>
+                        <div class="col-md-12">
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -65,7 +75,6 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblWarrantyInvoiceItemID" Text='<%# DataBinder.Eval(Container.DataItem, "Invoice.InvoiceItem.WarrantyInvoiceItemID")%>' runat="server" Visible="false"></asp:Label>
-
                                     <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Invoice.InvoiceNumber")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
