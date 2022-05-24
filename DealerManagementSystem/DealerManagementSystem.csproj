@@ -350,6 +350,9 @@
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
+    <Content Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx" />
+    <Content Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx" />
+    <Content Include="ViewDashboard\ICTicketTransactionStatics.ascx" />
     <Content Include="ViewDashboard\LeadStatusAssigned.ascx" />
     <Content Include="ViewDashboard\LeadStatusOpen.ascx" />
     <Content Include="ViewDashboard\LeadStatusQuotation.ascx" />
@@ -874,6 +877,27 @@
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx.cs">
+      <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx.designer.cs">
+      <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx.designer.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\ICTicketTransactionStatics.ascx.cs">
+      <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\ICTicketTransactionStatics.ascx.designer.cs">
+      <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.cs">
       <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>
