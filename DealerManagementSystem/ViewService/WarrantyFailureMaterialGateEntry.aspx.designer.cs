@@ -51,24 +51,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblDeliveryChallanNumber;
 
         /// <summary>
-        /// lblDeliveryChallanDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliveryChallanDate;
-
-        /// <summary>
-        /// lblDeliveryTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliveryTo;
-
-        /// <summary>
         /// lblTransporterName control.
         /// </summary>
         /// <remarks>
@@ -76,6 +58,24 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTransporterName;
+
+        /// <summary>
+        /// lblDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDealer;
+
+        /// <summary>
+        /// lblDeliveryChallanDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeliveryChallanDate;
 
         /// <summary>
         /// lblDocketDetails control.
@@ -87,6 +87,15 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblDocketDetails;
 
         /// <summary>
+        /// lblDeliveryTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeliveryTo;
+
+        /// <summary>
         /// lblCreatedBy control.
         /// </summary>
         /// <remarks>
@@ -94,15 +103,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCreatedBy;
-
-        /// <summary>
-        /// lblDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDealer;
 
         /// <summary>
         /// gvDCItem control.
