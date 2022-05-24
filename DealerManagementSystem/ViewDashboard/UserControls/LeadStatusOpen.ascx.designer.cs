@@ -7,21 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewDashboard
+namespace DealerManagementSystem.ViewDashboard.UserControls
 {
 
 
-    public partial class LeadStatusQuotation
+    public partial class LeadStatusOpen
     {
 
         /// <summary>
-        /// lblQuotation control.
+        /// lblOpen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuotation;
+        protected global::System.Web.UI.WebControls.Label lblOpen;
 
         /// <summary>
         /// lbtnNewlyCreated control.

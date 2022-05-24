@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerSatisfactionInAfterSalesSupport.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.CustomerSatisfactionInAfterSalesSupport" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerSatisfactionInAfterSalesSupport.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.UserControls.CustomerSatisfactionInAfterSalesSupport" %>
 
 <div class="modbox">
     <div class="modboxin">

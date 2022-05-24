@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LeadStatusQuotation.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.LeadStatusQuotation" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LeadStatusQuotation.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.UserControls.LeadStatusQuotation" %>
 <div class="modbox"> 
     <div class="modboxin">
         <div class="portlet-body" style="padding: 5px;">

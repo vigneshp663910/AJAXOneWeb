@@ -10,7 +10,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewMaster
+namespace DealerManagementSystem.ViewDealerEmployee
 {
     public partial class UserMonthlyVerification : System.Web.UI.Page
     {

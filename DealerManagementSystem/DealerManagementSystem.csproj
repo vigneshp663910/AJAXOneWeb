@@ -353,12 +353,13 @@
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
-    <Content Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx" />
-    <Content Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx" />
-    <Content Include="ViewDashboard\ICTicketTransactionStatics.ascx" />
-    <Content Include="ViewDashboard\LeadStatusAssigned.ascx" />
-    <Content Include="ViewDashboard\LeadStatusOpen.ascx" />
-    <Content Include="ViewDashboard\LeadStatusQuotation.ascx" />
+    <Content Include="ViewDashboard\LeadChart.aspx" />
+    <Content Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx" />
+    <Content Include="ViewDashboard\UserControls\ICTicketEscalationOnBreakdownCount.ascx" />
+    <Content Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx" />
+    <Content Include="ViewDashboard\UserControls\LeadStatusAssigned.ascx" />
+    <Content Include="ViewDashboard\UserControls\LeadStatusOpen.ascx" />
+    <Content Include="ViewDashboard\UserControls\LeadStatusQuotation.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -882,46 +883,53 @@
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx.cs">
+    <Compile Include="ViewDashboard\LeadChart.aspx.cs">
+      <DependentUpon>LeadChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\LeadChart.aspx.designer.cs">
+      <DependentUpon>LeadChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx.designer.cs">
+    <Compile Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx.designer.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx.cs">
+    <Compile Include="ViewDashboard\UserControls\ICTicketEscalationOnBreakdownCount.ascx.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx.designer.cs">
+    <Compile Include="ViewDashboard\UserControls\ICTicketEscalationOnBreakdownCount.ascx.designer.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDashboard\ICTicketTransactionStatics.ascx.cs">
+    <Compile Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx.cs">
       <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDashboard\ICTicketTransactionStatics.ascx.designer.cs">
+    <Compile Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx.designer.cs">
       <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.cs">
+    <Compile Include="ViewDashboard\UserControls\LeadStatusAssigned.ascx.cs">
       <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDashboard\LeadStatusAssigned.ascx.designer.cs">
+    <Compile Include="ViewDashboard\UserControls\LeadStatusAssigned.ascx.designer.cs">
       <DependentUpon>LeadStatusAssigned.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDashboard\LeadStatusOpen.ascx.cs">
+    <Compile Include="ViewDashboard\UserControls\LeadStatusOpen.ascx.cs">
       <DependentUpon>LeadStatusOpen.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDashboard\LeadStatusOpen.ascx.designer.cs">
+    <Compile Include="ViewDashboard\UserControls\LeadStatusOpen.ascx.designer.cs">
       <DependentUpon>LeadStatusOpen.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewDashboard\LeadStatusQuotation.ascx.cs">
+    <Compile Include="ViewDashboard\UserControls\LeadStatusQuotation.ascx.cs">
       <DependentUpon>LeadStatusQuotation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewDashboard\LeadStatusQuotation.ascx.designer.cs">
+    <Compile Include="ViewDashboard\UserControls\LeadStatusQuotation.ascx.designer.cs">
       <DependentUpon>LeadStatusQuotation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.cs">

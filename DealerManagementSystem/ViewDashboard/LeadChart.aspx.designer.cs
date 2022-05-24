@@ -11,25 +11,16 @@ namespace DealerManagementSystem.ViewDashboard
 {
 
 
-    public partial class LeadStatusOpen
+    public partial class LeadChart
     {
 
         /// <summary>
-        /// lblOpen control.
+        /// DrpMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOpen;
-
-        /// <summary>
-        /// lbtnNewlyCreated control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnNewlyCreated;
+        protected global::System.Web.UI.WebControls.DropDownList DrpMonth;
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketEscalationOnBreakdownCount.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.ICTicketEscalationOnBreakdownCount" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketEscalationOnBreakdownCount.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.UserControls.ICTicketEscalationOnBreakdownCount" %>
 
 <div class="modbox">
     <div class="modboxin">
