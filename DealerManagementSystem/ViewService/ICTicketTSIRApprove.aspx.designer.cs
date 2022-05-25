@@ -30,25 +30,7 @@ namespace DealerManagementSystem.ViewService
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTSIRManage;
-
-        /// <summary>
-        /// Panel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
-
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlTSIRManage;
 
         /// <summary>
         /// ddlDealerCode control.
@@ -60,15 +42,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
 
         /// <summary>
-        /// Label5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-
-        /// <summary>
         /// txtCustomerCode control.
         /// </summary>
         /// <remarks>
@@ -78,15 +51,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
 
         /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-
-        /// <summary>
         /// txtTSIRNo control.
         /// </summary>
         /// <remarks>
@@ -94,15 +58,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTSIRNo;
-
-        /// <summary>
-        /// Label7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
 
         /// <summary>
         /// txtTSIRDateFrom control.
@@ -132,15 +87,6 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
 
         /// <summary>
-        /// Label8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
-
-        /// <summary>
         /// txtTSIRDateTo control.
         /// </summary>
         /// <remarks>
@@ -168,15 +114,6 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender4;
 
         /// <summary>
-        /// lblPlant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlant;
-
-        /// <summary>
         /// txtICTicketNumber control.
         /// </summary>
         /// <remarks>
@@ -184,15 +121,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtICTicketNumber;
-
-        /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
         /// txtICLoginDateFrom control.
@@ -222,15 +150,6 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
 
         /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-
-        /// <summary>
         /// txtICLoginDateTo control.
         /// </summary>
         /// <remarks>
@@ -258,15 +177,6 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
-        /// Label6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
-
-        /// <summary>
         /// txtSroCode control.
         /// </summary>
         /// <remarks>
@@ -274,15 +184,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSroCode;
-
-        /// <summary>
-        /// Label10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
 
         /// <summary>
         /// ddlModelID control.
@@ -354,7 +255,7 @@ namespace DealerManagementSystem.ViewService
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTSIRView;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlTSIRView;
 
         /// <summary>
         /// UC_BasicInformation control.
@@ -366,22 +267,13 @@ namespace DealerManagementSystem.ViewService
         protected global::DealerManagementSystem.UserControls.ICTicketBasicInformation UC_BasicInformation;
 
         /// <summary>
-        /// imgMaterialCharges control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgMaterialCharges;
-
-        /// <summary>
         /// pnlMaterialCharges control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMaterialCharges;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlMaterialCharges;
 
         /// <summary>
         /// gvMaterial control.
@@ -393,15 +285,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.GridView gvMaterial;
 
         /// <summary>
-        /// Label18 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label18;
-
-        /// <summary>
         /// txtTsirNumber control.
         /// </summary>
         /// <remarks>
@@ -409,15 +292,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTsirNumber;
-
-        /// <summary>
-        /// Label19 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label19;
 
         /// <summary>
         /// txtTsirStatus control.
@@ -429,15 +303,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtTsirStatus;
 
         /// <summary>
-        /// Label13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label13;
-
-        /// <summary>
         /// txtServiceCharge control.
         /// </summary>
         /// <remarks>
@@ -445,15 +310,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtServiceCharge;
-
-        /// <summary>
-        /// Label14 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label14;
 
         /// <summary>
         /// txtNatureOfFailures control.
@@ -465,15 +321,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtNatureOfFailures;
 
         /// <summary>
-        /// Label15 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label15;
-
-        /// <summary>
         /// txtProblemNoticedBy control.
         /// </summary>
         /// <remarks>
@@ -481,15 +328,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtProblemNoticedBy;
-
-        /// <summary>
-        /// Label28 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label28;
 
         /// <summary>
         /// txtUnderWhatConditionFailureTaken control.
@@ -501,15 +339,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtUnderWhatConditionFailureTaken;
 
         /// <summary>
-        /// Label16 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label16;
-
-        /// <summary>
         /// txtFailureDetails control.
         /// </summary>
         /// <remarks>
@@ -517,15 +346,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFailureDetails;
-
-        /// <summary>
-        /// Label22 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label22;
 
         /// <summary>
         /// txtPointsChecked control.
@@ -537,15 +357,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtPointsChecked;
 
         /// <summary>
-        /// lblHMRValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHMRValue;
-
-        /// <summary>
         /// txtPossibleRootCauses control.
         /// </summary>
         /// <remarks>
@@ -553,15 +364,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPossibleRootCauses;
-
-        /// <summary>
-        /// Label23 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label23;
 
         /// <summary>
         /// txtSpecificPointsNoticed control.
@@ -573,15 +375,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtSpecificPointsNoticed;
 
         /// <summary>
-        /// Label21 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label21;
-
-        /// <summary>
         /// txtPartsInvoiceNumber control.
         /// </summary>
         /// <remarks>
@@ -591,15 +384,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtPartsInvoiceNumber;
 
         /// <summary>
-        /// lblSales1ApproveAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSales1ApproveAmount;
-
-        /// <summary>
         /// txtSales1ApproveAmount control.
         /// </summary>
         /// <remarks>
@@ -607,15 +391,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSales1ApproveAmount;
-
-        /// <summary>
-        /// lblSales2ApproveAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSales2ApproveAmount;
 
         /// <summary>
         /// txtSales2ApproveAmount control.
@@ -663,15 +438,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.GridView gvTSIRMessage;
 
         /// <summary>
-        /// Panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
-
-        /// <summary>
         /// btnSalesApprove1 control.
         /// </summary>
         /// <remarks>
@@ -706,14 +472,5 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSalesReject;
-
-        /// <summary>
-        /// pnlPdfView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlPdfView;
     }
 }
