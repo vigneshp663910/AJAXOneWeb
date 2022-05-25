@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketBasicInformation.ascx.cs" Inherits="DealerManagementSystem.UserControls.ICTicketBasicInformation" %>
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-    <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket Basic Information</legend>
+    <legend style="background: none; color: indigo; font-size: 17px;">IC Ticket Basic Information</legend>
     <div class="col-md-12 View">
         <div class="col-md-4">
             <div class="col-md-12">

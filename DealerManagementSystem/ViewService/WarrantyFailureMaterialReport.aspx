@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Material Return Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" />
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control"/>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
