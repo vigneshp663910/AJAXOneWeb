@@ -15,31 +15,13 @@ namespace DealerManagementSystem.ViewService
     {
 
         /// <summary>
-        /// imageID control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imageID;
-
-        /// <summary>
-        /// pnlFilterContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFilterContent;
-
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// ddlDealerCode control.
@@ -49,15 +31,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
-
-        /// <summary>
-        /// Label7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
 
         /// <summary>
         /// txtICTicketDateFrom control.
@@ -87,15 +60,6 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
 
         /// <summary>
-        /// Label8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
-
-        /// <summary>
         /// txtICTicketDateTo control.
         /// </summary>
         /// <remarks>
@@ -123,15 +87,6 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender4;
 
         /// <summary>
-        /// lblPlant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlant;
-
-        /// <summary>
         /// txtICTicketNumber control.
         /// </summary>
         /// <remarks>
@@ -139,15 +94,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtICTicketNumber;
-
-        /// <summary>
-        /// Label11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
 
         /// <summary>
         /// txtMachineSerialNumber control.
@@ -175,15 +121,6 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnExportExcel;
-
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// gvICTickets control.
