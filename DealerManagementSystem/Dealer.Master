@@ -1577,6 +1577,11 @@
         .tbFeedback tr {
             background-color: inherit;
         }
+
+        input[type=checkbox], input[type=radio]{
+            height: initial;
+            margin:15px;
+        }
     </style>
     <%-- FeedBack Window Ending --%>
     <%--Started Rating--%>
