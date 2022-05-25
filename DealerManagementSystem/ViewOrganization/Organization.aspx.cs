@@ -59,7 +59,7 @@ namespace DealerManagementSystem.ViewOrganization
 
         private void AjaxTree()
         { 
-            List<PDealerEmployee> Ajax = new BOrganization().GetOrganization(null, 50, null);
+            List<PDealerEmployee> Ajax = new BOrganization().GetOrganization(null, 53, null);
             foreach (PDealerEmployee c in Ajax)
             {
                 TreeNode t = new TreeNode(c.EmployeeName, c.EmpId.ToString());
@@ -71,7 +71,7 @@ namespace DealerManagementSystem.ViewOrganization
        
         private void SalesTree()
         { 
-            List<PDealerEmployee> Sales =  new BOrganization().GetOrganization(null, 50, 1);
+            List<PDealerEmployee> Sales =  new BOrganization().GetOrganization(null, 53, 1);
             foreach (PDealerEmployee c in Sales)
             {
                 TreeNode t = new TreeNode(c.EmployeeName, c.EmpId.ToString());
@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewOrganization
         }
         private void PartsTree()
         { 
-            List<PDealerEmployee> Sales =  new BOrganization().GetOrganization(null, 50, 3);
+            List<PDealerEmployee> Sales =  new BOrganization().GetOrganization(null, 53, 3);
             foreach (PDealerEmployee c in Sales)
             {
                 TreeNode t = new TreeNode(c.EmployeeName, c.EmpId.ToString());
@@ -91,7 +91,7 @@ namespace DealerManagementSystem.ViewOrganization
         }
         private void ServiceTree()
         { 
-            List<PDealerEmployee> Sales = new BOrganization().GetOrganization(null, 50, 2);
+            List<PDealerEmployee> Sales = new BOrganization().GetOrganization(null, 53, 2);
             foreach (PDealerEmployee c in Sales)
             {
                 TreeNode t = new TreeNode(c.EmployeeName, c.EmpId.ToString());
@@ -133,7 +133,7 @@ namespace DealerManagementSystem.ViewOrganization
         protected void tvAjax_TreeNodePopulate(object sender, TreeNodeEventArgs e)
         { 
             TreeNode main = e.Node;
-            FillChildNodes(main, 50, null);
+            FillChildNodes(main, 53, null);
         }
 
         protected void tvDealer_TreeNodePopulate(object sender, TreeNodeEventArgs e)
@@ -145,19 +145,19 @@ namespace DealerManagementSystem.ViewOrganization
         protected void tvSales_TreeNodePopulate(object sender, TreeNodeEventArgs e)
         {
             TreeNode main = e.Node;
-            FillChildNodes(main, 50, 1);
+            FillChildNodes(main, 53, 1);
         }
 
         protected void tvParts_TreeNodePopulate(object sender, TreeNodeEventArgs e)
         {
             TreeNode main = e.Node;
-            FillChildNodes(main, 50, 3);
+            FillChildNodes(main, 53, 3);
         }
 
         protected void tvService_TreeNodePopulate(object sender, TreeNodeEventArgs e)
         {
             TreeNode main = e.Node;
-            FillChildNodes(main, 50, 2);
+            FillChildNodes(main, 53, 2);
         }
         void FillChildNodes(TreeNode main, int? DealerID, int? DealerDepartmentID)
         {

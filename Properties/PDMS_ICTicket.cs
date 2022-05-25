@@ -69,6 +69,7 @@ namespace Properties
         public PDMS_MainApplication MainApplication { get; set; }
         public PDMS_SubApplication SubApplication { get; set; }
         public PDMS_CustomerSatisfactionLevel CustomerSatisfactionLevel { get; set; }
+        public string CustomerRemarks { get; set; } 
         public PUser ServiceConfirmationBy { get; set; }
 
         public PDMS_Material Material { get; set; }
