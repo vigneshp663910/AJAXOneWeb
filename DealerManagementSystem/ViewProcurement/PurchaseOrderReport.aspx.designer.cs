@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewSales
+namespace DealerManagementSystem.ViewProcurement
 {
 
 
