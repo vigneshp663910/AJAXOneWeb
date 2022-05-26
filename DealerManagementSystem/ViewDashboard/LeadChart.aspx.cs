@@ -36,41 +36,41 @@ namespace DealerManagementSystem.ViewDashboard
             List<object> chartData = new List<object>();
             chartData.Add(new object[] { "General", "Open", "Assign", "Quotation", "Won" });
             chartData.Add(new object[] { "9001", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9002", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9004", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9005", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9002", 52, 20, 32, 18  });
+            chartData.Add(new object[] { "9004", 10, 70, 32, 18  });
+            chartData.Add(new object[] { "9005", 96, 50, 32, 18  });
 
-            chartData.Add(new object[] { "9011", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9012", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9014", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9011", 40, 40, 32, 18  });
+            chartData.Add(new object[] { "9012", 10, 35, 32, 18  });
+            chartData.Add(new object[] { "9014", 38, 25, 32, 18  });
             chartData.Add(new object[] { "9015", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9016", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9017", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9016", 74, 90, 32, 18  });
+            chartData.Add(new object[] { "9017", 36, 70, 32, 18  });
             chartData.Add(new object[] { "9018", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9019", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9019", 98, 60, 32, 18  });
 
             chartData.Add(new object[] { "9021", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9022", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9024", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9025", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9022", 40, 24, 32, 18  });
+            chartData.Add(new object[] { "9024", 10, 50, 32, 18  });
+            chartData.Add(new object[] { "9025", 96, 24, 32, 18  });
 
-            chartData.Add(new object[] { "9031", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9032", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9031", 10, 64, 32, 18  });
+            chartData.Add(new object[] { "9032", 74, 37, 32, 18  });
             chartData.Add(new object[] { "9034", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9035", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9035", 63, 70, 32, 18  });
             chartData.Add(new object[] { "9036", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9037", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9037", 5, 24, 32, 18  });
             chartData.Add(new object[] { "9038", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9039", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9039", 75, 24, 32, 18  });
 
             chartData.Add(new object[] { "9041", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9042", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9042", 32, 24, 32, 18  });
             chartData.Add(new object[] { "9044", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9045", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9046", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9047", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9045", 74, 24, 32, 18  });
+            chartData.Add(new object[] { "9046", 65, 24, 32, 18  });
+            chartData.Add(new object[] { "9047", 85, 24, 32, 18  });
             chartData.Add(new object[] { "9048", 10, 24, 32, 18  });
-            chartData.Add(new object[] { "9049", 10, 24, 32, 18  });
+            chartData.Add(new object[] { "9049", 5, 24, 32, 18  });
 
             return chartData;
 
