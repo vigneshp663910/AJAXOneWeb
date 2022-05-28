@@ -31,8 +31,10 @@ namespace DealerManagementSystem.ViewMarketing
                 oActivity.GetActivity(ddlActivity, "FA");
                 oActivity.GetActivity(ddlActivitySearch, "FA");
                 txtUnits.Attributes.Add("type", "number");
-                txtFromDate.Attributes.Add("type", "date");
-                txtToDate.Attributes.Add("type", "date");
+                //txtFromDate.Attributes.Add("type", "date");
+                //txtToDate.Attributes.Add("type", "date");
+                txtFromDate.Text = DateTime.Now.AddDays(-1 * DateTime.Now.Day + 1).ToString("dd-MMM-yyyy");
+                txtToDate.Text = DateTime.Now.AddDays(-1 * DateTime.Now.Day + 1).AddMonths(1).AddDays(-1).ToString("dd-MMM-yyyy");
                 //txtFromDateSearch.Attributes.Add("type", "date");
                 //txtToDateSearch.Attributes.Add("type", "date");
                 txtFromDateSearch.Text = DateTime.Now.AddDays(-1 * DateTime.Now.Day + 1).ToString("dd-MMM-yyyy");
@@ -157,20 +159,20 @@ namespace DealerManagementSystem.ViewMarketing
                 hdnPkPlanID.Value = data[0].AP_PKPlanID.ToString();
                 ddlDealer.SelectedValue = data[0].AP_FKDealerID.ToString();
                 ddlActivity.SelectedValue = data[0].AP_FKActivityID.ToString();
-                txtUnits.Value = data[0].AP_NoofUnits.ToString();
-                txtFromDate.Value = data[0].AP_FromDate.ToString("dd-MMM-yyyy");
-                txtToDate.Value = data[0].AP_ToDate.ToString("dd-MMM-yyyy");
-                txtLocation.Value = data[0].AP_Location;
+                txtUnits.Text = data[0].AP_NoofUnits.ToString();
+                txtFromDate.Text = data[0].AP_FromDate.ToString("dd-MMM-yyyy");
+                txtToDate.Text = data[0].AP_ToDate.ToString("dd-MMM-yyyy");
+                txtLocation.Text = data[0].AP_Location;
                 txtRemarks.Value = data[0].AP_Remarks;
-                txtBudget.Value = data[0].AP_BudgetPerUnit.ToString();
-                txtExpBudget.Value = data[0].AP_ExpBudget.ToString();
+                txtBudget.Text = data[0].AP_BudgetPerUnit.ToString();
+                txtExpBudget.Text = data[0].AP_ExpBudget.ToString();
                 lblAjaxSharing.InnerText = "(" + data[0].AI_AjaxSharing.ToString() + "%)";
                 lblDealerSharing.InnerText = "(" + (100 - Convert.ToDouble("0" + data[0].AI_AjaxSharing.ToString())).ToString() + "%)";
 
                 var TotalBudget = data[0].AP_ExpBudget;
                 var AjaxSharing = data[0].AI_AjaxSharing;
-                txtAjaxSharing.Value = AjaxSharing.ToString();
-                txtDealerSharing.Value = (TotalBudget - AjaxSharing).ToString();
+                txtAjaxSharing.Text = AjaxSharing.ToString();
+                txtDealerSharing.Text = (TotalBudget - AjaxSharing).ToString();
             }
 
         }
@@ -181,27 +183,27 @@ namespace DealerManagementSystem.ViewMarketing
             List<PDMS_ActivityInfo> actinfoList = new BDMS_Activity().GetActivityInfoDataByID(ActivityID);
             if (actinfoList.Count > 0 && ActivityID > 0)
             {
-                txtFA.Value = actinfoList[0].FunctionalArea.ToString();
-                txtBudget.Value = actinfoList[0].Budget.ToString();
-                txtExpBudget.Value = "";
+                txtFA.Text = actinfoList[0].FunctionalArea.ToString();
+                txtBudget.Text = actinfoList[0].Budget.ToString();
+                txtExpBudget.Text = "";
                 lblAjaxSharing.InnerText = " (" + actinfoList[0].AjaxSharing.ToString() + ")";
                 lblDealerSharing.InnerText = " (" + (100 - Convert.ToDouble(actinfoList[0].AjaxSharing.ToString())).ToString() + ")";
                 hdnAjaxSharing.Value = actinfoList[0].AjaxSharing.ToString(); //actinfoList[0].Budget* actinfoList[0].AjaxSharing/100*Convert.ToDouble("0"+txtUnits.Value);
-                txtAjaxSharing.Value = "";
-                txtDealerSharing.Value = "";
+                txtAjaxSharing.Text = "";
+                txtDealerSharing.Text = "";
                 lblUnits.InnerText = "No of Units(" + actinfoList[0].UnitDesc + ")";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "SetExpBudget();", true);
             }
             else
             {
-                txtFA.Value = "";
-                txtBudget.Value = "";
-                txtExpBudget.Value = "";
+                txtFA.Text = "";
+                txtBudget.Text = "";
+                txtExpBudget.Text = "";
                 lblAjaxSharing.InnerText = "";
                 lblDealerSharing.InnerText = "";
-                txtAjaxSharing.Value = "";
+                txtAjaxSharing.Text = "";
                 hdnAjaxSharing.Value = "";
-                txtDealerSharing.Value = "";
+                txtDealerSharing.Text = "";
                 lblUnits.InnerText = "No of Units";
             }
         }

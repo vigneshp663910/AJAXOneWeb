@@ -139,7 +139,7 @@
         function SetDealerSharing() {
             var txtAjaxSharing = document.getElementById('<%=txtAjaxSharing.ClientID%>');
             var txtDealerSharing = document.getElementById('<%=txtDealerSharing.ClientID%>');
-            txtDealerSharing.value = 100 - parseFloat('0' + txtAjaxSharing.value);
+            txtDealerSharing.Text = 100 - parseFloat('0' + txtAjaxSharing.Text);
         }
         function Clear() {
             Initialize();
@@ -230,7 +230,7 @@
                     <div class="col-md-10 text-left">
                         <label class="modal-label">-</label>
                         <asp:Button ID="Search" runat="server" Text="Search" CssClass="btn Search" OnClick="btnSearch_Click" />
-                        <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" CssClass="btn Back" OnClick="btnExcel_Click" Width="100px" />
+                        <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" CssClass="btn Back" OnClick="btnExcel_Click" Width="120px" />
                     </div>
                 </div>
             </fieldset>
