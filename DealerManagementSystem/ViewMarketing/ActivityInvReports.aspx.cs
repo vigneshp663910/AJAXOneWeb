@@ -15,7 +15,7 @@ namespace DealerManagementSystem.ViewMarketing
         {
             if (!Page.IsPostBack)
             {
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealerSearch.DataTextField = "CodeWithName"; ddlDealerSearch.DataValueField = "DID"; ddlDealerSearch.DataSource = Dealer; ddlDealerSearch.DataBind();
                 if (ddlDealerSearch.Items.Count > 1)
                 {
@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void Search_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            DataTable dt = oActivity.GetInvoiceReportData_grid(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId, Convert.ToInt32(ddlStatus.SelectedValue), ddlActivityType.SelectedValue);
+            DataTable dt = oActivity.GetInvoiceReportData_grid(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID, Convert.ToInt32(ddlStatus.SelectedValue), ddlActivityType.SelectedValue);
             gvData.DataSource = dt;
             gvData.DataBind();
             foreach (GridViewRow gvRow in gvData.Rows)
@@ -94,7 +94,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void btnExcel_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            DataTable dt = oActivity.GetInvoiceReportData(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId, Convert.ToInt32(ddlStatus.SelectedValue), ddlActivityType.SelectedValue);
+            DataTable dt = oActivity.GetInvoiceReportData(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID, Convert.ToInt32(ddlStatus.SelectedValue), ddlActivityType.SelectedValue);
             dt.Columns.Remove("AIH_PkHdrID");
             dt.Columns.Remove("PKActualID");
             new BXcel().ExporttoExcel(dt, "Invoice Report");
@@ -108,7 +108,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void btnSapData_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            DataTable dt = oActivity.GetInvoiceReportData_ForSAP(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId, Convert.ToInt32(ddlStatus.SelectedValue), ddlActivityType.SelectedValue);
+            DataTable dt = oActivity.GetInvoiceReportData_ForSAP(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID, Convert.ToInt32(ddlStatus.SelectedValue), ddlActivityType.SelectedValue);
             new BXcel().ExporttoExcel(dt, "Invoice Data for SAP");
         }
         int NewPageIndex = 0;

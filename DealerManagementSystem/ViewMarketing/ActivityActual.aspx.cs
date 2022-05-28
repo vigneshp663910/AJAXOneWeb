@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewMarketing
         {
             if (!Page.IsPostBack)
             {
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealer.DataTextField = "CodeWithName"; ddlDealer.DataValueField = "DID"; ddlDealer.DataSource = Dealer; ddlDealer.DataBind();
                 if (ddlDealer.Items.Count > 1)
                 {
@@ -59,7 +59,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void Search_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            oActivity.BindActivityActualData(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), ddlDateOn.SelectedValue, txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId);
+            oActivity.BindActivityActualData(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), ddlDateOn.SelectedValue, txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID);
             foreach (GridViewRow gvRow in gvData.Rows)
             {
                 LinkButton lnkEdit = gvRow.FindControl("lnkEdit") as LinkButton;
@@ -90,7 +90,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void btnExcel_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            System.Data.DataTable dt = oActivity.GetActivityActualDataForExcel(Convert.ToInt32(ddlDealerSearch.SelectedValue), ddlDateOn.SelectedValue, txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId);
+            System.Data.DataTable dt = oActivity.GetActivityActualDataForExcel(Convert.ToInt32(ddlDealerSearch.SelectedValue), ddlDateOn.SelectedValue, txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID);
 
             new BXcel().ExporttoExcel(dt, "Activity Actual Data");
         }
@@ -112,7 +112,7 @@ namespace DealerManagementSystem.ViewMarketing
             {
 
                 BDMS_Activity oActivity = new BDMS_Activity();
-                sReturn = oActivity.SaveActivityActual(PKPlanID, Units, FromDate, ToDate, Location, Remarks, PSession.UserId, Status, NDRemarks, dblExpenses);
+                sReturn = oActivity.SaveActivityActual(PKPlanID, Units, FromDate, ToDate, Location, Remarks, PSession.User.UserID, Status, NDRemarks, dblExpenses);
 
 
             }
@@ -186,7 +186,7 @@ namespace DealerManagementSystem.ViewMarketing
                 SaveFile(flUpload4, "Image 4");
 
                 BDMS_Activity oActivity = new BDMS_Activity();
-                oActivity.SaveActivityActual(PkPlanID, Units, FromDate, ToDate, Location, Remarks, PSession.UserId, Status, NDRemarks, dblExpenses);
+                oActivity.SaveActivityActual(PkPlanID, Units, FromDate, ToDate, Location, Remarks, PSession.User.UserID, Status, NDRemarks, dblExpenses);
                 List<PDMS_ActivityDocs> lstDocs = Session["ActDocs"] as List<PDMS_ActivityDocs>;
                 if (lstDocs != null)
                 {
@@ -209,7 +209,7 @@ namespace DealerManagementSystem.ViewMarketing
 
                 if (postedFile != null)
                 {
-                    string sFileName = DateTime.Now.ToString("ddmmyhhmmsstt") + "_" + PSession.UserId.ToString() + "_" + postedFile.FileName;
+                    string sFileName = DateTime.Now.ToString("ddmmyhhmmsstt") + "_" + PSession.User.UserID.ToString() + "_" + postedFile.FileName;
                     string pathaname = HttpContext.Current.Server.MapPath("~/YDMS/Temp/") + @"\" + sFileName;
                     if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/YDMS/Temp/"))) Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/YDMS/Temp/"));
                     if (postedFile.ContentType.ToUpper().Contains("IMAGE"))
@@ -418,7 +418,7 @@ namespace DealerManagementSystem.ViewMarketing
             LinkButton lnkEdit = sender as LinkButton;
             int PKActualID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
             BDMS_Activity oActivity = new BDMS_Activity();
-            string InvoiceNo = oActivity.GenerateInvoice(PKActualID, PSession.UserId);
+            string InvoiceNo = oActivity.GenerateInvoice(PKActualID, PSession.User.UserID);
 
             if (!InvoiceNo.Contains("Error"))
             {

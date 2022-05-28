@@ -38,7 +38,7 @@ namespace DealerManagementSystem.ViewMarketing
             try
             {
                 BDMS_Activity oActivity = new BDMS_Activity();
-                sReturn = oActivity.SaveActivityInfo(ActivityID, FunctionaAreaID, UnitID, dblBudget, dblAjaxSharing, dblDealerSharing, SAC, GST, PSession.UserId, ActivityType);
+                sReturn = oActivity.SaveActivityInfo(ActivityID, FunctionaAreaID, UnitID, dblBudget, dblAjaxSharing, dblDealerSharing, SAC, GST, PSession.User.UserID, ActivityType);
             }
             catch (Exception ex)
             {

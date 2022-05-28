@@ -24,7 +24,7 @@ namespace DealerManagementSystem.ViewMarketing
 
 
                 btnSubmit.Visible = false;
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealer.DataTextField = "CodeWithName"; ddlDealer.DataValueField = "DID"; ddlDealer.DataSource = Dealer; ddlDealer.DataBind();
                 if (ddlDealer.Items.Count > 1) ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
                 oPlan.BindYear(ddlYear);
@@ -184,7 +184,7 @@ namespace DealerManagementSystem.ViewMarketing
                         DateTime PlanDate = Convert.ToDateTime(dr["PlanDate"]);
                         int PlanNo = Convert.ToInt32(dr["PlanNo"]);
                         string sTag = dr["Tag"].ToString();
-                        oPlan.SavePlan(DealerID, PlanDate, ModelID, PlanNo, PSession.UserId, sTag);
+                        oPlan.SavePlan(DealerID, PlanDate, ModelID, PlanNo, PSession.User.UserID, sTag);
                     }
                 }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Saved Successfully!')", true);

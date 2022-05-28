@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             BDMS_CustomerSale objCustomerSale = new BDMS_CustomerSale();
-            DataTable dtDlr = objCustomerSale.GetDealerByStateID(PSession.UserId, Convert.ToInt32(ddlState.SelectedValue));
+            DataTable dtDlr = objCustomerSale.GetDealerByStateID(PSession.User.UserID, Convert.ToInt32(ddlState.SelectedValue));
             ddlDealer.DataSourceID = "";
             ddlDealer.DataSource = dtDlr;
             ddlDealer.DataBind();
@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewMarketing
                 string ReasonRemarks = txtremarks.Text;
                 Int32 PkCustSaleID = Convert.ToInt32(ViewState["PkCustSaleID"]);
                 sReturn = oCS.SaveCustomerSale(DealerID, iMonth, iYear, CustomerName, ContactPerson, ContactNumber, AjaxModelID, AjaxPrice, CompmakeID,
-                    CompModelID, CompPrice, Qty, Noofvisit, ResonTypeID, ReasonRemarks, PSession.UserId, PkCustSaleID);
+                    CompModelID, CompPrice, Qty, Noofvisit, ResonTypeID, ReasonRemarks, PSession.User.UserID, PkCustSaleID);
 
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void ddlStateSrch_SelectedIndexChanged(object sender, EventArgs e)
         {
             BDMS_CustomerSale objCustomerSale = new BDMS_CustomerSale();
-            DataTable dtDlr = objCustomerSale.GetDealerByStateID(PSession.UserId, Convert.ToInt32(ddlStateSrch.SelectedValue));
+            DataTable dtDlr = objCustomerSale.GetDealerByStateID(PSession.User.UserID, Convert.ToInt32(ddlStateSrch.SelectedValue));
             ddlDlrSrch.DataSourceID = "";
             ddlDlrSrch.DataSource = dtDlr;
             ddlDlrSrch.DataBind();
@@ -128,7 +128,7 @@ namespace DealerManagementSystem.ViewMarketing
                 int AjaxModelOD = Convert.ToInt32(ddlAjaxModelSrch.SelectedValue);
                 int CompID = Convert.ToInt32(ddlCompetitorSrch.SelectedValue);
                 int CompModelID = Convert.ToInt32(ddlCompetitorMdlSrch.SelectedValue);
-                DataSet ds = oCustSale.GetCustomerSaleData(StateID, DealeriD, FromYear, FromMonth, ToYear, ToMonth, AjaxModelOD, CompID, CompModelID, PSession.UserId);
+                DataSet ds = oCustSale.GetCustomerSaleData(StateID, DealeriD, FromYear, FromMonth, ToYear, ToMonth, AjaxModelOD, CompID, CompModelID, PSession.User.UserID);
                 gvSearch.DataSource = ds;
                 gvSearch.DataBind();
             }
@@ -206,7 +206,7 @@ namespace DealerManagementSystem.ViewMarketing
                 int CompID = Convert.ToInt32(ddlCompetitorSrch.SelectedValue);
                 int CompModelID = Convert.ToInt32(ddlCompetitorMdlSrch.SelectedValue);
 
-                DataSet ds = oCustSale.GetCustomerSaleData(StateID, DealeriD, FromYear, FromMonth, ToYear, ToMonth, AjaxModelOD, CompID, CompModelID, PSession.UserId);
+                DataSet ds = oCustSale.GetCustomerSaleData(StateID, DealeriD, FromYear, FromMonth, ToYear, ToMonth, AjaxModelOD, CompID, CompModelID, PSession.User.UserID);
                 DataTable dt = ds.Tables[0];
                 dt.Columns.Remove("CS_PkCustSaleID");
 

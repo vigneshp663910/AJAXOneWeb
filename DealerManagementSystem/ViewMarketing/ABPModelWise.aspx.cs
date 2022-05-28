@@ -25,7 +25,7 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     btnExportAll.Visible = false;
                 }
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealer.DataTextField = "CodeWithName"; ddlDealer.DataValueField = "DID"; ddlDealer.DataSource = Dealer; ddlDealer.DataBind();
                 if (ddlDealer.Items.Count > 1) ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
                 oPlan.BindFinancialYear(ddlYear);
@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     TextBox txt = gvPlan.FooterRow.FindControl(arrMonths[iMonth - 1]) as TextBox;
                     int Year = Convert.ToInt32(iMonth < 4 ? FY.Substring(5, 4) : FY.Substring(0, 4));
-                    oPlan.SaveABP(DealerID, Year, iMonth, "MDL", Convert.ToInt32(ddlModel.SelectedValue), Convert.ToInt32("0" + txt.Text), PSession.UserId);
+                    oPlan.SaveABP(DealerID, Year, iMonth, "MDL", Convert.ToInt32(ddlModel.SelectedValue), Convert.ToInt32("0" + txt.Text), PSession.User.UserID);
                 }
                 BindGrid();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Saved Successfully!')", true);
@@ -103,7 +103,7 @@ namespace DealerManagementSystem.ViewMarketing
             LinkButton lnk = sender as LinkButton;
             GridViewRow gvRow = lnk.NamingContainer as GridViewRow;
             HiddenField hdnModelID = gvRow.FindControl("hdnModelID") as HiddenField;
-            oPlan.DeleteABPForDealer(Convert.ToInt32(ddlDealer.SelectedValue), ddlYear.SelectedValue, "MDL", Convert.ToInt32(hdnModelID.Value), PSession.UserId);
+            oPlan.DeleteABPForDealer(Convert.ToInt32(ddlDealer.SelectedValue), ddlYear.SelectedValue, "MDL", Convert.ToInt32(hdnModelID.Value), PSession.User.UserID);
             BindGrid();
         }
 
@@ -209,7 +209,7 @@ namespace DealerManagementSystem.ViewMarketing
         {
             try
             {
-                DataTable dtPlan = oPlan.GetABPForDealer_All(PSession.UserId, ddlYear.SelectedValue);
+                DataTable dtPlan = oPlan.GetABPForDealer_All(PSession.User.UserID, ddlYear.SelectedValue);
                 dtPlan.Columns.Remove("ModelID");
 
                 GridView gvExcel = new GridView();

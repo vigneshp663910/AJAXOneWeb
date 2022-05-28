@@ -22,7 +22,7 @@ namespace DealerManagementSystem.ViewMarketing
                 btnNew.Attributes.Add("onclick", "return confirm('Do you want ro enter a new claim?');");
                 divEntry.Visible = true;
                 divSearch.Visible = false;
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealer.DataTextField = "CodeWithName"; ddlDealer.DataValueField = "DID"; ddlDealer.DataSource = Dealer; ddlDealer.DataBind();
                 if (ddlDealer.Items.Count > 1)
                 {
@@ -58,7 +58,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void btnExcel_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            DataTable dt = oActivity.GetActivityClaimData_WOPlan(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId);
+            DataTable dt = oActivity.GetActivityClaimData_WOPlan(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID);
             dt.Columns.Remove("AAP_ApprovalLevel");
             dt.Columns.Remove("ApprovalStatusID");
             dt.Columns.Remove("PKActualID");
@@ -71,7 +71,7 @@ namespace DealerManagementSystem.ViewMarketing
         {
             BDMS_Activity oActivity = new BDMS_Activity();
 
-            DataTable dt = oActivity.GetActivityClaimData_WOPlan(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId);
+            DataTable dt = oActivity.GetActivityClaimData_WOPlan(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID);
             gvData.DataSource = dt;
             gvData.DataBind();
             foreach (GridViewRow gvRow in gvData.Rows)
@@ -185,7 +185,7 @@ namespace DealerManagementSystem.ViewMarketing
             LinkButton lnkEdit = sender as LinkButton;
             int PKActualID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
             BDMS_Activity oActivity = new BDMS_Activity();
-            string InvoiceNo = oActivity.GenerateInvoice(PKActualID, PSession.UserId);
+            string InvoiceNo = oActivity.GenerateInvoice(PKActualID, PSession.User.UserID);
 
             if (!InvoiceNo.Contains("Error"))
             {
@@ -214,7 +214,7 @@ namespace DealerManagementSystem.ViewMarketing
                 Session["ActDocs"] = null;
 
                 BDMS_Activity oActivity = new BDMS_Activity();
-                PKActualID = Convert.ToInt32(oActivity.SaveActivityClaim(PKActualID, DealerID, ActivityID, Units, FromDate, ToDate, Location, Remarks, PSession.UserId, dblExpenses));
+                PKActualID = Convert.ToInt32(oActivity.SaveActivityClaim(PKActualID, DealerID, ActivityID, Units, FromDate, ToDate, Location, Remarks, PSession.User.UserID, dblExpenses));
                 SaveFile(flUpload1, "Image 1");
                 SaveFile(flUpload2, "Image 2");
                 SaveFile(flUpload3, "Image 3");
@@ -246,7 +246,7 @@ namespace DealerManagementSystem.ViewMarketing
 
                 if (postedFile != null)
                 {
-                    string sFileName = DateTime.Now.ToString("ddmmyhhmmsstt") + "_" + PSession.UserId.ToString() + "_" + postedFile.FileName;
+                    string sFileName = DateTime.Now.ToString("ddmmyhhmmsstt") + "_" + PSession.User.UserID.ToString() + "_" + postedFile.FileName;
                     string pathaname = HttpContext.Current.Server.MapPath("~/YDMS/Temp/") + @"\" + sFileName;
                     if (postedFile.ContentType.ToUpper().Contains("IMAGE"))
                     {

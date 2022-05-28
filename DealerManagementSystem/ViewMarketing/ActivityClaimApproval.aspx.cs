@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewMarketing
 
             if (!Page.IsPostBack)
             {
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
 
                 ddlDealerSearch.DataTextField = "CodeWithName"; ddlDealerSearch.DataValueField = "DID"; ddlDealerSearch.DataSource = Dealer; ddlDealerSearch.DataBind();
                 if (ddlDealerSearch.Items.Count > 1) ddlDealerSearch.Items.Insert(0, new ListItem("Select", "0"));
@@ -74,7 +74,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void Search_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            oActivity.BindActivityActualDataForApproval(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, Convert.ToInt32(ddlAppStatus.SelectedValue), PSession.UserId, Convert.ToInt32(ViewState["ApprovalLevel"]), Convert.ToInt32(ViewState["FAID"]));
+            oActivity.BindActivityActualDataForApproval(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, Convert.ToInt32(ddlAppStatus.SelectedValue), PSession.User.UserID, Convert.ToInt32(ViewState["ApprovalLevel"]), Convert.ToInt32(ViewState["FAID"]));
         }
         protected void lnkDownload_Click(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void btnExcel_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            System.Data.DataTable dt = oActivity.GetActivityActualDataForApproval_ForExcel(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, Convert.ToInt32(ddlAppStatus.SelectedValue), PSession.UserId, Convert.ToInt32(ViewState["ApprovalLevel"]), Convert.ToInt32(ViewState["FAID"]));
+            System.Data.DataTable dt = oActivity.GetActivityActualDataForApproval_ForExcel(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, Convert.ToInt32(ddlAppStatus.SelectedValue), PSession.User.UserID, Convert.ToInt32(ViewState["ApprovalLevel"]), Convert.ToInt32(ViewState["FAID"]));
 
             new BXcel().ExporttoExcel(dt, "Activity Data");
         }
@@ -185,7 +185,7 @@ namespace DealerManagementSystem.ViewMarketing
                 BDMS_Activity objAct = new BDMS_Activity();
                 int ActualID = Convert.ToInt32(ViewState["PKActualID"]);
                 int ApprovalLevel = Convert.ToInt32(ViewState["ApprovalLevel"]);
-                long UpdatedBy = PSession.UserId;
+                long UpdatedBy = PSession.User.UserID;
                 int Status = ApprovalLevel == 1 ? Convert.ToInt32(ddlAppStatus1.SelectedValue) : Convert.ToInt32(ddlAppStatus2.SelectedValue);
                 string strStatus = ApprovalLevel == 1 ? (ddlAppStatus1.SelectedItem.Text) : (ddlAppStatus2.SelectedItem.Text);
                 string Remarks = ApprovalLevel == 1 ? txtApp1Remarks.Value : txtApp2Remarks.Value;

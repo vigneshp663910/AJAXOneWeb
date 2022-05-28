@@ -18,7 +18,7 @@
     </style>
     <%-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">    </script>--%>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>
-
+    <%-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3GoNpyp-Tl8cjp4sqjXe_6ejLhr87eiI"></script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -72,7 +72,8 @@
         var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
         var mapOptions = {
             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-            zoom: 12,
+            //zoom: 12,
+            zoom: 4.6,
             mapTypeId: google.maps.MapTypeId.ROADMAP
             //  marker:true
         };

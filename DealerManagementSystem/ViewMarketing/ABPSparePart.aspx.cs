@@ -26,7 +26,7 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     btnExportAll.Visible = false;
                 }
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealer.DataTextField = "CodeWithName"; ddlDealer.DataValueField = "DID"; ddlDealer.DataSource = Dealer; ddlDealer.DataBind();
                 if (ddlDealer.Items.Count > 1) ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
                 oPlan.BindFinancialYear(ddlYear);
@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     TextBox txt = gvPlan.FooterRow.FindControl(arrMonths[iMonth - 1]) as TextBox;
                     int Year = Convert.ToInt32(iMonth < 4 ? FY.Substring(5, 4) : FY.Substring(0, 4));
-                    oPlan.SavePartABP(DealerID, SPM_PlanType, Year, iMonth, ddlPartCategory.SelectedValue, Convert.ToDouble("0" + txt.Text), PSession.UserId);
+                    oPlan.SavePartABP(DealerID, SPM_PlanType, Year, iMonth, ddlPartCategory.SelectedValue, Convert.ToDouble("0" + txt.Text), PSession.User.UserID);
                 }
                 BindGrid();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Saved Successfully!')", true);
@@ -105,7 +105,7 @@ namespace DealerManagementSystem.ViewMarketing
             GridViewRow gvRow = lnk.NamingContainer as GridViewRow;
 
             Label lblPartCat = gvRow.FindControl("lblPartCat") as Label;
-            oPlan.DeletePartABPForDealer(Convert.ToInt32(ddlDealer.SelectedValue), ddlYear.SelectedValue, lblPartCat.Text, PSession.UserId, SPM_PlanType);
+            oPlan.DeletePartABPForDealer(Convert.ToInt32(ddlDealer.SelectedValue), ddlYear.SelectedValue, lblPartCat.Text, PSession.User.UserID, SPM_PlanType);
             BindGrid();
         }
 
@@ -210,7 +210,7 @@ namespace DealerManagementSystem.ViewMarketing
         {
             try
             {
-                DataTable dtPlan = oPlan.GetPartABPForDealer_All(PSession.UserId, ddlYear.SelectedValue, SPM_PlanType);
+                DataTable dtPlan = oPlan.GetPartABPForDealer_All(PSession.User.UserID, ddlYear.SelectedValue, SPM_PlanType);
 
                 GridView gvExcel = new GridView();
                 gvExcel.DataSource = dtPlan;

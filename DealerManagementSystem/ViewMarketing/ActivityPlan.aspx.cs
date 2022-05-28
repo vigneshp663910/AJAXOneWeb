@@ -15,7 +15,7 @@ namespace DealerManagementSystem.ViewMarketing
         {
             if (!Page.IsPostBack)
             {
-                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.UserId);
+                List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
                 ddlDealer.DataTextField = "CodeWithName"; ddlDealer.DataValueField = "DID"; ddlDealer.DataSource = Dealer; ddlDealer.DataBind();
                 if (ddlDealer.Items.Count > 1) ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
                 ddlDealerSearch.DataTextField = "CodeWithName"; ddlDealerSearch.DataValueField = "DID"; ddlDealerSearch.DataSource = Dealer; ddlDealerSearch.DataBind();
@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void Search_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            oActivity.BindActivityPlanData(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), Convert.ToInt32(ddlActivitySearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.UserId, Convert.ToInt32(ddlStatus.SelectedValue));
+            oActivity.BindActivityPlanData(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), Convert.ToInt32(ddlActivitySearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, PSession.User.UserID, Convert.ToInt32(ddlStatus.SelectedValue));
         }
 
         protected void btnExcel_Click(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace DealerManagementSystem.ViewMarketing
             try
             {
                 BDMS_Activity oActivity = new BDMS_Activity();
-                sReturn = oActivity.SaveActivityPlan(PKPlanID, ActivityID, DealerID, Units, FromDate, ToDate, Location, Remarks, PSession.UserId);
+                sReturn = oActivity.SaveActivityPlan(PKPlanID, ActivityID, DealerID, Units, FromDate, ToDate, Location, Remarks, PSession.User.UserID);
             }
             catch (Exception ex)
             {
