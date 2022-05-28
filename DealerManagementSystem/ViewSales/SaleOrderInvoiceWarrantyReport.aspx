@@ -95,7 +95,7 @@
         </div>
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Parts Invoice</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Invoice</legend>
                 <div class="col-md-12 Report">
                     <div class="boxHead">
                         <div class="logheading">
