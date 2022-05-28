@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewMarketing
     {
 
         /// <summary>
-        /// updPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updPanel;
-
-        /// <summary>
         /// ddlActivity control.
         /// </summary>
         /// <remarks>
@@ -57,7 +48,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtSAC;
+        protected global::System.Web.UI.WebControls.TextBox txtSAC;
 
         /// <summary>
         /// ddlGST control.
@@ -84,7 +75,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBudget;
+        protected global::System.Web.UI.WebControls.TextBox txtBudget;
 
         /// <summary>
         /// txtAjaxSharing control.
@@ -93,7 +84,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAjaxSharing;
+        protected global::System.Web.UI.WebControls.TextBox txtAjaxSharing;
 
         /// <summary>
         /// txtDealerSharing control.
@@ -102,7 +93,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDealerSharing;
+        protected global::System.Web.UI.WebControls.TextBox txtDealerSharing;
 
         /// <summary>
         /// btnSubmit control.

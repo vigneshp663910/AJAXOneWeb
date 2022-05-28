@@ -134,11 +134,11 @@ namespace DealerManagementSystem.ViewMarketing
                     ddlActivity.SelectedValue = actinfoList[0].ActivityID.ToString();
                     ddlFunctionalArea.SelectedValue = actinfoList[0].FunctionalAreaID.ToString();
                     ddlUnit.SelectedValue = actinfoList[0].Unit.ToString();
-                    txtBudget.Value = actinfoList[0].Budget.ToString();
-                    txtAjaxSharing.Value = actinfoList[0].AjaxSharing.ToString();
-                    txtDealerSharing.Value = actinfoList[0].DealerSharing.ToString();
+                    txtBudget.Text = actinfoList[0].Budget.ToString();
+                    txtAjaxSharing.Text = actinfoList[0].AjaxSharing.ToString();
+                    txtDealerSharing.Text = actinfoList[0].DealerSharing.ToString();
                     ddlGST.SelectedValue = actinfoList[0].GST.ToString();
-                    txtSAC.Value = actinfoList[0].SAC;
+                    txtSAC.Text = actinfoList[0].SAC;
                     ddlActivityType.SelectedValue = actinfoList[0].ActivityType.ToString();
                 }
             }

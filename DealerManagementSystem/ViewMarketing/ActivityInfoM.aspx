@@ -1,14 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ActivityInfoM.aspx.cs" Inherits="DealerManagementSystem.ViewMarketing.ActivityInfoM" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="YDMSStyles.css" rel="stylesheet"  />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        
         function Initialize() {
             ddlActivity = document.getElementById('<%=ddlActivity.ClientID%>');
             ddlFunctionalArea = document.getElementById('<%=ddlFunctionalArea.ClientID%>');
@@ -31,7 +24,7 @@
                     ctl.value = 100;
                 }
             }
-        }             
+        }
         function BindData(data) {
             Initialize();
             try {
@@ -59,10 +52,10 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response.d) {                       
+                    if (response.d) {
                         console.log(response.d);
-                            var data = JSON.parse(response.d.toString());
-                            BindData(data);
+                        var data = JSON.parse(response.d.toString());
+                        BindData(data);
                     }
                 },
                 failure: function (response) {
@@ -120,13 +113,13 @@
             $.ajax({
                 type: "POST",
                 url: "YDMS_ActivityInfoM.aspx/SaveActivityInfo",
-                data: '{ActivityID: "' + ddlActivity.value + '",FunctionaAreaID: "' + ddlFunctionalArea.value + '",UnitID: "' + ddlUnit.value + '",dblBudget: "' + txtBudget.value + '", dblAjaxSharing: "' + txtAjaxSharing.value + '", dblDealerSharing: "' + txtDealerSharing.value + '", SAC: "' + txtSAC.value + '", GST: "' + ddlGST.value + '",ActivityType:"'+ddlActivityType.value+'"}',
+                data: '{ActivityID: "' + ddlActivity.value + '",FunctionaAreaID: "' + ddlFunctionalArea.value + '",UnitID: "' + ddlUnit.value + '",dblBudget: "' + txtBudget.value + '", dblAjaxSharing: "' + txtAjaxSharing.value + '", dblDealerSharing: "' + txtDealerSharing.value + '", SAC: "' + txtSAC.value + '", GST: "' + ddlGST.value + '",ActivityType:"' + ddlActivityType.value + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     if (response.d) {
                         if (response.d.toString() == "Saved") {
-                            alert("Saved Successfully" );
+                            alert("Saved Successfully");
                             Clear();
                             var buttonID = '<%= Search.ClientID %>';
                             $("#" + buttonID).click();
@@ -134,7 +127,7 @@
                         else {
                             alert(response.d.toString());
                         }
-                        
+
                     }
                 },
                 failure: function (response) {
@@ -156,151 +149,147 @@
             ddlGST.value = '0'; txtSAC.value = '';
         }
     </script>
-    <asp:UpdatePanel ID="updPanel" runat="server">
-        <Triggers>
-            <asp:PostBackTrigger ControlID="btnExcel" />
-        </Triggers>
-        <ContentTemplate>
-    <div class="container-fluid">
-        <div class="row" style="background-color:#3665c2;color:white;margin-bottom:10px">
-            <h4 >Activity Information Master</h4>
-            </div>
-        <div class="row">
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="ddlActivity">Activity</label>
-                <asp:DropDownList ID="ddlActivity" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="YDMSStyles.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>--%>
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Activity Information Master</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlActivity">Activity</label>
+                        <asp:DropDownList ID="ddlActivity" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlFunctionalArea">Activity Type</label>
+                        <asp:DropDownList ID="ddlActivityType" runat="server" CssClass="form-control">
+                            <asp:ListItem Text="Select" Value=""></asp:ListItem>
+                            <asp:ListItem Text="Field Activity" Value="FA"></asp:ListItem>
+                            <asp:ListItem Text="Invoice Activity" Value="IA"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlFunctionalArea">Functional Area</label>
+                        <asp:DropDownList ID="ddlFunctionalArea" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtSAC">SAC</label>
+                        <%--<input type="text" runat="server" id="txtSAC" CssClass="form-control"/>--%>
+                        <asp:TextBox ID="txtSAC" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlGST">GST %</label>
+                        <asp:DropDownList ID="ddlGST" runat="server" CssClass="form-control">
+                            <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="5 %" Value="5"></asp:ListItem>
+                            <asp:ListItem Text="12%" Value="12"></asp:ListItem>
+                            <asp:ListItem Text="18%" Value="18"></asp:ListItem>
+                            <asp:ListItem Text="28%" Value="28"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlUnit">Unit</label>
+                        <asp:DropDownList ID="ddlUnit" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtBudget">Budget Per Unit</label>
+                        <%--<input type="text" runat="server" id="txtBudget" CssClass="form-control"/>--%>
+                        <asp:TextBox ID="txtBudget" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtAjaxSharing">Ajax Sharing %</label>
+                        <%--<input type="text" onkeyup="CheckValue(this);SetDealerSharing(this)" runat="server" id="txtAjaxSharing" CssClass="form-control"/>--%>
+                        <asp:TextBox ID="txtAjaxSharing" runat="server" CssClass="form-control" onkeyup="CheckValue(this);SetDealerSharing(this)"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtDealerSharing">Dealer Sharing %</label>
+                        <%--<input type="text" runat="server" disabled="disabled" id="txtDealerSharing" CssClass="form-control"/>--%>
+                        <asp:TextBox ID="txtDealerSharing" Enabled="false" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <label class="modal-label">-</label>
+                        <input type="submit" id="btnSubmit" class="btn Save" onclick="return SaveActivityInfo();" value="Submit" runat="server">
+                        <input type="submit" value="Cancel" class="btn Back" onclick="return Clear();" runat="server">
+                    </div>
+                </div>
+            </fieldset>
 
-                </asp:DropDownList>
-                
-            </div>
-             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="ddlFunctionalArea">Activity Type</label>
-                <asp:DropDownList ID="ddlActivityType" runat="server">
-                    <asp:ListItem Text="Select" Value=""></asp:ListItem>
-                    <asp:ListItem Text="Field Activity" Value="FA"></asp:ListItem>
-                    <asp:ListItem Text="Invoice Activity" Value="IA"></asp:ListItem>
-                </asp:DropDownList>                
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="ddlFunctionalArea">Functional Area</label>
-                <asp:DropDownList ID="ddlFunctionalArea" runat="server">
-
-                </asp:DropDownList>                
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="txtSAC">SAC</label>
-                <input type="text" runat="server" id="txtSAC" />                
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="ddlGST">GST %</label>
-                <asp:DropDownList ID="ddlGST" runat="server">
-                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                    <asp:ListItem Text="5 %" Value="5"></asp:ListItem>
-                    <asp:ListItem Text="12%" Value="12"></asp:ListItem>
-                    <asp:ListItem Text="18%" Value="18"></asp:ListItem>
-                    <asp:ListItem Text="28%" Value="28"></asp:ListItem>
-                </asp:DropDownList>                
-            </div>
-            
-        
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="ddlUnit">Unit</label>
-                <asp:DropDownList ID="ddlUnit" runat="server">
-
-                </asp:DropDownList>                
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="txtBudget">Budget Per Unit</label>
-                <input type="text" runat="server" id="txtBudget" />
-                
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="txtAjaxSharing">Ajax Sharing %</label>
-                <input type="text" onkeyup="CheckValue(this);SetDealerSharing(this)" runat="server" id="txtAjaxSharing" />
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                <label for="txtDealerSharing">Dealer Sharing %</label>
-                <input type="text" runat="server" disabled="disabled" id="txtDealerSharing" />
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align:right;padding-top:30px;">
-                <input type="submit" id="btnSubmit" onclick="return SaveActivityInfo();" value="Submit" runat="server">
-                <input type="submit" value="Cancel" onclick="return Clear();" runat="server">
-            </div>
-        </div>
-        
-    </div>
-    <hr />
-    
-
-        
-    <div class="container-fluid">
-          
-           <div class="row" style="background-color:#3665c2;color:white;margin-bottom:10px">
-            <h4 >Filter: Activity Information Master</h4>
-            </div>
-               <div class="row">
-                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
                         <label for="ddlActivitySearch">Activity</label>
-                        <asp:DropDownList ID="ddlActivitySearch" runat="server"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlActivitySearch" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
-                 
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align:right;vertical-align:bottom; padding-top:28px;">                        
-                        <asp:Button ID="Search" runat="server" Text="Search" OnClick="btnSearch_Click" />                                                
+                    <div class="col-md-10 text-left">
+                        <label class="modal-label">-</label>
+                        <asp:Button ID="Search" runat="server" Text="Search" CssClass="btn Search" OnClick="btnSearch_Click" />
+                        <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" CssClass="btn Back" OnClick="btnExcel_Click" Width="100px" />
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align:right;vertical-align:bottom; padding-top:28px;">
-                       <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" OnClick="btnExcel_Click" />
-                        
-                    </div>
-               </div>
-         <div class="row" style="background-color:#3665c2;color:white;margin-bottom:10px">
-            <h6 >Detail</h6>
-            </div>
-           
-        <asp:GridView ID="gvData"  CssClass="gridclass" AllowPaging="true" PageSize="20" runat="server" ShowHeaderWhenEmpty="true" 
-            OnRowDataBound="gvData_RowDataBound" AutoGenerateColumns="false" Width="95%" OnPageIndexChanging="gvData_PageIndexChanging"
-            OnPageIndexChanged="gvData_PageIndexChanged">
-            <Columns>
-                <asp:BoundField HeaderText="Activity" DataField="ActivityName" >
-                    <ItemStyle Width="15%" />
-                </asp:BoundField>
-                <asp:BoundField HeaderText="Code" DataField="ActivityCode" >
-                    <ItemStyle Width="10%" HorizontalAlign="Center"/>
-                </asp:BoundField>
-                 <asp:BoundField HeaderText="Activity Type" DataField="ActivityType" >
-                    <ItemStyle Width="8%" HorizontalAlign="Center" />
-                </asp:BoundField>
-                <asp:BoundField HeaderText="Functional Area" DataField="FunctionalArea" >
-                    <ItemStyle Width="8%" HorizontalAlign="Center" />
-                </asp:BoundField>
-                <asp:BoundField HeaderText="SAC" DataField="SAC" >
-                    <ItemStyle Width="8%" HorizontalAlign="Center" />
-                </asp:BoundField>
-                <asp:BoundField HeaderText="GST" DataField="GST" DataFormatString="{0:n0}" HeaderStyle-HorizontalAlign="Center" >
-                    <ItemStyle Width="8%"  HorizontalAlign="Center"/>
-                </asp:BoundField>
-                <asp:BoundField HeaderText="Unit" DataField="Unit" HeaderStyle-HorizontalAlign="Center" >
-                    <ItemStyle Width="8%"  HorizontalAlign="Center"/>
-                </asp:BoundField>
-                <asp:BoundField HeaderText="Budget per Unit" DataField="AI_Budget" HeaderStyle-HorizontalAlign="Center" >
-                    <ItemStyle Width="10%"  HorizontalAlign="Right"/>
-                </asp:BoundField>
-                <asp:BoundField HeaderText="Ajax Sharing %" DataField="AI_AjaxSharing" HeaderStyle-HorizontalAlign="Center" >
-                    <ItemStyle Width="10%"  HorizontalAlign="Center"/>
-                </asp:BoundField>
-                <asp:BoundField HeaderText="Dealer Sharing %" DataField="AI_DealerSharing" HeaderStyle-HorizontalAlign="Center" >
-                    <ItemStyle Width="10%"  HorizontalAlign="Center"/>
-                </asp:BoundField>
-                <asp:TemplateField>
-                    <ItemTemplate>
-                        <asp:LinkButton ID="lnkEdit" OnClick="lnkEdit_Click"  CommandArgument='<%# Bind("ActivityID") %>' runat="server" Text="Edit"></asp:LinkButton>
-                    </ItemTemplate>
-                    <ItemStyle Width="5%" />
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 Report">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Activity Information Master Report</legend>
+                <div class="col-md-12 Report">
+                    <asp:GridView ID="gvData" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" runat="server" ShowHeaderWhenEmpty="true"
+                        OnRowDataBound="gvData_RowDataBound" AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvData_PageIndexChanging"
+                        OnPageIndexChanged="gvData_PageIndexChanged">
+                        <Columns>
+                            <asp:BoundField HeaderText="Activity" DataField="ActivityName">
+                                <ItemStyle Width="15%" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Code" DataField="ActivityCode">
+                                <ItemStyle Width="10%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Activity Type" DataField="ActivityType">
+                                <ItemStyle Width="8%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Functional Area" DataField="FunctionalArea">
+                                <ItemStyle Width="8%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="SAC" DataField="SAC">
+                                <ItemStyle Width="8%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="GST" DataField="GST" DataFormatString="{0:n0}" HeaderStyle-HorizontalAlign="Center">
+                                <ItemStyle Width="8%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Unit" DataField="Unit" HeaderStyle-HorizontalAlign="Center">
+                                <ItemStyle Width="8%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Budget per Unit" DataField="AI_Budget" HeaderStyle-HorizontalAlign="Center">
+                                <ItemStyle Width="10%" HorizontalAlign="Right" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Ajax Sharing %" DataField="AI_AjaxSharing" HeaderStyle-HorizontalAlign="Center">
+                                <ItemStyle Width="10%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField HeaderText="Dealer Sharing %" DataField="AI_DealerSharing" HeaderStyle-HorizontalAlign="Center">
+                                <ItemStyle Width="10%" HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkEdit" OnClick="lnkEdit_Click" CommandArgument='<%# Bind("ActivityID") %>' runat="server" Text="Edit"></asp:LinkButton>
+                                </ItemTemplate>
+                                <ItemStyle Width="5%" />
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </fieldset>
+        </div>
     </div>
-            </ContentTemplate>
-    </asp:UpdatePanel>
-    <asp:HiddenField id="hdnSWidth" runat="server" />
+    <asp:HiddenField ID="hdnSWidth" runat="server" />
 </asp:Content>
 
