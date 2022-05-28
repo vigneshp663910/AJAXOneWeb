@@ -67,7 +67,10 @@
                         legend: { position: 'top', maxLines: 5 },
                         bar: { groupWidth: '80%' },
                         isStacked: true,
-                        is3D: true
+                        is3D: true,
+                        trendlines: {
+                            0: { type: 'exponential', color: '#333', opacity: 2 } 
+                        }
                     };
                     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
                     chart.draw(view, options);
@@ -154,13 +157,19 @@
               var data = google.visualization.arrayToDataTable([
                   ['Year', 'Visit %' ],
                   ['1', 30 ],
-                  ['2', 50 ] 
+                  ['2', 50],
+                  ['3', 20],
+                  ['4', 30],
+                  ['5', 50],
+                  ['6', 20],
               ]);
 
               var options = {
+                  
                   title: 'Company Performance',
                   curveType: 'function',
-                  legend: { position: 'bottom' }
+                  legend: { position: 'bottom' },
+                  displayAnnotations: true
               };
                
 

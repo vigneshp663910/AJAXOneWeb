@@ -47,7 +47,7 @@
         function GetActivityData(ActivityID) {
             $.ajax({
                 type: "POST",
-                url: "YDMS_ActivityInfoM.aspx/GetActivityInfo",
+                url: "ActivityInfoM.aspx/GetActivityInfo",
                 data: '{ActivityID: "' + ActivityID + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -112,7 +112,7 @@
             console.log(data);
             $.ajax({
                 type: "POST",
-                url: "YDMS_ActivityInfoM.aspx/SaveActivityInfo",
+                url: "ActivityInfoM.aspx/SaveActivityInfo",
                 data: '{ActivityID: "' + ddlActivity.value + '",FunctionaAreaID: "' + ddlFunctionalArea.value + '",UnitID: "' + ddlUnit.value + '",dblBudget: "' + txtBudget.value + '", dblAjaxSharing: "' + txtAjaxSharing.value + '", dblDealerSharing: "' + txtDealerSharing.value + '", SAC: "' + txtSAC.value + '", GST: "' + ddlGST.value + '",ActivityType:"' + ddlActivityType.value + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

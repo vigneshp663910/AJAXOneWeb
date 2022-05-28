@@ -121,24 +121,14 @@ namespace DealerManagementSystem.ViewDashboard
         {
             List<object> chartData = new List<object>();
             chartData.Add(new object[] { "General", "Open", "Assign", "Quotation", "Won" });
-            chartData.Add(new object[] { "9001", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9002", 52, 20, 32, 18 });
-            chartData.Add(new object[] { "9004", 10, 70, 32, 18 });
-            chartData.Add(new object[] { "9005", 96, 50, 32, 18 });
+            chartData.Add(new object[] { "Western", 10, 24, 32, 18 });
+            chartData.Add(new object[] { "Central", 52, 20, 32, 18 });
+            chartData.Add(new object[] { "East", 10, 70, 32, 18 });
+            chartData.Add(new object[] { "North", 96, 50, 32, 18 });
 
-            chartData.Add(new object[] { "9011", 40, 40, 32, 18 });
-            chartData.Add(new object[] { "9012", 10, 35, 32, 18 });
-            chartData.Add(new object[] { "9014", 38, 25, 32, 18 });
-            chartData.Add(new object[] { "9015", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9016", 74, 90, 32, 18 });
-            chartData.Add(new object[] { "9017", 36, 70, 32, 18 });
-            chartData.Add(new object[] { "9018", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9019", 98, 60, 32, 18 });
-
-            chartData.Add(new object[] { "9021", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9022", 40, 24, 32, 18 });
-            chartData.Add(new object[] { "9024", 10, 50, 32, 18 });
-            chartData.Add(new object[] { "9025", 96, 24, 32, 18 });  
+            chartData.Add(new object[] { "South1", 40, 40, 32, 18 });
+            chartData.Add(new object[] { "South2", 10, 35, 32, 18 });
+             
             return chartData; 
             //  var data = google.visualization.arrayToDataTable([
             //    ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery Crime', 'General', 'Western', 'Literature', { role: 'annotation' }],

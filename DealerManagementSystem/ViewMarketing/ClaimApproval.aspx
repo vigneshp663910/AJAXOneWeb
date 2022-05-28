@@ -12,7 +12,7 @@
         function GetActivityData(ActivityID) {
             $.ajax({
                 type: "POST",
-                url: "YDMS_ActivityInfoM.aspx/GetActivityInfo",
+                url: "ActivityInfoM.aspx/GetActivityInfo",
                 data: '{ActivityID: "' + ActivityID + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
