@@ -2,22 +2,10 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="YDMSStyles.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="YDMS_Scripts.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
             SetMaxDate();
-           <%-- var flUploadID = '<%=flUpload.ClientID%>';
-            $("#" + flUploadID).find('div').css('background', 'transparent');            --%>
-
         })
         function SetMaxDate() {
 
@@ -38,11 +26,6 @@
             document.getElementById('<%= txtToDate.ClientID %>').max = today;
         }
         function SetActualBudget() {
-       <%--     var txtBudget = document.getElementById('<%=txtExpBudget.ClientID%>');
-              var txtBudgetPerUnit = document.getElementById('<%=lblBudgetPerUnit.ClientID%>');
-              var txtNoofUnits = document.getElementById('<%=txtUnits.ClientID%>');
-            txtBudget.value = parseFloat('0' + txtBudgetPerUnit.value.replace(',','')) * parseFloat('0' + txtNoofUnits.value);
-            SetActualSharing();--%>
         }
         function SetActualSharing() {
             var txtAjaxSharingA = document.getElementById('<%=txtAjaxSharingA.ClientID%>');
@@ -213,35 +196,6 @@
             }
 
             return true;
-            <%--var data = '{PKPlanID:"' + ddlActivity.value + '",Units: "' + txtUnits.value + '",FromDate: "' + txtFromDate.value + '",ToDate: "' + txtToDate.value + '", Location: "' + txtLocaton.value + '", Remarks: "' + txtRemarks.value + '", Status: "' + ddlStatus.value + '", NDRemarks: "' + txtNDRemarks.value + '", Expense: "' + txtExpense.value + '"};'
-            console.log(data);
-            $.ajax({
-                type: "POST",
-                url: "YDMS_ActivityActual.aspx/SaveActivityActual",
-                data: '{PKPlanID:"' + ddlActivity.value + '",Units: "' + txtUnits.value + '",FromDate: "' + txtFromDate.value + '",ToDate: "' + txtToDate.value + '", Location: "' + txtLocaton.value + '", Remarks: "' + txtRemarks.value + '", Status: "' + ddlStatus.value + '", NDRemarks: "' + txtNDRemarks.value + '", dblExpenses: "' + txtExpense.value + '"}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    if (response.d) {
-                        if (response.d.toString() == "Saved") {
-                            alert("Saved Successfully");
-                            var ddlDealer = document.getElementById('<%=ddlDealer.ClientID%>');
-                            document.getElementById('<%=ddlDealerSearch.ClientID %>').value = ddlDealer.value;
-                            Clear();
-                            var buttonID = '<%= Search.ClientID %>';
-                            $("#" + buttonID).click();
-                        }
-                        else {
-                            alert(response.d.toString());
-                        }
-
-                    }
-                },
-                failure: function (response) {
-                    console.log(response);
-                }
-            });
-            return false;--%>
         }
         function Clear() {
             var ddlStatus = document.getElementById('<%=ddlStatus.ClientID%>');
@@ -352,6 +306,16 @@
                 background-color: white;
             }
     </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="YDMSStyles.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="YDMS_Scripts.js"></script>--%>
+    
     <asp:UpdatePanel ID="updPanel" runat="server">
         <Triggers>
             <asp:PostBackTrigger ControlID="btnExcel" />
