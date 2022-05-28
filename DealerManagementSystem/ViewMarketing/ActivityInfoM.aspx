@@ -145,7 +145,7 @@
             Initialize();
             ddlActivity.options.selectedIndex = 0;
             ddlFunctionalArea.options.selectedIndex = 0;
-            ddlUnit.options.selectedIndex = 0; txtBudget.value = ''; txtAjaxSharing.value = '', txtDealerSharing.value = '';
+            ddlUnit.options.selectedIndex = 0; txtBudget.value = ''; txtAjaxSharing.value = ''; txtDealerSharing.value = '';
             ddlGST.value = '0'; txtSAC.value = '';
         }
     </script>
