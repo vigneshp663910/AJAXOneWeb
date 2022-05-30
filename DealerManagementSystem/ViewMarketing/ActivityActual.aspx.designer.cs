@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewMarketing
     {
 
         /// <summary>
-        /// updPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updPanel;
-
-        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -93,7 +84,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAjaxSharing;
+        protected global::System.Web.UI.WebControls.TextBox txtAjaxSharing;
 
         /// <summary>
         /// lblDealerSharing control.
@@ -111,7 +102,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDealerSharing;
+        protected global::System.Web.UI.WebControls.TextBox txtDealerSharing;
 
         /// <summary>
         /// lblPlanLocation control.
@@ -409,14 +400,5 @@ namespace DealerManagementSystem.ViewMarketing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvData;
-
-        /// <summary>
-        /// updMainProg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdateProgress updMainProg;
     }
 }

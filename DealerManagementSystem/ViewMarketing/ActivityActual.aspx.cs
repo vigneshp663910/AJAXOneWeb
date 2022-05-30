@@ -275,8 +275,8 @@ namespace DealerManagementSystem.ViewMarketing
                 lblUnitsPlanned.Text = dr["AP_NoofUnits"].ToString();
                 lblBudgetPerUnit.Text = dr["AI_Budget"].ToString();
                 lblExpectedBudget.Text = dr["TotalPlanBudget"].ToString();
-                txtAjaxSharing.Value = dr["Plan_AjaxSharingAmount"].ToString();
-                txtDealerSharing.Value = dr["Plan_DealerSharingAmount"].ToString();
+                txtAjaxSharing.Text = dr["Plan_AjaxSharingAmount"].ToString();
+                txtDealerSharing.Text = dr["Plan_DealerSharingAmount"].ToString();
                 lblPlanLocation.Text = dr["AP_Location"].ToString();
 
                 ddlStatus.SelectedValue = dr["AP_Status"].ToString();
@@ -450,8 +450,8 @@ namespace DealerManagementSystem.ViewMarketing
                 lblDealerSharing.InnerText = " (" + (100 - lstActPlan[0].AP_AjaxSharing) + "%)";
                 lblAjaxSharingA.InnerText = " (" + lstActPlan[0].AP_AjaxSharing + "%)";
                 lblDealerSharingA.InnerText = " (" + (100 - lstActPlan[0].AP_AjaxSharing) + "%)";
-                txtAjaxSharing.Value = AjaxSharing.ToString("#0");
-                txtDealerSharing.Value = (TotalBudget - AjaxSharing).ToString("#0");
+                txtAjaxSharing.Text = AjaxSharing.ToString("#0");
+                txtDealerSharing.Text = (TotalBudget - AjaxSharing).ToString("#0");
                 hdnAjaxSharing.Value = lstActPlan[0].AP_AjaxSharing.ToString("#0");
             }
         }
