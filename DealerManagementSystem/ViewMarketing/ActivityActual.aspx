@@ -3,7 +3,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-
         $(document).ready(function () {
             SetMaxDate();
         })
@@ -101,7 +100,6 @@
                         var txtDealerSharing = document.getElementById('<%=txtDealerSharing.ClientID%>');
                         var txtBudget = document.getElementById('<%=lblExpectedBudget.ClientID%>')
                         SetMaxDate();
-
 
                         var txtFromDate = document.getElementById('<%=txtFromDate.ClientID%>');
                         var txtToDate = document.getElementById('<%=txtToDate.ClientID%>');
@@ -315,7 +313,171 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="YDMS_Scripts.js"></script>--%>
-    
+    <div class="col-md-12" id="divEntry">
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Activity Actual</legend>
+            <table>
+                <tr>
+                    <td>Plan Detail</td>
+                </tr>
+            </table>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label for="ddlDealer">Dealer</label>
+                    <asp:DropDownList ID="ddlDealer" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="ddlPlannedActivity">Planned Activity</label>
+                    <asp:DropDownList ID="ddlPlannedActivity" OnSelectedIndexChanged="ddlPlannedActivity_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="lblPeriod">Period</label>
+                    <asp:TextBox Enabled="false" ID="lblPeriod" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="lblUnitsPlanned">No. of Unit Planned</label>
+                    <asp:TextBox Enabled="false" ID="lblUnitsPlanned" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="lblBudgetPerUnit">Budget Per Unit</label>
+                    <asp:TextBox Enabled="false" ID="lblBudgetPerUnit" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="lblExpectedBudget">Expected Budget</label>
+                    <asp:TextBox Enabled="false" ID="lblExpectedBudget" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="txtAjaxSharing">Ajax Sharing</label><label id="lblAjaxSharing" runat="server"></label>
+                    <input type="text" disabled="disabled" runat="server" id="txtAjaxSharing" CssClass="form-control"/>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="txtDealerSharing">Dealers Sharing</label><label id="lblDealerSharing" runat="server"></label>
+                    <input type="text" disabled="disabled" runat="server" id="txtDealerSharing" CssClass="form-control"/>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label for="lblPlanLocation">Location</label>
+                    <asp:TextBox Enabled="false" ID="lblPlanLocation" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <td>Actual Detail</td>
+                </tr>
+            </table>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label for="txtUnits">Status</label>
+                    <asp:DropDownList ID="ddlStatus" runat="server" onchange="CheckStatus(this.value);" CssClass="form-control">
+                        <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Done" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Not Done" Value="2"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-2 col-sm-12" id="divNotDone" style="display: none">
+                    <label for="txtNotDoneRemarks">Remarks</label>
+                    <textarea runat="server" id="txtNotDoneRemarks" CssClass="form-control"/>
+                </div>
+            </div>
+            <div class="col-md-12" id="divDone" style="display: none">
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label id="lblActUnits" runat="server" for="txtUnits">Actual No. of Units</label>
+                        <input type="text" onkeyup="SetActualBudget();" runat="server" id="txtUnits" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtFromDate">From Date</label>
+                        <input type="text" runat="server" id="txtFromDate" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtToDate">To Date</label>
+                        <input type="text" runat="server" id="txtToDate" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtExpBudget">Actual Expense</label>
+                        <input type="text" runat="server" id="txtExpBudget" onkeyup="SetActualSharing();" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtAjaxSharing">Ajax Sharing</label><label id="lblAjaxSharingA" runat="server"></label>
+                        <input type="text" disabled="disabled" runat="server" id="txtAjaxSharingA" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtDealerSharing">Dealers Sharing</label><label id="lblDealerSharingA" runat="server"></label>
+                        <input type="text" disabled="disabled" runat="server" id="txtDealerSharingA" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtLocation">Location</label>
+                        <input type="text" runat="server" id="txtLocation" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="txtRemarks">Remarks</label>
+                        <textarea runat="server" id="txtRemarks" CssClass="form-control"/>
+                    </div>
+                </div>
+                <table>
+                <tr>
+                    <td>Images and Attachments</td>
+                </tr>
+            </table>
+                <div class="col-md-12" id="divAttach" runat="server">
+                    <div class="col-md-2 col-sm-12">
+                        <label for="flUplaod1">Attachment 1</label>
+                        <asp:FileUpload ID="flUpload1" runat="server" onchange="readURL(this,1)" capture="camera" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="flUplaod2">Attachment 2</label>
+                        <asp:FileUpload ID="flUpload2" runat="server" onchange="readURL(this,2)" capture="camera" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="flUplaod3">Attachment 3</label>
+                        <asp:FileUpload ID="flUpload3" runat="server" onchange="readURL(this,3)" capture="camera" CssClass="form-control"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="flUplaod4">Attachment 4</label>
+                        <asp:FileUpload ID="flUpload4" runat="server" onchange="readURL(this,4)" capture="camera" CssClass="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <img id="Img1" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <img id="Img2" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <img id="Img3" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <img id="Img4" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
+                    </div>
+                </div>
+                <asp:HiddenField ID="hdnAjaxSharing" runat="server" />
+                <div class="col-md-12">
+                    <asp:DataList ID="lstImages" OnItemDataBound="lstImages_ItemDataBound" runat="server" RepeatDirection="Horizontal" Visible="false">
+                        <ItemTemplate>
+                            <asp:Image ID="img" runat="server" ImageUrl='<%# Bind("AttachedFile") %>' Width="150px" Height="120px" />
+                            <asp:HiddenField ID="hdnDocID" Value='<%# Bind("AD_PKDocID") %>' runat="server" />
+                            <br />
+                            <asp:LinkButton ID="lnkDownload" OnClick="lnkDownload_Click" CommandArgument='<%# Bind("AD_PKDocID") %>' runat="server" Text="Download"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:DataList>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnSubmit" OnClientClick="return SaveActivityActual();" CssClass="btn Search" Text="Submit" runat="server" OnClick="btnSubmit_Click"></asp:Button>
+                    <asp:Button type="submit" Text="Cancel" OnClientClick="Clear();" CssClass="btn Back" ID="btnCancel" OnClick="btnCancel_Click" runat="server" />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xl-4 col-lg-4 col-md-8 col-sm-6 col-12">
+                    <asp:HiddenField ID="hdnPkPlanID" runat="server" Value="0" />
+                </div>
+
+
+            </div>
+        </fieldset>
+    </div>
     <asp:UpdatePanel ID="updPanel" runat="server">
         <Triggers>
             <asp:PostBackTrigger ControlID="btnExcel" />
@@ -326,183 +488,7 @@
                 <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
                     <h4 style="width: 100%; padding-right: 10px; vertical-align: middle">Activity Actual<img style="float: right; cursor: pointer" id="imgdivEntry" src="../Images/grid_collapse.png" onclick="ShowHide(this,'divEntry')" /></h4>
                 </div>
-                <div id="divEntry">
-                    <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                        <h6>Plan Detail</h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="ddlDealer">Dealer</label>
-                            <asp:DropDownList ID="ddlDealer" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="ddlPlannedActivity">Planned Activity</label>
-                            <asp:DropDownList ID="ddlPlannedActivity" OnSelectedIndexChanged="ddlPlannedActivity_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="lblPeriod">Period</label>
-                            <asp:TextBox Enabled="false" ID="lblPeriod" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="lblUnitsPlanned">No. of Unit Planned</label>
-                            <asp:TextBox Enabled="false" ID="lblUnitsPlanned" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="lblBudgetPerUnit">Budget Per Unit</label>
-                            <asp:TextBox Enabled="false" ID="lblBudgetPerUnit" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="lblExpectedBudget">Expected Budget</label>
-                            <asp:TextBox Enabled="false" ID="lblExpectedBudget" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="txtAjaxSharing">Ajax Sharing</label><label id="lblAjaxSharing" runat="server"></label>
-                            <input type="text" disabled="disabled" runat="server" id="txtAjaxSharing" />
 
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="txtDealerSharing">Dealers Sharing</label><label id="lblDealerSharing" runat="server"></label>
-                            <input type="text" disabled="disabled" runat="server" id="txtDealerSharing" />
-
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="lblPlanLocation">Location</label>
-                            <asp:TextBox Enabled="false" ID="lblPlanLocation" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
-
-                    <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                        <h6>Actual Detail</h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                            <label for="txtUnits">Status</label>
-                            <asp:DropDownList ID="ddlStatus" runat="server" onchange="CheckStatus(this.value);">
-                                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Done" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="Not Done" Value="2"></asp:ListItem>
-                            </asp:DropDownList>
-
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" id="divNotDone" style="display: none">
-                            <label for="txtNotDoneRemarks">Remarks</label>
-                            <textarea runat="server" id="txtNotDoneRemarks" />
-                        </div>
-                    </div>
-                    <div id="divDone" style="display: none">
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label id="lblActUnits" runat="server" for="txtUnits">Actual No. of Units</label>
-                                <input type="text" onkeyup="SetActualBudget();" runat="server" id="txtUnits" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtFromDate">From Date</label>
-                                <input type="text" runat="server" id="txtFromDate" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtToDate">To Date</label>
-                                <input type="text" runat="server" id="txtToDate" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtExpBudget">Actual Expense</label>
-                                <input type="text" runat="server" id="txtExpBudget" onkeyup="SetActualSharing();" />
-
-
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtAjaxSharing">Ajax Sharing</label><label id="lblAjaxSharingA" runat="server"></label>
-                                <input type="text" disabled="disabled" runat="server" id="txtAjaxSharingA" />
-
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtDealerSharing">Dealers Sharing</label><label id="lblDealerSharingA" runat="server"></label>
-                                <input type="text" disabled="disabled" runat="server" id="txtDealerSharingA" />
-
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtLocation">Location</label>
-                                <input type="text" runat="server" id="txtLocation" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="txtRemarks">Remarks</label>
-                                <textarea runat="server" id="txtRemarks" />
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <h6>Images and Attachments</h6>
-                        </div>
-                        <div class="row" id="divAttach" runat="server">
-
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="flUplaod1">Attachment 1</label>
-                                <asp:FileUpload ID="flUpload1" runat="server" onchange="readURL(this,1)" capture="camera" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="flUplaod2">Attachment 2</label>
-                                <asp:FileUpload ID="flUpload2" runat="server" onchange="readURL(this,2)" capture="camera" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="flUplaod3">Attachment 3</label>
-                                <asp:FileUpload ID="flUpload3" runat="server" onchange="readURL(this,3)" capture="camera" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <label for="flUplaod4">Attachment 4</label>
-                                <asp:FileUpload ID="flUpload4" runat="server" onchange="readURL(this,4)" capture="camera" />
-                            </div>
-
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <img id="Img1" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <img id="Img2" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <img id="Img3" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
-                            </div>
-                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                                <img id="Img4" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
-                            </div>
-
-                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                            </div>
-                        </div>
-                        <asp:HiddenField ID="hdnAjaxSharing" runat="server" />
-                        <div class="row">
-                            <asp:DataList ID="lstImages" OnItemDataBound="lstImages_ItemDataBound" runat="server" RepeatDirection="Horizontal" Visible="false">
-                                <ItemTemplate>
-                                    <asp:Image ID="img" runat="server" ImageUrl='<%# Bind("AttachedFile") %>' Width="150px" Height="120px" />
-                                    <asp:HiddenField ID="hdnDocID" Value='<%# Bind("AD_PKDocID") %>' runat="server" />
-                                    <br />
-                                    <asp:LinkButton ID="lnkDownload" OnClick="lnkDownload_Click" CommandArgument='<%# Bind("AD_PKDocID") %>' runat="server" Text="Download"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:DataList>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-10 col-lg-10 col-md-8 col-sm-6 col-12"></div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align: right; padding-top: 30px">
-
-                            <asp:Button ID="btnSubmit" OnClientClick="return SaveActivityActual();" Text="Submit" runat="server" OnClick="btnSubmit_Click"></asp:Button>
-                            <asp:Button type="submit" Text="Cancel" OnClientClick="Clear();" ID="btnCancel" OnClick="btnCancel_Click" runat="server" />
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-xl-4 col-lg-4 col-md-8 col-sm-6 col-12">
-                            <asp:HiddenField ID="hdnPkPlanID" runat="server" Value="0" />
-                        </div>
-
-
-                    </div>
-                </div>
             </div>
             <hr />
             <div class="container-fluid">
