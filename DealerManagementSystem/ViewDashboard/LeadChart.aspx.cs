@@ -32,16 +32,12 @@ namespace DealerManagementSystem.ViewDashboard
         {
             if (!IsPostBack)
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                new DDLBind(ddlYDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind(ddlYCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                new DDLBind(ddlMDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind(ddlMCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 loadYearAndMonth();
             }
-        }
-       
-
-        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new DDLBind(ddlRegion, new BDMS_Address().GetRegion(ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue), null, null), "Region", "RegionID"); 
         }
         void loadYearAndMonth()
         {
@@ -62,7 +58,7 @@ namespace DealerManagementSystem.ViewDashboard
             ClientScript.RegisterStartupScript(GetType(), "hwa", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(drawChart); ", true);
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionWiseLeadStatusChart); ", true);
         }
-   
+
         [WebMethod]
         public static List<object> GetChartData2(string country)
         {
@@ -128,14 +124,24 @@ namespace DealerManagementSystem.ViewDashboard
 
             chartData.Add(new object[] { "South1", 40, 40, 32, 18 });
             chartData.Add(new object[] { "South2", 10, 35, 32, 18 });
-             
-            return chartData; 
+
+            return chartData;
             //  var data = google.visualization.arrayToDataTable([
             //    ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery Crime', 'General', 'Western', 'Literature', { role: 'annotation' }],
             //    ['2010', 10, 24, 20, 32, 18, 5, ''],
             //    ['2020', 16, 22, 23, 30, 16, 9, ''],
             //    ['2030', 28, 19, 29, 30, 12, 13, '']
             //]);
+        }
+
+        protected void ddlMCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlMRegion, new BDMS_Address().GetRegion(ddlMCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMCountry.SelectedValue), null, null), "Region", "RegionID");
+        }
+
+        protected void ddlYCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlYRegion, new BDMS_Address().GetRegion(ddlYCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYCountry.SelectedValue), null, null), "Region", "RegionID");
         }
     }
 }

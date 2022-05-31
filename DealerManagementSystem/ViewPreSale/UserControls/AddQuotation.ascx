@@ -58,7 +58,7 @@
 
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Life Time Tax %</label>
-                    <asp:TextBox ID="txtLifeTimeTax" runat="server" CsClass="form-control" BorderColor="Silver" TextMode="Date" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                    <asp:TextBox ID="txtLifeTimeTax" runat="server" CsClass="form-control" BorderColor="Silver"   WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
 
                 <div class="col-md-6 col-sm-12">

@@ -19,6 +19,8 @@
     <%-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">    </script>--%>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>
     <%-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3GoNpyp-Tl8cjp4sqjXe_6ejLhr87eiI"></script>--%>
+
+    var geocoder;
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -80,8 +82,13 @@
         var infoWindow = new google.maps.InfoWindow();
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         for (i = 0; i < markers.length; i++) {
-            var data = markers[i] 
-            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            var data = markers[i]
+            debugger;
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(data.GeoLocation);
+            var latitude = point.Latitude;
+            var longitude = point.Longitude; 
+            var myLatlng = new google.maps.LatLng(point.Latitude, point.Longitude);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
@@ -99,7 +106,9 @@
                 });
             })(marker, data);
         }
-         /* }*/
+        /* }*/
+
+ 
     </script>
 
 
