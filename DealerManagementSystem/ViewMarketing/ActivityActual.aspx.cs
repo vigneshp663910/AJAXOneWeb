@@ -171,14 +171,14 @@ namespace DealerManagementSystem.ViewMarketing
             try
             {
                 int PkPlanID = Convert.ToInt32(ddlPlannedActivity.SelectedValue);
-                int Units = Convert.ToInt32(txtUnits.Value);
-                string FromDate = txtFromDate.Value;
-                string ToDate = txtToDate.Value;
-                string Location = txtLocation.Value;
+                int Units = Convert.ToInt32(txtUnits.Text);
+                string FromDate = txtFromDate.Text;
+                string ToDate = txtToDate.Text;
+                string Location = txtLocation.Text;
                 string Remarks = txtRemarks.Value;
                 int Status = Convert.ToInt32(ddlStatus.SelectedValue);
                 string NDRemarks = txtNotDoneRemarks.Value;
-                double dblExpenses = Convert.ToDouble(txtExpBudget.Value);
+                double dblExpenses = Convert.ToDouble(txtExpBudget.Text);
                 Session["ActDocs"] = null;
                 SaveFile(flUpload1, "Image 1");
                 SaveFile(flUpload2, "Image 2");
@@ -281,15 +281,15 @@ namespace DealerManagementSystem.ViewMarketing
 
                 ddlStatus.SelectedValue = dr["AP_Status"].ToString();
                 txtNotDoneRemarks.Value = dr["AP_NotDoneRemarks"].ToString();
-                txtUnits.Value = dr["AA_NoofUnits"].ToString();
-                txtFromDate.Value = dr["AA_FromDate"].ToString();
-                txtToDate.Value = dr["AA_ToDate"].ToString();
-                txtExpBudget.Value = dr["AA_Expenses"].ToString();
-                txtAjaxSharingA.Value = dr["Actual_AjaxSharingAmount"].ToString();
-                txtDealerSharingA.Value = dr["Actual_DealerSharingAmount"].ToString();
-                txtLocation.Value = dr["AA_Location"].ToString();
+                txtUnits.Text = dr["AA_NoofUnits"].ToString();
+                txtFromDate.Text = dr["AA_FromDate"].ToString();
+                txtToDate.Text = dr["AA_ToDate"].ToString();
+                txtExpBudget.Text = dr["AA_Expenses"].ToString();
+                txtAjaxSharingA.Text = dr["Actual_AjaxSharingAmount"].ToString();
+                txtDealerSharingA.Text = dr["Actual_DealerSharingAmount"].ToString();
+                txtLocation.Text = dr["AA_Location"].ToString();
                 txtRemarks.Value = dr["AA_Remarks"].ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "GetActivityData('" + dr["AP_FKActivityID"].ToString() + "');CheckStatus(" + dr["AP_Status"].ToString() + ");SetActualDates('" + txtFromDate.Value + "','" + txtToDate.Value + "')", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "GetActivityData('" + dr["AP_FKActivityID"].ToString() + "');CheckStatus(" + dr["AP_Status"].ToString() + ");SetActualDates('" + txtFromDate.Text + "','" + txtToDate.Text + "')", true);
             }
             Session["AADocs"] = ds.Tables[1];
             lstImages.DataSource = ds.Tables[1];
@@ -301,11 +301,11 @@ namespace DealerManagementSystem.ViewMarketing
                 btnSubmit.Visible = false;
                 divAttach.Style.Add("display", "none");
                 ddlStatus.Enabled = false;
-                txtUnits.Disabled = true;
-                txtFromDate.Disabled = true;
-                txtToDate.Disabled = true;
-                txtExpBudget.Disabled = true;
-                txtLocation.Disabled = true;
+                txtUnits.Enabled = true;
+                txtFromDate.Enabled = true;
+                txtToDate.Enabled = true;
+                txtExpBudget.Enabled = true;
+                txtLocation.Enabled = true;
                 txtRemarks.Disabled = true;
                 txtNotDoneRemarks.Disabled = true;
 
@@ -402,11 +402,11 @@ namespace DealerManagementSystem.ViewMarketing
             oAct.GetPlannedActivity(ddlPlannedActivity, Convert.ToInt32(ddlDealer.SelectedValue));
             divAttach.Style.Add("display", "");
             ddlStatus.Enabled = true;
-            txtUnits.Disabled = false;
-            txtFromDate.Disabled = false;
-            txtToDate.Disabled = false;
-            txtExpBudget.Disabled = false;
-            txtLocation.Disabled = false;
+            txtUnits.Enabled = false;
+            txtFromDate.Enabled = false;
+            txtToDate.Enabled = false;
+            txtExpBudget.Enabled = false;
+            txtLocation.Enabled = false;
             txtRemarks.Disabled = false;
             txtNotDoneRemarks.Disabled = false;
             ddlDealer.Enabled = true;

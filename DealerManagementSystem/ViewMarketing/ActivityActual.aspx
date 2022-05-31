@@ -386,31 +386,40 @@
                         <div class="col-md-12">
                             <div class="col-md-2 col-sm-12">
                                 <label id="lblActUnits" runat="server" for="txtUnits">Actual No. of Units</label>
-                                <input type="text" onkeyup="SetActualBudget();" runat="server" id="txtUnits" cssclass="form-control" />
+                                <%--<input type="text" onkeyup="SetActualBudget();" runat="server" id="txtUnits" cssclass="form-control" />--%>
+                                <asp:TextBox runat="server" ID="txtUnits" CssClass="form-control" onkeyup="SetActualBudget();"></asp:TextBox>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtFromDate">From Date</label>
-                                <input type="text" runat="server" id="txtFromDate" cssclass="form-control" />
+                                <%--<input type="text" runat="server" id="txtFromDate" cssclass="form-control" />--%>
+                                <asp:TextBox runat="server" ID="txtFromDate" CssClass="form-control"></asp:TextBox>
+                                <cc1:CalendarExtender ID="CalFrom" runat="server" TargetControlID="txtFromDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtToDate">To Date</label>
-                                <input type="text" runat="server" id="txtToDate" cssclass="form-control" />
+                                <%--<input type="text" runat="server" id="txtToDate" cssclass="form-control" />--%>
+                                <asp:TextBox runat="server" ID="txtToDate" CssClass="form-control"></asp:TextBox>
+                                <cc1:CalendarExtender ID="CalTo" runat="server" TargetControlID="txtToDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtExpBudget">Actual Expense</label>
-                                <input type="text" runat="server" id="txtExpBudget" onkeyup="SetActualSharing();" cssclass="form-control" />
+                                <%--<input type="text" runat="server" id="txtExpBudget" onkeyup="SetActualSharing();" cssclass="form-control" />--%>
+                                <asp:TextBox ID="txtExpBudget" runat="server" CssClass="form-control" onkeyup="SetActualSharing();"></asp:TextBox>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtAjaxSharing">Ajax Sharing</label><label id="lblAjaxSharingA" runat="server"></label>
-                                <input type="text" disabled="disabled" runat="server" id="txtAjaxSharingA" cssclass="form-control" />
+                                <%--<input type="text" disabled="disabled" runat="server" id="txtAjaxSharingA" cssclass="form-control" />--%>
+                                <asp:TextBox ID="txtAjaxSharingA" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtDealerSharing">Dealers Sharing</label><label id="lblDealerSharingA" runat="server"></label>
-                                <input type="text" disabled="disabled" runat="server" id="txtDealerSharingA" cssclass="form-control" />
+                                <%--<input type="text" disabled="disabled" runat="server" id="txtDealerSharingA" cssclass="form-control" />--%>
+                                <asp:TextBox ID="txtDealerSharingA" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtLocation">Location</label>
-                                <input type="text" runat="server" id="txtLocation" cssclass="form-control" />
+                                <%--<input type="text" runat="server" id="txtLocation" cssclass="form-control" />--%>
+                                <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtRemarks">Remarks</label>
