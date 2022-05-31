@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewMarketing
                         string sArea = Convert.ToString(Request.QueryString["FA"]);
                         string AppLevelEnc = oAct.Encrypt(sAppLevel);
                         string AreaLevelEnc = oAct.Encrypt(sArea);
-                        Response.Redirect("YDMS_ClaimApproval.aspx?PID=" + HttpUtility.UrlEncode(AppLevelEnc) + "&FAID=" + AreaLevelEnc);
+                        Response.Redirect("ClaimApproval.aspx?PID=" + HttpUtility.UrlEncode(AppLevelEnc) + "&FAID=" + AreaLevelEnc);
 
                     }
                     else if (Request.QueryString["PID"] != null)

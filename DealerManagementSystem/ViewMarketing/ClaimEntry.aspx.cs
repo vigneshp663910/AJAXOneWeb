@@ -95,7 +95,7 @@ namespace DealerManagementSystem.ViewMarketing
                 if (hdnInvID.Value != "0")
                 {
                     lnkGenerateInvoice.Text = "Print Invoice";
-                    lnkGenerateInvoice.Attributes.Add("onclick", "window.open('YDMS_ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
+                    lnkGenerateInvoice.Attributes.Add("onclick", "window.open('ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
                 }
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "keHide", "$('#divEntry').toggle(1000);", true);
@@ -141,13 +141,13 @@ namespace DealerManagementSystem.ViewMarketing
                 DataRow dr = dtHdr.Rows[0];
                 ddlDealer.SelectedValue = dr["AA_FKDealerID"].ToString();
                 ddlActivity.SelectedValue = dr["AA_FKActivityID"].ToString();
-                txtUnits.Value = dr["AA_NoofUnits"].ToString();
-                txtFromDate.Value = dr["AA_FromDate"].ToString();
-                txtToDate.Value = dr["AA_ToDate"].ToString();
-                txtExpenses.Value = dr["AA_Expenses"].ToString();
-                txtAjaxSharingA.Value = dr["Actual_AjaxSharingAmount"].ToString();
-                txtDealerSharingA.Value = dr["Actual_DealerSharingAmount"].ToString();
-                txtLocation.Value = dr["AA_Location"].ToString();
+                txtUnits.Text = dr["AA_NoofUnits"].ToString();
+                txtFromDate.Text = dr["AA_FromDate"].ToString();
+                txtToDate.Text = dr["AA_ToDate"].ToString();
+                txtExpenses.Text = dr["AA_Expenses"].ToString();
+                txtAjaxSharingA.Text = dr["Actual_AjaxSharingAmount"].ToString();
+                txtDealerSharingA.Text = dr["Actual_DealerSharingAmount"].ToString();
+                txtLocation.Text = dr["AA_Location"].ToString();
                 txtRemarks.Value = dr["AA_Remarks"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "GetActivityData('" + dr["AA_FKActivityID"].ToString() + "');", true);
             }
@@ -161,11 +161,11 @@ namespace DealerManagementSystem.ViewMarketing
                 btnSubmit.Visible = false;
                 divAttach.Style.Add("display", "none");
 
-                txtUnits.Disabled = true;
-                txtFromDate.Disabled = true;
-                txtToDate.Disabled = true;
+                txtUnits.Enabled = true;
+                txtFromDate.Enabled = true;
+                txtToDate.Enabled = true;
 
-                txtLocation.Disabled = true;
+                txtLocation.Enabled = true;
                 txtRemarks.Disabled = true;
             }
             divEntry.Visible = true;
@@ -186,12 +186,10 @@ namespace DealerManagementSystem.ViewMarketing
             int PKActualID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
             BDMS_Activity oActivity = new BDMS_Activity();
             string InvoiceNo = oActivity.GenerateInvoice(PKActualID, PSession.User.UserID);
-
             if (!InvoiceNo.Contains("Error"))
             {
                 Search_Click(Search, null);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "PrintInvoice(\"" + oActivity.Encrypt(PKActualID.ToString()) + "\");", true);
-
             }
             else
             {
@@ -205,12 +203,12 @@ namespace DealerManagementSystem.ViewMarketing
                 int PKActualID = 0;
                 int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 int ActivityID = Convert.ToInt32(ddlActivity.SelectedValue);
-                int Units = Convert.ToInt32(txtUnits.Value);
-                string FromDate = txtFromDate.Value;
-                string ToDate = txtToDate.Value;
-                string Location = txtLocation.Value;
+                int Units = Convert.ToInt32(txtUnits.Text);
+                string FromDate = txtFromDate.Text;
+                string ToDate = txtToDate.Text;
+                string Location = txtLocation.Text;
                 string Remarks = txtRemarks.Value;
-                double dblExpenses = Convert.ToDouble(txtExpenses.Value);
+                double dblExpenses = Convert.ToDouble(txtExpenses.Text);
                 Session["ActDocs"] = null;
 
                 BDMS_Activity oActivity = new BDMS_Activity();
@@ -225,13 +223,10 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     oActivity.SaveActivityAttachments_ActualID(PKActualID, lstDocs);
                 }
-
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "alert('Saved Successfully!');Clear();", true);
                 btnExisting_Click(btnExisting, null);
                 btnCancel_Click(btnCancel, null);
                 Search_Click(Search, null);
-
             }
             catch (Exception ex)
             {
@@ -294,21 +289,18 @@ namespace DealerManagementSystem.ViewMarketing
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
             lstImages.DataSource = null;
             lstImages.DataBind();
             btnSubmit.Visible = true;
             BDMS_Activity oAct = new BDMS_Activity();
             divAttach.Style.Add("display", "");
             ddlActivity.ClearSelection();
-            txtUnits.Value = "";
-            txtFromDate.Disabled = false;
-            txtToDate.Disabled = false;
-            txtExpenses.Value = "";
-            txtLocation.Value = "";
+            txtUnits.Text = "";
+            txtFromDate.Enabled = false;
+            txtToDate.Enabled = false;
+            txtExpenses.Text = "";
+            txtLocation.Text = "";
             txtRemarks.Value = "";
-
-
             ddlDealer.Enabled = true;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "Clear();", true);
         }
@@ -331,7 +323,6 @@ namespace DealerManagementSystem.ViewMarketing
         {
             divEntry.Visible = false;
             divSearch.Visible = true;
-
         }
 
         protected void ddlActivity_SelectedIndexChanged(object sender, EventArgs e)
@@ -344,12 +335,9 @@ namespace DealerManagementSystem.ViewMarketing
                 lblDealerSharingA.InnerText = " (" + (100 - Convert.ToDouble(actinfoList[0].AjaxSharing.ToString())).ToString() + ")";
                 hdnAjaxSharing.Value = actinfoList[0].AjaxSharing.ToString(); //actinfoList[0].Budget* actinfoList[0].AjaxSharing/100*Convert.ToDouble("0"+txtUnits.Value);
                 lblActUnits.InnerText = "No of Units(" + actinfoList[0].UnitDesc + ")";
-
             }
             else
             {
-
-
                 lblAjaxSharingA.InnerText = "";
                 lblDealerSharingA.InnerText = "";
                 hdnAjaxSharing.Value = "";
