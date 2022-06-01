@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewMarketing
         BDMS_Planning oPlan = new BDMS_Planning();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (!IsPostBack)
             {
                 CalPlan.SelectedDate = DateTime.Now;
 
@@ -32,9 +32,13 @@ namespace DealerManagementSystem.ViewMarketing
                 ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
                 ddlYear.SelectedValue = DateTime.Now.Year.ToString();
                 ddlMonth_SelectedIndexChanged(ddlMonth, null);
-                CDDProduct.ContextKey = "";
+                //CDDProduct.ContextKey = "";
                 txtNo.Text = "1";
                 Session["dtPlan"] = null;
+
+
+                FillPlant();
+
             }
         }
 
@@ -75,7 +79,8 @@ namespace DealerManagementSystem.ViewMarketing
             gvPlan.DataSource = dtPlan;
             gvPlan.DataBind();
             CalPlan.DataBind();
-            txtDate.Text = ""; txtNo.Text = "1"; CDDModel.SelectedValue = null;
+            txtDate.Text = ""; txtNo.Text = "1"; 
+            //CDDModel.SelectedValue = null;
         }
         [WebMethod]
         public static AjaxControlToolkit.CascadingDropDownNameValue[] GetProduct(string knownCategoryValues, string category, string contextKey)
@@ -281,6 +286,27 @@ namespace DealerManagementSystem.ViewMarketing
 
             Response.Write(sw.ToString());
             Response.End();
+        }
+
+
+        void FillPlant()
+        {
+            DataTable dt = new BDMS_Planning().GetAllProducts();
+            ddlProduct.DataTextField = "DivisionDescription"; 
+            ddlProduct.DataValueField = "DivisionID"; 
+            ddlProduct.DataSource = dt;
+            ddlProduct.DataBind();
+            if (ddlProduct.Items.Count > 1) ddlProduct.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new BDMS_Planning().GetModelsByProductID(Convert.ToInt32(ddlProduct.SelectedValue));
+            ddlModel.DataTextField = "ModelDescription";
+            ddlModel.DataValueField = "ModelID";
+            ddlModel.DataSource = dt;
+            ddlModel.DataBind();
+            ddlModel.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }

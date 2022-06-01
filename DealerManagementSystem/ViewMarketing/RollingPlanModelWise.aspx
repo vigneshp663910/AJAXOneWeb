@@ -58,12 +58,12 @@
                     ddlDealer.focus();
                     return false;
                 }
-                if (ddlProduct.value == "") {
+                if (ddlProduct.value == "0") {
                     alert("Select Product");
                     ddlProduct.focus();
                     return false;
                 }
-                if (ddlModel.value == "") {
+                if (ddlModel.value == "0") {
                     alert("Select Model");
                     ddlModel.focus();
                     return false;
@@ -105,11 +105,12 @@
             return false;
         }
     </script>
-      <asp:UpdatePanel ID="updPanel" runat="server">        
+     <%-- <asp:UpdatePanel ID="updPanel" runat="server">        
           <Triggers>
               <asp:PostBackTrigger ControlID="btnExport" />
+               <asp:PostBackTrigger ControlID="btnAdd" />
           </Triggers>
-        <ContentTemplate>    
+        <ContentTemplate>    --%>
              <div class="row" style="background-color:#3665c2;color:white;margin-bottom:10px;padding-left:20px">
             <h4 style="width:100%;padding-right:10px;vertical-align:middle" >Rolling Plan<img style="float:right;cursor:pointer" id="imgdivEntry" src="../Images/grid_collapse.png" onclick="ShowHide(this,'divEntry')" /></h4>            
             </div>
@@ -137,20 +138,21 @@
                 <div class="row" style="margin-top:20px" >
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
                         <label for="ddlDealer">Product</label>
-                        <asp:DropDownList ID="ddlProduct" runat="server" Width="100%"></asp:DropDownList>                
-                        <cc1:CascadingDropDown ID="CDDProduct" runat="server" TargetControlID="ddlProduct" UseContextKey="true" ServiceMethod="GetProduct" PromptText="Select"
-                             Category="ProductID"></cc1:CascadingDropDown>
+                        <asp:DropDownList ID="ddlProduct" runat="server" Width="100%" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>                
+                       <%-- <cc1:CascadingDropDown ID="CDDProduct" runat="server" TargetControlID="ddlProduct" UseContextKey="true" ServiceMethod="GetProduct" PromptText="Select"
+                             Category="ProductID"></cc1:CascadingDropDown>--%>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
                         <label for="ddlDealer">Model</label>
                         <asp:DropDownList ID="ddlModel" runat="server" Width="100%"></asp:DropDownList>                
-                        <cc1:CascadingDropDown ID="CDDModel" runat="server" ParentControlID="ddlProduct" UseContextKey="true" TargetControlID="ddlModel" ServiceMethod="GetModels" PromptText="Select"
-                             Category="ModelID"></cc1:CascadingDropDown>
+                       <%-- <cc1:CascadingDropDown ID="CDDModel" runat="server" ParentControlID="ddlProduct" UseContextKey="true" TargetControlID="ddlModel" ServiceMethod="GetModels" PromptText="Select"
+                             Category="ModelID"></cc1:CascadingDropDown>--%>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
                         <label  for='<%= txtDate.ClientID %>'>Date</label>
                         <asp:TextBox ID="txtDate" autocomplete="off" runat="server" Width="100%"></asp:TextBox>                
-                        <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
+                     <%--   <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>--%>
+                           <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" ></cc1:CalendarExtender>
                     </div>
                      <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
                         <label for='<%= txtNo.ClientID %>'>Number</label>
@@ -159,7 +161,7 @@
                          <cc1:FilteredTextBoxExtender ID="fteNumber" runat="server" TargetControlID="txtNo" FilterType="Numbers"></cc1:FilteredTextBoxExtender>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="padding-top:30px">
-                        
+                          
                         <asp:Button id="btnAdd" OnClientClick="return Validate();" runat="server" Text="Add" OnClick="btnAdd_Click" Width="150px" />
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="padding-top:30px">
@@ -229,6 +231,6 @@
                  </asp:Calendar>   
                     </div>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+      <%--  </ContentTemplate>
+    </asp:UpdatePanel>--%>
     </asp:Content>

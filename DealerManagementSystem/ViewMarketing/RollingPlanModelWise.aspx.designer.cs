@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewMarketing
     {
 
         /// <summary>
-        /// updPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updPanel;
-
-        /// <summary>
         /// divHdr control.
         /// </summary>
         /// <remarks>
@@ -87,15 +78,6 @@ namespace DealerManagementSystem.ViewMarketing
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
 
         /// <summary>
-        /// CDDProduct control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown CDDProduct;
-
-        /// <summary>
         /// ddlModel control.
         /// </summary>
         /// <remarks>
@@ -103,15 +85,6 @@ namespace DealerManagementSystem.ViewMarketing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModel;
-
-        /// <summary>
-        /// CDDModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown CDDModel;
 
         /// <summary>
         /// txtDate control.

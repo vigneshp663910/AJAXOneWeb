@@ -45,7 +45,7 @@ namespace DealerManagementSystem.ViewMaster
             lblMessage.Text = "";
 
             if (!IsPostBack)
-            { 
+            {
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
             }
@@ -100,47 +100,48 @@ namespace DealerManagementSystem.ViewMaster
             {
                 row = new Dictionary<string, object>();
 
-                //String url = "http://maps.google.com/maps/api/geocode/xml?address=" + Convert.ToString(dr["GeoLocation"]) + "&sensor=false"; 
-                String url = "https://maps.google.com/maps/api/geocode/xml?address=" + Convert.ToString(dr["GeoLocation"]) + "&key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI";
-                WebRequest request = WebRequest.Create(url);
-                string Latitude = "0";
-                string Longitude = "0";
-                using (WebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                    {
+                ////String url = "http://maps.google.com/maps/api/geocode/xml?address=" + Convert.ToString(dr["GeoLocation"]) + "&sensor=false"; 
+                //String url = "https://maps.google.com/maps/api/geocode/xml?address=" + Convert.ToString(dr["GeoLocation"]) + "&key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI";
+                //WebRequest request = WebRequest.Create(url);
+                //string Latitude = "0";
+                //string Longitude = "0";
+                //using (WebResponse response = (HttpWebResponse)request.GetResponse())
+                //{
+                //    using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                //    {
 
-                        DataSet dsResult = new DataSet();
-                        dsResult.ReadXml(reader);
-                        DataTable dtCoordinates = new DataTable();
-                        foreach (DataRow row1 in dsResult.Tables["result"].Rows)
-                        {
-                            string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
-                            DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
-                            dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
-                            Latitude = Convert.ToString(location["lat"]);
-                            Longitude = Convert.ToString(location["lng"]);
-                        }
-                    }
-                }
+                //        DataSet dsResult = new DataSet();
+                //        dsResult.ReadXml(reader);
+                //        DataTable dtCoordinates = new DataTable();
+                //        foreach (DataRow row1 in dsResult.Tables["result"].Rows)
+                //        {
+                //            string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
+                //            DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
+                //            dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
+                //            Latitude = Convert.ToString(location["lat"]);
+                //            Longitude = Convert.ToString(location["lng"]);
+                //        }
+                //    }
+                //}
 
-                row.Add("GeoLocation", Convert.ToString(dr["GeoLocation"]));
-                row.Add("title", Convert.ToString(dr["Name"]));
-                    //row.Add("lat", Convert.ToString(dr["Latitude"]));
-                    //row.Add("lng", Convert.ToString(dr["Longitude"]));
-                    row.Add("lat", Latitude);
-                    row.Add("lng",  Longitude);
-                    row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"])); 
+                //row.Add("GeoLocation", Convert.ToString(dr["GeoLocation"]));
+                //row.Add("title", Convert.ToString(dr["Name"]));
+                //row.Add("lat", Latitude);
+                //row.Add("lng", Longitude);
+                row.Add("lat", Convert.ToString(dr["Latitude"]));
+                row.Add("lng", Convert.ToString(dr["Longitude"]));
+
+                row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"]));
 
                 row.Add("image", Convert.ToString(dr["MapImage"]));
-              
+
                 rows.Add(row);
             }
             CurrentLocation = serializer.Serialize(rows);
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null,null);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
 
             new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
         }

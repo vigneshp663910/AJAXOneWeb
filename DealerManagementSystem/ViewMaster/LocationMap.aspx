@@ -17,8 +17,10 @@
         }
     </style>
     <%-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">    </script>--%>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>
-    <%-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3GoNpyp-Tl8cjp4sqjXe_6ejLhr87eiI"></script>--%>
+  
+  <%--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>--%>
+    
+      <script  type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
 
     var geocoder;
 </asp:Content>
@@ -84,11 +86,11 @@
         for (i = 0; i < markers.length; i++) {
             var data = markers[i]
             debugger;
-            var locationService = new GoogleLocationService();
-            var point = locationService.GetLatLongFromAddress(data.GeoLocation);
-            var latitude = point.Latitude;
-            var longitude = point.Longitude; 
-            var myLatlng = new google.maps.LatLng(point.Latitude, point.Longitude);
+            //var locationService = new GoogleLocationService();
+            //var point = locationService.GetLatLongFromAddress(data.GeoLocation);
+            //var latitude = data.Latitude;
+            //var longitude = data.Longitude;
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,

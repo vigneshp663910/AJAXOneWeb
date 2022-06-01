@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewMarketing
                         string sAppLevel = oAct.Decrypt(sAppLevelEnc);
                         string sFA = oAct.Decrypt(AreaLevelEnc);
                         ViewState["ApprovalLevel"] = sAppLevel;
-                        ViewState["FAID"] = sFA;
+                        ViewState["FAID"] = sFA.Split('.')[0];
                         lbllevel.Text = "- Level " + sAppLevel;
                     }
                 }

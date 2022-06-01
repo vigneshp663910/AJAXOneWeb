@@ -569,7 +569,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = Results.Message;
+                lblMessageQuotation.Text = Results.Message;
                 return;
             }
             MPE_Quotation.Hide();
