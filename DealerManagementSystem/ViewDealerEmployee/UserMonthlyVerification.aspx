@@ -42,6 +42,16 @@
         }
     </style>
 
+    <script type="text/javascript">
+        function ConfirmActivate() {
+            var x = confirm("Are you sure you want to Activate the User?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+    </script>
 
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
@@ -99,18 +109,25 @@
                                     <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
                                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                                         <Columns>
-                                            <asp:TemplateField HeaderText="Action">
+                                            <%--<asp:TemplateField HeaderText="Action">
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnVerifyUser" runat="server" Text="Verify" CssClass="btn Back" OnClick="btnVerify_Click" Width="75px" Height="25px" />
                                                 </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                            </asp:TemplateField>--%>
+                                            <%--<asp:TemplateField HeaderText="Active">
+                                                <ItemTemplate>
+                                                    <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn Back" OnClick="btnYes_Click" Width="65px" Height="25px" />
+                                                    <asp:Button ID="btnNo" runat="server" Text="No" CssClass="btn Back" OnClick="btnNo_Click" Width="65px" Height="25px" />
+                                                    <asp:Label ID="lblDealerEmployeeID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>--%>
+                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                                 <ItemTemplate>
                                                     <itemstyle width="25px" horizontalalign="Center"></itemstyle>
                                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                     <asp:Label ID="lblDealerEmployeeID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeID")%>' runat="server" Visible="false" />
                                                 </ItemTemplate>
-                                            </asp:TemplateField>--%>
+                                            </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Name">
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                 <ItemTemplate>
@@ -198,6 +215,17 @@
                                                     <asp:CheckBox ID="chkbxGIsActive" runat="server"></asp:CheckBox>
                                                 </ItemTemplate>
                                             </asp:TemplateField>--%>
+                                            <asp:TemplateField HeaderText="Update Status" SortExpression="Country">
+                                                <ItemTemplate>
+                                                    <div class="dropdown">
+                                                        <div class="btn Approval" style="height: 25px">Actions</div>
+                                                        <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                                            <asp:LinkButton ID="lnkBtnActivateUser" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmActivate();">Activate</asp:LinkButton>
+                                                            <asp:LinkButton ID="lnkBtnDeactivateUser" runat="server" OnClick="lbActions_Click">Deactivate</asp:LinkButton>
+                                                        </div>
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                         </Columns>
                                         <AlternatingRowStyle BackColor="#ffffff" />
                                         <FooterStyle ForeColor="White" />
