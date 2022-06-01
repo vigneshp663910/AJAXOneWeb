@@ -167,6 +167,7 @@
                     </div>
                     <div class="col-md-12 Report">
                         <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Details</legend>
                             <div class="col-md-12 Report">
                                 <asp:GridView ID="gvPlan" CssClass="table table-bordered table-condensed Grid" runat="server" Width="100%" AutoGenerateColumns="false" AllowPaging="false" OnRowDataBound="gvPlan_RowDataBound"
                                     OnDataBound="gvPlan_DataBound">
