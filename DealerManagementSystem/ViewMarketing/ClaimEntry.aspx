@@ -188,7 +188,8 @@
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label for="txtRemarks">Remarks</label>
-                            <textarea runat="server" id="txtRemarks" cssclass="form-control" />
+                            <%--<textarea runat="server" id="txtRemarks" cssclass="form-control" />--%>
+                            <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
                     <table>
@@ -231,7 +232,7 @@
                     <div class="col-md-12">
                         <asp:DataList ID="lstImages" OnItemDataBound="lstImages_ItemDataBound" runat="server" RepeatDirection="Horizontal" Visible="false">
                             <ItemTemplate>
-                                <asp:Image ID="img" runat="server" ImageUrl='<%# Bind("AttachedFile") %>' Width="150px" Height="120px" />
+                                <asp:Image ID="img" runat="server" ImageUrl='<%# Bind("AttachedFile") %>' Width="150px" Height="120px" CssClass="form-control"/>
                                 <asp:HiddenField ID="hdnDocID" Value='<%# Bind("AD_PKDocID") %>' runat="server" />
                                 <br />
                                 <asp:LinkButton ID="lnkDownload" OnClick="lnkDownload_Click" CommandArgument='<%# Bind("AD_PKDocID") %>' runat="server" Text="Download"></asp:LinkButton>

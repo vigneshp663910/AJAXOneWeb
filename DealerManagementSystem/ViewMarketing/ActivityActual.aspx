@@ -423,7 +423,8 @@
                             </div>
                             <div class="col-md-2 col-sm-12">
                                 <label for="txtRemarks">Remarks</label>
-                                <textarea runat="server" id="txtRemarks" cssclass="form-control" />
+                                <%--<textarea runat="server" id="txtRemarks" cssclass="form-control" />--%>
+                                <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
                         <table>
