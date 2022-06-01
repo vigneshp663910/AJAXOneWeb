@@ -345,6 +345,8 @@
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
+    <Content Include="ViewActivity\Activity.aspx" />
+    <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
@@ -831,6 +833,20 @@
     </Compile>
     <Compile Include="TestPageForMenu.aspx.designer.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewActivity\Activity.aspx.cs">
+      <DependentUpon>Activity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewActivity\Activity.aspx.designer.cs">
+      <DependentUpon>Activity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewActivity\UserControls\AddActivity.ascx.cs">
+      <DependentUpon>AddActivity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewActivity\UserControls\AddActivity.ascx.designer.cs">
+      <DependentUpon>AddActivity.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
