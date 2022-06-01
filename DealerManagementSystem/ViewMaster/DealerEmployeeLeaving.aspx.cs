@@ -41,6 +41,7 @@ namespace DealerManagementSystem.ViewMaster
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Employee » Leaving / Exit');</script>");
 
             lblMessage.Visible = false;
+
             if (!IsPostBack)
             {
                 ViewState["PhotoAttachedFileID"] = null;
@@ -61,6 +62,17 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 caDateOfJoining.StartDate = DateTime.Now.AddDays(-7);
                 caDateOfJoining.EndDate = DateTime.Now;
+
+                if (Session["DealerEmployeeIDUserVerify"] != null)
+                {
+                    ViewState["DealerEmployeeID"] = Convert.ToInt32(Session["DealerEmployeeIDUserVerify"]);
+                    FillDealerEmployee(Convert.ToInt32(Session["DealerEmployeeIDUserVerify"]));
+                    FillDealerEmployeeRole();
+                    pnlManage.Visible = false;
+                    pnlAssingn.Visible = true;
+                    txtDateOfLeaving.Text = "";
+                }
+
             }
         }
 
@@ -304,6 +316,11 @@ namespace DealerManagementSystem.ViewMaster
             pnlManage.Visible = true;
             pnlAssingn.Visible = false;
             txtDateOfLeaving.Text = "";
+
+            if (Session["DealerEmployeeIDUserVerify"] != null)
+            {
+                Response.Redirect("~/ViewDealerEmployee/UserMonthlyVerification.aspx", false);
+            }
         }
 
         Boolean Validation()

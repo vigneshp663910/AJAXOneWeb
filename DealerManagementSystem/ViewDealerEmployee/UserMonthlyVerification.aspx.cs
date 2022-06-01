@@ -100,25 +100,65 @@ namespace DealerManagementSystem.ViewMaster
             fillDealerEmployee();
         }
 
-        protected void btnVerify_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblUserID = (Label)gvRow.FindControl("lblUserID");
-            int VerifiedMonth = DateTime.Now.Month;
+        //protected void btnYes_Click(object sender, EventArgs e)
+        //{
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    Label lblUserID = (Label)gvRow.FindControl("lblUserID");
+        //    int VerifiedMonth = DateTime.Now.Month;
 
-            if (new BDMS_Dealer().UpdateUserMontlyVerification(Convert.ToInt64(lblUserID.Text), VerifiedMonth, PSession.User.UserID))
+        //    if (new BDMS_Dealer().UpdateUserMontlyVerification(Convert.ToInt64(lblUserID.Text), VerifiedMonth, PSession.User.UserID))
+        //    {
+        //        lblMessage.Text = "User monthly verification is done";
+        //        lblMessage.ForeColor = Color.Green;
+        //        lblMessage.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "User monthly verification is not done";
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //    fillDealerEmployee();
+        //}
+
+        //protected void btnNo_Click(object sender, EventArgs e)
+        //{
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    Label lblUserID = (Label)gvRow.FindControl("lblDealerEmployeeID");
+        //    Session["DealerEmployeeIDUserVerify"] = lblUserID.Text.Trim();
+        //    Response.Redirect("~/ViewMaster/DealerEmployeeLeaving.aspx", false);
+        //}
+
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Activate")
             {
-                lblMessage.Text = "User monthly verification is done";
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Visible = true;
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblUserID = (Label)gvRow.FindControl("lblUserID");
+                int VerifiedMonth = DateTime.Now.Month;
+
+                if (new BDMS_Dealer().UpdateUserMontlyVerification(Convert.ToInt64(lblUserID.Text), VerifiedMonth, PSession.User.UserID))
+                {
+                    lblMessage.Text = "User is activated.";
+                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.Visible = true;
+                }
+                else
+                {
+                    lblMessage.Text = "User is not activated.";
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Visible = true;
+                }
+                fillDealerEmployee();
             }
-            else
+            else if (lbActions.Text == "Deactivate")
             {
-                lblMessage.Text = "User monthly verification is not done";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblDealerEmployeeID = (Label)gvRow.FindControl("lblDealerEmployeeID");
+                Session["DealerEmployeeIDUserVerify"] = lblDealerEmployeeID.Text.Trim();
+                Response.Redirect("~/ViewMaster/DealerEmployeeLeaving.aspx", false);
             }
-            fillDealerEmployee();
         }
     }
 }

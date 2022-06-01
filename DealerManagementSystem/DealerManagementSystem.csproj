@@ -352,6 +352,8 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
+    <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
     <Content Include="ViewDashboard\CustomerSatisfactionInAfterSalesSupport.ascx" />
     <Content Include="ViewDashboard\ICTicketEscalationOnBreakdownCount.ascx" />
@@ -874,6 +876,20 @@
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
+      <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.designer.cs">
+      <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\LeadChangeHistory.aspx.cs">
+      <DependentUpon>LeadChangeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\LeadChangeHistory.aspx.designer.cs">
+      <DependentUpon>LeadChangeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
