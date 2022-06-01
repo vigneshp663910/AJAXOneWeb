@@ -246,7 +246,8 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label for="txtRemarks">Remarks</label>
-                        <textarea runat="server" id="txtRemarks" cssclass="form-control" bordercolor="Silver" />
+                        <%--<textarea runat="server" id="txtRemarks" cssclass="form-control" bordercolor="Silver" />--%>
+                        <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                     </div>
                     <asp:HiddenField ID="hdnPkPlanID" runat="server" Value="0" />
                     <asp:HiddenField ID="hdnAjaxSharing" runat="server" />

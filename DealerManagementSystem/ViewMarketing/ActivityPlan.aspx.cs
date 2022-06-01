@@ -163,7 +163,7 @@ namespace DealerManagementSystem.ViewMarketing
                 txtFromDate.Text = data[0].AP_FromDate.ToString("dd-MMM-yyyy");
                 txtToDate.Text = data[0].AP_ToDate.ToString("dd-MMM-yyyy");
                 txtLocation.Text = data[0].AP_Location;
-                txtRemarks.Value = data[0].AP_Remarks;
+                txtRemarks.Text = data[0].AP_Remarks;
                 txtBudget.Text = data[0].AP_BudgetPerUnit.ToString();
                 txtExpBudget.Text = data[0].AP_ExpBudget.ToString();
                 lblAjaxSharing.InnerText = "(" + data[0].AI_AjaxSharing.ToString() + "%)";

@@ -121,23 +121,23 @@ namespace DealerManagementSystem.ViewMarketing
                     lblUnitsPlanned.Text = dr["AP_NoofUnits"].ToString();
                     lblBudgetPerUnit.Text = dr["AI_Budget"].ToString();
                     lblExpectedBudget.Text = dr["TotalPlanBudget"].ToString();
-                    txtAjaxSharing.Value = dr["Plan_AjaxSharingAmount"].ToString();
-                    txtDealerSharing.Value = dr["Plan_DealerSharingAmount"].ToString();
+                    txtAjaxSharing.Text = dr["Plan_AjaxSharingAmount"].ToString();
+                    txtDealerSharing.Text = dr["Plan_DealerSharingAmount"].ToString();
                     lblPlanLocation.Text = dr["AP_Location"].ToString();
-                    txtUnits.Value = dr["AA_NoofUnits"].ToString();
-                    txtFromDate.Value = dr["AA_FromDate"].ToString();
-                    txtToDate.Value = dr["AA_ToDate"].ToString();
-                    txtExpBudget.Value = dr["AA_Expenses"].ToString();
-                    txtAjaxSharingA.Value = dr["Actual_AjaxSharingAmount"].ToString();
-                    txtDealerSharingA.Value = dr["Actual_DealerSharingAmount"].ToString();
-                    txtLocation.Value = dr["AA_Location"].ToString();
-                    txtRemarks.Value = dr["AA_Remarks"].ToString();
+                    txtUnits.Text = dr["AA_NoofUnits"].ToString();
+                    txtFromDate.Text = dr["AA_FromDate"].ToString();
+                    txtToDate.Text = dr["AA_ToDate"].ToString();
+                    txtExpBudget.Text = dr["AA_Expenses"].ToString();
+                    txtAjaxSharingA.Text = dr["Actual_AjaxSharingAmount"].ToString();
+                    txtDealerSharingA.Text = dr["Actual_DealerSharingAmount"].ToString();
+                    txtLocation.Text = dr["AA_Location"].ToString();
+                    txtRemarks.Text = dr["AA_Remarks"].ToString();
                     ddlAppStatus1.SelectedValue = Convert.ToInt32(dr["AppStatus1"].ToString()).ToString();
-                    txtApp1Remarks.InnerText = dr["AppRemarks1"].ToString();
-                    txtApp1Amount.Value = dr["App1Amount"].ToString();
+                    txtApp1Remarks.Text = dr["AppRemarks1"].ToString();
+                    txtApp1Amount.Text = dr["App1Amount"].ToString();
                     ddlAppStatus2.SelectedValue = Convert.ToInt32(dr["AppStatus2"].ToString()).ToString();
-                    txtApp2Remarks.InnerText = dr["AppRemarks2"].ToString();
-                    txtApp2Amount.Value = dr["App2Amount"].ToString();
+                    txtApp2Remarks.Text = dr["AppRemarks2"].ToString();
+                    txtApp2Amount.Text = dr["App2Amount"].ToString();
                     ViewState["PKActualID"] = dr["PKActualID"].ToString();
                     if (Convert.ToInt32(ViewState["ApprovalLevel"]) == 1)
                     {
@@ -146,15 +146,15 @@ namespace DealerManagementSystem.ViewMarketing
                     else
                     {
                         ddlAppStatus1.Enabled = false;
-                        txtApp1Amount.Disabled = true;
-                        txtApp1Remarks.Disabled = true;
+                        txtApp1Amount.Enabled = true;
+                        txtApp1Remarks.Enabled = true;
                     }
                     if (Convert.ToInt32(ViewState["FAID"]) == 3)
                     {
                         divApp1.Style.Add("display", "none");
                     }
                     string blnCheck = lblPeriod.Text == "" ? "true" : "false";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "HidePlan(" + blnCheck + ");GetActivityData('" + dr["AP_FKActivityID"].ToString() + "');SetActualDates('" + txtFromDate.Value + "','" + txtToDate.Value + "')", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "HidePlan(" + blnCheck + ");GetActivityData('" + dr["AP_FKActivityID"].ToString() + "');SetActualDates('" + txtFromDate.Text + "','" + txtToDate.Text + "')", true);
                 }
                 Session["AADocs"] = ds.Tables[1];
                 lstImages.DataSource = ds.Tables[1];
@@ -188,8 +188,8 @@ namespace DealerManagementSystem.ViewMarketing
                 long UpdatedBy = PSession.User.UserID;
                 int Status = ApprovalLevel == 1 ? Convert.ToInt32(ddlAppStatus1.SelectedValue) : Convert.ToInt32(ddlAppStatus2.SelectedValue);
                 string strStatus = ApprovalLevel == 1 ? (ddlAppStatus1.SelectedItem.Text) : (ddlAppStatus2.SelectedItem.Text);
-                string Remarks = ApprovalLevel == 1 ? txtApp1Remarks.Value : txtApp2Remarks.Value;
-                string sAmount = ApprovalLevel == 1 ? txtApp1Amount.Value : txtApp2Amount.Value;
+                string Remarks = ApprovalLevel == 1 ? txtApp1Remarks.Text : txtApp2Remarks.Text;
+                string sAmount = ApprovalLevel == 1 ? txtApp1Amount.Text : txtApp2Amount.Text;
                 double dblAmount = Convert.ToDouble(sAmount == "" ? "0" : sAmount);
                 if (Status == 0)
                 {
@@ -203,13 +203,13 @@ namespace DealerManagementSystem.ViewMarketing
                     (ApprovalLevel == 1 ? txtApp1Amount : txtApp2Amount).Focus();
                     return;
                 }
-                if (Status == 9 && txtApp1Remarks.Value == "")
+                if (Status == 9 && txtApp1Remarks.Text == "")
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "alert('Please enter remarks!');", true);
                     txtApp1Remarks.Focus();
                     return;
                 }
-                if (Status == 11 && txtApp2Remarks.Value == "")
+                if (Status == 11 && txtApp2Remarks.Text == "")
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "alert('Please enter remarks!');", true);
                     txtApp2Remarks.Focus();

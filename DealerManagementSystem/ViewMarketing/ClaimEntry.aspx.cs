@@ -148,7 +148,7 @@ namespace DealerManagementSystem.ViewMarketing
                 txtAjaxSharingA.Text = dr["Actual_AjaxSharingAmount"].ToString();
                 txtDealerSharingA.Text = dr["Actual_DealerSharingAmount"].ToString();
                 txtLocation.Text = dr["AA_Location"].ToString();
-                txtRemarks.Value = dr["AA_Remarks"].ToString();
+                txtRemarks.Text = dr["AA_Remarks"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "GetActivityData('" + dr["AA_FKActivityID"].ToString() + "');", true);
             }
             Session["AADocs"] = ds.Tables[1];
@@ -166,7 +166,7 @@ namespace DealerManagementSystem.ViewMarketing
                 txtToDate.Enabled = true;
 
                 txtLocation.Enabled = true;
-                txtRemarks.Disabled = true;
+                txtRemarks.Enabled = true;
             }
             divEntry.Visible = true;
             divSearch.Visible = false;
@@ -207,7 +207,7 @@ namespace DealerManagementSystem.ViewMarketing
                 string FromDate = txtFromDate.Text;
                 string ToDate = txtToDate.Text;
                 string Location = txtLocation.Text;
-                string Remarks = txtRemarks.Value;
+                string Remarks = txtRemarks.Text;
                 double dblExpenses = Convert.ToDouble(txtExpenses.Text);
                 Session["ActDocs"] = null;
 
@@ -300,7 +300,7 @@ namespace DealerManagementSystem.ViewMarketing
             txtToDate.Enabled = false;
             txtExpenses.Text = "";
             txtLocation.Text = "";
-            txtRemarks.Value = "";
+            txtRemarks.Text = "";
             ddlDealer.Enabled = true;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "Clear();", true);
         }

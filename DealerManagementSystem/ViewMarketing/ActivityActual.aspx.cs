@@ -175,7 +175,7 @@ namespace DealerManagementSystem.ViewMarketing
                 string FromDate = txtFromDate.Text;
                 string ToDate = txtToDate.Text;
                 string Location = txtLocation.Text;
-                string Remarks = txtRemarks.Value;
+                string Remarks = txtRemarks.Text;
                 int Status = Convert.ToInt32(ddlStatus.SelectedValue);
                 string NDRemarks = txtNotDoneRemarks.Value;
                 double dblExpenses = Convert.ToDouble(txtExpBudget.Text);
@@ -288,7 +288,7 @@ namespace DealerManagementSystem.ViewMarketing
                 txtAjaxSharingA.Text = dr["Actual_AjaxSharingAmount"].ToString();
                 txtDealerSharingA.Text = dr["Actual_DealerSharingAmount"].ToString();
                 txtLocation.Text = dr["AA_Location"].ToString();
-                txtRemarks.Value = dr["AA_Remarks"].ToString();
+                txtRemarks.Text = dr["AA_Remarks"].ToString();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "GetActivityData('" + dr["AP_FKActivityID"].ToString() + "');CheckStatus(" + dr["AP_Status"].ToString() + ");SetActualDates('" + txtFromDate.Text + "','" + txtToDate.Text + "')", true);
             }
             Session["AADocs"] = ds.Tables[1];
@@ -306,7 +306,7 @@ namespace DealerManagementSystem.ViewMarketing
                 txtToDate.Enabled = true;
                 txtExpBudget.Enabled = true;
                 txtLocation.Enabled = true;
-                txtRemarks.Disabled = true;
+                txtRemarks.Enabled = true;
                 txtNotDoneRemarks.Disabled = true;
 
             }
@@ -407,7 +407,7 @@ namespace DealerManagementSystem.ViewMarketing
             txtToDate.Enabled = false;
             txtExpBudget.Enabled = false;
             txtLocation.Enabled = false;
-            txtRemarks.Disabled = false;
+            txtRemarks.Enabled = false;
             txtNotDoneRemarks.Disabled = false;
             ddlDealer.Enabled = true;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "Clear();", true);
