@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewMarketing
     {
 
         /// <summary>
-        /// updPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updPanel;
-
-        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -48,7 +39,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFA;
+        protected global::System.Web.UI.WebControls.TextBox txtFA;
 
         /// <summary>
         /// lblUnits control.
@@ -66,7 +57,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtUnits;
+        protected global::System.Web.UI.WebControls.TextBox txtUnits;
 
         /// <summary>
         /// txtFromDate control.
@@ -75,7 +66,16 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFromDate;
+        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+
+        /// <summary>
+        /// CalFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalFrom;
 
         /// <summary>
         /// txtToDate control.
@@ -84,7 +84,16 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtToDate;
+        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+
+        /// <summary>
+        /// CalTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalTo;
 
         /// <summary>
         /// txtLocation control.
@@ -93,7 +102,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtLocation;
+        protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
         /// txtBudget control.
@@ -102,7 +111,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtBudget;
+        protected global::System.Web.UI.WebControls.TextBox txtBudget;
 
         /// <summary>
         /// txtExpBudget control.
@@ -111,7 +120,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtExpBudget;
+        protected global::System.Web.UI.WebControls.TextBox txtExpBudget;
 
         /// <summary>
         /// lblAjaxSharing control.
@@ -129,7 +138,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAjaxSharing;
+        protected global::System.Web.UI.WebControls.TextBox txtAjaxSharing;
 
         /// <summary>
         /// lblDealerSharing control.
@@ -147,7 +156,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDealerSharing;
+        protected global::System.Web.UI.WebControls.TextBox txtDealerSharing;
 
         /// <summary>
         /// txtRemarks control.
@@ -156,16 +165,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtRemarks;
-
-        /// <summary>
-        /// btnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputSubmit btnSubmit;
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
 
         /// <summary>
         /// hdnPkPlanID control.
@@ -184,6 +184,15 @@ namespace DealerManagementSystem.ViewMarketing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAjaxSharing;
+
+        /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputSubmit btnSubmit;
 
         /// <summary>
         /// ddlDealerSearch control.

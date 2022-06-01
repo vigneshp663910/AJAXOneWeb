@@ -320,16 +320,22 @@ namespace Properties
     }
     public enum DMS_MenuMain
     {
-        Admin = 1,
-        Master,
-        PreSales,
+        Master = 1,
+        Procurement,
         Sales,
         Service,
-        Marketing,
-        Finance,
         Stock,
-        DealerSupport,
-        Procurement
+        ChangeLog,
+        Finance,
+        Admin,
+        Employee,
+        Marketing,
+        Dashboard,
+        Organisation,
+        ECatalogue,
+        Help,
+        PreSales,
+        Task
     }
     public enum DMS_MenuSub
     {

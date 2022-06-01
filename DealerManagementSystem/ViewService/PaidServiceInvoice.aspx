@@ -61,7 +61,6 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                        <%--<asp:Button ID="btnGenerate" runat="server" Text="Generate" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnGenerate_Click" />--%>
                         <asp:Button ID="Button1" runat="server" Text="Export Excel for SAP" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Visible="false" />
                     </div>
                 </div>

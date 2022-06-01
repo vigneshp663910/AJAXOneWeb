@@ -6,7 +6,7 @@ using System.Web.UI;
 //using DealerManagementSystem.Dashboard;
 using System.Collections.Generic;
 using System.Drawing;
-using DealerManagementSystem.ViewDashboard;
+using DealerManagementSystem.ViewDashboard.UserControls;
 
 namespace DealerManagementSystem
 {
@@ -295,17 +295,17 @@ namespace DealerManagementSystem
             switch (dashboardControl)
             {
                 case DashboardControl.CustomerSatisfactionInAfterSalesSupport:
-                    CustomerSatisfactionInAfterSalesSupport ucCSAS = (CustomerSatisfactionInAfterSalesSupport)_page.LoadControl("~/ViewDashboard/CustomerSatisfactionInAfterSalesSupport.ascx");
+                    CustomerSatisfactionInAfterSalesSupport ucCSAS = (CustomerSatisfactionInAfterSalesSupport)_page.LoadControl("~/ViewDashboard/UserControls/CustomerSatisfactionInAfterSalesSupport.ascx");
                     ucCSAS.ID = "ucCustomerSatisfactionInAfterSalesSupport";
                     uc = ucCSAS;
                     break;
                 case DashboardControl.ICTicketTransactionStatics:
-                    ICTicketTransactionStatics ucICTicketTransactionStatics = (ICTicketTransactionStatics)_page.LoadControl("~/ViewDashboard/ICTicketTransactionStatics.ascx");
+                    ICTicketTransactionStatics ucICTicketTransactionStatics = (ICTicketTransactionStatics)_page.LoadControl("~/ViewDashboard/UserControls/ICTicketTransactionStatics.ascx");
                     ucICTicketTransactionStatics.ID = "ucICTicketTransactionStatics";
                     uc = ucICTicketTransactionStatics;
                     break;
                 case DashboardControl.ICTicketEscalationOnBreakdownCount:
-                    ICTicketEscalationOnBreakdownCount ucICTicketEscalationOnBreakdownCount = (ICTicketEscalationOnBreakdownCount)_page.LoadControl("~/ViewDashboard/ICTicketEscalationOnBreakdownCount.ascx");
+                    ICTicketEscalationOnBreakdownCount ucICTicketEscalationOnBreakdownCount = (ICTicketEscalationOnBreakdownCount)_page.LoadControl("~/ViewDashboard/UserControls/ICTicketEscalationOnBreakdownCount.ascx");
                     ucICTicketEscalationOnBreakdownCount.ID = "ucICTicketEscalationOnBreakdownCount";
                     uc = ucICTicketEscalationOnBreakdownCount;
                     break;
@@ -315,17 +315,17 @@ namespace DealerManagementSystem
                 //    uc = ucDMS_WarrantyClaimDebitNoteAcknowledgePending;
                 //    break;
                 case DashboardControl.LeadStatusOpen:
-                    LeadStatusOpen StatusOpen = (LeadStatusOpen)_page.LoadControl("~/ViewDashboard/LeadStatusOpen.ascx");
+                    LeadStatusOpen StatusOpen = (LeadStatusOpen)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusOpen.ascx");
                     StatusOpen.ID = "ucLeadStatusOpen";
                     uc = StatusOpen;
                     break;
                 case DashboardControl.LeadStatusAssigned:
-                    LeadStatusAssigned StatusAssigned = (LeadStatusAssigned)_page.LoadControl("~/ViewDashboard/LeadStatusAssigned.ascx");
+                    LeadStatusAssigned StatusAssigned = (LeadStatusAssigned)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusAssigned.ascx");
                     StatusAssigned.ID = "ucLeadStatusAssigned";
                     uc = StatusAssigned;
                     break;
                 case DashboardControl.LeadStatusQuotation:
-                    LeadStatusQuotation StatusQuotation = (LeadStatusQuotation)_page.LoadControl("~/ViewDashboard/LeadStatusQuotation.ascx");
+                    LeadStatusQuotation StatusQuotation = (LeadStatusQuotation)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusQuotation.ascx");
                     StatusQuotation.ID = "ucLeadStatusQuotation";
                     uc = StatusQuotation;
                     break;

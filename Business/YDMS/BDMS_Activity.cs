@@ -353,7 +353,7 @@ namespace Business
             DbParameter ActivityIDDP = provider.CreateParameter("ActivityID", ActivityID, DbType.Int32);
             DbParameter FromDateDP = provider.CreateParameter("FromDate", FromDate, DbType.String);
             DbParameter ToDateDP = provider.CreateParameter("ToDate", ToDate, DbType.String);
-            DbParameter UserIDDP = provider.CreateParameter("UserID", PSession.UserId, DbType.String);
+            DbParameter UserIDDP = provider.CreateParameter("UserID", PSession.User.UserID, DbType.String);
             DbParameter StatusDP = provider.CreateParameter("Status", Status, DbType.Int32);
             DbParameter[] Params = new DbParameter[6] { DealerIDDP, ActivityIDDP, FromDateDP, ToDateDP, UserIDDP, StatusDP };
 

@@ -63,11 +63,11 @@ namespace Properties
                 HttpContext.Current.Application[key] = value;
             }
         }
-        public static long UserId
-        {
-            get { return GetFromSession<long>("UserId"); }
-            set { SetInSession<long>("UserId", value); }
-        }
+        //public static long UserId
+        //{
+        //    get { return GetFromSession<long>("UserId"); }
+        //    set { SetInSession<long>("UserId", value); }
+        //}
         public static PUser User
         {
             get { return GetFromSession<PUser>("User"); }

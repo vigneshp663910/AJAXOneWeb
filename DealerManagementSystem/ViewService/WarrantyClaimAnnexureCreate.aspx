@@ -133,7 +133,7 @@
                         <div class="col-md-12 col-sm-12">
                             <asp:Label ID="lblAnnexureNumber" runat="server" CssClass="label" Text="" Font-Bold="false" Font-Size="20px"></asp:Label>
                             <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" BackColor="#1deaff" Width="100px"/>
-                            <asp:Button ID="btnGenerate" runat="server" Text="Save" CssClass="InputButtonRight" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnGenerate_Click" Visible="false" BackColor="#1deaff" />
+                            <asp:Button ID="btnGenerate" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnGenerate_Click" Visible="false"/>
                         </div>
                     </div>
                     <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" Width="100%" DataKeyNames="InvoiceNumber" CssClass="table table-bordered table-condensed Grid"

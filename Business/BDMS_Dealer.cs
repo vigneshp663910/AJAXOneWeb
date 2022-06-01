@@ -1248,7 +1248,7 @@ namespace Business
                                         DealerID = Convert.ToInt32(dr["DealerID"]),
                                         DealerCode = Convert.ToString(dr["DealerCode"]),
                                         DealerName = Convert.ToString(dr["DealerName"]),
-                                        //      State = Convert.ToString(dr["DealerState"]),
+                                        // State = Convert.ToString(dr["DealerState"]),
                                         // StateCode = Convert.ToString(dr["StateCode"])
                                     },
                                     DealerOffice = new PDMS_DealerOffice() { OfficeName = Convert.ToString(dr["OfficeName"]) },

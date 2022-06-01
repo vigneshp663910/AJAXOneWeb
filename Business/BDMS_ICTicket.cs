@@ -290,7 +290,7 @@ namespace Business
              
         }
 
-        public List<PDMS_ICTicket> GetICTicket(long? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID)
+        public List<PDMS_ICTicket> GetICTicket(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID)
         {
 
             string endPoint = "Service/ICTicket?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF="

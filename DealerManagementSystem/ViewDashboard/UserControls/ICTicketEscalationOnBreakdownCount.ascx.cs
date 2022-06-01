@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewDashboard
+namespace DealerManagementSystem.ViewDashboard.UserControls
 {
     public partial class ICTicketEscalationOnBreakdownCount : System.Web.UI.UserControl
     {

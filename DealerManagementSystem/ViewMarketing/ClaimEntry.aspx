@@ -1,15 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ClaimEntry.aspx.cs" Inherits="DealerManagementSystem.ViewMarketing.ClaimEntry" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="YDMSStyles.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="YDMS_Scripts.js"></script>
     <style type="text/css">
         .uploadButton {
             background-color: transparent;
@@ -42,7 +34,7 @@
         function GetActivityData(ActivityID) {
             $.ajax({
                 type: "POST",
-                url: "YDMS_ActivityInfoM.aspx/GetActivityInfo",
+                url: "ActivityInfoM.aspx/GetActivityInfo",
                 data: '{ActivityID: "' + ActivityID + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -121,207 +113,186 @@
                 txtExpense.focus();
                 return false;
             }
-
             return true;
-
         }
     </script>
-    <asp:UpdatePanel ID="updPanel" runat="server">
-        <Triggers>
-            <asp:PostBackTrigger ControlID="btnExcel" />
-            <asp:PostBackTrigger ControlID="btnSubmit" />
-        </Triggers>
-        <ContentTemplate>
-            <div class="container-fluid">
-                <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                    <h4 style="width: 100%; padding-right: 10px; vertical-align: middle">Claim Entry
-                <img style="float: right; cursor: pointer" id="imgdivEntry" src="../Images/grid_collapse.png" onclick="ShowHide(this,'divEntry')" /></h4>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="YDMSStyles.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="YDMS_Scripts.js"></script>--%>
+    <div class="col-md-12">
+        <asp:HiddenField ID="hdnAjaxSharing" runat="server" />
+        <div class="col-md-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Claim Entry</legend>
+                <div class="col-md-12">
+                    <asp:Button ID="btnNew" Text="New Claim" runat="server" CssClass="btn Save" OnClick="btnNew_Click" Width="90px"></asp:Button>
+                    <asp:Button ID="btnExisting" Style="margin-left: 15px" Text="Existing Claims" runat="server" CssClass="btn Back" OnClick="btnExisting_Click" Width="120px"></asp:Button>
                 </div>
-                <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                    <asp:Button ID="btnNew" Text="New Claim" runat="server" OnClick="btnNew_Click"></asp:Button>
-                    <asp:Button ID="btnExisting" Style="margin-left: 15px" Text="Existing Claims" runat="server" OnClick="btnExisting_Click"></asp:Button>
-                </div>
-                <div id="divEntry" runat="server">
-                    <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                        <h6>Detail</h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                <div class="col-md-12" id="divEntry" runat="server">
+                    <table>
+                        <tr>
+                            <td>Detail</td>
+                        </tr>
+                    </table>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="ddlDealer">Dealer</label>
-                            <asp:DropDownList ID="ddlDealer" runat="server" AutoPostBack="false">
-                            </asp:DropDownList>
+                            <asp:DropDownList ID="ddlDealer" runat="server" AutoPostBack="false" CssClass="form-control"></asp:DropDownList>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="ddlPlannedActivity">Activity</label>
-                            <asp:DropDownList ID="ddlActivity" OnSelectedIndexChanged="ddlActivity_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlActivity" OnSelectedIndexChanged="ddlActivity_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control"></asp:DropDownList>
                         </div>
-
-
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label id="lblActUnits" runat="server" for="txtUnits">No. of Units</label>
-                            <input type="text" onkeyup="SetActualBudget();" runat="server" id="txtUnits" />
+                            <%--<input type="text" onkeyup="SetActualBudget();" runat="server" id="txtUnits" cssclass="form-control" />--%>
+                            <asp:TextBox runat="server" ID="txtUnits" CssClass="form-control" onkeyup="SetActualBudget();"></asp:TextBox>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtFromDate">From Date</label>
-                            <input type="text" runat="server" id="txtFromDate" />
+                            <%--<input type="text" runat="server" id="txtFromDate" cssclass="form-control" />--%>
+                            <asp:TextBox runat="server" ID="txtFromDate" CssClass="form-control"></asp:TextBox>
+                            <cc1:CalendarExtender ID="CalFrom" runat="server" TargetControlID="txtFromDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtToDate">To Date</label>
-                            <input type="text" runat="server" id="txtToDate" />
+                            <%--<input type="text" runat="server" id="txtToDate" cssclass="form-control" />--%>
+                            <asp:TextBox runat="server" ID="txtToDate" CssClass="form-control"></asp:TextBox>
+                            <cc1:CalendarExtender ID="CalTo" runat="server" TargetControlID="txtToDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtExpBudget">Actual Expense</label>
-                            <input type="text" runat="server" id="txtExpenses" onkeyup="SetActualSharing();" />
+                            <%--<input type="text" runat="server" id="txtExpenses" onkeyup="SetActualSharing();" cssclass="form-control" />--%>
+                            <asp:TextBox runat="server" ID="txtExpenses" CssClass="form-control" onkeyup="SetActualSharing();"></asp:TextBox>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtAjaxSharing">Ajax Sharing</label><label id="lblAjaxSharingA" runat="server"></label>
-                            <input type="text" disabled="disabled" runat="server" id="txtAjaxSharingA" />
-
+                            <%--<input type="text" disabled="disabled" runat="server" id="txtAjaxSharingA" cssclass="form-control" />--%>
+                            <asp:TextBox ID="txtAjaxSharingA" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtDealerSharing">Dealers Sharing</label><label id="lblDealerSharingA" runat="server"></label>
-                            <input type="text" disabled="disabled" runat="server" id="txtDealerSharingA" />
-
+                            <%--<input type="text" disabled="disabled" runat="server" id="txtDealerSharingA" cssclass="form-control" />--%>
+                            <asp:TextBox ID="txtDealerSharingA" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtLocation">Location</label>
-                            <input type="text" runat="server" id="txtLocation" />
+                            <%--<input type="text" runat="server" id="txtLocation" cssclass="form-control" />--%>
+                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtRemarks">Remarks</label>
-                            <textarea runat="server" id="txtRemarks" />
+                            <%--<textarea runat="server" id="txtRemarks" cssclass="form-control" />--%>
+                            <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                         </div>
-
                     </div>
-                    <div class="row">
-                        <h6>Images and Attachments</h6>
-                    </div>
-                    <div class="row" id="divAttach" runat="server">
-
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                    <table>
+                        <tr>
+                            <td>Images and Attachments</td>
+                        </tr>
+                    </table>
+                    <div class="col-md-12" id="divAttach" runat="server">
+                        <div class="col-md-2 col-sm-12">
                             <label for="flUplaod1">Attachment 1</label>
-                            <asp:FileUpload ID="flUpload1" runat="server" onchange="readURL(this,1)" capture="camera" />
+                            <asp:FileUpload ID="flUpload1" runat="server" onchange="readURL(this,1)" capture="camera" CssClass="form-control" />
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="flUplaod2">Attachment 2</label>
-                            <asp:FileUpload ID="flUpload2" runat="server" onchange="readURL(this,2)" capture="camera" />
+                            <asp:FileUpload ID="flUpload2" runat="server" onchange="readURL(this,2)" capture="camera" CssClass="form-control" />
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="flUplaod3">Attachment 3</label>
-                            <asp:FileUpload ID="flUpload3" runat="server" onchange="readURL(this,3)" capture="camera" />
+                            <asp:FileUpload ID="flUpload3" runat="server" onchange="readURL(this,3)" capture="camera" CssClass="form-control" />
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="flUplaod4">Attachment 4</label>
-                            <asp:FileUpload ID="flUpload4" runat="server" onchange="readURL(this,4)" capture="camera" />
-                        </div>
-
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                            <asp:FileUpload ID="flUpload4" runat="server" onchange="readURL(this,4)" capture="camera" CssClass="form-control" />
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
                             <img id="Img1" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <img id="Img2" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <img id="Img3" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <img id="Img4" src="" width="100px" height="80px" style="margin: 10px; display: none;" />
                         </div>
-
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                        </div>
                     </div>
-                    <div class="row">
+                    <div class="col-md-12">
                         <asp:DataList ID="lstImages" OnItemDataBound="lstImages_ItemDataBound" runat="server" RepeatDirection="Horizontal" Visible="false">
                             <ItemTemplate>
-                                <asp:Image ID="img" runat="server" ImageUrl='<%# Bind("AttachedFile") %>' Width="150px" Height="120px" />
+                                <asp:Image ID="img" runat="server" ImageUrl='<%# Bind("AttachedFile") %>' Width="150px" Height="120px" CssClass="form-control"/>
                                 <asp:HiddenField ID="hdnDocID" Value='<%# Bind("AD_PKDocID") %>' runat="server" />
                                 <br />
                                 <asp:LinkButton ID="lnkDownload" OnClick="lnkDownload_Click" CommandArgument='<%# Bind("AD_PKDocID") %>' runat="server" Text="Download"></asp:LinkButton>
                             </ItemTemplate>
                         </asp:DataList>
-
                     </div>
-
-                    <div class="row">
-                        <div class="col-xl-10 col-lg-10 col-md-8 col-sm-6 col-12"></div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align: right; padding-top: 30px">
-
-                            <asp:Button ID="btnSubmit" OnClientClick="return SaveActivityActual();" Text="Submit" runat="server" OnClick="btnSubmit_Click"></asp:Button>
-                            <asp:Button type="submit" Text="Cancel" OnClientClick="Clear();" ID="btnCancel" OnClick="btnCancel_Click" runat="server" />
+                    <div class="col-md-12">
+                        <div class="col-md-12 text-center">
+                            <asp:Button ID="btnSubmit" OnClientClick="return SaveActivityActual();" Text="Submit" runat="server" OnClick="btnSubmit_Click" CssClass="btn Save"></asp:Button>
+                            <asp:Button type="submit" Text="Cancel" OnClientClick="Clear();" ID="btnCancel" OnClick="btnCancel_Click" runat="server" CssClass="btn Back" />
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-xl-4 col-lg-4 col-md-8 col-sm-6 col-12">
-                            <asp:HiddenField ID="hdnPkPlanID" runat="server" Value="0" />
-                            <asp:HiddenField ID="hdnActualID" runat="server" Value="0" />
-                        </div>
-
-
-                    </div>
+                    <asp:HiddenField ID="hdnPkPlanID" runat="server" Value="0" />
+                    <asp:HiddenField ID="hdnActualID" runat="server" Value="0" />
                 </div>
-            </div>
-            <hr />
-            <div class="container-fluid">
-
-
-                <div id="divSearch" runat="server">
-                    <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                        <h4 style="width: 100%; padding-right: 10px; vertical-align: middle">Existing Entry<img style="float: right; cursor: pointer" id="imgdivSearch" src="../Images/grid_collapse.png" onclick="ShowHide(this,'divSearch')" /></h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+            </fieldset>
+        </div>
+        <div class="col-md-12" id="divSearch" runat="server">
+            <div class="col-md-12">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Existing Entry</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="ddlDealerSearch">Dealer</label>
-                            <asp:DropDownList ID="ddlDealerSearch" runat="server">
-                            </asp:DropDownList>
+                            <asp:DropDownList ID="ddlDealerSearch" runat="server" CssClass="form-control"></asp:DropDownList>
                         </div>
-
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtFromDateSearch">From Date</label>
-                            <asp:TextBox runat="server" ID="txtFromDateSearch"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="txtFromDateSearch" CssClass="form-control"></asp:TextBox>
                             <cc1:CalendarExtender ID="calFromDateSearch" runat="server" TargetControlID="txtFromDateSearch" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
-
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                        <div class="col-md-2 col-sm-12">
                             <label for="txtToDateSearch">To Date</label>
-                            <asp:TextBox runat="server" ID="txtToDateSearch"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="txtToDateSearch" CssClass="form-control"></asp:TextBox>
                             <cc1:CalendarExtender ID="calToDateSearch" runat="server" TargetControlID="txtToDateSearch" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
                         </div>
-
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align: right; vertical-align: bottom; padding-top: 28px;">
-
-                            <asp:Button ID="Search" runat="server" Text="Search" OnClick="Search_Click" />
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="text-align: right; vertical-align: bottom; padding-top: 28px;">
-                            <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" OnClick="btnExcel_Click" />
-
+                        <div class="col-md-6 text-left">
+                            <label class="modal-label">-</label>
+                            <asp:Button ID="Search" runat="server" Text="Search" OnClick="Search_Click" CssClass="btn Search" />
+                            <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" OnClick="btnExcel_Click" CssClass="btn Back" />
                         </div>
                     </div>
-                    <div class="row" style="background-color: #3665c2; color: white; margin-bottom: 10px">
-                        <h6>Detail</h6>
-                    </div>
-                    <div class="container-fluid" style="overflow-x: scroll">
-                        <asp:GridView ID="gvData" CssClass="gridclass" runat="server" ShowHeaderWhenEmpty="true"
+                </fieldset>
+            </div>
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Detail</legend>
+                    <div class="col-md-12 Report">
+                        <asp:GridView ID="gvData" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
                             OnRowDataBound="gvData_RowDataBound" AutoGenerateColumns="false" Width="100%">
                             <Columns>
-
                                 <asp:BoundField HeaderText="Activity No" DataField="ControlNo">
                                     <ItemStyle Width="8%" />
                                 </asp:BoundField>
                                 <asp:BoundField HeaderText="Activity" DataField="Activity">
                                     <ItemStyle Width="12%" />
                                 </asp:BoundField>
-
                                 <asp:BoundField HeaderText="Date" DataField="ActualPeriod">
                                     <ItemStyle Width="10%" HorizontalAlign="Center" />
                                 </asp:BoundField>
-
                                 <asp:TemplateField HeaderText="No. of Units">
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="ActualNoofUnits" Text='<%# Eval("ActualNoofUnits") %>'></asp:Label>
@@ -340,7 +311,6 @@
                                     </ItemTemplate>
                                     <ItemStyle Width="10%" />
                                 </asp:TemplateField>
-
                                 <asp:BoundField HeaderText="Remarks" DataField="ActualRemarks">
                                     <ItemStyle Width="10%" />
                                 </asp:BoundField>
@@ -366,13 +336,24 @@
                                     </ItemTemplate>
                                     <ItemStyle Width="3%" />
                                 </asp:TemplateField>
-
                             </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </div>
-                </div>
+                </fieldset>
             </div>
-            <asp:HiddenField ID="hdnAjaxSharing" runat="server" />
+        </div>
+    </div>
+    <%--<asp:UpdatePanel ID="updPanel" runat="server">
+        <Triggers>
+            <asp:PostBackTrigger ControlID="btnExcel" />
+            <asp:PostBackTrigger ControlID="btnSubmit" />
+        </Triggers>
+        <ContentTemplate>
             <asp:UpdateProgress ID="updMainProg" runat="server" AssociatedUpdatePanelID="updPanel">
                 <ProgressTemplate>
                     <asp:Panel ID="pnlProg" runat="server" Width="280px" BackImageUrl="~/Images/LoadingPnlbg.png"
@@ -386,5 +367,5 @@
                 </ProgressTemplate>
             </asp:UpdateProgress>
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>--%>
 </asp:Content>

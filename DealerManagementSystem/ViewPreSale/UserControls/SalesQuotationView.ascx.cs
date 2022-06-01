@@ -569,7 +569,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageEffort.Text = Results.Message;
+                lblMessageQuotation.Text = Results.Message;
                 return;
             }
             MPE_Quotation.Hide();
@@ -1161,7 +1161,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
                     P[29] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
                 }
-                else if (Q.QuotationItems[0].Plant.PlantCode == "P001")
+                else /*if (Q.QuotationItems[0].Plant.PlantCode == "P001")*/
                 {
                     P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
                     P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
@@ -1371,6 +1371,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[41] = new ReportParameter("Transportation", "", false);
                     P[42] = new ReportParameter("Validity", "", false);
                     P[43] = new ReportParameter("Note", "", false);
+                }
+                else if (!string.IsNullOrEmpty(Div))
+                {
+                    lblMessage.Text = "Please Change First Line Item of Material";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
                 }
                 else
                 {

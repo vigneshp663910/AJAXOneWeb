@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketTransactionStatics.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.ICTicketTransactionStatics" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketTransactionStatics.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.UserControls.ICTicketTransactionStatics" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>

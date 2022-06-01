@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LeadStatusAssigned.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.LeadStatusAssigned" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LeadStatusOpen.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.UserControls.LeadStatusOpen" %>
 <div class="modbox"> 
     <div class="modboxin">
         <div class="portlet-body" style="padding: 5px;">
@@ -7,9 +7,9 @@
                     <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                         <div class="visual"><i class="fa fa-ticket"></i></div>
                         <div class="details" style="color: white;">
-                            <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
+                            <asp:Label ID="lblOpen" runat="server" Text="0"></asp:Label>
                             <div class="desc">
-                                <asp:LinkButton ID="lbtnNewlyCreated" runat="server" Style="color: white;" OnClick="lbActions_Click">Assigned</asp:LinkButton>
+                                <asp:LinkButton ID="lbtnNewlyCreated" runat="server" Style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace DealerManagementSystem.ViewSales
+namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrderN : System.Web.UI.Page
     {

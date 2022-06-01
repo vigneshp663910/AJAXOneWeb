@@ -95,8 +95,7 @@
             </div>
 
             <div class="second">
-                <p>second</p>
-
+                <p>second</p> 
             </div>
 
             <div class="last">

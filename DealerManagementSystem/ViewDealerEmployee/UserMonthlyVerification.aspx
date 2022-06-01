@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserMonthlyVerification.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.UserMonthlyVerification" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserMonthlyVerification.aspx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.UserMonthlyVerification" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewMaster/UserControls/DealerView.ascx" TagPrefix="UC" TagName="UC_DealerView" %>
