@@ -2036,7 +2036,6 @@
                         <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                         <%--  <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
                     </div>
-
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
                         <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
                     </div>
@@ -2171,7 +2170,12 @@
 
                             <asp:Label ID="lblQuality" runat="server"></asp:Label>
                         </div>
+                         <div style="float: right; padding-right: 0.3em;">
 
+                            <div class="dropdown"> 
+                                 <a href='/View/Appointment.aspx'><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
@@ -2194,7 +2198,7 @@
                                 <a href='/Home.aspx'><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-
+                        
                         <%--<div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
@@ -2307,7 +2311,7 @@
                 </div>
                 <br />
             </asp:Panel>
-        </div>
+        </div> 
     </form>
 
 

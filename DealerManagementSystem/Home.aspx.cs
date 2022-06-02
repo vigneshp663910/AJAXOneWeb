@@ -127,6 +127,18 @@ namespace DealerManagementSystem
                 }
             }
         }
+
+        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
+        {
+            string day = e.Day.DayNumberText;
+            e.Cell.Text = day + "</br>john </br> Peter";
+            e.Cell.BackColor = Color.Green;
+        }
     }
     class DashboardFactory
     {

@@ -1309,11 +1309,17 @@ namespace Business
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/GetToken", UserA));
         }
-        public PUser GetUserByToken()
+        //public PUser GetUserByToken()
+        //{
+        //    UserAuthentication UserA = new UserAuthentication();
+        //    string endPoint = "User/UserByToken";
+        //    return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA)).Data));
+        //}
+        public PApiResult GetUserByToken()
         {
             UserAuthentication UserA = new UserAuthentication();
             string endPoint = "User/UserByToken";
-            return JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA)).Data));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, UserA));
         }
 
         public PApiResult GetTokenByID(int userID)

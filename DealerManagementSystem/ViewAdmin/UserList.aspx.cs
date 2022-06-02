@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -46,8 +47,17 @@ namespace DealerManagementSystem.ViewAdmin
                 return;
             }
             PSession.AccessToken = Convert.ToString(Results.Data);
-            PSession.User = new BUser().GetUserByToken();
-           // UIHelper.UserAudit();
+
+            PApiResult ResultToken = new BUser().GetUserByToken();
+            if (ResultToken.Status == PApplication.Failure)
+            {
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                lblMessage.Text = Results.Message;
+                lblMessage.Visible = true;
+                return;
+            }
+            PSession.User = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data));
+            // UIHelper.UserAudit();
             Response.Redirect(UIHelper.RedirectToHomePage);
         }
 

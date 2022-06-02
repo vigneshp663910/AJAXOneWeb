@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Configuration;
@@ -11,53 +12,7 @@ namespace DealerManagementSystem
     {
         private int NoOfAllowedLoginAttempt;
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            //if (Request.Cookies["IMEI"] == null)
-            //{
-            //    Response.Cookies["IMEI"].Value = "";
-            //}
-            //if ((!string.IsNullOrEmpty(Request.QueryString["IMEI"])) || (!string.IsNullOrEmpty(Request.Cookies["IMEI"].Value)))
-            //{
-            //    string IMEI = string.IsNullOrEmpty(Request.QueryString["IMEI"]) ? Request.Cookies["IMEI"].Value : Convert.ToString(Request.QueryString["IMEI"]);
-            //    Response.Cookies["IMEI"].Value = IMEI;
-            //    PUserMobile UserMobile = new BUser().GetUserIDByIMEI(IMEI);
-            //    string Message = "";
-
-            //    if (UserMobile == null)
-            //    {
-            //        Response.Cookies["IMEI"].Value = IMEI;
-            //    }
-            //    else if (!UserMobile.IsActive)
-            //    {
-            //        Message = "";
-            //        Response.Redirect("RegisterUserMobile.aspx?Message=" + Message);
-            //    }
-            //    else if (UserMobile.ApprovedBy == null)
-            //    {
-            //        Response.Redirect("RegisterUserMobile.aspx?Message=Your request waiting for approval");
-            //    }
-            //    else
-            //    {
-            //        AddToSession(UserMobile.UserID);
-
-            //        if (!string.IsNullOrEmpty(Request.QueryString["Session_End"]))
-            //        {
-            //            Redirect(UIHelper.RedirectToHomePage + "?Session_End=This page idle for long lime so system went home page");
-            //        }
-            //        else
-            //        {
-            //            Redirect(UIHelper.RedirectToHomePage);
-            //        }
-            //    }
-            //}
-
-
-            //txtUsername.Text = "IT.OFFICER4";
-            //txtPassword.Text = "abc@123";
-
-            //txtUsername.Text = "IT.MGR2";
-            //txtPassword.Text = "1";
-            //login();
+        {  
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -92,7 +47,16 @@ namespace DealerManagementSystem
 
         protected void imgLoginButton_Click(object sender, ImageClickEventArgs e)
         {
-            login();
+            if (!string.IsNullOrEmpty(Request.QueryString["deviceID"]))
+            {
+                string DeviceID = Convert.ToString(Request.QueryString["deviceID"]);
+                string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
+                loginMobile(ApplicationKey, DeviceID);
+            }
+            else
+            {
+                login();
+            }
         }
         private void Redirect(string pageNmae)
         {
@@ -181,14 +145,19 @@ namespace DealerManagementSystem
                 }
                 PSession.AccessToken = Convert.ToString(Results.Data);
 
-                
-                userDetails = new BUser().GetUserByToken();
-                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                PApiResult ResultToken = new BUser().GetUserByToken();
+                if (ResultToken.Status == PApplication.Failure)
                 {
-                    userDetails = new BUser().GetUserByToken();
-                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + userDetails.UserID + "", true);
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    return;
                 }
-                PSession.User = userDetails;
+                PSession.User = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data)); 
+                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                { 
+                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
+                } 
                 if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
                 {
                     lblMessage.ForeColor =  Color.Red;
@@ -196,6 +165,85 @@ namespace DealerManagementSystem
                     lblMessage.Visible = true;
                     return;
                 }
+                UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
+                if (userDetails.PasswordExpiryDate < DateTime.Now)
+                {
+                    Redirect(UIHelper.RedirectToPasswordChange);
+                }
+                RemoveLoginAttemptsFromViewState();
+                Redirect(UIHelper.RedirectToHomePage);
+            }
+
+            catch (LMSException vpExe)
+            {
+                RemoveLoginAttemptsFromViewState();
+                DisplayMessages(ErrorHandler.GetErrorMessage(ErrorHandler.GetErrorCode(vpExe.Message)));
+            }
+            catch (LMSFunctionalException vpsFun)
+            {
+                if ((attemptCount + 1 >= NoOfAllowedLoginAttempt) && (ErrorHandler.GetFunctionalErrorCode(vpsFun.Message) == FunctionalErrorCode.InvalidPassword))
+                {
+                    LockUser(txtUsername.Text);
+                }
+                else
+                {
+                    DisplayMessages(ErrorHandler.GetErrorMessage(ErrorHandler.GetFunctionalErrorCode(vpsFun.Message)));
+                    ViewState["NoOfLoginAttempts"] = attemptCount + 1;
+                }
+            }
+        }
+        void loginMobile(string ApplicationKey, string DeviceId)
+        {
+            int attemptCount = 0;
+            PUser userDetails = null;
+            if (ViewState["NoOfLoginAttempts"] != null)
+                attemptCount = (int)ViewState["NoOfLoginAttempts"];
+
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                Session["LoginID"] = "";
+
+
+                UserAuthentication userA = new UserAuthentication();
+
+                userA.UserName = txtUsername.Text;
+                userA.LoginPassword = txtPassword.Text;
+                userA.ApplicationKey = ApplicationKey;
+                userA.DeviceId = DeviceId;
+
+                PApiResult Results = new BUser().Login(userA);
+
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    return;
+                }
+                PSession.AccessToken = Convert.ToString(Results.Data);
+
+                PApiResult ResultToken = new BUser().GetUserByToken();
+                if (ResultToken.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    return;
+                }
+                userDetails = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data));
+
+                PSession.User = userDetails;
+
+                if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = "You are not allowed to use";
+                    lblMessage.Visible = true;
+                    return;
+                }
+                PSession.Latitude = hfLatitude.Value;
+                PSession.Longitude = hfLongitude.Value;
                 UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {
@@ -288,7 +336,16 @@ namespace DealerManagementSystem
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            login();
+            if (!string.IsNullOrEmpty(Request.QueryString["deviceID"]))
+            {
+                string DeviceID = Convert.ToString(Request.QueryString["deviceID"]);
+                string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
+                loginMobile(ApplicationKey, DeviceID);
+            }
+            else
+            {
+                login();
+            }
         }
         protected void lForgetPassword_Click(object sender, EventArgs e)
         {
@@ -350,7 +407,16 @@ namespace DealerManagementSystem
                         PUser user = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
                         txtUsername.Text = user.UserName;
                         txtPassword.Text = txtRRetypePassword.Text;
-                        login();
+                        if (!string.IsNullOrEmpty(Request.QueryString["deviceID"]))
+                        {
+                            string DeviceID = Convert.ToString(Request.QueryString["deviceID"]);
+                            string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
+                            loginMobile(ApplicationKey, DeviceID);
+                        }
+                        else
+                        {
+                            login();
+                        }
                         //AddToSession(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is changed successfully, please use the new password when you login next time');window.open('Home.aspx','_parent');", true);
 

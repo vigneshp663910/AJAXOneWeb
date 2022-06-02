@@ -624,6 +624,7 @@
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="View\Appointment.aspx" />
     <Content Include="VoiceText.aspx" />
     <Content Include="VoiceText1.aspx" />
     <Content Include="Web.config" />
@@ -2304,6 +2305,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Appointment.aspx.cs">
+      <DependentUpon>Appointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Appointment.aspx.designer.cs">
+      <DependentUpon>Appointment.aspx</DependentUpon>
     </Compile>
     <Compile Include="VoiceText.aspx.cs">
       <DependentUpon>VoiceText.aspx</DependentUpon>
