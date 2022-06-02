@@ -163,7 +163,7 @@
                                                 <asp:Label ID="lblProduct" runat="server" Text='<%# Bind("Product") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:DropDownList ID="ddlProduct" runat="server" Width="100%"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlProduct" runat="server" CssClass="form-control"></asp:DropDownList>
                                                 <cc1:CascadingDropDown ID="CDDProduct" runat="server" TargetControlID="ddlProduct" UseContextKey="true" ServiceMethod="GetProduct" PromptText="Select" ContextKey=""
                                                     Category="ProductID"></cc1:CascadingDropDown>
                                             </FooterTemplate>
@@ -175,7 +175,7 @@
                                                 <asp:Label ID="lblModel" CssClass="lblModel" EnableTheming="false" runat="server" Text='<%# Bind("Model") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:DropDownList ID="ddlModel" runat="server" Width="100%"></asp:DropDownList>
+                                                <asp:DropDownList ID="ddlModel" runat="server" CssClass="form-control"></asp:DropDownList>
                                                 <cc1:CascadingDropDown ID="CDDModel" runat="server" ParentControlID="ddlProduct" UseContextKey="true" TargetControlID="ddlModel" ServiceMethod="GetModels" PromptText="Select"
                                                     Category="ModelID"></cc1:CascadingDropDown>
                                             </FooterTemplate>
@@ -187,7 +187,7 @@
                                                 <asp:Label ID="Apr" runat="server" Text='<%# Bind("Apr") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtApr" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtApr" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -197,7 +197,7 @@
                                                 <asp:Label ID="May" runat="server" Text='<%# Bind("May") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtMay" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtMay" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -207,7 +207,7 @@
                                                 <asp:Label ID="Jun" runat="server" Text='<%# Bind("Jun") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtJun" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtJun" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -227,7 +227,7 @@
                                                 <asp:Label ID="Jul" runat="server" Text='<%# Bind("Jul") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtJul" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtJul" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -237,7 +237,7 @@
                                                 <asp:Label ID="Aug" runat="server" Text='<%# Bind("Aug") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtAug" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtAug" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -247,7 +247,7 @@
                                                 <asp:Label ID="Sep" runat="server" Text='<%# Bind("Sep") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtSep" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtSep" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -267,7 +267,7 @@
                                                 <asp:Label ID="Oct" runat="server" Text='<%# Bind("Oct") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtOct" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtOct" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -277,7 +277,7 @@
                                                 <asp:Label ID="Nov" runat="server" Text='<%# Bind("Nov") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtNov" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtNov" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -287,7 +287,7 @@
                                                 <asp:Label ID="Dec" runat="server" Text='<%# Bind("Dec") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtDec" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtDec" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -307,7 +307,7 @@
                                                 <asp:Label ID="Jan" runat="server" Text='<%# Bind("Jan") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtJan" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtJan" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -317,7 +317,7 @@
                                                 <asp:Label ID="Feb" runat="server" Text='<%# Bind("Feb") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtFeb" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtFeb" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -327,7 +327,7 @@
                                                 <asp:Label ID="Mar" runat="server" Text='<%# Bind("Mar") %>'></asp:Label>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:TextBox ID="txtMar" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" Width="100%"></asp:TextBox>
+                                                <asp:TextBox ID="txtMar" onkeydown="CheckNumeric(event)" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                                             </FooterTemplate>
                                             <ItemStyle Width="4%" HorizontalAlign="Center" />
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
@@ -354,12 +354,11 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lnkDel" OnClick="lnkDel_Click" runat="server" Text="Delete"></asp:LinkButton>
+                                                <asp:LinkButton ID="lnkDel" OnClick="lnkDel_Click" runat="server" Text="Delete" CssClass="btn Back" Width="50px" Height="33px"></asp:LinkButton>
                                                 <asp:HiddenField ID="hdnModelID" runat="server" Value='<%# Bind("ModelID") %>' />
-
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:Button ID="btnAdd" OnClientClick="return Validate()" runat="server" OnClick="btnAdd_Click" Text="Save & Add More" />
+                                                <asp:Button ID="btnAdd" OnClientClick="return Validate()" runat="server" CssClass="btn Save" OnClick="btnAdd_Click" Text="Save & Add More" Width="135px" Height="33px"/>
                                             </FooterTemplate>
                                             <ItemStyle Width="6%" HorizontalAlign="Center" />
                                             <FooterStyle Width="6%" HorizontalAlign="Center" />
