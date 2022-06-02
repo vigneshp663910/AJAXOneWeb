@@ -114,6 +114,10 @@ namespace DealerManagementSystem.ViewAdmin
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             string ContactName = null; if (!string.IsNullOrEmpty(txtContactName.Text)) { ContactName = txtContactName.Text; }
 
+
+            bool? IsLocked = null;
+            if (ddlIsLocked.SelectedValue == "1") { IsLocked = true; } else if (ddlIsLocked.SelectedValue == "2") { IsLocked = false; }
+
             bool? IsEnabled = null;
             if (ddlIsEnabled.SelectedValue == "1") { IsEnabled = true; } else if (ddlIsEnabled.SelectedValue == "2") { IsEnabled = false; }
             
@@ -126,7 +130,7 @@ namespace DealerManagementSystem.ViewAdmin
         
             UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, null, null);
 
-            UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.ajaxOne == ajaxOne)|| (ajaxOne == null)));
+            UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.ajaxOne == ajaxOne) || (ajaxOne == null)) && ((m.IsLocked == IsLocked) || (IsLocked == null)));
             gvUser.DataSource = UserLst;
 
             //gvUser.DataSource = u;
