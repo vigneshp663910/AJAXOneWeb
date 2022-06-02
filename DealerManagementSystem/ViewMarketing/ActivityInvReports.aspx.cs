@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewMarketing
                 HiddenField hdnActualID = gvRow.FindControl("hdnActualID") as HiddenField;
                 if (hdnInvID.Value != "0")
                 {
-                    lnkEdit.Attributes.Add("onclick", "window.open('YDMS_ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
+                    lnkEdit.Attributes.Add("onclick", "window.open('ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
                     //lnkEdit.Attributes.Add("onclick", "window.open('YDMS_ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
                 }
             }
