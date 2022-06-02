@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewMarketing
                 if (hdnInvID.Value != "0")
                 {
                     lnkGenerateInvoice.Text = "Print Invoice";
-                    lnkGenerateInvoice.Attributes.Add("onclick", "window.open('YDMS_ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
+                    lnkGenerateInvoice.Attributes.Add("onclick", "window.open('ActivityInvoice.aspx?AID=" + oActivity.Encrypt(hdnActualID.Value) + "', 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60');return false;");
                 }
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "keHide", "$('#divEntry').toggle(1000);", true);

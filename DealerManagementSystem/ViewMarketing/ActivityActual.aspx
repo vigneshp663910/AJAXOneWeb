@@ -259,7 +259,6 @@
         function readURL(input, ImageID) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                debugger;
                 reader.onload = function (e) {
                     $('#Img' + ImageID).attr('src', e.target.result);
                     $('#Img' + ImageID).css("display", "block");
@@ -283,7 +282,7 @@
             document.getElementById('<%= txtToDate.ClientID %>').value = ToDate;
         }
         function PrintInvoice(vardata) {
-            window.open('YDMS_ActivityInvoice.aspx?AID=' + vardata, 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60'); return false;
+            window.open('ActivityInvoice.aspx?AID=' + vardata, 'newwindow', 'toolbar=no,location=no,menubar=no,width=1000,height=600,titlebar=no, fullscreen=no,resizable=yes,scrollbars=yes,top=60,left=60'); return false;
 
         }
     </script>

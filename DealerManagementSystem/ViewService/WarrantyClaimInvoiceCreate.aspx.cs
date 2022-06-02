@@ -40,6 +40,7 @@ namespace DealerManagementSystem.ViewService
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » Warranty » Final Invoice Create');</script>");
 
             if (PSession.User == null)
             {
