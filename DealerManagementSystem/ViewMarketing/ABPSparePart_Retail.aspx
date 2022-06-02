@@ -333,12 +333,12 @@
                                             </ItemTemplate>
                                             <FooterTemplate>
                                             </FooterTemplate>
-                                            <ItemStyle Width="4%" HorizontalAlign="Center" />
+                                            <ItemStyle Width="4%" HorizontalAlign="Center"/>
                                             <FooterStyle Width="4%" HorizontalAlign="Center" />
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lnkDel" OnClick="lnkDel_Click" runat="server" Text="Delete" Width="70px" Height="33px"></asp:LinkButton>
+                                                <asp:LinkButton ID="lnkDel" OnClick="lnkDel_Click" runat="server" Text="Delete"></asp:LinkButton>
                                             </ItemTemplate>
                                             <FooterTemplate>
                                                 <asp:Button ID="btnAdd" OnClientClick="return Validate()" runat="server" CssClass="btn Save" OnClick="btnAdd_Click" Text="Save & Add More" Width="135px" Height="33px"/>
