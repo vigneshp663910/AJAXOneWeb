@@ -1,46 +1,54 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="RollingPlanModelWise.aspx.cs" Inherits="DealerManagementSystem.ViewMarketing.RollingPlanModelWise" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         .cal_Theme1 .ajax__calendar_prev {
-    display:none;
-    
-}
+            display: none;
+        }
+
         .cal_Theme1 .ajax__calendar_next {
-    display:none;
-    
-}
-        .ajax__calendar_invalid .ajax__calendar_day
-        {
-            display:none;
+            display: none;
         }
-        .lblDayPlan{
-            color:#0b4562;
-            font-size:8pt;
-            font-family:Arial;
-            font-weight:bold;
-            margin-top: 50px;    
-            margin-right: 5px;    
-            box-shadow:#467d7e 10px 0px unset;
-            
+
+        .ajax__calendar_invalid .ajax__calendar_day {
+            display: none;
         }
-        .lblDayPlan table{
-            background-color:azure;
+
+        .lblDayPlan {
+            color: #0b4562;
+            font-size: 8pt;
+            font-family: Arial;
+            font-weight: bold;
+            margin-top: 50px;
+            margin-right: 5px;
+            box-shadow: #467d7e 10px 0px unset;
         }
-        .lblDayPlan td{
-            padding:2px;
-            border-bottom:1px solid;
-            border-top:1px solid;
+
+            .lblDayPlan table {
+                background-color: azure;
+            }
+
+            .lblDayPlan td {
+                padding: 2px;
+                border-bottom: 1px solid;
+                border-top: 1px solid;
+            }
+
+        #divCalander {
+            width: 85%;
+            padding: 17px;
+            position: absolute;
+            top: 10px;
+            left: 150px;
+            background-color: white;
+            border: 1px solid #1a425c;
+            border-radius: 5px;
+            z-index: 3000;
+            text-align: center;
         }
-        #divCalander
-        {
-            width:85%;padding: 17px;position:absolute;top:10px;left:150px;background-color:white;border:1px solid #1a425c;border-radius:5px;
-            z-index:3000;
-            text-align:center;
-        }
-        .calCell{
+
+        .calCell {
             background: rgb(147,193,217);
             background: radial-gradient(circle, rgba(147,193,217,1) 0%, rgba(52,179,209,1) 100%);
         }
@@ -105,132 +113,122 @@
             return false;
         }
     </script>
-     <%-- <asp:UpdatePanel ID="updPanel" runat="server">        
-          <Triggers>
-              <asp:PostBackTrigger ControlID="btnExport" />
-               <asp:PostBackTrigger ControlID="btnAdd" />
-          </Triggers>
-        <ContentTemplate>    --%>
-             <div class="row" style="background-color:#3665c2;color:white;margin-bottom:10px;padding-left:20px">
-            <h4 style="width:100%;padding-right:10px;vertical-align:middle" >Rolling Plan<img style="float:right;cursor:pointer" id="imgdivEntry" src="../Images/grid_collapse.png" onclick="ShowHide(this,'divEntry')" /></h4>            
-            </div>
-            <div class="container-fluid" id="divHdr" runat="server">
-                <div class="row" >
-                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                        <label for="ddlDealer">Dealer</label>
-                        <asp:DropDownList ID="ddlDealer" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" runat="server" Width="100%"></asp:DropDownList>                
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                        <label for="ddlDealer">Year</label>
-                        <asp:DropDownList ID="ddlYear" AutoPostBack="true" OnSelectedIndexChanged="ddlYear_SelectedIndexChanged" runat="server" Width="100%"></asp:DropDownList>                
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                        <label for="ddlDealer">Month</label>
-                        <asp:DropDownList ID="ddlMonth" OnSelectedIndexChanged="ddlMonth_SelectedIndexChanged" AutoPostBack="true" runat="server" Width="100%"></asp:DropDownList>                
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="text-align:right">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Rolling Plan</legend>
+                <div class="col-md-12" id="divHdr" runat="server">
+                    <div class="col-md-12 text-right">
                         <asp:LinkButton ID="lnkCal" runat="server" OnClientClick="return ShowCal();" Text="View Calander"></asp:LinkButton>
-                        
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlDealer">Dealer</label>
+                        <asp:DropDownList ID="ddlDealer" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlDealer">Year</label>
+                        <asp:DropDownList ID="ddlYear" AutoPostBack="true" OnSelectedIndexChanged="ddlYear_SelectedIndexChanged" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label for="ddlDealer">Month</label>
+                        <asp:DropDownList ID="ddlMonth" OnSelectedIndexChanged="ddlMonth_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                 </div>
-             </div>
-            <div class="container-fluid" id="divEntry" runat="server">
-                <div class="row" style="margin-top:20px" >
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                <div class="col-md-12" id="divEntry" runat="server">
+                    <div class="col-md-2 col-sm-12">
                         <label for="ddlDealer">Product</label>
-                        <asp:DropDownList ID="ddlProduct" runat="server" Width="100%" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>                
-                       <%-- <cc1:CascadingDropDown ID="CDDProduct" runat="server" TargetControlID="ddlProduct" UseContextKey="true" ServiceMethod="GetProduct" PromptText="Select"
+                        <asp:DropDownList ID="ddlProduct" runat="server" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control"></asp:DropDownList>
+                        <%-- <cc1:CascadingDropDown ID="CDDProduct" runat="server" TargetControlID="ddlProduct" UseContextKey="true" ServiceMethod="GetProduct" PromptText="Select"
                              Category="ProductID"></cc1:CascadingDropDown>--%>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                    <div class="col-md-2 col-sm-12">
                         <label for="ddlDealer">Model</label>
-                        <asp:DropDownList ID="ddlModel" runat="server" Width="100%"></asp:DropDownList>                
-                       <%-- <cc1:CascadingDropDown ID="CDDModel" runat="server" ParentControlID="ddlProduct" UseContextKey="true" TargetControlID="ddlModel" ServiceMethod="GetModels" PromptText="Select"
+                        <asp:DropDownList ID="ddlModel" runat="server" CssClass="form-control"></asp:DropDownList>
+                        <%-- <cc1:CascadingDropDown ID="CDDModel" runat="server" ParentControlID="ddlProduct" UseContextKey="true" TargetControlID="ddlModel" ServiceMethod="GetModels" PromptText="Select"
                              Category="ModelID"></cc1:CascadingDropDown>--%>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                        <label  for='<%= txtDate.ClientID %>'>Date</label>
-                        <asp:TextBox ID="txtDate" autocomplete="off" runat="server" Width="100%"></asp:TextBox>                
-                     <%--   <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>--%>
-                           <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" ></cc1:CalendarExtender>
+                    <div class="col-md-2 col-sm-12">
+                        <label for='<%= txtDate.ClientID %>'>Date</label>
+                        <asp:TextBox ID="txtDate" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
+                        <%--   <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>--%>
+                        <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1" runat="server" TargetControlID="txtDate"></cc1:CalendarExtender>
                     </div>
-                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
+                    <div class="col-md-2 col-sm-12">
                         <label for='<%= txtNo.ClientID %>'>Number</label>
-                       
-                          <asp:TextBox ID="txtNo" autocomplete="off" runat="server" Width="100%"></asp:TextBox> 
-                         <cc1:FilteredTextBoxExtender ID="fteNumber" runat="server" TargetControlID="txtNo" FilterType="Numbers"></cc1:FilteredTextBoxExtender>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="padding-top:30px">
-                          
-                        <asp:Button id="btnAdd" OnClientClick="return Validate();" runat="server" Text="Add" OnClick="btnAdd_Click" Width="150px" />
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12" style="padding-top:30px">
-                        
-                        <asp:Button id="btnExport" runat="server" Text="Export to Excel" OnClick="btnExport_Click" Width="150px" />
-                    </div>
-                </div>
-                <div class="container-fluid" style="margin-top:20px;text-align:left" >
-                       <asp:GridView ID="gvPlan" CssClass="gridclass" runat="server" Width="70%" AutoGenerateColumns="false" AllowPaging="false" OnRowDataBound="gvPlan_RowDataBound"
-                           OnDataBound="gvPlan_DataBound">
 
-                           <Columns>
-                               <asp:TemplateField HeaderText="Product">
-                                   <ItemTemplate>
-                                       <asp:Label ID="lblProduct" runat="server" Text='<%# Bind("Product") %>'></asp:Label>
-                                   </ItemTemplate>
-                                   <ItemStyle Width="20%" />
-                               </asp:TemplateField>
-                               <asp:TemplateField HeaderText="Model">
-                                   <ItemTemplate>
-                                       <asp:Label ID="lblModel" CssClass="lblModel" EnableTheming="false" runat="server" Text='<%# Bind("Model") %>'></asp:Label>
-                                   </ItemTemplate>
-                                   <ItemStyle Width="35%" />
-                               </asp:TemplateField>
-                               <asp:TemplateField HeaderText="Date">
-                                   <ItemTemplate>
-                                       <asp:Label ID="lblDate" runat="server" Text='<%# Bind("PlanDate") %>'></asp:Label>
-                                   </ItemTemplate>
-                                   <ItemStyle Width="20%" HorizontalAlign="Center" />
-                               </asp:TemplateField>
-                               <asp:TemplateField HeaderText="Nos">
-                                   <ItemTemplate>
-                                       <asp:Label ID="lblNo" runat="server" Text='<%# Bind("PlanNo") %>'></asp:Label>
-                                   </ItemTemplate>
-                                   <ItemStyle Width="15%" HorizontalAlign="Center" />
-                               </asp:TemplateField>
-                               <asp:TemplateField HeaderText="Action">
-                                   <ItemTemplate>
-                                       <asp:LinkButton ID="lnkDel" Visible='<%# DateTime.Now.Day<6 %>' OnClick="lnkDel_Click" runat="server" Text="Delete"></asp:LinkButton>
-                                       <asp:HiddenField ID="hdnModelID" runat="server" Value='<%# Bind("ModelID") %>' />                                          
-                                       <asp:HiddenField ID="hdnTag" runat="server" Value='<%# Bind("Tag") %>' />                                          
-                                   </ItemTemplate>
-                                   <ItemStyle Width="10%" HorizontalAlign="Center" />
-                               </asp:TemplateField>
-                               
-                           </Columns>
-                           
-                       </asp:GridView>
+                        <asp:TextBox ID="txtNo" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
+                        <cc1:FilteredTextBoxExtender ID="fteNumber" runat="server" TargetControlID="txtNo" FilterType="Numbers"></cc1:FilteredTextBoxExtender>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnAdd" OnClientClick="return Validate();" runat="server" Text="Add" OnClick="btnAdd_Click" CssClass="btn Search" />
+                        <asp:Button ID="btnExport" runat="server" Text="Export to Excel" OnClick="btnExport_Click" CssClass="btn Back" Width="120px" />
+                    </div>
+                    <div class="col-md-12 Report">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Details</legend>
+                            <div class="col-md-12 Report">
+                                <asp:GridView ID="gvPlan" CssClass="table table-bordered table-condensed Grid" runat="server" Width="100%" AutoGenerateColumns="false" AllowPaging="false" OnRowDataBound="gvPlan_RowDataBound"
+                                    OnDataBound="gvPlan_DataBound">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Product">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblProduct" runat="server" Text='<%# Bind("Product") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="20%" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Model">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblModel" CssClass="lblModel" EnableTheming="false" runat="server" Text='<%# Bind("Model") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="35%" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Date">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDate" runat="server" Text='<%# Bind("PlanDate") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="20%" HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Nos">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNo" runat="server" Text='<%# Bind("PlanNo") %>'></asp:Label>
+                                            </ItemTemplate>
+                                            <ItemStyle Width="15%" HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkDel" Visible='<%# DateTime.Now.Day<6 %>' OnClick="lnkDel_Click" runat="server" Text="Delete"></asp:LinkButton>
+                                                <asp:HiddenField ID="hdnModelID" runat="server" Value='<%# Bind("ModelID") %>' />
+                                                <asp:HiddenField ID="hdnTag" runat="server" Value='<%# Bind("Tag") %>' />
+                                            </ItemTemplate>
+                                            <ItemStyle Width="10%" HorizontalAlign="Center" />
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <AlternatingRowStyle BackColor="#ffffff" />
+                                    <FooterStyle ForeColor="White" />
+                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                </asp:GridView>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnSubmit" runat="server" Width="150px" Visible="false" CssClass="btn Save" Text="Submit" OnClick="btnSubmit_Click" />
+                    </div>
                 </div>
-                <div class="container-fluid" style="margin-top:20px;" >
-                    <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12" style="padding-left:69%">
-                        <asp:Button ID="btnSubmit" runat="server" Width="150px" Visible="false" Text="Submit" OnClick="btnSubmit_Click" />
+                <div class="col-md-12 text-center" id="divCalander" style="display: none">
+                    <div class="col-md-12" style="text-align: right;">
+                        <asp:LinkButton ID="imgClose" runat="server" Text="Close" OnClientClick="return HideCal()"></asp:LinkButton>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12">
-                        
+                    <div class="col-md-12">
+                        <asp:Calendar ID="CalPlan" OnDayRender="CalPlan_DayRender" runat="server" ShowGridLines="true" ShowNextPrevMonth="false">
+                            <DayStyle Height="80px" Width="200px" VerticalAlign="Top" HorizontalAlign="Right" />
+                        </asp:Calendar>
                     </div>
-                 </div>
-            </div>
-            <div class="container-fluid" id="divCalander" style="display:none">
-                
-                <div class="container-fluid" style="text-align:right;" >
-                     <asp:LinkButton ID="imgClose" runat="server" Text="Close" OnClientClick="return HideCal()"></asp:LinkButton>
                 </div>
-                <div class="row" >                
-                 <asp:Calendar ID="CalPlan" OnDayRender="CalPlan_DayRender" runat="server" ShowGridLines="true" ShowNextPrevMonth="false" >
-                     <DayStyle Height="80px" Width="200px" VerticalAlign="Top" HorizontalAlign="Right" />                     
-                 </asp:Calendar>   
-                    </div>
-            </div>
-      <%--  </ContentTemplate>
-    </asp:UpdatePanel>--%>
-    </asp:Content>
+            </fieldset>
+        </div>
+    </div>
+</asp:Content>

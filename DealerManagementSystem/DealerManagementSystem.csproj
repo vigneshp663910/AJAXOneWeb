@@ -247,6 +247,9 @@
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
     <Content Include="Images\ChangePw.jpg" />
+    <Content Include="Images\Customer.png" />
+    <Content Include="Images\DealerBranchOffice.png" />
+    <Content Include="Images\DealerMainOffice.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\Delete1.png" />
     <Content Include="Images\Edit.png" />

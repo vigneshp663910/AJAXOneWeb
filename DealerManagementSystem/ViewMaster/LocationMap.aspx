@@ -17,10 +17,10 @@
         }
     </style>
     <%-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">    </script>--%>
-  
-  <%--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>--%>
-    
-      <script  type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
+
+    <%--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>--%>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
 
     var geocoder;
 </asp:Content>
@@ -40,12 +40,42 @@
                             <label class="modal-label">Employee</label>
                             <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                         </div>
-                         <div class="col-md-2 col-sm-12">
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Department</label>
                             <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" AutoPostBack="true" />
                         </div>
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-2 text-center">
+                            <br />
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
+                        </div>
+                        <div class="col-md-2 text-center;">
+                            <table style="text-align: left; background-color: black; font-size: smaller; font-weight: normal;">
+                                <tr style="text-align: left; background-color: black; color: white; font-weight: normal;">
+                                    <td>
+                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/DealerMainOffice.png" Width="18" Height="18" /></td>
+                                    <td>Dealer Main Office</td>
+                                    <td>
+                                        <asp:Image ID="Image6" runat="server" ImageUrl="~/Images/DealerBranchOffice.png" Width="18" Height="18" /></td>
+                                    <td>Dealer Branch Office</td>
+                                </tr>
+                                <tr style="text-align: left; background-color: black; color: white; font-weight: normal;">
+                                    <td>
+                                        <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/SalesEngg.png" Width="20" Height="20" /></td>
+                                    <td>Sales Executive</td>
+                                    <td>
+                                        <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/ServiceEngg.png" Width="20" Height="20" /></td>
+                                    <td>Service Executive</td>
+                                </tr>
+
+                                <tr style="text-align: left; background-color: black; color: white; font-weight: normal;">
+                                    <td>
+                                        <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/Officer.png" Width="20" Height="20" /></td>
+                                    <td>Office Executive</td>
+                                    <td>
+                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/Customer.png" Width="20" Height="20" /></td>
+                                    <td>Customer</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </fieldset>
@@ -57,8 +87,8 @@
     </div>
 
     <script type="text/javascript">
-       //  const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
-       // const image = "http://maps.google.com/mapfiles/kml/shapes/man.png";
+        //  const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+        // const image = "http://maps.google.com/mapfiles/kml/shapes/man.png";
 
         //var icon1 = {
         //   // url: "http://maps.google.com/mapfiles/kml/shapes/man.png", // url*/
@@ -68,7 +98,7 @@
         //};
 
 
-       
+
 
 
         /*function initialize() {*/
@@ -95,8 +125,8 @@
                 position: myLatlng,
                 map: map,
                 title: data.title,
-                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) }, 
-               // icon: data.image,
+                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) },
+                // icon: data.image,
             });
 
             (function (marker, data) {
@@ -110,7 +140,7 @@
         }
         /* }*/
 
- 
+
     </script>
 
 
