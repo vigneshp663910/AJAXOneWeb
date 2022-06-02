@@ -15,6 +15,24 @@ namespace DealerManagementSystem.ViewMaster
     {
 
         /// <summary>
+        /// hfLatitude control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfLatitude;
+
+        /// <summary>
+        /// hfLongitude control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfLongitude;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>

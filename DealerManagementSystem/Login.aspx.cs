@@ -108,7 +108,8 @@ namespace DealerManagementSystem
                     lblMessage.Visible = true;
                     return;
                 }
-
+                PSession.Latitude = hfLatitude.Value;
+                PSession.Longitude = hfLongitude.Value;
                 UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
                 if (userDetails.PasswordExpiryDate < DateTime.Now)
                 {

@@ -52,9 +52,10 @@ namespace DealerManagementSystem
                 MenuCon = MenuCon + " <li><a href='DMS_ContactUs.aspx' style='white-space: pre;'><img src='Ajax/ContactUsLogo.png'  width='17px' /></a></li>";
                 MenuCon = MenuCon + "</ul></li></ul>";
                 MenuNew.InnerHtml = MenuCon;
-                menu();
+                menu(); 
             }
-        }
+            
+        } 
         //StringBuilder ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, StringBuilder MenuDMS, [Optional] string MainMenu)
         //{
         //    List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();

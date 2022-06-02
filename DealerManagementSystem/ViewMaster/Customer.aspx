@@ -88,9 +88,30 @@
 
 
     </script>
+    <script> 
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById('hfLatitude').value = latitude;
+            document.getElementById('hfLongitude').value = longitude;
+            status.textContent = '';
+        }
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
 
+        if (!navigator.geolocation) {
+            status.textContent = 'Geolocation is not supported by your browser';
+
+        } else {
+            status.textContent = 'Locating…';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+    </script> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:HiddenField ID="hfLatitude" runat="server" />
+    <asp:HiddenField ID="hfLongitude" runat="server" />
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">

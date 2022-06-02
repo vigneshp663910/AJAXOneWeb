@@ -101,6 +101,17 @@ namespace Properties
         {
             get { return GetFromSession<PEmployee>("Emp"); }
             set { SetInSession<PEmployee>("Emp", value); }
+        } 
+        public static string Latitude
+        {
+            get { return GetFromSession<string>("Latitude"); }
+            set { SetInSession<string>("Latitude", value); }
+ 
+        }
+        public static string Longitude
+        {
+            get { return GetFromSession<string>("Longitude"); }
+            set { SetInSession<string>("Longitude", value); }
         }
     }
 }
