@@ -49,7 +49,7 @@
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         </div>
                         <div class="col-md-2 text-center;">
-                            <table style="text-align: left; background-color: white; font-size: smaller; font-weight: normal;">
+                            <table style="text-align: left; background-color: black; font-size: smaller; font-weight: normal;">
                                 <tr style="text-align: left; background-color: black; color: white; font-weight: normal;">
                                     <td>
                                         <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/DealerMainOffice.png" Width="18" Height="18" /></td>
@@ -72,8 +72,8 @@
                                         <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/Officer.png" Width="20" Height="20" /></td>
                                     <td>Office Executive</td>
                                     <td>
-                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/Officer.png" Width="20" Height="20" /></td>
-                                    <td>Office Executive</td>
+                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/Customer.png" Width="20" Height="20" /></td>
+                                    <td>Customer</td>
                                 </tr>
                             </table>
                         </div>

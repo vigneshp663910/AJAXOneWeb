@@ -310,7 +310,9 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID,int? DealerID,bool? IsEnabled,string ContactName, int? DealerDepartmentID, int? DealerDesignationID)
+
+        //public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID, bool? ajaxOne)
+        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)      
         {
             string endPoint = "User/GetUsers?UserID=" + UserID + "&UserName=" + UserName + "&UserTypeID=" + UserTypeID + "&ExternalReferenceID=" + ExternalReferenceID + "&DealerID=" + DealerID
                  + "&IsEnabled=" + IsEnabled + "&ContactName=" + ContactName + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID;
