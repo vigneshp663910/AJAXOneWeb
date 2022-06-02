@@ -42,6 +42,8 @@ namespace DealerManagementSystem.ViewService
             lblAnnexureNumber.Text = "";
             btnGenerate.Visible = true;
 
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » Warranty » Claim Annexure Create');</script>");
+
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
