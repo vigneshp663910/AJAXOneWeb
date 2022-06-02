@@ -16,6 +16,23 @@ using System.Web.UI.WebControls;
 
 namespace Business
 {
+    [Serializable]
+    public class PDMS_TypeOfMachine
+    {
+        public int TypeOfMachineID { get; set; }
+        public string TypeOfMachine { get; set; }
+    }
+    [Serializable]
+    public class PDMS_AvailabilityOfOtherMachine
+    {
+        public long AvailabilityOfOtherMachineID { get; set; }
+        public long ICTicketID { get; set; }
+        public PDMS_TypeOfMachine TypeOfMachine { get; set; }
+        public PMake Make { get; set; }
+        public int Quantity { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+    }
     public class BDMS_AvailabilityOfOtherMachine
     {
         private IDataAccess provider;
@@ -139,51 +156,51 @@ namespace Business
             }
             return true;
         }
-        //public List<PDMS_AvailabilityOfOtherMachine> GetAvailabilityOfOtherMachine(long? ICTicketID, long? AvailabilityOfOtherMachineID, int? TypeOfMachineID, int? MakeID)
-        //{
-        //    List<PDMS_AvailabilityOfOtherMachine> ServiceMaterials = new List<PDMS_AvailabilityOfOtherMachine>();
-        //    try
-        //    {
+        public List<PDMS_AvailabilityOfOtherMachine> GetAvailabilityOfOtherMachine(long? ICTicketID, long? AvailabilityOfOtherMachineID, int? TypeOfMachineID, int? MakeID)
+        {
+            List<PDMS_AvailabilityOfOtherMachine> ServiceMaterials = new List<PDMS_AvailabilityOfOtherMachine>();
+            try
+            {
 
 
-        //        DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-        //        DbParameter AvailabilityOfOtherMachineIDP = provider.CreateParameter("AvailabilityOfOtherMachineID", AvailabilityOfOtherMachineID, DbType.Int64);
-        //        DbParameter TypeOfMachineIDP = provider.CreateParameter("TypeOfMachineID", TypeOfMachineID, DbType.Int64);
-        //        DbParameter MakeIDP = provider.CreateParameter("MakeID", MakeID, DbType.Int64);
-        //        DbParameter[] Params = new DbParameter[4] { ICTicketIDP, AvailabilityOfOtherMachineIDP, TypeOfMachineIDP, MakeIDP };
-        //        using (DataSet DataSet = provider.Select("ZDMS_GetAvailabilityOfOtherMachine", Params))
-        //        {
-        //            if (DataSet != null)
-        //            {
-        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
-        //                {
-        //                    ServiceMaterials.Add(new PDMS_AvailabilityOfOtherMachine()
-        //                    {
-        //                        AvailabilityOfOtherMachineID = Convert.ToInt64(dr["AvailabilityOfOtherMachineID"]),
-        //                        ICTicketID = Convert.ToInt64(dr["ICTicketID"]),
-        //                        Quantity = Convert.ToInt32(dr["Quantity"]),
-        //                        TypeOfMachine = new PProductType()
-        //                        {
-        //                            ProductTypeID = Convert.ToInt32(dr["ProductTypeID"]),
-        //                            ProductType = Convert.ToString(dr["ProductType"])
-        //                        },
-        //                        Make = new PDMS_Make()
-        //                        {
-        //                            MakeID = Convert.ToInt32(dr["MakeID"]),
-        //                             Make = Convert.ToString(dr["Make"])
-        //                        },
-        //                        CreatedOn = Convert.ToDateTime(dr["CreatedOn"])
+                DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+                DbParameter AvailabilityOfOtherMachineIDP = provider.CreateParameter("AvailabilityOfOtherMachineID", AvailabilityOfOtherMachineID, DbType.Int64);
+                DbParameter TypeOfMachineIDP = provider.CreateParameter("TypeOfMachineID", TypeOfMachineID, DbType.Int64);
+                DbParameter MakeIDP = provider.CreateParameter("MakeID", MakeID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[4] { ICTicketIDP, AvailabilityOfOtherMachineIDP, TypeOfMachineIDP, MakeIDP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetAvailabilityOfOtherMachine", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            ServiceMaterials.Add(new PDMS_AvailabilityOfOtherMachine()
+                            {
+                                AvailabilityOfOtherMachineID = Convert.ToInt64(dr["AvailabilityOfOtherMachineID"]),
+                                ICTicketID = Convert.ToInt64(dr["ICTicketID"]),
+                                Quantity = Convert.ToInt32(dr["Quantity"]),
+                                TypeOfMachine = new PDMS_TypeOfMachine()
+                                {
+                                    TypeOfMachineID = Convert.ToInt32(dr["TypeOfMachineID"]),
+                                    TypeOfMachine = Convert.ToString(dr["TypeOfMachine"])
+                                },
+                                Make = new PMake()
+                                {
+                                    MakeID = Convert.ToInt32(dr["MakeID"]),
+                                    Make = Convert.ToString(dr["Make"])
+                                },
+                                CreatedOn = Convert.ToDateTime(dr["CreatedOn"])
 
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException sqlEx)
-        //    { }
-        //    catch (Exception ex)
-        //    { }
-        //    return ServiceMaterials;
-        //}
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return ServiceMaterials;
+        } 
     }
 }

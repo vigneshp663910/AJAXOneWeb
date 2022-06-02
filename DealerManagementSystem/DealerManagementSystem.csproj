@@ -534,6 +534,7 @@
     <Content Include="ViewService\PaidServiceReport.aspx" />
     <Content Include="ViewService\PaidServiceReportNew.aspx" />
     <Content Include="ViewService\TicketTracking.aspx" />
+    <Content Include="ViewService\UserControls\ICTicketAddTechnician.ascx" />
     <Content Include="ViewService\UserControls\ICTicketView.ascx" />
     <Content Include="ViewService\WarrantyClaim.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureCreate.aspx" />
@@ -1965,6 +1966,13 @@
     </Compile>
     <Compile Include="ViewService\TicketTracking.aspx.designer.cs">
       <DependentUpon>TicketTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketAddTechnician.ascx.cs">
+      <DependentUpon>ICTicketAddTechnician.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketAddTechnician.ascx.designer.cs">
+      <DependentUpon>ICTicketAddTechnician.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketView.ascx.cs">
       <DependentUpon>ICTicketView.ascx</DependentUpon>

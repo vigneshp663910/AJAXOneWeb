@@ -327,9 +327,11 @@ namespace DealerManagementSystem.ViewService
         protected void lbView_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int index = gvRow.RowIndex;
-            string url = "ICTicketView.aspx?TicketID=" + gvICTickets.DataKeys[index].Value.ToString();
-            Response.Redirect(url);
+            int index = gvRow.RowIndex; 
+            ViewState["ICTicketID"] = gvICTickets.DataKeys[index].Value.ToString(); 
+            divList.Visible = false;
+            divDetailsView.Visible = true;
+            UC_ICTicketView.FillICTicket( Convert.ToInt64(ViewState["ICTicketID"]));
         }
           
 
@@ -337,20 +339,25 @@ namespace DealerManagementSystem.ViewService
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                LinkButton lbReqDecline = (LinkButton)e.Row.FindControl("lbReqDecline");
-                Label lblServiceStatusID = (Label)e.Row.FindControl("lblServiceStatusID");
-                lbReqDecline.Visible = false;
-                if (Convert.ToInt32(lblServiceStatusID.Text) == (short)DMS_ServiceStatus.Open)
-                {
-                    lbReqDecline.Visible = true;
-                }
-                if ((Convert.ToInt32(lblServiceStatusID.Text) == (short)DMS_ServiceStatus.Declined) || (Convert.ToInt32(lblServiceStatusID.Text) == (short)DMS_ServiceStatus.ReqDeclined))
-                {
-                    LinkButton lbEdit = (LinkButton)e.Row.FindControl("lbEdit");
-                    lbEdit.Visible = false;
-                    lbReqDecline.Visible = false;
-                }
+                //LinkButton lbReqDecline = (LinkButton)e.Row.FindControl("lbReqDecline");
+                //Label lblServiceStatusID = (Label)e.Row.FindControl("lblServiceStatusID");
+                //lbReqDecline.Visible = false;
+                //if (Convert.ToInt32(lblServiceStatusID.Text) == (short)DMS_ServiceStatus.Open)
+                //{
+                //    lbReqDecline.Visible = true;
+                //}
+                //if ((Convert.ToInt32(lblServiceStatusID.Text) == (short)DMS_ServiceStatus.Declined) || (Convert.ToInt32(lblServiceStatusID.Text) == (short)DMS_ServiceStatus.ReqDeclined))
+                //{
+                //    LinkButton lbEdit = (LinkButton)e.Row.FindControl("lbEdit");
+                //    lbEdit.Visible = false;
+                //    lbReqDecline.Visible = false;
+                //}
             }
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divDetailsView.Visible = false;
         }
     }
 }

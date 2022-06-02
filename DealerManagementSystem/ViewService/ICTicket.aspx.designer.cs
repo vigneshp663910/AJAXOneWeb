@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// divList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+
+        /// <summary>
         /// ddlDealerCode control.
         /// </summary>
         /// <remarks>
@@ -195,58 +204,31 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.GridView gvICTickets;
 
         /// <summary>
-        /// btnDecline control.
+        /// divDetailsView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDecline;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsView;
 
         /// <summary>
-        /// btnTechnicianAssign control.
+        /// btnBackToList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTechnicianAssign;
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
 
         /// <summary>
-        /// btnServiceConfirmation control.
+        /// UC_ICTicketView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnServiceConfirmation;
-
-        /// <summary>
-        /// btnNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNote;
-
-        /// <summary>
-        /// btnServiceCharge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnServiceCharge;
-
-        /// <summary>
-        /// btnMaterialCharge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMaterialCharge;
+        protected global::DealerManagementSystem.ViewService.UserControls.ICTicketView UC_ICTicketView;
 
         /// <summary>
         /// divDecline control.
@@ -265,23 +247,5 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDeclineReason;
-
-        /// <summary>
-        /// btnSaveDecline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveDecline;
-
-        /// <summary>
-        /// btnBackDecline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBackDecline;
     }
 }
