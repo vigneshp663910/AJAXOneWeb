@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ABPModelWise.aspx.cs" Inherits="DealerManagementSystem.ViewMarketing.ABPModelWise" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="ABPModelWise.aspx.cs" Inherits="DealerManagementSystem.ViewMarketing.ABPModelWise" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -354,7 +354,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lnkDel" OnClick="lnkDel_Click" runat="server" Text="Delete" CssClass="btn Back" Width="50px" Height="33px"></asp:LinkButton>
+                                                <asp:LinkButton ID="lnkDel" OnClick="lnkDel_Click" runat="server" Text="Delete" Width="50px" Height="33px"></asp:LinkButton>
                                                 <asp:HiddenField ID="hdnModelID" runat="server" Value='<%# Bind("ModelID") %>' />
                                             </ItemTemplate>
                                             <FooterTemplate>
