@@ -159,15 +159,6 @@ namespace DealerManagementSystem.ViewMarketing
         protected global::System.Web.UI.WebControls.TextBox txtFromDate;
 
         /// <summary>
-        /// CalFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalFrom;
-
-        /// <summary>
         /// txtToDate control.
         /// </summary>
         /// <remarks>
@@ -175,15 +166,6 @@ namespace DealerManagementSystem.ViewMarketing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtToDate;
-
-        /// <summary>
-        /// CalTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalTo;
 
         /// <summary>
         /// txtExpBudget control.
