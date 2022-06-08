@@ -49,8 +49,11 @@ namespace DealerManagementSystem.View
                     + "<label >" + F.Customer.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
                     + "<label >" + F.Customer.ContactPerson + "</label></td><td>"
                     + "<label >" + F.Customer.Mobile + " </td></tr></table></div> ";
+
+                div = "<br /> <div class=\"dropdown\">" + F.Customer.CustomerName + "<div class=\"dropdown-content\"> " + F.Customer.ContactPerson + "<br /> " + F.Customer.Mobile + "</div> </div>";
             }
-            e.Cell.Text = "<a href=" + e.SelectUrl + " style=\"color: Black\" title=\" <div> 1 June  fsbtgsrtrttsrh <br/>1fsbtgsrtrttsrh <br/>1fsbtgsrtrttsrh <br/> </div> \">" + e.Day.DayNumberText +   div + "</a>";
+            div = e.Day.DayNumberText + div;
+            e.Cell.Text = "<a href=" + e.SelectUrl + " style=\"color: Black\" >" +    div + "</a>";
         }
 
         protected void caAppointment_SelectionChanged(object sender, EventArgs e)
