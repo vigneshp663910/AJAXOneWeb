@@ -338,11 +338,12 @@
                 padding-left: 5px;
             }
 
+
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
-
-            /*.ProjectTitle {
-                display: none;
+            /*.ProjectTitle {*/
+            /*  display: none;*/
+            /*font-size: smaller;
             }*/
 
             /*#titlebarico {
@@ -359,10 +360,13 @@
         }
 
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
-
-
             /*.ProjectTitle {
                 display: none;
+                font-size: smaller;
+            }*/
+
+            /*.lblProjectTitle {
+                font-size: smaller;
             }*/
 
             #icoDashBoard {
@@ -2170,7 +2174,7 @@
 
                             <asp:Label ID="lblQuality" runat="server"></asp:Label>
                         </div>
-                         
+
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
@@ -2178,7 +2182,7 @@
                             </div>
                         </div>
 
-                        
+
 
                         <div style="float: right; padding-right: 0.3em;">
 
@@ -2195,7 +2199,7 @@
                                 <a href='/Home.aspx' title="Feedback...."><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-                        
+
                         <%--<div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
@@ -2244,8 +2248,8 @@
 
                         <div style="float: right; padding-right: 0.5em;">
 
-                            <div class="dropdown"> 
-                                 <a href='/View/Appointment.aspx' title="Appointment...."><i class="fa fa-fw fa-calendar-plus-o font-white" style="color: lightgray"></i></a>
+                            <div class="dropdown">
+                                <a href='/View/Appointment.aspx' title="Appointment...."><i class="fa fa-fw fa-calendar-plus-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
 
@@ -2315,7 +2319,7 @@
                 </div>
                 <br />
             </asp:Panel>
-        </div> 
+        </div>
     </form>
 
 
