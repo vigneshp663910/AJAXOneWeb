@@ -76,7 +76,6 @@
                                         <asp:Label ID="lblDeviceId" Text='<%# DataBinder.Eval(Container.DataItem, "DeviceId")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
                                 <asp:TemplateField HeaderText="Model Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -113,10 +112,17 @@
                                         <asp:Label ID="lblFCMTokenId" Text='<%# DataBinder.Eval(Container.DataItem, "FCMTokenId")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Remarks">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txtRemarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' CssClass="form-control"></asp:TextBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lblApprove" runat="server" OnClick="lblApprove_Click">Approve</asp:LinkButton>
+                                        <asp:LinkButton ID="lblReject" runat="server" OnClick="lblReject_Click">Reject</asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

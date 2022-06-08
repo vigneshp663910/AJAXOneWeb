@@ -338,11 +338,12 @@
                 padding-left: 5px;
             }
 
+
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
-
-            /*.ProjectTitle {
-                display: none;
+            /*.ProjectTitle {*/
+            /*  display: none;*/
+            /*font-size: smaller;
             }*/
 
             /*#titlebarico {
@@ -359,10 +360,13 @@
         }
 
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
-
-
             /*.ProjectTitle {
                 display: none;
+                font-size: smaller;
+            }*/
+
+            /*.lblProjectTitle {
+                font-size: smaller;
             }*/
 
             #icoDashBoard {
@@ -2146,23 +2150,20 @@
 
                             <asp:Label ID="lblQuality" runat="server"></asp:Label>
                         </div>
-                         <div style="float: right; padding-right: 0.3em;">
-
-                            <div class="dropdown"> 
-                                 <a href='/View/Appointment.aspx'><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
-                            </div>
-                        </div>
-                        <div style="float: right; padding-right: 0.3em;">
-
-                            <div class="dropdown">
-                                <a href='/Account/SignOut.aspx'><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
-                            </div>
-                        </div>
 
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
-                                <a href='tel:+91 08067200014'><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
+                                <a href='/Account/SignOut.aspx' title="Signout...."><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
+
+
+
+                        <div style="float: right; padding-right: 0.3em;">
+
+                            <div class="dropdown">
+                                <a href='tel:+91 08067200014' title="IT Support...."><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
 
 
                             </div>
@@ -2171,10 +2172,10 @@
                         <div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
-                                <a href='/Home.aspx'><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
+                                <a href='/Home.aspx' title="Feedback...."><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-                        
+
                         <%--<div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
@@ -2224,7 +2225,14 @@
                         <div style="float: right; padding-right: 0.5em;">
 
                             <div class="dropdown">
-                                <a href='/Home.aspx'><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
+                                <a href='/View/Appointment.aspx' title="Appointment...."><i class="fa fa-fw fa-calendar-plus-o font-white" style="color: lightgray"></i></a>
+                            </div>
+                        </div>
+
+                        <div style="float: right; padding-right: 0.5em;">
+
+                            <div class="dropdown">
+                                <a href='/Home.aspx' title="Home...."><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
                             </div>
 
                         </div>
@@ -2287,7 +2295,7 @@
                 </div>
                 <br />
             </asp:Panel>
-        </div> 
+        </div>
     </form>
 
 

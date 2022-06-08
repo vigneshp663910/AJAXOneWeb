@@ -164,6 +164,21 @@
             .funnel-chart .chart-label {
                 font-size: 15px;
             }
+
+        .visual > i {
+            margin-left: -35px;
+            font-size: 100px;
+            line-height: 100px;
+            color: #fff;
+            opacity: .1;
+            width: 80px;
+            height: 50px;
+            display: block;
+            float: left;
+            padding-top: 10px;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
     </style>
 
 </asp:Content>

@@ -16,6 +16,7 @@
             console.log(screen.availWidth);
         }
         function CheckValue(ctl) {
+            debugger
             if (ctl.value != '') {
                 if (parseInt(ctl.value) < 0) {
                     ctl.value = 0;
@@ -139,7 +140,7 @@
         function SetDealerSharing() {
             var txtAjaxSharing = document.getElementById('<%=txtAjaxSharing.ClientID%>');
             var txtDealerSharing = document.getElementById('<%=txtDealerSharing.ClientID%>');
-            txtDealerSharing.Text = 100 - parseFloat('0' + txtAjaxSharing.Text);
+            txtDealerSharing.value = 100 - parseFloat('0' + txtAjaxSharing.value);
         }
         function Clear() {
             Initialize();

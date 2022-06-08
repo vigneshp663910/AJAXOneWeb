@@ -37,6 +37,32 @@ namespace DealerManagementSystem.ViewAdmin
             fillUser();
             lblMessage.Visible = true;
         }
+        protected void lblReject_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int UserMobileID = Convert.ToInt32(gvUserIMEI.DataKeys[gvRow.RowIndex].Value);
+            TextBox txtRemarks = (TextBox)gvUserIMEI.Rows[gvRow.RowIndex].FindControl("txtRemarks");
+            bool Success = false;
+            Success= new BUser().RejectUserMobile(UserMobileID, txtRemarks.Text);
+            //PApiResult Result = new BUser().RejectUserMobile(UserMobileID, txtRemarks.Text);
+            //if (Result.Status == PApplication.Failure)
+            //{
+            //    lblMessage.Text = "not Rejected";
+            //    lblMessage.ForeColor = Color.Red;
+            //}
+            if(Success==true)
+            {
+                lblMessage.Text = "Rejected";
+                lblMessage.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblMessage.Text = "Not Rejected";
+                lblMessage.ForeColor = Color.Red;
+            }
+            fillUser();
+            lblMessage.Visible = true;
+        }
 
         public List<PUserMobile> UserLst
         {

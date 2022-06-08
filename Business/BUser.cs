@@ -1381,6 +1381,37 @@ namespace Business
             string endPoint = "User/ApproveUserMobile?UserMobileID=" + UserMobileID;
             return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public Boolean RejectUserMobile(int UserMobileID, string Remarks)
+        {
+            Boolean UserMobile = false;
+            try
+            {
+                DateTime tracerStart = DateTime.Now;
+                DbParameter UserMobileIDP = provider.CreateParameter("UserMobileID", UserMobileID, DbType.Int32);
+                DbParameter RemarksP = provider.CreateParameter("Remarks", Remarks, DbType.String);
+                DbParameter[] userParams = new DbParameter[2] { UserMobileIDP, RemarksP };
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Select("RejectUserMobile", userParams);
+                    UserMobile = true;
+                    scope.Complete();
+                }
+                TraceLogger.Log(tracerStart);
+                return UserMobile;
+            }
+            catch (LMSException lmsEx)
+            {
+                throw lmsEx;
+            }
+            catch (LMSFunctionalException lmsfExe)
+            {
+                throw lmsfExe;
+            }
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+        }
         //public Boolean InserUserMobileIMEI(int UserID, string IMEI)
         //{
         //    Boolean UserMobile = false;

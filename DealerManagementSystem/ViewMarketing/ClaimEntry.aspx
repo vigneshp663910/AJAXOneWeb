@@ -158,13 +158,13 @@
                             <label for="txtFromDate">From Date</label>
                             <%--<input type="text" runat="server" id="txtFromDate" cssclass="form-control" />--%>
                             <asp:TextBox runat="server" ID="txtFromDate" CssClass="form-control"></asp:TextBox>
-                            <cc1:CalendarExtender ID="CalFrom" runat="server" TargetControlID="txtFromDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
+                            <%--<cc1:CalendarExtender ID="CalFrom" runat="server" TargetControlID="txtFromDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>--%>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label for="txtToDate">To Date</label>
                             <%--<input type="text" runat="server" id="txtToDate" cssclass="form-control" />--%>
                             <asp:TextBox runat="server" ID="txtToDate" CssClass="form-control"></asp:TextBox>
-                            <cc1:CalendarExtender ID="CalTo" runat="server" TargetControlID="txtToDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
+                            <%--<cc1:CalendarExtender ID="CalTo" runat="server" TargetControlID="txtToDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>--%>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label for="txtExpBudget">Actual Expense</label>
