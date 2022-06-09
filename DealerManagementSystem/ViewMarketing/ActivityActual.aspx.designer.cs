@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewMarketing
     {
 
         /// <summary>
+        /// updPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updPanel;
+
+        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -84,7 +93,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAjaxSharing;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAjaxSharing;
 
         /// <summary>
         /// lblDealerSharing control.
@@ -102,7 +111,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDealerSharing;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDealerSharing;
 
         /// <summary>
         /// lblPlanLocation control.
@@ -147,7 +156,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUnits;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtUnits;
 
         /// <summary>
         /// txtFromDate control.
@@ -156,7 +165,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFromDate;
 
         /// <summary>
         /// txtToDate control.
@@ -165,7 +174,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtToDate;
 
         /// <summary>
         /// txtExpBudget control.
@@ -174,7 +183,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtExpBudget;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtExpBudget;
 
         /// <summary>
         /// lblAjaxSharingA control.
@@ -192,7 +201,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAjaxSharingA;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAjaxSharingA;
 
         /// <summary>
         /// lblDealerSharingA control.
@@ -210,7 +219,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDealerSharingA;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDealerSharingA;
 
         /// <summary>
         /// txtLocation control.
@@ -219,7 +228,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLocation;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtLocation;
 
         /// <summary>
         /// txtRemarks control.
@@ -228,7 +237,7 @@ namespace DealerManagementSystem.ViewMarketing
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtRemarks;
 
         /// <summary>
         /// divAttach control.
@@ -400,5 +409,14 @@ namespace DealerManagementSystem.ViewMarketing
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvData;
+
+        /// <summary>
+        /// updMainProg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress updMainProg;
     }
 }
