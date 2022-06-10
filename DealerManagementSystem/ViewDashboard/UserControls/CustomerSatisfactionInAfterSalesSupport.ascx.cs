@@ -12,6 +12,10 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
 {
     public partial class CustomerSatisfactionInAfterSalesSupport : System.Web.UI.UserControl
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             int? DealerID = (int?)Session["SerDealerID"];
@@ -24,6 +28,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
             lblMTTR2.Text = ds.Tables[1].Rows[0][0].ToString();
             lblFTRWS.Text = ds.Tables[2].Rows[0][0].ToString();
             lblWPAD.Text = ds.Tables[3].Rows[0][0].ToString();
+
+            lblMTTR1.Text = string.IsNullOrEmpty(ds.Tables[0].Rows[0][0].ToString()) ? "0%" : ds.Tables[0].Rows[0][0].ToString() + "%";
+            lblMTTR2.Text = string.IsNullOrEmpty(ds.Tables[1].Rows[0][0].ToString()) ? "0%" : ds.Tables[1].Rows[0][0].ToString() + "%";
+            lblFTRWS.Text = string.IsNullOrEmpty(ds.Tables[2].Rows[0][0].ToString()) ? "0%" : ds.Tables[2].Rows[0][0].ToString() + "%";
+            lblWPAD.Text = string.IsNullOrEmpty(ds.Tables[3].Rows[0][0].ToString()) ? "0%" : ds.Tables[3].Rows[0][0].ToString() + "%";
+
+            hfMTTR1.Value = string.IsNullOrEmpty(ds.Tables[0].Rows[0][0].ToString()) ? "0" : ds.Tables[0].Rows[0][0].ToString();
         }
     }
 }

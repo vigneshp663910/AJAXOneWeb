@@ -2001,38 +2001,14 @@
         });
     </script>
 
-    <script> 
-        function success(position) {
-            debugger;
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            document.getElementById('hfLatitudeM').value = latitude;
-            document.getElementById('hfLongitudeM').value = longitude;
-            status.textContent = '';
-        }
-        function error() {
-            debugger;
-            status.textContent = 'Unable to retrieve your location';
-        }
-
-        if (!navigator.geolocation) {
-            debugger;
-            status.textContent = 'Geolocation is not supported by your browser';
-
-        } else {
-            debugger;
-            status.textContent = 'Locating…';
-            navigator.geolocation.getCurrentPosition(success, error);
-        }
-    </script>
+   
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body onkeydown="return (event.keyCode!=13)">
     <form id="form2" runat="server">
-        <asp:HiddenField ID="hfLatitudeM" runat="server" />
-        <asp:HiddenField ID="hfLongitudeM" runat="server" />
+       
         <div class="ajaxheader">
             <div class="ajaxheaderinner">
                 <div class="row">

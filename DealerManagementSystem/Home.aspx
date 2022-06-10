@@ -2,9 +2,10 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <style>
         #div1 {
-            height: 91.70vh;
+            /*height: 91.9vh;*/
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -67,21 +68,166 @@
             float: right;
             margin-top: 21px;
             margin-bottom: 20px;
+            position: absolute;
+            right: 0;
+            z-index: 9;
+            border: 1px solid #3C4C5B;
         }
+        /*Home page tiles*/
+        /*.container .tblcontrols12 {
+            position: relative;
+        }
+        .container .tblcontrols12 div.cell {
 
+        }
+        .container .tblcontrols12 #Div1 {
+            float:left;
+            width:48%;
+        }
+        .container .tblcontrols12 #Div1 .modbox, .container .tblcontrols12 #Div2 .modbox  {
+            margin-right:11px;
+            margin-bottom:15px;
+        }
+        .container .tblcontrols12 #Div3 .modbox {
+            margin-right:11px;
+        }
+        .container .tblcontrols12 #Div2 {
+            float:right;
+            width:52%;
+        }
+        .container .tblcontrols12 #Div2 .modbox, .container .tblcontrols12 #Div5 .modbox, .container .tblcontrols12 #Div6 .modbox, 
+        .container .tblcontrols12 #Div7 .modbox {
+            margin-left:22px;
+        }
+        .container .tblcontrols12 #Div1 .dashboardGrid, .container .tblcontrols12 #Div2 .dashboardGrid {
+            padding:15px;
+            background:#d8d8d8;
+        }
+        .container .tblcontrols12 #Div3 {
+            width:70%;
+            float:left;
+        }
+        .container .tblcontrols12 #Div3 .dashboardGrid img  {
+        }
+        .container .tblcontrols12 #Div4 {
+            clear:both;
+        }
+        .container .tblcontrols12 #Div4, .container .tblcontrols12 #Div5,.container .tblcontrols12 #Div6 {
+            width:33.33%;
+            float:left;
+        }*/
+        /* .container .tblcontrols12 #Div6 {
+            width:30%;
+            float:right;
+        }
+            
+        .container .tblcontrols12 #Div7 {
+            width:30%;
+            float:right;
+        }*/
+        /*.container .tblcontrols12 div.cell table {
+            width:100%;
+        }
+        .container .tblcontrols12 div.cell table tr td {
+            
+        }
+        .modbox .row {
+            margin: 0;
+        }
+        .modbox .wide_thumbnail {
+            margin: 0!important;
+            padding-bottom: 10px;
+        }
+        .modbox .portlet-body {
+            padding: 0!important;
+        }
+        .modbox .portlet-body .details span {
+            font-size:100px;
+        }
+        .container .tblcontrols12 div.cell {
+            margin-bottom: 15px;
+        }
+        .cell .modbox .modtitle {
+            font-size: 18px;
+            text-shadow: 1px 2px 3px #bac4cf;
+            font-weight: 500;
+        }
+        @media screen and (max-width: 767px) {
+            .container .tblcontrols12 div.cell {
+                width:100%!important;
+                float:none!important;
+            }
+            .container .tblcontrols12 #Div1 .modbox, .container .tblcontrols12 #Div3 .modbox, .container .tblcontrols12 #Div2 .modbox, .container .tblcontrols12 #Div4 .modbox, .container .tblcontrols12 #Div5 .modbox, .container .tblcontrols12 #Div6 .modbox, 
+            .container .tblcontrols12 #Div7 .modbox {
+                margin:0;
+            }
+        }
         @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
 
             #div1 {
-                height: 93.2vh;
-                /* margin-left: 0px;*/
+                /*height: 93.2vh;
+                 margin-left: 0px;*/
+        /* }
+        }*/
+    </style>
+    <style>
+        .grid-item {
+            background: #fff;
+            box-shadow: 0 2px 4px rgb(51 51 51 / 20%);
+            color: #666666;
+            border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
+            margin: 10px;
+            padding: 15px;
+            /*width:160px;*/
+            float: left;
+        }
+
+            .grid-item:hover {
+                background-color: #F0F0F0;
             }
+
+        .tile-size-one {
+            width: 160px;
+            height: 169px;
+        }
+
+        .tile-size-two {
+            width: 340px;
+            height: 169px;
+        }
+
+        .tile-size-three {
+            width: 340px;
+            height: 360px;
+        }
+
+        .tile-size-four {
+            width: 640px;
+            height: 180px;
+        }
+
+        .dashboardGrid img {
+            width: 270px !important;
+            height: 100px !important;
+        }
+
+        #MainContent_tblDashboard .grid {
+            /*  display: flex;
+    flex-wrap: wrap;*/
+            /*-webkit-column-width: 19em;
+    -webkit-column-gap: 1rem;*/
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $('.grid').masonry({
+                // options
+                itemSelector: '.grid-item'
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-
-
     <div id="div1">
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
@@ -176,41 +322,28 @@
                     </div>
                     <!-- Placeholder for dashboard -->
                     <div runat="server" id="tblDashboard" class="container">
-                        <div class="tblcontrols12">
-                            <div class="cell" id="Div1">
-                                <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div2">
-                                <asp:PlaceHolder ID="ph_usercontrols_2" runat="server"></asp:PlaceHolder>
-                            </div>
+                        <div class="grid">
+                            <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
 
-                            <div class="cell" id="Div3">
-                                <asp:PlaceHolder ID="ph_usercontrols_3" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div4">
-                                <asp:PlaceHolder ID="ph_usercontrols_4" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div5">
-                                <asp:PlaceHolder ID="ph_usercontrols_5" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div6">
-                                <asp:PlaceHolder ID="ph_usercontrols_6" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div7">
-                                <asp:PlaceHolder ID="ph_usercontrols_7" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div8">
-                                <asp:PlaceHolder ID="ph_usercontrols_8" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div9">
-                                <asp:PlaceHolder ID="ph_usercontrols_9" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div10">
-                                <asp:PlaceHolder ID="ph_usercontrols_10" runat="server"></asp:PlaceHolder>
-                            </div>
-                            <div class="cell" id="Div11">
-                                <asp:PlaceHolder ID="ph_usercontrols_11" runat="server"></asp:PlaceHolder>
-                            </div>
+                            <asp:PlaceHolder ID="ph_usercontrols_2" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_3" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_4" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_5" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_6" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_7" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_8" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_9" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_10" runat="server"></asp:PlaceHolder>
+
+                            <asp:PlaceHolder ID="ph_usercontrols_11" runat="server"></asp:PlaceHolder>
                         </div>
                     </div>
                 </div>
@@ -222,3 +355,4 @@
     </div>
 
 </asp:Content>
+

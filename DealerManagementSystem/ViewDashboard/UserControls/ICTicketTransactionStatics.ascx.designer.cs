@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
     {
 
         /// <summary>
-        /// ucTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ucTitle;
-
-        /// <summary>
         /// divError control.
         /// </summary>
         /// <remarks>
@@ -40,6 +31,15 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl errorMessage;
+
+        /// <summary>
+        /// ucTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ucTitle;
 
         /// <summary>
         /// Chart1 control.

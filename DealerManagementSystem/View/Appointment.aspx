@@ -31,7 +31,16 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server"> 
-    
+    <div class="dropdown">Actions <div class="dropdown-content">
+            Activate <br />
+            Deactivate 
+        </div>
+    </div>
+    <br />
+     <div class="dropdown">Actions <div class="dropdown-content">
+            Activate <br /> 
+        </div>
+    </div>
     <asp:Calendar ID="caAppointment" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Names="Verdana" 
          Font-Size="9pt" ForeColor="Black" Height="700px" NextPrevFormat="ShortMonth" Width="95%" OnDayRender="caAppointment_DayRender" OnSelectionChanged="caAppointment_SelectionChanged" OnVisibleMonthChanged="caAppointment_VisibleMonthChanged">
                         <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt"  />
