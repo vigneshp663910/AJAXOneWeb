@@ -158,7 +158,7 @@ namespace DealerManagementSystem
                 { 
                     Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
                 } 
-                if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
+                if ((!PSession.User.ajaxOne) || (!PSession.User.ajaxOneDealer))
                 {
                     lblMessage.ForeColor =  Color.Red;
                     lblMessage.Text = "You are not allowed to use";
@@ -166,7 +166,7 @@ namespace DealerManagementSystem
                     return;
                 }
                 UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
-                if (userDetails.PasswordExpiryDate < DateTime.Now)
+                if (PSession.User.PasswordExpiryDate < DateTime.Now)
                 {
                     Redirect(UIHelper.RedirectToPasswordChange);
                 }

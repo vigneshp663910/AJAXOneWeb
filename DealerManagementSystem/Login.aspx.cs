@@ -28,7 +28,7 @@ namespace DealerManagementSystem
                 string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
                 // PUserMobile UserMobile = new BUser().GetUserIDByIMEI(DeviceID);
                 txtUsername.Text = "2000ITH0001";
-                txtPassword.Text = "kml@123";
+                txtPassword.Text = "Kml@1234";
                 loginMobile(ApplicationKey, DeviceID);
                 string Message = "";
 
@@ -65,7 +65,8 @@ namespace DealerManagementSystem
                 txtUsername.Text = "IT.OFFICER4";
                 txtPassword.Text = "abc@123";
                 txtUsername.Text = "2000ITH0001";
-                txtPassword.Text = "kml@123";
+                txtPassword.Text = "Kml@1234";
+                //txtPassword.Text = "kML@1234";
                 login();
             }
         }

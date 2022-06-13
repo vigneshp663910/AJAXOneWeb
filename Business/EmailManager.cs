@@ -358,13 +358,8 @@ namespace Business
             Boolean success = false;
             try
             {
-                //   new FileLogger().LogTrack("MailSend", "Start");
-
-
-
                 MailMessage mailMessage = new MailMessage();
                 string fromMail = Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]);
-
                 string mailPwd = Convert.ToString(ConfigurationManager.AppSettings["Mailpwd"]);
                 string smtpHost = Convert.ToString(ConfigurationManager.AppSettings["SmtpHost"]);
 
@@ -373,7 +368,9 @@ namespace Business
                 mailMessage.Subject = Subject;
                 mailMessage.To.Add(mailTo);
                 mailMessage.Body = messageBody;
-
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                                      | SecurityProtocolType.Tls11
+                                      | SecurityProtocolType.Tls12;
                 SmtpClient smtpClient = new SmtpClient();
                 smtpClient.Host = smtpHost;
                 smtpClient.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
