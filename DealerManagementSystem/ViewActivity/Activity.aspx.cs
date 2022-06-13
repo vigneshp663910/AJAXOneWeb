@@ -15,6 +15,7 @@ namespace DealerManagementSystem.ViewActivity
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
+
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
