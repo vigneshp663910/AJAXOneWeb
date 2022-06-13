@@ -86,6 +86,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                             <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Sales Engineer">
@@ -166,8 +167,7 @@
                                                 <div class="btn Approval" style="height: 25px">Actions</div>
                                                 <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                                                     <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
-                                                    <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
-                                                    <%-- <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Escalate</asp:LinkButton>--%>
+                                                    <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton> 
                                                 </div>
                                             </div>
                                         </ItemTemplate>

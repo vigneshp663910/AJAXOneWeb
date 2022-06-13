@@ -122,11 +122,17 @@ namespace DealerManagementSystem.ViewPreSale
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Edit Customer")
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblLeadFollowUpID = (Label)gvRow.FindControl("lblLeadFollowUpID");
+            PLeadFollowUp FollowUp = new PLeadFollowUp();
+            FollowUp.LeadFollowUpID = Convert.ToInt64(lblLeadFollowUpID.Text);
+
+            if (lbActions.Text == "Cancel")
             {
                 
             }
-            else if (lbActions.Text == "Add Attribute")
+            else if (lbActions.Text == "Close")
             {
                 
             }
@@ -134,10 +140,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void btnFoloowUpStatus_Click(object sender, EventArgs e)
         {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblLeadFollowUpID = (Label)gvRow.FindControl("lblLeadFollowUpID");
-            PLeadFollowUp FollowUp = new PLeadFollowUp();
-            FollowUp.LeadFollowUpID = Convert.ToInt64(lblLeadFollowUpID.Text);
+             
+            
 
             FollowUp.Remark = txtRemark.Text.Trim();
 

@@ -32,6 +32,7 @@ namespace DealerManagementSystem.ViewActivity.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = ""; 
+
         }
         public void fillViewLead(long LeadID)
         {
