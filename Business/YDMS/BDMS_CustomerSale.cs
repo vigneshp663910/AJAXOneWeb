@@ -141,7 +141,6 @@ namespace Business
                 DbParameter PKIDP = provider.CreateParameter("CS_PkCustSaleID", CS_PkCustSaleID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[17] {DealerIDP, MonthP, YearP,CustomerNameP,ConPersonP,ContNoP,ModelIDP,PriceP,CompMakeIDP,CompModelIDP,compPriceP,QtyP,NoofVP,ReasonIDP,ReasonRemarksP, CreatedBYP, PKIDP};
                 sReturn = provider.GetScalar("YDMS_SP_AddUpdate_CustomerSale", Params).ToString();
-
             }
             catch (Exception ex)
             {

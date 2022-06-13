@@ -87,6 +87,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="YDMS_Scripts.js"></script>--%>
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false"/>
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
