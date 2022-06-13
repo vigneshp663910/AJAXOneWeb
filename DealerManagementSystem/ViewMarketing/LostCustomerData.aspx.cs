@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -54,13 +55,11 @@ namespace DealerManagementSystem.ViewMarketing
             {
                 ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
             }
-
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string sReturn = "";
-
             try
             {
                 BDMS_CustomerSale oCS = new BDMS_CustomerSale();
@@ -82,13 +81,15 @@ namespace DealerManagementSystem.ViewMarketing
                 Int32 PkCustSaleID = Convert.ToInt32(ViewState["PkCustSaleID"]);
                 sReturn = oCS.SaveCustomerSale(DealerID, iMonth, iYear, CustomerName, ContactPerson, ContactNumber, AjaxModelID, AjaxPrice, CompmakeID,
                     CompModelID, CompPrice, Qty, Noofvisit, ResonTypeID, ReasonRemarks, PSession.User.UserID, PkCustSaleID);
-
+                lblMessage.Text = sReturn;
+                lblMessage.Visible = true;
             }
             catch (Exception ex)
             {
-                sReturn = ex.Message;
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert(\"" + sReturn + "\")", true);
         }
 
         protected void ddlCompititor_SelectedIndexChanged(object sender, EventArgs e)
@@ -134,7 +135,9 @@ namespace DealerManagementSystem.ViewMarketing
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "keyErr", "alert(\"" + ex.Message + "\")", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
 
         }
@@ -182,7 +185,7 @@ namespace DealerManagementSystem.ViewMarketing
                     ddlComModel.SelectedValue = dr["CS_FKcompModelID"].ToString();
                     ddlResType.SelectedValue = dr["CS_FKResonTypeID"].ToString();
                     txtAjaxPrice.Text = dr["CS_AjaxPrice"].ToString();
-                    txtComPrice.Text = dr["CS_CompPrice"].ToString();
+                    txtComPrice.Text = Convert.ToDecimal(dr["CS_CompPrice"]).ToString("0");
                     txtremarks.Text = dr["CS_ReasonRemarks"].ToString();
                     txtQty.Text = dr["CS_Qty"].ToString();
                     txtNOofVisit.Text = dr["CS_Noofvisit"].ToString();
@@ -230,8 +233,9 @@ namespace DealerManagementSystem.ViewMarketing
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ky", "alert(\"" + ex.Message + "\")", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
         }
     }
