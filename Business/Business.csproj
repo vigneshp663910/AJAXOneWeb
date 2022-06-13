@@ -85,6 +85,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BActivity.cs" />
     <Compile Include="BAPI.cs" />
     <Compile Include="BApplicationSetting.cs" />
     <Compile Include="BAttachedFile.cs" />

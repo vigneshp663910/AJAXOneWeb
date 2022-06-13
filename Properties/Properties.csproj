@@ -50,6 +50,7 @@
     <Compile Include="PAccessoriesScrap.cs" />
     <Compile Include="PAccessoriesStock.cs" />
     <Compile Include="PAccessoriesType.cs" />
+    <Compile Include="PActivity.cs" />
     <Compile Include="PApplicationSetting.cs" />
     <Compile Include="PAttachedFile.cs" />
     <Compile Include="PCategory.cs" />

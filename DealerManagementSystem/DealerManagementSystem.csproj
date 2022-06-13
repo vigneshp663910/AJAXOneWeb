@@ -350,6 +350,7 @@
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="ViewActivity\Activity.aspx" />
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
+    <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
@@ -854,6 +855,13 @@
     </Compile>
     <Compile Include="ViewActivity\UserControls\AddActivity.ascx.designer.cs">
       <DependentUpon>AddActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewActivity\UserControls\ViewActivity.ascx.cs">
+      <DependentUpon>ViewActivity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewActivity\UserControls\ViewActivity.ascx.designer.cs">
+      <DependentUpon>ViewActivity.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
