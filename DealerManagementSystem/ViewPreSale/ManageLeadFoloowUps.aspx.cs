@@ -44,6 +44,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                 txtDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FillFollowUps();
+                ViewState["LeadFollowUpID"] = 0;
             }
         }
 
@@ -125,24 +126,24 @@ namespace DealerManagementSystem.ViewPreSale
 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblLeadFollowUpID = (Label)gvRow.FindControl("lblLeadFollowUpID");
-            PLeadFollowUp FollowUp = new PLeadFollowUp();
-            FollowUp.LeadFollowUpID = Convert.ToInt64(lblLeadFollowUpID.Text);
-
+            PLeadFollowUp FollowUp = new PLeadFollowUp(); 
+            ViewState["LeadFollowUpID"] = Convert.ToInt64(lblLeadFollowUpID.Text);
+            ViewState["Status"] = Convert.ToInt64(lblLeadFollowUpID.Text);
             if (lbActions.Text == "Cancel")
             {
-                
+                ViewState["Status"] = 3;
             }
             else if (lbActions.Text == "Close")
             {
-                
+                ViewState["Status"] = 3;
             }
             MPE_FoloowUpStatus.Show();
         }
         protected void btnFoloowUpStatus_Click(object sender, EventArgs e)
         {
-             
-            
 
+            PLeadFollowUp FollowUp = new PLeadFollowUp();
+            FollowUp.LeadFollowUpID = Convert.ToInt64(ViewState["LeadFollowUpID"]);
             FollowUp.Remark = txtRemark.Text.Trim();
 
             FollowUp.Status = new PPreSaleStatus() { StatusID = 2 };
