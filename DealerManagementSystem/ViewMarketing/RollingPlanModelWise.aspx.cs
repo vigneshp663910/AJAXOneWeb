@@ -320,6 +320,12 @@ namespace DealerManagementSystem.ViewMarketing
                     dr["PlanNo"] = dtCalPlan.Compute("SUM(PlanNo)", "").ToString();
                     dtCalPlan.Rows.Add(dr);
                 }
+                else
+                {
+                    lblMessage.Text = "No Data Available..!";
+                    lblMessage.Visible = true;
+                    return;
+                }
                 GridView gvExcel = new GridView();
                 gvExcel.DataSource = dtCalPlan;
                 gvExcel.DataBind();
