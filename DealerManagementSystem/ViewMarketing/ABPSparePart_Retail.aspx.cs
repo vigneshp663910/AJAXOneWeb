@@ -16,6 +16,13 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ABPSparePart_Retail : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         BDMS_Planning oPlan = new BDMS_Planning();
         int SPM_PlanType = 2;
         protected void Page_Load(object sender, EventArgs e)
