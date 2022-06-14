@@ -29,27 +29,128 @@
                 background-color: blue;
             }
     </style>
+
+   <%-- <style>
+         .dropdown1 {
+            position: relative;
+            display: inline-block;
+              background-color: darkturquoise;
+    padding: 3px
+        }
+
+        .dropdown1-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 195px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown1-content a {
+                color: black;
+                padding: 8px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown1-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown1:hover .dropdown1-content {
+            display: block;
+        }
+
+        .dropdown1:hover .dropbtn { 
+        }
+
+        .DateH{
+
+        }
+    </style>--%>
+
+  
+      <style>
+        .dropdown1 {
+            position: relative;
+            display: block;
+            background-color: darkturquoise;
+            padding: 3px;
+            margin-top: 3px;
+        }
+
+        .dropdown1-content {
+            display: none;
+            position: absolute;
+            background-color: #336699;
+            min-width: 195px;
+            box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+            z-index: 1;
+            bottom: 29px;
+            right: -136px;
+            border-radius: 10px;
+            padding: 10px;
+            color: #fff;
+        }
+
+            .dropdown1-content a {
+                color: black;
+                padding: 8px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown1-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown1:hover .dropdown1-content {
+            display: block;
+        }
+
+        .dropdown1:hover .dropbtn {
+            /*  background-color: #3e8e41;*/
+        }
+
+        .DateH {
+            text-align: center;
+        }
+
+        .dropdown1-content:before {
+            content: "";
+            display: block;
+            border: inset 6px;
+            border-color: #336699 transparent transparent;
+            border-top-style: solid;
+            position: absolute;
+            bottom: -12px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server"> 
-    <div class="dropdown">Actions <div class="dropdown-content">
-            Activate <br />
-            Deactivate 
-        </div>
-    </div>
+  
     <br />
-     <div class="dropdown">Actions <div class="dropdown-content">
-            Activate <br /> 
-        </div>
-    </div>
-    <asp:Calendar ID="caAppointment" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Names="Verdana" 
-         Font-Size="9pt" ForeColor="Black" Height="700px" NextPrevFormat="ShortMonth" Width="95%" OnDayRender="caAppointment_DayRender" OnSelectionChanged="caAppointment_SelectionChanged" OnVisibleMonthChanged="caAppointment_VisibleMonthChanged">
-                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt"  />
-                        <DayStyle BackColor="#CCCCCC" CssClass = "Cal" />
+     
+  <%--  <asp:Calendar ID="caAppointment" runat="server" BackColor="White" BorderColor="Black"   Font-Names="Verdana" 
+         Font-Size="9pt" ForeColor="Black"  NextPrevFormat="FullMonth" Width="95%" OnDayRender="caAppointment_DayRender" OnSelectionChanged="caAppointment_SelectionChanged" 
+        OnVisibleMonthChanged="caAppointment_VisibleMonthChanged" DayNameFormat="Full">
+                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333"   Wrap="True"   CssClass="DateH" />
+                        <DayStyle BackColor="#CCCCCC" CssClass = "Cal" BorderWidth="1px" />
+                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White"  CssClass = "Hea"/> 
+                        <TitleStyle BackColor="#333399"  Font-Bold="True" Font-Size="12pt" ForeColor="White" Height="12pt" /> 
+                    </asp:Calendar>--%>
+
+      <asp:Calendar ID="caAppointment" runat="server" BackColor="White" BorderColor="Black"   Font-Names="Verdana" 
+         Font-Size="9pt" ForeColor="Black"  NextPrevFormat="FullMonth" Width="95%" OnDayRender="caAppointment_DayRender" OnSelectionChanged="caAppointment_SelectionChanged" 
+        OnVisibleMonthChanged="caAppointment_VisibleMonthChanged" DayNameFormat="Full">
+                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333"   Wrap="True"   CssClass="DateH" />
+                        <DayStyle BackColor="#CCCCCC" CssClass = "Cal" BorderWidth="1px" />
                         <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White"  CssClass = "Hea"/>
-                        <OtherMonthDayStyle ForeColor="#999999"  />
-                        <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                        <TitleStyle BackColor="#333399" BorderStyle="Solid" Font-Bold="True" Font-Size="12pt" ForeColor="White" Height="12pt" />
-                        <TodayDayStyle BackColor="#999999" ForeColor="White" /> 
+                      <%--  <OtherMonthDayStyle ForeColor="#999999"  />
+                        <SelectedDayStyle BackColor="#333399" ForeColor="White" BorderWidth="1px" />--%>
+                        <TitleStyle BackColor="#333399"  Font-Bold="True" Font-Size="12pt" ForeColor="White" Height="12pt" />
+                      <%--  <TodayDayStyle BackColor="#999999" ForeColor="White"    /> --%>
                     </asp:Calendar>
    
 </asp:Content>

@@ -73,6 +73,21 @@
             z-index: 9;
             border: 1px solid #3C4C5B;
         }
+        .details {
+            position: relative;
+        }
+        .details .desc {
+            clear:both;
+        }
+        .details #donut_single {
+            float: right;
+        }
+        .details-position {
+            position: absolute;
+    width: 100%;
+    /* bottom: 0; */
+    top: 47px;
+        }
         /*Home page tiles*/
         /*.container .tblcontrols12 {
             position: relative;
@@ -178,7 +193,7 @@
             border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
             margin: 10px;
             padding: 15px;
-            /*width:160px;*/
+            width:160px;
             float: left;
         }
 
@@ -222,7 +237,8 @@
         $(document).ready(function () {
             $('.grid').masonry({
                 // options
-                itemSelector: '.grid-item'
+                itemSelector: '.grid-item',
+                columnWidth: 10
             });
         });
     </script>
