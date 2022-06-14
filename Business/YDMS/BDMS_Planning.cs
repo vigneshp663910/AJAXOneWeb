@@ -96,7 +96,7 @@ namespace Business
             DbParameter[] Params = new DbParameter[] { _FKDealerID, _PlanDate, _FKModelID, _PlanNo, _CreatedBy, _Tag };
             provider.Insert("YDMS_TRollingPlanningModelWise_Save", Params);
         }
-        public DataTable GetPlanForDealer(int DealerID, int Month,int Year)
+        public DataTable GetPlanForDealer(int? DealerID, int? Month,int? Year)
         {
             DataTable dt = new DataTable();
             DbParameter DealerIDDP = provider.CreateParameter("RPM_FKDealerID", DealerID, DbType.Int32);

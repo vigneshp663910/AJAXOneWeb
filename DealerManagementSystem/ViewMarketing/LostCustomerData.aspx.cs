@@ -14,6 +14,13 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class LostCustomerData : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         BDMS_Activity oActivity = new BDMS_Activity();
         BDMS_CustomerSale oCustSale = new BDMS_CustomerSale();
 

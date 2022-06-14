@@ -15,6 +15,13 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class RollingPlanModelWise : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         BDMS_Planning oPlan = new BDMS_Planning();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,43 +51,52 @@ namespace DealerManagementSystem.ViewMarketing
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            DataTable dtPlan = new DataTable();
-            dtPlan.Columns.Add("Product"); dtPlan.Columns.Add("ProductID");
-            dtPlan.Columns.Add("Model"); dtPlan.Columns.Add("ModelID");
-            dtPlan.Columns.Add("PlanDate"); dtPlan.Columns.Add("PlanNo"); dtPlan.Columns.Add("Tag");
-            if (Session["dtPlan"] != null)
+            try
             {
-                dtPlan = Session["dtPlan"] as DataTable;
-            }
+                DataTable dtPlan = new DataTable();
+                dtPlan.Columns.Add("Product"); dtPlan.Columns.Add("ProductID");
+                dtPlan.Columns.Add("Model"); dtPlan.Columns.Add("ModelID");
+                dtPlan.Columns.Add("PlanDate"); dtPlan.Columns.Add("PlanNo"); dtPlan.Columns.Add("Tag");
+                if (Session["dtPlan"] != null)
+                {
+                    dtPlan = Session["dtPlan"] as DataTable;
+                }
 
-            DataRow dr = dtPlan.NewRow();
-            if (dtPlan.Select("ModelID=" + ddlModel.SelectedItem.Value + " And PlanDate='" + txtDate.Text + "'").Length == 0)
+                DataRow dr = dtPlan.NewRow();
+                if (dtPlan.Select("ModelID=" + ddlModel.SelectedItem.Value + " And PlanDate='" + txtDate.Text + "'").Length == 0)
+                {
+
+                    dr["Product"] = ddlProduct.SelectedItem.Text;
+                    dr["ProductID"] = ddlProduct.SelectedItem.Value;
+                    dr["Model"] = ddlModel.SelectedItem.Text;
+                    dr["ModelID"] = ddlModel.SelectedItem.Value;
+                    dr["PlanDate"] = txtDate.Text;
+                    dr["PlanNo"] = txtNo.Text;
+                    dr["Tag"] = "I";
+                    dtPlan.Rows.Add(dr);
+
+                }
+                else
+                {
+                    dr = ((DataRow)dtPlan.Select("ModelID=" + ddlModel.SelectedItem.Value + " And PlanDate='" + txtDate.Text + "'").GetValue(0));
+                    dr["Tag"] = "I";
+                    dr["PlanDate"] = txtDate.Text;
+                    dr["PlanNo"] = txtNo.Text;
+                    dtPlan.AcceptChanges();
+                }
+                Session["dtPlan"] = dtPlan;
+                gvPlan.DataSource = dtPlan;
+                gvPlan.DataBind();
+                CalPlan.DataBind();
+                txtDate.Text = ""; txtNo.Text = "1";
+                //CDDModel.SelectedValue = null;
+            }
+            catch(Exception ex)
             {
-
-                dr["Product"] = ddlProduct.SelectedItem.Text;
-                dr["ProductID"] = ddlProduct.SelectedItem.Value;
-                dr["Model"] = ddlModel.SelectedItem.Text;
-                dr["ModelID"] = ddlModel.SelectedItem.Value;
-                dr["PlanDate"] = txtDate.Text;
-                dr["PlanNo"] = txtNo.Text;
-                dr["Tag"] = "I";
-                dtPlan.Rows.Add(dr);
-
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
             }
-            else
-            {
-                dr = ((DataRow)dtPlan.Select("ModelID=" + ddlModel.SelectedItem.Value + " And PlanDate='" + txtDate.Text + "'").GetValue(0));
-                dr["Tag"] = "I";
-                dr["PlanDate"] = txtDate.Text;
-                dr["PlanNo"] = txtNo.Text;
-                dtPlan.AcceptChanges();
-            }
-            Session["dtPlan"] = dtPlan;
-            gvPlan.DataSource = dtPlan;
-            gvPlan.DataBind();
-            CalPlan.DataBind();
-            txtDate.Text = ""; txtNo.Text = "1"; 
-            //CDDModel.SelectedValue = null;
         }
         [WebMethod]
         public static AjaxControlToolkit.CascadingDropDownNameValue[] GetProduct(string knownCategoryValues, string category, string contextKey)
@@ -130,17 +146,26 @@ namespace DealerManagementSystem.ViewMarketing
 
         protected void lnkDel_Click(object sender, EventArgs e)
         {
-            LinkButton lnk = sender as LinkButton;
-            GridViewRow gvRow = lnk.NamingContainer as GridViewRow;
-            HiddenField hdnModelID = gvRow.FindControl("hdnModelID") as HiddenField;
-            Label lblDate = gvRow.FindControl("lblDate") as Label;
-            DataTable dtPlan = Session["dtPlan"] as DataTable;
-            DataRow dr = ((DataRow)dtPlan.Select("ModelID='" + hdnModelID.Value + "' And PlanDate='" + lblDate.Text + "'").GetValue(0));
-            dr["Tag"] = "D";
-            dtPlan.AcceptChanges();
-            //dtPlan.Rows.Remove(((DataRow)dtPlan.Select("ModelID='" + hdnModelID.Value + "'").GetValue(0)));
-            Session["dtPlan"] = dtPlan;
-            gvPlan.DataSource = dtPlan; gvPlan.DataBind();
+            try
+            {
+                LinkButton lnk = sender as LinkButton;
+                GridViewRow gvRow = lnk.NamingContainer as GridViewRow;
+                HiddenField hdnModelID = gvRow.FindControl("hdnModelID") as HiddenField;
+                Label lblDate = gvRow.FindControl("lblDate") as Label;
+                DataTable dtPlan = Session["dtPlan"] as DataTable;
+                DataRow dr = ((DataRow)dtPlan.Select("ModelID='" + hdnModelID.Value + "' And PlanDate='" + lblDate.Text + "'").GetValue(0));
+                dr["Tag"] = "D";
+                dtPlan.AcceptChanges();
+                //dtPlan.Rows.Remove(((DataRow)dtPlan.Select("ModelID='" + hdnModelID.Value + "'").GetValue(0)));
+                Session["dtPlan"] = dtPlan;
+                gvPlan.DataSource = dtPlan; gvPlan.DataBind();
+            }
+            catch(Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
+            }
         }
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
@@ -180,7 +205,6 @@ namespace DealerManagementSystem.ViewMarketing
             {
                 if (Session["dtPlan"] != null)
                 {
-
                     DataTable dt = Session["dtPlan"] as DataTable;
                     foreach (DataRow dr in dt.Rows)
                     {
@@ -192,11 +216,14 @@ namespace DealerManagementSystem.ViewMarketing
                         oPlan.SavePlan(DealerID, PlanDate, ModelID, PlanNo, PSession.User.UserID, sTag);
                     }
                 }
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Saved Successfully!')", true);
+                lblMessage.Text = "Saved Successfully...!";
+                lblMessage.Visible = true;
             }
             catch (Exception ex)
             {
-                ExceptionLogger.LogError("While saving Rolling Plan Model Wise", ex);
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
             }
         }
 
@@ -210,17 +237,26 @@ namespace DealerManagementSystem.ViewMarketing
         static DataTable dtCalPlan = new DataTable();
         protected void BindPlan()
         {
-            DateTime dat = new DateTime(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), 15);
-            DateTime curMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 15);
-            DataTable dtCalPlan = oPlan.GetPlanForDealer(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
-            ViewState["CalPlan"] = dtCalPlan;
-            Session["dtPlan"] = dtCalPlan;
-            gvPlan.DataSource = dtCalPlan;
-            gvPlan.DataBind();
-            int MonthDiff = ((curMonthDate.Year - dat.Year) * 12) + curMonthDate.Month - dat.Month;
-            CalPlan.SelectedDate = dat;
-            CalPlan.VisibleDate = dat;
-            CalPlan.DataBind();
+            try
+            {
+                DateTime dat = new DateTime(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), 15);
+                DateTime curMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 15);
+                DataTable dtCalPlan = oPlan.GetPlanForDealer(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+                ViewState["CalPlan"] = dtCalPlan;
+                Session["dtPlan"] = dtCalPlan;
+                gvPlan.DataSource = dtCalPlan;
+                gvPlan.DataBind();
+                int MonthDiff = ((curMonthDate.Year - dat.Year) * 12) + curMonthDate.Month - dat.Month;
+                CalPlan.SelectedDate = dat;
+                CalPlan.VisibleDate = dat;
+                CalPlan.DataBind();
+            }
+            catch(Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
+            }
         }
 
         protected void CalPlan_DayRender(object sender, DayRenderEventArgs e)
@@ -256,36 +292,64 @@ namespace DealerManagementSystem.ViewMarketing
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
-            DataTable dtCalPlan = oPlan.GetPlanForDealer(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
-            dtCalPlan.Columns.Remove("ModelID");
-            dtCalPlan.Columns.Remove("Tag");
-            if (dtCalPlan.Rows.Count > 0)
+            try
             {
-                DataRow dr = dtCalPlan.NewRow();
-                dr["D. Code"] = dtCalPlan.Rows[0]["D. Code"].ToString();
-                dr["D. Name"] = dtCalPlan.Rows[0]["D. Name"].ToString();
-                dr["D. Location"] = dtCalPlan.Rows[0]["D. Location"].ToString();
-                dr["Product"] = "Total";
-                dr["PlanNo"] = dtCalPlan.Compute("SUM(PlanNo)", "").ToString();
-                dtCalPlan.Rows.Add(dr);
-            }
-            GridView gvExcel = new GridView();
-            gvExcel.DataSource = dtCalPlan;
-            gvExcel.DataBind();
-            gvExcel.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            gvExcel.Rows[gvExcel.Rows.Count - 1].Font.Bold = true;
-            gvExcel.Rows[gvExcel.Rows.Count - 1].BackColor = System.Drawing.Color.LightGray;
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-            gvExcel.RenderControl(hw);
-            Response.Clear();
-            Response.Buffer = true;
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.Charset = "";
-            Response.AppendHeader("content-disposition", "attachment;filename=\"" + ddlMonth.SelectedItem.Text + " Month Plan.xls\"");
+                int? DealerID = null, Month = null, Year = null;
+                if (ddlDealer.SelectedValue != "0")
+                {
+                    DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+                }
+                if (ddlMonth.SelectedValue != "0")
+                {
+                    Month = Convert.ToInt32(ddlMonth.SelectedValue);
+                }
+                if (ddlYear.SelectedValue != "0")
+                {
+                    Year = Convert.ToInt32(ddlYear.SelectedValue);
+                }
+                DataTable dtCalPlan = oPlan.GetPlanForDealer(DealerID, Month, Year);
+                dtCalPlan.Columns.Remove("ModelID");
+                dtCalPlan.Columns.Remove("Tag");
+                if (dtCalPlan.Rows.Count > 0)
+                {
+                    DataRow dr = dtCalPlan.NewRow();
+                    dr["D. Code"] = dtCalPlan.Rows[0]["D. Code"].ToString();
+                    dr["D. Name"] = dtCalPlan.Rows[0]["D. Name"].ToString();
+                    dr["D. Location"] = dtCalPlan.Rows[0]["D. Location"].ToString();
+                    dr["Product"] = "Total";
+                    dr["PlanNo"] = dtCalPlan.Compute("SUM(PlanNo)", "").ToString();
+                    dtCalPlan.Rows.Add(dr);
+                }
+                else
+                {
+                    lblMessage.Text = "No Data Available..!";
+                    lblMessage.Visible = true;
+                    return;
+                }
+                GridView gvExcel = new GridView();
+                gvExcel.DataSource = dtCalPlan;
+                gvExcel.DataBind();
+                gvExcel.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                gvExcel.Rows[gvExcel.Rows.Count - 1].Font.Bold = true;
+                gvExcel.Rows[gvExcel.Rows.Count - 1].BackColor = System.Drawing.Color.LightGray;
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                gvExcel.RenderControl(hw);
+                Response.Clear();
+                Response.Buffer = true;
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.Charset = "";
+                Response.AppendHeader("content-disposition", "attachment;filename=\"" + ddlMonth.SelectedItem.Text + " Month Plan.xls\"");
 
-            Response.Write(sw.ToString());
-            Response.End();
+                Response.Write(sw.ToString());
+                Response.End();
+            }
+            catch(Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
+            }
         }
 
 

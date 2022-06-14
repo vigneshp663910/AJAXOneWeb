@@ -115,6 +115,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
@@ -153,7 +154,7 @@
                         <label for='<%= txtDate.ClientID %>'>Date</label>
                         <asp:TextBox ID="txtDate" autocomplete="off" runat="server" CssClass="form-control"></asp:TextBox>
                         <%--   <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1"  runat="server" TargetControlID="txtDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>--%>
-                        <cc1:CalendarExtender ID="CalDate" CssClass="cal_Theme1" runat="server" TargetControlID="txtDate"></cc1:CalendarExtender>
+                        <cc1:CalendarExtender ID="CalDate" runat="server" TargetControlID="txtDate" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label for='<%= txtNo.ClientID %>'>Number</label>

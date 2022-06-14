@@ -13,6 +13,13 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ActivityInvoice : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         BDMS_Activity oActivity = new BDMS_Activity();
         protected void Page_Load(object sender, EventArgs e)
         {

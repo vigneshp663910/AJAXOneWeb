@@ -23,45 +23,63 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void lblApprove_Click(object sender, EventArgs e)
         {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int UserMobileID = Convert.ToInt32(gvUserIMEI.DataKeys[gvRow.RowIndex].Value);
-
-            PApiResult Result=    new BUser().ApproveUserMobile(UserMobileID);
-            if (Result.Status == PApplication.Failure)
+            try
             {
-                lblMessage.Text = "not Approved";
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                int UserMobileID = Convert.ToInt32(gvUserIMEI.DataKeys[gvRow.RowIndex].Value);
+
+                PApiResult Result = new BUser().ApproveUserMobile(UserMobileID);
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = "not Approved";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Text = "Approved";
+                lblMessage.ForeColor = Color.Green;
+                fillUser();
+                lblMessage.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
                 lblMessage.ForeColor = Color.Red;
-            } 
-            lblMessage.Text = "Approved";
-            lblMessage.ForeColor = Color.Green;
-            fillUser();
-            lblMessage.Visible = true;
+                lblMessage.Visible = true;
+            }
         }
         protected void lblReject_Click(object sender, EventArgs e)
         {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int UserMobileID = Convert.ToInt32(gvUserIMEI.DataKeys[gvRow.RowIndex].Value);
-            TextBox txtRemarks = (TextBox)gvUserIMEI.Rows[gvRow.RowIndex].FindControl("txtRemarks");
-            bool Success = false;
-            Success= new BUser().RejectUserMobile(UserMobileID, txtRemarks.Text);
-            //PApiResult Result = new BUser().RejectUserMobile(UserMobileID, txtRemarks.Text);
-            //if (Result.Status == PApplication.Failure)
-            //{
-            //    lblMessage.Text = "not Rejected";
-            //    lblMessage.ForeColor = Color.Red;
-            //}
-            if(Success==true)
+            try
             {
-                lblMessage.Text = "Rejected";
-                lblMessage.ForeColor = Color.Green;
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                int UserMobileID = Convert.ToInt32(gvUserIMEI.DataKeys[gvRow.RowIndex].Value);
+                TextBox txtRemarks = (TextBox)gvUserIMEI.Rows[gvRow.RowIndex].FindControl("txtRemarks");
+                bool Success = false;
+                Success = new BUser().RejectUserMobile(UserMobileID, txtRemarks.Text);
+                //PApiResult Result = new BUser().RejectUserMobile(UserMobileID, txtRemarks.Text);
+                //if (Result.Status == PApplication.Failure)
+                //{
+                //    lblMessage.Text = "not Rejected";
+                //    lblMessage.ForeColor = Color.Red;
+                //}
+                if (Success == true)
+                {
+                    lblMessage.Text = "Rejected";
+                    lblMessage.ForeColor = Color.Green;
+                }
+                else
+                {
+                    lblMessage.Text = "Not Rejected";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                fillUser();
+                lblMessage.Visible = true;
             }
-            else
+            catch (Exception ex)
             {
-                lblMessage.Text = "Not Rejected";
+                lblMessage.Text = ex.Message;
                 lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
-            fillUser();
-            lblMessage.Visible = true;
         }
 
         public List<PUserMobile> UserLst
@@ -108,7 +126,7 @@ namespace DealerManagementSystem.ViewAdmin
         void fillUser()
         {
             try
-            { 
+            {
                 //gvUserIMEI.DataSource = new BUser().GetUserMobileForApproval();
                 //gvUserIMEI.DataBind();
 
@@ -131,10 +149,12 @@ namespace DealerManagementSystem.ViewAdmin
                     ibtnUserArrowRight.Visible = true;
                     lblRowCount.Text = (((gvUserIMEI.PageIndex) * gvUserIMEI.PageSize) + 1) + " - " + (((gvUserIMEI.PageIndex) * gvUserIMEI.PageSize) + gvUserIMEI.Rows.Count) + " of " + UserLst.Count;
                 }
-
             }
             catch (Exception ex)
-            { 
+            {
+                lblMessage.Text = ex.Message;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
     }
