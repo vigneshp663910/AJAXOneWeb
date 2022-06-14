@@ -204,6 +204,16 @@
                                         <asp:label id="lblSapLocationCode" text='<%# DataBinder.Eval(Container.DataItem, "SapLocationCode")%>' runat="server" />
                                     </itemtemplate>
                                 </asp:templatefield>
+                                <asp:templatefield headertext="Address1">
+                                    <itemtemplate>
+                                        <asp:label id="lblAddress1" text='<%# DataBinder.Eval(Container.DataItem, "Address1")%>' runat="server" />
+                                    </itemtemplate>
+                                </asp:templatefield>
+                                <asp:templatefield headertext="Address2">
+                                    <itemtemplate>
+                                        <asp:label id="lblAddress2" text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
+                                    </itemtemplate>
+                                </asp:templatefield>
                                 <%--<asp:TemplateField HeaderText="Action">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkbtnDealerOfficeDelete" runat="server" OnClick="lnkbtnDealerOfficeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>

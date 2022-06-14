@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Business
 {
@@ -19,19 +20,18 @@ namespace Business
             provider = new ProviderFactory().GetProvider();
         }
 
-        public List<PActivityType> GetActivityType(int? ActivityTypeID, string ActivityTypeCode, string ActivityTypeName, Boolean IsActive)
+        public List<PActivityType> GetActivityType(int? ActivityTypeID, string ActivityTypeCode, string ActivityTypeName, DateTime? LastSyncDate)
         {
             List<PActivityType> ActivityTypes = new List<PActivityType>();
             PActivityType ActivityType = null;
             DbParameter ActivityTypeIDP = provider.CreateParameter("ActivityTypeID", ActivityTypeID, DbType.Int32);
             DbParameter ActivityTypeCodeP = provider.CreateParameter("ActivityTypeCode", string.IsNullOrEmpty(ActivityTypeCode) ? null : ActivityTypeCode, DbType.String);
-            DbParameter ActivityTypeNameP = provider.CreateParameter("ActivityTypeName", string.IsNullOrEmpty(ActivityTypeName) ? null : ActivityTypeName, DbType.String);
-            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Int32); ;
-            
-            DbParameter[] Params = new DbParameter[4] { ActivityTypeIDP, ActivityTypeCodeP, ActivityTypeNameP, IsActiveP };
+            DbParameter IsActiveP = provider.CreateParameter("LastSyncDate", LastSyncDate, DbType.DateTime);
+
+            DbParameter[] Params = new DbParameter[3] { ActivityTypeIDP, ActivityTypeCodeP, IsActiveP };
             try
             {
-                using (DataSet ds = provider.Select("GetActivityType", Params))
+                using (DataSet ds = provider.Select("ZDMS_GetActivityType", Params))
                 {
                     if (ds != null)
                     {
@@ -40,13 +40,7 @@ namespace Business
                             ActivityType = new PActivityType();
                             ActivityType.ActivityTypeID = Convert.ToInt32(dr["ActivityTypeID"]);
                             ActivityType.ActivityTypeCode = Convert.ToString(dr["ActivityTypeCode"]);
-                            ActivityType.ActivityTypeName = Convert.ToString(dr["ActivityTypeName"]);
-                            ActivityType.IsActive = Convert.ToBoolean(Convert.ToString(dr["IsActive"]));
-                            ActivityType.CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedBy"]) };
-                            ActivityType.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            ActivityType.ModifiedBy = new PUser() { ContactName = Convert.ToString(dr["ModifiedBy"]) };
-                            ActivityType.ModifiedOn = Convert.ToDateTime(dr["ModifiedOn"]);
-                            ActivityTypes.Add(ActivityType);
+                            ActivityType.ActivityTypeName = Convert.ToString(dr["ActivityTypeName"]);ActivityTypes.Add(ActivityType);
                         }
                     }
                 }
@@ -58,15 +52,14 @@ namespace Business
             return ActivityTypes;
         }
 
-        public List<PActivityReferenceType> GetActivityReferenceType(int? ActivityReferenceTypeID, string ActivityReferenceType, Boolean IsActive)
+        public List<PActivityReferenceType> GetActivityReferenceType(int? ActivityReferenceTableID, string ReferenceTable)
         {
             List<PActivityReferenceType> ActivityReferenceTypes = new List<PActivityReferenceType>();
             PActivityReferenceType ActivityReferenceType1 = null;
-            DbParameter ActivityReferenceTypeIDP = provider.CreateParameter("ActivityReferenceTypeID", ActivityReferenceTypeID, DbType.Int32);
-            DbParameter ActivityReferenceTypeP = provider.CreateParameter("ActivityTypeCode", string.IsNullOrEmpty(ActivityReferenceType) ? null : ActivityReferenceType, DbType.String);
-            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Int32); ;
+            DbParameter ActivityReferenceTypeIDP = provider.CreateParameter("ActivityReferenceTableID", ActivityReferenceTableID, DbType.Int32);
+            DbParameter ActivityReferenceTypeP = provider.CreateParameter("ReferenceTable", string.IsNullOrEmpty(ReferenceTable) ? null : @ReferenceTable, DbType.String);
 
-            DbParameter[] Params = new DbParameter[3] { ActivityReferenceTypeIDP, ActivityReferenceTypeP, IsActiveP };
+            DbParameter[] Params = new DbParameter[2] { ActivityReferenceTypeIDP, ActivityReferenceTypeP };
             try
             {
                 using (DataSet ds = provider.Select("GetActivityReferenceType", Params))
@@ -76,13 +69,8 @@ namespace Business
                         foreach (DataRow dr in ds.Tables[0].Rows)
                         {
                             ActivityReferenceType1 = new PActivityReferenceType();
-                            ActivityReferenceType1.ActivityReferenceTypeID = Convert.ToInt32(dr["ActivityReferenceTypeID"]);
-                            ActivityReferenceType1.ActivityReferenceType = Convert.ToString(dr["ActivityReferenceType"]);
-                            ActivityReferenceType1.IsActive = Convert.ToBoolean(Convert.ToString(dr["IsActive"]));
-                            ActivityReferenceType1.CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedBy"]) };
-                            ActivityReferenceType1.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            ActivityReferenceType1.ModifiedBy = new PUser() { ContactName = Convert.ToString(dr["ModifiedBy"]) };
-                            ActivityReferenceType1.ModifiedOn = Convert.ToDateTime(dr["ModifiedOn"]);
+                            ActivityReferenceType1.ActivityReferenceTableID = Convert.ToInt32(dr["ActivityReferenceTableID"]);
+                            ActivityReferenceType1.ReferenceTable = Convert.ToString(dr["ReferenceTable"]);
                             ActivityReferenceTypes.Add(ActivityReferenceType1);
                         }
                     }
@@ -95,65 +83,49 @@ namespace Business
             return ActivityReferenceTypes;
         }
        
-        public List<PActivity> GetActivity(int? ActivityTypeID, DateTime? ActivityDateFrom, DateTime? ActivityDateTo, Int64? CustomerCode, string CustomerName, string Equipment, int? ReferenceID)
+        public List<PActivity> GetActivity(int? ActivityTypeID, Int64? ActivityID, DateTime? ActivityDateFrom, DateTime? ActivityDateTo, Int64? CustomerCode, string Equipment, int? ReferenceID)
         {
             TraceLogger.Log(DateTime.Now);
             List<PActivity> Activities = new List<PActivity>();
             try
             {
                 DbParameter ActivityTypeIDP = provider.CreateParameter("ActivityTypeID", ActivityTypeID, DbType.Int32);
+                DbParameter ActivityIDP = provider.CreateParameter("ActivityID", ActivityID, DbType.Int64);
                 DbParameter ActivityDateFromP = provider.CreateParameter("ActivityDateFrom", ActivityDateFrom, DbType.DateTime);
                 DbParameter ActivityDateToP = provider.CreateParameter("ActivityDateTo", ActivityDateTo, DbType.DateTime);
                 DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.Int64);
-                DbParameter CustomerNameP = provider.CreateParameter("CustomerName", String.IsNullOrEmpty(CustomerName) ? null : CustomerName, DbType.String);
+                //DbParameter CustomerNameP = provider.CreateParameter("CustomerName", String.IsNullOrEmpty(CustomerName) ? null : CustomerName, DbType.String);
                 DbParameter EquipmentP = provider.CreateParameter("Equipment", Equipment, DbType.String);
                 DbParameter ReferenceIDP = provider.CreateParameter("ReferenceID", ReferenceID, DbType.Int32);
 
-                DbParameter[] Params = new DbParameter[7] { ActivityTypeIDP, ActivityDateFromP, ActivityDateToP, CustomerCodeP, CustomerNameP, EquipmentP, ReferenceIDP };
+                DbParameter[] Params = new DbParameter[7] { ActivityTypeIDP, ActivityIDP, ActivityDateFromP, ActivityDateToP, CustomerCodeP, EquipmentP, ReferenceIDP };
 
 
-                PActivity Lead = new PActivity();
-                using (DataSet DataSet = provider.Select("Getactivity", Params))
+                PActivity Activity = new PActivity();
+                using (DataSet DataSet = provider.Select("GetActivity", Params))
                 {
                     if (DataSet != null)
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
 
-                            Lead = new PActivity();
-                            //Lead.LeadID = Convert.ToInt64(dr["LeadID"]);
-                            //Lead.LeadNumber = Convert.ToString(dr["LeadNumber"]);
-                            //Lead.LeadDate = Convert.ToDateTime(dr["LeadDate"]);
-                            //Lead.ProductType = new PProductType() { ProductType = Convert.ToString(dr["ProductType"]), ProductTypeID = Convert.ToInt32(dr["ProductTypeID"]) };
-                            //Lead.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(dr["ProgressStatusID"]), ProgressStatus = Convert.ToString(dr["LeadProgressStatus"]) };
-                            //Lead.Status = new PLeadStatus() { StatusID = Convert.ToInt32(dr["StatusID"]), Status = Convert.ToString(dr["Status"]) };
-
-                            //Lead.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(dr["CategoryID"]), Category = Convert.ToString(dr["Category"]) };
-                            //Lead.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(dr["QualificationID"]), Qualification = Convert.ToString(dr["Qualification"]) };
-                            //Lead.Source = new PLeadSource() { SourceID = Convert.ToInt32(dr["SourceID"]), Source = Convert.ToString(dr["Source"]) };
-                            //Lead.Type = new PLeadType() { TypeID = Convert.ToInt32(dr["TypeID"]), Type = Convert.ToString(dr["Type"]) };
-                            //Lead.Customer = new PDMS_Customer()
-                            //{
-                            //    CustomerID = Convert.ToInt64(dr["CustomerID"]),
-                            //    CustomerCode = Convert.ToString(dr["CustomerCode"]),
-                            //    CustomerName = Convert.ToString(dr["CustomerName"]),
-
-                            //    ContactPerson = Convert.ToString(dr["ContactPerson"]),
-                            //    Email = Convert.ToString(dr["Email"]),
-                            //    Mobile = Convert.ToString(dr["Mobile"]),
-
-                            //    Address1 = Convert.ToString(dr["Address1"]),
-                            //    Address2 = Convert.ToString(dr["Address2"]),
-                            //    Country = new PDMS_Country() { Country = Convert.ToString(dr["Country"]) },
-                            //    State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
-                            //    District = new PDMS_District() { District = Convert.ToString(dr["District"]) },
-                            //};
-                            //Lead.Remarks = Convert.ToString(dr["Remarks"]);
-
-                            //Lead.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-
-                             
-                            Activities.Add(Lead);
+                            Activity = new PActivity();
+                            Activity.ActivityID = Convert.ToInt64(dr["ActivityID"]);
+                            Activity.ActivityType = new PActivityType() { ActivityTypeName = Convert.ToString(dr["ActivityTypeName"]) };
+                            Activity.Customer = new PDMS_Customer()
+                            {
+                                //CustomerID = Convert.ToInt64(dr["CustomerID"]),
+                                CustomerCode = Convert.ToString(dr["CustomerCode"]),
+                                CustomerName = Convert.ToString(dr["CustomerName"]),
+                            };
+                            Activity.ActivityStartDate = Convert.ToDateTime(dr["StartDate"]);
+                            Activity.ActivityEndDate = dr["EndDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["EndDate"]);
+                            Activity.Amount = dr["Amount"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
+                            Activity.Location = Convert.ToString(dr["Location"]);
+                            Activity.Equipment = new PDMS_EquipmentHeader() { EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]) };
+                            Activity.ActivityReference = new PActivityReferenceType() { ReferenceTable = Convert.ToString(dr["ReferenceActivity"]) };
+                            Activity.ReferenceNumber = Convert.ToString(dr["ReferenceNumber"]);
+                            Activities.Add(Activity);
                         }
                     }
                 }
@@ -162,10 +134,70 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BLead", "GetLead", ex);
+                new FileLogger().LogMessage("BActivity", "GetActivity", ex);
                 throw ex;
             }
             return Activities;
         }
+
+        public Boolean InsertOrUpdateActivity(PActivity Activity)
+        {
+            int success;
+            DbParameter ActivityID = provider.CreateParameter("ActivityID", Activity.ActivityID, DbType.Int64);
+            DbParameter ActivitySalesEngineerUserIDP = provider.CreateParameter("ActivitySalesEngineerUserID", Activity.SalesEngineer.UserID, DbType.Int32);
+            DbParameter ActivityTypeIDP = provider.CreateParameter("ActivityTypeID", Activity.ActivityType == null? (int?)null: Activity.ActivityType.ActivityTypeID, DbType.Int32);
+            DbParameter ActivityStartDateP = provider.CreateParameter("ActivityStartDate", Activity.ActivityStartDate, DbType.DateTime);
+            DbParameter ActivityEndDateP = provider.CreateParameter("ActivityEndDate", Activity.ActivityEndDate, DbType.DateTime);
+            DbParameter LocationP = provider.CreateParameter("Location", Activity.Location, DbType.String);
+            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", Activity.Customer == null ?  null : Activity.Customer.CustomerCode, DbType.String);
+            DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentSerialNo", Activity.Equipment == null ? null : Activity.Equipment.EquipmentSerialNo, DbType.String);
+            DbParameter RemarkP = provider.CreateParameter("Remark", Activity.Remark, DbType.String);
+            DbParameter StartLatitudeP = provider.CreateParameter("StartLatitude", Activity.ActivityStartLatitude == 0 ? (Decimal?)null : Activity.ActivityStartLatitude, DbType.Decimal);
+            DbParameter StartLongitudeP = provider.CreateParameter("StartLongitude", Activity.ActivityStartLongitude == 0 ? (Decimal?)null : Activity.ActivityStartLongitude, DbType.Decimal);
+            DbParameter EndLatitudeP = provider.CreateParameter("EndLatitude", Activity.ActivityEndLatitude == 0 ? (Decimal?)null : Activity.ActivityEndLatitude, DbType.Decimal);
+            DbParameter EndLongitudeP = provider.CreateParameter("EndLongitude", Activity.ActivityEndLongitude == 0 ? (Decimal?)null : Activity.ActivityEndLongitude, DbType.Decimal);
+            DbParameter AmountP = provider.CreateParameter("Amount", Activity.Amount == 0 ? (Decimal?)null : Activity.Amount, DbType.Decimal);
+            DbParameter ReferenceTableIDP = provider.CreateParameter("RefereneceTableID", Activity.ActivityReference == null ? (Int32?)null : Activity.ActivityReference.ActivityReferenceTableID, DbType.Int32);
+            DbParameter ReferenceP = provider.CreateParameter("ReferenceID", Activity.ReferenceNumber, DbType.String);
+
+            DbParameter[] Params = new DbParameter[16] { ActivityID, ActivitySalesEngineerUserIDP, ActivityTypeIDP, ActivityStartDateP, ActivityEndDateP, LocationP, CustomerCodeP, EquipmentHeaderIDP, RemarkP, StartLatitudeP, StartLongitudeP, EndLatitudeP, EndLongitudeP, AmountP, ReferenceTableIDP, ReferenceP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("InsertOrUpdateActivity", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BActivity", "InsertOrUpdateActivity", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BActivity", " InsertOrUpdateActivity", ex);
+                throw ex;
+            }
+            return true;
+        }
+
+        public int PendingUserActivitiy(int UserID)
+        {
+            DbParameter UserIDP = provider.CreateParameter("ActivitySalesEngineerUserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[1] { UserIDP };
+            using (DataSet DataSet = provider.Select("PendingUserActivitiy", Params))
+            {
+                if (DataSet != null)
+                {
+                    foreach (DataRow dr in DataSet.Tables[0].Rows)
+                    {
+                        return Convert.ToInt32(dr["Count"]);
+                    }
+                }
+            }
+            return 1;
+        }
+
     }
 }
