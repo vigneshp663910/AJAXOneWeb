@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
     {
 
         /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
         /// HyperLink1 control.
         /// </summary>
         /// <remarks>
@@ -33,13 +42,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.Label lblBreakDown8;
 
         /// <summary>
-        /// Label1 control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
         /// HyperLink2 control.
@@ -60,13 +69,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.Label lblBreakDown24;
 
         /// <summary>
-        /// Label2 control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label Label4;
 
         /// <summary>
         /// HyperLink3 control.
@@ -87,13 +96,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.Label lblBreakDown48;
 
         /// <summary>
-        /// Label4 control.
+        /// Label6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label Label6;
 
         /// <summary>
         /// HyperLink4 control.
@@ -112,14 +121,5 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBreakDown72;
-
-        /// <summary>
-        /// Label6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
     }
 }

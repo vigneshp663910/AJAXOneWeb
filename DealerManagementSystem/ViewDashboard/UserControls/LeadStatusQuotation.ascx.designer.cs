@@ -15,13 +15,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
     {
 
         /// <summary>
-        /// lblQuotation control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuotation;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// lbtnNewlyCreated control.
@@ -31,5 +31,14 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnNewlyCreated;
+
+        /// <summary>
+        /// lblQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuotation;
     }
 }

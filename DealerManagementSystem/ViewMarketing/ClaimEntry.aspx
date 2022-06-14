@@ -272,7 +272,7 @@
                         <div class="col-md-6 text-left">
                             <label class="modal-label">-</label>
                             <asp:Button ID="Search" runat="server" Text="Search" OnClick="Search_Click" CssClass="btn Search" />
-                            <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" OnClick="btnExcel_Click" CssClass="btn Back" />
+                            <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" OnClick="btnExcel_Click" CssClass="btn Back" Width="120px"/>
                         </div>
                     </div>
                 </fieldset>

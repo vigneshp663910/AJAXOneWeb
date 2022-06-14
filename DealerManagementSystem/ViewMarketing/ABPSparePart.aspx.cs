@@ -16,6 +16,13 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ABPSparePart : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         BDMS_Planning oPlan = new BDMS_Planning();
         int SPM_PlanType = 1;
         protected void Page_Load(object sender, EventArgs e)
@@ -50,12 +57,14 @@ namespace DealerManagementSystem.ViewMarketing
                     oPlan.SavePartABP(DealerID, SPM_PlanType, Year, iMonth, ddlPartCategory.SelectedValue, Convert.ToDouble("0" + txt.Text), PSession.User.UserID);
                 }
                 BindGrid();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Saved Successfully!')", true);
+                lblMessage.Text = "Saved Successfully...!";
+                lblMessage.Visible = true;
             }
             catch (Exception ex)
             {
-                ExceptionLogger.LogError("While saving ABP Plan", ex);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Error Occured!')", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
         }
         [WebMethod]
@@ -202,8 +211,9 @@ namespace DealerManagementSystem.ViewMarketing
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ky", "alert(\"" + ex.Message + "\")", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
         }
         protected void btnExportAll_Click(object sender, EventArgs e)
@@ -261,8 +271,9 @@ namespace DealerManagementSystem.ViewMarketing
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ky", "alert(\"" + ex.Message + "\")", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
 
         }

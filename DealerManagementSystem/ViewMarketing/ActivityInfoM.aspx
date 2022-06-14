@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ActivityInfoM.aspx.cs" Inherits="DealerManagementSystem.ViewMarketing.ActivityInfoM" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script type="text/javascript">
+    <script type="text/javascript" >
         function Initialize() {
             ddlActivity = document.getElementById('<%=ddlActivity.ClientID%>');
             ddlFunctionalArea = document.getElementById('<%=ddlFunctionalArea.ClientID%>');
@@ -293,4 +293,3 @@
     </div>
     <asp:HiddenField ID="hdnSWidth" runat="server" />
 </asp:Content>
-

@@ -4,11 +4,10 @@
 <style>
     .sapMNCValueScr {
         overflow: hidden;
-        left: 0;
-        width: 100%;
-        text-align: right;
         color: #e78c07;
         font-size: 2.25rem;
+        float: left;
+        margin-top: 43px;
     }
 </style>
 <div class="tile-size-two grid-item">
@@ -17,9 +16,11 @@
             <div class="desc">
                 <asp:Label ID="Label1" Text="Mean Time to Respond (MTTR-1) < 8 Hrs" runat="server" />
             </div>
-            <asp:Label ID="lblMTTR1" runat="server" CssClass="sapMNCValueScr" />
+            <div class="details-position">
+                <%--<div id="donut_single" style="width: 100px; height: 100px;"></div>--%>
+                <asp:Label ID="lblMTTR1" runat="server" CssClass="sapMNCValueScr" />
+            </div>
 
-            <div id="donut_single" style="width: 100px; height: 100px;"></div>
         </div>
     </div>
 </div>
@@ -29,7 +30,11 @@
             <div class="desc">
                 <asp:Label ID="Label12" Text="Mean Time to Restore (MTTR-2) < 48 Hrs" runat="server" />
             </div>
-            <asp:Label ID="lblMTTR2" runat="server" />
+
+            <div class="details-position">
+                <%--<div id="donut_single" style="width: 100px; height: 100px;"></div>--%>
+                <asp:Label ID="lblMTTR2" runat="server" CssClass="sapMNCValueScr" />
+            </div>
         </div>
     </div>
 </div>
@@ -40,9 +45,11 @@
             <div class="desc">
                 <asp:Label ID="Label14" Text="First Time Right for Warranty Service" runat="server" />
             </div>
-            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/DMS_DashFirstTimeRightForWarrantyService.aspx">
-                <asp:Label ID="lblFTRWS" runat="server" />
-            </asp:HyperLink>
+            <div class="details-position">
+                <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/DMS_DashFirstTimeRightForWarrantyService.aspx">
+                    <asp:Label ID="lblFTRWS" runat="server" CssClass="sapMNCValueScr" />
+                </asp:HyperLink>
+            </div>
         </div>
     </div>
 </div>
@@ -52,11 +59,11 @@
             <div class="desc">
                 <asp:Label ID="Label16" Text="Warranty Parts Availability With Dealers" runat="server" />
             </div>
-            <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/DMS_DashWarrantyMaterialAnalysis.aspx">
-                <asp:Label ID="lblWPAD" runat="server" />
-            </asp:HyperLink>
-
-
+            <div class="details-position">
+                <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/DMS_DashWarrantyMaterialAnalysis.aspx">
+                    <asp:Label ID="lblWPAD" runat="server" CssClass="sapMNCValueScr" />
+                </asp:HyperLink>
+            </div> 
         </div>
     </div>
 </div>

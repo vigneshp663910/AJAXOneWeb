@@ -1175,9 +1175,13 @@ namespace Business
                 }
             }
             catch (SqlException sqlEx)
-            { }
+            {
+                throw sqlEx;
+            }
             catch (Exception ex)
-            { }
+            {
+                throw ex;
+            }
             return EMP;
         }
 
