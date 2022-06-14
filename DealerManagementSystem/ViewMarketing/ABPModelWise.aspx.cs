@@ -57,12 +57,14 @@ namespace DealerManagementSystem.ViewMarketing
                     oPlan.SaveABP(DealerID, Year, iMonth, "MDL", Convert.ToInt32(ddlModel.SelectedValue), Convert.ToInt32("0" + txt.Text), PSession.User.UserID);
                 }
                 BindGrid();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Saved Successfully!')", true);
+                lblMessage.Text = "Saved Successfully...!";
+                lblMessage.Visible = true;
             }
             catch (Exception ex)
             {
-                ExceptionLogger.LogError("While saving ABP Plan", ex);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "key", "alert('Error Occured!')", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
         }
         [WebMethod]
@@ -132,7 +134,6 @@ namespace DealerManagementSystem.ViewMarketing
         }
         protected void BindGrid()
         {
-
             DataTable dtPlan = oPlan.GetABPForDealer(Convert.ToInt32(ddlDealer.SelectedValue), ddlYear.SelectedValue);
             if (dtPlan.Rows.Count == 0)
             {
@@ -207,8 +208,9 @@ namespace DealerManagementSystem.ViewMarketing
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ky", "alert(\"" + ex.Message + "\")", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
         }
 
@@ -268,8 +270,9 @@ namespace DealerManagementSystem.ViewMarketing
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ky", "alert(\"" + ex.Message + "\")", true);
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                return;
             }
 
         }
