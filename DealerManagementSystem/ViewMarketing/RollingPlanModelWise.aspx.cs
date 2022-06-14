@@ -256,7 +256,20 @@ namespace DealerManagementSystem.ViewMarketing
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
-            DataTable dtCalPlan = oPlan.GetPlanForDealer(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+            int? DealerID=null, Month=null, Year=null;
+            if (ddlDealer.SelectedValue != "0")
+            {
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            }
+            if (ddlMonth.SelectedValue != "0")
+            {
+                Month = Convert.ToInt32(ddlMonth.SelectedValue);
+            }
+            if (ddlYear.SelectedValue != "0")
+            {
+                Year = Convert.ToInt32(ddlYear.SelectedValue);
+            }
+            DataTable dtCalPlan = oPlan.GetPlanForDealer(DealerID, Month, Year);
             dtCalPlan.Columns.Remove("ModelID");
             dtCalPlan.Columns.Remove("Tag");
             if (dtCalPlan.Rows.Count > 0)
