@@ -19,7 +19,6 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-
         public List<PActivityType> GetActivityType(int? ActivityTypeID, string ActivityTypeCode, string ActivityTypeName, DateTime? LastSyncDate)
         {
             List<PActivityType> ActivityTypes = new List<PActivityType>();
@@ -51,7 +50,6 @@ namespace Business
             { }
             return ActivityTypes;
         }
-
         public List<PActivityReferenceType> GetActivityReferenceType(int? ActivityReferenceTableID, string ReferenceTable)
         {
             List<PActivityReferenceType> ActivityReferenceTypes = new List<PActivityReferenceType>();
@@ -81,8 +79,7 @@ namespace Business
             catch (Exception ex)
             { }
             return ActivityReferenceTypes;
-        }
-       
+        }       
         public List<PActivity> GetActivity(PActivitySearch ActivityS, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -103,7 +100,7 @@ namespace Business
 
 
                 PActivity Activity = new PActivity();
-                using (DataSet DataSet = provider.Select("GetActivityNew", Params))
+                using (DataSet DataSet = provider.Select("GetActivity", Params))
                 {
                     if (DataSet != null)
                     {
@@ -138,7 +135,6 @@ namespace Business
             }
             return Activities;
         }
-
         public long InsertOrUpdateActivity(PActivity Activity)
         {
             int success;
@@ -170,41 +166,23 @@ namespace Business
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("InsertOrUpdateActivityNew", Params);
+                    success = provider.Insert("InsertOrUpdateActivity", Params);
                     scope.Complete();
                 }
                 ActivityOut = Convert.ToInt64(OutP.Value);
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BActivity", "InsertOrUpdateActivityNew", sqlEx);
+                new FileLogger().LogMessage("BActivity", "InsertOrUpdateActivity", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BActivity", " InsertOrUpdateActivityNew", ex);
+                new FileLogger().LogMessage("BActivity", " InsertOrUpdateActivity", ex);
                 throw ex;
             }
             return ActivityOut;
         }
-
-        //public int PendingUserActivitiy(int UserID)
-        //{
-        //    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-        //    DbParameter[] Params = new DbParameter[1] { UserIDP };
-        //    using (DataSet DataSet = provider.Select("PendingUserActivitiy", Params))
-        //    {
-        //        if (DataSet != null)
-        //        {
-        //            foreach (DataRow dr in DataSet.Tables[0].Rows)
-        //            {
-        //                return Convert.ToInt32(dr["Count"]);
-        //            }
-        //        }
-        //    }
-        //    return 1;
-        //}
-
         public List<PActivity> GetPendingUserActivitiy(int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -233,7 +211,7 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
+                new FileLogger().LogMessage("BActivity", "GetPendingUserActivitiy", ex);
                 throw ex;
             }
             return Activities;
