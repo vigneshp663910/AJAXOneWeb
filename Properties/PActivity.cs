@@ -40,6 +40,7 @@ namespace Properties
         public DateTime ModifiedOn { get; set; }
         public PActivityReferenceType ActivityReference { get; set; }
         public string ReferenceNumber { get; set; }
+        public long ReferenceID { get; set; }
     }   
 
     [Serializable]
@@ -52,6 +53,19 @@ namespace Properties
         public DateTime CreatedOn { get; set; }
         public PUser ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+    }
+
+    [Serializable]
+    public class PActivitySearch
+    {
+        public long? ActivityID { get; set; }
+        public int? ActivityTypeID { get; set; }
+        public DateTime? ActivityDateFrom { get; set; }
+        public DateTime? ActivityDateTo{ get; set; }
+        public string CustomerCode { get; set; }
+        public string EquipmentSerialNo { get; set; }
+        public int? ActivityReferenceTableID { get; set; }
+        public string ReferenceNumber { get; set; }
     }
 }
 

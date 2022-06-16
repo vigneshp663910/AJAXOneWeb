@@ -33,13 +33,13 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.HiddenField hfLongitude;
 
         /// <summary>
-        /// lblMessage control.
+        /// lblActivityMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label lblActivityMessage;
 
         /// <summary>
         /// divList control.
@@ -51,13 +51,13 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// Fieldset2 control.
+        /// Fieldset1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
         /// ddlActivityType control.
@@ -114,13 +114,22 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.TextBox txtEquipment;
 
         /// <summary>
-        /// ddlReference control.
+        /// ddlReferenceType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReference;
+        protected global::System.Web.UI.WebControls.DropDownList ddlReferenceType;
+
+        /// <summary>
+        /// txtReferenceNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReferenceNumber;
 
         /// <summary>
         /// btnSearchActivity control.
@@ -177,24 +186,6 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.GridView gvActivity;
 
         /// <summary>
-        /// divDetailsActivity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsActivity;
-
-        /// <summary>
-        /// btnBackToList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBackToList;
-
-        /// <summary>
         /// lnkMPE control.
         /// </summary>
         /// <remarks>
@@ -240,13 +231,13 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.Label lblAddActivityMessage;
 
         /// <summary>
-        /// Fieldset1 control.
+        /// Fieldset2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
 
         /// <summary>
         /// ddlActivityTypeS control.
@@ -267,13 +258,13 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.Label lblStartActivityDate;
 
         /// <summary>
-        /// btnStartActivity control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStartActivity;
+        protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
         /// MPE_AddActivity control.
@@ -294,13 +285,13 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.Panel pnlEndActivity;
 
         /// <summary>
-        /// Button1 control.
+        /// btnEndActivityClose control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnEndActivityClose;
 
         /// <summary>
         /// lblEndActivityMessage control.
@@ -319,6 +310,15 @@ namespace DealerManagementSystem.ViewActivity
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset3;
+
+        /// <summary>
+        /// lblActivityIDE control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActivityIDE;
 
         /// <summary>
         /// lblActivityTypeE control.
@@ -393,13 +393,13 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.DropDownList ddlReferenceTypeE;
 
         /// <summary>
-        /// txtReferenceNumber control.
+        /// txtReferenceNumberE control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReferenceNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtReferenceNumberE;
 
         /// <summary>
         /// txtRemarks control.
