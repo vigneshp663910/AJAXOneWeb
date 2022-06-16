@@ -254,6 +254,10 @@ namespace Properties
         public int? ApprovedBy { get; set; }
         public DateTime? ApprovedOn { get; set; }
         public Boolean IsActive { get; set; }
+
+        public Boolean IsRejected { get; set; }
+        public DateTime? RejectedOn { get; set; }
+        public int? RejectedBy { get; set; }
     }
     [Serializable]
     public class PDashboard
