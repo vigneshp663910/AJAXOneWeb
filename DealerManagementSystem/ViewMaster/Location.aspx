@@ -550,8 +550,8 @@
                                 </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkBtnDistrictEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' OnClick="lnkBtnDistrictEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                                        <asp:LinkButton ID="lnkBtnDistrictDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "State.StateID")%>' OnClick="lnkBtnDistrictDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkBtnDistrictEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' OnClick="lnkBtnDistrictEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkBtnDistrictDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' OnClick="lnkBtnDistrictDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                                     </ItemTemplate>
                                                     <FooterTemplate>
                                                         <asp:Button ID="BtnAddOrUpdateDistrict" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddOrUpdateDistrict_Click" Width="70px" Height="33px" />

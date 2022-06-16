@@ -242,9 +242,9 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 Boolean Success = true;
-                Button BtnAddOrUpdateCountry = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateCountry");
+                Button BtnAddOrUpdateCountry = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateSalCommClaimPrice");
 
-                DropDownList ddlPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlPlant");
+                DropDownList ddlPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant");
                 if (ddlPlant.SelectedValue == "0")
                 {
                     lblMessage.Text = "Please select Plant.";
