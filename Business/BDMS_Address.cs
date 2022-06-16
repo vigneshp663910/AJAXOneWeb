@@ -96,10 +96,12 @@ namespace Business
             catch (SqlException sqlEx)
             {
                 new FileLogger().LogMessage("BDMS_Address", "ZDMS_InsertOrUpdateAddressCountry", sqlEx);
+                throw sqlEx;
             }
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("BDMS_Address", " ZDMS_InsertOrUpdateAddressCountry", ex);
+                throw ex;
             }
 
             TraceLogger.Log(DateTime.Now);
