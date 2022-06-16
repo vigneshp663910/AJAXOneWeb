@@ -97,7 +97,9 @@ namespace Business
                                 OfficeCode = Convert.ToString(dr["OfficeCode"]),
                                 OfficeName = Convert.ToString(dr["OfficeName"]),
                                 OfficeName_OfficeCode = Convert.ToString(dr["OfficeName"]) + " " + Convert.ToString(dr["OfficeCode"]),
-                                SapLocationCode = Convert.ToString(dr["SapLocationCode"])
+                                SapLocationCode = Convert.ToString(dr["SapLocationCode"]),
+                                Address1 = Convert.ToString(dr["Address1"]),
+                                Address2 = Convert.ToString(dr["Address2"])
                             });
                         }
                     }

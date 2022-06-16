@@ -27,13 +27,13 @@ namespace DealerManagementSystem.ViewActivity
 
             if (!IsPostBack)
             {
-                List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null, null, true);
+                List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null, null, null);
                 new DDLBind(ddlActivityType, ActivityType, "ActivityTypeName", "ActivityTypeID");
 
-                List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null, true);
+                List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
                 new DDLBind(ddlReference, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
 
-                txtActivityDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txtActivityDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
                 txtActivityDateFrom.TextMode = TextBoxMode.Date;
 
                 txtActivityDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -113,7 +113,7 @@ namespace DealerManagementSystem.ViewActivity
             txtActivityDateTo.BorderColor = Color.Silver;
             ddlActivityType.BorderColor = Color.Silver;
             txtCustomerCode.BorderColor = Color.Silver;
-            txtCustomerName.BorderColor = Color.Silver;
+            //txtCustomerName.BorderColor = Color.Silver;
             
             //if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
             //{
@@ -205,13 +205,14 @@ namespace DealerManagementSystem.ViewActivity
         void FillActivity()
         {
             int? ActivityTypeID = ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue);
+            Int64? ActivityID = string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim());
             DateTime? ActivityDateFrom = string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateFrom.Text.Trim());
             DateTime? ActivityDateTo = string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateTo.Text.Trim());
             Int64? CustomerCode = string.IsNullOrEmpty(txtCustomerCode.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtCustomerCode.Text.Trim());
-            string CustomerName = string.IsNullOrEmpty(txtCustomerName.Text.Trim()) ? (string)null : Convert.ToString(txtCustomerName.Text.Trim());
+            //string CustomerName = string.IsNullOrEmpty(txtCustomerName.Text.Trim()) ? (string)null : Convert.ToString(txtCustomerName.Text.Trim());
             string Equipment = string.IsNullOrEmpty(txtEquipment.Text.Trim()) ? (string)null : Convert.ToString(txtEquipment.Text.Trim());
             int? ReferenceID = ddlReference.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReference.SelectedValue);
-            Activity1 = new BActivity().GetActivity(ActivityTypeID, ActivityDateFrom, ActivityDateTo, CustomerCode, CustomerName, Equipment, ReferenceID);
+            Activity1 = new BActivity().GetActivity(ActivityTypeID, ActivityID, ActivityDateFrom, ActivityDateTo, CustomerCode, Equipment, ReferenceID);
 
             gvActivity.DataSource = Activity1;
             gvActivity.DataBind();
@@ -232,17 +233,22 @@ namespace DealerManagementSystem.ViewActivity
         }
 
         protected void btnAddActivity_Click(object sender, EventArgs e)
-        {
+        {            
             if (1 == 0)
             {
+                lblEndActivityDate.Text = DateTime.Now.ToString();
                 MPE_EndActivity.Show();
             }
             else
             {
-                MPE_Activity.Show();
-                lblActivityDate.Text = DateTime.Now.ToString();
+                List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null, null, null);
+                new DDLBind(ddlActivityTypeS, ActivityTypeS, "ActivityTypeName", "ActivityTypeID");
+                lblStartActivityDate.Text = DateTime.Now.ToString();
+                MPE_AddActivity.Show();
+                
             } 
         }
+
         [WebMethod]
         public static List<string> GetCustomer(string CustS)
         {
@@ -288,16 +294,125 @@ namespace DealerManagementSystem.ViewActivity
         protected void gvActivities_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
+        }        
 
-        protected void btnStart_Click(object sender, EventArgs e)
+        protected void btnStartActivity_Click(object sender, EventArgs e)
         {
-            string Latitude = hfLatitude.Value;
-            string Longitude = hfLongitude.Value;
+            //string Latitude = hfLatitude.Value;
+            //string Longitude = hfLongitude.Value;
+            MPE_AddActivity.Show();
+            PActivity Activity = new PActivity();
+            lblAddActivityMessage.ForeColor = Color.Red;
+            lblAddActivityMessage.Visible = true;
+            //string Message = "";
+            Boolean Success = true;
+
+            //Message = ValidationActivity();
+            //if (!string.IsNullOrEmpty(Message))
+            //{
+            //    lblMessageActivity.Text = Message;
+            //    return;
+            //}
+            Activity.ActivityStartLatitude = Convert.ToDecimal(hfLatitude.Value);
+            Activity.ActivityStartLongitude = Convert.ToDecimal(hfLongitude.Value);
+            Activity.ActivityType = new PActivityType();
+            Activity.ActivityType.ActivityTypeID = Convert.ToInt32(ddlActivityTypeS.SelectedValue);
+            Activity.ActivityStartDate = Convert.ToDateTime(txtActivityDateFrom.Text.Trim());
+            Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+
+
+            Success = new BActivity().InsertOrUpdateActivity(Activity);
+            if (Success == true)
+            {
+                lblMessage.Text = "Activity is added successfully.";
+                lblMessage.ForeColor = Color.Green;
+                MPE_AddActivity.Hide();
+                return;
+            }
+            else if (Success == false)
+            {
+                lblMessage.Text = "Activity is already found.";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            else
+            {
+                lblMessage.Text = "Activity not created successfully.";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
         }
 
         protected void btnEndActivity_Click(object sender, EventArgs e)
         {
+            MPE_EndActivity.Show();
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
+            Label lblActivityTypeID = (Label)gvRow.FindControl("lblActivityTypeID");
+            Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
+            lblActivityTypeE.Text = lblActivityType.Text;
+            lblEndActivityDate.Text = DateTime.Now.ToString();
+            List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
+            new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+            ViewState["ActivityID"] = lblActivityID.Text;
+            PActivity Activity = new PActivity();
+            lblEndActivityMessage.ForeColor = Color.Red;
+            lblEndActivityMessage.Visible = true;
+        }
+
+        protected void btnEndActivityE_Click(object sender, EventArgs e)
+        {
+            MPE_EndActivity.Show();
+            PActivity Activity = new PActivity();
+            lblEndActivityMessage.ForeColor = Color.Red;
+            lblEndActivityMessage.Visible = true;
+            //string Message = "";
+            Boolean Success = true;
+
+            //Message = ValidationActivity();
+            //if (!string.IsNullOrEmpty(Message))
+            //{
+            //    lblMessageActivity.Text = Message;
+            //    return;
+            //}
+            Activity.ActivityID = Convert.ToInt32(ViewState["ActivityID"]);
+            Activity.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
+            Activity.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
+            Activity.ActivityType = new PActivityType();
+            //Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeID.Text);
+            Activity.ActivityEndDate = Convert.ToDateTime(txtActivityDateTo.Text.Trim());
+            Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+            Activity.Location = Convert.ToString(txtLocation.Text.Trim());
+            Activity.Customer = new PDMS_Customer();
+            Activity.Customer.CustomerCode = Convert.ToString(txtCustomerCodeE.Text.Trim());
+            Activity.Equipment = new PDMS_EquipmentHeader();
+            Activity.Equipment.EquipmentSerialNo = Convert.ToString(txtEquipmentE.Text.Trim());
+            Activity.Amount = Convert.ToDecimal(txtAmount.Text.Trim());
+            Activity.ActivityReference = new PActivityReferenceType();
+            Activity.ActivityReference.ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue);
+            Activity.ReferenceNumber = Convert.ToString(txtReferenceNumber.Text.Trim());
+            Activity.Remark = Convert.ToString(txtRemarks.Text.Trim());
+
+            Success = new BActivity().InsertOrUpdateActivity(Activity);
+            if (Success == true)
+            {
+                lblMessage.Text = "Activity is ended successfully.";
+                lblMessage.ForeColor = Color.Green;
+                MPE_EndActivity.Hide();
+                return;
+            }
+            else if (Success == false)
+            {
+                lblMessage.Text = "Activity is already found.";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            else
+            {
+                lblMessage.Text = "Activity not ended successfully.";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
 
         }
     }

@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-       
+
 
 
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
@@ -186,8 +186,8 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-      <asp:HiddenField ID="hfLatitude" runat="server" />
-            <asp:HiddenField ID="hfLongitude" runat="server" />
+    <asp:HiddenField ID="hfLatitude" runat="server" />
+    <asp:HiddenField ID="hfLongitude" runat="server" />
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -215,10 +215,10 @@
                         <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
 
-                    <div class="col-md-2 text-left">
+                    <%--<div class="col-md-2 text-left">
                         <label>Customer Name</label>
                         <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>
+                    </div>--%>
                     <div class="col-md-2 text-left">
                         <label>Equipment</label>
                         <asp:TextBox ID="txtEquipment" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -272,16 +272,17 @@
                                         <asp:Label ID="lblActivityID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityID")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Sales Engineer">
+                                <%--<asp:TemplateField HeaderText="Sales Engineer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "ActivitySalesEngineer")%>' runat="server" />
+                                        <asp:Label ID="lblSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "PUser.SalesEngineer")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Activity Type">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblActivityType" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType")%>' runat="server" />
+                                        <asp:Label ID="lblActivityType" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeName")%>' runat="server" />
+                                        <asp:Label ID="lblActivityTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Start Date" SortExpression="Start Date">
@@ -291,7 +292,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="End Date" SortExpression="End Date">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityStartDate","{0:d}")%>' runat="server" />
+                                        <asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityEndDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Location" SortExpression="Location">
@@ -301,19 +302,15 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Customer" SortExpression="Customer Code">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCustomer" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerCode")%>' runat="server" />
+                                        <asp:Label ID="lblCustomer" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Equipment" SortExpression="Equipment">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment")%>' runat="server" />
+                                        <asp:Label ID="lblEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentSerialNo")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%--<asp:TemplateField HeaderText="Remark" SortExpression="Remark">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
+
                                 <asp:TemplateField HeaderText="Amount" SortExpression="Amount">
                                     <ItemTemplate>
                                         <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
@@ -321,12 +318,18 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Referenece" SortExpression="Referenece">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblReferenece" Text='<%# DataBinder.Eval(Container.DataItem, "Referenece")%>' runat="server" />
+                                        <asp:Label ID="lblReferenece" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityReference.ReferenceTable")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
+                                <asp:TemplateField HeaderText="Referenece Number" SortExpression="Referenece">
                                     <ItemTemplate>
-                                        <%--   <asp:Button ID="btnViewActivity" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewActivity_Click" Width="75px" Height="25px" />--%>
+                                        <asp:Label ID="lblReferenceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceNumber")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action">
+
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click" Width="95px" Height="25px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -357,96 +360,144 @@
     </div>
 
 
-    <asp:Panel ID="pnlActivity" runat="server" CssClass="Popup" Style="display: none">
+    <%--<asp:Panel ID="pnlAddActivity" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <span id="PopupDialogueAddActivity">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
+
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblMessageActivity" runat="server" Text="" CssClass="message" Visible="false" />
-                <fieldset class="fieldset-border">
-                    <div id="divCustomerCreateID">
-                        <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                            <div class="col-md-12">
-                                <div class="col-md-2 text-left">
-                                    <label>Activity Type</label>
-                                    <asp:DropDownList ID="ddlActivityTypeS" runat="server" CssClass="form-control" />
-                                </div>
-                                <div class="col-md-2 text-left">
-                                    <label>Activity Date</label>
-                                    <asp:Label ID="lblActivityDate" runat="server" Text="" CssClass="message" />
-                                </div>
-
-                                <div class="col-md-12 text-center">
-                                    <asp:Button ID="btnStart" runat="server" CssClass="btn Save" Text="Start" OnClick="btnStart_Click" Width="150px"></asp:Button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
+                <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                    <asp:Label ID="lblAddActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
+                    <div class="col-md-12">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="modal-label" runat="server">Activity Type</label>
+                            <asp:DropDownList ID="ddlActivityTypeS" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label" runat="server">Start Date</label>
+                            <asp:Label ID="lblStartActivityDate" runat="server" Text="" CssClass="form-control" />
+                        </div>
+                        </div>
                 </fieldset>
             </div>
             <div class="col-md-12 text-center">
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
-            </div>
+            <asp:button id="btnStart" runat="server" cssclass="btn Save" Text="Start" OnClick="btnStart_Click" />
+        </div>
         </div>
     </asp:Panel>
-    <asp1:ModalPopupExtender ID="MPE_Activity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    <asp1:ModalPopupExtender ID="MPE_AddActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />--%>
+
+
+    <asp:panel id="pnlAddActivity" runat="server" cssclass="Popup" style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:button id="btnAddActivityClose" runat="server" text="X" cssclass="PopupClose" />
+        </a>
+    </div>
+    <asp:label id="lblAddActivityMessage" runat="server" text="" cssclass="message" visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Activity Type</label>
+                        <asp:dropdownlist id="ddlActivityTypeS" runat="server" cssclass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Start Date</label>
+                        <asp:Label ID="lblStartActivityDate" runat="server" Text="" CssClass="message" />
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:button id="btnStartActivity" runat="server" text="Start" cssclass="btn Save" onclick="btnStartActivity_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        
+    </div>
+</asp:panel>
+<ajaxtoolkit:modalpopupextender id="MPE_AddActivity" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlAddActivity" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+
 
     <asp:Panel ID="pnlEndActivity" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <span id="PopupDialogueEndActivity">End Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
-                <fieldset class="fieldset-border"> 
-                    <fieldset class="fieldset-border" id="Fieldset3" runat="server">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                        <div class="col-md-12">
-                            <div class="col-md-2 text-left">
-                                <label>Activity Type</label>
-                                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" />
-                            </div>
-                            <div class="col-md-2 text-left">
-                                <label>Activity Date</label>
-                                <asp:Label ID="Label2" runat="server" Text="" CssClass="message" />
-                            </div>
-
-                            <div class="col-md-12 text-center">
-                                <asp:Button ID="btnEndActivity" runat="server" CssClass="btn Save" Text="End Activity" OnClick="btnEndActivity_Click" Width="150px"></asp:Button>
-                            </div>
+                <asp:Label ID="lblEndActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
+                <fieldset class="fieldset-border" id="Fieldset3" runat="server">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 text-left">
+                            <label>Activity Type</label>
+                            <asp:Label ID="lblActivityTypeE" runat="server" Text="" CssClass="message" />
+                            <asp:Label ID="lblActivityTypeIDE" runat="server" Text="" CssClass="message" Visible="false" />
                         </div>
-                    </fieldset>
+                        <div class="col-md-2 text-left">
+                            <label>End Date</label>
+                            <asp:Label ID="lblEndActivityDate" runat="server" Text="" CssClass="message" />
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Location</label>
+                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Customer Code</label>
+                            <asp:TextBox ID="txtCustomerCodeE" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Equipment</label>
+                            <asp:TextBox ID="txtEquipmentE" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Amount</label>
+                            <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Reference Type</label>
+                            <asp:DropDownList ID="ddlReferenceTypeE" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Reference Number</label>
+                            <asp:TextBox ID="txtReferenceNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <label>Remarks</label>
+                            <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <asp:Button ID="btnEndActivityE" runat="server" CssClass="btn Save" Text="End Activity" OnClick="btnEndActivityE_Click" Width="150px"></asp:Button>
+                        </div>
+                    </div>
                 </fieldset>
-            </div>
-            <div class="col-md-12 text-center">
-                <asp:Button ID="Button3" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
             </div>
         </div>
     </asp:Panel>
     <asp1:ModalPopupExtender ID="MPE_EndActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEndActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
- <script> 
-     function success(position) { 
-         const latitude = position.coords.latitude;
-         const longitude = position.coords.longitude; 
-         document.getElementById('MainContent_hfLatitude').value = latitude;
-         document.getElementById('MainContent_hfLongitude').value = longitude;
-         status.textContent = ''; 
-     }
-     function error() {
-         status.textContent = 'Unable to retrieve your location';
-     }
+    <script> 
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById('MainContent_hfLatitude').value = latitude;
+            document.getElementById('MainContent_hfLongitude').value = longitude;
+            status.textContent = '';
+        }
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
 
-     if (!navigator.geolocation) {
-         status.textContent = 'Geolocation is not supported by your browser';
+        if (!navigator.geolocation) {
+            status.textContent = 'Geolocation is not supported by your browser';
 
-     } else {
-         status.textContent = 'Locating…';
-         navigator.geolocation.getCurrentPosition(success, error);
-     } 
- </script>
+        } else {
+            status.textContent = 'Locating…';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+    </script>
 </asp:Content>
