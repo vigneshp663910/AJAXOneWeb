@@ -17,7 +17,23 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         }
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
-        { 
+        {
+            if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
+            {
+                FillGetServiceType(2);
+            }
+            else if (SDMS_ICTicket.IsWarranty == true)
+            {
+                FillGetServiceType(1);
+            }
+            else
+            {
+                FillGetServiceType(0);
+            }
+            FillGetServicePriority();
+            FillGetDealerOffice(SDMS_ICTicket.Dealer.DealerID);
+            new BDMS_TypeOfWarranty().GetTypeOfWarrantyDDL(ddlTypeOfWarranty, null, null);
+
             txtLocation.Text = SDMS_ICTicket.Location;
             if (SDMS_ICTicket.DealerOffice != null)
                 ddlDealerOffice.SelectedValue = SDMS_ICTicket.DealerOffice.OfficeID.ToString();
@@ -56,7 +72,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 ddlReachedMM.SelectedValue = "0";
             }
-            
+
             if (SDMS_ICTicket.ServiceType != null)
             {
                 ddlServiceType.SelectedValue = SDMS_ICTicket.ServiceType.ServiceTypeID.ToString();
@@ -84,11 +100,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             if (SDMS_ICTicket.ServicePriority != null)
                 ddlServicePriority.SelectedValue = SDMS_ICTicket.ServicePriority.ServicePriorityID.ToString();
-          //  lblHMRValue.Text = "Current HMR Value" + " ( " + SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM + " ) ";
+            //  lblHMRValue.Text = "Current HMR Value" + " ( " + SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM + " ) ";
             txtHMRDate.Text = SDMS_ICTicket.CurrentHMRDate == null ? "" : ((DateTime)SDMS_ICTicket.CurrentHMRDate).ToShortDateString();
             txtHMRValue.Text = Convert.ToString(SDMS_ICTicket.CurrentHMRValue);
-             
-             
+
+
 
             FillMainApplication();
             if (SDMS_ICTicket.MainApplication != null)
@@ -151,12 +167,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlServiceType.DataTextField = "ServiceType";
             ddlServiceType.DataValueField = "ServiceTypeID";
             ddlServiceType.DataSource = new BDMS_Service().GetServiceType(null, null, IsWarranty);
-             
+
 
             ddlServiceType.DataBind();
             ddlServiceTypeOverhaul.DataSource = new BDMS_Service().GetServiceTypeddlServiceTypeOverhaul(null, null);
             ddlServiceTypeOverhaul.DataBind();
-            ddlServiceTypeOverhaul.Items.Insert(0, new ListItem("Select", "0")); 
+            ddlServiceTypeOverhaul.Items.Insert(0, new ListItem("Select", "0"));
         }
         private void FillGetServicePriority()
         {
@@ -173,7 +189,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
             ddlDealerOffice.DataBind();
             ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-        } 
+        }
 
         private void FillMainApplication()
         {
@@ -190,15 +206,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlSubApplication.DataSource = new BDMS_Service().GetSubApplication(Convert.ToInt32(ddlMainApplication.SelectedValue), null, null);
             ddlSubApplication.DataBind();
             ddlSubApplication.Items.Insert(0, new ListItem("Select", "0"));
-        } 
+        }
 
         protected void ddlMainApplication_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillSubApplication();
-            //    btnSave.Focus();
+            FillSubApplication(); 
         }
-       
-      public  string ValidationReached(PDMS_ICTicket SDMS_ICTicket)
+
+        public string ValidationReached(PDMS_ICTicket SDMS_ICTicket)
         {
             string Message = "";
             txtReachedDate.BorderColor = Color.Silver;
@@ -206,34 +221,34 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             if (string.IsNullOrEmpty(txtDepartureDate.Text.Trim()))
             {
-                Message = Message + "<br/> Please Enter the Departure Date"; 
+                Message = Message + "<br/> Please Enter the Departure Date";
             }
             if (ddlDepartureHH.SelectedValue == "-1")
             {
-                Message = Message + "<br/> Please Enter the Departure Hour"; 
+                Message = Message + "<br/> Please Enter the Departure Hour";
             }
             if (ddlDepartureMM.SelectedValue == "0")
             {
-                Message = Message + "<br/> Please Enter the Departure Minute"; 
+                Message = Message + "<br/> Please Enter the Departure Minute";
             }
 
 
             if (string.IsNullOrEmpty(txtReachedDate.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Reached Date"; 
+                Message = Message + "<br/>Please enter the Reached Date";
                 txtReachedDate.BorderColor = Color.Red;
             }
             else
             {
                 if (ddlReachedHH.SelectedValue == "-1")
                 {
-                    Message = Message + "<br/>Please select the Reached Hour"; 
+                    Message = Message + "<br/>Please select the Reached Hour";
                     ddlReachedHH.BorderColor = Color.Red;
                 }
 
                 if (ddlReachedMM.SelectedValue == "0")
                 {
-                    Message = Message + "<br/>Please select the Reached Minute"; 
+                    Message = Message + "<br/>Please select the Reached Minute";
                     ddlReachedMM.BorderColor = Color.Red;
                 }
 
@@ -241,7 +256,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Location"; 
+                Message = Message + "<br/>Please enter the Location";
                 txtLocation.BorderColor = Color.Red;
             }
 
@@ -255,12 +270,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 if (!int.TryParse("0" + txtHMRValue.Text, out value))
                 {
-                    Message = Message + "<br/> Please enter integer in HMR Value"; 
+                    Message = Message + "<br/> Please enter integer in HMR Value";
                     txtHMRValue.BorderColor = Color.Red;
                 }
                 if (SDMS_ICTicket.LastHMRValue > Convert.ToInt32(txtHMRValue.Text.Trim()))
                 {
-                    Message = Message + "<br/>HMR value should not be less than last HMR value."; 
+                    Message = Message + "<br/>HMR value should not be less than last HMR value.";
                     txtHMRValue.BorderColor = Color.Red;
                 }
             }
@@ -269,11 +284,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 if (Convert.ToDateTime(txtReachedDate.Text.Trim()) > Convert.ToDateTime(txtHMRDate.Text.Trim()))
                 {
-                    Message = Message + "<br/>HMR date should not be less than Reached date."; 
+                    Message = Message + "<br/>HMR date should not be less than Reached date.";
                     txtHMRDate.BorderColor = Color.Red;
                 }
             }
-            return Message; 
+            return Message;
         }
 
         string ValidatetionRestore(PDMS_ICTicket SDMS_ICTicket)
@@ -283,80 +298,80 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlDealerOffice.BorderColor = Color.Silver;
             txtHMRDate.BorderColor = Color.Silver;
             txtHMRValue.BorderColor = Color.Silver;
-            
+
 
             ddlMainApplication.BorderColor = Color.Silver;
             ddlSubApplication.BorderColor = Color.Silver;
-             
-            string Message = ""; 
+
+            string Message = "";
             if (ddlServiceType.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Service Type"; 
+                Message = Message + "<br/>Please select the Service Type";
                 ddlServiceType.BorderColor = Color.Red;
             }
             if (ddlServicePriority.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Service Priority"; 
+                Message = Message + "<br/>Please select the Service Priority";
                 ddlServicePriority.BorderColor = Color.Red;
             }
 
             if (ddlDealerOffice.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Delivery Location"; 
+                Message = Message + "<br/>Please select the Delivery Location";
                 ddlDealerOffice.BorderColor = Color.Red;
             }
 
 
             if (string.IsNullOrEmpty(txtHMRDate.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the HMR Date"; 
+                Message = Message + "<br/>Please enter the HMR Date";
                 txtHMRDate.BorderColor = Color.Red;
             }
             else
             {
                 if (Convert.ToDateTime(txtReachedDate.Text.Trim()) > Convert.ToDateTime(txtHMRDate.Text.Trim()))
                 {
-                    Message = Message + "<br/>HMR date should not be less than Reached date."; 
+                    Message = Message + "<br/>HMR date should not be less than Reached date.";
                     txtHMRDate.BorderColor = Color.Red;
                 }
             }
             int value;
             if (string.IsNullOrEmpty(txtHMRValue.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the HMR Value"; 
+                Message = Message + "<br/>Please enter the HMR Value";
                 txtHMRValue.BorderColor = Color.Red;
             }
             else
             {
                 if (!int.TryParse("0" + txtHMRValue.Text, out value))
                 {
-                    Message = Message + "<br/>Please enter integer in HMR Value"; 
+                    Message = Message + "<br/>Please enter integer in HMR Value";
                     txtHMRValue.BorderColor = Color.Red;
                 }
                 if (SDMS_ICTicket.LastHMRValue > Convert.ToInt32(txtHMRValue.Text.Trim()))
                 {
-                    Message = Message + "<br/>HMR value should not be less than last HMR value."; 
+                    Message = Message + "<br/>HMR value should not be less than last HMR value.";
                     txtHMRValue.BorderColor = Color.Red;
                 }
             }
 
-             
+
             if (ddlMainApplication.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Main Application"; 
+                Message = Message + "<br/>Please select the Main Application";
                 ddlMainApplication.BorderColor = Color.Red;
                 ddlSubApplication.BorderColor = Color.Red;
             }
             else if (ddlSubApplication.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select the Sub Application"; 
+                Message = Message + "<br/>Please select the Sub Application";
                 ddlSubApplication.BorderColor = Color.Red;
-            } 
+            }
             //if (SS_ServiceCharge.Count == 0)
             //{
             //    Message = Message + "<br/>Please add service code in service charges screen."; 
             //}
-             
+
             return "";
 
         }
@@ -368,7 +383,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected void txtReachedDate_TextChanged(object sender, EventArgs e)
         {
             ValidateReachedDate();
-            WarrantyCalculation(); 
+            WarrantyCalculation();
         }
         void ValidateReachedDate()
         {
@@ -388,7 +403,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             //}
         }
         public void EnableOrDesableBasedOnServiceCharges()
-        { 
+        {
 
             //string ClaimNumber = "";
             //if (SS_ServiceCharge.Count != 0)
@@ -438,11 +453,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             //}
             //else if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
             //{
-                
+
             //}
             //else if (SDMS_ICTicket.IsMarginWarranty == true)
             //{
-               
+
             //}
             //else if (SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM == "Cum")
             //{
@@ -518,7 +533,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             else
             {
                 ddlServiceSubType.Visible = false;
-            } 
+            }
         }
         private void FillGetServiceSubType(int ServiceTypeID)
         {
@@ -529,6 +544,64 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected void txtSubApplicationEntry_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public PICTicketServiceConfirmation Read(PDMS_ICTicket ICTicket)
+        {
+            PICTicketServiceConfirmation IC = new PICTicketServiceConfirmation();
+
+            IC.DealerCode = ICTicket.Dealer.DealerCode;
+            IC.CustomerCode = ICTicket.Customer.CustomerCode;
+            IC.ICTicketID = ICTicket.ICTicketID;
+            IC.Location = txtLocation.Text.Trim();
+            IC.OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            IC.DepartureDate = string.IsNullOrEmpty(txtDepartureDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDepartureDate.Text.Trim() + " " + ddlDepartureHH.SelectedValue + ":" + ddlDepartureMM.SelectedValue);
+            IC.ReachedDate = string.IsNullOrEmpty(txtReachedDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtReachedDate.Text.Trim() + " " + ddlReachedHH.SelectedValue + ":" + ddlReachedMM.SelectedValue);
+
+            IC.ServiceTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceType.SelectedValue);
+            IC.ServiceSubTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceSubType.SelectedValue);
+
+            IC.ServiceTypeOverhaulID = ddlServiceTypeOverhaul.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceTypeOverhaul.SelectedValue);
+            IC.ServicePriorityID = ddlServicePriority.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServicePriority.SelectedValue);
+
+            IC.CurrentHMRDate = string.IsNullOrEmpty(txtHMRDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtHMRDate.Text.Trim());
+            IC.CurrentHMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim()) ? (int?)null : Convert.ToInt32(txtHMRValue.Text.Trim());
+
+            IC.IsWarranty = ICTicket.IsWarranty;
+
+            IC.TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
+
+
+            IC.MainApplicationID = ddlMainApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMainApplication.SelectedValue);
+            IC.SubApplicationID = ddlSubApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubApplication.SelectedValue);
+
+
+            IC.ScopeOfWork = txtScopeOfWork.Text.Trim();
+            IC.KindAttn = txtKindAttn.Text.Trim();
+            IC.Remarks = txtRemarks.Text.Trim();
+
+            IC.SiteContactPersonName = txtOperatorName.Text.Trim();
+            IC.SiteContactPersonNumber = txtSiteContactPersonNumber.Text.Trim();
+            IC.SiteContactPersonNumber2 = txtSiteContactPersonNumber2.Text.Trim();
+
+            if (ddlDesignation.SelectedValue != "0")
+            {
+                IC.SiteContactPersonDesignation = new PDMS_SiteContactPersonDesignation() { DesignationID = Convert.ToInt32(ddlDesignation.SelectedValue) };
+            }
+
+            IC.IsCess = cbCess.Checked;
+            IC.IsMachineActive = cbIsMachineActive.Checked;
+            IC.SubApplicationEntry = txtSubApplicationEntry.Text.Trim();
+
+            // DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            IC.NoClaim = cbNoClaim.Checked;
+            IC.NoClaimReason = txtNoClaimReason.Text.Trim();
+
+            IC.McEnteredServiceDate = string.IsNullOrEmpty(txtMcEnteredServiceDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtMcEnteredServiceDate.Text.Trim());
+            IC.ServiceStartedDate = string.IsNullOrEmpty(txtServiceStartedDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtServiceStartedDate.Text.Trim());
+            IC.ServiceEndedDate = string.IsNullOrEmpty(txtServiceEndedDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtServiceEndedDate.Text.Trim());
+
+            return IC;
         }
     }
 }

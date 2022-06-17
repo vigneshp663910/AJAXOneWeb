@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void FillMaster(int DealerID)
         {
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null,DealerID, true, null, null, 4); 
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null,DealerID, true, null, null, 8); 
             new DDLBind(ddlDealerSalesEngineer, DealerUser, "ContactName", "UserID");  
         }
         public int ReadAssignSE()

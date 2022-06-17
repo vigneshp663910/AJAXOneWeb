@@ -540,65 +540,77 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (lbActions.Text == "Add Technician")
             {
                 MPE_AddTechnician.Show();
-                UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID);
-
+                UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID); 
             }
-            else if (lbActions.Text == "Cancel Lead")
+            else if (lbActions.Text == "Edit Call Information")
             {
                 UC_ICTicketUpdateCallInformation.FillMaster(SDMS_ICTicket);
                 MPE_CallInformation.Show();
-            } 
-
-            //else if (lbActions.Text == "Convert to Prospect")
-            //{
-            //    string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
-            //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-            //    ShowMessage(Results);
-            //    if (Results.Status == PApplication.Failure)
-            //    {
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    fillViewLead(Lead.LeadID);
-            //}            
-            //else if (lbActions.Text == "Add Visit")
-            //{
-            //    MPE_Visit.Show();
-            //    new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
-            //    new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
-            //} 
-
+            }
+            else if (lbActions.Text == "Edit FSR")
+            {
+                UC_AddFSR.FillMaster(SDMS_ICTicket);
+                MPE_AddFSR.Show();
+            }
+            else if (lbActions.Text == "Add FSR Attachments")
+            {
+                UC_AddFSRAttachments.FillMaster(SDMS_ICTicket);
+                MPE_AddFSRAttachments.Show();
+            }
+            else if (lbActions.Text == "Add Other Machine")
+            {
+                UC_ICTicketAddOtherMachine.FillMaster(SDMS_ICTicket);
+                MPE_ICTicketAddOtherMachine.Show();
+            }
+            else if (lbActions.Text == "Add Service Charges")
+            {
+                UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
+                MPE_ICTicketAddServiceCharges.Show();
+            }
+            else if (lbActions.Text == "Add TSIR")
+            {
+                UC_AddTSIR.FillMaster(SDMS_ICTicket);
+                MPE_AddTSIR.Show();
+            }
+            else if (lbActions.Text == "Add Material Charges")
+            {
+                UC_ICTicketAddMaterialCharges.FillMaster(SDMS_ICTicket);
+                MPE_AddMaterialCharges.Show();
+            }
+            else if (lbActions.Text == "Add Notes")
+            {
+                UC_ICTicketAddNotes.FillMaster(SDMS_ICTicket);
+                MPE_ICTicketAddNotes.Show();
+            }
+            else if (lbActions.Text == "Add Technician Work")
+            {
+                UC_ICTicketAddTechnicianWork.FillMaster(SDMS_ICTicket);
+                MPE_AddTechnicianWork.Show();
+            }
+            else if (lbActions.Text == "Restore")
+            {
+                UC_ICTicketUpdateRestore.FillMaster(SDMS_ICTicket);
+                MPE_UpdateRestore.Show();
+            }
         }
 
 
         protected void lbTechnicianDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblLeadQuestionariesID = (Label)gvRow.FindControl("lblLeadQuestionariesID");
-            PLeadQuestionaries Questionaries = new PLeadQuestionaries();
-            //Questionaries.LeadQuestionariesID = Convert.ToInt64(lblLeadQuestionariesID.Text);
-            //Questionaries.LeadID = Lead.LeadID;
+            Label lblUserID = (Label)gvRow.FindControl("lblUserID"); 
+            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + lblUserID.Text + "&IsDeleted=true";
 
-            //Questionaries.QuestionariesMain = new PLeadQuestionariesMain() { LeadQuestionariesMainID = 0 };
-            //Questionaries.QuestionariesSub = new PLeadQuestionariesSub() { LeadQuestionariesSubID = 0 };
-            //Questionaries.Remark = txtRemark.Text.Trim();
-            //Questionaries.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-
-            //Questionaries.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/Questionaries", Questionaries));
-            lblMessage.Visible = true;
-            if (Result.Status == PApplication.Failure)
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = Result.Message;
-                lblMessage.ForeColor = Color.Red;
+                lblMessageAssignEngineer.Text = Results.Message;
                 return;
             }
-            lblMessage.Text = Result.Message;
-            lblMessage.ForeColor = Color.Green;
-
-            FillICTicket(SDMS_ICTicket.ICTicketID);
-
+            ShowMessage(Results); 
+            FillTechnicians();
+            lblMessage.Text = Results.Message;
+            lblMessage.ForeColor = Color.Green; 
         }
         protected void lbFSRAttachedFileRemove_Click(object sender, EventArgs e)
         {
@@ -1743,7 +1755,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMessageAssignEngineer.Text = Message;
                 return;
             } 
-            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + UC_ICTicketAddTechnician.ReadAssignSE() + "&IsDeleted=0";
+            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + UC_ICTicketAddTechnician.ReadAssignSE() + "&IsDeleted=false";
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
@@ -1787,6 +1799,51 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+
+        protected void btnUpdateFSR_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnICTicketAddOtherMachine_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnUpdateFSRAttachments_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnICTicketAddServiceCharges_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAddTSIR_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAddMaterialCharges_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAddNotes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnUpdateRestore_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAddTechnicianWork_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

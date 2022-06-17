@@ -2,7 +2,15 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketAddTechnician.ascx" TagPrefix="UC" TagName="UC_ICTicketAddTechnician" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketUpdateCallInformation.ascx" TagPrefix="UC" TagName="UC_ICTicketUpdateCallInformation" %>
-
+<%@ Register Src="~/ViewService/UserControls/AddFSR.ascx" TagPrefix="UC" TagName="UC_AddFSR" %>
+<%@ Register Src="~/ViewService/UserControls/AddFSRAttachments.ascx" TagPrefix="UC" TagName="UC_AddFSRAttachments" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketAddOtherMachine.ascx" TagPrefix="UC" TagName="UC_ICTicketAddOtherMachine" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketAddServiceCharges.ascx" TagPrefix="UC" TagName="UC_ICTicketAddServiceCharges" %>
+<%@ Register Src="~/ViewService/UserControls/AddTSIR.ascx" TagPrefix="UC" TagName="UC_AddTSIR" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketAddMaterialCharges.ascx" TagPrefix="UC" TagName="UC_ICTicketAddMaterialCharges" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketAddNotes.ascx" TagPrefix="UC" TagName="UC_ICTicketAddNotes" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketAddTechnicianWork.ascx" TagPrefix="UC" TagName="UC_ICTicketAddTechnicianWork" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketUpdateRestore.ascx" TagPrefix="UC" TagName="UC_ICTicketUpdateRestore" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -986,6 +994,172 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_CallInformation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCallInformation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+
+<asp:Panel ID="pnlAddFSR" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add FSR</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label4" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_AddFSR ID="UC_AddFSR" runat="server"></UC:UC_AddFSR>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateFSR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateFSR_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddFSR" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddFSR" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlAddFSRAttachments" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label5" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_AddFSRAttachments ID="UC_AddFSRAttachments" runat="server"></UC:UC_AddFSRAttachments>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateFSRAttachments" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateFSRAttachments_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddFSRAttachments" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddFSRAttachments" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlICTicketAddOtherMachine" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label6" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddOtherMachine" runat="server"></UC:UC_ICTicketAddOtherMachine>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnICTicketAddOtherMachine" runat="server" Text="Save" CssClass="btn Save" OnClick="btnICTicketAddOtherMachine_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_ICTicketAddOtherMachine" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlICTicketAddOtherMachine" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlICTicketAddServiceCharges" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label7" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddServiceCharges" runat="server"></UC:UC_ICTicketAddOtherMachine>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnICTicketAddServiceCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnICTicketAddServiceCharges_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_ICTicketAddServiceCharges" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlICTicketAddServiceCharges" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlAddTSIR" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label8" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketAddOtherMachine ID="UC_AddTSIR" runat="server"></UC:UC_ICTicketAddOtherMachine>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnAddTSIR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTSIR_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddTSIR" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTSIR" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlAddMaterialCharges" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label9" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketAddMaterialCharges ID="UC_ICTicketAddMaterialCharges" runat="server"></UC:UC_ICTicketAddMaterialCharges>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnAddMaterialCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddMaterialCharges" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddMaterialCharges" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlICTicketAddNotes" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Notes</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label11" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketAddNotes ID="UC_ICTicketAddNotes" runat="server"></UC:UC_ICTicketAddNotes>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnAddNotes" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotes_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_ICTicketAddNotes" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlICTicketAddNotes" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlAddTechnicianWork" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Technician Work</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button10" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label13" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketAddTechnicianWork ID="UC_ICTicketAddTechnicianWork" runat="server"></UC:UC_ICTicketAddTechnicianWork>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnAddTechnicianWork" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTechnicianWork_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddTechnicianWork" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTechnicianWork" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlUpdateRestore" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Notes</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label12" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketUpdateRestore ID="UC_ICTicketUpdateRestore" runat="server"></UC:UC_ICTicketUpdateRestore>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateRestore" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateRestore_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateRestore" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateRestore" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
