@@ -394,8 +394,23 @@ namespace DealerManagementSystem.ViewMaster
                 Message = Message + "<br/>Please select the Dealer Office";
                 Ret = false;
                 ddlDealerOffice.BorderColor = Color.Red;
+                goto msg;
             }
-
+            if (ddlDepartment.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Department";
+                Ret = false;
+                ddlDepartment.BorderColor = Color.Red;
+                goto msg;
+            }
+            if (ddlDesignation.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Designation";
+                Ret = false;
+                ddlDesignation.BorderColor = Color.Red;
+                goto msg;
+            }
+            msg:
             lblMessage.Text = Message;
             return Ret;
         }

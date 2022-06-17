@@ -516,7 +516,7 @@ namespace DealerManagementSystem.ViewMaster
                 
                 //List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
 
-                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, null);
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID);
                 if (LDistrict.Count == 0)
                 {
                     LDistrict.Add(new PDMS_District());

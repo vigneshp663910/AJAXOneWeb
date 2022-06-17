@@ -270,16 +270,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Label lblDealerNotificationID = (Label)gvRow.FindControl("lblDealerNotificationID");
             Label lblDealerNotificationModuleID = (Label)gvRow.FindControl("lblDealerNotificationModuleID");
             Label lblUserID = (Label)gvRow.FindControl("lblUserID");
-            Label lblIsSMS = (Label)gvRow.FindControl("lblIsSMS");
-            Label lblIsMail = (Label)gvRow.FindControl("lblIsMail");
+            CheckBox chkbxIsSMS = (CheckBox)gvRow.FindControl("chkbxIsSMS");
+            CheckBox chkbxIsMail = (CheckBox)gvRow.FindControl("chkbxIsMail");
             PDealerNotification DealerNotification = new PDealerNotification();
             DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationID.Text);
 
             DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Dealer.DealerID };
             DealerNotification.User = new PUser() { UserID = Convert.ToInt32(lblUserID.Text) };
             DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(lblDealerNotificationModuleID.Text) };
-            DealerNotification.IsSMS = Convert.ToBoolean(lblIsSMS.Text);
-            DealerNotification.IsMail = Convert.ToBoolean(lblIsMail.Text);
+            DealerNotification.IsSMS = Convert.ToBoolean(chkbxIsSMS.Checked);
+            DealerNotification.IsMail = Convert.ToBoolean(chkbxIsMail.Checked);
             DealerNotification.IsActive = false;
 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
@@ -344,16 +344,25 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlDealerNotificationModule.BorderColor = Color.Silver;
             if ((ddlDealerNotificationModule.SelectedValue == "0") || (ddlDealerNotificationModule.SelectedValue == ""))
             {
-                Message = Message + "<br/>Please select the Employee";
+                Message = Message + "<br/>Please select the Module";
                 ddlDealerNotificationModule.BorderColor = Color.Red;
+                goto msg;
             }
             ddlEmployee.BorderColor = Color.Silver;
             if ((ddlEmployee.SelectedValue == "0") || (ddlEmployee.SelectedValue == ""))
             {
                 Message = Message + "<br/>Please select the Employee";
                 ddlEmployee.BorderColor = Color.Red;
+                goto msg;
             }
-
+            if(cbSendSMS.Checked==false && cbSendEmail.Checked == false)
+            {
+                Message = Message + "<br/>Please Check Email or SMS";
+                cbSendSMS.BorderColor = Color.Red;
+                cbSendEmail.BorderColor = Color.Red;
+                goto msg;
+            }
+            msg:
             return Message;
         }
 
