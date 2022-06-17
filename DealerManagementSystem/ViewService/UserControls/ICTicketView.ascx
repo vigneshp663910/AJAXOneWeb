@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketView.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.ICTicketView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketAddTechnician.ascx" TagPrefix="UC" TagName="UC_ICTicketAddTechnician" %>
+<%@ Register Src="~/ViewService/UserControls/ICTicketUpdateCallInformation.ascx" TagPrefix="UC" TagName="UC_ICTicketUpdateCallInformation" %>
 
 <div class="col-md-12">
     <div class="action-btn">
@@ -393,8 +394,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>
-    
+    </asp1:TabPanel> 
     <asp1:TabPanel ID="tpnlServiceCharges" runat="server" HeaderText="Service Charges">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -945,8 +945,7 @@
                     </fieldset>
                 </div>
         </ContentTemplate>
-    </asp1:TabPanel>
-
+    </asp1:TabPanel> 
 </asp1:TabContainer>
 
 
@@ -961,12 +960,31 @@
             <UC:UC_ICTicketAddTechnician ID="UC_ICTicketAddTechnician" runat="server"></UC:UC_ICTicketAddTechnician>
         </div>
         <div class="col-md-12 text-center">
-            <%--<asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />--%>
+            <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click"  />
         </div>
 
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AddTechnician" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTechnician" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlCallInformation" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Technician</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label3" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketUpdateCallInformation ID="UC_ICTicketUpdateCallInformation" runat="server"></UC:UC_ICTicketUpdateCallInformation>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnCallInformation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnCallInformation_Click"  />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CallInformation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCallInformation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">
