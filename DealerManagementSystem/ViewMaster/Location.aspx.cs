@@ -516,7 +516,7 @@ namespace DealerManagementSystem.ViewMaster
                 
                 //List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
 
-                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, null);
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID);
                 if (LDistrict.Count == 0)
                 {
                     LDistrict.Add(new PDMS_District());
@@ -808,34 +808,57 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 int CountryCurrencyID = Convert.ToInt32(ddlGCCountryCurrency.SelectedValue);
                 int? CountryID = null;
+
                 if (BtnAddOrUpdateCountry.Text == "Add")
                 {
+                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(CountryID, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
+                    if (Success == true)
+                    {
+                        FillGridCountry();
+                        lblMessage.Text = "Country is added successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        FillCountry();
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "Country is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Country not created successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                 }
                 else
                 {
                     CountryID = Convert.ToInt32(HiddenID.Value);
+                    Success = new BDMS_Address().InsertOrUpdateAddressCountry(CountryID, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
+                    if (Success == true)
+                    {
+                        FillGridCountry();
+                        lblMessage.Text = "Country is updated successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        FillCountry();
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "Country is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Country not created successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                 }
-                Success = new BDMS_Address().InsertOrUpdateAddressCountry(CountryID, Country, CountryCode, CountryCurrencyID, ddlGCSalesOrganization.SelectedValue, true, PSession.User.UserID);
-                if (Success == true)
-                {
-                    FillGridCountry();
-                    lblMessage.Text = "Country is added successfully.";
-                    lblMessage.ForeColor = Color.Green;
-                    FillCountry();
-                    return;
-                }
-                else if (Success == false)
-                {
-                    lblMessage.Text = "Country is already found.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                else
-                {
-                    lblMessage.Text = "Country not created successfully.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
+                
             }
             catch (Exception ex)
             {
@@ -1168,7 +1191,7 @@ namespace DealerManagementSystem.ViewMaster
                 Button BtnAddOrUpdateRegion = (Button)gvRegion.FooterRow.FindControl("BtnAddOrUpdateRegion");
                 GridViewRow row = (GridViewRow)(lnkBtnRegionEdit.NamingContainer);
                 Label lblGRCountryID = (Label)row.FindControl("lblGRCountryID");
-                ddlGRCountry.SelectedValue = lblGRCountryID.Text;
+                ddlGRCountry.SelectedValue = (string.IsNullOrEmpty(lblGRCountryID.Text)) ? "0" : lblGRCountryID.Text; 
                 Label lblGRRegion = (Label)row.FindControl("lblGRRegion");
                 txtGRRegion.Text = lblGRRegion.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnRegionEdit.CommandArgument);
@@ -1564,7 +1587,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateRegion.Text == "Add")
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressState(null, State, StateCode, null, Convert.ToInt32(ddlSCountry.SelectedValue), true, Convert.ToInt32(ddlSRegion.SelectedValue), PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressState(null, State, StateCode, null, Convert.ToInt32(ddlGSCountry.SelectedValue), true, Convert.ToInt32(ddlGSRegion.SelectedValue), PSession.User.UserID);
                     if (Success == true)
                     {
                         FillGridState();
@@ -1804,13 +1827,15 @@ namespace DealerManagementSystem.ViewMaster
                 Button BtnAddOrUpdateState = (Button)gvState.FooterRow.FindControl("BtnAddOrUpdateState");
                 GridViewRow row = (GridViewRow)(lnkBtnStateEdit.NamingContainer);
                 Label lblGSCountry = (Label)row.FindControl("lblGSCountry");
-                ddlGSCountry.SelectedValue = lblGSCountry.Text;
+                Label lblGSCountryID = (Label)row.FindControl("lblGSCountryID");
+                ddlGSCountry.SelectedValue = (string.IsNullOrEmpty(lblGSCountryID.Text)) ? "0" : lblGSCountryID.Text; 
                 Label lblGSRegion = (Label)row.FindControl("lblGSRegion");
-                ddlGSRegion.SelectedValue = lblGSRegion.Text;
+                Label lblGSRegionID = (Label)row.FindControl("lblGSRegionID");
+                ddlGSRegion.SelectedValue = (string.IsNullOrEmpty(lblGSRegionID.Text)) ? "0" : lblGSRegionID.Text; 
                 Label lblGSState = (Label)row.FindControl("lblGSState");
                 txtGSState.Text = lblGSState.Text;
                 Label lblGSStateCode = (Label)row.FindControl("lblGSStateCode");
-                txtGSState.Text = lblGSStateCode.Text;
+                txtGSStateCode.Text = lblGSStateCode.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnStateEdit.CommandArgument);
                 BtnAddOrUpdateState.Text = "Update";
             }
@@ -1838,11 +1863,11 @@ namespace DealerManagementSystem.ViewMaster
                 string State = ((Label)row.FindControl("lblGSState")).Text.Trim();
                 string StateCode = ((Label)row.FindControl("lblGSStateCode")).Text.Trim();
 
-                success = new BDMS_Address().InsertOrUpdateAddressState(CountryID, State, StateCode, null, CountryID, false, RegionID, PSession.User.UserID);
+                success = new BDMS_Address().InsertOrUpdateAddressState(StateID, State, StateCode, null, CountryID, false, RegionID, PSession.User.UserID);
                 if (success == true)
                 {
                     HiddenID.Value = null;
-                    FillGridCountry();
+                    FillGridState();
                     lblMessage.Text = "State deleted successfully";
                     lblMessage.ForeColor = Color.Green;
                 }
@@ -1940,16 +1965,23 @@ namespace DealerManagementSystem.ViewMaster
                 LinkButton lnkBtnDistrictEdit = (LinkButton)sender;
                 DropDownList ddlGDCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDCountry");
                 DropDownList ddlGDState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDState");
+                DropDownList ddlGDSalesOffice = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDSalesOffice");
                 DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");
                 TextBox txtGDDistrict = (TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict");
                 Button BtnAddOrUpdateDistrict = (Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateDistrict");
                 GridViewRow row = (GridViewRow)(lnkBtnDistrictEdit.NamingContainer);
                 Label lblGDCountry = (Label)row.FindControl("lblGDCountry");
-                ddlGDCountry.SelectedValue = lblGDCountry.Text;
+                Label lblGDCountryID = (Label)row.FindControl("lblGDCountryID");
+                ddlGDCountry.SelectedValue = (string.IsNullOrEmpty(lblGDCountryID.Text)) ? "0" : lblGDCountryID.Text; 
                 Label lblGDState = (Label)row.FindControl("lblGDState");
-                ddlGDState.SelectedValue = lblGDState.Text;
+                Label lblGDStateID = (Label)row.FindControl("lblGDStateID");
+                ddlGDState.SelectedValue = (string.IsNullOrEmpty(lblGDStateID.Text)) ? "0" : lblGDStateID.Text;
+                Label lblGDSalesOffice = (Label)row.FindControl("lblGDSalesOffice");
+                Label lblGDSalesOfficeID = (Label)row.FindControl("lblGDSalesOfficeID");
+                ddlGDSalesOffice.SelectedValue = (string.IsNullOrEmpty(lblGDSalesOfficeID.Text))?"0": lblGDSalesOfficeID.Text;
                 Label lblGDDealer = (Label)row.FindControl("lblGDDealer");
-                ddlGDDealer.Text = lblGDDealer.Text;
+                Label lblGDDealerID = (Label)row.FindControl("lblGDDealerID");                
+                ddlGDDealer.SelectedValue = (string.IsNullOrEmpty(lblGDDealerID.Text)) ? "0" : lblGDDealerID.Text;
                 Label lblGDDistrict = (Label)row.FindControl("lblGDDistrict");
                 txtGDDistrict.Text = lblGDDistrict.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnDistrictEdit.CommandArgument);
@@ -1984,7 +2016,7 @@ namespace DealerManagementSystem.ViewMaster
                 if (success == true)
                 {
                     HiddenID.Value = null;
-                    FillGridCountry();
+                    FillGridDistrict();
                     lblMessage.Text = "District deleted successfully";
                     lblMessage.ForeColor = Color.Green;
                 }
@@ -2736,18 +2768,21 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 LinkButton lnkBtnCityEdit = (LinkButton)sender;
-                DropDownList ddlGCityCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGCityCountry");
-                DropDownList ddlGCityState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGCityState");
-                DropDownList ddlGCityDistrict = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGCityDistrict");
-                TextBox txtGCity = (TextBox)gvDistrict.FooterRow.FindControl("txtGCity");
-                Button BtnAddOrUpdateCity = (Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateCity");
+                DropDownList ddlGCityCountry = (DropDownList)gvCity.FooterRow.FindControl("ddlGCityCountry");
+                DropDownList ddlGCityState = (DropDownList)gvCity.FooterRow.FindControl("ddlGCityState");
+                DropDownList ddlGCityDistrict = (DropDownList)gvCity.FooterRow.FindControl("ddlGCityDistrict");
+                TextBox txtGCity = (TextBox)gvCity.FooterRow.FindControl("txtGCity");
+                Button BtnAddOrUpdateCity = (Button)gvCity.FooterRow.FindControl("BtnAddOrUpdateCity");
                 GridViewRow row = (GridViewRow)(lnkBtnCityEdit.NamingContainer);
                 Label lblGCityCountry = (Label)row.FindControl("lblGCityCountry");
-                ddlGCityCountry.SelectedValue = lblGCityCountry.Text;
+                Label lblGCityCountryID = (Label)row.FindControl("lblGCityCountryID");
+                ddlGCityCountry.SelectedValue = (string.IsNullOrEmpty(lblGCityCountryID.Text)) ? "0" : lblGCityCountryID.Text;
                 Label lblGCityState = (Label)row.FindControl("lblGCityState");
-                ddlGCityState.SelectedValue = lblGCityState.Text;
+                Label lblGCityStateID = (Label)row.FindControl("lblGCityStateID");
+                ddlGCityState.SelectedValue = (string.IsNullOrEmpty(lblGCityStateID.Text)) ? "0" : lblGCityStateID.Text; 
                 Label lblGCityDistrict = (Label)row.FindControl("lblGCityDistrict");
-                ddlGCityDistrict.Text = lblGCityDistrict.Text;
+                Label lblGCityDistrictID = (Label)row.FindControl("lblGCityDistrictID");
+                ddlGCityDistrict.SelectedValue = (string.IsNullOrEmpty(lblGCityDistrictID.Text)) ? "0" : lblGCityDistrictID.Text; 
                 Label lblGCity = (Label)row.FindControl("lblGCity");
                 txtGCity.Text = lblGCity.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnCityEdit.CommandArgument);
@@ -2781,7 +2816,7 @@ namespace DealerManagementSystem.ViewMaster
                 if (success == true)
                 {
                     HiddenID.Value = null;
-                    FillGridCountry();
+                    FillGridTehsil();
                     lblMessage.Text = "City deleted successfully";
                     lblMessage.ForeColor = Color.Green;
                 }

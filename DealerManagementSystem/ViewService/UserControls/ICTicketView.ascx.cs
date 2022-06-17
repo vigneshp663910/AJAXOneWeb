@@ -539,8 +539,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Add Technician")
             {
-                MPE_AddTechnician.Show(); 
+                MPE_AddTechnician.Show();
+                UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID);
+
             }
+            else if (lbActions.Text == "Cancel Lead")
+            {
+                UC_ICTicketUpdateCallInformation.FillMaster(SDMS_ICTicket);
+                MPE_CallInformation.Show();
+            } 
+
             //else if (lbActions.Text == "Convert to Prospect")
             //{
             //    string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
@@ -552,101 +560,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             //        return;
             //    }
             //    fillViewLead(Lead.LeadID);
-            //}
-            //else if (lbActions.Text == "Lost Lead")
-            //{
-            //    MPE_LostReason.Show();
-            //}
-            //else if (lbActions.Text == "Cancel Lead")
-            //{
-            //    MPE_RejectedBySales.Show();
-            //}
-            //else if (lbActions.Text == "Assign")
-            //{
-            //    MPE_AssignSE.Show();
-            //    UC_AssignSE.FillMaster(Lead);
-            //}
-            //else if (lbActions.Text == "Add Follow-up")
-            //{
-            //    MPE_FollowUp.Show();
-
-            //    List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, true);
-            //    List<PUser> U = new List<PUser>();
-            //    foreach (PLeadSalesEngineer SE in SalesEngineer)
-            //    {
-            //        U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            //    }
-            //    new DDLBind((DropDownList)UC_FollowUp.FindControl("ddlSalesEngineer"), U, "ContactName", "UserID", false);
-            //    UC_FollowUp.FillMaster();
-            //}
-            //else if (lbActions.Text == "Customer Conversation")
-            //{
-            //    MPE_Conversation.Show();
-            //    UC_CustomerConversation.FillMaster(Lead.LeadID);
-
-
-            //}
-            //else if (lbActions.Text == "Financial Info")
-            //{
-            //    MPE_Financial.Show();
-            //    UC_Financial.FillMaster();
-            //}
-            //else if (lbActions.Text == "Add Effort")
-            //{
-            //    DropDownList ddlSalesEngineer = (DropDownList)UC_Effort.FindControl("ddlSalesEngineer");
-            //    DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
-
-            //    new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
-            //    ddlSalesEngineer.Enabled = false;
-
-            //    MPE_Effort.Show();
-
-            //    List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, true);
-            //    List<PUser> U = new List<PUser>();
-            //    foreach (PLeadSalesEngineer SE in SalesEngineer)
-            //    {
-            //        U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            //    }
-            //    new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID", false);
-            //}
-            //else if (lbActions.Text == "Add Expense")
-            //{
-            //    DropDownList ddlSalesEngineer = (DropDownList)UC_Expense.FindControl("ddlSalesEngineer");
-            //    DropDownList ddlExpenseType = (DropDownList)UC_Expense.FindControl("ddlExpenseType");
-            //    new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
-            //    ddlSalesEngineer.Enabled = false;
-            //    MPE_Expense.Show();
-            //    List<PLeadSalesEngineer> SalesEngineer = new BLead().GetLeadSalesEngineer(Lead.LeadID, PSession.User.UserID, true);
-            //    List<PUser> U = new List<PUser>();
-            //    foreach (PLeadSalesEngineer SE in SalesEngineer)
-            //    {
-            //        U.Add(new PUser() { UserID = SE.SalesEngineer.UserID, ContactName = SE.SalesEngineer.ContactName });
-            //    }
-            //    new DDLBind(ddlSalesEngineer, U, "ContactName", "UserID", false);
-            //}
-            //else if (lbActions.Text == "Add Product")
-            //{
-            //    MPE_Product.Show();
-            //    UC_Product.FillMaster(Lead);
-            //}
-            //else if (lbActions.Text == "Convert to Quotation")
-            //{
-            //    MPE_Quotation.Show();
-            //    UC_Quotation.FillMaster(Lead);
-            //}
-            //else if (lbActions.Text == "Add Questionaries")
-            //{
-            //    new DDLBind(ddlQuestionariesMain, new BLead().GetLeadQuestionariesMain(null, null), "LeadQuestionariesMain", "LeadQuestionariesMainID");
-            //    MPE_Questionaries.Show();
-            //}
+            //}            
             //else if (lbActions.Text == "Add Visit")
             //{
             //    MPE_Visit.Show();
             //    new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
             //    new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
-            //}
+            //} 
+
         }
-         
+
 
         protected void lbTechnicianDelete_Click(object sender, EventArgs e)
         {
@@ -1760,9 +1683,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         private void FillTechniciansByTicketID()
         {
-            SDMS_TechniciansWD = new BDMS_Service().GetTechniciansByTicketID(SDMS_ICTicket.ICTicketID);
-
-
+            SDMS_TechniciansWD = new BDMS_Service().GetTechniciansByTicketID(SDMS_ICTicket.ICTicketID); 
             List<PDMS_ServiceTechnicianWorkedDate> WorkedDate = new List<PDMS_ServiceTechnicianWorkedDate>();
             foreach (PDMS_ServiceTechnician t in SDMS_TechniciansWD)
             {
@@ -1809,6 +1730,63 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
 
             lblComplaintStatus.Text = SDMS_ICTicketFSR.ComplaintStatus;
+        }
+
+        protected void btnSaveAssignSE_Click(object sender, EventArgs e)
+        {
+            MPE_AddTechnician.Show(); 
+            string Message = UC_ICTicketAddTechnician.ValidationAssignSE();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true; 
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            } 
+            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + UC_ICTicketAddTechnician.ReadAssignSE() + "&IsDeleted=0";
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_AddTechnician.Hide();
+            tbpCust.ActiveTabIndex = 0;
+            FillTechnicians(); 
+        } 
+
+        protected void btnCallInformation_Click(object sender, EventArgs e)
+        {
+            MPE_CallInformation.Show();
+            string Message = UC_ICTicketUpdateCallInformation.ValidationReached(SDMS_ICTicket);
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + UC_ICTicketAddTechnician.ReadAssignSE() + "&IsDeleted=0";
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_AddTechnician.Hide();
+            tbpCust.ActiveTabIndex = 0;
+            FillTechnicians();
+        }
+
+        void ShowMessage(PApiResult Results)
+        {
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

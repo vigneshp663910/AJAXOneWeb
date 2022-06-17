@@ -194,7 +194,8 @@ namespace DealerManagementSystem.ViewPreSale
                     Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(lblDealerID.Text) },
                     Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(lblDealerEmployeeID.Text) },
                     Year = Convert.ToInt32(lblYear.Text),
-                    Month = Convert.ToInt32(lblMonth.Text),
+                    
+                    Month = DateTime.ParseExact(lblMonth.Text, "MMM", CultureInfo.CurrentCulture).Month,
                     NewCustomerTarget = Convert.ToInt32(txtNewCustomerTarget.Text),
                     ProspectCustomerTarget = Convert.ToInt32(txtProspectCustomerTarget.Text),
                     ExistCustomerTarget = Convert.ToInt32(txtExistCustomerTarget.Text),

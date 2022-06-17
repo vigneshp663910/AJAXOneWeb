@@ -188,10 +188,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:HiddenField ID="hfLatitude" runat="server" />
     <asp:HiddenField ID="hfLongitude" runat="server" />
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-left">
@@ -199,7 +199,7 @@
                         <asp:DropDownList ID="ddlActivityType" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 text-left">
-                        <label>Activity ID</label>
+                        <label>Activity Number</label>
                         <asp:TextBox ID="txtActivityID" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 text-left">
@@ -220,12 +220,16 @@
                         <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>--%>
                     <div class="col-md-2 text-left">
-                        <label>Equipment</label>
+                        <label>Equipment Serial Number</label>
                         <asp:TextBox ID="txtEquipment" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
                     <div class="col-md-2 text-left">
-                        <label>Reference</label>
-                        <asp:DropDownList ID="ddlReference" runat="server" CssClass="form-control" />
+                        <label>Reference Type</label>
+                        <asp:DropDownList ID="ddlReferenceType" runat="server" CssClass="form-control" />
+                    </div>
+                     <div class="col-md-2 text-left">
+                        <label>Reference Number</label>
+                        <asp:TextBox ID="txtReferenceNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearchActivity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
@@ -237,121 +241,126 @@
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                         <div class="col-md-12 Report">
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Activities:</td>
 
-                        <div class="boxHead">
-                            <div class="logheading">
-                                <div style="float: left">
-                                    <table>
-                                        <tr>
-                                            <td>Activities:</td>
-
-                                            <td>
-                                                <asp:Label ID="lblRowCountActivity" runat="server" CssClass="label"></asp:Label></td>
-                                            <td>
-                                                <asp:ImageButton ID="ibtnActivityArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnActivityArrowLeft_Click" /></td>
-                                            <td>
-                                                <asp:ImageButton ID="ibtnActivityArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnActivityArrowRight_Click" /></td>
-                                        </tr>
-                                    </table>
+                                                <td>
+                                                    <asp:Label ID="lblRowCountActivity" runat="server" CssClass="label"></asp:Label></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnActivityArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnActivityArrowLeft_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnActivityArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnActivityArrowRight_Click" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
+
+                            <asp:GridView ID="gvActivity" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                PageSize="10" AllowPaging="true" EmptyDataText="No Data Found" DataKeyNames="ActivityEndDate">
+                                <Columns>
+                                    <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="Activity Number">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblActivityID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityID")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--<asp:TemplateField HeaderText="Sales Engineer">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "PUser.SalesEngineer")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="Activity Type">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblActivityType" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeName")%>' runat="server" />
+                                            <asp:Label ID="lblActivityTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeID")%>' runat="server" Visible="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Start Date" SortExpression="Start Date">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <%--<asp:Label ID="lblStartDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityStartDate","{0:d}")%>' runat="server" />--%>
+                                            <asp:Label ID="lblStartDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityStartDate")%>' runat="server" />
+
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="End Date" SortExpression="End Date">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <%--<asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityEndDate","{0:d}")%>' runat="server" />--%>
+                                            <asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityEndDate")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Location" SortExpression="Location">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Customer" SortExpression="Customer Code">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCustomer" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Equipment" SortExpression="Equipment">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentSerialNo")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Amount" SortExpression="Amount">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Referenece" SortExpression="Referenece">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblReferenece" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityReference.ReferenceTable")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Referenece Number" SortExpression="Referenece">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblReferenceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceNumber")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click"
+                                                 Width="95px" Height="25px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
                         </div>
-
-                        <asp:GridView ID="gvActivity" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                            PageSize="10" AllowPaging="true">
-                            <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Activity Number">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblActivityID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityID")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <%--<asp:TemplateField HeaderText="Sales Engineer">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "PUser.SalesEngineer")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
-                                <asp:TemplateField HeaderText="Activity Type">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblActivityType" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeName")%>' runat="server" />
-                                        <asp:Label ID="lblActivityTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeID")%>' runat="server" Visible="false" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Start Date" SortExpression="Start Date">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblStartDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityStartDate","{0:d}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="End Date" SortExpression="End Date">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityEndDate","{0:d}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Location" SortExpression="Location">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Customer" SortExpression="Customer Code">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblCustomer" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Equipment" SortExpression="Equipment">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentSerialNo")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
-                                <asp:TemplateField HeaderText="Amount" SortExpression="Amount">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Referenece" SortExpression="Referenece">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblReferenece" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityReference.ReferenceTable")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Referenece Number" SortExpression="Referenece">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblReferenceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceNumber")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Action">
-
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click" Width="95px" Height="25px" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
                     </fieldset>
                 </div>
             </div>
         </div>
-        <div class="col-md-12" id="divDetailsActivity" runat="server" visible="false" style="padding: 5px 15px">
-            <div class="col-md-12 lead-back-btn">
-                <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn">
-                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
-                </div>
-            </div>
-            <%--   <UC:UC_ViewActivity ID="UC_ViewActivity" runat="server"></UC:UC_ViewActivity>--%>
-        </div>
+        
     </div>
 
     <div style="display: none">
@@ -399,8 +408,7 @@
     <asp:label id="lblAddActivityMessage" runat="server" text="" cssclass="message" visible="false" />
     <div class="col-md-12">
         <div class="model-scroll">
-
-            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Activity Type</label>
@@ -411,63 +419,64 @@
                         <asp:Label ID="lblStartActivityDate" runat="server" Text="" CssClass="message" />
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:button id="btnStartActivity" runat="server" text="Start" cssclass="btn Save" onclick="btnStartActivity_Click" />
+                        <asp:button id="btnSave" runat="server" text="Start" cssclass="btn Save" onclick="btnStartActivity_Click" />
                     </div>
                 </div>
             </fieldset>
-        </div>
-        
+        </div>        
     </div>
 </asp:panel>
 <ajaxtoolkit:modalpopupextender id="MPE_AddActivity" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlAddActivity" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
 
-
     <asp:Panel ID="pnlEndActivity" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogueEndActivity">End Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+                <asp:Button ID="btnEndActivityClose" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
+        <asp:Label ID="lblEndActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
         <div class="col-md-12">
-            <div class="model-scroll">
-                <asp:Label ID="lblEndActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <div class="model-scroll">               
                 <fieldset class="fieldset-border" id="Fieldset3" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-                        <div class="col-md-2 text-left">
-                            <label>Activity Type</label>
+                         <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Activity Number</label>
+                            <asp:Label ID="lblActivityIDE" runat="server" Text="" CssClass="message" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Activity Type</label>
                             <asp:Label ID="lblActivityTypeE" runat="server" Text="" CssClass="message" />
                             <asp:Label ID="lblActivityTypeIDE" runat="server" Text="" CssClass="message" Visible="false" />
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>End Date</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">End Date</label>
                             <asp:Label ID="lblEndActivityDate" runat="server" Text="" CssClass="message" />
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Location</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Location</label>
                             <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Customer Code</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Customer Code</label>
                             <asp:TextBox ID="txtCustomerCodeE" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Equipment</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Equipment Serial Number</label>
                             <asp:TextBox ID="txtEquipmentE" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Amount</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Amount</label>
                             <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Reference Type</label>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Reference Type</label>
                             <asp:DropDownList ID="ddlReferenceTypeE" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Reference Number</label>
-                            <asp:TextBox ID="txtReferenceNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Reference Number</label>
+                            <asp:TextBox ID="txtReferenceNumberE" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-12 col-sm-12">
-                            <label>Remarks</label>
+                            <label class="modal-label">Remarks</label>
                             <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                         </div>
                         <div class="col-md-12 text-center">

@@ -343,8 +343,11 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 ddlWishToLeave.BorderColor = Color.Red;
             }
-
-            DateTime DateOfLeaving = Convert.ToDateTime(txtDateOfLeaving.Text.Trim());
+            DateTime? DateOfLeaving = null;
+            if (!string.IsNullOrEmpty(txtDateOfLeaving.Text))
+            {
+                DateOfLeaving = Convert.ToDateTime(txtDateOfLeaving.Text.Trim());
+            }
 
             if (caDateOfJoining.StartDate <= DateOfLeaving && DateOfLeaving <= caDateOfJoining.EndDate)
             {

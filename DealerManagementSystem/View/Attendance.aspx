@@ -35,13 +35,13 @@
         <div class="col-md-12">
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Attendance</legend> 
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Attendance</legend>
                     <div class="boxHead">
                         <div class="logheading">
                             <div style="float: left">
                                 <table>
                                     <tr>
-                                        <td>Attendance(s):</td> 
+                                        <td>Attendance(s):</td>
                                         <td>
                                             <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                         <td>
@@ -52,8 +52,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-
+                    </div> 
                     <asp:GridView ID="gvAttendance" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvAttendance_PageIndexChanging" EmptyDataText="No Data Found">
                         <AlternatingRowStyle BackColor="#ffffff" />
@@ -65,6 +64,6 @@
                 </fieldset>
             </div>
         </div>
-    </div> 
+    </div>
 </asp:Content>
 

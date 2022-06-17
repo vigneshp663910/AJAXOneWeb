@@ -258,6 +258,7 @@ namespace Properties
         public Boolean IsRejected { get; set; }
         public DateTime? RejectedOn { get; set; }
         public int? RejectedBy { get; set; }
+        public string Remarks { get; set; }
     }
     [Serializable]
     public class PDashboard
