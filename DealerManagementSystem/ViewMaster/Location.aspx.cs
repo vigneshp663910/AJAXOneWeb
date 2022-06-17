@@ -284,18 +284,18 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 int? CountryID = null;
+                
                 if (ddlRCountry.SelectedValue != "0")
-                {
-                    FillRegionDLL(ddlRRegion, CountryID, null, null);
-                }
+                {                    
+                    CountryID = Convert.ToInt32(ddlRCountry.SelectedValue);                    
+                }               
+                FillRegionDLL(ddlRRegion, CountryID, null, null);
+                CountryID = null;
                 if (ddlSCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
+                    CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);                    
                 }
-                if (ddlSCountry.SelectedValue != "0")
-                {
-                    FillRegionDLL(ddlSRegion, CountryID, null, null);
-                }
+                FillRegionDLL(ddlSRegion, CountryID, null, null);
             }
             catch (Exception Ex)
             {
@@ -2422,19 +2422,16 @@ namespace DealerManagementSystem.ViewMaster
                 string Tehsil = null;
                 if (ddlCityCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
-
-                    if (ddlCityState.SelectedValue != "0")
-                    {
-                        StateID = Convert.ToInt32(ddlCityState.SelectedValue);
-
-                        if (ddlCityDistrict.SelectedValue != "0")
-                        {
-                            DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
-                        }
-                    }
+                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);                    
                 }
-                
+                if (ddlCityState.SelectedValue != "0")
+                {
+                    StateID = Convert.ToInt32(ddlCityState.SelectedValue);                    
+                }
+                if (ddlCityDistrict.SelectedValue != "0")
+                {
+                    DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
+                }
                 if (!string.IsNullOrEmpty(txtCity.Text))
                 {
                     Tehsil = txtCity.Text.Trim();

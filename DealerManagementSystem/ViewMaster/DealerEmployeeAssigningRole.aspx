@@ -82,7 +82,7 @@
                     <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
                     <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
                 </div>
-                <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
+                <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="Name">
                             <ItemTemplate>
@@ -143,11 +143,11 @@
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </asp:TemplateField>
                     </Columns>
-                    <AlternatingRowStyle BackColor="#f2f2f2" />
+                    <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />
-                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                 </asp:GridView>
             </div>
         </div>
@@ -308,7 +308,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role</legend>
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed">
+                    <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
                         <Columns>
                             <asp:TemplateField HeaderText="Employee ID" Visible="false">
                                 <ItemTemplate>
@@ -387,11 +387,11 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#f2f2f2" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </fieldset>
@@ -399,7 +399,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role Assigning</legend>
                     <div class="col-md-12">
-                      <%--  <div class="col-md-3 text-right">
+                        <%--  <div class="col-md-3 text-right">
                             <label>Login User Name</label>
                         </div>
                         <div class="col-md-3">

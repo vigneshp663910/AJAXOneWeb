@@ -190,7 +190,7 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Employee View</legend>
                 <div class="col-md-12">
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed">
+                        <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
                             <Columns>
                                 <asp:TemplateField HeaderText="Employee ID" Visible="false">
                                     <ItemTemplate>
@@ -269,13 +269,13 @@
                                     <HeaderStyle Width="75px" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Login User Name">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblLoginUserName" Text='<%# DataBinder.Eval(Container.DataItem, "LoginUserName" )%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Width="75px" />
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Login User Name">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLoginUserName" Text='<%# DataBinder.Eval(Container.DataItem, "LoginUserName" )%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="75px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Active">
                                     <ItemTemplate>
                                         <%--   <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive" )%>' runat="server"></asp:Label>--%>
@@ -285,11 +285,11 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
                             </Columns>
-                            <AlternatingRowStyle BackColor="#f2f2f2" />
+                            <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </div>
                 </div>
@@ -328,7 +328,7 @@
                     </div>
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
-                    </div> 
+                    </div>
 
                     <div class="col-md-3 text-right">
                         <label>SAP Emp Code</label>
