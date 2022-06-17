@@ -164,7 +164,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "In Activate Customer")
                 {
-                    string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                    string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=0";
+                    string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                    if (Convert.ToBoolean(s) == true)
+                    {
+                        lblMessage.Text = "Updated successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        fillCustomer(Customer.CustomerID);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something went wrong try again.";
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    lblMessage.Visible = true;
+                }
+                else if (lbActions.Text == "Activate Customer")
+                {
+                    string endPoint = "Customer/UpdateCustomerActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=1";
                     string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                     if (Convert.ToBoolean(s) == true)
                     {
