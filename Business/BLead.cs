@@ -87,6 +87,12 @@ namespace Business
             //  TraceLogger.Log(DateTime.Now);
 
         }
+        public DataTable GetLeadEffortConversationVisit(long LeadID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/EffortConversationVisit?LeadID=" + LeadID ;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
+        }
         public List<PLeadFinancial> GetLeadFinancial(long LeadID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -171,7 +177,6 @@ namespace Business
                  + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
-
         }
     }
 }

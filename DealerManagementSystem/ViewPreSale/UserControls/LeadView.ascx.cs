@@ -91,6 +91,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillQuestionaries();
             ActionControlMange();
             fillVisit();
+            fillEffortConversationVisit();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -432,6 +433,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         { 
             gvConversation.DataSource = new BLead().GetLeadConversation(Lead.LeadID, PSession.User.UserID); ;
             gvConversation.DataBind();
+        }
+        void fillEffortConversationVisit()
+        {
+            gvEffortConversationVisit.DataSource = new BLead().GetLeadEffortConversationVisit(Lead.LeadID);
+            gvEffortConversationVisit.DataBind();
         }
         void fillFinancial()
         { 

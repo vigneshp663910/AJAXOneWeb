@@ -1072,13 +1072,13 @@
 
 <asp:Panel ID="pnlAddTSIR" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Add TSIR</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="Label8" runat="server" Text="" CssClass="message" Visible="false" />
-            <UC:UC_ICTicketAddOtherMachine ID="UC_AddTSIR" runat="server"></UC:UC_ICTicketAddOtherMachine>
+            <UC:UC_AddTSIR ID="UC_AddTSIR" runat="server"></UC:UC_AddTSIR>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnAddTSIR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTSIR_Click"  />

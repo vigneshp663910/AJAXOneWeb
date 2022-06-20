@@ -1,4 +1,5 @@
-﻿using Properties;
+﻿using Business;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,45 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
 
         }
-        public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
-        {
+        public void FillMaster()
+        { 
+            new BDMS_AvailabilityOfOtherMachine().GetTypeOfMachine(ddlTypeOfMachine, null, null); 
+            new BDMS_AvailabilityOfOtherMachine().GetMake(ddlMake, null, null);
         }
+        
+        void Clear()
+        {
+
+
+        }
+        public PDMS_AvailabilityOfOtherMachine Read()
+        {
+            PDMS_AvailabilityOfOtherMachine OM = new PDMS_AvailabilityOfOtherMachine();
+            OM.TypeOfMachine = new PDMS_TypeOfMachine() { TypeOfMachineID = Convert.ToInt32(ddlTypeOfMachine.SelectedValue) };
+            OM.Quantity = Convert.ToInt32(txtQuantity.Text.Trim());
+            OM.Make = new PMake() { MakeID = Convert.ToInt32(ddlMake.SelectedValue) };
+            return OM;
+        }
+        public string Validation()
+            {
+                string Message = "";
+                if (ddlTypeOfMachine.SelectedValue == "0")
+                {
+                    Message = "Please select the Note Type";
+                    return Message;
+                }
+                if (ddlMake.SelectedValue == "0")
+                {
+                    Message = "Please select the Make";
+                    return Message;
+                }
+
+                if (string.IsNullOrEmpty(txtQuantity.Text))
+                {
+                    Message = "Please enter the Quantity";
+                    return Message;
+                }
+                return Message;
+            }
     }
 }

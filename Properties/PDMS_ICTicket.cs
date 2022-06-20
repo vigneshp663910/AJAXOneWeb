@@ -123,6 +123,7 @@ namespace Properties
     public class PICTicketServiceConfirmation
     {
         public long ICTicketID { get; set; }
+        public string EquipmentSerialNo { get; set; }
         public string DealerCode { get; set; }
         public string CustomerCode { get; set; }
         public string Location { get; set; }
@@ -285,7 +286,35 @@ namespace Properties
        
 
     }
-     [Serializable]
+    [Serializable]
+    public class PDMS_ICTicketFSR_M
+    {
+        public long FsrID { get; set; }
+        public long ICTicketID { get; set; }
+        public Boolean IsRental { get; set; }
+        public string OperatorName { get; set; }
+        public string OperatorNumber { get; set; }
+        public string RentalName { get; set; }
+        public string RentalNumber { get; set; }
+        public string Report { get; set; }
+        public PDMS_MachineMaintenanceLevel MachineMaintenanceLevel { get; set; }
+        public PDMS_ModeOfPayment ModeOfPayment { get; set; }
+
+        public string NatureOfComplaint { get; set; }
+        public string Observation { get; set; }
+        public string WorkCarriedOut { get; set; }
+        public string SERecommendedParts { get; set; }
+
+        //public string FSRNumber { get; set; }
+        //public DateTime FSRDate { get; set; } 
+
+        //public string CustomerRemarks { get; set; }
+        //public string ComplaintStatus { get; set; }  
+
+        //public string Designation { get; set; }
+        //public string Complaint { get; set; } 
+    }
+    [Serializable]
     public class PDMS_ICTicketFSRSignature
     {
         public long FSRSignatureID { get; set; }

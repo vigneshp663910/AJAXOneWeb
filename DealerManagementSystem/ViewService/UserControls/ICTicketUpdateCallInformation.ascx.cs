@@ -12,6 +12,51 @@ namespace DealerManagementSystem.ViewService.UserControls
 {
     public partial class ICTicketUpdateCallInformation : System.Web.UI.UserControl
     {
+        public PDMS_ICTicket SDMS_ICTicket
+        {
+            get
+            {
+                if (Session["SDMS_ICTicket"] == null)
+                {
+                    Session["SDMS_ICTicket"] = new PDMS_ICTicket();
+                }
+                return (PDMS_ICTicket)Session["SDMS_ICTicket"];
+            }
+            set
+            {
+                Session["SDMS_ICTicket"] = value;
+            }
+        }
+        public List<PDMS_ServiceCharge> SS_ServiceCharge
+        {
+            get
+            {
+                if (Session["ServiceChargeICTicketProcess"] == null)
+                {
+                    Session["ServiceChargeICTicketProcess"] = new List<PDMS_ServiceCharge>();
+                }
+                return (List<PDMS_ServiceCharge>)Session["ServiceChargeICTicketProcess"];
+            }
+            set
+            {
+                Session["ServiceChargeICTicketProcess"] = value;
+            }
+        } 
+        public List<PDMS_ServiceMaterial> SS_ServiceMaterial
+        {
+            get
+            {
+                if (Session["ServiceMaterialICTicketProcess"] == null)
+                {
+                    Session["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
+                }
+                return (List<PDMS_ServiceMaterial>)Session["ServiceMaterialICTicketProcess"];
+            }
+            set
+            {
+                Session["ServiceMaterialICTicketProcess"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -387,116 +432,121 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         void ValidateReachedDate()
         {
-            //if (string.IsNullOrEmpty(txtReachedDate.Text.Trim()))
-            //{
+            if (string.IsNullOrEmpty(txtReachedDate.Text.Trim()))
+            {
 
-            //    txtHMRDate.Text = "";
-            //    txtHMRDate.Enabled = false;
-            //    return;
-            //}
-            //ceHMRDate.StartDate = Convert.ToDateTime(txtReachedDate.Text);
-            //ceHMRDate.EndDate = DateTime.Now;
+                txtHMRDate.Text = "";
+                txtHMRDate.Enabled = false;
+                return;
+            }
+            ceHMRDate.StartDate = Convert.ToDateTime(txtReachedDate.Text);
+            ceHMRDate.EndDate = DateTime.Now;
 
-            // if (SS_ServiceCharge.Count + SS_ServiceMaterial.Count == 0)
-            //{
-            //    txtHMRDate.Enabled = true;
-            //}
+            if (SS_ServiceCharge.Count + SS_ServiceMaterial.Count == 0)
+            {
+                txtHMRDate.Enabled = true;
+            }
         }
         public void EnableOrDesableBasedOnServiceCharges()
         {
 
-            //string ClaimNumber = "";
-            //if (SS_ServiceCharge.Count != 0)
-            //{ ClaimNumber = SS_ServiceCharge[0].ClaimNumber; }
+            string ClaimNumber = "";
+            if (SS_ServiceCharge.Count != 0)
+            { ClaimNumber = SS_ServiceCharge[0].ClaimNumber; }
 
-            //if (string.IsNullOrEmpty(ClaimNumber)) { ddlServiceType.Enabled = true; }
-            //else { ddlServiceType.Enabled = false; }
+            if (string.IsNullOrEmpty(ClaimNumber)) { ddlServiceType.Enabled = true; }
+            else { ddlServiceType.Enabled = false; }
 
-            //string QuotationNumber = "";
-            //if (SS_ServiceMaterial.Count != 0)
-            //{
-            //    foreach (PDMS_ServiceMaterial ServiceMaterial in SS_ServiceMaterial)
-            //    {
-            //        QuotationNumber = ServiceMaterial.QuotationNumber;
-            //        if (!string.IsNullOrEmpty(QuotationNumber)) { break; }
-            //    }
-            //}
-            //if (string.IsNullOrEmpty(QuotationNumber))
-            //{
-            //    ddlDealerOffice.Enabled = true;
-            //    txtHMRDate.Enabled = true;
-            //    txtHMRValue.Enabled = true;
-            //    txtReachedDate.Enabled = true;
-            //    ddlReachedHH.Enabled = true;
-            //    ddlReachedMM.Enabled = true;
-            //}
-            //else
-            //{
-            //    ddlDealerOffice.Enabled = false;
-            //    txtHMRDate.Enabled = false;
-            //    txtHMRValue.Enabled = false;
-            //    txtReachedDate.Enabled = false;
-            //    ddlReachedHH.Enabled = false;
-            //    ddlReachedMM.Enabled = false;
-            //}
+            string QuotationNumber = "";
+            if (SS_ServiceMaterial.Count != 0)
+            {
+                foreach (PDMS_ServiceMaterial ServiceMaterial in SS_ServiceMaterial)
+                {
+                    QuotationNumber = ServiceMaterial.QuotationNumber;
+                    if (!string.IsNullOrEmpty(QuotationNumber)) { break; }
+                }
+            }
+            if (string.IsNullOrEmpty(QuotationNumber))
+            {
+                ddlDealerOffice.Enabled = true;
+                txtHMRDate.Enabled = true;
+                txtHMRValue.Enabled = true;
+                txtReachedDate.Enabled = true;
+                ddlReachedHH.Enabled = true;
+                ddlReachedMM.Enabled = true;
+            }
+            else
+            {
+                ddlDealerOffice.Enabled = false;
+                txtHMRDate.Enabled = false;
+                txtHMRValue.Enabled = false;
+                txtReachedDate.Enabled = false;
+                ddlReachedHH.Enabled = false;
+                ddlReachedMM.Enabled = false;
+            }
 
             //UC_BasicInformation.SDMS_ICTicket = SDMS_ICTicket;
             //UC_BasicInformation.FillBasicInformation();
-            //WarrantyCalculation();
+            WarrantyCalculation();
         }
 
         void WarrantyCalculation()
         {
-            //CheckBox UCcbIsWarranty = (CheckBox)UC_BasicInformation.FindControl("cbIsWarranty");
-            //if (SDMS_ICTicket.Equipment.IsAMC == true)
-            //{
-            //}
-            //else if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
-            //{
+           // CheckBox UCcbIsWarranty = (CheckBox)UC_BasicInformation.FindControl("cbIsWarranty");
+            if (SDMS_ICTicket.Equipment.IsAMC == true)
+            {
+            }
+            else if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
+            {
 
-            //}
-            //else if (SDMS_ICTicket.IsMarginWarranty == true)
-            //{
+            }
+            else if (SDMS_ICTicket.IsMarginWarranty == true)
+            {
 
-            //}
-            //else if (SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM == "Cum")
-            //{
-            //}
-            //else
-            //{
-            //    if (!string.IsNullOrEmpty(txtHMRValue.Text.Trim()))
-            //    {
+            }
+            else if (SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM == "Cum")
+            {
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txtHMRValue.Text.Trim()))
+                {
 
-            //        Boolean Old = UCcbIsWarranty.Checked;
-            //        int vHMR = 2000;
-            //        DateTime cD = ((DateTime)SDMS_ICTicket.Equipment.WarrantyExpiryDate).AddYears(-1);
-            //        if (cD < Convert.ToDateTime("01/11/2018"))
-            //        {
-            //            vHMR = 1000;
-            //        }
+                    //Boolean Old = UCcbIsWarranty.Checked;
+                    Boolean Old = SDMS_ICTicket.IsWarranty;
+                    int vHMR = 2000;
+                    DateTime cD = ((DateTime)SDMS_ICTicket.Equipment.WarrantyExpiryDate).AddYears(-1);
+                    if (cD < Convert.ToDateTime("01/11/2018"))
+                    {
+                        vHMR = 1000;
+                    }
 
-            //        if (SDMS_ICTicket.Equipment.EquipmentWarrantyType != null)
-            //        {
-            //            if (SDMS_ICTicket.Equipment.EquipmentWarrantyType.HMR != 0)
-            //            {
-            //                vHMR = SDMS_ICTicket.Equipment.EquipmentWarrantyType.HMR;
-            //            }
-            //        }
+                    if (SDMS_ICTicket.Equipment.EquipmentWarrantyType != null)
+                    {
+                        if (SDMS_ICTicket.Equipment.EquipmentWarrantyType.HMR != 0)
+                        {
+                            vHMR = SDMS_ICTicket.Equipment.EquipmentWarrantyType.HMR;
+                        }
+                    }
 
-            //        if ((Convert.ToInt32(txtHMRValue.Text.Trim()) > vHMR) || (SDMS_ICTicket.Equipment.WarrantyExpiryDate < SDMS_ICTicket.ICTicketDate))
-            //        {
-            //            UCcbIsWarranty.Checked = false;
-            //        }
-            //        else
-            //        {
-            //            UCcbIsWarranty.Checked = true;
-            //        }
-            //        if (Old != UCcbIsWarranty.Checked)
-            //        {
-            //            FillGetServiceType(Convert.ToInt32(UCcbIsWarranty.Checked));
-            //        }
-            //    }
-            //}
+                    if ((Convert.ToInt32(txtHMRValue.Text.Trim()) > vHMR) || (SDMS_ICTicket.Equipment.WarrantyExpiryDate < SDMS_ICTicket.ICTicketDate))
+                    {
+                        // UCcbIsWarranty.Checked = false;
+                        SDMS_ICTicket.IsWarranty = false;
+                    }
+                    else
+                    {
+                        // UCcbIsWarranty.Checked = true;
+                        SDMS_ICTicket.IsWarranty = true;
+                    }
+                    // if (Old != UCcbIsWarranty.Checked)
+                    if (Old != SDMS_ICTicket.IsWarranty)
+                    {
+                        //FillGetServiceType(Convert.ToInt32(UCcbIsWarranty.Checked));
+                        FillGetServiceType(Convert.ToInt32(SDMS_ICTicket.IsWarranty));
+                    }
+                }
+            }
         }
 
         protected void ddlSubApplication_SelectedIndexChanged(object sender, EventArgs e)
@@ -549,10 +599,11 @@ namespace DealerManagementSystem.ViewService.UserControls
         public PICTicketServiceConfirmation Read(PDMS_ICTicket ICTicket)
         {
             PICTicketServiceConfirmation IC = new PICTicketServiceConfirmation();
-
+            IC.RequestedDate = ICTicket.RequestedDate;
             IC.DealerCode = ICTicket.Dealer.DealerCode;
             IC.CustomerCode = ICTicket.Customer.CustomerCode;
             IC.ICTicketID = ICTicket.ICTicketID;
+            IC.EquipmentSerialNo = ICTicket.Equipment.EquipmentSerialNo;
             IC.Location = txtLocation.Text.Trim();
             IC.OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             IC.DepartureDate = string.IsNullOrEmpty(txtDepartureDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDepartureDate.Text.Trim() + " " + ddlDepartureHH.SelectedValue + ":" + ddlDepartureMM.SelectedValue);

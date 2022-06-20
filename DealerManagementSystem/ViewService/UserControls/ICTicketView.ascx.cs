@@ -549,7 +549,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Edit FSR")
             {
-                UC_AddFSR.FillMaster(SDMS_ICTicket);
+                UC_AddFSR.FillMaster(SDMS_ICTicketFSR);
                 MPE_AddFSR.Show();
             }
             else if (lbActions.Text == "Add FSR Attachments")
@@ -559,12 +559,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Add Other Machine")
             {
-                UC_ICTicketAddOtherMachine.FillMaster(SDMS_ICTicket);
+                UC_ICTicketAddOtherMachine.FillMaster();
                 MPE_ICTicketAddOtherMachine.Show();
             }
             else if (lbActions.Text == "Add Service Charges")
             {
-                UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
+                UC_ICTicketAddServiceCharges.FillMaster();
                 MPE_ICTicketAddServiceCharges.Show();
             }
             else if (lbActions.Text == "Add TSIR")
@@ -612,6 +612,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblMessage.Text = Results.Message;
             lblMessage.ForeColor = Color.Green; 
         }
+
         protected void lbFSRAttachedFileRemove_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
@@ -1779,19 +1780,17 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lblMessageAssignEngineer.Text = Message;
                 return;
-            }
-            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + UC_ICTicketAddTechnician.ReadAssignSE() + "&IsDeleted=0";
-
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            } 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/UpdateICTicketServiceCallInfo", UC_ICTicketUpdateCallInformation.Read(SDMS_ICTicket)));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageAssignEngineer.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
-            MPE_AddTechnician.Hide();
-            tbpCust.ActiveTabIndex = 0;
-            FillTechnicians();
+            MPE_CallInformation.Hide();
+            tbpCust.ActiveTabIndex = 1;
+            FillCallInformation();
         }
 
         void ShowMessage(PApiResult Results)
@@ -1803,12 +1802,54 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         protected void btnUpdateFSR_Click(object sender, EventArgs e)
         {
-
+            MPE_AddFSR.Show();
+            string Message = UC_AddFSR.Validation();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            PDMS_ICTicketFSR_M Fsr = UC_AddFSR.Read();
+            Fsr.FsrID = SDMS_ICTicketFSR.FsrID;
+            Fsr.ICTicketID = SDMS_ICTicket.ICTicketID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/UpdateTicketFSR", Fsr));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_AddFSR.Hide();
+            tbpCust.ActiveTabIndex = 2;
+            FillFSR();
         }
 
         protected void btnICTicketAddOtherMachine_Click(object sender, EventArgs e)
         {
-
+            MPE_ICTicketAddOtherMachine.Show();
+            string Message = UC_ICTicketAddOtherMachine.Validation();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            PDMS_AvailabilityOfOtherMachine OM = UC_ICTicketAddOtherMachine.Read();
+            string endPoint = "ICTicket/AddOrRemoveICTicketOtherMachine?AvailabilityOfOtherMachineID=0&ICTicketID=" + SDMS_ICTicket.ICTicketID
+                + "&TypeOfMachineID=" + OM.TypeOfMachine.TypeOfMachineID + "&Quantity=" + OM.Quantity + "&MakeID=" + OM.Make.MakeID + "&IsDeleted=false";  
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_ICTicketAddOtherMachine.Hide();
+            tbpCust.ActiveTabIndex = 3;
+            FillFSR();
         }
 
         protected void btnUpdateFSRAttachments_Click(object sender, EventArgs e)
@@ -1823,7 +1864,26 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         protected void btnAddTSIR_Click(object sender, EventArgs e)
         {
-
+            MPE_AddTSIR.Show();
+            string Message = "";
+            //Message = UC_ICTicketUpdateCallInformation.ValidationReached(SDMS_ICTicket);
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/TSIR", UC_AddTSIR.Read()));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_CallInformation.Hide();
+            tbpCust.ActiveTabIndex = 1;
+            FillCallInformation();
         }
 
         protected void btnAddMaterialCharges_Click(object sender, EventArgs e)

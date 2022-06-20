@@ -49,7 +49,7 @@ namespace Business
         }
         public void GetTypeOfMachine(DropDownList ddl, int? TypeOfMachineID, string TypeOfMachine)
         {
-            List<PProductType> MML = new List<PProductType>();
+            List<PDMS_TypeOfMachine> MML = new List<PDMS_TypeOfMachine> ();
             try
             {
                 DbParameter TypeOfMachineP;
@@ -66,10 +66,10 @@ namespace Business
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            MML.Add(new PProductType()
+                            MML.Add(new PDMS_TypeOfMachine()
                             {
-                                ProductTypeID = Convert.ToInt32(dr["ProductTypeID"]),
-                                ProductType = Convert.ToString(dr["ProductType"])
+                                TypeOfMachineID = Convert.ToInt32(dr["TypeOfMachineID"]),
+                                TypeOfMachine = Convert.ToString(dr["TypeOfMachine"])
                             });
                         }
                     }
