@@ -339,6 +339,7 @@ namespace Business
                         {
                             MML.Add(new PSalesCommissionClaimPrice()
                             {
+                                SalesCommissionClaimPriceID = Convert.ToInt32(dr["SalesCommissionClaimPriceID"]),
                                 PlantName = new PPlant()
                                 {
                                     PlantCode = Convert.ToString(dr["PlantCode"]),
@@ -347,7 +348,8 @@ namespace Business
                                 Materail = new PDMS_Material()
                                 {
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
-                                    MaterialCode = Convert.ToString(dr["MaterialCode"])
+                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
+                                    MaterialID=Convert.ToInt32(dr["MaterialID"])
                                 }, 
 
                                 Percentage = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Percentage"]),
@@ -379,7 +381,7 @@ namespace Business
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    provider.Insert("ZDMS_InsertOrUpdateSalesCommissionClaimPrice", Params);
+                    provider.Insert("InsertOrUpdateSalesCommissionClaimPrice", Params);
                     scope.Complete();
                 }
                 return true;
