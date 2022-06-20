@@ -164,7 +164,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "In Activate Customer")
                 {
-                    string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=0";
+                    string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=False";
                     string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                     if (Convert.ToBoolean(s) == true)
                     {
@@ -181,7 +181,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Activate Customer")
                 {
-                    string endPoint = "Customer/UpdateCustomerActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=1";
+                    string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=True";
                     string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                     if (Convert.ToBoolean(s) == true)
                     {

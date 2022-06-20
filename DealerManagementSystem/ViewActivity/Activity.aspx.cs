@@ -285,6 +285,8 @@ namespace DealerManagementSystem.ViewActivity
             //    lblActivityMessage.Visible = true;
             //    return;
             //}
+            lblEndActivityMessage.Text = string.Empty;
+            lblEndActivityMessage.Visible = false;
             MPE_EndActivity.Show();
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");

@@ -121,6 +121,7 @@ namespace Business
                             Activity.Equipment = new PDMS_EquipmentHeader() { EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]) };
                             Activity.ActivityReference = new PActivityReferenceType() { ReferenceTable = Convert.ToString(dr["ReferenceActivity"]) };
                             Activity.ReferenceNumber = Convert.ToString(dr["ReferenceNumber"]);
+                            Activity.Remark = Convert.ToString(dr["Remark"]);
                             Activities.Add(Activity);
                         }
                     }

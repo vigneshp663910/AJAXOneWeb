@@ -341,8 +341,14 @@
                                             <asp:Label ID="lblReferenceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceNumber")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
-
+                                    <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Action" SortExpression="Action">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click"
                                                  Width="95px" Height="25px" />
