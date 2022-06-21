@@ -28,6 +28,10 @@ namespace DealerManagementSystem.ViewPreSale
             if (!IsPostBack)
             {
                 FillYearAndMonth();
+
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+                new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
+
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
 
@@ -147,12 +151,13 @@ namespace DealerManagementSystem.ViewPreSale
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? EmployeeUserId = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
             int? DepartmentID = null;
             int? DealerEmployeeID = null;
             //gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
 
             // TO VERIFY WITH JOHN
-            VT = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
+            VT = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID, EmployeeUserId);
             gvVisitTarget.DataSource = VT;
             gvVisitTarget.DataBind();
 
@@ -278,6 +283,13 @@ namespace DealerManagementSystem.ViewPreSale
             //else
             //{
             //}
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, DealerID, true, null, null, null);
+            new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
         }
     }
 }

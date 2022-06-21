@@ -33,10 +33,10 @@ namespace Business
 
         }
 
-        public List<PVisitTarget> GetVisitTarget(int? Year, int? Month,int? DealerID, int? DepartmentID, int? DealerEmployeeID, int? UserID)
-        {
+        public List<PVisitTarget> GetVisitTarget(int? Year, int? Month,int? DealerID, int? DepartmentID, int? DealerEmployeeID, int? UserID,int? EmployeeUserId)
+         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "ColdVisit/VisitTarget?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&DepartmentID=" + DepartmentID + "&DealerEmployeeID=" + DealerEmployeeID + "&UserID=" + UserID;
+            string endPoint = "ColdVisit/VisitTarget?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&DepartmentID=" + DepartmentID + "&DealerEmployeeID=" + DealerEmployeeID + "&UserID=" + UserID+ "&EmployeeUserId="+ EmployeeUserId;
             return JsonConvert.DeserializeObject<List<PVisitTarget>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
         }

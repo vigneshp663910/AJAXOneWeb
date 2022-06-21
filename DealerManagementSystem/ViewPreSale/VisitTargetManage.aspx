@@ -39,7 +39,7 @@
 
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Dealer</label>
-                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
+                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
                 </div>
 
                 <div class="col-md-2 col-sm-12" style="display: none">
@@ -47,6 +47,10 @@
                     <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" />
                 </div>
 
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Employee</label>
+                    <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
+                </div>
 
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>

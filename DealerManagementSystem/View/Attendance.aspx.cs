@@ -59,6 +59,7 @@ namespace DealerManagementSystem.View
                     ddlUser.Visible = true;
                     ddlDealer.Enabled = true;
                 }
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
 
                 Attendance1 = new BAttendance().GetAttendance(DateTime.Now, DateTime.Now,null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
