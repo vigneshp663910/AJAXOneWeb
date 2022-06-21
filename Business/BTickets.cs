@@ -1469,7 +1469,10 @@ namespace Business
                 {
                     if (DS != null)
                     {
-                        return DS.Tables[0].Rows[0][0] == DBNull.Value ? 0 : Convert.ToInt32(DS.Tables[0].Rows[0][0]);
+                        if (DS.Tables[0].Rows.Count > 0)
+                        {
+                            return DS.Tables[0].Rows[0][0] == DBNull.Value ? 0 : Convert.ToInt32(DS.Tables[0].Rows[0][0]);
+                        }
                     }
                 }
                 // This call is for track the status and loged into the trace logeer
