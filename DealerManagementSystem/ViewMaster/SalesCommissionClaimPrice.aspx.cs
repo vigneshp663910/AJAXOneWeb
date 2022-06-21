@@ -199,11 +199,11 @@ namespace DealerManagementSystem.ViewMaster
                 int SalesCommissionClaimPriceID = Convert.ToInt32(lnkBtnSalCommClaimPriceDelete.CommandArgument);
                 GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceDelete.NamingContainer);
                 int SalesCommissionClaimPriceID1 = Convert.ToInt32(((Label)row.FindControl("lblSalesCommissionClaimPriceID")).Text.Trim());
-                int PlantID = Convert.ToInt32(((Label)row.FindControl("lblGPlantID")).Text.Trim());
+                int PlantID = Convert.ToInt32(((Label)row.FindControl("lblPlantID")).Text.Trim());
                 int MaterialID = Convert.ToInt32(((Label)row.FindControl("lblMaterialID")).Text.Trim());
                 decimal Percentage = Convert.ToDecimal(((Label)row.FindControl("lblPercentage")).Text.Trim());
                 decimal Amount = Convert.ToDecimal(((Label)row.FindControl("lblAmount")).Text.Trim());
-                bool IsActive = Convert.ToBoolean(((CheckBox)row.FindControl("chkbxGIsActive")).Text.Trim());
+                bool IsActive = Convert.ToBoolean(0);
 
                 success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
                 if (success == true)
@@ -266,10 +266,12 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, Convert.ToString(IsActive));
+                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, Convert.ToString(Convert.ToInt32(IsActive)))[0];
 
                 TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
                 TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
+                Percentage = Convert.ToDecimal(txtPercentage.Text);
+                Amount = Convert.ToDecimal(txtAmount.Text);
                 if (string.IsNullOrEmpty(txtPercentage.Text.Trim()))
                 {
                    
@@ -293,7 +295,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 int PlantID = Convert.ToInt32(ddlPlant.SelectedValue);
                 int MaterialID =0;
-                Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
+                Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, Convert.ToInt32(MM.MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
                 if (Success == true)
                 {
                     GetSalesCommissionClaimPrice();

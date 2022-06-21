@@ -23,7 +23,7 @@ namespace DealerManagementSystem.ViewActivity
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Manage');</script>");
 
             if (!IsPostBack)
             {
@@ -161,7 +161,7 @@ namespace DealerManagementSystem.ViewActivity
             {
                 Label lblEndDate = (Label)gvActivity.Rows[i].FindControl("lblEndDate");
                 Button btnEndActivity = (Button)gvActivity.Rows[i].FindControl("btnEndActivity");
-                if(!string.IsNullOrEmpty(lblEndDate.Text)) 
+                if (!string.IsNullOrEmpty(lblEndDate.Text))
                 {
                     btnEndActivity.Visible = false;
                 }
@@ -203,8 +203,8 @@ namespace DealerManagementSystem.ViewActivity
                 List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null, null, null);
                 new DDLBind(ddlActivityTypeS, ActivityTypeS, "ActivityTypeName", "ActivityTypeID");
                 lblStartActivityDate.Text = DateTime.Now.ToString();
-                MPE_AddActivity.Show();                
-            } 
+                MPE_AddActivity.Show();
+            }
         }
 
         [WebMethod]
@@ -232,47 +232,63 @@ namespace DealerManagementSystem.ViewActivity
             //divDetailsView.Visible = false;
         }
 
-       protected void gvActivity_PageIndexChanging(object sender, GridViewPageEventArgs e)
-       {
+        protected void gvActivity_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
             gvActivity.PageIndex = e.NewPageIndex;
             FillActivity();
-       }              
+        }
 
         protected void btnStartActivity_Click(object sender, EventArgs e)
         {
-            MPE_AddActivity.Show();
-            if (ddlActivityTypeS.SelectedValue == "0")
+            try
             {
-                lblAddActivityMessage.Text = "Please select the Activity Type.";
+                MPE_AddActivity.Show();
+                if (ddlActivityTypeS.SelectedValue == "0")
+                {
+                    lblAddActivityMessage.Text = "Please select the Activity Type...!";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    lblAddActivityMessage.Visible = true;
+                    ddlActivityTypeS.BorderColor = Color.Red;
+                    return;
+                }
+                if(string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+                {
+                    lblAddActivityMessage.Text = "Please Enable GeoLocation...!";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    lblAddActivityMessage.Visible = true;
+                    ddlActivityTypeS.BorderColor = Color.Red;
+                    return;
+                }
+                PActivity Activity = new PActivity();
                 lblAddActivityMessage.ForeColor = Color.Red;
                 lblAddActivityMessage.Visible = true;
-                ddlActivityTypeS.BorderColor = Color.Red;
-                return;
-            }
-            
-            PActivity Activity = new PActivity();
-            lblAddActivityMessage.ForeColor = Color.Red;
-            lblAddActivityMessage.Visible = true;
-            Activity.ActivityStartLatitude = Convert.ToDecimal(hfLatitude.Value);
-            Activity.ActivityStartLongitude = Convert.ToDecimal(hfLongitude.Value);
-            Activity.ActivityType = new PActivityType();
-            Activity.ActivityType.ActivityTypeID = Convert.ToInt32(ddlActivityTypeS.SelectedValue);
-            Activity.ActivityStartDate = Convert.ToDateTime(lblStartActivityDate.Text.Trim());
-            Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+                Activity.ActivityStartLatitude = Convert.ToDecimal(hfLatitude.Value);
+                Activity.ActivityStartLongitude = Convert.ToDecimal(hfLongitude.Value);
+                Activity.ActivityType = new PActivityType();
+                Activity.ActivityType.ActivityTypeID = Convert.ToInt32(ddlActivityTypeS.SelectedValue);
+                Activity.ActivityStartDate = Convert.ToDateTime(lblStartActivityDate.Text.Trim());
+                Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
 
-            Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
-            if (result == 0)
+                Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
+                if (result == 0)
+                {
+                    lblAddActivityMessage.Text = "Activity not added successfully.";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblActivityMessage.Text = "Activity added successfully.";
+                lblActivityMessage.ForeColor = Color.Green;
+                lblActivityMessage.Visible = true;
+
+                FillActivity();
+                MPE_AddActivity.Hide();
+            }
+            catch (Exception ex)
             {
-                lblAddActivityMessage.Text = "Activity not added successfully.";
+                lblAddActivityMessage.Text = ex.Message.ToString();
                 lblAddActivityMessage.ForeColor = Color.Red;
-                return;             
+                lblAddActivityMessage.Visible = true;
             }
-            lblActivityMessage.Text = "Activity added successfully.";
-            lblActivityMessage.ForeColor = Color.Green;
-            lblActivityMessage.Visible = true;
-
-            FillActivity();
-            MPE_AddActivity.Hide();
         }
 
         protected void btnEndActivity_Click(object sender, EventArgs e)
@@ -285,6 +301,8 @@ namespace DealerManagementSystem.ViewActivity
             //    lblActivityMessage.Visible = true;
             //    return;
             //}
+            lblEndActivityMessage.Text = string.Empty;
+            lblEndActivityMessage.Visible = false;
             MPE_EndActivity.Show();
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
@@ -304,111 +322,119 @@ namespace DealerManagementSystem.ViewActivity
 
         protected void btnEndActivityE_Click(object sender, EventArgs e)
         {
-            MPE_EndActivity.Show();
-            PActivity Activity = new PActivity();
-            lblEndActivityMessage.ForeColor = Color.Red;
-            lblEndActivityMessage.Visible = true;
-
-            string Message = ValidationEndAvtivity();
-            if (!string.IsNullOrEmpty(Message))
+            try
             {
-                lblEndActivityMessage.Text = Message;
-                return;
-            }
-
-            long? CustomerID = null;
-            if (!string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
-            {
-                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtCustomerCodeE.Text.Trim());
-                if (Customer.Count == 0)
-                {
-                    lblEndActivityMessage.Text = "Customer Code not avialable.";
-                    //txtCustomerCodeE.BorderColor = Color.Red;
-                    return;
-                }
-                else
-                {
-                    CustomerID = Customer[0].CustomerID;
-                }
-            }
-            long? EquipmentHeaderID = null;
-            if (!string.IsNullOrEmpty(txtEquipmentE.Text.Trim()))
-            {
-                List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtEquipmentE.Text.Trim());
-                if (Equ.Count == 0)
-                {
-                    lblEndActivityMessage.Text = "Equipment not avialable.";
-                    //txtEquipmentE.BorderColor = Color.Red;
-                    return;
-                }
-                else
-                {
-                    EquipmentHeaderID = Equ[0].EquipmentHeaderID;
-                }
-            }
-            long? LeadID = null;
-
-            if(ddlReferenceTypeE.SelectedValue == "1" )
-            {
-                //PLead Lead = new BLead().GetLeadByLeadNumber(txtReferenceNumberE.Text.Trim());
-                PLeadSearch S = new PLeadSearch();
-                S.LeadNumber = txtReferenceNumberE.Text.Trim();
-                S.CustomerID = CustomerID;
-                List<PLead> Lead = new BLead().GetLead(S);
-                if (Lead.Count == 0)
-                {
-                    lblEndActivityMessage.Text = "Reference Number is not avialable.";
-                    //txtReferenceNumberE.BorderColor = Color.Red;
-                    return;
-                }
-                LeadID = Lead[0].LeadID;
-            }
-            if (ddlReferenceTypeE.SelectedValue == "2")
-            {
-                List<PSalesQuotation> Quotation = new BSalesQuotation().GetSalesQuotationBasic(null, null, null, null, txtReferenceNumberE.Text.Trim(), null, null, null, null, null, txtCustomerCodeE.Text.Trim());
-                if(Quotation.Count == 0)
-                {
-                    lblEndActivityMessage.Text = "Reference Number is not avialable.";
-                    //txtReferenceNumberE.BorderColor = Color.Red;
-                    return;
-                }
-            }
-
-            Activity.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
-            Activity.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
-            Activity.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
-            Activity.ActivityType = new PActivityType();
-            Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeIDE.Text);
-            Activity.ActivityEndDate = Convert.ToDateTime(lblEndActivityDate.Text.Trim());
-            Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
-            Activity.Location = Convert.ToString(txtLocation.Text.Trim());
-            Activity.Customer = new PDMS_Customer();
-            //Activity.Customer.CustomerCode = Convert.ToString(txtCustomerCodeE.Text.Trim());
-            Activity.Customer.CustomerID = Convert.ToInt64(CustomerID);
-            Activity.Equipment = new PDMS_EquipmentHeader();
-            //Activity.Equipment.EquipmentSerialNo = Convert.ToString(txtEquipmentE.Text.Trim());
-            Activity.Equipment.EquipmentHeaderID = Convert.ToInt64(EquipmentHeaderID);
-            Activity.Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ?(decimal?)null: Convert.ToDecimal(txtAmount.Text.Trim());
-            Activity.ActivityReference = new PActivityReferenceType();
-            Activity.ActivityReference.ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue);
-            Activity.ReferenceNumber = Convert.ToString(txtReferenceNumberE.Text.Trim());
-            //Activity.ReferenceID = Convert.ToInt64(LeadID);
-
-            Activity.Remark = Convert.ToString(txtRemarks.Text.Trim());
-
-            Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
-            if (result == 0)
-            {
-                lblEndActivityMessage.Text = "Activity not ended successfully.";
+                MPE_EndActivity.Show();
+                PActivity Activity = new PActivity();
                 lblEndActivityMessage.ForeColor = Color.Red;
-                return;
+                lblEndActivityMessage.Visible = true;
+
+                string Message = ValidationEndAvtivity();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblEndActivityMessage.Text = Message;
+                    return;
+                }
+
+                long? CustomerID = null;
+                if (!string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
+                {
+                    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtCustomerCodeE.Text.Trim());
+                    if (Customer.Count == 0)
+                    {
+                        lblEndActivityMessage.Text = "Customer Code not avialable.";
+                        //txtCustomerCodeE.BorderColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        CustomerID = Customer[0].CustomerID;
+                    }
+                }
+                long? EquipmentHeaderID = null;
+                if (!string.IsNullOrEmpty(txtEquipmentE.Text.Trim()))
+                {
+                    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtEquipmentE.Text.Trim());
+                    if (Equ.Count == 0)
+                    {
+                        lblEndActivityMessage.Text = "Equipment not avialable.";
+                        //txtEquipmentE.BorderColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        EquipmentHeaderID = Equ[0].EquipmentHeaderID;
+                    }
+                }
+                long? LeadID = null;
+
+                if (ddlReferenceTypeE.SelectedValue == "1")
+                {
+                    //PLead Lead = new BLead().GetLeadByLeadNumber(txtReferenceNumberE.Text.Trim());
+                    PLeadSearch S = new PLeadSearch();
+                    S.LeadNumber = txtReferenceNumberE.Text.Trim();
+                    S.CustomerID = CustomerID;
+                    List<PLead> Lead = new BLead().GetLead(S);
+                    if (Lead.Count == 0)
+                    {
+                        lblEndActivityMessage.Text = "Reference Number is not avialable.";
+                        //txtReferenceNumberE.BorderColor = Color.Red;
+                        return;
+                    }
+                    LeadID = Lead[0].LeadID;
+                }
+                if (ddlReferenceTypeE.SelectedValue == "2")
+                {
+                    List<PSalesQuotation> Quotation = new BSalesQuotation().GetSalesQuotationBasic(null, null, null, null, txtReferenceNumberE.Text.Trim(), null, null, null, null, null, txtCustomerCodeE.Text.Trim());
+                    if (Quotation.Count == 0)
+                    {
+                        lblEndActivityMessage.Text = "Reference Number is not avialable.";
+                        //txtReferenceNumberE.BorderColor = Color.Red;
+                        return;
+                    }
+                }
+
+                Activity.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
+                Activity.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
+                Activity.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
+                Activity.ActivityType = new PActivityType();
+                Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeIDE.Text);
+                Activity.ActivityEndDate = Convert.ToDateTime(lblEndActivityDate.Text.Trim());
+                Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+                Activity.Location = Convert.ToString(txtLocation.Text.Trim());
+                Activity.Customer = new PDMS_Customer();
+                //Activity.Customer.CustomerCode = Convert.ToString(txtCustomerCodeE.Text.Trim());
+                Activity.Customer.CustomerID = Convert.ToInt64(CustomerID);
+                Activity.Equipment = new PDMS_EquipmentHeader();
+                //Activity.Equipment.EquipmentSerialNo = Convert.ToString(txtEquipmentE.Text.Trim());
+                Activity.Equipment.EquipmentHeaderID = Convert.ToInt64(EquipmentHeaderID);
+                Activity.Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim());
+                Activity.ActivityReference = new PActivityReferenceType();
+                Activity.ActivityReference.ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue);
+                Activity.ReferenceNumber = Convert.ToString(txtReferenceNumberE.Text.Trim());
+                //Activity.ReferenceID = Convert.ToInt64(LeadID);
+
+                Activity.Remark = Convert.ToString(txtRemarks.Text.Trim());
+
+                Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
+                if (result == 0)
+                {
+                    lblEndActivityMessage.Text = "Activity not ended successfully.";
+                    lblEndActivityMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblActivityMessage.Text = "Activity ended successfully.";
+                lblActivityMessage.ForeColor = Color.Green;
+
+                FillActivity();
+                MPE_EndActivity.Hide();
             }
-            lblActivityMessage.Text = "Activity ended successfully.";
-            lblActivityMessage.ForeColor = Color.Green;
-
-            FillActivity();
-            MPE_EndActivity.Hide();
-
+            catch (Exception ex)
+            {
+                lblEndActivityMessage.Text = ex.Message.ToString();
+                lblEndActivityMessage.ForeColor = Color.Red;
+                lblEndActivityMessage.Visible = true;
+            }
         }
 
         public string ValidationEndAvtivity()
@@ -425,12 +451,16 @@ namespace DealerManagementSystem.ViewActivity
                 Message = "Please enter the Location.";
                 txtLocation.BorderColor = Color.Red;
             }
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                Message = "Please Enable GeoLocation...!";
+            }
             //if(string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
             //{
             //    Message = Message + "<br/>Please enter the Customer Code.";
             //    txtCustomerCodeE.BorderColor = Color.Red;
             //}
-            
+
             //if(string.IsNullOrEmpty(txtEquipmentE.Text.Trim()))
             //{
             //    Message = Message + "<br/>Please enter the Equipment Serial Number.";
@@ -457,7 +487,7 @@ namespace DealerManagementSystem.ViewActivity
             //    Message = Message + "<br/>Please enter the Remark";
             //    txtRemarks.BorderColor = Color.Red;
             //}
-                       
+
             return Message;
         }
     }
