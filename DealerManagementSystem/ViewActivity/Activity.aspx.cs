@@ -245,13 +245,20 @@ namespace DealerManagementSystem.ViewActivity
                 MPE_AddActivity.Show();
                 if (ddlActivityTypeS.SelectedValue == "0")
                 {
-                    lblAddActivityMessage.Text = "Please select the Activity Type.";
+                    lblAddActivityMessage.Text = "Please select the Activity Type...!";
                     lblAddActivityMessage.ForeColor = Color.Red;
                     lblAddActivityMessage.Visible = true;
                     ddlActivityTypeS.BorderColor = Color.Red;
                     return;
                 }
-
+                if(string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+                {
+                    lblAddActivityMessage.Text = "Please Enable GeoLocation...!";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    lblAddActivityMessage.Visible = true;
+                    ddlActivityTypeS.BorderColor = Color.Red;
+                    return;
+                }
                 PActivity Activity = new PActivity();
                 lblAddActivityMessage.ForeColor = Color.Red;
                 lblAddActivityMessage.Visible = true;
@@ -443,6 +450,10 @@ namespace DealerManagementSystem.ViewActivity
             {
                 Message = "Please enter the Location.";
                 txtLocation.BorderColor = Color.Red;
+            }
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                Message = "Please Enable GeoLocation...!";
             }
             //if(string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
             //{
