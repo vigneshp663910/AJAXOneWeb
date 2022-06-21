@@ -42,13 +42,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Label lblCategory;
 
         /// <summary>
-        /// lblProgressStatus control.
+        /// lblUrgency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProgressStatus;
+        protected global::System.Web.UI.WebControls.Label lblUrgency;
+
+        /// <summary>
+        /// lblApplication control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApplication;
 
         /// <summary>
         /// lblQualification control.
@@ -94,6 +103,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDealer;
+
+        /// <summary>
+        /// lblCustomerFeedback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCustomerFeedback;
 
         /// <summary>
         /// lblRemarks control.

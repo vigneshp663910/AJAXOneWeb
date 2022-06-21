@@ -201,6 +201,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             fillICTicketAttachedFile();
             FillAvailabilityOfOtherMachine();
             FillServiceCharges();
+            FillTSIRDetails();
+            FillServiceMaterial();
             FillServiceNotes();
             FillTechniciansByTicketID();
             FillRestore();
@@ -574,22 +576,22 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Add Material Charges")
             {
-                UC_ICTicketAddMaterialCharges.FillMaster(SDMS_ICTicket);
+                UC_ICTicketAddMaterialCharges.FillMaster(ICTicketTSIRs);
                 MPE_AddMaterialCharges.Show();
             }
             else if (lbActions.Text == "Add Notes")
             {
-                UC_ICTicketAddNotes.FillMaster(SDMS_ICTicket);
+                UC_ICTicketAddNotes.FillMaster();
                 MPE_ICTicketAddNotes.Show();
             }
             else if (lbActions.Text == "Add Technician Work")
             {
-                UC_ICTicketAddTechnicianWork.FillMaster(SDMS_ICTicket);
+                UC_ICTicketAddTechnicianWork.FillMaster(SDMS_TechniciansWD);
                 MPE_AddTechnicianWork.Show();
             }
             else if (lbActions.Text == "Restore")
             {
-                UC_ICTicketUpdateRestore.FillMaster(SDMS_ICTicket);
+                UC_ICTicketUpdateRestore.FillMaster(SDMS_ICTicket, SDMS_ICTicketFSR);
                 MPE_UpdateRestore.Show();
             }
         }
@@ -1152,219 +1154,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         protected void lblMaterialAdd_Click(object sender, EventArgs e)
         {
-            if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Warranty) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PartsWarranty)
-                || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PolicyWarranty))
-            {
-                decimal Percentage = (SDMS_ICTicket.DealerPayPercentage == null ? 0 : (decimal)SDMS_ICTicket.DealerPayPercentage) + (SDMS_ICTicket.AEPayPercentage == null ? 0 : (decimal)SDMS_ICTicket.AEPayPercentage) + (SDMS_ICTicket.CustomerPayPercentage == null ? 0 : (decimal)SDMS_ICTicket.CustomerPayPercentage);
-                if (Percentage != 100)
-                {
-                    lblMessage.Text = "Please check the warranty distribution .";
-                    return;
-                }
-            }
-
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Red; 
-
-            string Material = ((TextBox)gvMaterial.FooterRow.FindControl("txtMaterialF")).Text.Trim();
-            if (string.IsNullOrEmpty(Material))
-            {
-                lblMessage.Text = "Please enter the material";
-                return;
-            }
-            string MaterialSN = ((TextBox)gvMaterial.FooterRow.FindControl("txtMaterialSNF")).Text.Trim();
-
-            string DefectiveMaterial = ((TextBox)gvMaterial.FooterRow.FindControl("txtDefectiveMaterialF")).Text.Trim();
-            if (string.IsNullOrEmpty(DefectiveMaterial))
-            {
-                lblMessage.Text = "Please enter the defective material";
-                return;
-            }
-
-            DefectiveMaterial = DefectiveMaterial.Split(' ')[0]; 
-
-            string DefectiveMaterialSN = ((TextBox)gvMaterial.FooterRow.FindControl("txtDefectiveMaterialSNF")).Text.Trim();
-
-            TextBox txtQtyF = (TextBox)gvMaterial.FooterRow.FindControl("txtQtyF");
-            if (string.IsNullOrEmpty(txtQtyF.Text.Trim()))
-            {
-                lblMessage.Text = "Please enter the Qty";
-                return;
-            }
-            CheckBox cbRecomenedPartsF = (CheckBox)gvMaterial.FooterRow.FindControl("cbRecomenedPartsF");
-            CheckBox cbQuotationPartsF = (CheckBox)gvMaterial.FooterRow.FindControl("cbQuotationPartsF");
-
-            DropDownList ddlMaterialSourceF = (DropDownList)gvMaterial.FooterRow.FindControl("ddlMaterialSourceF");
-            int? MaterialSourceID = ddlMaterialSourceF.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMaterialSourceF.SelectedValue);
-
-            CheckBox cbFaultPart = (CheckBox)gvMaterial.FooterRow.FindControl("cbIsFaultyPartF");
-
-            DropDownList ddlTSIRNumberF = (DropDownList)gvMaterial.FooterRow.FindControl("ddlTSIRNumberF");
-            long? TsirID = null;
-            if (ddlTSIRNumberF.SelectedValue != "0")
-            {
-                TsirID = Convert.ToInt64(ddlTSIRNumberF.SelectedValue);
-                cbRecomenedPartsF.Checked = true;
-            } 
-
-            decimal value;
-            if (!decimal.TryParse(txtQtyF.Text, out value))
-            {
-                lblMessage.Text = "Please enter correct format in Qty";
-                return;
-            }
-            //     string 
-            Material = Material.Split(' ')[0];
-            string MaterialOrg = Material;
-
-            CheckBox cbSupersedeYN = (CheckBox)gvMaterial.FooterRow.FindControl("cbSupersedeYN");
-            if (cbSupersedeYN.Checked)
-            {
-                string smaterial = Material;
-                do
-                {
-                    Material = smaterial;
-                    string query = "select s.p_smaterial from af_m_supersede s left join af_m_materials mm on mm.p_material = s.p_rmaterial left join af_m_materials ms on ms.p_material = s.p_smaterial   where s.valid_from <= Now() and s.valid_to >= Now() and  p_rmaterial = '" + smaterial + "'";
-                    smaterial = new NpgsqlServer().ExecuteScalar(query);
-                } while (!string.IsNullOrEmpty(smaterial));
-            }
-
-            for (int i = 0; i < gvMaterial.Rows.Count; i++)
-            {
-                Label lblMaterialCode = (Label)gvMaterial.Rows[i].FindControl("lblMaterialCode");
-                Label lblCancel = (Label)gvMaterial.Rows[i].FindControl("lblCancel");
-                if ((lblMaterialCode.Text == Material) && (lblCancel.Visible == false))
-                {
-                    if (MaterialOrg != Material)
-                    {
-                        lblMessage.Text = "Part Number " + MaterialOrg + "is superseded with " + Material + "  and already available";
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Material " + Material + " already available";
-                    }
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-            }
-
-            string OrderType = "";
-            string Customer = "";
-            string Vendor = "";
-            string IV_SEC_SALES = "X";
-            string PRICEDATE = "";
-            Boolean IsWarrenty = false;
-            if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
-            {
-                OrderType = "DEFAULT_SEC_AUART";
-                Customer = SDMS_ICTicket.Customer.CustomerCode;
-                Vendor = SDMS_ICTicket.Dealer.DealerCode;
-            }
-            else
-            {
-                OrderType = "301_DSSOR_SALES_ORDER_HDR";
-                Customer = SDMS_ICTicket.Dealer.DealerCode;
-                Vendor = "9031";
-                IsWarrenty = true;
-            }
-
-            decimal Available = 0;
-            Boolean IsIGST = true;
-            PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
-
-
-            decimal QtyF = Convert.ToDecimal(txtQtyF.Text);
-            PDMS_ServiceMaterial MaterialTax = new SMaterial().getMaterialTax(Customer, Vendor, OrderType, 1, Material, QtyF, IV_SEC_SALES, PRICEDATE, IsWarrenty);
-
-
-            if (MM.MaterialGroup != "887")
-            {
-                if (SDMS_ICTicket.ServiceType.ServiceTypeID != (short)DMS_ServiceType.OverhaulService)
-                {
-                    if (string.IsNullOrEmpty(DefectiveMaterial))
-                    {
-                        lblMessage.Text = "Please enter the defective material";
-                        return;
-                    }
-                }
-
-                string Qty = new NpgsqlServer().ExecuteScalar("select  r_available_qty from  dmstr_stock where s_tenant_id = " + SDMS_ICTicket.Dealer.DealerCode + " and p_material ='" + Material + "' and p_office ='" + SDMS_ICTicket.DealerOffice.OfficeCode + "' and  p_stock_type='SALE'");
-                Available = Convert.ToDecimal("0" + Qty.Trim());
-                if (Convert.ToDecimal(txtQtyF.Text) < Available)
-                {
-                    Available = Convert.ToDecimal(txtQtyF.Text);
-                }
-            }
-            else
-            {
-                PDMS_Material MM_SQL = new BDMS_Material().GetMaterialListSQL(null, Material,null,null,null)[0];
-                Available = Convert.ToDecimal(txtQtyF.Text);
-
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SDMS_ICTicket.Dealer.DealerCode);
-                PDMS_Customer CustomerP = new SCustomer().getCustomerAddress(SDMS_ICTicket.Customer.CustomerCode);
-
-                MaterialTax.BasePrice = MM_SQL.CurrentPrice * Convert.ToDecimal(txtQtyF.Text);
-                if (Dealer.State.StateCode == CustomerP.State.StateCode)
-                {
-                    IsIGST = false;
-                    MaterialTax.IGST = MM_SQL.TaxPercentage;
-                    MaterialTax.IGSTValue = MM_SQL.TaxPercentage * MaterialTax.BasePrice * 2 / 100;
-                }
-                else
-                {
-                    MaterialTax.SGST = MM_SQL.TaxPercentage;
-                    MaterialTax.SGSTValue = MM_SQL.TaxPercentage * MaterialTax.BasePrice / 100;
-                }
-            }
-
-
-            if (MaterialTax.BasePrice <= 0)
-            {
-                lblMessage.Text = "Please maintain the price for  Material " + Material + " in SAP";
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
-
-            MaterialTax.OldInvoice = ((TextBox)gvMaterial.FooterRow.FindControl("txtOldInvoiceF")).Text.Trim();
-
-            long ID = new BDMS_ICTicket().InsertOrUpdateMaterialAddOrRemoveICTicket(0, SDMS_ICTicket.ICTicketID, Material, MaterialSN, DefectiveMaterial
-                , DefectiveMaterialSN, QtyF, Available, MaterialSourceID, cbFaultPart.Checked, TsirID, false, PSession.User.UserID
-                , IsIGST, cbRecomenedPartsF.Checked, cbQuotationPartsF.Checked, MaterialTax);
-            lblMessage.Text = "";
-            if (ID != 0)
-            {
-                lblMessage.ForeColor = Color.Green;
-                if (MaterialOrg != Material)
-                {
-                    lblMessage.Text = "Part Number " + MaterialOrg + "is superseded with " + Material + "  and getting replaced";
-                }
-
-                int ServiceTypeID = SDMS_ICTicket.ServiceType.ServiceTypeID;
-
-               
-                if (
-                    (Convert.ToDecimal(txtQtyF.Text) != Available) && (MM.MaterialGroup != "887") && cbQuotationPartsF.Checked
-                    && (
-                            ((short)DMS_ServiceType.PolicyWarranty == ServiceTypeID)
-                            || ((short)DMS_ServiceType.GoodwillWarranty == ServiceTypeID)
-                            || ((short)DMS_ServiceType.PartsWarranty == ServiceTypeID)
-                            || (SDMS_ICTicket.IsWarranty)
-                        )
-                    )
-                {
-                    string PO = new BDMS_ICTicket().CreateWarrantyPOForMaterial(SDMS_ICTicket, ID, PSession.User);
-                    lblMessage.Text = lblMessage.Text + " And New Warranty PO " + PO;
-                }
-
-                SS_ServiceMaterialAll = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", null, "");
-                SS_ServiceMaterial = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", false, "");
-                FillServiceMaterial();
-            }
-            else
-            {
-                lblMessage.Text = "Material " + Material + " is not added";
-                lblMessage.ForeColor = Color.Red;
-            }
+              
         }
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
         {
@@ -1849,7 +1639,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ShowMessage(Results);
             MPE_ICTicketAddOtherMachine.Hide();
             tbpCust.ActiveTabIndex = 3;
-            FillFSR();
+            FillAvailabilityOfOtherMachine();
         }
 
         protected void btnUpdateFSRAttachments_Click(object sender, EventArgs e)
@@ -1859,7 +1649,27 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         protected void btnICTicketAddServiceCharges_Click(object sender, EventArgs e)
         {
-
+            MPE_ICTicketAddServiceCharges.Show();
+            string Message = UC_ICTicketAddServiceCharges.Validation();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            PDMS_ServiceCharge OM = UC_ICTicketAddServiceCharges.Read();
+            OM.ICTicketID = SDMS_ICTicket.ICTicketID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/ICTicketServiceMaterialAdd", OM));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_ICTicketAddServiceCharges.Hide();
+            tbpCust.ActiveTabIndex = 3;
+            FillAvailabilityOfOtherMachine();
         }
 
         protected void btnAddTSIR_Click(object sender, EventArgs e)
@@ -1874,7 +1684,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMessageAssignEngineer.Text = Message;
                 return;
             }
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/TSIR", UC_AddTSIR.Read()));
+            PDMS_ICTicketTSIR Tist = UC_AddTSIR.Read();
+            Tist.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID };
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/InsertOrUpdateICTicketTSIR", Tist));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageAssignEngineer.Text = Results.Message;
@@ -1882,28 +1694,107 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             ShowMessage(Results);
             MPE_CallInformation.Hide();
-            tbpCust.ActiveTabIndex = 1;
+            tbpCust.ActiveTabIndex = 4;
             FillCallInformation();
         }
 
         protected void btnAddMaterialCharges_Click(object sender, EventArgs e)
         {
-
+            MPE_AddMaterialCharges.Show();
+            string Message = UC_ICTicketAddMaterialCharges.Validation();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            PDMS_ServiceMaterial OM = UC_ICTicketAddMaterialCharges.Read();
+            OM.ICTicketID = SDMS_ICTicket.ICTicketID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/AddTicketMaterialCharge", OM));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_AddMaterialCharges.Hide();
+            tbpCust.ActiveTabIndex = 5;
+            FillAvailabilityOfOtherMachine();
         }
 
         protected void btnAddNotes_Click(object sender, EventArgs e)
         {
+            MPE_ICTicketAddNotes.Show();
+            string Message = UC_ICTicketAddNotes.Validation();
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            string endPoint = "ICTicket/AddOrRemoveTicketNoticeInfo?ServiceNoteID=0&ICTicket=" + SDMS_ICTicket.ICTicketID + UC_ICTicketAddNotes.Read() + "&IsDeleted=false";
 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_ICTicketAddNotes.Hide();
+            tbpCust.ActiveTabIndex = 7;
+            FillServiceNotes();
         }
 
         protected void btnUpdateRestore_Click(object sender, EventArgs e)
         {
-
+            MPE_UpdateRestore.Show();
+            string Message = UC_ICTicketUpdateRestore.Validation(SDMS_ICTicket);
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            string endPoint = "ICTicket/UpdateTicketRestorationInfo?ICTicket=" + SDMS_ICTicket.ICTicketID + "&" + UC_ICTicketUpdateRestore.Read() + "&IsDeleted=false";
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_UpdateRestore.Hide();
+            tbpCust.ActiveTabIndex = 9;
+            FillRestore();
         }
 
         protected void btnAddTechnicianWork_Click(object sender, EventArgs e)
         {
-
+            MPE_AddTechnicianWork.Show();
+            string Message = UC_ICTicketAddTechnicianWork.Validation(SDMS_TechniciansWD);
+            lblMessageAssignEngineer.ForeColor = Color.Red;
+            lblMessageAssignEngineer.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAssignEngineer.Text = Message;
+                return;
+            }
+            string endPoint = "ICTicket/AddOrRemoveTicketTechnicianWorks?ServiceTechnicianWorkDateID=0&ICTicket=" + SDMS_ICTicket.ICTicketID
+                 + UC_ICTicketAddTechnicianWork.Read() + "&IsDeleted=false";
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAssignEngineer.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_AddTechnicianWork.Hide();
+            tbpCust.ActiveTabIndex = 8;
+            FillTechniciansByTicketID();
         }
     }
 }

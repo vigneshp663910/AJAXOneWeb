@@ -10,27 +10,19 @@ namespace Properties
     public class PLead
     {
         public long LeadID { get; set; }
-        public DateTime LeadDate { get; set; } 
+        public DateTime LeadDate { get; set; }
         public string LeadNumber { get; set; }
         public PLeadCategory Category { get; set; }
-        public PLeadProgressStatus ProgressStatus { get; set; }
+        public PDMS_MainApplication Application { get; set; }
         public PLeadQualification Qualification { get; set; }
         public PLeadSource Source { get; set; }
         public PLeadStatus Status { get; set; }
         public PLeadType Type { get; set; }
+        public PLeadUrgency Urgency { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_Customer Customer { get; set; }
-
+        public string CustomerFeedback { get; set; }
         public string Remarks { get; set; }
-        //public string PersonName { get; set; }
-        //public string PersonContactNumber { get; set; }
-        //public string PersonMail { get; set; }
-        //public string Address1 { get; set; }
-        //public string Address2 { get; set; }
-        //public  PDMS_Country Country { get; set; }
-        //public PDMS_State State { get; set; }
-        //public PDMS_District District { get; set; }
-        //public PDMS_Tehsil Tehsil { get; set; }
 
         public PUser CreatedBy { get; set; }
         public string CreatedOn { get; set; }
@@ -92,7 +84,6 @@ namespace Properties
         public DateTime FollowUpDate { get; set; }
         public PUser SalesEngineer { get; set; }
         public PUser CreatedBy { get; set; }
-
         public PLead Lead { get; set; }
         public PPreSaleStatus Status { get; set; }
         public PDMS_Customer Customer { get; set; }
@@ -125,6 +116,7 @@ namespace Properties
         public PUser CreatedBy { get; set; }
     }
 
+
     public class PLeadProduct
     {
         public long LeadProductID { get; set; }
@@ -135,6 +127,8 @@ namespace Properties
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
     }
+
+
 
     [Serializable]
     public class PLeadCategory
@@ -216,5 +210,12 @@ namespace Properties
         public int LeadQuestionariesSubID { get; set; }
         public PLeadQuestionariesMain QuestionariesMain { get; set; }
         public string LeadQuestionariesSub { get; set; }
+    }
+
+    [Serializable]
+    public class PLeadUrgency
+    {
+        public int UrgencyID { get; set; }
+        public string Urgency { get; set; }
     }
 }

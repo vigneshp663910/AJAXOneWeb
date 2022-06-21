@@ -462,7 +462,6 @@
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
-    <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
@@ -1457,13 +1456,6 @@
     </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\LeadVignesh.aspx.cs">
-      <DependentUpon>LeadVignesh.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\LeadVignesh.aspx.designer.cs">
-      <DependentUpon>LeadVignesh.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>

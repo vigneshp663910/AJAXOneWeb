@@ -1,4 +1,5 @@
-﻿using Properties;
+﻿using Business;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,37 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
 
         }
-        public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
+        public void FillMaster()
         {
+
+        }
+
+        void Clear()
+        {
+
+
+        }
+        public PDMS_ServiceCharge Read()
+        {
+            PDMS_ServiceCharge OM = new PDMS_ServiceCharge();
+            OM.ServiceChargeID = 0;
+            OM.ICTicketID = 0;
+            OM.IsDeleted = false;
+            
+            PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim());
+
+            OM.Material = new PDMS_Material() { MaterialID = MaterialsDescription.MaterialID };
+            OM.Date = Convert.ToDateTime(txtServiceDate.Text);
+            OM.WorkedHours = Convert.ToDecimal(txtWorkedHours.Text.Trim());
+            OM.BasePrice = Convert.ToDecimal(txtBasePrice.Text.Trim());
+            OM.Discount = Convert.ToDecimal(txtDiscount.Text.Trim());
+            return OM;
+        }
+        public string Validation()
+        {
+            string Message = "";
+
+            return Message;
         }
     }
 }

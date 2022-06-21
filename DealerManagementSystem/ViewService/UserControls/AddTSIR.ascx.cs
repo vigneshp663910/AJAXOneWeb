@@ -176,7 +176,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
             }
             ICTicketTSIR.ICTicket = new PDMS_ICTicket();
-            ICTicketTSIR.ICTicket.ICTicketID = SDMS_ICTicket.ICTicketID;
+            //ICTicketTSIR.ICTicket.ICTicketID = SDMS_ICTicket.ICTicketID;
             ICTicketTSIR.ServiceCharge = new PDMS_ServiceCharge();
             ICTicketTSIR.ServiceCharge.ServiceChargeID = ServiceChargeID;
             ICTicketTSIR.NatureOfFailures = txtNatureOfFailures.Text.Trim();

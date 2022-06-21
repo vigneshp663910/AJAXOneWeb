@@ -27,7 +27,7 @@
                 <asp:LinkButton ID="lbtnAddMaterialCharges" runat="server" OnClick="lbActions_Click">Add Material Charges</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddNotes" runat="server" OnClick="lbActions_Click">Add Notes</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddTechnicianWork" runat="server" OnClick="lbActions_Click">Add Technician Work</asp:LinkButton>
-                <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -134,7 +134,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvTechnician" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%">
+                    <asp:GridView ID="gvTechnician" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                         <Columns>
                             <asp:TemplateField HeaderText="Technician">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -158,6 +158,11 @@
 
                             </asp:TemplateField>
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -331,9 +336,9 @@
                 </div>
             </fieldset>
 
-                <div class="col-md-12 Report">
+            <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvAttachedFile" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%"   DataKeyNames="AttachedFileID" OnRowDataBound="gvAttachedFile_RowDataBound">
+                    <asp:GridView ID="gvAttachedFile" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" DataKeyNames="AttachedFileID" OnRowDataBound="gvAttachedFile_RowDataBound">
                         <Columns>
                             <asp:TemplateField HeaderText="Attachment Description">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -364,7 +369,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvAvailabilityOfOtherMachine" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%"  DataKeyNames="AvailabilityOfOtherMachineID" >
+                    <asp:GridView ID="gvAvailabilityOfOtherMachine" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="AvailabilityOfOtherMachineID">
                         <Columns>
                             <asp:TemplateField HeaderText="Type Of Machine">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -398,16 +403,21 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel> 
+    </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlServiceCharges" runat="server" HeaderText="Service Charges">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvServiceCharges" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%"   DataKeyNames="ServiceChargeID">
+                    <asp:GridView ID="gvServiceCharges" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="ServiceChargeID">
                         <Columns>
                             <asp:TemplateField HeaderText="" Visible="false">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -510,6 +520,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -519,7 +534,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvTSIR" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" DataKeyNames="TsirID" OnRowDataBound="gvTSIR_RowDataBound">
+                    <asp:GridView ID="gvTSIR" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="TsirID" OnRowDataBound="gvTSIR_RowDataBound">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
@@ -609,19 +624,29 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="border-bottom-width: 0px; border-right-width: 0px;">
-                                                            <asp:DropDownList ID="ddlFSRAttachedName" runat="server" CssClass="TextBox" /></td>
-                                                        <td style="border-bottom-width: 0px; border-right-width: 0px;">
-                                                            <asp:FileUpload ID="fu" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" /></td>
-                                                        <td style="border-bottom-width: 0px; border-right-width: 0px;">
-                                                            <asp:UpdatePanel ID="upManage" runat="server">
-                                                                <ContentTemplate>
-                                                                    <asp:LinkButton ID="lblAttachedFileAdd" runat="server" OnClick="lblAttachedFileAddR_Click">Add</asp:LinkButton>
-                                                                </ContentTemplate>
-                                                                <Triggers>
-                                                                    <asp:PostBackTrigger ControlID="lblAttachedFileAdd" />
-                                                                </Triggers>
-                                                            </asp:UpdatePanel>
-                                                        </td>
+                                                            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                                                                <div class="col-md-12">
+                                                                    <div class="col-md-4 col-sm-12">
+                                                                        <label class="modal-label">Name Type</label>
+                                                                        <asp:DropDownList ID="ddlFSRAttachedName" runat="server" CssClass="form-control" />
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-12">
+                                                                        <label class="modal-label">File</label>
+                                                                        <asp:FileUpload ID="fu" runat="server"   CssClass="form-control" ViewStateMode="Inherit" Width="200px" />
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-12"> 
+                                                                        <asp:UpdatePanel ID="upManage" runat="server">
+                                                                            <ContentTemplate>
+                                                                                <asp:LinkButton ID="lblAttachedFileAdd" runat="server" OnClick="lblAttachedFileAddR_Click">Add</asp:LinkButton>
+                                                                            </ContentTemplate>
+                                                                            <Triggers>
+                                                                                <asp:PostBackTrigger ControlID="lblAttachedFileAdd" />
+                                                                            </Triggers>
+                                                                        </asp:UpdatePanel>
+                                                                    </div> 
+                                                                </div>
+                                                            </fieldset> 
+                                                        </td> 
                                                     </tr>
                                                 </table>
                                             </div>
@@ -630,6 +655,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -640,58 +670,27 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-                        <div id="divWarrantyDistribution" runat="server">
-                            <table class="labeltxt fullWidth">
-                                <tr>
-                                    <td>
-                                        <div class="tbl-row-left">
-                                            <div class="tbl-col-left">
-                                                <asp:Label ID="Label10" runat="server" CssClass="label" Text="Customer Pay %"></asp:Label>
-                                            </div>
-                                            <div class="tbl-col-right">
-                                                <asp:TextBox ID="txtCustomerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="tbl-row-left">
-                                            <div class="tbl-col-left">
-                                                <asp:Label ID="Label1" runat="server" CssClass="label" Text="Dealer Pay %"></asp:Label>
-                                            </div>
-                                            <div class="tbl-col-right">
-                                                <asp:TextBox ID="txtDealerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="tbl-row-left">
-                                            <div class="tbl-col-left">
-                                                <asp:Label ID="Label2" runat="server" CssClass="label" Text="AE Pay %"></asp:Label>
-                                            </div>
-                                            <div class="tbl-col-right">
-                                                <asp:TextBox ID="txtAEPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <br />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:Button ID="btnSaveWarrantyDistribution" runat="server" Text="Save Warranty Distribution" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnSaveWarrantyDistribution_Click" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <br />
-                                    </td>
-                                </tr>
-                            </table>
+
+                        <div class="col-md-12">
+                            <div class="col-md-2 col-sm-12">
+                                <label class="modal-label">Customer Pay %</label>
+                                <asp:TextBox ID="txtCustomerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="modal-label">Dealer Pay %</label>
+                                <asp:TextBox ID="txtDealerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="modal-label">AE Pay %</label>
+                                <asp:TextBox ID="txtAEPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
+                            </div>
+                            <div class="col-md-8 text-left">
+                                <asp:Button ID="btnSaveWarrantyDistribution" runat="server" Text="Save Warranty Distribution" CssClass="btn Search" Width="300px" UseSubmitBehavior="true" OnClick="btnSaveWarrantyDistribution_Click" />
+                            </div>
                         </div>
-                        <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%"   DataKeyNames="ServiceMaterialID">
+
+
+                        <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="ServiceMaterialID">
                             <Columns>
                                 <asp:TemplateField HeaderText="Edit">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -834,6 +833,11 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </div>
                 </div>
@@ -844,7 +848,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvNotes" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%"   DataKeyNames="ServiceNoteID">
+                    <asp:GridView ID="gvNotes" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="ServiceNoteID">
                         <Columns>
                             <asp:TemplateField HeaderText="Note Type">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -875,7 +879,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <FooterStyle CssClass="footer" />
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -885,7 +893,7 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvTechnicianWorkDays" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%"  >
+                    <asp:GridView ID="gvTechnicianWorkDays" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                         <Columns>
                             <asp:TemplateField HeaderText="Technician">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -916,6 +924,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>
@@ -953,7 +966,7 @@
                     </fieldset>
                 </div>
         </ContentTemplate>
-    </asp1:TabPanel> 
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 
@@ -968,7 +981,7 @@
             <UC:UC_ICTicketAddTechnician ID="UC_ICTicketAddTechnician" runat="server"></UC:UC_ICTicketAddTechnician>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click"  />
+            <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />
         </div>
 
     </div>
@@ -987,7 +1000,7 @@
             <UC:UC_ICTicketUpdateCallInformation ID="UC_ICTicketUpdateCallInformation" runat="server"></UC:UC_ICTicketUpdateCallInformation>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnCallInformation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnCallInformation_Click"  />
+            <asp:Button ID="btnCallInformation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnCallInformation_Click" />
         </div>
 
     </div>
@@ -1006,7 +1019,7 @@
             <UC:UC_AddFSR ID="UC_AddFSR" runat="server"></UC:UC_AddFSR>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateFSR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateFSR_Click"  />
+            <asp:Button ID="btnUpdateFSR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateFSR_Click" />
         </div>
 
     </div>
@@ -1024,7 +1037,7 @@
             <UC:UC_AddFSRAttachments ID="UC_AddFSRAttachments" runat="server"></UC:UC_AddFSRAttachments>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateFSRAttachments" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateFSRAttachments_Click"  />
+            <asp:Button ID="btnUpdateFSRAttachments" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateFSRAttachments_Click" />
         </div>
 
     </div>
@@ -1043,7 +1056,7 @@
             <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddOtherMachine" runat="server"></UC:UC_ICTicketAddOtherMachine>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnICTicketAddOtherMachine" runat="server" Text="Save" CssClass="btn Save" OnClick="btnICTicketAddOtherMachine_Click"  />
+            <asp:Button ID="btnICTicketAddOtherMachine" runat="server" Text="Save" CssClass="btn Save" OnClick="btnICTicketAddOtherMachine_Click" />
         </div>
 
     </div>
@@ -1059,10 +1072,10 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="Label7" runat="server" Text="" CssClass="message" Visible="false" />
-            <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddServiceCharges" runat="server"></UC:UC_ICTicketAddOtherMachine>
+            <UC:UC_ICTicketAddServiceCharges ID="UC_ICTicketAddServiceCharges" runat="server"></UC:UC_ICTicketAddServiceCharges>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnICTicketAddServiceCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnICTicketAddServiceCharges_Click"  />
+            <asp:Button ID="btnICTicketAddServiceCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnICTicketAddServiceCharges_Click" />
         </div>
 
     </div>
@@ -1081,7 +1094,7 @@
             <UC:UC_AddTSIR ID="UC_AddTSIR" runat="server"></UC:UC_AddTSIR>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddTSIR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTSIR_Click"  />
+            <asp:Button ID="btnAddTSIR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTSIR_Click" />
         </div>
 
     </div>
@@ -1099,7 +1112,7 @@
             <UC:UC_ICTicketAddMaterialCharges ID="UC_ICTicketAddMaterialCharges" runat="server"></UC:UC_ICTicketAddMaterialCharges>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddMaterialCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click"  />
+            <asp:Button ID="btnAddMaterialCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click" />
         </div>
 
     </div>
@@ -1117,7 +1130,7 @@
             <UC:UC_ICTicketAddNotes ID="UC_ICTicketAddNotes" runat="server"></UC:UC_ICTicketAddNotes>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddNotes" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotes_Click"  />
+            <asp:Button ID="btnAddNotes" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotes_Click" />
         </div>
 
     </div>
@@ -1135,7 +1148,7 @@
             <UC:UC_ICTicketAddTechnicianWork ID="UC_ICTicketAddTechnicianWork" runat="server"></UC:UC_ICTicketAddTechnicianWork>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddTechnicianWork" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTechnicianWork_Click"  />
+            <asp:Button ID="btnAddTechnicianWork" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTechnicianWork_Click" />
         </div>
 
     </div>
@@ -1154,7 +1167,7 @@
             <UC:UC_ICTicketUpdateRestore ID="UC_ICTicketUpdateRestore" runat="server"></UC:UC_ICTicketUpdateRestore>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateRestore" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateRestore_Click"  />
+            <asp:Button ID="btnUpdateRestore" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateRestore_Click" />
         </div>
 
     </div>
@@ -1164,5 +1177,19 @@
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
+<script type="text/javascript">
 
+    function collapseExpand(obj) {
+        var gvObject = document.getElementById(obj);
+        var imageID = document.getElementById('image' + obj);
+        if (gvObject.style.display == "none") {
+            gvObject.style.display = "inline";
+            imageID.src = "Images/grid_collapse.png";
+        }
+        else {
+            gvObject.style.display = "none";
+            imageID.src = "Images/grid_expand.png";
+        }
+    }
+</script>
 

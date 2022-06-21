@@ -762,24 +762,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::AjaxControlToolkit.TabPanel tpnlMaterialCharges;
 
         /// <summary>
-        /// divWarrantyDistribution control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWarrantyDistribution;
-
-        /// <summary>
-        /// Label10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
-
-        /// <summary>
         /// txtCustomerPayPercentage control.
         /// </summary>
         /// <remarks>
@@ -789,15 +771,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtCustomerPayPercentage;
 
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-
-        /// <summary>
         /// txtDealerPayPercentage control.
         /// </summary>
         /// <remarks>
@@ -805,15 +778,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDealerPayPercentage;
-
-        /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
         /// txtAEPayPercentage control.
@@ -1236,7 +1200,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewService.UserControls.ICTicketAddOtherMachine UC_ICTicketAddServiceCharges;
+        protected global::DealerManagementSystem.ViewService.UserControls.ICTicketAddServiceCharges UC_ICTicketAddServiceCharges;
 
         /// <summary>
         /// btnICTicketAddServiceCharges control.

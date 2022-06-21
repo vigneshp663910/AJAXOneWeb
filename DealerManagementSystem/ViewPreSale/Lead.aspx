@@ -274,10 +274,10 @@
                         <label>Lead Date To</label>
                         <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                     </div>
-                    <div class="col-md-2 text-left">
+                  <%--  <div class="col-md-2 text-left">
                         <label>Progress Status</label>
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
-                    </div>
+                    </div>--%>
 
                     <div class="col-md-2 text-left">
                         <label>Status</label>
@@ -389,11 +389,11 @@
                                         <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                               <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
 
                                 <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
                                     <ItemTemplate>
@@ -540,16 +540,27 @@
 
                             <div class="col-md-6 col-sm-12">
                                 <label>Qualification</label>
-                                <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
+                                <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <label>Source</label>
-                                <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
-                            </div>
-
+                                <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" />
+                            </div> 
                             <div class="col-md-6 col-sm-12">
                                 <label>Lead Type</label>
-                                <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
+                                <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" />
+                            </div>
+                             <div class="col-md-6 col-sm-12">
+                                <label>Urgency</label>
+                                <asp:DropDownList ID="ddlUrgency" runat="server" CssClass="form-control"  />
+                            </div>
+                             <div class="col-md-6 col-sm-12">
+                                <label>Application</label>
+                                <asp:DropDownList ID="ddlApplication" runat="server" CssClass="form-control"  />
+                            </div>
+                              <div class="col-md-12 col-sm-12">
+                                <label>Customer Feedback</label>
+                                <asp:TextBox ID="txtCustomerFeedback" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
                             <div class="col-md-12 col-sm-12">
                                 <label>Remarks</label>
@@ -565,7 +576,6 @@
         </div>
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
 
 </asp:Content>
 

@@ -62,12 +62,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
             lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
-            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
+            lblUrgency.Text = Lead.Urgency.Urgency;
+            lblApplication.Text = Lead.Application.MainApplication;
             lblQualification.Text = Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source.Source;
             lblStatus.Text = Lead.Status.Status;
             lblType.Text = Lead.Type.Type;
             lblDealer.Text = Lead.Dealer.DealerCode;
+            lblCustomerFeedback.Text = Lead.CustomerFeedback;
             lblRemarks.Text = Lead.Remarks;
             lblCustomer.Text = Lead.Customer.CustomerFullName;
             lblContactPerson.Text = Lead.Customer.ContactPerson;
@@ -487,8 +489,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //new DDLBind(ddlStatus, Status, "Status", "StatusID"); 
 
 
-            //ddlStatus.SelectedValue = Convert.ToString(Lead.Status.StatusID);
-            //ddlProgressStatus.SelectedValue = Convert.ToString(Lead.ProgressStatus.ProgressStatusID);
+
+            new DDLBind(ddlUrgency, new BLead().GetLeadUrgency(null, null), "Urgency", "UrgencyID");
+            new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
 
             List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
             new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
@@ -498,6 +501,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlQualification.SelectedValue = Convert.ToString(Lead.Qualification.QualificationID);
             ddlSource.SelectedValue = Convert.ToString(Lead.Source.SourceID);
             ddlLeadType.SelectedValue = Convert.ToString(Lead.Type.TypeID);
+            ddlUrgency.SelectedValue = Convert.ToString(Lead.Urgency.UrgencyID);
+            ddlApplication.SelectedValue = Convert.ToString(Lead.Application.MainApplicationID);
+            txtCustomerFeedback.Text = Lead.CustomerFeedback;
             txtRemarks.Text = Lead.Remarks;
         }
         void fillSupportDocument()
@@ -663,13 +669,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             LeadEdit.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
 
             LeadEdit.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
-            //LeadEdit.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
-            //LeadEdit.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
+             LeadEdit.Urgency = new PLeadUrgency() { UrgencyID = Convert.ToInt32(ddlUrgency.SelectedValue) };
+            LeadEdit.Application = new PDMS_MainApplication() { MainApplicationID = Convert.ToInt32(ddlApplication.SelectedValue) };
 
             LeadEdit.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
             LeadEdit.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
             LeadEdit.Source = new PLeadSource() { SourceID = Convert.ToInt32(ddlSource.SelectedValue) };
             LeadEdit.Type = new PLeadType() { TypeID = Convert.ToInt32(ddlLeadType.SelectedValue) };
+            LeadEdit.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             LeadEdit.Remarks = txtRemarks.Text.Trim();
             LeadEdit.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
@@ -690,8 +697,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             string Message = "";
             txtLeadDate.BorderColor = Color.Silver;
             ddlProductType.BorderColor = Color.Silver;
-            //ddlStatus.BorderColor = Color.Silver;
-            //ddlProgressStatus.BorderColor = Color.Silver;
+            ddlUrgency.BorderColor = Color.Silver;
+            ddlApplication.BorderColor = Color.Silver;
             ddlCategory.BorderColor = Color.Silver;
             ddlQualification.BorderColor = Color.Silver;
             ddlSource.BorderColor = Color.Silver;
@@ -738,6 +745,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 Message = Message + "<br/>Please select the LeadType";
                 ddlLeadType.BorderColor = Color.Red;
+            }
+            else if (ddlUrgency.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Urgency";
+                ddlUrgency.BorderColor = Color.Red;
+            }
+            else if (ddlApplication.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Application";
+                ddlApplication.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
             {

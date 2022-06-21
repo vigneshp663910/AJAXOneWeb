@@ -19,7 +19,7 @@
             <label class="modal-label">Machine Maintenance Level</label>
             <asp:DropDownList ID="ddlMachineMaintenanceLevel" runat="server" CssClass="form-control" />
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
             <label class="modal-label">Is Rental</label>
             <asp:CheckBox ID="cbIsRental" runat="server" />
         </div>
@@ -31,21 +31,21 @@
             <label class="modal-label">Rental Contractor Contact No</label>
             <asp:TextBox ID="txtRentalNumber" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
             <label class="modal-label">Nature Of Complaint</label>
-            <asp:TextBox ID="txtNatureOfComplaint" runat="server" CssClass="form-control" Width="700px"></asp:TextBox>
+            <asp:TextBox ID="txtNatureOfComplaint" runat="server" CssClass="form-control"  TextMode="MultiLine"></asp:TextBox>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
             <label class="modal-label">Observation</label>
-            <asp:TextBox ID="txtObservation" runat="server" CssClass="form-control" TextMode="MultiLine" Width="700px"></asp:TextBox>
+            <asp:TextBox ID="txtObservation" runat="server" CssClass="form-control" TextMode="MultiLine" ></asp:TextBox>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
             <label class="modal-label">Work Carried Out</label>
-            <asp:TextBox ID="txtWorkCarriedOut" runat="server" CssClass="form-control" TextMode="MultiLine" Width="700px"></asp:TextBox>
+            <asp:TextBox ID="txtWorkCarriedOut" runat="server" CssClass="form-control" TextMode="MultiLine"  ></asp:TextBox>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
             <label class="modal-label">SE Suggestion</label>
-            <asp:TextBox ID="txtReport" runat="server" CssClass="form-control" TextMode="MultiLine" Width="700px"></asp:TextBox>
+            <asp:TextBox ID="txtReport" runat="server" CssClass="form-control" TextMode="MultiLine"  ></asp:TextBox>
         </div>
     </div>
 </fieldset>
