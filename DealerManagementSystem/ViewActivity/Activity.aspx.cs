@@ -137,9 +137,19 @@ namespace DealerManagementSystem.ViewActivity
         {
             gv.DataSource = Activity1;
             gv.DataBind();
+            for (int i = 0; i < gv.Rows.Count; i++)
+            {
+                Label lblEndDate = (Label)gv.Rows[i].FindControl("lblEndDate");
+                Button btnEndActivity = (Button)gv.Rows[i].FindControl("btnEndActivity");
+                if (!string.IsNullOrEmpty(lblEndDate.Text))
+                {
+                    btnEndActivity.Visible = false;
+                }
+            }
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Activity1.Count;
         }
 
+        
         void FillActivity()
         {
             PActivitySearch S = new PActivitySearch();
@@ -148,8 +158,8 @@ namespace DealerManagementSystem.ViewActivity
             S.ActivityID = string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim());
             S.ActivityDateFrom = string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateFrom.Text.Trim());
             S.ActivityDateTo = string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateTo.Text.Trim());
-            S.CustomerCode = txtCustomerCode.Text.Trim();
-            S.EquipmentSerialNo = txtEquipment.Text.Trim();
+            //S.CustomerCode = txtCustomerCode.Text.Trim();
+            //S.EquipmentSerialNo = txtEquipment.Text.Trim();
             S.ActivityReferenceTableID = ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue);
             S.ReferenceNumber = txtReferenceNumber.Text.Trim();
             Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
@@ -324,6 +334,7 @@ namespace DealerManagementSystem.ViewActivity
         {
             try
             {
+
                 MPE_EndActivity.Show();
                 PActivity Activity = new PActivity();
                 lblEndActivityMessage.ForeColor = Color.Red;
@@ -336,25 +347,91 @@ namespace DealerManagementSystem.ViewActivity
                     return;
                 }
 
+                //long? CustomerID = null;
+                //if (!string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
+                //{
+                //    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtCustomerCodeE.Text.Trim());
+                //    if (Customer.Count == 0)
+                //    {
+                //        lblEndActivityMessage.Text = "Customer Code not avialable.";
+                //        //txtCustomerCodeE.BorderColor = Color.Red;
+                //        return;
+                //    }
+                //    else
+                //    {
+                //        CustomerID = Customer[0].CustomerID;
+                //    }
+                //}
+                //long? EquipmentHeaderID = null;
+                //if (!string.IsNullOrEmpty(txtEquipmentE.Text.Trim()))
+                //{
+                //    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtEquipmentE.Text.Trim());
+                //    if (Equ.Count == 0)
+                //    {
+                //        lblEndActivityMessage.Text = "Equipment not avialable.";
+                //        //txtEquipmentE.BorderColor = Color.Red;
+                //        return;
+                //    }
+                //    else
+                //    {
+                //        EquipmentHeaderID = Equ[0].EquipmentHeaderID;
+                //    }
+                //}
+
+                long? ReferenceNumberID = null;
                 long? CustomerID = null;
-                if (!string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
+                if (ddlReferenceTypeE.SelectedValue == "1")
                 {
-                    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtCustomerCodeE.Text.Trim());
+                    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtReferenceNumberE.Text.Trim());
                     if (Customer.Count == 0)
                     {
-                        lblEndActivityMessage.Text = "Customer Code not avialable.";
+                        lblEndActivityMessage.Text = "Customer Code is not avialable.";
                         //txtCustomerCodeE.BorderColor = Color.Red;
                         return;
                     }
-                    else
-                    {
-                        CustomerID = Customer[0].CustomerID;
-                    }
+                    //else
+                    //{
+                    CustomerID = Customer[0].CustomerID;
+                    ReferenceNumberID = Customer[0].CustomerID;
+                    //}
                 }
-                long? EquipmentHeaderID = null;
-                if (!string.IsNullOrEmpty(txtEquipmentE.Text.Trim()))
+
+                long? LeadID = null;
+                if (ddlReferenceTypeE.SelectedValue == "2")
                 {
-                    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtEquipmentE.Text.Trim());
+                    //PLead Lead = new BLead().GetLeadByLeadNumber(txtReferenceNumberE.Text.Trim());
+                    PLeadSearch S = new PLeadSearch();
+                    S.LeadNumber = txtReferenceNumberE.Text.Trim();
+                    //S.CustomerID = CustomerID;
+                    List<PLead> Lead = new BLead().GetLead(S);
+                    if (Lead.Count == 0)
+                    {
+                        lblEndActivityMessage.Text = "Lead Number is not avialable.";
+                        //txtReferenceNumberE.BorderColor = Color.Red;
+                        return;
+                    }
+                    LeadID = Lead[0].LeadID;
+                    ReferenceNumberID = Lead[0].LeadID;
+                }
+
+                long? QuotationID = null;
+                if (ddlReferenceTypeE.SelectedValue == "3")
+                {
+                    List<PSalesQuotation> Quotation = new BSalesQuotation().GetSalesQuotationBasic(null, null, null, null, txtReferenceNumberE.Text.Trim(), null, null, null, null, null, null);
+                    if (Quotation.Count == 0)
+                    {
+                        lblEndActivityMessage.Text = "Quotation Number is not avialable.";
+                        //txtReferenceNumberE.BorderColor = Color.Red;
+                        return;
+                    }
+                    QuotationID = Quotation[0].QuotationID;
+                    ReferenceNumberID = Quotation[0].QuotationID;
+                }
+
+                long? EquipmentHeaderID = null;
+                if (ddlReferenceTypeE.SelectedValue == "4")
+                {
+                    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtReferenceNumberE.Text.Trim());
                     if (Equ.Count == 0)
                     {
                         lblEndActivityMessage.Text = "Equipment not avialable.";
@@ -364,33 +441,7 @@ namespace DealerManagementSystem.ViewActivity
                     else
                     {
                         EquipmentHeaderID = Equ[0].EquipmentHeaderID;
-                    }
-                }
-                long? LeadID = null;
-
-                if (ddlReferenceTypeE.SelectedValue == "1")
-                {
-                    //PLead Lead = new BLead().GetLeadByLeadNumber(txtReferenceNumberE.Text.Trim());
-                    PLeadSearch S = new PLeadSearch();
-                    S.LeadNumber = txtReferenceNumberE.Text.Trim();
-                    S.CustomerID = CustomerID;
-                    List<PLead> Lead = new BLead().GetLead(S);
-                    if (Lead.Count == 0)
-                    {
-                        lblEndActivityMessage.Text = "Reference Number is not avialable.";
-                        //txtReferenceNumberE.BorderColor = Color.Red;
-                        return;
-                    }
-                    LeadID = Lead[0].LeadID;
-                }
-                if (ddlReferenceTypeE.SelectedValue == "2")
-                {
-                    List<PSalesQuotation> Quotation = new BSalesQuotation().GetSalesQuotationBasic(null, null, null, null, txtReferenceNumberE.Text.Trim(), null, null, null, null, null, txtCustomerCodeE.Text.Trim());
-                    if (Quotation.Count == 0)
-                    {
-                        lblEndActivityMessage.Text = "Reference Number is not avialable.";
-                        //txtReferenceNumberE.BorderColor = Color.Red;
-                        return;
+                        ReferenceNumberID = Equ[0].EquipmentHeaderID;
                     }
                 }
 
@@ -402,19 +453,22 @@ namespace DealerManagementSystem.ViewActivity
                 Activity.ActivityEndDate = Convert.ToDateTime(lblEndActivityDate.Text.Trim());
                 Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
                 Activity.Location = Convert.ToString(txtLocation.Text.Trim());
-                Activity.Customer = new PDMS_Customer();
+                //Activity.Customer = new PDMS_Customer();
                 //Activity.Customer.CustomerCode = Convert.ToString(txtCustomerCodeE.Text.Trim());
-                Activity.Customer.CustomerID = Convert.ToInt64(CustomerID);
-                Activity.Equipment = new PDMS_EquipmentHeader();
+                //Activity.Customer.CustomerID = Convert.ToInt64(CustomerID);
+                //Activity.Equipment = new PDMS_EquipmentHeader();
                 //Activity.Equipment.EquipmentSerialNo = Convert.ToString(txtEquipmentE.Text.Trim());
-                Activity.Equipment.EquipmentHeaderID = Convert.ToInt64(EquipmentHeaderID);
+                //Activity.Equipment.EquipmentHeaderID = Convert.ToInt64(EquipmentHeaderID);
                 Activity.Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim());
+
                 Activity.ActivityReference = new PActivityReferenceType();
-                Activity.ActivityReference.ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue);
+                Activity.ActivityReference = ddlReferenceTypeE.SelectedValue == "0" ? null : new PActivityReferenceType() { ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue) };
+
                 Activity.ReferenceNumber = Convert.ToString(txtReferenceNumberE.Text.Trim());
                 //Activity.ReferenceID = Convert.ToInt64(LeadID);
 
                 Activity.Remark = Convert.ToString(txtRemarks.Text.Trim());
+                Activity.ReferenceNumberID = ReferenceNumberID == null ? (Int64?)null : ReferenceNumberID;
 
                 Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
                 if (result == 0)
@@ -441,8 +495,8 @@ namespace DealerManagementSystem.ViewActivity
         {
             string Message = "";
             txtLocation.BorderColor = Color.Silver;
-            txtCustomerCodeE.BorderColor = Color.Silver;
-            txtEquipmentE.BorderColor = Color.Silver;
+            //txtCustomerCodeE.BorderColor = Color.Silver;
+            //txtEquipmentE.BorderColor = Color.Silver;
             ddlReferenceTypeE.BorderColor = Color.Silver;
             txtReferenceNumberE.BorderColor = Color.Silver;
             txtRemarks.BorderColor = Color.Silver;
@@ -487,7 +541,12 @@ namespace DealerManagementSystem.ViewActivity
             //    Message = Message + "<br/>Please enter the Remark";
             //    txtRemarks.BorderColor = Color.Red;
             //}
+            if (ddlReferenceTypeE.SelectedValue != "0" && string.IsNullOrEmpty(txtReferenceNumberE.Text.Trim()))
+            {
 
+                Message = Message + "<br/>Please enter the Reference Number";
+                txtReferenceNumberE.BorderColor = Color.Red;
+            }
             return Message;
         }
     }

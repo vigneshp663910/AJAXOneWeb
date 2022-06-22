@@ -96,24 +96,6 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.TextBox txtActivityDateTo;
 
         /// <summary>
-        /// txtCustomerCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
-
-        /// <summary>
-        /// txtEquipment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquipment;
-
-        /// <summary>
         /// ddlReferenceType control.
         /// </summary>
         /// <remarks>
@@ -357,33 +339,6 @@ namespace DealerManagementSystem.ViewActivity
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
-        /// txtCustomerCodeE control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerCodeE;
-
-        /// <summary>
-        /// txtEquipmentE control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEquipmentE;
-
-        /// <summary>
-        /// txtAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAmount;
-
-        /// <summary>
         /// ddlReferenceTypeE control.
         /// </summary>
         /// <remarks>
@@ -400,6 +355,15 @@ namespace DealerManagementSystem.ViewActivity
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReferenceNumberE;
+
+        /// <summary>
+        /// txtAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAmount;
 
         /// <summary>
         /// txtRemarks control.
