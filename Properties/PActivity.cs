@@ -40,7 +40,7 @@ namespace Properties
         public DateTime ModifiedOn { get; set; }
         public PActivityReferenceType ActivityReference { get; set; }
         public string ReferenceNumber { get; set; }
-        public long ReferenceID { get; set; }
+        public long? ReferenceNumberID { get; set; }
     }   
 
     [Serializable]
