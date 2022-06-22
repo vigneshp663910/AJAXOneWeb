@@ -551,7 +551,7 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
 
                 DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
-                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerName", "DealerID", true, "Select Dealer");
+                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
             }
             catch (Exception Ex)
             {
