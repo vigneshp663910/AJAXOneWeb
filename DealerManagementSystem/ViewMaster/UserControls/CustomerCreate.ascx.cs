@@ -89,7 +89,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.DOB = string.IsNullOrEmpty(txtDOB.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOB.Text.Trim());
             Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
             Customer.SendSMS = cbSendSMS.Checked;
-            Customer.SendEmail = cbSendEmail.Checked; 
+            Customer.SendEmail = cbSendEmail.Checked;
+            Customer.IsDraft = cbIsDraft.Checked;
             Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
             return Customer;
         }
@@ -135,7 +136,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtDOB.Text = Customer.DOB == null ? "" : ((DateTime)Customer.DOB).ToString("yyyy-MM-dd");
             txtDOAnniversary.Text = Customer.DOAnniversary == null ? "" : ((DateTime)Customer.DOAnniversary).ToString("yyyy-MM-dd");
             cbSendSMS.Checked = Customer.SendSMS;
-            cbSendEmail.Checked = Customer.SendEmail; 
+            cbSendEmail.Checked = Customer.SendEmail;
+            cbIsDraft.Checked = Customer.IsDraft;
         }
 
         public void FillClean()

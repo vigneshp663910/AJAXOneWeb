@@ -1658,7 +1658,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMessageAssignEngineer.Text = Message;
                 return;
             }
-            PDMS_ServiceCharge OM = UC_ICTicketAddServiceCharges.Read();
+            PDMS_ServiceCharge_API OM = UC_ICTicketAddServiceCharges.Read();
             OM.ICTicketID = SDMS_ICTicket.ICTicketID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/ICTicketServiceMaterialAdd", OM));
             if (Results.Status == PApplication.Failure)
@@ -1684,8 +1684,8 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMessageAssignEngineer.Text = Message;
                 return;
             }
-            PDMS_ICTicketTSIR Tist = UC_AddTSIR.Read();
-            Tist.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID };
+            PDMS_ICTicketTSIR_API Tist = UC_AddTSIR.Read();
+            Tist.ICTicketID = SDMS_ICTicket.ICTicketID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/InsertOrUpdateICTicketTSIR", Tist));
             if (Results.Status == PApplication.Failure)
             {

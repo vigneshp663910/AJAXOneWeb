@@ -152,10 +152,10 @@ namespace DealerManagementSystem.ViewService.UserControls
         //    } 
         //}
 
-        public PDMS_ICTicketTSIR Read()
+        public PDMS_ICTicketTSIR_API Read()
         {
             lblMessageTSIR.Visible = true;
-            PDMS_ICTicketTSIR ICTicketTSIR = new PDMS_ICTicketTSIR();
+            PDMS_ICTicketTSIR_API ICTicketTSIR = new PDMS_ICTicketTSIR_API();
             if (!Validation())
             {
                 return ICTicketTSIR;
@@ -174,11 +174,8 @@ namespace DealerManagementSystem.ViewService.UserControls
                         return ICTicketTSIR;
                     }
                 }
-            }
-            ICTicketTSIR.ICTicket = new PDMS_ICTicket();
-            //ICTicketTSIR.ICTicket.ICTicketID = SDMS_ICTicket.ICTicketID;
-            ICTicketTSIR.ServiceCharge = new PDMS_ServiceCharge();
-            ICTicketTSIR.ServiceCharge.ServiceChargeID = ServiceChargeID;
+            }  
+            ICTicketTSIR.ServiceChargeID = ServiceChargeID;
             ICTicketTSIR.NatureOfFailures = txtNatureOfFailures.Text.Trim();
             ICTicketTSIR.ProblemNoticedBy = txtProblemNoticedBy.Text.Trim();
             ICTicketTSIR.UnderWhatConditionFailureTaken = txtUnderWhatConditionFailureTaken.Text.Trim();

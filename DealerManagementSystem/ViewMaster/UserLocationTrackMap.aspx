@@ -16,10 +16,10 @@
             height: 100%
         }
     </style>
-     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <%-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">    </script>--%>
-    <%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk" >    </script>--%>
-      <%--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly" defer ></script>--%>
+    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
+
+    var geocoder;
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -37,106 +37,65 @@
                             <label class="modal-label">Employee</label>
                             <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                         </div>
-                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Department</label>
-                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" AutoPostBack="true" />
-                        </div>
-                        <div class="col-md-12 text-center">
+                        
+                        <div class="col-md-2 text-center">
+                            <br />
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                        </div>
+                        </div> 
                     </div>
                 </fieldset>
             </div>
-            <div id="map" style="width: 100%; height: 600px"></div>
-            <%--  <script  type="text/javascript" 
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
-     
-    ></script>--%>
-             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk" >    </script>
+            <div id="map_canvas" style="width: 100%; height: 600px"></div>
+
         </div>
 
     </div>
 
-    <%--<script type="text/javascript">
-         
-        debugger;
-        const waypts = [];
-      //  function initMap() {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 6,
-            center: { lat: 13.06667100, lng: 77.50631200 },
-        }); 
-              waypts.push({
+    <script type="text/javascript">
+       
 
-                  location: new google.maps.LatLng(13.06667100, 77.50631200),
-            stopover: true,
-        });
 
-        directionsService
-            .route({
-                origin: new google.maps.LatLng(12.95680000, 77.58330000),
-                destination: new google.maps.LatLng(13.02240000, 77.52821001),
-                waypoints: waypts,
-                optimizeWaypoints: true,
-                travelMode: google.maps.TravelMode.DRIVING,
-            }).then((response) => {
-                directionsRenderer.setDirections(response);
+        /*function initialize() {*/
 
-            })
-            .catch((e) => window.alert("Directions request failed due to " + status));
-     //   }
-         //  window.initMap = initMap;
-    </script>--%>
-
-    <script>
-     //   function initMap() {
-            const directionsService = new google.maps.DirectionsService();
-            const directionsRenderer = new google.maps.DirectionsRenderer();
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 6,
-                center: { lat: 13.06667100, lng: 77.50631200 },
+        var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            //zoom: 12,
+            zoom: 4.6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+            //  marker:true
+        };
+        var infoWindow = new google.maps.InfoWindow();
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+            debugger;
+            //var locationService = new GoogleLocationService();
+            //var point = locationService.GetLatLongFromAddress(data.GeoLocation);
+            //var latitude = data.Latitude;
+            //var longitude = data.Longitude;
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.title,
+                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) },
+                // icon: data.image,
             });
 
-            directionsRenderer.setMap(map);
-         
-        directionsRenderer.setMap(map);
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
-            //document.getElementById("submit").addEventListener("click", () => {
-            //    calculateAndDisplayRoute(directionsService, directionsRenderer);
-            //});
-       // }
-             
+            (function (marker, data) {
 
-        function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-            debugger;
-            const waypts = [];
-            waypts.push({
-                location: new google.maps.LatLng(13.06667100, 77.50631200),
-                stopover: true,
-            });  
-               
-            directionsService
-                .route({
-                    origin: new google.maps.LatLng(12.95680000, 77.58330000),
-                    destination: new google.maps.LatLng(13.02240000, 77.52821001),
-                    waypoints: waypts,
-                    optimizeWaypoints: true,
-                    travelMode: google.maps.TravelMode.DRIVING,
-                })
-                .then((response) => {
-                    directionsRenderer.setDirections(response) ;
-
-                    alert(response);
-                    // For each route, display summary information.
-
-                })
-                .catch((e) => window.alert("Directions request failed due to " + e));
+                // Attaching a click event to the current marker
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent(data.description);
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
         }
+        /* }*/
 
-     //   window.initMap = initMap;
+
     </script>
 
-</asp:Content>
 
+</asp:Content>
