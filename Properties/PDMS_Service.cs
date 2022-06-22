@@ -106,6 +106,21 @@ namespace Properties
         public int? CountBasedMC { get; set; }
     }
     [Serializable]
+    public class PDMS_ServiceCharge_API
+    {
+        public long ServiceChargeID { get; set; }
+        public long ICTicketID { get; set; }
+        public int Item { get; set; }
+        public long MaterialID { get; set; }
+        public long TsirID { get; set; }
+        public DateTime? Date { get; set; }
+        public decimal WorkedHours { get; set; }
+        public decimal BasePrice { get; set; }
+        public decimal Discount { get; set; }
+        public Boolean IsDeleted { get; set; }
+
+    }
+    [Serializable]
     public class PDMS_ServiceMaterial
     {
         public long ServiceMaterialID { get; set; }

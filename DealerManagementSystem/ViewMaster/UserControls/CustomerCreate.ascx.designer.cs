@@ -51,6 +51,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
+        /// cbIsDraft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbIsDraft;
+
+        /// <summary>
         /// ddlTitle control.
         /// </summary>
         /// <remarks>

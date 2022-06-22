@@ -47,6 +47,29 @@ namespace Properties
         public Decimal? Sales2ApproveAmount { get; set; }
     }
     [Serializable]
+    public class PDMS_ICTicketTSIR_API
+    {
+        public long TsirID { get; set; }
+        public long ICTicketID { get; set; }
+        public long ServiceChargeID { get; set; }
+        public string NatureOfFailures { get; set; }
+        public string ProblemNoticedBy { get; set; }
+        public string UnderWhatConditionFailureTaken { get; set; }
+        public string FailureDetails { get; set; }
+        public string PointsChecked { get; set; }
+        public string PossibleRootCauses { get; set; }
+        public string SpecificPointsNoticed { get; set; }
+
+        public string QualityComments { get; set; } 
+        public DateTime? QualityCommentsOn { get; set; }
+
+        public string ServiceComments { get; set; } 
+        public DateTime? ServiceCommentsOn { get; set; }
+
+        public string StatusRemarks { get; set; }
+        public string PartsInvoiceNumber { get; set; }
+    }
+    [Serializable]
     public class PDMS_ICTicketTSIRStatus
     {
         public int StatusID { get; set; }

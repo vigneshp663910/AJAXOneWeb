@@ -25,16 +25,16 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
         }
-        public PDMS_ServiceCharge Read()
+        public PDMS_ServiceCharge_API Read()
         {
-            PDMS_ServiceCharge OM = new PDMS_ServiceCharge();
+            PDMS_ServiceCharge_API OM = new PDMS_ServiceCharge_API();
             OM.ServiceChargeID = 0;
             OM.ICTicketID = 0;
             OM.IsDeleted = false;
             
             PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim());
 
-            OM.Material = new PDMS_Material() { MaterialID = MaterialsDescription.MaterialID };
+            OM.MaterialID = MaterialsDescription.MaterialID;
             OM.Date = Convert.ToDateTime(txtServiceDate.Text);
             OM.WorkedHours = Convert.ToDecimal(txtWorkedHours.Text.Trim());
             OM.BasePrice = Convert.ToDecimal(txtBasePrice.Text.Trim());

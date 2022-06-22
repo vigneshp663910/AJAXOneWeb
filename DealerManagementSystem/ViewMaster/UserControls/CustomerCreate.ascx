@@ -103,6 +103,10 @@
                     <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Is Draft</label>
+                    <asp:CheckBox ID="cbIsDraft" runat="server" />
+                </div>
+                <div class="col-md-6 col-sm-12">
                     <label class="modal-label">
                         Title
                         <samp style="color: red">*</samp></label>
@@ -233,7 +237,10 @@
                     <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID="txtCity" WatermarkText="City" WatermarkCssClass="WatermarkCssClass" />
                 </div>
-                <div class="col-md-6 col-sm-12">
+              
+            </div>
+            <div class="col-md-12">
+                  <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Birth Date</label>
                     <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                     <asp1:CalendarExtender ID="cxDOB" runat="server" TargetControlID="txtDOB" PopupButtonID="txtDOB" Format="dd/MM/yyyy" />
@@ -247,7 +254,6 @@
                     <asp1:CalendarExtender ID="cxDOAnniversary" runat="server" TargetControlID="txtDOAnniversary" PopupButtonID="txtDOAnniversary" Format="dd/MM/yyyy" />
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender13" runat="server" TargetControlID="txtDOAnniversary" WatermarkText="DD/MM/YYYY" />
                 </div>
-
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Send SMS</label>
                     <asp:CheckBox ID="cbSendSMS" runat="server" />
@@ -257,16 +263,15 @@
                     <label class="modal-label">Send Email</label>
                     <asp:CheckBox ID="cbSendEmail" runat="server" />
                 </div>
-
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Latitude</label>
-                    <asp:TextBox ID="txtLatitude" runat="server" CssClass="form-control" BorderColor="Silver"  ></asp:TextBox> 
+                    <asp:TextBox ID="txtLatitude" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                 </div>
 
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Longitude</label>
-                    <asp:TextBox ID="txtLongitude" runat="server" CssClass="form-control" BorderColor="Silver"  ></asp:TextBox> 
-                     
+                    <asp:TextBox ID="txtLongitude" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+
                 </div>
             </div>
         </fieldset>

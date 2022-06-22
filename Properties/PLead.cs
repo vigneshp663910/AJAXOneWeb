@@ -59,7 +59,7 @@ namespace Properties
     {
         public long LeadConversationID { get; set; }
         public long LeadID { get; set; }
-        public PLeadProgressStatus ProgressStatus { get; set; }
+       // public PLeadProgressStatus ProgressStatus { get; set; }
         public string Conversation { get; set; }
         public DateTime ConversationDate { get; set; }
         public PUser SalesEngineer { get; set; }
