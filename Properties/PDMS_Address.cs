@@ -69,6 +69,7 @@ namespace Properties
         public PDMS_Country Country { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PSalesOffice SalesOffice { get; set; }
+        public PUser User { get; set; }
     }
     [Serializable]
     public class PDMS_Tehsil
