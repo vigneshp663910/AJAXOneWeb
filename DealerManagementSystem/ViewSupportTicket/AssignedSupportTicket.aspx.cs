@@ -182,7 +182,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             Label TicketNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblTicketID");
             Label ItemNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblItemID");
 
-            Response.Redirect("ReassignTicketS.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
+            Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
         }
 
     }
