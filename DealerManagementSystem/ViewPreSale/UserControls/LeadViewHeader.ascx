@@ -35,8 +35,8 @@
                 <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">
-                <label>Type : </label>
-                <asp:Label ID="lblType" runat="server" CssClass="label"></asp:Label>
+                <label>Project : </label>
+                <asp:Label ID="lblProject" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Dealer : </label>

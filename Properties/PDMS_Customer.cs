@@ -77,6 +77,7 @@ namespace Properties
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public Boolean IsDraft { get; set; }
+        public string CustomerType { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerShipTo

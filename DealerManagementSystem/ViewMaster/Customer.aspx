@@ -44,12 +44,11 @@
     </style>
 
 
-    <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
-    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
+     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script> 
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
     <script type="text/javascript">  
-        $(function () {
-
+        $(function () { 
             $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
                     var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
@@ -59,7 +58,8 @@
                         type: 'POST',
                         contentType: "application/json; charset=utf-8",
                         /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                        url: "Customer.aspx/GetCustomer",
+                       // url: "Customer.aspx/GetCustomer",
+                        url: "Lead.aspx/GetCustomer",
                         data: JSON.stringify(param),
                         dataType: 'JSON',
                         success: function (data) {
@@ -86,28 +86,47 @@
             });
         });
 
-
+        $(function () { 
+            $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
+                source: function (request, response) {
+                    var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
+                    debugger;
+                    $.ajax({
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8", 
+                        url: "Customer.aspx/GetCustomer",
+                        data: JSON.stringify(param),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            debugger;
+                            document.getElementById('UCdivAuto').style.display = "block";
+                            var n = 0;
+                            for (var i = 1; i <= 5; i++) {
+                                $(('#div' + i)).empty();
+                                document.getElementById('UCdiv' + i).style.display = "none";
+                            }
+                            $.map(data.d, function (item) {
+                                n = n + 1;
+                                document.getElementById('UCdiv' + n).style.display = "block";
+                                document.getElementById("UCdiv" + n).innerHTML = item;
+                            })
+                            if (n == 0)
+                                document.getElementById('UCdiv0').style.display = "none";
+                            else
+                                document.getElementById('UCdiv0').style.display = "block";
+                        },
+                        error: function () {
+                            debugger;
+                            alert("Error");
+                        }
+                    });
+                },
+                minLength: 3 //This is the Char length of inputTextBox    
+            });
+        });
     </script>
-    <script> 
-        function success(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            document.getElementById('hfLatitude').value = latitude;
-            document.getElementById('hfLongitude').value = longitude;
-            status.textContent = '';
-        }
-        function error() {
-            status.textContent = 'Unable to retrieve your location';
-        }
 
-        if (!navigator.geolocation) {
-            status.textContent = 'Geolocation is not supported by your browser';
 
-        } else {
-            status.textContent = 'Locating…';
-            navigator.geolocation.getCurrentPosition(success, error);
-        }
-    </script> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:HiddenField ID="hfLatitude" runat="server" />
@@ -289,4 +308,26 @@
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
+
+    
+    <script> 
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById('hfLatitude').value = latitude;
+            document.getElementById('hfLongitude').value = longitude;
+            status.textContent = '';
+        }
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
+
+        if (!navigator.geolocation) {
+            status.textContent = 'Geolocation is not supported by your browser';
+
+        } else {
+            status.textContent = 'Locating…';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+    </script> 
 </asp:Content>

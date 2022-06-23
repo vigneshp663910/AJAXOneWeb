@@ -17,7 +17,7 @@ namespace Properties
         public PLeadQualification Qualification { get; set; }
         public PLeadSource Source { get; set; }
         public PLeadStatus Status { get; set; }
-        public PLeadType Type { get; set; }
+        public PProject Project { get; set; }
         public PLeadUrgency Urgency { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_Customer Customer { get; set; }

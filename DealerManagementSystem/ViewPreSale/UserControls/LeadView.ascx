@@ -9,7 +9,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddFinancial.ascx" TagPrefix="UC" TagName="UC_Financial" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLeadProduct.ascx" TagPrefix="UC" TagName="UC_Product" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddQuotation.ascx" TagPrefix="UC" TagName="UC_Quotation" %>
-
+<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -71,8 +71,8 @@
                 <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">
-                <label>Type : </label>
-                <asp:Label ID="lblType" runat="server" CssClass="label"></asp:Label>
+                <label>Project : </label>
+                <asp:Label ID="lblProject" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Dealer : </label>
@@ -837,60 +837,7 @@
         <div class="model-scroll">
             <fieldset class="fieldset-border" id="fldCountry" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-                <div class="col-md-12">
-                    <div class="col-md-6 col-sm-12">
-                        <label>Lead Date</label>
-                        <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Product Type</label>
-                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
-                    </div>
-                    <%--<div class="col-md-6 col-sm-12">
-                        <label>Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Progress Status</label>
-                        <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
-                    </div>--%>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Category</label>
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Qualification</label>
-                        <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Source</label>
-                        <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label>Lead Type</label>
-                        <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Urgency</label>
-                        <asp:DropDownList ID="ddlUrgency" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <label>Application</label>
-                        <asp:DropDownList ID="ddlApplication" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <label>Customer Feedback</label>
-                        <asp:TextBox ID="txtCustomerFeedback" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <label>Remarks</label>
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                </div>
-
+               <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead> 
             </fieldset>
         </div>
         <div class="col-md-12 text-center">

@@ -923,7 +923,7 @@ namespace Business
             return EMP;
         }
 
-        public Boolean InsertDealerEmployeeRole(PDMS_DealerEmployeeRole Emp, int UserID)
+        public Boolean InsertDealerEmployeeRole(PDMS_DealerEmployeeRole Emp, int UserID, string DistrictID)
         {
             TraceLogger.Log(DateTime.Now);
             try
@@ -937,11 +937,12 @@ namespace Business
                 DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", Emp.DealerDesignation == null ? (int?)null : Emp.DealerDesignation.DealerDesignationID, DbType.Int32);
                 DbParameter ReportingTo = provider.CreateParameter("ReportingTo", Emp.ReportingTo == null ? (int?)null : Emp.ReportingTo.DealerEmployeeID, DbType.Int32); 
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.String);
                 //DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
 
-                    DbParameter[] Params = new DbParameter[9] { DealerEmployeeID, DealerID, OfficeCodeID, DateOfJoining, SAPEmpCode, DealerDepartmentID, DealerDesignationID, ReportingTo, UserIDP };
+                    DbParameter[] Params = new DbParameter[10] { DealerEmployeeID, DealerID, OfficeCodeID, DateOfJoining, SAPEmpCode, DealerDepartmentID, DealerDesignationID, ReportingTo, UserIDP, DistrictIDP };
                     provider.Insert("ZDMS_InsertDealerEmployeeRole", Params);
                     scope.Complete();
                 }
