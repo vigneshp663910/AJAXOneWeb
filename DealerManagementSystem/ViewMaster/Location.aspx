@@ -528,8 +528,8 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="SalesEngineer">
                                                     <ItemTemplate>
-                                                        <asp:Label ID="lblGDSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "User.ContactName")%>' runat="server"></asp:Label>
-                                                        <asp:Label ID="lblGDSalesEngineerUserID" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" Visible="false"></asp:Label>
+                                                        <asp:Label ID="lblGDSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server"></asp:Label>
+                                                        <asp:Label ID="lblGDSalesEngineerUserID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.UserID")%>' runat="server" Visible="false"></asp:Label>
                                                     </ItemTemplate>
                                                     <FooterTemplate>
                                                         <asp:DropDownList ID="ddlSalesEngineer" runat="server" CssClass="form-control" />

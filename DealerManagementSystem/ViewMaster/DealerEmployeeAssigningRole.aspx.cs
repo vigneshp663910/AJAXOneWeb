@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -34,6 +35,21 @@ namespace DealerManagementSystem.ViewMaster
                 Session["EmployeeManageRole"] = value;
             }
         }
+        public List<PDMS_District> District
+        {
+            get
+            {
+                if (Session["PDMS_District"] == null)
+                {
+                    Session["PDMS_District"] = new List<PDMS_District>();
+                }
+                return (List<PDMS_District>)Session["PDMS_District"];
+            }
+            set
+            {
+                Session["PDMS_District"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_DealerEmployeeAssigningRole.aspx";
@@ -45,7 +61,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Employee » Assign Role');</script>");
 
             lblMessage.Visible = false;
@@ -71,9 +87,15 @@ namespace DealerManagementSystem.ViewMaster
                     fillDealer();
                 }
                 new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, Convert.ToInt32(ddlDealer.SelectedValue));
+                //ddlDistrict.DataSource = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
+                //ddlDistrict.DataTextField = "District";
+                //ddlDistrict.DataValueField = "DistrictID";
+                //ddlDistrict.DataBind();
+                new DDLBind(ddlDistrict, new BDMS_Address().GetDistrictBySalesEngineerUserID(Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
                 caDateOfJoining.StartDate = DateTime.Now.AddDays(-7);
                 caDateOfJoining.EndDate = DateTime.Now;
             }
+            
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -84,7 +106,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         private void FillDealerEmployeeManageRole()
         {
-            EmployeeManageRole = new BDMS_Dealer().GetDealerEmployeeManageRole(Convert.ToInt32(ddlDealer.SelectedValue), AadhaarCardNo, txtName.Text.Trim()); 
+            EmployeeManageRole = new BDMS_Dealer().GetDealerEmployeeManageRole(Convert.ToInt32(ddlDealer.SelectedValue), AadhaarCardNo, txtName.Text.Trim());
             gvDealerEmployee.DataSource = EmployeeManageRole;
             gvDealerEmployee.DataBind();
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + EmployeeManageRole.Count;
@@ -264,14 +286,13 @@ namespace DealerManagementSystem.ViewMaster
                 Role.ReportingTo = new PDMS_DealerEmployee();
                 Role.ReportingTo.DealerEmployeeID = Convert.ToInt32(ddlReportingTo.SelectedValue);
             }
-
-            if (new BDMS_Dealer().InsertDealerEmployeeRole(Role, PSession.User.UserID))
+            
+            if (new BDMS_Dealer().InsertDealerEmployeeRole(Role, PSession.User.UserID, HiddenDistrictID.Value))
             {
                 lblMessage.Text = "New Role Assigned Employee";
                 lblMessage.ForeColor = Color.Green;
                 btnAssignRole.Visible = false;
                 FillDealerEmployeeRole();
-
                 ClearField();
             }
             else
@@ -361,17 +382,23 @@ namespace DealerManagementSystem.ViewMaster
             //    Ret = false;
             //    txtLoginUserName.BorderColor = Color.Red;
             //}
+            if (ddlDealerOffice.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Dealer Office";
+                Ret = false;
+                ddlDealerOffice.BorderColor = Color.Red;
+            }
             if (string.IsNullOrEmpty(txtDateOfJoining.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Date of Joining";
                 Ret = false;
                 txtDateOfJoining.BorderColor = Color.Red;
             }
-            if (ddlDealerOffice.SelectedValue == "0")
+            if (string.IsNullOrEmpty(txtSAPEmpCode.Text.Trim()))
             {
-                Message = Message + "<br/>Please select the Dealer Office";
+                Message = Message + "<br/>Please enter the SAP Emp Code";
                 Ret = false;
-                ddlDealerOffice.BorderColor = Color.Red;
+                txtSAPEmpCode.BorderColor = Color.Red;
             }
             if (ddlDepartment.SelectedValue == "0")
             {
@@ -385,12 +412,19 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 ddlDesignation.BorderColor = Color.Red;
             }
-            if (string.IsNullOrEmpty(txtSAPEmpCode.Text.Trim()))
+            if (ddlReportingTo.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please enter the SAP Emp Code";
+                Message = Message + "<br/>Please select the Reporting To";
                 Ret = false;
-                txtSAPEmpCode.BorderColor = Color.Red;
+                ddlReportingTo.BorderColor = Color.Red;
             }
+            if (ddlDistrict.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the District";
+                Ret = false;
+                ddlDistrict.BorderColor = Color.Red;
+            }
+
 
             List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, "", txtSAPEmpCode.Text.Trim(), null);
             if (Employee.Count() != 0)
@@ -443,6 +477,8 @@ namespace DealerManagementSystem.ViewMaster
             ddlDealerOffice.Items.Clear();
             txtDateOfJoining.Text = "";
             ddlDepartment.SelectedValue = "0";
+            Session["PDMS_District"] = null;
+            District = null;
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
 
@@ -452,6 +488,28 @@ namespace DealerManagementSystem.ViewMaster
             gvDealerEmployee.PageIndex = e.NewPageIndex;
             gvDealerEmployee.DataBind();
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + EmployeeManageRole.Count;
+        }
+
+        protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HiddenDistrictID.Value+=(HiddenDistrictID.Value=="")?ddlDistrict.SelectedValue:","+ddlDistrict.SelectedValue;
+            PDMS_District pDMS_District = new PDMS_District();
+            pDMS_District.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
+            pDMS_District.District = ddlDistrict.SelectedItem.Text.Trim();
+            District.Add(pDMS_District);
+            GVAssignDistrict.DataSource = District;
+            GVAssignDistrict.DataBind();
+            Session["PDMS_District"] = District;
+        }
+
+        protected void LnkDistrict_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblDistrictID = (Label)GVAssignDistrict.Rows[gvRow.RowIndex].FindControl("lblDistrictID");
+            var itemToRemove = District.Single(r => r.DistrictID == Convert.ToInt32(lblDistrictID.Text));
+            District.Remove(itemToRemove);
+            GVAssignDistrict.DataSource = District;
+            GVAssignDistrict.DataBind();
         }
     }
 }
