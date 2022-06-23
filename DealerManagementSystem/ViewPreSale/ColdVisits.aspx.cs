@@ -272,12 +272,19 @@ namespace DealerManagementSystem.ViewPreSale
                 //Emp.Add(div);
 
                 i = i + 1;
-                string Name = cust.CustomerName;
-                string Prospect = "Prospect";
+                //string Name = cust.CustomerName;
+                //string Prospect = "Prospect";
+                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+
+
+                //    + "<p><label id='lblCustomerName" + i + "'>" + Name + "</label><span>" + Prospect + "</span></p>"
+
+                //    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
+                //Emp.Add(div);
+
                 string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-
-
-                    + "<p><label id='lblCustomerName" + i + "'>" + Name + "</label><span>" + Prospect + "</span></p>"
+                    + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
 
                     + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
                     + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";

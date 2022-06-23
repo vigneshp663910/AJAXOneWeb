@@ -25,7 +25,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblQualification.Text = Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source.Source;
             lblStatus.Text = Lead.Status.Status;
-            lblType.Text = Lead.Type.Type;
+            lblProject.Text = Lead.Project.ProjectName;
             lblDealer.Text = Lead.Dealer.DealerCode;
             lblContactPerson.Text = Lead.Customer.ContactPerson;
             lblRemarks.Text = Lead.Remarks;

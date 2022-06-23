@@ -472,6 +472,7 @@
     <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddLead.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
     <Content Include="ViewPreSale\UserControls\AddQuotation.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
@@ -636,6 +637,9 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="View\Appointment.aspx" />
     <Content Include="View\Attendance.aspx" />
+    <Content Include="View\Project.aspx" />
+    <Content Include="View\UserControls\AddProject.ascx" />
+    <Content Include="View\UserControls\ProjectView.ascx" />
     <Content Include="VoiceText.aspx" />
     <Content Include="VoiceText1.aspx" />
     <Content Include="Web.config" />
@@ -1527,6 +1531,13 @@
     <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.designer.cs">
       <DependentUpon>AddFollowUp.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddLead.ascx.cs">
+      <DependentUpon>AddLead.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddLead.ascx.designer.cs">
+      <DependentUpon>AddLead.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.cs">
       <DependentUpon>AddLeadProduct.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2400,6 +2411,27 @@
     </Compile>
     <Compile Include="View\Attendance.aspx.designer.cs">
       <DependentUpon>Attendance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Project.aspx.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Project.aspx.designer.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\AddProject.ascx.cs">
+      <DependentUpon>AddProject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserControls\AddProject.ascx.designer.cs">
+      <DependentUpon>AddProject.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\ProjectView.ascx.cs">
+      <DependentUpon>ProjectView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserControls\ProjectView.ascx.designer.cs">
+      <DependentUpon>ProjectView.ascx</DependentUpon>
     </Compile>
     <Compile Include="VoiceText.aspx.cs">
       <DependentUpon>VoiceText.aspx</DependentUpon>
