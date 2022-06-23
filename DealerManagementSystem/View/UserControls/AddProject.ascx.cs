@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,28 @@ namespace DealerManagementSystem.View.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+        public void FillMaster()
+        {
+
+        }
+
+        void Clear()
+        {
+
+
+        }
+        public PProject Read()
+        {
+            PProject OM = new PProject();
+
+            return OM;
+        }
+        public string Validation()
+        {
+            string Message = "";
+
+            return Message;
         }
     }
 }
