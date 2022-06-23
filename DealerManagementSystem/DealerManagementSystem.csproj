@@ -358,6 +358,7 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
@@ -925,6 +926,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.cs">
+      <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.designer.cs">
+      <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
