@@ -443,6 +443,11 @@ namespace Business
                 + "&DistrictID=" + DistrictID + "&District=" + District + "&DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<List<PDMS_District>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PDMS_District> GetDistrictBySalesEngineerUserID(int? DealerID)
+        {
+            string endPoint = "Location/DistrictBySalesEngineerUserID?DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<List<PDMS_District>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PDMS_Tehsil> GetTehsil(int? CountryID, int? StateID, int? DistrictID, string Tehsil)
         {
             List<PDMS_Tehsil> MML = new List<PDMS_Tehsil>();
