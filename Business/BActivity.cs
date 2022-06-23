@@ -122,6 +122,15 @@ namespace Business
                             Activity.ActivityReference = new PActivityReferenceType() { ReferenceTable = Convert.ToString(dr["ReferenceActivity"]) };
                             Activity.ReferenceNumber = Convert.ToString(dr["ReferenceNumber"]);
                             Activity.Remark = Convert.ToString(dr["Remark"]);
+                           
+                            Activity.ActivityStartLatitude = dr["StartLatitude"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["StartLatitude"]);
+                            Activity.ActivityStartLongitude = dr["StartLongitude"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["StartLongitude"]);
+                            Activity.ActivityEndLatitude = dr["EndLatitude"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["EndLatitude"]);
+                            Activity.ActivityEndLongitude = dr["EndLongitude"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["EndLongitude"]);
+                            Activity.StartMapImage = Convert.ToString(dr["StartMapImage"]);
+                            Activity.EndMapImage = Convert.ToString(dr["EndMapImage"]);
+                            Activity.StartLatitudeLongitudeDate = Convert.ToString(dr["StartLatitudeLongitudeDate"]);
+                            Activity.EndLatitudeLongitudeDate = Convert.ToString(dr["EndLatitudeLongitudeDate"]);
                             Activities.Add(Activity);
                         }
                     }
@@ -217,7 +226,6 @@ namespace Business
                 throw ex;
             }
             return Activities;
-        }
-
+        }        
     }
 }

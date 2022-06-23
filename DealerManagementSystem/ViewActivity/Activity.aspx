@@ -2,9 +2,6 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-
-
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
@@ -164,6 +161,30 @@
         });
 
     </script>
+
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0
+        }
+
+        #map_canvas {
+            height: 100%
+        }
+    </style>
+    <%-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">    </script>--%>
+
+    <%--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk">    </script>--%>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
+
+    var geocoder;
+
     <style>
         .fieldset-borderAuto {
             border: solid 1px #cacaca;
@@ -263,7 +284,7 @@
                             <div class="col-md-12 Report">
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvActivity" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvActivity_PageIndexChanging" EmptyDataText="No Data Found" DataKeyNames="ActivityEndDate">
+                                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvActivity_PageIndexChanging" EmptyDataText="No Data Found" DataKeyNames="ActivityStartLatitude,ActivityStartLongitude,ActivityEndLatitude,ActivityEndLongitude">
                                         <Columns>
                                             <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
@@ -352,7 +373,7 @@
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click"
-                                                         Width="95px" Height="25px" />
+                                                         Width="105px" Height="25px" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -368,45 +389,13 @@
                     </fieldset>
                 </div>
             </div>
-        </div>
-        
+        </div>       
     </div>
 
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton>
         <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
-
-
-    <%--<asp:Panel ID="pnlAddActivity" runat="server" CssClass="Popup" Style="display: none">
-        <div class="PopupHeader clearfix">
-            <span id="PopupDialogueAddActivity">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
-        </div>
-
-        <div class="col-md-12">
-            <div class="model-scroll">
-                <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                    <asp:Label ID="lblAddActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
-                    <div class="col-md-12">
-                        <div class="col-md-12 col-sm-12">
-                            <label class="modal-label" runat="server">Activity Type</label>
-                            <asp:DropDownList ID="ddlActivityTypeS" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label" runat="server">Start Date</label>
-                            <asp:Label ID="lblStartActivityDate" runat="server" Text="" CssClass="form-control" />
-                        </div>
-                        </div>
-                </fieldset>
-            </div>
-            <div class="col-md-12 text-center">
-            <asp:button id="btnStart" runat="server" cssclass="btn Save" Text="Start" OnClick="btnStart_Click" />
-        </div>
-        </div>
-    </asp:Panel>
-    <asp1:ModalPopupExtender ID="MPE_AddActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />--%>
-
 
     <asp:panel id="pnlAddActivity" runat="server" cssclass="Popup" style="display: none">
     <div class="PopupHeader clearfix">
@@ -435,7 +424,7 @@
         </div>        
     </div>
 </asp:panel>
-<ajaxtoolkit:modalpopupextender id="MPE_AddActivity" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlAddActivity" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+    <ajaxtoolkit:modalpopupextender id="MPE_AddActivity" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlAddActivity" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
 
     <asp:Panel ID="pnlEndActivity" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
@@ -499,6 +488,19 @@
     </asp:Panel>
     <asp1:ModalPopupExtender ID="MPE_EndActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEndActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+    <asp:Panel ID="pnlTrackActivity" runat="server" CssClass="Popup" Style="display: none">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div> 
+        <div class="col-md-12">
+            <div class="model-scroll">     
+                 <div id="map_canvas" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
+    </asp:Panel>
+    <asp1:ModalPopupExtender ID="MPE_TrackActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlTrackActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+   
     <script> 
         function success(position) {
             const latitude = position.coords.latitude;
@@ -518,5 +520,38 @@
             status.textContent = 'Locating…';
             navigator.geolocation.getCurrentPosition(success, error);
         }
+    </script>
+
+    <script type="text/javascript">
+         
+
+        var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng), 
+            zoom: 4.6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP 
+        };
+        var infoWindow = new google.maps.InfoWindow();
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+            debugger; 
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.title,
+                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) }, 
+            });
+
+            (function (marker, data) {
+                 
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent(data.description);
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
+        } 
+
     </script>
 </asp:Content>
