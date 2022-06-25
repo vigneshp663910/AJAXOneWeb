@@ -19,7 +19,7 @@ namespace DealerManagementSystem.View
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
+            
         }
 
         protected void btnPunch_Click(object sender, EventArgs e)
