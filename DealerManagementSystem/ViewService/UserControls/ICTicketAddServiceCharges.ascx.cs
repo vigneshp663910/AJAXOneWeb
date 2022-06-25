@@ -31,10 +31,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             OM.ServiceChargeID = 0;
             OM.ICTicketID = 0;
             OM.IsDeleted = false;
-            
-            PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim());
 
-            OM.MaterialID = MaterialsDescription.MaterialID;
+            //  PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim());
+
+            //OM.MaterialID = MaterialsDescription.MaterialID;
+            OM.MaterialWithDescription = txtServiceMaterial.Text.Trim();
             OM.Date = Convert.ToDateTime(txtServiceDate.Text);
             OM.WorkedHours = Convert.ToDecimal(txtWorkedHours.Text.Trim());
             OM.BasePrice = Convert.ToDecimal(txtBasePrice.Text.Trim());

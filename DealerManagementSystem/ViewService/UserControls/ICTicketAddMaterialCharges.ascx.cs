@@ -21,12 +21,10 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlMaterialSource.DataValueField = "MaterialSourceID";
             ddlMaterialSource.DataSource = new BDMS_Service().GetMaterialSource(null, null);
             ddlMaterialSource.DataBind();
-            ddlMaterialSource.Items.Insert(0, new ListItem("Select", "0"));
-
+            ddlMaterialSource.Items.Insert(0, new ListItem("Select", "0")); 
 
             ddlTSIRNumber.DataTextField = "TsirNumber";
-            ddlTSIRNumber.DataValueField = "TsirID";
-
+            ddlTSIRNumber.DataValueField = "TsirID"; 
 
             List<PDMS_ICTicketTSIR> ddlTSIR = new List<PDMS_ICTicketTSIR>();
             foreach (PDMS_ICTicketTSIR t in ICTicketTSIRs)
@@ -42,27 +40,26 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         void Clear()
-        {
-           
-
+        { 
         }
-        public PDMS_ServiceMaterial Read()
-        {  
-            PDMS_ServiceMaterial SM = new PDMS_ServiceMaterial();  
-            SM.Material = new PDMS_Material() { MaterialSerialNumber = txtMaterialSN.Text.Trim() };
+        public PDMS_ServiceMaterial_API Read()
+        {
+            PDMS_ServiceMaterial_API SM = new PDMS_ServiceMaterial_API();
+            SM.MaterialWithDescription = txtMaterial.Text.Trim();
+            SM.MaterialSerialNumber = txtMaterialSN.Text.Trim();
+            SM.SupersedeYN = cbSupersedeYN.Checked;
             SM.Qty = Convert.ToInt32(txtQty.Text.Trim());
             SM.IsFaultyPart = cbIsFaultyPart.Checked;
-            SM.DefectiveMaterial = new PDMS_Material() { MaterialSerialNumber = txtDefectiveMaterialSN.Text.Trim() }; 
+
+            SM.DefectiveMaterialWithDescription = txtDefectiveMaterial.Text.Trim();
+            SM.DefectiveMaterialSerialNumber = txtDefectiveMaterialSN.Text.Trim();
+
             SM.IsRecomenedParts = cbRecomenedParts.Checked;
             SM.IsQuotationParts = cbQuotationParts.Checked;
             SM.MaterialSource = ddlMaterialSource.SelectedValue == "0" ? null : new PDMS_MaterialSource() { MaterialSourceID = Convert.ToInt32(ddlMaterialSource.SelectedValue) };
 
-            SM.TSIR = null;
-            if (ddlTSIRNumber.SelectedValue != "0")
-            {
-                SM.TSIR = new PDMS_ICTicketTSIR() { TsirID = Convert.ToInt64(ddlTSIRNumber.SelectedValue) };
-                SM.IsRecomenedParts = true;
-            } 
+            SM.TsirID = ddlTSIRNumber.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlTSIRNumber.SelectedValue);
+            SM.OldInvoice = txtOldInvoice.Text.Trim();
             return SM;
         }   
         public string Validation()
