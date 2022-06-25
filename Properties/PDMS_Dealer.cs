@@ -152,6 +152,8 @@ namespace Properties
         public int SalesColdCustomerVisitTarget { get; set; }
         public int SalesProspecCustomertVisitTarget { get; set; }
         public int SalesExistCustomerVisitTarget { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
     [Serializable]
     public class PDMS_DealerEmployeeRole

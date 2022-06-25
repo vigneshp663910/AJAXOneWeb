@@ -8,7 +8,7 @@ namespace Properties
 {
    public class PProject
     {
-        public long ProjectID { get; set; }
+        public long? ProjectID { get; set; }
         public string ProjectNumber { get; set; }
         public DateTime EmailDate { get; set; }
         public string TenderNumber { get; set; }

@@ -882,7 +882,6 @@ namespace Business
             return true;
         }
 
-
         public List<PDMS_DealerEmployee> GetDealerEmployeeManageRole(int DealerID, string AadhaarCardNo, string Name)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
@@ -1075,7 +1074,6 @@ namespace Business
             }
             return true;
         }
-
         public Boolean UpdateDealerEmployeeRole(long DealerEmployeeRoleID, int OfficeCodeID,int? DealerDepartmentID,int? DealerDesignationID, int? ReportingTo, string SAPEmpCode, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -1109,8 +1107,6 @@ namespace Business
             }
             return true;
         }
-
-
         public List<PDMS_DealerEmployee> GetDealerEmployeeByDealerID(int? DealerID, string AadhaarCardNo, int? DistrictID, string Name, string SAPEmpCode)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
@@ -1194,8 +1190,6 @@ namespace Business
             ddl.DataBind(); 
            ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-
-
         
         public List<PDealerNotification> GetDealerNotification(int? DealerID)
         {
@@ -1304,6 +1298,73 @@ namespace Business
                 new FileLogger().LogMessageService("BDMS_Dealer", "UpdateUserMonthlyVerification", ex);
                 return false;
             }
+            return true;
+        }
+        public List<PDMS_DealerDesignation> GetVistTargetPlan(int? DealerDepartmentID, int? DealerDesignationID)
+        {
+            List<PDMS_DealerDesignation> Designation = new List<PDMS_DealerDesignation>();
+            try
+            {
+                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[2] { DealerDepartmentIDP, DealerDesignationIDP };
+                using (DataSet DataSet = provider.Select("GetVistTargetPlan", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Designation.Add(new PDMS_DealerDesignation()
+                            {
+                                DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]),
+                                DealerDesignation = Convert.ToString(dr["DealerDesignation"]),
+                                SalesColdCustomerVisitTarget = DBNull.Value == dr["SalesColdCustomerVisitTarget"] ? 0: Convert.ToInt32(dr["SalesColdCustomerVisitTarget"]),
+                                SalesProspecCustomertVisitTarget = DBNull.Value == dr["SalesProspecCustomertVisitTarget"] ? 0 : Convert.ToInt32(dr["SalesProspecCustomertVisitTarget"]),
+                                SalesExistCustomerVisitTarget = DBNull.Value == dr["SalesExistCustomerVisitTarget"] ? 0 : Convert.ToInt32(dr["SalesExistCustomerVisitTarget"]),
+                                Department = new PDMS_DealerDepartment()
+                                {
+                                    DealerDepartmentID = Convert.ToInt32(dr["DealerDepartmentID"]),
+                                    DealerDepartment = Convert.ToString(dr["DealerDepartment"]),
+                                }
+
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Designation;
+        }
+        public Boolean UpdateVisitTargetPlanning(List<PDMS_DealerDesignation> VisitTargetPlanning)
+        {
+            TraceLogger.Log(DateTime.Now);
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    foreach (PDMS_DealerDesignation VTP in VisitTargetPlanning)
+                    {
+                        DbParameter DesignationIDP = provider.CreateParameter("DesignationID", VTP.DealerDesignationID, DbType.Int64);
+                        DbParameter SalesColdCustomerVisitTargetP = provider.CreateParameter("SalesColdCustomerVisitTarget", VTP.SalesColdCustomerVisitTarget, DbType.Int32);
+                        DbParameter SalesProspectCustomerVisitTargetP = provider.CreateParameter("SalesProspectCustomerVisitTarget", VTP.SalesProspecCustomertVisitTarget, DbType.Int32);
+                        DbParameter SalesExistCustomerVisitTargetP = provider.CreateParameter("SalesExistCustomerVisitTarget", VTP.SalesExistCustomerVisitTarget, DbType.Int32);
+                        DbParameter UserID = provider.CreateParameter("UserID", VTP.ModifiedBy.UserID, DbType.Int32);
+                        DbParameter[] Params = new DbParameter[5] { DesignationIDP, SalesColdCustomerVisitTargetP, SalesProspectCustomerVisitTargetP, SalesExistCustomerVisitTargetP,  UserID};
+
+                        provider.Insert("UpdateVisitTargetPlanning", Params);
+                    }
+                    scope.Complete();
+                }
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Dealer", "UpdateVisitTargetPlanning", e1);
+                return false;
+            }
+            TraceLogger.Log(DateTime.Now);
             return true;
         }
 
