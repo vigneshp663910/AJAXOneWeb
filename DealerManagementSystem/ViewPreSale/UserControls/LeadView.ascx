@@ -46,10 +46,10 @@
                 <label>Lead Date : </label>
                 <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-4">
+          <%--  <div class="col-md-4">
                 <label>Category : </label>
                 <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
-            </div>
+            </div>--%>
             <div class="col-md-4">
                 <label>Urgency : </label>
                 <asp:Label ID="lblUrgency" runat="server" CssClass="label"></asp:Label>

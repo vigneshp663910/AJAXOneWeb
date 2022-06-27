@@ -38,6 +38,21 @@ namespace Properties
         public PProductType ProductType { get; set; }
     }
     [Serializable]
+    public class PLead_Insert
+    {
+        public long LeadID { get; set; }
+        public DateTime LeadDate { get; set; }
+        public int ProductTypeID { get; set; }
+        public int? SourceID { get; set; }
+        public int? QualificationID { get; set; }
+        public int? ProjectID { get; set; }
+        public int? UrgencyID { get; set; }
+        public int? MainApplicationID { get; set; }
+        public string CustomerFeedback { get; set; }
+        public string Remarks { get; set; }
+        public PDMS_Customer Customer { get; set; }
+    }
+    [Serializable]
     public class PLeadSalesEngineer
     {
         public long LeadSalesEngineerID { get; set; }

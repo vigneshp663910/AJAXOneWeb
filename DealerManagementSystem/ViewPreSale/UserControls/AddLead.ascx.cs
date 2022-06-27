@@ -22,8 +22,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtLeadDate.TextMode = TextBoxMode.Date;
 
             List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null);
-            new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID"); 
-
+            new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID");
+            ddlQualification.SelectedValue = "1";
 
             //List<PLeadType> LeadType = new BLead().GetLeadType(null, null);
             //new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");
@@ -31,8 +31,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
             new DDLBind(ddlSource, Source, "Source", "SourceID");
 
-            List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
-            new DDLBind(ddlCategory, Category, "Category", "CategoryID");
+            //List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
+            //new DDLBind(ddlCategory, Category, "Category", "CategoryID");
 
 
             List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
@@ -40,6 +40,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             new DDLBind(ddlUrgency, new BLead().GetLeadUrgency(null, null), "Urgency", "UrgencyID");
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
+            new DDLBind(ddlProject, new BProject().GetProject(null, null,null), "ProjectName", "ProjectID");
         }
 
         void Clear()
@@ -52,27 +53,27 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");  
             
             ddlProductType.SelectedValue = Convert.ToString(Lead.ProductType.ProductTypeID);
-            ddlCategory.SelectedValue = Convert.ToString(Lead.Category.CategoryID);
-            ddlQualification.SelectedValue = Convert.ToString(Lead.Qualification.QualificationID);
-            ddlSource.SelectedValue = Convert.ToString(Lead.Source.SourceID);
-            ddlProject.SelectedValue = Convert.ToString(Lead.Project.ProjectID);
-            ddlUrgency.SelectedValue = Convert.ToString(Lead.Urgency.UrgencyID);
-            ddlApplication.SelectedValue = Convert.ToString(Lead.Application.MainApplicationID);
+            //ddlCategory.SelectedValue = Convert.ToString(Lead.Category.CategoryID);
+            ddlQualification.SelectedValue = Lead.Qualification == null ? "0" : Convert.ToString(Lead.Qualification.QualificationID);
+            ddlSource.SelectedValue = Lead.Source==null?"0": Convert.ToString(Lead.Source.SourceID);
+            ddlProject.SelectedValue = Lead.Project == null ? "0" : Convert.ToString(Lead.Project.ProjectID);
+            ddlUrgency.SelectedValue = Lead.Urgency == null ? "0" : Convert.ToString(Lead.Urgency.UrgencyID);
+            ddlApplication.SelectedValue = Lead.Application == null ? "0" : Convert.ToString(Lead.Application.MainApplicationID);
             txtCustomerFeedback.Text = Lead.CustomerFeedback;
             txtRemarks.Text = Lead.Remarks;
         }
-            public PLead Read()
+            public PLead_Insert Read()
         {
-            PLead Lead = new PLead();
+            PLead_Insert Lead = new PLead_Insert();
             Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
-            Lead.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
+            Lead.ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) ;
 
-            Lead.Category = ddlCategory.SelectedValue == "" ? null : new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
-            Lead.Qualification = ddlQualification.SelectedValue == "" ? null : new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
-            Lead.Source = ddlSource.SelectedValue == "" ? null : new PLeadSource() { SourceID = Convert.ToInt32(ddlSource.SelectedValue) };
-            Lead.Project = ddlProject.SelectedValue == "" ? null : new PProject() { ProjectID = Convert.ToInt32(ddlProject.SelectedValue) };
-            Lead.Urgency = ddlUrgency.SelectedValue == "" ? null : new PLeadUrgency() { UrgencyID = Convert.ToInt32(ddlUrgency.SelectedValue) };
-            Lead.Application = ddlApplication.SelectedValue == "" ? null : new PDMS_MainApplication() { MainApplicationID = Convert.ToInt32(ddlApplication.SelectedValue) };
+            //Lead.Category = ddlCategory.SelectedValue == "" ? null : new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
+            Lead.QualificationID = ddlQualification.SelectedValue == "0" ? (int?)null :   Convert.ToInt32(ddlQualification.SelectedValue) ;
+            Lead.SourceID = ddlSource.SelectedValue == "0" ? (int?)null :  Convert.ToInt32(ddlSource.SelectedValue)  ;
+            Lead.ProjectID = ddlProject.SelectedValue == "0" ? (int?)null :   Convert.ToInt32(ddlProject.SelectedValue) ;
+            Lead.UrgencyID = ddlUrgency.SelectedValue == "0" ? (int?)null :    Convert.ToInt32(ddlUrgency.SelectedValue);
+            Lead.MainApplicationID = ddlApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlApplication.SelectedValue);
             Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             Lead.Remarks = txtRemarks.Text.Trim();
             return Lead;

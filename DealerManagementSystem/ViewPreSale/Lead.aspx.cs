@@ -74,7 +74,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void btnSave_Click(object sender, EventArgs e)
         {
             MPE_Customer.Show();
-            PLead Lead = new PLead();
+            PLead_Insert Lead = new PLead_Insert();
             lblMessageLead.ForeColor = Color.Red;
             lblMessageLead.Visible = true;
             string Message = "";
@@ -102,8 +102,7 @@ namespace DealerManagementSystem.ViewPreSale
                 }
                 Lead.Customer = UC_Customer.ReadCustomer();
             }   
-           
-            Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            
 
             string result = new BAPI().ApiPut("Lead", Lead); 
             result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);

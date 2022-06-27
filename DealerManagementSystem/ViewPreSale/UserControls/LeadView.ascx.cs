@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
-            lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
+           // lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
             lblUrgency.Text = Lead.Urgency==null?"": Lead.Urgency.Urgency;
             lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
             lblQualification.Text = Lead.Urgency == null ? "" : Lead.Qualification.Qualification;
@@ -616,7 +616,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void btnLeadEdit_Click(object sender, EventArgs e)
         {
             MPE_Lead.Show();
-            PLead LeadEdit = new PLead();
+            PLead_Insert LeadEdit = new PLead_Insert();
             lblMessageLead.ForeColor = Color.Red;
             lblMessageLead.Visible = true;
             string Message = UC_AddLead.Validation();
@@ -625,11 +625,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageLead.Text = Message;
                 return;
             }
-            Lead = UC_AddLead.Read();
+            LeadEdit = UC_AddLead.Read();
 
             LeadEdit.LeadID = Lead.LeadID;
-            LeadEdit.Customer = Lead.Customer; 
-            LeadEdit.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            LeadEdit.Customer = Lead.Customer;  
 
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
