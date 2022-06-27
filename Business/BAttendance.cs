@@ -42,11 +42,13 @@ namespace Business
             return null;
         }
 
-        public Boolean InsertOrUpdateAttendance( int UserID)
+        public Boolean InsertOrUpdateAttendance( int UserID, decimal Latitude, decimal Longitude)
         {
             int success = 0; 
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32); 
-            DbParameter[] Params = new DbParameter[1] {  UserIDP  };
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter LatitudeP = provider.CreateParameter("Latitude", Latitude, DbType.Decimal);
+            DbParameter LongitudeP = provider.CreateParameter("Longitude", Longitude, DbType.Decimal);
+            DbParameter[] Params = new DbParameter[3] {  UserIDP, LatitudeP, LongitudeP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
