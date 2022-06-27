@@ -367,12 +367,12 @@
                                         <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                         <%--        <asp:TemplateField HeaderText="Category" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                               <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                               <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
                                     </ItemTemplate>
@@ -393,11 +393,11 @@
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Type" SortExpression="Country">
+                              <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Dealer Code" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />

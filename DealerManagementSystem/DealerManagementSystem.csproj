@@ -392,7 +392,9 @@
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
+    <Content Include="ViewPreSale\BudgetPlanningMonth.aspx" />
     <Content Include="ViewPreSale\BudgetPlanningYear.aspx" />
+    <Content Include="ViewPreSale\Enquiry.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -1166,12 +1168,26 @@
     <Compile Include="ViewMaster\LocationMap.aspx.designer.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\BudgetPlanningMonth.aspx.cs">
+      <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\BudgetPlanningMonth.aspx.designer.cs">
+      <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.designer.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Enquiry.aspx.cs">
+      <DependentUpon>Enquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Enquiry.aspx.designer.cs">
+      <DependentUpon>Enquiry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>

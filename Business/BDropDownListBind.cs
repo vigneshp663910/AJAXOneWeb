@@ -24,12 +24,22 @@ namespace Business
 
         public void Year(DropDownList ddl, int StarYear, Boolean isSelect = true, string Select = "Select")
         {
+            if (isSelect)
+                ddl.Items.Insert(0, new ListItem(Select, "0"));
             for (int i = StarYear; i <= DateTime.Now.Year; i++)
             {
                 ddl.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
+            
+        }
+        public void Month(DropDownList ddl, Boolean isSelect = true, string Select = "Select")
+        {
             if (isSelect)
                 ddl.Items.Insert(0, new ListItem(Select, "0"));
+            for (int i = 1; i <= 12; i++)
+            {
+                ddl.Items.Add(new ListItem(i.ToString(), i.ToString()));
+            } 
         }
     }
 }

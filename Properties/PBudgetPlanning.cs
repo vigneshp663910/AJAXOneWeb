@@ -24,4 +24,18 @@ namespace Properties
         public PUser ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
     }
+    public class PBudgetPlanningMonthWise
+    {
+        public long BudgetPMWiseID { get; set; } 
+        public PBudgetPlanningYearWise BudgetPlanningYear { get; set; }
+        public int Month { get; set; }
+        public int Planed { get; set; }
+        public int SystemPlaned { get; set; }
+        public int Actual { get; set; }
+        public Boolean Freezed { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+    }
 }
