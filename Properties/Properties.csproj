@@ -53,6 +53,7 @@
     <Compile Include="PActivity.cs" />
     <Compile Include="PApplicationSetting.cs" />
     <Compile Include="PAttachedFile.cs" />
+    <Compile Include="PBudgetPlanning.cs" />
     <Compile Include="PCategory.cs" />
     <Compile Include="PColdVisit.cs" />
     <Compile Include="PDealer.cs" />
