@@ -35,6 +35,22 @@ namespace DealerManagementSystem.View
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
         }
+
+        public string CurrentLocation
+        {
+            get
+            {
+                if (Session["PreSalesReport"] == null)
+                {
+                    Session["PreSalesReport"] = "";
+                }
+                return (string)Session["PreSalesReport"];
+            }
+            set
+            {
+                Session["PreSalesReport"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -59,7 +75,7 @@ namespace DealerManagementSystem.View
                     ddlUser.Visible = true;
                     ddlDealer.Enabled = true;
                 }
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
 
                 Attendance1 = new BAttendance().GetAttendance(DateTime.Now, DateTime.Now,null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
@@ -124,11 +140,46 @@ namespace DealerManagementSystem.View
             }
 
         }
+        public string ConvertDataTabletoString()
+        {
+            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //Dictionary<string, object> row;
 
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "1");
+            //row.Add("lat", "12.897400");
+            //row.Add("lng", "80.288000");
+            //row.Add("description", "1");
+            //rows.Add(row);
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "2");
+            //row.Add("lat", "12.997450");
+            //row.Add("lng", "80.298050");
+            //row.Add("description", "2");
+
+            //rows.Add(row);
+
+            //return serializer.Serialize(rows);
+
+            return CurrentLocation;
+
+        }
         protected void btnPunch_Click(object sender, EventArgs e)
         {
             Boolean Success = true;
-            Success = new BAttendance().InsertOrUpdateAttendance(PSession.User.UserID);
+
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                lblMessage.Text = "Please Enable GeoLocation!";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                return;
+            }
+            decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
+            decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
+            Success = new BAttendance().InsertOrUpdateAttendance(PSession.User.UserID, Latitude, Longitude);
             if(Success)
             {
                 lblMessage.Text = "Attendance punched successfully.";
@@ -187,6 +238,70 @@ namespace DealerManagementSystem.View
         {
             gvAttendance.PageIndex = e.NewPageIndex;
             FillAttendance();
+        }
+
+        protected void btnTrackAttendance_Click(object sender, EventArgs e)
+        {
+            MPE_TrackAttendance.Show();
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            Attendance1 = new BAttendance().GetAttendance(null, null, DealerID, PSession.User.UserID);
+
+            foreach (DataRow dr in Attendance1.Rows)
+            {
+                row = new Dictionary<string, object>();
+
+                ////String url = "http://maps.google.com/maps/api/geocode/xml?address=" + Convert.ToString(dr["GeoLocation"]) + "&sensor=false"; 
+                //String url = "https://maps.google.com/maps/api/geocode/xml?address=" + Convert.ToString(dr["GeoLocation"]) + "&key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI";
+                //WebRequest request = WebRequest.Create(url);
+                //string Latitude = "0";
+                //string Longitude = "0";
+                //using (WebResponse response = (HttpWebResponse)request.GetResponse())
+                //{
+                //    using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                //    {
+
+                //        DataSet dsResult = new DataSet();
+                //        dsResult.ReadXml(reader);
+                //        DataTable dtCoordinates = new DataTable();
+                //        foreach (DataRow row1 in dsResult.Tables["result"].Rows)
+                //        {
+                //            string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
+                //            DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
+                //            dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
+                //            Latitude = Convert.ToString(location["lat"]);
+                //            Longitude = Convert.ToString(location["lng"]);
+                //        }
+                //    }
+                //}
+
+                //row.Add("GeoLocation", Convert.ToString(dr["GeoLocation"]));
+                //row.Add("title", Convert.ToString(dr["Name"]));
+                //row.Add("lat", Latitude);
+                //row.Add("lng", Longitude);
+                row.Add("lat", Convert.ToString(dr["StartLatitude"]));
+                row.Add("lng", Convert.ToString(dr["StartLongitude"]));
+                row.Add("description", Convert.ToString(dr["StartLatitudeLongitudeDate"]));
+                row.Add("image", Convert.ToString(dr["StartMapImage"]));
+                rows.Add(row);
+
+
+                if (DBNull.Value != dr["EndLatitude"])
+                {
+                    row = new Dictionary<string, object>();
+                    row.Add("lat", Convert.ToString(dr["EndLatitude"]));
+                    row.Add("lng", Convert.ToString(dr["EndLongitude"]));
+                    row.Add("description", Convert.ToString(dr["EndLatitudeLongitudeDate"]));
+                    row.Add("image", Convert.ToString(dr["EndMapImage"]));
+                    rows.Add(row);
+                }
+
+            }
+            CurrentLocation = serializer.Serialize(rows);
         }
     }
 }
