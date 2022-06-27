@@ -60,6 +60,15 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
+        /// lblEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblEmployee;
+
+        /// <summary>
         /// ddlUser control.
         /// </summary>
         /// <remarks>
@@ -87,31 +96,31 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.Button btnPunch;
 
         /// <summary>
-        /// lblRowCount control.
+        /// lblRowCountAttendance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCount;
+        protected global::System.Web.UI.WebControls.Label lblRowCountAttendance;
 
         /// <summary>
-        /// ibtnArrowLeft control.
+        /// ibtnAttendanceArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeft;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnAttendanceArrowLeft;
 
         /// <summary>
-        /// ibtnArrowRight control.
+        /// ibtnAttendanceArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnAttendanceArrowRight;
 
         /// <summary>
         /// gvAttendance control.

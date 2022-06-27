@@ -152,10 +152,10 @@ namespace DealerManagementSystem.ViewService.UserControls
         //    } 
         //}
 
-        public PDMS_ICTicketTSIR Read()
+        public PDMS_ICTicketTSIR_API Read()
         {
             lblMessageTSIR.Visible = true;
-            PDMS_ICTicketTSIR ICTicketTSIR = new PDMS_ICTicketTSIR();
+            PDMS_ICTicketTSIR_API ICTicketTSIR = new PDMS_ICTicketTSIR_API();
             if (!Validation())
             {
                 return ICTicketTSIR;
@@ -163,22 +163,19 @@ namespace DealerManagementSystem.ViewService.UserControls
            
             ICTicketTSIR.TsirID = ViewState["TsirID"] == null ? 0 : (long)ViewState["TsirID"];
             long ServiceChargeID = Convert.ToInt64(ddlServiceChargeID.SelectedValue);
-            if (ICTicketTSIR.TsirID == 0)
-            {
-                foreach (PDMS_ICTicketTSIR TSIR in ICTicketTSIRs)
-                {
-                    if ((TSIR.ServiceCharge.Material.MaterialCode == ddlServiceChargeID.SelectedItem.Text) && (TSIR.Status.StatusID != (short)TSIRStatus.Canceled))
-                    {
-                        lblMessageTSIR.Text = "TSIR already Created for " + ddlServiceChargeID.SelectedItem.Text + " Service Code";
-                        lblMessageTSIR.ForeColor = Color.Red;
-                        return ICTicketTSIR;
-                    }
-                }
-            }
-            ICTicketTSIR.ICTicket = new PDMS_ICTicket();
-            ICTicketTSIR.ICTicket.ICTicketID = SDMS_ICTicket.ICTicketID;
-            ICTicketTSIR.ServiceCharge = new PDMS_ServiceCharge();
-            ICTicketTSIR.ServiceCharge.ServiceChargeID = ServiceChargeID;
+            //if (ICTicketTSIR.TsirID == 0)
+            //{
+            //    foreach (PDMS_ICTicketTSIR TSIR in ICTicketTSIRs)
+            //    {
+            //        if ((TSIR.ServiceCharge.Material.MaterialCode == ddlServiceChargeID.SelectedItem.Text) && (TSIR.Status.StatusID != (short)TSIRStatus.Canceled))
+            //        {
+            //            lblMessageTSIR.Text = "TSIR already Created for " + ddlServiceChargeID.SelectedItem.Text + " Service Code";
+            //            lblMessageTSIR.ForeColor = Color.Red;
+            //            return ICTicketTSIR;
+            //        }
+            //    }
+            //}  
+            ICTicketTSIR.ServiceChargeID = ServiceChargeID;
             ICTicketTSIR.NatureOfFailures = txtNatureOfFailures.Text.Trim();
             ICTicketTSIR.ProblemNoticedBy = txtProblemNoticedBy.Text.Trim();
             ICTicketTSIR.UnderWhatConditionFailureTaken = txtUnderWhatConditionFailureTaken.Text.Trim();
@@ -196,9 +193,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             ddlServiceChargeID.DataSource = productCodes;
             ddlServiceChargeID.DataBind();
-        }
-            
-
+        } 
         void ClearTSIR()
         { 
             txtNatureOfFailures.Text = ""; 
@@ -259,8 +254,6 @@ namespace DealerManagementSystem.ViewService.UserControls
             } 
             lblMessageTSIR.Text = Message;
             return Ret;
-        }
-      
-       
+        } 
     }
 }

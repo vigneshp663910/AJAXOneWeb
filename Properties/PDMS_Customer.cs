@@ -76,6 +76,8 @@ namespace Properties
         public Boolean BillingBlock { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+        public Boolean IsDraft { get; set; }
+        public string CustomerType { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerShipTo
@@ -113,6 +115,7 @@ namespace Properties
     {
         public long TitleID { get; set; }
         public string Title { get; set; }
+        public string TitleCode { get; set; }
     }
     [Serializable]
     public class PCustomerType
@@ -208,8 +211,6 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
     }
-
-
 
     public class PDMS_CustomerJSON
     {

@@ -358,6 +358,7 @@
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
@@ -391,6 +392,7 @@
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
+    <Content Include="ViewPreSale\BudgetPlanningYear.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -462,7 +464,6 @@
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
-    <Content Include="ViewPreSale\LeadVignesh.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
@@ -473,6 +474,7 @@
     <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFollowUp.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddLead.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
     <Content Include="ViewPreSale\UserControls\AddQuotation.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
@@ -637,6 +639,9 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="View\Appointment.aspx" />
     <Content Include="View\Attendance.aspx" />
+    <Content Include="View\Project.aspx" />
+    <Content Include="View\UserControls\AddProject.ascx" />
+    <Content Include="View\UserControls\ProjectView.ascx" />
     <Content Include="VoiceText.aspx" />
     <Content Include="VoiceText1.aspx" />
     <Content Include="Web.config" />
@@ -923,6 +928,13 @@
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.cs">
+      <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.designer.cs">
+      <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1153,6 +1165,13 @@
     </Compile>
     <Compile Include="ViewMaster\LocationMap.aspx.designer.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.cs">
+      <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.designer.cs">
+      <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
@@ -1458,13 +1477,6 @@
     <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\LeadVignesh.aspx.cs">
-      <DependentUpon>LeadVignesh.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\LeadVignesh.aspx.designer.cs">
-      <DependentUpon>LeadVignesh.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1534,6 +1546,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.designer.cs">
       <DependentUpon>AddFollowUp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddLead.ascx.cs">
+      <DependentUpon>AddLead.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddLead.ascx.designer.cs">
+      <DependentUpon>AddLead.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.cs">
       <DependentUpon>AddLeadProduct.ascx</DependentUpon>
@@ -2408,6 +2427,27 @@
     </Compile>
     <Compile Include="View\Attendance.aspx.designer.cs">
       <DependentUpon>Attendance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Project.aspx.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Project.aspx.designer.cs">
+      <DependentUpon>Project.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\AddProject.ascx.cs">
+      <DependentUpon>AddProject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserControls\AddProject.ascx.designer.cs">
+      <DependentUpon>AddProject.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\ProjectView.ascx.cs">
+      <DependentUpon>ProjectView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserControls\ProjectView.ascx.designer.cs">
+      <DependentUpon>ProjectView.ascx</DependentUpon>
     </Compile>
     <Compile Include="VoiceText.aspx.cs">
       <DependentUpon>VoiceText.aspx</DependentUpon>

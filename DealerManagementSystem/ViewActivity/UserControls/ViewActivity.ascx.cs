@@ -40,11 +40,11 @@ namespace DealerManagementSystem.ViewActivity.UserControls
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
             lblCategory.Text = Lead.Category == null ? "" : Lead.Category.Category;
-            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
+          //  lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
             lblQualification.Text = Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source.Source;
             lblStatus.Text = Lead.Status.Status;
-            lblType.Text = Lead.Type.Type;
+           // lblType.Text = Lead.Type.Type;
             lblDealer.Text = Lead.Dealer.DealerCode;
             lblRemarks.Text = Lead.Remarks;
             lblCustomer.Text = Lead.Customer.CustomerFullName; 

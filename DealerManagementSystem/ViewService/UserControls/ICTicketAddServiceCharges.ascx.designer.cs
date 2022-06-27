@@ -96,42 +96,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtDiscount;
 
         /// <summary>
-        /// txtPointsChecked control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPointsChecked;
-
-        /// <summary>
-        /// txtPossibleRootCauses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPossibleRootCauses;
-
-        /// <summary>
-        /// txtSpecificPointsNoticed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSpecificPointsNoticed;
-
-        /// <summary>
-        /// txtPartsInvoiceNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPartsInvoiceNumber;
-
-        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>

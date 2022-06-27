@@ -3,6 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadView.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
+<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -134,7 +135,8 @@
                         type: 'POST',
                         contentType: "application/json; charset=utf-8",
                         /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                        url: "ColdVisits.aspx/GetCustomer",
+                      //  url: "ColdVisits.aspx/GetCustomer",
+                        url: "Lead.aspx/GetCustomer",
                         data: JSON.stringify(param),
                         dataType: 'JSON',
                         success: function (data) {
@@ -234,26 +236,7 @@
         });
 
     </script>
-    <style>
-        .fieldset-borderAuto {
-            border: solid 1px #cacaca;
-            margin: 1px 0;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #b4b4b4;
-        }
-
-            .fieldset-borderAuto tr {
-                /* background-color: #000084; */
-                background-color: inherit;
-                font-weight: bold;
-                color: white;
-            }
-
-            .fieldset-borderAuto:hover {
-                background-color: blue;
-            }
-    </style>
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -274,20 +257,20 @@
                         <label>Lead Date To</label>
                         <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                     </div>
-                    <div class="col-md-2 text-left">
+                  <%--  <div class="col-md-2 text-left">
                         <label>Progress Status</label>
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
-                    </div>
+                    </div>--%>
 
                     <div class="col-md-2 text-left">
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-left">
+                   <%-- <div class="col-md-2 text-left">
                         <label>Category</label>
                         <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
-                    </div>
+                    </div>--%>
 
                     <div class="col-md-2 text-left">
                         <label>Qualification</label>
@@ -298,10 +281,10 @@
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
 
-                    <div class="col-md-2 text-left">
+                  <%--  <div class="col-md-2 text-left">
                         <label>Lead Type</label>
                         <asp:DropDownList ID="ddlSType" runat="server" CssClass="form-control" />
-                    </div>
+                    </div>--%>
 
                     <div class="col-md-2 text-left">
                         <label>Customer</label>
@@ -389,11 +372,11 @@
                                         <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                               <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
 
                                 <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
                                     <ItemTemplate>
@@ -513,50 +496,7 @@
                     <div id="divCustomerCreateID">
                         <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                     </div>
-                    <fieldset class="fieldset-border" id="fldCountry" runat="server">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-                        <div class="col-md-12">
-                            <div class="col-md-6 col-sm-12">
-                                <label>Lead Date</label>
-                                <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <label>Product Type</label>
-                                <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
-                            </div>
-
-                            <%-- <div class="col-md-6 col-sm-12">
-                                <label>Status</label>
-                                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <label>Progress Status</label>
-                                <asp:DropDownList ID="ddlProgressStatus" runat="server" CssClass="form-control" />
-                            </div>--%>
-                            <div class="col-md-6 col-sm-12">
-                                <label>Category</label>
-                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" DataTextField="Category" DataValueField="CategoryID" />
-                            </div>
-
-                            <div class="col-md-6 col-sm-12">
-                                <label>Qualification</label>
-                                <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" DataTextField="Qualification" DataValueField="QualificationID" />
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <label>Source</label>
-                                <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
-                            </div>
-
-                            <div class="col-md-6 col-sm-12">
-                                <label>Lead Type</label>
-                                <asp:DropDownList ID="ddlLeadType" runat="server" CssClass="form-control" DataTextField="Status" DataValueField="StatusID" />
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label>Remarks</label>
-                                <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                            </div>
-                        </div>
-                    </fieldset>
+                     <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>
                 </fieldset>
             </div>
             <div class="col-md-12 text-center">
@@ -565,8 +505,26 @@
         </div>
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+      <style>
+        .fieldset-borderAuto {
+            border: solid 1px #cacaca;
+            margin: 1px 0;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #b4b4b4;
+        }
 
+            .fieldset-borderAuto tr {
+                /* background-color: #000084; */
+                background-color: inherit;
+                font-weight: bold;
+                color: white;
+            }
 
+            .fieldset-borderAuto:hover {
+                background-color: blue;
+            }
+    </style>
 </asp:Content>
 
 

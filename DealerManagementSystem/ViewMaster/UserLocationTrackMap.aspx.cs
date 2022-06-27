@@ -37,7 +37,7 @@ namespace DealerManagementSystem.ViewMaster
             if (!IsPostBack)
             {
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                //new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
             }
         }
         public string ConvertDataTabletoString()
@@ -56,7 +56,7 @@ namespace DealerManagementSystem.ViewMaster
             int? DealerID = null;
 
 
-            int? DealerDepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            //int? DealerDepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
             if (ddlDealer.SelectedValue != "0")
             {
                 DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
@@ -66,15 +66,28 @@ namespace DealerManagementSystem.ViewMaster
 
             int UserID = Convert.ToInt32(ddlEmployee.SelectedValue);  
             DataTable dt = new BUser().GetUserLocationTrack(UserID);
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    row = new Dictionary<string, object>();
+            //    row.Add("title", Convert.ToString(dr["Name"]));
+            //    row.Add("lat", Convert.ToString(dr["Latitude"]));
+            //    row.Add("lng", Convert.ToString(dr["Longitude"]));
+            //    row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"])); 
+            //    rows.Add(row);
+            //}
+
             foreach (DataRow dr in dt.Rows)
             {
-                row = new Dictionary<string, object>();
-                row.Add("title", Convert.ToString(dr["Name"]));
+                row = new Dictionary<string, object>(); 
                 row.Add("lat", Convert.ToString(dr["Latitude"]));
                 row.Add("lng", Convert.ToString(dr["Longitude"]));
-                row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"])); 
+
+                row.Add("description", Convert.ToString(dr["LatitudeLongitudeDate"]));
+
+                row.Add("image", Convert.ToString(dr["MapImage"]));
+
                 rows.Add(row);
-            }
+            } 
             Location = serializer.Serialize(rows);
         }
 

@@ -149,6 +149,11 @@ namespace Properties
         public int DealerDesignationID { get; set; }
         public string DealerDesignation { get; set; }
         public PDMS_DealerDepartment Department { get; set; }
+        public int SalesColdCustomerVisitTarget { get; set; }
+        public int SalesProspecCustomertVisitTarget { get; set; }
+        public int SalesExistCustomerVisitTarget { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
     [Serializable]
     public class PDMS_DealerEmployeeRole

@@ -8,7 +8,7 @@
             <label class="modal-label">SRO Code</label>
             <asp:UpdatePanel ID="up" runat="server">
                 <ContentTemplate>
-                    <asp:TextBox ID="txtServiceMaterial" runat="server" CssClass="TextBox" Width="120px"></asp:TextBox>
+                    <asp:TextBox ID="txtServiceMaterial" runat="server" CssClass="form-control" ></asp:TextBox>
                 </ContentTemplate>
                 <Triggers>
                     <asp:PostBackTrigger ControlID="txtServiceMaterial" />
@@ -18,39 +18,24 @@
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Service Date</label>
 
-            <asp:TextBox ID="txtServiceDate" runat="server" CssClass="TextBox" onkeyup="return removeText('MainContent_gvServiceCharges_txtServiceDate');"></asp:TextBox>
+            <asp:TextBox ID="txtServiceDate" runat="server" CssClass="form-control" onkeyup="return removeText('MainContent_gvServiceCharges_txtServiceDate');"></asp:TextBox>
             <asp:CalendarExtender ID="ceServiceDate" runat="server" TargetControlID="txtServiceDate" PopupButtonID="txtServiceDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtServiceDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
 
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Worked Hours</label>
-             <asp:TextBox ID="txtWorkedHours" runat="server" CssClass="TextBox"></asp:TextBox>
+             <asp:TextBox ID="txtWorkedHours" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Base Price</label>
-           <asp:TextBox ID="txtBasePrice" runat="server" CssClass="TextBox"></asp:TextBox>
+           <asp:TextBox ID="txtBasePrice" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Discount</label>
-            <asp:TextBox ID="txtDiscount" runat="server" CssClass="TextBox" Text="0"></asp:TextBox>
+            <asp:TextBox ID="txtDiscount" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
         </div>
-        <div class="col-md-6 col-sm-12">
-            <label class="modal-label">Points Checked</label>
-            <asp:TextBox ID="txtPointsChecked" runat="server" CssClass="TextBox" AutoComplete="SP" TextMode="MultiLine" Width="400px" Height="50px"></asp:TextBox>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <label class="modal-label">Possible Root Causes</label>
-            <asp:TextBox ID="txtPossibleRootCauses" runat="server" CssClass="TextBox" AutoComplete="SP" TextMode="MultiLine" Width="400px" Height="50px"></asp:TextBox>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <label class="modal-label">Specific Points Noticed</label>
-            <asp:TextBox ID="txtSpecificPointsNoticed" runat="server" CssClass="TextBox" TextMode="MultiLine" Width="400px" Height="50px"></asp:TextBox>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <label class="modal-label">Parts Invoice Number</label>
-            <asp:TextBox ID="txtPartsInvoiceNumber" runat="server" CssClass="TextBox" AutoComplete="SP" Width="400px"></asp:TextBox>
-        </div>
+        
     </div>
 </fieldset>
 <script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
@@ -104,11 +89,11 @@
     var prm = Sys.WebForms.PageRequestManager.getInstance();
     if (prm != null) {
         prm.add_endRequest(function (sender, e) {
-            $("#MainContent_DMS_ICTicketServiceCharges_gvServiceCharges_txtServiceMaterial").autocomplete({
+            $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
                 source: function (request, response) {
                     var param = { input: $('#MainContent_DMS_ICTicketServiceCharges_gvServiceCharges_txtServiceMaterial').val() };
                     $.ajax({
-                        url: "DMS_ICTicketProcess.aspx/SearchMaterials",
+                        url: "ICTicket.aspx/SearchMaterials",
                         data: JSON.stringify(param),
                         dataType: "json",
                         type: "POST",

@@ -25,42 +25,22 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Lead');</script>");
 
             if (!IsPostBack)
-            {
-                List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
-                new DDLBind(ddlCategory, Category, "Category", "CategoryID");
-                new DDLBind(ddlSCategory, Category, "Category", "CategoryID");
+            { 
 
-                List <PLeadQualification > Qualification = new BLead().GetLeadQualification(null, null);
-                new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID");
+                List <PLeadQualification > Qualification = new BLead().GetLeadQualification(null, null); 
                 new DDLBind(ddlSQualification, Qualification, "Qualification", "QualificationID");
 
-                List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
-                new DDLBind(ddlSource, Source, "Source", "SourceID");
-                new DDLBind(ddlSSource, Source, "Source", "SourceID");
+                List<PLeadSource> Source = new BLead().GetLeadSource(null, null); 
+                new DDLBind(ddlSSource, Source, "Source", "SourceID"); 
 
-                List<PLeadType> LeadType = new BLead().GetLeadType(null, null);
-                new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");
-                 new DDLBind(ddlSType, LeadType, "Type", "TypeID");
-
-                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-             //   new DDLBind(ddlCountry, Country, "Country", "CountryID");
-                new DDLBind(ddlSCountry, Country, "Country", "CountryID");
-              //  new DDLBind(ddlCCountry, Country, "Country", "CountryID"); 
+                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null); 
+                new DDLBind(ddlSCountry, Country, "Country", "CountryID"); 
            
                // ddlCountry.SelectedValue = "1";
                 List < PDMS_State > State= new BDMS_Address().GetState(1, null, null, null);
               //  new DDLBind(ddlState, State, "State", "StateID");
                 new DDLBind(ddlSState, State, "State", "StateID");
-                // new DDLBind(ddlCState, State, "State", "StateID");
-
-
-                List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
-                new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
-
-
-                List<PLeadProgressStatus > ProgressStatus = new BLead().GetLeadProgressStatus(null, null);
-                new DDLBind(ddlSProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
-               // new DDLBind(ddlProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
+                // new DDLBind(ddlCState, State, "State", "StateID"); 
 
                 List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
@@ -69,9 +49,7 @@ namespace DealerManagementSystem.ViewPreSale
                 //ddlProgressStatus.SelectedValue = "1";
                 //ddlStatus.SelectedValue = "1";
 
-                txtLeadDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
- 
-                txtLeadDate.TextMode = TextBoxMode.Date;
+               
                 //cbCustomers.DataTextField = "State";
                 //cbCustomers.DataValueField = "StateID";
                 //cbCustomers.DataSource = State;
@@ -99,7 +77,16 @@ namespace DealerManagementSystem.ViewPreSale
             PLead Lead = new PLead();
             lblMessageLead.ForeColor = Color.Red;
             lblMessageLead.Visible = true;
-            string Message = ""; 
+            string Message = "";
+            Message = UC_AddLead.Validation();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLead.Text = Message;
+                return;
+            }
+            Lead= UC_AddLead.Read();
+
+
             if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
             {
                 Lead.Customer = new PDMS_Customer();
@@ -114,26 +101,8 @@ namespace DealerManagementSystem.ViewPreSale
                     return;
                 }
                 Lead.Customer = UC_Customer.ReadCustomer();
-            }
-
-            Message = ValidationLead();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageLead.Text = Message;
-                return;
-            }
-
-            Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
-            Lead.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
-
-            //Lead.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
-            //Lead.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
-
-            Lead.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
-            Lead.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
-            Lead.Source = new PLeadSource() { SourceID = Convert.ToInt32(ddlSource.SelectedValue) };
-            Lead.Type = new PLeadType() { TypeID = Convert.ToInt32(ddlLeadType.SelectedValue) }; 
-            Lead.Remarks = txtRemarks.Text.Trim(); 
+            }   
+           
             Lead.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
             string result = new BAPI().ApiPut("Lead", Lead); 
@@ -160,66 +129,7 @@ namespace DealerManagementSystem.ViewPreSale
             MPE_Customer.Hide();
         }
 
-        public string ValidationLead()
-        {
-            string Message = ""; 
-            txtLeadDate.BorderColor = Color.Silver;
-            ddlProductType.BorderColor = Color.Silver;
-            //ddlStatus.BorderColor = Color.Silver;
-            //ddlProgressStatus.BorderColor = Color.Silver;
-            ddlCategory.BorderColor = Color.Silver;
-            ddlQualification.BorderColor = Color.Silver;
-            ddlSource.BorderColor = Color.Silver;
-            ddlLeadType.BorderColor = Color.Silver;
-            txtRemarks.BorderColor = Color.Silver;
-            if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
-            {
-                Message = "Please enter the Lead Date"; 
-                txtLeadDate.BorderColor = Color.Red;
-            }
-            else if (ddlProductType.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Product Type";
-                ddlProductType.BorderColor = Color.Red;
-            }
-
-            //else if (ddlStatus.SelectedValue == "0")
-            //{
-            //    Message = Message + "<br/>Please select the Status";
-            //    ddlStatus.BorderColor = Color.Red;
-            //}
-            //else if (ddlProgressStatus.SelectedValue == "0")
-            //{
-            //    Message = Message + "<br/>Please select the Progress Status";
-            //    ddlProgressStatus.BorderColor = Color.Red;
-            //}
-            else if (ddlCategory.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Category";
-                ddlCategory.BorderColor = Color.Red;
-            }
-            else if (ddlQualification.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Qualification";
-                ddlQualification.BorderColor = Color.Red;
-            }
-            else if (ddlSource.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Source";
-                ddlSource.BorderColor = Color.Red;
-            }
-            else if (ddlLeadType.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the LeadType";
-                ddlLeadType.BorderColor = Color.Red;
-            }
-            else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Remark"; 
-                txtRemarks.BorderColor = Color.Red;
-            } 
-            return Message;
-        }
+        
 
         //protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -288,11 +198,11 @@ namespace DealerManagementSystem.ViewPreSale
             PLeadSearch S = new PLeadSearch();
             S.LeadNumber = txtLeadNumber.Text.Trim();
             S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
-            S.ProgressStatusID = ddlSProgressStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSProgressStatus.SelectedValue);
-            S.CategoryID = ddlSCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCategory.SelectedValue);
+           // S.ProgressStatusID = ddlSProgressStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSProgressStatus.SelectedValue);
+         //   S.CategoryID = ddlSCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCategory.SelectedValue);
             S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
             S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
-            S.TypeID = ddlSType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSType.SelectedValue);
+          //  S.TypeID = ddlSType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSType.SelectedValue);
             S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
 
@@ -389,7 +299,8 @@ namespace DealerManagementSystem.ViewPreSale
            
         protected void btnAddLead_Click(object sender, EventArgs e)
         {
-            MPE_Customer.Show();
+            MPE_Customer.Show(); 
+            UC_AddLead.FillMaster();
             UC_Customer.FillMaster();
         }
         [WebMethod]
@@ -401,12 +312,20 @@ namespace DealerManagementSystem.ViewPreSale
             foreach (PDMS_Customer cust in Customer)
             {
                 i = i + 1;
-                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                    + "<table><tr><td>"
-                    + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
-                    + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
-                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+
+                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>" 
+                    + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
+
+                    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
                 Emp.Add(div);
+
+                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                //    + "<table><tr><td>"
+                //    + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>"+ cust.CustomerType + "</td></tr >" + "<tr><td>"
+                //    + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                //Emp.Add(div);
             }
             return Emp;
         }

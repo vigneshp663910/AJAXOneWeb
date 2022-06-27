@@ -443,6 +443,43 @@
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
                         </div>
+                        <div class="col-md-6">
+                            <asp:GridView ID="GVAssignDistrict" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="District ID" Visible="false">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Width="162px" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="District">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Width="162px" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delete">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="LnkDistrict" runat="server" Text="Delete" OnClick="LnkDistrict_Click"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>District</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" />
+                            <asp:HiddenField ID="HiddenDistrictID" runat="server" Visible="false" />
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnAssignRole" runat="server" Text="Assign Role" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnAssignRole_Click" Width="100px" />
                             <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" />

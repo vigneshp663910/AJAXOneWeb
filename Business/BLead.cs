@@ -44,6 +44,11 @@ namespace Business
             string endPoint = "Lead/GetLeadType?TypeID=" + TypeID + "&Type=" + Type;
             return JsonConvert.DeserializeObject<List<PLeadType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PLeadUrgency> GetLeadUrgency(int? UrgencyID, string Urgency)
+        {
+            string endPoint = "Lead/Urgency?UrgencyID=" + UrgencyID + "&Urgency=" + Urgency;
+            return JsonConvert.DeserializeObject<List<PLeadUrgency>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PLead> GetLead(PLeadSearch Lead)
         {
             string endPoint = "Lead?" + JsonConvert.SerializeObject(Lead);

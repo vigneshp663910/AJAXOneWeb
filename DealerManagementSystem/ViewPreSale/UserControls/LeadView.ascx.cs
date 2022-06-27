@@ -62,12 +62,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
             lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
-            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
-            lblQualification.Text = Lead.Qualification.Qualification;
-            lblSource.Text = Lead.Source.Source;
+            lblUrgency.Text = Lead.Urgency==null?"": Lead.Urgency.Urgency;
+            lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
+            lblQualification.Text = Lead.Urgency == null ? "" : Lead.Qualification.Qualification;
+            lblSource.Text = Lead.Qualification == null ? "" : Lead.Source.Source;
             lblStatus.Text = Lead.Status.Status;
-            lblType.Text = Lead.Type.Type;
+            lblProject.Text = Lead.Project == null ? "" : Lead.Project.ProjectName;
             lblDealer.Text = Lead.Dealer.DealerCode;
+            lblCustomerFeedback.Text = Lead.CustomerFeedback;
             lblRemarks.Text = Lead.Remarks;
             lblCustomer.Text = Lead.Customer.CustomerFullName;
             lblContactPerson.Text = Lead.Customer.ContactPerson;
@@ -99,7 +101,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (lbActions.Text == "Edit Lead")
             {
                 MPE_Lead.Show();
-                fillLeadEdit();
+                UC_AddLead.FillMaster();
+                UC_AddLead.fillLead(Lead);
             }
             else if (lbActions.Text == "Convert to Prospect")
             {
@@ -463,43 +466,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvProduct.DataSource = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
             gvProduct.DataBind(); 
         }
-        void fillLeadEdit()
-        {
-            txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");
-
-
-            List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
-            new DDLBind(ddlCategory, Category, "Category", "CategoryID"); 
-
-            List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null);
-            new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID"); 
-
-            List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
-            new DDLBind(ddlSource, Source, "Source", "SourceID"); 
-
-            List<PLeadType> LeadType = new BLead().GetLeadType(null, null);
-            new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");
-
-            //List<PLeadProgressStatus> ProgressStatus = new BLead().GetLeadProgressStatus(null, null); 
-            //new DDLBind(ddlProgressStatus, ProgressStatus, "ProgressStatus", "ProgressStatusID");
-
-            //List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null); 
-            //new DDLBind(ddlStatus, Status, "Status", "StatusID"); 
-
-
-            //ddlStatus.SelectedValue = Convert.ToString(Lead.Status.StatusID);
-            //ddlProgressStatus.SelectedValue = Convert.ToString(Lead.ProgressStatus.ProgressStatusID);
-
-            List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
-            new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
-            ddlProductType.SelectedValue = Convert.ToString(Lead.ProductType.ProductTypeID);
-
-            ddlCategory.SelectedValue = Convert.ToString(Lead.Category.CategoryID);
-            ddlQualification.SelectedValue = Convert.ToString(Lead.Qualification.QualificationID);
-            ddlSource.SelectedValue = Convert.ToString(Lead.Source.SourceID);
-            ddlLeadType.SelectedValue = Convert.ToString(Lead.Type.TypeID);
-            txtRemarks.Text = Lead.Remarks;
-        }
+      
         void fillSupportDocument()
         {
             gvSupportDocument.DataSource = new BLead().GetAttachedFileLead(Lead.LeadID);
@@ -652,25 +619,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PLead LeadEdit = new PLead();
             lblMessageLead.ForeColor = Color.Red;
             lblMessageLead.Visible = true;
-            string Message =  ValidationLead();
+            string Message = UC_AddLead.Validation();
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessageLead.Text = Message;
                 return;
             }
+            Lead = UC_AddLead.Read();
+
             LeadEdit.LeadID = Lead.LeadID;
-            LeadEdit.Customer = Lead.Customer;
-            LeadEdit.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
-
-            LeadEdit.ProductType = new PProductType() { ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue) };
-            //LeadEdit.Status = new PLeadStatus() { StatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
-            //LeadEdit.ProgressStatus = new PLeadProgressStatus() { ProgressStatusID = Convert.ToInt32(ddlProgressStatus.SelectedValue) };
-
-            LeadEdit.Category = new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
-            LeadEdit.Qualification = new PLeadQualification() { QualificationID = Convert.ToInt32(ddlQualification.SelectedValue) };
-            LeadEdit.Source = new PLeadSource() { SourceID = Convert.ToInt32(ddlSource.SelectedValue) };
-            LeadEdit.Type = new PLeadType() { TypeID = Convert.ToInt32(ddlLeadType.SelectedValue) };
-            LeadEdit.Remarks = txtRemarks.Text.Trim();
+            LeadEdit.Customer = Lead.Customer; 
             LeadEdit.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
 
@@ -684,68 +642,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillViewLead(Lead.LeadID);
 
             MPE_Lead.Hide();
-        }
-        public string ValidationLead()
-        {
-            string Message = "";
-            txtLeadDate.BorderColor = Color.Silver;
-            ddlProductType.BorderColor = Color.Silver;
-            //ddlStatus.BorderColor = Color.Silver;
-            //ddlProgressStatus.BorderColor = Color.Silver;
-            ddlCategory.BorderColor = Color.Silver;
-            ddlQualification.BorderColor = Color.Silver;
-            ddlSource.BorderColor = Color.Silver;
-            ddlLeadType.BorderColor = Color.Silver;
-            txtRemarks.BorderColor = Color.Silver;
-           
-            if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
-            {
-                Message = "Please enter the Lead Date";
-                txtLeadDate.BorderColor = Color.Red;
-            }
-            else if (ddlProductType.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Product Type";
-                ddlProductType.BorderColor = Color.Red;
-            }
-
-            //else if (ddlStatus.SelectedValue == "0")
-            //{
-            //    Message = Message + "<br/>Please select the Status";
-            //    ddlStatus.BorderColor = Color.Red;
-            //}
-            //else if (ddlProgressStatus.SelectedValue == "0")
-            //{
-            //    Message = Message + "<br/>Please select the Progress Status";
-            //    ddlProgressStatus.BorderColor = Color.Red;
-            //}
-            else if (ddlCategory.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Category";
-                ddlCategory.BorderColor = Color.Red;
-            }
-            else if (ddlQualification.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Qualification";
-                ddlQualification.BorderColor = Color.Red;
-            }
-            else if (ddlSource.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Source";
-                ddlSource.BorderColor = Color.Red;
-            }
-            else if (ddlLeadType.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the LeadType";
-                ddlLeadType.BorderColor = Color.Red;
-            }
-            else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Remark";
-                txtRemarks.BorderColor = Color.Red;
-            }
-            return Message;
-        }
+        } 
         void ShowMessage(PApiResult Results)
         {
             lblMessage.Text = Results.Message;

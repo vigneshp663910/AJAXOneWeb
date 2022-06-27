@@ -20,12 +20,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
             lblCategory.Text = Lead.Category.Category;
-            lblProgressStatus.Text = Lead.ProgressStatus.ProgressStatus;
+            lblApplication.Text = Lead.Application.MainApplication;
+            lblQualification.Text = Lead.Qualification.Qualification;
             lblQualification.Text = Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source.Source;
             lblStatus.Text = Lead.Status.Status;
-            lblType.Text = Lead.Type.Type;
+            lblProject.Text = Lead.Project.ProjectName;
             lblDealer.Text = Lead.Dealer.DealerCode;
+            lblContactPerson.Text = Lead.Customer.ContactPerson;
             lblRemarks.Text = Lead.Remarks;
             lblCustomer.Text = Lead.Customer.CustomerFullName;
             lblContactPerson.Text = Lead.Customer.ContactPerson;

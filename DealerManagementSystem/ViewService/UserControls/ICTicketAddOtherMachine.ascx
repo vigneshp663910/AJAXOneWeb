@@ -4,15 +4,15 @@
     <div class="col-md-12">
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Type Of Machine</label>
-            <asp:DropDownList ID="ddlTypeOfMachine" runat="server" CssClass="TextBox" />
+            <asp:DropDownList ID="ddlTypeOfMachine" runat="server" CssClass="form-control" />
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Quantity</label>
-            <asp:TextBox ID="txtQuantity" runat="server" CssClass="TextBox" AutoComplete="Off"></asp:TextBox>
+            <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Make</label>
-            <asp:DropDownList ID="ddlMake" runat="server" CssClass="TextBox" />
+            <asp:DropDownList ID="ddlMake" runat="server" CssClass="form-control" />
         </div> 
     </div>
 </fieldset> 

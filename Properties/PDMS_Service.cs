@@ -106,6 +106,23 @@ namespace Properties
         public int? CountBasedMC { get; set; }
     }
     [Serializable]
+    public class PDMS_ServiceCharge_API
+    {
+        public long ServiceChargeID { get; set; }
+        public long ICTicketID { get; set; }
+        public string MaterialWithDescription { get; set; }
+        public DateTime? Date { get; set; }
+        public decimal WorkedHours { get; set; }
+        public decimal BasePrice { get; set; }
+        public decimal Discount { get; set; }
+        public Boolean IsDeleted { get; set; }
+
+        //public long MaterialID { get; set; }
+        //public int Item { get; set; }
+        //public long TsirID { get; set; }
+
+    }
+    [Serializable]
     public class PDMS_ServiceMaterial
     {
         public long ServiceMaterialID { get; set; }
@@ -155,6 +172,36 @@ namespace Properties
         public string WarrantyMaterialReturnStatus { get; set; }
         public string OldInvoice { get; set; }
         
+    }
+    [Serializable]
+    public class PDMS_ServiceMaterial_API
+    {
+        public long ServiceMaterialID { get; set; }
+        public long ICTicketID { get; set; }
+        public string MaterialWithDescription { get; set; }
+        public string MaterialSerialNumber { get; set; }
+        public string DefectiveMaterialWithDescription { get; set; }
+        public string DefectiveMaterialSerialNumber { get; set; }
+        public PDMS_MaterialSource MaterialSource { get; set; }
+        public int Qty { get; set; }
+        public Boolean IsFaultyPart { get; set; }
+        public long? TsirID { get; set; }
+        public Boolean IsRecomenedParts { get; set; }
+        public Boolean IsQuotationParts { get; set; }
+        public string OldInvoice { get; set; }
+        public Boolean SupersedeYN { get; set; }
+        public string PONumber { get; set; }
+
+        //public int AvailableQty { get; set; }
+        //public string ReceivingStatus { get; set; }
+        //public decimal BasePrice { get; set; }
+        //public decimal Discount { get; set; }
+        //public decimal TaxablePrice { get; set; }
+        //public decimal SGST { get; set; }
+        //public decimal IGST { get; set; }
+        //public decimal SGSTValue { get; set; }
+        //public decimal IGSTValue { get; set; }
+        //public Boolean IsDeleted { get; set; }
     }
     [Serializable]
     public class PDMS_NoteType
