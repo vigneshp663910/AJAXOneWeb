@@ -104,6 +104,7 @@
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <asp:Label ID="lblAttendanceID" Text='<%# DataBinder.Eval(Container.DataItem, "AttendanceID")%>' runat="server" visible="false"/>
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
