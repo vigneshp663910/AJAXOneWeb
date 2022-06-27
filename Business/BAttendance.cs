@@ -18,13 +18,14 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public DataTable GetAttendance(DateTime? AttendanceDateFrom, DateTime? AttendanceDateTo, int? DealerID, int UserID)
+        public DataTable GetAttendance(Int64? AttendnaceID, DateTime? AttendanceDateFrom, DateTime? AttendanceDateTo, int? DealerID, int UserID)
         {
+            DbParameter AttendnaceIDP = provider.CreateParameter("AttendanceID", AttendnaceID, DbType.Int64);
             DbParameter AttendanceDateFromP = provider.CreateParameter("AttendanceDateFrom", AttendanceDateFrom, DbType.DateTime);
             DbParameter AttendanceDateToP = provider.CreateParameter("AttendanceDateTo", AttendanceDateTo, DbType.DateTime);
             DbParameter DIDP = provider.CreateParameter("DID", DealerID, DbType.Int32);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[4] { AttendanceDateFromP, AttendanceDateToP, DIDP, UserIDP };
+            DbParameter[] Params = new DbParameter[5] { AttendnaceIDP, AttendanceDateFromP, AttendanceDateToP, DIDP, UserIDP };
             try
             {
                 using (DataSet ds = provider.Select("GetAttendance", Params))

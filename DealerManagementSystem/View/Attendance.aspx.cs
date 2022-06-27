@@ -77,7 +77,7 @@ namespace DealerManagementSystem.View
                 }
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
 
-                Attendance1 = new BAttendance().GetAttendance(DateTime.Now, DateTime.Now,null, PSession.User.UserID);
+                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
                 if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
                 {
@@ -119,7 +119,7 @@ namespace DealerManagementSystem.View
             DateTime DateFrom = Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTime DateTo = Convert.ToDateTime(txtDateTo.Text.Trim());
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?) null : Convert.ToInt32(ddlDealer.SelectedValue);
-            Attendance1 = new BAttendance().GetAttendance(DateFrom, DateTo, DealerID, PSession.User.UserID);
+            Attendance1 = new BAttendance().GetAttendance(null, DateFrom, DateTo, DealerID, PSession.User.UserID);
 
             gvAttendance.DataSource = Attendance1;
             gvAttendance.DataBind();
@@ -185,7 +185,7 @@ namespace DealerManagementSystem.View
                 lblMessage.Text = "Attendance punched successfully.";
                 lblMessage.ForeColor = Color.Green;
                 FillAttendance();
-                Attendance1 = new BAttendance().GetAttendance(DateTime.Now, DateTime.Now, null, PSession.User.UserID);
+                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now, null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
                 if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
                 {
@@ -193,7 +193,7 @@ namespace DealerManagementSystem.View
                 }
                 else if (Attendance1.Rows.Count == 0)
                 {
-                    btnPunch.Text = "Punch In";
+                    btnPunch.Text = "Punch In"; 
                 }
                 else
                 {
@@ -249,7 +249,11 @@ namespace DealerManagementSystem.View
             Dictionary<string, object> row;
 
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            Attendance1 = new BAttendance().GetAttendance(null, null, DealerID, PSession.User.UserID);
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblAttendanceID = (Label)gvRow.FindControl("lblAttendanceID");
+
+            Attendance1 = new BAttendance().GetAttendance(Convert.ToInt64(lblAttendanceID.Text), null, null, DealerID, PSession.User.UserID);
 
             foreach (DataRow dr in Attendance1.Rows)
             {
