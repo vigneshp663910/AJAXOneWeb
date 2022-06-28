@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-   
+
     public partial class ManageLeadFoloowUps : System.Web.UI.Page
     {
         public long LeadFollowUpID
@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewPreSale
             int? SalesEngineerUserID = null;
             //DateTime? From = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             //DateTime? To = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-            int? DealerID =  null;
+            int? DealerID = null;
             //List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
 
             FU = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
@@ -118,6 +118,15 @@ namespace DealerManagementSystem.ViewPreSale
                 ibtnFUArrowRight.Visible = true;
                 lblRowCount.Text = (((gvFollowUp.PageIndex) * gvFollowUp.PageSize) + 1) + " - " + (((gvFollowUp.PageIndex) * gvFollowUp.PageSize) + gvFollowUp.Rows.Count) + " of " + FU.Count;
             }
+            for(int i=0; i< gvFollowUp.Rows.Count;i++)
+            {
+                Panel pnlActions = (Panel)gvFollowUp.Rows[i].FindControl("pnlActions");
+                Label lblFollowUpStatusID = (Label)gvFollowUp.Rows[i].FindControl("lblFollowUpStatusID");
+                if(lblFollowUpStatusID.Text !="1")
+                {
+                    pnlActions.Visible = false;
+                }
+            }
 
         }
         protected void lbActions_Click(object sender, EventArgs e)
@@ -126,7 +135,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblLeadFollowUpID = (Label)gvRow.FindControl("lblLeadFollowUpID");
-            PLeadFollowUp FollowUp = new PLeadFollowUp(); 
+            PLeadFollowUp FollowUp = new PLeadFollowUp();
             ViewState["LeadFollowUpID"] = Convert.ToInt64(lblLeadFollowUpID.Text);
             ViewState["Status"] = Convert.ToInt64(lblLeadFollowUpID.Text);
             if (lbActions.Text == "Cancel")
@@ -135,7 +144,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else if (lbActions.Text == "Close")
             {
-                ViewState["Status"] = 3;
+                ViewState["Status"] = 2;
             }
             MPE_FoloowUpStatus.Show();
         }
@@ -145,28 +154,27 @@ namespace DealerManagementSystem.ViewPreSale
             PLeadFollowUp FollowUp = new PLeadFollowUp();
             FollowUp.LeadFollowUpID = Convert.ToInt64(ViewState["LeadFollowUpID"]);
             FollowUp.Remark = txtRemark.Text.Trim();
-
-            FollowUp.Status = new PPreSaleStatus() { StatusID = 2 };
-
-            FollowUp.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-
-            string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUpStatus", FollowUp)).Data);
+            FollowUp.Status = new PPreSaleStatus() { StatusID = Convert.ToInt32(ViewState["Status"]) };
+             
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/FollowUpStatus", FollowUp)); 
             lblMessage.Visible = true;
-            if (s == "0")
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "Something went wrong try again.";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = "Customer is not updated successfully ";
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Removed successfully";
-                lblMessage.ForeColor = Color.Green;
-            }
+            ShowMessage(Results);
             FillFollowUps();
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillFollowUps();
+        }
+        void ShowMessage(PApiResult Results)
+        {
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

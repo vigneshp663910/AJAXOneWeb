@@ -11,7 +11,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-                      <%--  <div class="col-md-2 col-sm-12"  style="display: none">
+                        <%--  <div class="col-md-2 col-sm-12"  style="display: none">
                             <label class="modal-label">State</label>
                             <asp:DropDownList ID="ddlFollow" runat="server" CssClass="form-control">
                                 <asp:ListItem>Today's Follow-ups</asp:ListItem>
@@ -42,9 +42,9 @@
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            
+
                         </div>
-                    <%--    <div class="col-md-2 col-sm-12"  >
+                        <%--    <div class="col-md-2 col-sm-12"  >
                             <label class="modal-label">Mobile</label>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>--%>
@@ -86,7 +86,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                             <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" />
+                                            <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Sales Engineer">
@@ -116,12 +116,12 @@
                                             <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadDate","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                  <%--  <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                                    <%--  <asp:TemplateField HeaderText="Category" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Category.Category")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                   <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                                    <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.ProgressStatus.ProgressStatus")%>' runat="server" />
                                         </ItemTemplate>
@@ -139,9 +139,10 @@
                                     <asp:TemplateField HeaderText="Status" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblLeadStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Status.Status")%>' runat="server" />
+                                            
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                  <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
+                                    <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Type.Type")%>' runat="server" />
                                         </ItemTemplate>
@@ -159,17 +160,20 @@
                                     <asp:TemplateField HeaderText="FollowUp Status">
                                         <ItemTemplate>
                                             <asp:Label ID="lblFollowUpStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                             <asp:Label ID="lblFollowUpStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Update Status" SortExpression="Country">
                                         <ItemTemplate>
-                                            <div class="dropdown">
-                                                <div class="btn Approval" style="height: 25px">Actions</div>
-                                                <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                                                    <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
-                                                    <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton> 
+                                            <asp:Panel ID="pnlActions" runat="server"  >
+                                                <div class="dropdown">
+                                                    <div class="btn Approval" style="height: 25px">Actions</div>
+                                                    <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                                        <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
+                                                        <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </asp:Panel>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
