@@ -95,6 +95,7 @@
     <Compile Include="PDMS_WarrantyClaimInvoice.cs" />
     <Compile Include="PDMS_WarrantyFailureMaterial.cs" />
     <Compile Include="PEmployee.cs" />
+    <Compile Include="PEnquiry.cs" />
     <Compile Include="PFeedback.cs" />
     <Compile Include="PFormatter.cs" />
     <Compile Include="PL1Support.cs" />
