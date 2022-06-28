@@ -14,15 +14,23 @@ namespace DealerManagementSystem.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-                new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-                new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
-                new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
-                FillGrid(null);
+                if (!IsPostBack)
+                {
+                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
+                    new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
+                    FillGrid(null);
+                }
             }
-        }        
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
@@ -34,7 +42,8 @@ namespace DealerManagementSystem.View
                     return;
                 }
                 PProject project = new PProject();
-                if (!string.IsNullOrEmpty(HiddenProjectID.Value)) {
+                if (!string.IsNullOrEmpty(HiddenProjectID.Value))
+                {
                     project.ProjectID = Convert.ToInt32(HiddenProjectID.Value);
                 }
                 project.ProjectName = txtProjectName.Text.Trim();
@@ -58,7 +67,7 @@ namespace DealerManagementSystem.View
                     lblMessage.Text = "Project Was Saved Successfully...";
                     lblMessage.ForeColor = Color.Green;
                     FillGrid(project.ProjectID);
-                    ClearField();                    
+                    ClearField();
                     MPE_Project.Hide();
                 }
                 else
@@ -143,7 +152,7 @@ namespace DealerManagementSystem.View
             txtL3Bidder.Text = string.Empty;
             txtContractAwardDate.Text = string.Empty;
             txtContractEndDate.Text = string.Empty;
-            txtRemarks.Text = string.Empty;            
+            txtRemarks.Text = string.Empty;
         }
         private void FillGrid(long? ProjectID)
         {
@@ -156,7 +165,7 @@ namespace DealerManagementSystem.View
             {
                 DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
             }
-            gvProject.DataSource = new BProject().GetProject(null,StateID, DistrictID);
+            gvProject.DataSource = new BProject().GetProject(null, StateID, DistrictID);
             gvProject.DataBind();
 
             if (ProjectID != null)
