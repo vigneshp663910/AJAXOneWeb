@@ -33,22 +33,40 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Label lblRefQuotationDate;
 
         /// <summary>
-        /// lblQuotationNumber control.
+        /// lblSapQuotationNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuotationNumber;
+        protected global::System.Web.UI.WebControls.Label lblSapQuotationNumber;
 
         /// <summary>
-        /// lblQuotationDate control.
+        /// lblSapQuotationDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuotationDate;
+        protected global::System.Web.UI.WebControls.Label lblSapQuotationDate;
+
+        /// <summary>
+        /// lblPgQuotationNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPgQuotationNumber;
+
+        /// <summary>
+        /// lblPgQuotationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPgQuotationDate;
 
         /// <summary>
         /// lblQuotationType control.

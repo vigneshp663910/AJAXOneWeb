@@ -541,16 +541,16 @@
                                         <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                                <%-- <asp:TemplateField HeaderText="Category" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                               <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
 
                                 <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
                                     <ItemTemplate>

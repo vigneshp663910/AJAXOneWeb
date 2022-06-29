@@ -349,7 +349,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = Results.Message;
                     return;
                 }
-                if (!string.IsNullOrEmpty(Quotation.QuotationNo))
+                if (!string.IsNullOrEmpty(Quotation.SapQuotationNo))
                 {
                     if (Quotation.CommissionAgent)
                     {
@@ -463,7 +463,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Text = Results.Message;
                 return;
             }
-            if (!string.IsNullOrEmpty(Quotation.QuotationNo))
+            if (!string.IsNullOrEmpty(Quotation.SapQuotationNo))
             {
                 if (Quotation.CommissionAgent)
                 {
@@ -740,8 +740,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblRefQuotationNo.Text = Quotation.RefQuotationNo;
             lblRefQuotationDate.Text = Quotation.RefQuotationDate.ToLongDateString();
 
-            lblQuotationNumber.Text = Quotation.QuotationNo;
-            lblQuotationDate.Text = Quotation.QuotationDate == null ? "" : ((DateTime)Quotation.QuotationDate).ToLongDateString();
+            lblSapQuotationNumber.Text = Quotation.SapQuotationNo;
+            lblSapQuotationDate.Text = Quotation.SapQuotationDate == null ? "" : ((DateTime)Quotation.SapQuotationDate).ToLongDateString();
+            lblPgQuotationNumber.Text = Quotation.PgQuotationNo;
+            lblPgQuotationDate.Text = Quotation.PgQuotationDate == null ? "" : ((DateTime)Quotation.PgQuotationDate).ToLongDateString();
+
             lblQuotationType.Text = Quotation.QuotationType.QuotationType;
             lblQuotationStatus.Text = Quotation.Status.SalesQuotationStatus;
             lblValidFrom.Text = Quotation.ValidFrom == null ? "" : ((DateTime)Quotation.ValidFrom).ToLongDateString();
@@ -1106,8 +1109,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ReportParameter[] P = new ReportParameter[38];
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
-                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+                P[1] = new ReportParameter("QuotationNo",Q.CommissionAgent?  Q.SapQuotationNo: Q.PgQuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString(): Q.SapQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1117,8 +1120,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[9] = new ReportParameter("Subject", Q.QuotationItems[0].Material.MaterialDescription, false);
                 P[10] = new ReportParameter("Reference", Reference, false);
                 P[11] = new ReportParameter("Annexure", "A-I", false);
-                P[12] = new ReportParameter("AnnexureRef", Q.QuotationNo, false);
-                P[13] = new ReportParameter("AnnexureDate", Q.QuotationDate.ToString(), false);
+                P[12] = new ReportParameter("AnnexureRef", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
+                P[13] = new ReportParameter("AnnexureDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.SapQuotationDate.ToString(), false);
                 P[14] = new ReportParameter("TCSTax", "TCSTax Persent", false);
                 P[15] = new ReportParameter("Delivery", Delivery, false);
                 //P[16] = new ReportParameter("InWordsTotalAmount", "ZERO RUPEES Only", false);
@@ -1331,8 +1334,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
-                P[1] = new ReportParameter("QuotationNo", Q.QuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.QuotationDate.ToString(), false);
+                P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
+                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.SapQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);

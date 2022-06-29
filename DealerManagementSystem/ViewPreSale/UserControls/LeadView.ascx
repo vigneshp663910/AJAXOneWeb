@@ -302,12 +302,12 @@
                                     <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Progress Status">
+                           <%-- <asp:TemplateField HeaderText="Progress Status">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Conversation" SortExpression="Country">
                                 <ItemTemplate>
                                     <asp:Label ID="lblConversation" Text='<%# DataBinder.Eval(Container.DataItem, "Conversation")%>' runat="server" />

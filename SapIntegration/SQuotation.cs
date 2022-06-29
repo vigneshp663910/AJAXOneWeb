@@ -16,11 +16,11 @@ namespace SapIntegration
             string QuotationNo = null, QuotationDate = null;
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_QUOTATION_DETAILS");
-            if (!string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
+            if (!string.IsNullOrEmpty(pSalesQuotation.SapQuotationNo))
             {
-                tagListBapi.SetValue("QUOTATION_NO", pSalesQuotation.QuotationNo);
+                tagListBapi.SetValue("QUOTATION_NO", pSalesQuotation.SapQuotationNo);
             }
-            if (string.IsNullOrEmpty(pSalesQuotation.QuotationNo))
+            if (string.IsNullOrEmpty(pSalesQuotation.SapQuotationNo))
             {
                 if (pSalesQuotation.ShipTo != null)
                 {

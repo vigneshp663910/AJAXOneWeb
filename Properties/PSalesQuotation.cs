@@ -13,8 +13,10 @@ namespace Properties
         public string RefQuotationNo { get; set; }
         public DateTime RefQuotationDate { get; set; }
         public string RevisionNumber { get; set; }
-        public string QuotationNo { get; set; }
-        public DateTime? QuotationDate { get; set; }
+        public string SapQuotationNo { get; set; }
+        public DateTime? SapQuotationDate { get; set; } 
+        public string PgQuotationNo { get; set; }
+        public DateTime? PgQuotationDate { get; set; } 
         public DateTime? RequestedDeliveryDate { get; set; }
         public PSalesQuotationType QuotationType { get; set; }
         public PSalesQuotationStatus Status { get; set; }

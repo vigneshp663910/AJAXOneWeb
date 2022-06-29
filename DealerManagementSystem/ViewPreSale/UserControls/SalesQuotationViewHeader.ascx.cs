@@ -21,9 +21,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
             lblRefQuotationNo.Text = Quotation.RefQuotationNo;
-            lblRefQuotationDate.Text = Quotation.RefQuotationDate.ToLongDateString(); 
-            lblQuotationNumber.Text = Quotation.QuotationNo;
-            lblQuotationDate.Text = Quotation.QuotationDate == null ? "" : ((DateTime)Quotation.QuotationDate).ToLongDateString();
+            lblRefQuotationDate.Text = Quotation.RefQuotationDate.ToLongDateString();
+            lblSapQuotationNumber.Text = Quotation.SapQuotationNo;
+            lblSapQuotationDate.Text = Quotation.SapQuotationDate == null ? "" : ((DateTime)Quotation.SapQuotationDate).ToLongDateString();
+            lblPgQuotationNumber.Text = Quotation.PgQuotationNo;
+            lblPgQuotationDate.Text = Quotation.PgQuotationDate == null ? "" : ((DateTime)Quotation.PgQuotationDate).ToLongDateString();
+
             lblQuotationType.Text = Quotation.QuotationType.QuotationType;
             lblQuotationStatus.Text = Quotation.Status.SalesQuotationStatus;
             lblValidFrom.Text = Quotation.ValidFrom == null ? "" : ((DateTime)Quotation.ValidFrom).ToLongDateString();
