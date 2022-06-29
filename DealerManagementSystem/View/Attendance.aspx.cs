@@ -53,6 +53,8 @@ namespace DealerManagementSystem.View
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
+
             if (!IsPostBack)
             {
                 txtDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
@@ -75,7 +77,7 @@ namespace DealerManagementSystem.View
                     ddlUser.Visible = true;
                     ddlDealer.Enabled = true;
                 }
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Attendance');</script>");
+               
 
                 Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
