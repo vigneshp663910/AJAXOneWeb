@@ -179,11 +179,11 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">State<samp style="color: red">*</samp></label>
+                        <label class="modal-label">State</label>
                         <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlSState_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">District<samp style="color: red">*</samp></label>
+                        <label class="modal-label">District</label>
                         <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                     </div>
                     <div class="col-md-8 text-left">

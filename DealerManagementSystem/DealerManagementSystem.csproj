@@ -283,6 +283,7 @@
     <Content Include="ProcessFlow\DMM_Process.png" />
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Pre_Sales1.png" />
+    <Content Include="ProcessFlow\Pre_Sales1_Prev.png" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\V0_DMPM.png" />
     <Content Include="ProcessFlow\V0_Implementation.png" />
