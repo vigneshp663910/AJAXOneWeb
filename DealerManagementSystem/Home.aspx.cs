@@ -39,7 +39,7 @@ namespace DealerManagementSystem
                 FillModel();
                 FillFiscalYear();
 
-                txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Year.ToString();
+                txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString() + "/" + (DateTime.Now.Year - 1).ToString();
                 txtDateTo.Text = DateTime.Now.ToShortDateString();
                 if (!string.IsNullOrEmpty(Request.QueryString["Session_End"]))
                 {

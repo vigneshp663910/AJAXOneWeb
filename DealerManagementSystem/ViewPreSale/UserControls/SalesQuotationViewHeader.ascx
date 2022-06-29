@@ -12,12 +12,20 @@
                     <asp:Label ID="lblRefQuotationDate" runat="server"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Quotation Number : </label>
-                    <asp:Label ID="lblQuotationNumber" runat="server"></asp:Label>
+                    <label>Sap Quotation Number : </label>
+                    <asp:Label ID="lblSapQuotationNumber" runat="server"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Quotation Date : </label>
-                    <asp:Label ID="lblQuotationDate" runat="server"></asp:Label>
+                    <label>Sap Quotation Date : </label>
+                    <asp:Label ID="lblSapQuotationDate" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Parts Quotation Number : </label>
+                    <asp:Label ID="lblPgQuotationNumber" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Parts Quotation Date : </label>
+                    <asp:Label ID="lblPgQuotationDate" runat="server"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
