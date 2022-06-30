@@ -78,6 +78,10 @@
                     <label>Valid To : </label>
                     <asp:Label ID="lblValidTo" runat="server"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Commission Agent : </label>
+                    <asp:CheckBox ID="cbCommissionAgent" runat="server" Enabled="false" />
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">

@@ -756,7 +756,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
             lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
-
+            cbCommissionAgent.Checked = Quotation.CommissionAgent;
             fillFinancier();
             fillProduct();
             fillCompetitor();
@@ -981,11 +981,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 else
                 {
                     QuotationItemSAp(QuotationItem);
-                    PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
-                    if (Results.Status == PApplication.Failure)
+                    if (string.IsNullOrEmpty(Quotation.PgQuotationNo))
                     {
-                        lblMessageProduct.Text = Results.Message;
-                        return;
+                        PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+                        if (Results.Status == PApplication.Failure)
+                        {
+                            lblMessageProduct.Text = Results.Message;
+                            return;
+                        }
                     }
                     fillViewQuotation(Quotation.QuotationID);
                     lblMessage.Text = "Updated Successfully";
