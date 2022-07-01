@@ -357,9 +357,25 @@
             /* #icoDashBoard {
                 padding-right: 2em;                            
             }*/
+            
         }
 
         @media screen and (min-device-width: 320px) and (max-device-width: 500px) {
+            #ICLeadManagement {
+                display:none;
+            }
+            #ICAppoinment {
+                display:none;
+            }
+            #icoDashBoard {
+                display:none;
+            }
+            #ICFeedback {
+                display:none;
+            }
+            #ICCallsupport {
+                display:none;
+            }
             /*.ProjectTitle {
                 display: none;
                 font-size: smaller;
@@ -2160,7 +2176,7 @@
 
 
 
-                        <div style="float: right; padding-right: 0.3em;">
+                        <div style="float: right; padding-right: 0.3em;" id="ICCallsupport" runat="server">
 
                             <div class="dropdown">
                                 <a href='tel:+91 08067200014' title="IT Support...."><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
@@ -2169,7 +2185,7 @@
                             </div>
                         </div>
 
-                        <div style="float: right; padding-right: 0.3em;">
+                        <div style="float: right; padding-right: 0.3em;" id="ICFeedback" runat="server">
 
                             <div class="dropdown">
                                 <a href='/Home.aspx' title="Feedback...."><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
@@ -2184,7 +2200,7 @@
                         </div>--%>
 
 
-                        <div id="icoDashBoard" style="float: right; padding-right: 0.3em;">
+                        <div id="icoDashBoard" runat="server" style="float: right; padding-right: 0.3em;">
                             <div class="dropdown">
 
                                 <button class="dropbtn1"><i class="fa fa-dashboard font-white" style="color: lightgray"></i></button>
@@ -2199,7 +2215,7 @@
 
                             </div>
                         </div>
-                        <div class="sub-menu-dashboard" style="float: right; padding-right: 0.5em;">
+                        <div class="sub-menu-dashboard" style="float: right; padding-right: 0.5em;" id="ICLeadManagement" runat="server">
 
                             <div class="dropdown">
                                 <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
@@ -2215,7 +2231,7 @@
 
                         </div>
 
-                        <div style="float: right; padding-right: 0.5em;">
+                        <div style="float: right; padding-right: 0.5em;" id="ICHomeWithTiles" runat="server">
 
                             <div class="dropdown" style="display: none">
                                 <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
@@ -2223,14 +2239,14 @@
 
                         </div>
 
-                        <div style="float: right; padding-right: 0.5em;">
+                        <div style="float: right; padding-right: 0.5em;" id="ICAppoinment" runat="server">
 
                             <div class="dropdown">
                                 <a href='/View/Appointment.aspx' title="Appointment...."><i class="fa fa-fw fa-calendar-plus-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
 
-                        <div style="float: right; padding-right: 0.5em;">
+                        <div style="float: right; padding-right: 0.5em;" id="Home" runat="server">
 
                             <div class="dropdown">
                                 <a href='/Home.aspx' title="Home...."><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
