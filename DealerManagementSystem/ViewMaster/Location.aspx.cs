@@ -289,13 +289,13 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     CountryID = Convert.ToInt32(ddlRCountry.SelectedValue);
                 }
-                FillRegionDLL(ddlRRegion, CountryID, null, null);
+                //FillRegionDLL(ddlRRegion, CountryID, null, null);
                 CountryID = null;
                 if (ddlSCountry.SelectedValue != "0")
                 {
                     CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
                 }
-                FillRegionDLL(ddlSRegion, CountryID, null, null);
+                //FillRegionDLL(ddlSRegion, CountryID, null, null);
             }
             catch (Exception Ex)
             {
@@ -317,14 +317,14 @@ namespace DealerManagementSystem.ViewMaster
                 //{
                 //    CountryID = Convert.ToInt32(ddlDCountry.SelectedValue);
                 //}
-                FillStateDLL(ddlDState, CountryID, null, null, null);
+                //FillStateDLL(ddlDState, CountryID, null, null, null);
 
-                CountryID = null; RegionID = null;
-                if (ddlCityCountry.SelectedValue != "0")
-                {
-                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
-                }
-                FillStateDLL(ddlCityState, CountryID, null, null, null);
+                //CountryID = null; RegionID = null;
+                //if (ddlCityCountry.SelectedValue != "0")
+                //{
+                //    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
+                //}
+                //FillStateDLL(ddlCityState, CountryID, null, null, null);
             }
             catch (Exception Ex)
             {
@@ -343,11 +343,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
                 }
-                if (ddlCityState.SelectedValue != "0")
+                if (ddlCityState.SelectedValue != "0" && !string.IsNullOrEmpty(ddlCityState.SelectedValue))
                 {
                     StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
-                FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
+                //FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
             }
             catch (Exception Ex)
             {
@@ -363,7 +363,7 @@ namespace DealerManagementSystem.ViewMaster
                 int? DealerID = null;
                 string DealerCode = null;
 
-                FillDealerDLL(ddlDDealer, DealerID, DealerCode);
+                //FillDealerDLL(ddlDDealer, DealerID, DealerCode);
             }
             catch (Exception Ex)
             {
@@ -500,11 +500,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     CountryID = Convert.ToInt32(ddlDCountry.SelectedValue);
                 }
-                if (ddlDState.SelectedValue != "0")
+                if (ddlDState.SelectedValue != "0" && !string.IsNullOrEmpty(ddlDState.SelectedValue))
                 {
                     StateID = Convert.ToInt32(ddlDState.SelectedValue);
                 }
-                if (ddlDDealer.SelectedValue != "0")
+                if (ddlDDealer.SelectedValue != "0" && !string.IsNullOrEmpty(ddlDDealer.SelectedValue))
                 {
                     DealerID = Convert.ToInt32(ddlDDealer.SelectedValue);
                 }
@@ -2441,11 +2441,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
                 }
-                if (ddlCityState.SelectedValue != "0")
+                if (ddlCityState.SelectedValue != "0" && !string.IsNullOrEmpty(ddlCityState.SelectedValue))
                 {
                     StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
-                if (ddlCityDistrict.SelectedValue != "0")
+                if (ddlCityDistrict.SelectedValue != "0" && !string.IsNullOrEmpty(ddlCityDistrict.SelectedValue))
                 {
                     DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
                 }
