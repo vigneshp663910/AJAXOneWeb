@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerEmployeeAssigningRole.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.DealerEmployeeAssigningRole" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="DealerEmployeeAssigningRole.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.DealerEmployeeAssigningRole" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
@@ -52,7 +52,7 @@
                         <label>Dealer</label>
                     </div>
                     <div class="col-md-3">
-                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
                     </div>
                     <div class="col-md-3 text-right">
                         <label>Aadhaar Card No</label>
@@ -443,7 +443,10 @@
                         <div class="col-md-3">
                             <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3 text-right">
+                            <label>-</label>
+                        </div>
+                        <div class="col-md-3">
                             <asp:GridView ID="GVAssignDistrict" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
                                     <asp:TemplateField HeaderText="District ID" Visible="false">

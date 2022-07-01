@@ -39,15 +39,15 @@ namespace DealerManagementSystem.ViewMaster
         {
             get
             {
-                if (Session["PDMS_District"] == null)
+                if (Session["PDMS_DistrictRA"] == null)
                 {
-                    Session["PDMS_District"] = new List<PDMS_District>();
+                    Session["PDMS_DistrictRA"] = new List<PDMS_District>();
                 }
-                return (List<PDMS_District>)Session["PDMS_District"];
+                return (List<PDMS_District>)Session["PDMS_DistrictRA"];
             }
             set
             {
-                Session["PDMS_District"] = value;
+                Session["PDMS_DistrictRA"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -499,7 +499,8 @@ namespace DealerManagementSystem.ViewMaster
             District.Add(pDMS_District);
             GVAssignDistrict.DataSource = District;
             GVAssignDistrict.DataBind();
-            Session["PDMS_District"] = District;
+            Session["PDMS_DistrictRA"] = District;
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrictBySalesEngineerUserID(Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
         }
 
         protected void LnkDistrict_Click(object sender, EventArgs e)
@@ -510,6 +511,11 @@ namespace DealerManagementSystem.ViewMaster
             District.Remove(itemToRemove);
             GVAssignDistrict.DataSource = District;
             GVAssignDistrict.DataBind();
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrictBySalesEngineerUserID(Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
         }
     }
 }
