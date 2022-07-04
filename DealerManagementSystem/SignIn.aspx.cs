@@ -336,15 +336,31 @@ namespace DealerManagementSystem
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Request.QueryString["deviceID"]))
+            try
             {
-                string DeviceID = Convert.ToString(Request.QueryString["deviceID"]);
-                string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
-                loginMobile(ApplicationKey, DeviceID);
+                if (!string.IsNullOrEmpty(Request.QueryString["deviceID"]))
+                {
+                    string DeviceID = Convert.ToString(Request.QueryString["deviceID"]);
+                    if (Request.QueryString["appID"] == null)
+                    {
+                        lblMessage.Text = "Please Provide AppID...!";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
+                    loginMobile(ApplicationKey, DeviceID);
+                }
+                else
+                {
+                    login();
+                }
             }
-            else
+            catch(Exception ex)
             {
-                login();
+                lblMessage.Text = ex.ToString();
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
             }
         }
         protected void lForgetPassword_Click(object sender, EventArgs e)

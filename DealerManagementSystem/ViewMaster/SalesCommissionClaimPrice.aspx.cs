@@ -111,22 +111,30 @@ namespace DealerManagementSystem.ViewMaster
             {
                 int? PlantID = ddlPlant.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPlant.SelectedValue);
                 //int? MaterailID = ddlMaterial.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMaterial.SelectedValue);
-                string Materail = txtMaterial.Text.Trim();
+                string Materail = null;
+                if (!string.IsNullOrEmpty(txtMaterial.Text))
+                {
+                    txtMaterial.Text.Trim();
+                }
 
                 SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(PlantID, Materail);
-                gvSalCommClaimPrice.PageIndex = 0;
-                gvSalCommClaimPrice.DataSource = SalesCommClaimPrice;
-                gvSalCommClaimPrice.DataBind();
+                
 
                 if (SalesCommClaimPrice.Count == 0)
                 {
+                    SalesCommClaimPrice.Add(new PSalesCommissionClaimPrice());
                     lblRowCountSalCommClaimPrice.Visible = false;
                     ibtnSalCommClaimPriceArrowLeft.Visible = false;
                     ibtnSalCommClaimPriceArrowRight.Visible = false;
-
+                    gvSalCommClaimPrice.DataSource = SalesCommClaimPrice;
+                    gvSalCommClaimPrice.DataBind();
                 }
                 else
                 {
+                    gvSalCommClaimPrice.PageIndex = 0;
+                    gvSalCommClaimPrice.DataSource = SalesCommClaimPrice;
+                    gvSalCommClaimPrice.DataBind();
+
                     lblRowCountSalCommClaimPrice.Visible = true;
                     ibtnSalCommClaimPriceArrowLeft.Visible = true;
                     ibtnSalCommClaimPriceArrowRight.Visible = true;

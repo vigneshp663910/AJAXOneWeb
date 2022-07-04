@@ -284,18 +284,18 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 int? CountryID = null;
-                
+
                 if (ddlRCountry.SelectedValue != "0")
-                {                    
-                    CountryID = Convert.ToInt32(ddlRCountry.SelectedValue);                    
-                }               
-                FillRegionDLL(ddlRRegion, CountryID, null, null);
+                {
+                    CountryID = Convert.ToInt32(ddlRCountry.SelectedValue);
+                }
+                //FillRegionDLL(ddlRRegion, CountryID, null, null);
                 CountryID = null;
                 if (ddlSCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);                    
+                    CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
                 }
-                FillRegionDLL(ddlSRegion, CountryID, null, null);
+                //FillRegionDLL(ddlSRegion, CountryID, null, null);
             }
             catch (Exception Ex)
             {
@@ -317,14 +317,14 @@ namespace DealerManagementSystem.ViewMaster
                 //{
                 //    CountryID = Convert.ToInt32(ddlDCountry.SelectedValue);
                 //}
-                FillStateDLL(ddlDState, CountryID, null, null, null);
+                //FillStateDLL(ddlDState, CountryID, null, null, null);
 
-                CountryID = null; RegionID = null;
-                if (ddlCityCountry.SelectedValue != "0")
-                {
-                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
-                }
-                FillStateDLL(ddlCityState, CountryID, null, null, null);
+                //CountryID = null; RegionID = null;
+                //if (ddlCityCountry.SelectedValue != "0")
+                //{
+                //    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
+                //}
+                //FillStateDLL(ddlCityState, CountryID, null, null, null);
             }
             catch (Exception Ex)
             {
@@ -343,11 +343,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
                 }
-                if (ddlCityState.SelectedValue != "0")
+                if (ddlCityState.SelectedValue != "0" && !string.IsNullOrEmpty(ddlCityState.SelectedValue))
                 {
                     StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
-                FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID,  district);
+                //FillDistrictDLL(ddlCityDistrict, CountryID, RegionID, StateID, DistrictID, district);
             }
             catch (Exception Ex)
             {
@@ -362,8 +362,8 @@ namespace DealerManagementSystem.ViewMaster
             {
                 int? DealerID = null;
                 string DealerCode = null;
-                
-                FillDealerDLL(ddlDDealer, DealerID, DealerCode);
+
+                //FillDealerDLL(ddlDDealer, DealerID, DealerCode);
             }
             catch (Exception Ex)
             {
@@ -500,11 +500,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     CountryID = Convert.ToInt32(ddlDCountry.SelectedValue);
                 }
-                if (ddlDState.SelectedValue != "0")
+                if (ddlDState.SelectedValue != "0" && !string.IsNullOrEmpty(ddlDState.SelectedValue))
                 {
                     StateID = Convert.ToInt32(ddlDState.SelectedValue);
                 }
-                if (ddlDDealer.SelectedValue != "0")
+                if (ddlDDealer.SelectedValue != "0" && !string.IsNullOrEmpty(ddlDDealer.SelectedValue))
                 {
                     DealerID = Convert.ToInt32(ddlDDealer.SelectedValue);
                 }
@@ -513,7 +513,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     District = txtDistrict.Text.Trim();
                 }
-                
+
                 //List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
 
                 LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID);
@@ -552,8 +552,9 @@ namespace DealerManagementSystem.ViewMaster
 
                 DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
                 new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
-                
+
                 DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
+                //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, null);
                 new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
             }
@@ -682,7 +683,7 @@ namespace DealerManagementSystem.ViewMaster
                     }
                 }
                 //if (!string.IsNullOrEmpty(ddlRRegion.Text))
-                
+
                 //List<PDMS_Region> MML = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
 
                 LRegion = new BDMS_Address().GetRegion(CountryID, RegionID, Region);
@@ -862,7 +863,7 @@ namespace DealerManagementSystem.ViewMaster
                         return;
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1195,7 +1196,7 @@ namespace DealerManagementSystem.ViewMaster
                 Button BtnAddOrUpdateRegion = (Button)gvRegion.FooterRow.FindControl("BtnAddOrUpdateRegion");
                 GridViewRow row = (GridViewRow)(lnkBtnRegionEdit.NamingContainer);
                 Label lblGRCountryID = (Label)row.FindControl("lblGRCountryID");
-                ddlGRCountry.SelectedValue = (string.IsNullOrEmpty(lblGRCountryID.Text)) ? "0" : lblGRCountryID.Text; 
+                ddlGRCountry.SelectedValue = (string.IsNullOrEmpty(lblGRCountryID.Text)) ? "0" : lblGRCountryID.Text;
                 Label lblGRRegion = (Label)row.FindControl("lblGRRegion");
                 txtGRRegion.Text = lblGRRegion.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnRegionEdit.CommandArgument);
@@ -1271,7 +1272,7 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                
+
                 if (BtnAddOrUpdateRegion.Text == "Add")
                 {
                     Success = new BDMS_Address().InsertOrUpdateAddressRegion(null, Region, Convert.ToInt32(ddlRCountry.SelectedValue), true, PSession.User.UserID);
@@ -1334,14 +1335,14 @@ namespace DealerManagementSystem.ViewMaster
         {
             FillGridRegion();
         }
-        
+
         protected void gvRegion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                   
+
                 }
             }
             catch (Exception Ex)
@@ -1832,10 +1833,10 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow row = (GridViewRow)(lnkBtnStateEdit.NamingContainer);
                 Label lblGSCountry = (Label)row.FindControl("lblGSCountry");
                 Label lblGSCountryID = (Label)row.FindControl("lblGSCountryID");
-                ddlGSCountry.SelectedValue = (string.IsNullOrEmpty(lblGSCountryID.Text)) ? "0" : lblGSCountryID.Text; 
+                ddlGSCountry.SelectedValue = (string.IsNullOrEmpty(lblGSCountryID.Text)) ? "0" : lblGSCountryID.Text;
                 Label lblGSRegion = (Label)row.FindControl("lblGSRegion");
                 Label lblGSRegionID = (Label)row.FindControl("lblGSRegionID");
-                ddlGSRegion.SelectedValue = (string.IsNullOrEmpty(lblGSRegionID.Text)) ? "0" : lblGSRegionID.Text; 
+                ddlGSRegion.SelectedValue = (string.IsNullOrEmpty(lblGSRegionID.Text)) ? "0" : lblGSRegionID.Text;
                 Label lblGSState = (Label)row.FindControl("lblGSState");
                 txtGSState.Text = lblGSState.Text;
                 Label lblGSStateCode = (Label)row.FindControl("lblGSStateCode");
@@ -1977,18 +1978,18 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow row = (GridViewRow)(lnkBtnDistrictEdit.NamingContainer);
                 Label lblGDCountry = (Label)row.FindControl("lblGDCountry");
                 Label lblGDCountryID = (Label)row.FindControl("lblGDCountryID");
-                ddlGDCountry.SelectedValue = (string.IsNullOrEmpty(lblGDCountryID.Text)) ? "0" : lblGDCountryID.Text; 
+                ddlGDCountry.SelectedValue = (string.IsNullOrEmpty(lblGDCountryID.Text)) ? "0" : lblGDCountryID.Text;
                 Label lblGDState = (Label)row.FindControl("lblGDState");
                 Label lblGDStateID = (Label)row.FindControl("lblGDStateID");
                 ddlGDState.SelectedValue = (string.IsNullOrEmpty(lblGDStateID.Text)) ? "0" : lblGDStateID.Text;
                 Label lblGDSalesOffice = (Label)row.FindControl("lblGDSalesOffice");
                 Label lblGDSalesOfficeID = (Label)row.FindControl("lblGDSalesOfficeID");
-                ddlGDSalesOffice.SelectedValue = (string.IsNullOrEmpty(lblGDSalesOfficeID.Text))?"0": lblGDSalesOfficeID.Text;
+                ddlGDSalesOffice.SelectedValue = (string.IsNullOrEmpty(lblGDSalesOfficeID.Text)) ? "0" : lblGDSalesOfficeID.Text;
                 Label lblGDSalesEngineer = (Label)row.FindControl("lblGDSalesEngineer");
                 Label lblGDSalesEngineerUserID = (Label)row.FindControl("lblGDSalesEngineerUserID");
                 ddlSalesEngineer.SelectedValue = (string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text)) ? "0" : lblGDSalesEngineerUserID.Text;
                 Label lblGDDealer = (Label)row.FindControl("lblGDDealer");
-                Label lblGDDealerID = (Label)row.FindControl("lblGDDealerID");                
+                Label lblGDDealerID = (Label)row.FindControl("lblGDDealerID");
                 ddlGDDealer.SelectedValue = (string.IsNullOrEmpty(lblGDDealerID.Text)) ? "0" : lblGDDealerID.Text;
                 Label lblGDDistrict = (Label)row.FindControl("lblGDDistrict");
                 txtGDDistrict.Text = lblGDDistrict.Text;
@@ -2017,8 +2018,8 @@ namespace DealerManagementSystem.ViewMaster
                 int CountryID = Convert.ToInt32(((Label)row.FindControl("lblGDCountryID")).Text.Trim());
                 int StateID = Convert.ToInt32(((Label)row.FindControl("lblGDStateID")).Text.Trim());
                 int SalesOfficeID = Convert.ToInt32(((Label)row.FindControl("lblGDSalesOfficeID")).Text.Trim());
-                int DealerID = Convert.ToInt32(((Label)row.FindControl("lblGDDealerID")).Text.Trim());                                
-                int SalesEngineerUserID= Convert.ToInt32(((Label)row.FindControl("lblGDSalesEngineerUserID")).Text.Trim());
+                int DealerID = Convert.ToInt32(((Label)row.FindControl("lblGDDealerID")).Text.Trim());
+                int SalesEngineerUserID = Convert.ToInt32(((Label)row.FindControl("lblGDSalesEngineerUserID")).Text.Trim());
                 string District = ((Label)row.FindControl("lblGDDistrict")).Text.Trim();
 
                 success = new BDMS_Address().InsertOrUpdateAddressDistrict(DistrictID, CountryID, StateID, SalesOfficeID, DealerID, SalesEngineerUserID, District, null, false, PSession.User.UserID);
@@ -2099,7 +2100,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateDistrict.Text == "Add")
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDSalesOffice.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue),Convert.ToInt32(ddlSalesEngineer.SelectedValue), District, null, true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(null, Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDSalesOffice.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), Convert.ToInt32(ddlSalesEngineer.SelectedValue), District, null, true, PSession.User.UserID);
                     if (Success == true)
                     {
                         FillGridDistrict();
@@ -2438,13 +2439,13 @@ namespace DealerManagementSystem.ViewMaster
                 string Tehsil = null;
                 if (ddlCityCountry.SelectedValue != "0")
                 {
-                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);                    
+                    CountryID = Convert.ToInt32(ddlCityCountry.SelectedValue);
                 }
-                if (ddlCityState.SelectedValue != "0")
+                if (ddlCityState.SelectedValue != "0" && !string.IsNullOrEmpty(ddlCityState.SelectedValue))
                 {
-                    StateID = Convert.ToInt32(ddlCityState.SelectedValue);                    
+                    StateID = Convert.ToInt32(ddlCityState.SelectedValue);
                 }
-                if (ddlCityDistrict.SelectedValue != "0")
+                if (ddlCityDistrict.SelectedValue != "0" && !string.IsNullOrEmpty(ddlCityDistrict.SelectedValue))
                 {
                     DistrictID = Convert.ToInt32(ddlCityDistrict.SelectedValue);
                 }
@@ -2452,11 +2453,11 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     Tehsil = txtCity.Text.Trim();
                 }
-                
+
                 //List<PDMS_Tehsil> MML = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
 
                 LTehsil = new BDMS_Address().GetTehsil(CountryID, StateID, DistrictID, Tehsil);
-                if (LTehsil.Count ==0)
+                if (LTehsil.Count == 0)
                 {
                     LTehsil.Add(new PDMS_Tehsil());
                 }
@@ -2792,10 +2793,10 @@ namespace DealerManagementSystem.ViewMaster
                 ddlGCityCountry.SelectedValue = (string.IsNullOrEmpty(lblGCityCountryID.Text)) ? "0" : lblGCityCountryID.Text;
                 Label lblGCityState = (Label)row.FindControl("lblGCityState");
                 Label lblGCityStateID = (Label)row.FindControl("lblGCityStateID");
-                ddlGCityState.SelectedValue = (string.IsNullOrEmpty(lblGCityStateID.Text)) ? "0" : lblGCityStateID.Text; 
+                ddlGCityState.SelectedValue = (string.IsNullOrEmpty(lblGCityStateID.Text)) ? "0" : lblGCityStateID.Text;
                 Label lblGCityDistrict = (Label)row.FindControl("lblGCityDistrict");
                 Label lblGCityDistrictID = (Label)row.FindControl("lblGCityDistrictID");
-                ddlGCityDistrict.SelectedValue = (string.IsNullOrEmpty(lblGCityDistrictID.Text)) ? "0" : lblGCityDistrictID.Text; 
+                ddlGCityDistrict.SelectedValue = (string.IsNullOrEmpty(lblGCityDistrictID.Text)) ? "0" : lblGCityDistrictID.Text;
                 Label lblGCity = (Label)row.FindControl("lblGCity");
                 txtGCity.Text = lblGCity.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnCityEdit.CommandArgument);
@@ -2869,18 +2870,18 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void ddlCityCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-                FillStateDLL(ddlCityState, Convert.ToInt32(ddlCityCountry.SelectedValue), null, null, null);
+            FillStateDLL(ddlCityState, Convert.ToInt32(ddlCityCountry.SelectedValue), null, null, null);
         }
 
         protected void ddlCityState_SelectedIndexChanged(object sender, EventArgs e)
         {
-                FillDistrictDLL(ddlCityDistrict, Convert.ToInt32(ddlCityCountry.SelectedValue), null, Convert.ToInt32(ddlCityState.SelectedValue),  null,null);
+            FillDistrictDLL(ddlCityDistrict, Convert.ToInt32(ddlCityCountry.SelectedValue), null, Convert.ToInt32(ddlCityState.SelectedValue), null, null);
         }
 
         protected void ddlGSCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ddlGSCountry = (DropDownList)sender;            
-            GridViewRow row = (GridViewRow)(ddlGSCountry.NamingContainer);            
+            DropDownList ddlGSCountry = (DropDownList)sender;
+            GridViewRow row = (GridViewRow)(ddlGSCountry.NamingContainer);
             DropDownList ddlGSRegion = (DropDownList)row.FindControl("ddlGSRegion");
             FillRegionDLL(ddlGSRegion, Convert.ToInt32(ddlGSCountry.SelectedValue), null, null);
         }
@@ -2911,7 +2912,7 @@ namespace DealerManagementSystem.ViewMaster
             GridViewRow row = (GridViewRow)(ddlGCityState.NamingContainer);
             DropDownList ddlGCityCountry = (DropDownList)row.FindControl("ddlGCityCountry");
             DropDownList ddlGCityDistrict = (DropDownList)row.FindControl("ddlGCityDistrict");
-            FillDistrictDLL(ddlGCityDistrict, Convert.ToInt32(ddlGCityCountry.SelectedValue), null, Convert.ToInt32(ddlGCityState.SelectedValue), null,  null);
+            FillDistrictDLL(ddlGCityDistrict, Convert.ToInt32(ddlGCityCountry.SelectedValue), null, Convert.ToInt32(ddlGCityState.SelectedValue), null, null);
         }
 
         protected void gvDistrict_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -2920,6 +2921,18 @@ namespace DealerManagementSystem.ViewMaster
             gvDistrict.PageIndex = e.NewPageIndex;
             FillGridDistrict();
             gvDistrict.DataBind();
+            DropDownList ddlGDCountry = gvDistrict.FooterRow.FindControl("ddlGDCountry") as DropDownList;
+            new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+            DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
+            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+            DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
+            new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
+            DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
+            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
+            DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
+            //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, null);
+            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
         }
 
         protected void gvCity_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -2928,6 +2941,12 @@ namespace DealerManagementSystem.ViewMaster
             gvCity.PageIndex = e.NewPageIndex;
             FillGridTehsil();
             gvCity.DataBind();
+            DropDownList ddlGCityCountry = gvCity.FooterRow.FindControl("ddlGCityCountry") as DropDownList;
+            new DDLBind(ddlGCityCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+            DropDownList ddlGCityState = gvCity.FooterRow.FindControl("ddlGCityState") as DropDownList;
+            new DDLBind(ddlGCityState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+            DropDownList ddlGCityDistrict = gvCity.FooterRow.FindControl("ddlGCityDistrict") as DropDownList;
+            new DDLBind(ddlGCityDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID", true, "Select District");
         }
 
         protected void gvState_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -2936,6 +2955,11 @@ namespace DealerManagementSystem.ViewMaster
             gvState.PageIndex = e.NewPageIndex;
             FillGridState();
             gvState.DataBind();
+
+            DropDownList ddlGSCountry = gvState.FooterRow.FindControl("ddlGSCountry") as DropDownList;
+            new DDLBind(ddlGSCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+            DropDownList ddlGSRegion = gvState.FooterRow.FindControl("ddlGSRegion") as DropDownList;
+            new DDLBind(ddlGSRegion, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID", true, "Select Region");
         }
 
         protected void gvRegion_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -2944,6 +2968,8 @@ namespace DealerManagementSystem.ViewMaster
             gvRegion.PageIndex = e.NewPageIndex;
             FillGridRegion();
             gvRegion.DataBind();
+            DropDownList ddlGRCountry = gvRegion.FooterRow.FindControl("ddlGRCountry") as DropDownList;
+            new DDLBind(ddlGRCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
         }
 
         protected void gvCountry_PageIndexChanging(object sender, GridViewPageEventArgs e)
