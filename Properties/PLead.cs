@@ -36,6 +36,7 @@ namespace Properties
         public decimal TotalEffort { get; set; }
         public decimal TotalExpense { get; set; }
         public PProductType ProductType { get; set; }
+        public List<PLeadProduct> LeadProduct { get; set; }
     }
     [Serializable]
     public class PLead_Insert

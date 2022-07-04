@@ -933,9 +933,20 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             try
             {
-                if (Quotation.CommissionAgent)
+                PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID);
+                if (Results.Status == PApplication.Failure)
                 {
-                    QuotationItemSAp(QuotationItem);
+                    lblMessageProduct.Text = Results.Message;
+                    return;
+                }
+
+                fillViewQuotation(Quotation.QuotationID);
+                lblMessage.Text = "Updated Successfully";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                //if (Quotation.CommissionAgent)
+                //{
+                    //QuotationItemSAp(QuotationItem);
                     //PSalesQuotation Q = Quotation;
                     //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
                     //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
@@ -977,24 +988,25 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     //    lblMessage.Visible = true;
                     //    lblMessage.ForeColor = Color.Red;
                     //}
-                }
-                else
-                {
-                    QuotationItemSAp(QuotationItem);
-                    if (string.IsNullOrEmpty(Quotation.PgQuotationNo))
-                    {
-                        PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
-                        if (Results.Status == PApplication.Failure)
-                        {
-                            lblMessageProduct.Text = Results.Message;
-                            return;
-                        }
-                    }
-                    fillViewQuotation(Quotation.QuotationID);
-                    lblMessage.Text = "Updated Successfully";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Green;
-                }
+                //}
+                //else
+                //{
+                //    QuotationItemSAp(QuotationItem);
+                //    if (string.IsNullOrEmpty(Quotation.PgQuotationNo))
+                //    {
+                //        // PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+                //        PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID); 
+                //        if (Results.Status == PApplication.Failure)
+                //        {
+                //            lblMessageProduct.Text = Results.Message;
+                //            return;
+                //        }
+                //    }
+                //    fillViewQuotation(Quotation.QuotationID);
+                //    lblMessage.Text = "Updated Successfully";
+                //    lblMessage.Visible = true;
+                //    lblMessage.ForeColor = Color.Green;
+                //}
             }
             catch (Exception ex)
             {

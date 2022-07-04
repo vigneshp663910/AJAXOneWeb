@@ -25,7 +25,9 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Lead');</script>");
 
             if (!IsPostBack)
-            { 
+            {
+                string script = "$(document).ready(function () { $('[id*=btnSubmit]').click(); });";
+                ClientScript.RegisterStartupScript(this.GetType(), "load", script, true);
 
                 List <PLeadQualification > Qualification = new BLead().GetLeadQualification(null, null); 
                 new DDLBind(ddlSQualification, Qualification, "Qualification", "QualificationID");
