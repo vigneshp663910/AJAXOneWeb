@@ -418,7 +418,7 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 ddlReportingTo.BorderColor = Color.Red;
             }
-            if (ddlDistrict.SelectedValue == "0")
+            if (District.Count == 0)
             {
                 Message = Message + "<br/>Please select the District";
                 Ret = false;
