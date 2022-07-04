@@ -172,7 +172,7 @@ namespace Business
 
         }
 
-        public DataTable GetPreSaleReport(string Lead,string LeadDateFrom, string LeadDateTo,string Quotation, string QuotationDateFrom, string QuotationDateTo
+        public PApiResult GetPreSaleReport(string Lead,string LeadDateFrom, string LeadDateTo,string Quotation, string QuotationDateFrom, string QuotationDateTo
             , string Invoice, string InvoiceDateFrom, string InvoiceDateTo, string CustomerCode, string CustomerName, int? CountryID, int? StateID, int? DealerID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -180,7 +180,8 @@ namespace Business
                  + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo + "&Invoice=" + Invoice 
                  + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName
                  + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID;
-            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             //  TraceLogger.Log(DateTime.Now);
         }
     }
