@@ -555,7 +555,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
                 //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, null);
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
                 new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
             }
             catch (Exception Ex)
@@ -2931,7 +2931,7 @@ namespace DealerManagementSystem.ViewMaster
             new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
             DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
             //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, null);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
             new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
         }
 
