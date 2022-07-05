@@ -21,6 +21,8 @@ namespace DealerManagementSystem.View
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Projects » Create/Maintain');</script>");
+
             try
             {
                 if (!IsPostBack)
