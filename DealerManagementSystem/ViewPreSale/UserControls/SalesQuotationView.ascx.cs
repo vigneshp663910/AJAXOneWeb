@@ -937,6 +937,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessageProduct.Text = Results.Message;
+                    lblMessageProduct.Visible = true;
+                    lblMessageProduct.ForeColor = Color.Red;
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
 
