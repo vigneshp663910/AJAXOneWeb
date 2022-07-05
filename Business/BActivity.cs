@@ -19,7 +19,7 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PActivityType> GetActivityType(int? ActivityTypeID, string ActivityTypeCode, string ActivityTypeName, DateTime? LastSyncDate)
+        public List<PActivityType> GetActivityType(int? ActivityTypeID, string ActivityTypeCode, DateTime? LastSyncDate)
         {
             List<PActivityType> ActivityTypes = new List<PActivityType>();
             PActivityType ActivityType = null;

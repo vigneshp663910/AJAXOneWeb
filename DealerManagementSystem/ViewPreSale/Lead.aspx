@@ -6,7 +6,55 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            min-height: 100%;
+            width: 100%;
+        }
 
+        .loading {
+            font-family: Arial;
+            font-size: 10pt;
+            border: 5px solid #67CFF5;
+            width: 200px;
+            height: 100px;
+            display: none;
+            position: fixed;
+            background-color: White;
+            z-index: 999;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ShowProgress() {
+            setTimeout(function () {
+                var modal = $('<div />');
+                modal.addClass("modal");
+                $('body').append(modal);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
+        }
+        $('form').live("submit", function () {
+            ShowProgress();
+        });
+    </script>
+    <div class="loading" align="center">
+        Loading. Please wait.<br />
+        <br />
+        <img src="loader.gif" alt="" />
+    </div>
     <%--<style>
         .Popup {
             display: block;
@@ -135,7 +183,7 @@
                         type: 'POST',
                         contentType: "application/json; charset=utf-8",
                         /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                      //  url: "ColdVisits.aspx/GetCustomer",
+                        //  url: "ColdVisits.aspx/GetCustomer",
                         url: "Lead.aspx/GetCustomer",
                         data: JSON.stringify(param),
                         dataType: 'JSON',
@@ -236,7 +284,7 @@
         });
 
     </script>
-  
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -257,7 +305,7 @@
                         <label>Lead Date To</label>
                         <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                     </div>
-                  <%--  <div class="col-md-2 text-left">
+                    <%--  <div class="col-md-2 text-left">
                         <label>Progress Status</label>
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
                     </div>--%>
@@ -267,7 +315,7 @@
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
                     </div>
 
-                   <%-- <div class="col-md-2 text-left">
+                    <%-- <div class="col-md-2 text-left">
                         <label>Category</label>
                         <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
                     </div>--%>
@@ -281,7 +329,7 @@
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
 
-                  <%--  <div class="col-md-2 text-left">
+                    <%--  <div class="col-md-2 text-left">
                         <label>Lead Type</label>
                         <asp:DropDownList ID="ddlSType" runat="server" CssClass="form-control" />
                     </div>--%>
@@ -289,7 +337,7 @@
                     <div class="col-md-2 text-left">
                         <label>Customer</label>
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                     <%--   <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
+                        <%--   <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
                             <div id="div1" class="fieldset-borderAuto" style="display: none">
                             </div>
                             <div id="div2" class="fieldset-borderAuto" style="display: none">
@@ -362,12 +410,12 @@
                                         <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="Product Type" SortExpression="Country">
+                                <asp:TemplateField HeaderText="Product Type" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                         <%--        <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                                <%--        <asp:TemplateField HeaderText="Category" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category.Category")%>' runat="server" />
                                     </ItemTemplate>
@@ -393,7 +441,7 @@
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                              <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
+                                <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
                                     <ItemTemplate>
                                         <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server" />
                                     </ItemTemplate>
@@ -496,7 +544,7 @@
                     <div id="divCustomerCreateID">
                         <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                     </div>
-                     <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>
+                    <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>
                 </fieldset>
             </div>
             <div class="col-md-12 text-center">
@@ -505,7 +553,7 @@
         </div>
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-      <style>
+    <style>
         .fieldset-borderAuto {
             border: solid 1px #cacaca;
             margin: 1px 0;

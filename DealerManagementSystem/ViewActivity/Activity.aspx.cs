@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewActivity
 
             if (!IsPostBack)
             {
-                List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null, null, null);
+                List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null,  null);
                 new DDLBind(ddlActivityType, ActivityType, "ActivityTypeName", "ActivityTypeID");
 
                 List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
@@ -220,7 +220,7 @@ namespace DealerManagementSystem.ViewActivity
             }
             else
             {
-                List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null, null, null);
+                List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null, null);
                 new DDLBind(ddlActivityTypeS, ActivityTypeS, "ActivityTypeName", "ActivityTypeID");
                 lblStartActivityDate.Text = DateTime.Now.ToString();
                 MPE_AddActivity.Show();
