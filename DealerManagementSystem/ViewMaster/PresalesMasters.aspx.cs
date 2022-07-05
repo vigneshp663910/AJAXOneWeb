@@ -1655,20 +1655,6 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
-        protected void gvProduct_DataBound(object sender, EventArgs e)
-        {
-            try
-            {
-              
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
-
         public List<PProduct> Prod
         {
             get
@@ -1759,6 +1745,10 @@ namespace DealerManagementSystem.ViewMaster
             gvProduct.PageIndex = e.NewPageIndex;
             GetProduct();
             gvProduct.DataBind();
+            DropDownList ddlProductMake = gvProduct.FooterRow.FindControl("ddlProductMakeF") as DropDownList;
+            new DDLBind(ddlProductMake, new BDMS_Master().GetMake(null, null), "Make", "MakeID", true, "Select");
+            DropDownList ddlProductTypeF = gvProduct.FooterRow.FindControl("ddlProductTypeF") as DropDownList;
+            new DDLBind(ddlProductTypeF, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select");
         }
 
         protected void BtnAddOrUpdateProduct_Click(object sender, EventArgs e)
@@ -1864,10 +1854,9 @@ namespace DealerManagementSystem.ViewMaster
                 Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
                 GridViewRow row = (GridViewRow)(lnkBtnProductEdit.NamingContainer);
                 Label lblProductMakeID = (Label)row.FindControl("lblProductMakeID");
-                ddlProductMakeF.SelectedValue = lblProductMakeID.Text;
-
+                ddlProductMakeF.SelectedValue = (lblProductMakeID.Text=="") ? "0" : lblProductMakeID.Text;
                 Label lblProductTypeID = (Label)row.FindControl("lblProductTypeID");
-                ddlProductTypeF.SelectedValue = lblProductTypeID.Text;
+                ddlProductTypeF.SelectedValue = (lblProductTypeID.Text=="") ? "0" : lblProductTypeID.Text;
 
                 string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
                 txtProduct.Text = Product;
