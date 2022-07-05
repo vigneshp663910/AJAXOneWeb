@@ -12,6 +12,21 @@ namespace DealerManagementSystem.View
 {
     public partial class Project : System.Web.UI.Page
     {
+        public List<PProject> PProject
+        {
+            get
+            {
+                if (Session["Project"] == null)
+                {
+                    Session["Project"] = new List<PProject>();
+                }
+                return (List<PProject>)Session["Project"];
+            }
+            set
+            {
+                Session["Project"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -21,6 +36,8 @@ namespace DealerManagementSystem.View
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Projects » Create/Maintain');</script>");
+
             try
             {
                 if (!IsPostBack)
@@ -29,7 +46,7 @@ namespace DealerManagementSystem.View
                     new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                     new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
-                    FillGrid(null);
+                    //FillGrid(null);
                 }
             }
             catch (Exception ex)
@@ -172,8 +189,23 @@ namespace DealerManagementSystem.View
             {
                 DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
             }
-            gvProject.DataSource = new BProject().GetProject(null, StateID, DistrictID);
+            PProject = new BProject().GetProject(null, StateID, DistrictID);
+            gvProject.DataSource = PProject;
             gvProject.DataBind();
+
+            if (PProject.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnPjtArrowLeft.Visible = false;
+                ibtnPjtArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnPjtArrowLeft.Visible = true;
+                ibtnPjtArrowRight.Visible = true;
+                lblRowCount.Text = (((gvProject.PageIndex) * gvProject.PageSize) + 1) + " - " + (((gvProject.PageIndex) * gvProject.PageSize) + gvProject.Rows.Count) + " of " + PProject.Count;
+            }
 
             if (ProjectID != null)
             {
@@ -284,6 +316,30 @@ namespace DealerManagementSystem.View
                 txtContractEndDate.Text = project.ContractEndDate.ToString("dd/MM/yyyy");
                 txtRemarks.Text = project.Remarks;
             }
+        }
+
+        protected void ibtnPjtArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvProject.PageIndex > 0)
+            {
+                gvProject.PageIndex = gvProject.PageIndex - 1;
+                ProjectBind(gvProject, lblRowCount, PProject);
+            }
+        }
+
+        protected void ibtnPjtArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvProject.PageCount > gvProject.PageIndex)
+            {
+                gvProject.PageIndex = gvProject.PageIndex + 1;
+                ProjectBind(gvProject, lblRowCount, PProject);
+            }
+        }
+        void ProjectBind(GridView gv, Label lbl, List<PProject> PProject)
+        {
+            gv.DataSource = PProject;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + PProject.Count;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DealerManagementSystem.ViewActivity
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activity » Manage');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activities » Manage');</script>");
 
             if (!IsPostBack)
             {
