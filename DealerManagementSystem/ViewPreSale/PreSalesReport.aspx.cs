@@ -86,41 +86,60 @@ namespace DealerManagementSystem.ViewPreSale
 
         void FillClodVisit()
         {
-
-            string Lead = txtLead.Text.Trim();
-            string LeadDateFrom = txtLeadDateFrom.Text.Trim();
-             string LeadDateTo = txtLeadDateTo.Text.Trim(); 
-            string Quotation = txtQuotation.Text.Trim();
-            string QuotationDateFrom = txtQuotationDateFrom.Text.Trim();
-            string QuotationDateTo = txtQuotationDateTo.Text.Trim();
-             string Invoice = txtInvoice.Text.Trim();
-            string InvoiceDateFrom = txtInvoiceDateFrom.Text.Trim();
-            string InvoiceDateTo = txtInvoiceDateTo.Text.Trim();
-            string CustomerCode = txtCustomerCode.Text.Trim();
-            string CustomerName = txtCustomerName.Text.Trim();
-            int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-            int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-
-
-            SalesReport = new BLead().GetPreSaleReport(Lead, LeadDateFrom, LeadDateTo, Quotation, QuotationDateFrom, QuotationDateTo
-            , Invoice, InvoiceDateFrom, InvoiceDateTo, CustomerCode, CustomerName, CountryID, StateID, DealerID);
-            gvLead.DataSource = SalesReport;
-            gvLead.DataBind();
-
-            if (SalesReport.Rows.Count == 0)
+            lblMessage.Text = string.Empty;
+            PApiResult result = new PApiResult();
+            try
             {
-                lblRowCount.Visible = false;
-                ibtnLeadArrowLeft.Visible = false;
-                ibtnLeadArrowRight.Visible = false;
+                string Lead = txtLead.Text.Trim();
+                string LeadDateFrom = txtLeadDateFrom.Text.Trim();
+                string LeadDateTo = txtLeadDateTo.Text.Trim();
+                string Quotation = txtQuotation.Text.Trim();
+                string QuotationDateFrom = txtQuotationDateFrom.Text.Trim();
+                string QuotationDateTo = txtQuotationDateTo.Text.Trim();
+                string Invoice = txtInvoice.Text.Trim();
+                string InvoiceDateFrom = txtInvoiceDateFrom.Text.Trim();
+                string InvoiceDateTo = txtInvoiceDateTo.Text.Trim();
+                string CustomerCode = txtCustomerCode.Text.Trim();
+                string CustomerName = txtCustomerName.Text.Trim();
+                int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
+                int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+
+                //SalesReport = new BLead().GetPreSaleReport(Lead, LeadDateFrom, LeadDateTo, Quotation, QuotationDateFrom, QuotationDateTo
+                //, Invoice, InvoiceDateFrom, InvoiceDateTo, CustomerCode, CustomerName, CountryID, StateID, DealerID);
+
+
+                result = new BLead().GetPreSaleReport(Lead, LeadDateFrom, LeadDateTo, Quotation, QuotationDateFrom, QuotationDateTo
+                , Invoice, InvoiceDateFrom, InvoiceDateTo, CustomerCode, CustomerName, CountryID, StateID, DealerID);
+                if (result.Status == "Failed")
+                {
+                    lblMessage.Text = result.Message.ToString();
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                SalesReport = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(result.Data));
+                gvLead.DataSource = SalesReport;
+                gvLead.DataBind();
+
+                if (SalesReport.Rows.Count == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnLeadArrowLeft.Visible = false;
+                    ibtnLeadArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCount.Visible = true;
+                    ibtnLeadArrowLeft.Visible = true;
+                    ibtnLeadArrowRight.Visible = true;
+                    lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + SalesReport.Rows.Count;
+                }
             }
-            else
+            catch (Exception e)
             {
-                lblRowCount.Visible = true;
-                ibtnLeadArrowLeft.Visible = true;
-                ibtnLeadArrowRight.Visible = true;
-                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + SalesReport.Rows.Count;
-            } 
+                lblMessage.Text = e.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
