@@ -260,6 +260,8 @@
     <Content Include="Images\hsizegrip.png" />
     <Content Include="Images\Officer.png" />
     <Content Include="Images\pdf_dload.png" />
+    <Content Include="Images\pin_end.jpg" />
+    <Content Include="Images\pin_start.jpg" />
     <Content Include="Images\Playstore.png" />
     <Content Include="Images\Preview.png" />
     <Content Include="Images\SalesEngg.png" />
