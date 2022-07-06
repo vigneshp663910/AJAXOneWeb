@@ -105,8 +105,8 @@ namespace DealerManagementSystem.ViewPreSale
                 lblState.Text = Enquiry.State.State.ToString();
                 lblDistrict.Text = Enquiry.District.District.ToString();
                 lblAddress.Text = Enquiry.Address.ToString();
-                lblMail.Text = Enquiry.Mail;
-                lblMobile.Text = Enquiry.Mobile;
+                lblMobile.Text = "<a href='tel:" + Enquiry.Mobile + "'>" + Enquiry.Mobile + "</a>";
+                lblMail.Text = "<a href='mailto:" + Enquiry.Mail + "'>" + Enquiry.Mail + "</a>";
                 lblRemarks.Text = Enquiry.Remarks;
                 CustomerViewSoldTo.fillCustomer(null);
                 UC_LeadView.fillViewLead(null);

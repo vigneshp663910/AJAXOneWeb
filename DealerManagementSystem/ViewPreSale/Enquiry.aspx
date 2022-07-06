@@ -199,7 +199,7 @@
                     <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Lead" Font-Bold="True" ToolTip="">
                         <ContentTemplate>
                             <div class="col-md-12 field-margin-top">
-                                <UC:uc_leadview id="UC_LeadView" runat="server"></UC:uc_leadview>
+                                <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
                             </div>
                         </ContentTemplate>
                     </asp1:TabPanel>
@@ -288,8 +288,22 @@
                                 <asp:BoundField HeaderText="Enquiry Date" DataField="EnquiryDate"></asp:BoundField>
                                 <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
                                 <asp:BoundField HeaderText="PersonName" DataField="PersonName"></asp:BoundField>
-                                <asp:BoundField HeaderText="Mail" DataField="Mail"></asp:BoundField>
-                                <asp:BoundField HeaderText="Mobile" DataField="Mobile"></asp:BoundField>
+                                <asp:TemplateField HeaderText="Mobile">
+                                    <ItemStyle VerticalAlign="Middle" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMobile" runat="server">
+                                                <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Mobile")%></a>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Mail">
+                                    <ItemStyle VerticalAlign="Middle" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEMail" runat="server">
+                                                <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Mail")%>'><%# DataBinder.Eval(Container.DataItem, "Mail")%></a>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>
                                 <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                 <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
