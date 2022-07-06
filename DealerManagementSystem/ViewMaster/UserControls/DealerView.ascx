@@ -500,10 +500,10 @@
             <asp:button id="btnAddNotificationClose" runat="server" text="X" cssclass="PopupClose" />
         </a>
     </div>
-    <asp:label id="lblMessageAddNotification" runat="server" text="" cssclass="message" visible="false" />
+   
     <div class="col-md-12">
-        <div class="model-scroll">
-
+        <div class="model-scroll"> 
+             <asp:label id="lblMessageAddNotification" runat="server" text="" cssclass="message" visible="false" />
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">

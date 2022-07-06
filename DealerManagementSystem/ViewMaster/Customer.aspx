@@ -51,18 +51,23 @@
         $(function () { 
             $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
+                    debugger;
                     var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
+                   
                     txtCustomerID.value = "";
                     var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
+                   
                     $.ajax({
                         type: 'POST',
-                        contentType: "application/json; charset=utf-8",
-                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                       // url: "Customer.aspx/GetCustomer",
-                        url: "Lead.aspx/GetCustomer",
+                        contentType: "application/json; charset=utf-8", 
+                        //url: "Lead.aspx/GetCustomer",
+                        url: "Customer.aspx/GetCustomer",
                         data: JSON.stringify(param),
                         dataType: 'JSON',
                         success: function (data) {
+                            alert("2");
+                            debugger;
+                            alert(JSON.stringify(param));
                             var UCdivAuto = document.getElementById('FleDivAuto');
                             UCdivAuto.style.display = "block";
                             /* document.getElementById('UCdivAuto').style.display = "block";*/
@@ -78,7 +83,7 @@
                             })
                         },
                         error: function () {
-                            alert("Error fedrfve");
+                            alert("1");
                         }
                     });
                 },
