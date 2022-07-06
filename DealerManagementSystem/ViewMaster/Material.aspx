@@ -627,18 +627,8 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tabPnlReOrderLevel" runat="server" HeaderText="Re-Order Level" Font-Bold="True" ToolTip="Re-Order Level...">
-                <ContentTemplate>
-                    <h3>Re-OrderLevel</h3>
-                    <p>Re-Order Level Master</p>
-                </ContentTemplate>
-            </asp:TabPanel>
-            <asp:TabPanel ID="tabPnlEquipment" runat="server" HeaderText="Equipment" Font-Bold="True" ToolTip="Equipment...">
-                <ContentTemplate>
-                    <h3>Equipment Master</h3>
-                    <p>Equipment Master</p>
-                </ContentTemplate>
-            </asp:TabPanel>
+
+
         </asp:TabContainer>
     </div>
 </asp:Content>

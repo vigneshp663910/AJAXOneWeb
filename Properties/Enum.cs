@@ -498,7 +498,10 @@ namespace Properties
         AddVisitLead,
         LostLead,
         CancelLead,
-        EditVisitTarget,
+        EditVisitTarget = 25,
+        EditApplication,
+        AddEditLocation,
+        EidtDistrictSalesEngineer,
     }
     public enum DMS_WarrantyClaimStatus
     {

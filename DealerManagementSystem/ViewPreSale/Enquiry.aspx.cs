@@ -13,6 +13,21 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class Enquiry : System.Web.UI.Page
     {
+        public List<PEnquiry> PEnquiry
+        {
+            get
+            {
+                if (Session["Enquiry"] == null)
+                {
+                    Session["Enquiry"] = new List<PEnquiry>();
+                }
+                return (List<PEnquiry>)Session["Enquiry"];
+            }
+            set
+            {
+                Session["Enquiry"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -27,7 +42,7 @@ namespace DealerManagementSystem.ViewPreSale
                 if (!IsPostBack)
                 {
                     ClearField();
-                    FillGrid(null);
+                    //FillGrid(null);
                 }
             }
             catch (Exception ex)
@@ -56,8 +71,23 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
             }
-            gvEnquiry.DataSource = new BEnquiry().GetEnquiry(null, CustomerName, CountryID, StateID, DistrictID);
+            PEnquiry= new BEnquiry().GetEnquiry(null, CustomerName, CountryID, StateID, DistrictID);
+            gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();
+
+            if (PEnquiry.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnEnqArrowLeft.Visible = false;
+                ibtnEnqArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnEnqArrowLeft.Visible = true;
+                ibtnEnqArrowRight.Visible = true;
+                lblRowCount.Text = (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + 1) + " - " + (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + gvEnquiry.Rows.Count) + " of " + PEnquiry.Count;
+            }
 
             if (EnquiryID != null && EnquiryID != 0)
             {
@@ -333,6 +363,30 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.Text = "Enquiry Not Saved Successfully...!";
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
+        }
+
+        protected void ibtnEnqArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvEnquiry.PageIndex > 0)
+            {
+                gvEnquiry.PageIndex = gvEnquiry.PageIndex - 1;
+                EnquiryBind(gvEnquiry, lblRowCount, PEnquiry);
+            }
+        }
+
+        protected void ibtnEnqArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvEnquiry.PageCount > gvEnquiry.PageIndex)
+            {
+                gvEnquiry.PageIndex = gvEnquiry.PageIndex + 1;
+                EnquiryBind(gvEnquiry, lblRowCount, PEnquiry);
+            }
+        }
+        void EnquiryBind(GridView gv, Label lbl, List<PEnquiry> PEnquiry)
+        {
+            gv.DataSource = PEnquiry;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + PEnquiry.Count;
         }
     }
 }
