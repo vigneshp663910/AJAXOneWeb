@@ -162,10 +162,16 @@ namespace Business
         //    return Activities;
         //}
 
-        public List<PActivity> GetActivity(PActivitySearch ActivityS)
+        //public List<PActivity> GetActivity(PActivitySearch ActivityS)
+        //{
+        //    string endPoint = "Activity?" + JsonConvert.SerializeObject(ActivityS);
+        //    return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Activity/GetActivities", ActivityS)).Data));
+        //}
+
+        public List<PActivity> GetActivity(long? ActivityID, int? ActivityTypeID, string ActivityDateFrom, string ActivityDateTo, int? ActivityReferenceTableID, string ReferenceNumber)
         {
-            string endPoint = "Activity?" + JsonConvert.SerializeObject(ActivityS);
-            return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Activity/GetActivities", ActivityS)).Data));
+            string endPoint = "Activity/GetActivities?ActivityID=" + ActivityID + "&ActivityTypeID=" + ActivityTypeID + "&ActivityDateFrom=" + ActivityDateFrom + "&ActivityDateTo=" + ActivityDateTo + "&ActivityReferenceTableID=" + ActivityReferenceTableID + "&ReferenceNumber=" + ReferenceNumber;
+            return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
         //public long InsertOrUpdateActivity(PActivity Activity)

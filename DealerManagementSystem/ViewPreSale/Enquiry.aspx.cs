@@ -71,7 +71,9 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
             }
-            PEnquiry= new BEnquiry().GetEnquiry(null, CustomerName, CountryID, StateID, DistrictID);
+            DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
+            DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
+            PEnquiry = new BEnquiry().GetEnquiry(null, (txtSEnquiryNumber.Text.Trim()=="") ? null : txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT);
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();
 
@@ -91,10 +93,11 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (EnquiryID != null && EnquiryID != 0)
             {
-                PEnquiry Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt32(EnquiryID), null, null, null, null)[0];
+                PEnquiry Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt32(EnquiryID), null, null, null, null, null, null, null)[0];
+                lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
                 lblCustomerName.Text = Enquiry.CustomerName;
                 lblPersonName.Text = Enquiry.PersonName;
-                lblEnquiryDate.Text = Enquiry.EnquiryDate.ToString("dd/MM/yyyy");
+                lblEnquiryDate.Text = Enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
                 lblSource.Text = Enquiry.Source.Source;
                 lblStatus.Text = Enquiry.Status.Status;
                 lblProduct.Text = Enquiry.Product;
@@ -177,6 +180,7 @@ namespace DealerManagementSystem.ViewPreSale
                 if (!string.IsNullOrEmpty(HiddenEnquiryID.Value))
                 {
                     enquiry.EnquiryID = Convert.ToInt32(HiddenEnquiryID.Value);
+                    enquiry.EnquiryNumber = HiddenEnquiryID.Value;
                 }
                 enquiry.CustomerName = txtCustomerName.Text.Trim();
                 enquiry.EnquiryDate = Convert.ToDateTime(txtEnquiryDate.Text.Trim());
@@ -271,7 +275,7 @@ namespace DealerManagementSystem.ViewPreSale
         void ClearField()
         {
             txtCustomerName.Text = string.Empty;
-            txtEnquiryDate.Text = string.Empty;
+            txtEnquiryDate.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             txtPersonName.Text = string.Empty;
             txtMobile.Text = string.Empty;
             txtMail.Text = string.Empty;
@@ -280,26 +284,30 @@ namespace DealerManagementSystem.ViewPreSale
             ddlState.Items.Clear();
             ddlDistrict.Items.Clear();
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-            new DDLBind(ddlSCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-            new DDLBind(ddlSState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID");
-            new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
+            ddlCountry.SelectedValue = "1";
+            new DDLBind(ddlSCountry, new BDMS_Address().GetCountry(1, null), "Country", "CountryID");
+            ddlSCountry.SelectedValue = "1";
+            new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+            new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             txtAddress.Text = string.Empty;
             txtProduct.Text = string.Empty;
             txtRemarks.Text = string.Empty;
+            txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+            txtToDate.Text = DateTime.Now.ToShortDateString();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
             int? EnquiryID = Convert.ToInt32(HiddenEnquiryID.Value);
-            PEnquiry enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null)[0];
+            PEnquiry enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null)[0];
             if (lbActions.Text == "Edit Enquiry")
             {
                 MPE_Enquiry.Show();
                 lblMessage.Text = "";
-                lblAddEnquiryMessage.Text = "";                
+                lblAddEnquiryMessage.Text = "";
                 txtCustomerName.Text = enquiry.CustomerName;
-                txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy");
+                txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
                 txtPersonName.Text = enquiry.PersonName;
                 txtMobile.Text = enquiry.Mobile;
                 txtMail.Text = enquiry.Mail;
@@ -342,7 +350,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void btnFoloowUpStatus_Click(object sender, EventArgs e)
         {
             int? EnquiryID = Convert.ToInt32(HiddenEnquiryID.Value);
-            PEnquiry enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null)[0];
+            PEnquiry enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null)[0];
 
             enquiry.Remarks = txtRemark.Text.Trim();
             enquiry.Status = new PPreSaleStatus();

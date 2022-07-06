@@ -55,17 +55,20 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(int? EnquiryID, string CustomerName, int? CountryID, int? StateID, int? DistrictID)
+        public List<PEnquiry> GetEnquiry(int? EnquiryID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo)
         {
             List<PEnquiry> projects = new List<PEnquiry>();
             try
             {
-                DbParameter CustomerNameP = provider.CreateParameter("CustomerName", CustomerName, DbType.String);
                 DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int32);
+                DbParameter EnquiryNumberP = provider.CreateParameter("EnquiryNumber", EnquiryNumber, DbType.String);
+                DbParameter CustomerNameP = provider.CreateParameter("CustomerName", CustomerName, DbType.String);
                 DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[5] { EnquiryIDP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP };
+                DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
+                DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
+                DbParameter[] Params = new DbParameter[8] { EnquiryIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP };
 
                 using (DataSet DataSet = provider.Select("GetEnquiry", Params))
                 {
