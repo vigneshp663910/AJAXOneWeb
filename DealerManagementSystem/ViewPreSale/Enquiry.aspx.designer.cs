@@ -402,6 +402,60 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Label lblMobile;
 
         /// <summary>
+        /// tbpEnquiry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabContainer tbpEnquiry;
+
+        /// <summary>
+        /// tpnlDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlDealer;
+
+        /// <summary>
+        /// tpnlCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlCustomer;
+
+        /// <summary>
+        /// CustomerViewSoldTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerViewHeader CustomerViewSoldTo;
+
+        /// <summary>
+        /// tpnlLead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlLead;
+
+        /// <summary>
+        /// UC_LeadView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.LeadViewHeader UC_LeadView;
+
+        /// <summary>
         /// divEnquiryList control.
         /// </summary>
         /// <remarks>

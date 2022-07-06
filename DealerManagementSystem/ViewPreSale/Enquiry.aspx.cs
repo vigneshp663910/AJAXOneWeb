@@ -108,6 +108,8 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMail.Text = Enquiry.Mail;
                 lblMobile.Text = Enquiry.Mobile;
                 lblRemarks.Text = Enquiry.Remarks;
+                CustomerViewSoldTo.fillCustomer(null);
+                UC_LeadView.fillViewLead(null);
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)

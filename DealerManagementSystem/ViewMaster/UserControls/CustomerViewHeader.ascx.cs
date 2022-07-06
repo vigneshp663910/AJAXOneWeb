@@ -16,23 +16,26 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         }
         public void fillCustomer(PDMS_Customer Customer)
-        { 
-            lblCustomer.Text = Customer.CustomerFullName;
-            lblContactPerson.Text = Customer.ContactPerson;
-            lblMobile.Text = "<a href='tel:" + Customer.Mobile + "'>" + Customer.Mobile + "</a>";
-            lblAlternativeMobile.Text = "<a href='tel:" + Customer.AlternativeMobile + "'>" + Customer.AlternativeMobile + "</a>";
-            lblEmail.Text = "<a href='mailto:" + Customer.Email + "'>" + Customer.Email + "</a>";
-            lblGSTIN.Text = Customer.GSTIN;
-            lblPAN.Text = Customer.PAN;
+        {
+            if (Customer != null)
+            {
+                lblCustomer.Text = Customer.CustomerFullName;
+                lblContactPerson.Text = Customer.ContactPerson;
+                lblMobile.Text = "<a href='tel:" + Customer.Mobile + "'>" + Customer.Mobile + "</a>";
+                lblAlternativeMobile.Text = "<a href='tel:" + Customer.AlternativeMobile + "'>" + Customer.AlternativeMobile + "</a>";
+                lblEmail.Text = "<a href='mailto:" + Customer.Email + "'>" + Customer.Email + "</a>";
+                lblGSTIN.Text = Customer.GSTIN;
+                lblPAN.Text = Customer.PAN;
 
-            string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
-            lblAddress.Text = Address;
+                string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
+                lblAddress.Text = Address;
 
-            cbVerified.Checked = Customer.IsVerified;
-            cbIsActive.Checked = Customer.IsActive;
-            cbOrderBlock.Checked = Customer.OrderBlock;
-            cbDeliveryBlock.Checked = Customer.DeliveryBlock;
-            cbBillingBlock.Checked = Customer.BillingBlock; 
+                cbVerified.Checked = Customer.IsVerified;
+                cbIsActive.Checked = Customer.IsActive;
+                cbOrderBlock.Checked = Customer.OrderBlock;
+                cbDeliveryBlock.Checked = Customer.DeliveryBlock;
+                cbBillingBlock.Checked = Customer.BillingBlock;
+            }
         }
     }
 }

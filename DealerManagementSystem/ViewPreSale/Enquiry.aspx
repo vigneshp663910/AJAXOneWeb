@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Enquiry.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Enquiry" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
+<%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -170,6 +172,38 @@
                         </div>
                     </fieldset>
                 </div>
+                <asp1:TabContainer ID="tbpEnquiry" runat="server" ToolTip="Enquiry Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
+                    <asp1:TabPanel ID="tpnlDealer" runat="server" HeaderText="Dealer" Font-Bold="True" ToolTip="">
+                        <ContentTemplate>
+                            <div class="col-md-12">
+                                <div class="col-md-12 Report">
+                                    <div class="table-responsive">
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp1:TabPanel>
+                    <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Customer" Font-Bold="True" ToolTip="">
+                        <ContentTemplate>
+                            <div class="col-md-12">
+                                <div class="col-md-12 Report">
+                                    <div class="table-responsive">
+                                        <div class="col-md-12 field-margin-top">
+                                            <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp1:TabPanel>
+                    <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Lead" Font-Bold="True" ToolTip="">
+                        <ContentTemplate>
+                            <div class="col-md-12 field-margin-top">
+                                <UC:uc_leadview id="UC_LeadView" runat="server"></UC:uc_leadview>
+                            </div>
+                        </ContentTemplate>
+                    </asp1:TabPanel>
+                </asp1:TabContainer>
             </div>
         </div>
         <div class="col-md-12 Report" id="divEnquiryList" runat="server">
