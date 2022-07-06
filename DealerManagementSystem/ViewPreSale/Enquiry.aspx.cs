@@ -73,7 +73,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
             DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
-            PEnquiry = new BEnquiry().GetEnquiry(null, (txtSEnquiryNumber.Text.Trim()=="") ? null : txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT);
+            PEnquiry = new BEnquiry().GetEnquiry(null, (txtSEnquiryNumber.Text.Trim() == "") ? null : txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT);
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();
 
@@ -287,6 +287,8 @@ namespace DealerManagementSystem.ViewPreSale
             ddlDistrict.Items.Clear();
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             ddlCountry.SelectedValue = "1";
+            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
             new DDLBind(ddlSCountry, new BDMS_Address().GetCountry(1, null), "Country", "CountryID");
             ddlSCountry.SelectedValue = "1";
             new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
