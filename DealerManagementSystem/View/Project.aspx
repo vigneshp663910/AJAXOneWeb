@@ -175,24 +175,53 @@
             </div>
         </div>
         <div class="col-md-12 Report" id="divProjectList" runat="server">
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                <div class="col-md-12">
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">State</label>
-                        <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlSState_SelectedIndexChanged" AutoPostBack="true" />
+            <div class="col-md-12">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">State</label>
+                            <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlSState_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">District</label>
+                            <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <label class="modal-label">-</label>
+                            <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
+                            <asp:Button ID="BtnAdd" runat="server" Text="Add Project" CssClass="btn Save" OnClick="BtnAdd_Click" Width="100px" />
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">District</label>
-                        <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
-                    </div>
-                    <div class="col-md-8 text-left">
-                        <label class="modal-label">-</label>
-                        <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
-                        <asp:Button ID="BtnAdd" runat="server" Text="Add Project" CssClass="btn Save" OnClick="BtnAdd_Click" Width="100px" />
-                    </div>
-                </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12">
                 <div class="col-md-12 Report">
+
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <div class="col-md-12 Report">
+
+
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Project(s):</td>
+
+                                                <td>
+                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnPjtArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnPjtArrowLeft_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnPjtArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnPjtArrowRight_Click" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                     <asp:HiddenField ID="HiddenProjectID" runat="server" />
                     <asp:GridView ID="gvProject" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
                         AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging">
@@ -213,8 +242,14 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+
+
+                            </div>
+                        </fieldset>
+
+
                 </div>
-            </fieldset>
+            </div>
         </div>
     </div>
 </asp:Content>

@@ -169,77 +169,103 @@
             </div>
         </div>
         <div class="col-md-12 Report" id="divEnquiryList" runat="server">
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                <div class="col-md-12">
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Customer Name</label>
-                        <asp:TextBox ID="txtSCustomerName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Country</label>
-                        <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">State</label>
-                        <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">District</label>
-                        <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
-                    </div>
-                    <div class="col-md-4 text-left">
-                        <label class="modal-label">-</label>
-                        <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
-                        <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
-                    </div>
-                </div>
-                <div class="col-md-12 Report">
-                    <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
-                    <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                        AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvEnquiry_PageIndexChanging">
-                        <Columns>
-                            <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
-                            <asp:BoundField HeaderText="Enquiry Date" DataField="EnquiryDate"></asp:BoundField>
-                            <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>
-                            <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
-                            <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                    </asp:GridView>
-                </div>
-            </fieldset>
-        </div>
-        <asp:Panel ID="pnlFoloowUpStatus" runat="server" CssClass="Popup" Style="display: none">
-            <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">PreSales Status</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                    <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
-                </a>
-            </div>
-            <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-12">
-                <div class="col-md-12">
-                    <fieldset class="fieldset-border" id="Fieldset5" runat="server">
-                        <div class="col-md-12 col-sm-12">
-                            <label class="modal-label">Remark</label>
-                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer Name</label>
+                            <asp:TextBox ID="txtSCustomerName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Country</label>
+                            <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">State</label>
+                            <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">District</label>
+                            <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                        </div>
+                        <div class="col-md-4 text-left">
+                            <label class="modal-label">-</label>
+                            <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
+                            <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <%--<div class="col-md-12">--%>
+                <div class="col-md-12 Report">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <div class="col-md-12 Report">
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Enquiry(s):</td>
+
+                                                <td>
+                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnEnqArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnEnqArrowRight_Click" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
+                            <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
+                                AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvEnquiry_PageIndexChanging">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Enquiry Date" DataField="EnquiryDate"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>
+                                    <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
+                                    <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
                         </div>
                     </fieldset>
                 </div>
-                <div class="col-md-12 text-center">
-                    <asp:Button ID="btnFoloowUpStatus" runat="server" Text="Save" CssClass="btn Save" OnClick="btnFoloowUpStatus_Click" />
+            <%--</div>--%>
+            <asp:Panel ID="pnlFoloowUpStatus" runat="server" CssClass="Popup" Style="display: none">
+                <div class="PopupHeader clearfix">
+                    <span id="PopupDialogue">PreSales Status</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                        <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
+                    </a>
                 </div>
-            </div>
-        </asp:Panel>
-        <ajaxToolkit:ModalPopupExtender ID="MPE_FoloowUpStatus" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFoloowUpStatus" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-    </div>
+                <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <fieldset class="fieldset-border" id="Fieldset5" runat="server">
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Remark</label>
+                                <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnFoloowUpStatus" runat="server" Text="Save" CssClass="btn Save" OnClick="btnFoloowUpStatus_Click" />
+                    </div>
+                </div>
+            </asp:Panel>
+            <ajaxToolkit:ModalPopupExtender ID="MPE_FoloowUpStatus" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFoloowUpStatus" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+        </div>
 </asp:Content>

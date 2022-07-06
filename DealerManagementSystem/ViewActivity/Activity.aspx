@@ -360,7 +360,7 @@
                                             <asp:TemplateField HeaderText="Expenses" SortExpression="Expenses">
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
+                                                    <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount","{0:n}")%>' runat="server" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
@@ -432,6 +432,7 @@
                 <asp:Button ID="btnEndActivityClose" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <asp:Label ID="lblEndActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblValidationMessage" runat="server" Text="" CssClass="message" Visible="false" />
         <div class="col-md-12">
             <div class="model-scroll">               
                 <fieldset class="fieldset-border" id="Fieldset3" runat="server">
@@ -471,7 +472,7 @@
                         </div>--%>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Expenses</label>
-                            <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
                         </div>                      
                         
                         <div class="col-md-12 col-sm-12">

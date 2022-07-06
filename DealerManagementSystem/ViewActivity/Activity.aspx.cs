@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,11 @@ namespace DealerManagementSystem.ViewActivity
 
             if (!IsPostBack)
             {
-                List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null,  null);
-                new DDLBind(ddlActivityType, ActivityType, "ActivityTypeName", "ActivityTypeID");
+                //List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null,  null);
+                new DDLBind(ddlActivityType, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
 
-                List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
-                new DDLBind(ddlReferenceType, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+                //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
+                new DDLBind(ddlReferenceType, new BActivity().GetActivityReferenceType(null, null), "ReferenceTable", "ActivityReferenceTableID");
 
                 txtActivityDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
                 txtActivityDateFrom.TextMode = TextBoxMode.Date;
@@ -172,7 +173,8 @@ namespace DealerManagementSystem.ViewActivity
             //S.EquipmentSerialNo = txtEquipment.Text.Trim();
             S.ActivityReferenceTableID = ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue);
             S.ReferenceNumber = txtReferenceNumber.Text.Trim();
-            Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
+            //Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
+            Activity1 = new BActivity().GetActivity(S);
 
             gvActivity.DataSource = Activity1;
             gvActivity.DataBind();
@@ -216,11 +218,14 @@ namespace DealerManagementSystem.ViewActivity
                 lblEndActivityMessage.Text = "Activity is Pending. Please close this Activity to add a new Activity.";
                 lblEndActivityMessage.ForeColor = Color.Red;
                 lblEndActivityMessage.Visible = true;
+                txtLocation.Text = string.Empty;
+                lblValidationMessage.Text = string.Empty;
+                lblValidationMessage.Visible = false;
                 MPE_EndActivity.Show();
             }
             else
             {
-                List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null, null);
+                List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null);
                 new DDLBind(ddlActivityTypeS, ActivityTypeS, "ActivityTypeName", "ActivityTypeID");
                 lblStartActivityDate.Text = DateTime.Now.ToString();
                 MPE_AddActivity.Show();
@@ -275,23 +280,36 @@ namespace DealerManagementSystem.ViewActivity
                     ddlActivityTypeS.BorderColor = Color.Red;
                     return;
                 }
-                PActivity Activity = new PActivity();
-                lblAddActivityMessage.ForeColor = Color.Red;
-                lblAddActivityMessage.Visible = true;
-                Activity.ActivityStartLatitude = Convert.ToDecimal(hfLatitude.Value);
-                Activity.ActivityStartLongitude = Convert.ToDecimal(hfLongitude.Value);
-                Activity.ActivityType = new PActivityType();
-                Activity.ActivityType.ActivityTypeID = Convert.ToInt32(ddlActivityTypeS.SelectedValue);
-                Activity.ActivityStartDate = Convert.ToDateTime(lblStartActivityDate.Text.Trim());
-                Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+                //PActivity Activity = new PActivity();
+                //lblAddActivityMessage.ForeColor = Color.Red;
+                //lblAddActivityMessage.Visible = true;
+                //Activity.ActivityStartLatitude = Convert.ToDecimal(hfLatitude.Value);
+                //Activity.ActivityStartLongitude = Convert.ToDecimal(hfLongitude.Value);
+                //Activity.ActivityType = new PActivityType();
+                //Activity.ActivityType.ActivityTypeID = Convert.ToInt32(ddlActivityTypeS.SelectedValue);
+                //Activity.ActivityStartDate = Convert.ToDateTime(lblStartActivityDate.Text.Trim());
+                //Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
 
-                Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
-                if (result == 0)
+                //Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
+                //if (result == 0)
+                //{
+                //lblAddActivityMessage.Text = "Activity not added successfully.";
+                //lblAddActivityMessage.ForeColor = Color.Red;
+                //return;
+                //}
+
+                //PApiResult Results = new BActivity().StartActivity(Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
+
+                //string endPoint = "Activity/StartActivity?Latitude=" + Convert.ToDecimal(hfLatitude.Value) + "&Longitude=" + Convert.ToDecimal(hfLongitude.Value) + "&ActivityTypeID=" + Convert.ToInt32(ddlActivityTypeS.SelectedValue);
+                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                PApiResult Results = new BActivity().StartActivity(Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
+                if (Results.Status == PApplication.Failure)
                 {
                     lblAddActivityMessage.Text = "Activity not added successfully.";
                     lblAddActivityMessage.ForeColor = Color.Red;
                     return;
                 }
+                
                 lblActivityMessage.Text = "Activity added successfully.";
                 lblActivityMessage.ForeColor = Color.Green;
                 lblActivityMessage.Visible = true;
@@ -306,6 +324,7 @@ namespace DealerManagementSystem.ViewActivity
                 lblAddActivityMessage.Visible = true;
             }
         }
+
         public string ConvertDataTabletoString()
         {
             //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
@@ -395,7 +414,8 @@ namespace DealerManagementSystem.ViewActivity
                 PActivitySearch S = new PActivitySearch();
 
                 S.ActivityID = Convert.ToInt64(lblActivityID.Text);
-                Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
+                //Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
+                Activity1 = new BActivity().GetActivity(S);
 
                 foreach (var Activity in Activity1)
                 {
@@ -427,32 +447,67 @@ namespace DealerManagementSystem.ViewActivity
                 lblEndActivityMessage.ForeColor = Color.Red;
                 lblEndActivityMessage.Visible = true;
 
-                string Message = ValidationEndAvtivity();
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblEndActivityMessage.Text = Message;
-                    return;
-                }
-
-                //long? CustomerID = null;
-                //if (!string.IsNullOrEmpty(txtCustomerCodeE.Text.Trim()))
+                //string Message = ValidationEndAvtivity();
+                //if (!string.IsNullOrEmpty(Message))
                 //{
-                //    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtCustomerCodeE.Text.Trim());
+                //    lblEndActivityMessage.Text = Message;
+                //    return;
+                //}
+
+                //long? ReferenceNumberID = null;
+                //long? CustomerID = null;
+                //if (ddlReferenceTypeE.SelectedValue == "1")
+                //{
+                //    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtReferenceNumberE.Text.Trim());
                 //    if (Customer.Count == 0)
                 //    {
-                //        lblEndActivityMessage.Text = "Customer Code not avialable.";
+                //        lblEndActivityMessage.Text = "Customer Code is not avialable.";
                 //        //txtCustomerCodeE.BorderColor = Color.Red;
                 //        return;
                 //    }
-                //    else
-                //    {
-                //        CustomerID = Customer[0].CustomerID;
-                //    }
+                //    //else
+                //    //{
+                //    CustomerID = Customer[0].CustomerID;
+                //    ReferenceNumberID = Customer[0].CustomerID;
+                //    //}
                 //}
-                //long? EquipmentHeaderID = null;
-                //if (!string.IsNullOrEmpty(txtEquipmentE.Text.Trim()))
+
+                //long? LeadID = null;
+                //if (ddlReferenceTypeE.SelectedValue == "2")
                 //{
-                //    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtEquipmentE.Text.Trim());
+                //    //PLead Lead = new BLead().GetLeadByLeadNumber(txtReferenceNumberE.Text.Trim());
+                //    PLeadSearch S = new PLeadSearch();
+                //    S.LeadNumber = txtReferenceNumberE.Text.Trim();
+                //    //S.CustomerID = CustomerID;
+                //    List<PLead> Lead = new BLead().GetLead(S);
+                //    if (Lead.Count == 0)
+                //    {
+                //        lblEndActivityMessage.Text = "Lead Number is not avialable.";
+                //        //txtReferenceNumberE.BorderColor = Color.Red;
+                //        return;
+                //    }
+                //    LeadID = Lead[0].LeadID;
+                //    ReferenceNumberID = Lead[0].LeadID;
+                //}
+
+                //long? QuotationID = null;
+                //if (ddlReferenceTypeE.SelectedValue == "3")
+                //{
+                //    List<PSalesQuotation> Quotation = new BSalesQuotation().GetSalesQuotationBasic(null, null, null, null, txtReferenceNumberE.Text.Trim(), null, null, null, null, null, null);
+                //    if (Quotation.Count == 0)
+                //    {
+                //        lblEndActivityMessage.Text = "Quotation Number is not avialable.";
+                //        //txtReferenceNumberE.BorderColor = Color.Red;
+                //        return;
+                //    }
+                //    QuotationID = Quotation[0].QuotationID;
+                //    ReferenceNumberID = Quotation[0].QuotationID;
+                //}
+
+                //long? EquipmentHeaderID = null;
+                //if (ddlReferenceTypeE.SelectedValue == "4")
+                //{
+                //    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtReferenceNumberE.Text.Trim());
                 //    if (Equ.Count == 0)
                 //    {
                 //        lblEndActivityMessage.Text = "Equipment not avialable.";
@@ -462,106 +517,54 @@ namespace DealerManagementSystem.ViewActivity
                 //    else
                 //    {
                 //        EquipmentHeaderID = Equ[0].EquipmentHeaderID;
+                //        ReferenceNumberID = Equ[0].EquipmentHeaderID;
                 //    }
                 //}
 
-                long? ReferenceNumberID = null;
-                long? CustomerID = null;
-                if (ddlReferenceTypeE.SelectedValue == "1")
+                //Activity.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
+                //Activity.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
+                //Activity.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
+                //Activity.ActivityType = new PActivityType();
+                //Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeIDE.Text);
+                //Activity.ActivityEndDate = Convert.ToDateTime(lblEndActivityDate.Text.Trim());
+                //Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+                //Activity.Location = Convert.ToString(txtLocation.Text.Trim());
+                ////Activity.Customer = new PDMS_Customer();
+                ////Activity.Customer.CustomerCode = Convert.ToString(txtCustomerCodeE.Text.Trim());
+                ////Activity.Customer.CustomerID = Convert.ToInt64(CustomerID);
+                ////Activity.Equipment = new PDMS_EquipmentHeader();
+                ////Activity.Equipment.EquipmentSerialNo = Convert.ToString(txtEquipmentE.Text.Trim());
+                ////Activity.Equipment.EquipmentHeaderID = Convert.ToInt64(EquipmentHeaderID);
+                //Activity.Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim());
+
+                //Activity.ActivityReference = new PActivityReferenceType();
+                //Activity.ActivityReference = ddlReferenceTypeE.SelectedValue == "0" ? null : new PActivityReferenceType() { ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue) };
+                //Activity.ReferenceNumber = Convert.ToString(txtReferenceNumberE.Text.Trim());
+                ////Activity.ReferenceID = Convert.ToInt64(LeadID);
+
+                //Activity.Remark = Convert.ToString(txtRemarks.Text.Trim());
+                //Activity.ReferenceNumberID = ReferenceNumberID == null ? (Int64?)null : ReferenceNumberID;
+
+                //Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
+                //if (result == 0)
+                //{
+                //    lblEndActivityMessage.Text = "Activity not ended successfully.";
+                //    lblEndActivityMessage.ForeColor = Color.Red;
+                //    return;
+                //}
+
+                //string endPoint = "Activity/EndActivity?ActivityID=" + Convert.ToInt32(lblActivityIDE.Text) + "&Latitude=" + Convert.ToDecimal(hfLatitude.Value) + "&Longitude=" + Convert.ToDecimal(hfLongitude.Value)
+                //    + "&Location=" + Convert.ToString(txtLocation.Text.Trim()) + "&Amount=" + (string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim()))
+                //    + "&ReferenceType=" + (ddlReferenceTypeE.SelectedValue == "0" ? "" :  ddlReferenceTypeE.SelectedValue )
+                //    + "&ReferenceNumber=" + Convert.ToString(txtReferenceNumberE.Text.Trim()) + "&Remarks=" + Convert.ToString(txtRemarks.Text.Trim());
+                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                PApiResult Results = new BActivity().EndActivity(Convert.ToInt32(lblActivityIDE.Text), Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value), Convert.ToString(txtLocation.Text.Trim())
+                                                                , (string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim())),(ddlReferenceTypeE.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlReferenceTypeE.SelectedValue), Convert.ToString(txtReferenceNumberE.Text.Trim()), Convert.ToString(txtRemarks.Text.Trim()));
+                if (Results.Status == PApplication.Failure)
                 {
-                    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtReferenceNumberE.Text.Trim());
-                    if (Customer.Count == 0)
-                    {
-                        lblEndActivityMessage.Text = "Customer Code is not avialable.";
-                        //txtCustomerCodeE.BorderColor = Color.Red;
-                        return;
-                    }
-                    //else
-                    //{
-                    CustomerID = Customer[0].CustomerID;
-                    ReferenceNumberID = Customer[0].CustomerID;
-                    //}
-                }
-
-                long? LeadID = null;
-                if (ddlReferenceTypeE.SelectedValue == "2")
-                {
-                    //PLead Lead = new BLead().GetLeadByLeadNumber(txtReferenceNumberE.Text.Trim());
-                    PLeadSearch S = new PLeadSearch();
-                    S.LeadNumber = txtReferenceNumberE.Text.Trim();
-                    //S.CustomerID = CustomerID;
-                    List<PLead> Lead = new BLead().GetLead(S);
-                    if (Lead.Count == 0)
-                    {
-                        lblEndActivityMessage.Text = "Lead Number is not avialable.";
-                        //txtReferenceNumberE.BorderColor = Color.Red;
-                        return;
-                    }
-                    LeadID = Lead[0].LeadID;
-                    ReferenceNumberID = Lead[0].LeadID;
-                }
-
-                long? QuotationID = null;
-                if (ddlReferenceTypeE.SelectedValue == "3")
-                {
-                    List<PSalesQuotation> Quotation = new BSalesQuotation().GetSalesQuotationBasic(null, null, null, null, txtReferenceNumberE.Text.Trim(), null, null, null, null, null, null);
-                    if (Quotation.Count == 0)
-                    {
-                        lblEndActivityMessage.Text = "Quotation Number is not avialable.";
-                        //txtReferenceNumberE.BorderColor = Color.Red;
-                        return;
-                    }
-                    QuotationID = Quotation[0].QuotationID;
-                    ReferenceNumberID = Quotation[0].QuotationID;
-                }
-
-                long? EquipmentHeaderID = null;
-                if (ddlReferenceTypeE.SelectedValue == "4")
-                {
-                    List<PDMS_EquipmentHeader> Equ = new BDMS_Equipment().GetEquipment(null, txtReferenceNumberE.Text.Trim());
-                    if (Equ.Count == 0)
-                    {
-                        lblEndActivityMessage.Text = "Equipment not avialable.";
-                        //txtEquipmentE.BorderColor = Color.Red;
-                        return;
-                    }
-                    else
-                    {
-                        EquipmentHeaderID = Equ[0].EquipmentHeaderID;
-                        ReferenceNumberID = Equ[0].EquipmentHeaderID;
-                    }
-                }
-
-                Activity.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
-                Activity.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
-                Activity.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
-                Activity.ActivityType = new PActivityType();
-                Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeIDE.Text);
-                Activity.ActivityEndDate = Convert.ToDateTime(lblEndActivityDate.Text.Trim());
-                Activity.SalesEngineer = new PUser { UserID = PSession.User.UserID };
-                Activity.Location = Convert.ToString(txtLocation.Text.Trim());
-                //Activity.Customer = new PDMS_Customer();
-                //Activity.Customer.CustomerCode = Convert.ToString(txtCustomerCodeE.Text.Trim());
-                //Activity.Customer.CustomerID = Convert.ToInt64(CustomerID);
-                //Activity.Equipment = new PDMS_EquipmentHeader();
-                //Activity.Equipment.EquipmentSerialNo = Convert.ToString(txtEquipmentE.Text.Trim());
-                //Activity.Equipment.EquipmentHeaderID = Convert.ToInt64(EquipmentHeaderID);
-                Activity.Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim());
-
-                Activity.ActivityReference = new PActivityReferenceType();
-                Activity.ActivityReference = ddlReferenceTypeE.SelectedValue == "0" ? null : new PActivityReferenceType() { ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue) };
-
-                Activity.ReferenceNumber = Convert.ToString(txtReferenceNumberE.Text.Trim());
-                //Activity.ReferenceID = Convert.ToInt64(LeadID);
-
-                Activity.Remark = Convert.ToString(txtRemarks.Text.Trim());
-                Activity.ReferenceNumberID = ReferenceNumberID == null ? (Int64?)null : ReferenceNumberID;
-
-                Int64 result = new BActivity().InsertOrUpdateActivity(Activity);
-                if (result == 0)
-                {
-                    lblEndActivityMessage.Text = "Activity not ended successfully.";
-                    lblEndActivityMessage.ForeColor = Color.Red;
+                    lblValidationMessage.Text = "<br/>" + Results.Message;
+                    lblValidationMessage.ForeColor = Color.Red;
+                    lblValidationMessage.Visible = true;
                     return;
                 }
                 lblActivityMessage.Text = "Activity ended successfully.";
