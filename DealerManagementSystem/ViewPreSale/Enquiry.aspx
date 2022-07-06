@@ -24,8 +24,8 @@
                             <div class="col-md-6 col-sm-12">
                                 <label class="modal-label">Enquiry Date<samp style="color: red">*</samp></label>
                                 <asp:TextBox ID="txtEnquiryDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
-                                <asp1:CalendarExtender ID="calendarextender1" runat="server" TargetControlID="txtEnquiryDate" PopupButtonID="txtEnquiryDate" Format="dd/MM/yyyy" />
-                                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtEnquiryDate" WatermarkText="DD/MM/YYYY" />
+                                <asp1:CalendarExtender ID="calendarextender1" runat="server" TargetControlID="txtEnquiryDate" PopupButtonID="txtEnquiryDate" Format="dd/MM/yyyy HH:mm:ss" />
+                                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtEnquiryDate" WatermarkText="DD/MM/YYYY HH:mm:ss" />
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <label class="modal-label">Contact Person Name</label>
@@ -107,8 +107,30 @@
                         <div class="col-md-12 View">
                             <div class="col-md-4">
                                 <div class="col-md-12">
-                                    <label>Customer Name : </label>
-                                    <asp:Label ID="lblCustomerName" runat="server" CssClass="label"></asp:Label>
+                                    <label>Enquiry Number : </label>
+                                    <asp:Label ID="lblEnquiryNumber" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Person Name : </label>
+                                    <asp:Label ID="lblPersonName" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Product : </label>
+                                    <asp:Label ID="lblProduct" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>District : </label>
+                                    <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Mail : </label>
+                                    <asp:Label ID="lblMail" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label>Enquiry Date : </label>
+                                    <asp:Label ID="lblEnquiryDate" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Source : </label>
@@ -129,8 +151,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
-                                    <label>Person Name : </label>
-                                    <asp:Label ID="lblPersonName" runat="server" CssClass="label"></asp:Label>
+                                    <label>Customer Name : </label>
+                                    <asp:Label ID="lblCustomerName" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Status : </label>
@@ -139,24 +161,6 @@
                                 <div class="col-md-12">
                                     <label>State : </label>
                                     <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Mail : </label>
-                                    <asp:Label ID="lblMail" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <label>Enquiry Date : </label>
-                                    <asp:Label ID="lblEnquiryDate" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Product : </label>
-                                    <asp:Label ID="lblProduct" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>District : </label>
-                                    <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Mobile : </label>
@@ -174,6 +178,10 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Enquiry Number</label>
+                            <asp:TextBox ID="txtSEnquiryNumber" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer Name</label>
                             <asp:TextBox ID="txtSCustomerName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                         </div>
@@ -189,7 +197,19 @@
                             <label class="modal-label">District</label>
                             <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                         </div>
-                        <div class="col-md-4 text-left">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">From Date</label>
+                            <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp1:CalendarExtender ID="calendarextender2" runat="server" TargetControlID="txtFromDate" PopupButtonID="txtFromDate" Format="dd/MM/yyyy" />
+                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtFromDate" WatermarkText="DD/MM/YYYY" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">To Date</label>
+                            <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp1:CalendarExtender ID="calendarextender3" runat="server" TargetControlID="txtToDate" PopupButtonID="txtToDate" Format="dd/MM/yyyy" />
+                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtToDate" WatermarkText="DD/MM/YYYY" />
+                        </div>
+                        <div class="col-md-2 text-left">
                             <label class="modal-label">-</label>
                             <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
                             <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
@@ -198,52 +218,67 @@
                 </fieldset>
             </div>
             <%--<div class="col-md-12">--%>
-                <div class="col-md-12 Report">
-                    <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
-                        <div class="col-md-12 Report">
-                            <div class="boxHead">
-                                <div class="logheading">
-                                    <div style="float: left">
-                                        <table>
-                                            <tr>
-                                                <td>Enquiry(s):</td>
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                    <div class="col-md-12 Report">
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>Enquiry(s):</td>
 
-                                                <td>
-                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
-                                                <td>
-                                                    <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click" /></td>
-                                                <td>
-                                                    <asp:ImageButton ID="ibtnEnqArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnEnqArrowRight_Click" /></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnEnqArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnEnqArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
-                            <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
-                            <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvEnquiry_PageIndexChanging">
-                                <Columns>
-                                    <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Enquiry Date" DataField="EnquiryDate"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>
-                                    <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
-                                    <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <AlternatingRowStyle BackColor="#ffffff" />
-                                <FooterStyle ForeColor="White" />
-                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                            </asp:GridView>
                         </div>
-                    </fieldset>
-                </div>
+                        <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
+                        <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
+                            AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvEnquiry_PageIndexChanging">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField HeaderText="Enquiry Number" DataField="EnquiryNumber"></asp:BoundField>
+                                <asp:BoundField HeaderText="Enquiry Date" DataField="EnquiryDate"></asp:BoundField>
+                                <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
+                                <asp:BoundField HeaderText="PersonName" DataField="PersonName"></asp:BoundField>
+                                <asp:BoundField HeaderText="Mail" DataField="Mail"></asp:BoundField>
+                                <asp:BoundField HeaderText="Mobile" DataField="Mobile"></asp:BoundField>
+                                <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>
+                                <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
+                                <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
+                                <asp:BoundField HeaderText="Address" DataField="Address"></asp:BoundField>
+                                <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
+                                <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
+                                <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
+                                <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </fieldset>
+            </div>
             <%--</div>--%>
             <asp:Panel ID="pnlFoloowUpStatus" runat="server" CssClass="Popup" Style="display: none">
                 <div class="PopupHeader clearfix">
