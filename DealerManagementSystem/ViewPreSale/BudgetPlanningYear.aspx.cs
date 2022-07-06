@@ -22,7 +22,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('PreSale » Budget Planning Year');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('PreSale » Planning » Budget-Yearly');</script>");
             if (!IsPostBack)
             {
                 new DDLBind(ddlDealer,PSession.User.Dealer, "CodeWithName", "DID");
