@@ -304,7 +304,7 @@
 
                                 <asp:TemplateField HeaderText="Remark">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                        <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
