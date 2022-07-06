@@ -165,17 +165,21 @@ namespace DealerManagementSystem.ViewActivity
         {
             PActivitySearch S = new PActivitySearch();
 
-            S.ActivityTypeID = ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue);
-            S.ActivityID = string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim());
-            S.ActivityDateFrom = string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateFrom.Text.Trim());
-            S.ActivityDateTo = string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateTo.Text.Trim());
-            //S.CustomerCode = txtCustomerCode.Text.Trim();
-            //S.EquipmentSerialNo = txtEquipment.Text.Trim();
-            S.ActivityReferenceTableID = ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue);
-            S.ReferenceNumber = txtReferenceNumber.Text.Trim();
+            //S.ActivityTypeID = ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue);
+            //S.ActivityID = string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim());
+            //S.ActivityDateFrom = string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateFrom.Text.Trim());
+            //S.ActivityDateTo = string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateTo.Text.Trim());
+            ////S.CustomerCode = txtCustomerCode.Text.Trim();
+            ////S.EquipmentSerialNo = txtEquipment.Text.Trim();
+            //S.ActivityReferenceTableID = ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue);
+            //S.ReferenceNumber = txtReferenceNumber.Text.Trim();
             //Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
-            Activity1 = new BActivity().GetActivity(S);
+            
+            Activity1 = new BActivity().GetActivity((string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim())), (ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue))
+                , (string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? null : Convert.ToString(txtActivityDateFrom.Text.Trim())), (string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? null : Convert.ToString(txtActivityDateTo.Text.Trim()))
+                , (ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue)), (string.IsNullOrEmpty(txtReferenceNumber.Text.Trim()) ? null : Convert.ToString(txtReferenceNumber.Text.Trim())));
 
+            
             gvActivity.DataSource = Activity1;
             gvActivity.DataBind();
 
@@ -415,7 +419,10 @@ namespace DealerManagementSystem.ViewActivity
 
                 S.ActivityID = Convert.ToInt64(lblActivityID.Text);
                 //Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
-                Activity1 = new BActivity().GetActivity(S);
+                //Activity1 = new BActivity().GetActivity(S);
+
+                Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null, null, null);
+
 
                 foreach (var Activity in Activity1)
                 {
