@@ -99,7 +99,7 @@ namespace DealerManagementSystem.ViewAdmin
         {
             gv.DataSource = DealerDesignation;
             gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerDesignation;
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerDesignation.Count;
         }
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
