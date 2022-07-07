@@ -37,6 +37,8 @@
                 background: #fff;
                 padding: 0 4px;
                 color: #313131;
+                width:100%;
+                height:100%;
                 font-size: 14px;
                 margin-bottom: 5px;
                 border: none;
@@ -379,10 +381,10 @@
     </script>
 </head>
 <body>
-    <div class="loading" align="center">
+    <div class="loading" align="center" aria-disabled="true">
         Loading. Please wait.<br />
         <br />
-        <img src="Images/PageLoader.gif" alt="" />
+        <img src="Images/PageLoader.gif" alt="" style="margin:15%"/>
     </div>
     <style type="text/css">
         .modal {
@@ -406,6 +408,8 @@
             position: fixed;
             background-color: White;
             z-index: 999;
+            width:100%;
+            height:100%;
         }
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
