@@ -384,7 +384,7 @@
     <div class="loading" align="center" aria-disabled="true">
         Loading. Please wait.<br />
         <br />
-        <img src="Images/PageLoader.gif" alt="" style="margin:15%"/>
+        <img src="Images/PageLoader.gif" alt="" style="margin:15%;background-color:white"/>
     </div>
     <style type="text/css">
         .modal {
@@ -406,10 +406,11 @@
             border: 5px solid #67CFF5;
             display: none;
             position: fixed;
-            background-color: White;
+            background-color: black;
             z-index: 999;
             width:100%;
             height:100%;
+            opacity:80%;
         }
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
