@@ -382,7 +382,7 @@
     <div class="loading" align="center">
         Loading. Please wait.<br />
         <br />
-        <img src="loader.gif" alt="" />
+        <img src="Images/PageLoader.gif" alt="" />
     </div>
     <style type="text/css">
         .modal {
@@ -402,8 +402,6 @@
             font-family: Arial;
             font-size: 10pt;
             border: 5px solid #67CFF5;
-            width: 300px;
-            height: 150px;
             display: none;
             position: fixed;
             background-color: White;
