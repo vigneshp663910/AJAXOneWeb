@@ -54,7 +54,7 @@ namespace Business
             }
             return true;
         }
-        public List<PProject> GetProject(int? ProjectID, int? StateID, int? DistrictID)
+        public List<PProject> GetProject(int? ProjectID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, string ProjectName, string ProjectNumber)
         {
             List<PProject> projects = new List<PProject>();
             try
@@ -62,7 +62,11 @@ namespace Business
                 DbParameter ProjectIDP = provider.CreateParameter("ProjectID", ProjectID, DbType.Int32);
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { ProjectIDP, StateIDP, DistrictIDP };
+                DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
+                DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
+                DbParameter ProjectNameP = provider.CreateParameter("ProjectName", ProjectName, DbType.String);
+                DbParameter ProjectNumberP = provider.CreateParameter("ProjectNumber", ProjectNumber, DbType.String);
+                DbParameter[] Params = new DbParameter[7] { ProjectIDP, StateIDP, DistrictIDP, DateFromP, DateToP, ProjectNameP, ProjectNumberP };
 
                 using (DataSet DataSet = provider.Select("GetProject", Params))
                 {
@@ -74,6 +78,7 @@ namespace Business
                             {
                                 ProjectID = Convert.ToInt64(dr["ProjectID"]),
                                 ProjectName = Convert.ToString(dr["ProjectName"]),
+                                ProjectNumber = Convert.ToString(dr["ProjectNumber"]),
                                 EmailDate = Convert.ToDateTime(dr["EmailDate"]),
                                 TenderNumber = Convert.ToString(dr["TenderNumber"]),
                                 State = DBNull.Value == dr["StateID"] ? null : new PDMS_State()

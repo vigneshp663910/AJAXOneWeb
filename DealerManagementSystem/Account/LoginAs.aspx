@@ -18,7 +18,7 @@
             document.getElementById('MainContent_hfLongitude').value = longitude;
             status.textContent = '';
 
-            alert(latitude);
+            /*alert(latitude);*/
             //  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
             //  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`; 
         }
