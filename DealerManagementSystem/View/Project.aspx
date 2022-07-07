@@ -180,6 +180,26 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">From Date</label>
+                            <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp1:CalendarExtender ID="calendarextender4" runat="server" TargetControlID="txtFromDate" PopupButtonID="txtFromDate" Format="dd/MM/yyyy" />
+                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtFromDate" WatermarkText="DD/MM/YYYY" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">To Date</label>
+                            <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp1:CalendarExtender ID="calendarextender5" runat="server" TargetControlID="txtToDate" PopupButtonID="txtToDate" Format="dd/MM/yyyy" />
+                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtToDate" WatermarkText="DD/MM/YYYY" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Project Number</label>
+                            <asp:TextBox ID="txtProjectNumber" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Project Name</label>
+                            <asp:TextBox ID="txtSProjectName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">State</label>
                             <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlSState_SelectedIndexChanged" AutoPostBack="true" />
                         </div>
@@ -187,7 +207,7 @@
                             <label class="modal-label">District</label>
                             <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                         </div>
-                        <div class="col-md-8 text-left">
+                        <div class="col-md-2 text-left">
                             <label class="modal-label">-</label>
                             <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
                             <asp:Button ID="BtnAdd" runat="server" Text="Add Project" CssClass="btn Save" OnClick="BtnAdd_Click" Width="100px" />
@@ -197,12 +217,9 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
-
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
-
-
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
@@ -221,33 +238,44 @@
                                     </div>
                                 </div>
                             </div>
-
-                    <asp:HiddenField ID="HiddenProjectID" runat="server" />
-                    <asp:GridView ID="gvProject" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                        AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging">
-                        <Columns>
-                            <asp:BoundField HeaderText="Project Name" DataField="ProjectName"></asp:BoundField>
-                            <asp:BoundField HeaderText="Email Date" DataField="EmailDate"></asp:BoundField>
-                            <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
-                            <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProjectID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                    </asp:GridView>
-
-
-                            </div>
-                        </fieldset>
-
-
+                            <asp:HiddenField ID="HiddenProjectID" runat="server" />
+                            <asp:GridView ID="gvProject" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
+                                AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Project Number" DataField="ProjectNumber"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Project Name" DataField="ProjectName"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Email Date" DataField="EmailDate"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Tender Number" DataField="TenderNumber"></asp:BoundField>
+                                    <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
+                                    <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Value" DataField="Value"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L1ContractorName" DataField="L1ContractorName"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L1ContractorAddress" DataField="L1ContractorAddress"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L2Bidder" DataField="L2Bidder"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L3Bidder" DataField="L3Bidder"></asp:BoundField>
+                                    <asp:BoundField HeaderText="ContractAwardDate" DataField="ContractAwardDate"></asp:BoundField>
+                                    <asp:BoundField HeaderText="ContractEndDate" DataField="ContractEndDate"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProjectID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>

@@ -69,6 +69,7 @@ namespace DealerManagementSystem.View
                 if (!string.IsNullOrEmpty(HiddenProjectID.Value))
                 {
                     project.ProjectID = Convert.ToInt32(HiddenProjectID.Value);
+                    project.ProjectNumber = HiddenProjectID.Value;
                 }
                 project.ProjectName = txtProjectName.Text.Trim();
                 //project.ProjectNumber = "";
@@ -165,7 +166,7 @@ namespace DealerManagementSystem.View
         void ClearField()
         {
             txtProjectName.Text = string.Empty;
-            txtEmailDate.Text = string.Empty;
+            txtEmailDate.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             txtTenderNumber.Text = string.Empty;
             ddlState.Items.Clear();
             ddlDistrict.Items.Clear();
@@ -181,6 +182,15 @@ namespace DealerManagementSystem.View
         private void FillGrid(long? ProjectID)
         {
             int? StateID = null, DistrictID = null;
+            string ProjectName = null,ProjectNumber = null;
+            if (!string.IsNullOrEmpty(txtProjectNumber.Text))
+            {
+                ProjectNumber = txtProjectNumber.Text;
+            }
+            if (!string.IsNullOrEmpty(txtSProjectName.Text))
+            {
+                ProjectName = txtSProjectName.Text.Trim();
+            }
             if (ddlSState.SelectedValue != "0")
             {
                 StateID = Convert.ToInt32(ddlSState.SelectedValue);
@@ -189,7 +199,9 @@ namespace DealerManagementSystem.View
             {
                 DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
             }
-            PProject = new BProject().GetProject(null, StateID, DistrictID);
+            DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
+            DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
+            PProject = new BProject().GetProject(null, StateID, DistrictID, DateF, DateT, ProjectName, ProjectNumber);
             gvProject.DataSource = PProject;
             gvProject.DataBind();
 
@@ -209,9 +221,9 @@ namespace DealerManagementSystem.View
 
             if (ProjectID != null)
             {
-                PProject project = new BProject().GetProject(Convert.ToInt32(ProjectID), null, null)[0];
+                PProject project = new BProject().GetProject(Convert.ToInt32(ProjectID), null, null, null, null, null, null)[0];
                 lblProjectName.Text = project.ProjectName;
-                lblEmailDate.Text = project.EmailDate.ToString("dd/MM/yyyy");
+                lblEmailDate.Text = project.EmailDate.ToString("dd/MM/yyyy HH:mm:ss");
                 lblTenderNumber.Text = project.TenderNumber;
                 lblState.Text = project.State.State.ToString();
                 lblDistrict.Text = project.District.District.ToString();
@@ -299,9 +311,9 @@ namespace DealerManagementSystem.View
                 lblMessage.Text = "";
                 lblAddProjectMessage.Text = "";
                 int? ProjectID = Convert.ToInt32(HiddenProjectID.Value);
-                PProject project = new BProject().GetProject(ProjectID, null, null)[0];
+                PProject project = new BProject().GetProject(ProjectID, null, null, null, null, null, null)[0];
                 txtProjectName.Text = project.ProjectName;
-                txtEmailDate.Text = project.EmailDate.ToString("dd/MM/yyyy");
+                txtEmailDate.Text = project.EmailDate.ToString("dd/MM/yyyy HH:mm:ss");
                 txtTenderNumber.Text = project.TenderNumber;
                 new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                 new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
