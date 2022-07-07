@@ -19,7 +19,7 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public Boolean InsertOrUpdateEnquiry(PEnquiry enquiry)
+        public Boolean InsertOrUpdateEnquiry(PEnquiry enquiry,int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             try
@@ -32,17 +32,16 @@ namespace Business
                 DbParameter Mail = provider.CreateParameter("Mail", enquiry.Mail, DbType.String);
                 DbParameter Mobile = provider.CreateParameter("Mobile", enquiry.Mobile, DbType.String);
                 DbParameter Address = provider.CreateParameter("Address", enquiry.Address, DbType.String);
-                DbParameter SourceID = provider.CreateParameter("SourceID", enquiry.Source.SourceID, DbType.Int32);
-                DbParameter StatusID = provider.CreateParameter("StatusID", enquiry.Status.StatusID, DbType.Int32);
+                DbParameter SourceID = provider.CreateParameter("SourceID", enquiry.Source.SourceID, DbType.Int32); 
                 DbParameter CountryID = provider.CreateParameter("CountryID", enquiry.Country.CountryID, DbType.Int32);
                 DbParameter StateID = provider.CreateParameter("StateID", enquiry.State.StateID, DbType.Int32);
                 DbParameter DistrictID = provider.CreateParameter("DistrictID", enquiry.District.DistrictID, DbType.Int32);                
                 DbParameter Product = provider.CreateParameter("Product", enquiry.Product, DbType.String);
                 DbParameter Remarks = provider.CreateParameter("Remarks", enquiry.Remarks, DbType.String);
-                DbParameter CreatedBy = provider.CreateParameter("CreatedBy", enquiry.CreatedBy.CreatedBy, DbType.Int32);
+                DbParameter CreatedBy = provider.CreateParameter("CreatedBy", UserID, DbType.Int32);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[16] { EnquiryID, EnquiryDate, EnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, SourceID, StatusID, CountryID, StateID, DistrictID, Product, Remarks, CreatedBy };
+                    DbParameter[] Params = new DbParameter[15] { EnquiryID, EnquiryDate, EnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy };
                     provider.Insert("ZDMS_InsertOrUpdateEnquiry", Params);
                     scope.Complete();
                 }
@@ -55,7 +54,7 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(int? EnquiryID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo)
+        public List<PEnquiry> GetEnquiry(long? EnquiryID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo)
         {
             List<PEnquiry> projects = new List<PEnquiry>();
             try
@@ -128,32 +127,32 @@ namespace Business
             }
             return projects;
         }
-        public Boolean InsertOrUpdateLeadFollowUpStatus(PLeadFollowUp FollowUpStatus, int UserID)
+        public Boolean UpdateEnquiryStatus(long EnquiryID,string Remark,int StatusID, int UserID)
         {
             int success = 0;
-            DbParameter LeadFollowUpID = provider.CreateParameter("LeadFollowUpID", FollowUpStatus.LeadFollowUpID, DbType.Int64);
-            DbParameter Remark = provider.CreateParameter("Remark", FollowUpStatus.Remark, DbType.String);
-            DbParameter StatusID = provider.CreateParameter("StatusID", FollowUpStatus.Status.StatusID, DbType.Int32);
+            DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
+            DbParameter RemarkP = provider.CreateParameter("Remark", Remark, DbType.String);
+            DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
 
-            DbParameter[] Params = new DbParameter[4] { LeadFollowUpID, Remark, StatusID, UserIDP };
+            DbParameter[] Params = new DbParameter[4] { EnquiryIDP, RemarkP, StatusIDP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("UpdateLeadFollowUpStatus", Params);
+                    success = provider.Insert("UpdateEnquiryStatus", Params);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BLead", "InsertOrUpdateLeadFollowUp", sqlEx);
+                new FileLogger().LogMessage("BEnquiry", "UpdateEnquiryStatus", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BLead", " InsertOrUpdateLeadFollowUp", ex);
+                new FileLogger().LogMessage("BEnquiry", " UpdateEnquiryStatus", ex);
                 throw ex;
             }
             return true;

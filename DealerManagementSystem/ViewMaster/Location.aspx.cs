@@ -948,7 +948,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (BtnAddOrUpdateRegion.Text == "Add")
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressRegion(null, Region, Convert.ToInt32(ddlRCountry.SelectedValue), true, PSession.User.UserID);
+                    Success = new BDMS_Address().InsertOrUpdateAddressRegion(null, Region, Convert.ToInt32(ddlGRCountry.SelectedValue), true, PSession.User.UserID);
                     if (Success == true)
                     {
                         FillGridRegion();
