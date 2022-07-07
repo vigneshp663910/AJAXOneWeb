@@ -337,9 +337,9 @@
             if (sec < 0) { sec = "59" };
             return sec;
         }--%>
-        
 
-        
+
+
     </script>
 
     <script>
@@ -379,9 +379,27 @@
     </script>
 </head>
 <body>
+    
+    <script type="text/javascript">
+        $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+        $(window).on('load', function () {
+            setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
+        });
+        function removeLoader() {
+            $("#loadingDiv").fadeOut(500, function () {
+                // fadeOut complete. Remove the loading div
+                $("#loadingDiv").remove(); //makes page more lightweight 
+            });
+        }
+    </script>
+    <script>
+        $(window).load(function () {
+            $('#loading').hide();
+        });
+    </script>
     <div>
         <form id="form1" runat="server">
-             <asp:HiddenField ID="hfLatitude" runat="server" />
+            <asp:HiddenField ID="hfLatitude" runat="server" />
             <asp:HiddenField ID="hfLongitude" runat="server" />
             <div class="row">
                 <div id="LoginLeft" class="left split">
@@ -474,8 +492,8 @@
                                     <label><b>OTP</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false"/><div id="some_div"></div>
-                                    
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false" /><div id="some_div"></div>
+
                                     <%--<asp:LinkButton ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" Text="Send OTP">LinkButton</asp:LinkButton>--%>
                                 </div>
                                 <div>

@@ -12,7 +12,10 @@ namespace DealerManagementSystem
         private int NoOfAllowedLoginAttempt;
         protected void Page_PreInit(object sender, EventArgs e)
         {
-
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
             //if (Request.Cookies["deviceID"] == null)
             //{
             //    Response.Cookies["deviceID"].Value = "";
