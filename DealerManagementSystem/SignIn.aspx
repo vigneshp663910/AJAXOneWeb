@@ -379,22 +379,53 @@
     </script>
 </head>
 <body>
-    
-    <script type="text/javascript">
-        $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
-        $(window).on('load', function () {
-            setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
-        });
-        function removeLoader() {
-            $("#loadingDiv").fadeOut(500, function () {
-                // fadeOut complete. Remove the loading div
-                $("#loadingDiv").remove(); //makes page more lightweight 
-            });
+    <div class="loading" align="center">
+        Loading. Please wait.<br />
+        <br />
+        <img src="loader.gif" alt="" />
+    </div>
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            min-height: 100%;
+            width: 100%;
         }
-    </script>
-    <script>
-        $(window).load(function () {
-            $('#loading').hide();
+
+        .loading {
+            font-family: Arial;
+            font-size: 10pt;
+            border: 5px solid #67CFF5;
+            width: 300px;
+            height: 150px;
+            display: none;
+            position: fixed;
+            background-color: White;
+            z-index: 999;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ShowProgress() {
+            setTimeout(function () {
+                var modal = $('<div />');
+                modal.addClass("modal");
+                $('body').append(modal);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
+        }
+        $('form').live("submit", function () {
+            ShowProgress();
         });
     </script>
     <div>
