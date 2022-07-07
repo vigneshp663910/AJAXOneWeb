@@ -3,6 +3,11 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddEnquiry.ascx" TagPrefix="UC" TagName="UC_AddEnquiry" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
+
+<%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %> 
+<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
+
+
 <div class="col-md-12">
     <div class="col-md-12">
         <div class="action-btn">
@@ -248,6 +253,65 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_CustomerSelect" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+
+  <asp:Panel ID="pnlLead" runat="server" CssClass="Popup" Style="display: none">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">Add Lead</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <div style="display: none">
+                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCustomerNameS" runat="server" />
+                <asp:TextBox ID="txtContactPersonS" runat="server" />
+                <asp:TextBox ID="txtMobileS" runat="server" />
+            </div>
+            <div class="model-scroll">
+                <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
+                <fieldset class="fieldset-border">
+                    <div id="divCustomerViewID" style="display: none">
+                        <fieldset class="fieldset-border">
+                            <div class="col-md-12">
+
+                                <div class="col-md-2 text-right">
+                                    <label>Customer Name</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label id="lblCustomerName"></label>
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <label>Contact Person</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label id="lblContactPerson"></label>
+                                </div>
+
+                                <div class="col-md-2 text-right">
+                                    <label>Mobile</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label id="lblMobile"></label>
+                                </div>
+                            </div>
+                            <div id="divChangeCustomer">
+                                <label>Change Customer</label>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                    <div id="divCustomerCreateID">
+                        <UC:UC_CustomerCreate ID="UC_CustomerCreate" runat="server"></UC:UC_CustomerCreate>
+                    </div>
+                    <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>
+                </fieldset>
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="Button3" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSaveLead_Click" />
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_Lead" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLead" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+   
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
