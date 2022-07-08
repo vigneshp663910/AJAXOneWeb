@@ -25,7 +25,7 @@
                     <%--<asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>--%>
                 </div>
                 <div class="col-md-2 text-left">
-                    <label>Refernce Quotation Number</label>
+                    <label>Refernece Quotation Number</label>
                     <asp:TextBox ID="txtRefQuotationNo" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-left">

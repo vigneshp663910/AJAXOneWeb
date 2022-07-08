@@ -259,6 +259,7 @@
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\hsizegrip.png" />
     <Content Include="Images\Officer.png" />
+    <Content Include="Images\PageLoader.gif" />
     <Content Include="Images\pdf_dload.png" />
     <Content Include="Images\pin_end.jpg" />
     <Content Include="Images\pin_start.jpg" />

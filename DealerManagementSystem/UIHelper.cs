@@ -11,7 +11,7 @@ namespace DealerManagementSystem
         private const String redirectToPasswordChange = "/Account/ChangePassword.aspx";
         //private const String redirectOnSuccessfulLogin = "Home.aspx";
         //private const String redirectOnCreateUserCancel = "Home.aspx";
-        private const String sessionFailureRedirectionPage = "/Login.aspx";
+        private const String sessionFailureRedirectionPage = "/SignIn.aspx";
         //private const String redirectOnCreateSupplierASNCancel = "Home.aspx";
         private const String redirectOnUserManagementCancel = "/ViewAdmin/UserManagement.aspx";
         private const String redirectOnCreateUserSuccess = "/AuthorizeUser.aspx";

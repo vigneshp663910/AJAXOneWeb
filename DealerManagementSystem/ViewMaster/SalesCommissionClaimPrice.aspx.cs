@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewMaster
                 string Materail = null;
                 if (!string.IsNullOrEmpty(txtMaterial.Text))
                 {
-                    txtMaterial.Text.Trim();
+                    Materail = txtMaterial.Text.Trim();
                 }
 
                 SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(PlantID, Materail);
