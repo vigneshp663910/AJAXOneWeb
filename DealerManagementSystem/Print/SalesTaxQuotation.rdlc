@@ -2717,10 +2717,49 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
       <Width>7.80667in</Width>
       <Page>
         <PageHeader>
-          <Height>3.26954cm</Height>
+          <Height>3.72815cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
+            <Textbox Name="Textbox3">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value />
+                      <MarkupType>HTML</MarkupType>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Calibri</FontFamily>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>Blue</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>0.38806cm</Top>
+              <Left>0.40438cm</Left>
+              <Height>3.34009cm</Height>
+              <Width>10.19059cm</Width>
+              <Visibility>
+                <Hidden>=Globals!PageNumber=1</Hidden>
+              </Visibility>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
             <Image Name="Image4">
               <Source>Embedded</Source>
               <Value>AjaxNewLogo</Value>
@@ -2729,6 +2768,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Left>14.46107cm</Left>
               <Height>1.68521cm</Height>
               <Width>5.09833cm</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2875,51 +2915,11 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.3175cm</Top>
               <Left>0.40438cm</Left>
-              <Height>2.8462cm</Height>
-              <Width>10.19059cm</Width>
-              <ZIndex>1</ZIndex>
-              <Visibility>
-                <Hidden>=Globals!PageNumber&lt;&gt;1</Hidden>
-              </Visibility>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox3">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value />
-                      <MarkupType>HTML</MarkupType>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontFamily>Calibri</FontFamily>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>Blue</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.38806cm</Top>
-              <Left>0.40438cm</Left>
-              <Height>2.8462cm</Height>
+              <Height>3.26954cm</Height>
               <Width>10.19059cm</Width>
               <ZIndex>2</ZIndex>
               <Visibility>
-                <Hidden>=Globals!PageNumber=1</Hidden>
+                <Hidden>=Globals!PageNumber&lt;&gt;1</Hidden>
               </Visibility>
               <Style>
                 <Border>
