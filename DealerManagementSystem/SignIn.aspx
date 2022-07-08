@@ -37,6 +37,8 @@
                 background: #fff;
                 padding: 0 4px;
                 color: #313131;
+                width:100%;
+                height:100%;
                 font-size: 14px;
                 margin-bottom: 5px;
                 border: none;
@@ -337,9 +339,9 @@
             if (sec < 0) { sec = "59" };
             return sec;
         }--%>
-        
 
-        
+
+
     </script>
 
     <script>
@@ -359,8 +361,8 @@
             status.textContent = '';
             //  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
             //  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-            alert(latitude);
-            alert(longitude);
+            //alert(latitude);
+            //alert(longitude);
         }
         function error() {
             status.textContent = 'Unable to retrieve your location';
@@ -379,9 +381,59 @@
     </script>
 </head>
 <body>
+    <div class="loading" align="center" aria-disabled="true">
+        Loading. Please wait.<br />
+        <br />
+        <img src="Images/PageLoader.gif" alt="" style="margin:15%;background-color:white"/>
+    </div>
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .loading {
+            font-family: Arial;
+            font-size: 10pt;
+            border: 5px solid #67CFF5;
+            display: none;
+            position: fixed;
+            background-color: black;
+            z-index: 999;
+            width:100%;
+            height:100%;
+            opacity:80%;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ShowProgress() {
+            setTimeout(function () {
+                var modal = $('<div />');
+                modal.addClass("modal");
+                $('body').append(modal);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
+        }
+        $('form').live("submit", function () {
+            ShowProgress();
+        });
+    </script>
     <div>
         <form id="form1" runat="server">
-             <asp:HiddenField ID="hfLatitude" runat="server" />
+            <asp:HiddenField ID="hfLatitude" runat="server" />
             <asp:HiddenField ID="hfLongitude" runat="server" />
             <div class="row">
                 <div id="LoginLeft" class="left split">
@@ -474,8 +526,8 @@
                                     <label><b>OTP</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false"/><div id="some_div"></div>
-                                    
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false" /><div id="some_div"></div>
+
                                     <%--<asp:LinkButton ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" Text="Send OTP">LinkButton</asp:LinkButton>--%>
                                 </div>
                                 <div>

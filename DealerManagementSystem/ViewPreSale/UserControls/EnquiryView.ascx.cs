@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -98,8 +99,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 MPE_CustomerSelect.Show(); 
                 string CustomerName = Enquiry.CustomerName;
-                string Mobile = Enquiry.Mobile; 
-                gvCustomer.DataSource = new BDMS_Customer().GetCustomer(null, null, CustomerName, Mobile, null, null, null);
+                string Mobile = Enquiry.Mobile;
+                gvCustomer.DataSource = new BDMS_Customer().GetCustomerAutocomplete(CustomerName, 0);
                 gvCustomer.DataBind();
             }
             if (lbActions.Text == "Reject")
@@ -125,17 +126,107 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnSelectCustomer_Click(object sender, EventArgs e)
         {
-
+            MPE_Lead.Show();
+            UC_AddLead.FillMaster();
+            UC_CustomerCreate.FillMaster();
+            DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
+            ddlSource.SelectedValue = Convert.ToString(Enquiry.EnquiryID);
         }
 
         protected void btnNewCustomer_Click(object sender, EventArgs e)
         {
+            MPE_Lead.Show();
+            UC_AddLead.FillMaster();
+            UC_CustomerCreate.FillMaster();
 
+            DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
+            DropDownList ddlCountry = (DropDownList)UC_CustomerCreate.FindControl("ddlCountry");
+            DropDownList ddlState = (DropDownList)UC_CustomerCreate.FindControl("ddlState");
+            
+            DropDownList ddlDistrict = (DropDownList)UC_CustomerCreate.FindControl("ddlDistrict");
+            
+            
+
+            TextBox txtCustomerName = (TextBox)UC_CustomerCreate.FindControl("txtCustomerName");
+            //  TextBox txtCustomerName2 = (TextBox)UC_Customer.FindControl("txtCustomerName2");
+            TextBox txtContactPerson = (TextBox)UC_CustomerCreate.FindControl("txtContactPerson");
+            TextBox txtMobile = (TextBox)UC_CustomerCreate.FindControl("txtMobile");
+            TextBox txtEmail = (TextBox)UC_CustomerCreate.FindControl("txtEmail");
+            TextBox txtAddress1 = (TextBox)UC_CustomerCreate.FindControl("txtAddress1");
+            // TextBox txtAddress2 = (TextBox)UC_Customer.FindControl("txtAddress2");
+            // TextBox txtAddress3 = (TextBox)UC_Customer.FindControl("txtAddress3");
+
+            ddlSource.SelectedValue = Convert.ToString(Enquiry.EnquiryID);
+            ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID); 
+            new DDLBind(ddlDistrict, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            ddlState.SelectedValue = Convert.ToString(Enquiry.State.StateID);
+
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+            ddlDistrict.SelectedValue = Convert.ToString(Enquiry.District.DistrictID);
+
+            txtContactPerson.Text = Enquiry.PersonName;
+            txtMobile.Text = Enquiry.Mobile;
+            txtEmail.Text = Enquiry.Mail;
+
+            txtCustomerName.Text = Enquiry.CustomerName;
+            txtAddress1.Text = Enquiry.Address;
         }
 
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
 
+        }
+        protected void btnSaveLead_Click(object sender, EventArgs e)
+        {
+            MPE_Lead.Show();
+            PLead_Insert Lead = new PLead_Insert();
+            lblMessageLead.ForeColor = Color.Red;
+            lblMessageLead.Visible = true;
+            string Message = UC_AddLead.Validation();
+
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLead.Text = Message;
+                return;
+            }
+            Lead = UC_AddLead.Read(); 
+            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+            {
+                Lead.Customer = new PDMS_Customer();
+                Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+            }
+            else
+            {
+                Message = UC_CustomerCreate.ValidationCustomer();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessageLead.Text = Message;
+                    return;
+                }
+                Lead.Customer = UC_CustomerCreate.ReadCustomer();
+            } 
+
+            string result = new BAPI().ApiPut("Lead", Lead);
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(result);
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageLead.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+
+            PLeadSearch S = new PLeadSearch();
+            S.LeadID = Convert.ToInt64(result);
+
+            // gvLead.DataSource = new BLead().GetLead(S);
+            // gvLead.DataBind();
+            UC_CustomerCreate.FillClean(); 
+        }
+        void ShowMessage(PApiResult Results)
+        {
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

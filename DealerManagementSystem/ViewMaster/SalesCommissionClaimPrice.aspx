@@ -84,7 +84,7 @@
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "Materail.MaterialCode")%>' runat="server"></asp:Label>
-                                                            <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Materail.MaterialID")%>' runat="server" Enabled="false"></asp:Label>
+                                                            <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Materail.MaterialID")%>' runat="server" Enabled="false" Visible="false"></asp:Label>
                                                         </ItemTemplate>
                                                         <FooterTemplate>
                                                              <%--<ItemStyle VerticalAlign="center" HorizontalAlign="center" />--%>

@@ -358,7 +358,7 @@ namespace DealerManagementSystem
             }
             catch(Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
             }
@@ -439,14 +439,21 @@ namespace DealerManagementSystem
                     }
                     else
                     {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                        lblMessage.Text = "Your Password is not changed successfully, please try again...!";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
                     }
                 }
             }
             catch (Exception e1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
-
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
+                lblMessage.Text = e1.Message.ToString();
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
             }
         }
 
@@ -481,44 +488,61 @@ namespace DealerManagementSystem
                     }
                     else
                     {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('Your Password is not changed successfully, please try again');window.open('SignIn.aspx','_parent');", true);
+                        lblMessage.Text = "Your Password is not changed successfully, please try again..!";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
                     }
                 }
             }
             catch (Exception e1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
-
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "message", "alert('" + e1.Message + "');", true);
+                lblMessage.Text = e1.Message.ToString();
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
             }
         }
 
         protected void BtnSendOTP_Click(object sender, EventArgs e)
         {
-            PUser userDetails = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
-            if (!string.IsNullOrEmpty(userDetails.UserName))
+            try
             {
-                string Password = RandomNumber(000000, 999999).ToString("000000");
-                new BUser().UpdateResetPassword(userDetails.UserName.Trim(), LMSHelper.EncodeString(Password));
-                string messageBody = MailFormate.ForgotPassword;
-                messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
-                messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
-                messageBody = messageBody.Replace("@@Password", Password);
-                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString() + "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
-                new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+                PUser userDetails = new BUser().GetUserDetails(Convert.ToInt32(Request.QueryString["UserID"].ToString()));
+                if (!string.IsNullOrEmpty(userDetails.UserName))
+                {
+                    string Password = RandomNumber(000000, 999999).ToString("000000");
+                    new BUser().UpdateResetPassword(userDetails.UserName.Trim(), LMSHelper.EncodeString(Password));
+                    string messageBody = MailFormate.ForgotPassword;
+                    messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+                    messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+                    messageBody = messageBody.Replace("@@Password", Password);
+                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString() + "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
+                    new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
 
-                //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
-                messageBody = "Dear User, Your OTP for login is " + Password + ". From AJAX ENGG";
-                new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);                
+                    //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
+                    messageBody = "Dear User, Your OTP for login is " + Password + ". From AJAX ENGG";
+                    new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
+                }
+                else
+                {
+                    lblMessage.Text = "Invalid UserName...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true);
+                //ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:OTP(); ", true);
             }
-            else
+            catch(Exception ex)
             {
-                lblMessage.Text = "Invalid UserName...!";
+                lblMessage.Text = ex.Message.ToString(); ;
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "OTP", "OTP()", true);
-            //ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:OTP(); ", true);
         }
     }
 }

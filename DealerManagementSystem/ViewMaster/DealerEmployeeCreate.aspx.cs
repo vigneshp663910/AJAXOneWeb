@@ -978,11 +978,12 @@ namespace DealerManagementSystem.ViewMaster
         {
             if (new BDMS_Dealer().GetDealerEmployeeManage(null, AadhaarCardNo, null, null, "", null, null).Count() != 0)
             {
-                lblMessage.Text = "This Aadhaar Card Already Available";
+                lblMessage.Text = "This Aadhaar Card ( "+ AadhaarCardNo + " ) Already Available";
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
-                txtAadhaarCardNo.Enabled = false;
-                btnSave.Visible = false;
+                //txtAadhaarCardNo.Enabled = false;
+                //btnSave.Visible = false;
+                txtAadhaarCardNo.Text = "";
             }
         } 
     }

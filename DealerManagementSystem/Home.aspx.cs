@@ -21,41 +21,48 @@ namespace DealerManagementSystem
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Welcome');</script>");
-
-            if (!IsPostBack)
+            try
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "ContactName", "DID", true,"All Dealer");
-                new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID",true, "All Country"); 
-                new DDLBind(ddlZone, new BDMS_Address().GetRegion(null, null,null), "Region", "RegionID", true, "All Zone");
-                //new DDLBind(ddlEngineer, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Engineer");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Welcome');</script>");
 
-                //new DDLBind(ddlDivision, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Product");
-                //new DDLBind(ddlModel, new BDMS_Service().Get(null, null), "Title", "TitleID", true, "All Model");
-                new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID", true, "All Application");
-
-                FillDivision();
-                FillModel();
-                FillFiscalYear();
-
-                txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString() + "/" + (DateTime.Now.Year - 1).ToString();
-                txtDateTo.Text = DateTime.Now.ToShortDateString();
-                if (!string.IsNullOrEmpty(Request.QueryString["Session_End"]))
+                if (!IsPostBack)
                 {
-                    lblMessage.Text = Convert.ToString(Request.QueryString["Session_End"]);
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                } 
-                List<PDMS_Dashboard> Dashboards = new BDMS_Dashboard().GetDashboardByUserID(PSession.User.UserID);
-                if (Dashboards.Count == 0)
-                {
-                    pnlFilter.Visible = false;
+                    new DDLBind(ddlDealer, PSession.User.Dealer, "ContactName", "DID", true, "All Dealer");
+                    new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "All Country");
+                    new DDLBind(ddlZone, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID", true, "All Zone");
+                    //new DDLBind(ddlEngineer, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Engineer");
+
+                    //new DDLBind(ddlDivision, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Product");
+                    //new DDLBind(ddlModel, new BDMS_Service().Get(null, null), "Title", "TitleID", true, "All Model");
+                    new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID", true, "All Application");
+
+                    FillDivision();
+                    FillModel();
+                    FillFiscalYear();
+
+                    txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString() + "/" + (DateTime.Now.Year - 1).ToString();
+                    txtDateTo.Text = DateTime.Now.ToShortDateString();
+                    if (!string.IsNullOrEmpty(Request.QueryString["Session_End"]))
+                    {
+                        lblMessage.Text = Convert.ToString(Request.QueryString["Session_End"]);
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    List<PDMS_Dashboard> Dashboards = new BDMS_Dashboard().GetDashboardByUserID(PSession.User.UserID);
+                    if (Dashboards.Count == 0)
+                    {
+                        pnlFilter.Visible = false;
+                    }
+
                 }
-                
+                DisplayDashboard();
             }
-            DisplayDashboard();
-
+            catch(Exception ex)
+            {
+                lblMessage.Text = "DisplayDashboard :" + ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
         }
         void FillDivision()
         {

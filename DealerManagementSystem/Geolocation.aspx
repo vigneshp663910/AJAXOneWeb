@@ -21,8 +21,8 @@
                 status.textContent = '';
               //  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
               //  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-                alert(latitude);
-                alert(longitude);
+                //alert(latitude);
+                //alert(longitude);
             }
 
             function error() {
