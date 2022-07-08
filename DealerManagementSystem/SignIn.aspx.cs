@@ -358,7 +358,7 @@ namespace DealerManagementSystem
             }
             catch(Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
             }
