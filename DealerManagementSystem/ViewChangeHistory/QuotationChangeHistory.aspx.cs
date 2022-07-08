@@ -37,7 +37,7 @@ namespace DealerManagementSystem.ViewChangeHistory
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Report » Lead Change History');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Report » Quotation Change History');</script>");
             if (!IsPostBack)
             {
                 QuotationCH = new BChangeHistory().GetChangeHistoryQuotationFields(null, null);
@@ -52,7 +52,7 @@ namespace DealerManagementSystem.ViewChangeHistory
             DateTime? DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTime? DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
             int? QuotationField = ddlQuotationField.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQuotationField.SelectedValue);
-            QuotationCH = new BChangeHistory().GetQuotationChangeHistory(Convert.ToInt64(txtRefQuotationNo.Text.Trim()), QuotationField, DateFrom, DateTo);
+            QuotationCH = new BChangeHistory().GetQuotationChangeHistory((string.IsNullOrEmpty(txtRefQuotationNo.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtRefQuotationNo.Text.Trim())), QuotationField, DateFrom, DateTo);
             gvQuotationChgHst.DataSource = QuotationCH;
             gvQuotationChgHst.DataBind();
             lblRowCountQuotationChgHst.Text = (((gvQuotationChgHst.PageIndex) * gvQuotationChgHst.PageSize) + 1) + " - " + (((gvQuotationChgHst.PageIndex) * gvQuotationChgHst.PageSize) + gvQuotationChgHst.Rows.Count) + " of " + QuotationCH.Rows.Count;
