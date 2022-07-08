@@ -91,21 +91,21 @@ namespace DealerManagementSystem.ViewMaster
                 Session["PSalesOffice"] = value;
             }
         }
-        public List<PDMS_Dealer> LDealer
-        {
-            get
-            {
-                if (Session["PDMS_Dealer"] == null)
-                {
-                    Session["PDMS_Dealer"] = new List<PDMS_Dealer>();
-                }
-                return (List<PDMS_Dealer>)Session["PDMS_Dealer"];
-            }
-            set
-            {
-                Session["PDMS_Dealer"] = value;
-            }
-        }
+        //public List<PDMS_Dealer> LDealer
+        //{
+        //    get
+        //    {
+        //        if (Session["PDMS_Dealer"] == null)
+        //        {
+        //            Session["PDMS_Dealer"] = new List<PDMS_Dealer>();
+        //        }
+        //        return (List<PDMS_Dealer>)Session["PDMS_Dealer"];
+        //    }
+        //    set
+        //    {
+        //        Session["PDMS_Dealer"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Location');</script>");
@@ -122,12 +122,13 @@ namespace DealerManagementSystem.ViewMaster
                     LState = new BDMS_Address().GetState(null, null, null, null);
                     LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
                     LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
-                    LDealer = new BDMS_Dealer().GetDealer(null, null, null);
+                   // LDealer = new BDMS_Dealer().GetDealer(null, null, null);
                     FillCountry();
                     FillRegion();
                     FillState();
                     //FillDistrict();
                     FillDealer();
+                    FillDealerDLL(ddlDDealer);
                 }
                 catch (Exception Ex)
                 {
@@ -245,14 +246,14 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        private void FillDealerDLL(DropDownList ddl, int? DealerID, string DealerCode)
+        private void FillDealerDLL(DropDownList ddl)
         {
             try
             {
-                LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode, null);
-                ddl.DataValueField = "DealerID";
-                ddl.DataTextField = "DealerCode";
-                ddl.DataSource = LDealer;
+               // LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode, null);
+                ddl.DataValueField = "DID";
+                ddl.DataTextField = "CodeWithName";
+                ddl.DataSource = PSession.User.Dealer;
                 ddl.DataBind();
                 ddl.Items.Insert(0, new ListItem("Select", "0"));
             }
@@ -445,6 +446,24 @@ namespace DealerManagementSystem.ViewMaster
             gv.DataSource = LDistrict;
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LDistrict.Count;
+
+
+            DropDownList ddlGDCountry = gvDistrict.FooterRow.FindControl("ddlGDCountry") as DropDownList;
+            new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+
+            DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
+            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+
+            DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
+            new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
+
+            DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
+            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
+
+            DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
+            //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
+            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
         }
 
         private void FillGridDistrict()
@@ -513,7 +532,7 @@ namespace DealerManagementSystem.ViewMaster
                 DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
                 //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
-                new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
+                new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
             }
             catch (Exception Ex)
             {
@@ -865,6 +884,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 LinkButton lnkBtnRegionEdit = (LinkButton)sender;
                 DropDownList ddlGRCountry = (DropDownList)gvRegion.FooterRow.FindControl("ddlGRCountry");
+                ddlGRCountry.Enabled = false;
                 TextBox txtGRRegion = (TextBox)gvRegion.FooterRow.FindControl("txtGRRegion");
                 Button BtnAddOrUpdateRegion = (Button)gvRegion.FooterRow.FindControl("BtnAddOrUpdateRegion");
                 GridViewRow row = (GridViewRow)(lnkBtnRegionEdit.NamingContainer);
@@ -1063,7 +1083,7 @@ namespace DealerManagementSystem.ViewMaster
                     return;
                 }
                 string StateCode = ((TextBox)gvState.FooterRow.FindControl("txtGSStateCode")).Text.Trim();
-                if (string.IsNullOrEmpty(State))
+                if (string.IsNullOrEmpty(StateCode))
                 {
                     lblMessage.Text = "Please enter State Code.";
                     lblMessage.ForeColor = Color.Red;
@@ -1162,7 +1182,9 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 LinkButton lnkBtnStateEdit = (LinkButton)sender;
                 DropDownList ddlGSCountry = (DropDownList)gvState.FooterRow.FindControl("ddlGSCountry");
+                ddlGSCountry.Enabled = false;
                 DropDownList ddlGSRegion = (DropDownList)gvState.FooterRow.FindControl("ddlGSRegion");
+                ddlGSRegion.Enabled = false;
                 TextBox txtGSState = (TextBox)gvState.FooterRow.FindControl("txtGSState");
                 TextBox txtGSStateCode = (TextBox)gvState.FooterRow.FindControl("txtGSStateCode");
                 Button BtnAddOrUpdateState = (Button)gvState.FooterRow.FindControl("BtnAddOrUpdateState");
@@ -1240,7 +1262,9 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 LinkButton lnkBtnDistrictEdit = (LinkButton)sender;
                 DropDownList ddlGDCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDCountry");
+                ddlGDCountry.Enabled = false;
                 DropDownList ddlGDState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDState");
+                ddlGDState.Enabled = false;
                 DropDownList ddlGDSalesOffice = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDSalesOffice");
                 DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");
                 DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer");
@@ -1515,8 +1539,7 @@ namespace DealerManagementSystem.ViewMaster
         }
 
         protected void ddlDState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillDealerDLL(ddlDDealer, null, null);
+        { 
         }
 
        
@@ -1537,7 +1560,7 @@ namespace DealerManagementSystem.ViewMaster
             DropDownList ddlGDDealer = (DropDownList)row.FindControl("ddlGDDealer");
             FillStateDLL(ddlGDState, Convert.ToInt32(ddlGDCountry.SelectedValue), null, null, null);
             FillSalesOfficeDLL(ddlGDSalesOffice, null, null);
-            FillDealerDLL(ddlGDDealer, null, null);
+            FillDealerDLL(ddlGDDealer);
         }
 
         protected void ddlGCityCountry_SelectedIndexChanged(object sender, EventArgs e)

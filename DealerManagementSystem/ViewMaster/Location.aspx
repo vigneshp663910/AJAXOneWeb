@@ -423,6 +423,10 @@
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 col-sm-12">
+                                        <label>Dealer Code</label><%--<span class="Mandatory">*</span>--%>
+                                        <asp:DropDownList ID="ddlDDealer" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
                                         <label>Country</label><%--<span class="Mandatory">*</span>--%>
                                         <asp:DropDownList ID="ddlDCountry" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDCountry_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
@@ -430,10 +434,7 @@
                                         <label>State</label><%--<span class="Mandatory">*</span>--%>
                                         <asp:DropDownList ID="ddlDState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDState_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
-                                    <div class="col-md-2 col-sm-12">
-                                        <label>Dealer Code</label><%--<span class="Mandatory">*</span>--%>
-                                        <asp:DropDownList ID="ddlDDealer" runat="server" CssClass="form-control"></asp:DropDownList>
-                                    </div>
+
                                     <div class="col-md-2 col-sm-12">
                                         <label>District</label><%--<span class="Mandatory">*</span>--%>
                                         <asp:TextBox ID="txtDistrict" runat="server" placeholder="District" CssClass="form-control" />
@@ -539,7 +540,7 @@
                                                         <asp:Label ID="lblGDDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <FooterTemplate>
-                                                        <asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control" MaxLength="40"></asp:TextBox>
+                                                        <asp:TextBox ID="txtGDDistrict" runat="server" CssClass="form-control"  placeholder="District"  MaxLength="40"></asp:TextBox>
                                                     </FooterTemplate>
                                                 </asp:TemplateField>
                                                 <%--<asp:TemplateField ItemStyle-Width="20px" ItemStyle-HorizontalAlign="Center">
@@ -575,7 +576,7 @@
                     </div>
                 </ContentTemplate>
             </asp1:TabPanel>
-           <%-- <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="Tehsil">
+            <%-- <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="Tehsil">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <fieldset class="fieldset-border">

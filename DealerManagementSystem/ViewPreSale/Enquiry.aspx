@@ -16,6 +16,10 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
+                       <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer</label>
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"   />
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Enquiry Number</label>
                         <asp:TextBox ID="txtSEnquiryNumber" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
@@ -140,9 +144,9 @@
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">
-                    <asp:Button ID="Button2" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
                 </div>
-            </div>
+            </div> 
             <UC:UC_EnquiryView ID="UC_EnquiryView" runat="server"></UC:UC_EnquiryView>
         </div>
     </div>

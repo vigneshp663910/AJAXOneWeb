@@ -114,13 +114,13 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// lblUserID control.
+        /// lblDepartment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUserID;
+        protected global::System.Web.UI.WebControls.Label lblDepartment;
 
         /// <summary>
         /// Label3 control.
@@ -132,13 +132,13 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
-        /// lblUserName control.
+        /// lblDesignation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUserName;
+        protected global::System.Web.UI.WebControls.Label lblDesignation;
 
         /// <summary>
         /// gvModule control.

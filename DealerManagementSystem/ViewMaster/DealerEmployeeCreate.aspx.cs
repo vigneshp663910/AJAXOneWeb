@@ -634,10 +634,15 @@ namespace DealerManagementSystem.ViewMaster
 
             Boolean Ret = true;
             string Message = "";
-
+            if (AadhaarCardNo.Count() != 12)
+            {
+                Message = "Please check the Aadhaar Card No";
+                Ret = false;
+                txtAadhaarCardNo.BorderColor = Color.Red;
+            }
             if (string.IsNullOrEmpty(txtName.Text.Trim()))
             {
-                Message = "Please enter the Name";
+                Message = Message + "<br/>Please enter the Name";
                 Ret = false;
                 txtName.BorderColor = Color.Red;
             }
@@ -706,12 +711,7 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 txtLocation.BorderColor = Color.Red;
             }
-            if (AadhaarCardNo.Count() != 12)
-            {
-                Message = Message + "<br/>Please check the Aadhaar Card No";
-                Ret = false;
-                txtAadhaarCardNo.BorderColor = Color.Red;
-            }
+            
 
             if (string.IsNullOrEmpty(txtPANNo.Text.Trim()))
             {
@@ -771,25 +771,25 @@ namespace DealerManagementSystem.ViewMaster
             }
             if (AdhaarCardCopyFrontSideFile.AttachedFile == null)
             {
-                Message = Message + "<br/> Please attaché the Adhaar Card Copy Front Side";
+                Message = Message + "<br/> Please attach the Adhaar Card Copy Front Side";
                 Ret = false;
                 fuAdhaarCardCopyFrontSide.BorderColor = Color.Red;
             }
             if (AdhaarCardCopyBackSideFile.AttachedFile == null)
             {
-                Message = Message + "<br/> Please attaché the Adhaar Card Copy Back Side";
+                Message = Message + "<br/> Please attach the Adhaar Card Copy Back Side";
                 Ret = false;
                 fuAdhaarCardCopyBackSide.BorderColor = Color.Red;
             }
             if (PANCardCopyFile.AttachedFile == null)
             {
-                Message = Message + "<br/> Please attaché the PAN Card Copy";
+                Message = Message + "<br/> Please attach the PAN Card Copy";
                 Ret = false;
                 fuPANCardCopy.BorderColor = Color.Red;
             }
             if (ChequeCopyFile.AttachedFile == null)
             {
-                Message = Message + "<br/> Please attaché the Cheque Copy";
+                Message = Message + "<br/> Please attach the Cheque Copy";
                 Ret = false;
                 fuChequeCopy.BorderColor = Color.Red;
             }

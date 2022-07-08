@@ -44,6 +44,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
+        <div class="col-md-12" id="pnlManage" runat="server">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -75,7 +76,7 @@
             </fieldset>
         </div>
 
-        <div class="col-md-12" id="pnlManage" runat="server">
+        
             <div class="col-md-12 Report">
                 <div class="col-md-12">
                     <label>Dealer Employee Manage</label><asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>

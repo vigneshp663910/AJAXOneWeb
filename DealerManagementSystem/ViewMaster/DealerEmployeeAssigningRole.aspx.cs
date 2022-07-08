@@ -382,6 +382,7 @@ namespace DealerManagementSystem.ViewMaster
             //    Ret = false;
             //    txtLoginUserName.BorderColor = Color.Red;
             //}
+            DateTime DateOfJoining = DateTime.Now;
             if (ddlDealerOffice.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the Dealer Office";
@@ -393,6 +394,20 @@ namespace DealerManagementSystem.ViewMaster
                 Message = Message + "<br/>Please enter the Date of Joining";
                 Ret = false;
                 txtDateOfJoining.BorderColor = Color.Red;
+            }
+            else
+            {
+                  DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
+
+                if (caDateOfJoining.StartDate <= DateOfJoining && DateOfJoining <= caDateOfJoining.EndDate)
+                {
+                }
+                else
+                {
+                    Message = Message + "<br/>Please Check the Date Of Joining";
+                    Ret = false;
+                    txtDateOfJoining.BorderColor = Color.Red;
+                }
             }
             if (string.IsNullOrEmpty(txtSAPEmpCode.Text.Trim()))
             {
@@ -434,17 +449,7 @@ namespace DealerManagementSystem.ViewMaster
                 txtSAPEmpCode.BorderColor = Color.Red;
             }
 
-            DateTime DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
-
-            if (caDateOfJoining.StartDate <= DateOfJoining && DateOfJoining <= caDateOfJoining.EndDate)
-            {
-            }
-            else
-            {
-                Message = Message + "<br/>Please Check the Date Of Joining";
-                Ret = false;
-                txtDateOfJoining.BorderColor = Color.Red;
-            }
+            
 
 
 
