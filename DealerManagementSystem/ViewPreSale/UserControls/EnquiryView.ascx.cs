@@ -13,6 +13,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class EnquiryView : System.Web.UI.UserControl
     {
+        public PDMS_Customer Customer
+        {
+            get
+            {
+                if (Session["CustomerEnquiry"] == null)
+                {
+                    Session["CustomerEnquiry"] = new PDMS_Customer();
+                }
+                return (PDMS_Customer)Session["CustomerEnquiry"];
+            }
+            set
+            {
+                Session["CustomerEnquiry"] = value;
+            }
+        }
         public PEnquiry Enquiry
         {
             get
@@ -35,7 +50,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void fillViewEnquiry(long? EnquiryID)
         {
-            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt32(EnquiryID), null, null, null, null, null, null, null)[0];
+            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt32(EnquiryID),null, null, null, null, null, null, null, null)[0];
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
             lblPersonName.Text = Enquiry.PersonName;
@@ -97,10 +112,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             if (lbActions.Text == "ConvertToLead")
             {
-                MPE_CustomerSelect.Show(); 
-                string CustomerName = Enquiry.CustomerName;
-                string Mobile = Enquiry.Mobile;
-                gvCustomer.DataSource = new BDMS_Customer().GetCustomerAutocomplete(CustomerName, 0);
+                MPE_CustomerSelect.Show();  
+                gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile);
                 gvCustomer.DataBind();
             }
             if (lbActions.Text == "Reject")
@@ -126,9 +139,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnSelectCustomer_Click(object sender, EventArgs e)
         {
-            MPE_Lead.Show();
+            MPE_Lead.Show();           
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
+            Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt64(lblCustomerID.Text));
+            pnlCustomerOld.Enabled = false;
             UC_AddLead.FillMaster();
             UC_CustomerCreate.FillMaster();
+            UC_CustomerCreate.FillCustomer(Customer);
+            txtCustomerID.Text = Convert.ToString(Customer.CustomerID);
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
             ddlSource.SelectedValue = Convert.ToString(Enquiry.EnquiryID);
         }
@@ -174,6 +193,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            gvCustomer.PageIndex = e.NewPageIndex;
+            MPE_CustomerSelect.Show();
+            gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile);
+            gvCustomer.DataBind();
 
         }
         protected void btnSaveLead_Click(object sender, EventArgs e)

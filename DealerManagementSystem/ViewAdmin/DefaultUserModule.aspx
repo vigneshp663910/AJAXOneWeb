@@ -90,22 +90,22 @@
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="Label1" runat="server" Text="User ID" CssClass="label"></asp:Label></td>
+                    <asp:Label ID="Label1" runat="server" Text="Department" CssClass="label"></asp:Label></td>
                 <td>
-                    <asp:Label ID="lblUserID" runat="server" CssClass="label"></asp:Label></td>
+                    <asp:Label ID="lblDepartment" runat="server" CssClass="label"></asp:Label></td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="Label3" runat="server" Text="User Name" CssClass="label"></asp:Label></td>
+                    <asp:Label ID="Label3" runat="server" Text="Designation" CssClass="label"></asp:Label></td>
                 <td>
-                    <asp:Label ID="lblUserName" runat="server" CssClass="label"></asp:Label></td>
+                    <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label></td>
             </tr>
             <tr>
                 <td colspan="5">
                     <div>
                         <br />
                         <br />
-                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Module  Authentication</span>
+                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Module Authentication</span>
                         <div style="height: 5px; background-color: #0072c6;"></div>
                     </div>
                 </td>
@@ -168,17 +168,17 @@
             </asp:GridView>
         </div>
 
-        <table>
+       <%-- <table>
             <tr>
                 <td>
                     <div>
                         <br />
-                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Module  Authentication</span>
+                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Module Authentication</span>
                         <div style="height: 5px; background-color: #0072c6;"></div>
                     </div>
                 </td>
             </tr>
-        </table>
+        </table>--%>
 
         <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
             <asp:GridView ID="gvSubModuleChild" runat="server" AutoGenerateColumns="false"
@@ -224,7 +224,7 @@
                 <td colspan="5">
                     <div>
                         <br />
-                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Dashboard  Authentication</span>
+                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Dashboard Authentication</span>
                         <div style="height: 5px; background-color: #0072c6;"></div>
                     </div>
                 </td>

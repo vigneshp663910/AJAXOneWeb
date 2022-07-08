@@ -122,7 +122,7 @@
                     <%--<div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">--%>
                     <div id="UCdivAuto" class="custom-auto-complete">
                         <div id="UCdiv0" class="auto-item" style="display: none">
-                            Click Here to now Customer
+                            Click Here to new Customer
                         </div>
                         <div id="UCdiv1" class="auto-item" style="display: none">
                         </div>

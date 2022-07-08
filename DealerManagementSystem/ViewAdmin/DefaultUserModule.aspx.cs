@@ -175,9 +175,9 @@ namespace DealerManagementSystem.ViewAdmin
                     }
                 }
             }
-            //PUser u = new BUser().GetUserDetails(UserID);
-            //lblUserID.Text = u.UserName.ToString();
-            //lblUserName.Text = u.ContactName;
+            PDMS_DealerDesignation DDesignation = new BDMS_Dealer().GetDealerDesignation(null,DealerDesignationID,null)[0];
+            lblDepartment.Text = DDesignation.Department.DealerDepartment;
+             lblDesignation.Text = DDesignation.DealerDesignation;
 
 
 

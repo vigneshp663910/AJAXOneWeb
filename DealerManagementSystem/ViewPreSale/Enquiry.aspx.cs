@@ -41,6 +41,7 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 if (!IsPostBack)
                 {
+                    new DDLBind(ddlDealer,PSession.User.Dealer, "DID", "CodeWithName");
                     ClearField();
                     //FillGrid(null);
                 }
@@ -53,27 +54,18 @@ namespace DealerManagementSystem.ViewPreSale
         }
         private void FillGrid()
         {
-            int? CountryID = null, StateID = null, DistrictID = null;
-            string CustomerName = null;
-            if (!string.IsNullOrEmpty(txtSCustomerName.Text))
-            {
-                CustomerName = txtSCustomerName.Text.Trim();
-            }
-            if (ddlSCountry.SelectedValue != "0")
-            {
-                CountryID = Convert.ToInt32(ddlSCountry.SelectedValue);
-            }
-            if (ddlSState.SelectedValue != "0")
-            {
-                StateID = Convert.ToInt32(ddlSState.SelectedValue);
-            }
-            if (ddlSDistrict.SelectedValue != "0")
-            {
-                DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
-            }
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            string CustomerName = txtSCustomerName.Text.Trim(); 
+            
+            int? CountryID = ddlSCountry.SelectedValue == "0"? (int?)null: Convert.ToInt32(ddlSCountry.SelectedValue);
+            int? StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
+            int? DistrictID = ddlSDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSDistrict.SelectedValue); 
             DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
+
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
-            PEnquiry = new BEnquiry().GetEnquiry(null, (txtSEnquiryNumber.Text.Trim() == "") ? null : txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT);
+
+            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT);
+            
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();
 
