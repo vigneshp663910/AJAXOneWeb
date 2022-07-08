@@ -1159,7 +1159,7 @@
         prm.add_endRequest(function (sender, e) {
             $("#MainContent_UC_QuotationView_txtMaterial").autocomplete({
                 source: function (request, response) {
-                    debugger;
+                    
                     var param = { input: $('#MainContent_UC_QuotationView_txtMaterial').val() };
                     $.ajax({
                         url: "Quotation.aspx/SearchSMaterial",
@@ -1193,7 +1193,7 @@
         $("#MainContent_UC_QuotationView_txtMaterial").autocomplete({
 
             source: function (request, response) {
-                debugger;
+                
                 var param = { input: $('#MainContent_UC_QuotationView_txtMaterial').val() };
                 $.ajax({
                     url: "Quotation.aspx/SearchSMaterial",

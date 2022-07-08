@@ -242,13 +242,13 @@
             });
         });
         function AutoCustomer(lblCustomerID, lblCustomerName) {
-            debugger
+            
             var txtCustomer = document.getElementById('MainContent_txtCustomer');
             txtCustomer.value = lblCustomerName.innerText;
             document.getElementById('divAuto').style.display = "none";
         }
         function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-            debugger
+            
             var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
             txtCustomerID.value = CustomerID.innerText;
 

@@ -51,7 +51,7 @@
         $(function () { 
             $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
-                    debugger;
+                    
                     var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
                    
                     txtCustomerID.value = "";
@@ -66,7 +66,7 @@
                         dataType: 'JSON',
                         success: function (data) {
                             alert("2");
-                            debugger;
+                            
                             alert(JSON.stringify(param));
                             var UCdivAuto = document.getElementById('FleDivAuto');
                             UCdivAuto.style.display = "block";
@@ -95,7 +95,7 @@
             $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
                 source: function (request, response) {
                     var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
-                    debugger;
+                    
                     $.ajax({
                         type: 'POST',
                         contentType: "application/json; charset=utf-8", 
@@ -103,7 +103,7 @@
                         data: JSON.stringify(param),
                         dataType: 'JSON',
                         success: function (data) {
-                            debugger;
+                            
                             document.getElementById('UCdivAuto').style.display = "block";
                             var n = 0;
                             for (var i = 1; i <= 5; i++) {
@@ -121,7 +121,7 @@
                                 document.getElementById('UCdiv0').style.display = "block";
                         },
                         error: function () {
-                            debugger;
+                            
                             alert("Error");
                         }
                     });

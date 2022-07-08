@@ -119,13 +119,13 @@
             });
         });
         function AutoCustomer(lblCustomerID, lblCustomerName) {
-            debugger
+            
             var txtCustomer = document.getElementById('MainContent_txtCustomer');
             txtCustomer.value = lblCustomerName.innerText;
             document.getElementById('divAuto').style.display = "none";
         }
         function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-            debugger
+            
             var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
             txtCustomerID.value = CustomerID.innerText;
 
@@ -536,7 +536,7 @@
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         for (i = 0; i < markers.length; i++) {
             var data = markers[i]
-            debugger; 
+            
             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
             var marker = new google.maps.Marker({
                 position: myLatlng,

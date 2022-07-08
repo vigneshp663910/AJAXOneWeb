@@ -76,7 +76,7 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        debugger;
+        
         var hfMTTR1 = document.getElementById('MainContent_ucCustomerSatisfactionInAfterSalesSupport_hfMTTR1');
         var data = google.visualization.arrayToDataTable([
             ['Effort', 'Amount given'],

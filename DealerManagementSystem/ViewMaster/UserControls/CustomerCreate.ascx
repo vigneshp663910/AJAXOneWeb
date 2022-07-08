@@ -61,7 +61,7 @@
 
 
     $("#txtCustomerName").change(function () {
-        debugger
+        
         alert("The text has been changed.");
     });
     function ShowID(obj) {

@@ -9,7 +9,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">  
         function Calculation(TextID) {
-            debugger
+            
             var row = TextID.parentNode.parentNode;
           //var grid = document.getElementById("<%= gvVisitTargetPlanning.ClientID%>");
 

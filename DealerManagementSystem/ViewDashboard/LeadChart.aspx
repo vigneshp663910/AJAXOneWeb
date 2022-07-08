@@ -97,7 +97,7 @@
                     return data;
                 },
                 success: function (data) {
-                    debugger;
+                    
                     var data1 = google.visualization.arrayToDataTable(data.d);
                     var view = new google.visualization.DataView(data1);
                     view.setColumns([0, 1,

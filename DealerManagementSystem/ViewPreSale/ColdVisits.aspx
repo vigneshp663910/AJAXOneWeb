@@ -59,7 +59,7 @@
             //});
             $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
                 source: function (request, response) {
-                    debugger
+                    
                     var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
                     $.ajax({
                         type: 'POST',
@@ -94,7 +94,7 @@
             });
             $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
-                    debugger
+                    
                     var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
                     txtCustomerID.value = "";
                     var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
@@ -163,7 +163,7 @@
             document.getElementById('divAuto').style.display = "none";
         }
         function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-            debugger
+            
             var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
             txtCustomerID.value = CustomerID.innerText;
 
