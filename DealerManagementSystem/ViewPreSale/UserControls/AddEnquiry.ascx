@@ -3,8 +3,7 @@
 
 <asp:UpdatePanel ID="updatepnl" runat="server">
     <ContentTemplate>
-        <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Create Enquiry</legend>
+        <fieldset class="fieldset-border"> 
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Customer Name<samp style="color: red">*</samp></label>

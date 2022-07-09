@@ -41,9 +41,7 @@
         b, optgroup, strong {
             font-weight: 700;
         }
-    </style>
-
-
+    </style> 
      <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script> 
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
@@ -64,10 +62,7 @@
                         url: "Customer.aspx/GetCustomer",
                         data: JSON.stringify(param),
                         dataType: 'JSON',
-                        success: function (data) {
-                            alert("2");
-                            debugger;
-                            alert(JSON.stringify(param));
+                        success: function (data) { 
                             var UCdivAuto = document.getElementById('FleDivAuto');
                             UCdivAuto.style.display = "block";
                             /* document.getElementById('UCdivAuto').style.display = "block";*/
@@ -82,8 +77,7 @@
                                 document.getElementById("FleDiv" + n).innerHTML = item;
                             })
                         },
-                        error: function () {
-                            alert("1");
+                        error: function () { 
                         }
                     });
                 },
@@ -120,9 +114,7 @@
                             else
                                 document.getElementById('UCdiv0').style.display = "block";
                         },
-                        error: function () {
-                            debugger;
-                            alert("Error");
+                        error: function () {  
                         }
                     });
                 },

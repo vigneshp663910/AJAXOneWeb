@@ -227,8 +227,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
                 Lead.Customer = UC_CustomerCreate.ReadCustomer();
-            } 
-
+            }
+            Lead.EnquiryID = Enquiry.EnquiryID;
             string result = new BAPI().ApiPut("Lead", Lead);
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(result);
             if (Results.Status == PApplication.Failure)
@@ -238,12 +238,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             ShowMessage(Results);
 
-            PLeadSearch S = new PLeadSearch();
-            S.LeadID = Convert.ToInt64(result);
+           // PLeadSearch S = new PLeadSearch();
+           // S.LeadID = Convert.ToInt64(Results.Data);
 
-            // gvLead.DataSource = new BLead().GetLead(S);
-            // gvLead.DataBind();
-            UC_CustomerCreate.FillClean(); 
+           // gvLead.DataSource = new BLead().GetLead(S);
+           // gvLead.DataBind();
+           // UC_CustomerCreate.FillClean(); 
         }
         void ShowMessage(PApiResult Results)
         {

@@ -30,15 +30,15 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Country</label>
-                        <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" AutoPostBack="true" />
+                        <asp:DropDownList ID="ddlCountry" runat="server"   CssClass="form-control" AutoPostBack="true"  OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged"  />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">State</label>
-                        <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" AutoPostBack="true" />
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control"   AutoPostBack="true"  OnSelectedIndexChanged="ddlState_SelectedIndexChanged"  />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">District</label>
-                        <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">From Date</label>
@@ -163,7 +163,7 @@
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblAddEnquiryMessage" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblAddEnquiryMessage" runat="server"  CssClass="message" Visible="false" />
                 <UC:UC_AddEnquiry ID="UC_AddEnquiry" runat="server"></UC:UC_AddEnquiry>
             </div>
             <div class="col-md-12 text-center">

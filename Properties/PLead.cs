@@ -42,6 +42,7 @@ namespace Properties
     public class PLead_Insert
     {
         public long LeadID { get; set; }
+        public long? EnquiryID { get; set; }
         public DateTime LeadDate { get; set; }
         public int ProductTypeID { get; set; }
         public int? SourceID { get; set; }

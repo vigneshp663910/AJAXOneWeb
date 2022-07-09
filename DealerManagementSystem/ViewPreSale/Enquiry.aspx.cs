@@ -39,11 +39,17 @@ namespace DealerManagementSystem.ViewPreSale
         {
             try
             {
+                lblMessage.Text = "";
+                lblAddEnquiryMessage.Text = "";
                 if (!IsPostBack)
                 {
-                    new DDLBind(ddlDealer,PSession.User.Dealer, "DID", "CodeWithName");
-                    ClearField();
-                    //FillGrid(null);
+                    new DDLBind(ddlDealer,PSession.User.Dealer, "CodeWithName", "DID");
+                    new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                    ddlCountry.SelectedValue = "1";
+                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    //new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
+                    txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+                    txtToDate.Text = DateTime.Now.ToShortDateString(); 
                 }
             }
             catch (Exception ex)
@@ -55,11 +61,15 @@ namespace DealerManagementSystem.ViewPreSale
         private void FillGrid()
         {
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            string CustomerName = txtSCustomerName.Text.Trim(); 
-            
-            int? CountryID = ddlSCountry.SelectedValue == "0"? (int?)null: Convert.ToInt32(ddlSCountry.SelectedValue);
-            int? StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
-            int? DistrictID = ddlSDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSDistrict.SelectedValue); 
+            string CustomerName = txtSCustomerName.Text.Trim();
+            int? StateID = null, DistrictID = null;
+            int? CountryID = ddlCountry.SelectedValue == "0"? (int?)null: Convert.ToInt32(ddlCountry.SelectedValue);
+            if (CountryID != null)
+            {
+                StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+                if (StateID != null)
+                    DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
+            }
             DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
 
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
@@ -127,16 +137,7 @@ namespace DealerManagementSystem.ViewPreSale
             ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
             UC_EnquiryView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
         }
-         
-        void ClearField()
-        {
-            new DDLBind(ddlSCountry, new BDMS_Address().GetCountry(1, null), "Country", "CountryID");
-            ddlSCountry.SelectedValue = "1";
-            new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-            new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
-            txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-            txtToDate.Text = DateTime.Now.ToShortDateString();
-        }
+        
       
 
         //protected void BtnBack_Click(object sender, EventArgs e)
@@ -180,11 +181,13 @@ namespace DealerManagementSystem.ViewPreSale
         {
             try
             {
+                lblAddEnquiryMessage.Visible = true;
+                lblAddEnquiryMessage.ForeColor = Color.Red;
                 MPE_AddEnquiry.Show();
                 string Message = UC_AddEnquiry.Validation();
                 if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = Message;
+                    lblAddEnquiryMessage.Text = Message;
                     return;
                 }
                 PEnquiry enquiryAdd = new PEnquiry();
@@ -192,7 +195,8 @@ namespace DealerManagementSystem.ViewPreSale
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry Was Saved Successfully...";
-                    lblMessage.ForeColor = Color.Green; 
+                    lblMessage.ForeColor = Color.Green;
+                    MPE_AddEnquiry.Hide();
                 }
                 else
                 {
@@ -205,6 +209,17 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.Text = ex.Message.ToString();
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
+        }
+
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
+            new DDLBind(ddlState, State, "State", "StateID");
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
         }
     }
 }
