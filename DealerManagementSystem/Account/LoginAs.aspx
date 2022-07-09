@@ -11,7 +11,7 @@
         //mapLink.textContent = '';
        
         function success(position) {
-            debugger;
+            
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             document.getElementById('MainContent_hfLatitude').value = latitude;

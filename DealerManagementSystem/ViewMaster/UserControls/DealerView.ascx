@@ -7,7 +7,7 @@
 <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
 <script type="text/javascript">  
     function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-        debugger
+        
         var txtCustomerID = document.getElementById('MainContent_UC_DealerView_txtFleetID');
         txtCustomerID.value = CustomerID.innerText;
         var txtCustomer = document.getElementById('MainContent_UC_DealerView_txtFleet');

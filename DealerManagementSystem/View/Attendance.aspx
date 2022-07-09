@@ -216,7 +216,6 @@
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         for (i = 0; i < markers.length; i++) {
             var data = markers[i]
-            debugger; 
             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
             var marker = new google.maps.Marker({
                 position: myLatlng,

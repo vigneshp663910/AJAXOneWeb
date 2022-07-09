@@ -16,7 +16,7 @@
             console.log(screen.availWidth);
         }
         function CheckValue(ctl) {
-            debugger
+            
             if (ctl.value != '') {
                 if (parseInt(ctl.value) < 0) {
                     ctl.value = 0;

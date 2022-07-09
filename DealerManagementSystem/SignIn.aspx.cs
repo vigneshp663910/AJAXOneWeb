@@ -234,7 +234,10 @@ namespace DealerManagementSystem
                 userDetails = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data));
 
                 PSession.User = userDetails;
-
+                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                {
+                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
+                }
                 if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
                 {
                     lblMessage.ForeColor = Color.Red;
@@ -344,6 +347,20 @@ namespace DealerManagementSystem
                     if (Request.QueryString["appID"] == null)
                     {
                         lblMessage.Text = "Please Provide AppID...!";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(txtUsername.Text))
+                    {
+                        lblMessage.Text = "Please Enter UserName...!";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(txtPassword.Text))
+                    {
+                        lblMessage.Text = "Please Enter Password...!";
                         lblMessage.Visible = true;
                         lblMessage.ForeColor = Color.Red;
                         return;
