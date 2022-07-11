@@ -589,7 +589,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }         
         protected void btnLostReasonUpdate_Click(object sender, EventArgs e)
         {
-            string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
+            string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=5&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             ShowMessage(Results); 
             if (Results.Status == PApplication.Failure)
@@ -602,7 +602,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         protected void btnRejectedBySalesUpdate_Click(object sender, EventArgs e)
         {
-            string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=7&Reason=" + txtRejectedBySalesReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
+            string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtRejectedBySalesReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             ShowMessage(Results);
             if (Results.Status == PApplication.Failure)

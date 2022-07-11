@@ -315,7 +315,18 @@ namespace DealerManagementSystem.ViewMaster
                     , M.GST
                     );
             }
-            new BXcel().ExporttoExcel(dt, Name);
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
         void DisplayErrorMessage(Exception e1)
         {

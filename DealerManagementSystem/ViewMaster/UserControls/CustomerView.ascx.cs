@@ -400,7 +400,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 {
                     lblMessageFleet.Visible = true;
                     lblMessageFleet.ForeColor = Color.Red;
-                    lblMessageFleet.Text = "Already " + ddlAttributeSub.SelectedItem.Text + " added";
+                    lblMessageFleet.Text = "Already " + ddlProductType.SelectedItem.Text + " added";
                     return;
                 }
             }

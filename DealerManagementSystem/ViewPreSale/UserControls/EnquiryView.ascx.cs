@@ -149,7 +149,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             UC_CustomerCreate.FillCustomer(Customer);
             txtCustomerID.Text = Convert.ToString(Customer.CustomerID);
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
-            ddlSource.SelectedValue = Convert.ToString(Enquiry.EnquiryID);
+            ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
         }
 
         protected void btnNewCustomer_Click(object sender, EventArgs e)
@@ -175,7 +175,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             // TextBox txtAddress2 = (TextBox)UC_Customer.FindControl("txtAddress2");
             // TextBox txtAddress3 = (TextBox)UC_Customer.FindControl("txtAddress3");
 
-            ddlSource.SelectedValue = Convert.ToString(Enquiry.EnquiryID);
+            ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
             ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID); 
             new DDLBind(ddlDistrict, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Enquiry.State.StateID);

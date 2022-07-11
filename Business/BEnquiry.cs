@@ -25,8 +25,7 @@ namespace Business
             try
             {
                 DbParameter EnquiryID = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
-                DbParameter EnquiryDate = provider.CreateParameter("EnquiryDate", enquiry.EnquiryDate, DbType.DateTime);
-                DbParameter EnquiryNumber = provider.CreateParameter("EnquiryNumber", enquiry.EnquiryNumber, DbType.String);
+                DbParameter EnquiryDate = provider.CreateParameter("EnquiryDate", enquiry.EnquiryDate, DbType.DateTime); 
                 DbParameter CustomerName = provider.CreateParameter("CustomerName", enquiry.CustomerName, DbType.String);
                 DbParameter PersonName = provider.CreateParameter("PersonName", enquiry.PersonName, DbType.String);
                 DbParameter Mail = provider.CreateParameter("Mail", enquiry.Mail, DbType.String);
@@ -39,10 +38,11 @@ namespace Business
                 DbParameter Product = provider.CreateParameter("Product", enquiry.Product, DbType.String);
                 DbParameter Remarks = provider.CreateParameter("Remarks", enquiry.Remarks, DbType.String);
                 DbParameter CreatedBy = provider.CreateParameter("CreatedBy", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[15] { EnquiryID, EnquiryDate, EnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy };
-                    provider.Insert("ZDMS_InsertOrUpdateEnquiry", Params);
+                    DbParameter[] Params = new DbParameter[15] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                    provider.Insert("InsertOrUpdateEnquiry", Params);
                     scope.Complete();
                 }
                 TraceLogger.Log(DateTime.Now);
