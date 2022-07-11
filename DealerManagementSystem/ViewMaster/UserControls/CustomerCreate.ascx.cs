@@ -33,7 +33,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlCountry.SelectedValue = Convert.ToString(CountryID);  
             new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Dealer.State.StateID); 
-             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(CountryID, null, Dealer.State.StateID, null,null, Dealer.DID), "District", "DistrictID");
+             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(CountryID, null, Dealer.State.StateID, null,null, null), "District", "DistrictID");
             // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
             fillDealer();
             CheckDealet();

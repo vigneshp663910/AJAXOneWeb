@@ -345,6 +345,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessageAttribute.Text = Message;
                 return;
             }
+
+            for (int i = 0; i < gvAttribute.Rows.Count; i++)
+            {
+                Label lblAttributeSubID = (Label)gvAttribute.Rows[i].FindControl("lblAttributeSubID");
+                if (ddlAttributeSub.SelectedValue == lblAttributeSubID.Text)
+                {
+                    lblMessageAttribute.Text = "Already "+ ddlAttributeSub.SelectedItem.Text + " added";
+                    return;
+                }
+            }
+
             PCustomerAttribute Attribute = new PCustomerAttribute();
             Attribute.CustomerID = Customer.CustomerID;
             Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = Convert.ToInt32(ddlAttributeMain.SelectedValue) };
@@ -381,6 +392,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessageProduct.Text = Message;
                 return;
             }
+
+            for (int i = 0; i < gvProduct.Rows.Count; i++)
+            {
+                Label lblProductTypeID = (Label)gvProduct.Rows[i].FindControl("lblProductTypeID");
+                if (ddlProductType.SelectedValue == lblProductTypeID.Text)
+                {
+                    lblMessageFleet.Visible = true;
+                    lblMessageFleet.ForeColor = Color.Red;
+                    lblMessageFleet.Text = "Already " + ddlAttributeSub.SelectedItem.Text + " added";
+                    return;
+                }
+            }
+
             PCustomerProduct Product = new PCustomerProduct();
             Product.CustomerProductID = 0;
             Product.CustomerID = Customer.CustomerID;
@@ -423,6 +447,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessageRelation.Text = Message;
                 return;
             }
+
             PCustomerRelation Relation = new PCustomerRelation();
             Relation.CustomerID = Customer.CustomerID;
             Relation.ContactName = txtPersonName.Text.Trim();
@@ -491,6 +516,18 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lblMessageFleet.Text = Message;
                 return;
+            }
+
+            for(int i=0; i<gvFleet.Rows.Count;i++)
+            {
+                Label lblCustomerID = (Label)gvFleet.Rows[i].FindControl("lblCustomerID");
+                if(txtFleetID.Text == lblCustomerID.Text)
+                {
+                    lblMessageFleet.Visible = true;
+                    lblMessageFleet.ForeColor = Color.Red;
+                    lblMessageFleet.Text = "Already Fleet customer added";
+                    return;
+                }
             }
 
             PCustomerFleet Fleet = new PCustomerFleet();
@@ -774,24 +811,31 @@ namespace DealerManagementSystem.ViewMaster.UserControls
           
             if (string.IsNullOrEmpty(txtPersonName.Text.Trim()))
             {
-                Message = "Please enter the Person Name";
+                
                 txtPersonName.BorderColor = Color.Red;
+                return "Please enter the Person Name";
             } 
-            else if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Mobile";
+              if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            { 
                 txtMobile.BorderColor = Color.Red;
+                return "Please enter the Mobile";
             }
-            else if (txtMobile.Text.Trim().Length != 10)
-            {
-                Message = Message + "<br/>Mobile Length should be 10 digit";
+              if (txtMobile.Text.Trim().Length != 10)
+            { 
                 txtMobile.BorderColor = Color.Red;
+                return "Mobile Length should be 10 digit";
             }
-            else if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
-            {
-                Message = Message + "<br/>Mobile should be 10 digit";
+              if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            { 
                 txtMobile.BorderColor = Color.Red;
-            } 
+                return "Mobile should be 10 digit";
+            }
+
+            if (ddlRelation.SelectedValue == "0")
+            {
+                ddlRelation.BorderColor = Color.Red;
+                return "Please select the Relation ";
+            }
             return Message;
         }
         public string ValidationEmployee()

@@ -49,7 +49,7 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessageService("BProject", "ZDMS_InsertOrUpdateEnquiry", ex);
+                new FileLogger().LogMessageService("BProject", "InsertOrUpdateEnquiry", ex);
                 return false;
             }
             return true;

@@ -64,8 +64,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
            // lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
             lblUrgency.Text = Lead.Urgency==null?"": Lead.Urgency.Urgency;
             lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
-            lblQualification.Text = Lead.Urgency == null ? "" : Lead.Qualification.Qualification;
-            lblSource.Text = Lead.Qualification == null ? "" : Lead.Source.Source;
+            lblQualification.Text = Lead.Qualification == null ? "" : Lead.Qualification.Qualification;
+            lblSource.Text = Lead.Source == null ? "" : Lead.Source.Source;
             lblStatus.Text = Lead.Status.Status;
             lblProject.Text = Lead.Project == null ? "" : Lead.Project.ProjectName;
             lblDealer.Text = Lead.Dealer.DealerCode;

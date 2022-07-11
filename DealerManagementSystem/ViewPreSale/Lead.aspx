@@ -6,7 +6,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
+     <style type="text/css">
         .modal {
             position: fixed;
             top: 0;
@@ -19,8 +19,13 @@
             min-height: 100%;
             width: 100%;
         }
+        /*.Popup {
+            transition: all .4s ease-in-out;
+            top:0;
+            left:0;
 
-        .loading {
+        }*/
+        /*.loading {
             font-family: Arial;
             font-size: 10pt;
             border: 5px solid #67CFF5;
@@ -30,11 +35,100 @@
             position: fixed;
             background-color: White;
             z-index: 999;
+        }*/
+        /* Start Loader Graphic */
+        .loading {
+          display: none;
+          position: fixed;
+          left: 0px;
+          top: 0px;
+          width: 100%;
+          height: 100%;
+          z-index: 9999;
+          background: center no-repeat rgba(255, 255, 255, 0.9);
+          transform: translateZ(0);
+          -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+          -moz-transform: translatez(0);
+          -ms-transform: translatez(0);
+          -o-transform: translatez(0);
+          -webkit-transform: translateZ(0);
+          -webkit-font-smoothing: antialiased;
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
         }
+
+        .outerspinner {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin: -1.875rem 0 0 -4.688rem;
+        }
+
+        body.lang-fr-ca .outerspinner {
+          margin: -1.875rem 0 0 -6.25rem;
+        }
+
+        .submission-msg {
+          font-family: 'Roboto-Bold';
+          color: #004382;
+          font-size: 1rem;
+          font-weight: 700;
+          line-height: 1.2em;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+
+        .spinner {
+          margin: 0;
+          text-align: center;
+        }
+
+        .spinner > div {
+          width: 18px;
+          height: 18px;
+          background-color: #00539f;
+          border-radius: 100%;
+          display: inline-block;
+          -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+          animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+        }
+
+        .spinner .bounce1 {
+          -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
+        }
+
+        .spinner .bounce2 {
+          -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+        }
+
+        @-webkit-keyframes sk-bouncedelay {
+          0%, 80%, 100% {
+            -webkit-transform: scale(0);
+          }
+          40% {
+            -webkit-transform: scale(1);
+          }
+        }
+
+        @keyframes sk-bouncedelay {
+          0%, 80%, 100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+          }
+          40% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+          }
+        }
+
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
         function ShowProgress() {
+            debugger;
             setTimeout(function () {
                 var modal = $('<div />');
                 modal.addClass("modal");
@@ -50,80 +144,22 @@
             ShowProgress();
         });
     </script>
-    <div class="loading" align="center">
+    <%--<div class="loading" align="center">
         Loading. Please wait.<br />
         <br />
         <img src="loader.gif" alt="" />
+    </div>--%>
+    
+    <div class="loading">
+	    <div class="outerspinner">
+	      <div class="submission-msg">Loading. Please wait...</div>
+	      <div class="spinner">
+		    <div class="bounce1"></div>
+		    <div class="bounce2"></div>
+		    <div class="bounce3"></div>
+	      </div>
+	    </div>
     </div>
-    <%--<style>
-        .Popup {
-            display: block;
-            z-index: 1002;
-            outline: 0px;
-            height: auto;
-            width: 800px;
-            top: 128px;
-            left: 283px;
-            position: absolute;
-            padding: 0.2em;
-            overflow: hidden;
-            border-radius: 6px;
-            border: 1px solid #CCC;
-            background: #fefefe 50% bottom repeat-x;
-            color: #666;
-            font-family: Segoe UI,Arial,sans-serif;
-            font-size: 1.1em;
-            margin: 0 1% 0 1%;
-        }
-
-        .PopupHeader {
-            border: 1px solid #333;
-            background: #333 url(Ajax/Images/Feedbackheader.png) 50% 50% repeat-x;
-            color: #fff;
-            font-weight: bold;
-            cursor: move;
-            padding: 0.4em 1em;
-            position: relative;
-            border-radius: 6px;
-            font-family: Segoe UI,Arial,sans-serif;
-            font-size: 1.1em;
-        }
-
-        .clearfix:after {
-            content: ".";
-            display: block;
-            height: 0;
-            clear: both;
-            visibility: hidden;
-        }
-
-        .PopupHeader a {
-            color: #fff;
-        }
-
-        #PopupDialogue {
-            float: left;
-            font-size: 13px;
-            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        }
-
-        .PopupClose {
-            float: right;
-            color: black;
-            font-size: 8px;
-            width: 15px;
-            height: 15px;
-            padding: inherit;
-        }
-
-        .modal-backdrop {
-            background-color: gray;
-        }
-
-        .modalBackground {
-            background-color: #000000bd;
-        }
-    </style>--%>
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />

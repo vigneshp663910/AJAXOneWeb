@@ -235,6 +235,7 @@
                                 <asp:TemplateField HeaderText="Attribute Sub">
                                     <ItemTemplate>
                                         <asp:Label ID="lblAttributeSub" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSub.AttributeSub")%>' runat="server" />
+                                        <asp:Label ID="lblAttributeSubID" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSub.AttributeSubID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Remark">
@@ -286,6 +287,7 @@
                                 <asp:TemplateField HeaderText="Product Type">
                                     <ItemTemplate>
                                         <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
+                                         <asp:Label ID="lblProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductTypeID")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
@@ -470,6 +472,7 @@
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         <asp:Label ID="lblCustomerFleetID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerFleetID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.CustomerID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
@@ -1036,11 +1039,10 @@
         <span id="PopupDialogue">Add Customer Responsible Employee</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
         </a>
-    </div>
-    <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
+    </div> 
     <div class="col-md-12">
-        <div class="model-scroll">
-
+        <div class="model-scroll"> 
+              <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
