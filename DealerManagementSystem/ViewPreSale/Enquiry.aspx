@@ -52,8 +52,7 @@
                         <asp1:CalendarExtender ID="calendarextender3" runat="server" TargetControlID="txtToDate" PopupButtonID="txtToDate" Format="dd/MM/yyyy" />
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtToDate" WatermarkText="DD/MM/YYYY" />
                     </div>
-                    <div class="col-md-2 text-left">
-                        <label class="modal-label">-</label>
+                   <div class="col-md-12 text-center"> 
                         <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
                         <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
                     </div>
@@ -71,7 +70,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Enquiry(s):</td>
+                                                <td>Enquiry:</td>
 
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>

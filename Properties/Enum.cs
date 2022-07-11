@@ -653,4 +653,12 @@ namespace Properties
         Lost,
         Cancelled,
     }
+    public enum PreSaleStatus
+    {
+        Open = 1,
+        Close,
+        Cancel,
+        ConvertedToLead ,
+        Rejected,
+    }
 }

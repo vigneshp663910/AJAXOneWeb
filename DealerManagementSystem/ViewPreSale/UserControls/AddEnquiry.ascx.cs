@@ -109,6 +109,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 txtMobile.BorderColor = Color.Red;
                 return "Please Enter the Mobile...!";
             }
+            else if (txtMobile.Text.Trim().Length != 10)
+            {
+                Message = Message + "<br/>Mobile Length should be 10 digit";
+                txtMobile.BorderColor = Color.Red;
+            }
+
             if (ddlSource.SelectedValue == "0")
             {
                 ddlSource.BorderColor = Color.Red;

@@ -197,6 +197,7 @@ namespace DealerManagementSystem.ViewPreSale
                     lblMessage.Text = "Enquiry Was Saved Successfully...";
                     lblMessage.ForeColor = Color.Green;
                     MPE_AddEnquiry.Hide();
+                    FillGrid();
                 }
                 else
                 {

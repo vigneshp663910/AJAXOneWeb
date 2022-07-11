@@ -44,8 +44,8 @@ namespace DealerManagementSystem.View
                 {
                     new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                     new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-                    new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
-                    new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
+                    //new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
+                    //new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     //FillGrid(null);
                 }
             }
@@ -277,11 +277,11 @@ namespace DealerManagementSystem.View
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_Project.Show();
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
         }
         protected void ddlSState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, Convert.ToInt32(ddlSState.SelectedValue), null, null, null), "District", "DistrictID");
+            new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlSState.SelectedValue), null, null, null), "District", "DistrictID");
         }
         protected void BtnView_Click(object sender, EventArgs e)
         {

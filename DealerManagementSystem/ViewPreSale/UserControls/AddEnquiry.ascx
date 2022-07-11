@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person Mobile<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"  TextMode="Phone" MaxLength="10"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">EMail</label>

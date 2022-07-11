@@ -207,8 +207,7 @@
                             <label class="modal-label">District</label>
                             <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label class="modal-label">-</label>
+                       <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
                             <asp:Button ID="BtnAdd" runat="server" Text="Add Project" CssClass="btn Save" OnClick="BtnAdd_Click" Width="100px" />
                         </div>

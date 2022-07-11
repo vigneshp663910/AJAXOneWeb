@@ -24,6 +24,7 @@ namespace Properties
         public string Product { get; set; }
         public string Remarks { get; set; } 
         public PUser CreatedBy { get; set; }
-        public string CreatedOn { get; set; } 
+        public string CreatedOn { get; set; }
+        public long? LeadID { get; set; }
     }
 }

@@ -79,6 +79,7 @@ namespace Business
                             projects.Add(new PEnquiry()
                             {
                                 EnquiryID = Convert.ToInt64(dr["EnquiryID"]),
+                                LeadID = DBNull.Value == dr["LeadID"] ? (long?)null: Convert.ToInt64(dr["LeadID"]),
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 EnquiryDate = Convert.ToDateTime(dr["EnquiryDate"]),
                                 EnquiryNumber = Convert.ToString(dr["EnquiryNumber"]),
@@ -128,32 +129,31 @@ namespace Business
             }
             return projects;
         }
-        public Boolean UpdateEnquiryStatus(long EnquiryID,string Remark,int StatusID, int UserID)
+        public Boolean UpdateEnquiryReject(long EnquiryID,string Remark, int UserID)
         {
             int success = 0;
             DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
-            DbParameter RemarkP = provider.CreateParameter("Remark", Remark, DbType.String);
-            DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+            DbParameter RemarkP = provider.CreateParameter("Remarks", Remark, DbType.String); 
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
 
-            DbParameter[] Params = new DbParameter[4] { EnquiryIDP, RemarkP, StatusIDP, UserIDP };
+            DbParameter[] Params = new DbParameter[3] { EnquiryIDP, RemarkP,  UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("UpdateEnquiryStatus", Params);
+                    success = provider.Insert("UpdateEnquiryReject", Params);
                     scope.Complete();
                 }
             }
             catch (SqlException sqlEx)
             {
-                new FileLogger().LogMessage("BEnquiry", "UpdateEnquiryStatus", sqlEx);
+                new FileLogger().LogMessage("BEnquiry", "UpdateEnquiryReject", sqlEx);
                 throw sqlEx;
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BEnquiry", " UpdateEnquiryStatus", ex);
+                new FileLogger().LogMessage("BEnquiry", " UpdateEnquiryReject", ex);
                 throw ex;
             }
             return true;

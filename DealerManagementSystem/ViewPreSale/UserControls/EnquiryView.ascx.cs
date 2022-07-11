@@ -43,14 +43,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["EnquiryView"] = value;
             }
         }
+        public PLead Lead
+        {
+            get
+            {
+                if (Session["EnquiryViewPLead"] == null)
+                {
+                    Session["EnquiryViewPLead"] = new PLead();
+                }
+                return (PLead)Session["EnquiryViewPLead"];
+            }
+            set
+            {
+                Session["EnquiryViewPLead"] = value;
+            }
+        }
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
             lblAddEnquiryMessage.Text = "";
         }
-        public void fillViewEnquiry(long? EnquiryID)
+        public void fillViewEnquiry(long EnquiryID)
         {
-            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt32(EnquiryID),null, null, null, null, null, null, null, null)[0];
+            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt64(EnquiryID),null, null, null, null, null, null, null, null)[0];
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
             lblPersonName.Text = Enquiry.PersonName;
@@ -65,8 +81,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMobile.Text = "<a href='tel:" + Enquiry.Mobile + "'>" + Enquiry.Mobile + "</a>";
             lblMail.Text = "<a href='mailto:" + Enquiry.Mail + "'>" + Enquiry.Mail + "</a>";
             lblRemarks.Text = Enquiry.Remarks;
-            CustomerViewSoldTo.fillCustomer(null);
-            UC_LeadView.fillViewLead(null);
+
+            if (Enquiry.LeadID != null)
+            {
+                Lead = new BLead().GetLeadByID((long)Enquiry.LeadID);
+                CustomerViewSoldTo.fillCustomer(Lead.Customer);
+                UC_LeadView.fillViewLead(Lead);
+            }
+            else
+            {
+                CustomerViewSoldTo.Clear();
+                UC_LeadView.Clear();
+            }
+            ActionControlMange();
         }
         protected void BtnSave_Click(object sender, EventArgs e)
         {
@@ -86,7 +113,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 {
                     lblMessage.Text = "Enquiry Was Saved Successfully...";
                     lblMessage.ForeColor = Color.Green;
-                    fillViewEnquiry(Enquiry.EnquiryID); 
+                    fillViewEnquiry(Enquiry.EnquiryID);
+                    MPE_Enquiry.Hide();
                 }
                 else
                 {
@@ -110,7 +138,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 UC_AddEnquiry.FillMaster();
                 UC_AddEnquiry.Write(Enquiry); 
             }
-            if (lbActions.Text == "ConvertToLead")
+            if (lbActions.Text == "Convert To Lead")
             {
                 MPE_CustomerSelect.Show();  
                 gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile);
@@ -124,15 +152,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnEnquiryStatus_Click(object sender, EventArgs e)
         { 
-            if (new BEnquiry().UpdateEnquiryStatus(Enquiry.EnquiryID, txtRemark.Text.Trim(),2, PSession.User.UserID))
+            if (new BEnquiry().UpdateEnquiryReject(Enquiry.EnquiryID, txtRemark.Text.Trim(), PSession.User.UserID))
             {
-                lblMessage.Text = "Enquiry PreSales Status Was Updated Successfully...";
+                lblMessage.Text = "Enquiry Rejected Successfully...";
                 lblMessage.ForeColor = Color.Green;
                 fillViewEnquiry(Enquiry.EnquiryID);
             }
             else
             {
-                lblAddEnquiryMessage.Text = "Enquiry Not Saved Successfully...!";
+                lblAddEnquiryMessage.Text = "Enquiry is Not Rejected Successfully...!";
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
         }
@@ -237,19 +265,35 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
             ShowMessage(Results);
+            MPE_Lead.Hide();
+            fillViewEnquiry(Enquiry.EnquiryID);
 
            // PLeadSearch S = new PLeadSearch();
            // S.LeadID = Convert.ToInt64(Results.Data);
 
-           // gvLead.DataSource = new BLead().GetLead(S);
-           // gvLead.DataBind();
-           // UC_CustomerCreate.FillClean(); 
+            // gvLead.DataSource = new BLead().GetLead(S);
+            // gvLead.DataBind();
+            // UC_CustomerCreate.FillClean(); 
         }
         void ShowMessage(PApiResult Results)
         {
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+
+        void ActionControlMange()
+        {
+            lbEditEnquiry.Visible = true;
+            lbInActive.Visible = true;
+            lbReject.Visible = true;
+
+            if ((Enquiry.Status.StatusID == (short)PreSaleStatus.ConvertedToLead) || (Enquiry.Status.StatusID == (short)PreSaleStatus.Rejected))
+            {
+                lbEditEnquiry.Visible = false;
+                lbInActive.Visible = false;
+                lbReject.Visible = false;
+            }
         }
     }
 }

@@ -39,5 +39,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblLocation.Text = Location;
             }
         }
+        public void Clear()
+        {
+
+            lblLeadNumber.Text = "";
+            lblLeadDate.Text = "";
+            lblApplication.Text = "";
+            lblQualification.Text = "";
+            lblSource.Text = "";
+            lblStatus.Text = "";
+            lblProject.Text = "";
+            lblDealer.Text = "";
+            lblContactPerson.Text = "";
+            lblRemarks.Text = "";
+            lblCustomer.Text = "";
+            lblContactPerson.Text = "";
+            lblMobile.Text = "";
+            lblEmail.Text = ""; 
+            lblLocation.Text = "";
+        }
     }
 }

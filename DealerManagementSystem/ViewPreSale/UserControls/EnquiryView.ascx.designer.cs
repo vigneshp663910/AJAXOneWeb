@@ -186,15 +186,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::AjaxControlToolkit.TabContainer tbpEnquiry;
 
         /// <summary>
-        /// tpnlDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlDealer;
-
-        /// <summary>
         /// tpnlCustomer control.
         /// </summary>
         /// <remarks>

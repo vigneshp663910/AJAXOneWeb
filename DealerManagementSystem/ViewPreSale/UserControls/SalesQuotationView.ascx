@@ -784,7 +784,7 @@
 
 <asp:Panel ID="pnlFinancier" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Quotation</span><a href="#" role="button">
+        <span id="PopupDialogue">Add Financier</span><a href="#" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <asp:Label ID="lblMessageFinancier" runat="server" Text="" CssClass="message" Visible="false" />
@@ -933,7 +933,7 @@
 
 <asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Edit Quotation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>

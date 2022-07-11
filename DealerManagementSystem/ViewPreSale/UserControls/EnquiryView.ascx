@@ -15,7 +15,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbEditEnquiry" runat="server" OnClick="lbActions_Click">Edit Enquiry</asp:LinkButton>
-                <asp:LinkButton ID="lbInActive" runat="server" OnClick="lbActions_Click">ConvertToLead</asp:LinkButton>
+                <asp:LinkButton ID="lbInActive" runat="server" OnClick="lbActions_Click">Convert To Lead</asp:LinkButton>
                 <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
             </div>
         </div>
@@ -93,16 +93,7 @@
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpEnquiry" runat="server" ToolTip="Enquiry Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
-    <asp1:TabPanel ID="tpnlDealer" runat="server" HeaderText="Dealer" Font-Bold="True" ToolTip="">
-        <ContentTemplate>
-            <div class="col-md-12">
-                <div class="col-md-12 Report">
-                    <div class="table-responsive">
-                    </div>
-                </div>
-            </div>
-        </ContentTemplate>
-    </asp1:TabPanel>
+  
     <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Customer" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">

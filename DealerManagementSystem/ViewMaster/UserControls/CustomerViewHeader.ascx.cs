@@ -37,5 +37,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 cbBillingBlock.Checked = Customer.BillingBlock;
             }
         }
+        public void Clear()
+        {
+
+            lblCustomer.Text = "";
+            lblContactPerson.Text = "";
+            lblMobile.Text = "";
+            lblAlternativeMobile.Text = "";
+            lblEmail.Text = "";
+            lblGSTIN.Text = "";
+            lblPAN.Text = "";
+
+            lblAddress.Text = "";
+
+            cbVerified.Checked = false;
+            cbIsActive.Checked = false;
+            cbOrderBlock.Checked = false;
+            cbDeliveryBlock.Checked = false;
+            cbBillingBlock.Checked = false;
+        }
     }
 }
