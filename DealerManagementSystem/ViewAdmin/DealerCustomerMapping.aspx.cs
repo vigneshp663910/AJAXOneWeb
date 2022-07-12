@@ -24,8 +24,9 @@ namespace DealerManagementSystem.ViewAdmin
         void FillDealer()
         {
             List<PDMS_Dealer> Dealer = new List<PDMS_Dealer>();
-            Dealer = new BDMS_Dealer().GetDealer(null, null, null);
-            new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
+            //Dealer = new BDMS_Dealer().GetDealer(null, null, null);
+            //new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
+            new DDLBind(ddlDealerCode, PSession.User.Dealer, "CodeWithName", "DID");
         }
 
 
