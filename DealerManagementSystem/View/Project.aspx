@@ -44,7 +44,7 @@
                                 <asp:TextBox ID="txtValue" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled" TextMode="Number"></asp:TextBox>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <label class="modal-label">L1Contractor Name<samp style="color: red">*</samp></label>
+                                <label class="modal-label">L1 Contractor Name<samp style="color: red">*</samp></label>
                                 <asp:TextBox ID="txtL1ContractorName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -53,21 +53,21 @@
                                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <label class="modal-label">L2Bidder</label>
+                                <label class="modal-label">L2 Bidder</label>
                                 <asp:TextBox ID="txtL2Bidder" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <label class="modal-label">L3Bidder</label>
+                                <label class="modal-label">L3 Bidder</label>
                                 <asp:TextBox ID="txtL3Bidder" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <label class="modal-label">ContractAwardDate<samp style="color: red">*</samp></label>
+                                <label class="modal-label">Contract Award Date<samp style="color: red">*</samp></label>
                                 <asp:TextBox ID="txtContractAwardDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
                                 <asp1:CalendarExtender ID="calendarextender2" runat="server" TargetControlID="txtContractAwardDate" PopupButtonID="txtContractAwardDate" Format="dd/MM/yyyy" />
                                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtContractAwardDate" WatermarkText="DD/MM/YYYY" />
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <label class="modal-label">ContractEndDate<samp style="color: red">*</samp></label>
+                                <label class="modal-label">Contract End Date<samp style="color: red">*</samp></label>
                                 <asp:TextBox ID="txtContractEndDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
                                 <asp1:CalendarExtender ID="calendarextender3" runat="server" TargetControlID="txtContractEndDate" PopupButtonID="txtContractEndDate" Format="dd/MM/yyyy" />
                                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtContractEndDate" WatermarkText="DD/MM/YYYY" />
@@ -239,7 +239,7 @@
                             </div>
                             <asp:HiddenField ID="HiddenProjectID" runat="server" />
                             <asp:GridView ID="gvProject" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging">
+                                EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -254,12 +254,12 @@
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:BoundField HeaderText="Value" DataField="Value"></asp:BoundField>
-                                    <asp:BoundField HeaderText="L1ContractorName" DataField="L1ContractorName"></asp:BoundField>
-                                    <asp:BoundField HeaderText="L1ContractorAddress" DataField="L1ContractorAddress"></asp:BoundField>
-                                    <asp:BoundField HeaderText="L2Bidder" DataField="L2Bidder"></asp:BoundField>
-                                    <asp:BoundField HeaderText="L3Bidder" DataField="L3Bidder"></asp:BoundField>
-                                    <asp:BoundField HeaderText="ContractAwardDate" DataField="ContractAwardDate"></asp:BoundField>
-                                    <asp:BoundField HeaderText="ContractEndDate" DataField="ContractEndDate"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L1 Contractor Name" DataField="L1ContractorName"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L1 Contractor Address" DataField="L1ContractorAddress"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L2 Bidder" DataField="L2Bidder"></asp:BoundField>
+                                    <asp:BoundField HeaderText="L3 Bidder" DataField="L3Bidder"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Contract Award Date" DataField="ContractAwardDate"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Contract End Date" DataField="ContractEndDate"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:TemplateField>
                                         <ItemTemplate>

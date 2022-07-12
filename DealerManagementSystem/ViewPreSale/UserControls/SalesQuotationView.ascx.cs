@@ -778,15 +778,38 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             string Message = "";
             if (ddlBankName.SelectedValue == "0")
             {
-                Message = "Please select the Make";
+                Message = "Please select the BankName...!";
+                return Message;
             }
             if (ddlIncoterms.SelectedValue == "0")
             {
-                Message = "Please select the Product Type";
+                Message = "Please select the Inco Terms...!";
+                return Message;
             }
             if (ddlPaymentTerms.SelectedValue == "0")
             {
-                Message = "Please select the Product";
+                Message = "Please select the Payment Term...!";
+                return Message;
+            }
+            if (string.IsNullOrEmpty(txtDoNumber.Text))
+            {
+                Message = "Please select the Do Number...!";
+                return Message;
+            }
+            if (string.IsNullOrEmpty(txtDoDate.Text))
+            {
+                Message = "Please select the Do Date...!";
+                return Message;
+            }
+            if (string.IsNullOrEmpty(txtAdvanceAmount.Text))
+            {
+                Message = "Please Enter Advance Amount...!";
+                return Message;
+            }
+            if (string.IsNullOrEmpty(txtFinancierAmount.Text))
+            {
+                Message = "Please Enter Financier Amount...!";
+                return Message;
             }
             return Message;
         }

@@ -117,49 +117,58 @@ namespace DealerManagementSystem.View
                 Message = Message + "<br/>Please enter the Project Name...!";
                 Ret = false;
                 txtProjectName.BorderColor = Color.Red;
+                goto Message;
             }
             if (string.IsNullOrEmpty(txtEmailDate.Text.Trim()))
             {
                 Message = Message + "<br/>Please select the Email Date...!";
                 Ret = false;
                 txtEmailDate.BorderColor = Color.Red;
+                goto Message;
             }
             if (ddlState.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the State";
                 Ret = false;
                 ddlState.BorderColor = Color.Red;
+                goto Message;
             }
             if (ddlDistrict.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the District";
                 Ret = false;
                 ddlDistrict.BorderColor = Color.Red;
+                goto Message;
             }
             if (string.IsNullOrEmpty(txtValue.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Value...!";
                 Ret = false;
                 txtValue.BorderColor = Color.Red;
+                goto Message;
             }
             if (string.IsNullOrEmpty(txtL1ContractorName.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the L1ContractorName...!";
                 Ret = false;
                 txtL1ContractorName.BorderColor = Color.Red;
+                goto Message;
             }
             if (string.IsNullOrEmpty(txtContractAwardDate.Text.Trim()))
             {
                 Message = Message + "<br/>Please select the ContractAwardDate...!";
                 Ret = false;
                 txtContractAwardDate.BorderColor = Color.Red;
+                goto Message;
             }
             if (string.IsNullOrEmpty(txtContractEndDate.Text.Trim()))
             {
                 Message = Message + "<br/>Please select the ContractEndDate...!";
                 Ret = false;
                 txtContractEndDate.BorderColor = Color.Red;
+                goto Message;
             }
+            Message:
             lblAddProjectMessage.Text = Message;
             return Ret;
         }
@@ -178,6 +187,7 @@ namespace DealerManagementSystem.View
             txtContractAwardDate.Text = string.Empty;
             txtContractEndDate.Text = string.Empty;
             txtRemarks.Text = string.Empty;
+            FillGrid(null);
         }
         private void FillGrid(long? ProjectID)
         {
@@ -195,24 +205,27 @@ namespace DealerManagementSystem.View
             {
                 StateID = Convert.ToInt32(ddlSState.SelectedValue);
             }
-            if (ddlSDistrict.SelectedValue != "0")
+            if (ddlSDistrict.SelectedValue != "0" && ddlSDistrict.SelectedValue != "")
             {
                 DistrictID = Convert.ToInt32(ddlSDistrict.SelectedValue);
             }
             DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
             PProject = new BProject().GetProject(null, StateID, DistrictID, DateF, DateT, ProjectName, ProjectNumber);
-            gvProject.DataSource = PProject;
-            gvProject.DataBind();
+            
 
             if (PProject.Count == 0)
             {
+                gvProject.DataSource = null;
+                gvProject.DataBind();
                 lblRowCount.Visible = false;
                 ibtnPjtArrowLeft.Visible = false;
                 ibtnPjtArrowRight.Visible = false;
             }
             else
             {
+                gvProject.DataSource = PProject;
+                gvProject.DataBind();
                 lblRowCount.Visible = true;
                 ibtnPjtArrowLeft.Visible = true;
                 ibtnPjtArrowRight.Visible = true;
@@ -349,8 +362,12 @@ namespace DealerManagementSystem.View
         }
         void ProjectBind(GridView gv, Label lbl, List<PProject> PProject)
         {
-            gv.DataSource = PProject;
-            gv.DataBind();
+            if (PProject.Count > 0)
+            {
+                gv.DataSource = PProject;
+                gv.DataBind();
+            }
+
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + PProject.Count;
         }
     }
