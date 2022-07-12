@@ -814,13 +814,12 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Advance Amount</label>
-                    <asp:TextBox ID="txtAdvanceAmount" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtAdvanceAmount" WatermarkText="Customer Name" WatermarkCssClass="WatermarkCssClass" />
+                    <asp:TextBox ID="txtAdvanceAmount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled" TextMode="Number"></asp:TextBox>
                 </div>
 
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Financier Amount</label>
-                    <asp:TextBox ID="txtFinancierAmount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                    <asp:TextBox ID="txtFinancierAmount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" TextMode="Number"></asp:TextBox>
                 </div>
 
             </div>
