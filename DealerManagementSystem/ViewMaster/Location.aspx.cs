@@ -121,7 +121,7 @@ namespace DealerManagementSystem.ViewMaster
                     LRegion = new BDMS_Address().GetRegion(null, null, null);
                     LState = new BDMS_Address().GetState(null, null, null, null);
                     LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
-                    LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
+                    LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null, "true");
                    // LDealer = new BDMS_Dealer().GetDealer(null, null, null);
                     FillCountry();
                     FillRegion();
@@ -214,7 +214,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, null, null);
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, null, null, "true");
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = LDistrict;
@@ -492,7 +492,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 //List<PDMS_District> MML = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID,  District, null);
 
-                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID);
+                LDistrict = new BDMS_Address().GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID,"true");
                 if (LDistrict.Count == 0)
                 {
                     LDistrict.Add(new PDMS_District());

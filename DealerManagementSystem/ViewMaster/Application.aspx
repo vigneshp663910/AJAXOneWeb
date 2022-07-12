@@ -62,7 +62,7 @@
                                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
-                                        <label>MainApplication</label>
+                                        <label>Main Application</label>
                                     </div>
                                     <div class="col-md-2">
                                         <asp:DropDownList ID="ddlMainApplication" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlMainApplication_SelectedIndexChanged"></asp:DropDownList>

@@ -106,23 +106,34 @@ namespace DealerManagementSystem.ViewPreSale
             }   
             
 
-            string result = new BAPI().ApiPut("Lead", Lead); 
-            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-            if (result == "0")
+            string result = new BAPI().ApiPut("Lead", Lead);
+            PApiResult Result=  JsonConvert.DeserializeObject<PApiResult>(result);
+            //result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+
+            if (Result.Status == PApplication.Failure)
             {
-                MPE_Customer.Show();
-                lblMessageLead.Text = "Customer is not updated successfully ";
+                lblMessageLead.Text = Result.Message;
                 return;
             }
-            else
-            {
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Text = "Customer is updated successfully ";
-            }
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
+            //if (result == "0")
+            //{
+            //    MPE_Customer.Show();
+            //    lblMessageLead.Text = "Customer is not updated successfully ";
+            //    return;
+            //}
+            //else
+            //{
+            //    lblMessage.Visible = true;
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Text = "Customer is updated successfully ";
+            //}
 
             PLeadSearch S = new PLeadSearch();
-            S.LeadID = Convert.ToInt64(result);
+            S.LeadID = Convert.ToInt64(Result.Data);
              
             gvLead.DataSource = new BLead().GetLead(S);
             gvLead.DataBind();  

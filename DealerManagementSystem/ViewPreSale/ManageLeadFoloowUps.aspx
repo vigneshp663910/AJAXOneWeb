@@ -86,7 +86,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                            <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" />
+                                            <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Sales Engineer">

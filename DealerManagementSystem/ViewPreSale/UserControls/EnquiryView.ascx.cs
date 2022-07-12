@@ -191,8 +191,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             DropDownList ddlState = (DropDownList)UC_CustomerCreate.FindControl("ddlState");
             
             DropDownList ddlDistrict = (DropDownList)UC_CustomerCreate.FindControl("ddlDistrict");
-            
-            
+            DropDownList ddlTehsil = (DropDownList)UC_CustomerCreate.FindControl("ddlTehsil");
+
 
             TextBox txtCustomerName = (TextBox)UC_CustomerCreate.FindControl("txtCustomerName");
             //  TextBox txtCustomerName2 = (TextBox)UC_Customer.FindControl("txtCustomerName2");
@@ -210,6 +210,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
             ddlDistrict.SelectedValue = Convert.ToString(Enquiry.District.DistrictID);
+
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null); 
+            new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
 
             txtContactPerson.Text = Enquiry.PersonName;
             txtMobile.Text = Enquiry.Mobile;

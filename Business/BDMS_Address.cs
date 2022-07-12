@@ -437,10 +437,10 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_State>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
              
         }
-        public List<PDMS_District> GetDistrict(int? CountryID, int? RegionID, int? StateID, int? DistrictID, string District, int? DealerID)
+        public List<PDMS_District> GetDistrict(int? CountryID, int? RegionID, int? StateID, int? DistrictID, string District, int? DealerID, string All = "false")
         {
             string endPoint = "Location/District?CountryID=" + CountryID + "&RegionID=" + RegionID + "&StateID=" + StateID
-                + "&DistrictID=" + DistrictID + "&District=" + District + "&DealerID=" + DealerID;
+                + "&DistrictID=" + DistrictID + "&District=" + District + "&DealerID=" + DealerID + "&All=" + All; ;
             return JsonConvert.DeserializeObject<List<PDMS_District>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDMS_District> GetDistrictBySalesEngineerUserID(int? DealerID)
