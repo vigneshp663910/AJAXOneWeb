@@ -463,12 +463,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Text = Results.Message;
                 return;
             }
-            if (!string.IsNullOrEmpty(Quotation.SapQuotationNo))
-            {
-                if (Quotation.CommissionAgent)
-                {
-                    GenerateQuotation(Item);
-                }
+            //if (!string.IsNullOrEmpty(Quotation.SapQuotationNo))
+            //{
+            //    if (Quotation.CommissionAgent)
+            //    {
+            //        GenerateQuotation(Item);
+            //    }
                 //PSalesQuotation Q = Quotation;
                 //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
                 //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
@@ -508,7 +508,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //    lblMessage.Visible = true;
                 //    lblMessage.ForeColor = Color.Red;
                 //}
-            }
+            //}
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
