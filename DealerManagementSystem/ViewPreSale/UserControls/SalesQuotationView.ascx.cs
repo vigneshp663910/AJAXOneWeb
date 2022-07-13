@@ -349,12 +349,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = Results.Message;
                     return;
                 }
-                if (!string.IsNullOrEmpty(Quotation.SapQuotationNo))
-                {
-                    if (Quotation.CommissionAgent)
-                    {
-                        GenerateQuotation(MaterialTax);
-                    }
+                //if (!string.IsNullOrEmpty(Quotation.SapQuotationNo))
+                //{
+                    //if (Quotation.CommissionAgent)
+                    //{
+                    //    GenerateQuotation(MaterialTax);
+                    //}
                     //PSalesQuotation Q = Quotation;
                     //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
                     //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
@@ -394,7 +394,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     //    lblMessage.Visible = true;
                     //    lblMessage.ForeColor = Color.Red;
                     //}
-                }
+                //}
 
                 MPE_Product.Hide();
                 tbpSaleQuotation.ActiveTabIndex = 1;
