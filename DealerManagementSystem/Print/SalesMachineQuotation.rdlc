@@ -2408,7 +2408,7 @@ Yours faithfully,</Value>
               <Top>0.07619cm</Top>
               <Left>0.43714cm</Left>
               <Height>3.18559cm</Height>
-              <Width>9.69751cm</Width>
+              <Width>13.44014cm</Width>
               <Visibility>
                 <Hidden>=Globals!PageNumber=1</Hidden>
               </Visibility>
@@ -2426,8 +2426,8 @@ Yours faithfully,</Value>
               <Source>Embedded</Source>
               <Value>AjaxNewLogo</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.55244cm</Top>
-              <Left>13.41867cm</Left>
+              <Top>0.86994cm</Top>
+              <Left>14.05367cm</Left>
               <Height>1.52287cm</Height>
               <Width>4.96604cm</Width>
               <ZIndex>1</ZIndex>
@@ -2575,7 +2575,7 @@ Yours faithfully,</Value>
               <Top>0.07619cm</Top>
               <Left>0.43714cm</Left>
               <Height>3.07976cm</Height>
-              <Width>11.47022cm</Width>
+              <Width>13.44014cm</Width>
               <ZIndex>2</ZIndex>
               <Visibility>
                 <Hidden>=Globals!PageNumber&lt;&gt;1</Hidden>

@@ -1266,7 +1266,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 if (Quotation.CommissionAgent)
                 {
-                    P[32] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
+                    P[32] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
                     P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                     P[34] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
                     P[35] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
@@ -1572,7 +1572,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
                 if (Quotation.CommissionAgent)
                 {
-                    P[51] = new ReportParameter("CompanyName", Ajax.CustomerFullName, false);
+                    P[51] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
                     P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
                     P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
                     P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Ajax.PAN + ",GST:" + Ajax.GSTIN);
@@ -1581,7 +1581,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 else
                 {
-                    P[51] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
+                    P[51] = new ReportParameter("CompanyName", Dealer.CustomerFullName.ToUpper(), false);
                     P[52] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
                     P[53] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
                     P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Ajax.GSTIN);

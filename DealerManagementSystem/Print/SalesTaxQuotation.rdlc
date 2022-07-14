@@ -2746,7 +2746,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Top>0.38806cm</Top>
               <Left>0.40438cm</Left>
               <Height>3.34009cm</Height>
-              <Width>10.19059cm</Width>
+              <Width>13.67289cm</Width>
               <Visibility>
                 <Hidden>=Globals!PageNumber=1</Hidden>
               </Visibility>
@@ -2916,7 +2916,7 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
               <Top>0.3175cm</Top>
               <Left>0.40438cm</Left>
               <Height>3.26954cm</Height>
-              <Width>10.19059cm</Width>
+              <Width>13.67289cm</Width>
               <ZIndex>2</ZIndex>
               <Visibility>
                 <Hidden>=Globals!PageNumber&lt;&gt;1</Hidden>
@@ -3032,7 +3032,6 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>0.08284cm</Left>
               <Height>2.73431cm</Height>
               <Width>19.71963cm</Width>
