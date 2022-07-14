@@ -480,7 +480,7 @@
 
                         <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
-                            <legend style="background: none; color: #007bff; font-size: 20px;">Sign in</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
                                     <br />
@@ -519,7 +519,7 @@
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldResetPassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px;">Reset Password</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Reset Password</legend>
                             <div class="col-md-12">
                                 <div>
                                     <br />
@@ -551,7 +551,7 @@
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px;">Change Password</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Change Password</legend>
                             <div class="col-md-12">
                                 <div>
                                     <%--<br />--%>
