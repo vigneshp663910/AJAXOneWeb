@@ -238,14 +238,16 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 
-        public List<PActivity> GetPendingUserActivitiy(int UserID)
+        public List<PActivity> GetPendingUserActivitiy(int? DealerID, int? SalesEnineerUserID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             List<PActivity> Activities = new List<PActivity>();
             try
             {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter SalesEnineerUserIDP = provider.CreateParameter("SalesEnineerUserID", SalesEnineerUserID, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[1] { UserIDP };
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, SalesEnineerUserIDP, UserIDP };
 
                 PActivity Activity = new PActivity();
                 using (DataSet DataSet = provider.Select("GetPendingUserActivitiy", Params))
