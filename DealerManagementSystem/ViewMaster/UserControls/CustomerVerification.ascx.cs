@@ -42,15 +42,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
 
         protected void btnVerified_Click(object sender, EventArgs e)
-        {
-
+        { 
+ 
             string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
             if (Convert.ToBoolean(s) == true)
             {
                 lblMessage.Text = "Updated successfully";
                 lblMessage.ForeColor = Color.Green;
-               // fillCustomer(Customer.CustomerID);
+                pnlVerification.Visible = false;
             }
             else
             {

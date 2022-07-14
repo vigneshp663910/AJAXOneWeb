@@ -173,6 +173,8 @@ namespace DealerManagementSystem.ViewMaster
                 PnlCustomerVerification.Visible = false;
                 Panel PnlCustomerView = (Panel)UC_CustomerView.FindControl("PnlCustomerView");
                 PnlCustomerView.Visible = true;
+
+                UC_CustomerView.fillCustomer(UC_CustomerView.Customer.CustomerID);
             }
             else
             {
@@ -181,6 +183,22 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
+        public void btnBackToList_Click()
+        {
+            Panel PnlCustomerVerification = (Panel)UC_CustomerView.FindControl("PnlCustomerVerification");
+            if (PnlCustomerVerification.Visible)
+            {
+                PnlCustomerVerification.Visible = false;
+                Panel PnlCustomerView = (Panel)UC_CustomerView.FindControl("PnlCustomerView");
+                PnlCustomerView.Visible = true;
+            }
+            else
+            {
+                divCustomerView.Visible = false;
+                divList.Visible = true;
+            }
+
+        }
         protected void btnAddColdVisit_Click(object sender, EventArgs e)
         {
             MPE_Customer.Show();
@@ -230,5 +248,6 @@ namespace DealerManagementSystem.ViewMaster
 
             UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
         }
+    
     }
 }

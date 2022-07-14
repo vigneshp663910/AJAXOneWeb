@@ -147,6 +147,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Verified Customer")
                 {
+                    
+                    Panel pnlVerification = (Panel)UC_CustomerVerification.FindControl("pnlVerification");
+                    pnlVerification.Visible = true;
+
                     PnlCustomerView.Visible = false;
                     PnlCustomerVerification.Visible = true;
                     UC_CustomerVerification.FillMaster();
