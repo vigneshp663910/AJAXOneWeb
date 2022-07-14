@@ -479,7 +479,8 @@ namespace Business
                 Customer.PAN = ConfigurationManager.AppSettings["EPAN"];
                 Customer.Email = ConfigurationManager.AppSettings["EMAIL"];
                 Customer.Mobile = ConfigurationManager.AppSettings["Mobile"];
-
+                Customer.Web = ConfigurationManager.AppSettings["EWeb"];
+                Customer.CIN = ConfigurationManager.AppSettings["ECIN"];
 
             }
             catch (Exception ex)

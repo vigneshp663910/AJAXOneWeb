@@ -50,8 +50,9 @@ namespace Properties
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
-        public string Pincode { get; set; }
-
+        public string Pincode { get; set; } 
+        public string CIN { get; set; }
+        public string Web { get; set; } 
         public PDMS_Country Country { get; set; }
         public PDMS_State State { get; set; }
         public PDMS_District District { get; set; }

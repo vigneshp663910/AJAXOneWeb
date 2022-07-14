@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerVerification.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.CustomerVerification" %>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+
+
+<br /><br />
 <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
     EmptyDataText="No Data Found" PageSize="10" AllowPaging="true">
     <Columns>
@@ -88,6 +91,7 @@
     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
 </asp:GridView>
 
+<br /><br />
 <asp:GridView ID="gvCustomerDuplicate" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
     EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomerDuplicate_PageIndexChanging">
     <Columns>

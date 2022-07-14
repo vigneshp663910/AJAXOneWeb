@@ -43,7 +43,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void btnVerified_Click(object sender, EventArgs e)
         {
-            string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+
+            string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
             if (Convert.ToBoolean(s) == true)
             {
@@ -61,12 +62,28 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void btnMergeCustomer_Click(object sender, EventArgs e)
         {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
 
+            string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&MergeToCustomerID=" + lblCustomerID.Text;
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
         }
 
         protected void gvCustomerDuplicate_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            gvCustomerDuplicate.PageIndex = e.NewPageIndex;
+            gvCustomerDuplicate.DataSource = new BDMS_Customer().CustomerForDuplicateVerificatio(Customer.CustomerID);
+            gvCustomerDuplicate.DataBind();
         }
     }
 }
