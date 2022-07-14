@@ -167,8 +167,18 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
-            divCustomerView.Visible = false;
-            divList.Visible = true;
+            Panel PnlCustomerVerification = (Panel)UC_CustomerView.FindControl("PnlCustomerVerification");
+            if (PnlCustomerVerification.Visible)
+            {
+                PnlCustomerVerification.Visible = false;
+                Panel PnlCustomerView = (Panel)UC_CustomerView.FindControl("PnlCustomerView");
+                PnlCustomerView.Visible = true;
+            }
+            else
+            {
+                divCustomerView.Visible = false;
+                divList.Visible = true;
+            }
         }
 
         protected void btnAddColdVisit_Click(object sender, EventArgs e)

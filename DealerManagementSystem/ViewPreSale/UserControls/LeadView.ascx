@@ -46,7 +46,7 @@
                 <label>Lead Date : </label>
                 <asp:Label ID="lblLeadDate" runat="server" CssClass="label"></asp:Label>
             </div>
-          <%--  <div class="col-md-4">
+            <%--  <div class="col-md-4">
                 <label>Category : </label>
                 <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
             </div>--%>
@@ -125,9 +125,9 @@
     </fieldset>
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-<asp1:tabcontainer id="tbpCust" runat="server" tooltip="Geographical Location Master..." font-bold="True" font-size="Medium">
-    <asp1:tabpanel id="tpnlSalesEngineer" runat="server" headertext="Sales Engineer" font-bold="True" tooltip="">
-        <contenttemplate>
+<asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
+    <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="Sales Engineer" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvSalesEngineer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -168,10 +168,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="TabVisit" runat="server" headertext="Visit" font-bold="True" tooltip="">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
             <%--  <div class="col-md-12">--%>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -228,10 +228,10 @@
                 </div>
             </div>
             <%--   </div>--%>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlEffort" runat="server" headertext="Effort">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvEffort" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -282,10 +282,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlConversation" runat="server" headertext="Conversation">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlConversation" runat="server" HeaderText="Conversation">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvConversation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -302,7 +302,7 @@
                                     <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                           <%-- <asp:TemplateField HeaderText="Progress Status">
+                            <%-- <asp:TemplateField HeaderText="Progress Status">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ProgressStatus.ProgressStatus")%>' runat="server" />
@@ -327,10 +327,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="TabPanel2" runat="server" headertext="Effort Conversation Visit">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Effort Conversation Visit">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvEffortConversationVisit" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -343,10 +343,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlFollowUp" runat="server" headertext="Follow Up">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up">
+        <ContentTemplate>
             <%--<div class="col-md-12">--%>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -384,10 +384,10 @@
                 </div>
             </div>
             <%--</div>--%>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlFinancial" runat="server" headertext="Financial Info">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlFinancial" runat="server" HeaderText="Financial Info">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvFinancial" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -425,10 +425,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlExpense" runat="server" headertext="Expense">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -475,10 +475,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlProduct" runat="server" headertext="Product">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlProduct" runat="server" HeaderText="Product">
+        <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -520,10 +520,10 @@
                     </asp:GridView>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="TabPanel1" runat="server" headertext="Support Document">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
+        <ContentTemplate>
             <div class="col-md-12">
                 <table>
                     <tr>
@@ -584,10 +584,10 @@
                     </div>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlQuestionaries" runat="server" headertext="Questionaries" font-bold="True" tooltip="">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlQuestionaries" runat="server" HeaderText="Questionaries" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
             <%--  <div class="col-md-12">--%>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -634,9 +634,9 @@
                 </div>
             </div>
             <%--  </div>--%>
-        </contenttemplate>
-    </asp1:tabpanel>
-</asp1:tabcontainer>
+        </ContentTemplate>
+    </asp1:TabPanel>
+</asp1:TabContainer>
 
 
 
@@ -648,7 +648,7 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageAssignEngineer" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_assignse id="UC_AssignSE" runat="server"></uc:uc_assignse>
+            <UC:UC_AssignSE ID="UC_AssignSE" runat="server"></UC:UC_AssignSE>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveAssignSE" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveAssignSE_Click" />
@@ -656,21 +656,21 @@
 
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_AssignSE" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlSEAssign" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_AssignSE" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSEAssign" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlFollowUp" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales FollowUp</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageFollowUp" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_followup id="UC_FollowUp" runat="server"></uc:uc_followup>
+            <UC:UC_FollowUp ID="UC_FollowUp" runat="server"></UC:UC_FollowUp>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveFollowUp" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFollowUp_Click" />
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_FollowUp" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlFollowUp" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_FollowUp" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFollowUp" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlConversation" runat="server" CssClass="Popup" Style="display: none">
@@ -678,28 +678,28 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageConversation" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_customerconversation id="UC_CustomerConversation" runat="server"></uc:uc_customerconversation>
+            <UC:UC_CustomerConversation ID="UC_CustomerConversation" runat="server"></UC:UC_CustomerConversation>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveustomerConversation" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveustomerConversation_Click" />
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Conversation" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlConversation" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Conversation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlConversation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlFinancial" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix"><span id="PopupDialogue">Pre -Sales Financial Info</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a></div>
     <div class="col-md-12">
         <asp:Label ID="lblMessageFinancial" runat="server" Text="" CssClass="message" Visible="false" />
-        <uc:uc_financial id="UC_Financial" runat="server"></uc:uc_financial>
+        <UC:UC_Financial ID="UC_Financial" runat="server"></UC:UC_Financial>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveFinancial" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveFinancial_Click" />
         </div>
     </div>
 
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Financial" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlFinancial" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Financial" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFinancial" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
@@ -710,7 +710,7 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageEffort" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_effort id="UC_Effort" runat="server"></uc:uc_effort>
+            <UC:UC_Effort ID="UC_Effort" runat="server"></UC:UC_Effort>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveEffort" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveEffort_Click" />
@@ -718,7 +718,7 @@
 
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Effort" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlEffort" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Effort" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEffort" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlExpense" runat="server" CssClass="Popup" Style="display: none">
@@ -730,7 +730,7 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageExpense" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_expense id="UC_Expense" runat="server"></uc:uc_expense>
+            <UC:UC_Expense ID="UC_Expense" runat="server"></UC:UC_Expense>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveExpense" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveExpense_Click" />
@@ -738,7 +738,7 @@
 
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Expense" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlExpense" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlProduct" runat="server" CssClass="Popup" Style="display: none">
@@ -750,7 +750,7 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageProduct" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_product id="UC_Product" runat="server"></uc:uc_product>
+            <UC:UC_Product ID="UC_Product" runat="server"></UC:UC_Product>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveProduct" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveProduct_Click" />
@@ -758,7 +758,7 @@
 
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Product" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlProduct" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Product" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProduct" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlQuotation" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix">
@@ -770,14 +770,14 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageQuotation" runat="server" Text="" CssClass="message" Visible="false" />
-            <uc:uc_quotation id="UC_Quotation" runat="server"></uc:uc_quotation>
+            <UC:UC_Quotation ID="UC_Quotation" runat="server"></UC:UC_Quotation>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="BtnSaveQuotation" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnSaveQuotation_Click"></asp:Button>
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Quotation" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlQuotation" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Quotation" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlQuotation" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlLostReason" runat="server" CssClass="Popup" Style="display: none">
@@ -801,7 +801,7 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_LostReason" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlLostReason" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_LostReason" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLostReason" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlRejectedBySales" runat="server" CssClass="Popup" Style="display: none">
@@ -825,7 +825,7 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_RejectedBySales" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlRejectedBySales" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_RejectedBySales" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRejectedBySales" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlLead" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -837,7 +837,7 @@
         <div class="model-scroll">
             <fieldset class="fieldset-border" id="fldCountry" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
-               <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead> 
+                <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
@@ -845,7 +845,7 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Lead" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlLead" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Lead" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLead" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <asp:Panel ID="pnlAddQuestionaries" runat="server" CssClass="Popup" Style="display: none">
@@ -881,7 +881,33 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Questionaries" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlAddQuestionaries" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Questionaries" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddQuestionaries" BackgroundCssClass="modalBackground" CancelControlID="btnCancel">
+    <Animations> 
+         
+            <OnShown>
+                <FadeIn Duration="2.5"    />
+                 
+            </OnShown>  
+         
+            <OnHiding>
+                <FadeOut Duration=".5"  />
+            </OnHiding>
+            <OnHidden>
+                <FadeOut Duration=".5"   />
+            </OnHidden>
+        
+    </Animations> 
+</ajaxToolkit:ModalPopupExtender>
+<%--<ajaxToolkit:AnimationExtender ID="popupAnimation" runat="server" TargetControlID="lbtAddQuestionaries">
+        <Animations>
+                <OnClick>
+                    <Parallel AnimationTarget="pnlAddQuestionaries"                Duration="0.3" Fps="25">
+                    <FadeIn />                                        
+                    <Move   Vertical="250"></Move>
+                    </Parallel>                   
+                </OnClick>
+        </Animations>
+    </ajaxToolkit:AnimationExtender>--%>
 
 <asp:Panel ID="pnlVisit" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -922,10 +948,11 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxtoolkit:modalpopupextender id="MPE_Visit" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlVisit" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Visit" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlVisit" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">
+   <%-- <div  >--%>
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 
@@ -1077,5 +1104,5 @@
 
         </div>
     </asp:Panel>--%>
+
  
-       

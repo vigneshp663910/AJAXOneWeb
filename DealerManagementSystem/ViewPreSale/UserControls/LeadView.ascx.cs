@@ -200,7 +200,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Add Questionaries")
             {
                 new DDLBind(ddlQuestionariesMain, new BLead().GetLeadQuestionariesMain(null, null), "LeadQuestionariesMain", "LeadQuestionariesMainID");
-                MPE_Questionaries.Show();
+                MPE_Questionaries.Show(); 
             }
             else if (lbActions.Text == "Add Visit")
             {

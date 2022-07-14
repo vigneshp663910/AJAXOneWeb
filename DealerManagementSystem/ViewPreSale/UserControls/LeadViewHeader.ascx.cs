@@ -22,6 +22,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblLeadNumber.Text = Lead.LeadNumber;
                 lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
                 // lblCategory.Text = Lead.Category.Category;
+                lblUrgency.Text= Lead.Urgency == null ? "" : Lead.Urgency.Urgency;
                 lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
                 lblQualification.Text = Lead.Qualification == null ? "" : Lead.Qualification.Qualification;
                 lblSource.Text = Lead.Source == null ? "" : Lead.Source.Source;
@@ -37,6 +38,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
                 lblLocation.Text = Location;
+                lblCustomerFeedback.Text = Lead.CustomerFeedback;
             }
         }
         public void Clear()

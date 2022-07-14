@@ -820,7 +820,7 @@
         }
 
         .modalBackground {
-            background-color: #000000bd;
+            background-color: #000000bd; 
         }
 
         .Popup label {

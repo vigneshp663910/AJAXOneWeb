@@ -147,20 +147,23 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Verified Customer")
                 {
-                    string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
-                    string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
-                    if (Convert.ToBoolean(s) == true)
-                    {
-                        lblMessage.Text = "Updated successfully";
-                        lblMessage.ForeColor = Color.Green;
-                        fillCustomer(Customer.CustomerID);
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Something went wrong try again.";
-                        lblMessage.ForeColor = Color.Red;
-                    }
-                    lblMessage.Visible = true;
+                    PnlCustomerView.Visible = false;
+                    PnlCustomerVerification.Visible = true;
+                    UC_CustomerVerification.FillMaster();
+                    //string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
+                    //string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
+                    //if (Convert.ToBoolean(s) == true)
+                    //{
+                    //    lblMessage.Text = "Updated successfully";
+                    //    lblMessage.ForeColor = Color.Green;
+                    //    fillCustomer(Customer.CustomerID);
+                    //}
+                    //else
+                    //{
+                    //    lblMessage.Text = "Something went wrong try again.";
+                    //    lblMessage.ForeColor = Color.Red;
+                    //}
+                    //lblMessage.Visible = true;
                 }
                 else if (lbActions.Text == "In Activate Customer")
                 {
@@ -198,6 +201,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Sync to Sap")
                 {
+
+                    if(!Customer.IsVerified)
+                    {
+                        lblMessage.Text = "Please Verify Customer then Sync to Sap";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                     long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer, false);
                     //   string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                     //if (Convert.ToBoolean(s) == true)
@@ -1202,5 +1213,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
         }
+
+        
     }
 }

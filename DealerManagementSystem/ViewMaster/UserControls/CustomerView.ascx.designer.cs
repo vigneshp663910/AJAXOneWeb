@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
     {
 
         /// <summary>
+        /// PnlCustomerView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlCustomerView;
+
+        /// <summary>
         /// lbEditCustomer control.
         /// </summary>
         /// <remarks>
@@ -427,6 +436,33 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvShipTo;
+
+        /// <summary>
+        /// PnlCustomerVerification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlCustomerVerification;
+
+        /// <summary>
+        /// Div2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
+
+        /// <summary>
+        /// UC_CustomerVerification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerVerification UC_CustomerVerification;
 
         /// <summary>
         /// pnlCustomer control.

@@ -393,6 +393,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
@@ -1152,6 +1153,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.cs">
+      <DependentUpon>CustomerVerification.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.designer.cs">
+      <DependentUpon>CustomerVerification.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserLocationTrackMap.aspx.cs">
       <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>

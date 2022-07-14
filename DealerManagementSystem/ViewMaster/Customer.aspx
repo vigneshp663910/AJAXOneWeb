@@ -3,6 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -280,6 +281,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 
 

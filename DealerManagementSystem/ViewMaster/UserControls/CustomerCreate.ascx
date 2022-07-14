@@ -98,22 +98,22 @@
     <ContentTemplate>
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div class="col-md-6 col-sm-12" id="divDealer" runat="server">
+                <div class="col-md-4 col-sm-12" id="divDealer" runat="server">
                     <label>Dealer</label>
                     <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <label class="modal-label">Is Draft</label>
                     <asp:CheckBox ID="cbIsDraft" runat="server" />
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <label class="modal-label">
                         Title
                         <samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlTitle" runat="server" CssClass="form-control" />
                 </div>
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <label class="modal-label">
                         Customer Name
                         <samp style="color: red">*</samp></label>
@@ -122,7 +122,7 @@
                     <%--<div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">--%>
                     <div id="UCdivAuto" class="custom-auto-complete">
                         <div id="UCdiv0" class="auto-item" style="display: none">
-                            Click Here to new Customer
+                            Click here for new Customer 
                         </div>
                         <div id="UCdiv1" class="auto-item" style="display: none">
                         </div>
