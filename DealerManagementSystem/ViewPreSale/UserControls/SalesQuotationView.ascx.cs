@@ -1094,6 +1094,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
+                if(string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
+                {
+                    lblMessage.Text = "Quotation Not Generated...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -1153,7 +1160,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.PgQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1322,7 +1329,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
-
+                if(string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
+                {
+                    lblMessage.Text = "Quotation Not Generated...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -1378,7 +1391,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.PgQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
