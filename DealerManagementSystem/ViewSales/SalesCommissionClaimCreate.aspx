@@ -76,7 +76,7 @@
                                     <asp:TemplateField HeaderText="Sap Quote No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                             <asp:Label ID="lblQuotationID" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationID")%>' runat="server" />
+                                             <asp:Label ID="lblQuotationID" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationID")%>' runat="server" Visible="false" />
                                             <asp:Label ID="lblSapQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SapQuotationNo")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>

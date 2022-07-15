@@ -244,34 +244,15 @@ namespace Business
             List<PActivity> Activities = new List<PActivity>();
             try
             {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter SalesEnineerUserIDP = provider.CreateParameter("SalesEnineerUserID", SalesEnineerUserID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { DealerIDP, SalesEnineerUserIDP, UserIDP };
-
-                PActivity Activity = new PActivity();
-                using (DataSet DataSet = provider.Select("GetPendingUserActivitiy", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Activity = new PActivity();
-                            Activities.Add(Activity);
-                            Activity.ActivityType = new PActivityType() { ActivityTypeName = Convert.ToString(dr["ActivityTypeName"]), ActivityTypeID = Convert.ToInt32(dr["ActivityID"]) };
-                            Activity.ActivityID = Convert.ToInt64(dr["ActivityID"]);
-                        }
-                    }
-                }
-
-                TraceLogger.Log(DateTime.Now);
+                string endPoint = "Activity/PendingUserActivitiy?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
+                return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                 
             }
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("BActivity", "GetPendingUserActivitiy", ex);
                 throw ex;
-            }
-            return Activities;
+            } 
         }        
     }
 }
