@@ -310,39 +310,26 @@
                 document.getElementById("<%=BtnSendOTP.ClientID%>").style.display = "inline";
             }
         }
-
-
-
-
-        <%--function startTimer() {
-            var presentTime = document.getElementById('timer').innerHTML;
-            var timeArray = presentTime.split(/[:]+/);
-            var m = timeArray[0];
-            var s = checkSecond((timeArray[1] - 1));
-            if (s == 0 && m == 0) {
-                $('#<%=BtnSendOTP.ClientID %>').val="Resend OTP";
-                $('#<%=BtnSendOTP.ClientID %>').prop("disabled", "enabled");
-            }
-            if (s == 59) { m = m - 1 }
-            if (m < 0) {
-                
-                return
-            }
-
-            document.getElementById("timer").innerHTML = m + ":" + s;
-            console.log(m)
-            setTimeout(startTimer, 1000);
-
-        }
-
-        function checkSecond(sec) {
-            if (sec < 10 && sec >= 0) { sec = "0" + sec }; // add zero in front of numbers < 10
-            if (sec < 0) { sec = "59" };
-            return sec;
-        }--%>
-
-
-
+    </script>
+    <script>  
+document.onkeypress = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+document.onmousedown = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+document.onkeydown = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
     </script>
 
     <script>
@@ -381,11 +368,11 @@
      //   document.querySelector('#find-me').addEventListener('click', geoFindMe);
     </script>
 </head>
-<body>
+<body oncontextmenu="return false;">
     <div class="loading" align="center" aria-disabled="true">
         Loading. Please wait.<br />
         <br />
-        <img src="Images/PageLoader.gif" alt="" style="margin:15%;background-color:white"/>
+        <img src="Images/PageLoader.gif" alt="" style="margin: 15%; background-color: white" />
     </div>
     <style type="text/css">
         .modal {
@@ -449,7 +436,7 @@
 
                         </div>
 
-                        <div class="vertical-center" style="padding: 198px; padding-left: 230px; padding-bottom: 10px; text-align: center; margin-top: 200px; font-family: sans-serif;">
+                        <div class="vertical-center" style="padding: 198px; padding-left: 230px; padding-bottom: 10px; text-align: center; /*margin-top: 200px; */ font-family: sans-serif;">
                             <h5 class="care  text-white" style="margin-top: 200px; font-family: Proxima Nova;">NEED HELP ? &nbsp;LET US KNOW</h5>
                             <li class="fa fa-phone text-white">
                                 <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>
@@ -481,7 +468,7 @@
 
                         <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
-                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Sign in</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
                                     <br />
@@ -520,7 +507,7 @@
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldResetPassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Reset Password</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Reset Password</legend>
                             <div class="col-md-12">
                                 <div>
                                     <br />
@@ -552,7 +539,7 @@
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Change Password</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Change Password</legend>
                             <div class="col-md-12">
                                 <div>
                                     <%--<br />--%>
