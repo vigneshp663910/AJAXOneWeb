@@ -252,7 +252,7 @@
             display: none;
         }
 
-        @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+        @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
             #LoginLeft {
                 display: none;
             }
@@ -267,6 +267,7 @@
 
             #LoginRight {
                 width: 100%;
+                overflow : auto;
             }
 
 
