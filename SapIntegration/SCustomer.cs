@@ -79,7 +79,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_HOUSE_NO", "");
             tagListBapi.SetValue("P_DISTRICT", Customer.District.District);
             tagListBapi.SetValue("P_POSTCODE", Customer.Pincode);
-            tagListBapi.SetValue("P_CITY", Customer.City);
+            tagListBapi.SetValue("P_CITY", string.IsNullOrEmpty(Customer.City) ? Customer.District.District : Customer.City);
             tagListBapi.SetValue("P_COUNTRY", Customer.Country.CountryCode);
             tagListBapi.SetValue("P_REGION", Convert.ToString(Customer.State.StateCode));
             tagListBapi.SetValue("P_PHONE", Customer.Mobile);
@@ -134,7 +134,7 @@ namespace SapIntegration
             tagListBapi.SetValue("P_HOUSE_NO", "");
             tagListBapi.SetValue("P_DISTRICT", Customer.District.District);
             tagListBapi.SetValue("P_POSTCODE", Customer.Pincode);
-            tagListBapi.SetValue("P_CITY", Customer.City);
+            tagListBapi.SetValue("P_CITY", string.IsNullOrEmpty(Customer.City)? Customer.District.District : Customer.City);
             tagListBapi.SetValue("P_COUNTRY", Customer.Country.CountryCode);
             tagListBapi.SetValue("P_REGION", Convert.ToString(Customer.State.StateCode));
             tagListBapi.SetValue("P_PHONE", Customer.Mobile);
