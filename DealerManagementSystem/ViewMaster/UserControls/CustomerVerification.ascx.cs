@@ -42,8 +42,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
 
         protected void btnVerified_Click(object sender, EventArgs e)
-        { 
- 
+        {
+            lblMessage.Text = "";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+            if ( Customer.IsDraft)
+            {
+                lblMessage.Text = "Customer is Draft Mode. Please change the Draft Mode";
+                return;
+            }
             string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID;
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
             if (Convert.ToBoolean(s) == true)

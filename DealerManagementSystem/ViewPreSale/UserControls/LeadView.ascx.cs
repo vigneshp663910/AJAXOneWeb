@@ -202,6 +202,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessage.Text = "Customer Code is Not Create";
                     return;
                 }
+                if (Lead.LeadProduct  == null)
+                {
+                    lblMessage.Text = "Please select the Product";
+                    return;
+                }
                 if (Lead.LeadProduct.Count == 0)
                 {
                     lblMessage.Text = "Please select the Product";
@@ -476,7 +481,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void fillProduct()
         {
-            gvProduct.DataSource = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
+            Lead.LeadProduct = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
+            gvProduct.DataSource = Lead.LeadProduct;
             gvProduct.DataBind(); 
         }
       

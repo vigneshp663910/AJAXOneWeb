@@ -247,11 +247,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 return Message;
             }
-            //if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
-            //{
-            //    Message = Message + "<br/>Please enter the Address1";
-            //    txtAddress1.BorderColor = Color.Red;
-            //}
+            
 
             if (ddlCountry.SelectedValue == "0")
             {
@@ -281,6 +277,37 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     Message = Message + "<br/>Pincode should be in digit";
                     txtPincode.BorderColor = Color.Red;
                 }
+            }
+
+            if(!cbIsDraft.Checked)
+            {
+                if ((!regex.Match(txtGSTIN.Text.Trim()).Success) && (txtGSTIN.Text.Trim() != "URD"))
+                {
+                    Message = " GST Number " + txtGSTIN.Text.Trim() + " is not correct";
+                    txtGSTIN.BorderColor = Color.Red;
+                    return Message;
+                }
+                if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
+                {
+                    string gst = txtGSTIN.Text.Trim().Remove(0, 2).Substring(0, 10);
+                    if (txtPAN.Text.Trim().ToUpper() != gst.ToUpper())
+                    {
+                        Message = Message + "<br/>PAN and GSTIN are not matching .";
+                        txtPAN.BorderColor = Color.Red;
+                        return Message;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter the Address1";
+                    txtAddress1.BorderColor = Color.Red;
+                }
+                if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter the Postal";
+                    txtPincode.BorderColor = Color.Red;
+                } 
             }
             return Message;
         }
