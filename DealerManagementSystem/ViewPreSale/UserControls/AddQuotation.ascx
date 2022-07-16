@@ -14,10 +14,10 @@
 
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div class="col-md-6 col-sm-12">
+               <%-- <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Quotation Type</label>
                     <asp:DropDownList ID="ddlQuotationType" runat="server" CssClass="form-control" />
-                </div>
+                </div>--%>
                 <div class="col-md-6 col-sm-12" style="display: none">
                     <label class="modal-label">Status</label>
                     <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />

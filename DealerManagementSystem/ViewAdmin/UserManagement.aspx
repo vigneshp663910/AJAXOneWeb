@@ -242,13 +242,13 @@
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="Label1" runat="server" Text="User ID" CssClass="label"></asp:Label></td>
+                    <asp:Label ID="Label1" runat="server" Text="User ID: " CssClass="label"></asp:Label></td>
                 <td>
                     <asp:Label ID="lblUserID" runat="server" CssClass="label"></asp:Label></td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="Label3" runat="server" Text="User Name" CssClass="label"></asp:Label></td>
+                    <asp:Label ID="Label3" runat="server" Text="Username: " CssClass="label"></asp:Label></td>
                 <td>
                     <asp:Label ID="lblUserName" runat="server" CssClass="label"></asp:Label></td>
             </tr>
@@ -320,7 +320,7 @@
             </asp:GridView>
         </div>
 
-        <table>
+<%--        <table>
             <tr>
                 <td>
                     <div>
@@ -330,7 +330,7 @@
                     </div>
                 </td>
             </tr>
-        </table>
+        </table>--%>
 
         <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
             <asp:GridView ID="gvSubModuleChild" runat="server" AutoGenerateColumns="false"

@@ -194,6 +194,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Convert to Quotation")
             {
+                lblMessage.Text = "";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                if (string.IsNullOrEmpty(Lead.Customer.CustomerCode))
+                {
+                    lblMessage.Text = "Customer Code is Not Create";
+                    return;
+                }
+                if (Lead.LeadProduct.Count == 0)
+                {
+                    lblMessage.Text = "Please select the Product";
+                    return;
+                }
                 MPE_Quotation.Show();
                 UC_Quotation.FillMaster(Lead);
             }

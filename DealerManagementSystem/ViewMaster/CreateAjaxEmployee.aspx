@@ -188,7 +188,16 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role Assigning</legend>
                     <div class="col-md-12">
-                      
+                       <div class="col-md-3 text-right">
+                            <label>Dealer</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" >
+                                <asp:ListItem Value="53">Ajax</asp:ListItem>
+                                <asp:ListItem Value="54">IC Center</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+
                         <div class="col-md-3 text-right">
                             <label>Dealer Office</label>
                         </div>

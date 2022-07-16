@@ -158,8 +158,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Generate Quotation")
             {
-                GenerateQuotation(new PSalesQuotationItem());
-                fillViewQuotation(Quotation.QuotationID);
+                string Message = ValidationSalesQuotationGenerate();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessageQuotation.Text = Message;
+                    return;
+                }
+
+                PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID);
+                lblMessage.Visible = true;
+                lblMessage.Text = Results.Message;
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.ForeColor = Color.Green;
+                //GenerateQuotation(new PSalesQuotationItem());
+                fillViewQuotation(Quotation.QuotationID); 
             }
             else if (lbActions.Text == "Print Machine Quotation")
             {
@@ -1758,6 +1774,32 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         }
 
+        public string ValidationSalesQuotationGenerate()
+        {
+            string Message = "";
+
+            if( Quotation.ValidFrom == null)
+            {
+                return "Please update the Valid From";
+            }
+            if (Quotation.ValidTo == null)
+            {
+                return "Please update the Valid To";
+            } 
+            if (Quotation.PricingDate == null)
+            {
+                return "Please update the Pricing Date";
+            }
+            if (Quotation.QuotationItems.Count != 0)
+            { 
+                return "Please update the Material";
+            }
+            if (Quotation.Competitor.Count != 0)
+            {
+                return "Please update the Competitor";
+            }
+            return Message;
+        }
 
     }
 }
