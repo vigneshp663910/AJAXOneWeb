@@ -159,14 +159,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else if (lbActions.Text == "Generate Quotation")
             {
                 string Message = ValidationSalesQuotationGenerate();
+                lblMessage.Visible = true;
                 if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessageQuotation.Text = Message;
+                    lblMessage.Text = Message;
+                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
 
                 PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID);
-                lblMessage.Visible = true;
+                
                 lblMessage.Text = Results.Message;
                 if (Results.Status == PApplication.Failure)
                 {
@@ -1803,11 +1805,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 return "Please update the Pricing Date";
             }
-            if (Quotation.QuotationItems.Count != 0)
+            if (Quotation.QuotationItems.Count == 0)
             { 
                 return "Please update the Material";
             }
-            if (Quotation.Competitor.Count != 0)
+            if (Quotation.Competitor.Count == 0)
             {
                 return "Please update the Competitor";
             }

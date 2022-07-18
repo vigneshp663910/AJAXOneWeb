@@ -15,39 +15,61 @@
                             <fieldset class="fieldset-border">
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
-                                    <asp:GridView ID="gvMainApplication" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMainApplication_PageIndexChanging">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Main Application" SortExpression="MainApplication">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication")%>' runat="server" />
-                                                    <asp:Label ID="lblSubModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' runat="server" Visible="false" />
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:TextBox ID="txtMainApplication" runat="server" placeholder="Main Application" CssClass="form-control"></asp:TextBox>
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lblMainApplicationEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' OnClick="lblMainApplicationEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                                    <asp:LinkButton ID="lblMainApplicationDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' OnClick="lblMainApplicationDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:Button ID="BtnAddMainApplication" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddMainApplication_Click" Width="70px" Height="33px" />
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
+                                    <div class="boxHead">
+                                        <div class="logheading">
+                                            <div style="float: left">
+                                                <table>
+                                                    <tr>
+                                                        <td>Application(s):</td>
+
+                                                        <td>
+                                                            <asp:Label ID="lblRowCountMainApp" runat="server" CssClass="label"></asp:Label></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnMainAppArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMainAppArrowLeft_Click" /></td>
+                                                        <td>
+                                                            <asp:ImageButton ID="ibtnMainAppArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMainAppArrowRight_Click" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <%-- <div class="col-md-12 Report">--%>
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="gvMainApplication" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMainApplication_PageIndexChanging">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Main Application" SortExpression="MainApplication">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication")%>' runat="server" />
+                                                            <asp:Label ID="lblSubModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' runat="server" Visible="false" />
+                                                        </ItemTemplate>
+                                                        <FooterTemplate>
+                                                            <asp:TextBox ID="txtMainApplication" runat="server" placeholder="Main Application" CssClass="form-control"></asp:TextBox>
+                                                        </FooterTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lblMainApplicationEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' OnClick="lblMainApplicationEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                            <asp:LinkButton ID="lblMainApplicationDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MainApplicationID")%>' OnClick="lblMainApplicationDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                        <FooterTemplate>
+                                                            <asp:Button ID="BtnAddMainApplication" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddMainApplication_Click" Width="70px" Height="33px" />
+                                                        </FooterTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <FooterStyle ForeColor="White" />
+                                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                            </asp:GridView>
+                                        </div>
+                                    <%--</div>--%>
                                 </div>
                             </fieldset>
                         </div>

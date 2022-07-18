@@ -29,6 +29,22 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
+        public List<PDMS_MainApplication> mainApplications
+        {
+            get
+            {
+                if (Session["PDMS_MainApplication"] == null)
+                {
+                    Session["PDMS_MainApplication"] = new List<PDMS_MainApplication>();
+                }
+                return (List<PDMS_MainApplication>)Session["PDMS_MainApplication"];
+            }
+            set
+            {
+                Session["PDMS_MainApplication"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Application');</script>");
@@ -134,10 +150,12 @@ namespace DealerManagementSystem.ViewMaster
             int? MainApplicationID = (int?)null;
             string MainApplicationName = (string)null;
 
-            List<PDMS_MainApplication> mainApplications = new BDMS_Service().GetMainApplication(MainApplicationID, MainApplicationName);
+            //List<PDMS_MainApplication> mainApplications = new BDMS_Service().GetMainApplication(MainApplicationID, MainApplicationName);
+            mainApplications = new BDMS_Service().GetMainApplication(MainApplicationID, MainApplicationName);
 
             gvMainApplication.DataSource = mainApplications;
             gvMainApplication.DataBind();
+            lblRowCountMainApp.Text = (((gvMainApplication.PageIndex) * gvMainApplication.PageSize) + 1) + " - " + (((gvMainApplication.PageIndex) * gvMainApplication.PageSize) + gvMainApplication.Rows.Count) + " of " + mainApplications.Count;
             if (mainApplications.Count == 0)
             {
                 PDMS_MainApplication pDMS_MainApplication = new PDMS_MainApplication();
@@ -486,6 +504,30 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
+        }
+
+        protected void ibtnMainAppArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvMainApplication.PageIndex > 0)
+            {
+                gvMainApplication.PageIndex = gvMainApplication.PageIndex - 1;
+                MainAppBind(gvMainApplication, lblRowCountMainApp, mainApplications);
+            }
+        }
+        protected void ibtnMainAppArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvMainApplication.PageCount > gvMainApplication.PageIndex)
+            {
+                gvMainApplication.PageIndex = gvMainApplication.PageIndex + 1;
+                MainAppBind(gvMainApplication, lblRowCountMainApp, mainApplications);
+            }
+        }
+
+        void MainAppBind(GridView gv, Label lbl, List<PDMS_MainApplication> MainApp)
+        {
+            gv.DataSource = MainApp;
+            gv.DataBind();
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + mainApplications.Count;
         }
     }
 }
