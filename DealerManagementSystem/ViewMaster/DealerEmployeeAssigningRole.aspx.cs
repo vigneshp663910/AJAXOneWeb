@@ -62,7 +62,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Employee » Assign Role');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealer Employee » Assign Role');</script>");
 
             lblMessage.Visible = false;
             if (!IsPostBack)

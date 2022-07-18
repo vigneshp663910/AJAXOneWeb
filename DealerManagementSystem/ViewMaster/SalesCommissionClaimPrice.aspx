@@ -91,7 +91,7 @@
                                                             <asp:TextBox ID="txtMaterailCode" runat="server" placeholder="Materail Code" CssClass="form-control"></asp:TextBox>
                                                         </FooterTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="MaterialDescription">
+                                                    <asp:TemplateField HeaderText="Material Description">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Materail.MaterialDescription")%>' runat="server"></asp:Label>
@@ -120,7 +120,7 @@
                                                             <asp:TextBox ID="txtAmount" runat="server" placeholder="Amount" CssClass="form-control"></asp:TextBox>
                                                         </FooterTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Is Active">
+                                                    <%--<asp:TemplateField HeaderText="Is Active">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                         <ItemTemplate>
                                                             <asp:CheckBox ID="chkbxGIsActive" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' Enabled="false"></asp:CheckBox>
@@ -129,7 +129,7 @@
                                                             <ItemStyle HorizontalAlign="Center"/>
                                                             <asp:CheckBox ID="chkbxFIsActive" runat="server"></asp:CheckBox>
                                                         </FooterTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkBtnSalCommClaimPriceEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimPriceID")%>' OnClick="lnkBtnSalCommClaimPriceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
