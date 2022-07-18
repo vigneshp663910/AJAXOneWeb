@@ -321,11 +321,11 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch
             {
-
+                
             }
             finally
             {
-
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
             }
         }
         void DisplayErrorMessage(Exception e1)

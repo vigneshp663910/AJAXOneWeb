@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
@@ -119,12 +120,14 @@ namespace DealerManagementSystem.ViewPreSale
                 lblRowCount.Text = (((gvFollowUp.PageIndex) * gvFollowUp.PageSize) + 1) + " - " + (((gvFollowUp.PageIndex) * gvFollowUp.PageSize) + gvFollowUp.Rows.Count) + " of " + FU.Count;
             }
             for(int i=0; i< gvFollowUp.Rows.Count;i++)
-            {
-                Panel pnlActions = (Panel)gvFollowUp.Rows[i].FindControl("pnlActions");
-                Label lblFollowUpStatusID = (Label)gvFollowUp.Rows[i].FindControl("lblFollowUpStatusID");
-                if(lblFollowUpStatusID.Text !="1")
-                {
-                    pnlActions.Visible = false;
+            {  
+                Label lblFollowUpStatusID = (Label)gvFollowUp.Rows[i].FindControl("lblFollowUpStatusID"); 
+                if (lblFollowUpStatusID.Text !="1")
+                { 
+                    LinkButton lbCancel = (LinkButton)gvFollowUp.Rows[i].FindControl("lbCancel");
+                    LinkButton lbClose = (LinkButton)gvFollowUp.Rows[i].FindControl("lbClose");
+                    lbCancel.Visible = false;
+                    lbClose.Visible = false;
                 }
             }
 

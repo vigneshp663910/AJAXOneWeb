@@ -2,6 +2,22 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <script type="text/javascript">
+          $(document).ready(function () {
+              debugger;
+              var gvFollowUp = document.getElementById('MainContent_gvFollowUp'); 
+              if (gvFollowUp != null) { 
+                for (var i = 0; i < gvFollowUp.rows.length - 1; i++) { 
+                    var lblFollowUpStatusID = document.getElementById('MainContent_gvFollowUp_lblFollowUpStatus_' + i);
+                    var divActions = document.getElementById('divActions' + i);
+                    if (lblFollowUpStatusID.innerHTML != "Open") {
+                        divActions.style.display = "none";
+                    }
+                }
+            }
+        });
+      </script>
+     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -111,7 +127,7 @@
                                             <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadNumber")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Lead Date" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Lead Date"  >
                                         <ItemTemplate>
                                             <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadDate","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
@@ -126,20 +142,20 @@
                                             <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.ProgressStatus.ProgressStatus")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Qualification" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Qualification" >
                                         <ItemTemplate>
                                             <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Qualification.Qualification")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Source" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Source" >
                                         <ItemTemplate>
                                             <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Source.Source")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Status"  >
                                         <ItemTemplate>
                                             <asp:Label ID="lblLeadStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Status.Status")%>' runat="server" />
-                                            
+
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
@@ -147,12 +163,12 @@
                                             <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Type.Type")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Dealer Code" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Dealer Code"  >
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Dealer.DealerCode")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                    <asp:TemplateField HeaderText="Customer Name"  >
                                         <ItemTemplate>
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
                                         </ItemTemplate>
@@ -160,20 +176,18 @@
                                     <asp:TemplateField HeaderText="FollowUp Status">
                                         <ItemTemplate>
                                             <asp:Label ID="lblFollowUpStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
-                                             <asp:Label ID="lblFollowUpStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblFollowUpStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Update Status" SortExpression="Country">
-                                        <ItemTemplate>
-                                            <asp:Panel ID="pnlActions" runat="server"  >
-                                                <div class="dropdown">
-                                                    <div class="btn Approval" style="height: 25px">Actions</div>
-                                                    <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                                                        <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
-                                                        <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
-                                                    </div>
+                                    <asp:TemplateField HeaderText="Update Status" >
+                                        <ItemTemplate> 
+                                            <div class="dropdown" id='<%# "divActions"+ Container.DataItemIndex%>'>
+                                                <div class="btn Approval" style="height: 25px">Actions</div>
+                                                <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
+                                                    <asp:LinkButton ID="lbClose" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
                                                 </div>
-                                            </asp:Panel>
+                                            </div> 
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

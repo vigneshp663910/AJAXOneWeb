@@ -311,7 +311,7 @@ namespace DealerManagementSystem
                 messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
                 messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
                 messageBody = messageBody.Replace("@@Password", Password);
-                new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+                new EmailManager().MailSend(userDetails.Mail,"", "Password Reset Request", messageBody);
             }
         }
 

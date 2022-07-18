@@ -537,7 +537,7 @@ namespace DealerManagementSystem
                     messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
                     messageBody = messageBody.Replace("@@Password", Password);
                     messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"].ToString() + "SignIn.aspx?SignIn=ForgotPassword&UserID=" + userDetails.UserID + "");
-                    new EmailManager().MailSend(userDetails.Mail, "Password Reset Request", messageBody);
+                    new EmailManager().MailSend(userDetails.Mail,"", "Password Reset Request", messageBody);
 
                     //messageBody = "Dear User, Your OTP for AJAX DMS Login is " + Password + ". From Team AJAXOne";
                     messageBody = "Dear User, Your OTP for login is " + Password + ". From AJAX ENGG";

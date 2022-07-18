@@ -48,6 +48,14 @@ namespace Business
             }
             HttpContext.Current.Response.Write("</Table>");
             HttpContext.Current.Response.Write("</font>");
+
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end
+
             HttpContext.Current.Response.Flush();
             HttpContext.Current.Response.End();
         }

@@ -98,11 +98,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //    ddlStatus.BorderColor = Color.Red;
             //}
 
-            if (string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Finance Percentage";
-                txtLifeTimeTax.BorderColor = Color.Red;
-            }
+            //if (string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()))
+            //{
+            //    Message = Message + "<br/>Please enter the Life Time Tax Percentage";
+            //    txtLifeTimeTax.BorderColor = Color.Red;
+            //}
+
             //if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             //{
             //    Message = Message + "<br/>Please enter the Remark";
