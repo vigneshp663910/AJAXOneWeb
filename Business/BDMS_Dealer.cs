@@ -813,7 +813,7 @@ namespace Business
 
         public void GetDealerEmployeeDDL(DropDownList ddl, int? DealerID)
         {
-            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null,null);
+            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null,true);
             ddl.DataValueField = "DealerEmployeeID";
             ddl.DataTextField = "Name";
             ddl.DataSource = Employee;

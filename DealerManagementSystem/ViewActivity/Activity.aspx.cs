@@ -103,7 +103,7 @@ namespace DealerManagementSystem.ViewActivity
             {
                 if (Session["Activity1"] == null)
                 {
-                    Session["Activity1"] = new List<PLead>();
+                    Session["Activity1"] = new List<PActivity>();
                 }
                 return (List<PActivity>)Session["Activity1"];
             }

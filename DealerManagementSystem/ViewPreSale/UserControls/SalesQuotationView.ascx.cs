@@ -158,8 +158,26 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Generate Quotation")
             {
-                GenerateQuotation(new PSalesQuotationItem());
-                fillViewQuotation(Quotation.QuotationID);
+                string Message = ValidationSalesQuotationGenerate();
+                lblMessage.Visible = true;
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID);
+                
+                lblMessage.Text = Results.Message;
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.ForeColor = Color.Green;
+                //GenerateQuotation(new PSalesQuotationItem());
+                fillViewQuotation(Quotation.QuotationID); 
             }
             else if (lbActions.Text == "Print Machine Quotation")
             {
@@ -1094,6 +1112,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
+                if(string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
+                {
+                    lblMessage.Text = "Quotation Not Generated...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -1153,7 +1178,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.PgQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1322,7 +1347,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
-
+                if(string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
+                {
+                    lblMessage.Text = "Quotation Not Generated...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -1378,7 +1409,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.PgQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1758,6 +1789,32 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         }
 
+        public string ValidationSalesQuotationGenerate()
+        {
+            string Message = "";
+
+            if( Quotation.ValidFrom == null)
+            {
+                return "Please update the Valid From";
+            }
+            if (Quotation.ValidTo == null)
+            {
+                return "Please update the Valid To";
+            } 
+            if (Quotation.PricingDate == null)
+            {
+                return "Please update the Pricing Date";
+            }
+            if (Quotation.QuotationItems.Count == 0)
+            { 
+                return "Please update the Material";
+            }
+            if (Quotation.Competitor.Count == 0)
+            {
+                return "Please update the Competitor";
+            }
+            return Message;
+        }
 
     }
 }

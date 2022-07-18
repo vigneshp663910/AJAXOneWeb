@@ -329,7 +329,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Effort Conversation Visit">
+    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="VEC Summary">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
