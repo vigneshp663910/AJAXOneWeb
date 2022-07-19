@@ -78,6 +78,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblState.Text = Enquiry.State.State.ToString();
             lblDistrict.Text = Enquiry.District.District.ToString();
             lblAddress.Text = Enquiry.Address.ToString();
+            lblAddress2.Text = Enquiry.Address2.ToString();
+            lblAddress3.Text = Enquiry.Address3.ToString();
             lblMobile.Text = "<a href='tel:" + Enquiry.Mobile + "'>" + Enquiry.Mobile + "</a>";
             lblMail.Text = "<a href='mailto:" + Enquiry.Mail + "'>" + Enquiry.Mail + "</a>";
             lblRemarks.Text = Enquiry.Remarks;
@@ -200,8 +202,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             TextBox txtMobile = (TextBox)UC_CustomerCreate.FindControl("txtMobile");
             TextBox txtEmail = (TextBox)UC_CustomerCreate.FindControl("txtEmail");
             TextBox txtAddress1 = (TextBox)UC_CustomerCreate.FindControl("txtAddress1");
-            // TextBox txtAddress2 = (TextBox)UC_Customer.FindControl("txtAddress2");
-            // TextBox txtAddress3 = (TextBox)UC_Customer.FindControl("txtAddress3");
+            TextBox txtAddress2 = (TextBox)UC_CustomerCreate.FindControl("txtAddress2");
+            TextBox txtAddress3 = (TextBox)UC_CustomerCreate.FindControl("txtAddress3");
 
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
             ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID); 
@@ -220,6 +222,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             txtCustomerName.Text = Enquiry.CustomerName;
             txtAddress1.Text = Enquiry.Address;
+            txtAddress2.Text = Enquiry.Address2;
+            txtAddress3.Text = Enquiry.Address3;
         }
 
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)

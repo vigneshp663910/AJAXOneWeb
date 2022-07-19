@@ -43,8 +43,12 @@
                     <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Mail : </label>
-                    <asp:Label ID="lblMail" runat="server" CssClass="label"></asp:Label>
+                    <label>Address 3 : </label>
+                    <asp:Label ID="lblAddress3" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Mobile : </label>
+                    <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
@@ -61,13 +65,14 @@
                     <asp:Label ID="lblCountry" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Address : </label>
+                    <label>Address 1 : </label>
                     <asp:Label ID="lblAddress" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Remarks : </label>
-                    <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
+                    <label>Mail : </label>
+                    <asp:Label ID="lblMail" runat="server" CssClass="label"></asp:Label>
                 </div>
+                
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -83,9 +88,14 @@
                     <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Mobile : </label>
-                    <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+                    <label>Address 2 : </label>
+                    <asp:Label ID="lblAddress2" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Remarks : </label>
+                    <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
+                </div>
+                
             </div>
         </div>
     </fieldset>

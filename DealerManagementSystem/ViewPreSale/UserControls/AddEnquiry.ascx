@@ -44,9 +44,19 @@
                     <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Address</label>
+                    <label class="modal-label">Address 1</label>
                     <asp:TextBox ID="txtAddress" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40" autocomplete="off"></asp:TextBox>
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Address 2</label>
+                    <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40" autocomplete="off"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Address 3</label>
+                    <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40" autocomplete="off"></asp:TextBox>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtAddress3" WatermarkText="Address 3" WatermarkCssClass="WatermarkCssClass" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Product</label>
