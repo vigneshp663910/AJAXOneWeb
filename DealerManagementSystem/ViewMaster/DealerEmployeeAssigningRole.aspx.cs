@@ -106,7 +106,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         private void FillDealerEmployeeManageRole()
         {
-            EmployeeManageRole = new BDMS_Dealer().GetDealerEmployeeManageRole(Convert.ToInt32(ddlDealer.SelectedValue), AadhaarCardNo, txtName.Text.Trim());
+            EmployeeManageRole = new BDMS_Dealer().GetDealerEmployeeManageRole(null, AadhaarCardNo, txtName.Text.Trim());
             gvDealerEmployee.DataSource = EmployeeManageRole;
             gvDealerEmployee.DataBind();
             lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + EmployeeManageRole.Count;
@@ -521,6 +521,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrictBySalesEngineerUserID(Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
+            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName_OfficeCode", "OfficeID", true, "Select");
         }
     }
 }

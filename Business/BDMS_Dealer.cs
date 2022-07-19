@@ -882,7 +882,7 @@ namespace Business
             return true;
         }
 
-        public List<PDMS_DealerEmployee> GetDealerEmployeeManageRole(int DealerID, string AadhaarCardNo, string Name)
+        public List<PDMS_DealerEmployee> GetDealerEmployeeManageRole(int? DealerID, string AadhaarCardNo, string Name)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
             try
