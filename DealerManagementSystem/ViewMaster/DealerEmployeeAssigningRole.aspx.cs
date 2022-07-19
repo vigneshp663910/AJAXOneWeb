@@ -521,6 +521,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrictBySalesEngineerUserID(Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
+            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName_OfficeCode", "OfficeID", true, "Select");
         }
     }
 }
