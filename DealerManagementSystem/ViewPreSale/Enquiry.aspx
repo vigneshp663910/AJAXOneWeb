@@ -115,7 +115,9 @@
                                 </asp:TemplateField> <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>--%>
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Address" DataField="Address"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address1" DataField="Address"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address2" DataField="Address2"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address3" DataField="Address3"></asp:BoundField>
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
