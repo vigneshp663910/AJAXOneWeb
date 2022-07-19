@@ -167,10 +167,12 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceEdit.NamingContainer);
                 Label lblPlantID = (Label)row.FindControl("lblPlantID");
                 ddlGPlant.SelectedValue = lblPlantID.Text;
+                ddlGPlant.Enabled = false;
                 //Label lblMaterial = (Label)row.FindControl("lblMaterial");
                 //txtMaterail.Text = lblMaterial.Text;
                 Label lblMaterialCode = (Label)row.FindControl("lblMaterialCode");
                 txtMaterailCode.Text = lblMaterialCode.Text;
+                txtMaterailCode.Enabled = false;
                 Label lblPercentage = (Label)row.FindControl("lblPercentage");
                 txtPercentage.Text = lblPercentage.Text;
                 Label lblAmount = (Label)row.FindControl("lblAmount");
@@ -274,20 +276,20 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, Convert.ToString(Convert.ToInt32(IsActive)))[0];
+                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, "1")[0];
 
                 TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
                 TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
 
-                txtPercentage.Text = txtPercentage.Text.Replace("0.00", "");
-                txtAmount.Text = txtAmount.Text.Replace("0.00", "");
-                if ((string.IsNullOrEmpty(txtPercentage.Text.Trim())) && (string.IsNullOrEmpty(txtAmount.Text.Trim())))
+                txtPercentage.Text = txtPercentage.Text.Replace("0.00", "0"); 
+                txtAmount.Text = txtAmount.Text.Replace("0.00", "0");
+                if ((txtPercentage.Text.Trim() == "0") && (txtAmount.Text.Trim() == "0"))
                 {
                     lblMessage.Text = "Please enter Amount or Percentage.";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                if ((!string.IsNullOrEmpty(txtPercentage.Text.Trim())) && (!string.IsNullOrEmpty(txtAmount.Text.Trim())))
+                if ((txtPercentage.Text.Trim()!="0") && (txtAmount.Text.Trim()!="0"))
                 {
                     lblMessage.Text = "Please enter Amount or Percentage.";
                     lblMessage.ForeColor = Color.Red;
