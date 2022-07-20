@@ -103,7 +103,7 @@ namespace DealerManagementSystem.ViewActivity
             {
                 if (Session["Activity1"] == null)
                 {
-                    Session["Activity1"] = new List<PLead>();
+                    Session["Activity1"] = new List<PActivity>();
                 }
                 return (List<PActivity>)Session["Activity1"];
             }
@@ -209,7 +209,8 @@ namespace DealerManagementSystem.ViewActivity
         }
         protected void btnAddActivity_Click(object sender, EventArgs e)
         {
-            List<PActivity> PendingUserActivity = new BActivity().GetPendingUserActivitiy(PSession.User.UserID);
+
+            List<PActivity> PendingUserActivity = new BActivity().GetPendingUserActivitiy(null, PSession.User.UserID, PSession.User.UserID);
             if (PendingUserActivity.Count > 0)
             {
                 lblActivityTypeE.Text = PendingUserActivity[0].ActivityType.ActivityTypeName;

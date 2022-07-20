@@ -9,9 +9,9 @@
 
         //mapLink.href = '';
         //mapLink.textContent = '';
-       
+
         function success(position) {
-            
+
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             document.getElementById('MainContent_hfLatitude').value = latitude;
@@ -100,8 +100,8 @@
 </asp:Content>--%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-     <asp:HiddenField ID="hfLatitude" runat="server" />
-            <asp:HiddenField ID="hfLongitude" runat="server" />
+    <asp:HiddenField ID="hfLatitude" runat="server" />
+    <asp:HiddenField ID="hfLongitude" runat="server" />
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
     <div class="col-md-12">
@@ -110,36 +110,35 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-
-                        <div class="col-md-1 text-right">
-                            <label>User ID</label>
+                        <div class="col-md-2 text-left">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                         </div>
-
-                        <div class="col-md-2">
+                        <div class="col-md-2 text-left">
+                            <label class="modal-label">User ID</label>
                             <asp:TextBox ID="txtEmp" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-
-                        <div class="col-md-1 text-right">
-                            <label>Name</label>
-                        </div>
-
-                        <div class="col-md-2">
+                        <div class="col-md-2 text-left">
+                            <label class="modal-label">Name</label>
                             <asp:TextBox ID="txtContactName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-
-                        <div class="col-md-2 text-right">
-                            <label>IsEnabled</label>
-                        </div>
-
-                        <div class="col-md-2">
+                        <div class="col-md-2 text-left">
+                            <label class="modal-label">IsEnabled</label>
                             <asp:DropDownList ID="ddlIsEnabled" runat="server" CssClass="form-control">
                                 <asp:ListItem Value="0">ALL</asp:ListItem>
                                 <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
                                 <asp:ListItem Value="2">InActive</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-
-                        <div class="col-md-2">
+                        <div class="col-md-1 text-left">
+                            <label class="modal-label">AJAXOne</label>
+                            <asp:DropDownList ID="ddlAJAXOne" runat="server" CssClass="form-control">
+                                <asp:ListItem Value="0">ALL</asp:ListItem>
+                                <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
+                                <asp:ListItem Value="2">InActive</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                         </div>
 
@@ -155,23 +154,23 @@
                 <div class="col-md-12 Report">
 
                     <div class="boxHead">
-                            <div class="logheading">
-                                <div style="float: left">
-                                    <table>
-                                        <tr>
-                                            <td>User(s):</td>
+                        <div class="logheading">
+                            <div style="float: left">
+                                <table>
+                                    <tr>
+                                        <td>User(s):</td>
 
-                                            <td>
-                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
-                                            <td>
-                                                <asp:ImageButton ID="ibtnUserArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnUserArrowLeft_Click" /></td>
-                                            <td>
-                                                <asp:ImageButton ID="ibtnUserArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnUserArrowRight_Click" /></td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                        <td>
+                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                        <td>
+                                            <asp:ImageButton ID="ibtnUserArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnUserArrowLeft_Click" /></td>
+                                        <td>
+                                            <asp:ImageButton ID="ibtnUserArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnUserArrowRight_Click" /></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
+                    </div>
 
                     <asp:GridView ID="gvEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEmployee_PageIndexChanging">
@@ -182,8 +181,21 @@
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="User ID" SortExpression="UserID" ItemStyle-Width="200px">
+                            <asp:TemplateField HeaderText="Dealer Code">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "ExternalReferenceID")%>' runat="server" />
+                                </ItemTemplate>
+                                <%--<HeaderStyle Width="62px" />--%>
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            </asp:TemplateField>
+                            <%--<asp:TemplateField HeaderText="Dealer Name">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerName")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle Width="250px" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            </asp:TemplateField>--%>
+                            <asp:TemplateField HeaderText="User ID" SortExpression="UserID">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkUserID" runat="server" OnClick="lbEmpId_Click">
                                         <asp:TextBox ID="txtUserID" runat="server" CssClass="TextBox" Text='<%# DataBinder.Eval(Container.DataItem, "UserID")%>' Width="100%" Visible="false" />
@@ -197,6 +209,20 @@
                                     <asp:Label ID="txtEmployeeNameBy" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" Width="300px"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Is Enabled?">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"/>
+                                    <ItemTemplate>
+                                        <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
+                                        <asp:CheckBox ID="cbIsEnabled" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsEnabled")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="AJAX One">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"/>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remarks">
                                 <ItemStyle VerticalAlign="Middle" />
                                 <ItemTemplate>

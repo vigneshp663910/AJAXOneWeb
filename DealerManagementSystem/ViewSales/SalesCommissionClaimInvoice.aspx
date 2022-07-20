@@ -212,7 +212,7 @@
                                                             <asp:TemplateField HeaderText="Material">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblSalesCommissionClaimItemInvoiceID" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItem.SalesCommissionClaimItemInvoiceID")%>' runat="server" Visible="false" />
+                                                                    <asp:Label ID="lblSalesCommissionClaimItemInvoiceID" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItem.SalesCommissionClaimInvoiceItemID")%>' runat="server" Visible="false" />
 
                                                                     <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItem.Material.MaterialCode")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>

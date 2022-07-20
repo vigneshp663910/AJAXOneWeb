@@ -75,7 +75,7 @@
                         <asp:Label ID="lblWebsite" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Alter Native Contact No</label>
+                        <label>Alternative Contact No</label>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblContactNo1" runat="server" CssClass="label"></asp:Label>

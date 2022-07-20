@@ -221,22 +221,19 @@
                                             <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "ContactPerson")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Mobile">
+                                    <asp:TemplateField HeaderText="Contact">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Mobile")%></a>
                                             </asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="EMail">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblEMail" runat="server">
+                                            <br />
+                                             <asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "EMail")%>'><%# DataBinder.Eval(Container.DataItem, "EMail")%></a>
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                  
                                     <asp:TemplateField HeaderText="District">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -247,6 +244,12 @@
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                      <asp:TemplateField HeaderText="Draft">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbDraft" runat="server" Enabled="false" CssClass="mycheckBig" Checked ='<%# DataBinder.Eval(Container.DataItem, "IsDraft")%>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField>

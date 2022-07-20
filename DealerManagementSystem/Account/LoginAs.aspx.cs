@@ -10,13 +10,20 @@ namespace DealerManagementSystem.Account
 {
     public partial class LoginAs : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Login As');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
-
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 FillUser();
             }
         }
@@ -70,8 +77,13 @@ namespace DealerManagementSystem.Account
             ////u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
 
-            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", null, IsEnabled, null, null, null);
-            UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+
+            bool? ajaxOne = null;
+            if (ddlAJAXOne.SelectedValue == "1") { ajaxOne = true; } else if (ddlAJAXOne.SelectedValue == "2") { ajaxOne = false; }
+
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, null, null, null);
+            UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.ajaxOne == ajaxOne) || (ajaxOne == null)));
             gvEmployee.DataSource = UserLst;
 
             //gvEmployee.DataSource = u;

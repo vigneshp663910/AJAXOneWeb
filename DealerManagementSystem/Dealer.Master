@@ -2145,21 +2145,70 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
         function ShowProgress() {
-            debugger;
+            debugger; 
             setTimeout(function () {
-                var modal = $('<div />');
-                modal.addClass("modal");
-                $('body').append(modal);
-                var loading = $(".loading");
-                loading.show();
-                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
-                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
-                loading.css({ top: top, left: left });
-            }, 200);
+                if (IsCookieValid()) {
+                }
+                    var modal = $('<div />');
+                    modal.addClass("modal");
+                    $('body').append(modal);
+                    var loading = $(".loading");
+                    loading.show();
+                    var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                    var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                    loading.css({ top: top, left: left }); 
+            }, 200); 
+        }
+        function jsShowHideProgress() {
+            setTimeout(function () { document.getElementById('divLoading').style.display = 'block'; }, 200);
+            deleteCookie();
+
+            var timeInterval = 500; // milliseconds (checks the cookie for every half second )
+
+            var loop = setInterval(function () {
+                if (IsCookieValid()) {
+                    document.getElementById('divLoading').style.display =
+                    'none'; clearInterval(loop)
+                }
+
+            }, timeInterval);
         }
         $('form').live("submit", function () {
-            ShowProgress();
+            debugger;
+            //ShowProgress();
+            jsShowHideProgress()
+             
+            
         });
+
+        // cookies
+        function deleteCookie() {
+            debugger;
+            var cook = getCookie('ExcelDownloadFlag');
+            if (cook != "") {
+                document.cookie = "ExcelDownloadFlag=; Path = /; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            }
+        }
+        function IsCookieValid() {
+            debugger;
+            var cook = getCookie('ExcelDownloadFlag');
+            return cook != '';
+        }
+        function getCookie(cname) {
+            debugger;
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
     </script>
     <%--<div class="loading" align="center">
         Loading. Please wait.<br />
@@ -2174,7 +2223,7 @@
 </head>
 <body onkeydown="return (event.keyCode!=13)">
     <form id="form2" runat="server">
-        <div class="loading">
+        <div class="loading" id="divLoading">
             <div class="outerspinner">
                 <div class="submission-msg">Loading. Please wait...</div>
                 <div class="spinner">

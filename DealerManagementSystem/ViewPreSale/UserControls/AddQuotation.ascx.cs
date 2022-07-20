@@ -39,8 +39,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillMaster(PLead Lead)
         {
+            txtValidFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            txtValidTo.Text = DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd");
+            txtPricingDate.Text = DateTime.Now.ToString("yyyy-MM-dd"); 
             //FillGetDealerOffice(); 
-            new DDLBind(ddlQuotationType, new BSalesQuotation().GetSalesQuotationType(null, null), "QuotationType", "QuotationTypeID");
+           // new DDLBind(ddlQuotationType, new BSalesQuotation().GetSalesQuotationType(null, null), "QuotationType", "QuotationTypeID");
             new DDLBind(ddlStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "SalesQuotationStatus", "SalesQuotationStatusID");
 
             new DDLBind(ddlPriceGroup, new BDMS_Master().GetPriceGroup(null, null, null), "PriceGroupCode", "PriceGroupID");
@@ -59,7 +62,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public PSalesQuotation ReadSalesQuotation()
         {
             PSalesQuotation Sq = new PSalesQuotation();
-            Sq.QuotationType = new PSalesQuotationType() { QuotationTypeID = Convert.ToInt32(ddlQuotationType.SelectedValue) };
+            //Sq.QuotationType = new PSalesQuotationType() { QuotationTypeID = Convert.ToInt32(ddlQuotationType.SelectedValue) };
             Sq.Status = new PSalesQuotationStatus() { SalesQuotationStatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
             Sq.ValidFrom = string.IsNullOrEmpty(txtValidFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtValidFrom.Text.Trim());
             Sq.ValidTo = string.IsNullOrEmpty(txtValidTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtValidTo.Text.Trim());
@@ -81,25 +84,26 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public string ValidationSalesQuotation()
         {
             string Message = "";
-            ddlQuotationType.BorderColor = Color.Silver;
+            //ddlQuotationType.BorderColor = Color.Silver;
             ddlStatus.BorderColor = Color.Silver;
 
-            if (ddlQuotationType.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Quotation Type";
-                ddlQuotationType.BorderColor = Color.Red;
-            }
+            //if (ddlQuotationType.SelectedValue == "0")
+            //{
+            //    Message = Message + "<br/>Please select the Quotation Type";
+            //    ddlQuotationType.BorderColor = Color.Red;
+            //}
             //else if (ddlStatus.SelectedValue == "0")
             //{
             //    Message = Message + "<br/>Please select the Quotation Status";
             //    ddlStatus.BorderColor = Color.Red;
             //}
 
-            if (string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Finance Percentage";
-                txtLifeTimeTax.BorderColor = Color.Red;
-            }
+            //if (string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()))
+            //{
+            //    Message = Message + "<br/>Please enter the Life Time Tax Percentage";
+            //    txtLifeTimeTax.BorderColor = Color.Red;
+            //}
+
             //if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             //{
             //    Message = Message + "<br/>Please enter the Remark";
@@ -109,7 +113,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillQuotation(PSalesQuotation Sq)
         {
-            ddlQuotationType.SelectedValue = Convert.ToString(Sq.QuotationType.QuotationTypeID);
+            //ddlQuotationType.SelectedValue = Convert.ToString(Sq.QuotationType.QuotationTypeID);
             ddlStatus.SelectedValue = Convert.ToString(Sq.Status.SalesQuotationStatusID);
             txtValidFrom.Text = Sq.ValidFrom == null ? "" : ((DateTime)Sq.ValidFrom).ToString("yyyy-MM-dd");
             txtValidTo.Text = Sq.ValidTo == null ? "" : ((DateTime)Sq.ValidTo).ToString("yyyy-MM-dd"); 

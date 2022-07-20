@@ -35,7 +35,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void Page_Load(object sender, EventArgs e)
 
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Employee » Create / Manpower Registration');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('OE Employee » Create / Manpower Registration');</script>");
 
             if (!IsPostBack)
             {                
@@ -46,14 +46,18 @@ namespace DealerManagementSystem.ViewMaster
 
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
 
-              int DealerID =  new BDMS_Dealer().GetDealer(null,"2000", null)[0].DealerID;
-                new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
-                FillGetDealerOffice(DealerID);
+                // int DealerID =  new BDMS_Dealer().GetDealer(null,"2000", null)[0].DealerID;
+
+               
                 if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
                 {
                     ViewState["DealerEmployeeID"] = Convert.ToInt32(Request.QueryString["DealerEmployeeID"]);
                     FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));   
                     btnBack.Visible = true; 
+                }
+                else
+                {
+                    fillDealer();
                 }
             }
         }
@@ -479,13 +483,26 @@ namespace DealerManagementSystem.ViewMaster
         private void FillDealerEmployeeRole(long DealerEmployeeRoleID)
         {
             PDMS_DealerEmployeeRole Role = new BDMS_Dealer().GetDealerEmployeeRole(DealerEmployeeRoleID, null, null, null)[0];
-
+            ddlDealer.SelectedValue = Convert.ToString(Role.Dealer.DealerID);
+            fillDealer();
             ddlDealerOffice.SelectedValue = Convert.ToString(Role.DealerOffice.OfficeID);
             ddlDepartment.SelectedValue = Convert.ToString(Role.DealerDepartment.DealerDepartmentID);
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
             ddlDesignation.SelectedValue = Convert.ToString(Role.DealerDesignation.DealerDesignationID);
             ddlReportingTo.SelectedValue = Role.ReportingTo == null ? "0" : Convert.ToString(Role.ReportingTo.DealerEmployeeID);
             txtDateOfJoining.Text = Convert.ToString(Role.DateOfJoining);
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillDealer();
+        }
+
+        void fillDealer()
+        {
+            int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
+            FillGetDealerOffice(DealerID);
         }
     }
 }

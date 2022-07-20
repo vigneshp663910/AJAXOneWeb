@@ -17,15 +17,15 @@ namespace DealerManagementSystem.View
         {
             get
             {
-                if (Session["Attendance1"] == null)
+                if (Session["Attendance_Attendance1"] == null)
                 {
-                    Session["Attendance1"] = new BAttendance();
+                    Session["Attendance_Attendance1"] = new BAttendance();
                 }
-                return (DataTable)Session["Attendance1"];
+                return (DataTable)Session["Attendance_Attendance1"];
             }
             set
             {
-                Session["Attendance1"] = value;
+                Session["Attendance_Attendance1"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -40,15 +40,15 @@ namespace DealerManagementSystem.View
         {
             get
             {
-                if (Session["PreSalesReport"] == null)
+                if (Session["Attendance_CurrentLocation"] == null)
                 {
-                    Session["PreSalesReport"] = "";
+                    Session["Attendance_CurrentLocation"] = "";
                 }
-                return (string)Session["PreSalesReport"];
+                return (string)Session["Attendance_CurrentLocation"];
             }
             set
             {
-                Session["PreSalesReport"] = value;
+                Session["Attendance_CurrentLocation"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)

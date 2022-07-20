@@ -31,6 +31,8 @@ namespace Business
                 DbParameter Mail = provider.CreateParameter("Mail", enquiry.Mail, DbType.String);
                 DbParameter Mobile = provider.CreateParameter("Mobile", enquiry.Mobile, DbType.String);
                 DbParameter Address = provider.CreateParameter("Address", enquiry.Address, DbType.String);
+                DbParameter Address2 = provider.CreateParameter("Address2", enquiry.Address2, DbType.String);
+                DbParameter Address3 = provider.CreateParameter("Address3", enquiry.Address3, DbType.String);
                 DbParameter SourceID = provider.CreateParameter("SourceID", enquiry.Source.SourceID, DbType.Int32); 
                 DbParameter CountryID = provider.CreateParameter("CountryID", enquiry.Country.CountryID, DbType.Int32);
                 DbParameter StateID = provider.CreateParameter("StateID", enquiry.State.StateID, DbType.Int32);
@@ -41,7 +43,7 @@ namespace Business
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[15] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                    DbParameter[] Params = new DbParameter[17] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
                     scope.Complete();
                 }
@@ -109,6 +111,8 @@ namespace Business
                                     DistrictID = Convert.ToInt32(dr["DistrictID"]),
                                 },
                                 Address = Convert.ToString(dr["Address"]),
+                                Address2 = Convert.ToString(dr["Address2"]),
+                                Address3 = Convert.ToString(dr["Address3"]),
                                 PersonName = Convert.ToString(dr["PersonName"]),
                                 Mobile = Convert.ToString(dr["Mobile"]),
                                 Mail = Convert.ToString(dr["Mail"]),

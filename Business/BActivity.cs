@@ -238,38 +238,21 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 
-        public List<PActivity> GetPendingUserActivitiy(int UserID)
+        public List<PActivity> GetPendingUserActivitiy(int? DealerID, int? SalesEnineerUserID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             List<PActivity> Activities = new List<PActivity>();
             try
             {
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[1] { UserIDP };
-
-                PActivity Activity = new PActivity();
-                using (DataSet DataSet = provider.Select("GetPendingUserActivitiy", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Activity = new PActivity();
-                            Activities.Add(Activity);
-                            Activity.ActivityType = new PActivityType() { ActivityTypeName = Convert.ToString(dr["ActivityTypeName"]), ActivityTypeID = Convert.ToInt32(dr["ActivityID"]) };
-                            Activity.ActivityID = Convert.ToInt64(dr["ActivityID"]);
-                        }
-                    }
-                }
-
-                TraceLogger.Log(DateTime.Now);
+                string endPoint = "Activity/PendingUserActivitiy?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
+                return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                 
             }
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("BActivity", "GetPendingUserActivitiy", ex);
                 throw ex;
-            }
-            return Activities;
+            } 
         }        
     }
 }

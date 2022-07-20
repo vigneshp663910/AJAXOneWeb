@@ -51,6 +51,33 @@ namespace DealerManagementSystem.ViewMaster
         protected global::AjaxControlToolkit.TabPanel tpnlMainApplication;
 
         /// <summary>
+        /// lblRowCountMainApp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountMainApp;
+
+        /// <summary>
+        /// ibtnMainAppArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnMainAppArrowLeft;
+
+        /// <summary>
+        /// ibtnMainAppArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnMainAppArrowRight;
+
+        /// <summary>
         /// gvMainApplication control.
         /// </summary>
         /// <remarks>

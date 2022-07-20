@@ -252,7 +252,7 @@
             display: none;
         }
 
-        @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+        @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
             #LoginLeft {
                 display: none;
             }
@@ -267,6 +267,7 @@
 
             #LoginRight {
                 width: 100%;
+                overflow : auto;
             }
 
 
@@ -309,39 +310,26 @@
                 document.getElementById("<%=BtnSendOTP.ClientID%>").style.display = "inline";
             }
         }
-
-
-
-
-        <%--function startTimer() {
-            var presentTime = document.getElementById('timer').innerHTML;
-            var timeArray = presentTime.split(/[:]+/);
-            var m = timeArray[0];
-            var s = checkSecond((timeArray[1] - 1));
-            if (s == 0 && m == 0) {
-                $('#<%=BtnSendOTP.ClientID %>').val="Resend OTP";
-                $('#<%=BtnSendOTP.ClientID %>').prop("disabled", "enabled");
-            }
-            if (s == 59) { m = m - 1 }
-            if (m < 0) {
-                
-                return
-            }
-
-            document.getElementById("timer").innerHTML = m + ":" + s;
-            console.log(m)
-            setTimeout(startTimer, 1000);
-
-        }
-
-        function checkSecond(sec) {
-            if (sec < 10 && sec >= 0) { sec = "0" + sec }; // add zero in front of numbers < 10
-            if (sec < 0) { sec = "59" };
-            return sec;
-        }--%>
-
-
-
+    </script>
+    <script>  
+document.onkeypress = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+document.onmousedown = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+document.onkeydown = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
     </script>
 
     <script>
@@ -380,11 +368,11 @@
      //   document.querySelector('#find-me').addEventListener('click', geoFindMe);
     </script>
 </head>
-<body>
+<body oncontextmenu="return false;">
     <div class="loading" align="center" aria-disabled="true">
         Loading. Please wait.<br />
         <br />
-        <img src="Images/PageLoader.gif" alt="" style="margin:15%;background-color:white"/>
+        <img src="Images/PageLoader.gif" alt="" style="margin: 15%; background-color: white" />
     </div>
     <style type="text/css">
         .modal {
@@ -448,7 +436,7 @@
 
                         </div>
 
-                        <div class="vertical-center" style="padding: 198px; padding-left: 230px; padding-bottom: 10px; text-align: center; margin-top: 200px; font-family: sans-serif;">
+                        <div class="vertical-center" style="padding: 198px; padding-left: 230px; padding-bottom: 10px; text-align: center; /*margin-top: 200px; */ font-family: sans-serif;">
                             <h5 class="care  text-white" style="margin-top: 200px; font-family: Proxima Nova;">NEED HELP ? &nbsp;LET US KNOW</h5>
                             <li class="fa fa-phone text-white">
                                 <a class="care text-white" href="tel:+91 08067200014">+91 08067200014</a></li>
@@ -480,7 +468,7 @@
 
                         <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
-                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Sign in</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
                                     <br />
@@ -519,14 +507,14 @@
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldResetPassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Reset Password</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Reset Password</legend>
                             <div class="col-md-12">
                                 <div>
                                     <br />
                                     <label><b>OTP</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false" /><div id="some_div"></div>
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px" CausesValidation="false"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" CausesValidation="false" /><div id="some_div"></div>
 
                                     <%--<asp:LinkButton ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" Text="Send OTP">LinkButton</asp:LinkButton>--%>
                                 </div>
@@ -535,47 +523,47 @@
                                     <label><b>New Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtRNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" autocomplete="off" TextMode="Password"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtRNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtRNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" autocomplete="off" TextMode="Password" CausesValidation="false"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtRNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div>
                                     <br />
                                     <label><b>Retype Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtRRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" autocomplete="off" TextMode="Password"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtRRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtRRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" autocomplete="off" TextMode="Password" CausesValidation="false"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtRRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
                             </div>
                         </fieldset>
 
                         <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px; width:auto">Change Password</legend>
+                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Change Password</legend>
                             <div class="col-md-12">
                                 <div>
                                     <%--<br />--%>
                                     <label><b>Old Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Old Password" TextMode="Password"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtOldPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Old Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtOldPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div>
                                     <br />
                                     <label><b>New Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtCNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" TextMode="Password"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtCNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div>
                                     <br />
                                     <label><b>Retype Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtCRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" TextMode="Password"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtCRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" TextMode="Password" CausesValidation="false"></asp:TextBox>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="BtnChange_Click" />
                             </div>
@@ -642,10 +630,10 @@
                             <th style="width: 100px; text-align: center">Features
                             </th>
                             <th style="width: 60px">
-                                <img src="../Images/Playstore.png" border="0" id="" alt="" width="110Px">
+                                <img src="../Images/Playstore.png" border="0" id="" alt="" width="110px">
                             </th>
                             <th style="width: 60px">
-                                <img src="../Images/apple.png" border="0" id="" alt="" width="110Px">
+                                <img src="../Images/apple.png" border="0" id="" alt="" width="110px">
                             </th>
                             <th style="width: 620px; text-align: center">Remarks
                             </th>

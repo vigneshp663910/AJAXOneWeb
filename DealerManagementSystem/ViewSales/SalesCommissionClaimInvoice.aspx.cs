@@ -67,7 +67,7 @@ namespace DealerManagementSystem.ViewSales
             }
             catch (Exception e1)
             {
-                lblMessage.Text = e1.ToString();
+                lblMessage.Text = e1.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
@@ -171,6 +171,9 @@ namespace DealerManagementSystem.ViewSales
             }
             catch (Exception ex)
             {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
 
@@ -240,6 +243,9 @@ namespace DealerManagementSystem.ViewSales
             }
             catch (Exception ex)
             {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
         }
         protected void btnExportExcelForSAP_Click(object sender, EventArgs e)
@@ -358,6 +364,9 @@ namespace DealerManagementSystem.ViewSales
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
             new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
         }
@@ -484,9 +493,9 @@ namespace DealerManagementSystem.ViewSales
             }
             catch (Exception ex)
             {
-                //  lblMessage.Text = "Please Contact Administrator. " + ex.Message;
-                //   lblMessage.ForeColor = Color.Red;
-                //  lblMessage.Visible = true;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
             return null;
         }

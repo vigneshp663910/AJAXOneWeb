@@ -51,6 +51,15 @@ namespace DealerManagementSystem.Account
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
+        /// ddlDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+
+        /// <summary>
         /// txtEmp control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace DealerManagementSystem.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIsEnabled;
+
+        /// <summary>
+        /// ddlAJAXOne control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAJAXOne;
 
         /// <summary>
         /// btnSearch control.

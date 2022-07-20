@@ -40,6 +40,7 @@ namespace Business
                             {
                                 MailID = Convert.ToInt64(dr["MailSendInfoID"]),
                                 MailTo = Convert.ToString(dr["MailTo"]),
+                                MailCC = Convert.ToString(dr["CC"]),
                                 Subject = Convert.ToString(dr["Subject"]),
                                 Message = Convert.ToString(dr["MessageBody"]),
                             });
@@ -48,14 +49,12 @@ namespace Business
                 }
                 foreach (PMailManager s in Sms)
                 {
-                    if (MailSend(s.MailTo, s.Subject, s.Message))
+                    if (MailSend(s.MailTo,s.MailCC, s.Subject, s.Message))
                     {
                         int success = 0;
                         DbParameter MailID = provider.CreateParameter("MailSendInfoID", s.MailID, DbType.Int32);
-                        DbParameter MailTo = provider.CreateParameter("MailTo", s.MailTo, DbType.String);
-                        DbParameter Subject = provider.CreateParameter("Subject", s.Subject, DbType.String);
-                        DbParameter MessageBody = provider.CreateParameter("MessageBody", s.Message, DbType.String);
-                        DbParameter[] Params = new DbParameter[4] { MailID, MailTo, Subject, MessageBody };
+                        
+                        DbParameter[] Params = new DbParameter[1] { MailID  };
 
                         using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                         {
@@ -353,7 +352,7 @@ namespace Business
             }
         }
 
-        public Boolean MailSend(string mailTo, string Subject, string messageBody)
+        public Boolean MailSend(string mailTo,string CC, string Subject, string messageBody)
         {
             Boolean success = false;
             try
@@ -367,6 +366,17 @@ namespace Business
                 mailMessage.From = new MailAddress(fromMail);
                 mailMessage.Subject = Subject;
                 mailMessage.To.Add(mailTo);
+
+                string[] MailCcS = CC.Split(',');
+                if (MailCcS != null)
+                {
+                    foreach (string MailCC in MailCcS)
+                    {
+                        if (!string.IsNullOrEmpty(MailCC))
+                            mailMessage.CC.Add(MailCC);
+                    }
+                }
+
                 mailMessage.Body = messageBody;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
                                       | SecurityProtocolType.Tls11
@@ -433,6 +443,7 @@ namespace Business
     {
         public long MailID { get; set; }
         public string MailTo { get; set; }
+        public string MailCC { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
     }

@@ -38,7 +38,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealership Employee » Leaving / Exit');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dealer Employee » Leaving / Exit');</script>");
 
             lblMessage.Visible = false;
 
@@ -86,6 +86,7 @@ namespace DealerManagementSystem.ViewMaster
             EmployeeManageLeave = new BDMS_Dealer().GetDealerEmployeeManageLeaving(Convert.ToInt32(ddlDealer.SelectedValue), txtName.Text.Trim());
             gvDealerEmployee.DataSource = EmployeeManageLeave;
             gvDealerEmployee.DataBind();
+            lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + EmployeeManageLeave.Count;
         }
 
         private PDMS_DealerEmployeeAttachedFile CreateUploadedFile(HttpPostedFile file)
