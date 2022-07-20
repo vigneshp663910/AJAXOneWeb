@@ -41,6 +41,7 @@ namespace DealerManagementSystem.ViewSales
         }  
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Commission Claim » Approve');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)

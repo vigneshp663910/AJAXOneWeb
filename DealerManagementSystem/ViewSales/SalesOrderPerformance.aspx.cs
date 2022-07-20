@@ -37,6 +37,7 @@ namespace DealerManagementSystem.ViewSales
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Order Performance ');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)

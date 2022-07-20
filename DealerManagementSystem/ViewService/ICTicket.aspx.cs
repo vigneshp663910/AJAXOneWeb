@@ -41,7 +41,7 @@ namespace DealerManagementSystem.ViewService
         {
             // Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('<a style= \"color:red\">New Technician Assigned!</a>')", true);
             // ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('New Technician Assigned');", true);
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » IC Ticket » IC Ticket Manage');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » IC Ticket » Manage');</script>");
             lblMessage.Visible = false;
             if (PSession.User == null)
             {

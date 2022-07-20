@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewSales
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Sales Commission Claim');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Commission » Claim');</script>");
 
             lblMessage.Text = "";  
             if (!IsPostBack)

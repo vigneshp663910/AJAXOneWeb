@@ -27,6 +27,8 @@ namespace DealerManagementSystem.ViewProcurement
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » PO Invoice');</script>");
+
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
