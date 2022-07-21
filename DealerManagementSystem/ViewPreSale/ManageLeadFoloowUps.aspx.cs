@@ -39,9 +39,11 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Manage Follow Up');</script>");
+
             if (!IsPostBack)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Manage Follow up');</script>");
+                
 
                 txtDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FillFollowUps();
