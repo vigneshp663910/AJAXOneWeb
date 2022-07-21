@@ -346,11 +346,7 @@
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
                     </div>--%>
 
-                    <div class="col-md-2 text-left">
-                        <label>Status</label>
-                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
-                    </div>
-
+                   
                     <%-- <div class="col-md-2 text-left">
                         <label>Category</label>
                         <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
@@ -363,6 +359,11 @@
                     <div class="col-md-2 text-left">
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-2 text-left">
+                        <label>Status</label>
+                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
                     </div>
 
                     <%--  <div class="col-md-2 text-left">
