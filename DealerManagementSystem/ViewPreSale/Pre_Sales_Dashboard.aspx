@@ -197,34 +197,105 @@
         <div class="lead-static">
             <div class="portlet box green">
                 <div class="portlet-title">
+                    <div class="caption" style="font-size: 25px;">                        Enquiry Statistics     
+                        <div class="actions" style="float: right;">
+                            <div class="btn-group btn-group-devided">
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
+                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
+                                    <asp:RadioButton ID="rbTodayE" runat="server" GroupName="s" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" /> 
+                                    <span>Today</span> 
+                                </label>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
+                                <asp:RadioButton ID="rbWeekE" runat="server" GroupName="s"  OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                                <span>Week</span> 
+                                </label>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
+                                <asp:RadioButton ID="rbMonthE" runat="server" GroupName="s"  OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                                <span>Month</span> 
+                                </label>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
+                                <asp:RadioButton ID="rbYearE" runat="server" GroupName="s"  OnCheckedChanged="rbStatusE_CheckedChanged"  AutoPostBack="true"/>
+                                <span>Year</span> 
+                                </label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                <div class="portlet-body" style="padding: 5px;">
+                    <div id="divEnquiryStat1">
+                        <div id="divEnquiryStatistics" class="row no-margin" style="font-size: medium; text-align: right;">
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
+                                <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
+                                    <div class="visual"><i class="fa fa-ticket"></i></div>
+                                    <div class="details" style="color: white;">
+                                        <asp:Label ID="Label1" runat="server" Text="0"></asp:Label>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
+                                       <div class="desc"> <asp:LinkButton ID="LinkButton1" runat="server"  style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color:darkolivegreen">
+                                <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
+                                    <div class="visual"><i class="fa fa-ticket"></i></div>
+                                    <div class="details" style="color: white;">
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
+                                        <asp:Label ID="Label2" runat="server" Text="0"></asp:Label> 
+                                       <div class="desc"> <asp:LinkButton ID="LinkButton2" runat="server"  style="color: white;" OnClick="lbActions_Click">Converted To Lead</asp:LinkButton>  </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d91e18;">
+                                <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
+                                    <div class="visual"><i class="fa fa-ticket"></i></div>
+                                    <div class="details" style="color: white;">
+                                         <asp:Label ID="Label5" runat="server" Text="0"></asp:Label>
+                                        <div class="desc"> <asp:LinkButton ID="LinkButton5" runat="server" style="color: white;" OnClick="lbActions_Click">Rejected</asp:LinkButton></div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+            <div class="portlet box green">
+                <div class="portlet-title">
                     <div class="caption" style="font-size: 25px;">                        Lead Activity Statistics             
-                <div class="actions" style="float: right;">
-                    <div class="btn-group btn-group-devided">
-                        <%--<label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">--%>
-                        <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
-                            <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" /> 
-                            <span>Today</span> 
-                        </label>
-                        <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
-                            <asp:RadioButton ID="rbWeek" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                            <span>Week</span> 
-                        </label>
-                        <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
-                            <asp:RadioButton ID="rbMonth" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                            <span>Month</span> 
-                        </label>
-                        <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                            <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
-                            <asp:RadioButton ID="rbYear" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged"  AutoPostBack="true"/>
-                            <span>Year</span> 
-                        </label>
+                        <div class="actions" style="float: right;">
+                            <div class="btn-group btn-group-devided">
+                                <%--<label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">--%>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
+                                <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" /> 
+                                <span>Today</span> 
+                                </label>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
+                                <asp:RadioButton ID="rbWeek" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                                <span>Week</span> 
+                                </label>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
+                                <asp:RadioButton ID="rbMonth" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                                <span>Month</span> 
+                                </label>
+                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                                <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
+                                <asp:RadioButton ID="rbYear" runat="server" GroupName="s"  OnCheckedChanged="rbStatus_CheckedChanged"  AutoPostBack="true"/>
+                                <span>Year</span> 
+                            </label>
+                        </div>
+                      </div>
                     </div>
                 </div>
-                    </div>
-                </div>
+             
                 <div class="portlet-body" style="padding: 5px;">
                     <div id="divEnquiryStat">
                         <div id="divLeadStatistics" class="row no-margin" style="font-size: medium; text-align: right;">
@@ -295,7 +366,7 @@
             </div> 
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption" style="font-size: 25px;"> Lead Statistics Funnel   
+                    <div class="caption" style="font-size: 25px;"> Pre-Sales Statistics Funnel   
                     <div class="actions" style="float: right;">
                         <div class="btn-group btn-group-devided" >
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
@@ -376,23 +447,21 @@
                                         <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server"  id="lblWonF" >Won: 0</text>
                                     </g>
                                 </g>
+
+
                                 <g role="img" aria-label="Convert To Prospect; Value: 2">
                                     <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(50 197 210)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,123.08669335814801,165.99999999999997)" pointer-events="none">
-                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  >
-                                            Convert To Quotation: 
-                                        </text>
-                                        
+                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  > Convert To Quotation:</text>                                      
                                         <%--  <asp:Label ID="lblConvertToProspect" Text="52" runat="server" /> --%>
                                     </g>
                                      <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,145.08669335814801,165.99999999999997)" pointer-events="none">
-                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server" id="lblConvertToProspectF">
-                                            0
-                                        </text>
-                                         
+                                        <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server" id="lblConvertToProspectF">0</text>                                      
                                     </g>
                                 </g>
-                                <g role="img" aria-label="Newly Created; Value: 16" id="_dvtActiveElement180589916">
+
+
+                                  <g role="img" aria-label="Newly Created; Value: 16" id="_dvtActiveElement180589916">
                                     <path d="M4.934393756608301,330.37507614415694A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,1.624923855843008A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,330.37507614415694A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A483.16965914395865,593.7128277905049,0,0,1,4.934393756608301,1.624923855843008" fill="rgb(135, 117, 167)" stroke="#FFFFFF"></path>
                                     <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,41.92689374965195,165.99999999999997)" pointer-events="none">
                                         <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"  runat="server"  id="lblNewlyCreatedF">Newly Created: 0</text>
@@ -403,33 +472,8 @@
                         </g>
                         </g></svg>
                         </div>
-                    <%-- <svg version="1.1" style="position: absolute; width: 500px; height: 300px; top: -0.400002px; left: 0px;">
-                        <desc>JavaScript chart by amCharts 3.21.15</desc><g><path cs="100,100" d="M0.5,0.5 L499.5,0.5 L499.5,299.5 L0.5,299.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0"></path>
-                        </g><g></g><g></g><g></g><g></g><g></g><g><g opacity="1" visibility="visible" aria-label="Won: 5.26% 1 " transform="translate(0,0)"><path cs="100,100" d="M243.5,283.5 L350.5,281.5 L350.5,281.5" fill="none" stroke-opacity="0.2" stroke="#000000" visibility="visible"></path>
-                            <path cs="100,100" d="M113.5,275.5 L243.5,275.5 L243.5,275.5 L243.5,290.5 L113.5,290.5 L113.5,275.5 Z" fill="#FF9E01" stroke="#FFFFFF" fill-opacity="1" stroke-width="1" stroke-opacity="0"></path>
-                            <text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(350,281)" style="pointer-events: none;" visibility="visible">
-                                <tspan y="6" x="0">Won: 1</tspan>
-                            </text>
-                            <rect x="0.5" y="0.5" width="45" height="19" rx="0" ry="0" stroke-width="0" fill="#ffffff" stroke="#ffffff" fill-opacity="0.005" stroke-opacity="0.005" transform="translate(350,276)"></rect>
-                        </g>
-                            <g opacity="1" visibility="visible" aria-label="Convert To Prospect: 10.53% 2 " transform="translate(0,0)">
-                                <path cs="100,100" d="M243.5,261.5 L350.5,261.5 L350.5,261.5" fill="none" stroke-opacity="0.2" stroke="#000000" visibility="visible"></path>
-                                <path cs="100,100" d="M113.5,246.5 L243.5,246.5 L243.5,246.5 L243.5,275.5 L113.5,275.5 L113.5,246.5 Z" fill="#FF6600" stroke="#FFFFFF" fill-opacity="1" stroke-width="1" stroke-opacity="0"></path>
-                                <text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(350,261)" style="pointer-events: none;" visibility="visible">
-                                    <tspan y="6" x="0">Convert To Prospect: 2</tspan>
-                                </text>
-                                <rect x="0.5" y="0.5" width="131" height="19" rx="0" ry="0" stroke-width="0" fill="#ffffff" stroke="#ffffff" fill-opacity="0.005" stroke-opacity="0.005" transform="translate(350,255)"></rect>
-                            </g>
-                            <g opacity="1" visibility="visible" aria-label="Newly Created: 84.21% 16 " transform="translate(0,0)">
-                                <path cs="100,100" d="M243.5,128.5 L350.5,128.5 L350.5,128.5" fill="none" stroke-opacity="0.2" stroke="#000000" visibility="visible"></path>
-                                <path cs="100,100" d="M15.5,10.5 L340.5,10.5 L243.5,206.5 L243.5,246.5 L113.5,246.5 L113.5,206.5 Z" fill="#FF0F00" stroke="#FFFFFF" fill-opacity="1" stroke-width="1" stroke-opacity="0"></path>
-                                <text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(350,128)" style="pointer-events: none;" visibility="visible">
-                                    <tspan y="6" x="0">Newly Created: 16</tspan>
-                                </text>
-                                <rect x="0.5" y="0.5" width="109" height="19" rx="0" ry="0" stroke-width="0" fill="#ffffff" stroke="#ffffff" fill-opacity="0.005" stroke-opacity="0.005" transform="translate(350,123)"></rect>
-                            </g>
-                        </g><g></g><g></g><g></g><g></g><g></g><g><g></g>
-                        </g><g></g><g></g><g></g><g></g><g></g></svg>--%>
+
+                   
                 </div>
             </div>
             <br />

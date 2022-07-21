@@ -56,7 +56,7 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo)
+        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID)
         {
             List<PEnquiry> projects = new List<PEnquiry>();
             try
@@ -70,7 +70,9 @@ namespace Business
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
                 DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
                 DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
-                DbParameter[] Params = new DbParameter[9] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP };
+                DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[11] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP };
 
                 using (DataSet DataSet = provider.Select("GetEnquiry", Params))
                 {

@@ -66,7 +66,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void fillViewEnquiry(long EnquiryID)
         {
-            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt64(EnquiryID),null, null, null, null, null, null, null, null)[0];
+            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt64(EnquiryID),null, null, null, null, null, null, null, null, null, null)[0];
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
             lblPersonName.Text = Enquiry.PersonName;
