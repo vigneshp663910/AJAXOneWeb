@@ -106,22 +106,22 @@
   
     <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Customer" Font-Bold="True" ToolTip="">
         <ContentTemplate>
-            <div class="col-md-12">
-                <div class="col-md-12 Report">
-                    <div class="table-responsive">
-                        <div class="col-md-12 field-margin-top">
+            <%--<div class="col-md-12">--%>
+               <%-- <div class="col-md-12 Report">--%>
+                    <%--<div class="table-responsive">--%>
+                       <%-- <div class="col-md-12 field-margin-top">--%>
                             <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                       <%-- </div>--%>
+                  <%--  </div>--%>
+               <%-- </div>--%>
+          <%--  </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Lead" Font-Bold="True" ToolTip="">
         <ContentTemplate>
-            <div class="col-md-12 field-margin-top">
+            <%--<div class="col-md-12 field-margin-top">--%>
                 <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
-            </div>
+            <%--</div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
 </asp1:TabContainer>
