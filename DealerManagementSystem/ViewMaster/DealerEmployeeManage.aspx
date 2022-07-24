@@ -48,46 +48,34 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
-                    <div class="col-md-3 text-right">
-                        <label>Dealer</label>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-3 text-right">
-                        <label>State</label>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">State</label>
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-3">
-                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control"></asp:DropDownList>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Aadhaar Card No</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)"></asp:TextBox>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Aadhaar Card No</label>
+                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)"></asp:TextBox>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <label>Name</label>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Name</label>
+                        <asp:TextBox ID="txtName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Status</label>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Status</label>
                         <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
                             <asp:ListItem Value="-1">All</asp:ListItem>
                             <asp:ListItem Value="0">Inactive</asp:ListItem>
                             <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <label>Based On Role</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:CheckBox ID="cbBasedOnRole" runat="server" CssClass="form-control" />
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Based On Role</label>
+                        <asp:CheckBox ID="cbBasedOnRole" runat="server"/>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="InputButton btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
@@ -100,15 +88,39 @@
         <div class="col-md-12">
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Employee Manage</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12 Report">
-                        <div class="col-md-12">
+                        <%--<div class="col-md-12">
                             <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
                             <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
                             <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
+                        </div>--%>
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>Dealer Employee Manage:</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                         <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                             <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer Code">
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerCode")%>' runat="server" />

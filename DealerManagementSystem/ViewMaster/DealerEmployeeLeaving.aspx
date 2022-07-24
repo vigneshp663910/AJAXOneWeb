@@ -14,17 +14,13 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-                        <div class="col-md-3 text-right">
-                            <label>Dealer</label>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
                             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                         </div>
-                        <div class="col-md-3 text-right">
+                        <div class="col-md-2 col-sm-12">
                             <label>Name</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="InputButton btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
@@ -34,14 +30,43 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
-                    <div class="col-md-12">
+                    <%--<div class="col-md-12">
                         <label>Dealer Employee Manage</label>
                         <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
                         <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
                         <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
-                    </div>
+                    </div>--%>
+
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>Dealer Employee Manage:</td>
+
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                         <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Code">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerCode")%>' runat="server" />
@@ -121,6 +146,8 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+                         </fieldset>
+
                 </div>
             </div>
         </div>

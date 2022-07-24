@@ -56,6 +56,7 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 From = DateTime.Now.AddYears(-1);
             }
+
             List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(From, To, DealerID, PSession.User.UserID);
             if ((Status.Where(m => m.StatusID == 1).Count() != 0))
             {
@@ -89,6 +90,8 @@ namespace DealerManagementSystem.ViewPreSale
                 lblCancelled.Text = ss[0].Count.ToString();
             }
         }
+
+
         void FillFunnel()
         {
 
@@ -149,10 +152,17 @@ namespace DealerManagementSystem.ViewPreSale
             lblWonF.InnerText = "Won: " + Won.ToString();
         }
 
+        protected void rbStatusE_CheckedChanged(object sender, EventArgs e)
+        {
+            //FillStatusCountEnquiry();
+        }
+
         protected void rbStatus_CheckedChanged(object sender, EventArgs e)
         {
             FillStatusCount();
         }
+
+
         protected void rbStatusF_CheckedChanged(object sender, EventArgs e)
         {
             FillFunnel();

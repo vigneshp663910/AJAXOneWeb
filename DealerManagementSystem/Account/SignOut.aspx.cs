@@ -12,7 +12,7 @@ namespace DealerManagementSystem.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Log Out');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Logout');</script>");
         }
 
         protected void btnLogOutYes_Click(object sender, EventArgs e)

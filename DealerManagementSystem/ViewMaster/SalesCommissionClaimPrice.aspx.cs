@@ -162,29 +162,31 @@ namespace DealerManagementSystem.ViewMaster
                 TextBox txtMaterailCode = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterailCode");
                 TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
                 TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
-                CheckBox chkbxFIsActive = (CheckBox)gvSalCommClaimPrice.FooterRow.FindControl("chkbxFIsActive");
+                //CheckBox chkbxFIsActive = (CheckBox)gvSalCommClaimPrice.FooterRow.FindControl("chkbxFIsActive");
                 Button BtnAddOrUpdateSalCommClaimPrice = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateSalCommClaimPrice");
                 GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceEdit.NamingContainer);
                 Label lblPlantID = (Label)row.FindControl("lblPlantID");
                 ddlGPlant.SelectedValue = lblPlantID.Text;
+                ddlGPlant.Enabled = false;
                 //Label lblMaterial = (Label)row.FindControl("lblMaterial");
                 //txtMaterail.Text = lblMaterial.Text;
                 Label lblMaterialCode = (Label)row.FindControl("lblMaterialCode");
                 txtMaterailCode.Text = lblMaterialCode.Text;
+                txtMaterailCode.Enabled = false;
                 Label lblPercentage = (Label)row.FindControl("lblPercentage");
                 txtPercentage.Text = lblPercentage.Text;
                 Label lblAmount = (Label)row.FindControl("lblAmount");
                 txtAmount.Text = lblAmount.Text;
-                CheckBox chkbxGIsActive = (CheckBox)row.FindControl("chkbxGIsActive");
-                if(chkbxGIsActive.Checked)
-                {
-                    chkbxFIsActive.Checked = true;
-                }
-                else if(!chkbxGIsActive.Checked)
-                {
-                    chkbxFIsActive.Checked = false;
-                }
-                chkbxFIsActive.Enabled = true;
+                //CheckBox chkbxGIsActive = (CheckBox)row.FindControl("chkbxGIsActive");
+                //if(chkbxGIsActive.Checked)
+                //{
+                //    chkbxFIsActive.Checked = true;
+                //}
+                //else if(!chkbxGIsActive.Checked)
+                //{
+                //    chkbxFIsActive.Checked = false;
+                //}
+                //chkbxFIsActive.Enabled = true;
                 HiddenID.Value = Convert.ToString(lnkBtnSalCommClaimPriceEdit.CommandArgument);
                 BtnAddOrUpdateSalCommClaimPrice.Text = "Update";
             }
@@ -274,26 +276,33 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, Convert.ToString(Convert.ToInt32(IsActive)))[0];
+                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, "1")[0];
 
                 TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
                 TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
-                Percentage = Convert.ToDecimal(txtPercentage.Text);
-                Amount = Convert.ToDecimal(txtAmount.Text);
-                if (string.IsNullOrEmpty(txtPercentage.Text.Trim()))
-                {
-                   
-                    if (string.IsNullOrEmpty(txtAmount.Text.Trim()))
-                    {
-                        lblMessage.Text = "Please enter Amount or Percentages.";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
-                  
-                }
-                else
-                {
 
+                txtPercentage.Text = txtPercentage.Text.Replace("0.00", "0"); 
+                txtAmount.Text = txtAmount.Text.Replace("0.00", "0");
+                if ((txtPercentage.Text.Trim() == "0") && (txtAmount.Text.Trim() == "0"))
+                {
+                    lblMessage.Text = "Please enter Amount or Percentage.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if ((txtPercentage.Text.Trim()!="0") && (txtAmount.Text.Trim()!="0"))
+                {
+                    lblMessage.Text = "Please enter Amount or Percentage.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                Percentage = Convert.ToDecimal("0"+txtPercentage.Text.Trim());
+                Amount = Convert.ToDecimal("0" + txtAmount.Text.Trim());
+
+                if (Percentage != 0 && Amount != 0)
+                {
+                    lblMessage.Text = "Please enter either Amount or Percentage.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
                 }
                 
                 if (BtnAddOrUpdateCountry.Text != "Add")

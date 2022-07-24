@@ -37,6 +37,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Enquiry');</script>");
+
             try
             {
                 lblMessage.Text = "";
@@ -49,7 +51,15 @@ namespace DealerManagementSystem.ViewPreSale
                     new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                     //new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                    txtToDate.Text = DateTime.Now.ToShortDateString(); 
+                    txtToDate.Text = DateTime.Now.ToShortDateString();
+
+
+                    List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
+                    new DDLBind(ddlSSource, Source, "Source", "SourceID");
+
+                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null);
+                    new DDLBind(ddlSStatus, Status, "Status", "StatusID");
+
                 }
             }
             catch (Exception ex)
@@ -70,11 +80,15 @@ namespace DealerManagementSystem.ViewPreSale
                 if (StateID != null)
                     DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
             }
+
+            int? SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+            int? StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+
             DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
 
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT);
+            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID);
             
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();

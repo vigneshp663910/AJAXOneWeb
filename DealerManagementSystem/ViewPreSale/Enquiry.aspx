@@ -52,8 +52,19 @@
                         <asp1:CalendarExtender ID="calendarextender3" runat="server" TargetControlID="txtToDate" PopupButtonID="txtToDate" Format="dd/MM/yyyy" />
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtToDate" WatermarkText="DD/MM/YYYY" />
                     </div>
+
+                     <div class="col-md-2 text-left">
+                        <label>Source</label>
+                        <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
+                    </div>
+
+                     <div class="col-md-2 text-left">
+                        <label>Status</label>
+                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
+                    </div>
+
                    <div class="col-md-12 text-center"> 
-                        <asp:Button ID="BtnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="BtnSearch_Click" />
+                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
                         <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
                     </div>
                 </div>
@@ -115,7 +126,9 @@
                                 </asp:TemplateField> <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>--%>
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Address" DataField="Address"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address1" DataField="Address"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address2" DataField="Address2"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address3" DataField="Address3"></asp:BoundField>
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>

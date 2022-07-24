@@ -31,6 +31,8 @@ namespace Business
                 DbParameter Mail = provider.CreateParameter("Mail", enquiry.Mail, DbType.String);
                 DbParameter Mobile = provider.CreateParameter("Mobile", enquiry.Mobile, DbType.String);
                 DbParameter Address = provider.CreateParameter("Address", enquiry.Address, DbType.String);
+                DbParameter Address2 = provider.CreateParameter("Address2", enquiry.Address2, DbType.String);
+                DbParameter Address3 = provider.CreateParameter("Address3", enquiry.Address3, DbType.String);
                 DbParameter SourceID = provider.CreateParameter("SourceID", enquiry.Source.SourceID, DbType.Int32); 
                 DbParameter CountryID = provider.CreateParameter("CountryID", enquiry.Country.CountryID, DbType.Int32);
                 DbParameter StateID = provider.CreateParameter("StateID", enquiry.State.StateID, DbType.Int32);
@@ -41,7 +43,7 @@ namespace Business
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[15] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                    DbParameter[] Params = new DbParameter[17] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
                     scope.Complete();
                 }
@@ -54,7 +56,7 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo)
+        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID)
         {
             List<PEnquiry> projects = new List<PEnquiry>();
             try
@@ -68,7 +70,9 @@ namespace Business
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
                 DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
                 DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
-                DbParameter[] Params = new DbParameter[9] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP };
+                DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[11] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP };
 
                 using (DataSet DataSet = provider.Select("GetEnquiry", Params))
                 {
@@ -109,6 +113,8 @@ namespace Business
                                     DistrictID = Convert.ToInt32(dr["DistrictID"]),
                                 },
                                 Address = Convert.ToString(dr["Address"]),
+                                Address2 = Convert.ToString(dr["Address2"]),
+                                Address3 = Convert.ToString(dr["Address3"]),
                                 PersonName = Convert.ToString(dr["PersonName"]),
                                 Mobile = Convert.ToString(dr["Mobile"]),
                                 Mail = Convert.ToString(dr["Mail"]),
