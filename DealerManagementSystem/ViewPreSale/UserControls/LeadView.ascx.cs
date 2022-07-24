@@ -212,6 +212,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessage.Text = "Please select the Product";
                     return;
                 }
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label lblLeadProductID = (Label)gvRow.FindControl("lblLeadProductID");
+                Session["LeadProductID"] = lblLeadProductID.Text;
                 MPE_Quotation.Show();
                 UC_Quotation.FillMaster(Lead);
             }
@@ -483,7 +486,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             Lead.LeadProduct = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
             gvProduct.DataSource = Lead.LeadProduct;
-            gvProduct.DataBind(); 
+            gvProduct.DataBind();
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+
+            for (int i=0; i< gvProduct.Rows.Count;i++)
+            {
+                LinkButton lbtnAddQuotation = (LinkButton)gvProduct.Rows[i].FindControl("lbtnAddQuotation");
+                Label lblRefQuotationNo = (Label)gvProduct.Rows[i].FindControl("lblRefQuotationNo");
+                if(!string.IsNullOrEmpty(lblRefQuotationNo.Text))
+                {
+                    lbtnAddQuotation.Visible = false;
+                }
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ConvertToQuotationLead).Count() == 0)
+                {
+                    lbtnAddQuotation.Visible = false;
+                }
+            }
         }
       
         void fillSupportDocument()
@@ -595,6 +614,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PSalesQuotation Sq = new PSalesQuotation();
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.Lead = new PLead { LeadID = Lead.LeadID };
+            Sq.LeadProduct = new PLeadProduct { LeadProductID = Convert.ToInt64(Session["LeadProductID"])};
             Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
@@ -866,7 +886,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnAddExpense.Visible = true;
             lbtnAddFinancialInfo.Visible = true;
             lbtnAddProduct.Visible = true;
-            lbtnAddQuotation.Visible = true;
+           // lbtnAddQuotation.Visible = true;
             lbtAddQuestionaries.Visible = true;
             lbtnAddVisit.Visible = true;
             lbtnLostLead.Visible = true;
@@ -882,18 +902,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnAddExpense.Visible = false;
                 lbtnAddFinancialInfo.Visible = false;
                 lbtnAddProduct.Visible = false;
-                lbtnAddQuotation.Visible = false;
+                //lbtnAddQuotation.Visible = false;
                 lbtAddQuestionaries.Visible = false;
                 lbtnAddVisit.Visible = false;
                 lbtnLostLead.Visible = false;
                 lbtnCancelLead.Visible = false;
             }
 
-            List<PSalesQuotation>  Quote = new BSalesQuotation().GetSalesQuotationBasic(null, null, Lead.LeadID, null, null, null, null, null, null, null, null);
-            if(Quote.Count !=0)
-            {
-                lbtnAddQuotation.Visible = false;
-            }
+            //List<PSalesQuotation>  Quote = new BSalesQuotation().GetSalesQuotationBasic(null, null, Lead.LeadID, null, null, null, null, null, null, null, null);
+            //if(Quote.Count !=0)
+            //{
+            //    lbtnAddQuotation.Visible = false;
+            //}
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
@@ -928,10 +948,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lbtnAddProduct.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ConvertToQuotationLead).Count() == 0)
-            {
-                lbtnAddQuotation.Visible = false;
-            }
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ConvertToQuotationLead).Count() == 0)
+            //{
+            //    lbtnAddQuotation.Visible = false;
+            //}
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddQuestionariesLead).Count() == 0)
             {
                 lbtAddQuestionaries.Visible = false;

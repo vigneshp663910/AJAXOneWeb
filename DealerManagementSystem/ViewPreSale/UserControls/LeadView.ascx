@@ -24,7 +24,7 @@
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtAddQuestionaries" runat="server" OnClick="lbActions_Click">Add Questionaries</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
                 <asp:LinkButton ID="lbtnLostLead" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
@@ -487,6 +487,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    <asp:Label ID="lblLeadProductID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadProductID")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
 
@@ -496,19 +497,47 @@
                                     <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Product" SortExpression="Country">
+                            <asp:TemplateField HeaderText="Product">
                                 <ItemTemplate>
                                     <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product.Product")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Quantity" SortExpression="Country">
+                            <asp:TemplateField HeaderText="Quantity">
                                 <ItemTemplate>
                                     <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Remark" SortExpression="Country">
+                            <asp:TemplateField HeaderText="Remark">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                             <asp:TemplateField HeaderText="Ref Quotation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRefQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.RefQuotationNo")%>' runat="server" />
+                                    <br />
+                                     <asp:Label ID="lblRefQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.RefQuotationDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                             
+                            <asp:TemplateField HeaderText="Sap Quotation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSapQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.SapQuotationNo")%>' runat="server" />
+                                    <br />
+                                     <asp:Label ID="lblSapQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.SapQuotationDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField> 
+                            <asp:TemplateField HeaderText="Parts Quotation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblPgQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.PgQuotationNo")%>' runat="server" />
+                                     <br />
+                                    <asp:Label ID="lblPgQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.PgQuotationDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField> 
+                            <asp:TemplateField HeaderText="Update Status">
+                                <ItemTemplate> 
+                                    <asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton> 
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -896,7 +925,7 @@
                 <FadeOut Duration=".5"   />
             </OnHidden>
         
-    </Animations> 
+    </Animations>
 </ajaxToolkit:ModalPopupExtender>
 <%--<ajaxToolkit:AnimationExtender ID="popupAnimation" runat="server" TargetControlID="lbtAddQuestionaries">
         <Animations>
@@ -952,7 +981,7 @@
 
 
 <div style="display: none">
-   <%-- <div  >--%>
+    <%-- <div  >--%>
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 
@@ -1105,4 +1134,17 @@
         </div>
     </asp:Panel>--%>
 
- 
+<script type="text/javascript">
+    $(document).ready(function () {
+        var gvFollowUp = document.getElementById('MainContent_gvProduct');
+        if (gvFollowUp != null) {
+            for (var i = 0; i < gvFollowUp.rows.length - 1; i++) {
+                var lblFollowUpStatusID = document.getElementById('MainContent_gvProduct_lblFollowUpStatus_' + i);
+                var divActions = document.getElementById('divActions' + i);
+                if (lblFollowUpStatusID.innerHTML != "Open") {
+                    divActions.style.display = "none";
+                }
+            }
+        }
+    });
+</script>

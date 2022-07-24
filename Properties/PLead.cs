@@ -143,6 +143,8 @@ namespace Properties
         public decimal Quantity { get; set; }
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
+        public PSalesQuotation SalesQuotation { get; set; }
+        
     }
 
 

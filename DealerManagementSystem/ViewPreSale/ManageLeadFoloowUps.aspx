@@ -3,8 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
       <script type="text/javascript">
-          $(document).ready(function () {
-              debugger;
+          $(document).ready(function () { 
               var gvFollowUp = document.getElementById('MainContent_gvFollowUp'); 
               if (gvFollowUp != null) { 
                 for (var i = 0; i < gvFollowUp.rows.length - 1; i++) { 

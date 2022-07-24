@@ -2144,8 +2144,7 @@
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
-        function ShowProgress() {
-            debugger; 
+        function ShowProgress() { 
             setTimeout(function () {
                 if (IsCookieValid()) {
                 }
@@ -2173,8 +2172,7 @@
 
             }, timeInterval);
         }
-        $('form').live("submit", function () {
-            debugger;
+        $('form').live("submit", function () { 
             //ShowProgress();
             jsShowHideProgress()
              
@@ -2182,20 +2180,17 @@
         });
 
         // cookies
-        function deleteCookie() {
-            debugger;
+        function deleteCookie() { 
             var cook = getCookie('ExcelDownloadFlag');
             if (cook != "") {
                 document.cookie = "ExcelDownloadFlag=; Path = /; expires=Thu, 01 Jan 1970 00:00:00 UTC";
             }
         }
-        function IsCookieValid() {
-            debugger;
+        function IsCookieValid() { 
             var cook = getCookie('ExcelDownloadFlag');
             return cook != '';
         }
-        function getCookie(cname) {
-            debugger;
+        function getCookie(cname) { 
             var name = cname + "=";
             var ca = document.cookie.split(';');
             for (var i = 0; i < ca.length; i++) {
