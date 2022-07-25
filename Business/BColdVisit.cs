@@ -69,7 +69,8 @@ namespace Business
             DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.Int32);
             DbParameter LeadDateFromP = provider.CreateParameter("FromDate", FromDate, DbType.DateTime);
             DbParameter LeadDateToP = provider.CreateParameter("ToDate", ToDate, DbType.DateTime);
-            DbParameter[] Params = new DbParameter[6] { DealerIDP, DealerEmployeeIDP, YearP, MonthP, LeadDateFromP, LeadDateToP };
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[7] { DealerIDP, DealerEmployeeIDP, YearP, MonthP, LeadDateFromP, LeadDateToP, UserIDP };
             try
             {
                 using (DataSet DataSet = provider.Select("GetVisitReport", Params))
