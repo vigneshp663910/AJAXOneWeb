@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +13,13 @@ namespace Business
 {
     public class BColdVisit
     {
+        private IDataAccess provider;
+        private IDataAccess providerReport;
+        public BColdVisit()
+        {
+            provider = new ProviderFactory().GetProvider();
+            providerReport = new ProviderFactory().GetProvider(true);
+        }
         public List<PColdVisit> GetColdVisit(long? ColdVisitID, DateTime? ColdVisitDateFrom, DateTime? ColdVisitDateTo, long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? ReferenceTableID, long? ReferenceID)
         {
             string endPoint = "ColdVisit?ColdVisitID=" + ColdVisitID + "&ColdVisitDateFrom=" + ColdVisitDateFrom + "&ColdVisitDateTo=" + ColdVisitDateTo + "&CustomerID=" + CustomerID
@@ -49,6 +59,35 @@ namespace Business
         {
             string endPoint = "ColdVisit/AttachedFileForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
+        public DataTable GetVisitReport(int? DealerID, int? DealerEmployeeID, int? Year, int? Month, string FromDate, string ToDate, int? UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter DealerEmployeeIDP = provider.CreateParameter("DealerEmployeeID", DealerEmployeeID, DbType.Int32);
+            DbParameter YearP = provider.CreateParameter("Year", Year, DbType.Int32);
+            DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.Int32);
+            DbParameter LeadDateFromP = provider.CreateParameter("FromDate", FromDate, DbType.DateTime);
+            DbParameter LeadDateToP = provider.CreateParameter("ToDate", ToDate, DbType.DateTime);
+            DbParameter[] Params = new DbParameter[6] { DealerIDP, DealerEmployeeIDP, YearP, MonthP, LeadDateFromP, LeadDateToP };
+            try
+            {
+                using (DataSet DataSet = provider.Select("GetVisitReport", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BColdVisit", "GetVisitReport", ex);
+                throw;
+            }
+            return null;
+            //  TraceLogger.Log(DateTime.Now);
         }
     }
 }
