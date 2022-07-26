@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -292,9 +293,6 @@ namespace DealerManagementSystem.ViewPreSale
             }
             return Emp;
         }
-
-
-
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         { 
             gvLead.PageIndex = e.NewPageIndex;
@@ -311,6 +309,66 @@ namespace DealerManagementSystem.ViewPreSale
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
             UC_ColdVisitsView.fillViewColdVisit(Convert.ToInt64(lblColdVisitID.Text));
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BudgetPlanningYearExportExcel(Lead1, "Customer Visit Report");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void BudgetPlanningYearExportExcel(List<PColdVisit> coldVisits, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Cold Visit No");
+            dt.Columns.Add("Cold Visit Date");
+            dt.Columns.Add("Action Type");
+            dt.Columns.Add("Customer Name");
+            dt.Columns.Add("Contact Person");
+            dt.Columns.Add("Mobile");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Status");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Created On");
+            dt.Columns.Add("Modified By");
+            dt.Columns.Add("Modified On");
+            foreach (PColdVisit coldVisit in coldVisits)
+            {
+                dt.Rows.Add(
+                    "'" + coldVisit.ColdVisitNumber
+                    , coldVisit.ColdVisitDate
+                    , coldVisit.ActionType.ActionType
+                    , coldVisit.Customer.CustomerName
+                    , coldVisit.Customer.ContactPerson
+                    , coldVisit.Customer.Mobile
+                    , coldVisit.Customer.Email
+                    , coldVisit.Status.Status
+                    , (coldVisit.CreatedBy == null) ? "" : coldVisit.CreatedBy.ContactName
+                    //, coldVisit.CreatedOn
+                    //, (coldVisit.ModifiedBy == null) ? "" : coldVisit.ModifiedBy.ContactName
+                    //, coldVisit.ModifiedOn
+                    , ""
+                    , ""
+                    , ""
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
         }
     }
 }
