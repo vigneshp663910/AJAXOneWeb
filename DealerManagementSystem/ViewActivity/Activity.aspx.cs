@@ -592,6 +592,9 @@ namespace DealerManagementSystem.ViewActivity
                 //    }
                 //}
 
+
+
+
                 //Activity.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
                 //Activity.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
                 //Activity.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
@@ -629,20 +632,59 @@ namespace DealerManagementSystem.ViewActivity
                 //    + "&ReferenceType=" + (ddlReferenceTypeE.SelectedValue == "0" ? "" :  ddlReferenceTypeE.SelectedValue )
                 //    + "&ReferenceNumber=" + Convert.ToString(txtReferenceNumberE.Text.Trim()) + "&Remarks=" + Convert.ToString(txtRemarks.Text.Trim());
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                PApiResult Results = new BActivity().EndActivity(Convert.ToInt32(lblActivityIDE.Text)
-                    , Convert.ToDecimal(hfLatitude.Value)
-                    , Convert.ToDecimal(hfLongitude.Value)
-                    , Convert.ToString(txtLocation.Text.Trim())
-                    , (string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim()))
-                    , (ddlReferenceTypeE.SelectedValue.Trim() == "0") ? (int?)null : Convert.ToInt32(ddlReferenceTypeE.SelectedValue.Trim())
-                    , Convert.ToString(txtReferenceNumberE.Text.Trim())
-                    , Convert.ToString(txtRemarks.Text.Trim())
-                    , Convert.ToInt32(ddlEffortType.SelectedValue.Trim())
-                    , (string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()))
-                    , Convert.ToInt32(ddlExpenseType.SelectedValue.Trim()));
-                    //, (ddlEffortType.SelectedValue.Trim() == "0") ? (Int32?)null : Convert.ToInt32(ddlEffortType.SelectedValue.Trim())
-                    //, (string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()))
-                    //, (ddlExpenseType.SelectedValue.Trim() == "0") ? (Int32?)null : Convert.ToInt32(ddlExpenseType.SelectedValue.Trim())
+                string ReferenceNumberE = txtReferenceNumberE.Text.Trim();
+                if (ddlReferenceTypeE.SelectedValue == "1")
+                { 
+                    ReferenceNumberE = txtCustomerID.Text.Trim(); 
+                }
+
+                PActivity ActivityS = new PActivity();
+                ActivityS.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
+                ActivityS.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
+                ActivityS.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
+                ActivityS.ActivityType = new PActivityType();
+                //Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeIDE.Text);
+                ActivityS.ActivityEndDate = DateTime.Now;
+                ActivityS.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+                ActivityS.Location = txtLocation.Text.Trim();
+                ActivityS.Amount =  string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim());
+
+                ActivityS.ActivityReference = ddlReferenceTypeE.SelectedValue == "0" ? null : new PActivityReferenceType()
+                {
+                    ActivityReferenceTableID = Convert.ToInt32(ddlReferenceTypeE.SelectedValue )
+                };
+
+                ActivityS.ReferenceNumber = ReferenceNumberE;
+                ActivityS.Remark = txtRemarks.Text.Trim();
+
+                ActivityS.EffortType = ddlEffortType.SelectedValue == "0" ? null : new PEffortType()
+                {
+                    EffortTypeID = Convert.ToInt32(ddlEffortType.SelectedValue.Trim()),
+                };
+                ActivityS.EffortDuration = string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim());
+
+
+                ActivityS.ExpenseType = ddlExpenseType.SelectedValue == "0" ? null : new PExpenseType()
+                {
+                    ExpenseTypeID = Convert.ToInt32(ddlExpenseType.SelectedValue)
+                };
+
+
+                //PApiResult Results = new BActivity().EndActivity(Convert.ToInt32(lblActivityIDE.Text)
+                //    , Convert.ToDecimal(hfLatitude.Value)
+                //    , Convert.ToDecimal(hfLongitude.Value)
+                //    , Convert.ToString(txtLocation.Text.Trim())
+                //    , (string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim()))
+                //    , (ddlReferenceTypeE.SelectedValue.Trim() == "0") ? (int?)null : Convert.ToInt32(ddlReferenceTypeE.SelectedValue.Trim())
+                //    , ReferenceNumberE
+                //    ,  txtRemarks.Text.Trim() 
+                //    , Convert.ToInt32(ddlEffortType.SelectedValue.Trim())
+                //    , (string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()))
+                //    , Convert.ToInt32(ddlExpenseType.SelectedValue.Trim()));
+
+
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Activity/EndActivity", ActivityS));
+                 
                 if (Results.Status == PApplication.Failure)
                 {
                     lblValidationMessage.Text = "<br/>" + Results.Message;

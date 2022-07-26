@@ -45,6 +45,9 @@ namespace Properties
         public string EndMapImage { get; set; }
         public string StartLatitudeLongitudeDate { get; set; }
         public string EndLatitudeLongitudeDate { get; set; }
+        public PEffortType EffortType { get; set; }
+        public decimal? EffortDuration { get; set; }
+        public PExpenseType ExpenseType { get; set; }
     }   
 
     [Serializable]

@@ -193,7 +193,7 @@
                 UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile);
             });
         });
-        $('#txtEmail').watermark('Required information');
+     
 
 
         $("#txtCustomerName").change(function () {
@@ -581,9 +581,9 @@
                             </div>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtCustomerName" WatermarkText="Customer Name" WatermarkCssClass="WatermarkCssClass" />
                         </div>
-                        <div id="divCustomerViewID" style="display: none">
+                        <%--  <div id="divCustomerViewID" style="display: none">
                             <fieldset class="fieldset-border">
-                                <div class="col-md-12">
+                               <div class="col-md-12">
 
                                     <div class="col-md-2 text-right">
                                         <label>Customer Name</label>
@@ -608,9 +608,9 @@
                                 <div id="divChangeCustomer">
                                     <label>Change Customer</label>
                                 </div>
-
+                                  
                             </fieldset>
-                        </div>
+                        </div> --%>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Effort Type</label>
                             <asp:DropDownList ID="ddlEffortType" runat="server" CssClass="form-control" />
