@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -25,15 +26,15 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('PreSale » Planning » Budget-Yearly');</script>");
             if (!IsPostBack)
             {
-                new DDLBind(ddlDealer,PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind().Year(ddlYear, 2022);
-               
+
             }
         }
 
         void FillVisitTargetPlanning()
         {
-            int? DealerID = ddlDealer.SelectedValue =="0"?(int?)null: Convert.ToInt32(ddlDealer.SelectedValue);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             VTP = new BBudgetPlanningYearWise().GetBudgetPlanningYearWise(DealerID, null, Convert.ToInt32(ddlYear.SelectedValue));
 
             gvVisitTargetPlanning.DataSource = VTP;
@@ -147,6 +148,61 @@ namespace DealerManagementSystem.ViewPreSale
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillVisitTargetPlanning();
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BudgetPlanningYearExportExcel(VTP, "Budget Planning Year Report");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void BudgetPlanningYearExportExcel(List<PBudgetPlanningYearWise> VTPs, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Dealer");
+            dt.Columns.Add("Dealer Name");
+            dt.Columns.Add("Model");
+            dt.Columns.Add("Year");
+            dt.Columns.Add("Budget");
+            dt.Columns.Add("Actual");
+            dt.Columns.Add("Freezed");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Created On");
+            dt.Columns.Add("Modified By");
+            dt.Columns.Add("Modified On");
+            foreach (PBudgetPlanningYearWise VTP in VTPs)
+            {
+                dt.Rows.Add(
+                    "'" + VTP.Dealer.DealerCode
+                    , VTP.Dealer.DealerName
+                    , VTP.Model.Model
+                    , VTP.Year
+                    , VTP.Budget
+                    , VTP.Actual
+                    , VTP.Freezed
+                    , (VTP.CreatedBy == null) ? "" : VTP.CreatedBy.ContactName
+                    , VTP.CreatedOn
+                    , (VTP.ModifiedBy == null) ? "" : VTP.ModifiedBy.ContactName
+                    , VTP.ModifiedOn
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
         }
     }
 }
