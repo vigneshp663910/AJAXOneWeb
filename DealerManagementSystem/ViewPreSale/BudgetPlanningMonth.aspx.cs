@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -148,6 +149,63 @@ namespace DealerManagementSystem.ViewPreSale
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillVisitTargetPlanning();
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BudgetPlanningYearExportExcel(VTP, "Budget Planning Month Report");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void BudgetPlanningYearExportExcel(List<PBudgetPlanningMonthWise> VTPs, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Dealer");
+            dt.Columns.Add("Dealer Name");
+            dt.Columns.Add("Model");
+            dt.Columns.Add("Year");
+            dt.Columns.Add("Month");
+            dt.Columns.Add("Budget");
+            dt.Columns.Add("Actual");
+            dt.Columns.Add("Freezed");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Created On");
+            dt.Columns.Add("Modified By");
+            dt.Columns.Add("Modified On");
+            foreach (PBudgetPlanningMonthWise VTP in VTPs)
+            {
+                dt.Rows.Add(
+                    "'" + VTP.BudgetPlanningYear.Dealer.DealerCode
+                    , VTP.BudgetPlanningYear.Dealer.DealerName
+                    , VTP.BudgetPlanningYear.Model.Model
+                    , VTP.BudgetPlanningYear.Year
+                    , VTP.Month
+                    , VTP.Planed
+                    , VTP.Actual
+                    , VTP.Freezed
+                    , (VTP.CreatedBy == null) ? "" : VTP.CreatedBy.ContactName
+                    , VTP.CreatedOn
+                    , (VTP.ModifiedBy == null) ? "" : VTP.ModifiedBy.ContactName
+                    , VTP.ModifiedOn
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
         }
     }
 }

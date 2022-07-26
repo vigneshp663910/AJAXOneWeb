@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Customer');</script>");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master <i class= '+ '"' + 'fa fa-angle-double-down fa-2x' + '"'> </i>Customer');</script>");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master < i class='fa fa-fw fa-home font-white' style='color: lightgray'></i> Customer');</script>");
@@ -98,7 +98,7 @@ namespace DealerManagementSystem.ViewMaster
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            Cust = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID); 
+            Cust = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID);
             gvCustomer.DataSource = Cust;
             gvCustomer.DataBind();
 
@@ -136,7 +136,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             PDMS_Customer cust = UC_Customer.ReadCustomer();
             string result = new BAPI().ApiPut("Customer", cust);
-            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data); 
+            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
             if (result == "0")
             {
                 MPE_Customer.Show();
@@ -153,11 +153,11 @@ namespace DealerManagementSystem.ViewMaster
             gvCustomer.DataSource = Leads;
             gvCustomer.DataBind();
             UC_Customer.FillClean();
-            MPE_Customer.Hide(); 
+            MPE_Customer.Hide();
         }
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
-            
+
             //CustomerView ucCustomerView = (CustomerView)LoadControl("~/ViewPreSale/UserControls/CustomerView.ascx");
             //ucCustomerView.ID = "ucCustomerView";
 
@@ -215,7 +215,7 @@ namespace DealerManagementSystem.ViewMaster
         public static List<string> GetCustomer(string CustS)
         {
             List<string> Emp = new List<string>();
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS,0);
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
             int i = 0;
             foreach (PDMS_Customer cust in Customer)
             {
@@ -286,48 +286,56 @@ namespace DealerManagementSystem.ViewMaster
             dt.Columns.Add("City");
             dt.Columns.Add("DOB");
             dt.Columns.Add("Anniversary Dt");
-            dt.Columns.Add("SendSMS");
-            dt.Columns.Add("SendEmail");            
+            dt.Columns.Add("Send SMS");
+            dt.Columns.Add("Send Email");
             dt.Columns.Add("Latitude");
             dt.Columns.Add("Longitude");
-            dt.Columns.Add("CustomerType");
+            dt.Columns.Add("Customer Type");
             dt.Columns.Add("IsActive");
-            //dt.Columns.Add("IsVerified");
-            //dt.Columns.Add("VerifiedBy");
-            //dt.Columns.Add("VerifiedOn");
+            dt.Columns.Add("IsVerified");
+            dt.Columns.Add("Verified By");
+            dt.Columns.Add("Verified On");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Created On");
+            dt.Columns.Add("Modified By");
+            dt.Columns.Add("Modified On");
             foreach (PDMS_Customer Customer in Customers)
             {
                 dt.Rows.Add(
                     "'" + Customer.CustomerID
                     , Customer.CustomerCode
                     , Customer.Title.Title
-                   , Customer.CustomerName
-                   , Customer.CustomerName2
-                   , Customer.ContactPerson
-                   , Customer.Mobile
-                   , Customer.AlternativeMobile
-                   , Customer.Email
-                   , Customer.Address1
-                   , Customer.Address2
-                   , Customer.Address3
-                   , Customer.Country.Country
-                   , Customer.State.State
-                   , Customer.District.District
-                   , Customer.GSTIN
-                   , Customer.PAN
-                   , Customer.Tehsil
-                   , Customer.City
-                   , Customer.DOB
-                   , Customer.DOAnniversary
-                   , Customer.SendSMS
-                   , Customer.SendEmail
-                   , Customer.Latitude
-                   , Customer.Longitude
-                   , Customer.CustomerType
-                   , Customer.IsActive
-                   //, Customer.IsVerified
-                   //, Customer.VerifiedBy.ContactName
-                   //, Customer.VerifiedOn
+                    , Customer.CustomerName
+                    , Customer.CustomerName2
+                    , Customer.ContactPerson
+                    , Customer.Mobile
+                    , Customer.AlternativeMobile
+                    , Customer.Email
+                    , Customer.Address1
+                    , Customer.Address2
+                    , Customer.Address3
+                    , Customer.Country.Country
+                    , Customer.State.State
+                    , Customer.District.District
+                    , Customer.GSTIN
+                    , Customer.PAN
+                    , Customer.Tehsil
+                    , Customer.City
+                    , Customer.DOB
+                    , Customer.DOAnniversary
+                    , Customer.SendSMS
+                    , Customer.SendEmail
+                    , Customer.Latitude
+                    , Customer.Longitude
+                    , Customer.CustomerType
+                    , Customer.IsActive
+                    , Customer.IsVerified
+                    , (Customer.VerifiedBy == null) ? "" : Customer.VerifiedBy.ContactName
+                    , Customer.VerifiedOn
+                    , ""
+                    , ""
+                    , ""
+                    , ""
                     );
             }
             try

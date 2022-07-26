@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -369,6 +370,79 @@ namespace DealerManagementSystem.View
             }
 
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + PProject.Count;
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BudgetPlanningYearExportExcel(PProject, "Project Report");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void BudgetPlanningYearExportExcel(List<PProject> Projects, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Project Code");
+            dt.Columns.Add("Project Name");
+            dt.Columns.Add("Email Date");
+            dt.Columns.Add("Tender Number");
+            dt.Columns.Add("State");
+            dt.Columns.Add("District");
+            dt.Columns.Add("Value");
+            dt.Columns.Add("L1 Contractor Name");
+            dt.Columns.Add("L1 Contractor Address");
+            dt.Columns.Add("L2 Bidder");
+            dt.Columns.Add("L3 Bidder");
+            dt.Columns.Add("Contract Award Date");
+            dt.Columns.Add("Contract End Date");
+            dt.Columns.Add("Remarks");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Created On");
+            dt.Columns.Add("Modified By");
+            dt.Columns.Add("Modified On");
+            foreach (PProject Project in Projects)
+            {
+                dt.Rows.Add(
+                    "'" + Project.ProjectNumber
+                    , Project.ProjectName
+                    , Project.EmailDate
+                    , Project.TenderNumber
+                    , Project.State.State
+                    , Project.District.District
+                    , Project.Value
+                    , Project.L1ContractorName
+                    , Project.L1ContractorAddress
+                    , Project.L2Bidder
+                    , Project.L3Bidder
+                    , Project.ContractAwardDate
+                    , Project.ContractEndDate
+                    , Project.Remarks
+                    //, (Project.CreatedBy == null) ? "" : Project.CreatedBy.ContactName
+                    //, Project.CreatedOn
+                    //, (Project.ModifiedBy == null) ? "" : Project.ModifiedBy.ContactName
+                    //, Project.ModifiedOn
+                    ,""
+                    , ""
+                    , ""
+                    , ""
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
         }
     }
 }
