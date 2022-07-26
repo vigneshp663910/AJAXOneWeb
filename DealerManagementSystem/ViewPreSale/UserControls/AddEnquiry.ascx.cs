@@ -42,6 +42,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             txtAddress.Text = string.Empty;
+            txtAddress2.Text = string.Empty;
+            txtAddress3.Text = string.Empty;
             txtProduct.Text = string.Empty;
             txtRemarks.Text = string.Empty;
            
@@ -66,6 +68,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             enquiry.District = new PDMS_District();
             enquiry.District.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
             enquiry.Address = txtAddress.Text.Trim();
+            enquiry.Address2 = txtAddress2.Text.Trim();
+            enquiry.Address3 = txtAddress3.Text.Trim();
             enquiry.Product = txtProduct.Text.Trim();
             enquiry.Remarks = txtRemarks.Text.Trim();
             enquiry.CreatedBy = new PUser(); 
@@ -88,6 +92,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
             ddlSource.SelectedValue = enquiry.Source.SourceID.ToString();
             txtAddress.Text = enquiry.Address.ToString();
+            txtAddress2.Text = enquiry.Address2.ToString();
+            txtAddress3.Text = enquiry.Address3.ToString();
             txtProduct.Text = enquiry.Product;
             txtRemarks.Text = enquiry.Remarks;
         }

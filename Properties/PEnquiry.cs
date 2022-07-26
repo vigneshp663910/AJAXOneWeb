@@ -16,6 +16,8 @@ namespace Properties
         public string Mail { get; set; }
         public string Mobile { get; set; }
         public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
         public PLeadSource Source { get; set; }
         public PPreSaleStatus Status { get; set; }
         public PDMS_Country Country { get; set; }

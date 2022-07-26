@@ -38,6 +38,7 @@ namespace Properties
         public List<PSalesQuotationItem> QuotationItems { get; set; }
         public List<PSalesQuotationCompetitor> Competitor { get; set; }
         public PLead Lead { get; set; }
+        public  PLeadProduct  LeadProduct { get; set; }
         public List<PSalesQuotationNote> Notes { get; set; }
         public PDMS_Material Material { get; set; }
         public string SaleOrderNumber { get; set; }

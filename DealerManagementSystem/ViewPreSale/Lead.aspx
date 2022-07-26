@@ -6,160 +6,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <style type="text/css">
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: black;
-            z-index: 99;
-            opacity: 0.8;
-            filter: alpha(opacity=80);
-            -moz-opacity: 0.8;
-            min-height: 100%;
-            width: 100%;
-        }
-        /*.Popup {
-            transition: all .4s ease-in-out;
-            top:0;
-            left:0;
-
-        }*/
-        /*.loading {
-            font-family: Arial;
-            font-size: 10pt;
-            border: 5px solid #67CFF5;
-            width: 200px;
-            height: 100px;
-            display: none;
-            position: fixed;
-            background-color: White;
-            z-index: 999;
-        }*/
-        /* Start Loader Graphic */
-        .loading {
-          display: none;
-          position: fixed;
-          left: 0px;
-          top: 0px;
-          width: 100%;
-          height: 100%;
-          z-index: 9999;
-          background: center no-repeat rgba(255, 255, 255, 0.9);
-          transform: translateZ(0);
-          -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-          -moz-transform: translatez(0);
-          -ms-transform: translatez(0);
-          -o-transform: translatez(0);
-          -webkit-transform: translateZ(0);
-          -webkit-font-smoothing: antialiased;
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-        }
-
-        .outerspinner {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          margin: -1.875rem 0 0 -4.688rem;
-        }
-
-        body.lang-fr-ca .outerspinner {
-          margin: -1.875rem 0 0 -6.25rem;
-        }
-
-        .submission-msg {
-          font-family: 'Roboto-Bold';
-          color: #004382;
-          font-size: 1rem;
-          font-weight: 700;
-          line-height: 1.2em;
-          margin-bottom: 1rem;
-          text-align: center;
-        }
-
-        .spinner {
-          margin: 0;
-          text-align: center;
-        }
-
-        .spinner > div {
-          width: 18px;
-          height: 18px;
-          background-color: #00539f;
-          border-radius: 100%;
-          display: inline-block;
-          -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-          animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-        }
-
-        .spinner .bounce1 {
-          -webkit-animation-delay: -0.32s;
-          animation-delay: -0.32s;
-        }
-
-        .spinner .bounce2 {
-          -webkit-animation-delay: -0.16s;
-          animation-delay: -0.16s;
-        }
-
-        @-webkit-keyframes sk-bouncedelay {
-          0%, 80%, 100% {
-            -webkit-transform: scale(0);
-          }
-          40% {
-            -webkit-transform: scale(1);
-          }
-        }
-
-        @keyframes sk-bouncedelay {
-          0%, 80%, 100% {
-            -webkit-transform: scale(0);
-            transform: scale(0);
-          }
-          40% {
-            -webkit-transform: scale(1);
-            transform: scale(1);
-          }
-        }
-
-    </style>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        function ShowProgress() {
-            debugger;
-            setTimeout(function () {
-                var modal = $('<div />');
-                modal.addClass("modal");
-                $('body').append(modal);
-                var loading = $(".loading");
-                loading.show();
-                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
-                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
-                loading.css({ top: top, left: left });
-            }, 200);
-        }
-        $('form').live("submit", function () {
-            ShowProgress();
-        });
-    </script>
-    <%--<div class="loading" align="center">
-        Loading. Please wait.<br />
-        <br />
-        <img src="loader.gif" alt="" />
-    </div>--%>
-    
-    <div class="loading">
-	    <div class="outerspinner">
-	      <div class="submission-msg">Loading. Please wait...</div>
-	      <div class="spinner">
-		    <div class="bounce1"></div>
-		    <div class="bounce2"></div>
-		    <div class="bounce3"></div>
-	      </div>
-	    </div>
-    </div>
+       
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
@@ -346,11 +193,7 @@
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
                     </div>--%>
 
-                    <div class="col-md-2 text-left">
-                        <label>Status</label>
-                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
-                    </div>
-
+                   
                     <%-- <div class="col-md-2 text-left">
                         <label>Category</label>
                         <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />
@@ -363,6 +206,11 @@
                     <div class="col-md-2 text-left">
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-2 text-left">
+                        <label>Status</label>
+                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
                     </div>
 
                     <%--  <div class="col-md-2 text-left">

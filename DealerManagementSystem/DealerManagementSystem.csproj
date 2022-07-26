@@ -494,6 +494,7 @@
     <Content Include="ViewPreSale\UserControls\LeadViewHeader.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx" />
+    <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
@@ -1667,6 +1668,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.designer.cs">
       <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\VisitReport.aspx.cs">
+      <DependentUpon>VisitReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\VisitReport.aspx.designer.cs">
+      <DependentUpon>VisitReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
