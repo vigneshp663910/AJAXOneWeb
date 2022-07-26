@@ -231,10 +231,10 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 
-        public PApiResult EndActivity(long ActivityID, decimal Latitude, decimal Longitude, string Location, decimal? Amount, int? ReferenceType, string ReferenceNumber, string Remarks)
+        public PApiResult EndActivity(long ActivityID, decimal Latitude, decimal Longitude, string Location, decimal? Amount, int? ReferenceType, string ReferenceNumber, string Remarks, int? EffortTypeID, decimal? EffortDuration, int? ExpenseTypeID)
         {
             string endPoint = "Activity/EndActivity?ActivityID=" + ActivityID + "&Latitude=" + Latitude + "&Longitude=" + Longitude
-                                + "&Location=" + Location + "&Amount=" + Amount + "&ReferenceType=" + ReferenceType + "&ReferenceNumber=" + ReferenceNumber + "&Remarks=" + Remarks;
+                                + "&Location=" + Location + "&Amount=" + Amount + "&ReferenceType=" + ReferenceType + "&ReferenceNumber=" + ReferenceNumber + "&Remarks=" + Remarks + "&EffortTypeID=" + EffortTypeID + "&EffortDuration=" + EffortDuration + "&ExpenseTypeID=" + ExpenseTypeID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 

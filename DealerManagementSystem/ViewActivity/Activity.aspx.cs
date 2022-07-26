@@ -30,10 +30,9 @@ namespace DealerManagementSystem.ViewActivity
             {
                 //List<PActivityType> ActivityType = new BActivity().GetActivityType(null, null,  null);
                 new DDLBind(ddlActivityType, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
-
                 //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
                 new DDLBind(ddlReferenceType, new BActivity().GetActivityReferenceType(null, null), "ReferenceTable", "ActivityReferenceTableID");
-
+                
                 txtActivityDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
                 txtActivityDateFrom.TextMode = TextBoxMode.Date;
 
@@ -220,6 +219,8 @@ namespace DealerManagementSystem.ViewActivity
                 lblEndActivityDate.Text = DateTime.Now.ToString();
                 List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
                 new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
                 lblEndActivityMessage.Text = "Activity is Pending. Please close this Activity to add a new Activity.";
                 lblEndActivityMessage.ForeColor = Color.Red;
                 lblEndActivityMessage.Visible = true;
@@ -233,9 +234,28 @@ namespace DealerManagementSystem.ViewActivity
                 List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null);
                 new DDLBind(ddlActivityTypeS, ActivityTypeS, "ActivityTypeName", "ActivityTypeID");
                 lblStartActivityDate.Text = DateTime.Now.ToString();
+                lblAddActivityMessage.Text = string.Empty;
                 MPE_AddActivity.Show();
             }
         }
+        //[WebMethod]
+        //public static List<string> GetCustomer(string CustS)
+        //{
+        //    List<string> Emp = new List<string>();
+        //    List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 1);
+        //    int i = 0;
+        //    foreach (PDMS_Customer cust in Customer)
+        //    {
+        //        i = i + 1;
+        //        string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+        //            + "<table><tr><td>"
+        //            + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
+        //            + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+        //            + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+        //        Emp.Add(div);
+        //    }
+        //    return Emp;
+        //}
         [WebMethod]
         public static List<string> GetCustomer(string CustS)
         {
@@ -244,12 +264,31 @@ namespace DealerManagementSystem.ViewActivity
             int i = 0;
             foreach (PDMS_Customer cust in Customer)
             {
+                //i = i + 1;
+                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                //    +"<table><tr><td>"
+                //    +"<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"   + "<tr><td>"
+                //    +"<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
+                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                //Emp.Add(div);
+
                 i = i + 1;
+                //string Name = cust.CustomerName;
+                //string Prospect = "Prospect";
+                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+
+
+                //    + "<p><label id='lblCustomerName" + i + "'>" + Name + "</label><span>" + Prospect + "</span></p>"
+
+                //    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
+                //Emp.Add(div);
+
                 string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                    + "<table><tr><td>"
-                    + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
-                    + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
-                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
+                    + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
+
+                    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
                 Emp.Add(div);
             }
             return Emp;
@@ -374,6 +413,9 @@ namespace DealerManagementSystem.ViewActivity
             {
                 lblEndActivityMessage.Text = string.Empty;
                 lblEndActivityMessage.Visible = false;
+                lblValidationMessage.Text = string.Empty;
+                lblValidationMessage.Visible = false;
+                txtLocation.Text = string.Empty;
                 MPE_EndActivity.Show();
                 Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
                 Label lblActivityTypeID = (Label)gvRow.FindControl("lblActivityTypeID");
@@ -383,6 +425,8 @@ namespace DealerManagementSystem.ViewActivity
                 lblEndActivityDate.Text = DateTime.Now.ToString();
                 List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
                 new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
                 //ViewState["ActivityID"] = lblActivityID.Text;
                 lblActivityIDE.Text = lblActivityID.Text;
                 PActivity Activity = new PActivity();
@@ -443,6 +487,25 @@ namespace DealerManagementSystem.ViewActivity
                 }
 
                 CurrentLocation = serializer.Serialize(rows);
+            }
+        }
+
+        protected void ddlReferenceTypeE_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlReferenceTypeE.SelectedValue == "1")
+            {
+                divCustomerName.Visible = true;
+                divReferenceNumber.Visible = false;
+                MPE_EndActivity.Show();
+                
+                //MPE_Customer.Show();
+                //UC_Customer.FillMaster();
+            }
+            else
+            {
+                divCustomerName.Visible = false;
+                divReferenceNumber.Visible = true;
+                MPE_EndActivity.Show();
             }
         }
         protected void btnEndActivityE_Click(object sender, EventArgs e)
@@ -566,8 +629,20 @@ namespace DealerManagementSystem.ViewActivity
                 //    + "&ReferenceType=" + (ddlReferenceTypeE.SelectedValue == "0" ? "" :  ddlReferenceTypeE.SelectedValue )
                 //    + "&ReferenceNumber=" + Convert.ToString(txtReferenceNumberE.Text.Trim()) + "&Remarks=" + Convert.ToString(txtRemarks.Text.Trim());
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                PApiResult Results = new BActivity().EndActivity(Convert.ToInt32(lblActivityIDE.Text), Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value), Convert.ToString(txtLocation.Text.Trim())
-                                                                , (string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim())),(ddlReferenceTypeE.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlReferenceTypeE.SelectedValue), Convert.ToString(txtReferenceNumberE.Text.Trim()), Convert.ToString(txtRemarks.Text.Trim()));
+                PApiResult Results = new BActivity().EndActivity(Convert.ToInt32(lblActivityIDE.Text)
+                    , Convert.ToDecimal(hfLatitude.Value)
+                    , Convert.ToDecimal(hfLongitude.Value)
+                    , Convert.ToString(txtLocation.Text.Trim())
+                    , (string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim()))
+                    , (ddlReferenceTypeE.SelectedValue.Trim() == "0") ? (int?)null : Convert.ToInt32(ddlReferenceTypeE.SelectedValue.Trim())
+                    , Convert.ToString(txtReferenceNumberE.Text.Trim())
+                    , Convert.ToString(txtRemarks.Text.Trim())
+                    , Convert.ToInt32(ddlEffortType.SelectedValue.Trim())
+                    , (string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()))
+                    , Convert.ToInt32(ddlExpenseType.SelectedValue.Trim()));
+                    //, (ddlEffortType.SelectedValue.Trim() == "0") ? (Int32?)null : Convert.ToInt32(ddlEffortType.SelectedValue.Trim())
+                    //, (string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()))
+                    //, (ddlExpenseType.SelectedValue.Trim() == "0") ? (Int32?)null : Convert.ToInt32(ddlExpenseType.SelectedValue.Trim())
                 if (Results.Status == PApplication.Failure)
                 {
                     lblValidationMessage.Text = "<br/>" + Results.Message;
