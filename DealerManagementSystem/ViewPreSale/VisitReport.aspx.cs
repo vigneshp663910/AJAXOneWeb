@@ -46,8 +46,6 @@ namespace DealerManagementSystem.ViewPreSale
 
                 if (!IsPostBack)
                 {
-                    FillYearAndMonth();
-
                     List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
                     new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
                     new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
@@ -57,20 +55,6 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
-            }
-        }
-        void FillYearAndMonth()
-        {
-            ddlYear.Items.Insert(0, new ListItem("All", "0"));
-            for (int i = 2022; i <= DateTime.Now.Year; i++)
-            {
-                ddlYear.Items.Insert(i + 1 - 2022, new ListItem(i.ToString(), i.ToString()));
-            }
-
-            ddlMonth.Items.Insert(0, new ListItem("All", "0"));
-            for (int i = 1; i <= 12; i++)
-            {
-                ddlMonth.Items.Insert(i, new ListItem(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i).Substring(0, 3), i.ToString()));
             }
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
@@ -152,12 +136,10 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 int? DealerEmployeeID = ddlDealerEmployee.SelectedValue == "0" || ddlDealerEmployee.SelectedValue == "" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-                int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
-                int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
                 string FromDate = string.IsNullOrEmpty(txtFromDate.Text)?null:txtFromDate.Text.Trim();
                 string ToDate = string.IsNullOrEmpty(txtToDate.Text)?null: txtToDate.Text.Trim();
 
-                GVVisitReport = new BColdVisit().GetVisitReport(DealerID, DealerEmployeeID, Year, Month, FromDate, ToDate, PSession.User.UserID);
+                GVVisitReport = new BColdVisit().GetVisitReport(DealerID, DealerEmployeeID, FromDate, ToDate, PSession.User.UserID);
                 gvVisitReport.DataSource = GVVisitReport;
                 gvVisitReport.DataBind();
 
