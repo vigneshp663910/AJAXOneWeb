@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -248,6 +249,99 @@ namespace DealerManagementSystem.ViewMaster
 
             UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
         }
-    
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CustomerExportExcel(Cust, "Customer Report");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void CustomerExportExcel(List<PDMS_Customer> Customers, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CustomerID");
+            dt.Columns.Add("Customer Code");
+            dt.Columns.Add("Title");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Name2");
+            dt.Columns.Add("Contact Person");
+            dt.Columns.Add("Mobile");
+            dt.Columns.Add("Alternative Mobile");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Address1");
+            dt.Columns.Add("Address2");
+            dt.Columns.Add("Address3");
+            dt.Columns.Add("Country");
+            dt.Columns.Add("State");
+            dt.Columns.Add("District");
+            dt.Columns.Add("GSTIN");
+            dt.Columns.Add("PAN");
+            dt.Columns.Add("Tehsil");
+            dt.Columns.Add("City");
+            dt.Columns.Add("DOB");
+            dt.Columns.Add("Anniversary Dt");
+            dt.Columns.Add("SendSMS");
+            dt.Columns.Add("SendEmail");            
+            dt.Columns.Add("Latitude");
+            dt.Columns.Add("Longitude");
+            dt.Columns.Add("CustomerType");
+            dt.Columns.Add("IsActive");
+            //dt.Columns.Add("IsVerified");
+            //dt.Columns.Add("VerifiedBy");
+            //dt.Columns.Add("VerifiedOn");
+            foreach (PDMS_Customer Customer in Customers)
+            {
+                dt.Rows.Add(
+                    "'" + Customer.CustomerID
+                    , Customer.CustomerCode
+                    , Customer.Title.Title
+                   , Customer.CustomerName
+                   , Customer.CustomerName2
+                   , Customer.ContactPerson
+                   , Customer.Mobile
+                   , Customer.AlternativeMobile
+                   , Customer.Email
+                   , Customer.Address1
+                   , Customer.Address2
+                   , Customer.Address3
+                   , Customer.Country.Country
+                   , Customer.State.State
+                   , Customer.District.District
+                   , Customer.GSTIN
+                   , Customer.PAN
+                   , Customer.Tehsil
+                   , Customer.City
+                   , Customer.DOB
+                   , Customer.DOAnniversary
+                   , Customer.SendSMS
+                   , Customer.SendEmail
+                   , Customer.Latitude
+                   , Customer.Longitude
+                   , Customer.CustomerType
+                   , Customer.IsActive
+                   //, Customer.IsVerified
+                   //, Customer.VerifiedBy.ContactName
+                   //, Customer.VerifiedOn
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
+        }
     }
 }
