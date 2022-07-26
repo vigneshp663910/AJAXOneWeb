@@ -286,11 +286,11 @@ namespace DealerManagementSystem.ViewMaster
             dt.Columns.Add("City");
             dt.Columns.Add("DOB");
             dt.Columns.Add("Anniversary Dt");
-            dt.Columns.Add("SendSMS");
-            dt.Columns.Add("SendEmail");            
+            dt.Columns.Add("Send SMS");
+            dt.Columns.Add("Send Email");            
             dt.Columns.Add("Latitude");
             dt.Columns.Add("Longitude");
-            dt.Columns.Add("CustomerType");
+            dt.Columns.Add("Customer Type");
             dt.Columns.Add("IsActive");
             //dt.Columns.Add("IsVerified");
             //dt.Columns.Add("VerifiedBy");
