@@ -235,6 +235,7 @@ namespace DealerManagementSystem.ViewActivity
                 new DDLBind(ddlActivityTypeS, ActivityTypeS, "ActivityTypeName", "ActivityTypeID");
                 lblStartActivityDate.Text = DateTime.Now.ToString();
                 lblAddActivityMessage.Text = string.Empty;
+                ddlActivityTypeS.BorderColor = Color.Silver;
                 MPE_AddActivity.Show();
             }
         }
