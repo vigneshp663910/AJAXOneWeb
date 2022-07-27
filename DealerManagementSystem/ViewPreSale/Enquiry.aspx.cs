@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -45,7 +46,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.Text = "";
                 if (!IsPostBack)
                 {
-                    new DDLBind(ddlDealer,PSession.User.Dealer, "CodeWithName", "DID");
+                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
                     new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
@@ -73,7 +74,7 @@ namespace DealerManagementSystem.ViewPreSale
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             string CustomerName = txtSCustomerName.Text.Trim();
             int? StateID = null, DistrictID = null;
-            int? CountryID = ddlCountry.SelectedValue == "0"? (int?)null: Convert.ToInt32(ddlCountry.SelectedValue);
+            int? CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
             if (CountryID != null)
             {
                 StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
@@ -89,7 +90,7 @@ namespace DealerManagementSystem.ViewPreSale
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
             PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID);
-            
+
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();
 
@@ -105,7 +106,7 @@ namespace DealerManagementSystem.ViewPreSale
                 ibtnEnqArrowLeft.Visible = true;
                 ibtnEnqArrowRight.Visible = true;
                 lblRowCount.Text = (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + 1) + " - " + (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + gvEnquiry.Rows.Count) + " of " + PEnquiry.Count;
-            } 
+            }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -123,7 +124,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void BtnAdd_Click(object sender, EventArgs e)
         {
             MPE_AddEnquiry.Show();
-            UC_AddEnquiry.FillMaster(); 
+            UC_AddEnquiry.FillMaster();
         }
 
         protected void gvEnquiry_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -151,8 +152,8 @@ namespace DealerManagementSystem.ViewPreSale
             ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
             UC_EnquiryView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
         }
-        
-      
+
+
 
         //protected void BtnBack_Click(object sender, EventArgs e)
         //{
@@ -165,7 +166,7 @@ namespace DealerManagementSystem.ViewPreSale
             divDetailsView.Visible = false;
         }
 
-     
+
 
         protected void ibtnEnqArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
@@ -205,7 +206,7 @@ namespace DealerManagementSystem.ViewPreSale
                     return;
                 }
                 PEnquiry enquiryAdd = new PEnquiry();
-                enquiryAdd = UC_AddEnquiry.Read(); 
+                enquiryAdd = UC_AddEnquiry.Read();
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry Was Saved Successfully...";
@@ -235,6 +236,87 @@ namespace DealerManagementSystem.ViewPreSale
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SalesCommisionClaimExportExcel(PEnquiry, "Enquiry Report");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void SalesCommisionClaimExportExcel(List<PEnquiry> Enquirys, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Enquiry ID");
+            dt.Columns.Add("Enquiry Number");
+            dt.Columns.Add("Enquiry Date");
+            dt.Columns.Add("Status");
+            dt.Columns.Add("Customer Name");
+            dt.Columns.Add("Person Name");
+            dt.Columns.Add("Mail");
+            dt.Columns.Add("Mobile");
+            dt.Columns.Add("Address1");
+            dt.Columns.Add("Address2");
+            dt.Columns.Add("Address3");
+            dt.Columns.Add("Country");
+            dt.Columns.Add("State");
+            dt.Columns.Add("District");
+            dt.Columns.Add("Product");
+            dt.Columns.Add("Source");
+            dt.Columns.Add("Remarks");
+            dt.Columns.Add("Rejected By");
+            dt.Columns.Add("Rejected On");
+            dt.Columns.Add("Rejected Remark");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Created On");
+            dt.Columns.Add("Modified By");
+            dt.Columns.Add("Modified On");
+            foreach (PEnquiry Enquiry in Enquirys)
+            {
+                dt.Rows.Add(
+                    "'" + Enquiry.EnquiryID
+                    , Enquiry.EnquiryNumber
+                    , (Enquiry.EnquiryDate == null) ? "" : Enquiry.EnquiryDate.ToString()
+                    , Enquiry.Status.Status
+                    , Enquiry.CustomerName
+                    , Enquiry.PersonName
+                    , Enquiry.Mail
+                    , Enquiry.Mobile
+                    , Enquiry.Address
+                    , Enquiry.Address2
+                    , Enquiry.Address3
+                    , Enquiry.Country.Country
+                    , Enquiry.State.State
+                    , Enquiry.District.District
+                    , Enquiry.Product
+                    , Enquiry.Source.Source
+                    , Enquiry.Remarks
+                    , ""
+                    , ""
+                    , ""
+                    , (Enquiry.CreatedBy == null) ? "" : Enquiry.CreatedBy.ContactName
+                    , (Enquiry.CreatedOn == null) ? "" : Enquiry.CreatedOn.ToString()
+                    , ""
+                    , ""
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
         }
     }
 }

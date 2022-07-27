@@ -16,9 +16,9 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
-                       <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
-                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"   />
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Enquiry Number</label>
@@ -30,11 +30,11 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Country</label>
-                        <asp:DropDownList ID="ddlCountry" runat="server"   CssClass="form-control" AutoPostBack="true"  OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged"  />
+                        <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">State</label>
-                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control"   AutoPostBack="true"  OnSelectedIndexChanged="ddlState_SelectedIndexChanged"  />
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">District</label>
@@ -53,19 +53,20 @@
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtToDate" WatermarkText="DD/MM/YYYY" />
                     </div>
 
-                     <div class="col-md-2 text-left">
+                    <div class="col-md-2 text-left">
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
 
-                     <div class="col-md-2 text-left">
+                    <div class="col-md-2 text-left">
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
                     </div>
 
-                   <div class="col-md-12 text-center"> 
+                    <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
                         <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
             </fieldset>
@@ -149,7 +150,6 @@
                     </fieldset>
                 </div>
                 <%--</div>--%>
-              
             </div>
         </div>
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
@@ -158,7 +158,7 @@
                 <div class="back-buttton" id="backBtn">
                     <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
                 </div>
-            </div> 
+            </div>
             <UC:UC_EnquiryView ID="UC_EnquiryView" runat="server"></UC:UC_EnquiryView>
         </div>
     </div>
@@ -175,7 +175,7 @@
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblAddEnquiryMessage" runat="server"  CssClass="message" Visible="false" />
+                <asp:Label ID="lblAddEnquiryMessage" runat="server" CssClass="message" Visible="false" />
                 <UC:UC_AddEnquiry ID="UC_AddEnquiry" runat="server"></UC:UC_AddEnquiry>
             </div>
             <div class="col-md-12 text-center">
