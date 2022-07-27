@@ -617,7 +617,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Effort Duration</label>
-                            <asp:TextBox ID="txtEffortDuration" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Time"></asp:TextBox>
+                            <asp:TextBox ID="txtEffortDuration" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Expense Type</label>
