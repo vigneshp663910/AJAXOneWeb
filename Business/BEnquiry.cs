@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -163,6 +164,13 @@ namespace Business
                 throw ex;
             }
             return true;
+        }
+
+        public List<PPreSaleStatus> GetEnquiryCountByStatus(DateTime? From, DateTime? To, int? DealerID, int? UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/CountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PPreSaleStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

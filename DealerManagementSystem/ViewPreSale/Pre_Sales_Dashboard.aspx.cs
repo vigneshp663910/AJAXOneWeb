@@ -24,12 +24,16 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales Dashboard');</script>");
-            // lblConvertToProspect.InnerText = "Convert To  Prospect: 25000";
-            From = DateTime.Now;
-            FromF = DateTime.Now.AddDays(-7);
-            FillStatusCount();
-            FillFunnel();
+            if (!IsPostBack)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales Dashboard');</script>");
+                // lblConvertToProspect.InnerText = "Convert To  Prospect: 25000";
+                From = DateTime.Now;
+                FromF = DateTime.Now.AddDays(-7);
+                FillStatusCount();
+                FillFunnel();
+                FillEnquiryStatusCount();
+            }
         }
 
         void FillStatusCount()
@@ -154,7 +158,7 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void rbStatusE_CheckedChanged(object sender, EventArgs e)
         {
-            //FillStatusCountEnquiry();
+            FillEnquiryStatusCount();
         }
 
         protected void rbStatus_CheckedChanged(object sender, EventArgs e)
@@ -212,6 +216,84 @@ namespace DealerManagementSystem.ViewPreSale
                 Session["leadDateFrom"] = DateTime.Now.AddYears(-1);
             }
             Response.Redirect("lead.aspx");
+        }
+
+        protected void lbEnquiryActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Open")
+            {
+                Session["leadStatusID"] = 1;
+            }
+            else if (lbActions.Text == "Converted To Lead")
+            {
+                Session["leadStatusID"] = 2;
+            }
+            else if (lbActions.Text == "Rejected")
+            {
+                Session["leadStatusID"] = 3;
+            }
+           
+
+            if (rbEnquiryToday.Checked)
+            {
+                Session["EnquiryDateFrom"] = DateTime.Now;
+            }
+            else if (rbEnquiryWeek.Checked)
+            {
+                Session["EnquiryDateFrom"] = DateTime.Now.AddDays(-7);
+            }
+            else if (rbEnquiryMonth.Checked)
+            {
+                Session["EnquiryDateFrom"] = DateTime.Now.AddMonths(-1);
+            }
+            else
+            {
+                Session["EnquiryDateFrom"] = DateTime.Now.AddYears(-1);
+            }
+            Response.Redirect("Enquiry.aspx");
+        }
+        void FillEnquiryStatusCount()
+        {
+            lblEnquiryOpen.Text = "0";
+            lblEnquiryConvertedToLead.Text = "0";
+            lblEnquiryRejected.Text = "0"; 
+            int? DealerID = null;
+            if (rbEnquiryToday.Checked)
+            {
+                From = DateTime.Now;
+            }
+            else if (rbEnquiryWeek.Checked)
+            {
+                From = DateTime.Now.AddDays(-7);
+            }
+            else if (rbEnquiryMonth.Checked)
+            {
+                From = DateTime.Now.AddMonths(-1);
+            }
+            else if (rbEnquiryYear.Checked)
+            {
+                From = DateTime.Now.AddYears(-1);
+            }
+
+            List<PPreSaleStatus> Status = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, PSession.User.UserID);
+            if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
+            {
+                var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
+                lblEnquiryOpen.Text = ss[0].Count.ToString();
+            }
+
+            if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
+            {
+                var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
+                lblEnquiryConvertedToLead.Text = ss[0].Count.ToString();
+            }
+            if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).Count() != 0))
+            {
+                var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).ToList();
+                lblEnquiryRejected.Text = ss[0].Count.ToString();
+            }
+          
         }
     }
 }

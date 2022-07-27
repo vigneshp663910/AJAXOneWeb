@@ -15,49 +15,49 @@ namespace DealerManagementSystem.ViewPreSale
     {
 
         /// <summary>
-        /// rbTodayE control.
+        /// rbEnquiryToday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbTodayE;
+        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryToday;
 
         /// <summary>
-        /// rbWeekE control.
+        /// rbEnquiryWeek control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbWeekE;
+        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryWeek;
 
         /// <summary>
-        /// rbMonthE control.
+        /// rbEnquiryMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbMonthE;
+        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryMonth;
 
         /// <summary>
-        /// rbYearE control.
+        /// rbEnquiryYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbYearE;
+        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryYear;
 
         /// <summary>
-        /// Label1 control.
+        /// lblEnquiryOpen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblEnquiryOpen;
 
         /// <summary>
         /// LinkButton1 control.
@@ -69,13 +69,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
-        /// Label2 control.
+        /// lblEnquiryConvertedToLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblEnquiryConvertedToLead;
 
         /// <summary>
         /// LinkButton2 control.
@@ -87,13 +87,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
 
         /// <summary>
-        /// Label5 control.
+        /// lblEnquiryRejected control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.Label lblEnquiryRejected;
 
         /// <summary>
         /// LinkButton5 control.

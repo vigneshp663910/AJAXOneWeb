@@ -42,6 +42,10 @@
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" />
                         </div>
 
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">UserStatus</label>
+                            <asp:DropDownList ID="ddlUserStatus" runat="server" CssClass="form-control" />
+                        </div>
 
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
@@ -83,47 +87,35 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="RefQuote ID">
+                                    <asp:TemplateField HeaderText="Ref Quote">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQuotationID" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationID")%>' runat="server" Visible="false" />
                                             <asp:Label ID="lblRefQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "RefQuotationNo")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="RefQuote Date">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
+                                            <br />
                                             <asp:Label ID="lblRefQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "RefQuotationDate")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Sap Quote No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblSapQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SapQuotationNo")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Sap Quote Date">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
+                                             <br />
                                             <asp:Label ID="lblSapQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SapQuotationDate")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField> 
                                       <asp:TemplateField HeaderText="Parts Quote No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblPgQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "PgQuotationNo")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Parts Quote Date">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
+                                             <br />
                                             <asp:Label ID="lblPgQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "PgQuotationDate")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Quote Type">
+                                    </asp:TemplateField> 
+                                    <asp:TemplateField HeaderText="User Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblQuotationType" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationType.QuotationType")%>' runat="server" />
+                                            <asp:Label ID="lblUserStatus" Text='<%# DataBinder.Eval(Container.DataItem, "UserStatus.SalesQuotationUserStatus")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">

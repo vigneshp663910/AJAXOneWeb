@@ -49,7 +49,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlPriceGroup, new BDMS_Master().GetPriceGroup(null, null, null), "PriceGroupCode", "PriceGroupID");
             
 
-            new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID");
+            new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID",false);
 
             new DDLBind(ddlUserStatusRemarks, new BSalesQuotation().GetSaleQuotationRejectionReason(null, null), "Reason", "SalesQuotationRejectionReasonID");
 

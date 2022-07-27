@@ -69,6 +69,7 @@ namespace Properties
     {
         public int StatusID { get; set; }
         public string Status { get; set; }
+        public int Count { get; set; }
     }
 
     [Serializable]

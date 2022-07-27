@@ -513,8 +513,7 @@ namespace DealerManagementSystem.ViewActivity
             try
             {
 
-                MPE_EndActivity.Show();
-                PActivity Activity = new PActivity();
+                MPE_EndActivity.Show(); 
                 lblEndActivityMessage.ForeColor = Color.Red;
                 lblEndActivityMessage.Visible = true;
 
@@ -638,14 +637,13 @@ namespace DealerManagementSystem.ViewActivity
                     ReferenceNumberE = txtCustomerID.Text.Trim(); 
                 }
 
-                PActivity ActivityS = new PActivity();
+                PActivity_End ActivityS = new PActivity_End();
                 ActivityS.ActivityID = Convert.ToInt32(lblActivityIDE.Text);
                 ActivityS.ActivityEndLatitude = Convert.ToDecimal(hfLatitude.Value);
                 ActivityS.ActivityEndLongitude = Convert.ToDecimal(hfLongitude.Value);
                 ActivityS.ActivityType = new PActivityType();
                 //Activity.ActivityType.ActivityTypeID = Convert.ToInt32(lblActivityTypeIDE.Text);
-                ActivityS.ActivityEndDate = DateTime.Now;
-                ActivityS.SalesEngineer = new PUser { UserID = PSession.User.UserID };
+                ActivityS.ActivityEndDate = DateTime.Now; 
                 ActivityS.Location = txtLocation.Text.Trim();
                 ActivityS.Amount =  string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim());
 

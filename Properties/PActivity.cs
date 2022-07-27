@@ -54,12 +54,7 @@ namespace Properties
     public class PActivityReferenceType
     {
         public int  ActivityReferenceTableID { get; set; }
-        public string ReferenceTable { get; set; }
-        public Boolean IsActive { get; set; }
-        public PUser CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public PUser ModifiedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
+        public string ReferenceTable { get; set; } 
     }
 
     [Serializable]
@@ -74,5 +69,28 @@ namespace Properties
         public int? ActivityReferenceTableID { get; set; }
         public string ReferenceNumber { get; set; }
     }
+
+    [Serializable]
+    public class PActivity_End
+    {
+        public long ActivityID { get; set; }
+        public PActivityType ActivityType { get; set; }
+        public DateTime? ActivityStartDate { get; set; }
+        public DateTime? ActivityEndDate { get; set; }
+        public string Location { get; set; }
+        public string Remark { get; set; }
+        public decimal? ActivityStartLatitude { get; set; }
+        public decimal? ActivityStartLongitude { get; set; }
+        public decimal? ActivityEndLatitude { get; set; }
+        public decimal? ActivityEndLongitude { get; set; }
+        public decimal? Amount { get; set; }
+        public PActivityReferenceType ActivityReference { get; set; }
+        public string ReferenceNumber { get; set; }
+        public long? ReferenceNumberID { get; set; }
+        public PEffortType EffortType { get; set; }
+        public decimal? EffortDuration { get; set; }
+        public PExpenseType ExpenseType { get; set; }
+    }
+
 }
 

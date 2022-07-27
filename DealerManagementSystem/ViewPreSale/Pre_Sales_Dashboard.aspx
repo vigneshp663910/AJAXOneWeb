@@ -202,22 +202,22 @@
                             <div class="btn-group btn-group-devided">
                                 <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
                                     <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
-                                    <asp:RadioButton ID="rbTodayE" runat="server" GroupName="s" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" /> 
+                                    <asp:RadioButton ID="rbEnquiryToday" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" /> 
                                     <span>Today</span> 
                                 </label>
                                 <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                 <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
-                                <asp:RadioButton ID="rbWeekE" runat="server" GroupName="s"  OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                                <asp:RadioButton ID="rbEnquiryWeek" runat="server" GroupName="E"  OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
                                 <span>Week</span> 
                                 </label>
                                 <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                 <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
-                                <asp:RadioButton ID="rbMonthE" runat="server" GroupName="s"  OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                                <asp:RadioButton ID="rbEnquiryMonth" runat="server" GroupName="E"  OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
                                 <span>Month</span> 
                                 </label>
                                 <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
                                 <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
-                                <asp:RadioButton ID="rbYearE" runat="server" GroupName="s"  OnCheckedChanged="rbStatusE_CheckedChanged"  AutoPostBack="true"/>
+                                <asp:RadioButton ID="rbEnquiryYear" runat="server" GroupName="E"  OnCheckedChanged="rbStatusE_CheckedChanged"  AutoPostBack="true"/>
                                 <span>Year</span> 
                                 </label>
                             </div>
@@ -232,9 +232,9 @@
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                        <asp:Label ID="Label1" runat="server" Text="0"></asp:Label>
+                                        <asp:Label ID="lblEnquiryOpen" runat="server" Text="0"></asp:Label>
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
-                                       <div class="desc"> <asp:LinkButton ID="LinkButton1" runat="server"  style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>  </div>
+                                       <div class="desc"> <asp:LinkButton ID="LinkButton1" runat="server"  style="color: white;" OnClick="lbEnquiryActions_Click">Open</asp:LinkButton>  </div>
                                     </div>
                                 </div>
                             </div>
@@ -243,8 +243,8 @@
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%> 
-                                        <asp:Label ID="Label2" runat="server" Text="0"></asp:Label> 
-                                       <div class="desc"> <asp:LinkButton ID="LinkButton2" runat="server"  style="color: white;" OnClick="lbActions_Click">Converted To Lead</asp:LinkButton>  </div>
+                                        <asp:Label ID="lblEnquiryConvertedToLead" runat="server" Text="0"></asp:Label> 
+                                       <div class="desc"> <asp:LinkButton ID="LinkButton2" runat="server"  style="color: white;" OnClick="lbEnquiryActions_Click">Converted To Lead</asp:LinkButton>  </div>
                                     </div>
                                 </div>
                             </div>
@@ -253,8 +253,8 @@
                                 <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
-                                         <asp:Label ID="Label5" runat="server" Text="0"></asp:Label>
-                                        <div class="desc"> <asp:LinkButton ID="LinkButton5" runat="server" style="color: white;" OnClick="lbActions_Click">Rejected</asp:LinkButton></div>
+                                         <asp:Label ID="lblEnquiryRejected" runat="server" Text="0"></asp:Label>
+                                        <div class="desc"> <asp:LinkButton ID="LinkButton5" runat="server" style="color: white;" OnClick="lbEnquiryActions_Click">Rejected</asp:LinkButton></div>
                                        
                                     </div>
                                 </div>

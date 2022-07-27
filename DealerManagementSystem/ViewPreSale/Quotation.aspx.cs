@@ -46,6 +46,8 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID", true, "All Country");
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
+
+                new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID"); 
             }
         }
 
@@ -113,9 +115,9 @@ namespace DealerManagementSystem.ViewPreSale
 
             int? DealerID = null;
             string CustomerCode = null;
-
+            int? UserStatusID = ddlUserStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUserStatus.SelectedValue);
             //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
-            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
+            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, UserStatusID, DealerID, CustomerCode);
             gvQuotation.DataSource = Quote;
             gvQuotation.DataBind();
 
