@@ -138,6 +138,9 @@
                                 <asp:ListItem Value="2">InActive</asp:ListItem>
                             </asp:DropDownList>
                         </div>
+                        <div class="col-md-2 text-left">
+                            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                         </div>
@@ -210,19 +213,19 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Is Enabled?">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"/>
-                                    <ItemTemplate>
-                                        <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
-                                        <asp:CheckBox ID="cbIsEnabled" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsEnabled")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <%-- <asp:Label ID="lbIsLocked" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsLocked")%>'></asp:Label>--%>
+                                    <asp:CheckBox ID="cbIsEnabled" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsEnabled")%>' Enabled="false"></asp:CheckBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="AJAX One">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center"/>
-                                    <ItemTemplate>
-                                        <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                            <asp:TemplateField HeaderText="AJAX One">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remarks">
                                 <ItemStyle VerticalAlign="Middle" />
                                 <ItemTemplate>
