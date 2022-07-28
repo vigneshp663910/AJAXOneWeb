@@ -492,7 +492,7 @@ namespace DealerManagementSystem.View
                                         i++;
                                     }
                                 }
-                                lblMessage.Text = "Your file was uploaded";
+                                lblMessage.Text = "Your file was uploaded : "+ dt.Rows.Count;
                                 lblMessage.ForeColor = System.Drawing.Color.Green;
                                 //GridView1.DataSource = dt;
                                 //GridView1.DataBind();
