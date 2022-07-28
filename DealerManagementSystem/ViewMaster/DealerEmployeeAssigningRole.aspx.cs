@@ -433,12 +433,13 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 ddlReportingTo.BorderColor = Color.Red;
             }
-            if (District.Count == 0)
-            {
-                Message = Message + "<br/>Please select the District";
-                Ret = false;
-                ddlDistrict.BorderColor = Color.Red;
-            }
+            //Commented By Vignesh and Suggestion by John
+            //if (District.Count == 0)
+            //{
+            //    Message = Message + "<br/>Please select the District";
+            //    Ret = false;
+            //    ddlDistrict.BorderColor = Color.Red;
+            //}
 
 
             List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, "", txtSAPEmpCode.Text.Trim(), null);
