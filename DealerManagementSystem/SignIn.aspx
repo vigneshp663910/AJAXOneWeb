@@ -311,7 +311,8 @@
             }
         }
     </script>
-    <script>  
+    <%--F12 Event--%>
+    <%--<script>  
 document.onkeypress = function (event) {  
 event = (event || window.event);  
 if (event.keyCode == 123) {  
@@ -330,7 +331,7 @@ if (event.keyCode == 123) {
 return false;  
 }  
 }  
-    </script>
+    </script>--%>
 
     <script>
         /* function geoFindMe() { */
@@ -368,7 +369,7 @@ return false;
      //   document.querySelector('#find-me').addEventListener('click', geoFindMe);
     </script>
 </head>
-<body oncontextmenu="return false;">
+<body>
     <div class="loading" align="center" aria-disabled="true">
         Loading. Please wait.<br />
         <br />
