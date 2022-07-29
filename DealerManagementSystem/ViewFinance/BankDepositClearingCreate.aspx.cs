@@ -327,7 +327,7 @@ namespace DealerManagementSystem.ViewFinance
                                 return;
                             }
 
-                            List<PDMS_Dealer> Dealer = new BDMS_Dealer().GetDealer(null, DealerCode, null);
+                            List<PDMS_Dealer> Dealer = new BDMS_Dealer().GetDealer(null, DealerCode, null, null);
                             if (Dealer.Count != 1)
                             {
                                 lblMessage.Text = "Please Check Dealer Code";

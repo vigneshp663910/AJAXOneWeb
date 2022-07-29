@@ -58,10 +58,13 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
+                            <label>Region</label>
+                            <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
                             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                         </div>
-
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddDealer" runat="server" CssClass="btn Save" Text="Create Dealer" OnClick="btnAddDealer_Click" Width="150px" Visible="false" ></asp:Button>
@@ -132,20 +135,26 @@
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
                                             </asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
-                                    <asp:TemplateField HeaderText="State">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "StateN.State")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>                                    
                                     <asp:TemplateField HeaderText="Country">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCountry" Text='<%# DataBinder.Eval(Container.DataItem, "Country")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   <%-- <asp:TemplateField HeaderText="Team Lead">
+                                    <asp:TemplateField HeaderText="Region">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRegion" Text='<%# DataBinder.Eval(Container.DataItem, "Region.Region")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="State">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "StateN.State")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%-- <asp:TemplateField HeaderText="Team Lead">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTL" Text='<%# DataBinder.Eval(Container.DataItem, "TL.ContactName")%>' runat="server" />

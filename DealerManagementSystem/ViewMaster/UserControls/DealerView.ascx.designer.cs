@@ -42,13 +42,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Label lblEmail;
 
         /// <summary>
-        /// cbIsActive control.
+        /// lblDealerState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbIsActive;
+        protected global::System.Web.UI.WebControls.Label lblDealerState;
 
         /// <summary>
         /// lblDealerName control.
@@ -69,6 +69,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Label lblDealerCountry;
 
         /// <summary>
+        /// cbIsActive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbIsActive;
+
+        /// <summary>
         /// lblMobile control.
         /// </summary>
         /// <remarks>
@@ -78,13 +87,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Label lblMobile;
 
         /// <summary>
-        /// lblDealerState control.
+        /// lblDealerRegion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDealerState;
+        protected global::System.Web.UI.WebControls.Label lblDealerRegion;
 
         /// <summary>
         /// lblMessage control.
