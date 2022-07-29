@@ -380,7 +380,7 @@ namespace DealerManagementSystem.View
         {
             try
             {
-                BudgetPlanningYearExportExcel(PProject, "Project Report");
+                ProjectExportExcel(PProject, "Project Report");
             }
             catch (Exception ex)
             {
@@ -388,7 +388,7 @@ namespace DealerManagementSystem.View
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        void BudgetPlanningYearExportExcel(List<PProject> Projects, String Name)
+        void ProjectExportExcel(List<PProject> Projects, String Name)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Project Code");
