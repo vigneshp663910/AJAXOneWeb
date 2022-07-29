@@ -829,7 +829,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void fillVisit()
         {
-            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 1, Lead.LeadID);
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 1, Lead.LeadID, null, null, null);
             gvVisit.DataSource = Visit;
             gvVisit.DataBind(); 
         }

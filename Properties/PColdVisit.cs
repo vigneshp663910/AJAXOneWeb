@@ -21,6 +21,7 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public long? ReferenceTableID { get; set; }
         public long? ReferenceID { get; set; }
+        public PDealer Dealer { get; set; }
     }
     public class PActionType
     {

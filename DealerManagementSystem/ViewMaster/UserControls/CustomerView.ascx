@@ -119,8 +119,8 @@
         width: 25px;
         height: 25px;
     }
-</style> 
-    <asp:Panel ID="PnlCustomerView" runat="server" class="col-md-12"  >
+</style>
+<asp:Panel ID="PnlCustomerView" runat="server" class="col-md-12">
     <div class="col-md-12">
         <div class="action-btn">
             <div class="" id="boxHere"></div>
@@ -161,13 +161,20 @@
                         <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
-                        <label>Active : </label>
-
-                        <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
+                        <label>Address 1 : </label>
+                        <asp:Label ID="lblAddress1" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
-                        <label>BillingBlock : </label>
-                        <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
+                        <label>Address 2 : </label>
+                        <asp:Label ID="lblAddress2" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Address 3 : </label>
+                        <asp:Label ID="lblAddress3" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                     <div class="col-md-12">
+                        <label>City : </label>
+                        <asp:Label ID="lblCity" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -179,24 +186,48 @@
                         <label>Email : </label>
                         <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
                     </div>
+                     <div class="col-md-12">
+                        <label>Mobile : </label>
+                        <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+                    </div>
                     <div class="col-md-12">
                         <label>PAN : </label>
                         <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
+                    </div> 
+                    <div class="col-md-12">
+                        <label>District : </label>
+                        <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>State : </label>
+                        <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label>PinCode : </label>
+                        <asp:Label ID="lblPinCode" runat="server" CssClass="label"></asp:Label>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Last Visit Date : </label>
+                        <asp:Label ID="lblLastVisitDate" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
                         <label>OrderBlock : </label>
                         <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
                     </div>
-                </div>
-                <div class="col-md-4">
                     <div class="col-md-12">
-                        <label>Mobile : </label>
-                        <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+                        <label>Active : </label>
+                        <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
                     </div>
                     <div class="col-md-12">
-                        <label>Address : </label>
-                        <asp:Label ID="lblAddress" runat="server" CssClass="label"></asp:Label>
+                        <label>BillingBlock : </label>
+                        <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
                     </div>
+                   
+
                     <div class="col-md-12">
                         <label>Verified : </label>
                         <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" CssClass="mycheckBig" />
@@ -209,6 +240,9 @@
                 </div>
             </div>
         </fieldset>
+
+
+
     </div>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Customer Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
@@ -856,7 +890,7 @@
 </asp:Panel>
 
 <asp:Panel ID="PnlCustomerVerification" runat="server" class="col-md-12" Visible="false">
-    
+
     <div class="col-md-12" runat="server" id="Div2">
         <UC:UC_CustomerVerification ID="UC_CustomerVerification" runat="server"></UC:UC_CustomerVerification>
         <div class="col-md-12 text-center">

@@ -31,13 +31,21 @@ namespace DealerManagementSystem.ViewPreSale
             lblMessageColdVisit.Text = "";
 
             if (!IsPostBack)
-            { 
+            {
+                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+                //new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+
+                new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID"); 
-               
+                new DDLBind(ddlSActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+
+
             }
         }
 
@@ -101,9 +109,12 @@ namespace DealerManagementSystem.ViewPreSale
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+            int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
             //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
 
-            Lead1 = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null);
+            Lead1 = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
             gvLead.DataSource = Lead1;
             gvLead.DataBind();
@@ -190,7 +201,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "Customer is updated successfully ";
             }
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null);
+            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null, null, null, null);
             gvLead.DataSource = Leads;
             gvLead.DataBind();
             UC_Customer.FillClean();
@@ -369,6 +380,12 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
             }
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
         }
     }
 }

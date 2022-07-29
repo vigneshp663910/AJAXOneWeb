@@ -661,4 +661,10 @@ namespace Properties
         ConvertedToLead ,
         Rejected,
     }
+
+    public enum DealerDesignation
+    {
+        SalesExecutive = 4,
+        ServiceTechnician = 8
+    }
 }

@@ -1070,7 +1070,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
             Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
             Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
-            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID, null, null, null);
             DateTime VisitDate;
             VisitDate = (Visit.Count != 0) ? Visit[0].ColdVisitDate : Q.RefQuotationDate;
             if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
@@ -1744,7 +1744,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         void fillVisit()
         {
-            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Quotation.QuotationID);
+            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Quotation.QuotationID, null, null, null);
             gvVisit.DataSource = Visit;
             gvVisit.DataBind();
         }

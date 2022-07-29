@@ -41,9 +41,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             txtValidFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
             txtValidTo.Text = DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd");
-            txtPricingDate.Text = DateTime.Now.ToString("yyyy-MM-dd"); 
+            txtPricingDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            txtRequestedDeliveryDate.Text = DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd");
             //FillGetDealerOffice(); 
-           // new DDLBind(ddlQuotationType, new BSalesQuotation().GetSalesQuotationType(null, null), "QuotationType", "QuotationTypeID");
+            // new DDLBind(ddlQuotationType, new BSalesQuotation().GetSalesQuotationType(null, null), "QuotationType", "QuotationTypeID");
             new DDLBind(ddlStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "SalesQuotationStatus", "SalesQuotationStatusID");
 
             new DDLBind(ddlPriceGroup, new BDMS_Master().GetPriceGroup(null, null, null), "PriceGroupCode", "PriceGroupID");

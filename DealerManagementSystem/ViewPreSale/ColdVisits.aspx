@@ -59,7 +59,7 @@
             //});
             $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
                 source: function (request, response) {
-                    
+
                     var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
                     $.ajax({
                         type: 'POST',
@@ -94,7 +94,7 @@
             });
             $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
                 source: function (request, response) {
-                    
+
                     var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
                     txtCustomerID.value = "";
                     var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
@@ -163,7 +163,7 @@
             document.getElementById('divAuto').style.display = "none";
         }
         function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-            
+
             var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
             txtCustomerID.value = CustomerID.innerText;
 
@@ -263,13 +263,25 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer Employee</label>
+                            <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
+                        </div>
+                          <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Action Type</label>
+                            <asp:DropDownList ID="ddlSActionType" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
@@ -368,6 +380,18 @@
                                             <asp:Label ID="lblActionType" Text='<%# DataBinder.Eval(Container.DataItem, "ActionType.ActionType")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Dealer">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDealer" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Engineer">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lbViewCustomer" runat="server" OnClick="lbViewCustomer_Click">
@@ -383,7 +407,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>                                            
+                                        <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%></a>
                                             </asp:Label>
@@ -397,7 +421,7 @@
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Status">
+                                    <asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
