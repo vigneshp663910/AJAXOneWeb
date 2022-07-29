@@ -29,6 +29,7 @@ namespace DealerManagementSystem.ViewPreSale
                 string script = "$(document).ready(function () { $('[id*=btnSubmit]').click(); });";
                 ClientScript.RegisterStartupScript(this.GetType(), "load", script, true);
 
+                new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 List <PLeadQualification > Qualification = new BLead().GetLeadQualification(null, null); 
                 new DDLBind(ddlSQualification, Qualification, "Qualification", "QualificationID");
 
@@ -222,6 +223,8 @@ namespace DealerManagementSystem.ViewPreSale
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
+            S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            S.SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             //List<PLead> Leads = new BLead().GetLead(S);
             Lead1 = new BLead().GetLead(S);
 
@@ -363,6 +366,11 @@ namespace DealerManagementSystem.ViewPreSale
         {
             gvLead.PageIndex = e.NewPageIndex;
             FillLead();
+        }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
         }
     }
 }

@@ -6,7 +6,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 <%--<%@ Register Src="~/ViewPreSale/UserControls/CustomerSearch.ascx" TagPrefix="UC" TagName="UC_CustomerSearch" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-       
+
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
@@ -125,13 +125,13 @@
             });
         });
         function AutoCustomer(lblCustomerID, lblCustomerName) {
-            
+
             var txtCustomer = document.getElementById('MainContent_txtCustomer');
             txtCustomer.value = lblCustomerName.innerText;
             document.getElementById('divAuto').style.display = "none";
         }
         function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-            
+
             var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
             txtCustomerID.value = CustomerID.innerText;
 
@@ -176,6 +176,14 @@
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer</label>
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Employee</label>
+                        <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>Lead Number</label>
                         <asp:TextBox ID="txtLeadNumber" runat="server" CssClass="form-control" />
@@ -193,7 +201,7 @@
                         <asp:DropDownList ID="ddlSProgressStatus" runat="server" CssClass="form-control" />
                     </div>--%>
 
-                   
+
                     <%-- <div class="col-md-2 text-left">
                         <label>Category</label>
                         <asp:DropDownList ID="ddlSCategory" runat="server" CssClass="form-control" />

@@ -31,6 +31,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!IsPostBack)
             {
+                new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 if (Request.QueryString["Quotation"] != null)
                 {
                     divColdVisitView.Visible = true;
@@ -47,7 +48,8 @@ namespace DealerManagementSystem.ViewPreSale
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
 
-                new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID"); 
+                new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID");
+                new DDLBind(ddlQuotationStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "SalesQuotationStatus", "SalesQuotationStatusID");
             }
         }
 
@@ -111,13 +113,16 @@ namespace DealerManagementSystem.ViewPreSale
 
 
             int? QuotationTypeID = null;
-            int? StatusID = null;
+            int? StatusID = ddlQuotationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQuotationStatus.SelectedValue);
 
-            int? DealerID = null;
             string CustomerCode = null;
             int? UserStatusID = ddlUserStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUserStatus.SelectedValue);
+
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            
             //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
-            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, UserStatusID, DealerID, CustomerCode);
+            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, UserStatusID, DealerID, SalesEngineerID,  CustomerCode);
             gvQuotation.DataSource = Quote;
             gvQuotation.DataBind();
 
@@ -274,6 +279,12 @@ namespace DealerManagementSystem.ViewPreSale
         {
             List<string> Materials = new BDMS_Material().GetMaterialAutocomplete(input, "",null);
             return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
         }
     }
 }

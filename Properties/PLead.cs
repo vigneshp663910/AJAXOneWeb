@@ -190,7 +190,8 @@ namespace Properties
     [Serializable]
     public class PLeadSearch
     {
-        public long? LeadID { get; set; }
+        public long? LeadID { get; set; } 
+       
         public string LeadNumber { get; set; }
         public DateTime? LeadDateFrom { get; set; }
         public DateTime? LeadDateTo { get; set; }
@@ -201,6 +202,7 @@ namespace Properties
         public int? SourceID { get; set; }
         public int? TypeID { get; set; }
         public int? DealerID { get; set; }
+        public long? SalesEngineerID { get; set; }
         public long? CustomerID { get; set; }
         public string CustomerCode { get; set; }
         public int? CountryID { get; set; }

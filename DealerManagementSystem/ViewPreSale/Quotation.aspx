@@ -12,7 +12,18 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
-
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer Employee</label>
+                            <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">QuotationStatus</label>
+                            <asp:DropDownList ID="ddlQuotationStatus" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Date From</label>
                             <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
