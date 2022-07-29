@@ -212,15 +212,17 @@ namespace DealerManagementSystem.ViewActivity
             List<PActivity> PendingUserActivity = new BActivity().GetPendingUserActivitiy(null, PSession.User.UserID, PSession.User.UserID);
             if (PendingUserActivity.Count > 0)
             {
-                lblActivityTypeE.Text = PendingUserActivity[0].ActivityType.ActivityTypeName;
-                lblActivityTypeIDE.Text = PendingUserActivity[0].ActivityType.ActivityTypeID.ToString();
-                //ViewState["ActivityID"] = PendingUserActivity[0].ActivityID;
-                lblActivityIDE.Text = PendingUserActivity[0].ActivityID.ToString();
-                lblEndActivityDate.Text = DateTime.Now.ToString();
-                List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
-                new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
-                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
-                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+                //lblActivityTypeE.Text = PendingUserActivity[0].ActivityType.ActivityTypeName;
+                //lblActivityTypeIDE.Text = PendingUserActivity[0].ActivityType.ActivityTypeID.ToString();
+                ////ViewState["ActivityID"] = PendingUserActivity[0].ActivityID;
+                //lblActivityIDE.Text = PendingUserActivity[0].ActivityID.ToString();
+                //lblEndActivityDate.Text = DateTime.Now.ToString();
+                //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
+                //new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+                //new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                //new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+
+                ddlReferenceTypeE_SelectedIndexChanged(sender, e);
                 lblEndActivityMessage.Text = "Activity is Pending. Please close this Activity to add a new Activity.";
                 lblEndActivityMessage.ForeColor = Color.Red;
                 lblEndActivityMessage.Visible = true;
@@ -228,6 +230,8 @@ namespace DealerManagementSystem.ViewActivity
                 lblValidationMessage.Text = string.Empty;
                 lblValidationMessage.Visible = false;
                 MPE_EndActivity.Show();
+
+                EndActivity(PendingUserActivity[0].ActivityType.ActivityTypeName, PendingUserActivity[0].ActivityType.ActivityTypeID.ToString(), PendingUserActivity[0].ActivityID.ToString());
             }
             else
             {
@@ -412,27 +416,17 @@ namespace DealerManagementSystem.ViewActivity
 
             if (btnEndActivity.Text == "End Activity")
             {
-                lblEndActivityMessage.Text = string.Empty;
-                lblEndActivityMessage.Visible = false;
-                lblValidationMessage.Text = string.Empty;
-                lblValidationMessage.Visible = false;
-                txtLocation.Text = string.Empty;
-                MPE_EndActivity.Show();
                 Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
                 Label lblActivityTypeID = (Label)gvRow.FindControl("lblActivityTypeID");
                 Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
-                lblActivityTypeE.Text = lblActivityType.Text;
-                lblActivityTypeIDE.Text = lblActivityTypeID.Text;
-                lblEndActivityDate.Text = DateTime.Now.ToString();
-                List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
-                new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
-                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
-                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
-                //ViewState["ActivityID"] = lblActivityID.Text;
-                lblActivityIDE.Text = lblActivityID.Text;
-                PActivity Activity = new PActivity();
-                lblEndActivityMessage.ForeColor = Color.Red;
-                lblEndActivityMessage.Visible = true;
+                ddlReferenceTypeE_SelectedIndexChanged(sender, e);
+                //lblActivityTypeE.Text = lblActivityType.Text;
+                //lblActivityTypeIDE.Text = lblActivityTypeID.Text;
+                //lblActivityIDE.Text = lblActivityID.Text;
+
+                EndActivity(lblActivityType.Text, lblActivityTypeID.Text, lblActivityID.Text);
+
+
             }
 
             else if(btnEndActivity.Text == "Track Activity")
@@ -498,6 +492,8 @@ namespace DealerManagementSystem.ViewActivity
                 divCustomerName.Visible = true;
                 divReferenceNumber.Visible = false;
                 MPE_EndActivity.Show();
+                txtCustomerName.Text = string.Empty;
+                txtCustomerID.Text = string.Empty;
                 
                 //MPE_Customer.Show();
                 //UC_Customer.FillMaster();
@@ -762,6 +758,40 @@ namespace DealerManagementSystem.ViewActivity
                 txtReferenceNumberE.BorderColor = Color.Red;
             }
             return Message;
+        }
+
+        void EndActivity(string ActivityType, string ActivityTypeID, string ActivityID)
+        {
+            lblEndActivityMessage.Text = string.Empty;
+            lblEndActivityMessage.Visible = false;
+            lblValidationMessage.Text = string.Empty;
+            lblValidationMessage.Visible = false;
+            txtLocation.Text = string.Empty;
+            MPE_EndActivity.Show();
+
+
+            lblActivityTypeE.Text = ActivityType;
+            lblActivityTypeIDE.Text = ActivityTypeID;
+            lblActivityIDE.Text = ActivityID;
+            lblEndActivityDate.Text = DateTime.Now.ToString();
+
+            List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
+            new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+            new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+            new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+            ddlReferenceTypeE.SelectedValue = "0";
+            txtCustomerName.Text = string.Empty;
+            txtCustomerID.Text = string.Empty;
+            
+            txtEffortDuration.Text = string.Empty;
+            ddlExpenseType.SelectedValue = "0";
+            txtAmount.Text = string.Empty;
+            txtRemarks.Text = string.Empty;
+            //ViewState["ActivityID"] = lblActivityID.Text;
+           
+            PActivity Activity = new PActivity();
+            lblEndActivityMessage.ForeColor = Color.Red;
+            lblEndActivityMessage.Visible = true;
         }
     }
 }
