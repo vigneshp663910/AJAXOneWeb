@@ -77,7 +77,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblPAN.Text = Customer.PAN;
 
             string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
-            lblAddress.Text = Address;
+            
+            lblAddress1.Text = Customer.Address1;
+            lblAddress2.Text = Customer.Address2;
+            lblAddress3.Text = Customer.Address3;
+            lblCity.Text = Customer.City;
+            lblDistrict.Text = Customer.District.District;
+            lblState.Text = Customer.State.State;
+            lblPinCode.Text = Customer.Pincode;
+            lblLastVisitDate.Text = Convert.ToString(Customer.LastVisitDate);
 
             cbVerified.Checked = Customer.IsVerified;
             cbIsActive.Checked = Customer.IsActive;
@@ -345,7 +353,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         public void fillVisit()
         {  
-            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, Customer.CustomerID, null, null, null, null, null, null,null);
+            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, Customer.CustomerID, null, null, null, null, null, null,null,null,null, null);
             gvColdVisit.DataBind();
         }
 

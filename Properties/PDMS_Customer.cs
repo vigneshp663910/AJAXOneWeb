@@ -79,6 +79,7 @@ namespace Properties
         public decimal Longitude { get; set; }
         public Boolean IsDraft { get; set; }
         public string CustomerType { get; set; }
+        public DateTime? LastVisitDate { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerShipTo

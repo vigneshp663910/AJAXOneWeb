@@ -46,9 +46,10 @@ namespace DealerManagementSystem.ViewPreSale
 
                 if (!IsPostBack)
                 {
-                    List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
-                    new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
-                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                    //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+                    //new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+                    //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 }
             }
             catch(Exception ex)
@@ -171,9 +172,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int? DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, DealerID, true, null, null, null);
+        { 
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
         }
     }

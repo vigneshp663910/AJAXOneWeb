@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Transactions;
+using System.Web.UI.WebControls;
 
 namespace Business
 {
@@ -194,6 +195,24 @@ namespace Business
             catch (Exception ex)
             { }
             return Dealers;
+        }
+
+        public void FillDealerAndEngneer(DropDownList ddlDealer, DropDownList ddlDealerEmployee)
+        {
+            int DesignationID = PSession.User.Designation.DealerDesignationID;
+            if ((DesignationID == (short)DealerDesignation.SalesExecutive) ||(DesignationID == (short)DealerDesignation.ServiceTechnician))
+            { 
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID",false);
+                List<PUser> DealerUser = new List<PUser>();
+                DealerUser.Add(PSession.User);
+                new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID",false);
+            }
+            else
+            {
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+                new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+            }
         }
     }
 }
