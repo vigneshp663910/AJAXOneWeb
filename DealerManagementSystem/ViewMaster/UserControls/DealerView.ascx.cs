@@ -93,7 +93,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         public void filldealer(int DealerID)
         {
-            Dealer = new BDMS_Dealer().GetDealer(DealerID, "", null)[0];
+            Dealer = new BDMS_Dealer().GetDealer(DealerID, "", null, null)[0];
 
             lblDealerCode.Text = Dealer.DealerCode;
             lblDealerName.Text = Dealer.DealerName;
@@ -102,9 +102,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             cbIsActive.Checked = Dealer.IsActive;
             lblDealerCountry.Text = Dealer.Country;
             lblDealerState.Text = Dealer.StateN.State;
+            lblDealerRegion.Text = Dealer.Region.Region;
             //lblTeamLead.Text = Dealer.TL.ContactName;
             //lblSerivceManager.Text = Dealer.SM.ContactName;
-            
+
             fillDealerOffice();
             fillDealerEmployee();
             fillDealerNotification();

@@ -7,10 +7,10 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Selection Criteria</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-right">
-                        <label>DealerCode</label>
+                        <label>Dealer</label>
                     </div>
                     <div class="col-md-2">
                         <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />

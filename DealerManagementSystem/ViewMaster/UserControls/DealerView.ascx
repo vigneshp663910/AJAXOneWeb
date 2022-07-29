@@ -1,13 +1,13 @@
-﻿<%@ control language="C#" autoeventwireup="true" codebehind="DealerView.ascx.cs" inherits="DealerManagementSystem.ViewMaster.UserControls.DealerView" %>
-<%@ register src="~/ViewMaster/UserControls/CustomerCreate.ascx" tagprefix="UC" tagname="UC_DealerCreate" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DealerView.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.DealerView" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
 
-<%@ register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 
 <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
 <script type="text/javascript">  
     function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-        
+
         var txtCustomerID = document.getElementById('MainContent_UC_DealerView_txtFleetID');
         txtCustomerID.value = CustomerID.innerText;
         var txtCustomer = document.getElementById('MainContent_UC_DealerView_txtFleet');
@@ -90,7 +90,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%-- <asp:LinkButton ID="lnkBtnAddDealerOffice" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Office</asp:LinkButton>--%>
-                <asp:linkbutton id="lnkBtnAddNotification" runat="server" onclick="lnkBtnActions_Click">Add Dealer Notification</asp:linkbutton>
+                <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -102,15 +102,16 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Dealer Code :</label>
-                    <asp:label id="lblDealerCode" runat="server" cssclass="label"></asp:label>
+                    <asp:Label ID="lblDealerCode" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Email : </label>
-                    <asp:label id="lblEmail" runat="server" cssclass="label"></asp:label>
+                    <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
                 </div>
+
                 <div class="col-md-12">
-                    <label>Active : </label>
-                    <asp:checkbox id="cbIsActive" runat="server" enabled="false" cssclass="mycheckBig" />
+                    <label>State : </label>
+                    <asp:Label ID="lblDealerState" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <%--<div class="col-md-12">
                     <label>Team Lead : </label>
@@ -120,12 +121,16 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Dealer Name : </label>
-                    <asp:label id="lblDealerName" runat="server" cssclass="label"></asp:label>
+                    <asp:Label ID="lblDealerName" runat="server" CssClass="label"></asp:Label>
                 </div>
 
                 <div class="col-md-12">
                     <label>Country : </label>
-                    <asp:label id="lblDealerCountry" runat="server" cssclass="label"></asp:label>
+                    <asp:Label ID="lblDealerCountry" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Active : </label>
+                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
                 <%--<div class="col-md-12">
                     <label>Serivce Manager : </label>
@@ -135,11 +140,11 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Mobile : </label>
-                    <asp:label id="lblMobile" runat="server" cssclass="label"></asp:label>
+                    <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>State : </label>
-                    <asp:label id="lblDealerState" runat="server" cssclass="label"></asp:label>
+                    <label>Region : </label>
+                    <asp:Label ID="lblDealerRegion" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <%-- <div class="col-md-12">
                     <label>Active : </label>
@@ -149,10 +154,10 @@
         </div>
     </fieldset>
 </div>
-<asp:label id="lblMessage" runat="server" text="" cssclass="message" visible="false" />
-<asp1:Tabcontainer id="tbpDealer" runat="server" tooltip="Dealer" font-bold="True" font-size="Medium" activetabindex="1">
-    <asp1:tabpanel id="tpnlDealerOffice" runat="server" headertext="Dealer Office" font-bold="True" tooltip="List of Dealer Office...">
-        <contenttemplate>
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp1:TabContainer ID="tbpDealer" runat="server" ToolTip="Dealer" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
+    <asp1:TabPanel ID="tpnlDealerOffice" runat="server" HeaderText="Dealer Office" Font-Bold="True" ToolTip="List of Dealer Office...">
+        <ContentTemplate>
             <div class="col-md-12">
                 <div class="boxHead">
                     <div class="logheading">
@@ -162,13 +167,13 @@
                                     <td>Branch Office(s):</td>
 
                                     <td>
-                                        <asp:label id="lblRowCountDealerOffice" runat="server" cssclass="label"></asp:label>
+                                        <asp:Label ID="lblRowCountDealerOffice" runat="server" CssClass="label"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:imagebutton id="ibtnDealerOfficeArrowLeft" runat="server" imageurl="~/Images/ArrowLeft.png" width="15px" onclick="ibtnDealerOfficeArrowLeft_Click" />
+                                        <asp:ImageButton ID="ibtnDealerOfficeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnDealerOfficeArrowLeft_Click" />
                                     </td>
                                     <td>
-                                        <asp:imagebutton id="ibtnDealerOfficeArrowRight" runat="server" imageurl="~/Images/ArrowRight.png" width="15px" onclick="ibtnDealerOfficeArrowRight_Click" />
+                                        <asp:ImageButton ID="ibtnDealerOfficeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerOfficeArrowRight_Click" />
                                     </td>
                                 </tr>
                             </table>
@@ -178,42 +183,42 @@
 
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-                        <asp:gridview id="gvDealerOffice" runat="server" autogeneratecolumns="False" width="100%" cssclass="table table-bordered table-condensed Grid" emptydatatext="No Data Found"
-                            pagesize="10" allowpaging="true" onpageindexchanging="gvDealerOffice_PageIndexChanging">
-                            <columns>
-                                <asp:templatefield headertext="RId" itemstyle-width="25px" itemstyle-horizontalalign="Center">
-                                    <itemtemplate>
-                                        <asp:label id="lblRowNumber" text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                        <asp:GridView ID="gvDealerOffice" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
+                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerOffice_PageIndexChanging">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                        <asp:label id="lblOfficeID" text='<%# DataBinder.Eval(Container.DataItem, "OfficeID")%>' runat="server" visible="false" />
-                                    </itemtemplate>
-                                    <itemstyle horizontalalign="Center" />
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Office Code">
-                                    <itemtemplate>
-                                        <asp:label id="lblOfficeCode" text='<%# DataBinder.Eval(Container.DataItem, "OfficeCode")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Office Name">
-                                    <itemtemplate>
-                                        <asp:label id="lblOfficeName" text='<%# DataBinder.Eval(Container.DataItem, "OfficeName")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Sap Location Code">
-                                    <itemtemplate>
-                                        <asp:label id="lblSapLocationCode" text='<%# DataBinder.Eval(Container.DataItem, "SapLocationCode")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Address1">
-                                    <itemtemplate>
-                                        <asp:label id="lblAddress1" text='<%# DataBinder.Eval(Container.DataItem, "Address1")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Address2">
-                                    <itemtemplate>
-                                        <asp:label id="lblAddress2" text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
+                                        <asp:Label ID="lblOfficeID" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                    <ItemStyle HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Office Code">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblOfficeCode" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Office Name">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Sap Location Code">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSapLocationCode" Text='<%# DataBinder.Eval(Container.DataItem, "SapLocationCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Address1">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address1")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Address2">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAddress2" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <%--<asp:TemplateField HeaderText="Action">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkbtnDealerOfficeDelete" runat="server" OnClick="lnkbtnDealerOfficeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
@@ -221,20 +226,20 @@
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>--%>
-                            </columns>
-                            <alternatingrowstyle backcolor="White" />
-                            <footerstyle forecolor="White" />
-                            <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
-                            <pagerstyle font-bold="True" forecolor="White" horizontalalign="Center" />
-                            <rowstyle backcolor="#FBFCFD" forecolor="Black" horizontalalign="Left" />
-                        </asp:gridview>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="White" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
                     </div>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlDealerEmployee" runat="server" headertext="Dealer Employee">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlDealerEmployee" runat="server" HeaderText="Dealer Employee">
+        <ContentTemplate>
             <div class="col-md-12">
                 <div class="boxHead">
                     <div class="logheading">
@@ -244,13 +249,13 @@
                                     <td>Employee(s):</td>
 
                                     <td>
-                                        <asp:label id="lblRowCountDealerEmployee" runat="server" cssclass="label"></asp:label>
+                                        <asp:Label ID="lblRowCountDealerEmployee" runat="server" CssClass="label"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:imagebutton id="ibtnDealerEmployeeArrowLeft" runat="server" imageurl="~/Images/ArrowLeft.png" width="15px" onclick="ibtnDealerEmployeeArrowLeft_Click" />
+                                        <asp:ImageButton ID="ibtnDealerEmployeeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnDealerEmployeeArrowLeft_Click" />
                                     </td>
                                     <td>
-                                        <asp:imagebutton id="ibtnDealerEmployeeArrowRight" runat="server" imageurl="~/Images/ArrowRight.png" width="15px" onclick="ibtnDealerEmployeeArrowRight_Click" />
+                                        <asp:ImageButton ID="ibtnDealerEmployeeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerEmployeeArrowRight_Click" />
                                     </td>
                                 </tr>
                             </table>
@@ -260,40 +265,40 @@
 
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-                        <asp:gridview id="gvDealerEmployee" runat="server" autogeneratecolumns="false" width="100%" cssclass="table table-bordered table-condensed Grid" emptydatatext="No Data Found"
-                            pagesize="10" allowpaging="true" onpageindexchanging="gvDealerEmployee_PageIndexChanging">
-                            <columns>
-                                <asp:templatefield headertext="RId" itemstyle-horizontalalign="Center" itemstyle-width="25px">
-                                    <itemtemplate>
+                        <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
+                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                    <ItemTemplate>
                                         <itemstyle width="25px" horizontalalign="Center"></itemstyle>
-                                        <asp:label id="lblRowNumber" text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <asp:label id="lblDealerEmployeeID" text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeID")%>' runat="server" visible="false" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Name" itemstyle-horizontalalign="Left">
-                                    <itemstyle verticalalign="Middle" horizontalalign="Left" />
-                                    <itemtemplate>
-                                        <asp:label id="lblName" text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Department">
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
-                                    <itemtemplate>
-                                        <asp:label id="lblDepartment" text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDepartment.DealerDepartment")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Designation">
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
-                                    <itemtemplate>
-                                        <asp:label id="lblDesignation" text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDesignation.DealerDesignation")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Name">
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
-                                    <itemtemplate>
-                                        <asp:label id="lblName" text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <asp:Label ID="lblDealerEmployeeID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Name" ItemStyle-HorizontalAlign="Left">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Department">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDepartment.DealerDepartment")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Designation">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDesignation.DealerDesignation")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Name">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <%--<asp:TemplateField HeaderText="Father Name">
                                     <ItemTemplate>
                                         <asp:Label ID="lblFatherName" Text='<%# DataBinder.Eval(Container.DataItem, "FatherName")%>' runat="server" />
@@ -304,66 +309,66 @@
                                         <asp:Label ID="lblDOB" Text='<%# DataBinder.Eval(Container.DataItem, "DOB")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
-                                <asp:templatefield headertext="Contact Number" itemstyle-horizontalalign="Right">
-                                    <itemtemplate>
-                                        <asp:label id="lblContactNumber" runat="server">
+                                <asp:TemplateField HeaderText="Contact Number" ItemStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblContactNumber" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
-                                        </asp:label>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Emergency Contact No.">
-                                    <itemtemplate>
-                                        <asp:label id="lblEmergencyContactNumber" runat="server">
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Emergency Contact No.">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEmergencyContactNumber" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "EmergencyContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "EmergencyContactNumber")%></a>
-                                        </asp:label>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Email">
-                                    <itemtemplate>
-                                        <asp:label id="lblEmail" runat="server">
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Email">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEmail" runat="server">
                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
-                                        </asp:label>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="State">
-                                    <itemtemplate>
-                                        <asp:label id="lblState" text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="District">
-                                    <itemtemplate>
-                                        <asp:label id="lblDistrict" text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Location">
-                                    <itemtemplate>
-                                        <asp:label id="lblLocation" text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Aadhaar Card No.">
-                                    <itemtemplate>
-                                        <asp:label id="lblAadhaarCardNo" text='<%# DataBinder.Eval(Container.DataItem, "AadhaarCardNo")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="State">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "State.State")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="District">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Location">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Aadhaar Card No.">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAadhaarCardNo" Text='<%# DataBinder.Eval(Container.DataItem, "AadhaarCardNo")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <%-- <asp:TemplateField HeaderText="PAN No.">
                                     <ItemTemplate>
                                         <asp:Label ID="lblPANNo" Text='<%# DataBinder.Eval(Container.DataItem, "PANNo")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
-                            </columns>
-                            <alternatingrowstyle backcolor="#ffffff" />
-                            <footerstyle forecolor="White" />
-                            <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
-                            <pagerstyle font-bold="True" forecolor="White" horizontalalign="Center" />
-                            <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
-                        </asp:gridview>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
                     </div>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-    <asp1:tabpanel id="tpnlDealerNotification" runat="server" headertext="Dealer Notification">
-        <contenttemplate>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlDealerNotification" runat="server" HeaderText="Dealer Notification">
+        <ContentTemplate>
             <div class="col-md-12">
                 <div class="boxHead">
                     <div class="logheading">
@@ -373,13 +378,13 @@
                                     <td>Dealer Notification(s):</td>
 
                                     <td>
-                                        <asp:label id="lblRowCountDealerNotification" runat="server" cssclass="label"></asp:label>
+                                        <asp:Label ID="lblRowCountDealerNotification" runat="server" CssClass="label"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:imagebutton id="ibtnDealerNotificationArrowLeft" runat="server" imageurl="~/Images/ArrowLeft.png" width="15px" onclick="ibtnDealerNotificationArrowLeft_Click" />
+                                        <asp:ImageButton ID="ibtnDealerNotificationArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnDealerNotificationArrowLeft_Click" />
                                     </td>
                                     <td>
-                                        <asp:imagebutton id="ibtnDealerNotificationArrowRight" runat="server" imageurl="~/Images/ArrowRight.png" width="15px" onclick="ibtnDealerNotificationArrowRight_Click" />
+                                        <asp:ImageButton ID="ibtnDealerNotificationArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerNotificationArrowRight_Click" />
                                     </td>
                                 </tr>
                             </table>
@@ -389,155 +394,155 @@
 
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-                        <asp:gridview id="gvDealerNotification" runat="server" autogeneratecolumns="false" width="100%" cssclass="table table-bordered table-condensed Grid" emptydatatext="No Data Found"
-                            pagesize="10" allowpaging="true" onpageindexchanging="gvDealerNotification_PageIndexChanging">
-                            <columns>
-                                <asp:templatefield headertext="RId" itemstyle-horizontalalign="Center" itemstyle-width="25px">
-                                    <itemtemplate>
+                        <asp:GridView ID="gvDealerNotification" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
+                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerNotification_PageIndexChanging">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                    <ItemTemplate>
                                         <itemstyle width="25px" horizontalalign="Center"></itemstyle>
-                                        <asp:label id="lblRowNumber" text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <asp:label id="lblDealerNotificationID" text='<%# DataBinder.Eval(Container.DataItem, "DealerNotificationID")%>' runat="server" visible="false" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Module Name" itemstyle-horizontalalign="Left">
-                                    <itemstyle verticalalign="Middle" horizontalalign="Left" />
-                                    <itemtemplate>
-                                        <asp:label id="lblModuleName" text='<%# DataBinder.Eval(Container.DataItem, "Module.ModuleName")%>' runat="server" />
-                                        <asp:label id="lblDealerNotificationModuleID" text='<%# DataBinder.Eval(Container.DataItem, "Module.DealerNotificationModuleID")%>' runat="server" visible="false" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Name">
-                                    <itemtemplate>
-                                        <asp:label id="lblContactName" text='<%# DataBinder.Eval(Container.DataItem, "User.ContactName")%>' runat="server" />
-                                        <asp:label id="lblUserID" text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" visible="false" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Login ID">
-                                    <itemtemplate>
-                                        <asp:label id="lblUserName" text='<%# DataBinder.Eval(Container.DataItem, "User.UserName")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Department">
-                                    <itemtemplate>
-                                        <asp:label id="lblDealerDepartment" text='<%# DataBinder.Eval(Container.DataItem, "User.Department.DealerDepartment")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Designation">
-                                    <itemtemplate>
-                                        <asp:label id="lblDealerDesignation" text='<%# DataBinder.Eval(Container.DataItem, "User.Designation.DealerDesignation")%>' runat="server" />
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Contact Number">
-                                    <itemtemplate>
-                                        <asp:label id="lblContactNumber" runat="server">
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerNotificationID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Module Name" ItemStyle-HorizontalAlign="Left">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblModuleName" Text='<%# DataBinder.Eval(Container.DataItem, "Module.ModuleName")%>' runat="server" />
+                                        <asp:Label ID="lblDealerNotificationModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "Module.DealerNotificationModuleID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Name">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "User.ContactName")%>' runat="server" />
+                                        <asp:Label ID="lblUserID" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Login ID">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblUserName" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Department">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "User.Department.DealerDepartment")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Designation">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "User.Designation.DealerDesignation")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Contact Number">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblContactNumber" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%></a>
-                                        </asp:label>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Email ID">
-                                    <itemtemplate>
-                                        <asp:label id="lblMail" runat="server">
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Email ID">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMail" runat="server">
                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>'><%# DataBinder.Eval(Container.DataItem, "User.Mail")%></a>
-                                        </asp:label>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="SMS">
-                                    <itemtemplate>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="SMS">
+                                    <ItemTemplate>
                                         <%--<asp:Label ID="lblIsSMS" Text='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' runat="server" />--%>
-                                        <asp:checkbox id="chkbxIsSMS" runat="server" checked='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' enabled="false"></asp:checkbox>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Mail">
-                                    <itemtemplate>
+                                        <asp:CheckBox ID="chkbxIsSMS" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Mail">
+                                    <ItemTemplate>
                                         <%-- <asp:Label ID="lblIsMail" Text='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' runat="server" />--%>
-                                        <asp:checkbox id="chkbxIsMail" runat="server" checked='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' enabled="false"></asp:checkbox>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                                <asp:templatefield headertext="Action" headerstyle-width="50px" itemstyle-horizontalalign="Center">
-                                    <itemtemplate>
-                                        <asp:linkbutton id="lnkBtnNotificationDelete" runat="server" onclick="lnkBtnNotificationDelete_Click"><i class="fa fa-fw fa-times" style="font-size: 18px"></i></asp:linkbutton>
-                                    </itemtemplate>
-                                </asp:templatefield>
-                            </columns>
-                            <alternatingrowstyle backcolor="#ffffff" />
-                            <footerstyle forecolor="White" />
-                            <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
-                            <pagerstyle font-bold="True" forecolor="White" horizontalalign="Center" />
-                            <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
-                        </asp:gridview>
+                                        <asp:CheckBox ID="chkbxIsMail" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkBtnNotificationDelete" runat="server" OnClick="lnkBtnNotificationDelete_Click"><i class="fa fa-fw fa-times" style="font-size: 18px"></i></asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
                     </div>
                 </div>
             </div>
-        </contenttemplate>
-    </asp1:tabpanel>
-</asp1:Tabcontainer>
+        </ContentTemplate>
+    </asp1:TabPanel>
+</asp1:TabContainer>
 
 
 
-<asp:panel id="pnlDealer" runat="server" cssclass="Popup" style="display: none">
+<asp:Panel ID="pnlDealer" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Edit Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:button id="Button1" runat="server" text="X" cssclass="PopupClose" />
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:label id="lblMessageDealerEdit" runat="server" text="" cssclass="message" visible="false" />
-            <uc:uc_dealercreate id="UC_Dealer" runat="server"></uc:uc_dealercreate>
+            <asp:Label ID="lblMessageDealerEdit" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>
         </div>
         <%--<div class="col-md-12 text-center">
             <asp:Button ID="btnUpdateDealer" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateDealer_Click" />
         </div>--%>
     </div>
-</asp:panel>
+</asp:Panel>
 
-<ajaxtoolkit:modalpopupextender id="MPE_Dealer" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlDealer" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_Dealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-<asp:panel id="pnlAddNotification" runat="server" cssclass="Popup" style="display: none">
+<asp:Panel ID="pnlAddNotification" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Dealer Notifiaction</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:button id="btnAddNotificationClose" runat="server" text="X" cssclass="PopupClose" />
+            <asp:Button ID="btnAddNotificationClose" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-   
+
     <div class="col-md-12">
-        <div class="model-scroll"> 
-             <asp:label id="lblMessageAddNotification" runat="server" text="" cssclass="message" visible="false" />
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageAddNotification" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label" runat="server" id="lblDealer" visible="false">Dealer</label>
-                        <asp:dropdownlist id="ddlDealer" runat="server" cssclass="form-control" visible="false"></asp:dropdownlist>
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" Visible="false"></asp:DropDownList>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Module</label>
-                        <asp:dropdownlist id="ddlDealerNotificationModule" runat="server" cssclass="form-control" />
+                        <asp:DropDownList ID="ddlDealerNotificationModule" runat="server" CssClass="form-control" />
                         <%--OnSelectedIndexChanged="ddlDealerNotificationModule_SelectedIndexChanged" AutoPostBack="true" --%>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Employee</label>
-                        <asp:dropdownlist id="ddlEmployee" runat="server" cssclass="form-control" />
+                        <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Send SMS</label>
-                        <asp:checkbox id="cbSendSMS" runat="server" />
+                        <asp:CheckBox ID="cbSendSMS" runat="server" />
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Send Email</label>
-                        <asp:checkbox id="cbSendEmail" runat="server" />
+                        <asp:CheckBox ID="cbSendEmail" runat="server" />
                     </div>
                 </div>
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:button id="btnAddNotification" runat="server" text="Save" cssclass="btn Save" onclick="btnAddNotification_Click" />
+            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotification_Click" />
         </div>
     </div>
-</asp:panel>
-<ajaxtoolkit:modalpopupextender id="MPE_AddNotification" runat="server" targetcontrolid="lnkMPE" popupcontrolid="pnlAddNotification" backgroundcssclass="modalBackground" cancelcontrolid="btnCancel" />
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddNotification" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddNotification" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">
-    <asp:linkbutton id="lnkMPE" runat="server">MPE</asp:linkbutton><asp:button id="btnCancel" runat="server" text="Cancel" />
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>

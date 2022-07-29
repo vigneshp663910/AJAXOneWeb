@@ -519,6 +519,24 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.DropDownList ddlSDistrict;
 
         /// <summary>
+        /// DivUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivUpload;
+
+        /// <summary>
+        /// fileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileUpload;
+
+        /// <summary>
         /// BtnSearch control.
         /// </summary>
         /// <remarks>
@@ -544,6 +562,15 @@ namespace DealerManagementSystem.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnExportExcel;
+
+        /// <summary>
+        /// BtnUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnUpload;
 
         /// <summary>
         /// lblRowCount control.

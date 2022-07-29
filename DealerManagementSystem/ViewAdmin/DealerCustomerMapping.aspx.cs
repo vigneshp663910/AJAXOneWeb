@@ -24,7 +24,7 @@ namespace DealerManagementSystem.ViewAdmin
         void FillDealer()
         {
             List<PDMS_Dealer> Dealer = new List<PDMS_Dealer>();
-            //Dealer = new BDMS_Dealer().GetDealer(null, null, null);
+            //Dealer = new BDMS_Dealer().GetDealer(null, null, null, null);
             //new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
             new DDLBind(ddlDealerCode, PSession.User.Dealer, "CodeWithName", "DID");
         }
@@ -146,19 +146,22 @@ namespace DealerManagementSystem.ViewAdmin
                     Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
                     if (Result == 1)
                     {
-                        lblMessage.Text = "Dealer To Customer Mapped successfully";
+                        //lblMessage.Text = "Dealer To Customer Mapped successfully";
+                        lblMessage.Text = "Customer mapped to Dealer successfully";
                         lblMessage.ForeColor = Color.Green;
                         FillCustomer();
                     }
                     else if(Result == 2)
                     {
-                        lblMessage.Text = "Dealer To Customer Already Mapped";
+                        //lblMessage.Text = "Dealer To Customer Already Mapped";
+                        lblMessage.Text = "Customer already mapped to Dealer";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
                     else
                     {
-                        lblMessage.Text = "Dealer To Customer Is Not Mapped successfully";
+                        //lblMessage.Text = "Dealer To Customer Is Not Mapped successfully";
+                        lblMessage.Text = "Customer not mapped to Dealer successfully";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }

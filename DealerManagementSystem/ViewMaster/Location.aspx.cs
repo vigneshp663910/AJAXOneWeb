@@ -122,7 +122,7 @@ namespace DealerManagementSystem.ViewMaster
                     LState = new BDMS_Address().GetState(null, null, null, null);
                     LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
                     LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null, "true");
-                   // LDealer = new BDMS_Dealer().GetDealer(null, null, null);
+                   // LDealer = new BDMS_Dealer().GetDealer(null, null, null, null);
                     FillCountry();
                     FillRegion();
                     FillState();
@@ -250,7 +250,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-               // LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode, null);
+                // LDealer = new BDMS_Dealer().GetDealer(DealerID, DealerCode, null, null);
                 ddl.DataValueField = "DID";
                 ddl.DataTextField = "CodeWithName";
                 ddl.DataSource = PSession.User.Dealer;
@@ -458,7 +458,7 @@ namespace DealerManagementSystem.ViewMaster
             new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
 
             DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
-            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
+            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
 
             DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
             //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
@@ -527,7 +527,7 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
 
                 DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
-                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
+                new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
 
                 DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
                 //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
@@ -1593,7 +1593,7 @@ namespace DealerManagementSystem.ViewMaster
             DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
             new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
             DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
-            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
+            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
             DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
             //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
             List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);

@@ -21,14 +21,15 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PDMS_Dealer> GetDealer(int? DealerID, string DealerCode,int? UserID)
+        public List<PDMS_Dealer> GetDealer(int? DealerID, string DealerCode,int? UserID, int? RegionID)
         {
             List<PDMS_Dealer> Dealers = new List<PDMS_Dealer>();
             PDMS_Dealer Dealer = null;
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[3] { DealerIDP, DealerCodeP, UserIDP };
+            DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[4] { DealerIDP, DealerCodeP, UserIDP, RegionIDP };
             try
             {
                 using (DataSet DS = provider.Select("ZDMS_GetDealer", Params))
@@ -58,6 +59,7 @@ namespace Business
                             Dealer.TL = new PUser() { ContactName= Convert.ToString(Dr["TeamLead"])  };
                             Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
                             Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
+                            Dealer.Region = DBNull.Value == Dr["RegionID"] ? null : new PDMS_Region() { RegionID = Convert.ToInt32(Dr["RegionID"]), Region = Convert.ToString(Dr["Region"]) };
                             Dealers.Add(Dealer);                             
                         }
                     }

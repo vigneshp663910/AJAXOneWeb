@@ -207,10 +207,14 @@
                             <label class="modal-label">District</label>
                             <asp:DropDownList ID="ddlSDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                         </div>
-                       <div class="col-md-12 text-center">
+                        <div class="col-md-2 col-sm-12" id="DivUpload" runat="server" visible="false">
+                            <asp:FileUpload ID="fileUpload" runat="server" />
+                        </div>
+                        <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
                             <asp:Button ID="BtnAdd" runat="server" Text="Add Project" CssClass="btn Save" OnClick="BtnAdd_Click" Width="100px" />
-                           <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                            <asp:Button ID="BtnUpload" runat="server" Text="Upload" CssClass="btn Save" OnClick="BtnUpload_Click" Width="100px" />
                         </div>
                     </div>
                 </fieldset>

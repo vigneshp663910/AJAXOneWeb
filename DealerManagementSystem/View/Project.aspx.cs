@@ -1,9 +1,14 @@
 ﻿using Business;
+using ClosedXML.Excel;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.Common;
+using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -169,7 +174,7 @@ namespace DealerManagementSystem.View
                 txtContractEndDate.BorderColor = Color.Red;
                 goto Message;
             }
-            Message:
+        Message:
             lblAddProjectMessage.Text = Message;
             return Ret;
         }
@@ -193,7 +198,7 @@ namespace DealerManagementSystem.View
         private void FillGrid(long? ProjectID)
         {
             int? StateID = null, DistrictID = null;
-            string ProjectName = null,ProjectNumber = null;
+            string ProjectName = null, ProjectNumber = null;
             if (!string.IsNullOrEmpty(txtProjectNumber.Text))
             {
                 ProjectNumber = txtProjectNumber.Text;
@@ -213,7 +218,7 @@ namespace DealerManagementSystem.View
             DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
             PProject = new BProject().GetProject(null, StateID, DistrictID, DateF, DateT, ProjectName, ProjectNumber);
-            
+
 
             if (PProject.Count == 0)
             {
@@ -375,7 +380,7 @@ namespace DealerManagementSystem.View
         {
             try
             {
-                BudgetPlanningYearExportExcel(PProject, "Project Report");
+                ProjectExportExcel(PProject, "Project Report");
             }
             catch (Exception ex)
             {
@@ -383,7 +388,7 @@ namespace DealerManagementSystem.View
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        void BudgetPlanningYearExportExcel(List<PProject> Projects, String Name)
+        void ProjectExportExcel(List<PProject> Projects, String Name)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Project Code");
@@ -425,7 +430,7 @@ namespace DealerManagementSystem.View
                     //, Project.CreatedOn
                     //, (Project.ModifiedBy == null) ? "" : Project.ModifiedBy.ContactName
                     //, Project.ModifiedOn
-                    ,""
+                    , ""
                     , ""
                     , ""
                     , ""
@@ -433,7 +438,7 @@ namespace DealerManagementSystem.View
             }
             try
             {
-                new BXcel().ExporttoExcel(dt, Name);
+                ExporttoExcel(dt, Name);
             }
             catch
             {
@@ -442,6 +447,178 @@ namespace DealerManagementSystem.View
             finally
             {
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
+        }
+
+        protected void BtnUpload_Click(object sender, EventArgs e)
+        {
+            DivUpload.Visible = true;
+
+            if (BtnUpload.Text == "Submit")
+            {
+                if (fileUpload.PostedFile != null)
+                {
+                    try
+                    {                       
+                        using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
+                        {
+                            //Read the first Sheet from Excel file.
+                            IXLWorksheet workSheet = workBook.Worksheet(1);
+
+                            //Create a new DataTable.
+                            DataTable dt = new DataTable();
+
+                            //Loop through the Worksheet rows.
+                            bool firstRow = true;
+                            foreach (IXLRow row in workSheet.Rows())
+                            {
+                                //Use the first row to add columns to DataTable.
+                                if (firstRow)
+                                {
+                                    foreach (IXLCell cell in row.Cells())
+                                    {
+                                        dt.Columns.Add(cell.Value.ToString());
+                                    }
+                                    firstRow = false;
+                                }
+                                else
+                                {
+                                    //Add rows to DataTable.
+                                    dt.Rows.Add();
+                                    int i = 0;
+                                    foreach (IXLCell cell in row.Cells())
+                                    {
+                                        dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
+                                        i++;
+                                    }
+                                }
+                                lblMessage.Text = "Your file was uploaded : "+ dt.Rows.Count;
+                                lblMessage.ForeColor = System.Drawing.Color.Green;
+                                //GridView1.DataSource = dt;
+                                //GridView1.DataBind();
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = "Your file not uploaded";
+                        lblMessage.ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+                DivUpload.Visible = false;
+                BtnUpload.Text = "Upload";
+            }
+            else
+            {
+                BtnUpload.Text = "Submit";
+            }
+        }
+        void ExporttoExcel(DataTable table, string strFile)
+        {
+            //HttpContext.Current.Response.Clear();
+            //HttpContext.Current.Response.ClearContent();
+            //HttpContext.Current.Response.ClearHeaders();
+            //HttpContext.Current.Response.Buffer = true;
+            //HttpContext.Current.Response.ContentType = "application/ms-excel";
+            //HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + strFile + ".xls");
+            //HttpContext.Current.Response.Charset = "utf-16";
+            //HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            //HttpContext.Current.Response.Write("<font style='font-size:11.0pt; font-family:Calibri;'>");
+            //HttpContext.Current.Response.Write("<BR><BR><BR>");
+            //HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> <TR>");
+            //int columnscount = table.Columns.Count;
+
+            //for (int j = 0; j < columnscount; j++)
+            //{
+            //    HttpContext.Current.Response.Write("<Td>");
+            //    HttpContext.Current.Response.Write("<B>");
+            //    HttpContext.Current.Response.Write(table.Columns[j].ToString());
+            //    HttpContext.Current.Response.Write("</B>");
+            //    HttpContext.Current.Response.Write("</Td>");
+            //}
+            //HttpContext.Current.Response.Write("</TR>");
+            //foreach (DataRow row in table.Rows)
+            //{
+            //    HttpContext.Current.Response.Write("<TR>");
+            //    for (int i = 0; i < table.Columns.Count; i++)
+            //    {
+            //        HttpContext.Current.Response.Write("<Td>");
+            //        HttpContext.Current.Response.Write(row[i].ToString());
+            //        HttpContext.Current.Response.Write("</Td>");
+            //    }
+
+            //    HttpContext.Current.Response.Write("</TR>");
+            //}
+            //HttpContext.Current.Response.Write("</Table>");
+            //HttpContext.Current.Response.Write("</font>");
+
+            //// Append cookie
+            //HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            //cookie.Value = "Flag";
+            //cookie.Expires = DateTime.Now.AddDays(1);
+            //HttpContext.Current.Response.AppendCookie(cookie);
+            //// end
+
+            //HttpContext.Current.Response.Flush();
+            //HttpContext.Current.Response.End();
+
+
+
+
+
+
+
+
+
+
+
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                //Create a DataTable with schema same as DataSet Table columns.
+                DataTable dt = new DataTable("Projects");
+                foreach (DataColumn column in table.Columns)
+                {
+                    dt.Columns.Add(column.ColumnName);
+                }
+
+                DataRow dr = dt.NewRow();
+                foreach (DataColumn column in table.Columns)
+                {
+                    dr[column.ColumnName] = column.ColumnName;
+                }
+                //Add Header rows from DataSet Table to DataTable.
+                dt.Rows.Add(dr);
+                //Loop and add rows from DataSet Table to DataTable.
+                foreach (DataRow row in table.Rows)
+                {
+                    dt.ImportRow(row);
+                }
+
+                var ws = wb.Worksheets.Add(dt.TableName);
+                ws.Cell(1, 1).InsertData(dt.Rows);
+                ws.Columns().AdjustToContents();
+
+                //Export the Excel file.
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename=Projects.xlsx");
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    // Append cookie
+                    HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+                    cookie.Value = "Flag";
+                    cookie.Expires = DateTime.Now.AddDays(1);
+                    HttpContext.Current.Response.AppendCookie(cookie);
+                    // end
+                    Response.Flush();
+                    Response.End();
+                }
             }
         }
     }
