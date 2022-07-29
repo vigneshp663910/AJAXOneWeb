@@ -138,9 +138,6 @@
                                 <asp:ListItem Value="2">InActive</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                         </div>
