@@ -36,15 +36,15 @@ namespace DealerManagementSystem.ViewSales
             FillQuotation();
         }
 
-        public List<PSalesQuotation> Quote
+        public List<PSalesCommissionClaim> Quote
         {
             get
             {
                 if (Session["SalesCommissionClaimCreate"] == null)
                 {
-                    Session["SalesCommissionClaimCreate"] = new List<PSalesQuotation>();
+                    Session["SalesCommissionClaimCreate"] = new List<PSalesCommissionClaim>();
                 }
-                return (List<PSalesQuotation>)Session["SalesCommissionClaimCreate"];
+                return (List<PSalesCommissionClaim>)Session["SalesCommissionClaimCreate"];
             }
             set
             {
@@ -57,7 +57,7 @@ namespace DealerManagementSystem.ViewSales
             if (gvQuotation.PageIndex > 0)
             {
                 gvQuotation.PageIndex = gvQuotation.PageIndex - 1;
-                QuoteBind(gvQuotation, lblRowCount, Quote);
+                QuoteBind();
             }
         } 
         protected void ibtnQuoteArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -65,15 +65,15 @@ namespace DealerManagementSystem.ViewSales
             if (gvQuotation.PageCount > gvQuotation.PageIndex)
             {
                 gvQuotation.PageIndex = gvQuotation.PageIndex + 1;
-                QuoteBind(gvQuotation, lblRowCount, Quote);
+                QuoteBind();
             }
         }
 
-        void QuoteBind(GridView gv, Label lbl, List<PSalesQuotation> Quote)
+        void QuoteBind()
         {
-            gv.DataSource = Quote;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Quote.Count;
+            gvQuotation.DataSource = Quote;
+            gvQuotation.DataBind();
+            lblRowCount.Text = (((gvQuotation.PageIndex) * gvQuotation.PageSize) + 1) + " - " + (((gvQuotation.PageIndex) * gvQuotation.PageSize) + gvQuotation.Rows.Count) + " of " + Quote.Count;
         }
 
 
@@ -82,6 +82,21 @@ namespace DealerManagementSystem.ViewSales
             Quote = new BSalesCommissionClaim().GetSalesQuotationForClaimCreate(txtQuotation.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
             gvQuotation.DataSource = Quote;
             gvQuotation.DataBind();
+
+            foreach(GridViewRow r in gvQuotation.Rows)
+            {
+                TextBox txtAmount = (TextBox)r.FindControl("txtAmount");
+                TextBox txtPercentage = (TextBox)r.FindControl("txtPercentage");
+                if(Convert.ToDecimal("0"+txtAmount.Text) == 0)
+                {
+                    txtAmount.Enabled = false;
+                }
+                if (Convert.ToDecimal("0" + txtPercentage.Text) == 0)
+                {
+                    txtPercentage.Enabled = false;
+                }
+            }
+
             if (Quote.Count == 0)
             {
                 lblRowCount.Visible = false;
@@ -129,7 +144,23 @@ namespace DealerManagementSystem.ViewSales
 
             lblMessage.Visible = true;
 
-            string endPoint = "SalesCommission/InsertSalesCommissionClaim?SalesQuotationID=" + lblQuotationID.Text;
+            int IsAmount = 0;
+            decimal Amount = 0;
+            TextBox txtAmount = (TextBox)gvRow.FindControl("txtAmount");
+            TextBox txtPercentage = (TextBox)gvRow.FindControl("txtPercentage");
+            if (Convert.ToDecimal("0" + txtAmount.Text) == 0)
+            {
+                IsAmount = 1;
+                Amount = Convert.ToDecimal("0" + txtAmount.Text);
+            }
+            else
+            {
+                IsAmount = 2;
+                Amount = Convert.ToDecimal("0" + txtPercentage.Text);
+            }
+
+
+            string endPoint = "SalesCommission/InsertSalesCommissionClaim?SalesQuotationID=" + lblQuotationID.Text+ "&IsAmount="+ IsAmount + "&Amount=" + Amount;
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)

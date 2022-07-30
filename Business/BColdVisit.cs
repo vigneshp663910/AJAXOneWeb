@@ -61,15 +61,15 @@ namespace Business
             string endPoint = "ColdVisit/AttachedFileForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
-        public DataTable GetVisitReport(int? DealerID, int? DealerEmployeeID, string FromDate, string ToDate, int? UserID)
+        public DataTable GetVisitReport(int? DealerID, int? DealerEmployeeID, int Year, int Month, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter DealerEmployeeIDP = provider.CreateParameter("DealerEmployeeID", DealerEmployeeID, DbType.Int32);
-            DbParameter LeadDateFromP = provider.CreateParameter("FromDate", FromDate, DbType.DateTime);
-            DbParameter LeadDateToP = provider.CreateParameter("ToDate", ToDate, DbType.DateTime);
+            DbParameter YearP = provider.CreateParameter("Year", Year, DbType.Int32);
+            DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.Int32);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[5] { DealerIDP, DealerEmployeeIDP, LeadDateFromP, LeadDateToP, UserIDP };
+            DbParameter[] Params = new DbParameter[5] { DealerIDP, DealerEmployeeIDP, YearP, MonthP, UserIDP };
             try
             {
                 using (DataSet DataSet = provider.Select("GetVisitReport", Params))
