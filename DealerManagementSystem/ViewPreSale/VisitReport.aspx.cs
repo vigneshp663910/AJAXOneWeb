@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                 if (!IsPostBack)
                 {
-                    new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                    new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                     new DDLBind().Year(ddlYear,2022, false);
                     new DDLBind().Month(ddlMonth, false);
                     //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);

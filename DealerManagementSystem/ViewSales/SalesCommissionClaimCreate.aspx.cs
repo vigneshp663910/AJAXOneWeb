@@ -27,7 +27,8 @@ namespace DealerManagementSystem.ViewSales
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Commission Claim » Create');</script>"); 
             lblMessage.Text = ""; 
             if (!IsPostBack)
-            {  
+            {
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
             }
         }
 
@@ -79,7 +80,8 @@ namespace DealerManagementSystem.ViewSales
 
         void FillQuotation()
         {
-            Quote = new BSalesCommissionClaim().GetSalesQuotationForClaimCreate(txtQuotation.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            Quote = new BSalesCommissionClaim().GetSalesQuotationForClaimCreate(DealerID,txtQuotation.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
             gvQuotation.DataSource = Quote;
             gvQuotation.DataBind();
 
@@ -136,41 +138,57 @@ namespace DealerManagementSystem.ViewSales
         }
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            divColdVisitView.Visible = true;
-            btnBackToList.Visible = true;
-            divList.Visible = false;
+            //divColdVisitView.Visible = true;
+            //btnBackToList.Visible = true;
+            //divList.Visible = false;
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblQuotationID = (Label)gvRow.FindControl("lblQuotationID");
 
-            lblMessage.Visible = true;
+            
 
             int IsAmount = 0;
-            decimal Amount = 0;
+            decimal Value = 0;
             TextBox txtAmount = (TextBox)gvRow.FindControl("txtAmount");
             TextBox txtPercentage = (TextBox)gvRow.FindControl("txtPercentage");
-            if (Convert.ToDecimal("0" + txtAmount.Text) == 0)
+            
+            
+            if (Convert.ToDecimal("0" + txtAmount.Text) != 0)
             {
                 IsAmount = 1;
-                Amount = Convert.ToDecimal("0" + txtAmount.Text);
+                Value = Convert.ToDecimal("0" + txtAmount.Text);
+                Label lblAmount = (Label)gvRow.FindControl("lblAmount");
+                if (Convert.ToDecimal(lblAmount.Text) < Value)
+                {
+                    lblMessage.Text = "Amount is not grater then " + lblAmount.Text;
+                    return;
+                }
             }
             else
             {
                 IsAmount = 2;
-                Amount = Convert.ToDecimal("0" + txtPercentage.Text);
+                Value = Convert.ToDecimal("0" + txtPercentage.Text);
+                Label lblPercentage = (Label)gvRow.FindControl("lblPercentage");
+                if (Convert.ToDecimal(lblPercentage.Text) < Value)
+                {
+                    lblMessage.Text = "Percentage is not grater then "+ lblPercentage.Text;
+                    return;
+                }
             }
 
 
-            string endPoint = "SalesCommission/InsertSalesCommissionClaim?SalesQuotationID=" + lblQuotationID.Text+ "&IsAmount="+ IsAmount + "&Amount=" + Amount;
+            string endPoint = "SalesCommission/InsertSalesCommissionClaim?SalesQuotationID=" + lblQuotationID.Text+ "&IsAmount="+ IsAmount + "&Value=" + Value;
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = Results.Message;
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = Results.Message; 
                 return;
             }
             lblMessage.Text = "Updated Successfully";
             lblMessage.ForeColor = Color.Green;
+            FillQuotation();
         }
     }
 }

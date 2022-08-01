@@ -47,7 +47,12 @@ namespace Properties
             }
         }
         public string MaterialDescription { get; set; }
-        public string MaterialCode_MaterialDescription { get; set; }
+        public string MaterialCode_MaterialDescription {
+            get
+            { 
+                return MaterialCode +" "+ MaterialDescription;
+            } 
+        }
         public string MaterialSerialNumber { get; set; }
         public string BaseUnit { get; set; }
         public string MaterialType { get; set; }

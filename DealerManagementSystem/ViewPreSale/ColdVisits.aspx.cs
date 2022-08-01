@@ -36,7 +36,7 @@ namespace DealerManagementSystem.ViewPreSale
                 //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
                 //new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
 
-                new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
 
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");

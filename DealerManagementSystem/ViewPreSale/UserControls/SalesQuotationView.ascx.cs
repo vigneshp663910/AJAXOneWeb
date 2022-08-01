@@ -1793,25 +1793,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             string Message = "";
 
-            if( Quotation.ValidFrom == null)
+            if (Quotation.ValidFrom == null)
             {
                 return "Please update the Valid From";
             }
             if (Quotation.ValidTo == null)
             {
                 return "Please update the Valid To";
-            } 
+            }
             if (Quotation.PricingDate == null)
             {
                 return "Please update the Pricing Date";
             }
             if (Quotation.QuotationItems.Count == 0)
-            { 
+            {
                 return "Please update the Material";
             }
             if (Quotation.Competitor.Count == 0)
             {
                 return "Please update the Competitor";
+            }
+            List<PLeadQuestionaries> Questionaries = new BLead().GetLeadQuestionaries(Quotation.Lead.LeadID);
+            if (Questionaries.Count == 0)
+            {
+                return "Please Add the Questionaries";
             }
             return Message;
         }

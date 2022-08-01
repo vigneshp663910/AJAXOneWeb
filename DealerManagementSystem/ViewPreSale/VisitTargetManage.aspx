@@ -94,14 +94,14 @@
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblVisitTargetID" Text='<%# DataBinder.Eval(Container.DataItem, "VisitTargetID")%>' runat="server" Visible="false" />
-                                <asp:Label ID="lblDealerEmployeeID" Text='<%# DataBinder.Eval(Container.DataItem, "Employee.DealerEmployeeID")%>' runat="server" Visible="false" />
+                                <asp:Label ID="lblEngineerID" Text='<%# DataBinder.Eval(Container.DataItem, "Engineer.UserID")%>' runat="server" Visible="false" />
                                 <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerID")%>' runat="server" Visible="false" />
                                 <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Employee Name" SortExpression="EmployeeName">
                             <ItemTemplate>
-                                <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Employee.Name")%>' runat="server" />
+                                <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Engineer.ContactName")%>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
 

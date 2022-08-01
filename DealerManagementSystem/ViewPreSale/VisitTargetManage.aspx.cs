@@ -29,10 +29,11 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 FillYearAndMonth();
 
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
-                new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
+                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+                //new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
 
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlEmployee);
+               // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
 
                 if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditVisitTarget).Count() != 0)
@@ -150,14 +151,13 @@ namespace DealerManagementSystem.ViewPreSale
             btnEdit.Text = "Edit";
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? EmployeeUserId = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
             int? DepartmentID = null;
-            int? DealerEmployeeID = null;
+            int? EngineerID = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
             //gvVisitTarget.DataSource = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID);
 
             // TO VERIFY WITH JOHN
-            VT = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, DealerEmployeeID, PSession.User.UserID, EmployeeUserId);
+            VT = new BColdVisit().GetVisitTarget(Year, Month, DealerID, DepartmentID, EngineerID);
             gvVisitTarget.DataSource = VT;
             gvVisitTarget.DataBind();
 
@@ -184,7 +184,7 @@ namespace DealerManagementSystem.ViewPreSale
             for (int i = 0; i < gvVisitTarget.Rows.Count; i++)
             {
                 Label lblVisitTargetID = (Label)gvVisitTarget.Rows[i].FindControl("lblVisitTargetID");
-                Label lblDealerEmployeeID = (Label)gvVisitTarget.Rows[i].FindControl("lblDealerEmployeeID");
+                Label lblEngineerID = (Label)gvVisitTarget.Rows[i].FindControl("lblEngineerID");
                 Label lblDealerID = (Label)gvVisitTarget.Rows[i].FindControl("lblDealerID");
                 Label lblYear = (Label)gvVisitTarget.Rows[i].FindControl("lblYear");
                 Label lblMonth = (Label)gvVisitTarget.Rows[i].FindControl("lblMonth");
@@ -197,7 +197,7 @@ namespace DealerManagementSystem.ViewPreSale
                 {
                     VisitTargetID = Convert.ToInt64(lblVisitTargetID.Text),
                     Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(lblDealerID.Text) },
-                    Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(lblDealerEmployeeID.Text) },
+                    Engineer = new PUser() { UserID = Convert.ToInt32(lblEngineerID.Text) },
                     Year = Convert.ToInt32(lblYear.Text),
                     
                     Month = DateTime.ParseExact(lblMonth.Text, "MMM", CultureInfo.CurrentCulture).Month,

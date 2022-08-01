@@ -31,7 +31,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!IsPostBack)
             {
-                new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 if (Request.QueryString["Quotation"] != null)
                 {
                     divColdVisitView.Visible = true;
