@@ -23,6 +23,9 @@ namespace DealerManagementSystem.Account
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 FillUser();
             }
@@ -68,7 +71,10 @@ namespace DealerManagementSystem.Account
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + UserLst.Count;
         }
 
-
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+        }
         void FillUser()
         {
             bool? IsEnabled = null;
@@ -82,7 +88,10 @@ namespace DealerManagementSystem.Account
             bool? ajaxOne = null;
             if (ddlAJAXOne.SelectedValue == "1") { ajaxOne = true; } else if (ddlAJAXOne.SelectedValue == "2") { ajaxOne = false; }
 
-            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, null, null, null);
+            int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, null, DepartmentID, DesignationID);
             UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.ajaxOne == ajaxOne) || (ajaxOne == null)));
             gvEmployee.DataSource = UserLst;
 

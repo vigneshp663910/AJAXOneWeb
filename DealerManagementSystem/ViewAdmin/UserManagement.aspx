@@ -44,6 +44,15 @@
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
                     </div>
+
+                    <div class="col-md-2 text-left">
+                        <label>Department</label> 
+                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2 text-left">
+                        <label>Designation</label> 
+                        <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                    </div>
                     <div class="col-md-12 text-center">
                         <%--<br />--%>
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
@@ -110,7 +119,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                 <asp:TemplateField HeaderText="Dealer Code">
+                                <asp:TemplateField HeaderText="Dealer Code">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblExternalReferenceID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "ExternalReferenceID")%>'></asp:Label>
@@ -145,7 +154,7 @@
                                 <asp:TemplateField HeaderText="Mail">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="350px" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMail" runat="server" CssClass="label"  >
+                                        <asp:Label ID="lblMail" runat="server" CssClass="label">
                                              <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Mail")%>'><%# DataBinder.Eval(Container.DataItem, "Mail")%></a>
                                         </asp:Label>
                                         <asp:TextBox ID="txtMail" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>' Visible="false"></asp:TextBox>
@@ -160,8 +169,8 @@
                                         <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
-                               
+
+
                                 <asp:TemplateField HeaderText="Is Locked?" ItemStyle-Width="80px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>
@@ -222,7 +231,7 @@
                                         <asp:CheckBox ID="cbIsTechnician" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
+
 
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
@@ -251,6 +260,18 @@
                     <asp:Label ID="Label3" runat="server" Text="Username: " CssClass="label"></asp:Label></td>
                 <td>
                     <asp:Label ID="lblUserName" runat="server" CssClass="label"></asp:Label></td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label2" runat="server" Text="Department: " CssClass="label"></asp:Label></td>
+                <td>
+                    <asp:Label ID="lblDepartment" runat="server" CssClass="label"></asp:Label></td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label5" runat="server" Text="Designation: " CssClass="label"></asp:Label></td>
+                <td>
+                    <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label></td>
             </tr>
             <tr>
                 <td colspan="5">
@@ -320,7 +341,7 @@
             </asp:GridView>
         </div>
 
-<%--        <table>
+        <%--        <table>
             <tr>
                 <td>
                     <div>

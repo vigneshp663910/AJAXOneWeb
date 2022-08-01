@@ -138,6 +138,14 @@
                                 <asp:ListItem Value="2">InActive</asp:ListItem>
                             </asp:DropDownList>
                         </div>
+                        <div class="col-md-2 text-left">
+                            <label>Department</label>
+                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Designation</label>
+                            <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
                         </div>

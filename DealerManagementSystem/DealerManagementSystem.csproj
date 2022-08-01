@@ -384,6 +384,7 @@
     <Content Include="ViewDashboard\UserControls\LeadStatusAssigned.ascx" />
     <Content Include="ViewDashboard\UserControls\LeadStatusOpen.ascx" />
     <Content Include="ViewDashboard\UserControls\LeadStatusQuotation.ascx" />
+    <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
@@ -1032,6 +1033,12 @@
     </Compile>
     <Compile Include="ViewDashboard\UserControls\LeadStatusQuotation.ascx.designer.cs">
       <DependentUpon>LeadStatusQuotation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.cs">
+      <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
+      <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
