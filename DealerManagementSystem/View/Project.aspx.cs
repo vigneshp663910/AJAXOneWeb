@@ -245,8 +245,8 @@ namespace DealerManagementSystem.View
                     lblProjectName.Text = project.ProjectName;
                     lblEmailDate.Text = project.EmailDate.ToString("dd/MM/yyyy HH:mm:ss");
                     lblTenderNumber.Text = project.TenderNumber;
-                    lblState.Text = project.State.State.ToString();
-                    lblDistrict.Text = project.District.District.ToString();
+                    lblState.Text = (project.State == null) ? "" : project.State.State.ToString();
+                    lblDistrict.Text = (project.District == null) ? "" : project.District.District.ToString();
                     lblValue.Text = project.Value.ToString();
                     lblL1ContractorName.Text = project.L1ContractorName;
                     lblAddress1.Text = project.L1ContractorAddress;
@@ -345,8 +345,8 @@ namespace DealerManagementSystem.View
                     txtTenderNumber.Text = project.TenderNumber;
                     new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
                     new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
-                    ddlState.SelectedValue = project.State.StateID.ToString();
-                    ddlDistrict.SelectedValue = project.District.DistrictID.ToString();
+                    ddlState.SelectedValue = (project.State == null) ? "0" : project.State.StateID.ToString();
+                    ddlDistrict.SelectedValue = (project.District == null) ? "0" : project.District.DistrictID.ToString();
                     txtValue.Text = project.Value.ToString();
                     txtL1ContractorName.Text = project.L1ContractorName;
                     txtAddress1.Text = project.L1ContractorAddress;
@@ -517,7 +517,7 @@ namespace DealerManagementSystem.View
                                         //project.ProjectNumber = "";
                                         project.TenderNumber = dr[2].ToString().Trim();
                                         List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, string.IsNullOrEmpty(dr[7].ToString()) ? null : dr[7].ToString());
-                                        
+
                                         if (!string.IsNullOrEmpty(dr[7].ToString()))
                                         {
                                             if (State.Count > 0)
@@ -526,7 +526,7 @@ namespace DealerManagementSystem.View
                                                 project.State.StateID = State[0].StateID;
                                             }
                                         }
-                                        List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (project.State==null)?(int?)null:project.State.StateID, null, string.IsNullOrEmpty(dr[8].ToString()) ? null : dr[8].ToString(), null, "true");
+                                        List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (project.State == null) ? (int?)null : project.State.StateID, null, string.IsNullOrEmpty(dr[8].ToString()) ? null : dr[8].ToString(), null, "true");
                                         if (!string.IsNullOrEmpty(dr[8].ToString()))
                                         {
                                             if (District.Count > 0)
@@ -535,7 +535,7 @@ namespace DealerManagementSystem.View
                                                 project.District.DistrictID = District[0].DistrictID;
                                             }
                                         }
-                                        project.Value = string.IsNullOrEmpty(dr[4].ToString())? project.Value : Convert.ToDecimal(dr[4].ToString().Trim());
+                                        project.Value = string.IsNullOrEmpty(dr[4].ToString()) ? project.Value : Convert.ToDecimal(dr[4].ToString().Trim());
                                         project.L1ContractorName = dr[5].ToString().Trim();
                                         project.L1ContractorAddress = dr[6].ToString().Trim();
                                         project.L2Bidder = dr[9].ToString().Trim();
