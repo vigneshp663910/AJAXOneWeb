@@ -467,7 +467,7 @@ namespace DealerManagementSystem.View
             try
             {
                 DivUpload.Visible = true;
-
+                Boolean Success = false;
                 if (BtnUpload.Text == "Submit")
                 {
                     if (fileUpload.PostedFile != null)
@@ -506,17 +506,66 @@ namespace DealerManagementSystem.View
                                             i++;
                                         }
                                     }
-                                    lblMessage.Text = "Your file was uploaded : " + dt.Rows.Count;
-                                    lblMessage.ForeColor = System.Drawing.Color.Green;
-                                    //GridView1.DataSource = dt;
-                                    //GridView1.DataBind();
+                                }
+                                if (dt.Rows.Count > 0)
+                                {
+                                    Success = true;
+                                    foreach (DataRow dr in dt.Rows)
+                                    {
+                                        PProject project = new PProject();
+                                        project.ProjectName = dr[14].ToString().Trim();
+                                        //project.ProjectNumber = "";
+                                        project.TenderNumber = dr[2].ToString().Trim();
+                                        List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, string.IsNullOrEmpty(dr[7].ToString()) ? null : dr[7].ToString());
+                                        
+                                        if (!string.IsNullOrEmpty(dr[7].ToString()))
+                                        {
+                                            if (State.Count > 0)
+                                            {
+                                                project.State = new PDMS_State();
+                                                project.State.StateID = State[0].StateID;
+                                            }
+                                        }
+                                        List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (project.State==null)?(int?)null:project.State.StateID, null, string.IsNullOrEmpty(dr[8].ToString()) ? null : dr[8].ToString(), null, "true");
+                                        if (!string.IsNullOrEmpty(dr[8].ToString()))
+                                        {
+                                            if (District.Count > 0)
+                                            {
+                                                project.District = new PDMS_District();
+                                                project.District.DistrictID = District[0].DistrictID;
+                                            }
+                                        }
+                                        project.Value = string.IsNullOrEmpty(dr[4].ToString())? project.Value : Convert.ToDecimal(dr[4].ToString().Trim());
+                                        project.L1ContractorName = dr[5].ToString().Trim();
+                                        project.L1ContractorAddress = dr[6].ToString().Trim();
+                                        project.L2Bidder = dr[9].ToString().Trim();
+                                        project.L3Bidder = dr[10].ToString().Trim();
+                                        project.Remarks = dr[13].ToString().Trim();
+                                        if (!string.IsNullOrEmpty(project.TenderNumber))
+                                        {
+                                            if ((new BProject().InsertOrUpdateProject_ForExcelUpload(project, dr[1].ToString(), dr[11].ToString(), dr[12].ToString())) == false)
+                                            {
+                                                Success = false;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (Success)
+                                {
+                                    lblMessage.Text = "Project Was Uploaded Successfully...";
+                                    lblMessage.ForeColor = Color.Green;
+                                    ClearField();
+                                }
+                                else
+                                {
+                                    lblMessage.Text = "Project Not Uploaded Successfully...!";
+                                    lblMessage.ForeColor = Color.Red;
                                 }
                             }
-
                         }
                         catch (Exception ex)
                         {
-                            lblMessage.Text = "Your file not uploaded";
+                            lblMessage.Text = ex.ToString();
                             lblMessage.ForeColor = System.Drawing.Color.Red;
                         }
                     }
