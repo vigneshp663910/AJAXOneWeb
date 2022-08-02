@@ -143,7 +143,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (lbActions.Text == "Convert To Lead")
             {
                 MPE_CustomerSelect.Show();  
-                gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile);
+                gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile, Enquiry.State.StateID);
                 gvCustomer.DataBind();
             }
             if (lbActions.Text == "Reject")
@@ -230,7 +230,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             gvCustomer.PageIndex = e.NewPageIndex;
             MPE_CustomerSelect.Show();
-            gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile);
+            gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile, Enquiry.State.StateID);
             gvCustomer.DataBind();
 
         }

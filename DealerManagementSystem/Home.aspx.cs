@@ -328,11 +328,11 @@ namespace DealerManagementSystem
                     ucICTicketEscalationOnBreakdownCount.ID = "ucICTicketEscalationOnBreakdownCount";
                     uc = ucICTicketEscalationOnBreakdownCount;
                     break;
-                //case DashboardControl.DebitNoteAcknowledgePending:
-                //    WarrantyClaimDebitNoteAcknowledgePending ucDMS_WarrantyClaimDebitNoteAcknowledgePending = (WarrantyClaimDebitNoteAcknowledgePending)_page.LoadControl("~/Dashboard/WarrantyClaimDebitNoteAcknowledgePending.ascx");
-                //    ucDMS_WarrantyClaimDebitNoteAcknowledgePending.ID = "ucDMS_WarrantyClaimDebitNoteAcknowledgePending";
-                //    uc = ucDMS_WarrantyClaimDebitNoteAcknowledgePending;
-                //    break;
+                case DashboardControl.DebitNoteAcknowledgePending:
+                    WarrantyClaimDebitNoteAcknowledgePending ucWarrantyClaimDebitNoteAcknowledgePending = (WarrantyClaimDebitNoteAcknowledgePending)_page.LoadControl("~/ViewDashboard/UserControls/WarrantyClaimDebitNoteAcknowledgePending.ascx");
+                    ucWarrantyClaimDebitNoteAcknowledgePending.ID = "ucWarrantyClaimDebitNoteAcknowledgePending";
+                    uc = ucWarrantyClaimDebitNoteAcknowledgePending;
+                    break;
                 case DashboardControl.LeadStatusOpen:
                     LeadStatusOpen StatusOpen = (LeadStatusOpen)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusOpen.ascx");
                     StatusOpen.ID = "ucLeadStatusOpen";

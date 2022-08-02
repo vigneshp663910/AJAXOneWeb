@@ -39,7 +39,8 @@ namespace Business
                 ddl.Items.Insert(0, new ListItem(Select, "0"));
             for (int i = 1; i <= 12; i++)
             {
-                ddl.Items.Add(new ListItem(i.ToString(), i.ToString()));
+                DateTime date = new DateTime(2020, i, 1);
+                ddl.Items.Add(new ListItem(date.ToString("MMMM"), i.ToString()));
             } 
         }
 

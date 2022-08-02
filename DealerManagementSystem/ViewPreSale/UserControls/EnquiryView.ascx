@@ -6,7 +6,7 @@
 
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
- 
+
 
 <div class="col-md-12">
     <div class="action-btn">
@@ -72,7 +72,7 @@
                     <label>Mail : </label>
                     <asp:Label ID="lblMail" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
+
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -95,7 +95,7 @@
                     <label>Remarks : </label>
                     <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
+
             </div>
         </div>
     </fieldset>
@@ -103,24 +103,24 @@
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpEnquiry" runat="server" ToolTip="Enquiry Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
-  
+
     <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Customer" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <%--<div class="col-md-12">--%>
-               <%-- <div class="col-md-12 Report">--%>
-                    <%--<div class="table-responsive">--%>
-                       <%-- <div class="col-md-12 field-margin-top">--%>
-                            <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
-                       <%-- </div>--%>
-                  <%--  </div>--%>
-               <%-- </div>--%>
-          <%--  </div>--%>
+            <%-- <div class="col-md-12 Report">--%>
+            <%--<div class="table-responsive">--%>
+            <%-- <div class="col-md-12 field-margin-top">--%>
+            <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
+            <%-- </div>--%>
+            <%--  </div>--%>
+            <%-- </div>--%>
+            <%--  </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Lead" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <%--<div class="col-md-12 field-margin-top">--%>
-                <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
+            <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
             <%--</div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
@@ -249,13 +249,14 @@
             <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <div style="display: none">
-            <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
-            <asp:TextBox ID="txtCustomerNameS" runat="server" />
-            <asp:TextBox ID="txtContactPersonS" runat="server" />
-            <asp:TextBox ID="txtMobileS" runat="server" />
-        </div>
         <div class="model-scroll">
+            <div style="display: none">
+                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCustomerNameS" runat="server" />
+                <asp:TextBox ID="txtContactPersonS" runat="server" />
+                <asp:TextBox ID="txtMobileS" runat="server" />
+            </div>
+
             <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
                 <asp:Panel ID="pnlCustomerOld" runat="server">
