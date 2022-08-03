@@ -15,11 +15,11 @@
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                         <div class="col-md-12">
-                            <div class="col-md-2 text-left">
+                           <%-- <div class="col-md-2 text-left">
                                 <label>Plant</label>
-                                <asp:DropDownList ID="ddlPlant" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlPlant" runat="server" CssClass="form-control"></asp:DropDownList>--%>
                                 <%--OnSelectedIndexChanged="ddlPlant_SelectedIndexChanged" AutoPostBack="true"--%>
-                            </div>
+                            <%--</div>--%>
                             <div class="col-md-2 text-left">
                                 <label>Material</label>
                                 <%--<asp:DropDownList ID="ddlMaterial" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMaterial_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>--%>
@@ -69,17 +69,17 @@
                                                             <asp:Label ID="lblSalesCommissionClaimPriceID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimPriceID")%>' runat="server" Visible="false" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Plant" HeaderStyle-Width="120px">
+                                                    <%--<asp:TemplateField HeaderText="Plant" HeaderStyle-Width="120px">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblPlant" Text='<%# DataBinder.Eval(Container.DataItem, "PlantName.PlantCode")%>' runat="server" />
                                                             <asp:Label ID="lblPlantID" Text='<%# DataBinder.Eval(Container.DataItem, "PlantName.PlantID")%>' runat="server" Visible="false" />
                                                         </ItemTemplate>
-                                                        <FooterTemplate>
+                                                        <FooterTemplate>--%>
                                                             <%--<asp:TextBox ID="txtPlant" runat="server" placeholder="Plant" CssClass="form-control"></asp:TextBox>--%>
-                                                            <asp:DropDownList ID="ddlGPlant" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                            <%--<asp:DropDownList ID="ddlGPlant" runat="server" CssClass="form-control"></asp:DropDownList>
                                                         </FooterTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
                                                     <asp:TemplateField HeaderText="Material Code">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>

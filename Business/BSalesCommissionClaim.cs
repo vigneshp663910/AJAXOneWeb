@@ -322,15 +322,59 @@ namespace Business
             }
             return null;
         }
-        public List<PSalesCommissionClaimPrice> GetSalesCommissionClaimPrice(int? PlantID, string Material)
+        //public List<PSalesCommissionClaimPrice> GetSalesCommissionClaimPrice(int? PlantID, string Material)
+        //{
+        //    List<PSalesCommissionClaimPrice> MML = new List<PSalesCommissionClaimPrice>();
+        //    try
+        //    {
+        //        DbParameter PlantIDP = provider.CreateParameter("PlantID", PlantID, DbType.Int32);
+        //        DbParameter MaterailP = provider.CreateParameter("Material", String.IsNullOrEmpty(Material) ? null : Material, DbType.String);
+
+        //        DbParameter[] Params = new DbParameter[2] { PlantIDP, MaterailP };
+        //        using (DataSet DataSet = provider.Select("GetSalesCommissionClaimPrice", Params))
+        //        {
+        //            if (DataSet != null)
+        //            {
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
+        //                    MML.Add(new PSalesCommissionClaimPrice()
+        //                    {
+        //                        SalesCommissionClaimPriceID = Convert.ToInt32(dr["SalesCommissionClaimPriceID"]),
+        //                        PlantName = new PPlant()
+        //                        {
+        //                            PlantCode = Convert.ToString(dr["PlantCode"]),
+        //                            PlantID = Convert.ToInt32(dr["PlantID"]),
+        //                        }, 
+        //                        Materail = new PDMS_Material()
+        //                        {
+        //                            MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
+        //                            MaterialCode = Convert.ToString(dr["MaterialCode"]),
+        //                            MaterialID=Convert.ToInt32(dr["MaterialID"])
+        //                        }, 
+
+        //                        Percentage = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Percentage"]),
+        //                        Amount = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Amount"]),
+        //                        IsActive = dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(dr["IsActive"])
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return MML;
+        //}
+
+        public List<PSalesCommissionClaimPrice> GetSalesCommissionClaimPrice(string Material)
         {
             List<PSalesCommissionClaimPrice> MML = new List<PSalesCommissionClaimPrice>();
             try
             {
-                DbParameter PlantIDP = provider.CreateParameter("PlantID", PlantID, DbType.Int32);
                 DbParameter MaterailP = provider.CreateParameter("Material", String.IsNullOrEmpty(Material) ? null : Material, DbType.String);
 
-                DbParameter[] Params = new DbParameter[2] { PlantIDP, MaterailP };
+                DbParameter[] Params = new DbParameter[1] { MaterailP };
                 using (DataSet DataSet = provider.Select("GetSalesCommissionClaimPrice", Params))
                 {
                     if (DataSet != null)
@@ -340,17 +384,17 @@ namespace Business
                             MML.Add(new PSalesCommissionClaimPrice()
                             {
                                 SalesCommissionClaimPriceID = Convert.ToInt32(dr["SalesCommissionClaimPriceID"]),
-                                PlantName = new PPlant()
-                                {
-                                    PlantCode = Convert.ToString(dr["PlantCode"]),
-                                    PlantID = Convert.ToInt32(dr["PlantID"]),
-                                }, 
+                                //PlantName = new PPlant()
+                                //{
+                                //    PlantCode = Convert.ToString(dr["PlantCode"]),
+                                //    PlantID = Convert.ToInt32(dr["PlantID"]),
+                                //},
                                 Materail = new PDMS_Material()
                                 {
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
-                                    MaterialID=Convert.ToInt32(dr["MaterialID"])
-                                }, 
+                                    MaterialID = Convert.ToInt32(dr["MaterialID"])
+                                },
 
                                 Percentage = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Percentage"]),
                                 Amount = dr["Percentage"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(dr["Amount"]),
@@ -366,17 +410,49 @@ namespace Business
             { }
             return MML;
         }
-        public Boolean InsertOrUpdateSalesCommissionClaimPrice(int? SalesCommissionClaimPriceID, int? PlantID, int? MaterialID, decimal Percentage, decimal Amount, int UserID, Boolean IsActive)
+        //public Boolean InsertOrUpdateSalesCommissionClaimPrice(int? SalesCommissionClaimPriceID, int? PlantID, int? MaterialID, decimal Percentage, decimal Amount, int UserID, Boolean IsActive)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    DbParameter SalesCommissionClaimPriceIDP = provider.CreateParameter("SalesCommissionClaimPriceID", SalesCommissionClaimPriceID, DbType.Int32);
+        //    DbParameter PlantIDP = provider.CreateParameter("PlantID", PlantID, DbType.Int32);
+        //    DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
+        //    DbParameter PercentageP = provider.CreateParameter("Percentage",Percentage, DbType.Decimal);
+        //    DbParameter AmountP = provider.CreateParameter("Amount",  Amount, DbType.Decimal);
+        //    DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+        //    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //    DbParameter[] Params = new DbParameter[7] { SalesCommissionClaimPriceIDP, PlantIDP, MaterialIDP, PercentageP, AmountP, IsActiveP, UserIDP };
+        //    try
+        //    {
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            provider.Insert("InsertOrUpdateSalesCommissionClaimPrice", Params);
+        //            scope.Complete();
+        //        }
+        //        return true;
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BSalesCommissionClaim", " InsertOrUpdateSalesCommissionClaimPrice", sqlEx);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BSalesCommissionClaim", "  InsertOrUpdateSalesCommissionClaimPrice", ex);
+        //    }
+
+        //    TraceLogger.Log(DateTime.Now);
+        //    return false;
+        //}
+
+        public Boolean InsertOrUpdateSalesCommissionClaimPrice(int? SalesCommissionClaimPriceID, int? MaterialID, decimal Percentage, decimal Amount, int UserID, Boolean IsActive)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter SalesCommissionClaimPriceIDP = provider.CreateParameter("SalesCommissionClaimPriceID", SalesCommissionClaimPriceID, DbType.Int32);
-            DbParameter PlantIDP = provider.CreateParameter("PlantID", PlantID, DbType.Int32);
             DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
-            DbParameter PercentageP = provider.CreateParameter("Percentage",Percentage, DbType.Decimal);
-            DbParameter AmountP = provider.CreateParameter("Amount",  Amount, DbType.Decimal);
+            DbParameter PercentageP = provider.CreateParameter("Percentage", Percentage, DbType.Decimal);
+            DbParameter AmountP = provider.CreateParameter("Amount", Amount, DbType.Decimal);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[7] { SalesCommissionClaimPriceIDP, PlantIDP, MaterialIDP, PercentageP, AmountP, IsActiveP, UserIDP };
+            DbParameter[] Params = new DbParameter[6] { SalesCommissionClaimPriceIDP, MaterialIDP, PercentageP, AmountP, IsActiveP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -398,5 +474,6 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return false;
         }
+
     }
 }
