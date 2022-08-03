@@ -192,7 +192,13 @@
                                         <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
+                                <asp:TemplateField HeaderText="Is Technician?" ItemStyle-Width="80px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
+                                    <ItemTemplate>
+                                        <%--<asp:Label ID="lblIsTechnician" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>'></asp:Label>--%>
+                                        <asp:CheckBox ID="cbIsTechnician" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" ItemStyle-Width="140px">
                                     <ItemTemplate>
                                         <table>
@@ -224,13 +230,7 @@
                                         <asp:Label ID="lblLastLoginDate" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "LastLoginDate")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Is Technician?" ItemStyle-Width="80px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
-                                    <ItemTemplate>
-                                        <%--<asp:Label ID="lblIsTechnician" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>'></asp:Label>--%>
-                                        <asp:CheckBox ID="cbIsTechnician" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                
 
 
                             </Columns>

@@ -158,4 +158,35 @@
         <%--</asp:TabPanel>
         </asp:TabContainer>--%>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GridRowDisable('MainContent_gvSalCommClaimPrice', 'MainContent_gvSalCommClaimPrice_lblMaterialCode_')
+            //var gvSalCommClaimPrice = document.getElementById('MainContent_tbpLocation_tbpnlCountry_gvCountry');
+
+            //if (gvSalCommClaimPrice != null) {
+            //    for (var i = 0; i < gvSalCommClaimPrice.rows.length - 1; i++) {
+            //        var lblMaterialCode = document.getElementById('MainContent_gvSalCommClaimPrice_lblMaterialCode_' + i);
+            //        if (lblMaterialCode != null) {
+            //            if (lblMaterialCode.innerHTML == "") {
+            //                lblMaterialCode.parentNode.parentNode.style.display = "none";
+            //            }
+            //        }
+            //    }
+            //}
+        });
+
+        function GridRowDisable(gv, lbl) {
+            var gvCountry = document.getElementById(gv);
+            if (gvCountry != null) {
+                for (var i = 0; i < gvCountry.rows.length - 1; i++) {
+                    var lblMaterialCode = document.getElementById(lbl + i);
+                    if (lblMaterialCode != null) {
+                        if (lblMaterialCode.innerHTML == "") {
+                            lblMaterialCode.parentNode.parentNode.style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </asp:Content>

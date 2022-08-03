@@ -120,7 +120,6 @@ namespace DealerManagementSystem.ViewMaster
                 //SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(PlantID, Materail);
                 SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(Materail);
 
-
                 if (SalesCommClaimPrice.Count == 0)
                 {
                     SalesCommClaimPrice.Add(new PSalesCommissionClaimPrice());
@@ -142,7 +141,7 @@ namespace DealerManagementSystem.ViewMaster
                     lblRowCountSalCommClaimPrice.Text = (((gvSalCommClaimPrice.PageIndex) * gvSalCommClaimPrice.PageSize) + 1) + " - " + (((gvSalCommClaimPrice.PageIndex) * gvSalCommClaimPrice.PageSize) + gvSalCommClaimPrice.Rows.Count) + " of " + SalesCommClaimPrice.Count;
                 }
 
-                DropDownList ddlGPlant = gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant") as DropDownList;
+                //DropDownList ddlGPlant = gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant") as DropDownList;
                 //new DDLBind(ddlGPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID", true, "Select Plant");
             }
             catch (Exception e1)
