@@ -2441,11 +2441,14 @@
                                 <button class="dropbtn1"><i class="fa fa-list font-white" style="color: lightgray"></i></button>
 
                                 <div class="dropdown-content" style="font-size: small">
-                                    <div class="dropdown-header">Lead Management</div>
+                                    <div class="dropdown-header">Quick Create</div>
+                                    <a href="/ViewActivity/Activity"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Activity</a>
+                                    <a href="/ViewMaster/Customer"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Customer</a>
                                     <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Lead</a>
                                     <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Inter-Dealer Lead</a>
                                     <a href="/ViewPreSale/ColdVisits"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Customer Visits</a>
                                     <a href="/ViewPreSale/ManageLeadFoloowUps.aspx"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Manage Followup</a>
+                                    <a href="/ViewPreSale/Lead"><i class="fa fa-mercury" style='color: #ff6666'></i>&nbsp;&nbsp;Create Quotation</a>
                                 </div>
                             </div>
 
