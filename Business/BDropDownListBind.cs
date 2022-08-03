@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,8 +39,27 @@ namespace Business
                 ddl.Items.Insert(0, new ListItem(Select, "0"));
             for (int i = 1; i <= 12; i++)
             {
-                ddl.Items.Add(new ListItem(i.ToString(), i.ToString()));
+                DateTime date = new DateTime(2020, i, 1);
+                ddl.Items.Add(new ListItem(date.ToString("MMMM"), i.ToString()));
             } 
+        }
+
+        public void FillDealerAndEngneer(DropDownList ddlDealer, DropDownList ddlEngneer)
+        {
+            int DesignationID = PSession.User.Designation.DealerDesignationID;
+            if ((DesignationID == (short)DealerDesignation.SalesExecutive) || (DesignationID == (short)DealerDesignation.ServiceTechnician))
+            {
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", false);
+                List<PUser> DealerUser = new List<PUser>();
+                DealerUser.Add(PSession.User);
+                new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID", false);
+            }
+            else
+            {
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+                new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID");
+            }
         }
     }
 }

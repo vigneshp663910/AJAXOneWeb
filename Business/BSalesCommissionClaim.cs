@@ -23,10 +23,10 @@ namespace Business
         private IDataAccess provider;
 
         public BSalesCommissionClaim() { provider = new ProviderFactory().GetProvider(); }
-        public List<PSalesQuotation> GetSalesQuotationForClaimCreate(string QuotationNo, string QuotationDateFrom, string QuotationDateTo)
+        public List<PSalesCommissionClaim> GetSalesQuotationForClaimCreate(int? DealerID, string QuotationNo, string QuotationDateFrom, string QuotationDateTo)
         {
-            string endPoint = "SalesCommission/SalesQuotationForClaimCreate?QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo;
-            return JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            string endPoint = "SalesCommission/SalesQuotationForClaimCreate?DealerID="+ DealerID + " & QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo;
+            return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public int InsertSalesCommissionClaim(long SalesQuotationID)
         {

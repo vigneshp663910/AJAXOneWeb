@@ -17,14 +17,22 @@
                         <label class="modal-label">Dealer Employee</label>
                         <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-2 col-sm-12">
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Year</label>
+                        <asp:DropDownList ID="ddlYear" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
+                    </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Month</label>
+                        <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
+                    </div>
+                   <%-- <div class="col-md-2 col-sm-12">
                         <label class="modal-label">From Date</label>
                         <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">To Date</label>
                         <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                    </div>
+                    </div>--%>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />

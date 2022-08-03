@@ -57,12 +57,19 @@ namespace DealerManagementSystem.ViewAdmin
             if (!IsPostBack)
             {
                 fillDealerDLL();
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+
                 FillUser();
                 fillDashboard();
-               
+                
             }
         }
 
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+        }
         public List<PUser> UserLst
         {
             get
@@ -124,11 +131,16 @@ namespace DealerManagementSystem.ViewAdmin
             bool? ajaxOne = null;
             if (ddlAJAXOne.SelectedValue == "1") { ajaxOne = true; } else if (ddlAJAXOne.SelectedValue == "2") { ajaxOne = false; }
 
-            List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, null, null);
+            int?  DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+
+            // List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID);
+
+
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
         
-            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, null, null);
+            UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID);
 
             UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.ajaxOne == ajaxOne) || (ajaxOne == null)) && ((m.IsLocked == IsLocked) || (IsLocked == null)));
             gvUser.DataSource = UserLst;
@@ -202,9 +214,11 @@ namespace DealerManagementSystem.ViewAdmin
             PUser u = new BUser().GetUserDetails(UserID);
             lblUserID.Text = u.UserName.ToString();
             lblUserName.Text = u.ContactName;
+            lblDepartment.Text = u.Department.DealerDepartment;
+            lblDesignation.Text = u.Designation.DealerDesignation;
             //if (u.UserTypeID != (short)UserTypes.Dealer)
             //{
-                pnlDealer.Visible = true;
+            pnlDealer.Visible = true;
                 List<PDealer> Dealer = new BDealer().GetDealerByUserID(UserID);
 
                 for (int i = 0; i < dlDealer.Items.Count; i++)

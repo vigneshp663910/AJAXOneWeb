@@ -29,7 +29,7 @@ namespace DealerManagementSystem.ViewPreSale
                 string script = "$(document).ready(function () { $('[id*=btnSubmit]').click(); });";
                 ClientScript.RegisterStartupScript(this.GetType(), "load", script, true);
 
-                new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 List <PLeadQualification > Qualification = new BLead().GetLeadQualification(null, null); 
                 new DDLBind(ddlSQualification, Qualification, "Qualification", "QualificationID");
 

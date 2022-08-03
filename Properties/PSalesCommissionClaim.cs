@@ -24,6 +24,8 @@ namespace Properties
         public PSalesCommissionClaimStatus Status { get; set; }
         public PSalesQuotation Quotation { get; set; }
         public PSalesCommissionClaimItem ClaimItem { get; set; }
+        public PSalesCommissionClaimPrice ClaimPrice { get; set; } 
+        
     }
     [Serializable]
     public class PSalesCommissionClaimItem

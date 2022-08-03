@@ -40,7 +40,7 @@ namespace Properties
             }
         }
         public PDMS_Dealer Dealer { get; set; }
-        public PDMS_DealerEmployee Employee { get; set; }
+        public PUser Engineer { get; set; }
         public int NewCustomerTarget { get; set; }
         public int ProspectCustomerTarget { get; set; }
         public int ExistCustomerTarget { get; set; }

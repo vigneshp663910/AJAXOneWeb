@@ -46,7 +46,9 @@ namespace DealerManagementSystem.ViewPreSale
 
                 if (!IsPostBack)
                 {
-                    new BDealer().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                    new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                    new DDLBind().Year(ddlYear,2022, false);
+                    new DDLBind().Month(ddlMonth, false);
                     //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
                     //new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
                     //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
@@ -137,10 +139,10 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 int? DealerEmployeeID = ddlDealerEmployee.SelectedValue == "0" || ddlDealerEmployee.SelectedValue == "" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-                string FromDate = string.IsNullOrEmpty(txtFromDate.Text)?null:txtFromDate.Text.Trim();
-                string ToDate = string.IsNullOrEmpty(txtToDate.Text)?null: txtToDate.Text.Trim();
+                int Year =   Convert.ToInt32(ddlYear.SelectedValue);
+                int Month = Convert.ToInt32(ddlMonth.SelectedValue); ;
 
-                GVVisitReport = new BColdVisit().GetVisitReport(DealerID, DealerEmployeeID, FromDate, ToDate, PSession.User.UserID);
+                GVVisitReport = new BColdVisit().GetVisitReport(DealerID, DealerEmployeeID, Year, Month, PSession.User.UserID);
                 gvVisitReport.DataSource = GVVisitReport;
                 gvVisitReport.DataBind();
 
