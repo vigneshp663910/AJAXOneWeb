@@ -325,7 +325,25 @@ namespace DealerManagementSystem.ViewPreSale
         {
             try
             {
-                BudgetPlanningYearExportExcel(Lead1, "Customer Visit Report");
+                DateTime? ColdVisitDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
+                DateTime? ColdVisitDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
+
+                long? CustomerID = null;
+                string CustomerCode = null;
+                string CustomerName = txtCustomer.Text.Trim();
+                string Mobile = txtMobile.Text.Trim();
+
+                int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
+                int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+
+                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+                int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+                int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
+                //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
+
+                DataTable dt = new BColdVisit().GetColdVisitExcelDownload(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
+
+                new BXcel().ExporttoExcel(dt, "Visit Detail Report"); 
             }
             catch (Exception ex)
             {

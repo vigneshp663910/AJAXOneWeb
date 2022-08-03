@@ -610,7 +610,13 @@ namespace Business
                 + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
+        public DataTable GetCustomerExcelDownload(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DealerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/ExcelDownload?CustomerID=" + CustomerID + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile
+                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public PDMS_Customer GetCustomerByID(long CustomerID)
         {
             TraceLogger.Log(DateTime.Now);

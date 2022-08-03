@@ -232,9 +232,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            byte[] buffer = new byte[100];
-            Stream stream = new MemoryStream(buffer);
             HttpPostedFile file = fileUpload.PostedFile;
+             
+
             PAttachedFile F = new PAttachedFile();
             int size = file.ContentLength;
             string name = file.FileName;
@@ -245,7 +245,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             file.InputStream.Read(fileData, 0, size);
 
             F.FileName = name;
-            F.AttachedFile = fileData;
+            F.AttachedFile = fileData; 
             F.FileType = file.ContentType;
             F.FileSize = size;
             F.AttachedFileID = 0;
