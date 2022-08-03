@@ -433,8 +433,8 @@ namespace DealerManagementSystem.View
                         , Project.ProjectName
                         , Project.EmailDate
                         , Project.TenderNumber
-                        , Project.State.State
-                        , Project.District.District
+                        , (Project.State==null)?"":Project.State.State
+                        , (Project.District==null)?"":Project.District.District
                         , Project.Value
                         , Project.L1ContractorName
                         , Project.L1ContractorAddress
