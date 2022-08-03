@@ -254,7 +254,16 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                CustomerExportExcel(Cust, "Customer Report");
+                long? CustomerID = null;
+                string CustomerCode = txtCustomerCode.Text.Trim();
+                string CustomerName = txtCustomer.Text.Trim();
+                string Mobile = txtMobile.Text.Trim();
+
+                int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
+                int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+                new BXcel().ExporttoExcel(new BDMS_Customer().GetCustomerExcelDownload(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID), "Customer Report");
+               // CustomerExportExcel(Cust, "Customer Report");
             }
             catch (Exception ex)
             {

@@ -27,6 +27,13 @@ namespace Business
                 + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID + "&ActionTypeID=" + ActionTypeID;
             return JsonConvert.DeserializeObject<List<PColdVisit>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetColdVisitExcelDownload(long? ColdVisitID, DateTime? ColdVisitDateFrom, DateTime? ColdVisitDateTo, long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? ReferenceTableID, long? ReferenceID, int? DealerID, int? SalesEngineerID, int? ActionTypeID)
+        {
+            string endPoint = "ColdVisit/ExcelDownload?ColdVisitID=" + ColdVisitID + "&ColdVisitDateFrom=" + ColdVisitDateFrom + "&ColdVisitDateTo=" + ColdVisitDateTo + "&CustomerID=" + CustomerID
+                + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile + "&CountryID=" + CountryID + "&StateID=" + StateID + "&ReferenceTableID=" + ReferenceTableID + "&ReferenceID=" + ReferenceID
+                + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID + "&ActionTypeID=" + ActionTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PLeadEffort> GetColdVisitEffort(long LeadID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
