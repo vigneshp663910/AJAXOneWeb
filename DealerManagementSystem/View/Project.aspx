@@ -253,7 +253,11 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Project Number" DataField="ProjectNumber"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Project Name" DataField="ProjectName"></asp:BoundField>
+                                    <asp:TemplateField HeaderText="Project Name" ControlStyle-Width="250px">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblProjectName" Text='<%# DataBinder.Eval(Container.DataItem, "ProjectName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField HeaderText="Email Date" DataField="EmailDate"></asp:BoundField>
                                     <asp:BoundField HeaderText="Tender Number" DataField="TenderNumber"></asp:BoundField>
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
