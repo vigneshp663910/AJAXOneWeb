@@ -54,19 +54,19 @@ namespace DealerManagementSystem.ViewPreSale
             FillClodVisit();
         }
 
-        public List<PColdVisit> Lead1
+        public List<PColdVisit> Visit
         {
             get
             {
-                if (Session["Lead1"] == null)
+                if (Session["ColdVisits"] == null)
                 {
-                    Session["Lead1"] = new List<PColdVisit>();
+                    Session["ColdVisits"] = new List<PColdVisit>();
                 }
-                return (List<PColdVisit>)Session["Lead1"];
+                return (List<PColdVisit>)Session["ColdVisits"];
             }
             set
             {
-                Session["Lead1"] = value;
+                Session["ColdVisits"] = value;
             }
         }
 
@@ -75,7 +75,7 @@ namespace DealerManagementSystem.ViewPreSale
             if (gvLead.PageIndex > 0)
             {
                 gvLead.PageIndex = gvLead.PageIndex - 1;
-                LeadBind(gvLead, lblRowCount, Lead1);
+                LeadBind(gvLead, lblRowCount);
             }
         }
         protected void ibtnLeadArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -83,15 +83,15 @@ namespace DealerManagementSystem.ViewPreSale
             if (gvLead.PageCount > gvLead.PageIndex)
             {
                 gvLead.PageIndex = gvLead.PageIndex + 1;
-                LeadBind(gvLead, lblRowCount, Lead1);
+                LeadBind(gvLead, lblRowCount);
             }
         }
 
-        void LeadBind(GridView gv, Label lbl, List<PColdVisit> Lead1)
+        void LeadBind(GridView gv, Label lbl)
         {
-            gv.DataSource = Lead1;
+            gv.DataSource = Visit;
             gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Lead1.Count;
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Visit.Count;
         }
 
 
@@ -114,12 +114,12 @@ namespace DealerManagementSystem.ViewPreSale
             int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
             //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
 
-            Lead1 = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
+            Visit = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
-            gvLead.DataSource = Lead1;
+            gvLead.DataSource = Visit;
             gvLead.DataBind();
 
-            if (Lead1.Count == 0)
+            if (Visit.Count == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnLeadArrowLeft.Visible = false;
@@ -130,7 +130,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblRowCount.Visible = true;
                 ibtnLeadArrowLeft.Visible = true;
                 ibtnLeadArrowRight.Visible = true;
-                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Lead1.Count;
+                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Visit.Count;
             }
 
         }
@@ -404,6 +404,45 @@ namespace DealerManagementSystem.ViewPreSale
         { 
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+
+        protected void btnExportSAP_Click(object sender, EventArgs e)
+        {
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Sl No.");
+            dt.Columns.Add("Description");
+            dt.Columns.Add("Location");
+            dt.Columns.Add("Planned date");
+            dt.Columns.Add("time");
+            dt.Columns.Add("customer code");
+            dt.Columns.Add("reference number");
+            dt.Columns.Add("Employee");
+            dt.Columns.Add("Sumary description");
+
+            int i = 0;
+            foreach (PColdVisit coldVisit in Visit)
+            {
+                i = i + 1;
+                dt.Rows.Add(i, coldVisit.ActionType.ActionType, coldVisit.Location, coldVisit.ColdVisitDate.ToShortDateString(), coldVisit.ColdVisitDate.ToShortTimeString()
+                    , coldVisit.Customer, coldVisit.ColdVisitNumber  
+                    , coldVisit.Customer.ContactPerson
+                    , coldVisit.Customer.Mobile
+                    , coldVisit.Customer.Email
+                    , coldVisit.Status.Status
+                    , (coldVisit.CreatedBy == null) ? "" : coldVisit.CreatedBy.ContactName
+                    //, coldVisit.CreatedOn
+                    //, (coldVisit.ModifiedBy == null) ? "" : coldVisit.ModifiedBy.ContactName
+                    //, coldVisit.ModifiedOn
+                    , ""
+                    , ""
+                    , ""
+                    );
+            }
+            
+
+
+
         }
     }
 }
