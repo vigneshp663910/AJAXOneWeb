@@ -36,7 +36,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 try
                 {
-                    new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
+                    //new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
                     //new DDLBind(ddlMaterial.SelectedValue,new BDMS_Material().GetMaterialListSQL(null, null, null, null, null), "MaterialCode", "MaterialID");
                     GetSalesCommissionClaimPrice();
                 }
@@ -109,7 +109,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                int? PlantID = ddlPlant.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPlant.SelectedValue);
+                //int? PlantID = ddlPlant.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPlant.SelectedValue);
                 //int? MaterailID = ddlMaterial.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMaterial.SelectedValue);
                 string Materail = null;
                 if (!string.IsNullOrEmpty(txtMaterial.Text))
@@ -117,8 +117,8 @@ namespace DealerManagementSystem.ViewMaster
                     Materail = txtMaterial.Text.Trim();
                 }
 
-                SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(PlantID, Materail);
-                
+                //SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(PlantID, Materail);
+                SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(Materail);
 
                 if (SalesCommClaimPrice.Count == 0)
                 {
@@ -141,8 +141,8 @@ namespace DealerManagementSystem.ViewMaster
                     lblRowCountSalCommClaimPrice.Text = (((gvSalCommClaimPrice.PageIndex) * gvSalCommClaimPrice.PageSize) + 1) + " - " + (((gvSalCommClaimPrice.PageIndex) * gvSalCommClaimPrice.PageSize) + gvSalCommClaimPrice.Rows.Count) + " of " + SalesCommClaimPrice.Count;
                 }
 
-                DropDownList ddlGPlant = gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant") as DropDownList;
-                new DDLBind(ddlGPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID", true, "Select Plant");
+                //DropDownList ddlGPlant = gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant") as DropDownList;
+                //new DDLBind(ddlGPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID", true, "Select Plant");
             }
             catch (Exception e1)
             {
@@ -165,9 +165,9 @@ namespace DealerManagementSystem.ViewMaster
                 //CheckBox chkbxFIsActive = (CheckBox)gvSalCommClaimPrice.FooterRow.FindControl("chkbxFIsActive");
                 Button BtnAddOrUpdateSalCommClaimPrice = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateSalCommClaimPrice");
                 GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceEdit.NamingContainer);
-                Label lblPlantID = (Label)row.FindControl("lblPlantID");
-                ddlGPlant.SelectedValue = lblPlantID.Text;
-                ddlGPlant.Enabled = false;
+                //Label lblPlantID = (Label)row.FindControl("lblPlantID");
+                //ddlGPlant.SelectedValue = lblPlantID.Text;
+                //ddlGPlant.Enabled = false;
                 //Label lblMaterial = (Label)row.FindControl("lblMaterial");
                 //txtMaterail.Text = lblMaterial.Text;
                 Label lblMaterialCode = (Label)row.FindControl("lblMaterialCode");
@@ -209,13 +209,14 @@ namespace DealerManagementSystem.ViewMaster
                 int SalesCommissionClaimPriceID = Convert.ToInt32(lnkBtnSalCommClaimPriceDelete.CommandArgument);
                 GridViewRow row = (GridViewRow)(lnkBtnSalCommClaimPriceDelete.NamingContainer);
                 int SalesCommissionClaimPriceID1 = Convert.ToInt32(((Label)row.FindControl("lblSalesCommissionClaimPriceID")).Text.Trim());
-                int PlantID = Convert.ToInt32(((Label)row.FindControl("lblPlantID")).Text.Trim());
+                //int PlantID = Convert.ToInt32(((Label)row.FindControl("lblPlantID")).Text.Trim());
                 int MaterialID = Convert.ToInt32(((Label)row.FindControl("lblMaterialID")).Text.Trim());
                 decimal Percentage = Convert.ToDecimal(((Label)row.FindControl("lblPercentage")).Text.Trim());
                 decimal Amount = Convert.ToDecimal(((Label)row.FindControl("lblAmount")).Text.Trim());
                 bool IsActive = Convert.ToBoolean(0);
 
-                success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
+                //success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
+                success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, MaterialID, Percentage, Amount, PSession.User.UserID, IsActive);
                 if (success == true)
                 {
                     HiddenID.Value = null;
@@ -254,13 +255,13 @@ namespace DealerManagementSystem.ViewMaster
                 Boolean Success = true;
                 Button BtnAddOrUpdateCountry = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateSalCommClaimPrice");
 
-                DropDownList ddlPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant");
-                if (ddlPlant.SelectedValue == "0")
-                {
-                    lblMessage.Text = "Please select Plant.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
+                //DropDownList ddlPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant");
+                //if (ddlPlant.SelectedValue == "0")
+                //{
+                //    lblMessage.Text = "Please select Plant.";
+                //    lblMessage.ForeColor = Color.Red;
+                //    return;
+                //}
 
                 //string Material = ((TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterail")).Text.Trim();
                 //if (string.IsNullOrEmpty(Material))
@@ -276,27 +277,38 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, "1")[0];
+
+                List <PDMS_Material> MM = new BDMS_Material().GetMaterialListSQL(null, MaterailCode, null, null, "1");
+
+                if(MM.Count == 0)
+                {
+                    lblMessage.Text = "Materail does not exists.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
 
                 TextBox txtPercentage = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtPercentage");
                 TextBox txtAmount = (TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtAmount");
 
                 txtPercentage.Text = txtPercentage.Text.Replace("0.00", "0"); 
                 txtAmount.Text = txtAmount.Text.Replace("0.00", "0");
-                if ((txtPercentage.Text.Trim() == "0") && (txtAmount.Text.Trim() == "0"))
-                {
-                    lblMessage.Text = "Please enter Amount or Percentage.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                if ((txtPercentage.Text.Trim()!="0") && (txtAmount.Text.Trim()!="0"))
-                {
-                    lblMessage.Text = "Please enter Amount or Percentage.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                Percentage = Convert.ToDecimal("0"+txtPercentage.Text.Trim());
+
+                Percentage = Convert.ToDecimal("0" + txtPercentage.Text.Trim());
                 Amount = Convert.ToDecimal("0" + txtAmount.Text.Trim());
+
+                if ((Percentage == 0) && (Amount == 0))
+                {
+                    lblMessage.Text = "Please enter Amount or Percentage.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                //if ((txtPercentage.Text.Trim()!="0") && (txtAmount.Text.Trim()!="0"))
+                //{
+                //    lblMessage.Text = "Please enter Amount or Percentage.";
+                //    lblMessage.ForeColor = Color.Red;
+                //    return;
+                //}
+               
 
                 if (Percentage != 0 && Amount != 0)
                 {
@@ -305,32 +317,61 @@ namespace DealerManagementSystem.ViewMaster
                     return;
                 }
                 
-                if (BtnAddOrUpdateCountry.Text != "Add")
-                {
-                    SalesCommissionClaimPriceID = Convert.ToInt32(HiddenID.Value);
-                }
+                //if (BtnAddOrUpdateCountry.Text != "Add")
+                //{
+                //    SalesCommissionClaimPriceID = Convert.ToInt32(HiddenID.Value);
+                //}
 
-                int PlantID = Convert.ToInt32(ddlPlant.SelectedValue);
+                //int PlantID = Convert.ToInt32(ddlPlant.SelectedValue);
                 int MaterialID =0;
-                Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, Convert.ToInt32(MM.MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
-                if (Success == true)
+                //Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, Convert.ToInt32(MM.MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
+
+                if (BtnAddOrUpdateCountry.Text == "Add")
                 {
-                    GetSalesCommissionClaimPrice();
-                    lblMessage.Text = "Sales Commission Claim Price is added successfully.";
-                    lblMessage.ForeColor = Color.Green;
-                    return;
-                }
-                else if (Success == false)
-                {
-                    lblMessage.Text = "Sales Commission Claim Price is already found.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
+                    Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, Convert.ToInt32(MM[0].MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
+                    if (Success == true)
+                    {
+                        GetSalesCommissionClaimPrice();
+                        lblMessage.Text = "Sales Commission Claim Price is added successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "Sales Commission Claim Price is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Sales Commission Claim Price not created successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                 }
                 else
                 {
-                    lblMessage.Text = "Sales Commission Claim Price not created successfully.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
+                    SalesCommissionClaimPriceID = Convert.ToInt32(HiddenID.Value);
+                    Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, Convert.ToInt32(MM[0].MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
+                    if (Success == true)
+                    {
+                        GetSalesCommissionClaimPrice();
+                        lblMessage.Text = "Sales Commission Claim Price is updated successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        return;
+                    }
+                    else if (Success == false)
+                    {
+                        lblMessage.Text = "Sales Commission Claim Price is already found.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Sales Commission Claim Price not updated successfully.";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
