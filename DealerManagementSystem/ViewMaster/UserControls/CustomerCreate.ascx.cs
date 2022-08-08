@@ -168,13 +168,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             string Message = "";
             txtCustomerName.BorderColor = Color.Silver;
-            //txtGSTIN.BorderColor = Color.Silver;
-            //txtPAN.BorderColor = Color.Silver;
+            txtGSTIN.BorderColor = Color.Silver;
+            txtPAN.BorderColor = Color.Silver;
             txtContactPerson.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
-            //txtAlternativeMobile.BorderColor = Color.Silver;
-            //txtAddress1.BorderColor = Color.Silver;
-            //txtPincode.BorderColor = Color.Silver;
+            txtAlternativeMobile.BorderColor = Color.Silver;
+            txtAddress1.BorderColor = Color.Silver;
+            txtPincode.BorderColor = Color.Silver;
 
             ddlCountry.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;

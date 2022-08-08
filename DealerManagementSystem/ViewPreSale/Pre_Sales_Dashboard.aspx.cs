@@ -5,6 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+ 
+using System.Data;
+using System.IO; 
+using System.Net;
+using System.Text;
+using System.Web;
+using Newtonsoft.Json;
 
 namespace DealerManagementSystem.ViewPreSale
 {
@@ -34,6 +41,43 @@ namespace DealerManagementSystem.ViewPreSale
                 FillFunnel();
                 FillEnquiryStatusCount();
             }
+        }
+        public string funnelData()
+        {
+            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+
+            row = new Dictionary<string, object>();
+            row.Add("value", "5000");
+            row.Add("color", "#ED5565");
+            row.Add("label", "Newly Created: 14"); 
+            rows.Add(row);
+
+            row = new Dictionary<string, object>();
+            row.Add("value", "4000");
+            row.Add("color", "#FC6D58");
+            row.Add("label", "Convert To Quotation: 7");
+            rows.Add(row);
+
+            row = new Dictionary<string, object>();
+            row.Add("value", "3000");
+            row.Add("color", "#46CFB0");
+            row.Add("label", "Won: 0");
+            rows.Add(row);
+
+
+            row = new Dictionary<string, object>();
+            row.Add("value", "2000");
+            row.Add("color", "#9FD477");
+            row.Add("label", "Value 4");
+            rows.Add(row);
+             
+
+            return JsonConvert.SerializeObject(rows);   
+
+            // return CurrentLocation;
+
         }
 
         void FillStatusCount()

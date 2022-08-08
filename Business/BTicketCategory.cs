@@ -19,7 +19,7 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-       public List<PCategory> getTicketCategory(int? TicketCategoryID, string TicketCategory, int? UserTypeID)
+       public List<PCategory> getTicketCategory(int? TicketCategoryID, string TicketCategory)
         {
             List<PCategory> TicketCategoryList = new List<PCategory>();
             PCategory pTicketCategory;
@@ -38,13 +38,10 @@ namespace Business
             else
                 TicketTypeParam = provider.CreateParameter("Category", DBNull.Value, DbType.String);
 
-            if (UserTypeID != null)
-                UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.String);
-            else
-                UserTypeIDP = provider.CreateParameter("UserTypeID", DBNull.Value, DbType.String);
+            
 
 
-            DbParameter[] TicketTypeParams = new DbParameter[3] { TicketTypeIDParam, TicketTypeParam, UserTypeIDP };
+            DbParameter[] TicketTypeParams = new DbParameter[2] { TicketTypeIDParam, TicketTypeParam };
 
             try
             {
@@ -58,7 +55,7 @@ namespace Business
                             {
                                 CategoryID = Convert.ToInt32(TicketTypeRow["CategoryID"]),
                                 Category = Convert.ToString(TicketTypeRow["Category"]),
-                                EmpId = Convert.ToInt32(TicketTypeRow["EmpId"])
+                              //  EmpId = Convert.ToInt32(TicketTypeRow["EmpId"])
                             };
                             TicketCategoryList.Add(pTicketCategory);
                         }

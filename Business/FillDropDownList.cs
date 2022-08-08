@@ -14,11 +14,11 @@ namespace Business
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        public void Category(DropDownList ddl, int? CategoryID, string Category, int? UserTypeID)
+        public void Category(DropDownList ddl, int? CategoryID, string Category)
         {
             ddl.DataTextField = "Category";
             ddl.DataValueField = "CategoryID";
-            ddl.DataSource = new BTicketCategory().getTicketCategory(CategoryID, Category, UserTypeID);
+            ddl.DataSource = new BTicketCategory().getTicketCategory(CategoryID, Category);
             DataBindDDL(ddl);
         }
         public void SubCategory(DropDownList ddl, int? SubCategoryID, string SubCategory, int? CategoryId)

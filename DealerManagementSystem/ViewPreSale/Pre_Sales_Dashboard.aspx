@@ -180,6 +180,30 @@
             margin-bottom: 15px;
         }
     </style>
+    <style>
+        #funnel-container { 
+            color:#fff;
+            width: 380px!important;
+            height: 600px!important;
+            margin: 50px auto;
+        }
+        h1 { margin:150px auto 30px auto; text-align:center;
+        }
+        #funnel {
+            width: auto!important;
+            height: 600px!important;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .funnel-label {
+           left: auto!important;
+        }
+        @media screen and (max-width: 540px) {
+            #funnel-container {
+                width: 380px !important;
+            }
+        }
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -364,7 +388,7 @@
                     </div>
                 </div> 
             </div> 
-            <div class="portlet box green">
+            <div class="portlet box green" style="display:none">
                 <div class="portlet-title">
                     <div class="caption" style="font-size: 25px;"> Pre-Sales Statistics Funnel   
                     <div class="actions" style="float: right;">
@@ -435,6 +459,7 @@
                     </div>--%>
 
                     <%--<div id="chartdiv"></div>--%>
+                    <div id="funnel-container"></div>
                     <div class="funnel-chart">
                     <svg width="350" height="300">
                         <defs></defs><g cursor="default" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="12px" font-weight="400"><g cursor="default"><g><rect width="350" height="300" fill="rgba(0,0,0,0)"></rect>
@@ -628,6 +653,44 @@
         </div>
     </div>--%>
         </div>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="../Scripts/jquery.funnel.js"></script>
+        <script>
+            //var funnelData = [
+            //    {
+            //        value: 5000,
+            //        color: "#ED5565",
+            //        label: 'Newly Created: 14'
+            //    },
+            //    {
+            //        value: 4000,
+            //        color: "#FC6D58",
+            //        label: 'Convert To Quotation: 7'
+            //    },
+            //    {
+            //        value: 3000,
+            //        color: "#46CFB0",
+            //        label: 'Won: 0'
+            //    },
+            //    {
+            //        value: 6000,
+            //        color: "#9FD477",
+            //        label: 'Value 4'
+            //    },
+
+            //];
+            debugger;
+            var funnelData = JSON.parse('<%=funnelData() %>');
+            $('#funnel-container').drawFunnel(funnelData, {
+                width: 380, // Container height, i.e. height of #funnel-container
+                height: $(this).height(),  // Container width, i.e. width of #funnel-container
+                padding: 1, // Padding between segments, in pixels
+                half: false,  // Render only a half funnel
+                minSegmentSize: 150  // Width of a segment can't be smaller than this, in pixels
+                // label: function () { return "Label!"; }  // A label generation function 
+            });
+        </script>
     </body>
     </html>
 </asp:Content>

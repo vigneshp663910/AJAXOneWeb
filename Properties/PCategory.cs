@@ -10,7 +10,7 @@ namespace Properties
     {
         public int CategoryID { get; set; }
         public string Category { get; set; }
-        public int EmpId { get; set; }
+       // public int EmpId { get; set; }
     }
 
    

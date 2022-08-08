@@ -17,10 +17,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
             DateTime? DateFrom = (DateTime?)Session["SerDateFrom"];
             DateTime? DateTo = (DateTime?)Session["SerDateTo"];
             List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(DateFrom, DateTo, DealerID, PSession.User.UserID);
-            if ((Status.Where(m => m.StatusID == 1).Count() != 0))
+            if (Status != null)
             {
-                var ss = Status.Where(m => m.StatusID == 1).ToList();
-                lblOpen.Text = ss[0].Count.ToString();
+                if ((Status.Where(m => m.StatusID == 1).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 1).ToList();
+                    lblOpen.Text = ss[0].Count.ToString();
+                }
             }
         }
 

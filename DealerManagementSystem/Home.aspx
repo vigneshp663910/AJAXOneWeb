@@ -5,7 +5,7 @@
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <style>
         #div1 {
-            height: 91.7vh;
+            /*height: 91.7vh;*/
             display: flex;
             flex-direction: column;
             overflow: hidden;

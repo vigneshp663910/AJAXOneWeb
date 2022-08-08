@@ -77,6 +77,8 @@ namespace DealerManagementSystem.ViewMaster
                     //GetMaterial();
                     //GetMaterialPrice();
                     //GetMaterialSupersede();
+
+                    ActionControlMange();
                 }
                 catch (Exception e1)
                 {
@@ -378,6 +380,15 @@ namespace DealerManagementSystem.ViewMaster
             catch (Exception e1)
             {
                 DisplayErrorMessage(e1);
+            }
+        }
+        void ActionControlMange()
+        {
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.MaterialExcelDownload).Count() == 0)
+            {
+                btnMaterialExportExcel.Visible = false;
+                btnMaterailSupersedeExportExcel.Visible = false;
             }
         }
     }

@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewPreSale
             int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
             //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
 
-            Visit = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
+            Visit = new BColdVisit().GetColdVisit(null, null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
             gvLead.DataSource = Visit;
             gvLead.DataBind();
@@ -201,7 +201,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "Customer is updated successfully ";
             }
-            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null, null, null, null);
+            List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
             gvLead.DataSource = Leads;
             gvLead.DataBind();
             UC_Customer.FillClean();

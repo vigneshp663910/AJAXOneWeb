@@ -247,129 +247,7 @@ namespace DealerManagementSystem.ViewSales
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
-        }
-        protected void btnExportExcelForSAP_Click(object sender, EventArgs e)
-        {
-
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Dealer_Code");
-            dt.Columns.Add("Invoice_Date");
-            dt.Columns.Add("Invoice_Number");
-            dt.Columns.Add("Material");
-            dt.Columns.Add("Taxable_Value");
-            dt.Columns.Add("Total");
-
-            dt.Columns.Add("BP_Code");
-            dt.Columns.Add("BP_Name");
-            dt.Columns.Add("IC_Ticket");
-            dt.Columns.Add("Machine_Serial_No");
-            dt.Columns.Add("HSN_Code");
-            dt.Columns.Add("Created By");
-            dt.Columns.Add("Model");
-            dt.Columns.Add("HMR");
-            dt.Columns.Add("Remark");
-            dt.Columns.Add("Annexure No");
-            dt.Columns.Add("Period");
-            dt.Columns.Add("TCS Amt.");
-
-            dt.Columns.Add("IRN No.");
-            dt.Columns.Add("IRN DATE");
-
-
-            dt.Columns.Add("CGST %");
-            dt.Columns.Add("CGST Value");
-            dt.Columns.Add("SGST %");
-            dt.Columns.Add("SGST Value");
-            dt.Columns.Add("IGST %");
-            dt.Columns.Add("IGST Value");
-
-            dt.Columns.Add("SAP Doc");
-            dt.Columns.Add("AE Inv. Accounted Date");
-            dt.Columns.Add("Payment Voucher. No");
-            dt.Columns.Add("Payment Date");
-            dt.Columns.Add("Payment Value");
-            dt.Columns.Add("TDS Value");
-            try
-            {
-                //foreach (PDMS_WarrantyClaimInvoice M in Invoices)
-                //{
-                //    int i = 0;
-                //    List<PDMS_WarrantyClaimAnnexureItem> AnnexureItemS = new List<PDMS_WarrantyClaimAnnexureItem>();
-                //    if (!string.IsNullOrEmpty(M.AnnexureNumber))
-                //    {
-                //        AnnexureItemS = new BDMS_WarrantyClaimAnnexure().GetWarrantyClaimAnnexureByID(null, null, M.AnnexureNumber)[0].AnnexureItems;
-                //    }
-
-                //    foreach (PDMS_WarrantyClaimInvoiceItem Item in M.InvoiceItems)
-                //    {
-                //        i = 1 + i;
-                //        //  PDMS_WarrantyInvoiceHeader SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimReport(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), false, PSession.User.UserID)[0];
-                //        PDMS_WarrantyClaimAnnexureItem AnnexureItem = new PDMS_WarrantyClaimAnnexureItem();
-                //        if ((Item.WarrantyClaimAnnexureItemID != 0) && (AnnexureItemS.Count > 0))
-                //        {
-                //            //  AnnexureItem = new BDMS_WarrantyClaimAnnexure().GetWarrantyClaimAnnexureByID(null, Item.WarrantyClaimAnnexureItemID)[0].AnnexureItems[0];
-                //            //   AnnexureItem = (PDMS_WarrantyClaimAnnexureItem)AnnexureItemS.Where(m => m.WarrantyClaimAnnexureItemID == Item.WarrantyClaimAnnexureItemID);
-                //            //  var SOIs1 = (from S in AnnexureItemS where (S.WarrantyClaimAnnexureItemID == Item.WarrantyClaimAnnexureItemID) select new { S }).ToList();
-                //            //       AnnexureItem = (PDMS_WarrantyClaimAnnexureItem) SOIs1;
-
-                //            var M1 = (from m in AnnexureItemS where m.WarrantyClaimAnnexureItemID == Item.WarrantyClaimAnnexureItemID select m);
-                //            if (M1.Count() == 1)
-                //            {
-                //                AnnexureItem.CustomerCode = M1.ToList()[0].CustomerCode;
-                //                AnnexureItem.CustomerName = M1.ToList()[0].CustomerName;
-                //                AnnexureItem.ICTicketID = M1.ToList()[0].ICTicketID;
-                //                AnnexureItem.MachineSerialNumber = M1.ToList()[0].MachineSerialNumber;
-                //                AnnexureItem.Model = M1.ToList()[0].Model;
-                //                AnnexureItem.HMR = M1.ToList()[0].HMR;
-                //                AnnexureItem.ICTicket = M1.ToList()[0].ICTicket;
-                //            }
-                //        }
-
-                //        dt.Rows.Add(
-                //             string.Format("80{0}", M.Dealer.DealerCode.Substring(2))
-                //            , ((DateTime)M.InvoiceDate).ToShortDateString()
-                //            , M.InvoiceNumber
-                //            , "'" + Item.Material
-                //            , Item.TaxableValue
-                //            , Item.TaxableValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue
-                //            , AnnexureItem.CustomerCode
-                //            , AnnexureItem.CustomerName
-                //            , AnnexureItem.ICTicketID
-                //            , AnnexureItem.MachineSerialNumber
-                //            , Item.HSNCode
-                //            , ""
-                //            , AnnexureItem.Model
-                //            , AnnexureItem.HMR
-                //            , AnnexureItem.ICTicket == null ? "" : AnnexureItem.ICTicket.ServiceType.ServiceType
-                //            , M.AnnexureNumber
-                //            , ((DateTime)M.PeriodFrom).ToShortDateString() + " - " + ((DateTime)M.PeriodTo).ToShortDateString()
-                //            , i == 1 ? Convert.ToString(M.TCSValue) : ""
-                //            , M.IRN
-                //            , M.IRNDate == null ? "" : ((DateTime)M.IRNDate).ToShortDateString()
-                //            , Item.CGST
-                //            , Item.CGSTValue
-                //            , Item.SGST
-                //            , Item.SGSTValue
-                //            , Item.IGST
-                //            , Item.IGSTValue
-                //            , M.SAPDoc
-                //            , M.SAPPostingDate == null ? "" : ((DateTime)M.SAPPostingDate).ToShortDateString()
-                //            , M.SAPClearingDocument
-                //            , M.SAPClearingDate == null ? "" : ((DateTime)M.SAPClearingDate).ToShortDateString()
-                //            , M.SAPInvoiceValue
-                //            , M.SAPInvoiceTDSValue);
-                //    };
-                //}
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-            new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
-        }
+        } 
         public PAttachedFile SalesCommissionClaimInvoice1(long SalesCommissionClaimInvoiceID)
         {
             try
@@ -498,6 +376,94 @@ namespace DealerManagementSystem.ViewSales
                 lblMessage.Visible = true;
             }
             return null;
+        }
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Dealer_Code");
+            dt.Columns.Add("Invoice_Date");
+            dt.Columns.Add("Invoice_Number");
+            dt.Columns.Add("Material");
+            dt.Columns.Add("Taxable_Value");
+            dt.Columns.Add("Total");
+
+            dt.Columns.Add("BP_Code");
+            dt.Columns.Add("BP_Name");
+            dt.Columns.Add("IC_Ticket");
+            dt.Columns.Add("Machine_Serial_No");
+            dt.Columns.Add("HSN_Code");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Model");
+            dt.Columns.Add("HMR");
+            dt.Columns.Add("Remark");
+            dt.Columns.Add("Annexure No");
+            dt.Columns.Add("Period");
+            dt.Columns.Add("TCS Amt.");
+
+            dt.Columns.Add("IRN No.");
+            dt.Columns.Add("IRN DATE");
+
+
+            dt.Columns.Add("CGST %");
+            dt.Columns.Add("CGST Value");
+            dt.Columns.Add("SGST %");
+            dt.Columns.Add("SGST Value");
+            dt.Columns.Add("IGST %");
+            dt.Columns.Add("IGST Value");
+
+            dt.Columns.Add("SAP Doc");
+            dt.Columns.Add("AE Inv. Accounted Date");
+            dt.Columns.Add("Payment Voucher. No");
+            dt.Columns.Add("Payment Date");
+            dt.Columns.Add("Payment Value");
+            dt.Columns.Add("TDS Value");
+            try
+            {
+                foreach (PSalesCommissionClaimInvoice M in Invoices)
+                {
+                    PSalesCommissionClaimInvoiceItem Item = M.InvoiceItem;
+
+                    dt.Rows.Add(
+                         string.Format("80{0}", M.Dealer.DealerCode.Substring(2))
+                        , ((DateTime)M.InvoiceDate).ToShortDateString()
+                        , M.InvoiceNumber
+                        , "'" + Item.Material
+                        , Item.TaxableValue
+                        , Item.TaxableValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue
+                        , M.Claim.Customer.CustomerCode
+                        , M.Claim.Customer.CustomerName
+                        , "" // AnnexureItem.ICTicketID
+                        , "" // AnnexureItem.MachineSerialNumber
+                        , Item.Material.HSN
+                        , ""
+                        , "" // AnnexureItem.Model
+                        , "" // AnnexureItem.HMR
+                        , "" // AnnexureItem.ICTicket == null ? "" : AnnexureItem.ICTicket.ServiceType.ServiceType
+                        , M.InvoiceNumber
+                        , "" // ((DateTime)M.PeriodFrom).ToShortDateString() + " - " + ((DateTime)M.PeriodTo).ToShortDateString()
+                        , Convert.ToString(M.TCSValue)
+                        , M.IRN
+                        , M.IRNDate == null ? "" : ((DateTime)M.IRNDate).ToShortDateString()
+                        , Item.CGST
+                        , Item.CGSTValue
+                        , Item.SGST
+                        , Item.SGSTValue
+                        , Item.IGST
+                        , Item.IGSTValue
+                        , M.SAPDoc
+                        , M.SAPPostingDate == null ? "" : ((DateTime)M.SAPPostingDate).ToShortDateString()
+                        , M.SAPClearingDocument
+                        , M.SAPClearingDate == null ? "" : ((DateTime)M.SAPClearingDate).ToShortDateString()
+                        , M.SAPInvoiceValue
+                        , M.SAPInvoiceTDSValue);
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
+            }
+            new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
         }
     }
 }

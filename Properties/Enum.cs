@@ -502,6 +502,8 @@ namespace Properties
         EditApplication,
         AddEditLocation,
         EidtDistrictSalesEngineer,
+        CustomerExcelDownload,
+        MaterialExcelDownload,
     }
     public enum DMS_WarrantyClaimStatus
     {

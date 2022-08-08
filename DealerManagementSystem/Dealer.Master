@@ -917,10 +917,10 @@
             height: 600px;
         }
 
-            .Popup .model-scroll {
-                height: 500px;
-                overflow-x: auto;
-            }
+        .Popup .model-scroll {
+            height: 500px;
+            overflow: auto;
+        }
 
         .modal-label {
             display: block;
@@ -1033,6 +1033,9 @@
                 padding: 11px;
                 margin-top: 7px;
             }
+            #MainContent_UC_CustomerView_PnlCustomerView .action-btn .btn.Approval {
+                margin-top: 2px;
+            }
 
             .action-btn .btnactions.sticky {
                 position: fixed;
@@ -1114,13 +1117,13 @@
             z-index: 9;
         }
 
-            .project-title-outer .ProjectTitle {
-                position: fixed;
-                width: calc( 100% - 250px );
-                margin: 0;
-                top: 50px;
-                border-top: 1px solid #4c7da7;
-            }
+        .project-title-outer .ProjectTitle {
+            position: fixed;
+            width: calc( 100% - 250px );
+            margin: 0;
+            top: 50px;
+            border-top: 1px solid #4c7da7;
+        }
 
         .w3-main.closed-sidebar-main .project-title-outer .ProjectTitle {
             width: calc( 100% - 50px );
@@ -1159,7 +1162,7 @@
 
         .lead-static .portlet .btn-group.btn-group-devided {
             vertical-align: initial;
-            padding: 4px;
+            padding: 0;
         }
 
             .lead-static .portlet .btn-group.btn-group-devided label {
@@ -1299,6 +1302,14 @@
                     .custom-auto-complete .auto-item .customer-info label:last-child {
                         color: #009AD7;
                     }
+            .lead-static .portlet .btn-group.btn-group-devided label input {
+                margin: 0;
+            }
+            .portlet-title .actions .btn-group{
+                margin-top: 4px;
+                display: flex;
+                padding: 0;
+            }            
 
         @media only screen and (min-width: 992px) {
             .closed-sidebar {
@@ -1349,17 +1360,17 @@
                     overflow: auto;
                 }
 
-                    .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
-                        padding: 5px 10px 5px 21px !important
-                    }
+                .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
+                    padding: 5px 10px 5px 21px !important
+                }
 
-                        .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
-                            padding-left: 0;
-                        }
+                .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
+                    padding-left: 0;
+                }
 
-                        .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
-                            display: inline !important;
-                        }
+                .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
+                    display: inline !important;
+                }
         }
 
         @media only screen and (max-width: 992px) {
@@ -1379,7 +1390,7 @@
         @media only screen and (max-width: 767px) {
             .Popup {
                 height: auto;
-                left: 0 !important;
+                left: auto;
                 width: auto;
             }
             /*.back-buttton.sticky #MainContent_btnBackToList {
@@ -1417,13 +1428,31 @@
                 width: 28%;
             }
 
-                .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:first-child #divEnquiryStatistics {
-                    margin-left: 0 !important;
-                }
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:first-child #divEnquiryStatistics {
+                margin-left: 0 !important;
+            }
 
-                .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:nth-child(2n) #divEnquiryStatistics {
-                    margin-right: 0 !important;
-                }
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:nth-child(2n) #divEnquiryStatistics {
+                margin-right: 0 !important;
+            }
+            .Popup .model-scroll {
+                width: 440px;
+                margin: 0 auto;
+            }
+            .lead-static .portlet #divLeadStatistics  {
+                margin-right: 0;
+                margin-left: 0;
+                flex-direction: column;
+            }
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail,
+            #divEnquiryStatistics .thumbnail.wide_thumbnail {
+                width: 60%;
+                margin-right: auto!important;
+                margin-left: auto!important;
+            }
+            .portlet-title .caption {
+                padding-bottom:10px;
+            }
         }
 
         @media only screen and (max-width: 480px) {
@@ -1433,6 +1462,13 @@
 
             .lead-static .portlet .btn-group.btn-group-devided label {
                 width: 70px;
+            }
+            .Popup .model-scroll {
+                width: 340px;
+            }
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail,
+            #divEnquiryStatistics .thumbnail.wide_thumbnail {
+                width: 80%;
             }
         }
 
@@ -2161,19 +2197,19 @@
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
-        function ShowProgress() { 
+        function ShowProgress() {
             setTimeout(function () {
                 if (IsCookieValid()) {
                 }
-                    var modal = $('<div />');
-                    modal.addClass("modal");
-                    $('body').append(modal);
-                    var loading = $(".loading");
-                    loading.show();
-                    var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
-                    var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
-                    loading.css({ top: top, left: left }); 
-            }, 200); 
+                var modal = $('<div />');
+                modal.addClass("modal");
+                $('body').append(modal);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
         }
         function jsShowHideProgress() {
             setTimeout(function () { document.getElementById('divLoading').style.display = 'block'; }, 200);
@@ -2184,30 +2220,30 @@
             var loop = setInterval(function () {
                 if (IsCookieValid()) {
                     document.getElementById('divLoading').style.display =
-                    'none'; clearInterval(loop)
+                        'none'; clearInterval(loop)
                 }
 
             }, timeInterval);
         }
-        $('form').live("submit", function () { 
+        $('form').live("submit", function () {
             //ShowProgress();
             jsShowHideProgress()
-             
-            
+
+
         });
 
         // cookies
-        function deleteCookie() { 
+        function deleteCookie() {
             var cook = getCookie('ExcelDownloadFlag');
             if (cook != "") {
                 document.cookie = "ExcelDownloadFlag=; Path = /; expires=Thu, 01 Jan 1970 00:00:00 UTC";
             }
         }
-        function IsCookieValid() { 
+        function IsCookieValid() {
             var cook = getCookie('ExcelDownloadFlag');
             return cook != '';
         }
-        function getCookie(cname) { 
+        function getCookie(cname) {
             var name = cname + "=";
             var ca = document.cookie.split(';');
             for (var i = 0; i < ca.length; i++) {

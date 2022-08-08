@@ -59,7 +59,7 @@ namespace DealerManagementSystem.ViewPreSale
                     new DDLBind(ddlSSource, Source, "Source", "SourceID");
 
                     List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null);
-                    new DDLBind(ddlSStatus, Status, "Status", "StatusID");
+                    // new DDLBind(ddlSStatus, Status, "Status", "StatusID");
 
                 }
             }

@@ -55,6 +55,7 @@ namespace DealerManagementSystem.ViewMaster
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID");
                 new BDMS_Dealer().LoadDealerDDL(ddlDealer);
+                ActionControlMange();
             }
         }
 
@@ -358,6 +359,15 @@ namespace DealerManagementSystem.ViewMaster
             finally
             {
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
+        }
+
+        void ActionControlMange()
+        { 
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerExcelDownload).Count() == 0)
+            {
+                btnExportExcel.Visible = false;
             }
         }
     }

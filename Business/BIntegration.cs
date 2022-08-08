@@ -40,11 +40,12 @@ namespace Business
 
         public List<int> GetActiveJobsForNextRun()
         {
-            List<int> activeJobs = new List<int>();
-            DataTable jobsDataTable = new DataTable();
+            List<int> activeJobs = new List<int>(); 
             try
             {
-                using (DataTable dt = provider.Select("GetActiveJobsForNextRun").Tables[0])
+                DbParameter AjaxOne = provider.CreateParameter("AjaxOne", true, DbType.Boolean);
+                DbParameter[] Params = new DbParameter[1] { AjaxOne };
+                using (DataTable dt = provider.Select("GetActiveJobsForNextRun", Params).Tables[0])
                 {
                     if (dt != null)
                     {
@@ -54,13 +55,9 @@ namespace Business
                 }
             }
             catch (SqlException sqlEx)
-            {
-
-            }
+            { }
             catch (Exception ex)
-            {
-
-            }
+            { }
             return activeJobs;
         }
         public Boolean Joblist(Jobs JobName)

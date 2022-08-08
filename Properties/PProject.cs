@@ -10,9 +10,17 @@ namespace Properties
     {
         public long? ProjectID { get; set; }
         public string ProjectNumber { get; set; }
+       
         public DateTime EmailDate { get; set; }
         public string TenderNumber { get; set; }
         public PDMS_State State { get; set; }
+        public string ProjectName_state
+        {
+            get
+            {
+                return (State == null?"": State.State.Substring(0, 3) + "- " + TenderNumber + "-" + ProjectName);
+            }
+        }
         public PDMS_District District { get; set; }
         public decimal Value { get; set; }
         public string L1ContractorName { get; set; }

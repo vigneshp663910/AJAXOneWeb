@@ -30,7 +30,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (!IsPostBack)
             {
 
-                new FillDropDownt().Category(ddlCategory, null, null, 7);
+                new FillDropDownt().Category(ddlCategory, null,null);
                 //  new FillDropDownt().SubCategory(ddlSubcategory, null, null, null);
                 new FillDropDownt().Type(ddlTicketType, null, null);
                 FillStatus();

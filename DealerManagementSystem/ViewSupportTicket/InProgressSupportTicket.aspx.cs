@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlCategory.DataTextField = "Category";
             ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null, null);
+            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
         }

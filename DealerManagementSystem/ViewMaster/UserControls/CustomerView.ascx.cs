@@ -353,7 +353,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         public void fillVisit()
         {  
-            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, Customer.CustomerID, null, null, null, null, null, null,null,null,null, null);
+            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, null, Customer.CustomerID, null, null, null, null, null, null,null,null,null, null);
             gvColdVisit.DataBind();
         }
 

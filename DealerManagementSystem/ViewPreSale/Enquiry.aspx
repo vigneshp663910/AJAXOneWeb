@@ -60,7 +60,12 @@
 
                     <div class="col-md-2 text-left">
                         <label>Status</label>
-                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
+                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" >
+                            <asp:ListItem Value="0">Select</asp:ListItem>
+                            <asp:ListItem Value="1">Open</asp:ListItem>
+                            <asp:ListItem Value="4">Converted To Lead</asp:ListItem>
+                            <asp:ListItem Value="5">Rejected</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
 
                     <div class="col-md-12 text-center">

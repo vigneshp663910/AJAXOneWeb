@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             new DDLBind(ddlUrgency, new BLead().GetLeadUrgency(null, null), "Urgency", "UrgencyID");
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
-            new DDLBind(ddlProject, new BProject().GetProject(null, null,null,null,null,null,null), "ProjectName", "ProjectID");
+            new DDLBind(ddlProject, new BProject().GetProject(null, null,null,null,null,null,null), "ProjectName_state", "ProjectID");
         }
 
         void Clear()
