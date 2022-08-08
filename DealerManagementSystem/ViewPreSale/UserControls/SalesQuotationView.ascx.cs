@@ -579,11 +579,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageQuotation.Text = Message;
                 return;
             }
-            PSalesQuotation Sq = new PSalesQuotation();
+            PSalesQuotation_Insert Sq = new PSalesQuotation_Insert();
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.QuotationID = Quotation.QuotationID;
             Sq.Lead = new PLead { LeadID = Quotation.Lead.LeadID };
-            Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+          //  Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
             {

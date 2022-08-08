@@ -60,26 +60,25 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
 
 
-        public PSalesQuotation ReadSalesQuotation()
+        public PSalesQuotation_Insert ReadSalesQuotation()
         {
-            PSalesQuotation Sq = new PSalesQuotation();
+            PSalesQuotation_Insert Sq = new PSalesQuotation_Insert();
             //Sq.QuotationType = new PSalesQuotationType() { QuotationTypeID = Convert.ToInt32(ddlQuotationType.SelectedValue) };
-            Sq.Status = new PSalesQuotationStatus() { SalesQuotationStatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
+          //  Sq.Status = new PSalesQuotationStatus() { SalesQuotationStatusID = Convert.ToInt32(ddlStatus.SelectedValue) };
             Sq.ValidFrom = string.IsNullOrEmpty(txtValidFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtValidFrom.Text.Trim());
             Sq.ValidTo = string.IsNullOrEmpty(txtValidTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtValidTo.Text.Trim());
             Sq.PricingDate = string.IsNullOrEmpty(txtPricingDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPricingDate.Text.Trim());
             Sq.PriceGroup = ddlPriceGroup.SelectedValue == "0" ? null : new PPriceGroup() { PriceGroupID = Convert.ToInt32(ddlPriceGroup.SelectedValue) };
-            Sq.UserStatus = ddlUserStatus.SelectedValue == "0" ? null : new PSalesQuotationUserStatus() { SalesQuotationUserStatusID = Convert.ToInt32(ddlUserStatus.SelectedValue) };
+            Sq.SalesQuotationUserStatusID = ddlUserStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUserStatus.SelectedValue);
 
-            Sq.UserStatusRemarks = ddlUserStatusRemarks.SelectedValue == "0" ? null : new PSaleQuotationRejectionReason() { SalesQuotationRejectionReasonID = Convert.ToInt32(ddlUserStatusRemarks.SelectedValue) };
+            Sq.SalesQuotationRejectionReasonID = ddlUserStatusRemarks.SelectedValue == "0" ? (int?)null :    Convert.ToInt32(ddlUserStatusRemarks.SelectedValue);
           
             Sq.LifeTimeTax = string.IsNullOrEmpty(txtLifeTimeTax.Text.Trim()) ? 0 : Convert.ToDecimal(txtLifeTimeTax.Text.Trim());
           
             Sq.RequestedDeliveryDate = string.IsNullOrEmpty(txtRequestedDeliveryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDeliveryDate.Text.Trim());
             Sq.CommissionAgent = cbCommissionAgent.Checked;
-            Sq.ShipTo = ddlShipParty.SelectedValue == "0" ? null : new PDMS_CustomerShipTo() { CustomerShipToID = Convert.ToInt64(ddlShipParty.SelectedValue) };
-
-            Sq.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            Sq.CustomerShipToID = ddlShipParty.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShipParty.SelectedValue);
+             
             return Sq;
         }
         public string ValidationSalesQuotation()

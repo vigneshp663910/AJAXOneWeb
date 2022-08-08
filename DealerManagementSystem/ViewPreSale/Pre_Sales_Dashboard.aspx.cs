@@ -106,36 +106,39 @@ namespace DealerManagementSystem.ViewPreSale
             }
 
             List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(From, To, DealerID, PSession.User.UserID);
-            if ((Status.Where(m => m.StatusID == 1).Count() != 0))
+            if (Status != null)
             {
-                var ss = Status.Where(m => m.StatusID == 1).ToList();
-                lblOpen.Text = ss[0].Count.ToString();
-            }
+                if ((Status.Where(m => m.StatusID == 1).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 1).ToList();
+                    lblOpen.Text = ss[0].Count.ToString();
+                }
 
-            if ((Status.Where(m => m.StatusID == 2).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == 2).ToList();
-                lblAssigned.Text = ss[0].Count.ToString();
-            }
-            if ((Status.Where(m => m.StatusID == 3).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == 3).ToList();
-                lblQuotation.Text = ss[0].Count.ToString();
-            }
-            if ((Status.Where(m => m.StatusID == 4).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == 4).ToList();
-                lblWon.Text = ss[0].Count.ToString();
-            }
-            if ((Status.Where(m => m.StatusID == 5).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == 5).ToList();
-                lblLost.Text = ss[0].Count.ToString();
-            }
-            if ((Status.Where(m => m.StatusID == 6).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == 6).ToList();
-                lblCancelled.Text = ss[0].Count.ToString();
+                if ((Status.Where(m => m.StatusID == 2).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 2).ToList();
+                    lblAssigned.Text = ss[0].Count.ToString();
+                }
+                if ((Status.Where(m => m.StatusID == 3).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 3).ToList();
+                    lblQuotation.Text = ss[0].Count.ToString();
+                }
+                if ((Status.Where(m => m.StatusID == 4).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 4).ToList();
+                    lblWon.Text = ss[0].Count.ToString();
+                }
+                if ((Status.Where(m => m.StatusID == 5).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 5).ToList();
+                    lblLost.Text = ss[0].Count.ToString();
+                }
+                if ((Status.Where(m => m.StatusID == 6).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == 6).ToList();
+                    lblCancelled.Text = ss[0].Count.ToString();
+                }
             }
         }
 
@@ -162,38 +165,41 @@ namespace DealerManagementSystem.ViewPreSale
 
             List<PLeadStatus> StatusF = new BLead().GetLeadCountByStatus(FromF, ToF, null, PSession.User.UserID);
 
-            int Open = 0, Assigned = 0, Quotation = 0, Won = 0, Lost = 0, Cancel = 0; 
-            if ((StatusF.Where(m => m.StatusID == 1).Count() != 0))
+            int Open = 0, Assigned = 0, Quotation = 0, Won = 0, Lost = 0, Cancel = 0;
+            if (StatusF != null)
             {
-                var ss = StatusF.Where(m => m.StatusID == 1).ToList();
-                Open = ss[0].Count;
-            }
-            if ((StatusF.Where(m => m.StatusID == 2).Count() != 0))
-            {
-                var ss = StatusF.Where(m => m.StatusID == 2).ToList();
-                Assigned = ss[0].Count;
-            }
-            
-            if ((StatusF.Where(m => m.StatusID == 3).Count() != 0))
-            {
-                var ss = StatusF.Where(m => m.StatusID == 3).ToList();
-                Quotation = ss[0].Count; 
-            }
-            if ((StatusF.Where(m => m.StatusID == 4).Count() != 0))
-            {
-                var ss = StatusF.Where(m => m.StatusID == 4).ToList();
-               
-                Won = ss[0].Count;
-            }
-            if ((StatusF.Where(m => m.StatusID == 5).Count() != 0))
-            {
-                var ss = StatusF.Where(m => m.StatusID == 5).ToList();
-                Lost = ss[0].Count;
-            }
-            if ((StatusF.Where(m => m.StatusID == 6).Count() != 0))
-            {
-                var ss = StatusF.Where(m => m.StatusID == 6).ToList();
-                Cancel = ss[0].Count;
+                if ((StatusF.Where(m => m.StatusID == 1).Count() != 0))
+                {
+                    var ss = StatusF.Where(m => m.StatusID == 1).ToList();
+                    Open = ss[0].Count;
+                }
+                if ((StatusF.Where(m => m.StatusID == 2).Count() != 0))
+                {
+                    var ss = StatusF.Where(m => m.StatusID == 2).ToList();
+                    Assigned = ss[0].Count;
+                }
+
+                if ((StatusF.Where(m => m.StatusID == 3).Count() != 0))
+                {
+                    var ss = StatusF.Where(m => m.StatusID == 3).ToList();
+                    Quotation = ss[0].Count;
+                }
+                if ((StatusF.Where(m => m.StatusID == 4).Count() != 0))
+                {
+                    var ss = StatusF.Where(m => m.StatusID == 4).ToList();
+
+                    Won = ss[0].Count;
+                }
+                if ((StatusF.Where(m => m.StatusID == 5).Count() != 0))
+                {
+                    var ss = StatusF.Where(m => m.StatusID == 5).ToList();
+                    Lost = ss[0].Count;
+                }
+                if ((StatusF.Where(m => m.StatusID == 6).Count() != 0))
+                {
+                    var ss = StatusF.Where(m => m.StatusID == 6).ToList();
+                    Cancel = ss[0].Count;
+                }
             }
             lblNewlyCreatedF.InnerText = "Newly Created: " + (Open + Assigned + Quotation + Won + Lost + Cancel).ToString();
             lblConvertToProspectF.InnerText = (Quotation + Won).ToString();
@@ -321,21 +327,24 @@ namespace DealerManagementSystem.ViewPreSale
             }
 
             List<PPreSaleStatus> Status = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, PSession.User.UserID);
-            if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
+            if (Status != null)
             {
-                var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
-                lblEnquiryOpen.Text = ss[0].Count.ToString();
-            }
+                if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
+                    lblEnquiryOpen.Text = ss[0].Count.ToString();
+                }
 
-            if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
-                lblEnquiryConvertedToLead.Text = ss[0].Count.ToString();
-            }
-            if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).Count() != 0))
-            {
-                var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).ToList();
-                lblEnquiryRejected.Text = ss[0].Count.ToString();
+                if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
+                    lblEnquiryConvertedToLead.Text = ss[0].Count.ToString();
+                }
+                if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).Count() != 0))
+                {
+                    var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).ToList();
+                    lblEnquiryRejected.Text = ss[0].Count.ToString();
+                }
             }
           
         }

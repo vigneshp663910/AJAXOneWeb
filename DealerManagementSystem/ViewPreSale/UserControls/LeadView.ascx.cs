@@ -611,11 +611,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageQuotation.Text = Message;
                 return;
             }
-            PSalesQuotation Sq = new PSalesQuotation();
+            PSalesQuotation_Insert Sq = new PSalesQuotation_Insert();
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.Lead = new PLead { LeadID = Lead.LeadID };
             Sq.LeadProduct = new PLeadProduct { LeadProductID = Convert.ToInt64(Session["LeadProductID"])};
-            Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+           // Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
             {
