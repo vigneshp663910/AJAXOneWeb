@@ -4,8 +4,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <style>
+        /*#div1 {*/
+            /*height: 91.7vh;*/
+            /*display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-left: 1px;
+            background: skyblue;
+            background: linear-gradient(to right, #4e97d5, #30526f );*/
+            /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
+            /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
+            /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
+            /*background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');*/
+            /* scroll*/
+        /*}*/
+
+
         #div1 {
             /*height: 91.7vh;*/
+            height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
