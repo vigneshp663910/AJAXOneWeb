@@ -582,8 +582,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PSalesQuotation_Insert Sq = new PSalesQuotation_Insert();
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.QuotationID = Quotation.QuotationID;
-            Sq.Lead = new PLead { LeadID = Quotation.Lead.LeadID };
-          //  Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+            Sq.LeadID = Quotation.Lead.LeadID;
+            //  Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
             {
@@ -1648,9 +1648,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnAddCompetitor.Visible = true;
             lbtnAddQuotationNote.Visible = true;
             lbtnAddFollowUp.Visible = true;
-            lbtnAddEffort.Visible = true;
-            lbtnAddExpense.Visible = true;
+            //lbtnAddEffort.Visible = true;
+            //lbtnAddExpense.Visible = true;
             lbtnGenerateQuotation.Visible = true;
+            lbtnPrintTaxQuotation.Visible = true;
             //  lbtnPrintMachineQuotation.Visible = true;
 
 
@@ -1664,6 +1665,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddExpense.Visible = false;
             //lbtnGenerateQuotation.Visible = false;
             //lbtnPrintMachineQuotation.Visible = false;
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
+            {
+                lbtnPrintTaxQuotation.Visible = false;
+            }
 
         }
         protected void FillProduct(object sender, EventArgs e)

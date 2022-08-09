@@ -611,12 +611,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageQuotation.Text = Message;
                 return;
             }
-            PSalesQuotation_Insert Sq = new PSalesQuotation_Insert();
-            Sq = UC_Quotation.ReadSalesQuotation();
-            Sq.Lead = new PLead { LeadID = Lead.LeadID };
-            Sq.LeadProduct = new PLeadProduct { LeadProductID = Convert.ToInt64(Session["LeadProductID"])};
+            PSalesQuotation_Insert Sq1 = new PSalesQuotation_Insert();
+            Sq1 = UC_Quotation.ReadSalesQuotation();
+            Sq1.LeadID = Lead.LeadID ;
+            Sq1.LeadProductID = Convert.ToInt64(Session["LeadProductID"]);
            // Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq1));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageQuotation.Text = Results.Message;
@@ -882,8 +882,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnAssign.Visible = true;
             lbtnAddFollowUp.Visible = true;
             lbtnCustomerConversation.Visible = true;
-            lbtnAddEffort.Visible = true;
-            lbtnAddExpense.Visible = true;
+            //lbtnAddEffort.Visible = true;
+            //lbtnAddExpense.Visible = true;
             lbtnAddFinancialInfo.Visible = true;
             lbtnAddProduct.Visible = true;
            // lbtnAddQuotation.Visible = true;
@@ -898,8 +898,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnAssign.Visible = false;
                 lbtnAddFollowUp.Visible = false;
                 lbtnCustomerConversation.Visible = false;
-                lbtnAddEffort.Visible = false;
-                lbtnAddExpense.Visible = false;
+                //lbtnAddEffort.Visible = false;
+                //lbtnAddExpense.Visible = false;
                 lbtnAddFinancialInfo.Visible = false;
                 lbtnAddProduct.Visible = false;
                 //lbtnAddQuotation.Visible = false;
@@ -932,14 +932,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lbtnCustomerConversation.Visible = false;
             }   
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddEffortLead).Count() == 0)
-            {
-                lbtnAddEffort.Visible = false;
-            }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddExpenseLead).Count() == 0)
-            {
-                lbtnAddExpense.Visible = false;
-            }
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddEffortLead).Count() == 0)
+            //{
+            //    lbtnAddEffort.Visible = false;
+            //}
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddExpenseLead).Count() == 0)
+            //{
+            //    lbtnAddExpense.Visible = false;
+            //}
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.FinancialInfoLead).Count() == 0)
             {
                 lbtnAddFinancialInfo.Visible = false;

@@ -104,7 +104,7 @@ namespace Properties
     {
         public long QuotationID { get; set; }
         public long LeadID { get; set; }
-        public int LeadProductID { get; set; }
+        public long LeadProductID { get; set; }
         public int? SalesQuotationUserStatusID { get; set; }
         public DateTime? RequestedDeliveryDate { get; set; }
         public long? CustomerShipToID { get; set; }
@@ -114,9 +114,7 @@ namespace Properties
         public DateTime? ValidTo { get; set; }
         public DateTime? PricingDate { get; set; }
         public Boolean CommissionAgent { get; set; }
-        public PPriceGroup PriceGroup { get; set; }
-        public PLead Lead { get; set; }
-        public PLeadProduct LeadProduct { get; set; }
+        public PPriceGroup PriceGroup { get; set; }  
         public decimal LifeTimeTax { get; set; }
 
     }

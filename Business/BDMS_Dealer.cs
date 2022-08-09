@@ -1121,7 +1121,7 @@ namespace Business
                 DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String); 
                 DbParameter[] Params = new DbParameter[5] { DealerIDP, AadhaarCardNoP, DistrictIDP, NameP, SAPEmpCodeP };
 
-                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeForUserMonthlyVerification", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeByDealerID", Params))
                 {
                     if (DataSet != null)
                     {

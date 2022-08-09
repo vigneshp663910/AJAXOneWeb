@@ -333,12 +333,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnStatusChangeToCancel.Visible = false;
             }
 
-            if (ColdVisit.ReferenceID != null)
-            {
-                lbtnAddEffort.Visible = false;
-                lbtnAddExpense.Visible = false;
-                tbpCust.Visible = false;
-            }
+            //if (ColdVisit.ReferenceID != null)
+            //{
+            //    lbtnAddEffort.Visible = false;
+            //    lbtnAddExpense.Visible = false;
+            //    tbpCust.Visible = false;
+            //}
         }
     }
 }

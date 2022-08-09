@@ -27,6 +27,13 @@ namespace DealerManagementSystem.ViewMaster
                 Session["EmpLocationTrack"] = value;
             }
         }
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 

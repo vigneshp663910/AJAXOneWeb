@@ -1036,6 +1036,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lbtnVerifiedCustomer.Visible = false;
                 lbtnSyncToSap.Visible = false;
             }
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerVerify).Count() == 0)
+            {
+                lbtnVerifiedCustomer.Visible = false;
+            }
+
         }
 
         protected void FillProduct(object sender, EventArgs e)
