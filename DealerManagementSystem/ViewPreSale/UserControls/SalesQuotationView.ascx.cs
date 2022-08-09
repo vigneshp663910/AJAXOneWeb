@@ -579,11 +579,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageQuotation.Text = Message;
                 return;
             }
-            PSalesQuotation Sq = new PSalesQuotation();
+            PSalesQuotation_Insert Sq = new PSalesQuotation_Insert();
             Sq = UC_Quotation.ReadSalesQuotation();
             Sq.QuotationID = Quotation.QuotationID;
             Sq.Lead = new PLead { LeadID = Quotation.Lead.LeadID };
-            Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+          //  Sq.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation", Sq));
             if (Results.Status == PApplication.Failure)
             {
@@ -1433,7 +1433,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
                 P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
                 string Div = Q.Lead.ProductType.Division.DivisionCode;
-                if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM")
+                if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB")
                 {
                     P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
                     P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
@@ -1459,22 +1459,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + Validity, false);
                     P[43] = new ReportParameter("Note", "Note : " + QNote, false);
                 }
-                else if (Div == "CP")
-                {
-                    P[31] = new ReportParameter("TermsandConditionHead", "", false);
-                    P[32] = new ReportParameter("PaymentTerms", "", false);
-                    P[33] = new ReportParameter("TermsOfPayment", "", false);
-                    P[34] = new ReportParameter("PaymentTermAccName", "", false);
-                    P[35] = new ReportParameter("PaymentTermBankName", "", false);
-                    P[36] = new ReportParameter("PaymentTermBankAddress", "");
-                    P[37] = new ReportParameter("PaymentTermAccNo", "", false);
-                    P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
-                    P[39] = new ReportParameter("Delivery", "", false);
-                    P[40] = new ReportParameter("TransitInsurance", "", false);
-                    P[41] = new ReportParameter("Transportation", "", false);
-                    P[42] = new ReportParameter("Validity", "", false);
-                    P[43] = new ReportParameter("Note", "", false);
-                }
+                //else if (Div == "CP")
+                //{
+                //    P[31] = new ReportParameter("TermsandConditionHead", "", false);
+                //    P[32] = new ReportParameter("PaymentTerms", "", false);
+                //    P[33] = new ReportParameter("TermsOfPayment", "", false);
+                //    P[34] = new ReportParameter("PaymentTermAccName", "", false);
+                //    P[35] = new ReportParameter("PaymentTermBankName", "", false);
+                //    P[36] = new ReportParameter("PaymentTermBankAddress", "");
+                //    P[37] = new ReportParameter("PaymentTermAccNo", "", false);
+                //    P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
+                //    P[39] = new ReportParameter("Delivery", "", false);
+                //    P[40] = new ReportParameter("TransitInsurance", "", false);
+                //    P[41] = new ReportParameter("Transportation", "", false);
+                //    P[42] = new ReportParameter("Validity", "", false);
+                //    P[43] = new ReportParameter("Note", "", false);
+                //}
                 else if (!string.IsNullOrEmpty(Div))
                 {
                     lblMessage.Text = "Please Change First Line Item of Material";
