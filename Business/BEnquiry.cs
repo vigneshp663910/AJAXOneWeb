@@ -26,10 +26,36 @@ namespace Business
             DataTable dtEnquiry  = new SEnquiry().getEnquiry(From, To, EnquiryNo, DealerCode, CustomerCode);
             foreach (DataRow dr in dtEnquiry.Rows)
             {
+                List<PLeadSource> DBMasterSource = new BLead().GetLeadSource(null, null);
                 List<PLeadSource> Source = new BLead().GetLeadSource(null, dr["SOURCE"].ToString());
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, dr["C_STATE"].ToString());
                 List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (State.Count == 0) ?(int?)null: Convert.ToInt32(State[0].StateID), null, string.IsNullOrEmpty(dr["C_DISTRICT"].ToString())? "UNKNOWN": dr["C_DISTRICT"].ToString(), null);
-                
+                Int32? SourceID = null;
+                if(dr["SOURCE"].ToString().Contains("Through Hoardings") || dr["SOURCE"].ToString().Contains("Dontuse") || dr["SOURCE"].ToString().Contains("Direct Enquiry"))
+                {
+                    SourceID = DBMasterSource[10].SourceID;
+                }
+                else if(dr["SOURCE"].ToString().Contains("Indiamart -  Email")|| dr["SOURCE"].ToString().Contains("Indiamart- Call"))
+                {
+                    SourceID = DBMasterSource[8].SourceID;
+                }
+                else if (dr["SOURCE"].ToString().Contains("Indiamart-Buylead"))
+                {
+                    SourceID = DBMasterSource[7].SourceID;
+                }
+                else if (dr["SOURCE"].ToString().Contains("Monsoon Scheme") || dr["SOURCE"].ToString().Contains("Billboard Campaign"))
+                {
+                    SourceID = DBMasterSource[6].SourceID;
+                }
+                else if (dr["SOURCE"].ToString().Contains("Exhibition"))
+                {
+                    SourceID = DBMasterSource[5].SourceID;
+                }
+                else if (dr["SOURCE"].ToString().Contains("Existing Customer-Repeat order"))
+                {
+                    SourceID = DBMasterSource[3].SourceID;
+                }
+
                 TraceLogger.Log(DateTime.Now);
                 try
                 {
@@ -43,7 +69,7 @@ namespace Business
                     DbParameter Address = provider.CreateParameter("Address", dr["C_ADDR1"].ToString(), DbType.String);
                     DbParameter Address2 = provider.CreateParameter("Address2", dr["C_ADDR2"].ToString(), DbType.String);
                     DbParameter Address3 = provider.CreateParameter("Address3", dr["C_STREET"].ToString(), DbType.String);
-                    DbParameter SourceID = provider.CreateParameter("SourceID", (Source.Count == 0) ? (Int32?)null : Source[0].SourceID, DbType.Int32);
+                    DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
                     DbParameter CountryID = provider.CreateParameter("CountryID", 1, DbType.Int32);
                     DbParameter StateID = provider.CreateParameter("StateID", (State.Count == 0) ? (Int32?)null : State[0].StateID, DbType.Int32);
                     DbParameter DistrictID = provider.CreateParameter("DistrictID", (District.Count==0)? (Int32?)null:District[0].DistrictID, DbType.Int32);
@@ -53,8 +79,8 @@ namespace Business
                     DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                     using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {
-                        DbParameter[] Params = new DbParameter[17] { /*EnquiryID, */EnquiryDate, SapEnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceID, CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
-                        provider.Insert("InsertOrUpdateEnquiry", Params);
+                        DbParameter[] Params = new DbParameter[17] { /*EnquiryID, */EnquiryDate, SapEnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceIDP, CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                        provider.Insert("InsertOrUpdateEnquiryFromSAP", Params);
                         scope.Complete();
                     }
                     TraceLogger.Log(DateTime.Now);
