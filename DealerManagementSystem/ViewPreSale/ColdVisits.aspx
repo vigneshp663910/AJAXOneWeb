@@ -509,4 +509,26 @@
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+     <asp:HiddenField ID="hfLatitude" runat="server" />
+ <asp:HiddenField ID="hfLongitude" runat="server" />
+     <script> 
+         function success(position) {
+             const latitude = position.coords.latitude;
+             const longitude = position.coords.longitude;
+             document.getElementById('MainContent_hfLatitude').value = latitude;
+             document.getElementById('MainContent_hfLongitude').value = longitude;
+             status.textContent = '';
+         }
+         function error() {
+             status.textContent = 'Unable to retrieve your location';
+         }
+
+         if (!navigator.geolocation) {
+             status.textContent = 'Geolocation is not supported by your browser';
+
+         } else {
+             status.textContent = 'Locating…';
+             navigator.geolocation.getCurrentPosition(success, error);
+         }
+     </script>
 </asp:Content>

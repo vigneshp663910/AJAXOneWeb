@@ -378,19 +378,7 @@
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                                 </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <%--<asp:TemplateField HeaderText="Customer" SortExpression="Customer Code">
-                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblCustomer" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>--%>
-                                            <%--<asp:TemplateField HeaderText="Equipment" SortExpression="Equipment">
-                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentSerialNo")%>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>--%>
+                                            </asp:TemplateField> 
 
                                             <asp:TemplateField HeaderText="Referenece" SortExpression="Referenece">
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

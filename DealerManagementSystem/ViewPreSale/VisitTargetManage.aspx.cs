@@ -28,18 +28,15 @@ namespace DealerManagementSystem.ViewPreSale
             if (!IsPostBack)
             {
                 FillYearAndMonth();
+                 
 
-                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
-                //new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
-
-                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlEmployee);
-               // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-
-                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditVisitTarget).Count() != 0)
-                {
-                    btnEdit.Visible = true;
-                }
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlEmployee); 
+              
+               // List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;             
+                //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditVisitTarget).Count() != 0)
+                //{
+                //    btnEdit.Visible = true;
+                //}
             }
         }
 
@@ -86,7 +83,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                 }
                 BtnSearch.Text = "Retrieve";
-                btnEdit.Text = "Edit";
+                //btnEdit.Text = "Edit";
             }
             else
             {
@@ -148,7 +145,7 @@ namespace DealerManagementSystem.ViewPreSale
         void FillVisitTarget()
         {
             BtnSearch.Text = "Retrieve";
-            btnEdit.Text = "Edit";
+           // btnEdit.Text = "Edit";
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
@@ -225,34 +222,34 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
-            if (btnEdit.Text == "Update")
-            {
-                Update();
-                FillVisitTarget();
-            }
-            else
-            {
-                btnEdit.Text = "Update";
-                BtnSearch.Text = "Back";
-                for (int i = 0; i < gvVisitTarget.Rows.Count; i++)
-                {
-                    TextBox txtNewCustomerTarget = (TextBox)gvVisitTarget.Rows[i].FindControl("txtNewCustomerTarget");
-                    TextBox txtProspectCustomerTarget = (TextBox)gvVisitTarget.Rows[i].FindControl("txtProspectCustomerTarget");
-                    TextBox txtExistCustomerTarget = (TextBox)gvVisitTarget.Rows[i].FindControl("txtExistCustomerTarget");
+            //if (btnEdit.Text == "Update")
+            //{
+            //    Update();
+            //    FillVisitTarget();
+            //}
+            //else
+            //{
+            //    btnEdit.Text = "Update";
+            //    BtnSearch.Text = "Back";
+            //    for (int i = 0; i < gvVisitTarget.Rows.Count; i++)
+            //    {
+            //        TextBox txtNewCustomerTarget = (TextBox)gvVisitTarget.Rows[i].FindControl("txtNewCustomerTarget");
+            //        TextBox txtProspectCustomerTarget = (TextBox)gvVisitTarget.Rows[i].FindControl("txtProspectCustomerTarget");
+            //        TextBox txtExistCustomerTarget = (TextBox)gvVisitTarget.Rows[i].FindControl("txtExistCustomerTarget");
 
-                    Label lblNewCustomerTargett = (Label)gvVisitTarget.Rows[i].FindControl("lblNewCustomerTarget");
-                    Label lblProspectCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblProspectCustomerTarget");
-                    Label lblExistCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblExistCustomerTarget");
+            //        Label lblNewCustomerTargett = (Label)gvVisitTarget.Rows[i].FindControl("lblNewCustomerTarget");
+            //        Label lblProspectCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblProspectCustomerTarget");
+            //        Label lblExistCustomerTarget = (Label)gvVisitTarget.Rows[i].FindControl("lblExistCustomerTarget");
 
-                    txtNewCustomerTarget.Visible = true;
-                    txtProspectCustomerTarget.Visible = true;
-                    txtExistCustomerTarget.Visible = true;
+            //        txtNewCustomerTarget.Visible = true;
+            //        txtProspectCustomerTarget.Visible = true;
+            //        txtExistCustomerTarget.Visible = true;
 
-                    lblNewCustomerTargett.Visible = false;
-                    lblProspectCustomerTarget.Visible = false;
-                    lblExistCustomerTarget.Visible = false;
-                }
-            }
+            //        lblNewCustomerTargett.Visible = false;
+            //        lblProspectCustomerTarget.Visible = false;
+            //        lblExistCustomerTarget.Visible = false;
+            //    }
+            //}
         }
 
 

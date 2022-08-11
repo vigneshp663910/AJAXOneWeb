@@ -115,7 +115,7 @@
 
                 <div class="col-md-12 col-sm-12">
                     <label class="modal-label">
-                        Customer Name
+                        Customer Name ( Search by customer Code(6 char.)/Name(min 4 Char.)/Mobile(10 digits))
                         <samp style="color: red">*</samp></label>
                     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver"
                         AutoCompleteType="Disabled"></asp:TextBox>

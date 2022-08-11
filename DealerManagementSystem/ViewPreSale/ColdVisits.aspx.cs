@@ -320,6 +320,17 @@ namespace DealerManagementSystem.ViewPreSale
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
             UC_ColdVisitsView.fillViewColdVisit(Convert.ToInt64(lblColdVisitID.Text));
+
+           
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                lblMessage.Text = "Please Enable GeoLocation...!";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true; 
+                return;
+            }
+            Session["Latitude"] = hfLatitude.Value;
+            Session["Longitude"] = hfLongitude.Value;
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {

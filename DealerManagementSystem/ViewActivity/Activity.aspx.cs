@@ -351,13 +351,15 @@ namespace DealerManagementSystem.ViewActivity
 
                 //string endPoint = "Activity/StartActivity?Latitude=" + Convert.ToDecimal(hfLatitude.Value) + "&Longitude=" + Convert.ToDecimal(hfLongitude.Value) + "&ActivityTypeID=" + Convert.ToInt32(ddlActivityTypeS.SelectedValue);
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                PApiResult Results = new BActivity().StartActivity(Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblAddActivityMessage.Text = "Activity not added successfully.";
-                    lblAddActivityMessage.ForeColor = Color.Red;
-                    return;
-                }
+              
+                
+                //PApiResult Results = new BActivity().StartActivity(Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
+                //if (Results.Status == PApplication.Failure)
+                //{
+                //    lblAddActivityMessage.Text = "Activity not added successfully.";
+                //    lblAddActivityMessage.ForeColor = Color.Red;
+                //    return;
+                //}
                 
                 lblActivityMessage.Text = "Activity added successfully.";
                 lblActivityMessage.ForeColor = Color.Green;

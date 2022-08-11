@@ -174,6 +174,18 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
+
+        public List<PActivity> GetActivityByID(long? ActivityID, long? VisitID)
+        {
+            string endPoint = "Activity/GetActivityByID?ActivityID=" + ActivityID + "&VisitID=" + VisitID;
+            return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PActivity> GetActivityWithVisitByID(long? ActivityID, long? VisitID)
+        {
+            string endPoint = "Activity/GetActivityWithVisitByID?ActivityID=" + ActivityID + "&VisitID=" + VisitID;
+            return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        
         //public long InsertOrUpdateActivity(PActivity Activity)
         //{
         //    int success;
@@ -224,17 +236,31 @@ namespace Business
         //    return ActivityOut;
         //}
 
-        public PApiResult StartActivity(decimal Latitude, decimal Longitude, int ActivityTypeID)
+        public PApiResult StartActivity(long VisitID, string Location, string Remark, decimal Latitude, decimal Longitude, int ActivityTypeID)
         {
-            string endPoint = "Activity/StartActivity?Latitude=" + Latitude + "&Longitude=" + Longitude + "&ActivityTypeID=" + ActivityTypeID;
+            string endPoint = "Activity/StartActivity?VisitID="+ VisitID + "&Location=" + Location + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude + "&ActivityTypeID=" + ActivityTypeID;
             //return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 
-        public PApiResult EndActivity(long ActivityID, decimal Latitude, decimal Longitude, string Location, decimal? Amount, int? ReferenceType, string ReferenceNumber, string Remarks, int? EffortTypeID, decimal? EffortDuration, int? ExpenseTypeID)
+        public PApiResult EndActivity(long ActivityID, string Remark, decimal Latitude, decimal Longitude, int? ExpenseTypeID, decimal? Amount, int? EffortTypeID, decimal? EffortDuration)
         {
-            string endPoint = "Activity/EndActivity?ActivityID=" + ActivityID + "&Latitude=" + Latitude + "&Longitude=" + Longitude
-                                + "&Location=" + Location + "&Amount=" + Amount + "&ReferenceType=" + ReferenceType + "&ReferenceNumber=" + ReferenceNumber + "&Remarks=" + Remarks + "&EffortTypeID=" + EffortTypeID + "&EffortDuration=" + EffortDuration + "&ExpenseTypeID=" + ExpenseTypeID;
+            string endPoint = "Activity/EndActivity?ActivityID=" + ActivityID + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude
+                + "&ExpenseTypeID=" + ExpenseTypeID + "&Amount=" + Amount + "&EffortTypeID=" + EffortTypeID + "&EffortDuration=" + EffortDuration;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+
+        public PApiResult StartActivityWithVisit(long VisitID, string Location, string Remark, decimal Latitude, decimal Longitude, int ActivityTypeID)
+        {
+            string endPoint = "Activity/StartActivityWithVisit?VisitID=" + VisitID + "&Location=" + Location + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude + "&ActivityTypeID=" + ActivityTypeID;
+            //return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+
+        public PApiResult EndActivityWithVisit(long ActivityID, string Remark, decimal Latitude, decimal Longitude, int? ExpenseTypeID, decimal? Amount, int? EffortTypeID, decimal? EffortDuration)
+        {
+            string endPoint = "Activity/EndActivityWithVisit?ActivityID=" + ActivityID + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude
+                + "&ExpenseTypeID=" + ExpenseTypeID + "&Amount=" + Amount + "&EffortTypeID=" + EffortTypeID + "&EffortDuration=" + EffortDuration;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 

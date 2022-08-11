@@ -80,7 +80,7 @@
                     <asp:DropDownList ID="ddlShipParty" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-12 col-sm-12">
-                    <label class="modal-label">Commission Agent</label>
+                    <label class="modal-label">Commission Agent (Tick , If AJAX to be Invoiced to Customer-Commission Claim by Dealer)</label>
                     <asp:CheckBox ID="cbCommissionAgent" runat="server" />
                 </div>
             </div>

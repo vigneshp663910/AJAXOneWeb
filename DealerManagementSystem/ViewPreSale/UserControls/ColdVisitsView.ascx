@@ -9,6 +9,9 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddLeadProduct.ascx" TagPrefix="UC" TagName="UC_Product" %>--%>
 
 
+
+
+
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -19,6 +22,7 @@
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
                 <asp:LinkButton ID="lbtnStatusChangeToClose" runat="server" OnClick="lbActions_Click">Status Change to Close</asp:LinkButton>
                 <asp:LinkButton ID="lbtnStatusChangeToCancel" runat="server" OnClick="lbActions_Click">Status Change to Cancel</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddActivity" runat="server" OnClick="lbActions_Click">Add Activity</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -87,6 +91,96 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
+    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Activity">
+        <ContentTemplate>
+            <div class="col-md-12 Report">
+                <div class="table-responsive">
+                    <asp:GridView ID="gvActivity" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                        EmptyDataText="No Data Found" DataKeyNames="ActivityStartLatitude,ActivityStartLongitude,ActivityEndLatitude,ActivityEndLongitude">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Activity Number">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblActivityID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityID")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Activity Type">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblActivityType" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeName")%>' runat="server" />
+                                    <asp:Label ID="lblActivityTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityType.ActivityTypeID")%>' runat="server" Visible="false" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Start Date" SortExpression="Start Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <%--<asp:Label ID="lblStartDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityStartDate","{0:d}")%>' runat="server" />--%>
+                                    <asp:Label ID="lblStartDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityStartDate")%>' runat="server" />
+
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="End Date" SortExpression="End Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <%--<asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityEndDate","{0:d}")%>' runat="server" />--%>
+                                    <asp:Label ID="lblEndDate" Text='<%# DataBinder.Eval(Container.DataItem, "ActivityEndDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Location" SortExpression="Location">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Expenses" SortExpression="ExpenseType">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpenseType" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseType.ExpenseType","{0:n}")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expenses" SortExpression="Expenses">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount","{0:n}")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expenses" SortExpression="EffortType">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffortType" Text='<%# DataBinder.Eval(Container.DataItem, "EffortType.EffortType","{0:n}")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="EffortDuration" SortExpression="Expenses">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEffortDuration" Text='<%# DataBinder.Eval(Container.DataItem, "EffortDuration","{0:n}")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Remarks" SortExpression="Remarks">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Action" SortExpression="Action">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click"
+                                        Width="105px" Height="25px" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -152,54 +246,54 @@
 
     <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
         <ContentTemplate>
-          <%--  <div class="col-md-12">--%>
-                <div class="col-md-12 Report">
-                    <div class="table-responsive">
-                        <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
-                            <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Sales Engineer">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Expense Type">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblExpenseType" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseType.ExpenseType")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Expense Date" SortExpression="Country">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate","{0:d}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Amount" SortExpression="Country">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Remark" SortExpression="Country">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
-                    </div>
+            <%--  <div class="col-md-12">--%>
+            <div class="col-md-12 Report">
+                <div class="table-responsive">
+                    <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Sales Engineer">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expense Type">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpenseType" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseType.ExpenseType")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expense Date" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpenseDate" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseDate","{0:d}")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Amount" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Remark" SortExpression="Country">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRemark" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
                 </div>
-         <%--   </div>--%>
+            </div>
+            <%--   </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
@@ -266,6 +360,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlEffort" runat="server" CssClass="Popup" Style="display: none">
@@ -308,6 +403,108 @@
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+
+
+
+<asp:Panel ID="pnlAddActivity" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnAddActivityClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <asp:Label ID="lblAddActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Start Date</label>
+                        <asp:Label ID="lblStartActivityDate" runat="server" Text="" CssClass="message" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Activity Type</label>
+                        <asp:DropDownList ID="ddlActivityTypeS" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Location</label>
+                        <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnStartActivity" runat="server" Text="Start" CssClass="btn Save" OnClick="btnStartActivity_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlEndActivity" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueEndActivity">End Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnEndActivityClose" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <asp:Label ID="lblEndActivityMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblValidationMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+
+            <fieldset class="fieldset-border" id="Fieldset3" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Activity Number</label>
+                        <asp:Label ID="lblActivityIDE" runat="server" Text="" CssClass="message" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Activity Type</label>
+                        <asp:Label ID="lblActivityTypeE" runat="server" Text="" CssClass="message" />
+                        <asp:Label ID="lblActivityTypeIDE" runat="server" Text="" CssClass="message" Visible="false" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">End Date</label>
+                        <asp:Label ID="lblEndActivityDate" runat="server" Text="" CssClass="message" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Effort Type</label>
+                        <asp:DropDownList ID="ddlEffortType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Effort Duration</label>
+                        <asp:TextBox ID="txtEffortDuration" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Expense Type</label>
+                        <asp:DropDownList ID="ddlExpenseType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Expenses</label>
+                        <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:TextBox ID="txtRemarkE" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnEndActivityE" runat="server" CssClass="btn Save" Text="End Activity" OnClick="btnEndActivityE_Click" Width="150px"></asp:Button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</asp:Panel>
+<asp1:ModalPopupExtender ID="MPE_EndActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEndActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
+
+
+
+
+

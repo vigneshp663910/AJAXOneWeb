@@ -445,12 +445,14 @@ namespace DealerManagementSystem.ViewAdmin
             btnCancel.Visible = true;
 
             Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
+            Label lblUserName = (Label)gvUser.Rows[index].FindControl("lblUserName");
             Label lblContactName = (Label)gvUser.Rows[index].FindControl("lblContactName");
             Label lblMail = (Label)gvUser.Rows[index].FindControl("lblMail");
             Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
             Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
             TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+            TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
             TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
             TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
             TextBox txtContactNumber = (TextBox)gvUser.Rows[index].FindControl("txtContactNumber");
@@ -463,12 +465,14 @@ namespace DealerManagementSystem.ViewAdmin
 
 
             lblPassWord.Visible = false;
+            lblUserName.Visible = false;
             lblContactName.Visible = false;
             lblMail.Visible = false;
             lblContactNumber.Visible = false;
             lblExternalReferenceID.Visible = false;
 
             txtPassWord.Visible = true;
+            txtUserName.Visible = true;
             txtContactName.Visible = true;
             txtMail.Visible = true;
             txtContactNumber.Visible = true;
@@ -493,12 +497,14 @@ namespace DealerManagementSystem.ViewAdmin
             btnCancel.Visible = false;
 
             Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
+            Label lblUserName = (Label)gvUser.Rows[index].FindControl("lblUserName");
             Label lblContactName = (Label)gvUser.Rows[index].FindControl("lblContactName");
             Label lblMail = (Label)gvUser.Rows[index].FindControl("lblMail");
             Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
             Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
             TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+            TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
             TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
             TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
             TextBox txtContactNumber = (TextBox)gvUser.Rows[index].FindControl("txtContactNumber");
@@ -510,12 +516,14 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
 
             lblPassWord.Visible = true;
+            lblUserName.Visible = true;
             lblContactName.Visible = true;
             lblMail.Visible = true;
             lblContactNumber.Visible = true;
             lblExternalReferenceID.Visible = true;
 
             txtPassWord.Visible = false;
+            txtUserName.Visible = false;
             txtContactName.Visible = false;
             txtMail.Visible = false;
             txtContactNumber.Visible = false;
@@ -542,12 +550,14 @@ namespace DealerManagementSystem.ViewAdmin
             btnCancel.Visible = false;
 
             Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
+            Label lblUserName = (Label)gvUser.Rows[index].FindControl("lblUserName");
             Label lblContactName = (Label)gvUser.Rows[index].FindControl("lblContactName");
             Label lblMail = (Label)gvUser.Rows[index].FindControl("lblMail");
             Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
             Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
             TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+            TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
             TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
             TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
             TextBox txtContactNumber = (TextBox)gvUser.Rows[index].FindControl("txtContactNumber");
@@ -566,6 +576,7 @@ namespace DealerManagementSystem.ViewAdmin
             //}
 
             PUser userDAO = new BUser().GetUserDetails(Convert.ToInt32(lblUserID.Text));
+            userDAO.UserName = txtUserName.Text.Trim();
             userDAO.PassWord = txtPassWord.Text.Trim();
             userDAO.ContactName = txtContactName.Text.Trim();
             userDAO.Mail = txtMail.Text.Trim();
@@ -590,12 +601,14 @@ namespace DealerManagementSystem.ViewAdmin
                 btnCancel.Visible = false;
 
                 lblPassWord.Visible = true;
+                lblUserName.Visible = true;
                 lblContactName.Visible = true;
                 lblMail.Visible = true;
                 lblContactNumber.Visible = true;
                 lblExternalReferenceID.Visible = true;
 
                 txtPassWord.Visible = false;
+                txtUserName.Visible = false;
                 txtContactName.Visible = false;
                 txtMail.Visible = false;
                 txtContactNumber.Visible = false;

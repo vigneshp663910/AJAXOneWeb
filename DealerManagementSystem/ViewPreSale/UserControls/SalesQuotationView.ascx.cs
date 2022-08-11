@@ -75,7 +75,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
                 new DDLBind(ddlIncoterms, new BDMS_Master().GetIncoterms(null, null, null), "IncoTerms", "IncoTermsID");
+
                 new DDLBind(ddlPaymentTerms, new BDMS_Master().GetPaymentTerms(null, null, null), "PaymentTerms", "PaymentTermsID");
+
                 if (Quotation.Financier != null)
                 {
                     ddlBankName.SelectedValue = Convert.ToString(Quotation.Financier.BankName.BankNameID);
@@ -85,6 +87,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     txtDoDate.Text = Quotation.Financier.DoDate == null ? "" : ((DateTime)Quotation.Financier.DoDate).ToString("yyyy-MM-dd");
                     txtAdvanceAmount.Text = Convert.ToString(Quotation.Financier.AdvanceAmount);
                     txtFinancierAmount.Text = Convert.ToString(Quotation.Financier.FinancierAmount);
+                }
+                else
+                {
+                    ddlIncoterms.SelectedValue = "5";
+                    ddlPaymentTerms.SelectedValue = "22";
                 }
 
                 MPE_Financier.Show();

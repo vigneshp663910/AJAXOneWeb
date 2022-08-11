@@ -44,6 +44,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["ColdVisitsView"] = value;
             }
         }
+        public List<PActivity> Activity1
+        {
+            get
+            {
+                if (Session["Activity1"] == null)
+                {
+                    Session["Activity1"] = new List<PActivity>();
+                }
+                return (List<PActivity>)Session["Activity1"];
+            }
+            set
+            {
+                Session["Activity1"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessageEffort.Text = "";
@@ -72,8 +87,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblAddress.Text = Location;
             fillEffort();
             fillExpense();
+            FillActivity();
 
-          
+
             ActionControlMange();
 
             
@@ -91,10 +107,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 DropDownList ddlEffortType = (DropDownList)UC_Effort.FindControl("ddlEffortType");
 
                 new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
-                new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID", false); 
-               
+                new DDLBind(ddlSalesEngineer, User, "ContactName", "UserID", false);
+
                 ddlSalesEngineer.Enabled = false;
-                MPE_Effort.Show(); 
+                MPE_Effort.Show();
             }
             else if (lbActions.Text == "Add Expense")
             {
@@ -108,11 +124,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 ddlSalesEngineer.Enabled = false;
 
-                MPE_Expense.Show(); 
+                MPE_Expense.Show();
             }
             else if (lbActions.Text == "Status Change to Close")
             {
-                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2"  + "&UserID=" + PSession.User.UserID;
+                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2" + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
@@ -143,6 +159,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessage.ForeColor = Color.Red;
                 }
                 lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "Add Activity")
+            {
+                new DDLBind(ddlActivityTypeS, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
+                lblStartActivityDate.Text = DateTime.Now.ToString();
+                MPE_AddActivity.Show();
             }
         }
 
@@ -339,6 +361,199 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //    lbtnAddExpense.Visible = false;
             //    tbpCust.Visible = false;
             //}
+        }
+
+        protected void btnStartActivity_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MPE_AddActivity.Show();
+
+                if (ddlActivityTypeS.SelectedValue == "0")
+                {
+                    lblAddActivityMessage.Text = "Please select the Activity Type...!";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    lblAddActivityMessage.Visible = true;
+                    ddlActivityTypeS.BorderColor = Color.Red;
+                    return;
+                }
+
+                PApiResult Results = new BActivity().StartActivityWithVisit(ColdVisit.ColdVisitID, txtLocation.Text.Trim(), txtRemarks.Text.Trim(), Convert.ToDecimal(Session["Latitude"]), Convert.ToDecimal(Session["Longitude"]), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblAddActivityMessage.Text = "Activity not added successfully.";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                lblMessage.Text = "Activity added successfully.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Visible = true;
+
+                FillActivity();
+                MPE_AddActivity.Hide();
+            }
+            catch (Exception ex)
+            {
+                lblAddActivityMessage.Text = ex.Message.ToString();
+                lblAddActivityMessage.ForeColor = Color.Red;
+                lblAddActivityMessage.Visible = true;
+            }
+        }
+        
+        protected void btnEndActivity_Click(object sender, EventArgs e)
+        {
+           
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Button btnEndActivity = (Button)gvRow.FindControl("btnEndActivity");
+
+            if (btnEndActivity.Text == "End Activity")
+            {
+                Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
+                Label lblActivityTypeID = (Label)gvRow.FindControl("lblActivityTypeID");
+                Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
+                Label lblRemarks = (Label)gvRow.FindControl("lblRemarks");
+
+                new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+
+                EndActivity(lblActivityType.Text, lblActivityTypeID.Text, lblActivityID.Text, lblRemarks.Text); 
+            }
+
+            //else if (btnEndActivity.Text == "Track Activity")
+            //{
+            //    MPE_TrackActivity.Show();
+            //    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //    List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //    Dictionary<string, object> row;
+            //    Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
+            //    PActivitySearch S = new PActivitySearch();
+            //    S.ActivityID = Convert.ToInt64(lblActivityID.Text);               
+            //    Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null, null, null);
+            //    foreach (var Activity in Activity1)
+            //    {
+            //        row = new Dictionary<string, object>();
+            //        row.Add("lat", Activity.ActivityStartLatitude);
+            //        row.Add("lng", Activity.ActivityStartLongitude);
+            //        row.Add("description", Activity.StartLatitudeLongitudeDate);
+            //        row.Add("image", Activity.StartMapImage);
+            //        rows.Add(row);
+
+            //        row = new Dictionary<string, object>();
+            //        row.Add("lat", Activity.ActivityEndLatitude);
+            //        row.Add("lng", Activity.ActivityEndLongitude);
+            //        row.Add("description", Activity.EndLatitudeLongitudeDate);
+            //        row.Add("image", Activity.EndMapImage);
+            //        rows.Add(row);
+            //    }
+            //    CurrentLocation = serializer.Serialize(rows);
+           // }
+        }
+        void EndActivity(string ActivityType, string ActivityTypeID, string ActivityID, string Remark)
+        {
+            lblEndActivityMessage.Text = string.Empty;
+            lblEndActivityMessage.Visible = false;
+            lblValidationMessage.Text = string.Empty;
+            lblValidationMessage.Visible = false;
+            txtLocation.Text = string.Empty;
+            MPE_EndActivity.Show();
+
+            lblActivityTypeE.Text = ActivityType;
+            lblActivityTypeIDE.Text = ActivityTypeID;
+            lblActivityIDE.Text = ActivityID;
+            lblEndActivityDate.Text = DateTime.Now.ToString();
+            txtRemarkE.Text = Remark;
+
+            lblEndActivityMessage.ForeColor = Color.Red;
+            lblEndActivityMessage.Visible = true;
+        }
+        public string CurrentLocation
+        {
+            get
+            {
+                if (Session["ActivityReport"] == null)
+                {
+                    Session["ActivityReport"] = "";
+                }
+                return (string)Session["ActivityReport"];
+            }
+            set
+            {
+                Session["ActivityReport"] = value;
+            }
+        }
+        protected void btnEndActivityE_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                MPE_EndActivity.Show();
+                lblEndActivityMessage.ForeColor = Color.Red;
+                lblEndActivityMessage.Visible = true;
+
+
+
+                int? ExpenseTypeID = ddlExpenseType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlExpenseType.SelectedValue);
+                decimal?  Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim()); 
+
+                int? EffortTypeID = ddlEffortType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEffortType.SelectedValue.Trim());
+                decimal? EffortDuration = string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()); 
+
+                PApiResult Results = new BActivity().EndActivityWithVisit(Convert.ToInt32(lblActivityIDE.Text), txtRemarks.Text.Trim(), Convert.ToDecimal(Session["Latitude"]), Convert.ToDecimal(Session["Longitude"])
+                    , ExpenseTypeID, Amount, EffortTypeID, EffortDuration);
+                 
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblValidationMessage.Text = "<br/>" + Results.Message;
+                    lblValidationMessage.ForeColor = Color.Red;
+                    lblValidationMessage.Visible = true;
+                    return;
+                }
+                lblMessage.Text = "Activity ended successfully.";
+                lblMessage.ForeColor = Color.Green;
+
+                FillActivity();
+                MPE_EndActivity.Hide();
+            }
+            catch (Exception ex)
+            {
+                lblEndActivityMessage.Text = ex.Message.ToString();
+                lblEndActivityMessage.ForeColor = Color.Red;
+                lblEndActivityMessage.Visible = true;
+            }
+        }
+        void FillActivity()
+        {
+            PActivitySearch S = new PActivitySearch();
+
+            //S.ActivityTypeID = ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue);
+            //S.ActivityID = string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim());
+            //S.ActivityDateFrom = string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateFrom.Text.Trim());
+            //S.ActivityDateTo = string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtActivityDateTo.Text.Trim());
+            ////S.CustomerCode = txtCustomerCode.Text.Trim();
+            ////S.EquipmentSerialNo = txtEquipment.Text.Trim();
+            //S.ActivityReferenceTableID = ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue);
+            //S.ReferenceNumber = txtReferenceNumber.Text.Trim();
+            //Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
+
+            Activity1 = new BActivity().GetActivityWithVisitByID(null, ColdVisit.ColdVisitID);
+
+
+            gvActivity.DataSource = Activity1;
+            gvActivity.DataBind();
+
+            for (int i = 0; i < gvActivity.Rows.Count; i++)
+            {
+                Label lblEndDate = (Label)gvActivity.Rows[i].FindControl("lblEndDate");
+                Button btnEndActivity = (Button)gvActivity.Rows[i].FindControl("btnEndActivity");
+                if (!string.IsNullOrEmpty(lblEndDate.Text))
+                {
+                    //btnEndActivity.Visible = false;
+                    btnEndActivity.Text = "Track Activity";
+                }
+            }
+            
         }
     }
 }
