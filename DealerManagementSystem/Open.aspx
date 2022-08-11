@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Open.aspx.cs" Inherits="DealerManagementSystem.Open" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,7 +9,7 @@
     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
+    
     <script type="text/javascript"> 
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart1);
@@ -38,8 +39,9 @@
     </script>
 </head>
 <body>
+    
     <form id="form1" runat="server">
-
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
         <asp:DropDownList ID="DrpMonth" runat="server" AutoPostBack="true">
             <asp:ListItem Text="Finland" Value="Finland" Selected="True"></asp:ListItem>
             <asp:ListItem Text="Brazil" Value="Brazil"></asp:ListItem>
@@ -92,7 +94,7 @@
                     <asp:Button ID="btnEnquiryIndiamart" runat="server" Text="Enquiry Indiamart" OnClick="btnEnquiryIndiamart_Click" />
                 </td>
             </tr>
-              <tr>
+            <tr>
                 <td>
                     <asp:Label ID="Label1" runat="server" Text="Enquiry Indiamart"></asp:Label>
                 </td>
@@ -121,7 +123,31 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="BtnSalesQuotationDetails" runat="server" Text="SalesQuotationDocumentDetails" OnClick="BtnSalesQuotationDetails_Click"/>
+                    <asp:Button ID="BtnSalesQuotationDetails" runat="server" Text="SalesQuotationDocumentDetails" OnClick="BtnSalesQuotationDetails_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp1:CalendarExtender ID="calendarextender2" runat="server" TargetControlID="txtFromDate" PopupButtonID="txtFromDate" Format="dd/MM/yyyy" />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtFromDate" WatermarkText="From" />
+                </td>
+                <td>
+                    <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp1:CalendarExtender ID="calendarextender3" runat="server" TargetControlID="txtToDate" PopupButtonID="txtToDate" Format="dd/MM/yyyy" />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtToDate" WatermarkText="To" />
+                </td>
+
+                <td>
+                    <asp:TextBox ID="txtEnquiryNo" runat="server" PlaceHolder="EnquiryNo"></asp:TextBox></td>
+                <td>
+                    <asp:TextBox ID="txtDelaerCode" runat="server" PlaceHolder="DealerCode"></asp:TextBox></td>
+                <td>
+                    <asp:TextBox ID="txtCustomerCode" runat="server" PlaceHolder="CustomerCode"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="BtnEnquiryDetails" runat="server" Text="EnquiryDetails" OnClick="BtnEnquiryDetails_Click" />
                 </td>
             </tr>
         </table>

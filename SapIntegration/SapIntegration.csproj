@@ -62,6 +62,7 @@
     <Compile Include="SDMS_PurchaseOrder.cs" />
     <Compile Include="SDMS_WarrantyClaimAnnexure.cs" />
     <Compile Include="SDMS_WebQuotation.cs" />
+    <Compile Include="SEnquiry.cs" />
     <Compile Include="SHDFCBankPaymentIntegration.cs" />
     <Compile Include="SMaterial.cs" />
     <Compile Include="SQuotation.cs" />
