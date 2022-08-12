@@ -162,7 +162,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Activity")
             {
-                List<PActivity> PendingVisitActivity = new BActivity().GetPendingVisitActivitiy(null, PSession.User.UserID, PSession.User.UserID);
+                List<PActivity> PendingVisitActivity = new BActivity().GetPendingVisitActivity(null, PSession.User.UserID, PSession.User.UserID);
                 if (PendingVisitActivity.Count > 0)
                 {
                     //lblActivityTypeE.Text = PendingUserActivity[0].ActivityType.ActivityTypeName;

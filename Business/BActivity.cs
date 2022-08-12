@@ -293,13 +293,13 @@ namespace Business
             } 
         }
 
-        public List<PActivity> GetPendingVisitActivitiy(int? DealerID, int? SalesEnineerUserID, int UserID)
+        public List<PActivity> GetPendingVisitActivity(int? DealerID, int? SalesEnineerUserID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             List<PActivity> Activities = new List<PActivity>();
             try
             {
-                string endPoint = "Activity/PendingVisitActivitiy?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
+                string endPoint = "Activity/PendingVisitActivity?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
                 return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
             }
