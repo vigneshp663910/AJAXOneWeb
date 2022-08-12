@@ -162,9 +162,45 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Activity")
             {
-                new DDLBind(ddlActivityTypeS, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
-                lblStartActivityDate.Text = DateTime.Now.ToString();
-                MPE_AddActivity.Show();
+                List<PActivity> PendingVisitActivity = new BActivity().GetPendingVisitActivitiy(null, PSession.User.UserID, PSession.User.UserID);
+                if (PendingVisitActivity.Count > 0)
+                {
+                    //lblActivityTypeE.Text = PendingUserActivity[0].ActivityType.ActivityTypeName;
+                    //lblActivityTypeIDE.Text = PendingUserActivity[0].ActivityType.ActivityTypeID.ToString();
+                    ////ViewState["ActivityID"] = PendingUserActivity[0].ActivityID;
+                    //lblActivityIDE.Text = PendingUserActivity[0].ActivityID.ToString();
+                    //lblEndActivityDate.Text = DateTime.Now.ToString();
+                    //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
+                    //new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+                    //new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+                    //new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+
+                    //ddlReferenceTypeE_SelectedIndexChanged(sender, e);
+                    EndActivity(PendingVisitActivity[0].ActivityType.ActivityTypeName, PendingVisitActivity[0].ActivityType.ActivityTypeID.ToString(), PendingVisitActivity[0].ActivityID.ToString(), PendingVisitActivity[0].Remark.ToString());
+
+                    lblEndActivityMessage.Text = "Visit Activity is Pending. Please close this Visit Activity to add a new Visit Activity.";
+                    lblEndActivityMessage.ForeColor = Color.Red;
+                    lblEndActivityMessage.Visible = true;
+                    //txtLocationS.Text = string.Empty;
+                    //txtLocationS.BorderColor = Color.Silver;
+                    //txtRemarks.Text = string.Empty;
+                    //txtRemarks.BorderColor = Color.Silver;
+                    lblValidationMessage.Text = string.Empty;
+                    lblValidationMessage.Visible = false;
+                    MPE_EndActivity.Show();
+                }
+                else
+                {
+                    new DDLBind(ddlActivityTypeS, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
+                    lblStartActivityDate.Text = DateTime.Now.ToString();
+                    lblAddActivityMessage.Text = string.Empty;
+                    ddlActivityTypeS.BorderColor = Color.Silver;
+                    txtLocation.Text = string.Empty;
+                    txtLocation.BorderColor = Color.Silver;
+                    txtRemarksS.Text = string.Empty;
+                    txtRemarksS.BorderColor = Color.Silver;
+                    MPE_AddActivity.Show();
+                }
             }
         }
 
@@ -367,6 +403,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             try
             {
+                ddlActivityTypeS.BorderColor = Color.Silver;
+                txtLocation.BorderColor = Color.Silver;
+                txtRemarksS.BorderColor = Color.Silver;
                 MPE_AddActivity.Show();
 
                 if (ddlActivityTypeS.SelectedValue == "0")
@@ -377,8 +416,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     ddlActivityTypeS.BorderColor = Color.Red;
                     return;
                 }
-
-                PApiResult Results = new BActivity().StartActivityWithVisit(ColdVisit.ColdVisitID, txtLocation.Text.Trim(), txtRemarks.Text.Trim(), Convert.ToDecimal(Session["Latitude"]), Convert.ToDecimal(Session["Longitude"]), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
+                if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+                {
+                    lblAddActivityMessage.Text = "Please Enable GeoLocation...!";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    lblAddActivityMessage.Visible = true;
+                    ddlActivityTypeS.BorderColor = Color.Red;
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+                {
+                    lblAddActivityMessage.Text = "Please enter the Location";
+                    lblAddActivityMessage.ForeColor = Color.Red;
+                    txtLocation.BorderColor = Color.Red;
+                    return;
+                }
+                PApiResult Results = new BActivity().StartActivityWithVisit(ColdVisit.ColdVisitID, txtLocation.Text.Trim(), txtRemarksS.Text.Trim(), Convert.ToDecimal(Session["Latitude"]), Convert.ToDecimal(Session["Longitude"]), Convert.ToInt32(ddlActivityTypeS.SelectedValue));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblAddActivityMessage.Text = "Activity not added successfully.";
@@ -403,10 +456,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         
         protected void btnEndActivity_Click(object sender, EventArgs e)
         {
-           
-
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Button btnEndActivity = (Button)gvRow.FindControl("btnEndActivity");
+           GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+           Button btnEndActivity = (Button)gvRow.FindControl("btnEndActivity");
 
             if (btnEndActivity.Text == "End Activity")
             {
@@ -421,34 +472,35 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 EndActivity(lblActivityType.Text, lblActivityTypeID.Text, lblActivityID.Text, lblRemarks.Text); 
             }
 
-            //else if (btnEndActivity.Text == "Track Activity")
-            //{
-            //    MPE_TrackActivity.Show();
-            //    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            //    List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            //    Dictionary<string, object> row;
-            //    Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
-            //    PActivitySearch S = new PActivitySearch();
-            //    S.ActivityID = Convert.ToInt64(lblActivityID.Text);               
-            //    Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null, null, null);
-            //    foreach (var Activity in Activity1)
-            //    {
-            //        row = new Dictionary<string, object>();
-            //        row.Add("lat", Activity.ActivityStartLatitude);
-            //        row.Add("lng", Activity.ActivityStartLongitude);
-            //        row.Add("description", Activity.StartLatitudeLongitudeDate);
-            //        row.Add("image", Activity.StartMapImage);
-            //        rows.Add(row);
+            else if (btnEndActivity.Text == "Track Activity")
+            {
+                MPE_TrackActivity.Show();
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                
+                Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
+                PActivitySearch S = new PActivitySearch();
+                S.ActivityID = Convert.ToInt64(lblActivityID.Text);
+                Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null);
+                foreach (var Activity in Activity1)
+                {
+                    row = new Dictionary<string, object>();
+                    row.Add("lat", Activity.ActivityStartLatitude);
+                    row.Add("lng", Activity.ActivityStartLongitude);
+                    row.Add("description", Activity.StartLatitudeLongitudeDate);
+                    row.Add("image", Activity.StartMapImage);
+                    rows.Add(row);
 
-            //        row = new Dictionary<string, object>();
-            //        row.Add("lat", Activity.ActivityEndLatitude);
-            //        row.Add("lng", Activity.ActivityEndLongitude);
-            //        row.Add("description", Activity.EndLatitudeLongitudeDate);
-            //        row.Add("image", Activity.EndMapImage);
-            //        rows.Add(row);
-            //    }
-            //    CurrentLocation = serializer.Serialize(rows);
-           // }
+                    row = new Dictionary<string, object>();
+                    row.Add("lat", Activity.ActivityEndLatitude);
+                    row.Add("lng", Activity.ActivityEndLongitude);
+                    row.Add("description", Activity.EndLatitudeLongitudeDate);
+                    row.Add("image", Activity.EndMapImage);
+                    rows.Add(row);
+                }
+                CurrentLocation = serializer.Serialize(rows);
+            }
         }
         void EndActivity(string ActivityType, string ActivityTypeID, string ActivityID, string Remark)
         {
@@ -456,7 +508,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblEndActivityMessage.Visible = false;
             lblValidationMessage.Text = string.Empty;
             lblValidationMessage.Visible = false;
-            txtLocation.Text = string.Empty;
+            //txtLocation.Text = string.Empty;
             MPE_EndActivity.Show();
 
             lblActivityTypeE.Text = ActivityType;
@@ -465,34 +517,50 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblEndActivityDate.Text = DateTime.Now.ToString();
             txtRemarkE.Text = Remark;
 
+            //lblEndActivityMessage.ForeColor = Color.Red;
+            //lblEndActivityMessage.Visible = true;
+
+            //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
+            //new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
+            new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
+            new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
+            //ddlReferenceTypeE.SelectedValue = "0";
+            //txtCustomerName.Text = string.Empty;
+            //txtCustomerID.Text = string.Empty;
+
+            txtEffortDuration.Text = string.Empty;
+            ddlExpenseType.SelectedValue = "0";
+            txtAmount.Text = string.Empty;
+            //txtRemarks.Text = string.Empty;
+            //ViewState["ActivityID"] = lblActivityID.Text;
+
+            PActivity Activity = new PActivity();
             lblEndActivityMessage.ForeColor = Color.Red;
             lblEndActivityMessage.Visible = true;
+
         }
         public string CurrentLocation
         {
             get
             {
-                if (Session["ActivityReport"] == null)
+                if (Session["VisitActivityReport"] == null)
                 {
-                    Session["ActivityReport"] = "";
+                    Session["ViistActivityReport"] = "";
                 }
-                return (string)Session["ActivityReport"];
+                return (string)Session["VisitActivityReport"];
             }
             set
             {
-                Session["ActivityReport"] = value;
+                Session["VisitActivityReport"] = value;
             }
         }
         protected void btnEndActivityE_Click(object sender, EventArgs e)
         {
             try
             {
-
                 MPE_EndActivity.Show();
                 lblEndActivityMessage.ForeColor = Color.Red;
                 lblEndActivityMessage.Visible = true;
-
-
 
                 int? ExpenseTypeID = ddlExpenseType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlExpenseType.SelectedValue);
                 decimal?  Amount = string.IsNullOrEmpty(txtAmount.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAmount.Text.Trim()); 
@@ -510,7 +578,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblValidationMessage.Visible = true;
                     return;
                 }
-                lblMessage.Text = "Activity ended successfully.";
+                lblMessage.Text = "Visit Activity ended successfully.";
                 lblMessage.ForeColor = Color.Green;
 
                 FillActivity();
@@ -539,7 +607,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             Activity1 = new BActivity().GetActivityWithVisitByID(null, ColdVisit.ColdVisitID);
 
-
             gvActivity.DataSource = Activity1;
             gvActivity.DataBind();
 
@@ -552,8 +619,34 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     //btnEndActivity.Visible = false;
                     btnEndActivity.Text = "Track Activity";
                 }
-            }
-            
+            }           
+        }
+
+        public string ConvertDataTabletoString()
+        {
+            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //Dictionary<string, object> row;
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "1");
+            //row.Add("lat", "12.897400");
+            //row.Add("lng", "80.288000");
+            //row.Add("description", "1");
+            //rows.Add(row);
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "2");
+            //row.Add("lat", "12.997450");
+            //row.Add("lng", "80.298050");
+            //row.Add("description", "2");
+
+            //rows.Add(row);
+
+            //return serializer.Serialize(rows);
+
+            return CurrentLocation;
+
         }
     }
 }

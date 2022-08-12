@@ -168,12 +168,17 @@ namespace Business
         //    return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Activity/GetActivities", ActivityS)).Data));
         //}
 
-        public List<PActivity> GetActivity(long? ActivityID, int? ActivityTypeID, string ActivityDateFrom, string ActivityDateTo, int? ActivityReferenceTableID, string ReferenceNumber)
+        //public List<PActivity> GetActivity(long? ActivityID, int? ActivityTypeID, string ActivityDateFrom, string ActivityDateTo, int? ActivityReferenceTableID, string ReferenceNumber)
+        //{
+        //    string endPoint = "Activity/GetActivities?ActivityID=" + ActivityID + "&ActivityTypeID=" + ActivityTypeID + "&ActivityDateFrom=" + ActivityDateFrom + "&ActivityDateTo=" + ActivityDateTo + "&ActivityReferenceTableID=" + ActivityReferenceTableID + "&ReferenceNumber=" + ReferenceNumber;
+        //    return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        //}
+
+        public List<PActivity> GetActivity(long? ActivityID, int? ActivityTypeID, string ActivityDateFrom, string ActivityDateTo)
         {
-            string endPoint = "Activity/GetActivities?ActivityID=" + ActivityID + "&ActivityTypeID=" + ActivityTypeID + "&ActivityDateFrom=" + ActivityDateFrom + "&ActivityDateTo=" + ActivityDateTo + "&ActivityReferenceTableID=" + ActivityReferenceTableID + "&ReferenceNumber=" + ReferenceNumber;
+            string endPoint = "Activity/GetActivities?ActivityID=" + ActivityID + "&ActivityTypeID=" + ActivityTypeID + "&ActivityDateFrom=" + ActivityDateFrom + "&ActivityDateTo=" + ActivityDateTo;
             return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
 
         public List<PActivity> GetActivityByID(long? ActivityID, long? VisitID)
         {
@@ -185,7 +190,7 @@ namespace Business
             string endPoint = "Activity/GetActivityWithVisitByID?ActivityID=" + ActivityID + "&VisitID=" + VisitID;
             return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        
+
         //public long InsertOrUpdateActivity(PActivity Activity)
         //{
         //    int success;
@@ -236,9 +241,16 @@ namespace Business
         //    return ActivityOut;
         //}
 
-        public PApiResult StartActivity(long VisitID, string Location, string Remark, decimal Latitude, decimal Longitude, int ActivityTypeID)
+        //public PApiResult StartActivity(long VisitID, string Location, string Remark, decimal Latitude, decimal Longitude, int ActivityTypeID)
+        //{
+        //    string endPoint = "Activity/StartActivity?VisitID="+ VisitID + "&Location=" + Location + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude + "&ActivityTypeID=" + ActivityTypeID;
+        //    //return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        //    return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        //}
+
+        public PApiResult StartActivity(string Location, string Remark, decimal Latitude, decimal Longitude, int ActivityTypeID)
         {
-            string endPoint = "Activity/StartActivity?VisitID="+ VisitID + "&Location=" + Location + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude + "&ActivityTypeID=" + ActivityTypeID;
+            string endPoint = "Activity/StartActivity?Location=" + Location + "&Remark=" + Remark + "&Latitude=" + Latitude + "&Longitude=" + Longitude + "&ActivityTypeID=" + ActivityTypeID;
             //return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
@@ -270,15 +282,32 @@ namespace Business
             List<PActivity> Activities = new List<PActivity>();
             try
             {
-                string endPoint = "Activity/PendingUserActivitiy?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
+                string endPoint = "Activity/PendingUserActivity?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
                 return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
                  
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BActivity", "GetPendingUserActivitiy", ex);
+                new FileLogger().LogMessage("BActivity", "GetPendingUserActivity", ex);
                 throw ex;
             } 
-        }        
+        }
+
+        public List<PActivity> GetPendingVisitActivitiy(int? DealerID, int? SalesEnineerUserID, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PActivity> Activities = new List<PActivity>();
+            try
+            {
+                string endPoint = "Activity/PendingVisitActivitiy?DealerID=" + DealerID + "&SalesEnineerUserID=" + SalesEnineerUserID;
+                return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BActivity", "GetPendingVisitActivity", ex);
+                throw ex;
+            }
+        }
     }
 }
