@@ -183,7 +183,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort" Font-Bold="True" ToolTip="">
+   <%-- <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -248,7 +248,7 @@
 
     <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
         <ContentTemplate>
-            <%--  <div class="col-md-12">--%>
+           
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvExpense" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
@@ -294,8 +294,7 @@
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
-            </div>
-            <%--   </div>--%>
+            </div> 
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Support Document">
@@ -361,7 +360,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>
+    </asp1:TabPanel>--%>
 
 </asp1:TabContainer>
 

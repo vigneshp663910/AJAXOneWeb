@@ -85,8 +85,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             string Location = ColdVisit.Customer.Address1 + ", " + ColdVisit.Customer.Address2 + ", " + ColdVisit.Customer.District.District + ", " + ColdVisit.Customer.State.State;
             lblAddress.Text = Location;
-            fillEffort();
-            fillExpense();
+            //fillEffort();
+            //fillExpense();
             FillActivity();
 
 
@@ -230,7 +230,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             MPE_Effort.Hide();
             tbpCust.ActiveTabIndex = 0;
-            fillEffort(); 
+            //fillEffort(); 
         }
 
         protected void btnSaveExpense_Click(object sender, EventArgs e)
@@ -261,68 +261,68 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             MPE_Expense.Hide();
             tbpCust.ActiveTabIndex =1;
-            fillExpense();
+           // fillExpense();
         }
-        void fillEffort()
-        {
-            gvEffort.DataSource = new BColdVisit().GetColdVisitEffort(ColdVisitID, PSession.User.UserID);
-            gvEffort.DataBind();
+        //void fillEffort()
+        //{
+        //    gvEffort.DataSource = new BColdVisit().GetColdVisitEffort(ColdVisitID, PSession.User.UserID);
+        //    gvEffort.DataBind();
 
-        }
-        void fillExpense()
-        {
+        //}
+        //void fillExpense()
+        //{
 
-            gvExpense.DataSource = new BColdVisit().GetColdVisitExpense(ColdVisitID, PSession.User.UserID);
-            gvExpense.DataBind();
+        //    gvExpense.DataSource = new BColdVisit().GetColdVisitExpense(ColdVisitID, PSession.User.UserID);
+        //    gvExpense.DataBind();
 
-        }
-        void fillSupportDocument()
-        {
-            gvSupportDocument.DataSource = new BColdVisit().GetAttachedFileColdVisit(ColdVisitID);
-            gvSupportDocument.DataBind();
-        }
-        protected void btnAddFile_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            if (fileUpload.PostedFile.FileName.Length == 0)
-            {
-                lblMessage.Text = "Please select the file";
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
-            HttpPostedFile file = fileUpload.PostedFile;
+        //}
+        //void fillSupportDocument()
+        //{
+        //    gvSupportDocument.DataSource = new BColdVisit().GetAttachedFileColdVisit(ColdVisitID);
+        //    gvSupportDocument.DataBind();
+        //}
+        //protected void btnAddFile_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    if (fileUpload.PostedFile.FileName.Length == 0)
+        //    {
+        //        lblMessage.Text = "Please select the file";
+        //        lblMessage.ForeColor = Color.Red;
+        //        return;
+        //    }
+        //    HttpPostedFile file = fileUpload.PostedFile;
              
 
-            PAttachedFile F = new PAttachedFile();
-            int size = file.ContentLength;
-            string name = file.FileName;
-            int position = name.LastIndexOf("\\");
-            name = name.Substring(position + 1);
+        //    PAttachedFile F = new PAttachedFile();
+        //    int size = file.ContentLength;
+        //    string name = file.FileName;
+        //    int position = name.LastIndexOf("\\");
+        //    name = name.Substring(position + 1);
 
-            byte[] fileData = new byte[size];
-            file.InputStream.Read(fileData, 0, size);
+        //    byte[] fileData = new byte[size];
+        //    file.InputStream.Read(fileData, 0, size);
 
-            F.FileName = name;
-            F.AttachedFile = fileData; 
-            F.FileType = file.ContentType;
-            F.FileSize = size;
-            F.AttachedFileID = 0;
-            F.ReferenceID = ColdVisitID;
-            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
+        //    F.FileName = name;
+        //    F.AttachedFile = fileData; 
+        //    F.FileType = file.ContentType;
+        //    F.FileSize = size;
+        //    F.AttachedFileID = 0;
+        //    F.ReferenceID = ColdVisitID;
+        //    F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
-            lblMessage.Visible = true;
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessage.Text = Results.Message;
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
-            lblMessage.Text = Results.Message; 
-            lblMessage.ForeColor = Color.Green; 
-            fillSupportDocument(); 
+        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
+        //    lblMessage.Visible = true;
+        //    if (Results.Status == PApplication.Failure)
+        //    {
+        //        lblMessage.Text = Results.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        return;
+        //    }
+        //    lblMessage.Text = Results.Message; 
+        //    lblMessage.ForeColor = Color.Green; 
+        //    //fillSupportDocument(); 
            
-        }
+        //}
 
         protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
         {
@@ -379,7 +379,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             lblMessage.Text = Results.Message;
             lblMessage.ForeColor = Color.Green;
-            fillSupportDocument();
+           // fillSupportDocument();
         }
         void ActionControlMange()
         { 
