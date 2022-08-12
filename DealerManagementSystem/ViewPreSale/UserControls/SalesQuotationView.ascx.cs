@@ -810,8 +810,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillCompetitor();
             fillNote();
             fillFollowUp();
-            fillEffort();
-            fillExpense();
+            //fillEffort();
+            //fillExpense();
             ActionControlMange();
 
             UC_LeadView.fillViewLead(Quotation.Lead);
@@ -988,18 +988,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvFollowUp.DataSource = FollowUp;
             gvFollowUp.DataBind();
         }
-        void fillEffort()
-        {
-            gvEffort.DataSource = new BSalesQuotation().GetSalesQuotationEffort(Quotation.QuotationID, PSession.User.UserID);
-            gvEffort.DataBind();
-        }
-        void fillExpense()
-        {
-            gvExpense.DataSource = new BSalesQuotation().GetSalesQuotationExpense(Quotation.QuotationID, PSession.User.UserID);
-            gvExpense.DataBind();
+        //void fillEffort()
+        //{
+        //    gvEffort.DataSource = new BSalesQuotation().GetSalesQuotationEffort(Quotation.QuotationID, PSession.User.UserID);
+        //    gvEffort.DataBind();
+        //}
+        //void fillExpense()
+        //{
+        //    gvExpense.DataSource = new BSalesQuotation().GetSalesQuotationExpense(Quotation.QuotationID, PSession.User.UserID);
+        //    gvExpense.DataBind();
 
 
-        }
+        //}
         
         void PrintMachineQuotation()
         {

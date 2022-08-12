@@ -463,7 +463,7 @@
             <%--       </div>--%>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
+   <%-- <asp:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -565,7 +565,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp:TabPanel>
+    </asp:TabPanel>--%>
     <asp:TabPanel ID="TabVisit" runat="server" HeaderText="Visit" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <%--  <div class="col-md-12">--%>

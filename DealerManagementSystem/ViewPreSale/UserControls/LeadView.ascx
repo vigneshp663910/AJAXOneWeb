@@ -230,7 +230,7 @@
             <%--   </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
+   <%-- <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -283,7 +283,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>
+    </asp1:TabPanel>--%>
     <asp1:TabPanel ID="tpnlConversation" runat="server" HeaderText="Conversation">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -329,7 +329,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="VEC Summary">
+    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="VC Summary">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -427,7 +427,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
+   <%-- <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -476,7 +476,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>
+    </asp1:TabPanel>--%>
     <asp1:TabPanel ID="tpnlProduct" runat="server" HeaderText="Product">
         <ContentTemplate>
             <div class="col-md-12 Report">

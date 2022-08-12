@@ -87,8 +87,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillFollowUp();
             fillConversation();
             fillFinancial();
-            fillEffort();
-            fillExpense();
+            //fillEffort();
+            //fillExpense();
             fillProduct();
             fillQuestionaries();
             ActionControlMange();
@@ -468,20 +468,20 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvFinancial.DataSource = new BLead().GetLeadFinancial(Lead.LeadID, PSession.User.UserID);
             gvFinancial.DataBind();
         }
-        void fillEffort()
-        {
-            gvEffort.DataSource = new BLead().GetLeadEffort(Lead.LeadID, PSession.User.UserID);
-            gvEffort.DataBind();
+        //void fillEffort()
+        //{
+        //    gvEffort.DataSource = new BLead().GetLeadEffort(Lead.LeadID, PSession.User.UserID);
+        //    gvEffort.DataBind();
 
 
-        }
-        void fillExpense()
-        {
-            gvExpense.DataSource = new BLead().GetLeadExpense(Lead.LeadID, PSession.User.UserID);
-            gvExpense.DataBind();
+        //}
+        //void fillExpense()
+        //{
+        //    gvExpense.DataSource = new BLead().GetLeadExpense(Lead.LeadID, PSession.User.UserID);
+        //    gvExpense.DataBind();
 
          
-        }
+        //}
         void fillProduct()
         {
             Lead.LeadProduct = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
