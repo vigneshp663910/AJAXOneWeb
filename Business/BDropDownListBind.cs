@@ -61,5 +61,18 @@ namespace Business
                 new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID");
             }
         }
+
+        public void FillStartAndEndDateOfMonth(TextBox txtFromDate, TextBox txtToDate)
+        {
+            if (txtFromDate != null)
+            {
+                txtFromDate.Text = DateTime.Now.AddDays(-1* DateTime.Now.Day).AddDays(1).ToString("yyyy-MM-dd");
+
+            }
+            if (txtToDate != null)
+            {
+                txtToDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            }
+        }
     }
 }

@@ -1564,7 +1564,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lbtnSaleOrderConfirmation.Visible = true;
 
-            if (!Quotation.CommissionAgent)
+            if (Quotation.CommissionAgent)
             {
                 lbtnSaleOrderConfirmation.Visible = false;
             }

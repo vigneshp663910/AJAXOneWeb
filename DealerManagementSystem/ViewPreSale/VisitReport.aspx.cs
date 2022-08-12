@@ -68,6 +68,7 @@ namespace DealerManagementSystem.ViewPreSale
                     //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
                     //new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
                     //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    new DDLBind().FillStartAndEndDateOfMonth(txtFromDate, txtToDate);
                 }
             }
             catch(Exception ex)
