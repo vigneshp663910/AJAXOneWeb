@@ -174,7 +174,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID);
+                PApiResult Results = new BSalesQuotation().CreateQuotationInSap(Quotation.QuotationID);
                 
                 lblMessage.Text = Results.Message;
                 if (Results.Status == PApplication.Failure)
@@ -185,6 +185,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Green;
                 //GenerateQuotation(new PSalesQuotationItem());
                 fillViewQuotation(Quotation.QuotationID); 
+            }
+            else if (lbActions.Text == "Sale Order Confirmation")
+            {
+                string Message = ValidationSalesQuotationGenerate();
+                lblMessage.Visible = true;
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
+
+                lblMessage.Text = Results.Message;
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.ForeColor = Color.Green;
+                //GenerateQuotation(new PSalesQuotationItem());
+                fillViewQuotation(Quotation.QuotationID);
             }
             else if (lbActions.Text == "Print Machine Quotation")
             {
@@ -977,142 +1000,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
         }
-        void GenerateQuotation(PSalesQuotationItem QuotationItem)
-        {
-            try
-            {
-                PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID);
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblMessageProduct.Text = Results.Message;
-                    lblMessageProduct.Visible = true;
-                    lblMessageProduct.ForeColor = Color.Red;
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-
-                fillViewQuotation(Quotation.QuotationID);
-                lblMessage.Text = "Updated Successfully";
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Green;
-                //if (Quotation.CommissionAgent)
-                //{
-                //QuotationItemSAp(QuotationItem);
-                //PSalesQuotation Q = Quotation;
-                //List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-                //List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-                //Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
-                //Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
-                //Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
-                //List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, 2, Q.QuotationID);
-                //DateTime VisitDate;
-                //VisitDate = (Visit.Count != 0) ? Visit[0].ColdVisitDate : Q.RefQuotationDate;                    
-                //if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
-                //{
-                //    //list[0] as Subrc [1] as Number [2] as Type [3] as Message [4] as QuotationNo [5] as QuotationDate
-                //    List<string> list = new SQuotation().getQuotationIntegration(Q, leadProducts, VisitDate, QuotationItem);
-                //    if (list != null)
-                //    {
-
-                //        if ((list[2] == "S") || (list[0] == "0"))
-                //        {
-                //            lblMessage.Text = (list[3].ToString() == "") ? "Record Was Updated" : list[3].ToString();
-                //            lblMessage.Visible = true;
-                //            lblMessage.ForeColor = Color.Green;
-                //            if (!string.IsNullOrEmpty(list[4]) && !string.IsNullOrEmpty(list[5]))
-                //            {
-                //                string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + "&QuotationNo=" + list[4] + "&QuotationDate=" + list[5] + "";
-                //                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                //            }
-                //        }
-                //        else
-                //        {
-                //            lblMessage.Text = list[3].ToString() + Environment.NewLine + "\n";
-                //            lblMessage.Visible = true;
-                //            lblMessage.ForeColor = Color.Red;
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    lblMessage.Text = "Quotation Not Generated Successfully...!";
-                //    lblMessage.Visible = true;
-                //    lblMessage.ForeColor = Color.Red;
-                //}
-                //}
-                //else
-                //{
-                //    QuotationItemSAp(QuotationItem);
-                //    if (string.IsNullOrEmpty(Quotation.PgQuotationNo))
-                //    {
-                //        // PApiResult Results = new BSalesQuotation().CreateQuotationInPartsPortal(Quotation.QuotationID);
-                //        PApiResult Results = new BSalesQuotation().CreateQuotationInSapAndPartsPortal(Quotation.QuotationID); 
-                //        if (Results.Status == PApplication.Failure)
-                //        {
-                //            lblMessageProduct.Text = Results.Message;
-                //            return;
-                //        }
-                //    }
-                //    fillViewQuotation(Quotation.QuotationID);
-                //    lblMessage.Text = "Updated Successfully";
-                //    lblMessage.Visible = true;
-                //    lblMessage.ForeColor = Color.Green;
-                //}
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
-            }
-
-        }
-        void QuotationItemSAp(PSalesQuotationItem QuotationItem)
-        {
-            PSalesQuotation Q = Quotation;
-            List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-            Q.Lead.Dealer.AuthorityName = DealerBank[0].AuthorityName;
-            Q.Lead.Dealer.AuthorityDesignation = DealerBank[0].AuthorityDesignation;
-            Q.Lead.Dealer.AuthorityMobile = DealerBank[0].AuthorityMobile;
-            List<PColdVisit> Visit = new BColdVisit().GetColdVisit(null, null, null, null, null, null, null, null, null, null, 2, Q.QuotationID, null, null, null);
-            DateTime VisitDate;
-            VisitDate = (Visit.Count != 0) ? Visit[0].ColdVisitDate : Q.RefQuotationDate;
-            if (Q.QuotationItems.Count > 0 && leadProducts.Count > 0 && Q.Competitor.Count > 0)
-            {
-                //list[0] as Subrc [1] as Number [2] as Type [3] as Message [4] as QuotationNo [5] as QuotationDate
-                List<string> list = new SQuotation().getQuotationIntegration(Q, leadProducts, VisitDate, QuotationItem);
-                if (list != null)
-                {
-
-                    if ((list[2] == "S") || (list[0] == "0"))
-                    {
-                        lblMessage.Text = (list[3].ToString() == "") ? "Record Was Updated" : list[3].ToString();
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Green;
-                        if (!string.IsNullOrEmpty(list[4]) && !string.IsNullOrEmpty(list[5]))
-                        {
-                            string endPoint = "SalesQuotation/UpdateSalesQuotationNumber?SalesQuotationID=" + Quotation.QuotationID + "&QuotationNo=" + list[4] + "&QuotationDate=" + list[5] + "";
-                            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                        }
-                    }
-                    else
-                    {
-                        lblMessage.Text = list[3].ToString() + Environment.NewLine + "\n";
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Red;
-                    }
-                }
-            }
-            else
-            {
-                lblMessage.Text = "Quotation Not Generated Successfully...!";
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
+        
         void PrintMachineQuotation()
         {
             try
@@ -1673,12 +1561,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnGenerateQuotation.Visible = false;
             //lbtnPrintMachineQuotation.Visible = false;
 
+
+            lbtnSaleOrderConfirmation.Visible = true;
+
+            if (!Quotation.CommissionAgent)
+            {
+                lbtnSaleOrderConfirmation.Visible = false;
+            }
+            if (string.IsNullOrEmpty(Quotation.SapQuotationNo))
+            {
+                lbtnSaleOrderConfirmation.Visible = false;
+            }
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
             {
                 lbtnPrintTaxQuotation.Visible = false;
             }
-
         }
         protected void FillProduct(object sender, EventArgs e)
         {
@@ -1823,10 +1722,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 return "Please update the Material";
             }
-            if (Quotation.Competitor.Count == 0)
-            {
-                return "Please update the Competitor";
-            }
+            //if (Quotation.Competitor.Count == 0)
+            //{
+            //    return "Please update the Competitor";
+            //}
             List<PLeadQuestionaries> Questionaries = new BLead().GetLeadQuestionaries(Quotation.Lead.LeadID);
             if (Questionaries.Count == 0)
             {

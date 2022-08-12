@@ -796,10 +796,10 @@ namespace Business
 
         }
 
-        public PApiResult CreateQuotationInSapAndPartsPortal(long SalesQuotationID)
+        public PApiResult CreateQuotationInSap(long SalesQuotationID)
         {
 
-            string endPoint = "SalesQuotation/CreateQuotationInSapAndPartsPortal?SalesQuotationID=" + SalesQuotationID;
+            string endPoint = "SalesQuotation/CreateQuotationInSap?SalesQuotationID=" + SalesQuotationID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
              
         }

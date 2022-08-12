@@ -78,6 +78,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnGenerateQuotation;
 
         /// <summary>
+        /// lbtnSaleOrderConfirmation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnSaleOrderConfirmation;
+
+        /// <summary>
         /// lbtnPrintMachineQuotation control.
         /// </summary>
         /// <remarks>

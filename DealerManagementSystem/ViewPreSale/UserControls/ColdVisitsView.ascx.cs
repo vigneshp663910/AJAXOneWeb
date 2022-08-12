@@ -500,7 +500,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 int? EffortTypeID = ddlEffortType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEffortType.SelectedValue.Trim());
                 decimal? EffortDuration = string.IsNullOrEmpty(txtEffortDuration.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtEffortDuration.Text.Trim()); 
 
-                PApiResult Results = new BActivity().EndActivityWithVisit(Convert.ToInt32(lblActivityIDE.Text), txtRemarks.Text.Trim(), Convert.ToDecimal(Session["Latitude"]), Convert.ToDecimal(Session["Longitude"])
+                PApiResult Results = new BActivity().EndActivityWithVisit(Convert.ToInt32(lblActivityIDE.Text), txtRemarkE.Text.Trim(), Convert.ToDecimal(Session["Latitude"]), Convert.ToDecimal(Session["Longitude"])
                     , ExpenseTypeID, Amount, EffortTypeID, EffortDuration);
                  
                 if (Results.Status == PApplication.Failure)

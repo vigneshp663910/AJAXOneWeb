@@ -36,6 +36,21 @@ namespace DealerManagementSystem.ViewPreSale
                 Session["GVVisitReport"] = value;
             }
         }
+        public DataTable GVVisitReportDay
+        {
+            get
+            {
+                if (Session["GVVisitReportDay"] == null)
+                {
+                    Session["GVVisitReportDay"] = new DataTable();
+                }
+                return (DataTable)Session["GVVisitReportDay"];
+            }
+            set
+            {
+                Session["GVVisitReportDay"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -47,6 +62,7 @@ namespace DealerManagementSystem.ViewPreSale
                 if (!IsPostBack)
                 {
                     new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                    new DDLBind().FillDealerAndEngneer(ddlDealerDay, ddlDealerEmployeeDay);
                     new DDLBind().Year(ddlYear,2022, false);
                     new DDLBind().Month(ddlMonth, false);
                     //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
@@ -62,7 +78,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 new BXcel().ExporttoExcel(GVVisitReport, "Visit Report");
             }
             catch (Exception ex)
@@ -177,6 +194,66 @@ namespace DealerManagementSystem.ViewPreSale
         { 
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+
+        protected void btnSearchDay_Click(object sender, EventArgs e)
+        {
+            FillVisitCountDayWise();
+        }
+
+        protected void btnExportExcelDay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                new BXcel().ExporttoExcel(GVVisitReportDay, "Visit Count Day Wise");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+
+        protected void ddlDealerDay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealerDay.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployeeDay, DealerUser, "ContactName", "UserID");
+        }
+
+        void FillVisitCountDayWise()
+        {
+            lblMessage.Text = string.Empty;
+            try
+            {
+                int? DealerID = ddlDealerDay.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerDay.SelectedValue);
+                int? DealerEmployeeID = ddlDealerEmployeeDay.SelectedValue == "0" || ddlDealerEmployeeDay.SelectedValue == "" ? (int?)null : Convert.ToInt32(ddlDealerEmployeeDay.SelectedValue);
+
+                DateTime FromDate = Convert.ToDateTime(txtFromDate.Text.Trim());
+                DateTime ToDate = Convert.ToDateTime(txtToDate.Text.Trim());
+
+                GVVisitReportDay = new BColdVisit().GetVisitCountReportDayWise(DealerID, DealerEmployeeID, FromDate, ToDate, PSession.User.UserID);
+                GridView1.DataSource = GVVisitReportDay;
+                GridView1.DataBind();
+
+                if (GridView1.Rows.Count == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnVisitArrowLeft.Visible = false;
+                    ibtnVisitArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCount.Visible = true;
+                    ibtnVisitArrowLeft.Visible = true;
+                    ibtnVisitArrowRight.Visible = true;
+                    lblRowCount.Text = (((GridView1.PageIndex) * GridView1.PageSize) + 1) + " - " + (((GridView1.PageIndex) * GridView1.PageSize) + GridView1.Rows.Count) + " of " + GVVisitReportDay.Rows.Count;
+                }
+            }
+            catch (Exception e)
+            {
+                lblMessage.Text = e.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
         }
     }
 }

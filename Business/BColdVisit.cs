@@ -96,5 +96,33 @@ namespace Business
             return null;
             //  TraceLogger.Log(DateTime.Now);
         }
+        public DataTable GetVisitCountReportDayWise(int? DealerID, int? DealerEmployeeID, DateTime FromDate, DateTime ToDate, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter DealerEmployeeIDP = provider.CreateParameter("DealerEmployeeID", DealerEmployeeID, DbType.Int32);
+            DbParameter FromDateP = provider.CreateParameter("FromDate", FromDate, DbType.DateTime);
+            DbParameter ToDateP = provider.CreateParameter("ToDate", ToDate, DbType.DateTime);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[5] { DealerIDP, DealerEmployeeIDP, FromDateP, ToDateP, UserIDP };
+            try
+            {
+                using (DataSet DataSet = provider.Select("GetVisitReportDailyCount", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BColdVisit", "GetVisitReport", ex);
+                throw;
+            }
+            return null;
+            //  TraceLogger.Log(DateTime.Now);
+        }
     }
 }
