@@ -89,6 +89,8 @@
         </div>
     </fieldset>
 </div>
+<asp:HiddenField ID="hfLatitude" runat="server" />
+    <asp:HiddenField ID="hfLongitude" runat="server" />
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
     <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Activity">
@@ -406,6 +408,12 @@
 
 
 
+<p>
+    s</p>
+
+
+
+
 <asp:Panel ID="pnlAddActivity" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -432,8 +440,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Remarks</label>
-                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
+                        <asp:TextBox ID="txtRemarksS" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnStartActivity" runat="server" Text="Start" CssClass="btn Save" OnClick="btnStartActivity_Click" />
                     </div>
@@ -500,11 +508,77 @@
 </asp:Panel>
 <asp1:ModalPopupExtender ID="MPE_EndActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEndActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlTrackActivity" runat="server" CssClass="Popup" Style="display: none">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <div class="model-scroll">
+                <div id="map_canvas" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
+    </asp:Panel>
+    <asp1:ModalPopupExtender ID="MPE_TrackActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlTrackActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 
+<script> 
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById('MainContent_hfLatitude').value = latitude;
+            document.getElementById('MainContent_hfLongitude').value = longitude;
+            status.textContent = '';
+        }
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
 
+        if (!navigator.geolocation) {
+            status.textContent = 'Geolocation is not supported by your browser';
+
+        } else {
+            status.textContent = 'Locating…';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+    </script>
+
+    <script type="text/javascript">
+
+
+        var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            zoom: 4.6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var infoWindow = new google.maps.InfoWindow();
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.title,
+                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) },
+            });
+
+            (function (marker, data) {
+
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent(data.description);
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
+        }
+
+    </script>
 
 
 
