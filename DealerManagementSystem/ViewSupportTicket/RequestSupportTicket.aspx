@@ -122,7 +122,7 @@
                                             <asp:TemplateField>
                                                 <ItemStyle BorderStyle="None" />
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lbltest" Text='<%# Eval("test") %>' runat="server" />
+                                                    <asp:Label ID="lbltest" Text='<%# Eval("FileName") %>' runat="server" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Remove">

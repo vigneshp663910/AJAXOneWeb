@@ -92,7 +92,7 @@
 <asp:HiddenField ID="hfLatitude" runat="server" />
     <asp:HiddenField ID="hfLongitude" runat="server" />
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-<asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
+<asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
     <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Activity">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -361,6 +361,9 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>--%>
+
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
+    </asp1:TabPanel>
 
 </asp1:TabContainer>
 

@@ -193,15 +193,20 @@ namespace Business
             var APIResponse = client.GetAsync(ApiBaseAddress + Filter).Result;
             if (APIResponse.IsSuccessStatusCode)
             {
+                //if (APIResponse.StatusCode == HttpStatusCode.OK)
+                //{
                 var JsonContent = APIResponse.Content.ReadAsStringAsync().Result;
                 return APIResponse.Content.ReadAsStringAsync().Result;
-
+                //}
+                //else
+                //{
+                //    throw new Exception(APIResponse.Content.ReadAsStringAsync().Result);
+                //}
             }
             else
             {
-                Console.WriteLine("APIResponse, Error : " + APIResponse.StatusCode);
+                throw new Exception("APIResponse, Error : " + APIResponse.StatusCode);
             }
-            return "";
         }
 
 
@@ -229,9 +234,34 @@ namespace Business
             }
             else
             {
-                Console.WriteLine("APIResponse, Error : " + APIResponse.StatusCode);
+                throw new Exception("APIResponse, Error : " + APIResponse.StatusCode);
+            } 
+        }
+
+
+        public String ApiGetWithOutToken(string Filter)
+        {
+            
+
+            HttpClientHandler handler = new HttpClientHandler();
+            HttpClient client = new HttpClient(handler); 
+            var APIResponse = client.GetAsync(ApiBaseAddress + Filter).Result;
+            if (APIResponse.IsSuccessStatusCode)
+            {
+                //if (APIResponse.StatusCode == HttpStatusCode.OK)
+                //{
+                var JsonContent = APIResponse.Content.ReadAsStringAsync().Result;
+                return APIResponse.Content.ReadAsStringAsync().Result;
+                //}
+                //else
+                //{
+                //    throw new Exception(APIResponse.Content.ReadAsStringAsync().Result);
+                //}
             }
-            return "";
+            else
+            {
+                throw new Exception("APIResponse, Error : " + APIResponse.StatusCode);
+            }
         }
 
     }

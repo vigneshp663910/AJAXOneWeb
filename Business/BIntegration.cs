@@ -20,7 +20,7 @@ namespace Business
         }
         public void Start()
         {
-            //UpdateJobsStatus((short)Jobs.ICTicketIntegrationFromCRM, Joblist((Jobs.ICTicketIntegrationFromCRM)));
+            //UpdateJobsStatus((short)Jobs.EnquiryFromCRM, Joblist((Jobs.EnquiryFromCRM)));
             //return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
@@ -101,7 +101,11 @@ namespace Business
                         new BSalesQuotation().GetSalesQuotationFlow();
                         new FileLogger().LogMessageService("Ended", "SalesQuotationDocumentsFromSap ", null);
                         break;
-
+                    case Jobs.EnquiryFromCRM:
+                        new FileLogger().LogMessageService("Started", "EnquiryFromCRM", null);
+                        new BAPI().ApiGetWithOutToken("Enquiry/getEnquiryFromSAP");
+                        new FileLogger().LogMessageService("Ended", "EnquiryFromCRM ", null);
+                        break;
                         //case Jobs.ICTicketIntegrationFromCRM:
                         //    new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
                         //    C = new BDMS_ICTicket().IntegrationICTicket();

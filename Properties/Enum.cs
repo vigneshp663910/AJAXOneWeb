@@ -584,7 +584,8 @@ namespace Properties
         MaterialIntegrationFromSAP = 21,
         CustomerIntegration =22  ,
         UpdateSalesQuotationDeliveryDetails = 23 ,
-        SalesQuotationDocumentsFromSap = 24
+        SalesQuotationDocumentsFromSap = 24,
+        EnquiryFromCRM = 25
     }
 
     public enum DashboardControl
@@ -593,9 +594,8 @@ namespace Properties
         ICTicketEscalationOnBreakdownCount,
         ICTicketTransactionStatics,
         DebitNoteAcknowledgePending,
-        LeadStatusOpen,
-        LeadStatusAssigned,
-        LeadStatusQuotation,
+        LeadStatus, 
+        FoloowUpCount,
         //LeadStatusAssigned,
         //LeadStatusAssigned,
         //LeadStatusAssigned, 

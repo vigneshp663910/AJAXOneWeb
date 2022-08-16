@@ -1,10 +1,12 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,15 +14,15 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class SupportTicketView : System.Web.UI.Page
     {
-        private List<string> AttchedFile
+        private List<PAttachedFile> AttchedFile
         {
             get
             {
                 if (ViewState["AttchedFile"] == null)
                 {
-                    ViewState["AttchedFile"] = new List<string>();
+                    ViewState["AttchedFile"] = new List<PAttachedFile>();
                 }
-                return (List<string>)ViewState["AttchedFile"];
+                return (List<PAttachedFile>)ViewState["AttchedFile"];
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -28,15 +30,11 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = new BDealer().DealerMaster();
+            } 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+             
             if (!IsPostBack)
             {
                 //new BEmployees().CheckPermition(0);
@@ -55,13 +53,22 @@ namespace DealerManagementSystem.ViewSupportTicket
                 if (FileUpload.PostedFile.FileName.Length > 0)
                 {
 
-                    string path = ConfigurationManager.AppSettings["BasePath"] + "/File/" + PSession.User.UserName + "/";
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    FileUpload.SaveAs(path + FileUpload.PostedFile.FileName.Split('\\')[FileUpload.PostedFile.FileName.Split('\\').Count() - 1]);
-                    AttchedFile.Add(FileUpload.PostedFile.FileName.Split('\\')[FileUpload.PostedFile.FileName.Split('\\').Count() - 1]);
+                    HttpPostedFile file = FileUpload.PostedFile;
+                    PAttachedFile F = new PAttachedFile();
+                    int size = file.ContentLength;
+                    string name = file.FileName;
+                    int position = name.LastIndexOf("\\");
+                    name = name.Substring(position + 1);
+
+                    byte[] fileData = new byte[size];
+                    file.InputStream.Read(fileData, 0, size);
+
+                    F.FileName = name;
+                    F.AttachedFile = fileData;
+                    F.FileType = file.ContentType;
+                    F.FileSize = size;
+                    F.AttachedFileID = 0;
+                    AttchedFile.Add(F);
 
                 }
                 btnSend.Focus();
@@ -220,9 +227,9 @@ namespace DealerManagementSystem.ViewSupportTicket
         protected void btnSend_Click(object sender, EventArgs e)
         {
 
-            int TicketNo = Convert.ToInt32(Request.QueryString["TicketNo"]);
-            string FileName = "";
-            string Message = "";
+            PForum_Insert Forum = new PForum_Insert();
+            Forum.HeaderID = Convert.ToInt32(Request.QueryString["TicketNo"]);
+
             if (txtMessage.Visible == true)
             {
                 if (string.IsNullOrEmpty(txtMessage.Text.Trim()))
@@ -232,15 +239,15 @@ namespace DealerManagementSystem.ViewSupportTicket
                     //lblMessage.Visible = true;
                     return;
                 }
-                Message = txtMessage.Text;
+                Forum.Message = txtMessage.Text;
                 txtMessage.Text = string.Empty;
             }
             else
             {
                 if (AttchedFile.Count == 1)
                 {
-                    Message = AttchedFile[0];
-                    FileName = AttchedFile[0];
+                    Forum.Message = AttchedFile[0].FileName;
+                    Forum.AttchedFile = AttchedFile[0];
                 }
                 else
                 {
@@ -249,10 +256,20 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
 
             btnSend.Focus();
-            new BTickets().insertForum(TicketNo, PSession.User.UserID, Message, FileName);
-            FillChat(TicketNo);
+            // new BTickets().insertForum(TicketNo, PSession.User.UserID, Message, FileName);
 
+            string result = new BAPI().ApiPut("Task/Forum", Forum);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+            //result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
 
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                return;
+            }
+
+            FillChat(Forum.HeaderID);
+            AttchedFile.RemoveAt(0);
         }
 
         protected void rbMessage_CheckedChanged(object sender, EventArgs e)
@@ -280,9 +297,20 @@ namespace DealerManagementSystem.ViewSupportTicket
             Label lblID = (Label)gvchar.Rows[Index].FindControl("lblID");
             string Formate = lnkDownload.Text.Split('.')[lnkDownload.Text.Split('.').Count() - 1];
 
-            Response.ContentType = ContentType;
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + lnkDownload.Text);
-            Response.WriteFile(ConfigurationManager.AppSettings["BasePath"] + "/AttachedFile/" + lblID.Text + "." + Formate);
+            //Response.ContentType = ContentType;
+            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + lnkDownload.Text);
+            //Response.WriteFile(ConfigurationManager.AppSettings["BasePath"] + "/AttachedFile/" + lblID.Text + "." + Formate);
+            //Response.End();
+
+
+            PAttachedFile UploadedFile = new BTickets().GetAttachedFileTaskForDownload(lblID.Text + "." + Formate);
+
+            Response.AddHeader("Content-type", Formate);
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lnkDownload.Text);
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            Response.BinaryWrite(UploadedFile.AttachedFile);
+            Response.Flush();
             Response.End();
         }
 

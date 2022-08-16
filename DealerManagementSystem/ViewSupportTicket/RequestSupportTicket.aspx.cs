@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -6,21 +7,22 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class RequestSupportTicket : System.Web.UI.Page
     {
-        private List<string> AttchedFile
+        private List<PAttachedFile> AttchedFile
         {
             get
             {
                 if (ViewState["AttchedFile"] == null)
                 {
-                    ViewState["AttchedFile"] = new List<string>();
+                    ViewState["AttchedFile"] = new List<PAttachedFile>();
                 }
-                return (List<string>)ViewState["AttchedFile"];
+                return (List<PAttachedFile>)ViewState["AttchedFile"];
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -28,20 +30,12 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            // if (Membership.GetUser() == null) 
-            this.Page.MasterPageFile = "~/Dealer.master";
-            //  else
-            //    this.Page.MasterPageFile = "~/myMaster.master";
+            } 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » New');</script>");
-
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+             
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
@@ -52,19 +46,42 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (IsPostBack && fu.PostedFile != null)
             {
                 if (fu.PostedFile.FileName.Length > 0)
-                {
-                    if (!AttchedFile.Contains(fu.PostedFile.FileName))
+                { 
+                    lblMessage.Visible = true;
+                    if (fu.PostedFile.FileName.Length == 0)
                     {
-                        string path = ConfigurationManager.AppSettings["BasePath"] + "/File/" + PSession.User.UserName + "/";
-                        if (!Directory.Exists(path))
-                        {
-                            Directory.CreateDirectory(path);
-                        }
-                        fu.SaveAs(path + fu.PostedFile.FileName.Split('\\')[fu.PostedFile.FileName.Split('\\').Count() - 1]);
-                        AttchedFile.Add(fu.PostedFile.FileName.Split('\\')[fu.PostedFile.FileName.Split('\\').Count() - 1]);
-                        gvFileAttached.DataSource = AttchedFile.Select(l => new { test = l });
-                        gvFileAttached.DataBind();
+                        lblMessage.Text = "Please select the file";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
                     }
+                    foreach (PAttachedFile file1 in AttchedFile)
+                    {
+                        if (file1.FileName == fu.PostedFile.FileName)
+                        {
+                            lblMessage.Text = "File Name already available";
+                            lblMessage.ForeColor = Color.Red;
+                            return;
+                        }
+                    }
+                    HttpPostedFile file = fu.PostedFile;  
+                    PAttachedFile F = new PAttachedFile();
+                    int size = file.ContentLength;
+                    string name = file.FileName;
+                    int position = name.LastIndexOf("\\");
+                    name = name.Substring(position + 1);
+
+                    byte[] fileData = new byte[size];
+                    file.InputStream.Read(fileData, 0, size);
+
+                    F.FileName = name;
+                    F.AttachedFile = fileData;
+                    F.FileType = file.ContentType;
+                    F.FileSize = size;
+                    F.AttachedFileID = 0;
+
+                    AttchedFile.Add(F);
+                    gvFileAttached.DataSource = AttchedFile;
+                    gvFileAttached.DataBind();
                 }
             }
         }
@@ -102,76 +119,88 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (!validatetion())
             {
                 return;
-            }
-
-            List<string> file = new List<string>();
-
-            foreach (string f in AttchedFile)
-            {
-                file.Add(f);
-            }
-
-            int TicketTypeID = Convert.ToInt32(ddlTicketType.SelectedValue);
-            int CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
-            int? SubCategoryID = Convert.ToInt32(ddlSubcategory.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
-            Boolean Repeat = false;
-
+            } 
             long TicketId;
+            PTask_Insert Task = new PTask_Insert();
+            Task.CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
+            Task.TicketTypeID = Convert.ToInt32(ddlTicketType.SelectedValue);
+            Task.SubCategoryID = Convert.ToInt32(ddlSubcategory.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
+            Task.Repeat = false;
+            Task.Subject = txtSubject.Text;
+            Task.Description = txtTicketDescription.Text;
+            Task.MobileNo = txtMobileNo.Text;
+            Task.ContactName = txtContactName.Text;
+            Task.ActualCreater = PSession.User.UserID;
+            Task.PriorityLevel = 1;
+            Task.AttchedFile = AttchedFile;
+            string result = new BAPI().ApiPut("Task", Task);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+            //result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
 
-            TicketId = new BTickets().insertTicketHeader(TicketTypeID, CategoryID, SubCategoryID, PSession.User, txtSubject.Text, txtTicketDescription.Text, txtMobileNo.Text, txtContactName.Text, Repeat, file, PSession.User.UserID, 1, null);
-
-            if (TicketId == 0)
+            if (Result.Status == PApplication.Failure)
             {
-                lblMessage.Text = "Ticket is not successfully generated.";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                lblMessage.Text = Result.Message;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Ticket No " + TicketId + " is successfully generated.";
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Visible = true;
-                int L1SupportUser = new BTickets().GetL1SupportUserMapping(PSession.User.UserID, CategoryID);
-                string Subject = "New Ticket " + TicketId.ToString();
-                string messageBody = "";
-                if (L1SupportUser == 0)
-                {
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            ClearField();
 
-                    //List<PCategory> pTicketCategory = new BTicketCategory().getTicketCategory(Convert.ToInt32(ddlCategory.SelectedValue), null, null);
-                    //List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "");
-                    //messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
-                    //messageBody = messageBody.Replace("@@requested", PSession.User.ContactName);
-                    //messageBody = messageBody.Replace("@@TicketNo ", TicketId.ToString());
-                    //messageBody = messageBody.Replace("@@ToName", EmployeeRe[0].EmployeeName);
-                    //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-                    //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-                    //messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
-                    //messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                    //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "AssignTicket.aspx?TicketNo=" + TicketId.ToString());
-                    //new EmailManager().MailSend(EmployeeRe[0].Mail1, Subject, messageBody, TicketId);
-                }
-                else
-                {
-                    //PUser AssignedUser = new BUser().GetUserDetails(L1SupportUser);
-                    //List<PEmployee> pAssignedTo = null;
-                    //pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "");
-                    //messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
-                    //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URLAF"] + "AssignedTickets.aspx?TicketNo=" + TicketId);
-                    //messageBody = messageBody.Replace("@@TicketNo", TicketId.ToString());
-                    //messageBody = messageBody.Replace("@@ToName", pAssignedTo[0].EmployeeName);
-                    //messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
-                    //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-                    //messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
-                    //messageBody = messageBody.Replace("@@Severity", "");
-                    //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-                    //messageBody = messageBody.Replace("@@Description", "");
-                    //messageBody = messageBody.Replace("@@Justification", "");
-                    //messageBody = messageBody.Replace("@@ActualDuration", "2");
-                    //messageBody = messageBody.Replace("@@fromName", "");
-                    //new EmailManager().MailSend(pAssignedTo[0].Mail1, Subject, messageBody, TicketId);
-                }
-                ClearField();
-            }
+            // TicketId = new BTickets().insertTicketHeader(      file, , 1, null);
+
+            //if (TicketId == 0)
+            //{
+            //    lblMessage.Text = "Ticket is not successfully generated.";
+            //    lblMessage.ForeColor = Color.Red;
+            //    lblMessage.Visible = true;
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Ticket No " + TicketId + " is successfully generated.";
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Visible = true;
+            //    int L1SupportUser = new BTickets().GetL1SupportUserMapping(PSession.User.UserID, CategoryID);
+            //    string Subject = "New Ticket " + TicketId.ToString();
+            //    string messageBody = "";
+            //    if (L1SupportUser == 0)
+            //    {
+
+            //        //List<PCategory> pTicketCategory = new BTicketCategory().getTicketCategory(Convert.ToInt32(ddlCategory.SelectedValue), null, null);
+            //        //List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "");
+            //        //messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
+            //        //messageBody = messageBody.Replace("@@requested", PSession.User.ContactName);
+            //        //messageBody = messageBody.Replace("@@TicketNo ", TicketId.ToString());
+            //        //messageBody = messageBody.Replace("@@ToName", EmployeeRe[0].EmployeeName);
+            //        //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
+            //        //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
+            //        //messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
+            //        //messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+            //        //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "AssignTicket.aspx?TicketNo=" + TicketId.ToString());
+            //        //new EmailManager().MailSend(EmployeeRe[0].Mail1, Subject, messageBody, TicketId);
+            //    }
+            //    else
+            //    {
+            //        //PUser AssignedUser = new BUser().GetUserDetails(L1SupportUser);
+            //        //List<PEmployee> pAssignedTo = null;
+            //        //pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "");
+            //        //messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
+            //        //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URLAF"] + "AssignedTickets.aspx?TicketNo=" + TicketId);
+            //        //messageBody = messageBody.Replace("@@TicketNo", TicketId.ToString());
+            //        //messageBody = messageBody.Replace("@@ToName", pAssignedTo[0].EmployeeName);
+            //        //messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
+            //        //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
+            //        //messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
+            //        //messageBody = messageBody.Replace("@@Severity", "");
+            //        //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
+            //        //messageBody = messageBody.Replace("@@Description", "");
+            //        //messageBody = messageBody.Replace("@@Justification", "");
+            //        //messageBody = messageBody.Replace("@@ActualDuration", "2");
+            //        //messageBody = messageBody.Replace("@@fromName", "");
+            //        //new EmailManager().MailSend(pAssignedTo[0].Mail1, Subject, messageBody, TicketId);
+            //    }
+            //  ClearField();
+            //}
         }
 
         void ClearField()
@@ -194,13 +223,17 @@ namespace DealerManagementSystem.ViewSupportTicket
             GridViewRow Grow = (GridViewRow)btnEdit.NamingContainer;
             Label file = (Label)Grow.FindControl("lbltest");
             string fileName = file.Text;
-            AttchedFile.Remove(fileName);
-            string path = ConfigurationManager.AppSettings["BasePath"] + "/File/" + PSession.User.UserName + "/";
-            if (File.Exists(path + fileName))
+
+            int fileIndex = 0;
+            foreach (PAttachedFile file1 in AttchedFile)
             {
-                File.Delete(path + fileName);
-            }
-            gvFileAttached.DataSource = AttchedFile.Select(l => new { test = l });
+                if (file1.FileName == file.Text)
+                {
+                    AttchedFile.RemoveAt(fileIndex); 
+                }
+                fileIndex = fileIndex + 1;
+            }  
+            gvFileAttached.DataSource = AttchedFile;
             gvFileAttached.DataBind();
         }
 

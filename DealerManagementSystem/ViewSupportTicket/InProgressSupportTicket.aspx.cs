@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,15 +15,15 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class InProgressSupportTicket : System.Web.UI.Page
     {
-        private List<string> AttchedFile
+        private List<PAttachedFile> AttchedFile
         {
             get
             {
                 if (ViewState["NewAttchedFile"] == null)
                 {
-                    ViewState["NewAttchedFile"] = new List<string>();
+                    ViewState["NewAttchedFile"] = new List<PAttachedFile>();
                 }
-                return (List<string>)ViewState["NewAttchedFile"];
+                return (List<PAttachedFile>)ViewState["NewAttchedFile"];
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -60,19 +62,35 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 if (fu.PostedFile.FileName.Length > 0)
                 {
-                    if (!AttchedFile.Contains(fu.PostedFile.FileName))
+                    foreach (PAttachedFile file1 in AttchedFile)
                     {
-                        string path = ConfigurationManager.AppSettings["BasePath"] + "/File/" + PSession.User.UserName + "/";
-                        if (!Directory.Exists(path))
+                        if (file1.FileName == fu.PostedFile.FileName)
                         {
-                            Directory.CreateDirectory(path);
+                            lblMessage.Text = "File Name already available";
+                            lblMessage.ForeColor = Color.Red;
+                            return;
                         }
-                        fu.SaveAs(path + fu.PostedFile.FileName.Split('\\')[fu.PostedFile.FileName.Split('\\').Count() - 1]);
-                        AttchedFile.Add(fu.PostedFile.FileName);
-                        gvNewFileAttached.DataSource = AttchedFile.Select(l => new { test = l });
-                        gvNewFileAttached.DataBind();
-
                     }
+                    HttpPostedFile file = fu.PostedFile;
+                    PAttachedFile F = new PAttachedFile();
+                    int size = file.ContentLength;
+                    string name = file.FileName;
+                    int position = name.LastIndexOf("\\");
+                    name = name.Substring(position + 1);
+
+                    byte[] fileData = new byte[size];
+                    file.InputStream.Read(fileData, 0, size);
+
+                    F.FileName = name;
+                    F.AttachedFile = fileData;
+                    F.FileType = file.ContentType;
+                    F.FileSize = size;
+                    F.AttachedFileID = 0;
+
+                    AttchedFile.Add(F);
+
+                    gvNewFileAttached.DataSource = AttchedFile;
+                    gvNewFileAttached.DataBind();
                 }
             }
         }
@@ -193,40 +211,23 @@ namespace DealerManagementSystem.ViewSupportTicket
             gvTickets.Columns[15].Visible = false;
             gvTickets.Columns[16].Visible = false;
         }
-        protected void cbNewTR_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbNewTR.Checked)
-            {
-                lblTRNumber.Visible = true;
-                txtTRNumber.Visible = true;
-                lblPurpose.Visible = true;
-                txtPurpose.Visible = true;
-                lblNote.Visible = true;
-                txtNote.Visible = true;
-            }
-            else
-            {
-                lblTRNumber.Visible = false;
-                txtTRNumber.Visible = false;
-                lblPurpose.Visible = false;
-                txtPurpose.Visible = false;
-                lblNote.Visible = false;
-                txtNote.Visible = false;
-            }
-        }
+       
         protected void Remove_Click(object sender, EventArgs e)
         {
             LinkButton btnEdit = (LinkButton)sender;
             GridViewRow Grow = (GridViewRow)btnEdit.NamingContainer;
-            Label file = (Label)Grow.FindControl("lbltest");
-            string fileName = file.Text;
-            AttchedFile.Remove(fileName);
-            string path = ConfigurationManager.AppSettings["BasePath"] + "/File/" + PSession.User.UserName + "/";
-            if (File.Exists(path + fileName))
+            Label file = (Label)Grow.FindControl("lbltest"); 
+            int fileIndex = 0;
+            foreach (PAttachedFile file1 in AttchedFile)
             {
-                File.Delete(path + fileName);
+                if (file1.FileName == file.Text)
+                {
+                    AttchedFile.RemoveAt(fileIndex);
+                }
+                fileIndex = fileIndex + 1;
             }
-            gvNewFileAttached.DataSource = AttchedFile.Select(l => new { test = l });
+
+            gvNewFileAttached.DataSource = AttchedFile;
             gvNewFileAttached.DataBind();
         }
         protected void DownloadFile(object sender, EventArgs e)
@@ -252,69 +253,50 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.Visible = true;
                 return;
             }
-            int ItemId = Convert.ToInt32(((Label)gvTickets.Rows[0].FindControl("lblItemID")).Text);
-            int HeaderId = Convert.ToInt32(((Label)gvTickets.Rows[0].FindControl("lblHeaderId")).Text);
-            int SubCategoryID = Convert.ToInt32(((Label)gvTickets.Rows[0].FindControl("lblSubCategoryID")).Text);
 
-            List<string> file = new List<string>();
-            Boolean NewTR = cbNewTR.Checked;
 
-            foreach (string f in AttchedFile)
+            //        int ItemId, decimal Effort, int? ResolutionType, string Resolution, string SupportType, long UserId, Boolean NewTR, PTR TR, List< string > AttchedFile
+
+            PTaskItem_Insert TaskItem = new PTaskItem_Insert();
+            TaskItem.ItemID = Convert.ToInt32(((Label)gvTickets.Rows[0].FindControl("lblItemID")).Text);
+            TaskItem.HeaderID = Convert.ToInt32(((Label)gvTickets.Rows[0].FindControl("lblHeaderId")).Text);
+            TaskItem.SubCategoryID = Convert.ToInt32(((Label)gvTickets.Rows[0].FindControl("lblSubCategoryID")).Text);
+
+
+
+
+            TaskItem.Effort = Convert.ToDecimal("0" + txtEffort.Text);
+            TaskItem.ResolutionType = Convert.ToInt32(ddlResolutionType.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(ddlResolutionType.SelectedValue);
+            TaskItem.Resolution = txtResolution.Text;
+            TaskItem.SupportType = ddlSupportType.SelectedValue;
+           
+            string result = new BAPI().ApiPut("Task/UpdateTicketResolvedStatus", TaskItem);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result); 
+
+            if (Result.Status == PApplication.Failure)
             {
-                file.Add(f);
+                lblMessage.Text = Result.Message;
+                return;
             }
 
-            decimal Effort = Convert.ToDecimal("0" + txtEffort.Text);
-            int? TicketResolutionType = Convert.ToInt32(ddlResolutionType.SelectedValue) == 0 ? (int?)null : Convert.ToInt32(ddlResolutionType.SelectedValue);
-            string Resolution = txtResolution.Text;
-            PTR TR = new PTR();
-            TR.TRNumber = txtTRNumber.Text.Trim();
-            TR.Purpose = txtPurpose.Text.Trim();
-            TR.MailNote = txtNote.Text.Trim();
-            TR.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            TR.TicketId = HeaderId;
-            TR.SubCategory = new PSubCategory() { SubCategoryID = SubCategoryID };
-            int status = new BTickets().UpdateTicketResolvedStatus(HeaderId, ItemId, Effort, TicketResolutionType, Resolution, ddlSupportType.SelectedValue, PSession.User.UserID, NewTR, TR, file);
 
-            if (status == 0)
-            {
-                lblMessage.Text = "Ticket is not successfully updated.";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-            else
-            {
+            lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Visible = true;
+            string messageBody = "";
 
-                lblMessage.Text = "Ticket No " + HeaderId + " is successfully updated.";
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Visible = true;
-                string messageBody = "";
+            PTicketHeader Tickets = new BTickets().GetTicketDetails(TaskItem.HeaderID, TaskItem.ItemID, null, null, null, null, null, null, null, null)[0];
+            messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
+            messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
+            messageBody = messageBody.Replace("@@RequestedOn", Tickets.CreatedOn.ToString());
+            messageBody = messageBody.Replace("@@Category", Tickets.Category.Category);
+            messageBody = messageBody.Replace("@@Resolution", TaskItem.Resolution);
+            messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
 
-                PTicketHeader Tickets = new BTickets().GetTicketDetails(HeaderId, ItemId, null, null, null, null, null, null, null, null)[0];
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
-                messageBody = messageBody.Replace("@@TicketNo", HeaderId.ToString());
-                messageBody = messageBody.Replace("@@RequestedOn", Tickets.CreatedOn.ToString());
-                messageBody = messageBody.Replace("@@Category", Tickets.Category.Category);
-                messageBody = messageBody.Replace("@@Resolution", Resolution);
-                messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-
-                PUser user = new BUser().GetUserDetails(Tickets.CreatedBy.UserID);
-                new EmailManager().MailSend(user.Mail, "Ticketing System", messageBody, HeaderId);
-                if (NewTR)
-                {
-                    messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TRNew.htm");
-                    messageBody = messageBody.Replace("@@ToName", HeaderId.ToString());
-                    messageBody = messageBody.Replace("@@TRNumber", TR.TRNumber);
-                    messageBody = messageBody.Replace("@@MailNote", TR.MailNote);
-                    messageBody = messageBody.Replace("@@TicketNo", HeaderId.ToString());
-                    messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "TRApproval.aspx");
-                    new EmailManager().MailSend(ConfigurationManager.AppSettings["TRMailApprove"], "Request for TR approval : " + TR.TRNumber, messageBody, HeaderId);
-                }
-
-                ClearField();
-                btnSave.Visible = false;
-            }
+            PUser user = new BUser().GetUserDetails(Tickets.CreatedBy.UserID);
+            new EmailManager().MailSend(user.Mail, "Ticketing System", messageBody, TaskItem.HeaderID);
+            ClearField();
+            btnSave.Visible = false;
         }
         protected void btnBack_Click(object sender, EventArgs e)
         {
@@ -345,9 +327,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         void ClearField()
         {
             txtEffort.Text = string.Empty;
-            txtResolution.Text = string.Empty;
-            txtTRNumber.Text = string.Empty;
-            cbNewTR.Checked = false;
+            txtResolution.Text = string.Empty; 
             ddlResolutionType.SelectedValue = "0";
             gvNewFileAttached.DataSource = null;
             gvNewFileAttached.DataBind();

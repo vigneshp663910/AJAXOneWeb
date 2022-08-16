@@ -132,9 +132,9 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblUserID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserID")%>' Visible="false"></asp:Label>
                                         <asp:LinkButton ID="lbUserID" runat="server" OnClick="lbEmpId_Click">
-                                            <asp:Label ID="lblUserName" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>'></asp:Label>
-                                            <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>' Visible="false"></asp:TextBox>
+                                            <asp:Label ID="lblUserName" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>'></asp:Label> 
                                         </asp:LinkButton>
+                                        <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <%--     <asp:TemplateField HeaderText="User Id">

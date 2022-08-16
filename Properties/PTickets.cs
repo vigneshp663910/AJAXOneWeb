@@ -6,6 +6,44 @@ using System.Threading.Tasks;
 
 namespace Properties
 {
+    public class PTask_Insert
+    {
+        public int CategoryID { get; set; }
+        public int? SubCategoryID { get; set; }
+        public string Subject { get; set; }
+        public Boolean Repeat { get; set; }
+        public int TicketTypeID { get; set; }
+        public string Description { get; set; }
+        public int? ActualCreater { get; set; }
+        public string MobileNo { get; set; }
+        public string ContactName { get; set; }
+        public int? PriorityLevel { get; set; }
+        public int? UATBy { get; set; }
+        public List<PAttachedFile> AttchedFile { get; set; }
+    }
+    public class PTaskItem_Insert
+    {
+        public int HeaderID { get; set; }
+        public int ItemID { get; set; }
+        public int? SubCategoryID { get; set; }
+        public int? SeverityID { get; set; }
+        public int? AssignedTo { get; set; }
+        public string AssignerRemark { get; set; }
+        public Decimal? ActualDuration { get; set; }
+        
+        public string SupportType { get; set; }
+        public List<PAttachedFile> AttchedFile { get; set; }
+
+        public Decimal? Effort { get; set; }
+        public int? ResolutionType   { get; set; }
+        public string Resolution { get; set; }
+    }
+    public class PForum_Insert
+    {
+        public int HeaderID { get; set; }
+        public string Message { get; set; }
+        public PAttachedFile AttchedFile { get; set; }
+    }
     public class PTicketHeader
     {
         public int HeaderID { get; set; }

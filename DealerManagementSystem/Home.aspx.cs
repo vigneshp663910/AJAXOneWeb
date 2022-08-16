@@ -333,20 +333,25 @@ namespace DealerManagementSystem
                     ucWarrantyClaimDebitNoteAcknowledgePending.ID = "ucWarrantyClaimDebitNoteAcknowledgePending";
                     uc = ucWarrantyClaimDebitNoteAcknowledgePending;
                     break;
-                case DashboardControl.LeadStatusOpen:
-                    LeadStatusOpen StatusOpen = (LeadStatusOpen)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusOpen.ascx");
-                    StatusOpen.ID = "ucLeadStatusOpen";
-                    uc = StatusOpen;
+                case DashboardControl.LeadStatus:
+                    LeadStatusDashboard Lead  = (LeadStatusDashboard)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusDashboard.ascx");
+                    Lead.ID = "ucLead";
+                    uc = Lead;
                     break;
-                case DashboardControl.LeadStatusAssigned:
-                    LeadStatusAssigned StatusAssigned = (LeadStatusAssigned)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusAssigned.ascx");
-                    StatusAssigned.ID = "ucLeadStatusAssigned";
-                    uc = StatusAssigned;
-                    break;
-                case DashboardControl.LeadStatusQuotation:
-                    LeadStatusQuotation StatusQuotation = (LeadStatusQuotation)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusQuotation.ascx");
-                    StatusQuotation.ID = "ucLeadStatusQuotation";
-                    uc = StatusQuotation;
+                //case DashboardControl.LeadStatusAssigned:
+                //    LeadStatusAssigned StatusAssigned = (LeadStatusAssigned)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusAssigned.ascx");
+                //    StatusAssigned.ID = "ucLeadStatusAssigned";
+                //    uc = StatusAssigned;
+                //    break;
+                //case DashboardControl.LeadStatusQuotation:
+                //    LeadStatusQuotation StatusQuotation = (LeadStatusQuotation)_page.LoadControl("~/ViewDashboard/UserControls/LeadStatusQuotation.ascx");
+                //    StatusQuotation.ID = "ucLeadStatusQuotation";
+                //    uc = StatusQuotation;
+                //    break;
+                case DashboardControl.FoloowUpCount:
+                    FoloowUpCount FoloowUp = (FoloowUpCount)_page.LoadControl("~/ViewDashboard/UserControls/FoloowUpCount.ascx");
+                    FoloowUp.ID = "ucFoloowUpCount";
+                    uc = FoloowUp;
                     break;
             }
             return uc;
