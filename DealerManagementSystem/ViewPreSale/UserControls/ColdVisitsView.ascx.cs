@@ -59,6 +59,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["Activity1"] = value;
             }
         }
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessageEffort.Text = "";
@@ -482,7 +491,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
                 PActivitySearch S = new PActivitySearch();
                 S.ActivityID = Convert.ToInt64(lblActivityID.Text);
-                Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null);
+                //Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null);
+                Activity1 = new BActivity().GetActivityWithVisitByID(null, ColdVisit.ColdVisitID);
                 foreach (var Activity in Activity1)
                 {
                     row = new Dictionary<string, object>();
