@@ -224,7 +224,7 @@
                             <asp:TemplateField>
                                 <ItemStyle BorderStyle="None" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lbltest" Text='<%# Eval("test") %>' runat="server" />
+                                    <asp:Label ID="lbltest" Text='<%# Eval("FileName") %>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remove">
@@ -239,11 +239,12 @@
                     </asp:GridView>
 
                     <asp:GridView ID="gvFileAttached" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None">
-                        <Columns>
-                            <asp:TemplateField>
-                                <ItemStyle BorderStyle="None" />
+                        <Columns> 
+                            <asp:TemplateField HeaderText="File Name">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkDownload" Text='<%# Eval("text") %>' CommandArgument='<%# Eval("Value") %>' runat="server" OnClick="DownloadFile"></asp:LinkButton>
+
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

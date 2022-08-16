@@ -11,8 +11,35 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
 {
 
 
-    public partial class LeadStatusAssigned
+    public partial class FoloowUpCount
     {
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// LinkButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+
+        /// <summary>
+        /// lblOpen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOpen;
 
         /// <summary>
         /// Label2 control.
@@ -33,12 +60,12 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnNewlyCreated;
 
         /// <summary>
-        /// lblAssigned control.
+        /// lblQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAssigned;
+        protected global::System.Web.UI.WebControls.Label lblQuotation;
     }
 }
