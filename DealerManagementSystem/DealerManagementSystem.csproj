@@ -1001,6 +1001,7 @@
     </Compile>
     <Compile Include="ViewDashboard\UserControls\FoloowUpCount.ascx.cs">
       <DependentUpon>FoloowUpCount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\FoloowUpCount.ascx.designer.cs">
       <DependentUpon>FoloowUpCount.ascx</DependentUpon>
@@ -1028,6 +1029,7 @@
     </Compile>
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>

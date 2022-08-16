@@ -120,7 +120,7 @@
 
                     <asp:GridView ID="gvEnquiry" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiry_PageIndexChanging" 
-                        DataKeyNames="Sender Name,Sender Email,MOB,Company Name,Address,State,Country,Product Name,Date">
+                        DataKeyNames="Sender Name,Sender Email,MOB,Company Name,Address,State,Country,Product Name,Date,City">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                 <ItemTemplate>
@@ -134,7 +134,7 @@
                                         <div class="btn Approval" style="height: 25px">Action</div>
                                         <div class="dropdown-content" style="font-size: small; margin-right: -75px">
                                             <asp:LinkButton ID="lnkBtnConvert" runat="server" OnClick="lbActions_Click">Convert to Enquiry</asp:LinkButton>
-                                            <asp:LinkButton ID="lnkBtnCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancel();">Cancel Enquiry</asp:LinkButton>
+                                            <asp:LinkButton ID="lnkBtnCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancel();" Visible="false">Cancel Enquiry</asp:LinkButton>
                                         </div>
                                     </div>
                                 </ItemTemplate>

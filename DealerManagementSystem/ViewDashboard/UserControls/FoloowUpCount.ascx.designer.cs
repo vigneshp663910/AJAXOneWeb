@@ -33,13 +33,13 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
-        /// lblOpen control.
+        /// lblTodaysFollowUpCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOpen;
+        protected global::System.Web.UI.WebControls.Label lblTodaysFollowUpCount;
 
         /// <summary>
         /// Label2 control.
@@ -60,12 +60,12 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnNewlyCreated;
 
         /// <summary>
-        /// lblQuotation control.
+        /// lblFuture7DaysFollowUpCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuotation;
+        protected global::System.Web.UI.WebControls.Label lblFuture7DaysFollowUpCount;
     }
 }

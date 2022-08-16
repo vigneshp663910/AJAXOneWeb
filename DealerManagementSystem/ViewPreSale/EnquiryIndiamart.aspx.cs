@@ -100,40 +100,72 @@ namespace DealerManagementSystem.ViewPreSale
                 {
                     ((TextBox)UC_AddEnquiry.FindControl("txtCustomerName")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[3].ToString();
                 }
-                else 
+                else
                 {
                     ((TextBox)UC_AddEnquiry.FindControl("txtCustomerName")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[0].ToString();
                 }
                 ((TextBox)UC_AddEnquiry.FindControl("txtEnquiryDate")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[8].ToString();
                 ((TextBox)UC_AddEnquiry.FindControl("txtPersonName")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[0].ToString();
-                ((TextBox)UC_AddEnquiry.FindControl("txtMobile")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[2].ToString();
+                ((TextBox)UC_AddEnquiry.FindControl("txtMobile")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[2].ToString().Replace("+91-", "");
                 ((TextBox)UC_AddEnquiry.FindControl("txtMail")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[1].ToString();
-                ((TextBox)UC_AddEnquiry.FindControl("txtAddress")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[4].ToString();
 
-                if (gvEnquiry.DataKeys[gvRow.RowIndex].Values[4].ToString().Length > 40)
-                {
-                    ((TextBox)UC_AddEnquiry.FindControl("txtAddress")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[4].ToString().Substring(0, 40);
-                    ((TextBox)UC_AddEnquiry.FindControl("txtAddress2")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[4].ToString().Substring(40);
+                TextBox txtAddress = ((TextBox)UC_AddEnquiry.FindControl("txtAddress"));
+                TextBox txtAddress2 = ((TextBox)UC_AddEnquiry.FindControl("txtAddress2"));
+                TextBox txtAddress3 = ((TextBox)UC_AddEnquiry.FindControl("txtAddress3"));
+                AddressSplit(gvEnquiry.DataKeys[gvRow.RowIndex].Values[4].ToString(), txtAddress, txtAddress2, txtAddress3);
 
-                    if (((TextBox)UC_AddEnquiry.FindControl("txtAddress2")).Text.Length > 40)
-                    {
-                        ((TextBox)UC_AddEnquiry.FindControl("txtAddress3")).Text = ((TextBox)UC_AddEnquiry.FindControl("txtAddress2")).Text.Substring(0);
-                    }                    
-                }
-                
+                //List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
+                //if (Country.Count == 1)
+                //{
+                //    ((DropDownList)UC_AddEnquiry.FindControl("ddlCountry")).SelectedValue = Country[0].CountryID.ToString();
+                //}
+
+                //List<PDMS_State> State = new BDMS_Address().GetState(Country[0].CountryID, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
                 if (State.Count == 1)
                 {
                     ((DropDownList)UC_AddEnquiry.FindControl("ddlState")).SelectedValue = State[0].StateID.ToString();
                 }
 
+                //List<PDMS_District> District = new BDMS_Address().GetDistrict(Country[0].CountryID, null, State[0].StateID, null, null, null);
+                List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, State[0].StateID, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[9].ToString(), null);
+                if (District.Count >= 1)
+                {
+                    ((DropDownList)UC_AddEnquiry.FindControl("ddlDistrict")).SelectedValue = District[0].DistrictID.ToString();
+                }
+
                 ((TextBox)UC_AddEnquiry.FindControl("txtProduct")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[7].ToString();
             }
             else if (lbActions.Text == "Cancel Enquiry")
-            { 
-                
+            {
+
             }
         }
+
+        public void AddressSplit(string Input, TextBox txtAddress1, TextBox txtAddress2, TextBox txtAddress3)
+        {  
+            string[] SplitedInput = Input.Split(' ');
+
+            foreach (string Word in SplitedInput)
+            {
+                if ((txtAddress1.Text + Word).Length <= 40)
+                {
+                    txtAddress1.Text = txtAddress1.Text + " " + Word;
+                }
+                else if ((txtAddress2.Text + Word).Length <= 40)
+                {
+                    txtAddress2.Text = txtAddress2.Text + " " + Word;
+                }
+                else
+                {
+                    txtAddress3.Text = txtAddress3.Text + " " + Word;
+                }
+            }
+            txtAddress1.Text = txtAddress1.Text.Trim();
+            txtAddress2.Text = txtAddress2.Text.Trim();
+            txtAddress3.Text = txtAddress3.Text.Trim();
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             try
