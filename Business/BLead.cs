@@ -184,5 +184,12 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             //  TraceLogger.Log(DateTime.Now);
         }
+
+        public List<int> GetLeadFollowUpCount(int? DealerID, int? UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/LeadFollowUpCount?DealerID=" + DealerID + "&UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

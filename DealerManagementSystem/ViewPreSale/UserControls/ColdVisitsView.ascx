@@ -8,9 +8,30 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddFinancial.ascx" TagPrefix="UC" TagName="UC_Financial" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLeadProduct.ascx" TagPrefix="UC" TagName="UC_Product" %>--%>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
 
+    <%--var geocoder;--%>
 
+    <style>
+        .fieldset-borderAuto {
+            border: solid 1px #cacaca;
+            margin: 1px 0;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #b4b4b4;
+        }
 
+            .fieldset-borderAuto tr {
+                /* background-color: #000084; */
+                background-color: inherit;
+                font-weight: bold;
+                color: white;
+            }
+
+            .fieldset-borderAuto:hover {
+                background-color: blue;
+            }
+    </style>
 
 <div class="col-md-12">
     <div class="action-btn">
@@ -89,6 +110,7 @@
         </div>
     </fieldset>
 </div>
+
 <asp:HiddenField ID="hfLatitude" runat="server" />
     <asp:HiddenField ID="hfLongitude" runat="server" />
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -169,7 +191,7 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Button ID="btnEndActivity" runat="server" Text="End Activity" CssClass="btn Back" OnClick="btnEndActivity_Click"
-                                        Width="105px" Height="25px" />
+                                        Width="115px" Height="25px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -410,8 +432,8 @@
 
 
 
-<p>
-    s</p>
+<%--<p>
+    s</p>--%>
 
 
 
@@ -532,8 +554,8 @@
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            document.getElementById('MainContent_hfLatitude').value = latitude;
-            document.getElementById('MainContent_hfLongitude').value = longitude;
+            document.getElementById('hfLatitude').value = latitude;
+            document.getElementById('hfLongitude').value = longitude;
             status.textContent = '';
         }
         function error() {
