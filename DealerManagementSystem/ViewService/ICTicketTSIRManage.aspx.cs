@@ -606,11 +606,13 @@ namespace DealerManagementSystem.ViewService
 
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
 
+                
                 Response.Buffer = true;
                 Response.Clear();
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)
@@ -1041,6 +1043,7 @@ namespace DealerManagementSystem.ViewService
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)
@@ -1514,321 +1517,321 @@ namespace DealerManagementSystem.ViewService
             return null;
         }
 
-        protected void btnView_Click(object sender, EventArgs e)
-        {
-            pnlTSIRManage.Visible = false;
-            pnlTSIRView.Visible = true;
+        //protected void btnView_Click(object sender, EventArgs e)
+        //{
+        //    pnlTSIRManage.Visible = false;
+        //    pnlTSIRView.Visible = true;
 
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            long TsirID = Convert.ToInt64(gvICTickets.DataKeys[gvRow.RowIndex].Value);
-            FillTsirDetails(TsirID);
-        }
-        void FillTsirDetails(long TsirID)
-        {
-            //  txtNatureOfFailures.Enabled = false;
-            //   txtProblemNoticedBy.Enabled = false;
-            //  txtUnderWhatConditionFailureTaken.Enabled = false;
-            //  txtFailureDetails.Enabled = false;
-            //  txtPointsChecked.Enabled = false;
-            //  txtPossibleRootCauses.Enabled = false;
-            //  txtSpecificPointsNoticed.Enabled = false;
-            //  txtPartsInvoiceNumber.Enabled = false;
-
-
-
-            // btnSave.Visible = false;
-
-            ICTicketTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRByTsirID(TsirID, null);
-            txtTsirNumber.Text = ICTicketTSIR.TsirNumber;
-            txtTsirStatus.Text = ICTicketTSIR.Status.Status;
-            txtServiceCharge.Text = ICTicketTSIR.ServiceCharge.Material.MaterialCode + " - " + ICTicketTSIR.ServiceCharge.Material.MaterialDescription;
-
-            txtNatureOfFailures.Text = ICTicketTSIR.NatureOfFailures;
-            txtProblemNoticedBy.Text = ICTicketTSIR.ProblemNoticedBy;
-            txtUnderWhatConditionFailureTaken.Text = ICTicketTSIR.UnderWhatConditionFailureTaken;
-            txtFailureDetails.Text = ICTicketTSIR.FailureDetails;
-            txtPointsChecked.Text = ICTicketTSIR.PointsChecked;
-            txtPossibleRootCauses.Text = ICTicketTSIR.PossibleRootCauses;
-            txtSpecificPointsNoticed.Text = ICTicketTSIR.SpecificPointsNoticed;
-            txtPartsInvoiceNumber.Text = ICTicketTSIR.PartsInvoiceNumber;
-            ViewState["TsirID"] = ICTicketTSIR.TsirID;
-
-            FillMessage(TsirID);
-
-            PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(ICTicketTSIR.ICTicket.ICTicketID);
-            UC_BasicInformation.SDMS_ICTicket = ICTicket;
-            UC_BasicInformation.FillBasicInformation();
-
-            gvMaterial.DataSource = new BDMS_Service().GetServiceMaterials(ICTicket.ICTicketID, null, TsirID, "", false, "");
-            gvMaterial.DataBind();
-
-            btnChecked.Visible = false;
-            btnSendBack.Visible = false;
-            btnReject.Visible = false;
-
-            if (ICTicket.RestoreDate == null)
-            {
-                return;
-            }
-            string[] TsirCheck = ConfigurationManager.AppSettings["TsirCheck"].Split(',');
-            string[] TsirApprove = ConfigurationManager.AppSettings["TsirApprove"].Split(',');
-            if (TsirCheck.Contains(PSession.User.UserID.ToString()))
-            {
-                btnSendBack.Visible = false;
-                btnReject.Visible = false;
-                btnChecked.Visible = false;
-
-                if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Requested) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rerequested))
-                {
-                    btnChecked.Text = "Checked";
-                    btnChecked.Visible = true;
-
-                    //txtNatureOfFailures.Enabled = true;
-                    //txtProblemNoticedBy.Enabled = true;
-                    //txtUnderWhatConditionFailureTaken.Enabled = true;
-                    //txtFailureDetails.Enabled = true;
-                    //txtPointsChecked.Enabled = true;
-                    //txtPossibleRootCauses.Enabled = true;
-                    //txtSpecificPointsNoticed.Enabled = true;
-                    //txtPartsInvoiceNumber.Enabled = true;
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    long TsirID = Convert.ToInt64(gvICTickets.DataKeys[gvRow.RowIndex].Value);
+        //    FillTsirDetails(TsirID);
+        //}
+        //void FillTsirDetails(long TsirID)
+        //{
+        //    //  txtNatureOfFailures.Enabled = false;
+        //    //   txtProblemNoticedBy.Enabled = false;
+        //    //  txtUnderWhatConditionFailureTaken.Enabled = false;
+        //    //  txtFailureDetails.Enabled = false;
+        //    //  txtPointsChecked.Enabled = false;
+        //    //  txtPossibleRootCauses.Enabled = false;
+        //    //  txtSpecificPointsNoticed.Enabled = false;
+        //    //  txtPartsInvoiceNumber.Enabled = false;
 
 
-                    //btnSave.Visible = true;
-                }
-            }
-            else if (TsirApprove.Contains(PSession.User.UserID.ToString()))
-            {
-                btnChecked.Visible = false;
-                btnSendBack.Visible = false;
-                btnReject.Visible = false;
-                if (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Checked)
-                {
-                    btnChecked.Visible = true;
-                    btnSendBack.Visible = true;
-                    btnReject.Visible = true;
-                    btnChecked.Text = "Approve";
-                }
-            }
 
-            if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rejected) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Approved))
-            {
-                btnChecked.Visible = false;
-                btnSendBack.Visible = false;
-                btnReject.Visible = false;
-            }
+        //    // btnSave.Visible = false;
 
-        }
-        void FillMessage(long TsirID)
-        {
-            Boolean? DisplayToDealer = null;
+        //    ICTicketTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRByTsirID(TsirID, null);
+        //    txtTsirNumber.Text = ICTicketTSIR.TsirNumber;
+        //    txtTsirStatus.Text = ICTicketTSIR.Status.Status;
+        //    txtServiceCharge.Text = ICTicketTSIR.ServiceCharge.Material.MaterialCode + " - " + ICTicketTSIR.ServiceCharge.Material.MaterialDescription;
 
-            if (PSession.User.UserTypeID == (short)UserTypes.Dealer)
-            {
-                DisplayToDealer = true;
-                gvTSIRMessage.Columns[1].Visible = false;
-            }
+        //    txtNatureOfFailures.Text = ICTicketTSIR.NatureOfFailures;
+        //    txtProblemNoticedBy.Text = ICTicketTSIR.ProblemNoticedBy;
+        //    txtUnderWhatConditionFailureTaken.Text = ICTicketTSIR.UnderWhatConditionFailureTaken;
+        //    txtFailureDetails.Text = ICTicketTSIR.FailureDetails;
+        //    txtPointsChecked.Text = ICTicketTSIR.PointsChecked;
+        //    txtPossibleRootCauses.Text = ICTicketTSIR.PossibleRootCauses;
+        //    txtSpecificPointsNoticed.Text = ICTicketTSIR.SpecificPointsNoticed;
+        //    txtPartsInvoiceNumber.Text = ICTicketTSIR.PartsInvoiceNumber;
+        //    ViewState["TsirID"] = ICTicketTSIR.TsirID;
+
+        //    FillMessage(TsirID);
+
+        //    PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(ICTicketTSIR.ICTicket.ICTicketID);
+        //    UC_BasicInformation.SDMS_ICTicket = ICTicket;
+        //    UC_BasicInformation.FillBasicInformation();
+
+        //    gvMaterial.DataSource = new BDMS_Service().GetServiceMaterials(ICTicket.ICTicketID, null, TsirID, "", false, "");
+        //    gvMaterial.DataBind();
+
+        //    btnChecked.Visible = false;
+        //    btnSendBack.Visible = false;
+        //    btnReject.Visible = false;
+
+        //    if (ICTicket.RestoreDate == null)
+        //    {
+        //        return;
+        //    }
+        //    string[] TsirCheck = ConfigurationManager.AppSettings["TsirCheck"].Split(',');
+        //    string[] TsirApprove = ConfigurationManager.AppSettings["TsirApprove"].Split(',');
+        //    if (TsirCheck.Contains(PSession.User.UserID.ToString()))
+        //    {
+        //        btnSendBack.Visible = false;
+        //        btnReject.Visible = false;
+        //        btnChecked.Visible = false;
+
+        //        if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Requested) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rerequested))
+        //        {
+        //            btnChecked.Text = "Checked";
+        //            btnChecked.Visible = true;
+
+        //            //txtNatureOfFailures.Enabled = true;
+        //            //txtProblemNoticedBy.Enabled = true;
+        //            //txtUnderWhatConditionFailureTaken.Enabled = true;
+        //            //txtFailureDetails.Enabled = true;
+        //            //txtPointsChecked.Enabled = true;
+        //            //txtPossibleRootCauses.Enabled = true;
+        //            //txtSpecificPointsNoticed.Enabled = true;
+        //            //txtPartsInvoiceNumber.Enabled = true;
 
 
-            List<PDMS_ICTicketTSIRMessage> TSIRMessage = new BDMS_ICTicketTSIR().GetICTicketTSIRMessage(null, TsirID, DisplayToDealer);
-            if (TSIRMessage.Count == 0)
-            {
-                PDMS_ICTicketTSIRMessage N = new PDMS_ICTicketTSIRMessage();
-                TSIRMessage.Add(N);
-            }
-            gvTSIRMessage.DataSource = TSIRMessage;
-            gvTSIRMessage.DataBind();
-        }
-        protected void lblTSIRMessageAdd_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            TextBox txtTSIRMessage = (TextBox)gvTSIRMessage.FooterRow.FindControl("txtTSIRMessage");
-            CheckBox cbDisplayToDealer = (CheckBox)gvTSIRMessage.FooterRow.FindControl("cbDisplayToDealer");
+        //            //btnSave.Visible = true;
+        //        }
+        //    }
+        //    else if (TsirApprove.Contains(PSession.User.UserID.ToString()))
+        //    {
+        //        btnChecked.Visible = false;
+        //        btnSendBack.Visible = false;
+        //        btnReject.Visible = false;
+        //        if (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Checked)
+        //        {
+        //            btnChecked.Visible = true;
+        //            btnSendBack.Visible = true;
+        //            btnReject.Visible = true;
+        //            btnChecked.Text = "Approve";
+        //        }
+        //    }
 
-            if (string.IsNullOrEmpty(txtTSIRMessage.Text.Trim()))
-            {
-                lblMessage.Text = "Please enter the Message";
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
-            long TsirID = Convert.ToInt64(ViewState["TsirID"]);
-            Boolean DisplayToDealer = cbDisplayToDealer.Checked;
-            if (PSession.User.UserTypeID == (short)UserTypes.Dealer)
-            {
-                DisplayToDealer = true;
-            }
-            if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRMessage(TsirID, txtTSIRMessage.Text.Trim(), DisplayToDealer, PSession.User.UserID))
-            {
-                lblMessage.Text = "New Message is added for this TSIR";
-                lblMessage.ForeColor = Color.Green;
-                FillMessage(TsirID);
-                txtTSIRMessage.Text = "";
-                cbDisplayToDealer.Checked = false;
-            }
-            else
-            {
-                lblMessage.Text = "New Message is not added for this TSIR";
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
+        //    if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rejected) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Approved))
+        //    {
+        //        btnChecked.Visible = false;
+        //        btnSendBack.Visible = false;
+        //        btnReject.Visible = false;
+        //    }
 
-        protected void btnChecked_Click(object sender, EventArgs e)
-        {
-            //int StatusID = 1;
-            int StatusID = ICTicketTSIR.Status.StatusID;
+        //}
+        //void FillMessage(long TsirID)
+        //{
+        //    Boolean? DisplayToDealer = null;
 
-            if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Requested) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rerequested))
-            {
-                StatusID = (short)TSIRStatus.Checked;
-                lblMessage.Text = "TSIR Status changed to Checked";
-            }
-            else if (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Checked)
-            {
-                string[] TsirApprove = ConfigurationManager.AppSettings["TsirApprove"].Split(',');
-                if (TsirApprove.Contains(PSession.User.UserID.ToString()))
-                {
-                    StatusID = (short)TSIRStatus.Approved;
-                    lblMessage.Text = "TSIR Status changed to Approved";
-                }
-                else
-                {
-                    return;
-                }
-            }
+        //    if (PSession.User.UserTypeID == (short)UserTypes.Dealer)
+        //    {
+        //        DisplayToDealer = true;
+        //        gvTSIRMessage.Columns[1].Visible = false;
+        //    }
 
-            if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, StatusID, PSession.User.UserID, 0))
-            {
 
-                lblMessage.ForeColor = Color.Green;
-                FillTsirDetails(ICTicketTSIR.TsirID);
-            }
-            else
-            {
-                lblMessage.Text = "TSIR Status is not changed";
-                lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
-        }
+        //    List<PDMS_ICTicketTSIRMessage> TSIRMessage = new BDMS_ICTicketTSIR().GetICTicketTSIRMessage(null, TsirID, DisplayToDealer);
+        //    if (TSIRMessage.Count == 0)
+        //    {
+        //        PDMS_ICTicketTSIRMessage N = new PDMS_ICTicketTSIRMessage();
+        //        TSIRMessage.Add(N);
+        //    }
+        //    gvTSIRMessage.DataSource = TSIRMessage;
+        //    gvTSIRMessage.DataBind();
+        //}
+        //protected void lblTSIRMessageAdd_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    TextBox txtTSIRMessage = (TextBox)gvTSIRMessage.FooterRow.FindControl("txtTSIRMessage");
+        //    CheckBox cbDisplayToDealer = (CheckBox)gvTSIRMessage.FooterRow.FindControl("cbDisplayToDealer");
 
-        protected void btnSendBack_Click(object sender, EventArgs e)
-        {
-            if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, (short)TSIRStatus.SendBack, PSession.User.UserID, 0))
-            {
-                lblMessage.Text = "TSIR Status changed to Send Back";
-                lblMessage.ForeColor = Color.Green;
-                FillTsirDetails(ICTicketTSIR.TsirID);
-            }
-            else
-            {
-                lblMessage.Text = "TSIR Status is not changed";
-                lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
-        }
+        //    if (string.IsNullOrEmpty(txtTSIRMessage.Text.Trim()))
+        //    {
+        //        lblMessage.Text = "Please enter the Message";
+        //        lblMessage.ForeColor = Color.Red;
+        //        return;
+        //    }
+        //    long TsirID = Convert.ToInt64(ViewState["TsirID"]);
+        //    Boolean DisplayToDealer = cbDisplayToDealer.Checked;
+        //    if (PSession.User.UserTypeID == (short)UserTypes.Dealer)
+        //    {
+        //        DisplayToDealer = true;
+        //    }
+        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRMessage(TsirID, txtTSIRMessage.Text.Trim(), DisplayToDealer, PSession.User.UserID))
+        //    {
+        //        lblMessage.Text = "New Message is added for this TSIR";
+        //        lblMessage.ForeColor = Color.Green;
+        //        FillMessage(TsirID);
+        //        txtTSIRMessage.Text = "";
+        //        cbDisplayToDealer.Checked = false;
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "New Message is not added for this TSIR";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
 
-        protected void btnBack_Click(object sender, EventArgs e)
-        {
-            pnlTSIRManage.Visible = true;
-            pnlTSIRView.Visible = false;
-        }
+        //protected void btnChecked_Click(object sender, EventArgs e)
+        //{
+        //    //int StatusID = 1;
+        //    int StatusID = ICTicketTSIR.Status.StatusID;
 
-        protected void btnReject_Click1(object sender, EventArgs e)
-        {
-            if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, (short)TSIRStatus.Rejected, PSession.User.UserID, 0))
-            {
-                lblMessage.Text = "TSIR Status changed to Rejected";
-                lblMessage.ForeColor = Color.Green;
-                FillTsirDetails(ICTicketTSIR.TsirID);
-            }
-            else
-            {
-                lblMessage.Text = "TSIR Status is not changed";
-                lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
-        }
+        //    if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Requested) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rerequested))
+        //    {
+        //        StatusID = (short)TSIRStatus.Checked;
+        //        lblMessage.Text = "TSIR Status changed to Checked";
+        //    }
+        //    else if (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Checked)
+        //    {
+        //        string[] TsirApprove = ConfigurationManager.AppSettings["TsirApprove"].Split(',');
+        //        if (TsirApprove.Contains(PSession.User.UserID.ToString()))
+        //        {
+        //            StatusID = (short)TSIRStatus.Approved;
+        //            lblMessage.Text = "TSIR Status changed to Approved";
+        //        }
+        //        else
+        //        {
+        //            return;
+        //        }
+        //    }
 
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            if (!Validation())
-            {
-                return;
-            }
-            ICTicketTSIR.TsirID = ViewState["TsirID"] == null ? 0 : (long)ViewState["TsirID"];
+        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, StatusID, PSession.User.UserID, 0))
+        //    {
 
-            ICTicketTSIR.ServiceCharge = new PDMS_ServiceCharge();
-            ICTicketTSIR.ServiceCharge.ServiceChargeID = new BDMS_ICTicketTSIR().GetICTicketTSIRByTsirID(ICTicketTSIR.TsirID, null).ServiceCharge.ServiceChargeID;
-            ICTicketTSIR.NatureOfFailures = txtNatureOfFailures.Text.Trim();
-            ICTicketTSIR.ProblemNoticedBy = txtProblemNoticedBy.Text.Trim();
-            ICTicketTSIR.UnderWhatConditionFailureTaken = txtUnderWhatConditionFailureTaken.Text.Trim();
-            ICTicketTSIR.FailureDetails = txtFailureDetails.Text.Trim();
-            ICTicketTSIR.PointsChecked = txtPointsChecked.Text.Trim();
-            ICTicketTSIR.PossibleRootCauses = txtPossibleRootCauses.Text.Trim();
-            ICTicketTSIR.SpecificPointsNoticed = txtSpecificPointsNoticed.Text.Trim();
-            ICTicketTSIR.PartsInvoiceNumber = txtPartsInvoiceNumber.Text.Trim();
-            long DealerEmployeeID = new BDMS_ICTicketTSIR().InsertOrUpdateICTicketTSIR(ICTicketTSIR, PSession.User.UserID);
-            if (DealerEmployeeID != 0)
-            {
-                lblMessage.Text = "TSIR is updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                FillTsirDetails(ICTicketTSIR.TsirID);
-            }
-            else
-            {
-                lblMessage.Text = "TSIR is not updated successfully";
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
+        //        lblMessage.ForeColor = Color.Green;
+        //        FillTsirDetails(ICTicketTSIR.TsirID);
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "TSIR Status is not changed";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //    lblMessage.Visible = true;
+        //}
 
-        Boolean Validation()
-        {
-            lblMessage.Visible = true;
-            string Message = "";
-            Boolean Ret = true;
-            //if (string.IsNullOrEmpty(txtFailureRepeats.Text.Trim()))
-            //{
-            //    Message = Message + "<br/>Please Enter the Failure Repeats";
-            //    Ret = false;
-            //}
+        //protected void btnSendBack_Click(object sender, EventArgs e)
+        //{
+        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, (short)TSIRStatus.SendBack, PSession.User.UserID, 0))
+        //    {
+        //        lblMessage.Text = "TSIR Status changed to Send Back";
+        //        lblMessage.ForeColor = Color.Green;
+        //        FillTsirDetails(ICTicketTSIR.TsirID);
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "TSIR Status is not changed";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //    lblMessage.Visible = true;
+        //}
 
-            if (string.IsNullOrEmpty(txtNatureOfFailures.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the NatureOfFailures";
-                Ret = false;
-            }
-            if (string.IsNullOrEmpty(txtProblemNoticedBy.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the How Was Problem Noticed / Who  / When";
-                Ret = false;
-            }
-            if (string.IsNullOrEmpty(txtUnderWhatConditionFailureTaken.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the Under What Condition Failure Taken";
-                Ret = false;
-            }
-            if (string.IsNullOrEmpty(txtFailureDetails.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the Failure Details";
-                Ret = false;
-            }
-            if (string.IsNullOrEmpty(txtPointsChecked.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the Points Checked";
-                Ret = false;
-            }
+        //protected void btnBack_Click(object sender, EventArgs e)
+        //{
+        //    pnlTSIRManage.Visible = true;
+        //    pnlTSIRView.Visible = false;
+        //}
 
-            if (string.IsNullOrEmpty(txtPossibleRootCauses.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the Possible Root Causes";
-                Ret = false;
-            }
-            if (string.IsNullOrEmpty(txtSpecificPointsNoticed.Text.Trim()))
-            {
-                Message = Message + "<br/>Please Enter the SpecificPoints Noticed";
-                Ret = false;
-            }
-            lblMessage.Text = Message;
-            return Ret;
-        }
+        //protected void btnReject_Click1(object sender, EventArgs e)
+        //{
+        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, (short)TSIRStatus.Rejected, PSession.User.UserID, 0))
+        //    {
+        //        lblMessage.Text = "TSIR Status changed to Rejected";
+        //        lblMessage.ForeColor = Color.Green;
+        //        FillTsirDetails(ICTicketTSIR.TsirID);
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "TSIR Status is not changed";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //    lblMessage.Visible = true;
+        //}
+
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    if (!Validation())
+        //    {
+        //        return;
+        //    }
+        //    ICTicketTSIR.TsirID = ViewState["TsirID"] == null ? 0 : (long)ViewState["TsirID"];
+
+        //    ICTicketTSIR.ServiceCharge = new PDMS_ServiceCharge();
+        //    ICTicketTSIR.ServiceCharge.ServiceChargeID = new BDMS_ICTicketTSIR().GetICTicketTSIRByTsirID(ICTicketTSIR.TsirID, null).ServiceCharge.ServiceChargeID;
+        //    ICTicketTSIR.NatureOfFailures = txtNatureOfFailures.Text.Trim();
+        //    ICTicketTSIR.ProblemNoticedBy = txtProblemNoticedBy.Text.Trim();
+        //    ICTicketTSIR.UnderWhatConditionFailureTaken = txtUnderWhatConditionFailureTaken.Text.Trim();
+        //    ICTicketTSIR.FailureDetails = txtFailureDetails.Text.Trim();
+        //    ICTicketTSIR.PointsChecked = txtPointsChecked.Text.Trim();
+        //    ICTicketTSIR.PossibleRootCauses = txtPossibleRootCauses.Text.Trim();
+        //    ICTicketTSIR.SpecificPointsNoticed = txtSpecificPointsNoticed.Text.Trim();
+        //    ICTicketTSIR.PartsInvoiceNumber = txtPartsInvoiceNumber.Text.Trim();
+        //    long DealerEmployeeID = new BDMS_ICTicketTSIR().InsertOrUpdateICTicketTSIR(ICTicketTSIR, PSession.User.UserID);
+        //    if (DealerEmployeeID != 0)
+        //    {
+        //        lblMessage.Text = "TSIR is updated successfully";
+        //        lblMessage.ForeColor = Color.Green;
+        //        FillTsirDetails(ICTicketTSIR.TsirID);
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "TSIR is not updated successfully";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}
+
+        //Boolean Validation()
+        //{
+        //    lblMessage.Visible = true;
+        //    string Message = "";
+        //    Boolean Ret = true;
+        //    //if (string.IsNullOrEmpty(txtFailureRepeats.Text.Trim()))
+        //    //{
+        //    //    Message = Message + "<br/>Please Enter the Failure Repeats";
+        //    //    Ret = false;
+        //    //}
+
+        //    if (string.IsNullOrEmpty(txtNatureOfFailures.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the NatureOfFailures";
+        //        Ret = false;
+        //    }
+        //    if (string.IsNullOrEmpty(txtProblemNoticedBy.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the How Was Problem Noticed / Who  / When";
+        //        Ret = false;
+        //    }
+        //    if (string.IsNullOrEmpty(txtUnderWhatConditionFailureTaken.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the Under What Condition Failure Taken";
+        //        Ret = false;
+        //    }
+        //    if (string.IsNullOrEmpty(txtFailureDetails.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the Failure Details";
+        //        Ret = false;
+        //    }
+        //    if (string.IsNullOrEmpty(txtPointsChecked.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the Points Checked";
+        //        Ret = false;
+        //    }
+
+        //    if (string.IsNullOrEmpty(txtPossibleRootCauses.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the Possible Root Causes";
+        //        Ret = false;
+        //    }
+        //    if (string.IsNullOrEmpty(txtSpecificPointsNoticed.Text.Trim()))
+        //    {
+        //        Message = Message + "<br/>Please Enter the SpecificPoints Noticed";
+        //        Ret = false;
+        //    }
+        //    lblMessage.Text = Message;
+        //    return Ret;
+        //}
     }
     static class MailFormate
     {

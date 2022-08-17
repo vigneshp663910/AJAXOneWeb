@@ -298,6 +298,13 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
              
         }
+
+        public Boolean UpdateICTicketWarrantyDistribution(long ICTicketID, decimal? CustomerPayPercentage, decimal? DealerPayPercentage, decimal? AEPayPercentage)
+        { 
+            string endPoint = "ICTicket/UpdateICTicketWarrantyDistribution?ICTicketID=" + ICTicketID + "&CustomerPayPercentage=" + CustomerPayPercentage
+                + "&DealerPayPercentage=" + DealerPayPercentage + "&AEPayPercentage=" + AEPayPercentage;
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
+        }
         public List<PDMS_ICTicket> GetICTicketForDeclinedApproval(string DealerCode, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT)
         {
             List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
@@ -788,36 +795,36 @@ namespace Business
             return true;
         }
 
-        public Boolean UpdateICTicketWarrantyDistribution(long ICTicket, decimal? CustomerPayPercentage, decimal? DealerPayPercentage, decimal? AEPayPercentage)
-        {
-            DbParameter ICTicketP = provider.CreateParameter("ICTicket", ICTicket, DbType.Int64);
+        //public Boolean UpdateICTicketWarrantyDistribution(long ICTicket, decimal? CustomerPayPercentage, decimal? DealerPayPercentage, decimal? AEPayPercentage)
+        //{
+        //    DbParameter ICTicketP = provider.CreateParameter("ICTicket", ICTicket, DbType.Int64);
 
-            DbParameter CustomerPayPercentageP = provider.CreateParameter("CustomerPayPercentage", CustomerPayPercentage, DbType.Decimal);
-            DbParameter DealerPayPercentageP = provider.CreateParameter("DealerPayPercentage", DealerPayPercentage, DbType.Decimal);
-            DbParameter AEPayPercentageP = provider.CreateParameter("AEPayPercentage", AEPayPercentage, DbType.Decimal);
+        //    DbParameter CustomerPayPercentageP = provider.CreateParameter("CustomerPayPercentage", CustomerPayPercentage, DbType.Decimal);
+        //    DbParameter DealerPayPercentageP = provider.CreateParameter("DealerPayPercentage", DealerPayPercentage, DbType.Decimal);
+        //    DbParameter AEPayPercentageP = provider.CreateParameter("AEPayPercentage", AEPayPercentage, DbType.Decimal);
 
-            //  DbParameter WarrantyClaimInvoiceIDP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[4] { ICTicketP, CustomerPayPercentageP, DealerPayPercentageP, AEPayPercentageP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_UpdateICTicketWarrantyDistribution", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", "UpdateICTicketWarrantyDistribution", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicket", " UpdateICTicketWarrantyDistribution", ex);
-                return false;
-            }
-            return true;
-        }
+        //    //  DbParameter WarrantyClaimInvoiceIDP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+        //    DbParameter[] Params = new DbParameter[4] { ICTicketP, CustomerPayPercentageP, DealerPayPercentageP, AEPayPercentageP };
+        //    try
+        //    {
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            provider.Insert("ZDMS_UpdateICTicketWarrantyDistribution", Params);
+        //            scope.Complete();
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_ICTicket", "UpdateICTicketWarrantyDistribution", sqlEx);
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_ICTicket", " UpdateICTicketWarrantyDistribution", ex);
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         public Boolean InsertOrUpdateNoteAddOrRemoveICTicket(long? ServiceNoteID, long ICTicket, int NoteTypeID, string Comments, Boolean IsDeleted, int UserID)
         {

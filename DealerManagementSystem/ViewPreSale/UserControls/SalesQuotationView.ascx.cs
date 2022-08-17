@@ -1465,6 +1465,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
 
 
@@ -2061,6 +2062,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
 
             }
@@ -2229,8 +2231,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             return Message;
         }
-
-
+         
         void fillSalesCommissionClaim()
         {
             List<PSalesCommissionClaim> claim = new BSalesCommissionClaim().GetSalesCommissionClaim(null, Quotation.QuotationID, null, null, null, null, null);

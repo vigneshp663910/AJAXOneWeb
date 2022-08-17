@@ -762,6 +762,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::AjaxControlToolkit.TabPanel tpnlMaterialCharges;
 
         /// <summary>
+        /// divWarrantyDistribution control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWarrantyDistribution;
+
+        /// <summary>
         /// txtCustomerPayPercentage control.
         /// </summary>
         /// <remarks>
@@ -969,13 +978,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// Label3 control.
+        /// lblMessageCallInformation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblMessageCallInformation;
 
         /// <summary>
         /// UC_ICTicketUpdateCallInformation control.

@@ -688,23 +688,23 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             MPE_CallInformation.Show();
             string Message = UC_ICTicketUpdateCallInformation.ValidationReached(SDMS_ICTicket);
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageCallInformation.ForeColor = Color.Red;
+            lblMessageCallInformation.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageCallInformation.Text = Message;
                 return;
             }
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/UpdateICTicketServiceCallInfo", UC_ICTicketUpdateCallInformation.Read(SDMS_ICTicket)));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageCallInformation.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
             MPE_CallInformation.Hide();
             tbpCust.ActiveTabIndex = 1;
-            FillCallInformation();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
 
          
@@ -1177,9 +1177,27 @@ namespace DealerManagementSystem.ViewService.UserControls
        
 
         public void FillServiceMaterial()
-        { 
-            
-                gvMaterial.DataSource = SS_ServiceMaterialAll;
+        {
+
+            txtCustomerPayPercentage.Text = Convert.ToString(SDMS_ICTicket.CustomerPayPercentage);
+            txtDealerPayPercentage.Text = Convert.ToString(SDMS_ICTicket.DealerPayPercentage);
+            txtAEPayPercentage.Text = Convert.ToString(SDMS_ICTicket.AEPayPercentage);
+
+            if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Warranty) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PartsWarranty)
+              || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PolicyWarranty))
+            {
+                divWarrantyDistribution.Visible = true;
+            }
+            else
+            {
+                divWarrantyDistribution.Visible = false;
+            }
+            if (SS_ServiceMaterial.Count != 0)
+            {
+                btnSaveWarrantyDistribution.Visible = false;
+            }
+
+            gvMaterial.DataSource = SS_ServiceMaterialAll;
                 if (SS_ServiceMaterial.Count != 0)
                 {
                     btnSaveWarrantyDistribution.Visible = false;
@@ -1264,7 +1282,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ShowMessage(Results);
             MPE_AddMaterialCharges.Hide();
             tbpCust.ActiveTabIndex = 5;
-            FillServiceMaterial();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
         
         protected void lblMaterialRemove_Click(object sender, EventArgs e)

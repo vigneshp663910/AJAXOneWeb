@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.Map.WebForms;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace Business
 {
-    public class BXcel
+    public class BXcel : System.Web.UI.Page
     {
         public void ExporttoExcel(DataTable table, string strFile)
         {
@@ -58,6 +59,16 @@ namespace Business
 
             HttpContext.Current.Response.Flush();
             HttpContext.Current.Response.End();
+        }
+
+        public void PdfDowload()
+        { 
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end 
         }
     }
 }

@@ -624,7 +624,8 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
             IC.MainApplicationID = ddlMainApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMainApplication.SelectedValue);
-            IC.SubApplicationID = ddlSubApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubApplication.SelectedValue);
+            if (IC.MainApplicationID != null)
+                IC.SubApplicationID = ddlSubApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubApplication.SelectedValue);
 
 
             IC.ScopeOfWork = txtScopeOfWork.Text.Trim();

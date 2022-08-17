@@ -632,9 +632,9 @@
                                                                     </div>
                                                                     <div class="col-md-4 col-sm-12">
                                                                         <label class="modal-label">File</label>
-                                                                        <asp:FileUpload ID="fu" runat="server"   CssClass="form-control" ViewStateMode="Inherit" Width="200px" />
+                                                                        <asp:FileUpload ID="fu" runat="server" CssClass="form-control" ViewStateMode="Inherit" Width="200px" />
                                                                     </div>
-                                                                    <div class="col-md-4 col-sm-12"> 
+                                                                    <div class="col-md-4 col-sm-12">
                                                                         <asp:UpdatePanel ID="upManage" runat="server">
                                                                             <ContentTemplate>
                                                                                 <asp:LinkButton ID="lblAttachedFileAdd" runat="server" OnClick="lblAttachedFileAddR_Click">Add</asp:LinkButton>
@@ -643,10 +643,10 @@
                                                                                 <asp:PostBackTrigger ControlID="lblAttachedFileAdd" />
                                                                             </Triggers>
                                                                         </asp:UpdatePanel>
-                                                                    </div> 
+                                                                    </div>
                                                                 </div>
-                                                            </fieldset> 
-                                                        </td> 
+                                                            </fieldset>
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -670,25 +670,25 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <div class="table-responsive">
-
-                        <div class="col-md-12">
-                            <div class="col-md-2 col-sm-12">
-                                <label class="modal-label">Customer Pay %</label>
-                                <asp:TextBox ID="txtCustomerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                                <label class="modal-label">Dealer Pay %</label>
-                                <asp:TextBox ID="txtDealerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                                <label class="modal-label">AE Pay %</label>
-                                <asp:TextBox ID="txtAEPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
-                            </div>
-                            <div class="col-md-8 text-left">
-                                <asp:Button ID="btnSaveWarrantyDistribution" runat="server" Text="Save Warranty Distribution" CssClass="btn Search" Width="300px" UseSubmitBehavior="true" OnClick="btnSaveWarrantyDistribution_Click" />
+                        <div id="divWarrantyDistribution" runat="server">
+                            <div class="col-md-12">
+                                <div class="col-md-2 col-sm-12">
+                                    <label class="modal-label">Customer Pay %</label>
+                                    <asp:TextBox ID="txtCustomerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
+                                </div>
+                                <div class="col-md-2 col-sm-12">
+                                    <label class="modal-label">Dealer Pay %</label>
+                                    <asp:TextBox ID="txtDealerPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
+                                </div>
+                                <div class="col-md-2 col-sm-12">
+                                    <label class="modal-label">AE Pay %</label>
+                                    <asp:TextBox ID="txtAEPayPercentage" runat="server" CssClass="hasDatepicker input" AutoComplete="Off" />
+                                </div>
+                                <div class="col-md-8 text-left">
+                                    <asp:Button ID="btnSaveWarrantyDistribution" runat="server" Text="Save Warranty Distribution" CssClass="btn Search" Width="300px" UseSubmitBehavior="true" OnClick="btnSaveWarrantyDistribution_Click" />
+                                </div>
                             </div>
                         </div>
-
 
                         <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="ServiceMaterialID">
                             <Columns>
@@ -991,12 +991,12 @@
 
 <asp:Panel ID="pnlCallInformation" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Technician</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Call Information</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label3" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageCallInformation" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketUpdateCallInformation ID="UC_ICTicketUpdateCallInformation" runat="server"></UC:UC_ICTicketUpdateCallInformation>
         </div>
         <div class="col-md-12 text-center">

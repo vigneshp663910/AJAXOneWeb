@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketFSRManage.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketFSRManage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketTSIRManage.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketTSIRManage" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/UserControls/AvailabilityOfOtherMachine.ascx" TagPrefix="UC" TagName="UC_AvailabilityOfOtherMachine" %>
@@ -46,13 +46,46 @@
                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICLoginDateTo" PopupButtonID="txtICLoginDateTo" Format="dd/MM/yyyy" Enabled="True"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICLoginDateTo" WatermarkText="DD/MM/YYYY" Enabled="True"></asp:TextBoxWatermarkExtender>
                     </div>
+
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">TSIR Date From</label>
+                        <asp:TextBox ID="txtTSIRDateFrom" runat="server" AutoComplete="Off" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtTSIRDateFrom" PopupButtonID="txtTSIRDateFrom" Format="dd/MM/yyyy" Enabled="True"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtTSIRDateFrom" WatermarkText="DD/MM/YYYY" Enabled="True"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">TSIR Date To</label>
+                        <asp:TextBox ID="txtTSIRDateTo" runat="server" AutoComplete="Off" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtTSIRDateTo" PopupButtonID="txtTSIRDateTo" Format="dd/MM/yyyy" Enabled="True"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtTSIRDateTo" WatermarkText="DD/MM/YYYY" Enabled="True"></asp:TextBoxWatermarkExtender>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" BorderColor="Silver"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlTsirStatus" runat="server" CssClass="form-control" BorderColor="Silver"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Type Of Warranty</label>
+                        <asp:DropDownList ID="ddlTypeOfWarranty" runat="server" CssClass="form-control" BorderColor="Silver"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Model</label>
+                        <asp:DropDownList ID="ddlModelID" runat="server" CssClass="form-control" BorderColor="Silver"></asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" OnClick="btnExportExcel_Click" Width="100px" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">TSIR No</label>
+                        <asp:TextBox ID="txtTSIRNo" runat="server" AutoComplete="Off" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">SRO Code</label>
+                        <asp:TextBox ID="txtSroCode" runat="server" AutoComplete="Off" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Machine Serial Number</label>
+                        <asp:TextBox ID="txtMachineSerialNumber" runat="server" AutoComplete="Off" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
                 </div>
             </fieldset>
@@ -77,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="fsrID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
+                    <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="TsirID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="IC Ticket">
                                 <ItemTemplate>
@@ -94,7 +127,7 @@
                                 <HeaderStyle Width="92px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="FSR">
+                           <%-- <asp:TemplateField HeaderText="FSR">
                                 <ItemTemplate>
                                     <asp:Label ID="lblTsirNumber" Text='<%# DataBinder.Eval(Container.DataItem, "FSRNumber")%>' runat="server" />
                                 </ItemTemplate>
@@ -107,7 +140,7 @@
                                 </ItemTemplate>
                                 <HeaderStyle Width="92px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Dealer">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.Dealer.DealerCode")%>' runat="server"></asp:Label>
@@ -162,21 +195,14 @@
                                 <HeaderStyle Width="147px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <%--  <asp:TemplateField HeaderText="Acknowledged By Customer" Visible="false">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblIsAcknowledged" Text='<%# DataBinder.Eval(Container.DataItem, "IsAcknowledged")%>' runat="server"  Visible='<%# DataBinder.Eval(Container.DataItem, "IsAcknowledged")%>'></asp:Label></div>
-                                                        <asp:Button ID="btnRequest" runat="server" Text="Request for Acknowledge" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnRequest_Click" Visible='<%# DataBinder.Eval(Container.DataItem, "_IsAcknowledged")%>' />
-                                                    </ItemTemplate>
-                                                    <HeaderStyle Width="147px" />
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                </asp:TemplateField>--%>
-                            <asp:TemplateField HeaderText="Signature">
+                         
+                           <%-- <asp:TemplateField HeaderText="Signature">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lbUpdateSignature" runat="server" OnClick="lbUpdateSignature_Click">Update Signature </asp:LinkButton>
                                 </ItemTemplate>
                                 <HeaderStyle Width="147px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="FSR-PDF">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />
