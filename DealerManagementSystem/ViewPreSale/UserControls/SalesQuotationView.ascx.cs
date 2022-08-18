@@ -1082,7 +1082,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
                 P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.PgQuotationDate.ToString(), false);
-                P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
+                P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2*/, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
                 P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
@@ -1130,24 +1130,45 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
                 P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
                 P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
+
+
+                DataTable dtItem = new DataTable();
+                dtItem.Columns.Add("TechnicalSpecification");
+                dtItem.Columns.Add("Units");
+                dtItem.Columns.Add("UnitPriceINR");
+                dtItem.Columns.Add("AmountINR");
+                dtItem.Columns.Add("MaterialText");
+                decimal GrandTotal = 0;
                 DataTable DTMaterialText = new DataTable();
-                try
+                for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    DTMaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508");
+                    try
+                    {
+                        DTMaterialText = new SQuotation().getMaterialTextForQuotation(Q.QuotationItems[i].Material.MaterialCode);
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = ex.Message.ToString();
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    string MaterialText = string.Empty;
+                    int sno = 0;
+                    foreach (DataRow dr in DTMaterialText.Rows)
+                    {
+                        MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                    }
+                    P[23] = new ReportParameter("MaterialText", "", false);
+
+
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount), MaterialText);
+                    GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
+
+                    P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                    P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+                    
                 }
-                catch (Exception ex)
-                {
-                    lblMessage.Text = ex.Message.ToString();
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                }
-                string MaterialText = string.Empty;
-                int sno = 0;
-                foreach (DataRow dr in DTMaterialText.Rows)
-                {
-                    MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
-                }
-                P[23] = new ReportParameter("MaterialText", MaterialText, false);
+                
                 List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
                 string PlantAddress1 = (Plant[0].Address1 + (string.IsNullOrEmpty(Plant[0].Address2) ? "" : "," + Plant[0].Address2) + (string.IsNullOrEmpty(Plant[0].Address3) ? "" : "," + Plant[0].Address3)).Trim(',', ' ');
                 string PlantAddress2 = (Plant[0].City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Plant[0].State.State) + (string.IsNullOrEmpty(Plant[0].Country.Country) ? "" : "," + Plant[0].Country.Country)).Trim(',', ' ');
@@ -1202,20 +1223,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
                 }
 
-                DataTable dtItem = new DataTable();
-                dtItem.Columns.Add("TechnicalSpecification");
-                dtItem.Columns.Add("Units");
-                dtItem.Columns.Add("UnitPriceINR");
-                dtItem.Columns.Add("AmountINR");
-                decimal GrandTotal = 0;
-                for (int i = 0; i < Q.QuotationItems.Count(); i++)
-                {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount));
-                    GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
-
-                    P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                    P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-                }
+                
                 report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
                 report.SetParameters(P);
                 ReportDataSource rds = new ReportDataSource();
@@ -1317,7 +1325,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.CommissionAgent ? Q.SapQuotationNo : Q.PgQuotationNo, false);
                 P[2] = new ReportParameter("QuotationDate", Q.CommissionAgent ? Q.SapQuotationDate.ToString() : Q.PgQuotationDate.ToString(), false);
-                P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2, false);
+                P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* + " " + Q.Lead.Customer.CustomerName2*/, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
                 P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
@@ -1365,24 +1373,42 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
                 P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
                 P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
+                DataTable dtItem = new DataTable();
+                dtItem.Columns.Add("TechnicalSpecification");
+                dtItem.Columns.Add("Units");
+                dtItem.Columns.Add("UnitPriceINR");
+                dtItem.Columns.Add("AmountINR");
+                dtItem.Columns.Add("MaterialText");
+                decimal GrandTotal = 0;
                 DataTable DTMaterialText = new DataTable();
-                try
+                for (int i = 0; i < Q.QuotationItems.Count(); i++)
                 {
-                    DTMaterialText = new SQuotation().getMaterialTextForQuotation("L.900.508");
+                    try
+                    {
+                        DTMaterialText = new SQuotation().getMaterialTextForQuotation(Q.QuotationItems[i].Material.MaterialCode);
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = ex.Message.ToString();
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                    }
+                    string MaterialText = string.Empty;
+                    int sno = 0;
+                    foreach (DataRow dr in DTMaterialText.Rows)
+                    {
+                        MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                    }
+                    P[23] = new ReportParameter("MaterialText", "", false);
+
+
+                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount), MaterialText);
+                    GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
+
+                    P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                    P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+
                 }
-                catch (Exception ex)
-                {
-                    lblMessage.Text = ex.Message.ToString();
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                }
-                string MaterialText = string.Empty;
-                int sno = 0;
-                foreach (DataRow dr in DTMaterialText.Rows)
-                {
-                    MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
-                }
-                P[23] = new ReportParameter("MaterialText", MaterialText, false);
                 List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
                 string PlantAddress1 = (Plant[0].Address1 + (string.IsNullOrEmpty(Plant[0].Address2) ? "" : "," + Plant[0].Address2) + (string.IsNullOrEmpty(Plant[0].Address3) ? "" : "," + Plant[0].Address3)).Trim(',', ' ');
                 string PlantAddress2 = (Plant[0].City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Plant[0].State.State) + (string.IsNullOrEmpty(Plant[0].Country.Country) ? "" : "," + Plant[0].Country.Country)).Trim(',', ' ');
@@ -1437,20 +1463,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
                 }
 
-                DataTable dtItem = new DataTable();
-                dtItem.Columns.Add("TechnicalSpecification");
-                dtItem.Columns.Add("Units");
-                dtItem.Columns.Add("UnitPriceINR");
-                dtItem.Columns.Add("AmountINR");
-                decimal GrandTotal = 0;
-                for (int i = 0; i < Q.QuotationItems.Count(); i++)
-                {
-                    dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount));
-                    GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
-
-                    P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                    P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-                }
+                
                 report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
                 report.SetParameters(P);
                 ReportDataSource rds = new ReportDataSource();
