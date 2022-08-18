@@ -33,6 +33,10 @@
           <DataField>AmountINR</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="MaterialText">
+          <DataField>MaterialText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS</rd:DataSetName>
@@ -820,7 +824,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!MaterialText.Value</Value>
+                                                <Value>=Fields!MaterialText.Value</Value>
                                                 <Style>
                                                   <FontFamily>Times New Roman</FontFamily>
                                                   <FontWeight>Normal</FontWeight>
