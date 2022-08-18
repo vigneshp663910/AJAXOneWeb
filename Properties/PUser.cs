@@ -55,6 +55,7 @@ namespace Properties
         public DateTime? LastLoginDate { get; set; }
         public Boolean ajaxOne { get; set; }
         public Boolean ajaxOneDealer { get; set; }
+        public List<PUserMobileFeature> UserMobileFeature { get; set; }
         #endregion
     }
     [Serializable]
@@ -300,5 +301,11 @@ namespace Properties
         public string OSType { get; set; }
         public string FCMTokenId { get; set; }
         public string Language { get; set; }
+    }
+
+    public class PUserMobileFeature
+    {
+        public int UserMobileFeatureID { get; set; }
+        public string FeatureName { get; set; }
     }
 }

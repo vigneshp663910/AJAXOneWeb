@@ -312,6 +312,15 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.DataList dlDealer;
 
         /// <summary>
+        /// dlMobileFeatureAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList dlMobileFeatureAccess;
+
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

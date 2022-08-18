@@ -405,6 +405,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\EInvoiceRequest.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
@@ -1173,6 +1174,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\EInvoiceRequest.aspx.cs">
+      <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\EInvoiceRequest.aspx.designer.cs">
+      <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>

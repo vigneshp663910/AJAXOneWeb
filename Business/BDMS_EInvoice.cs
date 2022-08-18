@@ -1300,8 +1300,8 @@ namespace Business
             byte[] fdata = r.DownloadData("");
         }
 
-
-        public void GeneratEInvoice(string InvoiceNumber)
+         
+        public string GeneratEInvoice(string InvoiceNumber)
         {
             try
             {
@@ -1312,48 +1312,41 @@ namespace Business
                 Inv.BuyerGSTIN = Inv.BuyerGSTIN.Trim();
                 if (string.IsNullOrEmpty(Inv.BuyerGSTIN))
                 {
-                    Message = "Please update Buyer GST Number";
-                    return;
+                    return "Please update Buyer GST Number"; 
                 }
                 String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
                 if (Inv.BuyerGSTIN == "URD")
                 {
-                    return;
+                    return "Customer  GST Number is URD";
                 }
                 else if (regex.Match(Inv.BuyerGSTIN).Success)
                 {
                     if (Inv.BuyerGSTIN.Trim().Substring(0, 2) != Inv.BuyerStateCode.Trim())
                     {
-                        Message = "Please update Buyer State Code";
-                        return;
+                        return "Please update Buyer State Code"; 
                     }
                 }
                 else
                 {
-                    Message = "Please update correct GST Number";
-                    return;
+                    return "Please update correct GST Number"; 
                 }
                 if (string.IsNullOrEmpty(Inv.Buyer_addr1.Trim()))
                 {
-                    Message = "Please update Buyer Address";
-                    return;
+                    return "Please update Buyer Address"; 
                 }
                 if (!new BDMS_EInvoice().ValidatePincode(Inv.BuyerPincode.Substring(0, 2), Inv.BuyerStateCode))
                 {
-                    Message = "Please check Buyer Pincode and Statecode";
-                    return;
+                    return "Please check Buyer Pincode and Statecode"; 
                 }
 
                 if (string.IsNullOrEmpty(Inv.SupplierGSTIN) || string.IsNullOrEmpty(Inv.SupplierLocation) || string.IsNullOrEmpty(Inv.SupplierPincode) || string.IsNullOrEmpty(Inv.SupplierStateCode))
                 {
-                    Message = Message + "</n> Please check the supplier details of Invoice (" + Inv.BillingDocument + ")";
-                    // continue;
+                    return "</n> Please check the supplier details of Invoice (" + Inv.BillingDocument + ")"; 
                 }
                 if (string.IsNullOrEmpty(Inv.BuyerGSTIN) || string.IsNullOrEmpty(Inv.Buyer_loc) || string.IsNullOrEmpty(Inv.BuyerPincode) || string.IsNullOrEmpty(Inv.BuyerStateCode))
                 {
-                    Message = Message + "</n> Please check the Buyer details of Invoice (" + Inv.BillingDocument + ")";
-                    //  continue;
+                    return "</n> Please check the Buyer details of Invoice (" + Inv.BillingDocument + ")"; 
                 }
                 string FTPFileName = "DMSS_INV_" + Inv.FileSubName + "_" + Inv.BillingDocument + ".txt";
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(PDMS_EInvoice.EInvoivePathExport + FTPFileName))
@@ -1393,6 +1386,7 @@ namespace Business
             }
             catch(Exception e)
             { }
+            return "";
         }
         public void GeneratEDebitNote(string InvoiceNumber)
         {
@@ -1540,7 +1534,7 @@ namespace Business
             return false;
         }
 
-        public void GeneratEInvoiceForSalesCommissionClaimInvoice(long SalesCommissionClaimInvoiceID, string AccessToken)
+        public void GeneratEInvoiceForSalesCommissionClaimInvoice(long SalesCommissionClaimInvoiceID)
         {
             PSalesCommissionClaimInvoice Pinv = GetSalesCommissionClaimInvoiceForRequestEInvoice(SalesCommissionClaimInvoiceID,null, null, null, null)[0]; 
             if ((Pinv.Dealer.IsEInvoice) && (Pinv.Dealer.EInvoiceDate <= Pinv.InvoiceDate))
@@ -1553,7 +1547,7 @@ namespace Business
                         ul.handle = Pinv.Dealer.EInvUserAPI.Handle;
                         ul.handleType = Pinv.Dealer.EInvUserAPI.HandleType;
                         ul.password = Pinv.Dealer.EInvUserAPI.Password;
-                        AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;
+                      //  AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;
 
 
                         PEInvoice EInvoice = new PEInvoice();

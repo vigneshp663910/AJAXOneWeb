@@ -121,7 +121,6 @@ namespace DealerManagementSystem.ViewAdmin
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             string ContactName = null; if (!string.IsNullOrEmpty(txtContactName.Text)) { ContactName = txtContactName.Text; }
 
-
             bool? IsLocked = null;
             if (ddlIsLocked.SelectedValue == "1") { IsLocked = true; } else if (ddlIsLocked.SelectedValue == "2") { IsLocked = false; }
 
@@ -135,8 +134,6 @@ namespace DealerManagementSystem.ViewAdmin
             int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
 
             // List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID);
-
-
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
         
@@ -160,9 +157,7 @@ namespace DealerManagementSystem.ViewAdmin
                 ibtnUserArrowLeft.Visible = true;
                 ibtnUserArrowRight.Visible = true;
                 lblRowCount.Text = (((gvUser.PageIndex) * gvUser.PageSize) + 1) + " - " + (((gvUser.PageIndex) * gvUser.PageSize) + gvUser.Rows.Count) + " of " + UserLst.Count;
-            }
-
-
+            } 
         }
         protected void lbEmpId_Click(object sender, EventArgs e)
         {
@@ -183,9 +178,8 @@ namespace DealerManagementSystem.ViewAdmin
             gvModule.DataSource = AccessModule;
             gvModule.DataBind();
             fillDealer();
-            
-            List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByUser(UserID, null, null);
 
+            List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByUser(UserID, null, null);
             if (EAccessModule.Count() != 0)
             {
                 for (int j = 0; j < gvModule.Rows.Count; j++)
@@ -196,7 +190,6 @@ namespace DealerManagementSystem.ViewAdmin
                     {
                         continue;
                     }
-
                     List<PSubModuleAccess> SubModule = new List<PSubModuleAccess>();
                     SubModule = EAccessModule.Find(s => s.ModuleMasterID == ModuleMasterID).SubModuleAccess;
 
@@ -219,17 +212,17 @@ namespace DealerManagementSystem.ViewAdmin
             //if (u.UserTypeID != (short)UserTypes.Dealer)
             //{
             pnlDealer.Visible = true;
-                List<PDealer> Dealer = new BDealer().GetDealerByUserID(UserID);
+            List<PDealer> Dealer = new BDealer().GetDealerByUserID(UserID);
 
-                for (int i = 0; i < dlDealer.Items.Count; i++)
+            for (int i = 0; i < dlDealer.Items.Count; i++)
+            {
+                int DealerID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
+                if (Dealer.Where(A => A.DID == DealerID).Count() != 0)
                 {
-                    int DealerID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
-                    if (Dealer.Where(A => A.DID == DealerID).Count() != 0)
-                    {
-                        CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
-                        cbSMId.Checked = true;
-                    }
+                    CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
+                    cbSMId.Checked = true;
                 }
+            }
             //}
 
             List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardByUserID(UserID);
@@ -243,8 +236,6 @@ namespace DealerManagementSystem.ViewAdmin
                     cbSMId.Checked = true;
                 }
             }
-
-            
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
