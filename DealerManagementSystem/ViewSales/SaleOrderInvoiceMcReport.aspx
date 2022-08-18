@@ -369,7 +369,7 @@
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                     <asp:GridView ID="gvDM" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="20"
@@ -439,7 +439,7 @@
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                     <asp:GridView ID="gvDCM" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="20"
@@ -521,7 +521,7 @@
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>

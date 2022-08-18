@@ -170,7 +170,7 @@
                             <alternatingrowstyle backcolor="#ffffff" />
                             <footerstyle forecolor="White" />
                             <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
-                            <pagerstyle font-bold="True" forecolor="White" horizontalalign="Center" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
                         </asp:GridView>
                     </fieldset>
@@ -417,7 +417,7 @@
                     <alternatingrowstyle backcolor="#ffffff" />
                     <footerstyle forecolor="White" />
                     <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
-                    <pagerstyle font-bold="True" forecolor="White" horizontalalign="Center" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
                 </asp:GridView>
             </div>
@@ -505,7 +505,7 @@
                             <alternatingrowstyle backcolor="#ffffff" />
                             <footerstyle forecolor="White" />
                             <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
-                            <pagerstyle font-bold="True" forecolor="White" horizontalalign="Center" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
                         </asp:GridView>
                     </div>

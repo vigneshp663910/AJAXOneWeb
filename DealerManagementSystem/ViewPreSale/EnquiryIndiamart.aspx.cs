@@ -143,16 +143,16 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         public void AddressSplit(string Input, TextBox txtAddress1, TextBox txtAddress2, TextBox txtAddress3)
-        {  
+        {
             string[] SplitedInput = Input.Split(' ');
 
             foreach (string Word in SplitedInput)
             {
-                if ((txtAddress1.Text + Word).Length <= 40)
+                if (((txtAddress1.Text + Word).Length <= 40) && (string.IsNullOrEmpty(txtAddress2.Text)))
                 {
                     txtAddress1.Text = txtAddress1.Text + " " + Word;
                 }
-                else if ((txtAddress2.Text + Word).Length <= 40)
+                else if (((txtAddress2.Text + Word).Length <= 40) && (string.IsNullOrEmpty(txtAddress3.Text)))
                 {
                     txtAddress2.Text = txtAddress2.Text + " " + Word;
                 }

@@ -282,7 +282,7 @@
                                         <AlternatingRowStyle BackColor="#ffffff" />
                                         <FooterStyle ForeColor="White" />
                                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                     </asp:GridView>
                                     <asp:GridView ID="gvFileAttachedAF" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
@@ -303,7 +303,7 @@
                                         <AlternatingRowStyle BackColor="#ffffff" />
                                         <FooterStyle ForeColor="White" />
                                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                     </asp:GridView>
                                     <asp:GridView ID="gvFileAttachedFSR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
@@ -321,7 +321,7 @@
                                         <AlternatingRowStyle BackColor="#ffffff" />
                                         <FooterStyle ForeColor="White" />
                                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                     </asp:GridView>
                                     <asp:GridView ID="gvFileAttachedTSIR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
@@ -339,7 +339,7 @@
                                         <AlternatingRowStyle BackColor="#ffffff" />
                                         <FooterStyle ForeColor="White" />
                                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                     </asp:GridView>
                                     <tr>
@@ -475,7 +475,7 @@
                                                     <AlternatingRowStyle BackColor="#ffffff" />
                                                     <FooterStyle ForeColor="White" />
                                                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                                 </asp:GridView>
                                             </div>
@@ -487,7 +487,7 @@
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>

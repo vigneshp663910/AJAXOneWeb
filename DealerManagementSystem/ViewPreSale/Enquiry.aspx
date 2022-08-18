@@ -148,8 +148,9 @@
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
                                 <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="left" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                               
                             </asp:GridView>
                         </div>
                     </fieldset>

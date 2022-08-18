@@ -63,6 +63,6 @@
     <AlternatingRowStyle BackColor="#f2f2f2" />
     <FooterStyle ForeColor="White" />
     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
     <RowStyle BackColor="Gainsboro" ForeColor="Black" HorizontalAlign="Left" />
 </asp:GridView>
