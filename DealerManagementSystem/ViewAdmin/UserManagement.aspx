@@ -444,7 +444,7 @@
                 </div>
             </ItemTemplate>
         </asp:DataList>
-    </asp:Panel>
+  
 
      
         <table>
@@ -458,7 +458,7 @@
                 </td>
             </tr>
         </table> 
-        <asp:DataList ID="dlMobileFeatureAccess" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="10" CellSpacing="10" DataKeyField="DID">
+        <asp:DataList ID="dlMobileFeatureAccess" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="3" CellSpacing="10" DataKeyField="UserMobileFeatureID">
             <ItemTemplate>
                 <div class="item">
                     <span>
@@ -470,6 +470,7 @@
                 </div>
             </ItemTemplate>
         </asp:DataList> 
+          </asp:Panel>
     <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="btnUpdate_Click" Visible="false" />
     <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton" OnClick="btnBack_Click" Visible="false" />
 </asp:Content>

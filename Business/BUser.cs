@@ -1196,7 +1196,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, long CreatedBy)
+        public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
         {
             List<PUser> users = new List<PUser>();
             DateTime traceStartTime = DateTime.Now;
@@ -1244,6 +1244,24 @@ namespace Business
                         DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
                         provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+                    }
+
+                    foreach (int DashboardID in Dashboard)
+                    {
+                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                        DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+                    }
+
+                    foreach (int UserMobileFeatureID in MobileFeature)
+                    {
+                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                        DbParameter UserMobileFeatureIDP = provider.CreateParameter("UserMobileFeatureID", UserMobileFeatureID, DbType.Int32);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, UserMobileFeatureIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateMUserMobileFeatureAccessAccess", DParams, false);
                     }
 
                     scope.Complete();
@@ -1618,6 +1636,47 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
             return null;
+        }
+
+        public List<PUserMobileFeature> GetUserMobileFeatureAccessByUserID(int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "User/GetUserMobileFeatureAccessByUserID?UserID=" + UserID;
+            return JsonConvert.DeserializeObject<List<PUserMobileFeature>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
+        public List<PUserMobileFeature> GetUserMobileFeature()
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PUserMobileFeature> MAs = new List<PUserMobileFeature>();
+            PUserMobileFeature MA = null;
+            try
+            { 
+
+                using (DataSet ds = provider.Select("GetUserMobileFeature"))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            MA = new PUserMobileFeature();
+                            MAs.Add(MA);
+                            MA.UserMobileFeatureID = Convert.ToInt32(dr["UserMobileFeatureID"]);
+                            MA.FeatureName = Convert.ToString(dr["FeatureName"]);
+                        }
+                }
+                // This call is for track the status and loged into the trace logeer
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
         }
     }
 }

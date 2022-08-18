@@ -305,7 +305,8 @@ namespace Properties
 
     public class PUserMobileFeature
     {
-        public int UserMobileFeatureID { get; set; }
+        public int UserMobileFeatureID { get; set; } 
+        public int UserMobileFeatureAccessID { get; set; }
         public string FeatureName { get; set; }
     }
 }

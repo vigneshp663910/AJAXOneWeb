@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewAdmin
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
 
                 FillUser();
-                fillDashboard();
+              
                 
             }
         }
@@ -161,6 +161,8 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void lbEmpId_Click(object sender, EventArgs e)
         {
+            fillDashboard();
+
             divList.Visible = false;
             pnlUser.Visible = false;
             pnlModule.Visible = true;
@@ -236,6 +238,18 @@ namespace DealerManagementSystem.ViewAdmin
                     cbSMId.Checked = true;
                 }
             }
+
+            List<PUserMobileFeature> UserMobileFeature = new BUser().GetUserMobileFeatureAccessByUserID(UserID);
+
+            for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
+            {
+                int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
+                if (UserMobileFeature.Where(A => A.UserMobileFeatureID == UserMobileFeatureID).Count() != 0)
+                {
+                    CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
+                    cbSMId.Checked = true;
+                }
+            }
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -285,7 +299,20 @@ namespace DealerManagementSystem.ViewAdmin
                     AccessDB.Add(dlDashboardID);
                 }
             }
-            if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, PSession.User.UserID))
+
+            List<int> MobileFeature = new List<int>();
+            for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
+            {
+                CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
+                int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
+                if (cbSMId.Checked)
+                {
+                    MobileFeature.Add(UserMobileFeatureID);
+                }
+            }
+
+
+            if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
             {
                 //List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
                 //ModuleAccess = AccessModule;
@@ -421,6 +448,9 @@ namespace DealerManagementSystem.ViewAdmin
             List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardAll(null);
             dlDashboard.DataSource = Dashboard;
             dlDashboard.DataBind();
+             
+            dlMobileFeatureAccess.DataSource = new BUser().GetUserMobileFeature();
+            dlMobileFeatureAccess.DataBind();
         }
 
 
