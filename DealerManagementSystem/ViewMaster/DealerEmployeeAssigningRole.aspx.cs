@@ -427,12 +427,13 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 ddlDesignation.BorderColor = Color.Red;
             }
-            if (ddlReportingTo.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Reporting To";
-                Ret = false;
-                ddlReportingTo.BorderColor = Color.Red;
-            }
+            //Commented By Vignesh and Suggestion by John
+            //if (ddlReportingTo.SelectedValue == "0")
+            //{
+            //    Message = Message + "<br/>Please select the Reporting To";
+            //    Ret = false;
+            //    ddlReportingTo.BorderColor = Color.Red;
+            //}
             //Commented By Vignesh and Suggestion by John
             //if (District.Count == 0)
             //{
