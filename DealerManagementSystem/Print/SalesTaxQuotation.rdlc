@@ -2950,7 +2950,15 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>For AJAX ENGINEERING PRIVATE LIMITED</Value>
+                      <Value>For </Value>
+                      <Style>
+                        <FontFamily>Times New Roman</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!CompanyName.Value</Value>
                       <Style>
                         <FontFamily>Times New Roman</FontFamily>
                         <FontSize>11pt</FontSize>

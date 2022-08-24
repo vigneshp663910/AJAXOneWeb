@@ -1026,7 +1026,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = "QT_" + r.Next(0, 1000000) + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_MC_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1127,9 +1127,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //    return;
                 //}
 
-                P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
-                P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
-                P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
+                P[20] = new ReportParameter("ConcernName", Q.Lead.AssignedTo.ContactName, false);
+                P[21] = new ReportParameter("ConcernDesignation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
+                P[22] = new ReportParameter("ConcernMobile", Q.Lead.AssignedTo.ContactNumber, false);
 
 
                 DataTable dtItem = new DataTable();
@@ -1269,7 +1269,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = "QT_" + r.Next(0, 1000000) + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_MC_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1370,9 +1370,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //    return;
                 //}
 
-                P[20] = new ReportParameter("ConcernName", DealerBank[0].AuthorityName, false);
-                P[21] = new ReportParameter("ConcernDesignation", DealerBank[0].AuthorityDesignation, false);
-                P[22] = new ReportParameter("ConcernMobile", DealerBank[0].AuthorityMobile, false);
+                P[20] = new ReportParameter("ConcernName", Q.Lead.AssignedTo.ContactName, false);
+                P[21] = new ReportParameter("ConcernDesignation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
+                P[22] = new ReportParameter("ConcernMobile", Q.Lead.AssignedTo.ContactNumber, false);
+
+
                 DataTable dtItem = new DataTable();
                 dtItem.Columns.Add("TechnicalSpecification");
                 dtItem.Columns.Add("Units");
@@ -1508,7 +1510,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = "QT_Tax" + r.Next(0, 1000000) + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_TAX_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1640,10 +1642,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                P[44] = new ReportParameter("Name", DealerBank[0].AuthorityName, false);
-                P[45] = new ReportParameter("Designation", DealerBank[0].AuthorityDesignation, false);
-                P[46] = new ReportParameter("MobileNo", DealerBank[0].AuthorityMobile, false);
-
+                P[44] = new ReportParameter("Name", Q.Lead.AssignedTo.ContactName, false);
+                P[45] = new ReportParameter("Designation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
+                P[46] = new ReportParameter("MobileNo", Q.Lead.AssignedTo.ContactNumber, false);
 
 
                 DataTable dtItem = new DataTable();
@@ -1807,7 +1808,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = "QT_Tax" + r.Next(0, 1000000) + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_TAX_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1939,9 +1940,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                P[44] = new ReportParameter("Name", DealerBank[0].AuthorityName, false);
-                P[45] = new ReportParameter("Designation", DealerBank[0].AuthorityDesignation, false);
-                P[46] = new ReportParameter("MobileNo", DealerBank[0].AuthorityMobile, false);
+                P[44] = new ReportParameter("Name", Q.Lead.AssignedTo.ContactName, false);
+                P[45] = new ReportParameter("Designation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
+                P[46] = new ReportParameter("MobileNo", Q.Lead.AssignedTo.ContactNumber, false);
 
 
 
