@@ -21,7 +21,7 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PDMS_Dealer> GetDealer(int? DealerID, string DealerCode,int? UserID, int? RegionID)
+        public List<PDMS_Dealer> GetDealer(int? DealerID, string DealerCode, int? UserID, int? RegionID)
         {
             List<PDMS_Dealer> Dealers = new List<PDMS_Dealer>();
             PDMS_Dealer Dealer = null;
@@ -56,11 +56,11 @@ namespace Business
                             Dealer.Country = Convert.ToString(Dr["Country"]);
                             Dealer.Email = Convert.ToString(Dr["MailID"]);
                             Dealer.Mobile = Convert.ToString(Dr["Phone"]);
-                            Dealer.TL = new PUser() { ContactName= Convert.ToString(Dr["TeamLead"])  };
+                            Dealer.TL = new PUser() { ContactName = Convert.ToString(Dr["TeamLead"]) };
                             Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
                             Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
                             Dealer.Region = DBNull.Value == Dr["RegionID"] ? null : new PDMS_Region() { RegionID = Convert.ToInt32(Dr["RegionID"]), Region = Convert.ToString(Dr["Region"]) };
-                            Dealers.Add(Dealer);                             
+                            Dealers.Add(Dealer);
                         }
                     }
                 }
@@ -166,12 +166,12 @@ namespace Business
                 DbParameter Branch = provider.CreateParameter("Branch", BankDetails.Branch, DbType.String);
                 DbParameter AcNumber = provider.CreateParameter("AcNumber", BankDetails.AcNumber, DbType.String);
                 DbParameter IfscCode = provider.CreateParameter("IfscCode", BankDetails.IfscCode, DbType.String);
-               // DbParameter IsActive = provider.CreateParameter("IsActive", BankDetails.IsActive, DbType.Int32);
+                // DbParameter IsActive = provider.CreateParameter("IsActive", BankDetails.IsActive, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
 
-                    DbParameter[] Params = new DbParameter[7] { DealerBankID,DealerID, BankName, Branch, AcNumber, IfscCode,  UserIDP };
+                    DbParameter[] Params = new DbParameter[7] { DealerBankID, DealerID, BankName, Branch, AcNumber, IfscCode, UserIDP };
                     provider.Insert("ZDMS_InsertOrUpdateDealerBankDetails", Params);
                     scope.Complete();
                 }
@@ -192,16 +192,16 @@ namespace Business
             try
             {
                 DbParameter DealerEmployeeID = provider.CreateParameter("DealerEmployeeID", Emp.DealerEmployeeID, DbType.Int32);
-                 //DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
+                //DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
                 DbParameter Name = provider.CreateParameter("Name", Emp.Name.ToUpper(), DbType.String);
                 DbParameter FatherName = provider.CreateParameter("FatherName", Emp.FatherName.ToUpper(), DbType.String);
                 DbParameter DOB = provider.CreateParameter("DOB", Emp.DOB, DbType.DateTime);
                 DbParameter ContactNumber = provider.CreateParameter("ContactNumber", Emp.ContactNumber, DbType.String);
                 DbParameter ContactNumber1 = provider.CreateParameter("ContactNumber1", Emp.ContactNumber1, DbType.String);
-            //    DbParameter DateOfJoining = provider.CreateParameter("DateOfJoining", Emp.DateOfJoining, DbType.DateTime);
-             //   DbParameter DealerDepartmentID = provider.CreateParameter("DealerDepartmentID", Emp.DealerDepartment == null ? (int?)null : Emp.DealerDepartment.DealerDepartmentID, DbType.Int32);
-             //   DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", Emp.DealerDesignation == null ? (int?)null : Emp.DealerDesignation.DealerDesignationID, DbType.Int32);
-             //   DbParameter ReportingTo = provider.CreateParameter("ReportingTo", Emp.ReportingTo == null ? (int?)null : Emp.ReportingTo.DealerEmployeeID, DbType.Int32);
+                //    DbParameter DateOfJoining = provider.CreateParameter("DateOfJoining", Emp.DateOfJoining, DbType.DateTime);
+                //   DbParameter DealerDepartmentID = provider.CreateParameter("DealerDepartmentID", Emp.DealerDepartment == null ? (int?)null : Emp.DealerDepartment.DealerDepartmentID, DbType.Int32);
+                //   DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", Emp.DealerDesignation == null ? (int?)null : Emp.DealerDesignation.DealerDesignationID, DbType.Int32);
+                //   DbParameter ReportingTo = provider.CreateParameter("ReportingTo", Emp.ReportingTo == null ? (int?)null : Emp.ReportingTo.DealerEmployeeID, DbType.Int32);
 
                 DbParameter Email = provider.CreateParameter("Email", Emp.Email, DbType.String);
                 DbParameter Address = provider.CreateParameter("Address", Emp.Address.ToUpper(), DbType.String);
@@ -268,8 +268,8 @@ namespace Business
                 DbParameter DOB = provider.CreateParameter("DOB", Emp.DOB, DbType.DateTime);
                 DbParameter ContactNumber = provider.CreateParameter("ContactNumber", Emp.ContactNumber, DbType.String);
                 DbParameter ContactNumber1 = provider.CreateParameter("ContactNumber1", Emp.ContactNumber1, DbType.String);
-              
-               
+
+
                 DbParameter Email = provider.CreateParameter("Email", Emp.Email, DbType.String);
                 DbParameter Address = provider.CreateParameter("Address", Emp.Address.ToUpper(), DbType.String);
                 DbParameter StateID = provider.CreateParameter("StateID", Emp.State == null ? (int?)null : Emp.State.StateID, DbType.Int32);
@@ -295,7 +295,7 @@ namespace Business
                 DbParameter OutValueDParam = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                { 
+                {
                     DbParameter[] Params = new DbParameter[26] { DealerEmployeeID, Name, FatherName, DOB, ContactNumber,ContactNumber1, Email, Address, StateID, DistrictID, TehsilID, Village,BloodGroupID,EmergencyContactNumber
                      ,Location,AadhaarCardNo,EqucationalQualificationID,TotalExperience,
                      OfficeID,SAPEmpCode,DateOfJoining,DealerDepartmentID,DealerDesignationID,ReportingTo,UserIDP,OutValueDParam};
@@ -508,7 +508,7 @@ namespace Business
                                 DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
                                 Name = Convert.ToString(dr["Name"]),
                                 FatherName = Convert.ToString(dr["FatherName"]),
-                                DOB = DBNull.Value == dr["DOB"] ?(DateTime?) null : Convert.ToDateTime(dr["DOB"]),
+                                DOB = DBNull.Value == dr["DOB"] ? (DateTime?)null : Convert.ToDateTime(dr["DOB"]),
                                 ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 Email = Convert.ToString(dr["EmailID"]),
                                 State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
@@ -531,7 +531,7 @@ namespace Business
                                         DealerCode = Convert.ToString(dr["DealerCode"]),
                                         DealerName = Convert.ToString(dr["DealerName"]),
                                         State = Convert.ToString(dr["DealerState"]),
-                                       // StateCode = Convert.ToString(dr["StateCode"])
+                                        // StateCode = Convert.ToString(dr["StateCode"])
                                     },
                                     DealerOffice = new PDMS_DealerOffice() { OfficeName = Convert.ToString(dr["OfficeName"]) },
                                     DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
@@ -544,7 +544,7 @@ namespace Business
                                 },
                                 IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
                                 //       CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
-                                
+
                             });
                         }
                     }
@@ -556,15 +556,15 @@ namespace Business
             { }
             return EMP;
         }
-        public List<PDMS_DealerEmployee> GetDealerEmployeeManageBasedRole( string AadhaarCardNo )
+        public List<PDMS_DealerEmployee> GetDealerEmployeeManageBasedRole(string AadhaarCardNo)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
             try
             {
-                 DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String);
-                 DbParameter[] Params = new DbParameter[1] {  AadhaarCardNoP };
+                DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String);
+                DbParameter[] Params = new DbParameter[1] { AadhaarCardNoP };
 
-                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeManageBasedRole", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeManageBasedRole", Params))
                 {
                     if (DataSet != null)
                     {
@@ -622,15 +622,15 @@ namespace Business
             { }
             return EMP;
         }
-        public  PDMS_DealerEmployee GetDealerEmployeeByDealerEmployeeID(int DealerEmployeeID)
+        public PDMS_DealerEmployee GetDealerEmployeeByDealerEmployeeID(int DealerEmployeeID)
         {
             PDMS_DealerEmployee EMP = new PDMS_DealerEmployee();
             try
             {
                 DbParameter DealerEmployeeIDP = provider.CreateParameter("DealerEmployeeID", DealerEmployeeID, DbType.Int32);
-                 DbParameter[] Params = new DbParameter[1] { DealerEmployeeIDP};
+                DbParameter[] Params = new DbParameter[1] { DealerEmployeeIDP };
 
-                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeByDealerEmployeeID", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeByDealerEmployeeID", Params))
                 {
                     if (DataSet != null)
                     {
@@ -650,7 +650,7 @@ namespace Business
                                 State = DBNull.Value == dr["StateID"] ? null : new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]), State = Convert.ToString(dr["State"]) },
                                 District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District() { DistrictID = Convert.ToInt32(dr["DistrictID"]), District = Convert.ToString(dr["District"]) },
                                 Tehsil = DBNull.Value == dr["TehsilID"] ? null : new PDMS_Tehsil() { TehsilID = Convert.ToInt32(dr["TehsilID"]), Tehsil = Convert.ToString(dr["Tehsil"]) },
-                                Village =    Convert.ToString(dr["Village"]),
+                                Village = Convert.ToString(dr["Village"]),
                                 Location = Convert.ToString(dr["Location"]),
                                 AadhaarCardNo = Convert.ToString(dr["AadhaarCardNo"]),
                                 EqucationalQualification = DBNull.Value == dr["EqucationalQualificationID"] ? null : new PDMS_EqucationalQualification() { EqucationalQualificationID = Convert.ToInt32(dr["EqucationalQualificationID"]), EqucationalQualification = Convert.ToString(dr["EqucationalQualification"]) },
@@ -661,7 +661,7 @@ namespace Business
                                 IFSCCode = Convert.ToString(dr["IFSCCode"]),
                                 EmergencyContactNumber = Convert.ToString(dr["EmergencyContactNumber"]),
                                 BloodGroup = DBNull.Value == dr["BloodGroupID"] ? null : new PDMS_BloodGroup() { BloodGroupID = Convert.ToInt32(dr["BloodGroupID"]), BloodGroup = Convert.ToString(dr["BloodGroup"]) },
-                              
+
 
                                 Photo = DBNull.Value == dr["APHAttachedFileID"] ? null : new PDMS_DealerEmployeeAttachedFile() { AttachedFileID = Convert.ToInt32(dr["APHAttachedFileID"]), FileName = Convert.ToString(dr["APHFileName"]) },
                                 AdhaarCardCopyFrontSide = DBNull.Value == dr["AAFAttachedFileID"] ? null : new PDMS_DealerEmployeeAttachedFile() { AttachedFileID = Convert.ToInt32(dr["AAFAttachedFileID"]), FileName = Convert.ToString(dr["AAFFileName"]) },
@@ -673,7 +673,7 @@ namespace Business
                                     DealerEmployeeRoleID = Convert.ToInt64(dr["DealerEmployeeRoleID"]),
                                     Dealer = DBNull.Value == dr["DealerID"] ? null : new PDMS_Dealer() { DealerID = Convert.ToInt32(dr["DealerID"]), DealerName = Convert.ToString(dr["DealerName"]) },
                                     DealerOffice = DBNull.Value == dr["OfficeID"] ? null : new PDMS_DealerOffice() { OfficeID = Convert.ToInt32(dr["OfficeID"]), OfficeName = Convert.ToString(dr["OfficeName"]) },
-                                    DateOfJoining =  Convert.ToDateTime(dr["DateOfJoining"]),
+                                    DateOfJoining = Convert.ToDateTime(dr["DateOfJoining"]),
                                     DealerDepartment = DBNull.Value == dr["DealerDepartmentID"] ? null : new PDMS_DealerDepartment() { DealerDepartmentID = Convert.ToInt32(dr["DealerDepartmentID"]), DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
                                     DealerDesignation = DBNull.Value == dr["DealerDesignationID"] ? null : new PDMS_DealerDesignation() { DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]), DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
                                     ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
@@ -711,7 +711,7 @@ namespace Business
                                 AttachedFile = (Byte[])(dr["AttachedFile"]),
                                 FileType = Convert.ToString(dr["ContentType"]),
                                 FileName = Convert.ToString(dr["FileName"]),
-                                FileSize = Convert.ToInt32(dr["FileSize"]) 
+                                FileSize = Convert.ToInt32(dr["FileSize"])
                             };
                         }
                     }
@@ -761,9 +761,9 @@ namespace Business
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        public void GetDealerDesignationDDL(DropDownList ddl,int? DealerDepartmentID, int? DealerDesignationID, string DealerDesignation)
+        public void GetDealerDesignationDDL(DropDownList ddl, int? DealerDepartmentID, int? DealerDesignationID, string DealerDesignation)
         {
-            List<PDMS_DealerDesignation> Qualification = GetDealerDesignation(DealerDepartmentID, DealerDesignationID, DealerDesignation); 
+            List<PDMS_DealerDesignation> Qualification = GetDealerDesignation(DealerDepartmentID, DealerDesignationID, DealerDesignation);
             ddl.DataValueField = "DealerDesignationID";
             ddl.DataTextField = "DealerDesignation";
             ddl.DataSource = Qualification;
@@ -815,21 +815,21 @@ namespace Business
 
         public void GetDealerEmployeeDDL(DropDownList ddl, int? DealerID)
         {
-            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null,true);
+            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null, true);
             ddl.DataValueField = "DealerEmployeeID";
             ddl.DataTextField = "Name";
             ddl.DataSource = Employee;
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        
+
         public List<PDMS_DealerEmployee> GetDealerEmployeeForApproval(int? DealerID)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
             try
             {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32); 
-                DbParameter[] Params = new DbParameter[1] { DealerIDP};
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[1] { DealerIDP };
                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeForApproval", Params))
                 {
                     if (DataSet != null)
@@ -841,7 +841,7 @@ namespace Business
                                 DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
                                 Name = Convert.ToString(dr["Name"]),
                                 FatherName = Convert.ToString(dr["FatherName"]),
-                                ContactNumber = Convert.ToString(dr["ContactNumber"]), 
+                                ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 Email = Convert.ToString(dr["EmailID"]),
                                 State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
                                 District = new PDMS_District() { District = Convert.ToString(dr["District"]) },
@@ -892,7 +892,7 @@ namespace Business
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String);
                 DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
-                DbParameter[] Params = new DbParameter[3] { DealerIDP, AadhaarCardNoP,  NameP };
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, AadhaarCardNoP, NameP };
 
                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeManageRole", Params))
                 {
@@ -911,7 +911,7 @@ namespace Business
                                 District = new PDMS_District() { District = Convert.ToString(dr["District"]) },
                                 Location = Convert.ToString(dr["Location"]),
                                 AadhaarCardNo = Convert.ToString(dr["AadhaarCardNo"]),
-                                PANNo = Convert.ToString(dr["PANNo"])                               
+                                PANNo = Convert.ToString(dr["PANNo"])
                             });
                         }
                     }
@@ -936,7 +936,7 @@ namespace Business
                 DbParameter SAPEmpCode = provider.CreateParameter("SAPEmpCode", Emp.SAPEmpCode, DbType.String);
                 DbParameter DealerDepartmentID = provider.CreateParameter("DealerDepartmentID", Emp.DealerDepartment == null ? (int?)null : Emp.DealerDepartment.DealerDepartmentID, DbType.Int32);
                 DbParameter DealerDesignationID = provider.CreateParameter("DealerDesignationID", Emp.DealerDesignation == null ? (int?)null : Emp.DealerDesignation.DealerDesignationID, DbType.Int32);
-                DbParameter ReportingTo = provider.CreateParameter("ReportingTo", Emp.ReportingTo == null ? (int?)null : Emp.ReportingTo.DealerEmployeeID, DbType.Int32); 
+                DbParameter ReportingTo = provider.CreateParameter("ReportingTo", (Emp.ReportingTo == null) ? (int?)null : (Emp.ReportingTo.DealerEmployeeID == 0) ? (int?)null : Emp.ReportingTo.DealerEmployeeID, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.String);
                 //DbParameter LoginUserName = provider.CreateParameter("LoginUserName", Emp.LoginUserName, DbType.String);
@@ -982,9 +982,9 @@ namespace Business
                                 DealerOffice = new PDMS_DealerOffice() { OfficeID = Convert.ToInt32(dr["DealerOfficeID"]), OfficeName = Convert.ToString(dr["OfficeName"]) },
                                 DealerDesignation = new PDMS_DealerDesignation() { DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]), DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
                                 DealerDepartment = new PDMS_DealerDepartment() { DealerDepartmentID = Convert.ToInt32(dr["DealerDepartmentID"]), DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
-                                ReportingTo = DBNull.Value == dr["ReportingToID"]?null: new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
+                                ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
                                 DateOfJoining = Convert.ToDateTime(dr["DateOfJoining"]),
-                                DateOfLeaving = DBNull.Value== dr["DateOfLeaving"]?(DateTime?)null: Convert.ToDateTime(dr["DateOfLeaving"]),
+                                DateOfLeaving = DBNull.Value == dr["DateOfLeaving"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfLeaving"]),
                                 WishToLeave = DBNull.Value == dr["WishToLeave"] ? (Boolean?)null : Convert.ToBoolean(dr["WishToLeave"]),
                                 IsActive = Convert.ToBoolean(dr["IsActive"]),
                                 SAPEmpCode = Convert.ToString(dr["SAPEmpCode"]),
@@ -1000,12 +1000,12 @@ namespace Business
             { }
             return EMP;
         }
-        public List<PDMS_DealerEmployee> GetDealerEmployeeManageLeaving(int DealerID,  string Name)
+        public List<PDMS_DealerEmployee> GetDealerEmployeeManageLeaving(int DealerID, string Name)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
             try
             {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32); 
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
                 DbParameter[] Params = new DbParameter[2] { DealerIDP, NameP };
 
@@ -1029,17 +1029,17 @@ namespace Business
                                 PANNo = Convert.ToString(dr["PANNo"]),
 
                                 DealerEmployeeRole = DBNull.Value == dr["DealerEmployeeRoleID"] ? null : new PDMS_DealerEmployeeRole()
-                               {
-                                   DealerEmployeeRoleID = Convert.ToInt64(dr["DealerEmployeeRoleID"]),
-                                   Dealer = DBNull.Value == dr["DealerID"] ? null : new PDMS_Dealer() { DealerID = Convert.ToInt32(dr["DealerID"]), DealerName = Convert.ToString(dr["DealerName"]), DealerCode = Convert.ToString(dr["DealerCode"]) },
-                                   DealerOffice = DBNull.Value == dr["OfficeID"] ? null : new PDMS_DealerOffice() { OfficeID = Convert.ToInt32(dr["OfficeID"]), OfficeName = Convert.ToString(dr["OfficeName"]) },
-                                   DateOfJoining =  Convert.ToDateTime(dr["DateOfJoining"]),
-                                   DealerDepartment = DBNull.Value == dr["DealerDepartmentID"] ? null : new PDMS_DealerDepartment() { DealerDepartmentID = Convert.ToInt32(dr["DealerDepartmentID"]), DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
-                                   DealerDesignation = DBNull.Value == dr["DealerDesignationID"] ? null : new PDMS_DealerDesignation() { DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]), DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
-                                   ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
-                                   DateOfLeaving = DBNull.Value == dr["DateOfLeaving"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfLeaving"]),
-                                   WishToLeave = DBNull.Value == dr["WishToLeave"] ? (Boolean?)null : Convert.ToBoolean(dr["WishToLeave"]),
-                               }
+                                {
+                                    DealerEmployeeRoleID = Convert.ToInt64(dr["DealerEmployeeRoleID"]),
+                                    Dealer = DBNull.Value == dr["DealerID"] ? null : new PDMS_Dealer() { DealerID = Convert.ToInt32(dr["DealerID"]), DealerName = Convert.ToString(dr["DealerName"]), DealerCode = Convert.ToString(dr["DealerCode"]) },
+                                    DealerOffice = DBNull.Value == dr["OfficeID"] ? null : new PDMS_DealerOffice() { OfficeID = Convert.ToInt32(dr["OfficeID"]), OfficeName = Convert.ToString(dr["OfficeName"]) },
+                                    DateOfJoining = Convert.ToDateTime(dr["DateOfJoining"]),
+                                    DealerDepartment = DBNull.Value == dr["DealerDepartmentID"] ? null : new PDMS_DealerDepartment() { DealerDepartmentID = Convert.ToInt32(dr["DealerDepartmentID"]), DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
+                                    DealerDesignation = DBNull.Value == dr["DealerDesignationID"] ? null : new PDMS_DealerDesignation() { DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]), DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
+                                    ReportingTo = DBNull.Value == dr["ReportingToID"] ? null : new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(dr["ReportingToID"]), Name = Convert.ToString(dr["ReportingToName"]) },
+                                    DateOfLeaving = DBNull.Value == dr["DateOfLeaving"] ? (DateTime?)null : Convert.ToDateTime(dr["DateOfLeaving"]),
+                                    WishToLeave = DBNull.Value == dr["WishToLeave"] ? (Boolean?)null : Convert.ToBoolean(dr["WishToLeave"]),
+                                }
                             });
                         }
                     }
@@ -1076,7 +1076,7 @@ namespace Business
             }
             return true;
         }
-        public Boolean UpdateDealerEmployeeRole(long DealerEmployeeRoleID, int OfficeCodeID,int? DealerDepartmentID,int? DealerDesignationID, int? ReportingTo, string SAPEmpCode, int UserID)
+        public Boolean UpdateDealerEmployeeRole(long DealerEmployeeRoleID, int OfficeCodeID, int? DealerDepartmentID, int? DealerDesignationID, int? ReportingTo, string SAPEmpCode, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             try
@@ -1115,10 +1115,10 @@ namespace Business
             try
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String); 
+                DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", string.IsNullOrEmpty(AadhaarCardNo) ? null : AadhaarCardNo, DbType.String);
                 DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
                 DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
-                DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String); 
+                DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String);
                 DbParameter[] Params = new DbParameter[5] { DealerIDP, AadhaarCardNoP, DistrictIDP, NameP, SAPEmpCodeP };
 
                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeByDealerID", Params))
@@ -1132,8 +1132,8 @@ namespace Business
                                 DealerEmployeeID = Convert.ToInt32(dr["DealerEmployeeID"]),
                                 Name = Convert.ToString(dr["Name"]),
                                 FatherName = Convert.ToString(dr["FatherName"]),
-                                DOB = DBNull.Value == dr["DOB"] ?(DateTime?) null : Convert.ToDateTime(dr["DOB"]),
-                       //         ContactNumber = Convert.ToString(dr["ContactNumber"]),
+                                DOB = DBNull.Value == dr["DOB"] ? (DateTime?)null : Convert.ToDateTime(dr["DOB"]),
+                                //         ContactNumber = Convert.ToString(dr["ContactNumber"]),
                                 Email = Convert.ToString(dr["EmailID"]),
                                 State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
                                 District = new PDMS_District() { District = Convert.ToString(dr["District"]) },
@@ -1154,7 +1154,7 @@ namespace Business
                                         DealerID = Convert.ToInt32(dr["DealerID"]),
                                         DealerCode = Convert.ToString(dr["DealerCode"]),
                                         DealerName = Convert.ToString(dr["DealerName"]),
-                                  //      State = Convert.ToString(dr["DealerState"]),
+                                        //      State = Convert.ToString(dr["DealerState"]),
                                         // StateCode = Convert.ToString(dr["StateCode"])
                                     },
                                     DealerOffice = new PDMS_DealerOffice() { OfficeName = Convert.ToString(dr["OfficeName"]) },
@@ -1167,7 +1167,7 @@ namespace Business
                                     SAPEmpCode = Convert.ToString(dr["SAPEmpCode"])
                                 },
                                 IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
-                          //      CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
+                                //      CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
                             });
                         }
                     }
@@ -1185,14 +1185,14 @@ namespace Business
         }
 
         public void LoadDealerDDL(DropDownList ddl)
-        { 
+        {
             ddl.DataValueField = "DID";
             ddl.DataTextField = "CodeWithName";
             ddl.DataSource = PSession.User.Dealer;
-            ddl.DataBind(); 
-           ddl.Items.Insert(0, new ListItem("Select", "0"));
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        
+
         public List<PDealerNotification> GetDealerNotification(int? DealerID)
         {
             string endPoint = "Dealer/DealerNotification?DealerID=" + DealerID;
@@ -1265,8 +1265,8 @@ namespace Business
                                 },
                                 IsAjaxHPApproved = Convert.ToBoolean(dr["IsAjaxHPApproved"]),
                                 //      CreatedBy = new PUser() { ContactName = Convert.ToString(dr["ContactName"]), UserID = Convert.ToInt32(dr["UserID"]) }
-                                
-                        });
+
+                            });
                         }
                     }
                 }
@@ -1320,7 +1320,7 @@ namespace Business
                             {
                                 DealerDesignationID = Convert.ToInt32(dr["DealerDesignationID"]),
                                 DealerDesignation = Convert.ToString(dr["DealerDesignation"]),
-                                SalesColdCustomerVisitTarget = DBNull.Value == dr["SalesColdCustomerVisitTarget"] ? 0: Convert.ToInt32(dr["SalesColdCustomerVisitTarget"]),
+                                SalesColdCustomerVisitTarget = DBNull.Value == dr["SalesColdCustomerVisitTarget"] ? 0 : Convert.ToInt32(dr["SalesColdCustomerVisitTarget"]),
                                 SalesProspecCustomertVisitTarget = DBNull.Value == dr["SalesProspecCustomertVisitTarget"] ? 0 : Convert.ToInt32(dr["SalesProspecCustomertVisitTarget"]),
                                 SalesExistCustomerVisitTarget = DBNull.Value == dr["SalesExistCustomerVisitTarget"] ? 0 : Convert.ToInt32(dr["SalesExistCustomerVisitTarget"]),
                                 Department = new PDMS_DealerDepartment()
@@ -1354,7 +1354,7 @@ namespace Business
                         DbParameter SalesProspectCustomerVisitTargetP = provider.CreateParameter("SalesProspectCustomerVisitTarget", VTP.SalesProspecCustomertVisitTarget, DbType.Int32);
                         DbParameter SalesExistCustomerVisitTargetP = provider.CreateParameter("SalesExistCustomerVisitTarget", VTP.SalesExistCustomerVisitTarget, DbType.Int32);
                         DbParameter UserID = provider.CreateParameter("UserID", VTP.ModifiedBy.UserID, DbType.Int32);
-                        DbParameter[] Params = new DbParameter[5] { DesignationIDP, SalesColdCustomerVisitTargetP, SalesProspectCustomerVisitTargetP, SalesExistCustomerVisitTargetP,  UserID};
+                        DbParameter[] Params = new DbParameter[5] { DesignationIDP, SalesColdCustomerVisitTargetP, SalesProspectCustomerVisitTargetP, SalesExistCustomerVisitTargetP, UserID };
 
                         provider.Insert("UpdateVisitTargetPlanning", Params);
                     }
