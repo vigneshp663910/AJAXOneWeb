@@ -1,15 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerSatisfactionInAfterSalesSupport.ascx.cs" Inherits="DealerManagementSystem.ViewDashboard.UserControls.CustomerSatisfactionInAfterSalesSupport" %>
 
 
-<style>
-    .sapMNCValueScr {
-        overflow: hidden;
-        color: #e78c07;
-        font-size: 2.25rem;
-        float: left;
-        margin-top: 43px;
-    }
-</style>
+
 <div class="tile-size-two grid-item">
     <div class="content">
         <div class="details">

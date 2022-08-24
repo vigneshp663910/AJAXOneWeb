@@ -25,7 +25,7 @@ namespace Properties
         public string Remarks { get; set; }
 
         public PUser CreatedBy { get; set; }
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
 
         public PUser AssignedTo { get; set; }

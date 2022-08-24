@@ -63,10 +63,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 ActionControlMange();
             }
+
+            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["CustomerID"])))
+            {
+                long CustomerID = Convert.ToInt64(Convert.ToString(ViewState["CustomerID"]));
+                if (CustomerID != Customer.CustomerID)
+                {
+                    Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
+                }
+            }
         }
         public void fillCustomer(long CustomerID)
-        { 
-           // this.CustomerID = CustomerID; ;
+        {
+            // this.CustomerID = CustomerID; ;
+            ViewState["CustomerID"] = CustomerID;
             Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
              lblContactPerson.Text = Customer.ContactPerson;

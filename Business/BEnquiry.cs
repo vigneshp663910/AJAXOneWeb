@@ -128,7 +128,7 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID)
+        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID,int UserID)
         {
             List<PEnquiry> projects = new List<PEnquiry>();
             try
@@ -144,7 +144,8 @@ namespace Business
                 DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
                 DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
                 DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[11] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP };
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[12] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP, UserIDP };
 
                 using (DataSet DataSet = provider.Select("GetEnquiry", Params))
                 {
@@ -191,7 +192,10 @@ namespace Business
                                 Mobile = Convert.ToString(dr["Mobile"]),
                                 Mail = Convert.ToString(dr["Mail"]),
                                 Product = Convert.ToString(dr["Product"]),
-                                Remarks = Convert.ToString(dr["Remarks"])
+                                Remarks = Convert.ToString(dr["Remarks"]),
+                                CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedByName"]) },
+                                CreatedOn = Convert.ToDateTime(dr["CreatedOn"])
+
                             });
                         }
                     }

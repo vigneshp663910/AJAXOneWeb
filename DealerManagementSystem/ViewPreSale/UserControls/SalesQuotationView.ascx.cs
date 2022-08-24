@@ -51,6 +51,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
+
+
+            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["QuotationID"])))
+            {
+                long QuotationID = Convert.ToInt64(Convert.ToString(ViewState["QuotationID"]));
+                if (QuotationID != Quotation.QuotationID)
+                {
+                    Quotation = new BSalesQuotation().GetSalesQuotationByID(QuotationID);
+                }
+            }
         }
         public void FillMaster()
         {
@@ -785,6 +795,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void fillViewQuotation(long QuotationID)
         {
+            ViewState["QuotationID"] = QuotationID;
             Quotation = new BSalesQuotation().GetSalesQuotationByID(QuotationID);
             if (Quotation.QuotationID == 0)
             {

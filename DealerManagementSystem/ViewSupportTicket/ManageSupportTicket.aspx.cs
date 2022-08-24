@@ -16,17 +16,11 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = new BDealer().DealerMaster();
+            } 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>");
-
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>"); 
             if (!IsPostBack)
             {
 
@@ -36,10 +30,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 FillStatus();
                 //  new FillDropDownt().Employee(ddlAssignedTo, null, null, "", "", "");
                 //  new FillDropDownt().Employee(ddlCreatedBy, null, null, "", "", "");
-                //  new FillDropDownt().Department(ddlDepartment);
-
-
-
+                //  new FillDropDownt().Department(ddlDepartment); 
                 //FillTickets();
             }
         }

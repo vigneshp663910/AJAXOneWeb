@@ -66,12 +66,12 @@ namespace DealerManagementSystem.ViewPreSale
             row.Add("label", "Won: 0");
             rows.Add(row);
 
-
             row = new Dictionary<string, object>();
             row.Add("value", "2000");
             row.Add("color", "#9FD477");
             row.Add("label", "Value 4");
             rows.Add(row);
+
              
 
             return JsonConvert.SerializeObject(rows);   

@@ -60,7 +60,7 @@
 
                     <div class="col-md-2 text-left">
                         <label>Status</label>
-                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" >
+                        <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control">
                             <asp:ListItem Value="0">Select</asp:ListItem>
                             <asp:ListItem Value="1">Open</asp:ListItem>
                             <asp:ListItem Value="4">Converted To Lead</asp:ListItem>
@@ -110,8 +110,14 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Enquiry Number" DataField="EnquiryNumber"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Enquiry Date" DataField="EnquiryDate"></asp:BoundField>
+                                    <asp:TemplateField HeaderText="Enquiry">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEnquiryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "EnquiryNumber")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblEnquiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "EnquiryDate","{0:d}")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
                                     <asp:BoundField HeaderText="PersonName" DataField="PersonName"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Contact">
@@ -132,13 +138,31 @@
                                 </asp:TemplateField> <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>--%>
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Address1" DataField="Address"></asp:BoundField>
+                                    <asp:TemplateField HeaderText="Address">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblEnquiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--    <asp:BoundField HeaderText="Address1" DataField="Address"></asp:BoundField>
                                     <asp:BoundField HeaderText="Address2" DataField="Address2"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Address3" DataField="Address3"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address3" DataField="Address3"></asp:BoundField>--%>
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
+                                    <asp:TemplateField HeaderText="Created">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
@@ -150,7 +174,7 @@
                                 <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="left" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                               
+
                             </asp:GridView>
                         </div>
                     </fieldset>

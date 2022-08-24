@@ -63,10 +63,20 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             lblMessage.Text = "";
             lblAddEnquiryMessage.Text = "";
+
+            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["EnquiryID"])))
+            {
+                long EnquiryID = Convert.ToInt64(Convert.ToString(ViewState["EnquiryID"]));
+                if (EnquiryID != Enquiry.EnquiryID)
+                {
+                    Enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null, null, null, null,PSession.User.UserID)[0];
+                }
+            }
         }
         public void fillViewEnquiry(long EnquiryID)
         {
-            Enquiry = new BEnquiry().GetEnquiry(Convert.ToInt64(EnquiryID),null, null, null, null, null, null, null, null, null, null)[0];
+            ViewState["EnquiryID"]= EnquiryID;
+            Enquiry = new BEnquiry().GetEnquiry(EnquiryID,null, null, null, null, null, null, null, null, null, null, PSession.User.UserID)[0];
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
             lblPersonName.Text = Enquiry.PersonName;

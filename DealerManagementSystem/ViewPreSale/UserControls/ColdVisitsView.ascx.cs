@@ -14,21 +14,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class ColdVisitsView : System.Web.UI.UserControl
     {
-        public long ColdVisitID
-        {
-            get
-            {
-                if (Session["ColdVisitID"] == null)
-                {
-                    Session["ColdVisitID"] = 0;
-                }
-                return Convert.ToInt64(Session["ColdVisitID"]);
-            }
-            set
-            {
-                Session["ColdVisitID"] = value;
-            }
-        }
+        //public long ColdVisitID
+        //{
+        //    get
+        //    {
+        //        if (Session["ColdVisitID"] == null)
+        //        {
+        //            Session["ColdVisitID"] = 0;
+        //        }
+        //        return Convert.ToInt64(Session["ColdVisitID"]);
+        //    }
+        //    set
+        //    {
+        //        Session["ColdVisitID"] = value;
+        //    }
+        //}
         public PColdVisit ColdVisit
         {
             get
@@ -73,11 +73,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageEffort.Text = "";
             lblMessageExpense.Text = "";
             lblMessage.Text = "";
+
+
+            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["ColdVisitID"])))
+            {
+                long ColdVisitID = Convert.ToInt64(Convert.ToString(ViewState["ColdVisitID"]));
+                if (ColdVisitID != ColdVisit.ColdVisitID)
+                {
+                    ColdVisit = new BColdVisit().GetColdVisit(ColdVisitID, null, null, null, null, null, null, null, null, null, null, null, null, null, null)[0];
+                }
+            }
         }
         public void fillViewColdVisit(long ColdVisitID)
         {
-            this.ColdVisitID = ColdVisitID;
-
+            //this.ColdVisitID = ColdVisitID;
+            ViewState["ColdVisitID"]= ColdVisitID;
             ColdVisit = new BColdVisit().GetColdVisit(ColdVisitID, null, null, null, null, null, null, null, null, null, null, null, null, null, null)[0];
             lblLeadNumber.Text = ColdVisit.ColdVisitNumber;
             lblLeadDate.Text = ColdVisit.ColdVisitDate.ToShortDateString();// Convert.ToString(Lead.ColdVisitDate); 
@@ -137,13 +147,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Status Change to Close")
             {
-                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=2" + "&UserID=" + PSession.User.UserID;
+                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisit.ColdVisitID + "&StatusID=2" + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
                     lblMessage.Text = "Updated successfully";
                     lblMessage.ForeColor = Color.Green;
-                    fillViewColdVisit(ColdVisitID);
+                    fillViewColdVisit(ColdVisit.ColdVisitID);
                 }
                 else
                 {
@@ -154,13 +164,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Status Change to Cancel")
             {
-                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisitID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
+                string endPoint = "ColdVisit/UpdateColdVisitStatus?ColdVisitID=" + ColdVisit.ColdVisitID + "&StatusID=3" + "&UserID=" + PSession.User.UserID;
                 string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                 if (Convert.ToBoolean(s) == true)
                 {
                     lblMessage.Text = "Updated successfully";
                     lblMessage.ForeColor = Color.Green;
-                    fillViewColdVisit(ColdVisitID);
+                    fillViewColdVisit(ColdVisit.ColdVisitID);
                 }
                 else
                 {
@@ -226,7 +236,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             PLeadEffort Effort = new PLeadEffort();
             Effort = UC_Effort.ReadEffort();
-            Effort.LeadID = ColdVisitID;
+            Effort.LeadID = ColdVisit.ColdVisitID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Effort", Effort));
             if (Results.Status == PApplication.Failure)
             {
@@ -257,7 +267,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             PLeadExpense Expense = new PLeadExpense();
             Expense = UC_Expense.ReadExpense();
-            Expense.LeadID = ColdVisitID;
+            Expense.LeadID = ColdVisit.ColdVisitID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/Expense", Expense));
             if (Results.Status == PApplication.Failure)
             {
@@ -375,7 +385,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
             PAttachedFile F = new PAttachedFile();
             F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-            F.ReferenceID = ColdVisitID;
+            F.ReferenceID = ColdVisit.ColdVisitID;
             F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit/AttachedFile", F));
 

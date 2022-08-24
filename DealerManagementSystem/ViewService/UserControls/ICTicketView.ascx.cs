@@ -206,6 +206,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillServiceNotes();
             FillTechniciansByTicketID();
             FillRestore();
+
+            ActionControlMange();
         }
         public void FillBasicInformation()
         {
@@ -1645,6 +1647,74 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+
+
+        void ActionControlMange()
+        {
+            lbtnAddTechnician.Visible = true;
+            lbtnEditCallInformation.Visible = true;
+            lbtnEditFSR.Visible = true; 
+            lbtnAddFSRAttachments.Visible = true;
+            lbtnAddOtherMachine.Visible = true;
+            lbtnAddServiceCharges.Visible = true; 
+            lbtnAddTSIR.Visible = true;
+            lbtnAddMaterialCharges.Visible = true;
+            //lbtnAddNotes.Visible = true; 
+            lbtAddTechnicianWork.Visible = true;
+            lbtnRestore.Visible = true; 
+
+            if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Open) || (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Reopen))
+            {
+                lbtnEditCallInformation.Visible = false;
+                lbtnEditFSR.Visible = false;
+                lbtnAddFSRAttachments.Visible = false;
+                lbtnAddOtherMachine.Visible = false;
+                lbtnAddServiceCharges.Visible = false;
+                lbtnAddTSIR.Visible = false;
+                lbtnAddMaterialCharges.Visible = false;
+                // lbtnAddNotes.Visible = false;
+                lbtAddTechnicianWork.Visible = false;
+                lbtnRestore.Visible = false;
+            }
+            else if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Reached)
+            { 
+                
+            }
+
+
+            if (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
+            {
+
+            }
+
+            if (
+                          (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Warranty)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PolicyWarranty)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PartsWarranty)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty)
+                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PreCommission)
+                       )
+            {
+                lbtnAddMaterialCharges.Visible   = true;
+            }
+            else if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.NEPI) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Commission))
+            {
+                lbtnAddMaterialCharges.Visible = false;
+            }
+
+            //List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
+            //{
+            //    lbtnEditLead.Visible = false;
+            //}
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AssignLead).Count() == 0)
+            //{
+            //    lbtnAssign.Visible = false;
+            //} 
         }
     }
 }

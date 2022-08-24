@@ -2,22 +2,34 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
+    <style>
+        .sapMNCValueScr {
+            overflow: hidden;
+            color: #e78c07;
+            font-size: 2.25rem;
+            float: left;
+            margin-top: 43px;
+        }
+    </style>
+
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <style>
         /*#div1 {*/
-            /*height: 91.7vh;*/
-            /*display: flex;
+        /*height: 91.7vh;*/
+        /*display: flex;
             flex-direction: column;
             overflow: hidden;
             margin-left: 1px;
             background: skyblue;
             background: linear-gradient(to right, #4e97d5, #30526f );*/
-            /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
-            /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
-            /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
-            /*background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');*/
-            /* scroll*/
+        /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
+        /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
+        /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
+        /*background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');*/
+        /* scroll*/
         /*}*/
+
+
 
 
         #div1 {
@@ -90,20 +102,24 @@
             z-index: 9;
             border: 1px solid #3C4C5B;
         }
+
         .details {
             position: relative;
         }
-        .details .desc {
-            clear:both;
-        }
-        .details #donut_single {
-            float: right;
-        }
+
+            .details .desc {
+                clear: both;
+            }
+
+            .details #donut_single {
+                float: right;
+            }
+
         .details-position {
             position: absolute;
-    width: 100%;
-    /* bottom: 0; */
-    top: 47px;
+            width: 100%;
+            /* bottom: 0; */
+            top: 47px;
         }
         /*Home page tiles*/
         /*.container .tblcontrols12 {
@@ -210,7 +226,7 @@
             border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;
             margin: 10px;
             padding: 15px;
-            width:160px;
+            width: 160px;
             float: left;
         }
 

@@ -54,10 +54,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageAssignEngineer.Text = "";
             lblMessageFinancial.Text = "";
             lblMessageProduct.Text = "";
-            lblMessageQuotation.Text = ""; 
+            lblMessageQuotation.Text = "";
+            if (!string.IsNullOrEmpty(Convert.ToString( ViewState["LeadID"])))
+            {
+                long LeadID = Convert.ToInt64(Convert.ToString(ViewState["LeadID"]));
+                if(LeadID != Lead.LeadID)
+                {
+                    Lead = new BLead().GetLeadByID(LeadID); 
+                }
+            }
         }
         public void fillViewLead(long LeadID)
-        { 
+        {
+            ViewState["LeadID"] = LeadID;
             Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();

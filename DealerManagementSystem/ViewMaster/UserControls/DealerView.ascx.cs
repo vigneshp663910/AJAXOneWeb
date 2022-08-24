@@ -89,10 +89,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 //ActionControlMange();
             }
+            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["DealerID"])))
+            {
+                int DealerID = Convert.ToInt32(Convert.ToString(ViewState["DealerID"]));
+                if (DealerID != Dealer.DealerID)
+                {
+                    Dealer = new BDMS_Dealer().GetDealer(DealerID, "", null, null)[0];
+                }
+            }
         }
 
         public void filldealer(int DealerID)
         {
+            ViewState["DealerID"] = DealerID;
             Dealer = new BDMS_Dealer().GetDealer(DealerID, "", null, null)[0];
 
             lblDealerCode.Text = Dealer.DealerCode;
