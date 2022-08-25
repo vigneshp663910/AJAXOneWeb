@@ -56,7 +56,7 @@ namespace DealerManagementSystem.ViewAdmin
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
-                fillDealerDLL();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
 
@@ -384,14 +384,14 @@ namespace DealerManagementSystem.ViewAdmin
             dlDealer.DataBind();
         }
 
-        void fillDealerDLL()
-        { 
-            ddlDealer.DataTextField = "CodeWithName";
-            ddlDealer.DataValueField = "DID";
-            ddlDealer.DataSource = PSession.User.Dealer;
-            ddlDealer.DataBind();
-            ddlDealer.Items.Insert(0, new ListItem("All", "0"));
-        }
+        //void fillDealerDLL()
+        //{ 
+        //    ddlDealer.DataTextField = "CodeWithName";
+        //    ddlDealer.DataValueField = "DID";
+        //    ddlDealer.DataSource = PSession.User.Dealer;
+        //    ddlDealer.DataBind();
+        //    ddlDealer.Items.Insert(0, new ListItem("All", "0"));
+        //}
 
         protected void cbAllDealer_CheckedChanged(object sender, EventArgs e)
         {

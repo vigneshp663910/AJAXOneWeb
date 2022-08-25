@@ -233,10 +233,10 @@ namespace DealerManagementSystem.ViewPreSale
                 DateTime ToDate = Convert.ToDateTime(txtToDate.Text.Trim());
 
                 GVVisitReportDay = new BColdVisit().GetVisitCountReportDayWise(DealerID, DealerEmployeeID, FromDate, ToDate, PSession.User.UserID);
-                GridView1.DataSource = GVVisitReportDay;
-                GridView1.DataBind();
+                gvVisitReportMonthly.DataSource = GVVisitReportDay;
+                gvVisitReportMonthly.DataBind();
 
-                if (GridView1.Rows.Count == 0)
+                if (gvVisitReportMonthly.Rows.Count == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnVisitArrowLeft.Visible = false;
@@ -247,12 +247,26 @@ namespace DealerManagementSystem.ViewPreSale
                     lblRowCount.Visible = true;
                     ibtnVisitArrowLeft.Visible = true;
                     ibtnVisitArrowRight.Visible = true;
-                    lblRowCount.Text = (((GridView1.PageIndex) * GridView1.PageSize) + 1) + " - " + (((GridView1.PageIndex) * GridView1.PageSize) + GridView1.Rows.Count) + " of " + GVVisitReportDay.Rows.Count;
+                    lblRowCount.Text = (((gvVisitReportMonthly.PageIndex) * gvVisitReportMonthly.PageSize) + 1) + " - " + (((gvVisitReportMonthly.PageIndex) * gvVisitReportMonthly.PageSize) + gvVisitReportMonthly.Rows.Count) + " of " + GVVisitReportDay.Rows.Count;
                 }
             }
             catch (Exception e)
             {
                 lblMessage.Text = e.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+
+        protected void gvVisitReportMonthly_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvVisitReportMonthly.PageIndex = e.NewPageIndex;
+                FillVisitCountDayWise();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }

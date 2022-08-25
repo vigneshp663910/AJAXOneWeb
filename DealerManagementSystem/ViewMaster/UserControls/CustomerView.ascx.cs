@@ -160,7 +160,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Add Responsible Employee")
                 {
-                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                     MPE_ResponsibleEmp.Show();
                 }
                 else if (lbActions.Text == "Verified Customer")

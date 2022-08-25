@@ -27,7 +27,7 @@ namespace DealerManagementSystem
 
                 if (!IsPostBack)
                 {
-                    new DDLBind(ddlDealer, PSession.User.Dealer, "ContactName", "DID", true, "All Dealer");
+                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "All Country");
                     new DDLBind(ddlZone, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID", true, "All Zone");
                     //new DDLBind(ddlEngineer, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID", true, "All Engineer");

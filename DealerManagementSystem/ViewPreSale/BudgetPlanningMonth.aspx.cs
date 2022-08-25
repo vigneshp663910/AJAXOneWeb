@@ -26,7 +26,8 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('PreSale » Planning » Budget-Monthly');</script>");
             if (!IsPostBack)
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new DDLBind().Year(ddlYear, 2022);
                 new DDLBind().Month(ddlMonth); 
             }

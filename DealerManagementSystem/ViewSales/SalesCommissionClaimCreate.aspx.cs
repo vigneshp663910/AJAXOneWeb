@@ -28,7 +28,8 @@ namespace DealerManagementSystem.ViewSales
             lblMessage.Text = ""; 
             if (!IsPostBack)
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
             }
         }
 

@@ -123,13 +123,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
 
         /// <summary>
-        /// GridView1 control.
+        /// gvVisitReportMonthly control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView gvVisitReportMonthly;
 
         /// <summary>
         /// tabPnlModel control.

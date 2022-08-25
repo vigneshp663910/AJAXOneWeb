@@ -38,8 +38,8 @@ namespace DealerManagementSystem.ViewPreSale
                 From = DateTime.Now;
                 FromF = DateTime.Now.AddDays(-7);
                 FillStatusCount();
-                FillFunnel();
-                FillEnquiryStatusCount();
+                //FillFunnel();
+                //FillEnquiryStatusCount();
             }
         }
         public string funnelData()
@@ -140,87 +140,111 @@ namespace DealerManagementSystem.ViewPreSale
                     lblCancelled.Text = ss[0].Count.ToString();
                 }
             }
+
+
+            List<PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, PSession.User.UserID);
+            if (StatusEnq != null)
+            {
+                if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
+                {
+                    var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
+                    lblEnquiryOpen.Text = ss[0].Count.ToString();
+                }
+
+                if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
+                {
+                    var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
+                    lblEnquiryConvertedToLead.Text = ss[0].Count.ToString();
+                }
+                if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).Count() != 0))
+                {
+                    var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).ToList();
+                    lblEnquiryRejected.Text = ss[0].Count.ToString();
+                }
+            }
+
+            List<PLeadStatus> StatusFunnel = new BLead().GetLeadCountByStatus(From, To, null, PSession.User.UserID);
+
+            int AssignedFunnel = 0, QuotationFunnel = 0, WonFunnel = 0, LostFunnel = 0, CancelFunnel = 0;
+            if (StatusFunnel != null)
+            {
+                if ((StatusFunnel.Where(m => m.StatusID == 1).Count() != 0))
+                {
+                    var ss = StatusFunnel.Where(m => m.StatusID == 1).ToList();
+                    AssignedFunnel = ss[0].Count;
+                }
+                if ((StatusFunnel.Where(m => m.StatusID == 2).Count() != 0))
+                {
+                    var ss = StatusFunnel.Where(m => m.StatusID == 2).ToList();
+                    AssignedFunnel = AssignedFunnel + ss[0].Count;
+                }
+
+                if ((StatusFunnel.Where(m => m.StatusID == 3).Count() != 0))
+                {
+                    var ss = StatusFunnel.Where(m => m.StatusID == 3).ToList();
+                    QuotationFunnel = ss[0].Count;
+                }
+                if ((StatusFunnel.Where(m => m.StatusID == 4).Count() != 0))
+                {
+                    var ss = StatusFunnel.Where(m => m.StatusID == 4).ToList();
+                    WonFunnel = ss[0].Count;
+                }
+                if ((StatusFunnel.Where(m => m.StatusID == 5).Count() != 0))
+                {
+                    var ss = StatusFunnel.Where(m => m.StatusID == 5).ToList();
+                    LostFunnel = ss[0].Count;
+                }
+                if ((StatusFunnel.Where(m => m.StatusID == 6).Count() != 0))
+                {
+                    var ss = StatusFunnel.Where(m => m.StatusID == 6).ToList();
+                    CancelFunnel = ss[0].Count;
+                }
+            }
+            lblNewlyCreatedF.InnerText = "Newly Created: " + (AssignedFunnel + QuotationFunnel + WonFunnel + LostFunnel + CancelFunnel).ToString();
+            lblConvertToProspectF.InnerText = (QuotationFunnel + WonFunnel).ToString();
+            lblWonF.InnerText = "Won: " + WonFunnel.ToString();
         }
 
 
-        void FillFunnel()
-        {
+        //void FillFunnel()
+        //{
 
-            lblNewlyCreatedF.InnerText = "Newly Created: 0" ;
-            lblConvertToProspectF.InnerText = "0";
-            lblWonF.InnerText = "0";
+        //    lblNewlyCreatedF.InnerText = "Newly Created: 0" ;
+        //    lblConvertToProspectF.InnerText = "0";
+        //    lblWonF.InnerText = "0";
 
-            if (rbWeekF.Checked)
-            {
-                FromF = DateTime.Now.AddDays(-7);
-            }
-            else if (rbMonthF.Checked)
-            {
-                FromF = DateTime.Now.AddMonths(-1);
-            }
-            else if (rbYearF.Checked)
-            {
-                FromF = DateTime.Now.AddYears(-1);
-            }
+        //    if (rbWeekF.Checked)
+        //    {
+        //        FromF = DateTime.Now.AddDays(-7);
+        //    }
+        //    else if (rbMonthF.Checked)
+        //    {
+        //        FromF = DateTime.Now.AddMonths(-1);
+        //    }
+        //    else if (rbYearF.Checked)
+        //    {
+        //        FromF = DateTime.Now.AddYears(-1);
+        //    }
 
-            List<PLeadStatus> StatusF = new BLead().GetLeadCountByStatus(FromF, ToF, null, PSession.User.UserID);
+           
+        //}
 
-            int Open = 0, Assigned = 0, Quotation = 0, Won = 0, Lost = 0, Cancel = 0;
-            if (StatusF != null)
-            {
-                if ((StatusF.Where(m => m.StatusID == 1).Count() != 0))
-                {
-                    var ss = StatusF.Where(m => m.StatusID == 1).ToList();
-                    Open = ss[0].Count;
-                }
-                if ((StatusF.Where(m => m.StatusID == 2).Count() != 0))
-                {
-                    var ss = StatusF.Where(m => m.StatusID == 2).ToList();
-                    Assigned = ss[0].Count;
-                }
-
-                if ((StatusF.Where(m => m.StatusID == 3).Count() != 0))
-                {
-                    var ss = StatusF.Where(m => m.StatusID == 3).ToList();
-                    Quotation = ss[0].Count;
-                }
-                if ((StatusF.Where(m => m.StatusID == 4).Count() != 0))
-                {
-                    var ss = StatusF.Where(m => m.StatusID == 4).ToList();
-
-                    Won = ss[0].Count;
-                }
-                if ((StatusF.Where(m => m.StatusID == 5).Count() != 0))
-                {
-                    var ss = StatusF.Where(m => m.StatusID == 5).ToList();
-                    Lost = ss[0].Count;
-                }
-                if ((StatusF.Where(m => m.StatusID == 6).Count() != 0))
-                {
-                    var ss = StatusF.Where(m => m.StatusID == 6).ToList();
-                    Cancel = ss[0].Count;
-                }
-            }
-            lblNewlyCreatedF.InnerText = "Newly Created: " + (Open + Assigned + Quotation + Won + Lost + Cancel).ToString();
-            lblConvertToProspectF.InnerText = (Quotation + Won).ToString();
-            lblWonF.InnerText = "Won: " + Won.ToString();
-        }
-
-        protected void rbStatusE_CheckedChanged(object sender, EventArgs e)
-        {
-            FillEnquiryStatusCount();
-        }
+        //protected void rbStatusE_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    FillEnquiryStatusCount();
+        //}
 
         protected void rbStatus_CheckedChanged(object sender, EventArgs e)
         {
-            FillStatusCount();
+          //  FillStatusCount();
+            
         }
 
 
-        protected void rbStatusF_CheckedChanged(object sender, EventArgs e)
-        {
-            FillFunnel();
-        }
+        //protected void rbStatusF_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    FillFunnel();
+        //}
 
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -249,6 +273,8 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 Session["leadStatusID"] = 7;
             }
+         
+            
             if(rbToday.Checked)
             {
                 Session["leadDateFrom"] = DateTime.Now; 
@@ -285,15 +311,15 @@ namespace DealerManagementSystem.ViewPreSale
             }
            
 
-            if (rbEnquiryToday.Checked)
+            if (rbToday.Checked)
             {
                 Session["EnquiryDateFrom"] = DateTime.Now;
             }
-            else if (rbEnquiryWeek.Checked)
+            else if (rbWeek.Checked)
             {
                 Session["EnquiryDateFrom"] = DateTime.Now.AddDays(-7);
             }
-            else if (rbEnquiryMonth.Checked)
+            else if (rbMonth.Checked)
             {
                 Session["EnquiryDateFrom"] = DateTime.Now.AddMonths(-1);
             }
@@ -303,50 +329,31 @@ namespace DealerManagementSystem.ViewPreSale
             }
             Response.Redirect("Enquiry.aspx");
         }
-        void FillEnquiryStatusCount()
-        {
-            lblEnquiryOpen.Text = "0";
-            lblEnquiryConvertedToLead.Text = "0";
-            lblEnquiryRejected.Text = "0"; 
-            int? DealerID = null;
-            if (rbEnquiryToday.Checked)
-            {
-                From = DateTime.Now;
-            }
-            else if (rbEnquiryWeek.Checked)
-            {
-                From = DateTime.Now.AddDays(-7);
-            }
-            else if (rbEnquiryMonth.Checked)
-            {
-                From = DateTime.Now.AddMonths(-1);
-            }
-            else if (rbEnquiryYear.Checked)
-            {
-                From = DateTime.Now.AddYears(-1);
-            }
+        //void FillEnquiryStatusCount()
+        //{
+        //    lblEnquiryOpen.Text = "0";
+        //    lblEnquiryConvertedToLead.Text = "0";
+        //    lblEnquiryRejected.Text = "0"; 
+        //    int? DealerID = null;
+        //    if (rbEnquiryToday.Checked)
+        //    {
+        //        From = DateTime.Now;
+        //    }
+        //    else if (rbEnquiryWeek.Checked)
+        //    {
+        //        From = DateTime.Now.AddDays(-7);
+        //    }
+        //    else if (rbEnquiryMonth.Checked)
+        //    {
+        //        From = DateTime.Now.AddMonths(-1);
+        //    }
+        //    else if (rbEnquiryYear.Checked)
+        //    {
+        //        From = DateTime.Now.AddYears(-1);
+        //    }
 
-            List<PPreSaleStatus> Status = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, PSession.User.UserID);
-            if (Status != null)
-            {
-                if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
-                {
-                    var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
-                    lblEnquiryOpen.Text = ss[0].Count.ToString();
-                }
-
-                if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
-                {
-                    var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
-                    lblEnquiryConvertedToLead.Text = ss[0].Count.ToString();
-                }
-                if ((Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).Count() != 0))
-                {
-                    var ss = Status.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).ToList();
-                    lblEnquiryRejected.Text = ss[0].Count.ToString();
-                }
-            }
+           
           
-        }
+        //}
     }
 }

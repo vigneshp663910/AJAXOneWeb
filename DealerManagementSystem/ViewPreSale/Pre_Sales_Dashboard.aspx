@@ -211,6 +211,86 @@
         }
     </style>
 
+
+    <style>
+        .TimeAction {
+            width: 100%;
+            overflow: hidden;
+            margin: 15px 15px 0;
+        }
+            /* The container */
+            .TimeAction .container {
+                display: block;
+                position: relative;
+                /* padding-left: 35px; */
+                /* margin-bottom: 12px; */
+                cursor: pointer;
+                font-size: 20px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                float: left;
+                width: 117px;
+                border: 1px solid red;
+                margin: 0 15px 10px;
+                padding: 3px 5px 5px 40px;
+                border-radius: 50px;
+            }
+            .TimeAction .container:hover {
+                background-color:#d91e18;
+                color:white;
+            }
+                /* Hide the browser's default radio button */
+                .TimeAction .container input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                }
+
+                /* Create a custom radio button */
+                .TimeAction .container .checkmark {
+                    position: absolute;
+                    top: 8px;
+                    left: 10px;
+                    height: 23px;
+                    width: 23px;
+                    background-color: #eee;
+                    border-radius: 50%;
+                }
+
+                /* On mouse-over, add a grey background color */
+                .TimeAction .container:hover input ~ .checkmark {
+                    background-color: #ccc;
+                }
+
+                /* When the radio button is checked, add a blue background */
+                .TimeAction .container input:checked ~ .checkmark {
+                    background-color: #2196F3;
+                }
+
+                /* Create the indicator (the dot/circle - hidden when not checked) */
+                .TimeAction .container .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+
+                /* Show the indicator (dot/circle) when checked */
+                .TimeAction .container input:checked ~ .checkmark:after {
+                    display: block;
+                }
+
+                /* Style the indicator (dot/circle) */
+                .TimeAction .container .checkmark:after {
+                    top: 8px;
+                    left: 8px;
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: white;
+                }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -225,34 +305,57 @@
     <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
     <body>
         <div class="lead-static">
+            <div class="TimeAction">
+                <%--  <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
+                    
+                    <asp:RadioButton ID="rbEnquiryToday" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" />
+                    <span>Today</span>
+                </label>
+                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                  
+                    <asp:RadioButton ID="rbEnquiryWeek" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                    <span>Week</span>
+                </label>
+                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                    
+                    <asp:RadioButton ID="rbEnquiryMonth" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                    <span>Month</span>
+                </label>
+                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
+                   
+                    <asp:RadioButton ID="rbEnquiryYear" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
+                    <span>Year</span>
+                </label> --%>
+                <label class="container">
+                    Today
+                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Week
+                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Month
+                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">
+                    Year
+                   <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                    <span class="checkmark"></span>
+                </label>
+
+
+            </div>
+
+
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption" style="font-size: 25px;">
                         Enquiry Statistics     
-                        <div class="actions" style="float: right;">
-                            <div class="btn-group btn-group-devided">
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
-                                    <asp:RadioButton ID="rbEnquiryToday" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" />
-                                    <span>Today</span>
-                                </label>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
-                                    <asp:RadioButton ID="rbEnquiryWeek" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
-                                    <span>Week</span>
-                                </label>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
-                                    <asp:RadioButton ID="rbEnquiryMonth" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
-                                    <span>Month</span>
-                                </label>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
-                                    <asp:RadioButton ID="rbEnquiryYear" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
-                                    <span>Year</span>
-                                </label>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
 
@@ -290,7 +393,8 @@
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblEnquiryRejected" runat="server" Text="0"></asp:Label>
                                         <div class="desc">
-                                            <asp:LinkButton ID="LinkButton5" runat="server" Style="color: white;" OnClick="lbEnquiryActions_Click">Rejected</asp:LinkButton></div>
+                                            <asp:LinkButton ID="LinkButton5" runat="server" Style="color: white;" OnClick="lbEnquiryActions_Click">Rejected</asp:LinkButton>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -304,32 +408,8 @@
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption" style="font-size: 25px;">
-                        Lead Activity Statistics             
-                        <div class="actions" style="float: right;">
-                            <div class="btn-group btn-group-devided">
-                                <%--<label class="btn red btn-outline btn-circle btn-sm active" style="padding: 2px 5px 2px 5px; font-size: 11px;">--%>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Today" onchange="ShowEnquiryStatistics('Today');" id="" runat="server" >--%>
-                                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
-                                    <span>Today</span>
-                                </label>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Week" onchange="ShowEnquiryStatistics('Week');">--%>
-                                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                                    <span>Week</span>
-                                </label>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Month" onchange="ShowEnquiryStatistics('Month');">--%>
-                                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                                    <span>Month</span>
-                                </label>
-                                <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                    <%--<input name="leadstatistics" class="toggle" type="radio" value="Year" onchange="ShowEnquiryStatistics('Year');">--%>
-                                    <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                                    <span>Year</span>
-                                </label>
-                            </div>
-                        </div>
+                        Lead Statistics             
+                    
                     </div>
                 </div>
 
@@ -392,7 +472,8 @@
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblLost" runat="server" Text="0"></asp:Label>
                                         <div class="desc">
-                                            <asp:LinkButton ID="lbtnLost" runat="server" Style="color: white;" OnClick="lbActions_Click">Lost</asp:LinkButton></div>
+                                            <asp:LinkButton ID="lbtnLost" runat="server" Style="color: white;" OnClick="lbActions_Click">Lost</asp:LinkButton>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -418,27 +499,24 @@
                 <div class="portlet-title">
                     <div class="caption" style="font-size: 25px;">
                         Pre-Sales Statistics Funnel   
-                    <div class="actions" style="float: right;">
+                   <%-- <div class="actions" style="float: right;">
                         <div class="btn-group btn-group-devided">
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                <%-- <input name="leadFunnel" class="toggle" type="radio" value="Week" onchange="ShowLeadFunnel('Week');">--%>
-                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel" OnCheckedChanged="rbStatusF_CheckedChanged" AutoPostBack="true" Checked="true"></asp:RadioButton>
+                                <asp:RadioButton ID="rbWeekF" runat="server" GroupName="Funnel" AutoPostBack="true" Checked="true"></asp:RadioButton>
                                 Week 
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                <%--<input name="leadFunnel" class="toggle" type="radio" value="Month" onchange="ShowLeadFunnel('Month');">--%>
-                                <asp:RadioButton ID="rbMonthF" runat="server" GroupName="Funnel" OnCheckedChanged="rbStatusF_CheckedChanged" AutoPostBack="true" />
+                                <asp:RadioButton ID="rbMonthF" runat="server" GroupName="Funnel" AutoPostBack="true" />
 
                                 Month
                            
                             </label>
                             <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px; font-size: 11px;">
-                                <%-- <input name="leadFunnel" class="toggle" type="radio" value="Year" onchange="ShowLeadFunnel('Year');">--%>
-                                <asp:RadioButton ID="rbYearF" runat="server" GroupName="Funnel" OnCheckedChanged="rbStatusF_CheckedChanged" AutoPostBack="true"></asp:RadioButton>
+                                <asp:RadioButton ID="rbYearF" runat="server" GroupName="Funnel" AutoPostBack="true"></asp:RadioButton>
                                 Year 
                             </label>
                         </div>
-                    </div>
+                    </div>--%>
                     </div>
                 </div>
                 <div class="portlet-body" style="padding: 5px; text-align: center;">
@@ -482,7 +560,7 @@
                     </div>--%>
 
                     <%--<div id="chartdiv"></div>--%>
-                    <div id="funnel-container" style="display:none"></div>
+                    <div id="funnel-container" style="display: none"></div>
                     <div class="funnel-chart">
                         <svg width="350" height="300">
                             <defs></defs>
@@ -492,7 +570,7 @@
                                         <rect width="350" height="300" fill="rgba(0,0,0,0)"></rect>
                                         <g transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,341,8)">
 
-                                              
+
 
                                             <g>
                                                 <path d="M174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,236.87035240905414A483.16965914395865,593.7128277905049,0,0,1,284,221.33333333333326A3.786666666666663,55.333333333333286,0,0,0,284,110.66666666666669A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,95.12964759094581" fill="rgb(104, 193, 130)" stroke="#FFFFFF"></path>
@@ -529,8 +607,8 @@
 
                 </div>
             </div>
-        <br />
-        <%--<div class="row">
+            <br />
+            <%--<div class="row">
         
                     <div class="portlet box green">
                 <div class="portlet-title">
@@ -708,7 +786,7 @@
                 },
 
             ];
-            debugger;
+
           <%--  var funnelData = JSON.parse('<%=funnelData() %>');--%>
             $('#funnel-container').drawFunnel(funnelData, {
                 width: 380, // Container height, i.e. height of #funnel-container
@@ -719,6 +797,11 @@
                 // label: function () { return "Label!"; }  // A label generation function 
             });
         </script>
+
+
+
+
+
     </body>
     </html>
 </asp:Content>

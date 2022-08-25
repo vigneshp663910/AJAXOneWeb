@@ -15,40 +15,40 @@ namespace DealerManagementSystem.ViewPreSale
     {
 
         /// <summary>
-        /// rbEnquiryToday control.
+        /// rbToday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryToday;
+        protected global::System.Web.UI.WebControls.RadioButton rbToday;
 
         /// <summary>
-        /// rbEnquiryWeek control.
+        /// rbWeek control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryWeek;
+        protected global::System.Web.UI.WebControls.RadioButton rbWeek;
 
         /// <summary>
-        /// rbEnquiryMonth control.
+        /// rbMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryMonth;
+        protected global::System.Web.UI.WebControls.RadioButton rbMonth;
 
         /// <summary>
-        /// rbEnquiryYear control.
+        /// rbYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbEnquiryYear;
+        protected global::System.Web.UI.WebControls.RadioButton rbYear;
 
         /// <summary>
         /// lblEnquiryOpen control.
@@ -103,42 +103,6 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
-
-        /// <summary>
-        /// rbToday control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbToday;
-
-        /// <summary>
-        /// rbWeek control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbWeek;
-
-        /// <summary>
-        /// rbMonth control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbMonth;
-
-        /// <summary>
-        /// rbYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbYear;
 
         /// <summary>
         /// lblOpen control.
@@ -247,33 +211,6 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnCancelled;
-
-        /// <summary>
-        /// rbWeekF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbWeekF;
-
-        /// <summary>
-        /// rbMonthF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbMonthF;
-
-        /// <summary>
-        /// rbYearF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbYearF;
 
         /// <summary>
         /// lblWonF control.

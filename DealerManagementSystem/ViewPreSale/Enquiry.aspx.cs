@@ -46,7 +46,8 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.Text = "";
                 if (!IsPostBack)
                 {
-                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                    new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
                     new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");

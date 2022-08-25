@@ -26,7 +26,8 @@ namespace DealerManagementSystem.Account
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
 
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 FillUser();
             }
         }

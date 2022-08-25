@@ -277,6 +277,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+
+
     <div id="div1">
         <div class="col2">
             <div class="rf-p " id="txnHistory:j_idt1289">
@@ -307,32 +310,36 @@
                                                             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="textBox form-control" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="tbl-col-right">
-                                                            <asp:DropDownList ID="ddlCountry" runat="server" CssClass="textBox form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="tbl-col-right">
-                                                            <asp:DropDownList ID="ddlZone" runat="server" CssClass="textBox form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
+                                                    <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+                                                        <ContentTemplate>
+                                                            <div class="col-md-12" style="display:none">
+                                                                <div class="tbl-col-right">
+                                                                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="textBox form-control" AutoPostBack="true" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12" style="display:none">
+                                                                <div class="tbl-col-right">
+                                                                    <asp:DropDownList ID="ddlZone" runat="server" CssClass="textBox form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </ContentTemplate>
+                                                    </asp:UpdatePanel>
+                                                    <div class="col-md-12" style="display:none">
                                                         <div class="tbl-col-right">
                                                             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="textBox form-control" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12" style="display:none">
                                                         <div class="tbl-col-right">
                                                             <asp:DropDownList ID="ddlModel" runat="server" CssClass="textBox form-control" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12" style="display:none">
                                                         <div class="tbl-col-right">
                                                             <asp:DropDownList ID="ddlApplication" runat="server" CssClass="textBox form-control" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12" style="display:none">
                                                         <div class="tbl-col-right">
                                                             <asp:DropDownList ID="ddlFiscalYear" runat="server" CssClass="textBox form-control" />
                                                         </div>

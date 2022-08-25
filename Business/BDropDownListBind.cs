@@ -49,16 +49,22 @@ namespace Business
             int DesignationID = PSession.User.Designation.DealerDesignationID;
             if ((DesignationID == (short)DealerDesignation.SalesExecutive) || (DesignationID == (short)DealerDesignation.ServiceTechnician))
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", false);
-                List<PUser> DealerUser = new List<PUser>();
-                DealerUser.Add(PSession.User);
-                new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID", false);
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", false);
+                if (ddlEngneer != null)
+                {
+                    List<PUser> DealerUser = new List<PUser>();
+                    DealerUser.Add(PSession.User); 
+                    new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID", false);
+                }
             }
             else
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
-                new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID");
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID");
+                if (ddlEngneer != null)
+                {
+                    List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null); 
+                    new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID");
+                }
             }
         }
 

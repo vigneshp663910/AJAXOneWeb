@@ -12,6 +12,8 @@ namespace Properties
         public int DID { get; set; }
         public string DealerCode { get; set; }
         public string ContactName { get; set; }
+        public string DisplayName { get; set; }
+        public string CodeWithDisplayName { get; set; }
         public string UserName { get; set; }
         public string CodeWithName { get; set; }
         public string MailID1 { get; set; }

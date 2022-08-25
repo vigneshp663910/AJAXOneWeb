@@ -54,7 +54,8 @@ namespace DealerManagementSystem.ViewMaster
                 //new DDLBind(ddlDState, State, "State", "StateID");
                 //List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, Convert.ToInt32(ddlDState.SelectedValue), null, null, Convert.ToInt32(ddlDealer.SelectedValue));
                 //new DDLBind(ddlDistrict, State, "District", "DistrictID"); 
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
             }
         }

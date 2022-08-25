@@ -36,7 +36,8 @@ namespace DealerManagementSystem.ViewPreSale
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID");
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)

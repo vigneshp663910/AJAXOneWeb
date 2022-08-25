@@ -62,9 +62,9 @@ namespace DealerManagementSystem.View
 
                 if (PSession.User.Designation.DealerDesignationID == 4 || PSession.User.Designation.DealerDesignationID == 6 || PSession.User.Designation.DealerDesignationID == 8)
                 {
-                    PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    ddlDealer.Enabled = false;
+                    //PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
+                    //ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
+                    //ddlDealer.Enabled = false;
                     lblEmployee.Visible = false;
                     ddlUser.Visible = false;
                     //ddlDealer.Enabled = false;
@@ -72,12 +72,13 @@ namespace DealerManagementSystem.View
                 }
                 else
                 {
-                    new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                   // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                     lblEmployee.Visible = true;
                     ddlUser.Visible = true;
-                    ddlDealer.Enabled = true;
+                   // ddlDealer.Enabled = true;
                 }
-               
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+
 
                 Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null);
                 btnPunch.Text = "Punch In";

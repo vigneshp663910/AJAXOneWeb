@@ -43,7 +43,8 @@ namespace DealerManagementSystem.ViewMaster
 
             if (!IsPostBack)
             {
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 //new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
             }
         }

@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
 
-                                    <asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvVisitReport_PageIndexChanging">
+                                    <asp:GridView ID="gvVisitReportMonthly" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvVisitReportMonthly_PageIndexChanging">
 
                                         <AlternatingRowStyle BackColor="#ffffff" />
                                         <FooterStyle ForeColor="White" />
