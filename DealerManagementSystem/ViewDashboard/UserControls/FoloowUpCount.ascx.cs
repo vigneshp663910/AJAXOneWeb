@@ -21,7 +21,8 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
             List<int> LeadFollowUpCount = new BLead().GetLeadFollowUpCount(DealerID, PSession.User.UserID);
 
             lblTodaysFollowUpCount.Text = LeadFollowUpCount[0].ToString();
-            lblFuture7DaysFollowUpCount.Text = LeadFollowUpCount[1].ToString();
+            lblTomorrowsFollowUpCount.Text = LeadFollowUpCount[1].ToString();
+            lblFuture7DaysFollowUpCount.Text = LeadFollowUpCount[2].ToString();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {

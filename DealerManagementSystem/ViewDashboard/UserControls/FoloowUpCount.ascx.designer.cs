@@ -42,6 +42,33 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
         protected global::System.Web.UI.WebControls.Label lblTodaysFollowUpCount;
 
         /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+
+        /// <summary>
+        /// lnkBtnTomorrowsFollowUpCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnTomorrowsFollowUpCount;
+
+        /// <summary>
+        /// lblTomorrowsFollowUpCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTomorrowsFollowUpCount;
+
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>
