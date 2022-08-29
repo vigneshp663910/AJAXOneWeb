@@ -1615,10 +1615,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
                     if (DealerBank.Count > 0)
                     {
-                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                  : " + DealerBank[0].DealerName, false);
-                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME       : " + DealerBank[0].DealerBank.BankName, false);
+                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                 : " + DealerBank[0].DealerName, false);
+                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME     : " + DealerBank[0].DealerBank.BankName, false);
                         P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + DealerBank[0].DealerBank.AcNumber, false);
+                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.  : " + DealerBank[0].DealerBank.AcNumber, false);
                         P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
                     }
                     else
@@ -1921,10 +1921,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
                     if (DealerBank.Count > 0)
                     {
-                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                  : " + DealerBank[0].DealerName, false);
-                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME       : " + DealerBank[0].DealerBank.BankName, false);
+                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                 : " + DealerBank[0].DealerName, false);
+                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME     : " + DealerBank[0].DealerBank.BankName, false);
                         P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + DealerBank[0].DealerBank.AcNumber, false);
+                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.  : " + DealerBank[0].DealerBank.AcNumber, false);
                         P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
                     }
                     else
