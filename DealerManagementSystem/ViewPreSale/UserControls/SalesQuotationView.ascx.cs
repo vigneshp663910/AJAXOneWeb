@@ -185,7 +185,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
 
                 PApiResult Results = new BSalesQuotation().CreateQuotationInSap(Quotation.QuotationID);
-                
+
                 lblMessage.Text = Results.Message;
                 if (Results.Status == PApplication.Failure)
                 {
@@ -194,7 +194,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 lblMessage.ForeColor = Color.Green;
                 //GenerateQuotation(new PSalesQuotationItem());
-                fillViewQuotation(Quotation.QuotationID); 
+                fillViewQuotation(Quotation.QuotationID);
             }
             else if (lbActions.Text == "Sale Order Confirmation")
             {
@@ -1019,14 +1019,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
         //}
-        
+
         void ViewMachineQuotation()
         {
             try
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
-                if(string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
+                if (string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
                 {
                     lblMessage.Text = "Quotation Not Generated...!";
                     lblMessage.Visible = true;
@@ -1092,7 +1092,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate",  Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2*/, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1177,9 +1177,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                     P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
                     P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-                    
+
                 }
-                
+
                 List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
                 string PlantAddress1 = (Plant[0].Address1 + (string.IsNullOrEmpty(Plant[0].Address2) ? "" : "," + Plant[0].Address2) + (string.IsNullOrEmpty(Plant[0].Address3) ? "" : "," + Plant[0].Address3)).Trim(',', ' ');
                 string PlantAddress2 = (Plant[0].City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Plant[0].State.State) + (string.IsNullOrEmpty(Plant[0].Country.Country) ? "" : "," + Plant[0].Country.Country)).Trim(',', ' ');
@@ -1234,7 +1234,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
                 }
 
-                
+
                 report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
                 report.SetParameters(P);
                 ReportDataSource rds = new ReportDataSource();
@@ -1335,7 +1335,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //Q.Lead.Dealer.
                 P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate",  Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* + " " + Q.Lead.Customer.CustomerName2*/, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1476,7 +1476,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
                 }
 
-                
+
                 report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
                 report.SetParameters(P);
                 ReportDataSource rds = new ReportDataSource();
@@ -1510,7 +1510,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessage.Text = "";
                 PSalesQuotation Q = Quotation;
-                if(string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
+                if (string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
                 {
                     lblMessage.Text = "Quotation Not Generated...!";
                     lblMessage.Visible = true;
@@ -1568,11 +1568,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
                 //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
 
-                List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+
+                List<PDMS_Dealer> DealerBank;
+                if (Quotation.CommissionAgent)
+                {
+                    DealerBank = new BDMS_Dealer().GetDealerBankDetails(53, null, null);
+                }
+                else
+                {
+                    DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                }
+
+
+
 
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate",  Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1603,10 +1615,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
                     if (DealerBank.Count > 0)
                     {
-                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                  : " + DealerBank[0].DealerName, false);
-                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME       : " + DealerBank[0].DealerBank.BankName, false);
+                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                 : " + DealerBank[0].DealerName, false);
+                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME     : " + DealerBank[0].DealerBank.BankName, false);
                         P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + DealerBank[0].DealerBank.AcNumber, false);
+                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.  : " + DealerBank[0].DealerBank.AcNumber, false);
                         P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
                     }
                     else
@@ -1866,11 +1878,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
                 //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
 
-                List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                List<PDMS_Dealer> DealerBank;
+                if (Quotation.CommissionAgent)
+                {
+                    DealerBank = new BDMS_Dealer().GetDealerBankDetails(53, null, null);
+                }
+                else
+                {
+                    DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+                }
 
                 P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
                 P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-                P[2] = new ReportParameter("QuotationDate",  Q.SapQuotationDate.ToString(), false);
+                P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
                 P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName, false);
                 P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
@@ -1901,10 +1921,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
                     if (DealerBank.Count > 0)
                     {
-                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                  : " + DealerBank[0].DealerName, false);
-                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME       : " + DealerBank[0].DealerBank.BankName, false);
+                        P[34] = new ReportParameter("PaymentTermAccName", "NAME                 : " + DealerBank[0].DealerName, false);
+                        P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME     : " + DealerBank[0].DealerBank.BankName, false);
                         P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.   : " + DealerBank[0].DealerBank.AcNumber, false);
+                        P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.  : " + DealerBank[0].DealerBank.AcNumber, false);
                         P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
                     }
                     else
@@ -2256,7 +2276,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             return Message;
         }
-         
+
         void fillSalesCommissionClaim()
         {
             List<PSalesCommissionClaim> claim = new BSalesCommissionClaim().GetSalesCommissionClaim(null, Quotation.QuotationID, null, null, null, null, null);
