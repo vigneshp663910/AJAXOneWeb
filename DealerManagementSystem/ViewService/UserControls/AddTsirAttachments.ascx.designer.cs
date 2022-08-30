@@ -7,92 +7,83 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.UserControls
+namespace DealerManagementSystem.ViewService.UserControls
 {
 
 
-    public partial class ICTicketServiceCharges
+    public partial class AddTsirAttachments
     {
 
         /// <summary>
-        /// lblMessage control.
+        /// imgFSRAttachments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgFSRAttachments;
 
         /// <summary>
-        /// imgServiceCharges control.
+        /// pnlFSRAttachments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgServiceCharges;
+        protected global::System.Web.UI.WebControls.Panel pnlFSRAttachments;
 
         /// <summary>
-        /// pnlServiceCharges control.
+        /// gvAttachedFile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlServiceCharges;
+        protected global::System.Web.UI.WebControls.GridView gvAttachedFile;
 
         /// <summary>
-        /// gvServiceCharges control.
+        /// Fieldset1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvServiceCharges;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
-        /// btnGenerateQuotation control.
+        /// ddlTSIR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerateQuotation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTSIR;
 
         /// <summary>
-        /// btnGenerateProfarmaInvoice control.
+        /// ddlFSRAttachedName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerateProfarmaInvoice;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFSRAttachedName;
 
         /// <summary>
-        /// btnGenerateInvoice control.
+        /// fu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerateInvoice;
+        protected global::System.Web.UI.WebControls.FileUpload fu;
 
         /// <summary>
-        /// btnRequestForClaim control.
+        /// lblAttachedFileAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRequestForClaim;
-
-        /// <summary>
-        /// lbFocus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbFocus;
+        protected global::System.Web.UI.WebControls.LinkButton lblAttachedFileAdd;
     }
 }

@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewPreSale
                 if (!IsPostBack)
                 {
                     //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                    new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                    new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
                     new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
@@ -62,6 +62,28 @@ namespace DealerManagementSystem.ViewPreSale
                     List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null);
                     // new DDLBind(ddlSStatus, Status, "Status", "StatusID");
 
+                    if (Session["leadStatusID"] != null)
+                    {
+                        ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
+                        //txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToString("yyyy-MM-dd");
+                        txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToShortDateString();
+                        if (!string.IsNullOrEmpty(Convert.ToString(Session["leadDealerID"])))
+                        {
+                            ddlDealer.SelectedValue = Convert.ToString(Session["leadDealerID"]);
+                            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+                            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+                        }
+                        if (!string.IsNullOrEmpty(Convert.ToString(Session["EngineerUserID"])))
+                        {
+                            ddlDealerEmployee.SelectedValue = Convert.ToString(Session["EngineerUserID"]);
+                        }
+                        Session["leadStatusID"] = null;
+                        Session["leadDateFrom"] = null;
+                        Session["leadDealerID"] = null;
+                        Session["EngineerUserID"] = null;
+                        FillGrid();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -73,6 +95,7 @@ namespace DealerManagementSystem.ViewPreSale
         private void FillGrid()
         {
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             string CustomerName = txtSCustomerName.Text.Trim();
             int? StateID = null, DistrictID = null;
             int? CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
@@ -90,7 +113,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID,PSession.User.UserID);
+            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID,PSession.User.UserID);
 
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();

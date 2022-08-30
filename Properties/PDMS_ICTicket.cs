@@ -117,7 +117,12 @@ namespace Properties
         public decimal? CustomerPayPercentage { get; set; }
         public decimal? DealerPayPercentage { get; set; }
         public decimal? AEPayPercentage { get; set; }
-       
+
+        public int RowCount { get; set; }
+
+        public List<PDMS_ServiceTechnician> Technicians { get; set; }
+        public List<PDMS_ServiceCharge> ServiceCharges { get; set; }
+
     }
     [Serializable]
     public class PICTicketServiceConfirmation
@@ -156,6 +161,8 @@ namespace Properties
         public DateTime? ServiceStartedDate { get; set; }
         public DateTime? ServiceEndedDate { get; set; }
         public DateTime? RequestedDate { get; set; }
+
+        public List<PDMS_ServiceTechnician> Technicians { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceType
@@ -224,20 +231,7 @@ namespace Properties
         public string t_note_type_desc { get; set; }
     }
      
-    [Serializable]
-    public class PDMS_TSIRAttachedFile
-    {
-        public long AttachedFileID { get; set; }
-        public PDMS_ICTicket ICTicket { get; set; }
-        public PDMS_ICTicketTSIR TSIR { get; set; } 
-        public long FsrID { get; set; }
-        public string FileName { get; set; }
-        public string FileType { get; set; }
-        public byte[] AttachedFile { get; set; }
-        public long FileSize { get; set; }
-        public Boolean IsDeleted { get; set; }
-        public PDMS_FSRAttachedName FSRAttachedName { get; set; }
-    }
+    
     [Serializable]
     public class PDMS_ICTicketFSR
     {

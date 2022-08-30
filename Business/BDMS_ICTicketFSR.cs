@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -695,6 +696,14 @@ namespace Business
                 new FileLogger().LogMessage("BDMS_ICTicket", "GetICTicketAttachedFile", ex);
                 return null;
             }
+        }
+
+        public PAttachedFile GetICTicketFSRAttachedFileForDownload(long AttachedFileID)
+        {
+            string endPoint = "ICTicketFSR/AttachmentsForDownload?AttachedFileID=" + AttachedFileID ;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+             
+
         }
 
         public Boolean InsertOrUpdateICTicketFSRAttachedFileAddOrRemove(PDMS_FSRAttachedFile AttachedFile, int UserID)

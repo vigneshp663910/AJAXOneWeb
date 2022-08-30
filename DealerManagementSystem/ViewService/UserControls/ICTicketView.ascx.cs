@@ -49,21 +49,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 Session["PDMS_ICTicketFSR"] = value;
             }
         }
-        public List<PDMS_ServiceCharge> SS_ServiceCharge
-        {
-            get
-            {
-                if (Session["ServiceChargeICTicketProcess"] == null)
-                {
-                    Session["ServiceChargeICTicketProcess"] = new List<PDMS_ServiceCharge>();
-                }
-                return (List<PDMS_ServiceCharge>)Session["ServiceChargeICTicketProcess"];
-            }
-            set
-            {
-                Session["ServiceChargeICTicketProcess"] = value;
-            }
-        }
+       
         public List<PDMS_ServiceMaterial> SS_ServiceMaterialAll
         {
             get
@@ -179,6 +165,8 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblServiceChargeSessage.Visible = false;
+            lblMessageAddTSIR.Visible = true;
             if (!IsPostBack)
             {
             }
@@ -186,21 +174,29 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void FillICTicket(long ICTicketID)
         {
-            SDMS_ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(ICTicketID);
+            SDMS_ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID_All(ICTicketID);
             SDMS_ICTicketFSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, SDMS_ICTicket.ICTicketID, null, null, "", null, null, null);
             ICTicketTSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIRBasicDetails(SDMS_ICTicket.ICTicketID);
-            SS_ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
+          //  SS_ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
             SS_ServiceMaterialAll = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", null, "");
             SS_ServiceMaterial = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", false, "");
 
 
             FillBasicInformation();
-            FillTechnicians();
+             
+            gvTechnician.DataSource = SDMS_ICTicket.Technicians;
+            gvTechnician.DataBind();
+            // FillTechnicians();
             FillCallInformation();
             FillFSR();
             fillICTicketAttachedFile();
             FillAvailabilityOfOtherMachine();
-            FillServiceCharges();
+
+
+            gvServiceCharges.DataSource = SDMS_ICTicket.ServiceCharges;
+            gvServiceCharges.DataBind();
+
+            //FillServiceCharges();
             FillTSIRDetails();
             FillServiceMaterial();
             FillServiceNotes();
@@ -208,6 +204,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillRestore();
 
             ActionControlMange();
+
+            
         }
         public void FillBasicInformation()
         {
@@ -233,12 +231,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblModel.Text = SDMS_ICTicket.Equipment.EquipmentModel.Model;
             lblLastHMRValue.Text = SDMS_ICTicket.LastHMRDate == null ? "" : ((DateTime)SDMS_ICTicket.LastHMRDate).ToShortDateString() + "  " + Convert.ToString(SDMS_ICTicket.LastHMRValue);
         }
-        private void FillTechnicians()
-        {
-            SDMS_Technicians = new BDMS_Service().GetTechniciansByTicketID(SDMS_ICTicket.ICTicketID);
-            gvTechnician.DataSource = SDMS_Technicians;
-            gvTechnician.DataBind();
-        }
+        //private void FillTechnicians()
+        //{
+        //    SDMS_Technicians = new BDMS_Service().GetTechniciansByTicketID(SDMS_ICTicket.ICTicketID);
+        //    gvTechnician.DataSource = SDMS_Technicians;
+        //    gvTechnician.DataBind();
+        //}
         private void FillCallInformation()
         {
             lblLocation.Text = SDMS_ICTicket.Location;
@@ -365,178 +363,174 @@ namespace DealerManagementSystem.ViewService.UserControls
         public void FillAvailabilityOfOtherMachine()
         {
             List<PDMS_AvailabilityOfOtherMachine> Note = new BDMS_AvailabilityOfOtherMachine().GetAvailabilityOfOtherMachine(SDMS_ICTicket.ICTicketID, null, null, null);
-            if (Note.Count == 0)
-            {
-                PDMS_AvailabilityOfOtherMachine N = new PDMS_AvailabilityOfOtherMachine();
-                Note.Add(N);
-            }
+           
             gvAvailabilityOfOtherMachine.DataSource = Note;
             gvAvailabilityOfOtherMachine.DataBind();
         }
-        public void FillServiceCharges()
-        {
+        //public void FillServiceCharges()
+        //{
 
-            List<PDMS_ServiceCharge> Charge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
-            //string ClaimNumber = "";
-            //if (Charge.Count == 0)
-            //{
-            //    PDMS_ServiceCharge c = new PDMS_ServiceCharge();
-            //    Charge.Add(c);
-            //}
-            //else
-            //{
-            //    ClaimNumber = Charge[0].ClaimNumber;
-            //}
+        //   // List<PDMS_ServiceCharge> Charge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
+        //    //string ClaimNumber = "";
+        //    //if (Charge.Count == 0)
+        //    //{
+        //    //    PDMS_ServiceCharge c = new PDMS_ServiceCharge();
+        //    //    Charge.Add(c);
+        //    //}
+        //    //else
+        //    //{
+        //    //    ClaimNumber = Charge[0].ClaimNumber;
+        //    //}
 
-            gvServiceCharges.DataSource = Charge;
-            gvServiceCharges.DataBind();
-          //  gvServiceCharges.FooterRow.Visible = true;
+        //    //gvServiceCharges.DataSource = Charge;
+        //    //gvServiceCharges.DataBind();
+        //  //  gvServiceCharges.FooterRow.Visible = true;
 
-            //HttpContext.Current.Session["IsMainServiceMaterial"] = false;
-            //if (gvServiceCharges.Rows.Count == 1)
-            //{
-            //    Label lblMaterialCode = (Label)gvServiceCharges.Rows[0].FindControl("lblMaterialCode");
-            //    if (string.IsNullOrEmpty(lblMaterialCode.Text))
-            //    {
-            //        HttpContext.Current.Session["IsMainServiceMaterial"] = true;
-            //    }
-            //    else
-            //    {
-            //        if (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PromotionalActivity)
-            //        {
-            //            gvServiceCharges.FooterRow.Visible = false;
-            //        }
-            //    }
-            //}
+        //    //HttpContext.Current.Session["IsMainServiceMaterial"] = false;
+        //    //if (gvServiceCharges.Rows.Count == 1)
+        //    //{
+        //    //    Label lblMaterialCode = (Label)gvServiceCharges.Rows[0].FindControl("lblMaterialCode");
+        //    //    if (string.IsNullOrEmpty(lblMaterialCode.Text))
+        //    //    {
+        //    //        HttpContext.Current.Session["IsMainServiceMaterial"] = true;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        if (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PromotionalActivity)
+        //    //        {
+        //    //            gvServiceCharges.FooterRow.Visible = false;
+        //    //        }
+        //    //    }
+        //    //}
 
-            //TextBox txtServiceMaterial = (TextBox)gvServiceCharges.FooterRow.FindControl("txtServiceMaterial");
-            //TextBox txtServiceDate = (TextBox)gvServiceCharges.FooterRow.FindControl("txtServiceDate");
-            //TextBox txtWorkedHours = (TextBox)gvServiceCharges.FooterRow.FindControl("txtWorkedHours");
-            //TextBox txtBasePrice = (TextBox)gvServiceCharges.FooterRow.FindControl("txtBasePrice");
-            //TextBox txtDiscount = (TextBox)gvServiceCharges.FooterRow.FindControl("txtDiscount");
-            //LinkButton lblServiceAdd = (LinkButton)gvServiceCharges.FooterRow.FindControl("lblServiceAdd");
+        //    //TextBox txtServiceMaterial = (TextBox)gvServiceCharges.FooterRow.FindControl("txtServiceMaterial");
+        //    //TextBox txtServiceDate = (TextBox)gvServiceCharges.FooterRow.FindControl("txtServiceDate");
+        //    //TextBox txtWorkedHours = (TextBox)gvServiceCharges.FooterRow.FindControl("txtWorkedHours");
+        //    //TextBox txtBasePrice = (TextBox)gvServiceCharges.FooterRow.FindControl("txtBasePrice");
+        //    //TextBox txtDiscount = (TextBox)gvServiceCharges.FooterRow.FindControl("txtDiscount");
+        //    //LinkButton lblServiceAdd = (LinkButton)gvServiceCharges.FooterRow.FindControl("lblServiceAdd");
 
-            //if (SDMS_ICTicket.ServiceType == null)
-            //{
-            //    txtWorkedHours.Visible = false;
-            //    txtBasePrice.Visible = false;
-            //    txtDiscount.Visible = false;
-            //}
-            //else if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.AMC)
-            //    )
-            //{
-            //    txtWorkedHours.Visible = true;
-            //    txtBasePrice.Visible = true;
-            //    txtDiscount.Visible = true;
-            //}
-            //else
-            //{
-            //    txtWorkedHours.Visible = false;
-            //    txtBasePrice.Visible = false;
-            //    txtDiscount.Visible = false;
-            //}
-            //DataControlField gcServiceCharges = gvServiceCharges.Columns[14];
-            //gcServiceCharges.Visible = true;
+        //    //if (SDMS_ICTicket.ServiceType == null)
+        //    //{
+        //    //    txtWorkedHours.Visible = false;
+        //    //    txtBasePrice.Visible = false;
+        //    //    txtDiscount.Visible = false;
+        //    //}
+        //    //else if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.AMC)
+        //    //    )
+        //    //{
+        //    //    txtWorkedHours.Visible = true;
+        //    //    txtBasePrice.Visible = true;
+        //    //    txtDiscount.Visible = true;
+        //    //}
+        //    //else
+        //    //{
+        //    //    txtWorkedHours.Visible = false;
+        //    //    txtBasePrice.Visible = false;
+        //    //    txtDiscount.Visible = false;
+        //    //}
+        //    //DataControlField gcServiceCharges = gvServiceCharges.Columns[14];
+        //    //gcServiceCharges.Visible = true;
 
-            //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.AMC)
-            //    )
-            //{
-            //    gvServiceCharges.Columns[8].Visible = false;
+        //    //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.AMC)
+        //    //    )
+        //    //{
+        //    //    gvServiceCharges.Columns[8].Visible = false;
 
-                //btnRequestForClaim.Visible = false;
-                //btnGenerateQuotation.Visible = true;
-                //btnGenerateProfarmaInvoice.Visible = true;
-                //btnGenerateInvoice.Visible = true;
-                //txtServiceMaterial.Visible = true;
-                //lblServiceAdd.Visible = true;
+        //        //btnRequestForClaim.Visible = false;
+        //        //btnGenerateQuotation.Visible = true;
+        //        //btnGenerateProfarmaInvoice.Visible = true;
+        //        //btnGenerateInvoice.Visible = true;
+        //        //txtServiceMaterial.Visible = true;
+        //        //lblServiceAdd.Visible = true;
 
-                //txtWorkedHours.Visible = true;
-                //txtBasePrice.Visible = true;
-                //txtDiscount.Visible = true;
-                //txtServiceDate.Visible = true;
+        //        //txtWorkedHours.Visible = true;
+        //        //txtBasePrice.Visible = true;
+        //        //txtDiscount.Visible = true;
+        //        //txtServiceDate.Visible = true;
 
-                //List<PDMS_PaidServiceInvoice> Invoices = new BDMS_Service().GetPaidServiceInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "", true);
-                //if (Invoices.Count == 1)
-                //{
-                    //btnGenerateQuotation.Visible = false;
-                    //btnGenerateProfarmaInvoice.Visible = false;
-                    //btnGenerateInvoice.Visible = false;
+        //        //List<PDMS_PaidServiceInvoice> Invoices = new BDMS_Service().GetPaidServiceInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "", true);
+        //        //if (Invoices.Count == 1)
+        //        //{
+        //            //btnGenerateQuotation.Visible = false;
+        //            //btnGenerateProfarmaInvoice.Visible = false;
+        //            //btnGenerateInvoice.Visible = false;
 
-                //    txtServiceMaterial.Visible = false;
-                //    lblServiceAdd.Visible = false;
+        //        //    txtServiceMaterial.Visible = false;
+        //        //    lblServiceAdd.Visible = false;
 
-                //    txtWorkedHours.Visible = false;
-                //    txtBasePrice.Visible = false;
-                //    txtDiscount.Visible = false;
-                //    txtServiceDate.Visible = false;
-                //    gcServiceCharges.Visible = false;
-                //    gvServiceCharges.FooterRow.Visible = false;
-                //}
-                //else
-                //{
-                //    List<PDMS_PaidServiceInvoice> Proformas = new BDMS_Service().GetPaidServiceProformaInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "");
-                //    if (Proformas.Count == 1)
-                //    {
-                        //btnGenerateProfarmaInvoice.Visible = false;
-                        //btnGenerateQuotation.Visible = false;
-                    //    txtServiceMaterial.Visible = false;
-                    //    lblServiceAdd.Visible = false;
+        //        //    txtWorkedHours.Visible = false;
+        //        //    txtBasePrice.Visible = false;
+        //        //    txtDiscount.Visible = false;
+        //        //    txtServiceDate.Visible = false;
+        //        //    gcServiceCharges.Visible = false;
+        //        //    gvServiceCharges.FooterRow.Visible = false;
+        //        //}
+        //        //else
+        //        //{
+        //        //    List<PDMS_PaidServiceInvoice> Proformas = new BDMS_Service().GetPaidServiceProformaInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "");
+        //        //    if (Proformas.Count == 1)
+        //        //    {
+        //                //btnGenerateProfarmaInvoice.Visible = false;
+        //                //btnGenerateQuotation.Visible = false;
+        //            //    txtServiceMaterial.Visible = false;
+        //            //    lblServiceAdd.Visible = false;
 
-                    //    txtWorkedHours.Visible = false;
-                    //    txtBasePrice.Visible = false;
-                    //    txtDiscount.Visible = false;
-                    //    txtServiceDate.Visible = false;
-                    //    gcServiceCharges.Visible = false;
-                    //    gvServiceCharges.FooterRow.Visible = false;
-                    //}
-                    //else
-                    //{
-                    //    List<PDMS_PaidServiceInvoice> SOIs = new BDMS_Service().GetPaidServiceQuotation(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "");
-                    //    if (SOIs.Count == 1)
-                    //    {
-                            // btnGenerateQuotation.Visible = false; 
-                       // }
-                   // }
-            //    }
-            //}
-            //else if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.REPI)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.RCommission)
-            //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.RWarranty))
-            //{
-            //    gvServiceCharges.Columns[8].Visible = false;
-            //    gvServiceCharges.Columns[9].Visible = false;
-            //    gvServiceCharges.Columns[10].Visible = false;
-            //    gvServiceCharges.Columns[11].Visible = false;
+        //            //    txtWorkedHours.Visible = false;
+        //            //    txtBasePrice.Visible = false;
+        //            //    txtDiscount.Visible = false;
+        //            //    txtServiceDate.Visible = false;
+        //            //    gcServiceCharges.Visible = false;
+        //            //    gvServiceCharges.FooterRow.Visible = false;
+        //            //}
+        //            //else
+        //            //{
+        //            //    List<PDMS_PaidServiceInvoice> SOIs = new BDMS_Service().GetPaidServiceQuotation(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "");
+        //            //    if (SOIs.Count == 1)
+        //            //    {
+        //                    // btnGenerateQuotation.Visible = false; 
+        //               // }
+        //           // }
+        //    //    }
+        //    //}
+        //    //else if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.REPI)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.RCommission)
+        //    //    || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.RWarranty))
+        //    //{
+        //    //    gvServiceCharges.Columns[8].Visible = false;
+        //    //    gvServiceCharges.Columns[9].Visible = false;
+        //    //    gvServiceCharges.Columns[10].Visible = false;
+        //    //    gvServiceCharges.Columns[11].Visible = false;
 
-                //btnGenerateQuotation.Visible = false;
-                //btnGenerateProfarmaInvoice.Visible = false;
-                //btnGenerateInvoice.Visible = false;
-                //btnRequestForClaim.Visible = false;
-            //}
-            //else
-            //{
-            //    gvServiceCharges.Columns[9].Visible = false;
-            //    gvServiceCharges.Columns[10].Visible = false;
-            //    gvServiceCharges.Columns[11].Visible = false;
+        //        //btnGenerateQuotation.Visible = false;
+        //        //btnGenerateProfarmaInvoice.Visible = false;
+        //        //btnGenerateInvoice.Visible = false;
+        //        //btnRequestForClaim.Visible = false;
+        //    //}
+        //    //else
+        //    //{
+        //    //    gvServiceCharges.Columns[9].Visible = false;
+        //    //    gvServiceCharges.Columns[10].Visible = false;
+        //    //    gvServiceCharges.Columns[11].Visible = false;
 
-                //btnGenerateQuotation.Visible = false;
-                //btnGenerateProfarmaInvoice.Visible = false;
-                //btnGenerateInvoice.Visible = false;
-                //btnRequestForClaim.Visible = true;
-                //if (!string.IsNullOrEmpty(ClaimNumber))
-                //{
-                //    gcServiceCharges.Visible = false;
-                //    gvServiceCharges.FooterRow.Visible = false;
-                    // btnRequestForClaim.Visible = false;
-               // }
-           // }
-        }
+        //        //btnGenerateQuotation.Visible = false;
+        //        //btnGenerateProfarmaInvoice.Visible = false;
+        //        //btnGenerateInvoice.Visible = false;
+        //        //btnRequestForClaim.Visible = true;
+        //        //if (!string.IsNullOrEmpty(ClaimNumber))
+        //        //{
+        //        //    gcServiceCharges.Visible = false;
+        //        //    gvServiceCharges.FooterRow.Visible = false;
+        //            // btnRequestForClaim.Visible = false;
+        //       // }
+        //   // }
+        //}
 
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -568,11 +562,19 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Add Service Charges")
             {
-                UC_ICTicketAddServiceCharges.FillMaster();
+                UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
                 MPE_ICTicketAddServiceCharges.Show();
             }
             else if (lbActions.Text == "Add TSIR")
             {
+                var productCodes = (from p1 in SDMS_ICTicket.ServiceCharges select new { p1.ServiceChargeID, p1.Material.MaterialCode, p1.Material.IsMainServiceMaterial, p1.Material.MaterialGroup }).Where(m => m.IsMainServiceMaterial == false && m.MaterialGroup != "891").Distinct();
+                if (productCodes.Count() == 0)
+                {
+                    lblMessage.Text = "Please enter the service code";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 UC_AddTSIR.FillMaster(SDMS_ICTicket);
                 MPE_AddTSIR.Show();
             }
@@ -619,35 +621,35 @@ namespace DealerManagementSystem.ViewService.UserControls
             ShowMessage(Results);
             MPE_AddTechnician.Hide();
             tbpCust.ActiveTabIndex = 0;
-            FillTechnicians();
+            // FillTechnicians();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         } 
         protected void lbTechnicianDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblUserID = (Label)gvRow.FindControl("lblUserID"); 
-            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + lblUserID.Text + "&IsDeleted=true";
-
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + lblUserID.Text + "&IsDeleted=true"; 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)); 
+            lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
                 return;
             }
-            ShowMessage(Results); 
-            FillTechnicians();
-            lblMessage.Text = Results.Message;
-            lblMessage.ForeColor = Color.Green; 
+            ShowMessage(Results);
+            FillICTicket(SDMS_ICTicket.ICTicketID);  
         }
 
         protected void btnUpdateFSR_Click(object sender, EventArgs e)
         {
             MPE_AddFSR.Show();
             string Message = UC_AddFSR.Validation();
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblFSRMessage.ForeColor = Color.Red;
+            lblFSRMessage.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblFSRMessage.Text = Message;
                 return;
             }
             PDMS_ICTicketFSR_M Fsr = UC_AddFSR.Read();
@@ -656,7 +658,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/UpdateTicketFSR", Fsr));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblFSRMessage.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
@@ -750,37 +752,59 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         protected void btnUpdateFSRAttachments_Click(object sender, EventArgs e)
         {
+           
+            
 
+            PDMS_FSRAttachedFile AttachedFile = UC_AddFSRAttachments.Read();
+            AttachedFile.AttachedFileID = 0;
+            AttachedFile.IsDeleted = false;
+            AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID };
+            if (new BDMS_ICTicketFSR().InsertOrUpdateICTicketFSRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+            {
+                lblFSRAttachmentMessage.Visible = true;
+                lblFSRAttachmentMessage.Text = "File Added";
+                lblFSRAttachmentMessage.ForeColor = Color.Green;
+                return;
+            }
+            
+                lblMessage.Visible = true;
+                lblMessage.Text = "File is not Added";
+                lblMessage.ForeColor = Color.Red;
+            
+            fillICTicketAttachedFile();
         }
 
 
         protected void lblServiceRemove_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            
+            
 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long ServiceChargeID = Convert.ToInt64(gvServiceCharges.DataKeys[gvRow.RowIndex].Value);
             string endPoint = "ICTicket/ICTicketServiceChargesRemove?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&ServiceChargeID=" + ServiceChargeID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
                 return;
             }
             ShowMessage(Results);
             tbpCust.ActiveTabIndex = 3;
-            FillServiceCharges();
+            //FillServiceCharges();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
         protected void btnICTicketAddServiceCharges_Click(object sender, EventArgs e)
         {
             MPE_ICTicketAddServiceCharges.Show();
             string Message = UC_ICTicketAddServiceCharges.Validation();
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblServiceChargeSessage.ForeColor = Color.Red;
+            lblServiceChargeSessage.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblServiceChargeSessage.Text = Message;
                 return;
             }
             PDMS_ServiceCharge_API OM = UC_ICTicketAddServiceCharges.Read();
@@ -788,13 +812,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/ICTicketServiceChargesAdd", OM));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblServiceChargeSessage.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
             MPE_ICTicketAddServiceCharges.Hide();
             tbpCust.ActiveTabIndex = 3;
-            FillServiceCharges();
+            //FillServiceCharges();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
 
 
@@ -998,18 +1023,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             AttachedFile.IsDeleted = false;
             AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID };
             return AttachedFile;
-        }
-        protected void gvAttachedFile_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Footer)
-            {
-                DropDownList ddlFSRAttachedName = (DropDownList)e.Row.FindControl("ddlFSRAttachedName");
-                ddlFSRAttachedName.DataTextField = "FSRAttachedName";
-                ddlFSRAttachedName.DataValueField = "FSRAttachedFileNameID";
-                ddlFSRAttachedName.DataSource = new BDMS_ICTicketFSR().GetFSRAttachedFileName(null, null, null, true);
-                ddlFSRAttachedName.DataBind();
-            }
-        }
+        } 
+
         protected void gvAttachedFileNew_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)
@@ -1224,7 +1239,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long TsirID = Convert.ToInt64(gvTSIR.DataKeys[gvRow.RowIndex].Value);
 
-            string endPoint = "ICTicket/CancelICTicketTSIR?TsirID=" + TsirID + "&ICTicketID=" + SDMS_ICTicket.ICTicketID;
+            string endPoint = "ICTicketTsir/CancelICTicketTSIR?TsirID=" + TsirID + "&ICTicketID=" + SDMS_ICTicket.ICTicketID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
@@ -1240,25 +1255,26 @@ namespace DealerManagementSystem.ViewService.UserControls
             MPE_AddTSIR.Show();
             string Message = "";
             //Message = UC_ICTicketUpdateCallInformation.ValidationReached(SDMS_ICTicket);
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageAddTSIR.ForeColor = Color.Red;
+            lblMessageAddTSIR.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageAddTSIR.Text = Message;
                 return;
             }
             PDMS_ICTicketTSIR_API Tist = UC_AddTSIR.Read();
             Tist.ICTicketID = SDMS_ICTicket.ICTicketID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/InsertOrUpdateICTicketTSIR", Tist));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketTsir/InsertOrUpdateICTicketTSIR", Tist));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageAddTSIR.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
             MPE_CallInformation.Hide();
-            tbpCust.ActiveTabIndex = 4;
-            FillCallInformation();
+            tbpCust.ActiveTabIndex = 4; 
+            ICTicketTSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIRBasicDetails(SDMS_ICTicket.ICTicketID);
+            FillTSIRDetails();
         }
 
 
@@ -1516,12 +1532,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     WorkedDate.Add(W);
                 }
             }
-            if (WorkedDate.Count == 0)
-            {
-                PDMS_ServiceTechnicianWorkedDate c = new PDMS_ServiceTechnicianWorkedDate();
-                WorkedDate.Add(c);
-            }
-
+             
             gvTechnicianWorkDays.DataSource = WorkedDate;
             gvTechnicianWorkDays.DataBind();
         }
@@ -1688,23 +1699,23 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             }
 
-            if (
-                          (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Warranty)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PolicyWarranty)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PartsWarranty)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty)
-                       || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PreCommission)
-                       )
-            {
-                lbtnAddMaterialCharges.Visible   = true;
-            }
-            else if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.NEPI) || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Commission))
+            if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.NEPI) 
+                || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Commission)
+                 || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PreCommission))
             {
                 lbtnAddMaterialCharges.Visible = false;
             }
+
+            if ((SDMS_ICTicket.ServiceType == null) || (SDMS_ICTicket.DealerOffice == null) || (SDMS_ICTicket.CurrentHMRDate == null) || (SDMS_ICTicket.CurrentHMRValue == null))
+            {
+                lbtnAddServiceCharges.Visible = false;
+                lbtnAddTSIR.Visible = false;
+                lbtnAddMaterialCharges.Visible = false; 
+                lbtAddTechnicianWork.Visible = false;
+                lbtnRestore.Visible = false;
+            }
+
+
 
             //List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
@@ -1715,6 +1726,44 @@ namespace DealerManagementSystem.ViewService.UserControls
             //{
             //    lbtnAssign.Visible = false;
             //} 
+
+            HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
+        }
+
+        protected void lnkFSRDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // LinkButton lnkDownload = (LinkButton)sender;
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+                LinkButton lnkDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+
+                long AttachedFileID = Convert.ToInt64(gvAttachedFile.DataKeys[gvRow.RowIndex].Value);
+
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                Label lblFileType = (Label)gvRow.FindControl("lblFileType");
+
+                PAttachedFile UploadedFile = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(AttachedFileID);
+
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
         }
     }
 }

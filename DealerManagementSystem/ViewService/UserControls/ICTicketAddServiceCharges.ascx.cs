@@ -15,9 +15,23 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
 
         }
-        public void FillMaster()
+        public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
         {
 
+            txtWorkedHours.Visible = false;
+            txtBasePrice.Visible = false;
+            txtDiscount.Visible = false;
+
+            if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
+              || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
+              || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
+              || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.AMC)
+              )
+            {
+                txtWorkedHours.Visible = true;
+                txtBasePrice.Visible = true;
+                txtDiscount.Visible = true;
+            }
         }
 
         void Clear()

@@ -9,24 +9,28 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService.UserControls
 {
-    public partial class AddFSRAttachments : System.Web.UI.UserControl
+    public partial class AddTsirAttachments : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-        public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
+        public void FillMaster(List<PDMS_ICTicketTSIR> SDMS_ICTicketTSIR)
         {
+
             ddlFSRAttachedName.DataTextField = "FSRAttachedName";
             ddlFSRAttachedName.DataValueField = "FSRAttachedFileNameID";
-            ddlFSRAttachedName.DataSource = new BDMS_ICTicketFSR().GetFSRAttachedFileName(null, null, true, null);
+            ddlFSRAttachedName.DataSource = new BDMS_ICTicketFSR().GetFSRAttachedFileName(null, null, null, true);
             ddlFSRAttachedName.DataBind();
+ 
+            ddlTSIR.DataSource = SDMS_ICTicketTSIR;
+            ddlTSIR.DataBind();
         }
 
         public PDMS_FSRAttachedFile Read()
         {
-            PDMS_FSRAttachedFile AttachedFile = new PDMS_FSRAttachedFile(); 
-            AttachedFile = CreateUploadedFileFSR(fu.PostedFile);
+            PDMS_FSRAttachedFile AttachedFile = new PDMS_FSRAttachedFile();
+            AttachedFile = CreateUploadedFileTsir(fu.PostedFile);
             AttachedFile.FSRAttachedName = new PDMS_FSRAttachedName() { FSRAttachedFileNameID = Convert.ToInt32(ddlFSRAttachedName.SelectedValue) };
 
             return AttachedFile;
@@ -35,20 +39,20 @@ namespace DealerManagementSystem.ViewService.UserControls
         public string Validation()
         {
             string Message = "";
-             
+
             if (fu.PostedFile.FileName.Length == 0)
             {
-                return "Please select the file";  
+                return "Please select the file";
             }
-            string ext = System.IO.Path.GetExtension(fu.PostedFile.FileName).ToLower(); 
+            string ext = System.IO.Path.GetExtension(fu.PostedFile.FileName).ToLower();
             List<string> Extension = new List<string>();
             Extension.Add(".jpg");
             Extension.Add(".png");
             Extension.Add(".gif");
             Extension.Add(".jpeg");
             if (!Extension.Contains(ext))
-            { 
-                return "Please choose only .jpg, .png and .gif image types!"; 
+            {
+                return "Please choose only .jpg, .png and .gif image types!";
             }
 
             for (int i = 0; i < gvAttachedFile.Rows.Count; i++)
@@ -61,8 +65,8 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             return Message;
         }
-       
-        private PDMS_FSRAttachedFile CreateUploadedFileFSR(HttpPostedFile file)
+
+        private PDMS_FSRAttachedFile CreateUploadedFileTsir(HttpPostedFile file)
         {
             PDMS_FSRAttachedFile AttachedFile = new PDMS_FSRAttachedFile();
             int size = file.ContentLength;
@@ -79,7 +83,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             AttachedFile.FileSize = size;
             AttachedFile.AttachedFileID = 0;
             AttachedFile.IsDeleted = false;
-           // AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID }; 
+            // AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID }; 
             return AttachedFile;
         }
     }

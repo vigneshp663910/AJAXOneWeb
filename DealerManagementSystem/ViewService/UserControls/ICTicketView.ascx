@@ -269,7 +269,6 @@
                     <div class="col-md-4">
                         <label>Kind Attn : </label>
                         <asp:Label ID="lblKindAttn" runat="server" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txt" runat="server" CssClass="input"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <label>Remarks : </label>
@@ -338,7 +337,7 @@
 
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvAttachedFile" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" DataKeyNames="AttachedFileID" OnRowDataBound="gvAttachedFile_RowDataBound">
+                    <asp:GridView ID="gvAttachedFile" runat="server" AutoGenerateColumns="false" CssClass="TableGrid" Width="100%" DataKeyNames="AttachedFileID">
                         <Columns>
                             <asp:TemplateField HeaderText="Attachment Description">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -350,6 +349,8 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                    <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkFSRDownload_Click" Text="Download"></asp:LinkButton>
+                                    <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField>
@@ -967,10 +968,7 @@
                 </div>
         </ContentTemplate>
     </asp1:TabPanel>
-</asp1:TabContainer>
-
-
-<asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
+</asp1:TabContainer><asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Technician</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
@@ -986,6 +984,8 @@
 
     </div>
 </asp:Panel>
+
+
 <ajaxToolkit:ModalPopupExtender ID="MPE_AddTechnician" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTechnician" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
@@ -1015,7 +1015,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label4" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblFSRMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_AddFSR ID="UC_AddFSR" runat="server"></UC:UC_AddFSR>
         </div>
         <div class="col-md-12 text-center">
@@ -1052,7 +1052,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label6" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblFSRAttachmentMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddOtherMachine" runat="server"></UC:UC_ICTicketAddOtherMachine>
         </div>
         <div class="col-md-12 text-center">
@@ -1066,12 +1066,12 @@
 
 <asp:Panel ID="pnlICTicketAddServiceCharges" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Service Charge</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button5" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label7" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblServiceChargeSessage" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddServiceCharges ID="UC_ICTicketAddServiceCharges" runat="server"></UC:UC_ICTicketAddServiceCharges>
         </div>
         <div class="col-md-12 text-center">
@@ -1090,7 +1090,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label8" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageAddTSIR" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_AddTSIR ID="UC_AddTSIR" runat="server"></UC:UC_AddTSIR>
         </div>
         <div class="col-md-12 text-center">
@@ -1192,4 +1192,3 @@
         }
     }
 </script>
-

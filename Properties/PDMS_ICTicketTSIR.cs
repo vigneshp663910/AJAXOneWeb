@@ -85,4 +85,34 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
     }
+
+    [Serializable]
+    public class PDMS_TSIRAttachedFile
+    {
+        public long AttachedFileID { get; set; }
+        public PDMS_ICTicket ICTicket { get; set; }
+        public PDMS_ICTicketTSIR TSIR { get; set; }
+        public long FsrID { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public long FileSize { get; set; }
+        public Boolean IsDeleted { get; set; }
+        public PDMS_FSRAttachedName FSRAttachedName { get; set; }
+    }
+
+    [Serializable]
+    public class PDMS_TSIRAttachedFile__M
+    {
+        public long AttachedFileID { get; set; }
+        public long ICTicketID { get; set; }
+        public long TsirID { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public long FileSize { get; set; }
+        public Boolean IsDeleted { get; set; }
+        public PDMS_FSRAttachedName FSRAttachedName { get; set; }
+    }
+
 }

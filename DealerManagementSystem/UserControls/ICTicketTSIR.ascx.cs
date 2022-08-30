@@ -48,21 +48,7 @@ namespace DealerManagementSystem.UserControls
                 Session["PDMS_ICTicketTSIRs"] = value;
             }
         }
-        public List<PDMS_ServiceCharge> SS_ServiceCharge
-        {
-            get
-            {
-                if (Session["ServiceChargeICTicketProcess"] == null)
-                {
-                    Session["ServiceChargeICTicketProcess"] = new List<PDMS_ServiceCharge>();
-                }
-                return (List<PDMS_ServiceCharge>)Session["ServiceChargeICTicketProcess"];
-            }
-            set
-            {
-                Session["ServiceChargeICTicketProcess"] = value;
-            }
-        }
+       
         public List<PDMS_ServiceMaterial> SS_ServiceMaterial
         {
             get
@@ -209,7 +195,7 @@ namespace DealerManagementSystem.UserControls
         public void FillSROCoder()
         {
             // List<PDMS_ServiceCharge> Charge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
-            var productCodes = (from p1 in SS_ServiceCharge select new { p1.ServiceChargeID, p1.Material.MaterialCode, p1.Material.IsMainServiceMaterial, p1.Material.MaterialGroup }).Where(m => m.IsMainServiceMaterial == false && m.MaterialGroup != "891").Distinct();
+            var productCodes = (from p1 in SDMS_ICTicket.ServiceCharges select new { p1.ServiceChargeID, p1.Material.MaterialCode, p1.Material.IsMainServiceMaterial, p1.Material.MaterialGroup }).Where(m => m.IsMainServiceMaterial == false && m.MaterialGroup != "891").Distinct();
 
             ddlServiceChargeID.DataSource = productCodes;
             ddlServiceChargeID.DataBind();
@@ -536,7 +522,7 @@ namespace DealerManagementSystem.UserControls
             lblMessageTSIR.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long TsirID = Convert.ToInt64(gvTSIR.DataKeys[gvRow.RowIndex].Value);
-            foreach (PDMS_ServiceCharge SC in SS_ServiceCharge)
+            foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
             {
                 if (!string.IsNullOrEmpty(SC.ClaimNumber))
                 {

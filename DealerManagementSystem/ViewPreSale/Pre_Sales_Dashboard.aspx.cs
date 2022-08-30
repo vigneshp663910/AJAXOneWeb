@@ -37,6 +37,7 @@ namespace DealerManagementSystem.ViewPreSale
                 // lblConvertToProspect.InnerText = "Convert To  Prospect: 25000";
                 From = DateTime.Now;
                 FromF = DateTime.Now.AddDays(-7);
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 FillStatusCount();
                 //FillFunnel();
                 //FillEnquiryStatusCount();
@@ -86,8 +87,9 @@ namespace DealerManagementSystem.ViewPreSale
             lblAssigned.Text = "0";
             lblQuotation.Text = "0";
             lblWon.Text = "0";
-            lblLost.Text = "0"; 
-            int? DealerID = null;
+            lblLost.Text = "0";
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? EngineerUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             if (rbToday.Checked)
             {
                 From = DateTime.Now;
@@ -105,7 +107,8 @@ namespace DealerManagementSystem.ViewPreSale
                 From = DateTime.Now.AddYears(-1);
             }
 
-            List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(From, To, DealerID, PSession.User.UserID);
+            List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(From, To, DealerID, EngineerUserID);
+           
             if (Status != null)
             {
                 if ((Status.Where(m => m.StatusID == 1).Count() != 0))
@@ -142,7 +145,10 @@ namespace DealerManagementSystem.ViewPreSale
             }
 
 
-            List<PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, PSession.User.UserID);
+            lblEnquiryOpen.Text = "0";
+            lblEnquiryConvertedToLead.Text = "0";
+            lblEnquiryRejected.Text = "0";
+            List <PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, EngineerUserID);
             if (StatusEnq != null)
             {
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
@@ -163,7 +169,7 @@ namespace DealerManagementSystem.ViewPreSale
                 }
             }
 
-            List<PLeadStatus> StatusFunnel = new BLead().GetLeadCountByStatus(From, To, null, PSession.User.UserID);
+            List<PLeadStatus> StatusFunnel = new BLead().GetLeadCountByStatus(From, To, DealerID, EngineerUserID);
 
             int AssignedFunnel = 0, QuotationFunnel = 0, WonFunnel = 0, LostFunnel = 0, CancelFunnel = 0;
             if (StatusFunnel != null)
@@ -236,7 +242,7 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void rbStatus_CheckedChanged(object sender, EventArgs e)
         {
-          //  FillStatusCount();
+           FillStatusCount();
             
         }
 
@@ -291,6 +297,10 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 Session["leadDateFrom"] = DateTime.Now.AddYears(-1);
             }
+
+            Session["leadDealerID"] = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+            Session["EngineerUserID"] = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+
             Response.Redirect("lead.aspx");
         }
 
@@ -303,30 +313,32 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else if (lbActions.Text == "Converted To Lead")
             {
-                Session["leadStatusID"] = 2;
+                Session["leadStatusID"] = 4;
             }
             else if (lbActions.Text == "Rejected")
             {
-                Session["leadStatusID"] = 3;
+                Session["leadStatusID"] = 5;
             }
-           
 
             if (rbToday.Checked)
             {
-                Session["EnquiryDateFrom"] = DateTime.Now;
+                Session["leadDateFrom"] = DateTime.Now;
             }
             else if (rbWeek.Checked)
             {
-                Session["EnquiryDateFrom"] = DateTime.Now.AddDays(-7);
+                Session["leadDateFrom"] = DateTime.Now.AddDays(-7);
             }
             else if (rbMonth.Checked)
             {
-                Session["EnquiryDateFrom"] = DateTime.Now.AddMonths(-1);
+                Session["leadDateFrom"] = DateTime.Now.AddMonths(-1);
             }
             else
             {
-                Session["EnquiryDateFrom"] = DateTime.Now.AddYears(-1);
+                Session["leadDateFrom"] = DateTime.Now.AddYears(-1);
             }
+
+            Session["leadDealerID"] = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            Session["EngineerUserID"] = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             Response.Redirect("Enquiry.aspx");
         }
         //void FillEnquiryStatusCount()
@@ -352,8 +364,20 @@ namespace DealerManagementSystem.ViewPreSale
         //        From = DateTime.Now.AddYears(-1);
         //    }
 
-           
-          
+
+
         //}
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+            FillStatusCount();
+        }
+
+        protected void ddlDealerEmployee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillStatusCount();
+        }
     }
 }

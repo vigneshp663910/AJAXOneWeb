@@ -20,6 +20,10 @@
                         <label class="modal-label">Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                     </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Employee</label>
+                        <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true"  />
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Enquiry Number</label>
                         <asp:TextBox ID="txtSEnquiryNumber" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
@@ -143,7 +147,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
                                             <br />
-                                            <asp:Label ID="lblEnquiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
+                                            <asp:Label ID="lblAddress2" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
                                             <br />
                                             <asp:Label ID="lblAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
                                         </ItemTemplate>

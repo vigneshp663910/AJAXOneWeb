@@ -64,8 +64,20 @@ namespace DealerManagementSystem.ViewPreSale
                 {
                     ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
                     txtLeadDateFrom.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToString("yyyy-MM-dd");
+                    if (!string.IsNullOrEmpty(Convert.ToString(Session["leadDealerID"])))
+                    {
+                        ddlDealer.SelectedValue = Convert.ToString(Session["leadDealerID"]);
+                        List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+                        new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+                    }
+                    if (!string.IsNullOrEmpty(Convert.ToString(Session["EngineerUserID"])))
+                    {
+                        ddlDealerEmployee.SelectedValue = Convert.ToString(Session["EngineerUserID"]);
+                    }
                     Session["leadStatusID"] = null;
                     Session["leadDateFrom"] = null;
+                    Session["leadDealerID"] = null;
+                    Session["EngineerUserID"] = null;
                     FillLead();
                 }
 

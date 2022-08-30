@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
         {
            
-            FillSROCoder();
+            FillSROCoder(SDMS_ICTicket);
          //   FillTSIRDetails();
         }
         public PDMS_ICTicket SDMS_ICTicket
@@ -57,21 +57,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 Session["PDMS_ICTicketTSIRs"] = value;
             }
         }
-        public List<PDMS_ServiceCharge> SS_ServiceCharge
-        {
-            get
-            {
-                if (Session["ServiceChargeICTicketProcess"] == null)
-                {
-                    Session["ServiceChargeICTicketProcess"] = new List<PDMS_ServiceCharge>();
-                }
-                return (List<PDMS_ServiceCharge>)Session["ServiceChargeICTicketProcess"];
-            }
-            set
-            {
-                Session["ServiceChargeICTicketProcess"] = value;
-            }
-        }
+      
         public List<PDMS_ServiceMaterial> SS_ServiceMaterial
         {
             get
@@ -187,9 +173,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             return ICTicketTSIR;
         }
 
-        public void FillSROCoder()
+        public void FillSROCoder(PDMS_ICTicket SDMS_ICTicket)
         {
-            var productCodes = (from p1 in SS_ServiceCharge select new { p1.ServiceChargeID, p1.Material.MaterialCode, p1.Material.IsMainServiceMaterial, p1.Material.MaterialGroup }).Where(m => m.IsMainServiceMaterial == false && m.MaterialGroup != "891").Distinct();
+            var productCodes = (from p1 in SDMS_ICTicket.ServiceCharges select new { p1.ServiceChargeID, p1.Material.MaterialCode, p1.Material.IsMainServiceMaterial, p1.Material.MaterialGroup }).Where(m => m.IsMainServiceMaterial == false && m.MaterialGroup != "891").Distinct();
 
             ddlServiceChargeID.DataSource = productCodes;
             ddlServiceChargeID.DataBind();

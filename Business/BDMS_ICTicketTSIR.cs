@@ -48,42 +48,10 @@ namespace Business
         }
         public List<PDMS_ICTicketTSIR> GetICTicketTSIRBasicDetails(long? ICTicketID)
         {
-            List<PDMS_ICTicketTSIR> Ws = new List<PDMS_ICTicketTSIR>();
-            PDMS_ICTicketTSIR W = null;
-            try
-            {
-                DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "ICTicketTsir/ICTicketTSIRBasicDetails?ICTicketID=" + ICTicketID ;
+            return JsonConvert.DeserializeObject<List<PDMS_ICTicketTSIR>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
-
-                DbParameter[] Params = new DbParameter[1] { ICTicketIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetICTicketTSIRBasicDetails", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_ICTicketTSIR();
-                            Ws.Add(W);
-                            W.TsirID = Convert.ToInt64(dr["TsirID"]);
-                            W.TsirNumber = Convert.ToString(dr["TsirNumber"]);
-                            W.TsirDate = Convert.ToDateTime(dr["TsirDate"]);
-                            W.ICTicket = new PDMS_ICTicket();
-                            W.ICTicket.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                            W.ServiceCharge = new PDMS_ServiceCharge()
-                            {
-                                ServiceChargeID = Convert.ToInt64(dr["ServiceChargeID"]),
-                                Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["MaterialCode"]), MaterialDescription = Convert.ToString(dr["MaterialDescription"]) }
-                            };
-                            W.Status = new PDMS_ICTicketTSIRStatus() { StatusID = Convert.ToInt32(dr["StatusID"]), Status = Convert.ToString(dr["Status"]) };
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Ws;
         }
 
         //public List<PDMS_ICTicketTSIR> GetICTicketTSIR(int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT

@@ -20,8 +20,8 @@ namespace Business
         }
         public void Start()
         {
-            //UpdateJobsStatus((short)Jobs.EnquiryFromCRM, Joblist((Jobs.EnquiryFromCRM)));
-            //return;
+            UpdateJobsStatus((short)Jobs.MaterialIntegrationFromSAP, Joblist((Jobs.MaterialIntegrationFromSAP)));
+            return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
             {
@@ -79,9 +79,9 @@ namespace Business
                         new FileLogger().LogMessageService("Ended", "Send Mail Total Record " + C.ToString(), null);
                         break;
                     case Jobs.MaterialIntegrationFromSAP:
-                        new FileLogger().LogMessageService("Started", "MaterialIntegrationFromPostgre", null);
+                        new FileLogger().LogMessageService("Started", "MaterialIntegrationFromSAP", null);
                         new BDMS_Material().IntegrationMaterial();
-                        new FileLogger().LogMessageService("Ended", "MaterialIntegrationFromPostgre", null);
+                        new FileLogger().LogMessageService("Ended", "MaterialIntegrationFromSAP", null);
                         break;
                     case Jobs.CustomerIntegration:
                         new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
@@ -92,7 +92,7 @@ namespace Business
 
                     case Jobs.UpdateSalesQuotationDeliveryDetails:
                         new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
-                        new BAPI().ApiGet("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails"); 
+                        new BAPI().ApiGet("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails");
                         new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                         break;
 
@@ -106,85 +106,90 @@ namespace Business
                         new BAPI().ApiGetWithOutToken("Enquiry/getEnquiryFromSAP");
                         new FileLogger().LogMessageService("Ended", "EnquiryFromCRM ", null);
                         break;
-                        //case Jobs.ICTicketIntegrationFromCRM:
-                        //    new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
-                        //    C = new BDMS_ICTicket().IntegrationICTicket();
-                        //    C = new BDMS_ICTicket().IntegrationICTicketByBapi();
-                        //    new FileLogger().LogMessageService("Ended", "IC Ticket Integration From CRM Total Record " + C.ToString(), null);
-                        //    break;
-                        //case Jobs.MaterialIntegrationFromPostgre:
-                        //    new FileLogger().LogMessageService("Started", "MaterialIntegrationFromPostgre", null);
-                        //    C = new BDMS_Material().IntegrationMaterial();
-                        //    new FileLogger().LogMessageService("Ended", "Material Integration From Postgre Total Record " + C.ToString(), null);
+                    //case Jobs.ICTicketIntegrationFromCRM:
+                    //    new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
+                    //    C = new BDMS_ICTicket().IntegrationICTicket();
+                    //    C = new BDMS_ICTicket().IntegrationICTicketByBapi();
+                    //    new FileLogger().LogMessageService("Ended", "IC Ticket Integration From CRM Total Record " + C.ToString(), null);
+                    //    break;
+                    //case Jobs.MaterialIntegrationFromPostgre:
+                    //    new FileLogger().LogMessageService("Started", "MaterialIntegrationFromPostgre", null);
+                    //    C = new BDMS_Material().IntegrationMaterial();
+                    //    new FileLogger().LogMessageService("Ended", "Material Integration From Postgre Total Record " + C.ToString(), null);
 
-                        //    break;
-                        //case Jobs.SAPDocumentForWarrantyInvoiceFromSAP:
-                        //    new FileLogger().LogMessageService("Started", "SAP Document For Warranty Invoice From SAP", null);
-                        //    new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumberOld();
-                        //    new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumber();
-                        //    new FileLogger().LogMessageService("Ended", "SAP Document For Warranty Invoice From SAP", null);
-                        //    break;
-                        //case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
-                        //    new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
-                        //    new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
-                        //    new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
-                        //    break;
-                        //case Jobs.TechnicianIntegrationFromSAP:
-                        //    new FileLogger().LogMessageService("Started", "Technician Integration From SAP", null);
-                        //    new BEmployees().InsertOrUpdateTechnicianUserFromSAP();
-                        //    new FileLogger().LogMessageService("Ended", "Technician Integration From SAP", null);
-                        //    break;
-                        //case Jobs.UpdateICTicketToSAP:
-                        //    new FileLogger().LogMessageService("Started", "Update ICTicket To SAP", null);
-                        //    new BDMS_ICTicket().UpdateICTicketToSAP();
-                        //    new FileLogger().LogMessageService("Ended", "Update ICTicket To SAP", null);
-                        //    break;
-                        //case Jobs.ModelForClaim:
-                        //    new FileLogger().LogMessageService("Started", "Model For Claim", null);
-                        //    new BDMS_WarrantyClaim().UpdateWarrantyClaimMachineSerialNumberForModel();
-                        //    new FileLogger().LogMessageService("Ended", "Model For Claim", null);
-                        //    break;
-                        //case Jobs.Category:
-                        //    new FileLogger().LogMessageService("Started", "Category", null);
-                        //    new BDMS_Category().IntegrationCategory();
-                        //    new FileLogger().LogMessageService("Ended", "Category", null);
-                        //    break;
+                    //    break;
+                    //case Jobs.SAPDocumentForWarrantyInvoiceFromSAP:
+                    //    new FileLogger().LogMessageService("Started", "SAP Document For Warranty Invoice From SAP", null);
+                    //    new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumberOld();
+                    //    new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumber();
+                    //    new FileLogger().LogMessageService("Ended", "SAP Document For Warranty Invoice From SAP", null);
+                    //    break;
+                    //case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
+                    //    new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
+                    //    new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
+                    //    new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
+                    //    break;
+                    //case Jobs.TechnicianIntegrationFromSAP:
+                    //    new FileLogger().LogMessageService("Started", "Technician Integration From SAP", null);
+                    //    new BEmployees().InsertOrUpdateTechnicianUserFromSAP();
+                    //    new FileLogger().LogMessageService("Ended", "Technician Integration From SAP", null);
+                    //    break;
+                    //case Jobs.UpdateICTicketToSAP:
+                    //    new FileLogger().LogMessageService("Started", "Update ICTicket To SAP", null);
+                    //    new BDMS_ICTicket().UpdateICTicketToSAP();
+                    //    new FileLogger().LogMessageService("Ended", "Update ICTicket To SAP", null);
+                    //    break;
+                    //case Jobs.ModelForClaim:
+                    //    new FileLogger().LogMessageService("Started", "Model For Claim", null);
+                    //    new BDMS_WarrantyClaim().UpdateWarrantyClaimMachineSerialNumberForModel();
+                    //    new FileLogger().LogMessageService("Ended", "Model For Claim", null);
+                    //    break;
+                    //case Jobs.Category:
+                    //    new FileLogger().LogMessageService("Started", "Category", null);
+                    //    new BDMS_Category().IntegrationCategory();
+                    //    new FileLogger().LogMessageService("Ended", "Category", null);
+                    //    break;
 
-                        //case Jobs.ICTicketIntegrationVerification:
-                        //    break;
-                        //case Jobs.QuotationForJSN:
-                        //    new FileLogger().LogMessageService("Started", "QuotationForJSN", null);
-                        //    new BDMS_SalesOrder().CreateQuotationForJSN();
-                        //    new FileLogger().LogMessageService("Ended", "QuotationForJSN", null);
-                        //    break;
-                        //case Jobs.IntegrationSalesOrder:
-                        //    new FileLogger().LogMessageService("Started", "", null);
+                    //case Jobs.ICTicketIntegrationVerification:
+                    //    break;
+                    //case Jobs.QuotationForJSN:
+                    //    new FileLogger().LogMessageService("Started", "QuotationForJSN", null);
+                    //    new BDMS_SalesOrder().CreateQuotationForJSN();
+                    //    new FileLogger().LogMessageService("Ended", "QuotationForJSN", null);
+                    //    break;
+                    //case Jobs.IntegrationSalesOrder:
+                    //    new FileLogger().LogMessageService("Started", "", null);
 
-                        //    new FileLogger().LogMessageService("Ended", "", null);
-                        //    break;
-                        //case Jobs.IntegrationSalesOrderInvoice:
-                        //    new FileLogger().LogMessageService("Started", "IntegrationSalesOrderInvoice", null);
-                        //    new BDMS_SalesOrder().IntegrationSalesOrderInvoice();
-                        //    new FileLogger().LogMessageService("Ended", "IntegrationSalesOrderInvoice", null);
-                        //    break;
-                        //case Jobs.IntegrationClaimAnnexure:
-                        //    new FileLogger().LogMessageService("Started", "IntegrationWarrantyClaimAnnexureToSAP", null);
-                        //    new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
-                        //    new FileLogger().LogMessageService("Ended", "IntegrationWarrantyClaimAnnexureToSAP", null);
-                        //    break;
-                        //case Jobs.EInvoice:
-                        //    new FileLogger().LogMessageService("Started", "BDMS_EInvoice", null);
-                        //    new BDMS_EInvoice().IntegrationEInvoive();
-                        //    new FileLogger().LogMessageService("Ended", "BDMS_EInvoice", null);
-                        //    break;
-                        //case Jobs.SendMailMttrEscalationMatrix:
-                        //    new FileLogger().LogMessageService("Started", "EscalationMoreThan72Hrs", null);
-                        //    new BDMS_MTTR().SendMailMttrEscalationMatrix();
-                        //    //new BDMS_MTTR().MailEscalationMoreThan72Hrs();
-                        //    //new BDMS_MTTR().MailEscalationMoreThan48Hrs();
-                        //    //new BDMS_MTTR().MailEscalationMoreThan24Hrs();
-                        //    new FileLogger().LogMessageService("Ended", "EscalationMoreThan72Hrs", null);
-                        //    break;
+                    //    new FileLogger().LogMessageService("Ended", "", null);
+                    //    break;
+                    //case Jobs.IntegrationSalesOrderInvoice:
+                    //    new FileLogger().LogMessageService("Started", "IntegrationSalesOrderInvoice", null);
+                    //    new BDMS_SalesOrder().IntegrationSalesOrderInvoice();
+                    //    new FileLogger().LogMessageService("Ended", "IntegrationSalesOrderInvoice", null);
+                    //    break;
+                    //case Jobs.IntegrationClaimAnnexure:
+                    //    new FileLogger().LogMessageService("Started", "IntegrationWarrantyClaimAnnexureToSAP", null);
+                    //    new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
+                    //    new FileLogger().LogMessageService("Ended", "IntegrationWarrantyClaimAnnexureToSAP", null);
+                    //    break;
+                    //case Jobs.EInvoice:
+                    //    new FileLogger().LogMessageService("Started", "BDMS_EInvoice", null);
+                    //    new BDMS_EInvoice().IntegrationEInvoive();
+                    //    new FileLogger().LogMessageService("Ended", "BDMS_EInvoice", null);
+                    //    break;
+                    //case Jobs.SendMailMttrEscalationMatrix:
+                    //    new FileLogger().LogMessageService("Started", "EscalationMoreThan72Hrs", null);
+                    //    new BDMS_MTTR().SendMailMttrEscalationMatrix();
+                    //    //new BDMS_MTTR().MailEscalationMoreThan72Hrs();
+                    //    //new BDMS_MTTR().MailEscalationMoreThan48Hrs();
+                    //    //new BDMS_MTTR().MailEscalationMoreThan24Hrs();
+                    //    new FileLogger().LogMessageService("Ended", "EscalationMoreThan72Hrs", null);
+                    //    break;
+                    case Jobs.IntegrationEquipmentFromSAP:
+                        new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP", null);
+                        new BDMS_Equipment().IntegrationEquipmentFromSAP();
+                        new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP", null);
+                        break;
                 }
                 i = true;
             }

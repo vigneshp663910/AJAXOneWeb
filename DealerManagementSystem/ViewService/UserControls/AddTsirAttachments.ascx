@@ -1,7 +1,6 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddFSRAttachments.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.AddFSRAttachments" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddTsirAttachments.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.AddTsirAttachments" %>
 
-
-<asp:Label ID="Label2" runat="server" Text="" CssClass="label" Width="100%" Font-Bold="true" Font-Size="24px" />
+ 
 <table id="txnHistory2:panelGridid4" style="height: 100%; width: 100%">
     <tr>
         <td>
@@ -28,6 +27,10 @@
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
     <div class="col-md-12">
         <div class="col-md-6 col-sm-12">
+            <label class="modal-label">TSIR</label>
+            <asp:DropDownList ID="ddlTSIR" runat="server" CssClass="form-control"   DataValueField="ServiceChargeID" DataTextField="MaterialCode" />
+        </div>
+        <div class="col-md-6 col-sm-12">
             <label class="modal-label">FSR Attached Name</label>
             <asp:DropDownList ID="ddlFSRAttachedName" runat="server" CssClass="TextBox" />
         </div>
@@ -42,5 +45,4 @@
         </div>
     </div>
 </fieldset>
-
 

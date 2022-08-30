@@ -86,14 +86,14 @@ namespace DealerManagementSystem
             if (ViewState["NoOfLoginAttempts"] != null)
                 ViewState.Remove("NoOfLoginAttempts");
         }
-        private void AddToSession(long userId)
-        {
-            PSession.User = new BUser().GetUserDetails(userId);
-            //PSession.UserId = userId;
-            PSession.User.Dealer = new BDealer().GetDealerByUserID(userId);
-            PSession.User.DMSModules = new BUser().GetDMSModuleByUser(userId, null, null);
-            UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
-        }
+        //private void AddToSession(long userId)
+        //{
+        //    PSession.User = new BUser().GetUserDetails(userId);
+        //    //PSession.UserId = userId;
+        //    PSession.User.Dealer = new BDealer().GetDealerByUserID(userId);
+        //    PSession.User.DMSModules = new BUser().GetDMSModuleByUser(userId, null, null);
+        //    UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
+        //}
 
         void login()
         {

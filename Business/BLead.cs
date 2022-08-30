@@ -141,10 +141,10 @@ namespace Business
             string endPoint = "Lead/AttachedFileForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
-        public List<PLeadStatus> GetLeadCountByStatus(DateTime? From, DateTime? To, int? DealerID, int? UserID)
+        public List<PLeadStatus> GetLeadCountByStatus(DateTime? From, DateTime? To, int? DealerID,int? EngineerUserID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Lead/LeadCountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&UserID=" + UserID;
+            string endPoint = "Lead/LeadCountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID ;
             return JsonConvert.DeserializeObject<List<PLeadStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PLeadQuestionariesMain> GetLeadQuestionariesMain(int? LeadQuestionariesMainID, string LeadQuestionariesMain)

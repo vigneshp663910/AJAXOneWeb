@@ -27,21 +27,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 Session["SDMS_ICTicket"] = value;
             }
         }
-        public List<PDMS_ServiceCharge> SS_ServiceCharge
-        {
-            get
-            {
-                if (Session["ServiceChargeICTicketProcess"] == null)
-                {
-                    Session["ServiceChargeICTicketProcess"] = new List<PDMS_ServiceCharge>();
-                }
-                return (List<PDMS_ServiceCharge>)Session["ServiceChargeICTicketProcess"];
-            }
-            set
-            {
-                Session["ServiceChargeICTicketProcess"] = value;
-            }
-        } 
+       
         public List<PDMS_ServiceMaterial> SS_ServiceMaterial
         {
             get
@@ -442,7 +428,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ceHMRDate.StartDate = Convert.ToDateTime(txtReachedDate.Text);
             ceHMRDate.EndDate = DateTime.Now;
 
-            if (SS_ServiceCharge.Count + SS_ServiceMaterial.Count == 0)
+            if (SDMS_ICTicket.ServiceCharges.Count + SS_ServiceMaterial.Count == 0)
             {
                 txtHMRDate.Enabled = true;
             }
@@ -451,8 +437,8 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
 
             string ClaimNumber = "";
-            if (SS_ServiceCharge.Count != 0)
-            { ClaimNumber = SS_ServiceCharge[0].ClaimNumber; }
+            if (SDMS_ICTicket.ServiceCharges.Count != 0)
+            { ClaimNumber = SDMS_ICTicket.ServiceCharges[0].ClaimNumber; }
 
             if (string.IsNullOrEmpty(ClaimNumber)) { ddlServiceType.Enabled = true; }
             else { ddlServiceType.Enabled = false; }

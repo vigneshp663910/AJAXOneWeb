@@ -555,15 +555,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblKindAttn;
 
         /// <summary>
-        /// txt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt;
-
-        /// <summary>
         /// lblRemarks control.
         /// </summary>
         /// <remarks>
@@ -1032,13 +1023,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
-        /// Label4 control.
+        /// lblFSRMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblFSRMessage;
 
         /// <summary>
         /// UC_AddFSR control.
@@ -1140,13 +1131,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button4;
 
         /// <summary>
-        /// Label6 control.
+        /// lblFSRAttachmentMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::System.Web.UI.WebControls.Label lblFSRAttachmentMessage;
 
         /// <summary>
         /// UC_ICTicketAddOtherMachine control.
@@ -1194,13 +1185,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button5;
 
         /// <summary>
-        /// Label7 control.
+        /// lblServiceChargeSessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
+        protected global::System.Web.UI.WebControls.Label lblServiceChargeSessage;
 
         /// <summary>
         /// UC_ICTicketAddServiceCharges control.
@@ -1248,13 +1239,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button6;
 
         /// <summary>
-        /// Label8 control.
+        /// lblMessageAddTSIR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::System.Web.UI.WebControls.Label lblMessageAddTSIR;
 
         /// <summary>
         /// UC_AddTSIR control.

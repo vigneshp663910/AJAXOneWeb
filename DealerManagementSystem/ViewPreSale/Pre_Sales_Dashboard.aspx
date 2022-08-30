@@ -225,7 +225,7 @@
                 /* padding-left: 35px; */
                 /* margin-bottom: 12px; */
                 cursor: pointer;
-                font-size: 20px;
+                font-size: 15px;
                 -webkit-user-select: none;
                 -moz-user-select: none;
                 -ms-user-select: none;
@@ -237,10 +237,11 @@
                 padding: 3px 5px 5px 40px;
                 border-radius: 50px;
             }
-            .TimeAction .container:hover {
-                background-color:#d91e18;
-                color:white;
-            }
+
+                .TimeAction .container:hover {
+                    background-color: #d91e18;
+                    color: white;
+                }
                 /* Hide the browser's default radio button */
                 .TimeAction .container input {
                     position: absolute;
@@ -251,10 +252,10 @@
                 /* Create a custom radio button */
                 .TimeAction .container .checkmark {
                     position: absolute;
-                    top: 8px;
-                    left: 10px;
-                    height: 23px;
-                    width: 23px;
+                    top: 5px;
+                    left: 8px;
+                    height: 20px;
+                    width: 20px;
                     background-color: #eee;
                     border-radius: 50%;
                 }
@@ -283,10 +284,10 @@
 
                 /* Style the indicator (dot/circle) */
                 .TimeAction .container .checkmark:after {
-                    top: 8px;
-                    left: 8px;
-                    width: 7px;
-                    height: 7px;
+                    top: 7px;
+                    left: 6px;
+                    width: 8px;
+                    height: 8px;
                     border-radius: 50%;
                     background: white;
                 }
@@ -328,7 +329,7 @@
                 </label> --%>
                 <label class="container">
                     Today
-                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
+                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
                     <span class="checkmark"></span>
                 </label>
                 <label class="container">
@@ -338,7 +339,7 @@
                 </label>
                 <label class="container">
                     Month
-                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true"  Checked="true"  />
                     <span class="checkmark"></span>
                 </label>
                 <label class="container">
@@ -347,7 +348,16 @@
                     <span class="checkmark"></span>
                 </label>
 
-
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer</label>
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Employee</label>
+                        <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerEmployee_SelectedIndexChanged" />
+                    </div>
+                </div>
             </div>
 
 

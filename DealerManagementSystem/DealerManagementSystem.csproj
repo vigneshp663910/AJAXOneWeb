@@ -364,6 +364,11 @@
     <Content Include="TestAutocomplete.aspx" />
     <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
+    <Content Include="UserControls\EquipmentView.ascx" />
+    <Content Include="UserControls\ICTicketBasicInformation.ascx" />
+    <Content Include="UserControls\ICTicketButton.ascx" />
+    <Content Include="UserControls\ICTicketTSIR.ascx" />
+    <Content Include="UserControls\ICTicketTSIRView.ascx" />
     <Content Include="ViewActivity\Activity.aspx" />
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
@@ -406,7 +411,9 @@
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
+    <Content Include="ViewMaster\Equipment.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
+    <Content Include="ViewMaster\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
@@ -545,7 +552,6 @@
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyChange.aspx" />
-    <Content Include="ViewService\ICTicketProcess.aspx" />
     <Content Include="ViewService\ICTicketReachedDateChange.aspx" />
     <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
     <Content Include="ViewService\ICTicketStatusReport.aspx" />
@@ -565,6 +571,7 @@
     <Content Include="ViewService\TicketTracking.aspx" />
     <Content Include="ViewService\UserControls\AddFSR.ascx" />
     <Content Include="ViewService\UserControls\AddFSRAttachments.ascx" />
+    <Content Include="ViewService\UserControls\AddTsirAttachments.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx" />
     <Content Include="ViewService\UserControls\AddTSIR.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddNotes.ascx" />
@@ -642,21 +649,6 @@
     <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ReassignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
-    <Content Include="UserControls\AvailabilityOfOtherMachine.ascx" />
-    <Content Include="UserControls\EquipmentView.ascx" />
-    <Content Include="UserControls\ICTicketBasicInformation.ascx" />
-    <Content Include="UserControls\ICTicketBasicInformation_N.ascx" />
-    <Content Include="UserControls\ICTicketButton.ascx" />
-    <Content Include="UserControls\ICTicketCommonBasicInfo.ascx" />
-    <Content Include="UserControls\ICTicketFSR.ascx" />
-    <Content Include="UserControls\ICTicketMaterialCharges.ascx" />
-    <Content Include="UserControls\ICTicketNote.ascx" />
-    <Content Include="UserControls\ICTicketRestore.ascx" />
-    <Content Include="UserControls\ICTicketServiceCharges.ascx" />
-    <Content Include="UserControls\ICTicketTechnicianAssign.ascx" />
-    <Content Include="UserControls\ICTicketTechnicianWorkInformation.ascx" />
-    <Content Include="UserControls\ICTicketTSIR.ascx" />
-    <Content Include="UserControls\ICTicketTSIRView.ascx" />
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -887,6 +879,41 @@
     </Compile>
     <Compile Include="TestPageForMenu.aspx.designer.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\EquipmentView.ascx.cs">
+      <DependentUpon>EquipmentView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\EquipmentView.ascx.designer.cs">
+      <DependentUpon>EquipmentView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
+      <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ICTicketBasicInformation.ascx.designer.cs">
+      <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ICTicketButton.ascx.cs">
+      <DependentUpon>ICTicketButton.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ICTicketButton.ascx.designer.cs">
+      <DependentUpon>ICTicketButton.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ICTicketTSIR.ascx.cs">
+      <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ICTicketTSIR.ascx.designer.cs">
+      <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ICTicketTSIRView.ascx.cs">
+      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ICTicketTSIRView.ascx.designer.cs">
+      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewActivity\Activity.aspx.cs">
       <DependentUpon>Activity.aspx</DependentUpon>
@@ -1182,12 +1209,26 @@
     <Compile Include="ViewMaster\EInvoiceRequest.aspx.designer.cs">
       <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\Equipment.aspx.cs">
+      <DependentUpon>Equipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\Equipment.aspx.designer.cs">
+      <DependentUpon>Equipment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.designer.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\EquipmentView.ascx.cs">
+      <DependentUpon>EquipmentView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\EquipmentView.ascx.designer.cs">
+      <DependentUpon>EquipmentView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserLocationTrackMap.aspx.cs">
       <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>
@@ -1962,13 +2003,6 @@
     <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.designer.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewService\ICTicketProcess.aspx.cs">
-      <DependentUpon>ICTicketProcess.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewService\ICTicketProcess.aspx.designer.cs">
-      <DependentUpon>ICTicketProcess.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewService\ICTicketReachedDateChange.aspx.cs">
       <DependentUpon>ICTicketReachedDateChange.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2101,6 +2135,13 @@
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSRAttachments.ascx.designer.cs">
       <DependentUpon>AddFSRAttachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddTsirAttachments.ascx.cs">
+      <DependentUpon>AddTsirAttachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddTsirAttachments.ascx.designer.cs">
+      <DependentUpon>AddTsirAttachments.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx.cs">
       <DependentUpon>ICTicketAddMaterialCharges.ascx</DependentUpon>
@@ -2367,111 +2408,6 @@
       <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="UIHelper.cs" />
-    <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.cs">
-      <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\AvailabilityOfOtherMachine.ascx.designer.cs">
-      <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\EquipmentView.ascx.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\EquipmentView.ascx.designer.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
-      <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketBasicInformation.ascx.designer.cs">
-      <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketBasicInformation_N.ascx.cs">
-      <DependentUpon>ICTicketBasicInformation_N.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketBasicInformation_N.ascx.designer.cs">
-      <DependentUpon>ICTicketBasicInformation_N.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketButton.ascx.cs">
-      <DependentUpon>ICTicketButton.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketButton.ascx.designer.cs">
-      <DependentUpon>ICTicketButton.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketCommonBasicInfo.ascx.cs">
-      <DependentUpon>ICTicketCommonBasicInfo.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketCommonBasicInfo.ascx.designer.cs">
-      <DependentUpon>ICTicketCommonBasicInfo.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketFSR.ascx.cs">
-      <DependentUpon>ICTicketFSR.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketFSR.ascx.designer.cs">
-      <DependentUpon>ICTicketFSR.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketMaterialCharges.ascx.cs">
-      <DependentUpon>ICTicketMaterialCharges.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketMaterialCharges.ascx.designer.cs">
-      <DependentUpon>ICTicketMaterialCharges.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketNote.ascx.cs">
-      <DependentUpon>ICTicketNote.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketNote.ascx.designer.cs">
-      <DependentUpon>ICTicketNote.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketRestore.ascx.cs">
-      <DependentUpon>ICTicketRestore.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketRestore.ascx.designer.cs">
-      <DependentUpon>ICTicketRestore.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketServiceCharges.ascx.cs">
-      <DependentUpon>ICTicketServiceCharges.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketServiceCharges.ascx.designer.cs">
-      <DependentUpon>ICTicketServiceCharges.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTechnicianAssign.ascx.cs">
-      <DependentUpon>ICTicketTechnicianAssign.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTechnicianAssign.ascx.designer.cs">
-      <DependentUpon>ICTicketTechnicianAssign.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTechnicianWorkInformation.ascx.cs">
-      <DependentUpon>ICTicketTechnicianWorkInformation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTechnicianWorkInformation.ascx.designer.cs">
-      <DependentUpon>ICTicketTechnicianWorkInformation.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTSIR.ascx.cs">
-      <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTSIR.ascx.designer.cs">
-      <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTSIRView.ascx.cs">
-      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTSIRView.ascx.designer.cs">
-      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
-    </Compile>
     <Compile Include="ViewAdmin\UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

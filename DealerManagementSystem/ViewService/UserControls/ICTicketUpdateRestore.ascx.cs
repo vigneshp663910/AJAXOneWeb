@@ -11,19 +11,19 @@ namespace DealerManagementSystem.ViewService.UserControls
 {
     public partial class ICTicketUpdateRestore : System.Web.UI.UserControl
     {
-        public List<PDMS_ServiceCharge> SS_ServiceCharge
+        public PDMS_ICTicket SDMS_ICTicket
         {
             get
             {
-                if (Session["ServiceChargeICTicketProcess"] == null)
+                if (Session["SDMS_ICTicket"] == null)
                 {
-                    Session["ServiceChargeICTicketProcess"] = new List<PDMS_ServiceCharge>();
+                    Session["SDMS_ICTicket"] = new PDMS_ICTicket();
                 }
-                return (List<PDMS_ServiceCharge>)Session["ServiceChargeICTicketProcess"];
+                return (PDMS_ICTicket)Session["SDMS_ICTicket"];
             }
             set
             {
-                Session["ServiceChargeICTicketProcess"] = value;
+                Session["SDMS_ICTicket"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void EnableOrDesableBasedOnServiceCharges()
         {
-            if (SS_ServiceCharge.Count != 0)
+            if (SDMS_ICTicket.ServiceCharges.Count != 0)
             {
                 txtRestoreDate.Enabled = true;
                 ddlRestoreHH.Enabled = true;

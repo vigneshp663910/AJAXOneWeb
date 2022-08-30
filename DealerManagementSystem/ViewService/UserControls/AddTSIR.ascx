@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-12 col-sm-12">
             <label class="modal-label">Possible Root Causes</label>
-            <asp:TextBox ID="txtPossibleRootCauses" runat="server" CssClass="TextBox" AutoComplete="SP" TextMode="MultiLine"  ></asp:TextBox>
+            <asp:TextBox ID="txtPossibleRootCauses" runat="server" CssClass="form-control" AutoComplete="SP" TextMode="MultiLine"  ></asp:TextBox>
         </div>
         <div class="col-md-12 col-sm-12">
             <label class="modal-label">Specific Points Noticed</label>

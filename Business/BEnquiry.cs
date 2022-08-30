@@ -128,13 +128,14 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID,int UserID)
+        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID,int UserID)
         {
             List<PEnquiry> projects = new List<PEnquiry>();
             try
             {
                 DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int32); 
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32); 
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("EngineerUserID", EngineerUserID, DbType.Int32);
                 DbParameter EnquiryNumberP = provider.CreateParameter("EnquiryNumber", EnquiryNumber == "" ? null : EnquiryNumber, DbType.String);
                 DbParameter CustomerNameP = provider.CreateParameter("CustomerName", string.IsNullOrEmpty(CustomerName) ? null : CustomerName, DbType.String);
                 DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
@@ -145,7 +146,7 @@ namespace Business
                 DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
                 DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[12] { EnquiryIDP, DealerIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP, UserIDP };
+                DbParameter[] Params = new DbParameter[13] { EnquiryIDP, DealerIDP, DealerEmployeeUserIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP, UserIDP };
 
                 using (DataSet DataSet = provider.Select("GetEnquiry", Params))
                 {
@@ -241,10 +242,10 @@ namespace Business
             return true;
         }
 
-        public List<PPreSaleStatus> GetEnquiryCountByStatus(DateTime? From, DateTime? To, int? DealerID, int? UserID)
+        public List<PPreSaleStatus> GetEnquiryCountByStatus(DateTime? From, DateTime? To, int? DealerID, int? EngineerUserID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Enquiry/CountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&UserID=" + UserID;
+            string endPoint = "Enquiry/CountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID ;
             return JsonConvert.DeserializeObject<List<PPreSaleStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }

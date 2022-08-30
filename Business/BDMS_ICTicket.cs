@@ -535,6 +535,11 @@ namespace Business
             string endPoint = "Service/ICTicketByID?ICTicketID=" + ICTicketID;
             return JsonConvert.DeserializeObject<PDMS_ICTicket>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
+        public PDMS_ICTicket GetICTicketByICTIcketID_All(long ICTicketID)
+        {
+            string endPoint = "ICTicket/ICTicketByID_All?ICTicketID=" + ICTicketID;
+            return JsonConvert.DeserializeObject<PDMS_ICTicket>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PDMS_ICTicket> GetICTicketByEquipmentSerialNo(string EquipmentSerialNo)
         {
             List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();

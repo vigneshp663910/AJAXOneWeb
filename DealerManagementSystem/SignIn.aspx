@@ -370,11 +370,11 @@ return false;
     </script>
 </head>
 <body>
-    <div class="loading" align="center" aria-disabled="true">
+ <%--   <div class="loading" align="center" aria-disabled="true">
         Loading. Please wait.<br />
         <br />
         <img src="Images/PageLoader.gif" alt="" style="margin: 15%; background-color: white" />
-    </div>
+    </div>--%>
     <style type="text/css">
         .modal {
             position: fixed;

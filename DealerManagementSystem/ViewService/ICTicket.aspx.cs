@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -358,6 +360,16 @@ namespace DealerManagementSystem.ViewService
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
+        }
+
+        [WebMethod]
+        public static List<string> SearchMaterials(string input)
+        {
+            //  int Category1ID = (int)HttpContext.Current.Session["Category1ID"];
+            int ServiceTypeID = (int)HttpContext.Current.Session["ServiceTypeID"];
+          //  Boolean IsMainServiceMaterial = (Boolean)HttpContext.Current.Session["IsMainServiceMaterial"];
+            List<string> Materials = new BDMS_Material().GetMaterialServiceAutocomplete(input, "", ServiceTypeID, null, false);
+            return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Drawing;
@@ -34,8 +35,18 @@ namespace DealerManagementSystem.Account
                 if (PSession.User != null)
                 {
                     if (new BUser().ChangePassword(PSession.User.UserID, txtCurrentPassword.Text.Trim(), txtNewPassword.Text.Trim(), txtReTypeNewPassword.Text, "Change") == 1)
-                    {
-                        AddToSession(PSession.User.UserID);
+                    { 
+                        PApiResult ResultToken = new BUser().GetUserByToken();
+                        if (ResultToken.Status == PApplication.Failure)
+                        {
+                            lblMessage.ForeColor = System.Drawing.Color.Red;
+                            lblMessage.Text = ResultToken.Message;
+                            lblMessage.Visible = true;
+                            return;
+                        } 
+                        PSession.User = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data));
+
+                        //AddToSession(PSession.User.UserID);
                         lblMessage.Text = "Your Password is changed successfully, please use the new password when you login next time...!";
                         lblMessage.Visible = true;
                         lblMessage.ForeColor = Color.Green;
@@ -56,13 +67,13 @@ namespace DealerManagementSystem.Account
 
             }
         }
-        private void AddToSession(long userId)
-        {
-            PSession.User = new BUser().GetUserDetails(userId);
-           // PSession.UserId = userId;
-            PSession.User.Dealer = new BDealer().GetDealerByUserID(userId);
-            PSession.User.DMSModules = new BUser().GetDMSModuleByUser(userId, null, null);
-            UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
-        }
+        //private void AddToSession(long userId)
+        //{
+        //    PSession.User = new BUser().GetUserDetails(userId);
+        //   // PSession.UserId = userId;
+        //    PSession.User.Dealer = new BDealer().GetDealerByUserID(userId);
+        //    PSession.User.DMSModules = new BUser().GetDMSModuleByUser(userId, null, null);
+        //    UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
+        //}
     }
 }
