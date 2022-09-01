@@ -1037,7 +1037,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = Q.Lead.Dealer.DealerCode + "_MC_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_MC_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1234,8 +1234,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
                 }
 
-
-                report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
+                //if (File.Exists(Server.MapPath("~/Print/SalesSpec_Machine_" + Q.QuotationItems[0].Material.MaterialCode + ".rdlc")))
+                //{
+                //    report.ReportPath = Server.MapPath("~/Print/SalesSpec_Machine_" + Q.QuotationItems[0].Material.MaterialCode + ".rdlc");
+                //}
+                //else
+                //{
+                    report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
+                //}
                 report.SetParameters(P);
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
@@ -1280,7 +1286,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = Q.Lead.Dealer.DealerCode + "_MC_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_MC_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1482,7 +1488,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
                 rds.Value = dtItem;
-                report.DataSources.Add(rds); ;
+                report.DataSources.Add(rds);
 
                 Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
 
@@ -1521,7 +1527,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = Q.Lead.Dealer.DealerCode + "_TAX_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_TAX_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1785,6 +1791,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
                 }
 
+
                 report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
                 report.SetParameters(P);
 
@@ -1831,7 +1838,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string FileName = Q.Lead.Dealer.DealerCode + "_TAX_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.QuotationItems[0].Material.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
+                string FileName = Q.Lead.Dealer.DealerCode + "_TAX_" + (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf";
                 string extension;
                 string encoding;
                 string mimeType;
