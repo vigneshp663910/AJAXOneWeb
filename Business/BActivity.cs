@@ -174,9 +174,9 @@ namespace Business
         //    return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         //}
 
-        public List<PActivity> GetActivity(long? ActivityID, int? ActivityTypeID, string ActivityDateFrom, string ActivityDateTo)
+        public List<PActivity> GetActivity(int? DealerID, int? EngineerUserID, long? ActivityID, int? ActivityTypeID, string DateFrom, string DateTo)
         {
-            string endPoint = "Activity/GetActivities?ActivityID=" + ActivityID + "&ActivityTypeID=" + ActivityTypeID + "&ActivityDateFrom=" + ActivityDateFrom + "&ActivityDateTo=" + ActivityDateTo;
+            string endPoint = "Activity/GetActivities?DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID + "&ActivityID=" + ActivityID + "&ActivityTypeID=" + ActivityTypeID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
             return JsonConvert.DeserializeObject<List<PActivity>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 

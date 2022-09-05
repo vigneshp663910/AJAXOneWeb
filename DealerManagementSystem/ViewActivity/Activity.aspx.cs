@@ -163,6 +163,13 @@ namespace DealerManagementSystem.ViewActivity
         }       
         void FillActivity()
         {
+
+            long? ActivityID = string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim());
+            int? ActivityTypeID = ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue);
+            string DateFrom = string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? null : Convert.ToString(txtActivityDateFrom.Text.Trim());
+            string DateTo = string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? null : Convert.ToString(txtActivityDateTo.Text.Trim());
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? EngineerUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             PActivitySearch S = new PActivitySearch();
 
             //S.ActivityTypeID = ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue);
@@ -179,22 +186,21 @@ namespace DealerManagementSystem.ViewActivity
             //    , (string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? null : Convert.ToString(txtActivityDateFrom.Text.Trim())), (string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? null : Convert.ToString(txtActivityDateTo.Text.Trim()))
             //    , (ddlReferenceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReferenceType.SelectedValue)), (string.IsNullOrEmpty(txtReferenceNumber.Text.Trim()) ? null : Convert.ToString(txtReferenceNumber.Text.Trim())));
 
-            Activity1 = new BActivity().GetActivity((string.IsNullOrEmpty(txtActivityID.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtActivityID.Text.Trim())), (ddlActivityType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlActivityType.SelectedValue))
-                , (string.IsNullOrEmpty(txtActivityDateFrom.Text.Trim()) ? null : Convert.ToString(txtActivityDateFrom.Text.Trim())), (string.IsNullOrEmpty(txtActivityDateTo.Text.Trim()) ? null : Convert.ToString(txtActivityDateTo.Text.Trim())));
+            Activity1 = new BActivity().GetActivity(DealerID, EngineerUserID, ActivityID, ActivityTypeID, DateFrom, DateTo);
 
             gvActivity.DataSource = Activity1;
             gvActivity.DataBind();
 
-            for (int i = 0; i < gvActivity.Rows.Count; i++)
-            {
-                Label lblEndDate = (Label)gvActivity.Rows[i].FindControl("lblEndDate");
-                Button btnEndActivity = (Button)gvActivity.Rows[i].FindControl("btnEndActivity");
-                if (!string.IsNullOrEmpty(lblEndDate.Text))
-                {
-                    //btnEndActivity.Visible = false;
-                    btnEndActivity.Text = "Track Activity";
-                }
-            }
+            //for (int i = 0; i < gvActivity.Rows.Count; i++)
+            //{
+            //    Label lblEndDate = (Label)gvActivity.Rows[i].FindControl("lblEndDate");
+            //    Button btnEndActivity = (Button)gvActivity.Rows[i].FindControl("btnEndActivity");
+            //    if (!string.IsNullOrEmpty(lblEndDate.Text))
+            //    {
+            //        //btnEndActivity.Visible = false;
+            //        btnEndActivity.Text = "Track Activity";
+            //    }
+            //}
             if (Activity1.Count == 0)
             {
                 lblRowCountActivity.Visible = false;
@@ -211,41 +217,23 @@ namespace DealerManagementSystem.ViewActivity
         }
         protected void btnAddActivity_Click(object sender, EventArgs e)
         {
-            //ddlActivityTypeS.BorderColor = Color.Silver;
-            //txtLocationS.BorderColor = Color.Silver;
-            //txtRemarksS.BorderColor = Color.Silver;
-
+            
             List<PActivity> PendingUserActivity = new BActivity().GetPendingUserActivitiy(null, PSession.User.UserID, PSession.User.UserID);
             if (PendingUserActivity.Count > 0)
             {
-                //lblActivityTypeE.Text = PendingUserActivity[0].ActivityType.ActivityTypeName;
-                //lblActivityTypeIDE.Text = PendingUserActivity[0].ActivityType.ActivityTypeID.ToString();
-                ////ViewState["ActivityID"] = PendingUserActivity[0].ActivityID;
-                //lblActivityIDE.Text = PendingUserActivity[0].ActivityID.ToString();
-                //lblEndActivityDate.Text = DateTime.Now.ToString();
-                //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
-                //new DDLBind(ddlReferenceTypeE, ActivityReferenceType, "ReferenceTable", "ActivityReferenceTableID");
-                //new DDLBind(ddlEffortType, new BDMS_Master().GetEffortType(null, null), "EffortType", "EffortTypeID");
-                //new DDLBind(ddlExpenseType, new BDMS_Master().GetExpenseType(null, null), "ExpenseType", "ExpenseTypeID");
-
-                //ddlReferenceTypeE_SelectedIndexChanged(sender, e);
+               
                 EndActivity(PendingUserActivity[0].ActivityType.ActivityTypeName, PendingUserActivity[0].ActivityType.ActivityTypeID.ToString(), PendingUserActivity[0].ActivityID.ToString(), PendingUserActivity[0].Remark.ToString());
 
                 lblEndActivityMessage.Text = "Activity is Pending. Please close this Activity to add a new Activity.";
                 lblEndActivityMessage.ForeColor = Color.Red;
-                lblEndActivityMessage.Visible = true;
-                //txtLocationS.Text = string.Empty;
-                //txtLocationS.BorderColor = Color.Silver;
-                //txtRemarks.Text = string.Empty;
-                //txtRemarks.BorderColor = Color.Silver;
+                lblEndActivityMessage.Visible = true; 
                 lblValidationMessage.Text = string.Empty;
                 lblValidationMessage.Visible = false;
                 MPE_EndActivity.Show();
 
             }
             else
-            {
-                //List<PActivityType> ActivityTypeS = new BActivity().GetActivityType(null, null);
+            { 
                 new DDLBind(ddlActivityTypeS, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
                 lblStartActivityDate.Text = DateTime.Now.ToString();
                 lblAddActivityMessage.Text = string.Empty;
@@ -442,36 +430,24 @@ namespace DealerManagementSystem.ViewActivity
             return CurrentLocation;
 
         }
-        protected void btnEndActivity_Click(object sender, EventArgs e)
+        protected void btnTrackActivity_Click(object sender, EventArgs e)
         {
-            //List<PActivity> PendingUserActivity = new BActivity().GetPendingUserActivitiy(PSession.User.UserID);
-            //if (PendingUserActivity.Count == 0)
+             
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Button btnEndActivity = (Button)gvRow.FindControl("btnTrackActivity");
+
+            //if (btnEndActivity.Text == "End Activity")
             //{
-            //    lblActivityMessage.Text = "Activity already ended.";
-            //    lblActivityMessage.ForeColor = Color.Red;
-            //    lblActivityMessage.Visible = true;
-            //    return;
+            //    Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
+            //    Label lblActivityTypeID = (Label)gvRow.FindControl("lblActivityTypeID");
+            //    Label lblActivityID = (Label)gvRow.FindControl("lblActivityID"); 
+            //    Label lblRemarks = (Label)gvRow.FindControl("lblRemarks");
+
+            //    EndActivity(lblActivityType.Text, lblActivityTypeID.Text, lblActivityID.Text, lblRemarks.Text);
             //}
 
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Button btnEndActivity = (Button)gvRow.FindControl("btnEndActivity");
-
-            if (btnEndActivity.Text == "End Activity")
-            {
-                Label lblActivityType = (Label)gvRow.FindControl("lblActivityType");
-                Label lblActivityTypeID = (Label)gvRow.FindControl("lblActivityTypeID");
-                Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
-                //ddlReferenceTypeE_SelectedIndexChanged(sender, e);
-                //lblActivityTypeE.Text = lblActivityType.Text;
-                //lblActivityTypeIDE.Text = lblActivityTypeID.Text;
-                //lblActivityIDE.Text = lblActivityID.Text;
-                Label lblRemarks = (Label)gvRow.FindControl("lblRemarks");
-
-                EndActivity(lblActivityType.Text, lblActivityTypeID.Text, lblActivityID.Text, lblRemarks.Text);
-            }
-
-            else if(btnEndActivity.Text == "Track Activity")
-            {
+            //else if(btnEndActivity.Text == "Track Activity")
+            //{
                 MPE_TrackActivity.Show(); 
 
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
@@ -479,30 +455,13 @@ namespace DealerManagementSystem.ViewActivity
                 Dictionary<string, object> row;
 
                 Label lblActivityID = (Label)gvRow.FindControl("lblActivityID");
-                //DataTable dt = new BActivity().GetActivityLocation(Convert.ToInt32(lblActivityID.Text));
-
-
-                //foreach (DataRow dr in dt.Rows)
-                //{
-                //    row = new Dictionary<string, object>(); 
-                //    row.Add("lat", Convert.ToString(dr["StartLatitude"]));
-                //    row.Add("lng", Convert.ToString(dr["StartLongitude"])); 
-                //    row.Add("image", Convert.ToString(dr["MapImage"]));
-                //    rows.Add(row); 
-                //    row = new Dictionary<string, object>();
-                //    row.Add("lat", Convert.ToString(dr["EndLatitude"]));
-                //    row.Add("lng", Convert.ToString(dr["EndLongitude"]));  
-                //    row.Add("image", Convert.ToString(dr["MapImage"])); 
-                //    rows.Add(row);
-                //}
+                
 
                 PActivitySearch S = new PActivitySearch();
 
                 S.ActivityID = Convert.ToInt64(lblActivityID.Text);
-                //Activity1 = new BActivity().GetActivity(S, PSession.User.UserID);
-                //Activity1 = new BActivity().GetActivity(S);
-
-                Activity1 = new BActivity().GetActivity(Convert.ToInt64(lblActivityID.Text), null, null, null);
+               
+                Activity1 = new BActivity().GetActivity(null,null,Convert.ToInt64(lblActivityID.Text), null, null, null);
 
 
                 foreach (var Activity in Activity1)
@@ -523,7 +482,7 @@ namespace DealerManagementSystem.ViewActivity
                 }
 
                 CurrentLocation = serializer.Serialize(rows);
-            }
+          //  }
         }
 
         //protected void ddlReferenceTypeE_SelectedIndexChanged(object sender, EventArgs e)

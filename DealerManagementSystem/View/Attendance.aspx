@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <style type="text/css">
+    <style type="text/css">
         html {
             height: 100%
         }
@@ -54,6 +54,15 @@
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
             <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
             <div class="col-md-12">
+
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Dealer</label>
+                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Dealer Employee</label>
+                    <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
+                </div>
                 <div class="col-md-2 text-left">
                     <label>Date From</label>
                     <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
@@ -104,7 +113,7 @@
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <asp:Label ID="lblAttendanceID" Text='<%# DataBinder.Eval(Container.DataItem, "AttendanceID")%>' runat="server" visible="false"/>
+                                    <asp:Label ID="lblAttendanceID" Text='<%# DataBinder.Eval(Container.DataItem, "AttendanceID")%>' runat="server" Visible="false" />
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -117,7 +126,13 @@
                             <asp:TemplateField HeaderText="Contact Name">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
+                                    <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Dealer">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Department">
@@ -172,15 +187,15 @@
         <div class="PopupHeader clearfix">
             <span id="PopupDialogueTrackAttendance">Track Attendance</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
                 <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
-        </div> 
+        </div>
         <div class="col-md-12">
-            <div class="model-scroll">     
-                 <div id="map_canvas" style="width: 100%; height: 500px"></div>
+            <div class="model-scroll">
+                <div id="map_canvas" style="width: 100%; height: 500px"></div>
             </div>
         </div>
     </asp:Panel>
     <asp1:ModalPopupExtender ID="MPE_TrackAttendance" runat="server" TargetControlID="lnkMPA" PopupControlID="pnlTrackAttendance" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-   
+
 
     <script> 
         function success(position) {
@@ -204,13 +219,13 @@
     </script>
 
     <script type="text/javascript">
-         
+
 
         var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
         var mapOptions = {
-            center: new google.maps.LatLng(markers[0].lat, markers[0].lng), 
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
             zoom: 4.6,
-            mapTypeId: google.maps.MapTypeId.ROADMAP 
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var infoWindow = new google.maps.InfoWindow();
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
@@ -221,17 +236,17 @@
                 position: myLatlng,
                 map: map,
                 title: data.title,
-                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) }, 
+                icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) },
             });
 
             (function (marker, data) {
-                 
+
                 google.maps.event.addListener(marker, "click", function (e) {
                     infoWindow.setContent(data.description);
                     infoWindow.open(map, marker);
                 });
             })(marker, data);
-        } 
+        }
 
     </script>
 </asp:Content>
