@@ -32,7 +32,8 @@ namespace DealerManagementSystem.ViewActivity
                 new DDLBind(ddlActivityType, new BActivity().GetActivityType(null, null), "ActivityTypeName", "ActivityTypeID");
                 //List<PActivityReferenceType> ActivityReferenceType = new BActivity().GetActivityReferenceType(null, null);
                 //new DDLBind(ddlReferenceType, new BActivity().GetActivityReferenceType(null, null), "ReferenceTable", "ActivityReferenceTableID");
-                
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+
                 txtActivityDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
                 txtActivityDateFrom.TextMode = TextBoxMode.Date;
 
@@ -834,6 +835,12 @@ namespace DealerManagementSystem.ViewActivity
             PActivity Activity = new PActivity();
             lblEndActivityMessage.ForeColor = Color.Red;
             lblEndActivityMessage.Visible = true;
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID"); 
         }
     }
 }

@@ -100,7 +100,7 @@ namespace Properties
         public string DocumentCategory { get; set; }
         public string DocumentType { get; set; }
         public string BillingDocument { get; set; }
-        public string InvoiceDate { get; set; }
+        public DateTime InvoiceDate { get; set; }
         public string SupplierCode { get; set; }
         public string SupplierGSTIN { get; set; }
         public string SupplierTrade_Name { get; set; }
@@ -146,6 +146,8 @@ namespace Properties
         public PDMS_EInvoiceItem EInvoiceItem { get; set; }
         public List<PDMS_EInvoiceItem> EInvoiceItems { get; set; }
         public Boolean Checked { get; set; }
+
+        public PDMS_Dealer Dealer { get; set; }
     }
      [Serializable]
     public class PDMS_EInvoiceItem
@@ -157,19 +159,19 @@ namespace Properties
         public string PrdDesc { get; set; }
         public string IsServc { get; set; }
         public string HSNCode { get; set; }
-        public string Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public string UnitOfMeasure { get; set; }
-        public string UnitPrice { get; set; }
-        public string TotalAmount { get; set; }
-        public string AssesseebleAmount { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal AssesseebleAmount { get; set; }
         public string TaxRate { get; set; }
-        public string SGSTAmount { get; set; }
-        public string IGSTAmount { get; set; }
-        public string CGSTAmount { get; set; }
-        public string CESSRate { get; set; }
-        public string CESSAmount { get; set; }
-        public string OtherCharges { get; set; }
-        public string TotalItemValue { get; set; }
+        public decimal SGSTAmount { get; set; }
+        public decimal IGSTAmount { get; set; }
+        public decimal CGSTAmount { get; set; }
+        public decimal CESSRate { get; set; }
+        public decimal CESSAmount { get; set; }
+        public decimal OtherCharges { get; set; }
+        public decimal TotalItemValue { get; set; }
     }
 
     [Serializable]

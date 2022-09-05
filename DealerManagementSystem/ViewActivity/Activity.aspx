@@ -262,6 +262,16 @@
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
+                      <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer</label>
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Employee</label>
+                        <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerEmployee_SelectedIndexChanged" />
+                    </div>
+                </div>
                     <div class="col-md-2 text-left">
                         <label>Activity Type</label>
                         <asp:DropDownList ID="ddlActivityType" runat="server" CssClass="form-control" />
@@ -277,28 +287,7 @@
                     <div class="col-md-2 text-left">
                         <label>Activity Date To</label>
                         <asp:TextBox ID="txtActivityDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                    </div>
-                    <%--<div class="col-md-2 text-left">
-                        <label>Customer Code</label>
-                        <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>--%>
-
-                    <%--<div class="col-md-2 text-left">
-                        <label>Customer Name</label>
-                        <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>--%>
-                    <%--<div class="col-md-2 text-left">
-                        <label>Equipment Serial Number</label>
-                        <asp:TextBox ID="txtEquipment" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>--%>
-                    <%--<div class="col-md-2 text-left">
-                        <label>Reference Type</label>
-                        <asp:DropDownList ID="ddlReferenceType" runat="server" CssClass="form-control" />
-                    </div>--%>
-                    <%--<div class="col-md-2 text-left">
-                        <label>Reference Number</label>
-                        <asp:TextBox ID="txtReferenceNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>--%>
+                    </div> 
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearchActivity" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnAddActivity" runat="server" CssClass="btn Save" Text="Add Activity" OnClick="btnAddActivity_Click" Width="150px"></asp:Button>
