@@ -249,7 +249,6 @@
     <Content Include="Help\Help.aspx" />
     <Content Include="Help\HelpDoc.aspx" />
     <Content Include="Help\UserGuide.aspx" />
-    <Content Include="Help\Files\V1_AJAXOne.mp4" />
     <Content Include="Home.aspx" />
     <Content Include="HomeWithTiles.aspx" />
     <Content Include="Images\apple.png" />
@@ -315,9 +314,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Help\Files\V1_AJAXOne.pdf" />
-    <Content Include="Help\Files\V1_AJAXOne.pps" />
     <Content Include="MapTestM.Master" />
+    <Content Include="Help\Files\Getting Started.pdf" />
+    <Content Include="Help\Files\Getting Started.pps" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="SalesOrderTemp.aspx" />
@@ -2531,6 +2530,8 @@
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
+    <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
   </ItemGroup>
   <ItemGroup>
