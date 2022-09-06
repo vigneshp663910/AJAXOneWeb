@@ -22,25 +22,19 @@ namespace Properties
     {
         public long ActivityID { get; set; }
         public PUser SalesEngineer { get; set; }
+        public PDealer Dealer { get; set; }
         public PActivityType ActivityType { get; set; }
         public DateTime? ActivityStartDate { get; set; }
         public DateTime? ActivityEndDate { get; set; }
         public string Location { get; set; }
-        public PDMS_Customer Customer { get; set; }
-        public PDMS_EquipmentHeader Equipment { get; set; }
         public string Remark { get; set; }
         public decimal? ActivityStartLatitude { get; set; }
         public decimal? ActivityStartLongitude { get; set; }
         public decimal? ActivityEndLatitude { get; set; }
         public decimal? ActivityEndLongitude { get; set; }
         public decimal? Amount { get; set; }
-        public PUser CreatedBy { get; set; }
-        public string DateTime { get; set; }
-        public PUser ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
         public PActivityReferenceType ActivityReference { get; set; }
         public string ReferenceNumber { get; set; }
-        public long? ReferenceNumberID { get; set; }
         public string StartMapImage { get; set; }
         public string EndMapImage { get; set; }
         public string StartLatitudeLongitudeDate { get; set; }

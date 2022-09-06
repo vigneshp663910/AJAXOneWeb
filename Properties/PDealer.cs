@@ -10,7 +10,9 @@ namespace Properties
     public class PDealer
     {
         public int DID { get; set; }
+        public string DealerID { get; set; }
         public string DealerCode { get; set; }
+        public string DealerName { get; set; }
         public string ContactName { get; set; }
         public string DisplayName { get; set; }
         public string CodeWithDisplayName { get; set; }
