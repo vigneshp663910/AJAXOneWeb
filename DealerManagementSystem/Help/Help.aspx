@@ -88,24 +88,24 @@
                 <td align="right">4</td>
                 <td>Activities</td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink4pdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/Employee.pdf">
+                    <asp:HyperLink ID="HyperLink4pdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/Activities.pdf">
                         <asp:Image ID="Image4pdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
                 <td align="center">
                     <%--<asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="https://youtu.be/LUWU2OgrFns"><asp:Image ID="Image7" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink>--%></td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink4pps" runat="server" NavigateUrl="Files/Employee.pps">
+                    <asp:HyperLink ID="HyperLink4pps" runat="server" NavigateUrl="Files/Activities.pps">
                         <asp:Image ID="Image4pps" runat="server" ImageUrl="~/Images/save.png" Width="25px" Height="25px" /></asp:HyperLink></td>
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right">5</td>
                 <td>Project</td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink5pdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/Employee.pdf">
+                    <asp:HyperLink ID="HyperLink5pdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/Project.pdf">
                         <asp:Image ID="Image5pdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
                 <td align="center">
                     <%--<asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="https://youtu.be/LUWU2OgrFns"><asp:Image ID="Image7" runat="server" ImageUrl="~/Images/vplay.png"  width="40px" Height="25px" /></asp:HyperLink>--%></td>
                 <td align="center">
-                    <asp:HyperLink ID="HyperLink5pps" runat="server" NavigateUrl="Files/Employee.pps">
+                    <asp:HyperLink ID="HyperLink5pps" runat="server" NavigateUrl="Files/Project.pps">
                         <asp:Image ID="Image5pps" runat="server" ImageUrl="~/Images/save.png" Width="25px" Height="25px" /></asp:HyperLink></td>
             </tr>
             <tr style="background-color: #FFFFFF">
