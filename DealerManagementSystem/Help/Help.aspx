@@ -132,7 +132,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right"></td>
-                <td>a)Customer Visit</td>
+                <td>a) Customer Visit</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7apdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/PreSales- Customer Visit.pdf">
                         <asp:Image ID="Image7apdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
@@ -144,7 +144,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right"></td>
-                <td>b)Enquiry</td>
+                <td>b) Enquiry</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7bpdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/PreSales-Enquiry.pdf">
                         <asp:Image ID="Image7bpdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
@@ -156,7 +156,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right"></td>
-                <td>c)Lead</td>
+                <td>c) Lead</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7cpdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/PreSales-Lead.pdf">
                         <asp:Image ID="Image7cpdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
@@ -168,7 +168,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right"></td>
-                <td>d)Followup</td>
+                <td>d) Followup</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7dpdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/PreSales-Manage followup.pdf">
                         <asp:Image ID="Image7dpdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
@@ -180,7 +180,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right"></td>
-                <td>e)Quotation</td>
+                <td>e) Quotation</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7epdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/PreSales-Quotation.pdf">
                         <asp:Image ID="Image7epdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
@@ -192,7 +192,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right"></td>
-                <td>f)Report</td>
+                <td>f) Report</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7fpdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/PreSales-Report.pdf">
                         <asp:Image ID="Image7fpdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
