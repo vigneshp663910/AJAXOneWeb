@@ -27,7 +27,7 @@
                 </td>
             </tr>--%>
             <tr>
-                <td colspan="3" id="PageHeading" align="center" class="auto-style1"><b>INDEX
+                <td colspan="5" id="PageHeading" align="center" class="auto-style1"><b>INDEX
                 </b></td>
             </tr>
             <tr align="center" style="color: #FFFFFF">
