@@ -20,12 +20,12 @@ namespace Business
             provider = new ProviderFactory().GetProvider();
         }
 
-        public DataTable GetAttendance(Int64? AttendnaceID, DateTime? AttendanceDateFrom, DateTime? AttendanceDateTo, int? DealerID)
+        public DataTable GetAttendance(Int64? AttendnaceID, DateTime? AttendanceDateFrom, DateTime? AttendanceDateTo, int? DealerID, int? EngineerUserID)
         {
             TraceLogger.Log(DateTime.Now);
             try
             {
-                string endPoint = "Activity/GetAttendance?AttendnaceID=" + AttendnaceID + "&AttendanceDateFrom=" + AttendanceDateFrom + "&AttendanceDateTo=" + AttendanceDateTo + "&DealerID=" + DealerID;
+                string endPoint = "Activity/GetAttendance?AttendnaceID=" + AttendnaceID + "&AttendanceDateFrom=" + AttendanceDateFrom + "&AttendanceDateTo=" + AttendanceDateTo + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID;
                 return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             }
             catch (Exception ex)
