@@ -180,7 +180,7 @@
             </tr>
             <tr style="background-color: #FFFFFF">
                 <td align="right">7</td>
-                <td>Presales Implementation</td>
+                <td>Pre-Sales Implementation</td>
                 <td align="center">
                     <asp:HyperLink ID="HyperLink7pdf" runat="server" NavigateUrl="~/Help/HelpDoc.aspx?aFileName=../Help/Files/Implementation.pdf">
                         <asp:Image ID="Image7pdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" /></asp:HyperLink></td>
