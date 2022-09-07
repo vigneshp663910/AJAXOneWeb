@@ -195,219 +195,363 @@ namespace DealerManagementSystem.Help
         protected global::System.Web.UI.WebControls.Image Image5pps;
 
         /// <summary>
-        /// HyperLink6apdf control.
+        /// HyperLink6pdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6apdf;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink6pdf;
 
         /// <summary>
-        /// Image6apdf control.
+        /// Image6pdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6apdf;
+        protected global::System.Web.UI.WebControls.Image Image6pdf;
 
         /// <summary>
-        /// HyperLink6apps control.
+        /// HyperLink6pps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6apps;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink6pps;
 
         /// <summary>
-        /// Image6apps control.
+        /// Image6pps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6apps;
+        protected global::System.Web.UI.WebControls.Image Image6pps;
 
         /// <summary>
-        /// HyperLink6bpdf control.
+        /// HyperLink7apdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6bpdf;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7apdf;
 
         /// <summary>
-        /// Image6bpdf control.
+        /// Image7apdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6bpdf;
+        protected global::System.Web.UI.WebControls.Image Image7apdf;
 
         /// <summary>
-        /// HyperLink6bpps control.
+        /// HyperLink7apps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6bpps;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7apps;
 
         /// <summary>
-        /// Image6bpps control.
+        /// Image7apps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6bpps;
+        protected global::System.Web.UI.WebControls.Image Image7apps;
 
         /// <summary>
-        /// HyperLink6cpdf control.
+        /// HyperLink7bpdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6cpdf;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7bpdf;
 
         /// <summary>
-        /// Image6cpdf control.
+        /// Image7bpdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6cpdf;
+        protected global::System.Web.UI.WebControls.Image Image7bpdf;
 
         /// <summary>
-        /// HyperLink6cpps control.
+        /// HyperLink7bpps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6cpps;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7bpps;
 
         /// <summary>
-        /// Image6cpps control.
+        /// Image7bpps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6cpps;
+        protected global::System.Web.UI.WebControls.Image Image7bpps;
 
         /// <summary>
-        /// HyperLink6dpdf control.
+        /// HyperLink7cpdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6dpdf;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7cpdf;
 
         /// <summary>
-        /// Image6dpdf control.
+        /// Image7cpdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6dpdf;
+        protected global::System.Web.UI.WebControls.Image Image7cpdf;
 
         /// <summary>
-        /// HyperLink6dpps control.
+        /// HyperLink7cpps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6dpps;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7cpps;
 
         /// <summary>
-        /// Image6dpps control.
+        /// Image7cpps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6dpps;
+        protected global::System.Web.UI.WebControls.Image Image7cpps;
 
         /// <summary>
-        /// HyperLink6epdf control.
+        /// HyperLink7dpdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6epdf;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7dpdf;
 
         /// <summary>
-        /// Image6epdf control.
+        /// Image7dpdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6epdf;
+        protected global::System.Web.UI.WebControls.Image Image7dpdf;
 
         /// <summary>
-        /// HyperLink6epps control.
+        /// HyperLink7dpps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink6epps;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7dpps;
 
         /// <summary>
-        /// Image6epps control.
+        /// Image7dpps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image6epps;
+        protected global::System.Web.UI.WebControls.Image Image7dpps;
 
         /// <summary>
-        /// HyperLink7pdf control.
+        /// HyperLink7epdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink7pdf;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7epdf;
 
         /// <summary>
-        /// Image7pdf control.
+        /// Image7epdf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image7pdf;
+        protected global::System.Web.UI.WebControls.Image Image7epdf;
 
         /// <summary>
-        /// HyperLink7pps control.
+        /// HyperLink7epps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink7pps;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7epps;
 
         /// <summary>
-        /// Image7pps control.
+        /// Image7epps control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image7pps;
+        protected global::System.Web.UI.WebControls.Image Image7epps;
+
+        /// <summary>
+        /// HyperLink7fpdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7fpdf;
+
+        /// <summary>
+        /// Image7fpdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image7fpdf;
+
+        /// <summary>
+        /// HyperLink7fpps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink7fpps;
+
+        /// <summary>
+        /// Image7fpps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image7fpps;
+
+        /// <summary>
+        /// HyperLink8pdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink8pdf;
+
+        /// <summary>
+        /// Image8pdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image8pdf;
+
+        /// <summary>
+        /// HyperLink8pps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink8pps;
+
+        /// <summary>
+        /// Image8pps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image8pps;
+
+        /// <summary>
+        /// HyperLink9pdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink9pdf;
+
+        /// <summary>
+        /// Image9pdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image9pdf;
+
+        /// <summary>
+        /// HyperLink9pps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink9pps;
+
+        /// <summary>
+        /// Image9pps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image9pps;
+
+        /// <summary>
+        /// HyperLink10pdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink10pdf;
+
+        /// <summary>
+        /// Image10pdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image10pdf;
+
+        /// <summary>
+        /// HyperLink10pps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink10pps;
+
+        /// <summary>
+        /// Image10pps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image10pps;
     }
 }
