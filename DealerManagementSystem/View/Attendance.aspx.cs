@@ -80,7 +80,7 @@ namespace DealerManagementSystem.View
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlUser);
 
 
-                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null, null);
+                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
                 if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
                 {

@@ -149,7 +149,7 @@ namespace DealerManagementSystem.ViewSales
                 return;
             }
         
-            // new BDMS_EInvoice().GeneratEInvoiceForSalesCommissionClaimInvoice(Convert.ToInt64(Results.Data));
+              new BDMS_EInvoice().GeneratEInvoiceForSalesCommissionClaimInvoice(Convert.ToInt64(Results.Data));
 
             lblMessage.Text = "Updated Successfully";
             lblMessage.ForeColor = Color.Green;

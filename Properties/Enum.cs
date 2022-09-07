@@ -667,7 +667,10 @@ namespace Properties
     public enum DealerDesignation
     {
         SalesExecutive = 4,
-        ServiceTechnician = 8
+        ServiceTechnician = 8,
+        BusinessSystemManager = 31,
+        BusinessSystemExecutive = 32,
+        BusinessSystemHead = 51
     }
 
    
