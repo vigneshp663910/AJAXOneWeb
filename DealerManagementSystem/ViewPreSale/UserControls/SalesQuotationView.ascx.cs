@@ -1037,8 +1037,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string CustomerName = ((Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName);
-                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "").Replace(" ", "");
+                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1287,8 +1287,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string CustomerName = ((Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName);
-                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&","").Replace(" ","");
+                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1529,8 +1529,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string CustomerName = ((Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName);
-                string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "").Replace(" ", "");
+                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                 string extension;
                 string encoding;
                 string mimeType;
@@ -1841,8 +1841,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
                 Random r = new Random();
-                string CustomerName = ((Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName + Q.Lead.Customer.CustomerName);
-                string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "").Replace(" ", "");
+                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                 string extension;
                 string encoding;
                 string mimeType;
