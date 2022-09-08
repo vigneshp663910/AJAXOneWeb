@@ -43,9 +43,8 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!IsPostBack)
             {
-                
-
                 txtDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 FillFollowUps();
                 ViewState["LeadFollowUpID"] = 0;
             }
@@ -97,11 +96,13 @@ namespace DealerManagementSystem.ViewPreSale
         void FillFollowUps()
         {
             long? LeadID = null;
-            int? SalesEngineerUserID = null;
+            //int? SalesEngineerUserID = null;
             //DateTime? From = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             //DateTime? To = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-            int? DealerID = null;
+            //int? DealerID = null;
             //List<PLeadFollowUp> FollowUp = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? SalesEngineerUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
 
             FU = new BLead().GetLeadFollowUp(LeadID, SalesEngineerUserID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), DealerID, txtCustomer.Text.Trim());
 
@@ -180,6 +181,11 @@ namespace DealerManagementSystem.ViewPreSale
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
         }
     }
 }

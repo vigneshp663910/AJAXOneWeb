@@ -60,27 +60,27 @@ namespace DealerManagementSystem.View
                 txtDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
                 txtDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
-                if (PSession.User.Designation.DealerDesignationID == 4 || PSession.User.Designation.DealerDesignationID == 6 || PSession.User.Designation.DealerDesignationID == 8)
-                {
-                    //PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    //ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    //ddlDealer.Enabled = false;
-                    lblEmployee.Visible = false;
-                    ddlUser.Visible = false;
-                    //ddlDealer.Enabled = false;
+                //if (PSession.User.Designation.DealerDesignationID == 4 || PSession.User.Designation.DealerDesignationID == 6 || PSession.User.Designation.DealerDesignationID == 8)
+                //{
+                //    //PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
+                //    //ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
+                //    //ddlDealer.Enabled = false;
+                //    lblEmployee.Visible = false;
+                //    ddlUser.Visible = false;
+                //    //ddlDealer.Enabled = false;
                     
-                }
-                else
-                {
+                //}
+                //else
+                //{
                    // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                    lblEmployee.Visible = true;
-                    ddlUser.Visible = true;
+                    //lblEmployee.Visible = true;
+                    //ddlUser.Visible = true;
                    // ddlDealer.Enabled = true;
-                }
-                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                //}
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlUser);
 
 
-                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null);
+                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now,null, PSession.User.UserID);
                 btnPunch.Text = "Punch In";
                 if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
                 {
@@ -107,8 +107,12 @@ namespace DealerManagementSystem.View
         protected void FillDealerEmployee()
         {
 
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
 
+            //new DDLBind(ddlUser, DealerUser, "ContactName", "UserID");
+            //new DDLBind().FillDealerAndEngneer(ddlDealer, ddlUser);
+
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlUser, DealerUser, "ContactName", "UserID");
         }
 
@@ -122,7 +126,8 @@ namespace DealerManagementSystem.View
             DateTime DateFrom = Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTime DateTo = Convert.ToDateTime(txtDateTo.Text.Trim());
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?) null : Convert.ToInt32(ddlDealer.SelectedValue);
-            Attendance1 = new BAttendance().GetAttendance(null, DateFrom, DateTo, DealerID);
+            int? EngineerUserID = ddlUser.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUser.SelectedValue);
+            Attendance1 = new BAttendance().GetAttendance(null, DateFrom, DateTo, DealerID, EngineerUserID);
 
             gvAttendance.DataSource = Attendance1;
             gvAttendance.DataBind();
@@ -188,7 +193,7 @@ namespace DealerManagementSystem.View
                 lblMessage.Text = "Attendance punched successfully.";
                 lblMessage.ForeColor = Color.Green;
                 FillAttendance();
-                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now, null);
+                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now, null,null);
                 btnPunch.Text = "Punch In";
                 if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
                 {
@@ -252,11 +257,12 @@ namespace DealerManagementSystem.View
             Dictionary<string, object> row;
 
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? EngineerUserID = ddlUser.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUser.SelectedValue);
 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblAttendanceID = (Label)gvRow.FindControl("lblAttendanceID");
 
-            Attendance1 = new BAttendance().GetAttendance(Convert.ToInt64(lblAttendanceID.Text), null, null, DealerID);
+            Attendance1 = new BAttendance().GetAttendance(Convert.ToInt64(lblAttendanceID.Text), null, null, DealerID, EngineerUserID);
 
             foreach (DataRow dr in Attendance1.Rows)
             {

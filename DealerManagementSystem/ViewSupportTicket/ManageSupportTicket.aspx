@@ -168,17 +168,13 @@
                 </div>
                 <div class="col-md-2 col-sm-6">
                     <asp:Label ID="Label3" runat="server" Text="Ticket From" CssClass="label"></asp:Label>
-                    <asp:TextBox ID="txtTicketFrom" runat="server" CssClass="TextBox form-control"></asp:TextBox>
-                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtTicketFrom" PopupButtonID="txtTicketFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtTicketFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-
+                    <asp:TextBox ID="txtTicketFrom" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
+                   
                 </div>
                 <div class="col-md-2 col-sm-6">
                     <asp:Label ID="Label2" runat="server" Text="Ticket To" CssClass="label"></asp:Label>
-                    <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox form-control"></asp:TextBox>
-                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTicketTo" PopupButtonID="txtTicketTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtTicketTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                </div>
+                    <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
+                      </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="btnSave" runat="server" Text="Search" CssClass="InputButton btn Save" OnClick="btnSave_Click" />
                     <asp:Button ID="btnExcel" runat="server" Text="Excel" CssClass="InputButton btn Save" OnClick="btnExcel_Click" />
@@ -267,7 +263,7 @@
                                 <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="">
+                        <asp:TemplateField HeaderText="Close">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="InputButton btn Save" Width="80px" Height="30px" OnClick="btnClose_Click" />

@@ -63,39 +63,28 @@ namespace DealerManagementSystem.ViewSupportTicket
                     TicketStatus = TicketStatus + "," + li.Text;
                 }
             }
-            string usreID = PSession.User.UserName;
+            PUser User = PSession.User;
 
             //  gvTickets.DataSource = new BTickets().GetManageTickets(TicketNO, TicketStatus, TicketCategoryID, TicketSubCategoryID, TicketType, CreatedBy, DepartmentID, AssignedTo, usreID);
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
-            {
+            //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
+            //{ 
+            TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
 
-                if (PSession.User.UserName.Contains("IT."))
-                {
-                    TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, null, TicketStatus);
-                }
-                else
-                {
-                    TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
-                    gvTickets.Columns[10].Visible = true;
-                    gvTickets.Columns[11].Visible = false;
-                }
-            }
-            else if (PSession.User.SystemCategoryID == (short)SystemCategory.Support)
+            // if (PSession.User.UserName.Contains("IT."))
+            if ((User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemHead) || (User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemManager))
             {
-                if (PSession.User.UserTypeID == (short)UserTypes.Manager || PSession.User.UserTypeID == (short)UserTypes.Admin)
-                {
-                    TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
-                    gvTickets.Columns[10].Visible = false;
-                    gvTickets.Columns[11].Visible = true;
-                }
-                else if (PSession.User.UserTypeID == (short)UserTypes.Associate)
-                {
-                    TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, PSession.User.UserID, null, TicketStatus);
-                    gvTickets.Columns[10].Visible = false;
-                    gvTickets.Columns[11].Visible = false;
-                }
+                // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, null, TicketStatus);
+                gvTickets.Columns[10].Visible = true;
             }
+            else
+            {
+                // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
+                gvTickets.Columns[10].Visible = false;
+                gvTickets.Columns[11].Visible = false;
+            }
+            // }
+
             gvTickets.DataSource = TicketHeader;
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
@@ -187,7 +176,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null)[0];
 
-            new BTickets().UpdateTicketClosedStatus(H.HeaderID);
+            new BTickets().UpdateTicketClosedStatus(H.HeaderID, PSession.User.UserID);
 
             FillTickets();
             lblMessage.Text = "Ticket is  successfully updated.";

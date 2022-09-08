@@ -88,9 +88,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int? TicketType = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-             
 
-              gvTickets.DataSource = new BTickets().GetTicketToClose(null, TicketCategoryID, TicketSubCategoryID, TicketType, PSession.User.UserID, null);
+
+            gvTickets.DataSource = new BTickets().GetTicketToClose(null, TicketCategoryID, TicketSubCategoryID, TicketType, PSession.User.UserID, null);
             gvTickets.DataBind();
         }
 
@@ -123,7 +123,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null)[0];
 
-            new BTickets().UpdateTicketClosedStatus(H.HeaderID);
+            new BTickets().UpdateTicketClosedStatus(H.HeaderID,PSession.User.UserID);
 
             FillTickets();
             lblMessage.Text = "Ticket is  successfully updated.";

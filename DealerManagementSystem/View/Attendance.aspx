@@ -55,13 +55,22 @@
             <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
             <div class="col-md-12">
 
-                <div class="col-md-2 col-sm-12">
+                <%--<div class="col-md-2 col-sm-12">
                     <label class="modal-label">Dealer</label>
                     <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
-                </div>
-                <div class="col-md-2 col-sm-12">
+                </div>--%>
+                <%--<div class="col-md-2 col-sm-12">
                     <label class="modal-label">Dealer Employee</label>
                     <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
+                </div>--%>
+                <div class="col-md-2 text-left">
+                    <label>Dealer</label>
+                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
+                </div>
+
+                <div class="col-md-2 text-left">
+                    <label runat="server" id="lblEmployee">Dealer Employee</label>
+                    <asp:DropDownList ID="ddlUser" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-2 text-left">
                     <label>Date From</label>
@@ -71,15 +80,7 @@
                     <label>Date To</label>
                     <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                 </div>
-                <div class="col-md-2 text-left">
-                    <label>Dealer</label>
-                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
-                </div>
-
-                <div class="col-md-2 text-left">
-                    <label runat="server" id="lblEmployee">Employee</label>
-                    <asp:DropDownList ID="ddlUser" runat="server" CssClass="form-control" />
-                </div>
+                
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                     <asp:Button ID="btnPunch" runat="server" CssClass="btn Save" Text="Punch" OnClick="btnPunch_Click" Width="150px"></asp:Button>
@@ -126,13 +127,13 @@
                             <asp:TemplateField HeaderText="Contact Name">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                    <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
+                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Department">

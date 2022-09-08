@@ -1442,11 +1442,12 @@ namespace Business
             }
             return FileTypeID;
         }
-        public int UpdateTicketClosedStatus(int HeaderID)
+        public int UpdateTicketClosedStatus(int HeaderID,int UserID)
         {
             DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             int success = 0;
-            DbParameter[] TicketTypeParams = new DbParameter[1] { HeaderIDP };
+            DbParameter[] TicketTypeParams = new DbParameter[2] { HeaderIDP, UserIDP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
