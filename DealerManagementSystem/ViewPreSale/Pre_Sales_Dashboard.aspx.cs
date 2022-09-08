@@ -206,7 +206,7 @@ namespace DealerManagementSystem.ViewPreSale
                     CancelFunnel = ss[0].Count;
                 }
             }
-            lblNewlyCreatedF.InnerText = "Newly Created: " + (AssignedFunnel + QuotationFunnel + WonFunnel + LostFunnel + CancelFunnel).ToString();
+            lblNewlyCreatedF.InnerText = "Lead : " + (AssignedFunnel + QuotationFunnel + WonFunnel + LostFunnel + CancelFunnel).ToString();
             lblConvertToProspectF.InnerText = (QuotationFunnel + WonFunnel).ToString();
             lblWonF.InnerText = "Won: " + WonFunnel.ToString();
         }
