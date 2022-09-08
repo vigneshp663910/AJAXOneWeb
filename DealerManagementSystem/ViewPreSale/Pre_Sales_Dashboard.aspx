@@ -307,8 +307,7 @@
     <body>
         <div class="lead-static">
             <div class="TimeAction">
-                <%--  <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                    
+                <%--  <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">             
                     <asp:RadioButton ID="rbEnquiryToday" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" />
                     <span>Today</span>
                 </label>
@@ -327,26 +326,7 @@
                     <asp:RadioButton ID="rbEnquiryYear" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
                     <span>Year</span>
                 </label> --%>
-                <label class="container">
-                    Today
-                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">
-                    Week
-                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">
-                    Month
-                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true"  Checked="true"  />
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">
-                    Year
-                   <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                    <span class="checkmark"></span>
-                </label>
+                
 
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
@@ -356,6 +336,31 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Employee</label>
                         <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerEmployee_SelectedIndexChanged" />
+                    </div>
+
+                    <div class="col-md-5 col-sm-12">
+                        <label class="modal-label">Period</label>
+
+                        <label class="container">
+                            Today
+                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                            Week
+                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                            Month
+                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                            Year
+                   <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                 </div>
             </div>
