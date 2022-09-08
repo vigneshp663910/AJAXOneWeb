@@ -293,7 +293,7 @@
                 }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" >
 
     <!DOCTYPE html>
     <html>
@@ -303,7 +303,7 @@
     </head>
 
 
-    <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
+    <%--<asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
     <body>
         <div class="lead-static">
             <div class="TimeAction">
@@ -577,7 +577,7 @@
                     <%--<div id="chartdiv"></div>--%>
                     <div id="funnel-container" style="display: none"></div>
                     <div class="funnel-chart">
-                        <svg width="350" height="300">
+                        <svg width="450" height="400">
                             <defs></defs>
                             <g cursor="default" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="12px" font-weight="400">
                                 <g cursor="default">
@@ -613,10 +613,15 @@
                                                     <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblNewlyCreatedF">Newly Created: 0</text>
                                                 </g>
                                             </g>
+
+
                                         </g>
                                     </g>
                                 </g>
-                            </g></svg>
+                            </g>
+
+                            <path d="M120 290 L133 380 L217 380 L230 290  Z"/> 
+                        </svg>
                     </div>
 
 
