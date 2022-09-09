@@ -148,6 +148,7 @@ namespace DealerManagementSystem.ViewPreSale
             lblEnquiryOpen.Text = "0";
             lblEnquiryConvertedToLead.Text = "0";
             lblEnquiryRejected.Text = "0";
+            int TotalEnq = 0;
             List <PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, EngineerUserID);
             if (StatusEnq != null)
             {
@@ -155,17 +156,20 @@ namespace DealerManagementSystem.ViewPreSale
                 {
                     var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
                     lblEnquiryOpen.Text = ss[0].Count.ToString();
+                    TotalEnq = ss[0].Count;
                 }
 
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
                 {
                     var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
                     lblEnquiryConvertedToLead.Text = ss[0].Count.ToString();
+                    TotalEnq = TotalEnq+ss[0].Count;
                 }
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).Count() != 0))
                 {
                     var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Rejected).ToList();
                     lblEnquiryRejected.Text = ss[0].Count.ToString();
+                    TotalEnq = TotalEnq + ss[0].Count;
                 }
             }
 
@@ -206,8 +210,10 @@ namespace DealerManagementSystem.ViewPreSale
                     CancelFunnel = ss[0].Count;
                 }
             }
-            lblNewlyCreatedF.InnerText = "Newly Created: " + (AssignedFunnel + QuotationFunnel + WonFunnel + LostFunnel + CancelFunnel).ToString();
-            lblConvertToProspectF.InnerText = (QuotationFunnel + WonFunnel).ToString();
+
+            lblNewlyCreatedF.InnerText = "Enquiry Created : " + TotalEnq.ToString();
+            lblConvertToProspectF.InnerText = "Enquiry To Lead : " + (AssignedFunnel + QuotationFunnel + WonFunnel + LostFunnel + CancelFunnel).ToString();
+            lblQuotationF.InnerText = (QuotationFunnel + WonFunnel).ToString();
             lblWonF.InnerText = "Won: " + WonFunnel.ToString();
         }
 

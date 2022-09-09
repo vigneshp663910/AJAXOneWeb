@@ -303,12 +303,11 @@
     </head>
 
 
-    <%--    <asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
+    <%--<asp:ScriptManager ID="ScriptManager1" runat="server" /> </asp:ScriptManager>--%>
     <body>
         <div class="lead-static">
             <div class="TimeAction">
-                <%--  <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">
-                    
+                <%--  <label class="btn red btn-outline btn-circle btn-sm" style="padding: 2px 5px 2px 5px; font-size: 11px;">             
                     <asp:RadioButton ID="rbEnquiryToday" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" Checked="true" />
                     <span>Today</span>
                 </label>
@@ -327,26 +326,7 @@
                     <asp:RadioButton ID="rbEnquiryYear" runat="server" GroupName="E" OnCheckedChanged="rbStatusE_CheckedChanged" AutoPostBack="true" />
                     <span>Year</span>
                 </label> --%>
-                <label class="container">
-                    Today
-                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">
-                    Week
-                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">
-                    Month
-                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true"  Checked="true"  />
-                    <span class="checkmark"></span>
-                </label>
-                <label class="container">
-                    Year
-                   <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                    <span class="checkmark"></span>
-                </label>
+
 
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
@@ -356,6 +336,31 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Employee</label>
                         <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerEmployee_SelectedIndexChanged" />
+                    </div>
+
+                    <div class="col-md-5 col-sm-12">
+                        <label class="modal-label">Period</label>
+
+                        <label class="container">
+                            Today
+                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                            Week
+                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                            Month
+                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="container">
+                            Year
+                   <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -572,17 +577,14 @@
                     <%--<div id="chartdiv"></div>--%>
                     <div id="funnel-container" style="display: none"></div>
                     <div class="funnel-chart">
-                        <svg width="350" height="300">
+                        <svg width="450" height="400">
                             <defs></defs>
                             <g cursor="default" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="12px" font-weight="400">
                                 <g cursor="default">
                                     <g>
-                                        <rect width="350" height="300" fill="rgba(0,0,0,0)"></rect>
+                                        <rect width="450" height="400" fill="rgba(100,100,100,0)"></rect>
                                         <g transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,341,8)">
-
-
-
-                                            <g>
+                                            <%--<g>
                                                 <path d="M174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,236.87035240905414A483.16965914395865,593.7128277905049,0,0,1,284,221.33333333333326A3.786666666666663,55.333333333333286,0,0,0,284,110.66666666666669A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,95.12964759094581" fill="rgb(104, 193, 130)" stroke="#FFFFFF"></path>
                                                 <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,232.88061079530988,165.99999999999997)" pointer-events="none">
                                                     <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblWonF">Won: 0</text>
@@ -593,7 +595,7 @@
                                             <g role="img" aria-label="Convert To Prospect; Value: 2">
                                                 <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(50 197 210)" stroke="#FFFFFF"></path>
                                                 <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,123.08669335814801,165.99999999999997)" pointer-events="none">
-                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"> Convert To Quotation:</text>
+                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle"> Quotation :</text>
 
                                                 </g>
                                                 <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,145.08669335814801,165.99999999999997)" pointer-events="none">
@@ -607,14 +609,51 @@
                                                 <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,41.92689374965195,165.99999999999997)" pointer-events="none">
                                                     <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblNewlyCreatedF">Newly Created: 0</text>
                                                 </g>
+                                            </g>--%>
+
+                                            <g>
+                                                <path d="M174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,236.87035240905414A483.16965914395865,593.7128277905049,0,0,1,284,221.33333333333326A3.786666666666663,55.333333333333286,0,0,0,284,110.66666666666669A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,95.12964759094581" fill="rgb(50 197 210)" stroke="#FFFFFF"></path>
+                                                <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,222.88061079530988,165.99999999999997)" pointer-events="none">
+                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="T1">Lead To Quote :</text>
+                                                </g>
+                                                <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,252.88061079530988,165.99999999999997)" pointer-events="none">
+                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblQuotationF"></text>
+                                                </g>
+                                            </g>
+                                           
+
+                                             <g role="img" aria-label="Convert To Prospect; Value: 2">
+                                                <path d="M62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,287.531735203591A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,44.46826479640896" fill="rgb(135, 117, 167)" stroke="#FFFFFF"></path>
+                                                <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,123.08669335814801,165.99999999999997)" pointer-events="none">
+                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblConvertToProspectF">Enquiry To Lead : 1000</text>
+
+                                                </g>
+                                                <%--<g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,145.08669335814801,165.99999999999997)" pointer-events="none">
+                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblConvertToProspectF1">0</text>
+                                                </g>--%>
+                                            </g>
+
+                                             <g role="img" aria-label="Newly Created; Value: 16" id="_dvtActiveElement180589916">
+                                                <path d="M4.934393756608301,330.37507614415694A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,1.624923855843008A11.248800391551946,164.37507614415696,0,0,0,4.934393756608301,330.37507614415694A483.16965914395865,593.7128277905049,0,0,1,62.285652635312545,287.531735203591A8.316870553691528,121.53173520359101,0,0,0,62.285652635312545,44.46826479640896A483.16965914395865,593.7128277905049,0,0,1,4.934393756608301,1.624923855843008" fill="rgb(85,107,47)" stroke="#FFFFFF"></path>
+                                                <g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,41.92689374965195,165.99999999999997)" pointer-events="none">
+                                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(255, 255, 255)" text-anchor="middle" runat="server" id="lblNewlyCreatedF">Enquiry Created: 0</text>
+                                                </g> 
+                                                 
                                             </g>
                                         </g>
                                     </g>
+
                                 </g>
-                            </g></svg>
+                            </g>
+                            <g role="img" aria-label="Won; Value: 1" id="_dvtActiveElement180589916k">
+                                <path d="M120 290 L133 380 L217 380 L230 290  Z" fill="rgb(104, 193, 130)" stroke="#FFFFFF"></path>
+                                <%--<g transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,41.92689374965195,165.99999999999997)" pointer-events="none">
+                                    <text dominant-baseline="middle" class="chart-label" fill="rgb(0, 0, 0)" text-anchor="middle" runat="server" id="Text1">Won: 0</text>--%>
+                                    <text x="150" y="340" fill="white" runat="server" id="lblWonF">Won: 0</text>
+                                </g>
+                            </g>
+                        </svg>
                     </div>
-
-
                 </div>
             </div>
             <br />
