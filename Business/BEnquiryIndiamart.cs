@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,13 +24,15 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public DataTable GetEnquiryIndiamart(DateTime? DateFrom, DateTime? DateTo)
+        public DataTable GetEnquiryIndiamart(DateTime? DateFrom, DateTime? DateTo, int? PreSaleStatusID)
         {
             DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
             DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
+            DbParameter PreSaleStatusIDP = provider.CreateParameter("PreSaleStatusID", PreSaleStatusID, DbType.Int32);
+
             try
             {
-                using (DataSet DS = provider.Select("GetEnquiryIndiamart", new DbParameter[2] { DateFromP, DateToP }))
+                using (DataSet DS = provider.Select("GetEnquiryIndiamart", new DbParameter[3] { DateFromP, DateToP, PreSaleStatusIDP }))
                 {
                     if (DS != null)
                     {
@@ -94,6 +97,40 @@ namespace Business
             return true;
         }
 
+        public Boolean UpdateEnquiryIndiamartStatus(string QUERY_ID, int PreSaleStatusID, int RejectedBy, string RejectedReason)
+        {
+            try
+            {
+
+                provider = new ProviderFactory().GetProvider();
+
+                List<PEnquiryIndiamart> Enquirys = new List<PEnquiryIndiamart>();
+
+                //JavaScriptSerializer ser = new JavaScriptSerializer();
+                //Enquirys = ser.Deserialize<List<PEnquiryIndiamart>>(ApiGet());
+
+                //foreach (PEnquiryIndiamart Enquiry in Enquirys)
+                //{
+                    DbParameter QUERY_IDP = provider.CreateParameter("QUERY_ID", QUERY_ID, DbType.String);
+                    DbParameter PreSaleStatusIDP = provider.CreateParameter("PreSaleStatusID", PreSaleStatusID, DbType.Int32);
+                    DbParameter RejectedByP = provider.CreateParameter("UserID", RejectedBy, DbType.Int32);
+                    DbParameter RejectedReasonP = provider.CreateParameter("RejectedReason", RejectedReason, DbType.String);
+                     
+                    DbParameter[] Params = new DbParameter[4] { QUERY_IDP, PreSaleStatusIDP, RejectedByP, RejectedReasonP };
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                    {
+                        provider.Insert("UpdateEnquiryIndiamartStatus", Params);
+                        scope.Complete();
+                    }
+                //}
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public String ApiGet()
         {
             //string Start_Time = "Start_Time/21-JAN-2022/";
@@ -149,8 +186,10 @@ namespace Business
         public string EMAIL_ALT { get; set; }
         public string MOBILE_ALT { get; set; }
         public string TOTAL_COUNT { get; set; }
-
-
+        public int PreSaleStatusID { get; set; }
+        public PUser RejectedBy { get; set; }
+        public DateTime RejectedOn { get; set; }
+        public string RejectedReason { get; set; }
 
     }
 }

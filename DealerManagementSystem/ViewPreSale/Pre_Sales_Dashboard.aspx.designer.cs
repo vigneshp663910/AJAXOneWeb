@@ -15,6 +15,24 @@ namespace DealerManagementSystem.ViewPreSale
     {
 
         /// <summary>
+        /// ddlDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+
+        /// <summary>
+        /// ddlDealerEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerEmployee;
+
+        /// <summary>
         /// rbToday control.
         /// </summary>
         /// <remarks>
@@ -49,24 +67,6 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbYear;
-
-        /// <summary>
-        /// ddlDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
-
-        /// <summary>
-        /// ddlDealerEmployee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerEmployee;
 
         /// <summary>
         /// lblEnquiryOpen control.
@@ -231,13 +231,22 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.LinkButton lbtnCancelled;
 
         /// <summary>
-        /// lblWonF control.
+        /// T1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblWonF;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl T1;
+
+        /// <summary>
+        /// lblQuotationF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblQuotationF;
 
         /// <summary>
         /// lblConvertToProspectF control.
@@ -256,5 +265,14 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNewlyCreatedF;
+
+        /// <summary>
+        /// lblWonF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblWonF;
     }
 }
