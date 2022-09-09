@@ -245,7 +245,7 @@ namespace DealerManagementSystem.ViewService
                 lblMessage.Text = "Invoice number -" + ClaimInvoice.InvoiceNumber + " generated successfully - Select 'Final invoice report' to print above 50K invoice";
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
                 {
-                    new BDMS_EInvoice().GeneratEInvoice(ClaimInvoice.InvoiceNumber);
+                 // john   new BDMS_EInvoice().GeneratEInvoice(ClaimInvoice.InvoiceNumber);
                 }
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;

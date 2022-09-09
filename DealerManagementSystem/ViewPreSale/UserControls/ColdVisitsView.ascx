@@ -39,8 +39,8 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>
+               <%-- <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnStatusChangeToClose" runat="server" OnClick="lbActions_Click">Status Change to Close</asp:LinkButton>
                 <asp:LinkButton ID="lbtnStatusChangeToCancel" runat="server" OnClick="lbActions_Click">Status Change to Cancel</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddActivity" runat="server" OnClick="lbActions_Click">Add Activity</asp:LinkButton>
@@ -384,8 +384,7 @@
         </ContentTemplate>
     </asp1:TabPanel>--%>
 
-    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="TabPanel1">
-    </asp1:TabPanel>
+     
 
 </asp1:TabContainer>
 

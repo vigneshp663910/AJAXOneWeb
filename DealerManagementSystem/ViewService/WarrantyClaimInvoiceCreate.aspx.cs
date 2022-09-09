@@ -383,7 +383,7 @@ namespace DealerManagementSystem.ViewService
                 lblMessage.Text = "Invoice number -" + ClaimInvoice.InvoiceNumber + " generated successfully";
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
                 {
-                    new BDMS_EInvoice().GeneratEInvoice(ClaimInvoice.InvoiceNumber);
+                    //  john new BDMS_EInvoice().GeneratEInvoice(ClaimInvoice.InvoiceNumber);
                 }
                 lblMessage.ForeColor = Color.Green;
                 btnGenerateInvoice.Visible = false;

@@ -24,31 +24,22 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// imageID control.
+        /// divList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imageID;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// pnlFilterContent control.
+        /// Fieldset2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFilterContent;
-
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
 
         /// <summary>
         /// ddlDealerCode control.
@@ -60,15 +51,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
 
         /// <summary>
-        /// Label5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-
-        /// <summary>
         /// txtCustomerCode control.
         /// </summary>
         /// <remarks>
@@ -78,15 +60,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
 
         /// <summary>
-        /// lblPlant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlant;
-
-        /// <summary>
         /// txtInvoiceNumber control.
         /// </summary>
         /// <remarks>
@@ -94,15 +67,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtInvoiceNumber;
-
-        /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
         /// txtInvoiceDateFrom control.
@@ -130,15 +94,6 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
-
-        /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
 
         /// <summary>
         /// txtInvoiceDateTo control.
@@ -195,30 +150,30 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblRowCount;
 
         /// <summary>
-        /// ibtnArrowLeft control.
+        /// gvPayInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeft;
+        protected global::System.Web.UI.WebControls.GridView gvPayInvoice;
 
         /// <summary>
-        /// ibtnArrowRight control.
+        /// lblMarketingInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+        protected global::System.Web.UI.WebControls.Label lblMarketingInvoice;
 
         /// <summary>
-        /// gvClaimInvoice control.
+        /// gvMarketingInv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvClaimInvoice;
+        protected global::System.Web.UI.WebControls.GridView gvMarketingInv;
     }
 }

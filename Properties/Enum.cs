@@ -673,5 +673,15 @@ namespace Properties
         BusinessSystemHead = 51
     }
 
-   
+    public enum SalesQuotationStatus
+    {
+        Quotation = 1,
+        SaleOrder,
+        Delivery,
+        Invoice,
+        Lost,
+        ConvertedToOtherProduct,
+        Closed
+
+    }
 }

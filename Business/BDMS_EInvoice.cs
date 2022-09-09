@@ -85,304 +85,29 @@ namespace Business
         }
 
 
-        public List<PDMS_EInvoice> GetInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
+        public List<PEInvoice> GetInvoiceForRequestEInvoice_New(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
         {
-            List<PDMS_EInvoice> EInvoiceS = new List<PDMS_EInvoice>();
-            PDMS_EInvoice EInvoice = new PDMS_EInvoice();
-            int TOTALLINEITEMS = 0;
-            List<PDMS_PaidServiceInvoice> PaidServiceInvoice = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-            int i = 0;
-            foreach (PDMS_PaidServiceInvoice Pinv in PaidServiceInvoice)
-            {
-                i = i + 1;
-                EInvoice = new PDMS_EInvoice()
-                {
-                    EInvoiceID = i,
-                    Tax_Scheme = "GST",
-                    DocumentCategory = "B2B",
-                    DocumentType = "INV",
-                    BillingDocument = Pinv.InvoiceNumber,
-                    InvoiceDate = Pinv.InvoiceDate,
-
-
-                    SupplierCode = Pinv.ICTicket.Dealer.DealerCode,
-                    SupplierGSTIN = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
-                    SupplierTrade_Name = Pinv.ICTicket.Dealer.DealerName,
-                    Supplier_addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
-                    SupplierLocation = Pinv.InvoiceDetails.SupplierLocation.Trim(),
-                    SupplierPincode = Pinv.InvoiceDetails.SupplierPincode.Trim(),
-                    SupplierStateCode = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
-
-                    // BuyerCode = Pinv.ICTicket.Customer.CustomerCode,
-                    BuyerGSTIN = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
-                    BuyerName = Pinv.InvoiceDetails.BuyerName.Trim(),
-                    BuyerStateCode = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
-                    Buyer_addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
-                    Buyer_loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
-                    BuyerPincode = Pinv.InvoiceDetails.BuyerPincode.Trim(),
-
-                    EInvoiceFTPPath = Pinv.ICTicket.Dealer.EInvoiceFTPPath,
-                    EInvoiceFTPUserID = Pinv.ICTicket.Dealer.EInvoiceFTPUserID,
-                    EInvoiceFTPPassword = Pinv.ICTicket.Dealer.EInvoiceFTPPassword,
-
-                    //public string IRN { get; set; }
-                    //public string ReasonForCancellation { get; set; }
-                    //public string CancellationComment { get; set; }
-                    Type = "U",
-                    FileSubName = "PAY",
-                    EInvoiceItems = new List<PDMS_EInvoiceItem>()
-                };
-                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
-                    AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
-                TOTALLINEITEMS = 0;
-                foreach (PDMS_PaidServiceInvoiceItem Pinvi in Pinv.InvoiceItems)
-                {
-                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
-
-                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
-                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
-                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
-                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
-                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
-                    AccumulatedCesVal = AccumulatedCesVal + Pinvi.CessValue;
-                    //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
-                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
-                    EInvoice.EInvoiceItems.Add(new PDMS_EInvoiceItem()
-                    {
-
-                        SlNo = Convert.ToString(TOTALLINEITEMS),
-                        InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
-                        BillingDocument = Pinv.InvoiceNumber,
-
-                        PrdDesc = Pinvi.Material.MaterialDescription,
-                        IsServc = "Y",
-                        HSNCode = Pinvi.Material.HSN,
-                        Quantity = (decimal)Pinvi.Qty,
-                        UnitOfMeasure = "NOS",//Pinvi.Material.BaseUnit,
-                        UnitPrice = (decimal)Pinvi.Rate,
-                        TotalAmount = Pinvi.TaxableValue,
-                        AssesseebleAmount = Pinvi.TaxableValue,
-                        TaxRate = Convert.ToString(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
-                        SGSTAmount = Pinvi.SGSTValue,
-                        IGSTAmount = Pinvi.IGSTValue,
-                        CGSTAmount = Pinvi.CGSTValue,
-                        // CESSRate = "",
-                        CESSAmount = Pinvi.CessValue,
-                        TotalItemValue = Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + Pinvi.CessValue
-
-                    });
-                }
-
-                EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
-                EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
-                EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount);
-                EInvoice.AccumulatedSgstVal = Convert.ToString(AccumulatedSgstVal);
-                EInvoice.AccumulatedIgstVal = Convert.ToString(AccumulatedIgstVal);
-                EInvoice.AccumulatedCgstVal = Convert.ToString(AccumulatedCgstVal);
-                EInvoice.AccumulatedCesVal = Convert.ToString(AccumulatedCesVal);
-                //  EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges);
-                EInvoice.AccumulatedTotItemVal = Convert.ToString(AccumulatedTotItemVal);
-
-                EInvoiceS.Add(EInvoice);
-            }
-
+            List<PEInvoice> EInvoiceS = new List<PEInvoice>();
+            PEInvoice EInvoice = new PEInvoice();  
             List<PDMS_WarrantyClaimInvoice> WarrantyClaimInvoice = getWarrantyClaimInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-            foreach (PDMS_WarrantyClaimInvoice Pinv in WarrantyClaimInvoice)
-            {
-                i = i + 1;
-                EInvoice = new PDMS_EInvoice()
-                {
-                    EInvoiceID = i,
-                    Tax_Scheme = "GST",
-                    DocumentCategory = "B2B",
-                    DocumentType = "INV",
-                    BillingDocument = Pinv.InvoiceNumber,
-                    // InvoiceDate = Pinv.InvoiceDate.ToShortDateString(),
-                    InvoiceDate = Pinv.InvoiceDate,
-
-                    SupplierCode = Pinv.Dealer.DealerCode,
-                    SupplierGSTIN = Pinv.InvoiceDetails.SupplierGSTIN,
-                    SupplierTrade_Name = Pinv.Dealer.DealerName,
-                    Supplier_addr1 = Pinv.InvoiceDetails.Supplier_addr1,
-                    SupplierLocation = Pinv.InvoiceDetails.SupplierLocation,
-                    SupplierPincode = Pinv.InvoiceDetails.SupplierPincode,
-                    SupplierStateCode = Pinv.InvoiceDetails.SupplierStateCode,
-
-                    //BuyerCode = Pinv.InvoiceDetails.BuyerCode,
-
-                    BuyerGSTIN = Pinv.InvoiceDetails.BuyerGSTIN,
-                    BuyerName = Pinv.InvoiceDetails.BuyerName,
-                    BuyerStateCode = Pinv.InvoiceDetails.BuyerStateCode,
-                    Buyer_addr1 = Pinv.InvoiceDetails.Buyer_addr1,
-                    Buyer_loc = Pinv.InvoiceDetails.Buyer_loc,
-                    BuyerPincode = Pinv.InvoiceDetails.BuyerPincode,
-
-                    EInvoiceFTPPath = Pinv.Dealer.EInvoiceFTPPath,
-                    EInvoiceFTPUserID = Pinv.Dealer.EInvoiceFTPUserID,
-                    EInvoiceFTPPassword = Pinv.Dealer.EInvoiceFTPPassword,
-
-                    Type = "U",
-                    FileSubName = "WARR",
-
-                    EInvoiceItems = new List<PDMS_EInvoiceItem>()
-
-                };
-                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
-                    AccumulatedCesVal = 0, AccumulatedTotItemVal = 0;
-                TOTALLINEITEMS = 0;
-                foreach (PDMS_WarrantyClaimInvoiceItem Pinvi in Pinv.InvoiceItems)
-                {
-                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
-                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
-                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
-                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
-                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
-                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
-                    AccumulatedCesVal = AccumulatedCesVal + 0;
-
-                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
-
-                    decimal OtherCharges = Pinvi.HSNCode == "998719" ? 0 : Convert.ToDecimal(Pinv.TCSValue) / Convert.ToDecimal(Pinv.TempTcsMatCount);
-                    EInvoice.EInvoiceItems.Add(new PDMS_EInvoiceItem()
-                    {
-
-                        SlNo = Convert.ToString(TOTALLINEITEMS),
-                        InvoiceItemID = Pinvi.WarrantyClaimInvoiceItemID,
-                        BillingDocument = Pinv.InvoiceNumber,
-
-                        PrdDesc = Pinvi.MaterialDesc,
-                        IsServc = Pinvi.HSNCode == "998719" ? "Y" : "N",
-                        HSNCode = Pinvi.HSNCode,
-                        Quantity = (decimal)Pinvi.Qty,
-                        UnitOfMeasure = Pinvi.UOM,
-                        UnitPrice = (decimal)Pinvi.Rate,
-                        TotalAmount = Pinvi.TaxableValue,
-                        AssesseebleAmount = Pinvi.TaxableValue,
-                        TaxRate = String.Format("{0:.#####}", Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
-                        SGSTAmount = Pinvi.SGSTValue,
-                        IGSTAmount = Pinvi.IGSTValue,
-                        CGSTAmount = Pinvi.CGSTValue,
-                        // CESSRate = "",
-                        // CESSAmount = ""
-                        CESSAmount = 0,
-                        //   OtherCharges = Pinvi.HSNCode == "998719" ? "0" : String.Format("{0:.#####}", Convert.ToDecimal(Pinv.TCSValue) / Convert.ToDecimal(Pinv.TempTcsMatCount)),
-                        OtherCharges = OtherCharges,
-                        TotalItemValue = Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + OtherCharges
-                    });
-
-
-
-                    EInvoice.TOTALLINEITEMS = String.Format("{0:.#####}", TOTALLINEITEMS);
-                    EInvoice.AccumulatedTotalAmount = String.Format("{0:.#####}", AccumulatedTotalAmount);
-                    EInvoice.AccumulatedAssTotalAmount = String.Format("{0:.#####}", AccumulatedAssTotalAmount);
-                    EInvoice.AccumulatedSgstVal = String.Format("{0:.#####}", AccumulatedSgstVal);
-                    EInvoice.AccumulatedIgstVal = String.Format("{0:.#####}", AccumulatedIgstVal);
-                    EInvoice.AccumulatedCgstVal = String.Format("{0:.#####}", AccumulatedCgstVal);
-                    EInvoice.AccumulatedCesVal = String.Format("{0:.#####}", AccumulatedCesVal);
-                    EInvoice.AccumulatedOtherCharges = String.Format("{0:.#####}", Pinv.TCSValue);
-                    EInvoice.AccumulatedTotItemVal = String.Format("{0:.#####}", AccumulatedTotItemVal + Pinv.TCSValue);
-                }
-                EInvoiceS.Add(EInvoice);
-            }
-
-
+             
             List<PDMS_WarrantyClaimInvoice> ActivityInvoice = getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-            foreach (PDMS_WarrantyClaimInvoice Pinv in ActivityInvoice)
+
+            List<PSalesCommissionClaimInvoice> SalesCInv = GetSalesCommissionClaimInvoiceForRequestEInvoice(null, InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+            foreach (PSalesCommissionClaimInvoice Pinv in SalesCInv)
             {
-                i = i + 1;
-                EInvoice = new PDMS_EInvoice()
-                {
-                    EInvoiceID = i,
-                    Tax_Scheme = "GST",
-                    DocumentCategory = "B2B",
-                    DocumentType = "INV",
-                    BillingDocument = Pinv.InvoiceNumber,
-                    // InvoiceDate = Pinv.InvoiceDate.ToShortDateString(),
-                    InvoiceDate = Pinv.InvoiceDate,
+                EInvoiceS.Add(ConvertSalesCommissionClaimInvoice(Pinv));
+            }
+            return EInvoiceS;
+        }
 
-                    SupplierCode = Pinv.Dealer.DealerCode,
-                    SupplierGSTIN = Pinv.InvoiceDetails.SupplierGSTIN,
-                    SupplierTrade_Name = Pinv.Dealer.DealerName,
-                    Supplier_addr1 = Pinv.InvoiceDetails.Supplier_addr1,
-                    SupplierLocation = Pinv.InvoiceDetails.SupplierLocation,
-                    SupplierPincode = Pinv.InvoiceDetails.SupplierPincode,
-                    SupplierStateCode = Pinv.InvoiceDetails.SupplierStateCode,
-
-                    //BuyerCode = Pinv.InvoiceDetails.BuyerCode,
-
-                    BuyerGSTIN = Pinv.InvoiceDetails.BuyerGSTIN,
-                    BuyerName = Pinv.InvoiceDetails.BuyerName,
-                    BuyerStateCode = Pinv.InvoiceDetails.BuyerStateCode,
-                    Buyer_addr1 = Pinv.InvoiceDetails.Buyer_addr1,
-                    Buyer_loc = Pinv.InvoiceDetails.Buyer_loc,
-                    BuyerPincode = Pinv.InvoiceDetails.BuyerPincode,
-
-                    EInvoiceFTPPath = Pinv.Dealer.EInvoiceFTPPath,
-                    EInvoiceFTPUserID = Pinv.Dealer.EInvoiceFTPUserID,
-                    EInvoiceFTPPassword = Pinv.Dealer.EInvoiceFTPPassword,
-
-                    Type = "U",
-                    FileSubName = "ATY",
-
-                    EInvoiceItems = new List<PDMS_EInvoiceItem>()
-
-                };
-                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
-                    AccumulatedCesVal = 0, AccumulatedTotItemVal = 0;
-                TOTALLINEITEMS = 0;
-                foreach (PDMS_WarrantyClaimInvoiceItem Pinvi in Pinv.InvoiceItems)
-                {
-                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
-                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
-                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
-                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
-                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
-                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
-                    AccumulatedCesVal = AccumulatedCesVal + 0;
-
-                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
-
-                    decimal OtherCharges = Pinvi.HSNCode == "998719" ? 0 : Convert.ToDecimal(Pinv.TCSValue) / Convert.ToDecimal(Pinv.TempTcsMatCount);
-                    EInvoice.EInvoiceItems.Add(new PDMS_EInvoiceItem()
-                    {
-
-                        SlNo = Convert.ToString(TOTALLINEITEMS),
-                        InvoiceItemID = Pinvi.WarrantyClaimInvoiceItemID,
-                        BillingDocument = Pinv.InvoiceNumber,
-
-                        PrdDesc = Pinvi.MaterialDesc,
-                        IsServc = "Y",
-                        HSNCode = Pinvi.HSNCode,
-                        Quantity = Pinvi.Qty,
-                        UnitOfMeasure = Pinvi.UOM,
-                        UnitPrice = Pinvi.Rate,
-                        TotalAmount = Pinvi.TaxableValue,
-                        AssesseebleAmount = Pinvi.TaxableValue,
-                        TaxRate = String.Format("{0:.#####}", Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
-                        SGSTAmount = Pinvi.SGSTValue,
-                        IGSTAmount = Pinvi.IGSTValue,
-                        CGSTAmount = Pinvi.CGSTValue,
-                        // CESSRate = "",
-                        // CESSAmount = ""
-                        CESSAmount = 0,
-                        //   OtherCharges = Pinvi.HSNCode == "998719" ? "0" : String.Format("{0:.#####}", Convert.ToDecimal(Pinv.TCSValue) / Convert.ToDecimal(Pinv.TempTcsMatCount)),
-                        OtherCharges = OtherCharges,
-                        TotalItemValue = Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + OtherCharges
-                    });
-
-
-
-                    EInvoice.TOTALLINEITEMS = String.Format("{0:.#####}", TOTALLINEITEMS);
-                    EInvoice.AccumulatedTotalAmount = String.Format("{0:.#####}", AccumulatedTotalAmount);
-                    EInvoice.AccumulatedAssTotalAmount = String.Format("{0:.#####}", AccumulatedAssTotalAmount);
-                    EInvoice.AccumulatedSgstVal = String.Format("{0:.#####}", AccumulatedSgstVal);
-                    EInvoice.AccumulatedIgstVal = String.Format("{0:.#####}", AccumulatedIgstVal);
-                    EInvoice.AccumulatedCgstVal = String.Format("{0:.#####}", AccumulatedCgstVal);
-                    EInvoice.AccumulatedCesVal = String.Format("{0:.#####}", AccumulatedCesVal);
-                    EInvoice.AccumulatedOtherCharges = String.Format("{0:.#####}", Pinv.TCSValue);
-                    EInvoice.AccumulatedTotItemVal = String.Format("{0:.#####}", AccumulatedTotItemVal + Pinv.TCSValue);
-                }
-                EInvoiceS.Add(EInvoice);
+        public List<PEInvoice> GetPaidServiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
+        {
+            List<PEInvoice> EInvoiceS = new List<PEInvoice>(); 
+            List<PDMS_PaidServiceInvoice> Pinv = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode); 
+            foreach (PDMS_PaidServiceInvoice inv in Pinv)
+            {
+                EInvoiceS.Add(ConvertPaidServiceInvoice(inv));
             }
             return EInvoiceS;
         }
@@ -423,6 +148,16 @@ namespace Business
                                 Service.ICTicket.Dealer.EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]);
                                 Service.ICTicket.Dealer.EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]);
                                 Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
+                                Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
+
+                                Service.ICTicket.Dealer.EInvAPI =    Convert.ToBoolean(dr["EInvAPI"]);
+                                Service.ICTicket.Dealer.EInvUserAPI = new PEInvUserAPI()
+                                {
+                                    Handle = Convert.ToString(dr["EInvHandle"]),
+                                    HandleType = Convert.ToString(dr["EInvHandleType"]),
+                                    Password = Convert.ToString(dr["EInvPassword"])
+                                };
+                               
 
 
                                 //Service.ICTicket.Customer = new PDMS_Customer();
@@ -663,7 +398,7 @@ namespace Business
             return Ws;
         }
 
-
+         
         public string GetQRCodePath(string IRN, string InvoiceNumber)
         {
             string code = IRN.Trim();
@@ -1123,8 +858,7 @@ namespace Business
             return InvoiceE;
         }
 
-        /// FTP
-        /// 
+         
         public void DownloadAllFilesToBeImported(string FTPPath, string FTPUserName, string FTPPassword, string DestinationPath, string FTPFileName)
         {
             FTPManager ftp = new FTPManager();
@@ -1167,35 +901,7 @@ namespace Business
             //    throw new VPSException(ErrorCode.GENE, ex);
             //}
         }
-        public void DownloadAndDeleteFtp(string FTPPath, string FTPUserName, string FTPPassword, string DestinationPath, string FTPFileName)
-        {
-            FTPManager ftp = new FTPManager();
-            List<string> fileNames = new List<string>();
-            FTPDetails ftpDetails = GetFTPDetails(FTPPath, FTPUserName, FTPPassword);
-            fileNames = GetFilesOnFilter(ftpDetails, FTPFileName);
-            ftpDetails.DestinationPath = DestinationPath;
-            try
-            {
-                if (fileNames.Count != 0)
-                {
-                    ftpDetails.FTPFileName = fileNames[fileNames.Count() - 1];
-                    ftpDetails.FTPFileName = ftpDetails.FTPFileName.Substring(39, ftpDetails.FTPFileName.Length - 39);
-                    ftp.Download(ftpDetails);
-                    try
-                    {
-                        ftp.Delete(ftpDetails);
-                    }
-                    catch (Exception ex)
-                    {
-                        ExceptionLogger.LogError(string.Format("Unable to delete the file {0} from ftp", ftpDetails.FTPFileName), ex);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionLogger.LogError(string.Format("Unable to download the file {0} from ftp", ftpDetails.FTPFileName), ex);
-            }
-        }
+      
         public static FTPDetails GetFTPDetails(string FTPPath, string FTPUserName, string FTPPassword)
         {
             FTPCredentials credential = new FTPCredentials()
@@ -1301,187 +1007,153 @@ namespace Business
         }
 
 
-        public string GeneratEInvoice(string InvoiceNumber)
-        {
-            try
-            {
-                string Message = "";
+        //public string GeneratEInvoice(string InvoiceNumber)
+        //{
+        //    try
+        //    {
+        //        string Message = "";
 
-                PDMS_EInvoice Inv = new BDMS_EInvoice().GetInvoiceForRequestEInvoice(InvoiceNumber, null, null, null, null)[0];
+        //        PEInvoice Inv = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, null, null, null, null)[0];
+                 
+        //        if (string.IsNullOrEmpty(Inv.BuyerDtls.Gstin))
+        //        {
+        //            return "Please update Buyer GST Number";
+        //        }
+        //        String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
+        //        System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
+        //        if (Inv.BuyerDtls.Gstin == "URD")
+        //        {
+        //            return "Customer  GST Number is URD";
+        //        }
+        //        else if (regex.Match(Inv.BuyerDtls.Gstin).Success)
+        //        {
+        //            if (Inv.BuyerDtls.Gstin.Trim().Substring(0, 2) != Inv.BuyerDtls.Stcd.Trim())
+        //            {
+        //                return "Please update Buyer State Code";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return "Please update correct GST Number";
+        //        }
+        //        if (string.IsNullOrEmpty(Inv.BuyerDtls.Addr1.Trim()))
+        //        {
+        //            return "Please update Buyer Address";
+        //        }
+        //        if (!new BDMS_EInvoice().ValidatePincode(Inv.BuyerDtls.Pin.Substring(0, 2), Inv.BuyerDtls.Stcd))
+        //        {
+        //            return "Please check Buyer Pincode and Statecode";
+        //        }
 
-                Inv.BuyerGSTIN = Inv.BuyerGSTIN.Trim();
-                if (string.IsNullOrEmpty(Inv.BuyerGSTIN))
-                {
-                    return "Please update Buyer GST Number";
-                }
-                String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
-                if (Inv.BuyerGSTIN == "URD")
-                {
-                    return "Customer  GST Number is URD";
-                }
-                else if (regex.Match(Inv.BuyerGSTIN).Success)
-                {
-                    if (Inv.BuyerGSTIN.Trim().Substring(0, 2) != Inv.BuyerStateCode.Trim())
-                    {
-                        return "Please update Buyer State Code";
-                    }
-                }
-                else
-                {
-                    return "Please update correct GST Number";
-                }
-                if (string.IsNullOrEmpty(Inv.Buyer_addr1.Trim()))
-                {
-                    return "Please update Buyer Address";
-                }
-                if (!new BDMS_EInvoice().ValidatePincode(Inv.BuyerPincode.Substring(0, 2), Inv.BuyerStateCode))
-                {
-                    return "Please check Buyer Pincode and Statecode";
-                }
+        //        if (string.IsNullOrEmpty(Inv.SellerDtls.Gstin) || string.IsNullOrEmpty(Inv.SellerDtls.Loc) || string.IsNullOrEmpty(Inv.SellerDtls.Pin) || string.IsNullOrEmpty(Inv.SellerDtls.Stcd))
+        //        {
+        //            return "</n> Please check the supplier details of Invoice (" + Inv.DocDtls.No + ")";
+        //        }
+        //        if (string.IsNullOrEmpty(Inv.BuyerDtls.Gstin) || string.IsNullOrEmpty(Inv.BuyerDtls.Loc) || string.IsNullOrEmpty(Inv.BuyerDtls.Pin) || string.IsNullOrEmpty(Inv.BuyerDtls.Stcd))
+        //        {
+        //            return "</n> Please check the Buyer details of Invoice (" + Inv.DocDtls.No + ")";
+        //        }
 
-                if (string.IsNullOrEmpty(Inv.SupplierGSTIN) || string.IsNullOrEmpty(Inv.SupplierLocation) || string.IsNullOrEmpty(Inv.SupplierPincode) || string.IsNullOrEmpty(Inv.SupplierStateCode))
-                {
-                    return "</n> Please check the supplier details of Invoice (" + Inv.BillingDocument + ")";
-                }
-                if (string.IsNullOrEmpty(Inv.BuyerGSTIN) || string.IsNullOrEmpty(Inv.Buyer_loc) || string.IsNullOrEmpty(Inv.BuyerPincode) || string.IsNullOrEmpty(Inv.BuyerStateCode))
-                {
-                    return "</n> Please check the Buyer details of Invoice (" + Inv.BillingDocument + ")";
-                }
-                string FTPFileName = "DMSS_INV_" + Inv.FileSubName + "_" + Inv.BillingDocument + ".txt";
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(PDMS_EInvoice.EInvoivePathExport + FTPFileName))
-                {
-                    file.WriteLine("Tax_Scheme! Document Category! Document Type! Billing Document! Invoice Date! Supplier GSTIN! Supplier trade_Name! Supplier_addr1! Supplier Location! Supplier Pincode! Supplier State Code! Buyer GSTIN! Buyer Name! Buyer State Code! Buyer_addr1! Buyer_loc! Buyer Pincode! disp_sup_trade_Name! disp_sup_addr1! disp_sup_loc! disp_sup_pin! disp_sup_stcd! TOTAL LINE ITEMS! Sl No! PrdDesc! IsServc! HSN Code! Quantity! Unit of measure! Unit Price! Total Amount(Tax Base)! Assesseeble Amount! Tax Rate! SGST Amount! IGST Amount! CGST Amount! CESS Rate! CESS Amount! Other Charges! Total Item Value! Accumulated Total Amount! Accumulated AssTotal Amount! Accumulated SgstVal! Accumulated IgstVal! Accumulated CgstVal! Accumulated CesVal!  Accumulated  Other Charges! Accumulated Tot Item Val! IRN! Reason for Cancellation! Cancellation comment! Type;");
-                    int i = 0;
-                    foreach (PDMS_EInvoiceItem Invi in Inv.EInvoiceItems)
-                    {
-                        if (i == 0)
-                        {
-                            string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!" + Inv.InvoiceDate + "!" + Inv.SupplierGSTIN + "!" + Inv.SupplierTrade_Name + "!" + Inv.Supplier_addr1 + "!" + Inv.SupplierLocation + "!" + Inv.SupplierPincode + "!" + Inv.SupplierStateCode + "!" + Inv.BuyerGSTIN + "!" + Inv.BuyerName + "!" + Inv.BuyerStateCode + "!" + Inv.Buyer_addr1 + "!" + Inv.Buyer_loc + "!" + Inv.BuyerPincode + "!" + Inv.SupplierTrade_Name + "!" + Inv.Supplier_addr1 + "!" + Inv.SupplierLocation + "!" + Inv.SupplierPincode + "!" + Inv.SupplierStateCode + "!" + Inv.TOTALLINEITEMS + "!!!!!!!!!!!!!!!!!!" + Inv.AccumulatedTotalAmount + "!" + Inv.AccumulatedAssTotalAmount + "!" + Inv.AccumulatedSgstVal + "!" + Inv.AccumulatedIgstVal + "!" + Inv.AccumulatedCgstVal + "!" + Inv.AccumulatedCesVal + "!" + Inv.AccumulatedOtherCharges + "!" + Inv.AccumulatedTotItemVal + "!" + Inv.IRN + "!" + Inv.ReasonForCancellation + "!" + Inv.CancellationComment + "!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                            line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!" + Invi.SlNo + "!" + Invi.PrdDesc + "!" + Invi.IsServc + "!" + Invi.HSNCode + "!" + Invi.Quantity + "!" + Invi.UnitOfMeasure + "!" + Invi.UnitPrice + "!" + Invi.TotalAmount + "!" + Invi.AssesseebleAmount + "!" + Invi.TaxRate + "!" + Invi.SGSTAmount + "!" + Invi.IGSTAmount + "!" + Invi.CGSTAmount + "!" + Invi.CESSRate + "!" + Invi.CESSAmount + "!" + Invi.OtherCharges + "!" + Invi.TotalItemValue + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!!!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                        }
-                        else
-                        {
-                            string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!" + Invi.SlNo + "!" + Invi.PrdDesc + "!" + Invi.IsServc + "!" + Invi.HSNCode + "!" + Invi.Quantity + "!" + Invi.UnitOfMeasure + "!" + Invi.UnitPrice + "!" + Invi.TotalAmount + "!" + Invi.AssesseebleAmount + "!" + Invi.TaxRate + "!" + Invi.SGSTAmount + "!" + Invi.IGSTAmount + "!" + Invi.CGSTAmount + "!" + Invi.CESSRate + "!" + Invi.CESSAmount + "!" + Invi.OtherCharges + "!" + Invi.TotalItemValue + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!!!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                        }
-                        if (i == Inv.EInvoiceItems.Count() - 1)
-                        {
-                            string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Inv.AccumulatedTotalAmount + "!" + Inv.AccumulatedAssTotalAmount + "!" + Inv.AccumulatedSgstVal + "!" + Inv.AccumulatedIgstVal + "!" + Inv.AccumulatedCgstVal + "!" + Inv.AccumulatedCesVal + "!" + Inv.AccumulatedOtherCharges + "!" + Inv.AccumulatedTotItemVal + "!" + Inv.IRN + "!" + Inv.ReasonForCancellation + "!" + Inv.CancellationComment + "!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                        }
-                        i = i + 1;
-                    }
-                    file.Close();
-                }
-                if (new BDMS_EInvoice().UpdateEInvoiveStatus(Inv.BillingDocument, 1, Inv.FileSubName))
-                {
-                    if (new FileManager().UploadFile(Inv.EInvoiceFTPPath + "input_files/", Inv.EInvoiceFTPUserID, Inv.EInvoiceFTPPassword, PDMS_EInvoice.EInvoivePathExport + FTPFileName, FTPFileName))
-                    {
-                        new FileManager().MoveFile(new FileInfo(PDMS_EInvoice.EInvoivePathExport + FTPFileName), PDMS_EInvoice.EInvoivePathExportSuccess);
-                    }
-                }
-            }
-            catch (Exception e)
-            { }
-            return "";
-        }
-        public void GeneratEDebitNote(string InvoiceNumber)
-        {
-            try
-            {
-                string Message = "";
+        //        GeneratEInvoiceForSalesCommissionClaimInvoice(null, Inv.DocDtls.No, null, null, null);
+        //    }
+        //    catch (Exception e)
+        //    { }
+        //    return "";
+        //}
+        //public void GeneratEDebitNote(string InvoiceNumber)
+        //{
+        //    try
+        //    {
+        //        string Message = "";
 
-                PDMS_EInvoice Inv = new BDMS_EInvoice().GetDebitNoteForRequestEInvoice(InvoiceNumber, null, null, null, null)[0];
+        //        PDMS_EInvoice Inv = new BDMS_EInvoice().GetDebitNoteForRequestEInvoice(InvoiceNumber, null, null, null, null)[0];
 
-                Inv.BuyerGSTIN = Inv.BuyerGSTIN.Trim();
-                if (string.IsNullOrEmpty(Inv.BuyerGSTIN))
-                {
-                    Message = "Please update Buyer GST Number";
-                    return;
-                }
-                String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
-                if (Inv.BuyerGSTIN == "URD")
-                {
-                    return;
-                }
-                else if (regex.Match(Inv.BuyerGSTIN).Success)
-                {
-                    if (Inv.BuyerGSTIN.Trim().Substring(0, 2) != Inv.BuyerStateCode.Trim())
-                    {
-                        Message = "Please update Buyer State Code";
-                        return;
-                    }
-                }
-                else
-                {
-                    Message = "Please update correct GST Number";
-                    return;
-                }
-                if (string.IsNullOrEmpty(Inv.Buyer_addr1.Trim()))
-                {
-                    Message = "Please update Buyer Address";
-                    return;
-                }
-                if (!new BDMS_EInvoice().ValidatePincode(Inv.BuyerPincode.Substring(0, 2), Inv.BuyerStateCode))
-                {
-                    Message = "Please check Buyer Pincode and Statecode";
-                    return;
-                }
+        //        Inv.BuyerGSTIN = Inv.BuyerGSTIN.Trim();
+        //        if (string.IsNullOrEmpty(Inv.BuyerGSTIN))
+        //        {
+        //            Message = "Please update Buyer GST Number";
+        //            return;
+        //        }
+        //        String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
+        //        System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
+        //        if (Inv.BuyerGSTIN == "URD")
+        //        {
+        //            return;
+        //        }
+        //        else if (regex.Match(Inv.BuyerGSTIN).Success)
+        //        {
+        //            if (Inv.BuyerGSTIN.Trim().Substring(0, 2) != Inv.BuyerStateCode.Trim())
+        //            {
+        //                Message = "Please update Buyer State Code";
+        //                return;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Message = "Please update correct GST Number";
+        //            return;
+        //        }
+        //        if (string.IsNullOrEmpty(Inv.Buyer_addr1.Trim()))
+        //        {
+        //            Message = "Please update Buyer Address";
+        //            return;
+        //        }
+        //        if (!new BDMS_EInvoice().ValidatePincode(Inv.BuyerPincode.Substring(0, 2), Inv.BuyerStateCode))
+        //        {
+        //            Message = "Please check Buyer Pincode and Statecode";
+        //            return;
+        //        }
 
-                if (string.IsNullOrEmpty(Inv.SupplierGSTIN) || string.IsNullOrEmpty(Inv.SupplierLocation) || string.IsNullOrEmpty(Inv.SupplierPincode) || string.IsNullOrEmpty(Inv.SupplierStateCode))
-                {
-                    Message = Message + "</n> Please check the supplier details of Invoice (" + Inv.BillingDocument + ")";
-                    // continue;
-                }
-                if (string.IsNullOrEmpty(Inv.BuyerGSTIN) || string.IsNullOrEmpty(Inv.Buyer_loc) || string.IsNullOrEmpty(Inv.BuyerPincode) || string.IsNullOrEmpty(Inv.BuyerStateCode))
-                {
-                    Message = Message + "</n> Please check the Buyer details of Invoice (" + Inv.BillingDocument + ")";
-                    //  continue;
-                }
-                string FTPFileName = "DMSS_INV_" + Inv.FileSubName + "_" + Inv.BillingDocument + ".txt";
+        //        if (string.IsNullOrEmpty(Inv.SupplierGSTIN) || string.IsNullOrEmpty(Inv.SupplierLocation) || string.IsNullOrEmpty(Inv.SupplierPincode) || string.IsNullOrEmpty(Inv.SupplierStateCode))
+        //        {
+        //            Message = Message + "</n> Please check the supplier details of Invoice (" + Inv.BillingDocument + ")";
+        //            // continue;
+        //        }
+        //        if (string.IsNullOrEmpty(Inv.BuyerGSTIN) || string.IsNullOrEmpty(Inv.Buyer_loc) || string.IsNullOrEmpty(Inv.BuyerPincode) || string.IsNullOrEmpty(Inv.BuyerStateCode))
+        //        {
+        //            Message = Message + "</n> Please check the Buyer details of Invoice (" + Inv.BillingDocument + ")";
+        //            //  continue;
+        //        }
+        //        string FTPFileName = "DMSS_INV_" + Inv.FileSubName + "_" + Inv.BillingDocument + ".txt";
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(PDMS_EInvoice.EInvoivePathExport + FTPFileName))
-                {
-                    file.WriteLine("Tax_Scheme! Document Category! Document Type! Billing Document! Invoice Date! Supplier GSTIN! Supplier trade_Name! Supplier_addr1! Supplier Location! Supplier Pincode! Supplier State Code! Buyer GSTIN! Buyer Name! Buyer State Code! Buyer_addr1! Buyer_loc! Buyer Pincode! disp_sup_trade_Name! disp_sup_addr1! disp_sup_loc! disp_sup_pin! disp_sup_stcd! TOTAL LINE ITEMS! Sl No! PrdDesc! IsServc! HSN Code! Quantity! Unit of measure! Unit Price! Total Amount(Tax Base)! Assesseeble Amount! Tax Rate! SGST Amount! IGST Amount! CGST Amount! CESS Rate! CESS Amount! Other Charges! Total Item Value! Accumulated Total Amount! Accumulated AssTotal Amount! Accumulated SgstVal! Accumulated IgstVal! Accumulated CgstVal! Accumulated CesVal!  Accumulated  Other Charges! Accumulated Tot Item Val! IRN! Reason for Cancellation! Cancellation comment! Type;");
-                    int i = 0;
-                    foreach (PDMS_EInvoiceItem Invi in Inv.EInvoiceItems)
-                    {
-                        if (i == 0)
-                        {
-                            string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!" + Inv.InvoiceDate + "!" + Inv.SupplierGSTIN + "!" + Inv.SupplierTrade_Name + "!" + Inv.Supplier_addr1 + "!" + Inv.SupplierLocation + "!" + Inv.SupplierPincode + "!" + Inv.SupplierStateCode + "!" + Inv.BuyerGSTIN + "!" + Inv.BuyerName + "!" + Inv.BuyerStateCode + "!" + Inv.Buyer_addr1 + "!" + Inv.Buyer_loc + "!" + Inv.BuyerPincode + "!" + Inv.SupplierTrade_Name + "!" + Inv.Supplier_addr1 + "!" + Inv.SupplierLocation + "!" + Inv.SupplierPincode + "!" + Inv.SupplierStateCode + "!" + Inv.TOTALLINEITEMS + "!!!!!!!!!!!!!!!!!!" + Inv.AccumulatedTotalAmount + "!" + Inv.AccumulatedAssTotalAmount + "!" + Inv.AccumulatedSgstVal + "!" + Inv.AccumulatedIgstVal + "!" + Inv.AccumulatedCgstVal + "!" + Inv.AccumulatedCesVal + "!" + Inv.AccumulatedOtherCharges + "!" + Inv.AccumulatedTotItemVal + "!" + Inv.IRN + "!" + Inv.ReasonForCancellation + "!" + Inv.CancellationComment + "!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                            line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!" + Invi.SlNo + "!" + Invi.PrdDesc + "!" + Invi.IsServc + "!" + Invi.HSNCode + "!" + Invi.Quantity + "!" + Invi.UnitOfMeasure + "!" + Invi.UnitPrice + "!" + Invi.TotalAmount + "!" + Invi.AssesseebleAmount + "!" + Invi.TaxRate + "!" + Invi.SGSTAmount + "!" + Invi.IGSTAmount + "!" + Invi.CGSTAmount + "!" + Invi.CESSRate + "!" + Invi.CESSAmount + "!" + Invi.OtherCharges + "!" + Invi.TotalItemValue + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!!!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                        }
-                        else
-                        {
-                            string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!" + Invi.SlNo + "!" + Invi.PrdDesc + "!" + Invi.IsServc + "!" + Invi.HSNCode + "!" + Invi.Quantity + "!" + Invi.UnitOfMeasure + "!" + Invi.UnitPrice + "!" + Invi.TotalAmount + "!" + Invi.AssesseebleAmount + "!" + Invi.TaxRate + "!" + Invi.SGSTAmount + "!" + Invi.IGSTAmount + "!" + Invi.CGSTAmount + "!" + Invi.CESSRate + "!" + Invi.CESSAmount + "!" + Invi.OtherCharges + "!" + Invi.TotalItemValue + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!!!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                        }
-                        if (i == Inv.EInvoiceItems.Count() - 1)
-                        {
-                            string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Inv.AccumulatedTotalAmount + "!" + Inv.AccumulatedAssTotalAmount + "!" + Inv.AccumulatedSgstVal + "!" + Inv.AccumulatedIgstVal + "!" + Inv.AccumulatedCgstVal + "!" + Inv.AccumulatedCesVal + "!" + Inv.AccumulatedOtherCharges + "!" + Inv.AccumulatedTotItemVal + "!" + Inv.IRN + "!" + Inv.ReasonForCancellation + "!" + Inv.CancellationComment + "!" + Inv.Type + ";";
-                            file.WriteLine(line);
-                        }
-                        i = i + 1;
-                    }
-                    file.Close();
-                }
-                if (new BDMS_EInvoice().UpdateEInvoiveStatus(Inv.BillingDocument, 1, Inv.FileSubName))
-                {
-                    if (new FileManager().UploadFile(Inv.EInvoiceFTPPath + "input_files/", Inv.EInvoiceFTPUserID, Inv.EInvoiceFTPPassword, PDMS_EInvoice.EInvoivePathExport + FTPFileName, FTPFileName))
-                    {
-                        new FileManager().MoveFile(new FileInfo(PDMS_EInvoice.EInvoivePathExport + FTPFileName), PDMS_EInvoice.EInvoivePathExportSuccess);
-                    }
-                }
-            }
-            catch (Exception e)
-            { }
-        }
+        //        using (System.IO.StreamWriter file = new System.IO.StreamWriter(PDMS_EInvoice.EInvoivePathExport + FTPFileName))
+        //        {
+        //            file.WriteLine("Tax_Scheme! Document Category! Document Type! Billing Document! Invoice Date! Supplier GSTIN! Supplier trade_Name! Supplier_addr1! Supplier Location! Supplier Pincode! Supplier State Code! Buyer GSTIN! Buyer Name! Buyer State Code! Buyer_addr1! Buyer_loc! Buyer Pincode! disp_sup_trade_Name! disp_sup_addr1! disp_sup_loc! disp_sup_pin! disp_sup_stcd! TOTAL LINE ITEMS! Sl No! PrdDesc! IsServc! HSN Code! Quantity! Unit of measure! Unit Price! Total Amount(Tax Base)! Assesseeble Amount! Tax Rate! SGST Amount! IGST Amount! CGST Amount! CESS Rate! CESS Amount! Other Charges! Total Item Value! Accumulated Total Amount! Accumulated AssTotal Amount! Accumulated SgstVal! Accumulated IgstVal! Accumulated CgstVal! Accumulated CesVal!  Accumulated  Other Charges! Accumulated Tot Item Val! IRN! Reason for Cancellation! Cancellation comment! Type;");
+        //            int i = 0;
+        //            foreach (PDMS_EInvoiceItem Invi in Inv.EInvoiceItems)
+        //            {
+        //                if (i == 0)
+        //                {
+        //                    string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!" + Inv.InvoiceDate + "!" + Inv.SupplierGSTIN + "!" + Inv.SupplierTrade_Name + "!" + Inv.Supplier_addr1 + "!" + Inv.SupplierLocation + "!" + Inv.SupplierPincode + "!" + Inv.SupplierStateCode + "!" + Inv.BuyerGSTIN + "!" + Inv.BuyerName + "!" + Inv.BuyerStateCode + "!" + Inv.Buyer_addr1 + "!" + Inv.Buyer_loc + "!" + Inv.BuyerPincode + "!" + Inv.SupplierTrade_Name + "!" + Inv.Supplier_addr1 + "!" + Inv.SupplierLocation + "!" + Inv.SupplierPincode + "!" + Inv.SupplierStateCode + "!" + Inv.TOTALLINEITEMS + "!!!!!!!!!!!!!!!!!!" + Inv.AccumulatedTotalAmount + "!" + Inv.AccumulatedAssTotalAmount + "!" + Inv.AccumulatedSgstVal + "!" + Inv.AccumulatedIgstVal + "!" + Inv.AccumulatedCgstVal + "!" + Inv.AccumulatedCesVal + "!" + Inv.AccumulatedOtherCharges + "!" + Inv.AccumulatedTotItemVal + "!" + Inv.IRN + "!" + Inv.ReasonForCancellation + "!" + Inv.CancellationComment + "!" + Inv.Type + ";";
+        //                    file.WriteLine(line);
+        //                    line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!" + Invi.SlNo + "!" + Invi.PrdDesc + "!" + Invi.IsServc + "!" + Invi.HSNCode + "!" + Invi.Quantity + "!" + Invi.UnitOfMeasure + "!" + Invi.UnitPrice + "!" + Invi.TotalAmount + "!" + Invi.AssesseebleAmount + "!" + Invi.TaxRate + "!" + Invi.SGSTAmount + "!" + Invi.IGSTAmount + "!" + Invi.CGSTAmount + "!" + Invi.CESSRate + "!" + Invi.CESSAmount + "!" + Invi.OtherCharges + "!" + Invi.TotalItemValue + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!!!" + Inv.Type + ";";
+        //                    file.WriteLine(line);
+        //                }
+        //                else
+        //                {
+        //                    string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!" + Invi.SlNo + "!" + Invi.PrdDesc + "!" + Invi.IsServc + "!" + Invi.HSNCode + "!" + Invi.Quantity + "!" + Invi.UnitOfMeasure + "!" + Invi.UnitPrice + "!" + Invi.TotalAmount + "!" + Invi.AssesseebleAmount + "!" + Invi.TaxRate + "!" + Invi.SGSTAmount + "!" + Invi.IGSTAmount + "!" + Invi.CGSTAmount + "!" + Invi.CESSRate + "!" + Invi.CESSAmount + "!" + Invi.OtherCharges + "!" + Invi.TotalItemValue + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!" + "!!!" + Inv.Type + ";";
+        //                    file.WriteLine(line);
+        //                }
+        //                if (i == Inv.EInvoiceItems.Count() - 1)
+        //                {
+        //                    string line = Inv.Tax_Scheme + "!" + Inv.DocumentCategory + "!" + Inv.DocumentType + "!" + Inv.BillingDocument + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Inv.AccumulatedTotalAmount + "!" + Inv.AccumulatedAssTotalAmount + "!" + Inv.AccumulatedSgstVal + "!" + Inv.AccumulatedIgstVal + "!" + Inv.AccumulatedCgstVal + "!" + Inv.AccumulatedCesVal + "!" + Inv.AccumulatedOtherCharges + "!" + Inv.AccumulatedTotItemVal + "!" + Inv.IRN + "!" + Inv.ReasonForCancellation + "!" + Inv.CancellationComment + "!" + Inv.Type + ";";
+        //                    file.WriteLine(line);
+        //                }
+        //                i = i + 1;
+        //            }
+        //            file.Close();
+        //        }
+        //        if (new BDMS_EInvoice().UpdateEInvoiveStatus(Inv.BillingDocument, 1, Inv.FileSubName))
+        //        {
+        //            if (new FileManager().UploadFile(Inv.EInvoiceFTPPath + "input_files/", Inv.EInvoiceFTPUserID, Inv.EInvoiceFTPPassword, PDMS_EInvoice.EInvoivePathExport + FTPFileName, FTPFileName))
+        //            {
+        //                new FileManager().MoveFile(new FileInfo(PDMS_EInvoice.EInvoivePathExport + FTPFileName), PDMS_EInvoice.EInvoivePathExportSuccess);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    { }
+        //}
 
         public Boolean UpdateEInvoiveBuyerDetails(string InvoiceNumber, string BuyerGSTIN, string BuyerStateCode, string Buyer_addr1, string Buyer_loc, string BuyerPincode, Int32 UserID)
         {
@@ -1533,181 +1205,10 @@ namespace Business
             }
             return false;
         }
-
-        public void GeneratEInvoiceForSalesCommissionClaimInvoice1(string InvoiceNumber)
+  
+        public void GeneratEInvoiceForSalesCommissionClaimInvoice(long? SalesCommissionClaimInvoiceID, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
         {
-            PDMS_EInvoice Inv = new BDMS_EInvoice().GetInvoiceForRequestEInvoice(InvoiceNumber, null, null, null, null)[0];
-
-
-            try
-            {
-                PApiEInv ul = new PApiEInv();
-                ul.handle = Inv.Dealer.EInvUserAPI.Handle;
-                ul.handleType = Inv.Dealer.EInvUserAPI.HandleType;
-                ul.password = Inv.Dealer.EInvUserAPI.Password;
-                //  AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;
-
-
-                PEInvoice EInvoice = new PEInvoice();
-                int TOTALLINEITEMS = 0;
-
-                EInvoice.TranDtls = new PTranDtls() { };
-                EInvoice.DocDtls = new PDocDtls()
-                {
-                    Typ = "INV",
-                    No = Inv.BillingDocument,
-                    Dt = Inv.InvoiceDate.Year.ToString() + Inv.InvoiceDate.Month.ToString("00") + Inv.InvoiceDate.Day.ToString("00"),
-                };
-                EInvoice.SellerDtls = new PSellerDtls()
-                {
-
-                    Gstin = Inv.SupplierGSTIN.Trim(),
-                    LglNm = Inv.Dealer.DealerName,
-                    TrdNm = "",
-                    Addr1 = Inv.Supplier_addr1.Trim(),
-                    Addr2 = "",
-                    Loc = Inv.SupplierLocation.Trim(),
-                    Pin = Inv.SupplierPincode.Trim(),
-                    Stcd = Inv.SupplierStateCode.Trim(),
-                    Ph = "",
-                    Em = "",
-                };
-
-                //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
-
-                EInvoice.BuyerDtls = new PBuyerDtls()
-                {
-                    Gstin = Inv.BuyerGSTIN.Trim(),
-                    LglNm = Inv.BuyerName.Trim(),
-                    TrdNm = "",
-                    Pos = "",
-                    Addr1 = Inv.Buyer_addr1.Trim(),
-                    Addr2 = "",
-                    Loc = Inv.Buyer_loc.Trim(),
-                    Pin = Inv.BuyerPincode.Trim(),
-                    Stcd = Inv.BuyerStateCode.Trim(),
-                    Ph = "",
-                    Em = ""
-                };
-                EInvoice.DispDtls = new PDispDtls() { };
-                EInvoice.ShipDtls = new PShipDtls() { };
-                EInvoice.ItemList = new List<PItemList>();
-
-                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
-                  AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
-                TOTALLINEITEMS = 0;
-
-
-                PDMS_EInvoiceItem Pinvi = Inv.EInvoiceItem;
-
-                TOTALLINEITEMS = TOTALLINEITEMS + 1;
-
-                AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TotalAmount;
-                AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TotalAmount;
-                AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTAmount;
-                AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTAmount;
-                AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTAmount;
-                AccumulatedCesVal = AccumulatedCesVal + 0;
-                //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
-                AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
-
-                EInvoice.ItemList.Add(new PItemList()
-                {
-
-                    SlNo = Convert.ToString(TOTALLINEITEMS),
-                    PrdDesc = Pinvi.PrdDesc,
-                    IsServc = "Y",
-                    HsnCd = Pinvi.HSNCode,
-                    Barcde = "",
-                    Qty = Pinvi.Quantity.ToString(),
-                    FreeQty = "0",
-                    Unit = "NOS",
-                    UnitPrice = Pinvi.UnitPrice.ToString(),
-                    TotAmt = Pinvi.TotalAmount.ToString(),
-                    Discount = "0",
-                    PreTaxVal = "0",
-                    AssAmt = Pinvi.TotalAmount.ToString(),
-                    GstRt = Pinvi.TaxRate,
-                    IgstAmt = Convert.ToString(Pinvi.IGSTAmount),
-                    CgstAmt = Convert.ToString(Pinvi.CGSTAmount),
-                    SgstAmt = Convert.ToString(Pinvi.SGSTAmount),
-                    CesRt = "",
-                    CesAmt = "0",
-                    CesNonAdvlAmt = "",
-                    StateCesRt = "",
-                    StateCesAmt = "",
-                    StateCesNonAdvlAmt = "",
-                    OthChrg = "",
-                    TotItemVal = Convert.ToString(Pinvi.TotalAmount + Pinvi.SGSTAmount + Pinvi.IGSTAmount + Pinvi.CGSTAmount + Pinvi.CESSAmount),
-                    OrdLineRef = "",
-                    OrgCntry = "",
-                    PrdSlNo = "",
-
-                    // public PBchDtls BchDtls { get; set; }
-                    // public List<PAttribDtls> AttribDtls { get; set; }
-                });
-                // InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
-                // BillingDocument = Pinv.InvoiceNumber,   
-                // CESSRate = "", 
-
-
-
-                EInvoice.ValDtls = new PValDtls()
-                {
-                    AssVal = "",
-                    CgstVal = Convert.ToString(AccumulatedCgstVal),
-                    SgstVal = Convert.ToString(AccumulatedSgstVal),
-                    IgstVal = Convert.ToString(AccumulatedIgstVal),
-                    CesVal = Convert.ToString(AccumulatedCesVal),
-                    StCesVal = "0",
-                    Discount = "0",
-                    OthChrg = Convert.ToString(AccumulatedOtherCharges),
-                    RndOffAmt = "",
-                    TotInvVal = Convert.ToString(AccumulatedTotItemVal),
-                    TotInvValFc = Convert.ToString(AccumulatedTotItemVal)
-
-                    //   "ValDtls": {
-                    //    "AssVal": 9978.84,
-                    //    "CgstVal": 0,
-                    //    "SgstVal": 0,
-                    //    "IgstVal": 1197.46,
-                    //    "CesVal": 508.94,
-                    //    "StCesVal": 1202.46,
-                    //    "Discount": 10,
-                    //    "OthChrg": 20,
-                    //    "RndOffAmt": 0.3,
-                    //    "TotInvVal": 12908,
-                    //    "TotInvValFc": 12897.7
-                    //},
-                };
-
-                // EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
-                // EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
-                // EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount); 
-                // EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges); 
-
-
-                EInvoice.PayDtls = new PPayDtls() { };
-                EInvoice.RefDtls = new PRefDtls() { };
-                EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
-                EInvoice.ExpDtls = new PExpDtls() { };
-                EInvoice.EwbDtls = new PEwbDtls() { };
-
-                // BuyerCode = Pinv.ICTicket.Customer.CustomerCode,
-
-
-                //Type = "U",
-                //FileSubName = "PAY"  
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        public void GeneratEInvoiceForSalesCommissionClaimInvoice(long SalesCommissionClaimInvoiceID)
-        {
-            PSalesCommissionClaimInvoice Pinv = GetSalesCommissionClaimInvoiceForRequestEInvoice(SalesCommissionClaimInvoiceID, null, null, null, null)[0];
+            PSalesCommissionClaimInvoice Pinv = GetSalesCommissionClaimInvoiceForRequestEInvoice(SalesCommissionClaimInvoiceID, InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID)[0];
             if ((Pinv.Dealer.IsEInvoice) && (Pinv.Dealer.EInvoiceDate <= Pinv.InvoiceDate))
             {
                 if (string.IsNullOrEmpty(Pinv.IRN))
@@ -1718,165 +1219,23 @@ namespace Business
                         ul.handle = Pinv.Dealer.EInvUserAPI.Handle;
                         ul.handleType = Pinv.Dealer.EInvUserAPI.HandleType;
                         ul.password = Pinv.Dealer.EInvUserAPI.Password;
-                        //  AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;
-
-
-                        PEInvoice EInvoice = new PEInvoice();
-                        int TOTALLINEITEMS = 0;
-
-                        EInvoice.TranDtls = new PTranDtls() { };
-                        EInvoice.DocDtls = new PDocDtls()
+                        string AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;                         
+                        PEInvoice EInvoice = ConvertSalesCommissionClaimInvoice(Pinv);                            
+                        PResultEInv Results = new BApiEInv().ApiPut(AccessToken, EInvoice);
+                        if (Results.Status == PApplication.Failure)
                         {
-                            Typ = "INV",
-                            No = Pinv.InvoiceNumber,
-                            Dt = Pinv.InvoiceDate.Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
-                        };
-                        EInvoice.SellerDtls = new PSellerDtls()
+                            PResultEInvData data = (PResultEInvData)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, data.Irn, data.AckDt, data.SignedQRCode, data.SignedInvoice, "", "SalesCom");
+                        }
+                        else
                         {
-
-                            Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
-                            LglNm = Pinv.Dealer.DealerName,
-                            TrdNm = "",
-                            Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
-                            Addr2 = "",
-                            Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
-                            Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
-                            Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
-                            Ph = "",
-                            Em = "",
-                        };
-
-                        //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
-
-                        EInvoice.BuyerDtls = new PBuyerDtls()
-                        {
-                            Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
-                            LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
-                            TrdNm = "",
-                            Pos = "",
-                            Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
-                            Addr2 = "",
-                            Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
-                            Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
-                            Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
-                            Ph = "",
-                            Em = ""
-                        };
-                        EInvoice.DispDtls = new PDispDtls() { };
-                        EInvoice.ShipDtls = new PShipDtls() { };
-                        EInvoice.ItemList = new List<PItemList>();
-
-                        decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
-                          AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
-                        TOTALLINEITEMS = 0;
-
-
-                        PSalesCommissionClaimInvoiceItem Pinvi = Pinv.InvoiceItem;
-
-                        TOTALLINEITEMS = TOTALLINEITEMS + 1;
-
-                        AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
-                        AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
-                        AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
-                        AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
-                        AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
-                        AccumulatedCesVal = AccumulatedCesVal + 0;
-                        //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
-                        AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
-
-                        EInvoice.ItemList.Add(new PItemList()
-                        {
-
-                            SlNo = Convert.ToString(TOTALLINEITEMS),
-                            PrdDesc = Pinvi.Material.MaterialDescription,
-                            IsServc = "Y",
-                            HsnCd = Pinvi.Material.HSN,
-                            Barcde = "",
-                            Qty = Pinvi.Qty.ToString(),
-                            FreeQty = "0",
-                            Unit = "NOS",
-                            UnitPrice = Pinvi.Rate.ToString(),
-                            TotAmt = Pinvi.TaxableValue.ToString(),
-                            Discount = "0",
-                            PreTaxVal = "0",
-                            AssAmt = Pinvi.TaxableValue.ToString(),
-                            GstRt = Convert.ToString(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
-                            IgstAmt = Convert.ToString(Pinvi.IGSTValue),
-                            CgstAmt = Convert.ToString(Pinvi.CGSTValue),
-                            SgstAmt = Convert.ToString(Pinvi.SGSTValue),
-                            CesRt = "",
-                            CesAmt = "0",
-                            CesNonAdvlAmt = "",
-                            StateCesRt = "",
-                            StateCesAmt = "",
-                            StateCesNonAdvlAmt = "",
-                            OthChrg = "",
-                            TotItemVal = Convert.ToString(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0),
-                            OrdLineRef = "",
-                            OrgCntry = "",
-                            PrdSlNo = "",
-
-                            // public PBchDtls BchDtls { get; set; }
-                            // public List<PAttribDtls> AttribDtls { get; set; }
-                        });
-                        // InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
-                        // BillingDocument = Pinv.InvoiceNumber,   
-                        // CESSRate = "", 
-
-
-
-                        EInvoice.ValDtls = new PValDtls()
-                        {
-                            AssVal = "",
-                            CgstVal = Convert.ToString(AccumulatedCgstVal),
-                            SgstVal = Convert.ToString(AccumulatedSgstVal),
-                            IgstVal = Convert.ToString(AccumulatedIgstVal),
-                            CesVal = Convert.ToString(AccumulatedCesVal),
-                            StCesVal = "0",
-                            Discount = "0",
-                            OthChrg = Convert.ToString(AccumulatedOtherCharges),
-                            RndOffAmt = "",
-                            TotInvVal = Convert.ToString(AccumulatedTotItemVal),
-                            TotInvValFc = Convert.ToString(AccumulatedTotItemVal)
-
-                            //   "ValDtls": {
-                            //    "AssVal": 9978.84,
-                            //    "CgstVal": 0,
-                            //    "SgstVal": 0,
-                            //    "IgstVal": 1197.46,
-                            //    "CesVal": 508.94,
-                            //    "StCesVal": 1202.46,
-                            //    "Discount": 10,
-                            //    "OthChrg": 20,
-                            //    "RndOffAmt": 0.3,
-                            //    "TotInvVal": 12908,
-                            //    "TotInvValFc": 12897.7
-                            //},
-                        };
-
-                        // EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
-                        // EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
-                        // EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount); 
-                        // EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges); 
-
-
-                        EInvoice.PayDtls = new PPayDtls() { };
-                        EInvoice.RefDtls = new PRefDtls() { };
-                        EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
-                        EInvoice.ExpDtls = new PExpDtls() { };
-                        EInvoice.EwbDtls = new PEwbDtls() { };
-
-                        // BuyerCode = Pinv.ICTicket.Customer.CustomerCode,
-
-
-                        //Type = "U",
-                        //FileSubName = "PAY"  
+                            PResultEInvError data = (PResultEInvError)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.args.details[0].ErrorMessage, "SalesCom");
+                        }
                     }
                     catch (Exception ex)
-                    {
-
-                    }
-
+                    { 
+                    } 
                 }
             }
         }
@@ -1895,7 +1254,7 @@ namespace Business
                 DbParameter[] Params = new DbParameter[5] { SalesCommissionClaimInvoiceIDP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP };
                 PSalesCommissionClaimInvoice Service = null;
                 long InvoiceID = 0;
-                using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceInvoiceForRequestEInvoice", Params))
+                using (DataSet DataSet = provider.Select("GetSalesCommissionClaimInvoiceForRequestEInvoice", Params))
                 {
                     if (DataSet != null)
                     {
@@ -1937,7 +1296,7 @@ namespace Business
 
                             Service.InvoiceItem = new PSalesCommissionClaimInvoiceItem()
                             {
-                                SalesCommissionClaimInvoiceItemID = Convert.ToInt64(dr["ServiceInvoiceItemID"]),
+                                SalesCommissionClaimInvoiceItemID = Convert.ToInt64(dr["SalesCommissionClaimInvoiceItemID"]),
                                 Material = new PDMS_Material()
                                 {
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
@@ -1965,6 +1324,451 @@ namespace Business
             return Services;
         }
 
-    }
+        public void IntegrationEInvoive(string InvoiceNumber, string Irn, DateTime? AckDt, string SignedQRCode, string SignedInvoice, string Comments, string InvName)
+        {
+            try
+            {
 
+                DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
+                DbParameter IRN = provider.CreateParameter("IRN", Irn, DbType.String);
+                DbParameter IRNDateP = provider.CreateParameter("IRNDate", AckDt, DbType.DateTime);
+                DbParameter SignedQRCodeP = provider.CreateParameter("SignedQRCode", SignedQRCode, DbType.String);
+                DbParameter SignedInvoiceP = provider.CreateParameter("SignedInvoice", SignedInvoice, DbType.String);
+                DbParameter CommentsP = provider.CreateParameter("Comments", Comments, DbType.String);
+                DbParameter InvNameP = provider.CreateParameter("InvName", InvName, DbType.String);
+                DbParameter[] Params = new DbParameter[7] { InvoiceNumberP, IRN, IRNDateP, SignedQRCodeP, CommentsP, CommentsP, InvNameP };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("ZDMS_InsertOrUpdateEInvoice", Params);
+                    scope.Complete();
+                }
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessageService("BDMS_EInvoice", "IntegrationEInvoive", e1);
+            }
+
+        }
+
+
+        public PEInvoice ConvertSalesCommissionClaimInvoice(PSalesCommissionClaimInvoice Pinv)
+        {
+            PEInvoice EInvoice = new PEInvoice();
+            try
+            { 
+                int TOTALLINEITEMS = 0; 
+                EInvoice.TranDtls = new PTranDtls() { 
+                };
+                EInvoice.DocDtls = new PDocDtls()
+                {
+                    Typ = "INV",
+                    No = Pinv.InvoiceNumber,
+                    Dt = Pinv.InvoiceDate.Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
+                };
+                EInvoice.SellerDtls = new PSellerDtls()
+                {
+
+                    Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
+                    LglNm = Pinv.Dealer.DealerName,
+                    TrdNm = "",
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Addr2 = "",
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                    Ph = "",
+                    Em = "",
+                };
+
+                //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
+
+                EInvoice.BuyerDtls = new PBuyerDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    TrdNm = "",
+                    Pos = "",
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Addr2 = "",
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    Ph = "",
+                    Em = ""
+                };
+                EInvoice.DispDtls = new PDispDtls()
+                {
+                    Nm = Pinv.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+
+                };
+                EInvoice.ShipDtls = new PShipDtls() { };
+                EInvoice.ItemList = new List<PItemList>();
+
+                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
+                  AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
+                TOTALLINEITEMS = 0;
+
+
+                PSalesCommissionClaimInvoiceItem Pinvi = Pinv.InvoiceItem;
+
+                TOTALLINEITEMS = TOTALLINEITEMS + 1;
+
+                AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
+                AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
+                AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
+                AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
+                AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
+                AccumulatedCesVal = AccumulatedCesVal + 0;
+                //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
+                AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
+
+                EInvoice.ItemList.Add(new PItemList()
+                {
+
+                    SlNo = Convert.ToString(TOTALLINEITEMS),
+                    PrdDesc = Pinvi.Material.MaterialDescription,
+                    IsServc = "Y",
+                    HsnCd = Pinvi.Material.HSN,
+                    Barcde = "",
+                    Qty = Pinvi.Qty.ToString(),
+                    FreeQty = "0",
+                    Unit = "NOS",
+                    UnitPrice = Pinvi.Rate.ToString(),
+                    TotAmt = Pinvi.TaxableValue.ToString(),
+                    Discount = "0",
+                    PreTaxVal = "0",
+                    AssAmt = Pinvi.TaxableValue.ToString(),
+                    GstRt = Convert.ToString(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
+                    IgstAmt = Convert.ToString(Pinvi.IGSTValue),
+                    CgstAmt = Convert.ToString(Pinvi.CGSTValue),
+                    SgstAmt = Convert.ToString(Pinvi.SGSTValue),
+                    CesRt = "",
+                    CesAmt = "0",
+                    CesNonAdvlAmt = "",
+                    StateCesRt = "",
+                    StateCesAmt = "",
+                    StateCesNonAdvlAmt = "",
+                    OthChrg = "",
+                    TotItemVal = Convert.ToString(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0),
+                    OrdLineRef = "",
+                    OrgCntry = "",
+                    PrdSlNo = "",
+
+                    // public PBchDtls BchDtls { get; set; }
+                    // public List<PAttribDtls> AttribDtls { get; set; }
+                });
+                // InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
+                // BillingDocument = Pinv.InvoiceNumber,   
+                // CESSRate = "", 
+
+
+
+                EInvoice.ValDtls = new PValDtls()
+                {
+                    AssVal = "",
+                    CgstVal = Convert.ToString(AccumulatedCgstVal),
+                    SgstVal = Convert.ToString(AccumulatedSgstVal),
+                    IgstVal = Convert.ToString(AccumulatedIgstVal),
+                    CesVal = Convert.ToString(AccumulatedCesVal),
+                    StCesVal = "0",
+                    Discount = "0",
+                    OthChrg = Convert.ToString(AccumulatedOtherCharges),
+                    RndOffAmt = Convert.ToString(Math.Round(AccumulatedTotItemVal) - AccumulatedTotItemVal),
+                    TotInvVal = Convert.ToString(Math.Round(AccumulatedTotItemVal)),
+                    TotInvValFc = Convert.ToString(AccumulatedTotItemVal)
+
+                    //   "ValDtls": {
+                    //    "AssVal": 9978.84,
+                    //    "CgstVal": 0,
+                    //    "SgstVal": 0,
+                    //    "IgstVal": 1197.46,
+                    //    "CesVal": 508.94,
+                    //    "StCesVal": 1202.46,
+                    //    "Discount": 10,
+                    //    "OthChrg": 20,
+                    //    "RndOffAmt": 0.3,
+                    //    "TotInvVal": 12908,
+                    //    "TotInvValFc": 12897.7
+                    //},
+                };
+
+                // EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
+                // EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
+                // EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount); 
+                // EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges); 
+
+
+                EInvoice.PayDtls = new PPayDtls() { };
+                EInvoice.RefDtls = new PRefDtls() { };
+                EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
+                EInvoice.ExpDtls = new PExpDtls() { };
+                EInvoice.EwbDtls = new PEwbDtls() { };
+
+                // BuyerCode = Pinv.ICTicket.Customer.CustomerCode,
+
+                //Type = "U",
+                //FileSubName = "PAY"  
+                
+            }
+            catch (Exception ex)
+            {
+            }
+            return EInvoice;
+        }
+        public PEInvoice ConvertPaidServiceInvoice(PDMS_PaidServiceInvoice Pinv)
+        {
+            PEInvoice EInvoice = new PEInvoice();
+            try
+            {
+                int TOTALLINEITEMS = 0;
+                EInvoice.TranDtls = new PTranDtls()
+                {
+                };
+                EInvoice.DocDtls = new PDocDtls()
+                {
+                    Typ = "INV",
+                    No = Pinv.InvoiceNumber,
+                    Dt = Pinv.InvoiceDate.Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
+                };
+                EInvoice.SellerDtls = new PSellerDtls()
+                {
+
+                    Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
+                    LglNm = Pinv.ICTicket.Dealer.DealerName,
+                    TrdNm = "",
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Addr2 = "",
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                    Ph = "",
+                    Em = "",
+                };
+
+                //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
+
+                EInvoice.BuyerDtls = new PBuyerDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    TrdNm = "",
+                    Pos = "",
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Addr2 = "",
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    Ph = "",
+                    Em = ""
+                };
+                EInvoice.DispDtls = new PDispDtls()
+                {
+                    Nm = Pinv.ICTicket.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                };
+
+
+
+                EInvoice.ShipDtls = new PShipDtls() { };
+                EInvoice.ItemList = new List<PItemList>();
+                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
+                AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
+                TOTALLINEITEMS = 0;
+
+
+                foreach (PDMS_PaidServiceInvoiceItem Pinvi in Pinv.InvoiceItems)
+                { 
+                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
+
+                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
+                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
+                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
+                    AccumulatedCesVal = AccumulatedCesVal + 0;
+                    //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
+                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
+
+                    EInvoice.ItemList.Add(new PItemList()
+                    {
+
+                        SlNo = Convert.ToString(TOTALLINEITEMS),
+                        PrdDesc = Pinvi.Material.MaterialDescription,
+                        IsServc = "Y",
+                        HsnCd = Pinvi.Material.HSN,
+                        Barcde = "",
+                        Qty = Pinvi.Qty.ToString(),
+                        FreeQty = "0",
+                        Unit = "NOS",
+                        UnitPrice = Pinvi.Rate.ToString(),
+                        TotAmt = Pinvi.TaxableValue.ToString(),
+                        Discount = Convert.ToString( Pinvi.Discount),
+                        PreTaxVal = "0",
+                        AssAmt = Pinvi.TaxableValue.ToString(),
+                        GstRt = Convert.ToString(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
+                        IgstAmt = Convert.ToString(Pinvi.IGSTValue),
+                        CgstAmt = Convert.ToString(Pinvi.CGSTValue),
+                        SgstAmt = Convert.ToString(Pinvi.SGSTValue),
+                        CesRt = "",
+                        CesAmt = "0",
+                        CesNonAdvlAmt = "",
+                        StateCesRt = "",
+                        StateCesAmt = "",
+                        StateCesNonAdvlAmt = "",
+                        OthChrg = "",
+                        TotItemVal = Convert.ToString(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0),
+                        OrdLineRef = "",
+                        OrgCntry = "",
+                        PrdSlNo = "",
+
+                        // public PBchDtls BchDtls { get; set; }
+                        // public List<PAttribDtls> AttribDtls { get; set; }
+                    });
+                    // InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
+                    // BillingDocument = Pinv.InvoiceNumber,   
+                    // CESSRate = "", 
+
+                }
+
+                EInvoice.ValDtls = new PValDtls()
+                {
+                    AssVal = "",
+                    CgstVal = Convert.ToString(AccumulatedCgstVal),
+                    SgstVal = Convert.ToString(AccumulatedSgstVal),
+                    IgstVal = Convert.ToString(AccumulatedIgstVal),
+                    CesVal = Convert.ToString(AccumulatedCesVal),
+                    StCesVal = "0",
+                    Discount = "0",
+                    OthChrg = Convert.ToString(AccumulatedOtherCharges),
+                    RndOffAmt = Convert.ToString(Math.Round(AccumulatedTotItemVal) - AccumulatedTotItemVal),
+                    TotInvVal = Convert.ToString(Math.Round(AccumulatedTotItemVal)),
+                    TotInvValFc = Convert.ToString(AccumulatedTotItemVal)
+
+                    //   "ValDtls": {
+                    //    "AssVal": 9978.84,
+                    //    "CgstVal": 0,
+                    //    "SgstVal": 0,
+                    //    "IgstVal": 1197.46,
+                    //    "CesVal": 508.94,
+                    //    "StCesVal": 1202.46,
+                    //    "Discount": 10,
+                    //    "OthChrg": 20,
+                    //    "RndOffAmt": 0.3,
+                    //    "TotInvVal": 12908,
+                    //    "TotInvValFc": 12897.7
+                    //},
+                };
+
+                // EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
+                // EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
+                // EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount); 
+                // EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges); 
+
+
+                EInvoice.PayDtls = new PPayDtls() { };
+                EInvoice.RefDtls = new PRefDtls() { };
+                EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
+                EInvoice.ExpDtls = new PExpDtls() { };
+                EInvoice.EwbDtls = new PEwbDtls() { }; 
+            }
+            catch (Exception ex)
+            {
+            }
+            return EInvoice;
+        }
+
+        public string GeneratEInvoiceForPaidServiceInvoice( string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
+        {
+            PDMS_PaidServiceInvoice Pinv = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "")[0];
+            if ((Pinv.ICTicket.Dealer.EInvAPI))
+            {
+                if (string.IsNullOrEmpty(Pinv.IRN))
+                {
+                    try
+                    {
+                        PApiEInv ul = new PApiEInv();
+                        ul.handle = Pinv.ICTicket.Dealer.EInvUserAPI.Handle;
+                        ul.handleType = Pinv.ICTicket.Dealer.EInvUserAPI.HandleType;
+                        ul.password = Pinv.ICTicket.Dealer.EInvUserAPI.Password;
+                        string AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;
+                        PEInvoice EInvoice = ConvertPaidServiceInvoice(Pinv);
+                        string SS= JsonConvert.SerializeObject(EInvoice);
+                        PResultEInv Results = new BApiEInv().ApiPut(AccessToken, EInvoice);
+                        if (Results.Status == PApplication.Success)
+                        {
+                            PResultEInvData data = (PResultEInvData)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, data.Irn, data.AckDt, data.SignedQRCode, data.SignedInvoice, "", "SalesCom");
+                        }
+                        else
+                        {
+                            PResultEInvError data = (PResultEInvError)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.args.details[0].ErrorMessage, "SalesCom");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+            return "";
+        }
+        public string ValidationEInvoice(PEInvoice Inv)
+        {
+            try
+            {
+                string Message = ""; 
+
+                if (string.IsNullOrEmpty(Inv.BuyerDtls.Gstin))
+                {
+                    return "Please update Buyer GST Number";
+                }
+                String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
+                if (Inv.BuyerDtls.Gstin == "URD")
+                {
+                    return "Customer  GST Number is URD";
+                }
+                else if (regex.Match(Inv.BuyerDtls.Gstin).Success)
+                {
+                    if (Inv.BuyerDtls.Gstin.Trim().Substring(0, 2) != Inv.BuyerDtls.Stcd.Trim())
+                    {
+                        return "Please update Buyer State Code";
+                    }
+                }
+                else
+                {
+                    return "Please update correct GST Number";
+                }
+                if (string.IsNullOrEmpty(Inv.BuyerDtls.Addr1.Trim()))
+                {
+                    return "Please update Buyer Address";
+                }
+                if (!new BDMS_EInvoice().ValidatePincode(Inv.BuyerDtls.Pin.Substring(0, 2), Inv.BuyerDtls.Stcd))
+                {
+                    return "Please check Buyer Pincode and Statecode";
+                }
+
+                if (string.IsNullOrEmpty(Inv.SellerDtls.Gstin) || string.IsNullOrEmpty(Inv.SellerDtls.Loc) || string.IsNullOrEmpty(Inv.SellerDtls.Pin) || string.IsNullOrEmpty(Inv.SellerDtls.Stcd))
+                {
+                    return "</n> Please check the supplier details of Invoice (" + Inv.DocDtls.No + ")";
+                }
+                if (string.IsNullOrEmpty(Inv.BuyerDtls.Gstin) || string.IsNullOrEmpty(Inv.BuyerDtls.Loc) || string.IsNullOrEmpty(Inv.BuyerDtls.Pin) || string.IsNullOrEmpty(Inv.BuyerDtls.Stcd))
+                {
+                    return "</n> Please check the Buyer details of Invoice (" + Inv.DocDtls.No + ")";
+                } 
+            }
+            catch (Exception e)
+            { }
+            return "";
+        }
+   
+    }
 }
