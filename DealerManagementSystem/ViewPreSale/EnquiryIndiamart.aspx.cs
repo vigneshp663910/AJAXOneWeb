@@ -48,9 +48,20 @@ namespace DealerManagementSystem.ViewPreSale
         {
             DateTime? DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTime? DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-            Enquiry = new BEnquiryIndiamart().GetEnquiryIndiamart(DateFrom, DateTo);
+            int? PreSaleStatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+            Enquiry = new BEnquiryIndiamart().GetEnquiryIndiamart(DateFrom, DateTo, PreSaleStatusID);
             gvEnquiry.DataSource = Enquiry;
             gvEnquiry.DataBind();
+            //for (int i = 0; i < gvEnquiry.Rows.Count; i++)
+            //{
+            //    if (gvEnquiry.Rows[i].Cells[4].Text != "Open")                 
+            //    {
+            //        LinkButton lnkBtnConvert = (LinkButton)gvEnquiry.Rows[i].FindControl("lnkBtnConvert");
+            //        LinkButton lnkBtnReject = (LinkButton)gvEnquiry.Rows[i].FindControl("lnkBtnReject");
+            //        lnkBtnConvert.Visible = false;
+            //        lnkBtnReject.Visible = false;
+            //    }
+            //}
             lblRowCountEnquiryIM.Text = (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + 1) + " - " + (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + gvEnquiry.Rows.Count) + " of " + Enquiry.Rows.Count;
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
@@ -88,12 +99,14 @@ namespace DealerManagementSystem.ViewPreSale
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             if (lbActions.Text == "Convert to Enquiry")
             {
                 MPE_AddEnquiry.Show();
                 UC_AddEnquiry.FillMaster();
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Panel pnlAddEnquiry = new Panel();
+                lblQueryIDAdd.Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[10].ToString();
                 //TextBox txtCustomerName = UC_AddEnquiry.FindControl("txtCustomerName") as TextBox;
                 //txtCustomerName.Text = gvEnquiry.DataKeys[gvRow.RowIndex].Value.ToString();
                 if (gvEnquiry.DataKeys[gvRow.RowIndex].Values[3].ToString() != "")
@@ -136,9 +149,13 @@ namespace DealerManagementSystem.ViewPreSale
 
                 ((TextBox)UC_AddEnquiry.FindControl("txtProduct")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[7].ToString();
             }
-            else if (lbActions.Text == "Cancel Enquiry")
+            else if (lbActions.Text == "Reject")
             {
-
+                
+                lblQueryID.Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[10].ToString();
+                MPE_RejectEnquiry.Show();
+                lblRejectEnquiryMessage.Text = string.Empty;
+                lblRejectEnquiryMessage.Visible = false;
             }
         }
 
@@ -183,13 +200,25 @@ namespace DealerManagementSystem.ViewPreSale
                 enquiryAdd = UC_AddEnquiry.Read();
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
-                    lblMessage.Text = "Enquiry Was Saved Successfully...";
-                    lblMessage.ForeColor = Color.Green;
-                    MPE_AddEnquiry.Hide();
+                    //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                    //string QUERY_ID = Convert.ToString(gvEnquiry.DataKeys[gvRow.RowIndex].Value);
+                    
+                    if (new BEnquiryIndiamart().UpdateEnquiryIndiamartStatus(lblQueryIDAdd.Text, 2, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
+                    {
+                        lblMessage.Text = "Enquiry from India Mart saved successfully.";
+                        lblMessage.ForeColor = Color.Green;
+                        MPE_AddEnquiry.Hide();
+                    }
+                    else
+                    {
+                        lblAddEnquiryMessage.Text = "Enquiry from India Mart not saved successfully!";
+                        lblAddEnquiryMessage.ForeColor = Color.Red;
+                    }
+                    
                 }
                 else
                 {
-                    lblAddEnquiryMessage.Text = "Enquiry Not Saved Successfully...!";
+                    lblAddEnquiryMessage.Text = "Enquiry from India Mart not saved successfully!!";
                     lblAddEnquiryMessage.ForeColor = Color.Red;
                 }
             }
@@ -197,6 +226,50 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 lblAddEnquiryMessage.Text = ex.Message.ToString();
                 lblAddEnquiryMessage.ForeColor = Color.Red;
+            }
+        }
+
+        protected void btnRejectEnquiry_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Panel pnlRejectEnquiry = new Panel();
+                //GridViewRow gvRow = (GridViewRow)(sender as Control);
+                //string QUERY_ID = gvEnquiry.DataKeys[gvRow.RowIndex].Values[11].ToString();
+
+                if (string.IsNullOrEmpty(txtRejectEnquiryReason.Text.Trim()))
+                {
+                    lblRejectEnquiryMessage.Text = "Please enter the Reasons to reject the Enquiry.";
+                    lblRejectEnquiryMessage.ForeColor = Color.Red;
+                    lblRejectEnquiryMessage.Visible = true;
+                    MPE_RejectEnquiry.Show();
+                    return;
+                }
+
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                //LinkButton lnkBtnReject = (LinkButton)gvRow.FindControl("lnkBtnReject");
+                //string QUERY_ID = Convert.ToString(gvEnquiry.DataKeys[gvRow.RowIndex].Values[11].ToString());
+
+                if (new BEnquiryIndiamart().UpdateEnquiryIndiamartStatus(lblQueryID.Text, 5, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
+                {
+                    lblMessage.Text = "Enquiry from India Mart rejected successfully.";
+                    lblMessage.ForeColor = Color.Green;
+                    MPE_RejectEnquiry.Hide();
+                }
+                else
+                {
+                    lblRejectEnquiryMessage.Text = "Enquiry from India Mart not rejected successfully!";
+                    lblRejectEnquiryMessage.ForeColor = Color.Red;
+                    lblRejectEnquiryMessage.Visible = true;
+                    MPE_RejectEnquiry.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblRejectEnquiryMessage.Text = ex.Message.ToString();
+                lblRejectEnquiryMessage.ForeColor = Color.Red;
+                lblRejectEnquiryMessage.Visible = true;
+                MPE_RejectEnquiry.Show();
             }
         }
     }
