@@ -2141,21 +2141,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddEffort.Visible = true;
             //lbtnAddExpense.Visible = true;
             lbtnGenerateQuotation.Visible = true;
+          
             lbtnViewTaxQuotation.Visible = true;
             lbtnDownloadTaxQuotation.Visible = true;
-            //  lbtnPrintMachineQuotation.Visible = true;
+            lbtnViewMachineQuotation.Visible = true;
+            lbtnDownloadMachineQuotation.Visible = true;
 
-
-            //lbtnEditQuotation.Visible = false;
-            //lbtnEditFinancier.Visible = false;
-            //lbtnAddProduct.Visible = false;
-            //lbtnAddCompetitor.Visible = false;
-            //lbtnAddQuotationNote.Visible = false;
-            //lbtnAddFollowUp.Visible = false;
-            //lbtnAddEffort.Visible = false;
-            //lbtnAddExpense.Visible = false;
-            //lbtnGenerateQuotation.Visible = false;
-            //lbtnPrintMachineQuotation.Visible = false;
 
 
             lbtnSaleOrderConfirmation.Visible = true;
@@ -2174,6 +2165,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lbtnViewTaxQuotation.Visible = false;
                 lbtnDownloadTaxQuotation.Visible = false;
+            }
+            if(Quotation.Status.SalesQuotationStatusID != (short)SalesQuotationStatus.Quotation) 
+            {
+                lbtnEditQuotation.Visible = false;
+                lbtnEditFinancier.Visible = false;
+                lbtnAddProduct.Visible = false;
+                lbtnAddCompetitor.Visible = false;
+                lbtnAddQuotationNote.Visible = false;
+                lbtnAddFollowUp.Visible = false; 
+                lbtnGenerateQuotation.Visible = false;
+               // lbtnViewTaxQuotation.Visible = false;
+               // lbtnDownloadTaxQuotation.Visible = false; 
+                lbtnSaleOrderConfirmation.Visible = false;
             }
         }
         protected void FillProduct(object sender, EventArgs e)

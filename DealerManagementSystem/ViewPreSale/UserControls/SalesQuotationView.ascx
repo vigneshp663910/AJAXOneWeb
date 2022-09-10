@@ -23,8 +23,8 @@
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
                  <asp:LinkButton ID="lbtnSaleOrderConfirmation" runat="server" OnClick="lbActions_Click">Sale Order Confirmation</asp:LinkButton>
-                <asp:LinkButton ID="lbtnPrintMachineQuotation" runat="server" OnClick="lbActions_Click">View Machine Quotation</asp:LinkButton>
-                 <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Download Machine Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnViewMachineQuotation" runat="server" OnClick="lbActions_Click">View Machine Quotation</asp:LinkButton>
+                 <asp:LinkButton ID="lbtnDownloadMachineQuotation" runat="server" OnClick="lbActions_Click">Download Machine Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnViewTaxQuotation" runat="server" OnClick="lbActions_Click">View Tax Quotation</asp:LinkButton>
                  <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>

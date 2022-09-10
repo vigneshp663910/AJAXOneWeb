@@ -87,22 +87,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnSaleOrderConfirmation;
 
         /// <summary>
-        /// lbtnPrintMachineQuotation control.
+        /// lbtnViewMachineQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnPrintMachineQuotation;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnViewMachineQuotation;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lbtnDownloadMachineQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnDownloadMachineQuotation;
 
         /// <summary>
         /// lbtnViewTaxQuotation control.

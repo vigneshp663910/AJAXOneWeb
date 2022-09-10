@@ -15,27 +15,72 @@ namespace DealerManagementSystem.ViewMaster
     public partial class EInvoiceRequest : System.Web.UI.Page
     {
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "BDMS_EInvoiceRequest.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
-        public List<PDMS_EInvoice> EInvoice
+
+        public List<PEInvoice> EMarketingInvoice
         {
             get
             {
-                if (Session["BDMS_EInvoiceRequest"] == null)
+                if (Session["EInvoiceRequestEMarketingInvoice"] == null)
                 {
-                    Session["BDMS_EInvoiceRequest"] = new List<PDMS_EInvoice>();
+                    Session["EInvoiceRequestEMarketingInvoice"] = new List<PEInvoice>();
                 }
-                return (List<PDMS_EInvoice>)Session["BDMS_EInvoiceRequest"];
+                return (List<PEInvoice>)Session["EInvoiceRequestEMarketingInvoice"];
             }
             set
             {
-                Session["BDMS_EInvoiceRequest"] = value;
+                Session["EInvoiceRequestEMarketingInvoice"] = value;
+            }
+        }
+        public List<PEInvoice> EPayInvoice
+        {
+            get
+            {
+                if (Session["EInvoiceRequestEPayInvoice"] == null)
+                {
+                    Session["EInvoiceRequestEPayInvoice"] = new List<PEInvoice>();
+                }
+                return (List<PEInvoice>)Session["EInvoiceRequestEPayInvoice"];
+            }
+            set
+            {
+                Session["EInvoiceRequestEPayInvoice"] = value;
+            }
+        }
+        public List<PEInvoice> EWarrInvoice
+        {
+            get
+            {
+                if (Session["EInvoiceRequestEWarrInvoice"] == null)
+                {
+                    Session["EInvoiceRequestEWarrInvoice"] = new List<PEInvoice>();
+                }
+                return (List<PEInvoice>)Session["EInvoiceRequestEWarrInvoice"];
+            }
+            set
+            {
+                Session["EInvoiceRequestEWarrInvoice"] = value;
+            }
+        }
+
+        public List<PEInvoice> ESalesComInvoice
+        {
+            get
+            {
+                if (Session["EInvoiceRequestESalesComInvoice"] == null)
+                {
+                    Session["EInvoiceRequestESalesComInvoice"] = new List<PEInvoice>();
+                }
+                return (List<PEInvoice>)Session["EInvoiceRequestESalesComInvoice"];
+            }
+            set
+            {
+                Session["EInvoiceRequestESalesComInvoice"] = value;
             }
         }
 
@@ -58,9 +103,7 @@ namespace DealerManagementSystem.ViewMaster
                     ddlDealerCode.Enabled = true;
                     fillDealer();
                 }
-                lblRowCount.Visible = false;
-                ibtnArrowLeft.Visible = false;
-                ibtnArrowRight.Visible = false;
+                lblRowCount.Visible = false; 
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -90,26 +133,26 @@ namespace DealerManagementSystem.ViewMaster
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 string CustomerCode = txtCustomerCode.Text.Trim();
 
-                EInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                EPayInvoice = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                //  EMarketingInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+
+                //  EWarrInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                //  ESalesComInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
 
 
-                gvClaimInvoice.PageIndex = 0;
-                gvClaimInvoice.DataSource = EInvoice;
-                gvClaimInvoice.DataBind();
-                if (EInvoice.Count == 0)
-                {
-                    lblRowCount.Visible = false;
-                    ibtnArrowLeft.Visible = false;
-                    ibtnArrowRight.Visible = false;
-                }
-                else
-                {
-                    lblRowCount.Visible = true;
-                    ibtnArrowLeft.Visible = true;
-                    ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + EInvoice.Count;
-                }
-                GridEditButtonVisible();
+                gvPayInvoice.PageIndex = 0;
+                gvPayInvoice.DataSource = EPayInvoice;
+                gvPayInvoice.DataBind();
+                lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
+
+
+                //gvMarketingInv.PageIndex = 0;
+                //gvMarketingInv.DataSource = EMarketingInvoice;
+                //gvMarketingInv.DataBind(); 
+                //lblRowCount.Text = (((gvMarketingInv.PageIndex) * gvMarketingInv.PageSize) + 1) + " - " + (((gvMarketingInv.PageIndex) * gvMarketingInv.PageSize) + gvMarketingInv.Rows.Count) + " of " + EMarketingInvoice.Count;
+                 
+
+              //  GridEditButtonVisible();
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -128,62 +171,58 @@ namespace DealerManagementSystem.ViewMaster
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
 
-        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+      
+       
+         
+        protected void btnGeneratePayInvoice_Click(object sender, EventArgs e)
         {
-            //  FillCheckedInv();
-            if (gvClaimInvoice.PageIndex > 0)
-            {
-                gvClaimInvoice.PageIndex = gvClaimInvoice.PageIndex - 1;
-                gvClaimInvoice.DataSource = EInvoice;
-                gvClaimInvoice.DataBind();
-                lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + EInvoice.Count;
-            }
-            GridEditButtonVisible();
-        }
-
-        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
-        {
-            //FillCheckedInv();
-            if (gvClaimInvoice.PageCount > gvClaimInvoice.PageIndex)
-            {
-                gvClaimInvoice.PageIndex = gvClaimInvoice.PageIndex + 1;
-                gvClaimInvoice.DataSource = EInvoice;
-                gvClaimInvoice.DataBind();
-                lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + EInvoice.Count;
-            }
-            GridEditButtonVisible();
-        }
-
-        protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            //FillCheckedInv();
-            gvClaimInvoice.PageIndex = e.NewPageIndex;
-            gvClaimInvoice.DataSource = EInvoice;
-            gvClaimInvoice.DataBind();
-            lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + EInvoice.Count;
-            GridEditButtonVisible();
-        }
-        protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            DateTime traceStartTime = DateTime.Now;
+            lblMessage.Visible = true;
             try
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    string supplierPOID = Convert.ToString(gvClaimInvoice.DataKeys[e.Row.RowIndex].Value);
-                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
-
-                    List<PDMS_EInvoiceItem> Lines = new List<PDMS_EInvoiceItem>();
-                    Lines = EInvoice.Find(s => s.EInvoiceID == Convert.ToInt64(supplierPOID)).EInvoiceItems;
-                    gvClaimInvoiceItem.DataSource = Lines;
-                    gvClaimInvoiceItem.DataBind();
-
-                }
-                TraceLogger.Log(traceStartTime);
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                Label InvoiceNumber = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
+              //  PEInvoice EInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber.Text, null, null, null, null)[0];
+                
+                lblMessage.Text = new BDMS_EInvoice().GeneratEInvoiceForPaidServiceInvoice(InvoiceNumber.Text, null, null, null);
+                lblMessage.Visible = true;
             }
             catch (Exception ex)
             {
+                lblMessage.Text = ex.Message;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
+            fillWarrantyInvoice();
+        }
+         
+        void GridEditButtonVisible()
+        {
+            for (int i = 0; i < gvPayInvoice.Rows.Count; i++)
+            {
+                if (PSession.User.UserName.Contains("2000IT"))
+                {
+                    Button btnEdit = (Button)gvPayInvoice.Rows[i].FindControl("btnEdit");
+                    btnEdit.Visible = true;
+
+                    GridView gvClaimInvoiceItem = (GridView)gvPayInvoice.Rows[i].FindControl("gvClaimInvoiceItem");
+                    for (int j = 0; j < gvClaimInvoiceItem.Rows.Count; j++)
+                    {
+                        Button btnEditItem = (Button)gvClaimInvoiceItem.Rows[j].FindControl("btnEditItem");
+                        btnEditItem.Visible = true;
+                    }
+
+                }
+            }
+        }
+         
+        protected void gvMarketingInv_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void gvMarketingInv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
         }
 
         protected void btnExportExcelForSAP_Click(object sender, EventArgs e)
@@ -211,337 +250,323 @@ namespace DealerManagementSystem.ViewMaster
             new BXcel().ExporttoExcel(dt, "Claim For SAP Upload");
         }
 
-
-
-        protected void btnGenerateInvoice_Click(object sender, EventArgs e)
+        protected void gvPayInvoice_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            lblMessage.Visible = true;
+            DateTime traceStartTime = DateTime.Now;
             try
             {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label InvoiceNumber = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
-                PDMS_EInvoice EInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice(InvoiceNumber.Text, null, null, null, null)[0];
-                string EInvoivePathImport = PDMS_EInvoice.EInvoivePathImport + "/Deleted/" + InvoiceNumber.Text + DateTime.Now.ToString("yyyymmddHHMMss");
-                if (!Directory.Exists(EInvoivePathImport))
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    Directory.CreateDirectory(EInvoivePathImport);
-                }
-                new BDMS_EInvoice().DownloadAndDeleteFtp(EInvoice.EInvoiceFTPPath + "output_files/", EInvoice.EInvoiceFTPUserID, EInvoice.EInvoiceFTPPassword, EInvoivePathImport, EInvoice.BillingDocument);
-
-                lblMessage.Text = new BDMS_EInvoice().GeneratEInvoice(InvoiceNumber.Text);
-                lblMessage.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-            fillWarrantyInvoice();
-        }
-
-        protected void btnEdit_Click(object sender, EventArgs e)
-        {
-
-            lblMessage.Visible = true;
-            try
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-
-                Label lblBuyerGSTIN = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerGSTIN");
-                Label lblBuyerStateCode = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerStateCode");
-                Label lblBuyer_addr1 = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_addr1");
-                Label lblBuyer_loc = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_loc");
-                Label lblBuyerPincode = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerPincode");
-
-                TextBox txtBuyerGSTIN = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerGSTIN");
-                TextBox txtBuyerStateCode = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerStateCode");
-                TextBox txtBuyer_addr1 = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_addr1");
-                TextBox txtBuyer_loc = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_loc");
-                TextBox txtBuyerPincode = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerPincode");
-
-                Button btnEdit = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnEdit");
-                Button btnUpdate = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnUpdate");
-                Button btnCancel = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnCancel");
-
-                lblBuyerGSTIN.Visible = false;
-                lblBuyerStateCode.Visible = false;
-                lblBuyer_addr1.Visible = false;
-                lblBuyer_loc.Visible = false;
-                lblBuyerPincode.Visible = false;
-
-                txtBuyerGSTIN.Visible = true;
-                txtBuyerStateCode.Visible = true;
-                txtBuyer_addr1.Visible = true;
-                txtBuyer_loc.Visible = true;
-                txtBuyerPincode.Visible = true;
-
-                btnEdit.Visible = false;
-                btnUpdate.Visible = true;
-                btnCancel.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-
-        }
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            try
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label lblBillingDocument = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
-
-                Label lblBuyerGSTIN = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerGSTIN");
-                Label lblBuyerStateCode = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerStateCode");
-                Label lblBuyer_addr1 = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_addr1");
-                Label lblBuyer_loc = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_loc");
-                Label lblBuyerPincode = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerPincode");
-
-                TextBox txtBuyerGSTIN = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerGSTIN");
-                TextBox txtBuyerStateCode = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerStateCode");
-                TextBox txtBuyer_addr1 = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_addr1");
-                TextBox txtBuyer_loc = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_loc");
-                TextBox txtBuyerPincode = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerPincode");
-
-
-                string InvoiceNumber = lblBillingDocument.Text.Trim();
-                string BuyerGSTIN = txtBuyerGSTIN.Text.Trim();
-                string BuyerStateCode = txtBuyerStateCode.Text.Trim();
-                string Buyer_addr1 = txtBuyer_addr1.Text.Trim(); ;
-                string Buyer_loc = txtBuyer_loc.Text.Trim();
-                string BuyerPincode = txtBuyerPincode.Text.Trim();
-
-                if (new BDMS_EInvoice().UpdateEInvoiveBuyerDetails(InvoiceNumber, BuyerGSTIN, BuyerStateCode, Buyer_addr1, Buyer_loc, BuyerPincode, PSession.User.UserID))
-                {
-                    Button btnEdit = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnEdit");
-                    Button btnUpdate = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnUpdate");
-                    Button btnCancel = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnCancel");
-
-                    lblBuyerGSTIN.Visible = true;
-                    lblBuyerStateCode.Visible = true;
-                    lblBuyer_addr1.Visible = true;
-                    lblBuyer_loc.Visible = true;
-                    lblBuyerPincode.Visible = true;
-
-                    txtBuyerGSTIN.Visible = false;
-                    txtBuyerStateCode.Visible = false;
-                    txtBuyer_addr1.Visible = false;
-                    txtBuyer_loc.Visible = false;
-                    txtBuyerPincode.Visible = false;
-
-                    btnEdit.Visible = true;
-                    btnUpdate.Visible = false;
-                    btnCancel.Visible = false;
-
-                    lblBuyerGSTIN.Text = txtBuyerGSTIN.Text;
-                    lblBuyerStateCode.Text = txtBuyerStateCode.Text;
-                    lblBuyer_addr1.Text = txtBuyer_addr1.Text;
-                    lblBuyer_loc.Text = txtBuyer_loc.Text;
-                    lblBuyerPincode.Text = txtBuyerPincode.Text;
+                    //  string supplierPOID = Convert.ToString(gvClaimInvoice.DataKeys[e.Row.RowIndex].Value);
+                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
+                    Label lblBillingDocument = (Label)e.Row.FindControl("lblBillingDocument");
+                    List<PItemList> Lines = new List<PItemList>();
+                    Lines = EPayInvoice.Find(s => s.DocDtls.No == lblBillingDocument.Text).ItemList;
+                    gvClaimInvoiceItem.DataSource = Lines;
+                    gvClaimInvoiceItem.DataBind();
 
                 }
-                else
-                {
-
-                }
-
+                TraceLogger.Log(traceStartTime);
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
             }
         }
 
-        protected void btnCancel_Click(object sender, EventArgs e)
+        protected void gvPayInvoice_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            lblMessage.Visible = true;
-            try
-            {
-                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-
-                Label lblBuyerGSTIN = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerGSTIN");
-                Label lblBuyerStateCode = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerStateCode");
-                Label lblBuyer_addr1 = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_addr1");
-                Label lblBuyer_loc = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_loc");
-                Label lblBuyerPincode = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerPincode");
-
-                TextBox txtBuyerGSTIN = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerGSTIN");
-                TextBox txtBuyerStateCode = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerStateCode");
-                TextBox txtBuyer_addr1 = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_addr1");
-                TextBox txtBuyer_loc = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_loc");
-                TextBox txtBuyerPincode = (TextBox)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerPincode");
-
-                Button btnEdit = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnEdit");
-                Button btnUpdate = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnUpdate");
-                Button btnCancel = (Button)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("btnCancel");
-
-                lblBuyerGSTIN.Visible = true;
-                lblBuyerStateCode.Visible = true;
-                lblBuyer_addr1.Visible = true;
-                lblBuyer_loc.Visible = true;
-                lblBuyerPincode.Visible = true;
-
-                txtBuyerGSTIN.Visible = false;
-                txtBuyerStateCode.Visible = false;
-                txtBuyer_addr1.Visible = false;
-                txtBuyer_loc.Visible = false;
-                txtBuyerPincode.Visible = false;
-
-                btnEdit.Visible = true;
-                btnUpdate.Visible = false;
-                btnCancel.Visible = false;
-
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
+            gvPayInvoice.PageIndex = e.NewPageIndex;
+            gvPayInvoice.DataSource = EPayInvoice;
+            gvPayInvoice.DataBind();
+            lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
+            GridEditButtonVisible();
         }
 
-        void GridEditButtonVisible()
-        {
-            for (int i = 0; i < gvClaimInvoice.Rows.Count; i++)
-            {
-                if (PSession.User.UserName.Contains("2000IT"))
-                {
-                    Button btnEdit = (Button)gvClaimInvoice.Rows[i].FindControl("btnEdit");
-                    btnEdit.Visible = true;
-
-                    GridView gvClaimInvoiceItem = (GridView)gvClaimInvoice.Rows[i].FindControl("gvClaimInvoiceItem");
-                    for (int j = 0; j < gvClaimInvoiceItem.Rows.Count; j++)
-                    {
-                        Button btnEditItem = (Button)gvClaimInvoiceItem.Rows[j].FindControl("btnEditItem");
-                        btnEditItem.Visible = true;
-                    }
-
-                }
-            }
-        }
-
-        protected void btnEditItem_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            try
-            {
-                Button GV = (Button)sender; // Select either of inner gridview who request for Edit / cancel edit out of all innner gridview  
-                GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
 
 
-                Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
-                TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
 
-                Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
-                Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
-                Button btnCancelItem = (Button)grdParent.FindControl("btnCancelItem");
-
-                lblHSNCode.Visible = false;
-                txtHSNCode.Visible = true;
-
-                btnEditItem.Visible = false;
-                btnUpdateItem.Visible = true;
-                btnCancelItem.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
-
-        protected void btnUpdateItem_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            try
-            {
-                Button GV = (Button)sender; // Select either of inner gridview who request for Edit / cancel edit out of all innner gridview  
-                GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
+        //protected void btnEditItem_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    try
+        //    {
+        //        Button GV = (Button)sender; // Select either of inner gridview who request for Edit / cancel edit out of all innner gridview  
+        //        GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
 
 
-                Label lblBillingDocument = (Label)grdParent.FindControl("lblBillingDocument");
-                Label lblInvoiceItemID = (Label)grdParent.FindControl("lblInvoiceItemID");
-                Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
-                TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
+        //        Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
+        //        TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
+
+        //        Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
+        //        Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
+        //        Button btnCancelItem = (Button)grdParent.FindControl("btnCancelItem");
+
+        //        lblHSNCode.Visible = false;
+        //        txtHSNCode.Visible = true;
+
+        //        btnEditItem.Visible = false;
+        //        btnUpdateItem.Visible = true;
+        //        btnCancelItem.Visible = true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //}
+
+        //protected void btnUpdateItem_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    try
+        //    {
+        //        Button GV = (Button)sender; // Select either of inner gridview who request for Edit / cancel edit out of all innner gridview  
+        //        GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
 
 
-                string InvoiceNumber = lblBillingDocument.Text.Trim();
-                long InvoiceItemID = Convert.ToInt64(lblInvoiceItemID.Text.Trim());
-                string HSNCode = txtHSNCode.Text.Trim();
+        //        Label lblBillingDocument = (Label)grdParent.FindControl("lblBillingDocument");
+        //        Label lblInvoiceItemID = (Label)grdParent.FindControl("lblInvoiceItemID");
+        //        Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
+        //        TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
 
 
-                if (new BDMS_EInvoice().UpdateEInvoiveHSNCode(InvoiceNumber, InvoiceItemID, HSNCode, PSession.User.UserID))
-                {
-                    Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
-                    Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
-                    Button btnCancelItem = (Button)grdParent.FindControl("btnCancelItem");
-
-                    lblHSNCode.Visible = true;
-
-                    txtHSNCode.Visible = false;
+        //        string InvoiceNumber = lblBillingDocument.Text.Trim();
+        //        long InvoiceItemID = Convert.ToInt64(lblInvoiceItemID.Text.Trim());
+        //        string HSNCode = txtHSNCode.Text.Trim();
 
 
-                    btnEditItem.Visible = true;
-                    btnUpdateItem.Visible = false;
-                    btnCancelItem.Visible = false;
+        //        if (new BDMS_EInvoice().UpdateEInvoiveHSNCode(InvoiceNumber, InvoiceItemID, HSNCode, PSession.User.UserID))
+        //        {
+        //            Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
+        //            Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
+        //            Button btnCancelItem = (Button)grdParent.FindControl("btnCancelItem");
 
-                    lblHSNCode.Text = txtHSNCode.Text;
+        //            lblHSNCode.Visible = true;
 
-                }
-                else
-                {
+        //            txtHSNCode.Visible = false;
 
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
 
-        protected void btnCancelItem_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            try
-            {
-                Button GV = (Button)sender; // Select either of inner gridview who request for Edit / cancel edit out of all innner gridview  
-                GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
+        //            btnEditItem.Visible = true;
+        //            btnUpdateItem.Visible = false;
+        //            btnCancelItem.Visible = false;
 
-                Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
-                TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
+        //            lblHSNCode.Text = txtHSNCode.Text;
 
-                Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
-                Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
-                Button btnCancelItem = (Button)grdParent.FindControl("btnCancelItem");
+        //        }
+        //        else
+        //        {
 
-                lblHSNCode.Visible = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //}
 
-                txtHSNCode.Visible = false;
+        //protected void btnCancelItem_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    try
+        //    {
+        //        Button GV = (Button)sender; // Select either of inner gridview who request for Edit / cancel edit out of all innner gridview  
+        //        GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
 
-                btnEditItem.Visible = true;
-                btnUpdateItem.Visible = false;
-                btnCancelItem.Visible = false;
+        //        Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
+        //        TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
 
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
+        //        Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
+        //        Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
+        //        Button btnCancelItem = (Button)grdParent.FindControl("btnCancelItem");
+
+        //        lblHSNCode.Visible = true;
+
+        //        txtHSNCode.Visible = false;
+
+        //        btnEditItem.Visible = true;
+        //        btnUpdateItem.Visible = false;
+        //        btnCancelItem.Visible = false;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //}
+
+        //protected void btnEdit_Click(object sender, EventArgs e)
+        //{
+
+        //    lblMessage.Visible = true;
+        //    try
+        //    {
+        //        GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+        //        Label lblBuyerGSTIN = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerGSTIN");
+        //        Label lblBuyerStateCode = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerStateCode");
+        //        Label lblBuyer_addr1 = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_addr1");
+        //        Label lblBuyer_loc = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_loc");
+        //        Label lblBuyerPincode = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerPincode");
+
+        //        TextBox txtBuyerGSTIN = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerGSTIN");
+        //        TextBox txtBuyerStateCode = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerStateCode");
+        //        TextBox txtBuyer_addr1 = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_addr1");
+        //        TextBox txtBuyer_loc = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_loc");
+        //        TextBox txtBuyerPincode = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerPincode");
+
+        //        Button btnEdit = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnEdit");
+        //        Button btnUpdate = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnUpdate");
+        //        Button btnCancel = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnCancel");
+
+        //        lblBuyerGSTIN.Visible = false;
+        //        lblBuyerStateCode.Visible = false;
+        //        lblBuyer_addr1.Visible = false;
+        //        lblBuyer_loc.Visible = false;
+        //        lblBuyerPincode.Visible = false;
+
+        //        txtBuyerGSTIN.Visible = true;
+        //        txtBuyerStateCode.Visible = true;
+        //        txtBuyer_addr1.Visible = true;
+        //        txtBuyer_loc.Visible = true;
+        //        txtBuyerPincode.Visible = true;
+
+        //        btnEdit.Visible = false;
+        //        btnUpdate.Visible = true;
+        //        btnCancel.Visible = true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+
+        //}
+
+        //protected void btnUpdate_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    try
+        //    {
+        //        GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //        Label lblBillingDocument = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
+
+        //        Label lblBuyerGSTIN = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerGSTIN");
+        //        Label lblBuyerStateCode = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerStateCode");
+        //        Label lblBuyer_addr1 = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_addr1");
+        //        Label lblBuyer_loc = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_loc");
+        //        Label lblBuyerPincode = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerPincode");
+
+        //        TextBox txtBuyerGSTIN = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerGSTIN");
+        //        TextBox txtBuyerStateCode = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerStateCode");
+        //        TextBox txtBuyer_addr1 = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_addr1");
+        //        TextBox txtBuyer_loc = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_loc");
+        //        TextBox txtBuyerPincode = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerPincode");
+
+
+        //        string InvoiceNumber = lblBillingDocument.Text.Trim();
+        //        string BuyerGSTIN = txtBuyerGSTIN.Text.Trim();
+        //        string BuyerStateCode = txtBuyerStateCode.Text.Trim();
+        //        string Buyer_addr1 = txtBuyer_addr1.Text.Trim(); ;
+        //        string Buyer_loc = txtBuyer_loc.Text.Trim();
+        //        string BuyerPincode = txtBuyerPincode.Text.Trim();
+
+        //        if (new BDMS_EInvoice().UpdateEInvoiveBuyerDetails(InvoiceNumber, BuyerGSTIN, BuyerStateCode, Buyer_addr1, Buyer_loc, BuyerPincode, PSession.User.UserID))
+        //        {
+        //            Button btnEdit = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnEdit");
+        //            Button btnUpdate = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnUpdate");
+        //            Button btnCancel = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnCancel");
+
+        //            lblBuyerGSTIN.Visible = true;
+        //            lblBuyerStateCode.Visible = true;
+        //            lblBuyer_addr1.Visible = true;
+        //            lblBuyer_loc.Visible = true;
+        //            lblBuyerPincode.Visible = true;
+
+        //            txtBuyerGSTIN.Visible = false;
+        //            txtBuyerStateCode.Visible = false;
+        //            txtBuyer_addr1.Visible = false;
+        //            txtBuyer_loc.Visible = false;
+        //            txtBuyerPincode.Visible = false;
+
+        //            btnEdit.Visible = true;
+        //            btnUpdate.Visible = false;
+        //            btnCancel.Visible = false;
+
+        //            lblBuyerGSTIN.Text = txtBuyerGSTIN.Text;
+        //            lblBuyerStateCode.Text = txtBuyerStateCode.Text;
+        //            lblBuyer_addr1.Text = txtBuyer_addr1.Text;
+        //            lblBuyer_loc.Text = txtBuyer_loc.Text;
+        //            lblBuyerPincode.Text = txtBuyerPincode.Text;
+
+        //        }
+        //        else
+        //        {
+
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //}
+
+        //protected void btnCancel_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    try
+        //    {
+        //        GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+        //        Label lblBuyerGSTIN = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerGSTIN");
+        //        Label lblBuyerStateCode = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerStateCode");
+        //        Label lblBuyer_addr1 = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_addr1");
+        //        Label lblBuyer_loc = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyer_loc");
+        //        Label lblBuyerPincode = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBuyerPincode");
+
+        //        TextBox txtBuyerGSTIN = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerGSTIN");
+        //        TextBox txtBuyerStateCode = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerStateCode");
+        //        TextBox txtBuyer_addr1 = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_addr1");
+        //        TextBox txtBuyer_loc = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyer_loc");
+        //        TextBox txtBuyerPincode = (TextBox)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("txtBuyerPincode");
+
+        //        Button btnEdit = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnEdit");
+        //        Button btnUpdate = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnUpdate");
+        //        Button btnCancel = (Button)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("btnCancel");
+
+        //        lblBuyerGSTIN.Visible = true;
+        //        lblBuyerStateCode.Visible = true;
+        //        lblBuyer_addr1.Visible = true;
+        //        lblBuyer_loc.Visible = true;
+        //        lblBuyerPincode.Visible = true;
+
+        //        txtBuyerGSTIN.Visible = false;
+        //        txtBuyerStateCode.Visible = false;
+        //        txtBuyer_addr1.Visible = false;
+        //        txtBuyer_loc.Visible = false;
+        //        txtBuyerPincode.Visible = false;
+
+        //        btnEdit.Visible = true;
+        //        btnUpdate.Visible = false;
+        //        btnCancel.Visible = false;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //}
     }
 }
