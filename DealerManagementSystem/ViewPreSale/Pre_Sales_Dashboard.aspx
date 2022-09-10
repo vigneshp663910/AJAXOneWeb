@@ -578,12 +578,12 @@
                     <%--<div id="chartdiv"></div>--%>
                     <div id="funnel-container" style="display: none"></div>
                     <div class="funnel-chart">
-                        <svg width="450" height="400">
+                        <svg width="350" height="400">
                             <defs></defs>
                             <g cursor="default" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="12px" font-weight="400">
                                 <g cursor="default">
                                     <g>
-                                        <rect width="450" height="400" fill="rgba(100,100,100,0)"></rect>
+                                        <rect width="350" height="400" fill="rgba(100,100,100,0)"></rect>
                                         <g transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,341,8)">
                                             <%--<g>
                                                 <path d="M174.18788825728643,236.87035240905414A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,95.12964759094581A4.849922911848526,70.87035240905416,0,0,0,174.18788825728643,236.87035240905414A483.16965914395865,593.7128277905049,0,0,1,284,221.33333333333326A3.786666666666663,55.333333333333286,0,0,0,284,110.66666666666669A483.16965914395865,593.7128277905049,0,0,1,174.18788825728643,95.12964759094581" fill="rgb(104, 193, 130)" stroke="#FFFFFF"></path>
