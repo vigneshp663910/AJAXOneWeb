@@ -216,7 +216,8 @@
         .TimeAction {
             width: 100%;
             overflow: hidden;
-            margin: 15px 15px 0;
+            margin: 1px 1px 1px 1px;
+            border: 2px solid #5cd1db;
         }
             /* The container */
             .TimeAction .container {
