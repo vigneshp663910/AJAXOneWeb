@@ -94,7 +94,7 @@ namespace DealerManagementSystem.View
                 project.Remarks = txtRemarks.Text.Trim();
                 if (new BProject().InsertOrUpdateProject(project))
                 {
-                    lblMessage.Text = "Project Was Saved Successfully...";
+                    lblMessage.Text = "Project is saved Successfully...";
                     lblMessage.ForeColor = Color.Green;
                     FillGrid(project.ProjectID);
                     ClearField();
@@ -102,7 +102,7 @@ namespace DealerManagementSystem.View
                 }
                 else
                 {
-                    lblAddProjectMessage.Text = "Project Not Saved Successfully...!";
+                    lblAddProjectMessage.Text = "Project is not saved successfully...!";
                     lblAddProjectMessage.ForeColor = Color.Red;
                 }
             }
