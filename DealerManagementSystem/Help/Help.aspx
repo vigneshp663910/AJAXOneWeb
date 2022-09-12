@@ -99,6 +99,7 @@
                                     <asp:TemplateField HeaderText="Delete">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
+                                            <asp:ImageButton ID="ibedit" runat="server" Width="20px" ImageUrl="~/Images/Edit.png" OnClick="ibedit_Click" Style="height: 20px; width: 20px;" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DocumentAttachmentID")%>' />
                                             <asp:ImageButton ID="ibdelete" runat="server" Width="20px" ImageUrl="~/Images/delete.png" OnClick="ibdelete_Click" Style="height: 20px; width: 20px;" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DocumentAttachmentID")%>' />
                                         </ItemTemplate>
                                         <FooterTemplate>
@@ -112,7 +113,9 @@
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
-
+                            <asp:HiddenField ID="HiddenID" runat="server" />
+                            <asp:HiddenField ID="HiddenFieldpdf" runat="server" />
+                            <asp:HiddenField ID="HiddenFieldpps" runat="server" />
                         </div>
                     </fieldset>
                 </div>

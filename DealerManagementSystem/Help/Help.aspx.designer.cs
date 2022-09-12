@@ -69,6 +69,33 @@ namespace DealerManagementSystem.Help
         protected global::System.Web.UI.WebControls.GridView gvDocument;
 
         /// <summary>
+        /// HiddenID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenID;
+
+        /// <summary>
+        /// HiddenFieldpdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldpdf;
+
+        /// <summary>
+        /// HiddenFieldpps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldpps;
+
+        /// <summary>
         /// HyperLink1pdf control.
         /// </summary>
         /// <remarks>

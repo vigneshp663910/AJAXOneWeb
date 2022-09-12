@@ -116,10 +116,10 @@ namespace DealerManagementSystem.Help
         {
             try
             {
+                Boolean Success = false;
                 lblMessage.Text = string.Empty;
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
-                int success = 0;
                 Button BtnAdd = (Button)gvDocument.FooterRow.FindControl("BtnAdd");
                 string txtsno = ((TextBox)gvDocument.FooterRow.FindControl("txtsno")).Text.Trim();
                 string txtDescription = ((TextBox)gvDocument.FooterRow.FindControl("txtDescription")).Text.Trim();
@@ -127,7 +127,6 @@ namespace DealerManagementSystem.Help
                 FileUpload fileUploadPPS = ((FileUpload)gvDocument.FooterRow.FindControl("fileUploadPPS"));
                 string txtVideoLink = ((TextBox)gvDocument.FooterRow.FindControl("txtVideoLink")).Text.Trim();
                 string txtOrderNo = ((TextBox)gvDocument.FooterRow.FindControl("txtOrderNo")).Text.Trim();
-
 
                 if (string.IsNullOrEmpty(txtDescription))
                 {
@@ -138,22 +137,22 @@ namespace DealerManagementSystem.Help
 
                 PHelp help = new PHelp();
                 help.Sno = txtsno.Trim();
-                help.Description = txtDescription.Trim();
-                if (fileUploadPDF.PostedFile.FileName.Length != 0)
-                {
-                    help.PDFAttachment = "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName;
-                }
-                if (fileUploadPPS.PostedFile.FileName.Length != 0)
-                {
-                    help.PPSAttachment = "Files/" + fileUploadPPS.FileName;
-                }
+                help.Description = txtDescription.Trim();                
                 help.VideoLink = txtVideoLink;
                 help.OrderNo = Convert.ToInt32(txtOrderNo);
                 help.IsDeleted = false;
                 help.CreatedBy = PSession.User.UserID;
-                Boolean Success = false;
+                
                 if (BtnAdd.Text == "Add")
                 {
+                    if (fileUploadPDF.PostedFile.FileName.Length != 0)
+                    {
+                        help.PDFAttachment = "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName;
+                    }
+                    if (fileUploadPPS.PostedFile.FileName.Length != 0)
+                    {
+                        help.PPSAttachment = "Files/" + fileUploadPPS.FileName;
+                    }
                     Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
                     if (Success == true)
                     {
@@ -161,51 +160,30 @@ namespace DealerManagementSystem.Help
                         lblMessage.ForeColor = Color.Green;
                         SearchHelp();
                     }
-
-                    //success = new BPresalesMasters().InsertOrUpdateLeadSource(null, LeadSource, true, PSession.User.UserID);
-                    //if (success == 1)
-                    //{
-                    //    SearchHelp();
-                    //    lblMessage.Text = "Lead Source Created Successfully...!";
-                    //    lblMessage.ForeColor = Color.Green;
-                    //    return;
-                    //}
-                    //else if (success == 2)
-                    //{
-                    //    lblMessage.Text = "Lead Source Already Found";
-                    //    lblMessage.ForeColor = Color.Red;
-                    //    return;
-                    //}
-                    //else
-                    //{
-                    //    lblMessage.Text = "Lead Source Not Created Successfully...!";
-                    //    lblMessage.ForeColor = Color.Red;
-                    //    return;
-                    //}
+                    else
+                    {
+                        lblMessage.Text = "Document is not saved successfully";
+                        lblMessage.ForeColor = Color.Red;
+                    }
                 }
-                else
+                else if(BtnAdd.Text == "Update")
                 {
-                    //success = new BPresalesMasters().InsertOrUpdateLeadSource(Convert.ToInt32(HiddenID.Value), LeadSource, true, PSession.User.UserID);
-                    //if (success == 1)
-                    //{
-                    //    HiddenID.Value = null;
-                    //    SearchLeadSource();
-                    //    lblMessage.Text = "Lead Source Updated Successfully...!";
-                    //    lblMessage.ForeColor = Color.Green;
-                    //    return;
-                    //}
-                    //else if (success == 2)
-                    //{
-                    //    lblMessage.Text = "Lead Source Already Found";
-                    //    lblMessage.ForeColor = Color.Red;
-                    //    return;
-                    //}
-                    //else
-                    //{
-                    //    lblMessage.Text = "Lead Source Not Updated Successfully...!";
-                    //    lblMessage.ForeColor = Color.Red;
-                    //    return;
-                    //}
+                    help.DocumentAttachmentID = Convert.ToInt32(HiddenID.Value);
+                    help.PDFAttachment=(fileUploadPDF.PostedFile.FileName.Length != 0)? "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName: HiddenFieldpdf.Value;
+                    help.PPSAttachment = (fileUploadPPS.PostedFile.FileName.Length != 0)? "Files/" + fileUploadPPS.FileName: HiddenFieldpps.Value;
+
+                    Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
+                    if (Success == true)
+                    {
+                        lblMessage.Text = "Document is updated successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        SearchHelp();
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Document is not updated successfully";
+                        lblMessage.ForeColor = Color.Red;
+                    }
                 }
             }
             catch (Exception ex)
@@ -214,6 +192,29 @@ namespace DealerManagementSystem.Help
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
+        }
+
+        protected void ibedit_Click(object sender, ImageClickEventArgs e)
+        {
+            ImageButton Ibtn = (ImageButton)sender;
+            GridViewRow gvRow = (GridViewRow)Ibtn.NamingContainer;
+
+            Label lblsno = (Label)gvRow.FindControl("lblsno");
+            Label lblDescription = (Label)gvRow.FindControl("lblDescription");
+            HyperLink HyperLinkpdf = (HyperLink)gvRow.FindControl("HyperLinkpdf");
+            HyperLink HyperLinkpps = (HyperLink)gvRow.FindControl("HyperLinkpps");
+            HyperLink HyperLinklink = (HyperLink)gvRow.FindControl("HyperLinklink");
+            Label lblOrderNo = (Label)gvRow.FindControl("lblOrderNo");
+
+            ((TextBox)gvDocument.FooterRow.FindControl("txtsno")).Text= lblsno.Text;
+            ((TextBox)gvDocument.FooterRow.FindControl("txtDescription")).Text= lblDescription.Text;
+            ((TextBox)gvDocument.FooterRow.FindControl("txtVideoLink")).Text = HyperLinklink.NavigateUrl;
+            ((TextBox)gvDocument.FooterRow.FindControl("txtOrderNo")).Text= lblOrderNo.Text;
+
+            ((Button)gvDocument.FooterRow.FindControl("BtnAdd")).Text="Update";
+            HiddenFieldpdf.Value = HyperLinkpdf.NavigateUrl;
+            HiddenFieldpps.Value = HyperLinkpps.NavigateUrl;
+            HiddenID.Value = Ibtn.CommandArgument;
         }
     }
 }
