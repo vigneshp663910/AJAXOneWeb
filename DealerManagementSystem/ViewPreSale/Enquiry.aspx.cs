@@ -233,14 +233,14 @@ namespace DealerManagementSystem.ViewPreSale
                 enquiryAdd = UC_AddEnquiry.Read();
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
-                    lblMessage.Text = "Enquiry Was Saved Successfully...";
+                    lblMessage.Text = "Enquiry is saved successfully...";
                     lblMessage.ForeColor = Color.Green;
                     MPE_AddEnquiry.Hide();
                     FillGrid();
                 }
                 else
                 {
-                    lblAddEnquiryMessage.Text = "Enquiry Not Saved Successfully...!";
+                    lblAddEnquiryMessage.Text = "Enquiry is not saved successfully...!";
                     lblAddEnquiryMessage.ForeColor = Color.Red;
                 }
             }

@@ -123,14 +123,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 enquiryAdd.EnquiryID = Enquiry.EnquiryID; 
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
-                    lblMessage.Text = "Enquiry Was Saved Successfully...";
+                    lblMessage.Text = "Enquiry is saved successfully...";
                     lblMessage.ForeColor = Color.Green;
                     fillViewEnquiry(Enquiry.EnquiryID);
                     MPE_Enquiry.Hide();
                 }
                 else
                 {
-                    lblAddEnquiryMessage.Text = "Enquiry Not Saved Successfully...!";
+                    lblAddEnquiryMessage.Text = "Enquiry is not saved successfully...!";
                     lblAddEnquiryMessage.ForeColor = Color.Red;
                 }
             }
