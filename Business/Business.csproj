@@ -166,6 +166,7 @@
     <Compile Include="BEnquiryIndiamart.cs" />
     <Compile Include="BFeedback.cs" />
     <Compile Include="BForum.cs" />
+    <Compile Include="BHelp.cs" />
     <Compile Include="BIntegration.cs" />
     <Compile Include="BNotification.cs" />
     <Compile Include="BOrganization.cs" />
