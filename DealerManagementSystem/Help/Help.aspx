@@ -96,7 +96,7 @@
                                             <asp:TextBox ID="txtOrderNo" runat="server" placeholder="OrderNo" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Delete">
+                                    <asp:TemplateField HeaderText="Action">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:ImageButton ID="ibedit" runat="server" Width="20px" ImageUrl="~/Images/Edit.png" OnClick="ibedit_Click" Style="height: 20px; width: 20px;" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "DocumentAttachmentID")%>' />
