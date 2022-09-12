@@ -58,7 +58,7 @@
                                             <asp:TextBox ID="txtDescription" runat="server" placeholder="Description" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="PDF">
+                                    <asp:TemplateField HeaderText="PDF" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="HyperLinkpdf" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "PDFAttachment")%>'>
                                                 <asp:Image ID="Imagepdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" />
@@ -68,7 +68,7 @@
                                             <asp:FileUpload ID="fileUploadPDF" runat="server" Height="30px" Width="220px"/>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="PPS">
+                                    <asp:TemplateField HeaderText="PPS" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="HyperLinkpps" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "PPSAttachment")%>'>
                                                 <asp:Image ID="Imagepps" runat="server" ImageUrl="~/Images/save.png" Width="25px" Height="25px" />
@@ -78,7 +78,7 @@
                                             <asp:FileUpload ID="fileUploadPPS" runat="server" Height="30px" Width="220px"/>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Video">
+                                    <asp:TemplateField HeaderText="Video" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:HyperLink ID="HyperLinklink" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "VideoLink")%>'>
                                                 <asp:Image ID="Imagelink" runat="server" ImageUrl="~/Images/vplay.png" Width="40px" Height="25px" />
@@ -148,16 +148,6 @@
     <body>
 
         <table style="border-color: #CCCCCC; width: 1000px; font-family: Calibri; font-size: large; border-collapse: collapse;" border="2">
-
-            <%--<tr>
-                <td rowspan="2" style="width: 150px">
-                    <%--<img src="../Ajax/Images/Ajax-New-Logo.png" border="0" width="150" height="45">-
-                </td>
-                <td align="center" class="auto-style1"><b>AJAXOne HELP</b></td>
-                <td rowspan="2">
-                    <img src="../Ajax/Images/UserGuide.png" height="45px" width="60px">
-                </td>
-            </tr>--%>
             <tr>
                 <td colspan="5" id="PageHeading" align="center" class="auto-style1"><b>INDEX
                 </b></td>
