@@ -14,8 +14,13 @@ namespace DealerManagementSystem.Help
 {
     public partial class Help : System.Web.UI.Page
     {
-        string PreviousModuleRowID = string.Empty;
-        int GridRowindex = 1;
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -97,25 +102,6 @@ namespace DealerManagementSystem.Help
                 lblMessage.Text = "Document is deleted successfully";
                 lblMessage.ForeColor = Color.Green;
                 SearchHelp();
-            }
-        }
-        protected void gvDocument_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            if (DataBinder.Eval(e.Row.DataItem, "MainModule.ModuleMasterID") != null)
-            {
-                if ((PreviousModuleRowID == string.Empty) || (PreviousModuleRowID != DataBinder.Eval(e.Row.DataItem, "MainModule.ModuleMasterID").ToString()))
-                {
-                    GridView gvDocument = (GridView)sender;
-                    GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Insert);
-                    TableCell cell = new TableCell();
-                    cell.Text = "Application Name : " + DataBinder.Eval(e.Row.DataItem, "MainModule.ModuleName").ToString();
-                    cell.ColumnSpan = 7;
-                    cell.CssClass = "GroupHeaderStyle";
-                    row.Cells.Add(cell);
-                    gvDocument.Controls[0].Controls.AddAt(e.Row.RowIndex + GridRowindex, row);
-                    GridRowindex++;
-                }
-                PreviousModuleRowID = DataBinder.Eval(e.Row.DataItem, "MainModule.ModuleMasterID").ToString();
             }
         }
 
