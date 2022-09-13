@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <asp:GridView ID="gvDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" DataKeyNames="DocumentAttachmentID" OnPageIndexChanging="gvDocument_PageIndexChanging">
+                                EmptyDataText="No Data Found" ShowFooter="true" DataKeyNames="DocumentAttachmentID" OnPageIndexChanging="gvDocument_PageIndexChanging">
                                 <Columns>
                                     <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
