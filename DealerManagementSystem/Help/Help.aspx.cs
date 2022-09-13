@@ -3,6 +3,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -21,7 +22,7 @@ namespace DealerManagementSystem.Help
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Help » Contents');</script>");
                 SearchHelp();
-            }            
+            }
         }
         void SearchHelp()
         {
@@ -137,21 +138,33 @@ namespace DealerManagementSystem.Help
 
                 PHelp help = new PHelp();
                 help.Sno = txtsno.Trim();
-                help.Description = txtDescription.Trim();                
+                help.Description = txtDescription.Trim();
                 help.VideoLink = txtVideoLink;
                 help.OrderNo = Convert.ToInt32(txtOrderNo);
                 help.IsDeleted = false;
                 help.CreatedBy = PSession.User.UserID;
-                
+
                 if (BtnAdd.Text == "Add")
                 {
+                    string fileName = Path.GetFileName(fileUploadPDF.PostedFile.FileName);
                     if (fileUploadPDF.PostedFile.FileName.Length != 0)
                     {
-                        help.PDFAttachment = "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName;
+                        help.PDFAttachment = "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName;                        
+                        if (File.Exists(Server.MapPath("~/Help/Files/") + fileName))
+                        {
+                            File.Delete(Server.MapPath("~/Help/Files/") + fileName);
+                        }
+                        fileUploadPDF.PostedFile.SaveAs(Server.MapPath("~/Help/Files/") + fileName);
                     }
+                    fileName = Path.GetFileName(fileUploadPPS.PostedFile.FileName);
                     if (fileUploadPPS.PostedFile.FileName.Length != 0)
                     {
                         help.PPSAttachment = "Files/" + fileUploadPPS.FileName;
+                        if (File.Exists(Server.MapPath("~/Help/Files/") + fileName))
+                        {
+                            File.Delete(Server.MapPath("~/Help/Files/") + fileName);
+                        }
+                        fileUploadPPS.PostedFile.SaveAs(Server.MapPath("~/Help/Files/") + fileName);
                     }
                     Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
                     if (Success == true)
@@ -166,11 +179,30 @@ namespace DealerManagementSystem.Help
                         lblMessage.ForeColor = Color.Red;
                     }
                 }
-                else if(BtnAdd.Text == "Update")
+                else if (BtnAdd.Text == "Update")
                 {
                     help.DocumentAttachmentID = Convert.ToInt32(HiddenID.Value);
-                    help.PDFAttachment=(fileUploadPDF.PostedFile.FileName.Length != 0)? "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName: HiddenFieldpdf.Value;
-                    help.PPSAttachment = (fileUploadPPS.PostedFile.FileName.Length != 0)? "Files/" + fileUploadPPS.FileName: HiddenFieldpps.Value;
+                    help.PDFAttachment = (fileUploadPDF.PostedFile.FileName.Length != 0) ? "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName : HiddenFieldpdf.Value;
+                    string fileName = Path.GetFileName(fileUploadPDF.PostedFile.FileName);
+                    if (fileUploadPDF.PostedFile.FileName.Length != 0)
+                    {
+                        if (File.Exists(Server.MapPath("~/Help/Files/") + fileName))
+                        {
+                            File.Delete(Server.MapPath("~/Help/Files/") + fileName);
+                        }
+                        fileUploadPDF.PostedFile.SaveAs(Server.MapPath("~/Help/Files/") + fileName);
+                    }
+
+                    help.PPSAttachment = (fileUploadPPS.PostedFile.FileName.Length != 0) ? "Files/" + fileUploadPPS.FileName : HiddenFieldpps.Value;
+                    fileName = Path.GetFileName(fileUploadPPS.PostedFile.FileName);
+                    if (fileUploadPPS.PostedFile.FileName.Length != 0)
+                    {
+                        if (File.Exists(Server.MapPath("~/Help/Files/") + fileName))
+                        {
+                            File.Delete(Server.MapPath("~/Help/Files/") + fileName);
+                        }
+                        fileUploadPPS.PostedFile.SaveAs(Server.MapPath("~/Help/Files/") + fileName);
+                    }
 
                     Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
                     if (Success == true)
@@ -206,12 +238,12 @@ namespace DealerManagementSystem.Help
             HyperLink HyperLinklink = (HyperLink)gvRow.FindControl("HyperLinklink");
             Label lblOrderNo = (Label)gvRow.FindControl("lblOrderNo");
 
-            ((TextBox)gvDocument.FooterRow.FindControl("txtsno")).Text= lblsno.Text;
-            ((TextBox)gvDocument.FooterRow.FindControl("txtDescription")).Text= lblDescription.Text;
+            ((TextBox)gvDocument.FooterRow.FindControl("txtsno")).Text = lblsno.Text;
+            ((TextBox)gvDocument.FooterRow.FindControl("txtDescription")).Text = lblDescription.Text;
             ((TextBox)gvDocument.FooterRow.FindControl("txtVideoLink")).Text = HyperLinklink.NavigateUrl;
-            ((TextBox)gvDocument.FooterRow.FindControl("txtOrderNo")).Text= lblOrderNo.Text;
+            ((TextBox)gvDocument.FooterRow.FindControl("txtOrderNo")).Text = lblOrderNo.Text;
 
-            ((Button)gvDocument.FooterRow.FindControl("BtnAdd")).Text="Update";
+            ((Button)gvDocument.FooterRow.FindControl("BtnAdd")).Text = "Update";
             HiddenFieldpdf.Value = HyperLinkpdf.NavigateUrl;
             HiddenFieldpps.Value = HyperLinkpps.NavigateUrl;
             HiddenID.Value = Ibtn.CommandArgument;
