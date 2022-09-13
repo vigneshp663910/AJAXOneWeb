@@ -57,11 +57,11 @@
                                     <label>Region</label>
                                     <asp:DropDownList ID="ddlMRegion" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-2 col-sm-12">
                                     <label class="modal-label">Date From</label>
                                     <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-2 col-sm-12">
                                     <label class="modal-label">Date To</label>
                                     <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                                 </div>
