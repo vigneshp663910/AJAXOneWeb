@@ -253,6 +253,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.Text = "Please select the category";
                 return false;
             }
+            if (ddlSubcategory.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Sub Category";
+                return false;
+            }
             if (ddlTicketType.SelectedValue == "0")
             {
                 lblMessage.Text = "Please select the ticket type";
