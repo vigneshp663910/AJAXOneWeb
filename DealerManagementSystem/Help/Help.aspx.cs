@@ -21,6 +21,12 @@ namespace DealerManagementSystem.Help
             if (!IsPostBack)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Help » Contents');</script>");
+                if (!PSession.User.ContactName.Contains("MURUGESHAN KN") && !PSession.User.ContactName.Contains("VIGNESH PERIYASAMI") && !PSession.User.ContactName.Contains("SUNIL KU BEHERA"))
+                {
+                    gvDocument.Columns[5].Visible = false;
+                    gvDocument.Columns[6].Visible = false;
+                    gvDocument.ShowFooter = false;
+                }
                 SearchHelp();
             }
         }
@@ -149,7 +155,7 @@ namespace DealerManagementSystem.Help
                     string fileName = Path.GetFileName(fileUploadPDF.PostedFile.FileName);
                     if (fileUploadPDF.PostedFile.FileName.Length != 0)
                     {
-                        help.PDFAttachment = "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName;                        
+                        help.PDFAttachment = "~/Help/HelpDoc.aspx?aFileName=../Help/Files/" + fileUploadPDF.FileName;
                         if (File.Exists(Server.MapPath("~/Help/Files/") + fileName))
                         {
                             File.Delete(Server.MapPath("~/Help/Files/") + fileName);
