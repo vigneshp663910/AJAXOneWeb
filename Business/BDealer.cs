@@ -197,6 +197,58 @@ namespace Business
             return Dealers;
         }
 
-      
+
+        public PDealer GetDealerByID(int? DealerID,string DealerCode)
+        {
+           
+            PDealer Dealer = null; 
+
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.Int32);
+            DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+            try
+            {
+                using (DataSet ds = provider.Select("GetDealerByID", Params))
+                {
+                    if (ds != null)
+                    {
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            Dealer = new PDealer();
+                            Dealer.DID = Convert.ToInt32(dr["DID"]);
+                            Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            Dealer.UserName = Convert.ToString(dr["UserName"]);
+                            Dealer.ContactName = Convert.ToString(dr["ContactName"]);
+                            Dealer.MailID1 = Convert.ToString(dr["MailID"]);
+                            Dealer.Phone = Convert.ToString(dr["Phone"]);
+                            Dealer.UserTypeID = Convert.ToInt32(dr["UserTypeID"]);
+                            Dealer.IsActive = Convert.ToBoolean(Convert.ToString(dr["IsActive"]));
+                            Dealer.HeadOfficeID = Convert.ToString(dr["HeadOfficeID"]).Trim();
+                            Dealer.StateCode = Convert.ToString(dr["StateCode"]).Trim();
+                            Dealer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]) };
+                            Dealer.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) };
+
+                            Dealer.EInvAPI = Convert.ToBoolean(dr["EInvAPI"]);
+                            Dealer.GspCode = Convert.ToString(dr["GspCode"]);
+                            Dealer.Gstin = Convert.ToString(dr["Gstin"]);
+                            Dealer.ApiUserName = Convert.ToString(dr["ApiUserName"]);
+                            Dealer.ApiPassword = Convert.ToString(dr["ApiPassword"]);
+
+                            Dealer.EInvUserAPI = new PEInvUserAPI()
+                            {
+                                Handle = Convert.ToString(dr["EInvHandle"]),
+                                HandleType = Convert.ToString(dr["EInvHandleType"]),
+                                Password = Convert.ToString(dr["EInvMailPassword"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Dealer;
+        }
     }
 }

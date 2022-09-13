@@ -593,11 +593,9 @@
             height: calc(1.5em + .75rem + 2px);
         }
 
-            .Save:hover {
-                background: forestgreen !important;
-                color: white;
-                height: calc(1.5em + .75rem + 2px);
-            }
+        .Save:hover {
+            background: #145c14;
+        }
 
         .Search {
             background: #009ad7 !important;
@@ -919,9 +917,11 @@
 
         .Popup .model-scroll {
             height: 500px;
-            overflow: auto;
+            overflow: auto;            
         }
-
+        .Popup.flexible-popup {
+            height: auto;
+        }
         .modal-label {
             display: block;
         }
@@ -1390,7 +1390,7 @@
         @media only screen and (max-width: 767px) {
             .Popup {
                 height: auto;
-                left: auto;
+                left: 0!important;
                 width: auto;
             }
             /*.back-buttton.sticky #MainContent_btnBackToList {
@@ -1438,6 +1438,13 @@
             .Popup .model-scroll {
                 width: 440px;
                 margin: 0 auto;
+                max-height: calc(100vh - 175px);
+                height: auto;
+            }            
+            .flexible-popup .flexible-scroll {
+                max-height: calc(100vh - 175px);
+                overflow: auto;
+                display: block;
             }
             .lead-static .portlet #divLeadStatistics  {
                 margin-right: 0;

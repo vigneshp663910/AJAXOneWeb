@@ -111,7 +111,16 @@ namespace Business
             }
             return EInvoiceS;
         }
-
+        public List<PEInvoice> GetActivityForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
+        {
+            List<PEInvoice> EInvoiceS = new List<PEInvoice>();
+            List<PDMS_WarrantyClaimInvoice> Pinv = getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+            foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
+            {
+                EInvoiceS.Add(ConvertActivityInvoice(inv));
+            }
+            return EInvoiceS;
+        }
         private List<PDMS_PaidServiceInvoice> GetPaidServiceInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
         {
             List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
@@ -123,7 +132,9 @@ namespace Business
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
 
-                DbParameter[] Params = new DbParameter[5] { InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP, CustomerCodeP };
+                DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[6] { InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP, CustomerCodeP, DMSP };
                 PDMS_PaidServiceInvoice Service = null;
                 long InvoiceID = 0;
                 using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceInvoiceForRequestEInvoice", Params))
@@ -141,22 +152,26 @@ namespace Business
                                 Service.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
 
                                 Service.ICTicket = new PDMS_ICTicket();
+
+                                Service.ICTicket.Customer = new PDMS_Customer();
+                                Service.ICTicket.Customer.Mobile = Convert.ToString(dr["CustomerMobile"]);
+                                Service.ICTicket.Customer.Email = Convert.ToString(dr["CustomerEmail"]);
+
+
+                                
                                 Service.ICTicket.Dealer = new PDMS_Dealer();
                                 Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
                                 Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
+                                Service.ICTicket.Dealer.Mobile = Convert.ToString(dr["DealerMobile"]);
+                                Service.ICTicket.Dealer.Email = Convert.ToString(dr["DealerEmail"]);
+
 
                                 Service.ICTicket.Dealer.EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]);
                                 Service.ICTicket.Dealer.EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]);
                                 Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
                                 Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
 
-                                Service.ICTicket.Dealer.EInvAPI =    Convert.ToBoolean(dr["EInvAPI"]);
-                                Service.ICTicket.Dealer.EInvUserAPI = new PEInvUserAPI()
-                                {
-                                    Handle = Convert.ToString(dr["EInvHandle"]),
-                                    HandleType = Convert.ToString(dr["EInvHandleType"]),
-                                    Password = Convert.ToString(dr["EInvPassword"])
-                                };
+                               
                                
 
 
@@ -857,8 +872,7 @@ namespace Business
             { }
             return InvoiceE;
         }
-
-         
+                 
         public void DownloadAllFilesToBeImported(string FTPPath, string FTPUserName, string FTPPassword, string DestinationPath, string FTPFileName)
         {
             FTPManager ftp = new FTPManager();
@@ -1215,13 +1229,14 @@ namespace Business
                 {
                     try
                     {
+                        PDealer Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
                         PApiEInv ul = new PApiEInv();
-                        ul.handle = Pinv.Dealer.EInvUserAPI.Handle;
-                        ul.handleType = Pinv.Dealer.EInvUserAPI.HandleType;
-                        ul.password = Pinv.Dealer.EInvUserAPI.Password;
-                        string AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;                         
+                        ul.handle = Dealer.EInvUserAPI.Handle;
+                        ul.handleType = Dealer.EInvUserAPI.HandleType;
+                        ul.password = Dealer.EInvUserAPI.Password;
+                        PApiHeader HeaderData =  JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));                         
                         PEInvoice EInvoice = ConvertSalesCommissionClaimInvoice(Pinv);                            
-                        PResultEInv Results = new BApiEInv().ApiPut(AccessToken, EInvoice);
+                        PResultEInv Results = new BApiEInv().ApiPut(HeaderData, Dealer, EInvoice);
                         if (Results.Status == PApplication.Failure)
                         {
                             PResultEInvData data = (PResultEInvData)Results.data;
@@ -1229,8 +1244,8 @@ namespace Business
                         }
                         else
                         {
-                            PResultEInvError data = (PResultEInvError)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.args.details[0].ErrorMessage, "SalesCom");
+                            PFildEInv data = (PFildEInv)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
                         }
                     }
                     catch (Exception ex)
@@ -1528,26 +1543,27 @@ namespace Business
                 int TOTALLINEITEMS = 0;
                 EInvoice.TranDtls = new PTranDtls()
                 {
+                    IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0,2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2)? "Y":"N",
                 };
                 EInvoice.DocDtls = new PDocDtls()
                 {
                     Typ = "INV",
                     No = Pinv.InvoiceNumber,
-                    Dt = Pinv.InvoiceDate.Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
+                    Dt = Pinv.InvoiceDate.ToShortDateString()// .Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
                 };
                 EInvoice.SellerDtls = new PSellerDtls()
                 {
 
                     Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
                     LglNm = Pinv.ICTicket.Dealer.DealerName,
-                    TrdNm = "",
+                   // TrdNm = Pinv.ICTicket.Dealer.DealerName,
                     Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
-                    Addr2 = "",
+                    //Addr2 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
                     Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
                     Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
                     Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
-                    Ph = "",
-                    Em = "",
+                    //Ph = Pinv.ICTicket.Dealer.Mobile, 
+                    //Em = Pinv.ICTicket.Dealer.Email
                 };
 
                 //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
@@ -1556,16 +1572,16 @@ namespace Business
                 {
                     Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
                     LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
-                    TrdNm = "",
-                    Pos = "",
+                    //TrdNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Pos = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
                     Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
-                    Addr2 = "",
+                   // Addr2 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
                     Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
                     Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
                     Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
-                    Ph = "",
-                    Em = ""
-                };
+                    //Ph = Pinv.ICTicket.Customer.Mobile,
+                    //Em = Pinv.ICTicket.Customer.Email 
+            };
                 EInvoice.DispDtls = new PDispDtls()
                 {
                     Nm = Pinv.ICTicket.Dealer.DealerName,
@@ -1577,7 +1593,18 @@ namespace Business
 
 
 
-                EInvoice.ShipDtls = new PShipDtls() { };
+                EInvoice.ShipDtls = new PShipDtls()
+                { 
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    //TrdNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    //Addr2 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                };
+
                 EInvoice.ItemList = new List<PItemList>();
                 decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
                 AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
@@ -1604,7 +1631,7 @@ namespace Business
                         PrdDesc = Pinvi.Material.MaterialDescription,
                         IsServc = "Y",
                         HsnCd = Pinvi.Material.HSN,
-                        Barcde = "",
+                        //Barcde = "",
                         Qty = Pinvi.Qty.ToString(),
                         FreeQty = "0",
                         Unit = "NOS",
@@ -1625,9 +1652,9 @@ namespace Business
                         StateCesNonAdvlAmt = "",
                         OthChrg = "",
                         TotItemVal = Convert.ToString(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0),
-                        OrdLineRef = "",
-                        OrgCntry = "",
-                        PrdSlNo = "",
+                        OrdLineRef = Convert.ToString(TOTALLINEITEMS),
+                        OrgCntry = "IN",
+                        PrdSlNo = Convert.ToString(TOTALLINEITEMS),
 
                         // public PBchDtls BchDtls { get; set; }
                         // public List<PAttribDtls> AttribDtls { get; set; }
@@ -1640,7 +1667,7 @@ namespace Business
 
                 EInvoice.ValDtls = new PValDtls()
                 {
-                    AssVal = "",
+                    AssVal = Convert.ToString(AccumulatedTotalAmount),
                     CgstVal = Convert.ToString(AccumulatedCgstVal),
                     SgstVal = Convert.ToString(AccumulatedSgstVal),
                     IgstVal = Convert.ToString(AccumulatedIgstVal),
@@ -1676,8 +1703,193 @@ namespace Business
                 EInvoice.PayDtls = new PPayDtls() { };
                 EInvoice.RefDtls = new PRefDtls() { };
                 EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
-                EInvoice.ExpDtls = new PExpDtls() { };
-                EInvoice.EwbDtls = new PEwbDtls() { }; 
+                EInvoice.ExpDtls = new PExpDtls() {
+                  
+                };
+                EInvoice.EwbDtls = new PEwbDtls() { };
+                string SS = JsonConvert.SerializeObject(EInvoice);
+            }
+            catch (Exception ex)
+            {
+            }
+            return EInvoice;
+        }
+
+
+        public PEInvoice ConvertActivityInvoice(PDMS_WarrantyClaimInvoice Pinv)
+        {
+            PEInvoice EInvoice = new PEInvoice();
+            try
+            {
+                int TOTALLINEITEMS = 0;
+                EInvoice.TranDtls = new PTranDtls()
+                {
+                    IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "Y" : "N",
+                };
+                EInvoice.DocDtls = new PDocDtls()
+                {
+                    Typ = "INV",
+                    No = Pinv.InvoiceNumber,
+                    Dt = Pinv.InvoiceDate.ToShortDateString()// .Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
+                };
+                EInvoice.SellerDtls = new PSellerDtls()
+                {
+
+                    Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
+                    LglNm = Pinv.Dealer.DealerName,
+                    // TrdNm = Pinv.ICTicket.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    //Addr2 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                    //Ph = Pinv.ICTicket.Dealer.Mobile, 
+                    //Em = Pinv.ICTicket.Dealer.Email
+                };
+
+                //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
+
+                EInvoice.BuyerDtls = new PBuyerDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    //TrdNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Pos = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    // Addr2 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    //Ph = Pinv.ICTicket.Customer.Mobile,
+                    //Em = Pinv.ICTicket.Customer.Email 
+                };
+                EInvoice.DispDtls = new PDispDtls()
+                {
+                    Nm = Pinv.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                };
+
+
+
+                EInvoice.ShipDtls = new PShipDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    //TrdNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    //Addr2 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                };
+
+                EInvoice.ItemList = new List<PItemList>();
+                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
+                AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
+                TOTALLINEITEMS = 0;
+
+
+                foreach (PDMS_WarrantyClaimInvoiceItem Pinvi in Pinv.InvoiceItems)
+                {
+                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
+
+                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
+                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
+                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
+                    AccumulatedCesVal = AccumulatedCesVal + 0;
+                    //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
+                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
+
+                    EInvoice.ItemList.Add(new PItemList()
+                    {
+
+                        SlNo = Convert.ToString(TOTALLINEITEMS),
+                        PrdDesc = Pinvi.MaterialDesc,
+                        IsServc = "Y",
+                        HsnCd = Pinvi.HSNCode,
+                        //Barcde = "",
+                        Qty = Pinvi.Qty.ToString(),
+                        FreeQty = "0",
+                        Unit = "NOS",
+                        UnitPrice = Pinvi.Rate.ToString(),
+                        TotAmt = Pinvi.TaxableValue.ToString(),
+                        Discount = Convert.ToString(Pinvi.Discount),
+                        PreTaxVal = "0",
+                        AssAmt = Pinvi.TaxableValue.ToString(),
+                        GstRt = Convert.ToString(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST),
+                        IgstAmt = Convert.ToString(Pinvi.IGSTValue),
+                        CgstAmt = Convert.ToString(Pinvi.CGSTValue),
+                        SgstAmt = Convert.ToString(Pinvi.SGSTValue),
+                        CesRt = "",
+                        CesAmt = "0",
+                        CesNonAdvlAmt = "",
+                        StateCesRt = "",
+                        StateCesAmt = "",
+                        StateCesNonAdvlAmt = "",
+                        OthChrg = "",
+                        TotItemVal = Convert.ToString(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0),
+                        OrdLineRef = Convert.ToString(TOTALLINEITEMS),
+                        OrgCntry = "IN",
+                        PrdSlNo = Convert.ToString(TOTALLINEITEMS),
+
+                        // public PBchDtls BchDtls { get; set; }
+                        // public List<PAttribDtls> AttribDtls { get; set; }
+                    });
+                    // InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
+                    // BillingDocument = Pinv.InvoiceNumber,   
+                    // CESSRate = "", 
+
+                }
+
+                EInvoice.ValDtls = new PValDtls()
+                {
+                    AssVal = Convert.ToString(AccumulatedTotalAmount),
+                    CgstVal = Convert.ToString(AccumulatedCgstVal),
+                    SgstVal = Convert.ToString(AccumulatedSgstVal),
+                    IgstVal = Convert.ToString(AccumulatedIgstVal),
+                    CesVal = Convert.ToString(AccumulatedCesVal),
+                    StCesVal = "0",
+                    Discount = "0",
+                    OthChrg = Convert.ToString(AccumulatedOtherCharges),
+                    RndOffAmt = Convert.ToString(Math.Round(AccumulatedTotItemVal) - AccumulatedTotItemVal),
+                    TotInvVal = Convert.ToString(Math.Round(AccumulatedTotItemVal)),
+                    TotInvValFc = Convert.ToString(AccumulatedTotItemVal)
+
+                    //   "ValDtls": {
+                    //    "AssVal": 9978.84,
+                    //    "CgstVal": 0,
+                    //    "SgstVal": 0,
+                    //    "IgstVal": 1197.46,
+                    //    "CesVal": 508.94,
+                    //    "StCesVal": 1202.46,
+                    //    "Discount": 10,
+                    //    "OthChrg": 20,
+                    //    "RndOffAmt": 0.3,
+                    //    "TotInvVal": 12908,
+                    //    "TotInvValFc": 12897.7
+                    //},
+                };
+
+                // EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
+                // EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
+                // EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount); 
+                // EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges); 
+
+
+                EInvoice.PayDtls = new PPayDtls() { };
+                EInvoice.RefDtls = new PRefDtls() { };
+                EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
+                EInvoice.ExpDtls = new PExpDtls()
+                {
+
+                };
+                EInvoice.EwbDtls = new PEwbDtls() { };
+                string SS = JsonConvert.SerializeObject(EInvoice);
             }
             catch (Exception ex)
             {
@@ -1688,20 +1900,22 @@ namespace Business
         public string GeneratEInvoiceForPaidServiceInvoice( string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
         {
             PDMS_PaidServiceInvoice Pinv = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "")[0];
-            if ((Pinv.ICTicket.Dealer.EInvAPI))
+            PDealer Dealer = new BDealer().GetDealerByID(null, Pinv.ICTicket.Dealer.DealerCode);
+            
+            if ((Dealer.EInvAPI))
             {
                 if (string.IsNullOrEmpty(Pinv.IRN))
                 {
                     try
-                    {
+                    { 
                         PApiEInv ul = new PApiEInv();
-                        ul.handle = Pinv.ICTicket.Dealer.EInvUserAPI.Handle;
-                        ul.handleType = Pinv.ICTicket.Dealer.EInvUserAPI.HandleType;
-                        ul.password = Pinv.ICTicket.Dealer.EInvUserAPI.Password;
-                        string AccessToken = JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PToken>(new BApiEInv().GetAccessToken(ul)).Data)).token;
-                        PEInvoice EInvoice = ConvertPaidServiceInvoice(Pinv);
+                        ul.handle =  Dealer.EInvUserAPI.Handle;
+                        ul.handleType =  Dealer.EInvUserAPI.HandleType;
+                        ul.password =  Dealer.EInvUserAPI.Password;
+                        PApiHeader Header =  JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));
+                        PEInvoice EInvoice = ConvertPaidServiceInvoice(Pinv); 
                         string SS= JsonConvert.SerializeObject(EInvoice);
-                        PResultEInv Results = new BApiEInv().ApiPut(AccessToken, EInvoice);
+                        PResultEInv Results = new BApiEInv().ApiPut(Header, Dealer, EInvoice);
                         if (Results.Status == PApplication.Success)
                         {
                             PResultEInvData data = (PResultEInvData)Results.data;
@@ -1709,8 +1923,45 @@ namespace Business
                         }
                         else
                         {
-                            PResultEInvError data = (PResultEInvError)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.args.details[0].ErrorMessage, "SalesCom");
+                            PFildEInv data = (PFildEInv)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+            return "";
+        }
+        public string GeneratEInvoiceForActivityInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
+        {
+            PDMS_WarrantyClaimInvoice Pinv = getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID)[0];
+            PDealer Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
+
+            if ((Dealer.EInvAPI))
+            {
+                if (string.IsNullOrEmpty(Pinv.IRN))
+                {
+                    try
+                    {
+                        PApiEInv ul = new PApiEInv();
+                        ul.handle = Dealer.EInvUserAPI.Handle;
+                        ul.handleType = Dealer.EInvUserAPI.HandleType;
+                        ul.password = Dealer.EInvUserAPI.Password;
+                        PApiHeader Header = JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));
+                        PEInvoice EInvoice = ConvertActivityInvoice(Pinv);
+                        string SS = JsonConvert.SerializeObject(EInvoice);
+                        PResultEInv Results = new BApiEInv().ApiPut(Header, Dealer, EInvoice);
+                        if (Results.Status == PApplication.Success)
+                        {
+                            PResultEInvData data = (PResultEInvData)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, data.Irn, data.AckDt, data.SignedQRCode, data.SignedInvoice, "", "SalesCom");
+                        }
+                        else
+                        {
+                            PFildEInv data = (PFildEInv)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
                         }
                     }
                     catch (Exception ex)

@@ -60,7 +60,7 @@ namespace Properties
         public Boolean IsDeletionAllowed { get; set; }
         public Boolean IsActiveInvoice { get; set; }
         public PDMS_PaidServiceInvoiceDetails InvoiceDetails { get; set; }
-        public string IRN { get; set; }
+        public string IRN { get; set; } 
     }
     [Serializable]
     public class PDMS_PaidServiceInvoiceItem

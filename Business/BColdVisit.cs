@@ -13,12 +13,11 @@ namespace Business
 {
     public class BColdVisit
     {
-        private IDataAccess provider;
-        private IDataAccess providerReport;
+        private IDataAccess provider; 
         public BColdVisit()
         {
             provider = new ProviderFactory().GetProvider();
-            providerReport = new ProviderFactory().GetProvider(true);
+          //  providerReport = new ProviderFactory().GetProvider(true);
         }
         public List<PColdVisit> GetColdVisit(long? ColdVisitID, string ColdVisitNumber, DateTime? ColdVisitDateFrom, DateTime? ColdVisitDateTo, long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? ReferenceTableID, long? ReferenceID, int? DealerID, int? SalesEngineerID,int? ActionTypeID)
         {

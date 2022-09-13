@@ -38,8 +38,7 @@ namespace Properties
         public string AuthorityMobile { get; set; } 
         public List<PDMS_Customer> Customer { get; set; } 
         public Boolean IsActive { get; set; }
-        public Boolean EInvAPI { get; set; }
-        public PEInvUserAPI EInvUserAPI { get; set; }
+        
         public PDMS_Region Region { get; set; }
     }
     [Serializable]

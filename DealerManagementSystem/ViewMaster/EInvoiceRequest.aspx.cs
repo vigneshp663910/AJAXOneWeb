@@ -22,67 +22,84 @@ namespace DealerManagementSystem.ViewMaster
             } 
         }
 
-        public List<PEInvoice> EMarketingInvoice
+
+        public List<PEInvoiceGrid> InvoiceGrid
         {
             get
             {
-                if (Session["EInvoiceRequestEMarketingInvoice"] == null)
+                if (Session["EInvoiceRequestEInvoiceGrid"] == null)
                 {
-                    Session["EInvoiceRequestEMarketingInvoice"] = new List<PEInvoice>();
+                    Session["EInvoiceRequestEInvoiceGrid"] = new List<PEInvoiceGrid>();
                 }
-                return (List<PEInvoice>)Session["EInvoiceRequestEMarketingInvoice"];
+                return (List<PEInvoiceGrid>)Session["EInvoiceRequestEInvoiceGrid"];
             }
             set
             {
-                Session["EInvoiceRequestEMarketingInvoice"] = value;
-            }
-        }
-        public List<PEInvoice> EPayInvoice
-        {
-            get
-            {
-                if (Session["EInvoiceRequestEPayInvoice"] == null)
-                {
-                    Session["EInvoiceRequestEPayInvoice"] = new List<PEInvoice>();
-                }
-                return (List<PEInvoice>)Session["EInvoiceRequestEPayInvoice"];
-            }
-            set
-            {
-                Session["EInvoiceRequestEPayInvoice"] = value;
-            }
-        }
-        public List<PEInvoice> EWarrInvoice
-        {
-            get
-            {
-                if (Session["EInvoiceRequestEWarrInvoice"] == null)
-                {
-                    Session["EInvoiceRequestEWarrInvoice"] = new List<PEInvoice>();
-                }
-                return (List<PEInvoice>)Session["EInvoiceRequestEWarrInvoice"];
-            }
-            set
-            {
-                Session["EInvoiceRequestEWarrInvoice"] = value;
+                Session["EInvoiceRequestEInvoiceGrid"] = value;
             }
         }
 
-        public List<PEInvoice> ESalesComInvoice
-        {
-            get
-            {
-                if (Session["EInvoiceRequestESalesComInvoice"] == null)
-                {
-                    Session["EInvoiceRequestESalesComInvoice"] = new List<PEInvoice>();
-                }
-                return (List<PEInvoice>)Session["EInvoiceRequestESalesComInvoice"];
-            }
-            set
-            {
-                Session["EInvoiceRequestESalesComInvoice"] = value;
-            }
-        }
+        //public List<PEInvoice> EMarketingInvoice
+        //{
+        //    get
+        //    {
+        //        if (Session["EInvoiceRequestEMarketingInvoice"] == null)
+        //        {
+        //            Session["EInvoiceRequestEMarketingInvoice"] = new List<PEInvoice>();
+        //        }
+        //        return (List<PEInvoice>)Session["EInvoiceRequestEMarketingInvoice"];
+        //    }
+        //    set
+        //    {
+        //        Session["EInvoiceRequestEMarketingInvoice"] = value;
+        //    }
+        //}
+        //public List<PEInvoice> EPayInvoice
+        //{
+        //    get
+        //    {
+        //        if (Session["EInvoiceRequestEPayInvoice"] == null)
+        //        {
+        //            Session["EInvoiceRequestEPayInvoice"] = new List<PEInvoice>();
+        //        }
+        //        return (List<PEInvoice>)Session["EInvoiceRequestEPayInvoice"];
+        //    }
+        //    set
+        //    {
+        //        Session["EInvoiceRequestEPayInvoice"] = value;
+        //    }
+        //}
+        //public List<PEInvoice> EWarrInvoice
+        //{
+        //    get
+        //    {
+        //        if (Session["EInvoiceRequestEWarrInvoice"] == null)
+        //        {
+        //            Session["EInvoiceRequestEWarrInvoice"] = new List<PEInvoice>();
+        //        }
+        //        return (List<PEInvoice>)Session["EInvoiceRequestEWarrInvoice"];
+        //    }
+        //    set
+        //    {
+        //        Session["EInvoiceRequestEWarrInvoice"] = value;
+        //    }
+        //}
+
+        //public List<PEInvoice> ESalesComInvoice
+        //{
+        //    get
+        //    {
+        //        if (Session["EInvoiceRequestESalesComInvoice"] == null)
+        //        {
+        //            Session["EInvoiceRequestESalesComInvoice"] = new List<PEInvoice>();
+        //        }
+        //        return (List<PEInvoice>)Session["EInvoiceRequestESalesComInvoice"];
+        //    }
+        //    set
+        //    {
+        //        Session["EInvoiceRequestESalesComInvoice"] = value;
+        //    }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -102,8 +119,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     ddlDealerCode.Enabled = true;
                     fillDealer();
-                }
-                lblRowCount.Visible = false; 
+                } 
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -133,26 +149,43 @@ namespace DealerManagementSystem.ViewMaster
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 string CustomerCode = txtCustomerCode.Text.Trim();
 
-                EPayInvoice = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-                //  EMarketingInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                List<PEInvoice> invs = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+
+                foreach (PEInvoice Inv in invs)
+                {
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "PAY" });
+                }
+                invs = new BDMS_EInvoice().GetActivityForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+                foreach (PEInvoice Inv in invs)
+                {
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "ATY" });
+                }
+
+                gvInv.PageIndex = 0;
+                gvInv.DataSource = InvoiceGrid;
+                gvInv.DataBind();
+                 lblRowCount.Text = (((gvInv.PageIndex) * gvInv.PageSize) + 1) + " - " + (((gvInv.PageIndex) * gvInv.PageSize) + gvInv.Rows.Count) + " of " + InvoiceGrid.Count;
+
 
                 //  EWarrInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
                 //  ESalesComInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
 
 
-                gvPayInvoice.PageIndex = 0;
-                gvPayInvoice.DataSource = EPayInvoice;
-                gvPayInvoice.DataBind();
-                lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
+                //gvPayInvoice.PageIndex = 0;
+                //gvPayInvoice.DataSource = EPayInvoice;
+                //gvPayInvoice.DataBind();
+                //lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
 
 
+
+                
                 //gvMarketingInv.PageIndex = 0;
                 //gvMarketingInv.DataSource = EMarketingInvoice;
-                //gvMarketingInv.DataBind(); 
+                //gvMarketingInv.DataBind();
                 //lblRowCount.Text = (((gvMarketingInv.PageIndex) * gvMarketingInv.PageSize) + 1) + " - " + (((gvMarketingInv.PageIndex) * gvMarketingInv.PageSize) + gvMarketingInv.Rows.Count) + " of " + EMarketingInvoice.Count;
-                 
 
-              //  GridEditButtonVisible();
+
+                //  GridEditButtonVisible();
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -170,20 +203,25 @@ namespace DealerManagementSystem.ViewMaster
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-
-      
-       
          
-        protected void btnGeneratePayInvoice_Click(object sender, EventArgs e)
+         
+        protected void btnGenerateInvoice_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
             try
             {
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Label InvoiceNumber = (Label)gvPayInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
-              //  PEInvoice EInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber.Text, null, null, null, null)[0];
-                
-                lblMessage.Text = new BDMS_EInvoice().GeneratEInvoiceForPaidServiceInvoice(InvoiceNumber.Text, null, null, null);
+                Label InvoiceNumber = (Label)gvInv.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
+                Label lblInvType = (Label)gvInv.Rows[gvRow.RowIndex].FindControl("lblInvType");
+                //  PEInvoice EInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber.Text, null, null, null, null)[0];
+                if (lblInvType.Text == "PAY")
+                {
+                    lblMessage.Text = new BDMS_EInvoice().GeneratEInvoiceForPaidServiceInvoice(InvoiceNumber.Text, null, null, null);
+                }
+                else if (lblInvType.Text == "ATY")
+                {
+                    lblMessage.Text = new BDMS_EInvoice().GeneratEInvoiceForActivityInvoice(InvoiceNumber.Text, null, null, null);
+                }
                 lblMessage.Visible = true;
             }
             catch (Exception ex)
@@ -197,14 +235,14 @@ namespace DealerManagementSystem.ViewMaster
          
         void GridEditButtonVisible()
         {
-            for (int i = 0; i < gvPayInvoice.Rows.Count; i++)
+            for (int i = 0; i < gvInv.Rows.Count; i++)
             {
                 if (PSession.User.UserName.Contains("2000IT"))
                 {
-                    Button btnEdit = (Button)gvPayInvoice.Rows[i].FindControl("btnEdit");
+                    Button btnEdit = (Button)gvInv.Rows[i].FindControl("btnEdit");
                     btnEdit.Visible = true;
 
-                    GridView gvClaimInvoiceItem = (GridView)gvPayInvoice.Rows[i].FindControl("gvClaimInvoiceItem");
+                    GridView gvClaimInvoiceItem = (GridView)gvInv.Rows[i].FindControl("gvClaimInvoiceItem");
                     for (int j = 0; j < gvClaimInvoiceItem.Rows.Count; j++)
                     {
                         Button btnEditItem = (Button)gvClaimInvoiceItem.Rows[j].FindControl("btnEditItem");
@@ -214,16 +252,42 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
-         
-        protected void gvMarketingInv_RowDataBound(object sender, GridViewRowEventArgs e)
+          
+      
+        protected void gvInv_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    //  string supplierPOID = Convert.ToString(gvClaimInvoice.DataKeys[e.Row.RowIndex].Value);
+                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
+                    Label lblBillingDocument = (Label)e.Row.FindControl("lblBillingDocument");
+                    List<PItemList> Lines = new List<PItemList>();
+                    Lines = InvoiceGrid.Find(s => s.EInvoice.DocDtls.No == lblBillingDocument.Text).EInvoice.ItemList;
+                    gvClaimInvoiceItem.DataSource = Lines;
+                    gvClaimInvoiceItem.DataBind();
 
+                }
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
-        protected void gvMarketingInv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvInv_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            gvInv.PageIndex = e.NewPageIndex;
+            gvInv.DataSource = InvoiceGrid;
+            gvInv.DataBind();
+            lblRowCount.Text = (((gvInv.PageIndex) * gvInv.PageSize) + 1) + " - " + (((gvInv.PageIndex) * gvInv.PageSize) + gvInv.Rows.Count) + " of " + InvoiceGrid.Count;
+            GridEditButtonVisible();
         }
+
+
+
 
         protected void btnExportExcelForSAP_Click(object sender, EventArgs e)
         {
@@ -250,40 +314,69 @@ namespace DealerManagementSystem.ViewMaster
             new BXcel().ExporttoExcel(dt, "Claim For SAP Upload");
         }
 
-        protected void gvPayInvoice_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    //  string supplierPOID = Convert.ToString(gvClaimInvoice.DataKeys[e.Row.RowIndex].Value);
-                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
-                    Label lblBillingDocument = (Label)e.Row.FindControl("lblBillingDocument");
-                    List<PItemList> Lines = new List<PItemList>();
-                    Lines = EPayInvoice.Find(s => s.DocDtls.No == lblBillingDocument.Text).ItemList;
-                    gvClaimInvoiceItem.DataSource = Lines;
-                    gvClaimInvoiceItem.DataBind();
+        //protected void gvPayInvoice_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    DateTime traceStartTime = DateTime.Now;
+        //    try
+        //    {
+        //        if (e.Row.RowType == DataControlRowType.DataRow)
+        //        {
+        //            //  string supplierPOID = Convert.ToString(gvClaimInvoice.DataKeys[e.Row.RowIndex].Value);
+        //            GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
+        //            Label lblBillingDocument = (Label)e.Row.FindControl("lblBillingDocument");
+        //            List<PItemList> Lines = new List<PItemList>();
+        //            Lines = EPayInvoice.Find(s => s.DocDtls.No == lblBillingDocument.Text).ItemList;
+        //            gvClaimInvoiceItem.DataSource = Lines;
+        //            gvClaimInvoiceItem.DataBind();
 
-                }
-                TraceLogger.Log(traceStartTime);
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //        }
+        //        TraceLogger.Log(traceStartTime);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        protected void gvPayInvoice_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvPayInvoice.PageIndex = e.NewPageIndex;
-            gvPayInvoice.DataSource = EPayInvoice;
-            gvPayInvoice.DataBind();
-            lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
-            GridEditButtonVisible();
-        }
+        //protected void gvPayInvoice_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvPayInvoice.PageIndex = e.NewPageIndex;
+        //    gvPayInvoice.DataSource = EPayInvoice;
+        //    gvPayInvoice.DataBind();
+        //    lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
+        //    GridEditButtonVisible();
+        //}
 
+        //protected void gvMarketingInv_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    DateTime traceStartTime = DateTime.Now;
+        //    try
+        //    {
+        //        if (e.Row.RowType == DataControlRowType.DataRow)
+        //        {
+        //            //  string supplierPOID = Convert.ToString(gvClaimInvoice.DataKeys[e.Row.RowIndex].Value);
+        //            GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
+        //            Label lblBillingDocument = (Label)e.Row.FindControl("lblBillingDocument");
+        //            List<PItemList> Lines = new List<PItemList>();
+        //            Lines = EMarketingInvoice.Find(s => s.DocDtls.No == lblBillingDocument.Text).ItemList;
+        //            gvClaimInvoiceItem.DataSource = Lines;
+        //            gvClaimInvoiceItem.DataBind();
 
+        //        }
+        //        TraceLogger.Log(traceStartTime);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
+        //protected void gvMarketingInv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvMarketingInv.PageIndex = e.NewPageIndex;
+        //    gvMarketingInv.DataSource = EPayInvoice;
+        //    gvMarketingInv.DataBind();
+        //    lblRowCount.Text = (((gvMarketingInv.PageIndex) * gvMarketingInv.PageSize) + 1) + " - " + (((gvMarketingInv.PageIndex) * gvMarketingInv.PageSize) + gvMarketingInv.Rows.Count) + " of " + EMarketingInvoice.Count;
+        //    GridEditButtonVisible();
+        //}
 
         //protected void btnEditItem_Click(object sender, EventArgs e)
         //{

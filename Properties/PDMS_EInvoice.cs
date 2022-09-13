@@ -184,6 +184,14 @@ namespace Properties
         public string SignedInvoice { get; set; }
         public string Comments { get; set; }
     }
+
+    [Serializable]
+    public class PEInvoiceGrid
+    { 
+        public PEInvoice EInvoice { get; set; }
+        public string InvType { get; set; } 
+    }
+
     [Serializable]
     public class PEInvoice
     {
@@ -208,7 +216,7 @@ namespace Properties
         public string SupTyp { get { return "B2B"; } }
         public string RegRev { get { return "Y"; } }
         public string EcmGstin { get; set; }
-        public string IgstOnIntr { get; set; }
+        public string IgstOnIntra { get; set; }
         // "TranDtls": {
         //"TaxSch": "GST",
         //"SupTyp": "B2B",
@@ -539,8 +547,7 @@ namespace Properties
         //}],
     }
     public class PExpDtls
-    {
-        public string ExpDtls { get; set; }
+    { 
         public string ShipBNo { get; set; }
         public string ShipBDt { get; set; }
         public string Port { get; set; }

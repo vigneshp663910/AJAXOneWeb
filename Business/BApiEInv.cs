@@ -25,6 +25,16 @@ namespace Business
         public string password { get; set; }
         public int tokenDurationInMins { get { return 360; } }
     }
+    public class PApiEinvEHeader
+    {
+        public string TOKEN { get; set; }
+        public string OrgID { get; set; }
+        public string GspCODE { get; set; }
+        public string Gstin { get; set; }
+        public string UserName { get; set; }
+        public string password { get; set; }
+
+    }
     public class BApiEInv
     {
         private static string EInvoiceAPI { get; set; }
@@ -65,13 +75,22 @@ namespace Business
             }
             return token;
         }
-        public PResultEInv ApiPut(string AccessToken, object obj = null)
+        public PResultEInv ApiPut(PApiHeader Header, PDealer Dealer, object obj = null)
         {
+            string PWD = "";
             PResultEInv Data = new PResultEInv();
 
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-USER-TOKEN", Header.Data.token);
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-ORG-ID", Header.Data.associatedOrgs[0].organisation.id);
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-GSP-CODE", Dealer.GspCode);
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-GSTIN", Dealer.Gstin);
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-USERNAME", Dealer.ApiUserName);
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-PWD", Dealer.ApiPassword);
+
             var APIResponse = client.PostAsync(EInvoiceAPI, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
            
             if (APIResponse.IsSuccessStatusCode)
@@ -83,21 +102,30 @@ namespace Business
             else
             { 
                 Data.Status = PApplication.Failure;
-                Data.data = JsonConvert.DeserializeObject<PResultEInvError>(APIResponse.Content.ReadAsStringAsync().Result); 
+                Data.data = JsonConvert.DeserializeObject<PFildEInv>(APIResponse.Content.ReadAsStringAsync().Result); 
             } 
             return Data;
         }
     }
 
-    public class PToken
+    public class PApiHeader
     {
-        public PData Data { get; set; }
+        public PHeaderData Data { get; set; }
     }
-    public class PData
+    public class PHeaderData
     {
         public string token { get; set; }
+        public List< PHeaderDataAssociated> associatedOrgs { get; set; }
     }
-
+    public class PHeaderDataAssociated
+    { 
+        public PHeaderDataAssociatedOrg organisation { get; set; } 
+        
+    }
+    public class PHeaderDataAssociatedOrg
+    { 
+        public string id { get; set; }  
+    }
     public class PResultEInv
     {
         public string Status { get; set; }
@@ -105,12 +133,16 @@ namespace Business
         public object data { get; set; }
     }
 
-    public class PResultEInvError
+    public class PFildEInv
+    {
+        public PFildEInvError error { get; set; }
+        
+    }
+    public class PFildEInvError
     {
         public string message { get; set; }
-        public PResultEInvErrorArgs args { get; set; }
+        public string type { get; set; }
     }
-
     public class PResultEInvData
     {
         public string AckNo { get; set; }
@@ -125,11 +157,7 @@ namespace Business
     }
 
 
-    public class PResultEInvErrorArgs
-    {
-        public List<PResultEInvErrorArgsDetails> details { get; set; }
-        public string data { get; set; }
-    }
+  
     public class PResultEInvErrorArgsDetails
     {
         public string ErrorCode { get; set; }

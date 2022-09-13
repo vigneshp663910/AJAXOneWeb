@@ -33,5 +33,14 @@ namespace Properties
 
         public PDMS_Country Country { get; set; }
         public PDMS_State State { get; set; }
+
+
+        public Boolean EInvAPI { get; set; }
+        public string GspCode { get; set; }
+        public string Gstin { get; set; }
+        public string ApiUserName { get; set; }
+        public string ApiPassword { get; set; }
+
+        public PEInvUserAPI EInvUserAPI { get; set; }
     }
 }
