@@ -259,13 +259,13 @@
                             <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Visible="false" />
                         </div>
                         <div class="col-md-12">
-                            <asp:TextBox ID="txtMessage" runat="server" TextMode="MultiLine" MaxLength="15" TabIndex="1" Width="900px" Height="100px"></asp:TextBox>
+                            <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" MaxLength="15" TabIndex="1" Rows="5"></asp:TextBox>
                         </div>
                         <div class="col-md-12">
                             <asp:FileUpload ID="FileUpload" runat="server" Visible="false" />
                         </div>
                         <div class="col-md-12">
-                            <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="InputButton" OnClick="btnSend_Click" />
+                            <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="btn Save" OnClick="btnSend_Click" />
                         </div>
                     </div>
                 </fieldset>
@@ -302,25 +302,12 @@
         </table>
         <asp:GridView ID="gvApprover" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
             <Columns>
-
-                <%-- <asp:TemplateField HeaderText="Approve Requested By">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblRequestedBy" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedBy.ContactName")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
                 <asp:TemplateField HeaderText="RequestedOn">
                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                     <ItemTemplate>
                         <asp:Label ID="lblRequestedOn" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedOn")%>' runat="server"></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <%--     <asp:TemplateField HeaderText="Approver Name">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblApprover" Text='<%# DataBinder.Eval(Container.DataItem, "Approver.ContactName")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
                 <asp:TemplateField HeaderText="Approved On">
                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                     <ItemTemplate>
