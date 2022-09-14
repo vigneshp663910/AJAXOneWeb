@@ -139,7 +139,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 pnList.Visible = false;
                 pnlReject.Visible = true;
                 int HeaderId = Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text);
-                PTicketHeader TH = new BTickets().GetTicketDetails(HeaderId, null, null, null, null, null, null, null, null, null)[0];
+                PTicketHeader TH = new BTickets().GetTicketByID(HeaderId)[0];
                 txtTicketNoReject.Text = TH.HeaderID.ToString();
                 txtTicketNoRejectRemark.Text = "";
             }
@@ -162,7 +162,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             // Tickets = new BTickets().GeTicketsByTicketNo(TicketNo);
 
             //    PTicketHeader TH = new BTickets().GetOpenTickets(HeaderId, null, null, null, null, null, PSession.User.UserID)[0];
-            PTicketHeader TH = new BTickets().GetTicketDetails(HeaderId, null, null, null, null, null, null, null, null, null)[0];
+            PTicketHeader TH = new BTickets().GetTicketByID(HeaderId)[0];
             txtTicketNo.Text = TH.HeaderID.ToString();
             txtCategory.Text = TH.Category.Category;
             txtRequestedBy.Text = TH.CreatedBy.ContactName + " " + Convert.ToString(TH.CreatedOn);
