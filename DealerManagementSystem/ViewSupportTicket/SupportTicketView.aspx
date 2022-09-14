@@ -47,7 +47,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Ticket Header</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
+                        <asp:GridView ID="gvTickets" runat="server" EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
                             <Columns>
                                 <asp:TemplateField HeaderText="Ticket ID">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -132,13 +132,12 @@
                 </fieldset>
             </div>
         </div>
-
         <div class="col-md-12">
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Ticket Details</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvTicketItem" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
+                        <asp:GridView ID="gvTicketItem" runat="server" EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
                             <Columns>
                                 <asp:TemplateField HeaderText="Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -217,7 +216,6 @@
                 </fieldset>
             </div>
         </div>
-
         <div class="col-md-12" id="Div1" runat="server">
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
@@ -245,7 +243,6 @@
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </div>
-
                     <div class="col-md-12">
                         <div class="col-md-2">
                             <asp:RadioButton ID="rbMessage" runat="server" Text="Message" OnCheckedChanged="rbMessage_CheckedChanged" GroupName="File" Checked="true" AutoPostBack="true" />
@@ -270,68 +267,48 @@
                     </div>
                 </fieldset>
             </div>
-
         </div>
-
-    </div>
-
-
-
-
-    <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
-    </div>
-    <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>--%>
-
-
-
-
-
-
-    <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px; display: none">
-        <table>
-            <tr>
-                <td colspan="5">
-                    <div>
-                        <br />
-                        <span style="font-size: 16pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Ticket Approval Details </span>
-                        <div style="height: 5px; background-color: #0072c6;"></div>
+        <div class="col-md-12">
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Ticket Approval Details</legend>
+                    <div class="col-md-12 Report">
+                        <asp:GridView ID="gvApprover" runat="server" EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RequestedOn">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRequestedOn" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedOn")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Approved On">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblApprovedOn" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovedOn")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Is Appoved">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsAppoved" Text='<%# DataBinder.Eval(Container.DataItem, "IsAppoved")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Approver Remark">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblApproverRemark" Text='<%# DataBinder.Eval(Container.DataItem, "ApproverRemark")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
                     </div>
-                </td>
-            </tr>
-        </table>
-        <asp:GridView ID="gvApprover" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
-            <Columns>
-                <asp:TemplateField HeaderText="RequestedOn">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblRequestedOn" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedOn")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Approved On">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblApprovedOn" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovedOn")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Is Appoved">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblIsAppoved" Text='<%# DataBinder.Eval(Container.DataItem, "IsAppoved")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Approver Remark">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblApproverRemark" Text='<%# DataBinder.Eval(Container.DataItem, "ApproverRemark")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <AlternatingRowStyle BackColor="#ffffff" />
-            <FooterStyle ForeColor="White" />
-            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-        </asp:GridView>
+                </fieldset>
+            </div>
+        </div>
     </div>
 </asp:Content>
