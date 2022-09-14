@@ -323,7 +323,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
 
         void ActionControlMange()
-        {           
+        {
+            if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
+            {
+                lnkBtnEditBank.Visible = true;
+            }
+            else
+            {
+                lnkBtnEditBank.Visible = false;
+            }
         }
 
         protected void btnAddNotification_Click(object sender, EventArgs e)
