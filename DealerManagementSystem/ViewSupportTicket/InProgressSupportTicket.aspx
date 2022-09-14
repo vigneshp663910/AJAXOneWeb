@@ -167,7 +167,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
+                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                             <Columns>
                                 <asp:TemplateField HeaderText="">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -325,7 +325,7 @@
                             <asp:TemplateField>
                                 <ItemStyle BorderStyle="None" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lbltest" Text='<%# Eval("test") %>' runat="server" />
+                                    <asp:Label ID="lbltest" Text='<%# Eval("FileName") %>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remove">

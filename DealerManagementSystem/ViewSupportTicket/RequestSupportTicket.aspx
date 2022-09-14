@@ -89,11 +89,12 @@
                                     <span style="color: red">*</span>
                                     <asp:DropDownList ID="ddlTicketType" runat="server" Style="position: relative;" CssClass="TextBox form-control"></asp:DropDownList>
                                 </div>
-                                <div class="col-md-6">
-                                     <asp:Label ID="Label1" runat="server" Text="Attached File" CssClass="label"></asp:Label>
+                                <div class="col-md-6 col-sm-6">
+                                     <asp:Label ID="Label4" runat="server" Text="Subject" CssClass="label"></asp:Label>
                                     <span style="color: red">*</span>
-                                    <asp:FileUpload ID="fu" runat="server" ClientIDMode="Static" onchange="this.form.submit()" Style="position: relative; top: 0px; left: 0px;" CssClass="TextBox file-upload" />
+                                    <asp:TextBox ID="txtSubject" runat="server" Style="position: relative;" CssClass="TextBox form-control"></asp:TextBox>
                                 </div>
+                                
                                 
                                
                                 <div class="col-md-6 col-sm-6">
@@ -106,15 +107,16 @@
                                     <span style="color: red">*</span>
                                     <asp:TextBox ID="txtMobileNo" runat="server" Style="position: relative;" CssClass="TextBox form-control"></asp:TextBox>
                                 </div>
-                                 <div class="col-md-6 col-sm-6">
-                                     <asp:Label ID="Label4" runat="server" Text="Subject" CssClass="label"></asp:Label>
-                                    <span style="color: red">*</span>
-                                    <asp:TextBox ID="txtSubject" runat="server" Style="position: relative;" CssClass="TextBox form-control"></asp:TextBox>
-                                </div>
+                                 
                                  <div class="col-md-12">
                                      <asp:Label ID="lblTicketDescription" runat="server" Text="Ticket Note" CssClass="label"></asp:Label>
                                     <span style="color: red">*</span>
                                     <asp:TextBox ID="txtTicketDescription" runat="server" TextMode="MultiLine" Height="200px" CssClass="TextBox form-control"></asp:TextBox>
+                                </div>
+                                <div class="col-md-6">
+                                     <asp:Label ID="Label1" runat="server" Text="Attached File" CssClass="label"></asp:Label>
+                                    <span style="color: red">*</span>
+                                    <asp:FileUpload ID="fu" runat="server" ClientIDMode="Static" onchange="this.form.submit()" Style="position: relative; top: 0px; left: 0px;" CssClass="TextBox file-upload" />
                                 </div>
                                 <div class="col-md-12">
                                     <asp:GridView ID="gvFileAttached" runat="server" ShowHeader="False" BorderStyle="None" AutoGenerateColumns="false">

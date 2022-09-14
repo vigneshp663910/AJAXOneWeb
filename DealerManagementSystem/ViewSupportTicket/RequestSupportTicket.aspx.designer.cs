@@ -78,22 +78,22 @@ namespace DealerManagementSystem.ViewSupportTicket
         protected global::System.Web.UI.WebControls.DropDownList ddlTicketType;
 
         /// <summary>
-        /// Label1 control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label Label4;
 
         /// <summary>
-        /// fu control.
+        /// txtSubject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fu;
+        protected global::System.Web.UI.WebControls.TextBox txtSubject;
 
         /// <summary>
         /// Label2 control.
@@ -132,24 +132,6 @@ namespace DealerManagementSystem.ViewSupportTicket
         protected global::System.Web.UI.WebControls.TextBox txtMobileNo;
 
         /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-
-        /// <summary>
-        /// txtSubject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubject;
-
-        /// <summary>
         /// lblTicketDescription control.
         /// </summary>
         /// <remarks>
@@ -166,6 +148,24 @@ namespace DealerManagementSystem.ViewSupportTicket
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTicketDescription;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// fu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fu;
 
         /// <summary>
         /// gvFileAttached control.

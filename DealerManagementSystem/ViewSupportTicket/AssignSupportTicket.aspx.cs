@@ -395,7 +395,8 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         void FillTickets(int? TicketNO)
         {
-            List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNO, null, null, null, null, null, null, null, null, null);
+            //List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNO, null, null, null, null, null, null, null, null, null);
+            List<PTicketHeader> Ticket = new BTickets().GetTicketByID(TicketNO);
             gvTickets.DataSource = Ticket;
             gvTickets.DataBind();
         }
