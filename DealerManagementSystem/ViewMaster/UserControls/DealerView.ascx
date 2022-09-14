@@ -91,6 +91,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%-- <asp:LinkButton ID="lnkBtnAddDealerOffice" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Office</asp:LinkButton>--%>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -113,6 +114,11 @@
                     <label>State : </label>
                     <asp:Label ID="lblDealerState" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>IFSC Code : </label>
+                    <asp:Label ID="lblIFSCCode" runat="server" CssClass="label"></asp:Label>
+                </div>
+                
                 <%--<div class="col-md-12">
                     <label>Team Lead : </label>
                     <asp:Label ID="lblTeamLead" runat="server" CssClass="label"></asp:Label>
@@ -129,9 +135,14 @@
                     <asp:Label ID="lblDealerCountry" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Active : </label>
-                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
+                    <label>Bank : </label>
+                    <asp:Label ID="lblDealerBank" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Account Number : </label>
+                    <asp:Label ID="lblAccountNo" runat="server" CssClass="label"></asp:Label>
+                </div>
+
                 <%--<div class="col-md-12">
                     <label>Serivce Manager : </label>
                     <asp:Label ID="lblSerivceManager" runat="server" CssClass="label"></asp:Label>
@@ -146,10 +157,14 @@
                     <label>Region : </label>
                     <asp:Label ID="lblDealerRegion" runat="server" CssClass="label"></asp:Label>
                 </div>
-                <%-- <div class="col-md-12">
+                <div class="col-md-12">
+                    <label>Branch : </label>
+                    <asp:Label ID="lblDealerBankBranch" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
                     <label>Active : </label>
                     <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
-                </div>--%>
+                </div>
             </div>
         </div>
     </fieldset>
@@ -496,12 +511,11 @@
         </div>--%>
     </div>
 </asp:Panel>
-
 <ajaxToolkit:ModalPopupExtender ID="MPE_Dealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlAddNotification" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Dealer Notifiaction</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogueAddNotification">Add Dealer Notifiaction</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="btnAddNotificationClose" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -542,6 +556,45 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AddNotification" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddNotification" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlEditBank" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueEditBank">Edit Bank Details</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnEditBankClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageEditBank" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Bank</label>
+                        <asp:TextBox ID="txtBank" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:Label ID="lblDealerBankID" runat="server" Visible="false" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Branch</label>
+                        <asp:TextBox ID="txtBranch" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">IFSC Code</label>
+                        <asp:TextBox ID="txtIFSCCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Account Number</label>
+                        <asp:TextBox ID="txtAccountNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnEditBank" runat="server" Text="Save" CssClass="btn Save" OnClick="btnEditBank_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditBank" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditBank" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

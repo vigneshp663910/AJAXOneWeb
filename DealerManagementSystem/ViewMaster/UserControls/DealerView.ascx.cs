@@ -115,6 +115,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //lblTeamLead.Text = Dealer.TL.ContactName;
             //lblSerivceManager.Text = Dealer.SM.ContactName;
 
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(DealerID, null, null);
+            lblDealerBank.Text = DealerBank[0].DealerBank.BankName;
+            lblDealerBankBranch.Text = DealerBank[0].DealerBank.Branch;
+            lblIFSCCode.Text = DealerBank[0].DealerBank.IfscCode;
+            lblAccountNo.Text = DealerBank[0].DealerBank.AcNumber;
+            lblDealerBankID.Text = DealerBank[0].DealerBank.DealerBankID.ToString();
+
             fillDealerOffice();
             fillDealerEmployee();
             fillDealerNotification();
@@ -146,6 +153,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", false);
                     ddlDealer.SelectedValue = Convert.ToString(Dealer.DealerID);
                 }
+               if (lbActions.Text == "Edit Bank Details")
+               {
+                    txtBank.Text = lblDealerBank.Text;
+                    txtBranch.Text = lblDealerBankBranch.Text;
+                    txtIFSCCode.Text = lblIFSCCode.Text;
+                    txtAccountNo.Text = lblAccountNo.Text;
+                    MPE_EditBank.Show();                    
+               }
             }
             catch (Exception ex)
             {
@@ -405,6 +420,31 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             gvDealerNotification.PageIndex = e.NewPageIndex;
             fillDealerNotification();
+        }
+
+        protected void btnEditBank_Click(object sender, EventArgs e)
+        {
+            PDMS_DealerBankDetails BankDetails = new PDMS_DealerBankDetails();
+            BankDetails.DealerID = Convert.ToInt32(Dealer.DealerID);
+            BankDetails.DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
+            BankDetails.BankName = txtBank.Text;
+            BankDetails.Branch = txtBranch.Text;
+            BankDetails.AcNumber = txtAccountNo.Text;
+            BankDetails.IfscCode = txtIFSCCode.Text;
+
+            if (new BDMS_Dealer().InsertOrUpdateDealerBankDetails(BankDetails, 0))
+            {
+                lblMessageEditBank.Text = "Bank Details updated for the Dealer.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessageEditBank.Visible = true;
+            }
+            else
+            {
+                lblMessage.Text = "Bank Details not updated for the Dealer.";
+                lblMessage.ForeColor = Color.Red;
+                lblMessageEditBank.Visible = true;
+            }
+            filldealer(Dealer.DealerID);
         }
 
     }
