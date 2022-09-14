@@ -285,7 +285,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             lblMessage.Visible = true;
             string messageBody = "";
 
-            PTicketHeader Tickets = new BTickets().GetTicketDetails(TaskItem.HeaderID, TaskItem.ItemID, null, null, null, null, null, null, null, null)[0];
+            PTicketHeader Tickets = new BTickets().GetTicketByID(TaskItem.HeaderID)[0];
             messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
             messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
             messageBody = messageBody.Replace("@@RequestedOn", Tickets.CreatedOn.ToString());
