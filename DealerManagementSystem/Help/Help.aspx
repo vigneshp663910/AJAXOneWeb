@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Help List</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
@@ -42,20 +42,22 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Sno" HeaderStyle-Width="30px" ItemStyle-Width="30px" ControlStyle-Width="30px">
+                                    <asp:TemplateField HeaderText="SN" HeaderStyle-Width="30px" ItemStyle-Width="30px" ControlStyle-Width="30px">
+                                          <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right"  Font-Size="Medium" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblsno" Text='<%# DataBinder.Eval(Container.DataItem, "Sno")%>' runat="server"/>
                                         </ItemTemplate>
                                         <FooterTemplate>
-                                            <asp:TextBox ID="txtsno" runat="server" placeholder="sno" CssClass="form-control"></asp:TextBox>
+                                            <asp:TextBox ID="txtsno" runat="server" placeholder="Sn" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Module">
+                                        <ItemStyle VerticalAlign="Middle"  ForeColor="#0066FF" Font-Size="Medium" Font-Bold="True" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Description")%>' runat="server" />
                                         </ItemTemplate>
                                         <FooterTemplate>
-                                            <asp:TextBox ID="txtDescription" runat="server" placeholder="Description" CssClass="form-control"></asp:TextBox>
+                                            <asp:TextBox ID="txtDescription" runat="server" placeholder="Description" CssClass="form-control" ForeColor="#0066FF"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="PDF" ItemStyle-HorizontalAlign="Center">
@@ -88,12 +90,13 @@
                                             <asp:TextBox ID="txtVideoLink" runat="server" placeholder="VideoLink" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="OrderNo">
+                                    <asp:TemplateField HeaderText="OrderBy">
+                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right"  ForeColor="#3366FF" Font-Size="Medium" Width="100px"/>
                                         <ItemTemplate>
                                             <asp:Label ID="lblOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderNo")%>' runat="server" />
                                         </ItemTemplate>
                                         <FooterTemplate>
-                                            <asp:TextBox ID="txtOrderNo" runat="server" placeholder="OrderNo" CssClass="form-control"></asp:TextBox>
+                                            <asp:TextBox ID="txtOrderNo" runat="server" placeholder="OrderBy" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action">
