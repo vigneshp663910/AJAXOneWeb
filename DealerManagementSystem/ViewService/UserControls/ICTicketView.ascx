@@ -11,6 +11,7 @@
 <%@ Register Src="~/ViewService/UserControls/ICTicketAddNotes.ascx" TagPrefix="UC" TagName="UC_ICTicketAddNotes" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketAddTechnicianWork.ascx" TagPrefix="UC" TagName="UC_ICTicketAddTechnicianWork" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketUpdateRestore.ascx" TagPrefix="UC" TagName="UC_ICTicketUpdateRestore" %>
+<%@ Register Src="~/ViewService/UserControls/AddICTicketCustomerFeedback.ascx" TagPrefix="UC" TagName="UC_ICTicketCustomerFeedback" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -28,6 +29,13 @@
                 <asp:LinkButton ID="lbtnAddNotes" runat="server" OnClick="lbActions_Click">Add Notes</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddTechnicianWork" runat="server" OnClick="lbActions_Click">Add Technician Work</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
+                <asp:LinkButton ID="lbtnCustomerFeedback" runat="server" OnClick="lbActions_Click">Customer Feedback</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceClaim" runat="server" OnClick="lbActions_Click">Service Claim</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceQuotation" runat="server" OnClick="lbActions_Click">Service Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click">Service Profarma Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click">Service Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMaterialQuotation" runat="server" OnClick="lbActions_Click">Material Quotation</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -168,172 +176,172 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlCallInformation" runat="server" HeaderText="Call Information">
+    <asp1:TabPanel ID="tpnlCallInformation" runat="server" HeaderText="Call Info">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>
-                <div class="col-md-12 View">
-                    <div class="col-md-4">
-                        <label>Departure Date and Time : </label>
-                        <asp:Label ID="lblDepartureDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Reached Date and Time : </label>
-                        <asp:Label ID="lblReachedDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Location : </label>
-                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Service Type : </label>
-                        <asp:Label ID="lblServiceType" runat="server" CssClass="label"></asp:Label>
-                        <asp:DropDownList ID="ddlServiceTypeOverhaul" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceTypeOverhaul" DataValueField="ServiceTypeOverhaulID" />
-                        <asp:DropDownList ID="ddlServiceSubType" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceSubType" DataValueField="ServiceSubTypeID" />
-
-                    </div>
-                    <div class="col-md-4">
-                        <label>Service Priority : </label>
-                        <asp:Label ID="lblServicePriority" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Delivery Location : </label>
-                        <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Current HMR Value : </label>
-                        <asp:Label ID="lblHMRValue" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Current HMR Date : </label>
-                        <asp:Label ID="lblHMRDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Cess : </label>
-                        <asp:CheckBox ID="cbCess" runat="server" />
-                    </div>
-                    <div class="col-md-4">
-                        <label>Type Of Warranty : </label>
-                        <asp:Label ID="lblTypeOfWarranty" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Main Application : </label>
-                        <asp:Label ID="lblMainApplication" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Sub Application Manual : </label>
-                        <asp:Label ID="lblSubApplication" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Site Contact Person’s Name : </label>
-                        <asp:Label ID="lblOperatorName" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Site Contact Person’s Number : </label>
-                        <asp:Label ID="lblSiteContactPersonNumber" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Site Contact Person’s Number 2 : </label>
-                        <asp:Label ID="lblSiteContactPersonNumber2" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Designation : </label>
-                        <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Scope of Work : </label>
-                        <asp:Label ID="lblScopeOfWork" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>No Claim : </label>
-                        <asp:CheckBox ID="cbNoClaim" runat="server" />
-                    </div>
-                    <div class="col-md-4">
-                        <label>No Claim Reason : </label>
-                        <asp:Label ID="lblNoClaimReason" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Mc Entered Service Date : </label>
-                        <asp:Label ID="lblMcEnteredServiceDate" runat="server" CssClass="label"></asp:Label>
-
-                    </div>
-                    <div class="col-md-4">
-                        <label>Service Started Date : </label>
-                        <asp:Label ID="lblServiceStartedDate" runat="server" CssClass="label"></asp:Label>
-
-                    </div>
-                    <div class="col-md-4">
-                        <label>Service Ended Date : </label>
-                        <asp:Label ID="lblServiceEndedDate" runat="server" CssClass="label" Text=""></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Kind Attn : </label>
-                        <asp:Label ID="lblKindAttn" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Remarks : </label>
-                        <asp:Label ID="lblRemarks" runat="server" CssClass="label" Text=""></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Is Machine Active: </label>
-                        <asp:CheckBox ID="cbIsMachineActive" runat="server" Checked="true" />
-                    </div>
+            <br />
+            <div class="col-md-12 View">
+                <div class="col-md-4">
+                    <label>Departure Date and Time : </label>
+                    <asp:Label ID="lblDepartureDate" runat="server" CssClass="label"></asp:Label>
                 </div>
-            </fieldset>
+                <div class="col-md-4">
+                    <label>Reached Date and Time : </label>
+                    <asp:Label ID="lblReachedDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Location : </label>
+                    <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Service Type : </label>
+                    <asp:Label ID="lblServiceType" runat="server" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlServiceTypeOverhaul" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceTypeOverhaul" DataValueField="ServiceTypeOverhaulID" />
+                    <asp:DropDownList ID="ddlServiceSubType" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceSubType" DataValueField="ServiceSubTypeID" />
+
+                </div>
+                <div class="col-md-4">
+                    <label>Service Priority : </label>
+                    <asp:Label ID="lblServicePriority" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Delivery Location : </label>
+                    <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Current HMR Value : </label>
+                    <asp:Label ID="lblHMRValue" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Current HMR Date : </label>
+                    <asp:Label ID="lblHMRDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Cess : </label>
+                    <asp:CheckBox ID="cbCess" runat="server" />
+                </div>
+                <div class="col-md-4">
+                    <label>Type Of Warranty : </label>
+                    <asp:Label ID="lblTypeOfWarranty" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Main Application : </label>
+                    <asp:Label ID="lblMainApplication" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Sub Application Manual : </label>
+                    <asp:Label ID="lblSubApplication" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Site Contact Person’s Name : </label>
+                    <asp:Label ID="lblOperatorName" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Site Contact Person’s Number : </label>
+                    <asp:Label ID="lblSiteContactPersonNumber" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Site Contact Person’s Number 2 : </label>
+                    <asp:Label ID="lblSiteContactPersonNumber2" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Designation : </label>
+                    <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Scope of Work : </label>
+                    <asp:Label ID="lblScopeOfWork" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>No Claim : </label>
+                    <asp:CheckBox ID="cbNoClaim" runat="server" />
+                </div>
+                <div class="col-md-4">
+                    <label>No Claim Reason : </label>
+                    <asp:Label ID="lblNoClaimReason" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Mc Entered Service Date : </label>
+                    <asp:Label ID="lblMcEnteredServiceDate" runat="server" CssClass="label"></asp:Label>
+
+                </div>
+                <div class="col-md-4">
+                    <label>Service Started Date : </label>
+                    <asp:Label ID="lblServiceStartedDate" runat="server" CssClass="label"></asp:Label>
+
+                </div>
+                <div class="col-md-4">
+                    <label>Service Ended Date : </label>
+                    <asp:Label ID="lblServiceEndedDate" runat="server" CssClass="label" Text=""></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Kind Attn : </label>
+                    <asp:Label ID="lblKindAttn" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Remarks : </label>
+                    <asp:Label ID="lblRemarks" runat="server" CssClass="label" Text=""></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Is Machine Active: </label>
+                    <asp:CheckBox ID="cbIsMachineActive" runat="server" Checked="true" />
+                </div>
+            </div>
+
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlFSR" runat="server" HeaderText="FSR">
         <ContentTemplate>
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>
-                <div class="col-md-12 View">
-                    <div class="col-md-4">
-                        <label>Mode Of Payment : </label>
-                        <asp:Label ID="lblModeOfPayment" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Operator Name : </label>
-                        <asp:Label ID="lblOperatorNameFSR" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Operator Contact No : </label>
-                        <asp:Label ID="lblOperatorNumber" runat="server" CssClass="label"></asp:Label>
-                        >
-                    </div>
-                    <div class="col-md-4">
-                        <label>Machine Maintenance Level : </label>
-                        <asp:Label ID="lblMachineMaintenanceLevel" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>SIs Rental : </label>
-                        <asp:CheckBox ID="cbIsRental" runat="server" />
-                    </div>
-                    <div class="col-md-4">
-                        <label>Rental Contractor Name : </label>
-                        <asp:Label ID="lblRentalName" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Rental Contractor Contact No : </label>
-                        <asp:Label ID="lblRentalNumber" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Nature Of Complaint : </label>
-                        <asp:Label ID="lblNatureOfComplaint" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Observation : </label>
-                        <asp:Label ID="lblObservation" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Work Carried Out : </label>
-                        <asp:Label ID="lblWorkCarriedOut" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-4">
-                        <label>SE Suggestion : </label>
-                        <asp:Label ID="lblReport" runat="server" CssClass="label"></asp:Label>
-                    </div>
+            <br />
+            <%-- <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>--%>
+            <div class="col-md-12 View">
+                <div class="col-md-4">
+                    <label>Mode Of Payment : </label>
+                    <asp:Label ID="lblModeOfPayment" runat="server" CssClass="label"></asp:Label>
                 </div>
-            </fieldset>
+                <div class="col-md-4">
+                    <label>Operator Name : </label>
+                    <asp:Label ID="lblOperatorNameFSR" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Operator Contact No : </label>
+                    <asp:Label ID="lblOperatorNumber" runat="server" CssClass="label"></asp:Label>
+                    >
+                </div>
+                <div class="col-md-4">
+                    <label>Machine Maintenance Level : </label>
+                    <asp:Label ID="lblMachineMaintenanceLevel" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>SIs Rental : </label>
+                    <asp:CheckBox ID="cbIsRental" runat="server" />
+                </div>
+                <div class="col-md-4">
+                    <label>Rental Contractor Name : </label>
+                    <asp:Label ID="lblRentalName" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Rental Contractor Contact No : </label>
+                    <asp:Label ID="lblRentalNumber" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Nature Of Complaint : </label>
+                    <asp:Label ID="lblNatureOfComplaint" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Observation : </label>
+                    <asp:Label ID="lblObservation" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Work Carried Out : </label>
+                    <asp:Label ID="lblWorkCarriedOut" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>SE Suggestion : </label>
+                    <asp:Label ID="lblReport" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <%--</fieldset>--%>
 
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -890,7 +898,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabechnicianWorkHours" runat="server" HeaderText="Technician Work Hours" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="TabechnicianWorkHours" runat="server" HeaderText="Tech Work Hours" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -937,35 +945,32 @@
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="IC Ticket Restore" Font-Bold="True" ToolTip="">
         <ContentTemplate>
-            <div class="col-md-12 Report">
-                <div class="table-responsive">
 
-                    <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>
-                        <div class="col-md-12 View">
-                            <div class="col-md-4">
-                                <label>Restore Date and Time : </label>
-                                <asp:Label ID="lblRestoreDate" runat="server" CssClass="label"></asp:Label>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Customer Remarks : </label>
-                                <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="label"></asp:Label>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Customer Satisfaction Level : </label>
-                                <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="label"></asp:Label>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Arrival Back Date and Time : </label>
-                                <asp:Label ID="lblArrivalBackDate" runat="server" CssClass="label"></asp:Label>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Complaint Status : </label>
-                                <asp:Label ID="lblComplaintStatus" runat="server" CssClass="label"></asp:Label>
-                            </div>
-                        </div>
-                    </fieldset>
+            <br />
+
+            <div class="col-md-12 View">
+                <div class="col-md-4">
+                    <label>Restore Date and Time : </label>
+                    <asp:Label ID="lblRestoreDate" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-4">
+                    <label>Customer Remarks : </label>
+                    <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Customer Satisfaction Level : </label>
+                    <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Arrival Back Date and Time : </label>
+                    <asp:Label ID="lblArrivalBackDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Complaint Status : </label>
+                    <asp:Label ID="lblComplaintStatus" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+
         </ContentTemplate>
     </asp1:TabPanel>
 </asp1:TabContainer><asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
@@ -1033,7 +1038,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label5" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageFsrAttachments" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_AddFSRAttachments ID="UC_AddFSRAttachments" runat="server"></UC:UC_AddFSRAttachments>
         </div>
         <div class="col-md-12 text-center">
@@ -1155,7 +1160,6 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AddTechnicianWork" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTechnicianWork" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-
 <asp:Panel ID="pnlUpdateRestore" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Notes</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -1173,6 +1177,27 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_UpdateRestore" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateRestore" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlCustomerFeedback" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Customer Feedback</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button101" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageCustomerFeedback" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_ICTicketCustomerFeedback ID="UC_ICTicketCustomerFeedback" runat="server"></UC:UC_ICTicketCustomerFeedback>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateCustomerFeedback" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateCustomerFeedback_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CustomerFeedback" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomerFeedback" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

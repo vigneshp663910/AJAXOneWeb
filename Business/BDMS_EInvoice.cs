@@ -25,103 +25,8 @@ namespace Business
         private IDataAccess provider;
 
         public BDMS_EInvoice() { provider = new ProviderFactory().GetProvider(); }
-
-
-        public void IntegrationEInvoive()
-        {
-            //List<PDealer> Dealers = new BDealer().GetDealerList(null, null, null);
-            //foreach (PDealer Dealer in Dealers)
-            //{
-            //    new FileManager().DownloadAllFilesToBeImported(Dealer.EInvoiveFTPPath, Dealer.EInvoiveFTPUserID, Dealer.EInvoiveFTPPassword, PDMS_EInvoice.EInvoivePathImport, "DMSS_INV_*");
-            //}
-            List<PDMS_EInvoice> EInvoices = GetEInvoiceBillingDocumentforFtpProcess();
-
-            foreach (PDMS_EInvoice EInvoice in EInvoices)
-            {
-                // new FileManager().DownloadAllFilesToBeImported(ConfigurationManager.AppSettings["EInvoiveFTPPathAE"], ConfigurationManager.AppSettings["EInvoiveFTPUserIDAE"], ConfigurationManager.AppSettings["EInvoiveFTPPasswordAE"], PDMS_EInvoice.EInvoivePathImport, "DMSS_INV_*");
-                DownloadAllFilesToBeImported(EInvoice.EInvoiceFTPPath, EInvoice.EInvoiceFTPUserID, EInvoice.EInvoiceFTPPassword, PDMS_EInvoice.EInvoivePathImport, EInvoice.BillingDocument);
-                string[] InvFiles = Directory.GetFiles(PDMS_EInvoice.EInvoivePathImport, "*" + EInvoice.BillingDocument + "*");
-                TraceLogger.Log(DateTime.Now);
-                PDMS_ICTicketJSON Customers = new PDMS_ICTicketJSON();
-                try
-                {
-                    foreach (string file in InvFiles)
-                    {
-                        string[] fileT = File.ReadAllText(file).Split(';');
-                        string[] Inv = fileT[1].Split('!');
-                        try
-                        {
-                            DateTime? IRNDate = string.IsNullOrEmpty(Inv[44]) ? (DateTime?)null : Convert.ToDateTime(Inv[44].Trim());
-
-                            DbParameter InvoiceNumber = provider.CreateParameter("InvoiceNumber", Inv[4], DbType.String);
-                            DbParameter IRN = provider.CreateParameter("IRN", string.IsNullOrEmpty(Inv[52]) ? null : Inv[52], DbType.String);
-                            DbParameter IRNDateP = provider.CreateParameter("IRNDate", IRNDate, DbType.DateTime);
-                            DbParameter SignedQRCode = provider.CreateParameter("SignedQRCode", string.IsNullOrEmpty(Inv[51]) ? null : Inv[51], DbType.String);
-                            DbParameter SignedInvoice = provider.CreateParameter("SignedInvoice", string.IsNullOrEmpty(Inv[50]) ? null : Inv[50], DbType.String);
-                            DbParameter Comments = provider.CreateParameter("Comments", string.IsNullOrEmpty(Inv[53]) ? null : Inv[53], DbType.String);
-                            DbParameter InvName = provider.CreateParameter("InvName", EInvoice.FileSubName, DbType.String);
-                            DbParameter[] Params = new DbParameter[7] { InvoiceNumber, IRN, IRNDateP, SignedQRCode, SignedInvoice, Comments, InvName };
-
-                            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                            {
-                                provider.Insert("ZDMS_InsertOrUpdateEInvoice", Params);
-                                scope.Complete();
-                            }
-                            File.Move(file, file.Replace("Import", "Import/Success"));
-                        }
-                        catch (Exception e1)
-                        {
-                            File.Move(file, file.Replace("Import", " Import/Fail"));
-                            new FileLogger().LogMessageService("BDMS_EInvoice", "IntegrationEInvoive", e1);
-                        }
-                    }
-                    TraceLogger.Log(DateTime.Now);
-                }
-                catch (Exception ex)
-                {
-                    new FileLogger().LogMessageService("BDMS_EInvoice", "IntegrationEInvoive", ex);
-                }
-            }
-        }
-
-
-        public List<PEInvoice> GetInvoiceForRequestEInvoice_New(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
-        {
-            List<PEInvoice> EInvoiceS = new List<PEInvoice>();
-            PEInvoice EInvoice = new PEInvoice();  
-            List<PDMS_WarrantyClaimInvoice> WarrantyClaimInvoice = getWarrantyClaimInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-             
-            List<PDMS_WarrantyClaimInvoice> ActivityInvoice = getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-
-            List<PSalesCommissionClaimInvoice> SalesCInv = GetSalesCommissionClaimInvoiceForRequestEInvoice(null, InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-            foreach (PSalesCommissionClaimInvoice Pinv in SalesCInv)
-            {
-                EInvoiceS.Add(ConvertSalesCommissionClaimInvoice(Pinv));
-            }
-            return EInvoiceS;
-        }
-
-        public List<PEInvoice> GetPaidServiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
-        {
-            List<PEInvoice> EInvoiceS = new List<PEInvoice>(); 
-            List<PDMS_PaidServiceInvoice> Pinv = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode); 
-            foreach (PDMS_PaidServiceInvoice inv in Pinv)
-            {
-                EInvoiceS.Add(ConvertPaidServiceInvoice(inv));
-            }
-            return EInvoiceS;
-        }
-        public List<PEInvoice> GetActivityForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
-        {
-            List<PEInvoice> EInvoiceS = new List<PEInvoice>();
-            List<PDMS_WarrantyClaimInvoice> Pinv = getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-            foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
-            {
-                EInvoiceS.Add(ConvertActivityInvoice(inv));
-            }
-            return EInvoiceS;
-        }
-        private List<PDMS_PaidServiceInvoice> GetPaidServiceInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
+          
+        public List<PDMS_PaidServiceInvoice> GetPaidServiceInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
         {
             List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
             try
@@ -230,7 +135,7 @@ namespace Business
             { }
             return Services;
         }
-        private List<PDMS_WarrantyClaimInvoice> getWarrantyClaimInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
+        public List<PDMS_WarrantyClaimInvoice> getWarrantyClaimInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
         {
             List<PDMS_WarrantyClaimInvoice> Ws = new List<PDMS_WarrantyClaimInvoice>();
             PDMS_WarrantyClaimInvoice W = null;
@@ -321,7 +226,7 @@ namespace Business
             { }
             return Ws;
         }
-        private List<PDMS_WarrantyClaimInvoice> getActivityInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
+        public List<PDMS_WarrantyClaimInvoice> getActivityInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
         {
             List<PDMS_WarrantyClaimInvoice> Ws = new List<PDMS_WarrantyClaimInvoice>();
             PDMS_WarrantyClaimInvoice W = null;
@@ -1239,12 +1144,12 @@ namespace Business
                         PResultEInv Results = new BApiEInv().ApiPut(HeaderData, Dealer, EInvoice);
                         if (Results.Status == PApplication.Failure)
                         {
-                            PResultEInvData data = (PResultEInvData)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, data.Irn, data.AckDt, data.SignedQRCode, data.SignedInvoice, "", "SalesCom");
+                            PSuccessEInv data = (PSuccessEInv)Results.data;
+                            IntegrationEInvoive(Pinv.InvoiceNumber, data.data.Irn, data.data.AckDt, data.data.SignedQRCode, data.data.SignedInvoice, "", "SalesCom");
                         }
                         else
                         {
-                            PFildEInv data = (PFildEInv)Results.data;
+                            PFailedEInv data = (PFailedEInv)Results.data;
                             IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
                         }
                     }
@@ -1713,9 +1618,7 @@ namespace Business
             {
             }
             return EInvoice;
-        }
-
-
+        } 
         public PEInvoice ConvertActivityInvoice(PDMS_WarrantyClaimInvoice Pinv)
         {
             PEInvoice EInvoice = new PEInvoice();
@@ -1896,52 +1799,35 @@ namespace Business
             }
             return EInvoice;
         }
-
-        public string GeneratEInvoiceForPaidServiceInvoice( string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
+         
+        public string GeneratEInvoice(string InvoiceNumber,string InvType)
         {
-            PDMS_PaidServiceInvoice Pinv = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "")[0];
-            PDealer Dealer = new BDealer().GetDealerByID(null, Pinv.ICTicket.Dealer.DealerCode);
-            
-            if ((Dealer.EInvAPI))
+            PEInvoice EInvoice = new PEInvoice();
+            PDealer Dealer = new PDealer();
+
+            string IRN = "";
+            if (InvType == "PAY")
             {
-                if (string.IsNullOrEmpty(Pinv.IRN))
-                {
-                    try
-                    { 
-                        PApiEInv ul = new PApiEInv();
-                        ul.handle =  Dealer.EInvUserAPI.Handle;
-                        ul.handleType =  Dealer.EInvUserAPI.HandleType;
-                        ul.password =  Dealer.EInvUserAPI.Password;
-                        PApiHeader Header =  JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));
-                        PEInvoice EInvoice = ConvertPaidServiceInvoice(Pinv); 
-                        string SS= JsonConvert.SerializeObject(EInvoice);
-                        PResultEInv Results = new BApiEInv().ApiPut(Header, Dealer, EInvoice);
-                        if (Results.Status == PApplication.Success)
-                        {
-                            PResultEInvData data = (PResultEInvData)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, data.Irn, data.AckDt, data.SignedQRCode, data.SignedInvoice, "", "SalesCom");
-                        }
-                        else
-                        {
-                            PFildEInv data = (PFildEInv)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
+                PDMS_PaidServiceInvoice Pinv = GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, null, null, null, "")[0];
+                Dealer = new BDealer().GetDealerByID(null, Pinv.ICTicket.Dealer.DealerCode);
+                EInvoice = ConvertPaidServiceInvoice(Pinv);
+                IRN = Pinv.IRN;
             }
-            return "";
-        }
-        public string GeneratEInvoiceForActivityInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID)
-        {
-            PDMS_WarrantyClaimInvoice Pinv = getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID)[0];
-            PDealer Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
-
-            if ((Dealer.EInvAPI))
+            else if (InvType == "ATY")
             {
-                if (string.IsNullOrEmpty(Pinv.IRN))
+                PDMS_WarrantyClaimInvoice Pinv = getActivityInvoiceForRequestEInvoice(InvoiceNumber, null, null, null)[0];
+                Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
+                EInvoice = ConvertActivityInvoice(Pinv);
+                IRN = Pinv.IRN;
+            }
+            string Message = ValidationEInvoice(EInvoice);
+            if (!string.IsNullOrEmpty(Message))
+            {
+                return Message;
+            }
+                if ((Dealer.EInvAPI))
+            {
+                if (string.IsNullOrEmpty(IRN))
                 {
                     try
                     {
@@ -1950,18 +1836,21 @@ namespace Business
                         ul.handleType = Dealer.EInvUserAPI.HandleType;
                         ul.password = Dealer.EInvUserAPI.Password;
                         PApiHeader Header = JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));
-                        PEInvoice EInvoice = ConvertActivityInvoice(Pinv);
+                         
                         string SS = JsonConvert.SerializeObject(EInvoice);
                         PResultEInv Results = new BApiEInv().ApiPut(Header, Dealer, EInvoice);
+                        // PResultEInv Results = new PResultEInv();
+                        // Results.data = JsonConvert.DeserializeObject<PSuccessEInv>("{\"data\": {\"AckNo\": 162210030870114,\"AckDt\": \"2022-01-10 12:21:00\",\"Irn\": \"Irn0158eb6a8b\",\"SignedInvoice\": \"SignedInvoiceuMMJAeuQ\",\"SignedQRCode\": \"SignedQRCodeFyA\",\"Status\": \"ACT\",\"EwbNo\": null,\"EwbDt\": null,\"EwbValidTill\": null,\"Remarks\": null }}");
                         if (Results.Status == PApplication.Success)
                         {
-                            PResultEInvData data = (PResultEInvData)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, data.Irn, data.AckDt, data.SignedQRCode, data.SignedInvoice, "", "SalesCom");
+                            //PResultEInvData data = JsonConvert.DeserializeObject<PResultEInvData>(JsonConvert.SerializeObject(Results.data));
+                            PSuccessEInv data = (PSuccessEInv)Results.data;
+                            IntegrationEInvoive(InvoiceNumber, data.data.Irn, data.data.AckDt, data.data.SignedQRCode, data.data.SignedInvoice, "", "SalesCom");
                         }
                         else
                         {
-                            PFildEInv data = (PFildEInv)Results.data;
-                            IntegrationEInvoive(Pinv.InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
+                            PFailedEInv data = (PFailedEInv)Results.data;
+                            IntegrationEInvoive(InvoiceNumber, null, null, null, null, data.error.message, "SalesCom");
                         }
                     }
                     catch (Exception ex)
@@ -1974,9 +1863,7 @@ namespace Business
         public string ValidationEInvoice(PEInvoice Inv)
         {
             try
-            {
-                string Message = ""; 
-
+            {  
                 if (string.IsNullOrEmpty(Inv.BuyerDtls.Gstin))
                 {
                     return "Please update Buyer GST Number";
@@ -2009,11 +1896,11 @@ namespace Business
 
                 if (string.IsNullOrEmpty(Inv.SellerDtls.Gstin) || string.IsNullOrEmpty(Inv.SellerDtls.Loc) || string.IsNullOrEmpty(Inv.SellerDtls.Pin) || string.IsNullOrEmpty(Inv.SellerDtls.Stcd))
                 {
-                    return "</n> Please check the supplier details of Invoice (" + Inv.DocDtls.No + ")";
+                    return "Please check the supplier details of Invoice (" + Inv.DocDtls.No + ")";
                 }
                 if (string.IsNullOrEmpty(Inv.BuyerDtls.Gstin) || string.IsNullOrEmpty(Inv.BuyerDtls.Loc) || string.IsNullOrEmpty(Inv.BuyerDtls.Pin) || string.IsNullOrEmpty(Inv.BuyerDtls.Stcd))
                 {
-                    return "</n> Please check the Buyer details of Invoice (" + Inv.DocDtls.No + ")";
+                    return "Please check the Buyer details of Invoice (" + Inv.DocDtls.No + ")";
                 } 
             }
             catch (Exception e)

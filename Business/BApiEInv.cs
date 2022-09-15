@@ -96,13 +96,13 @@ namespace Business
             if (APIResponse.IsSuccessStatusCode)
             { 
                 Data.Status = PApplication.Success;
-                Data.data = JsonConvert.DeserializeObject<PResultEInvData>(APIResponse.Content.ReadAsStringAsync().Result);
+                Data.data = JsonConvert.DeserializeObject<PSuccessEInv>(APIResponse.Content.ReadAsStringAsync().Result);
                
             }
             else
             { 
                 Data.Status = PApplication.Failure;
-                Data.data = JsonConvert.DeserializeObject<PFildEInv>(APIResponse.Content.ReadAsStringAsync().Result); 
+                Data.data = JsonConvert.DeserializeObject<PFailedEInv>(APIResponse.Content.ReadAsStringAsync().Result); 
             } 
             return Data;
         }
@@ -133,17 +133,22 @@ namespace Business
         public object data { get; set; }
     }
 
-    public class PFildEInv
+    public class PFailedEInv
     {
-        public PFildEInvError error { get; set; }
+        public PFailedEInvError error { get; set; }
         
     }
-    public class PFildEInvError
+    public class PFailedEInvError
     {
         public string message { get; set; }
         public string type { get; set; }
     }
-    public class PResultEInvData
+
+    public class PSuccessEInv
+    {
+        public PSuccessEInvData data { get; set; }
+    }
+    public class PSuccessEInvData
     {
         public string AckNo { get; set; }
         public DateTime AckDt { get; set; }
@@ -152,8 +157,8 @@ namespace Business
         public string SignedQRCode { get; set; }
         public string Status { get; set; }
         public string EwbNo { get; set; }
-        public DateTime EwbDt { get; set; }
-        public DateTime EwbValidTill { get; set; }
+        public DateTime? EwbDt { get; set; }
+        public DateTime? EwbValidTill { get; set; }
     }
 
 

@@ -23,9 +23,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlFSRAttachedName.DataBind();
         }
 
-        public PDMS_FSRAttachedFile Read()
+        public PDMS_FSRAttachedFile_M Read()
         {
-            PDMS_FSRAttachedFile AttachedFile = new PDMS_FSRAttachedFile(); 
+            PDMS_FSRAttachedFile_M AttachedFile = new PDMS_FSRAttachedFile_M(); 
             AttachedFile = CreateUploadedFileFSR(fu.PostedFile);
             AttachedFile.FSRAttachedName = new PDMS_FSRAttachedName() { FSRAttachedFileNameID = Convert.ToInt32(ddlFSRAttachedName.SelectedValue) };
 
@@ -49,22 +49,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (!Extension.Contains(ext))
             { 
                 return "Please choose only .jpg, .png and .gif image types!"; 
-            }
-
-            for (int i = 0; i < gvAttachedFile.Rows.Count; i++)
-            {
-                //if (ddlFSRAttachedName.SelectedItem.Text == AttachedFile.FileName)
-                //{
-                //    return "This file already available"; 
-                //}
-            }
+            } 
 
             return Message;
         }
        
-        private PDMS_FSRAttachedFile CreateUploadedFileFSR(HttpPostedFile file)
+        private PDMS_FSRAttachedFile_M CreateUploadedFileFSR(HttpPostedFile file)
         {
-            PDMS_FSRAttachedFile AttachedFile = new PDMS_FSRAttachedFile();
+            PDMS_FSRAttachedFile_M AttachedFile = new PDMS_FSRAttachedFile_M();
             int size = file.ContentLength;
             string name = file.FileName;
             int position = name.LastIndexOf("\\");

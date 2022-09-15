@@ -49,11 +49,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             //  PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim());
 
             //OM.MaterialID = MaterialsDescription.MaterialID;
+
             OM.MaterialWithDescription = txtServiceMaterial.Text.Trim();
             OM.Date = Convert.ToDateTime(txtServiceDate.Text);
-            OM.WorkedHours = Convert.ToDecimal(txtWorkedHours.Text.Trim());
-            OM.BasePrice = Convert.ToDecimal(txtBasePrice.Text.Trim());
-            OM.Discount = Convert.ToDecimal(txtDiscount.Text.Trim());
+            if (txtWorkedHours.Visible == true)
+            {
+                OM.WorkedHours = Convert.ToDecimal(txtWorkedHours.Text.Trim());
+                OM.BasePrice = Convert.ToDecimal(txtBasePrice.Text.Trim());
+                OM.Discount = Convert.ToDecimal(txtDiscount.Text.Trim());
+            }
+             
             return OM;
         }
         public string Validation()

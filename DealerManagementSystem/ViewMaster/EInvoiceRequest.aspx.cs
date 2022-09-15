@@ -149,17 +149,30 @@ namespace DealerManagementSystem.ViewMaster
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 string CustomerCode = txtCustomerCode.Text.Trim();
 
-                List<PEInvoice> invs = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
 
-                foreach (PEInvoice Inv in invs)
+                List<PDMS_PaidServiceInvoice> Paidinvs = new BDMS_EInvoice().GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                foreach (PDMS_PaidServiceInvoice inv in Paidinvs)
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "PAY" });
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertPaidServiceInvoice(inv), InvType = "PAY" }); 
                 }
-                invs = new BDMS_EInvoice().GetActivityForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-                foreach (PEInvoice Inv in invs)
+
+                //List<PEInvoice> invs = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                //foreach (PEInvoice Inv in invs)
+                //{
+                //    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "PAY" });
+                //}
+
+                List<PDMS_WarrantyClaimInvoice> Pinv = new BDMS_EInvoice().getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+                foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "ATY" });
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "ATY" }); 
                 }
+
+                //List<PEInvoice> invs = new BDMS_EInvoice().GetActivityForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+                //foreach (PEInvoice Inv in invs)
+                //{
+                //    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "ATY" });
+                //}
 
                 gvInv.PageIndex = 0;
                 gvInv.DataSource = InvoiceGrid;
@@ -214,14 +227,8 @@ namespace DealerManagementSystem.ViewMaster
                 Label InvoiceNumber = (Label)gvInv.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
                 Label lblInvType = (Label)gvInv.Rows[gvRow.RowIndex].FindControl("lblInvType");
                 //  PEInvoice EInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber.Text, null, null, null, null)[0];
-                if (lblInvType.Text == "PAY")
-                {
-                    lblMessage.Text = new BDMS_EInvoice().GeneratEInvoiceForPaidServiceInvoice(InvoiceNumber.Text, null, null, null);
-                }
-                else if (lblInvType.Text == "ATY")
-                {
-                    lblMessage.Text = new BDMS_EInvoice().GeneratEInvoiceForActivityInvoice(InvoiceNumber.Text, null, null, null);
-                }
+
+                lblMessage.Text = new BDMS_EInvoice().GeneratEInvoice(InvoiceNumber.Text, lblInvType.Text);
                 lblMessage.Visible = true;
             }
             catch (Exception ex)

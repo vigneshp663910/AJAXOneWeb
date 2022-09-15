@@ -49,7 +49,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 Session["PDMS_ICTicketFSR"] = value;
             }
         }
-       
+
         public List<PDMS_ServiceMaterial> SS_ServiceMaterialAll
         {
             get
@@ -177,13 +177,13 @@ namespace DealerManagementSystem.ViewService.UserControls
             SDMS_ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID_All(ICTicketID);
             SDMS_ICTicketFSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, SDMS_ICTicket.ICTicketID, null, null, "", null, null, null);
             ICTicketTSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIRBasicDetails(SDMS_ICTicket.ICTicketID);
-          //  SS_ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
+            //  SS_ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false);
             SS_ServiceMaterialAll = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", null, "");
             SS_ServiceMaterial = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", false, "");
 
 
             FillBasicInformation();
-             
+
             gvTechnician.DataSource = SDMS_ICTicket.Technicians;
             gvTechnician.DataBind();
             // FillTechnicians();
@@ -205,7 +205,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             ActionControlMange();
 
-            
+
         }
         public void FillBasicInformation()
         {
@@ -363,7 +363,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         public void FillAvailabilityOfOtherMachine()
         {
             List<PDMS_AvailabilityOfOtherMachine> Note = new BDMS_AvailabilityOfOtherMachine().GetAvailabilityOfOtherMachine(SDMS_ICTicket.ICTicketID, null, null, null);
-           
+
             gvAvailabilityOfOtherMachine.DataSource = Note;
             gvAvailabilityOfOtherMachine.DataBind();
         }
@@ -538,7 +538,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (lbActions.Text == "Add Technician")
             {
                 MPE_AddTechnician.Show();
-                UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID); 
+                UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID);
             }
             else if (lbActions.Text == "Edit Call Information")
             {
@@ -598,6 +598,97 @@ namespace DealerManagementSystem.ViewService.UserControls
                 UC_ICTicketUpdateRestore.FillMaster(SDMS_ICTicket, SDMS_ICTicketFSR);
                 MPE_UpdateRestore.Show();
             }
+            else if (lbActions.Text == "Customer Feedback")
+            {
+                UC_ICTicketCustomerFeedback.FillMaster();
+                MPE_CustomerFeedback.Show();
+            }
+            else if (lbActions.Text == "Service Claim")
+            {
+
+                string endPoint = "ICTicket/InsertServiceClaim?ICTicketID=" + SDMS_ICTicket.ICTicketID ;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red; 
+                    return;
+                }
+                ShowMessage(Results);
+            }
+            else if (lbActions.Text == "Service Quotation")
+            {
+                string endPoint = "ICTicket/InsertServiceQuotation?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&Type=3"; ;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+            }
+            else if (lbActions.Text == "Service Profarma Invoice")
+            {
+
+                string endPoint = "ICTicket/InsertServiceProfarmaInvoice?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&Type=2";  
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+            }
+            else if (lbActions.Text == "Service Invoice")
+            {
+                string endPoint = "ICTicket/InsertServiceInvoice?ICTicketID=" + SDMS_ICTicket.ICTicketID+ "&Type=3";
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                List<PDMS_PaidServiceInvoice> Invoice = new BDMS_Service().GetPaidServiceInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "", true);
+
+                if ((SDMS_ICTicket.Dealer.IsEInvoice) && (SDMS_ICTicket.Dealer.EInvoiceDate <= Invoice[0].InvoiceDate) && (SDMS_ICTicket.Dealer.ServicePaidEInvoice))
+                {
+                    new BDMS_EInvoice().GeneratEInvoice(Invoice[0].InvoiceNumber, "PAY");
+                }
+                ShowMessage(Results);
+            }
+            else if (lbActions.Text == "Material Claim")
+            {
+                string endPoint = "ICTicket/InsertMaterialClaim?ICTicketID=" + SDMS_ICTicket.ICTicketID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+            }
+            else if (lbActions.Text == "Material Quotation")
+            {
+                string endPoint = "ICTicket/InsertMaterialQuotation?ICTicketID=" + SDMS_ICTicket.ICTicketID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+            }
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -623,13 +714,13 @@ namespace DealerManagementSystem.ViewService.UserControls
             tbpCust.ActiveTabIndex = 0;
             // FillTechnicians();
             FillICTicket(SDMS_ICTicket.ICTicketID);
-        } 
+        }
         protected void lbTechnicianDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblUserID = (Label)gvRow.FindControl("lblUserID"); 
-            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + lblUserID.Text + "&IsDeleted=true"; 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)); 
+            Label lblUserID = (Label)gvRow.FindControl("lblUserID");
+            string endPoint = "ICTicket/TechnicianAddOrRemoveICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&TechnicianID=" + lblUserID.Text + "&IsDeleted=true";
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
             {
@@ -638,7 +729,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 return;
             }
             ShowMessage(Results);
-            FillICTicket(SDMS_ICTicket.ICTicketID);  
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
 
         protected void btnUpdateFSR_Click(object sender, EventArgs e)
@@ -655,7 +746,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PDMS_ICTicketFSR_M Fsr = UC_AddFSR.Read();
             Fsr.FsrID = SDMS_ICTicketFSR.FsrID;
             Fsr.ICTicketID = SDMS_ICTicket.ICTicketID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/UpdateTicketFSR", Fsr));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketFSR/UpdateTicketFSR", Fsr));
             if (Results.Status == PApplication.Failure)
             {
                 lblFSRMessage.Text = Results.Message;
@@ -672,22 +763,20 @@ namespace DealerManagementSystem.ViewService.UserControls
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long AttachedFileID = Convert.ToInt64(gvAttachedFile.DataKeys[gvRow.RowIndex].Value);
 
-            PDMS_FSRAttachedFile AttachedFile = new PDMS_FSRAttachedFile();
+            PDMS_FSRAttachedFile_M AttachedFile = new PDMS_FSRAttachedFile_M();
             AttachedFile.AttachedFileID = AttachedFileID;
             AttachedFile.IsDeleted = true;
-            if (new BDMS_ICTicketFSR().InsertOrUpdateICTicketFSRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketFSR/AddOrRemoveFSRAttachment", AttachedFile));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "File Removed";
-                lblMessage.ForeColor = Color.Green;
+                lblMessageFsrAttachments.Text = Results.Message;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "File is not Removed";
-                lblMessage.ForeColor = Color.Red;
-            }
+            lblMessage.Text = "File Removed";
+            lblMessage.ForeColor = Color.Green;
             fillICTicketAttachedFile();
         }
-
         protected void btnCallInformation_Click(object sender, EventArgs e)
         {
             MPE_CallInformation.Show();
@@ -711,7 +800,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillICTicket(SDMS_ICTicket.ICTicketID);
         }
 
-         
+
 
         protected void lbAvailabilityOfOtherMachineRemove_Click(object sender, EventArgs e)
         {
@@ -752,33 +841,41 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         protected void btnUpdateFSRAttachments_Click(object sender, EventArgs e)
         {
-           
-            
-
-            PDMS_FSRAttachedFile AttachedFile = UC_AddFSRAttachments.Read();
+            lblMessageFsrAttachments.Visible = true;
+            lblMessageFsrAttachments.ForeColor = Color.Red;
+            MPE_AddFSRAttachments.Show();
+            PDMS_FSRAttachedFile_M AttachedFile = UC_AddFSRAttachments.Read();
             AttachedFile.AttachedFileID = 0;
             AttachedFile.IsDeleted = false;
-            AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID };
-            if (new BDMS_ICTicketFSR().InsertOrUpdateICTicketFSRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+            AttachedFile.ICTicketID = SDMS_ICTicket.ICTicketID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketFSR/AddOrRemoveFSRAttachment", AttachedFile));
+            if (Results.Status == PApplication.Failure)
             {
-                lblFSRAttachmentMessage.Visible = true;
-                lblFSRAttachmentMessage.Text = "File Added";
-                lblFSRAttachmentMessage.ForeColor = Color.Green;
+                lblMessageFsrAttachments.Text = Results.Message;
                 return;
             }
-            
-                lblMessage.Visible = true;
-                lblMessage.Text = "File is not Added";
-                lblMessage.ForeColor = Color.Red;
-            
+
+            //if (new BDMS_ICTicketFSR().InsertOrUpdateICTicketFSRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+            //{
+            //    lblFSRAttachmentMessage.Visible = true;
+            //    lblFSRAttachmentMessage.Text = "File Added";
+            //    lblFSRAttachmentMessage.ForeColor = Color.Green;
+            //    return;
+            //}
+
+            lblMessage.Visible = true;
+            lblMessage.Text = "File is not Added";
+            lblMessage.ForeColor = Color.Red;
+
+            MPE_AddFSRAttachments.Hide();
             fillICTicketAttachedFile();
         }
 
 
         protected void lblServiceRemove_Click(object sender, EventArgs e)
         {
-            
-            
+
+
 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long ServiceChargeID = Convert.ToInt64(gvServiceCharges.DataKeys[gvRow.RowIndex].Value);
@@ -840,7 +937,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
             }
         }
-       
+
         protected void cbCheck_CheckedChanged(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -1003,10 +1100,10 @@ namespace DealerManagementSystem.ViewService.UserControls
         //    lblMessageTSIR.Text = Message;
         //    return Ret;
         //}
-        private PDMS_TSIRAttachedFile CreateUploadedFileFSR(HttpPostedFile file)
+        private PDMS_TSIRAttachedFile__M CreateUploadedFileFSR(HttpPostedFile file)
         {
 
-            PDMS_TSIRAttachedFile AttachedFile = new PDMS_TSIRAttachedFile();
+            PDMS_TSIRAttachedFile__M AttachedFile = new PDMS_TSIRAttachedFile__M();
             int size = file.ContentLength;
             string name = file.FileName;
             int position = name.LastIndexOf("\\");
@@ -1021,9 +1118,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             AttachedFile.FileSize = size;
             AttachedFile.AttachedFileID = 0;
             AttachedFile.IsDeleted = false;
-            AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID };
+            AttachedFile.ICTicketID = SDMS_ICTicket.ICTicketID;
             return AttachedFile;
-        } 
+        }
 
         protected void gvAttachedFileNew_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -1078,7 +1175,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             DropDownList ddlFSRAttachedName = (DropDownList)gvTSIR.Rows[index].FindControl("ddlFSRAttachedName");
             GridView gvAF = (GridView)gvTSIR.Rows[index].FindControl("gvAttachedFile");
             lblMessage.Visible = true;
-            PDMS_TSIRAttachedFile AttachedFile = new PDMS_TSIRAttachedFile();
+            PDMS_TSIRAttachedFile__M AttachedFile = new PDMS_TSIRAttachedFile__M();
             FileUpload fu = (FileUpload)gvTSIR.Rows[index].FindControl("fu");
             if (fu.PostedFile.FileName.Length == 0)
             {
@@ -1099,8 +1196,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 return;
             }
             AttachedFile = CreateUploadedFileFSR(fu.PostedFile);
-            AttachedFile.TSIR = new PDMS_ICTicketTSIR();
-            AttachedFile.TSIR.TsirID = Convert.ToInt64(gvTSIR.DataKeys[index].Value);
+            AttachedFile.TsirID = Convert.ToInt64(gvTSIR.DataKeys[index].Value);
             AttachedFile.FSRAttachedName = new PDMS_FSRAttachedName() { FSRAttachedFileNameID = Convert.ToInt32(ddlFSRAttachedName.SelectedValue) };
             for (int i = 0; i < gvAF.Rows.Count; i++)
             {
@@ -1111,24 +1207,43 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
             }
-            if (new BDMS_ICTicketTSIR().InsertOrUpdateICTicketTSIRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketTsir/AddOrRemoveTsirAttachment", AttachedFile));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "File added";
-                lblMessage.ForeColor = Color.Green;
-                try
-                {
-                    List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, AttachedFile.TSIR.TsirID, null);
-                    gvAF.DataSource = UploadedFile;
-                    gvAF.DataBind();
-                }
-                catch (Exception ex)
-                { }
+                lblMessage.Text = Results.Message;
+                return;
             }
-            else
+            lblMessage.Text = "File added";
+            lblMessage.ForeColor = Color.Green;
+            try
             {
-                lblMessage.Text = "File is not added";
-                lblMessage.ForeColor = Color.Red;
+                List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, AttachedFile.TsirID, null);
+                gvAF.DataSource = UploadedFile;
+                gvAF.DataBind();
             }
+            catch (Exception ex)
+            { }
+
+            //if (new BDMS_ICTicketTSIR().InsertOrUpdateICTicketTSIRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+            //{
+            //    lblMessage.Text = "File added";
+            //    lblMessage.ForeColor = Color.Green;
+            //    try
+            //    {
+            //        List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, AttachedFile.TSIR.TsirID, null);
+            //        gvAF.DataSource = UploadedFile;
+            //        gvAF.DataBind();
+            //    }
+            //    catch (Exception ex)
+            //    { }
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "File is not added";
+            //    lblMessage.ForeColor = Color.Red;
+            //}
+             
         }
         protected void lblAttachedFileRemoveR_Click(object sender, EventArgs e)
         {
@@ -1140,31 +1255,28 @@ namespace DealerManagementSystem.ViewService.UserControls
             GridViewRow GParentrow = (GridViewRow)(Parentgrid.NamingContainer);
             int GParentRowIndex = GParentrow.RowIndex;
 
-            PDMS_TSIRAttachedFile AttachedFile = new PDMS_TSIRAttachedFile();
+            PDMS_TSIRAttachedFile__M AttachedFile = new PDMS_TSIRAttachedFile__M();
             AttachedFile.AttachedFileID = AttachedFileID;
-            AttachedFile.ICTicket = new PDMS_ICTicket();
-            AttachedFile.ICTicket.ICTicketID = SDMS_ICTicket.ICTicketID;
-            AttachedFile.TSIR = new PDMS_ICTicketTSIR();
-            AttachedFile.TSIR.TsirID = ICTicketTSIR.TsirID;
+            AttachedFile.ICTicketID = SDMS_ICTicket.ICTicketID;
+            AttachedFile.TsirID = ICTicketTSIR.TsirID;
             AttachedFile.IsDeleted = true;
-            if (new BDMS_ICTicketTSIR().InsertOrUpdateICTicketTSIRAttachedFileAddOrRemove(AttachedFile, PSession.User.UserID))
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketTsir/AddOrRemoveTsirAttachment", AttachedFile));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "File Removed";
-                lblMessage.ForeColor = Color.Green;
-                try
-                {
-                    List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, Convert.ToInt64(gvTSIR.DataKeys[GParentRowIndex].Value), null);
-                    Parentgrid.DataSource = UploadedFile;
-                    Parentgrid.DataBind();
-                }
-                catch (Exception ex)
-                { }
+                lblMessage.Text = Results.Message;
+                return;
             }
-            else
+            lblMessage.Text = "File Removed";
+            lblMessage.ForeColor = Color.Green;
+            try
             {
-                lblMessage.Text = "File is not Removed";
-                lblMessage.ForeColor = Color.Red;
+                List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, Convert.ToInt64(gvTSIR.DataKeys[GParentRowIndex].Value), null);
+                Parentgrid.DataSource = UploadedFile;
+                Parentgrid.DataBind();
             }
+            catch (Exception ex)
+            { }
         }
         protected void lnkDownloadR_Click(object sender, EventArgs e)
         {
@@ -1663,6 +1775,8 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         void ActionControlMange()
         {
+            int ServiceTypeID = SDMS_ICTicket.ServiceType.ServiceTypeID;
+
             lbtnAddTechnician.Visible = true;
             lbtnEditCallInformation.Visible = true;
             lbtnEditFSR.Visible = true; 
@@ -1673,7 +1787,15 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnAddMaterialCharges.Visible = true;
             //lbtnAddNotes.Visible = true; 
             lbtAddTechnicianWork.Visible = true;
-            lbtnRestore.Visible = true; 
+            lbtnRestore.Visible = true;
+
+            lbtnCustomerFeedback.Visible = true;
+            lbtnServiceClaim.Visible = true;
+            lbtnServiceQuotation.Visible = true;
+            lbtnServiceProfarmaInvoice.Visible = true;
+            lbtnServiceInvoice.Visible = true;
+            lbtnMaterialClaim.Visible = true;
+            lbtnMaterialQuotation.Visible = true; 
 
             if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Open) || (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Reopen))
             {
@@ -1692,18 +1814,39 @@ namespace DealerManagementSystem.ViewService.UserControls
             { 
                 
             }
+            else if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Declined) || (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.ReqDeclined))
+            {
+                lbtnAddTechnician.Visible = false;
+                lbtnEditCallInformation.Visible = false;
+                lbtnEditFSR.Visible = false;
+                lbtnAddFSRAttachments.Visible = false;
+                lbtnAddOtherMachine.Visible = false;
+                lbtnAddServiceCharges.Visible = false;
+                lbtnAddTSIR.Visible = false;
+                lbtnAddMaterialCharges.Visible = false;
+                //lbtnAddNotes.Visible = true; 
+                lbtAddTechnicianWork.Visible = false;
+                lbtnRestore.Visible = false;
 
+                lbtnCustomerFeedback.Visible = false;
+                lbtnServiceClaim.Visible = false;
+                lbtnServiceQuotation.Visible = false;
+                lbtnServiceProfarmaInvoice.Visible = false;
+                lbtnServiceInvoice.Visible = false;
+                lbtnMaterialClaim.Visible = false;
+                lbtnMaterialQuotation.Visible = false;
+            }
 
             if (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
             {
 
             }
 
-            if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.NEPI) 
-                || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Commission)
-                 || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.PreCommission))
+            if ((ServiceTypeID == (short)DMS_ServiceType.NEPI) || (ServiceTypeID == (short)DMS_ServiceType.Commission) || (ServiceTypeID == (short)DMS_ServiceType.PreCommission))
             {
                 lbtnAddMaterialCharges.Visible = false;
+                lbtnMaterialClaim.Visible = false;
+                lbtnMaterialQuotation.Visible = false;
             }
 
             if ((SDMS_ICTicket.ServiceType == null) || (SDMS_ICTicket.DealerOffice == null) || (SDMS_ICTicket.CurrentHMRDate == null) || (SDMS_ICTicket.CurrentHMRValue == null))
@@ -1715,7 +1858,46 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnRestore.Visible = false;
             }
 
+            if ((ServiceTypeID == (short)DMS_ServiceType.Paid1) || (ServiceTypeID == (short)DMS_ServiceType.Others)
+              || (ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
+            {
+                lbtnServiceClaim.Visible = false;
+                lbtnMaterialClaim.Visible = false;
+            }
+            else
+            {
 
+                lbtnServiceQuotation.Visible = false;
+                lbtnServiceProfarmaInvoice.Visible = false;
+                lbtnServiceInvoice.Visible = false; 
+            }
+
+            foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
+            {
+                if (!string.IsNullOrEmpty(SC.ClaimNumber))
+                {
+                    lbtnServiceClaim.Visible = false;
+                    lbtnAddServiceCharges.Visible = false;
+                }
+                if (!string.IsNullOrEmpty(SC.QuotationNumber))
+                {
+                    lbtnServiceQuotation.Visible = false;
+                    lbtnAddServiceCharges.Visible = false;
+                }
+                if (!string.IsNullOrEmpty(SC.ProformaInvoiceNumber))
+                {
+                    lbtnServiceQuotation.Visible = false;
+                    lbtnServiceProfarmaInvoice.Visible = false;
+                    lbtnAddServiceCharges.Visible = false;
+                }
+                if (!string.IsNullOrEmpty(SC.InvoiceNumber))
+                {
+                    lbtnServiceQuotation.Visible = false;
+                    lbtnServiceProfarmaInvoice.Visible = false;
+                    lbtnServiceInvoice.Visible = false;
+                    lbtnAddServiceCharges.Visible = false;
+                }
+            }
 
             //List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
@@ -1764,6 +1946,33 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 Response.End();
             }
+        }
+
+        protected void btnUpdateCustomerFeedback_Click(object sender, EventArgs e)
+        {
+            MPE_AddTSIR.Show();
+            string Message = "";
+            Message = UC_ICTicketCustomerFeedback.Validation();
+            lblMessageCustomerFeedback.ForeColor = Color.Red;
+            lblMessageCustomerFeedback.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageCustomerFeedback.Text = Message;
+                return;
+            }
+            PICTicketCustomerFeedback Feedback = UC_ICTicketCustomerFeedback.Read();
+            Feedback.ICTicketID = SDMS_ICTicket.ICTicketID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/CustomerFeedback", Feedback));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageCustomerFeedback.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_CallInformation.Hide();
+            tbpCust.ActiveTabIndex = 4;
+            ICTicketTSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIRBasicDetails(SDMS_ICTicket.ICTicketID);
+            FillTSIRDetails();
         }
     }
 }

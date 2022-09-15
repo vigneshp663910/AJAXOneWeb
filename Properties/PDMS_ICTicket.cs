@@ -377,4 +377,39 @@ namespace Properties
         public int FSRAttachedFileNameID { get; set; }
         public string FSRAttachedName { get; set; }
     }
+    [Serializable]
+    public class PAttachedFileS
+    {
+        public long AttachedFileID { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public byte[] AttachedFile { get; set; }
+    }
+
+    [Serializable]
+    public class PICTicketCustomerFeedback
+    {
+        public long ICTicketCustomerFeedbackID { get; set; }
+        public long ICTicketID { get; set; }
+        public PAttachedFileS Photo { get; set; }
+        public PAttachedFileS Signature { get; set; }
+        public string Remarks { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
+    }
+
+
+    [Serializable]
+    public class PDMS_FSRAttachedFile_M
+    {
+        public long AttachedFileID { get; set; }
+        public long ICTicketID { get; set; }
+        public long FsrID { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public long FileSize { get; set; }
+        public Boolean IsDeleted { get; set; }
+        public PDMS_FSRAttachedName FSRAttachedName { get; set; }
+    }
 }

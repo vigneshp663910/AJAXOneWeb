@@ -570,6 +570,7 @@
     <Content Include="ViewService\TicketTracking.aspx" />
     <Content Include="ViewService\UserControls\AddFSR.ascx" />
     <Content Include="ViewService\UserControls\AddFSRAttachments.ascx" />
+    <Content Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx" />
     <Content Include="ViewService\UserControls\AddTsirAttachments.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx" />
     <Content Include="ViewService\UserControls\AddTSIR.ascx" />
@@ -2135,6 +2136,13 @@
     <Compile Include="ViewService\UserControls\AddFSRAttachments.ascx.designer.cs">
       <DependentUpon>AddFSRAttachments.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx.cs">
+      <DependentUpon>AddICTicketCustomerFeedback.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx.designer.cs">
+      <DependentUpon>AddICTicketCustomerFeedback.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\UserControls\AddTsirAttachments.ascx.cs">
       <DependentUpon>AddTsirAttachments.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2480,6 +2488,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewEquipment\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,8 @@ namespace Properties
         public int DealerID { get; set; }
         public string DealerCode { get; set; }
         public string DealerName { get; set; }
+        public string DisplayName { get; set; }
+        public string CodeWithDisplayName { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
