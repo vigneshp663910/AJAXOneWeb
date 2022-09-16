@@ -391,6 +391,10 @@
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
+    <Content Include="ViewEquipment\Equipment.aspx" />
+    <Content Include="ViewEquipment\EquipmentHistory.aspx" />
+    <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
+    <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
@@ -1077,6 +1081,34 @@
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.designer.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\Equipment.aspx.cs">
+      <DependentUpon>Equipment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\Equipment.aspx.designer.cs">
+      <DependentUpon>Equipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentHistory.aspx.cs">
+      <DependentUpon>EquipmentHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentHistory.aspx.designer.cs">
+      <DependentUpon>EquipmentHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.cs">
+      <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.designer.cs">
+      <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.cs">
+      <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.designer.cs">
+      <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
