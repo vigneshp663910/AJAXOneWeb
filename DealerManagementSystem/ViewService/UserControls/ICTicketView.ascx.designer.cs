@@ -1356,13 +1356,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button7;
 
         /// <summary>
-        /// Label9 control.
+        /// lblMessageMaterialCharges control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::System.Web.UI.WebControls.Label lblMessageMaterialCharges;
 
         /// <summary>
         /// UC_ICTicketAddMaterialCharges control.

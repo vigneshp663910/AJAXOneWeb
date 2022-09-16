@@ -720,13 +720,13 @@ namespace Business
             return Ws;
         }
 
-        public List<PSalesQuotation> GetSalesQuotationBasic(long? SalesQuotationID, long? RefQuotationID, long? LeadID, DateTime? RefQuotationDate
-          , string QuotationNo, DateTime? QuotationDateFrom, DateTime? QuotationDateTo, int? QuotationTypeID, int? StatusID, int? UserStatusID, int? DealerID, int? SalesEngineerID, string CustomerCode)
+        public List<PSalesQuotation> GetSalesQuotationBasic(long? SalesQuotationID, long? RefQuotationID, long? LeadID,string RefQuotationDate
+          , string QuotationNo, string QuotationDateFrom, string QuotationDateTo, int? QuotationTypeID, int? StatusID, int? UserStatusID, int? DealerID, int? SalesEngineerID, string CustomerCode,string Mobile)
         {
             string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID + "&RefQuotationID=" + RefQuotationID + "&LeadID=" + LeadID 
                 + "&RefQuotationDate=" + RefQuotationDate                + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom 
                 + "&QuotationDateTo=" + QuotationDateTo + "&QuotationTypeID=" + QuotationTypeID + "&StatusID=" + StatusID + "&UserStatusID=" + UserStatusID
-                + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID +   "&CustomerCode=" + CustomerCode;
+                + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID +   "&CustomerCode=" + CustomerCode + "&Mobile=" + Mobile; ;
             return JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }

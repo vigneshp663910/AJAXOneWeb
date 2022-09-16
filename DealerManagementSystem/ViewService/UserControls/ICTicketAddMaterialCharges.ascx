@@ -103,11 +103,11 @@
     var prm = Sys.WebForms.PageRequestManager.getInstance();
     if (prm != null) {
         prm.add_endRequest(function (sender, e) {
-            $("#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtMaterialF").autocomplete({
+            $("#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtDefectiveMaterial").autocomplete({
                 source: function (request, response) {
-                    var param = { input: $('#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtMaterialF').val() };
+                    var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtDefectiveMaterial').val() };
                     $.ajax({
-                        url: "DMS_ICTicketProcess.aspx/SearchSMaterial",
+                        url: "ICTicket.aspx/SearchServiceMaterials",
                         data: JSON.stringify(param),
                         dataType: "json",
                         type: "POST",
@@ -134,11 +134,11 @@
     };
 
     $(function () {
-        $("#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtMaterialF").autocomplete({
+        $("#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtDefectiveMaterial").autocomplete({
             source: function (request, response) {
-                var param = { input: $('#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtMaterialF').val() };
+                var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtDefectiveMaterial').val() };
                 $.ajax({
-                    url: "DMS_ICTicketProcess.aspx/SearchSMaterial",
+                    url: "ICTicket.aspx/SearchServiceMaterials",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
@@ -165,11 +165,11 @@
     var prm = Sys.WebForms.PageRequestManager.getInstance();
     if (prm != null) {
         prm.add_endRequest(function (sender, e) {
-            $("#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtDefectiveMaterialF").autocomplete({
+            $("#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtMaterial").autocomplete({
                 source: function (request, response) {
-                    var param = { input: $('#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtDefectiveMaterialF').val() };
+                    var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtMaterial').val() };
                     $.ajax({
-                        url: "DMS_ICTicketProcess.aspx/SearchSMaterial",
+                        url: "ICTicket.aspx/SearchServiceMaterials",
                         data: JSON.stringify(param),
                         dataType: "json",
                         type: "POST",
@@ -195,11 +195,11 @@
     };
 
     $(function () {
-        $("#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtDefectiveMaterialF").autocomplete({
+        $("#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtMaterial").autocomplete({
             source: function (request, response) {
-                var param = { input: $('#MainContent_DMS_ICTicketMaterialCharges_gvMaterial_txtDefectiveMaterialF').val() };
+                var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddMaterialCharges_txtMaterial').val() };
                 $.ajax({
-                    url: "DMS_ICTicketProcess.aspx/SearchSMaterial",
+                    url: "ICTicket.aspx/SearchServiceMaterials",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",

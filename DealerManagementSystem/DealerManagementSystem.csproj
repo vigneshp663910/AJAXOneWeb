@@ -390,6 +390,7 @@
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
+    <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -1068,6 +1069,13 @@
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.designer.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.cs">
+      <DependentUpon>EquipmentView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.designer.cs">
+      <DependentUpon>EquipmentView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
@@ -2488,7 +2496,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewEquipment\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,9 @@ namespace Properties
 {
        [Serializable]
     public class PDMS_EquipmentHeader
-    {   
-           
+    {     
         public DateTime CurrentHMRDate { get; set; }
-        public int CurrentHMRValue { get; set; } 
-
-
+        public int CurrentHMRValue { get; set; }  
         public long EquipmentHeaderID { get; set; }
         public PDMS_Customer Customer { get; set; }
         public PDMS_Model EquipmentModel { get; set; }
@@ -31,15 +28,13 @@ namespace Properties
 
         public Boolean? IsAMC { get; set; }
         public DateTime? AMCStartDate { get; set; }
-        public DateTime? AMCExpiryDate { get; set; }
-
+        public DateTime? AMCExpiryDate { get; set; } 
         public DateTime? HMRDate { get; set; }
         public int? HMRValue { get; set; }
         public string CounterObjectID { get; set; }
         
         public PDMS_EquipmentItem MachineItem { get; set; }
-        public List<PDMS_EquipmentItem> MachineItems { get; set; }
-
+        public List<PDMS_EquipmentItem> MachineItems { get; set; } 
         public DateTime? Service100Hrs { get; set; }
         public DateTime? Service500Hrs { get; set; }
         public DateTime? Service1000Hrs { get; set; }

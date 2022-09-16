@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer</label>
+                            <label class="modal-label">Customer Code</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                         </div>
@@ -48,10 +48,10 @@
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
                         </div>
-                        <div class="col-md-2 col-sm-12">
+                       <%-- <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" />
-                        </div>
+                        </div>--%>
 
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">UserStatus</label>

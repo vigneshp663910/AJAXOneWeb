@@ -1108,12 +1108,12 @@
 
 <asp:Panel ID="pnlAddMaterialCharges" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">AddMaterialCharges</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label9" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageMaterialCharges" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddMaterialCharges ID="UC_ICTicketAddMaterialCharges" runat="server"></UC:UC_ICTicketAddMaterialCharges>
         </div>
         <div class="col-md-12 text-center">

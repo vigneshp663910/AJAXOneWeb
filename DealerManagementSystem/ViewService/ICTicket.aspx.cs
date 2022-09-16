@@ -371,5 +371,14 @@ namespace DealerManagementSystem.ViewService
             List<string> Materials = new BDMS_Material().GetMaterialServiceAutocomplete(input, "", ServiceTypeID, null, false);
             return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
         }
+
+
+        [WebMethod]
+        public static List<string> SearchServiceMaterials(string input)
+        {
+            List<string> Materials = new BDMS_Material().GetMaterialAutocomplete(input, null, null);
+            return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
+        }
+
     }
 }

@@ -43,10 +43,10 @@ namespace DealerManagementSystem.ViewPreSale
                     lblMessage.Visible = true;
                     lblMessageView.ForeColor = Color.Green;
                 }
-                List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-                new DDLBind(ddlSCountry, Country, "Country", "CountryID", true, "All Country");
-                ddlSCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
+                //List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
+                //new DDLBind(ddlSCountry, Country, "Country", "CountryID", true, "All Country");
+                //ddlSCountry.SelectedValue = "1";
+                //List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
 
                 new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID");
                 new DDLBind(ddlQuotationStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "SalesQuotationStatus", "SalesQuotationStatusID");
@@ -105,24 +105,22 @@ namespace DealerManagementSystem.ViewPreSale
         {
             long? SalesQuotationID = null;
             long? RefQuotationID = null;
-            long? LeadID = null;
-            DateTime? RefQuotationDate = null;
-            string QuotationNo = null;
-            DateTime? QuotationDateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
+            long? LeadID = null; 
+            string QuotationNo = null; 
             DateTime? QuotationDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
 
 
             int? QuotationTypeID = null;
             int? StatusID = ddlQuotationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQuotationStatus.SelectedValue);
 
-            string CustomerCode = null;
+            string CustomerCode = txtCustomer.Text.Trim(); 
             int? UserStatusID = ddlUserStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUserStatus.SelectedValue);
 
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             
             //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
-            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, UserStatusID, DealerID, SalesEngineerID,  CustomerCode);
+            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, "", QuotationNo, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), QuotationTypeID, StatusID, UserStatusID, DealerID, SalesEngineerID,  CustomerCode,txtMobile.Text.Trim());
             gvQuotation.DataSource = Quote;
             gvQuotation.DataBind();
 

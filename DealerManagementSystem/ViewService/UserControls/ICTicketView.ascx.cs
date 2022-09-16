@@ -167,6 +167,8 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             lblServiceChargeSessage.Visible = false;
             lblMessageAddTSIR.Visible = true;
+            lblMessageMaterialCharges.Visible = true;
+           
             if (!IsPostBack)
             {
             }
@@ -1394,11 +1396,11 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             MPE_AddMaterialCharges.Show();
             string Message = UC_ICTicketAddMaterialCharges.Validation();
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageMaterialCharges.ForeColor = Color.Red;
+            lblMessageMaterialCharges.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageMaterialCharges.Text = Message;
                 return;
             }
             PDMS_ServiceMaterial_API OM = UC_ICTicketAddMaterialCharges.Read();
@@ -1406,7 +1408,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/TicketMaterialChargeAdd", OM));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageMaterialCharges.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
