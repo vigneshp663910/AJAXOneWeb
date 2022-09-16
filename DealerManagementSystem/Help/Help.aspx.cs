@@ -26,22 +26,13 @@ namespace DealerManagementSystem.Help
             if (!IsPostBack)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Help » Contents');</script>");
-                if (!PSession.User.ContactName.Contains("MURUGESHAN KN") && !PSession.User.ContactName.Contains("VIGNESH PERIYASAMI") && !PSession.User.ContactName.Contains("SUNIL KU BEHERA"))
-                {
-                    gvDocument.Columns[5].Visible = false;
-                    gvDocument.Columns[6].Visible = false;
-                    gvDocument.ShowFooter = false;
-                }
                 SearchHelp();
             }
         }
         void SearchHelp()
         {
 
-            List<PHelp> helps = new BHelp().GetDocumentAttachment(null);
-
-            gvDocument.DataSource = helps;
-            gvDocument.DataBind();
+            List<PHelp> helps = new BHelp().GetDocumentAttachment(null);            
             if (helps.Count == 0)
             {
                 PHelp help = new PHelp();
@@ -49,8 +40,17 @@ namespace DealerManagementSystem.Help
                 gvDocument.DataSource = helps;
                 gvDocument.DataBind();
             }
-
-
+            else
+            {
+                gvDocument.DataSource = helps;
+                gvDocument.DataBind();                
+            }
+            if (!PSession.User.ContactName.Contains("MURUGESHAN KN") && !PSession.User.ContactName.Contains("VIGNESH PERIYASAMI") && !PSession.User.ContactName.Contains("SUNIL KU BEHERA"))
+            {
+                gvDocument.Columns[5].Visible = false;
+                gvDocument.Columns[6].Visible = false;
+                gvDocument.ShowFooter = false;
+            }
             if (helps.Count == 0)
             {
                 lblRowCount.Visible = false;
@@ -64,7 +64,6 @@ namespace DealerManagementSystem.Help
                 ibtnArrowRight.Visible = true;
                 lblRowCount.Text = (((gvDocument.PageIndex) * gvDocument.PageSize) + 1) + " - " + (((gvDocument.PageIndex) * gvDocument.PageSize) + gvDocument.Rows.Count) + " of " + helps.Count;
             }
-
         }
         protected void gvDocument_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
