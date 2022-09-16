@@ -248,6 +248,7 @@
     <Content Include="Geolocation.aspx" />
     <Content Include="Help\Help.aspx" />
     <Content Include="Help\HelpDoc.aspx" />
+    <Content Include="Help\HelpOld.aspx" />
     <Content Include="Help\UserGuide.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="HomeWithTiles.aspx" />
@@ -760,6 +761,13 @@
     </Compile>
     <Compile Include="Help\HelpDoc.aspx.designer.cs">
       <DependentUpon>HelpDoc.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Help\HelpOld.aspx.cs">
+      <DependentUpon>HelpOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\HelpOld.aspx.designer.cs">
+      <DependentUpon>HelpOld.aspx</DependentUpon>
     </Compile>
     <Compile Include="Help\UserGuide.aspx.cs">
       <DependentUpon>UserGuide.aspx</DependentUpon>
