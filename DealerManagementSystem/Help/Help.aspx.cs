@@ -31,76 +31,99 @@ namespace DealerManagementSystem.Help
         }
         void SearchHelp()
         {
-
-            List<PHelp> helps = new BHelp().GetDocumentAttachment(null);            
-            if (helps.Count == 0)
+            try
             {
-                PHelp help = new PHelp();
-                helps.Add(help);
-                gvDocument.DataSource = helps;
-                gvDocument.DataBind();
+                List<PHelp> helps = new BHelp().GetDocumentAttachment(null);
+                if (helps.Count == 0)
+                {
+                    PHelp help = new PHelp();
+                    helps.Add(help);
+                    gvDocument.DataSource = helps;
+                    gvDocument.DataBind();
+                }
+                else
+                {
+                    gvDocument.DataSource = helps;
+                    gvDocument.DataBind();
+                }
+                if (!PSession.User.ContactName.Contains("MURUGESHAN KN") && !PSession.User.ContactName.Contains("VIGNESH PERIYASAMI") && !PSession.User.ContactName.Contains("SUNIL KU BEHERA"))
+                {
+                    gvDocument.Columns[5].Visible = false;
+                    gvDocument.Columns[6].Visible = false;
+                    gvDocument.ShowFooter = false;
+                }
+                if (helps.Count == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnArrowLeft.Visible = false;
+                    ibtnArrowRight.Visible = false;
+                }
+                else
+                {
+                    lblRowCount.Visible = true;
+                    ibtnArrowLeft.Visible = true;
+                    ibtnArrowRight.Visible = true;
+                    lblRowCount.Text = (((gvDocument.PageIndex) * gvDocument.PageSize) + 1) + " - " + (((gvDocument.PageIndex) * gvDocument.PageSize) + gvDocument.Rows.Count) + " of " + helps.Count;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                gvDocument.DataSource = helps;
-                gvDocument.DataBind();                
-            }
-            if (!PSession.User.ContactName.Contains("MURUGESHAN KN") && !PSession.User.ContactName.Contains("VIGNESH PERIYASAMI") && !PSession.User.ContactName.Contains("SUNIL KU BEHERA"))
-            {
-                gvDocument.Columns[5].Visible = false;
-                gvDocument.Columns[6].Visible = false;
-                gvDocument.ShowFooter = false;
-            }
-            if (helps.Count == 0)
-            {
-                lblRowCount.Visible = false;
-                ibtnArrowLeft.Visible = false;
-                ibtnArrowRight.Visible = false;
-            }
-            else
-            {
-                lblRowCount.Visible = true;
-                ibtnArrowLeft.Visible = true;
-                ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((gvDocument.PageIndex) * gvDocument.PageSize) + 1) + " - " + (((gvDocument.PageIndex) * gvDocument.PageSize) + gvDocument.Rows.Count) + " of " + helps.Count;
+                lblMessage.Text = ex.ToString();
+                lblMessage.ForeColor = Color.Red;
             }
         }
         protected void gvDocument_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvDocument.PageIndex = e.NewPageIndex;
-            SearchHelp();
-            gvDocument.DataBind();
+            try
+            {
+                gvDocument.PageIndex = e.NewPageIndex;
+                SearchHelp();
+                gvDocument.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
         }
         protected void ibdelete_Click(object sender, ImageClickEventArgs e)
         {
-            Boolean Success = false;
-            ImageButton Ibtn = (ImageButton)sender;
-            GridViewRow gvRow = (GridViewRow)Ibtn.NamingContainer;
-
-            Label lblsno = (Label)gvRow.FindControl("lblsno");
-            Label lblDescription = (Label)gvRow.FindControl("lblDescription");
-            HyperLink HyperLinkpdf = (HyperLink)gvRow.FindControl("HyperLinkpdf");
-            HyperLink HyperLinkpps = (HyperLink)gvRow.FindControl("HyperLinkpps");
-            HyperLink HyperLinklink = (HyperLink)gvRow.FindControl("HyperLinklink");
-            Label lblOrderNo = (Label)gvRow.FindControl("lblOrderNo");
-
-            PHelp help = new PHelp();
-            help.DocumentAttachmentID = Convert.ToInt32(Ibtn.CommandArgument);
-            help.Sno = lblsno.Text.Trim();
-            help.Description = lblDescription.Text.Trim();
-            help.PDFAttachment = HyperLinkpdf.NavigateUrl;
-            help.PPSAttachment = HyperLinkpps.NavigateUrl;
-            help.VideoLink = HyperLinklink.NavigateUrl;
-            help.OrderNo = Convert.ToInt32(lblOrderNo.Text.Trim());
-            help.IsDeleted = true;
-            help.CreatedBy = PSession.User.UserID;
-
-            Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
-            if (Success == true)
+            try
             {
-                lblMessage.Text = "Document is deleted successfully";
-                lblMessage.ForeColor = Color.Green;
-                SearchHelp();
+                Boolean Success = false;
+                ImageButton Ibtn = (ImageButton)sender;
+                GridViewRow gvRow = (GridViewRow)Ibtn.NamingContainer;
+
+                Label lblsno = (Label)gvRow.FindControl("lblsno");
+                Label lblDescription = (Label)gvRow.FindControl("lblDescription");
+                HyperLink HyperLinkpdf = (HyperLink)gvRow.FindControl("HyperLinkpdf");
+                HyperLink HyperLinkpps = (HyperLink)gvRow.FindControl("HyperLinkpps");
+                HyperLink HyperLinklink = (HyperLink)gvRow.FindControl("HyperLinklink");
+                Label lblOrderNo = (Label)gvRow.FindControl("lblOrderNo");
+
+                PHelp help = new PHelp();
+                help.DocumentAttachmentID = Convert.ToInt32(Ibtn.CommandArgument);
+                help.Sno = lblsno.Text.Trim();
+                help.Description = lblDescription.Text.Trim();
+                help.PDFAttachment = HyperLinkpdf.NavigateUrl;
+                help.PPSAttachment = HyperLinkpps.NavigateUrl;
+                help.VideoLink = HyperLinklink.NavigateUrl;
+                help.OrderNo = Convert.ToInt32(lblOrderNo.Text.Trim());
+                help.IsDeleted = true;
+                help.CreatedBy = PSession.User.UserID;
+
+                Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
+                if (Success == true)
+                {
+                    lblMessage.Text = "Document is deleted successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    SearchHelp();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.ToString();
+                lblMessage.ForeColor = Color.Red;
             }
         }
 
@@ -213,31 +236,38 @@ namespace DealerManagementSystem.Help
             {
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
             }
         }
 
         protected void ibedit_Click(object sender, ImageClickEventArgs e)
         {
-            ImageButton Ibtn = (ImageButton)sender;
-            GridViewRow gvRow = (GridViewRow)Ibtn.NamingContainer;
+            try
+            {
+                ImageButton Ibtn = (ImageButton)sender;
+                GridViewRow gvRow = (GridViewRow)Ibtn.NamingContainer;
 
-            Label lblsno = (Label)gvRow.FindControl("lblsno");
-            Label lblDescription = (Label)gvRow.FindControl("lblDescription");
-            HyperLink HyperLinkpdf = (HyperLink)gvRow.FindControl("HyperLinkpdf");
-            HyperLink HyperLinkpps = (HyperLink)gvRow.FindControl("HyperLinkpps");
-            HyperLink HyperLinklink = (HyperLink)gvRow.FindControl("HyperLinklink");
-            Label lblOrderNo = (Label)gvRow.FindControl("lblOrderNo");
+                Label lblsno = (Label)gvRow.FindControl("lblsno");
+                Label lblDescription = (Label)gvRow.FindControl("lblDescription");
+                HyperLink HyperLinkpdf = (HyperLink)gvRow.FindControl("HyperLinkpdf");
+                HyperLink HyperLinkpps = (HyperLink)gvRow.FindControl("HyperLinkpps");
+                HyperLink HyperLinklink = (HyperLink)gvRow.FindControl("HyperLinklink");
+                Label lblOrderNo = (Label)gvRow.FindControl("lblOrderNo");
 
-            ((TextBox)gvDocument.FooterRow.FindControl("txtsno")).Text = lblsno.Text;
-            ((TextBox)gvDocument.FooterRow.FindControl("txtDescription")).Text = lblDescription.Text;
-            ((TextBox)gvDocument.FooterRow.FindControl("txtVideoLink")).Text = HyperLinklink.NavigateUrl;
-            ((TextBox)gvDocument.FooterRow.FindControl("txtOrderNo")).Text = lblOrderNo.Text;
+                ((TextBox)gvDocument.FooterRow.FindControl("txtsno")).Text = lblsno.Text;
+                ((TextBox)gvDocument.FooterRow.FindControl("txtDescription")).Text = lblDescription.Text;
+                ((TextBox)gvDocument.FooterRow.FindControl("txtVideoLink")).Text = HyperLinklink.NavigateUrl;
+                ((TextBox)gvDocument.FooterRow.FindControl("txtOrderNo")).Text = lblOrderNo.Text;
 
-            ((Button)gvDocument.FooterRow.FindControl("BtnAdd")).Text = "Update";
-            HiddenFieldpdf.Value = HyperLinkpdf.NavigateUrl;
-            HiddenFieldpps.Value = HyperLinkpps.NavigateUrl;
-            HiddenID.Value = Ibtn.CommandArgument;
+                ((Button)gvDocument.FooterRow.FindControl("BtnAdd")).Text = "Update";
+                HiddenFieldpdf.Value = HyperLinkpdf.NavigateUrl;
+                HiddenFieldpps.Value = HyperLinkpps.NavigateUrl;
+                HiddenID.Value = Ibtn.CommandArgument;
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
         }
     }
 }
