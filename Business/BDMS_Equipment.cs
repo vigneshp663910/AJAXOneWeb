@@ -237,7 +237,7 @@ namespace Business
                 throw ex;
             }
         }
-        
+
         public DataSet GetEquipmentHistory(long? EquipmentHeaderID, string EquipmentSerialNo)
         {
             TraceLogger.Log(DateTime.Now);
@@ -255,6 +255,152 @@ namespace Business
                 new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentHistory", ex);
                 throw ex;
             }
+        }
+        public List<PDMS_Equipment> GetEquipmentHeader(int? DealerID, string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_Equipment> pDMS_Equipment = new List<PDMS_Equipment>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", string.IsNullOrEmpty(EquipmentSerialNo) ? null : EquipmentSerialNo, DbType.String);
+                DbParameter CustomerP = provider.CreateParameter("Customer", string.IsNullOrEmpty(Customer) ? null : Customer, DbType.String);
+                DbParameter WarrantyStartP = provider.CreateParameter("WarrantyStart", WarrantyStart, DbType.DateTime);
+                DbParameter WarrantyEndP = provider.CreateParameter("WarrantyEnd", WarrantyEnd, DbType.DateTime);
+                DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
+                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+                DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[8] { DealerIDP, EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP };
+                using (DataSet ds = provider.Select("GetEquipmentHeader", Params))
+                {
+                    if (ds != null)
+                    {
+                        DataTable dt = ds.Tables[0];
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            PDMS_Equipment Equip = new PDMS_Equipment();
+                            Equip.EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]);
+                            Equip.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
+                            Equip.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            Equip.EquipmentModel = new PDMS_Model()
+                            {
+                                Model = Convert.ToString(dr["Model"]),
+                                ModelDescription = Convert.ToString(dr["ModelDescription"]),
+                            };
+                            Equip.Customer = new PDMS_Customer
+                            {
+                                CustomerCode = Convert.ToString(dr["CustomerCode"]),
+                                CustomerName = Convert.ToString(dr["CustomerName"]),
+                                District = (dr["District"] == null) ? null : new PDMS_District
+                                {
+                                    District = Convert.ToString(dr["District"])
+                                },
+                                State = (dr["State"] == null) ? null : new PDMS_State
+                                {
+                                    State = Convert.ToString(dr["State"])
+                                },
+                            };
+                            Equip.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
+                            Equip.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
+                            pDMS_Equipment.Add(Equip);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentPopulationReport", ex);
+                throw ex;
+            }
+            return pDMS_Equipment;
+        }
+        public PDMS_Equipment GetEquipmentHeaderByID(Int32? EquipmentHeaderID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            PDMS_Equipment Equip = new PDMS_Equipment();
+            try
+            {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[1] { EquipmentHeaderIDP };
+                using (DataSet ds = provider.Select("GetEquipmentHeaderByID", Params))
+                {
+                    if (ds != null)
+                    {
+                        DataTable dt = ds.Tables[0];
+                        DataRow dr = ds.Tables[0].Rows[0];
+                        Equip.EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]);
+                        Equip.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
+                        Equip.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                        Equip.EquipmentModel = new PDMS_Model()
+                        {
+                            Model = Convert.ToString(dr["Model"]),
+                            ModelDescription = Convert.ToString(dr["ModelDescription"]),
+                        };
+                        Equip.Customer = new PDMS_Customer
+                        {
+                            CustomerID = Convert.ToInt32(dr["CustomerID"]),
+                            CustomerCode = Convert.ToString(dr["CustomerCode"]),
+                            CustomerName = Convert.ToString(dr["CustomerName"]),
+                            District = (dr["District"] == null) ? null : new PDMS_District
+                            {
+                                District = Convert.ToString(dr["District"])
+                            },
+                            State = (dr["State"] == null) ? null : new PDMS_State
+                            {
+                                State = Convert.ToString(dr["State"])
+                            },
+                        };
+                        Equip.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
+                        Equip.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
+                        Equip.EngineModel = Convert.ToString(dr["EngineModel"]);
+                        Equip.CurrentHMRValue = Convert.ToInt32(dr["CurrentHMRValue"]);
+                        Equip.CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]);
+                        Equip.CurrentHMRDate = Convert.ToDateTime(dr["CurrentHMRDate"]);
+                        Equip.IsRefurbished = dr["IsRefurbished"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(dr["IsRefurbished"]);
+                        Equip.RefurbishedBy = Convert.ToString(dr["RefurbishedBy"]);
+                        Equip.RFWarrantyStartDate = dr["RFWarrantyStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RFWarrantyStartDate"]);
+                        Equip.RFWarrantyExpiryDate = dr["RFWarrantyExpiryDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RFWarrantyExpiryDate"]);
+                        Equip.IsAMC = dr["IsAMC"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(dr["IsAMC"]);
+                        Equip.AMCStartDate = dr["AMCStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["AMCStartDate"]);
+                        Equip.AMCExpiryDate = dr["AMCExpiryDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["AMCExpiryDate"]);
+                        Equip.TypeOfWheelAssembly = Convert.ToString(dr["RefurbishedBy"]);
+                        Equip.Material = new PDMS_Material
+                        {
+                            MaterialCode = Convert.ToString(dr["MaterialCode"])
+                        };
+                        Equip.ChassisSlNo = Convert.ToString(dr["ChassisSlNo"]);
+                        Equip.ESN = Convert.ToString(dr["ESN"]);
+                        Equip.Plant = Convert.ToString(dr["Plant"]);
+                        Equip.SpecialVariants = Convert.ToString(dr["SpecialVariants"]);
+                        Equip.ProductionStatus = Convert.ToString(dr["ProductionStatus"]);
+                        Equip.VariantsFittingDate = dr["VariantsFittingDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["VariantsFittingDate"]);
+                        Equip.ManufacturingDate = Convert.ToString(dr["ManufacturingDate"]);
+
+                        Equip.Ibase = new PDMS_EquipmentIbase
+                        {
+                            InstalledBaseNo = Convert.ToString(dr["InstalledBaseNo"]),
+                            IBaseLocation = Convert.ToString(dr["IBaseLocation"]),
+                            DeliveryDate = Convert.ToDateTime(dr["DeliveryDate"]),
+                            IBaseCreatedOn = Convert.ToDateTime(dr["IBaseCreatedOn"]),
+                            WarrantyStart = Convert.ToDateTime(dr["IbaseWarrantyStart"]),
+                            WarrantyEnd = Convert.ToDateTime(dr["IbaseWarrantyEnd"]),
+                            FinancialYearOfDispatch = Convert.ToInt32(dr["FinancialYearOfDispatch"]),
+                            MajorRegion = new PDMS_Region
+                            {
+                                Region = Convert.ToString(dr["MajorRegion"])
+                            },
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentPopulationReport", ex);
+                throw ex;
+            }
+            return Equip;
         }
         public DataSet GetEquipmentPopulationReport(int? DealerID, string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID)
         {
@@ -286,7 +432,7 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             List<PDMS_ICTicket> ICTickets = new List<PDMS_ICTicket>();
             try
-            { 
+            {
                 DbParameter EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", string.IsNullOrEmpty(EquipmentSerialNo) ? null : EquipmentSerialNo, DbType.String);
                 DbParameter CustomerP = provider.CreateParameter("Customer", string.IsNullOrEmpty(Customer) ? null : Customer, DbType.String);
                 DbParameter WarrantyStartP = provider.CreateParameter("WarrantyStart", WarrantyStart, DbType.DateTime);
@@ -295,7 +441,7 @@ namespace Business
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
 
-                DbParameter[] Params = new DbParameter[7] {  EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP };
+                DbParameter[] Params = new DbParameter[7] { EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP };
                 PDMS_ICTicket ICTicket = new PDMS_ICTicket();
                 return provider.Select("ZDMS_GetEquipmentPopulationReportForAE", Params);
             }
@@ -332,11 +478,11 @@ namespace Business
                         Equip.ProductionStatus = Convert.ToString(dr["ProductionStatus"]);
                         Equip.VariantsFittingDate = dr["VariantsFittingDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["VariantsFittingDate"]);
                         Equip.EquipmentModel = new PDMS_Model()
-                       {
-                           ModelID = Convert.ToInt32(dr["ModelID"]),
-                           ModelCode = Convert.ToString(dr["ModelCode"]),
-                           Model = Convert.ToString(dr["Model"])
-                       };
+                        {
+                            ModelID = Convert.ToInt32(dr["ModelID"]),
+                            ModelCode = Convert.ToString(dr["ModelCode"]),
+                            Model = Convert.ToString(dr["Model"])
+                        };
                     }
                 }
                 return Equip;
@@ -637,11 +783,11 @@ namespace Business
                     }
                     catch (SqlException sqlEx)
                     {
-                        new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentFromSAP", sqlEx); 
+                        new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentFromSAP", sqlEx);
                     }
                     catch (Exception ex)
                     {
-                        new FileLogger().LogMessageService("BDMS_Equipment", " IntegrationEquipmentFromSAP", ex); 
+                        new FileLogger().LogMessageService("BDMS_Equipment", " IntegrationEquipmentFromSAP", ex);
                     }
                 }
                 new SDMS_Equipment().UpdateICTicketRequestedDateToSAP(DeliveryNos);
@@ -656,9 +802,9 @@ namespace Business
         }
         public List<PDMS_EquipmentHeader> GetEquipmentForCreateICTicket(long? EquipmentHeaderID, string EquipmentSerialNo, string Customer)
         {
-             string endPoint = "Equipment/EquipmentForCreateICTicket?EquipmentHeaderID=" + EquipmentHeaderID + "&EquipmentSerialNo=" + EquipmentSerialNo + "&Customer=" + Customer;
+            string endPoint = "Equipment/EquipmentForCreateICTicket?EquipmentHeaderID=" + EquipmentHeaderID + "&EquipmentSerialNo=" + EquipmentSerialNo + "&Customer=" + Customer;
             return JsonConvert.DeserializeObject<List<PDMS_EquipmentHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }
-    
+

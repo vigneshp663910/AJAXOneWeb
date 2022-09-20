@@ -15,7 +15,7 @@ namespace Properties
 
         public string EngineModel { get; set; }
         public string EngineSerialNo { get; set; }
-        public DateTime DispatchedOn { get; set; }
+        public DateTime? DispatchedOn { get; set; }
         public DateTime CommissioningOn { get; set; }
 
         public DateTime WarrantyExpiryDate { get; set; }
