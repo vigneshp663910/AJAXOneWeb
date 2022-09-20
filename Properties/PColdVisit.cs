@@ -23,6 +23,18 @@ namespace Properties
         public long? ReferenceID { get; set; }
         public PDealer Dealer { get; set; }
     }
+    public class PColdVisit_Insert
+    {
+        public long ColdVisitID { get; set; }
+        public DateTime ColdVisitDate { get; set; }
+        public PActionType ActionType { get; set; }
+        public PImportance Importance { get; set; }
+        public PDMS_Customer_Insert Customer { get; set; }
+        public string Remark { get; set; }
+        public string Location { get; set; }
+        public long? ReferenceTableID { get; set; }
+        public long? ReferenceID { get; set; }
+    }
     public class PActionType
     {
         public int ActionTypeID { get; set; }

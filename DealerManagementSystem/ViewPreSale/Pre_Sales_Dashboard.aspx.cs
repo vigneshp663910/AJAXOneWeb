@@ -275,15 +275,15 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else if (lbActions.Text == "Won")
             {
-                Session["leadStatusID"] = 5;
+                Session["leadStatusID"] = 4;
             }
             else if (lbActions.Text == "Lost")
             {
-                Session["leadStatusID"] = 6;
+                Session["leadStatusID"] = 5;
             }
             else if (lbActions.Text == "Cancelled")
             {
-                Session["leadStatusID"] = 7;
+                Session["leadStatusID"] = 6;
             }
          
             

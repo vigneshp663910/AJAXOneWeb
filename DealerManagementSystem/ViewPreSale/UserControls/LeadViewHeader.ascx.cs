@@ -22,7 +22,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblLeadNumber.Text = Lead.LeadNumber;
                 lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
                 // lblCategory.Text = Lead.Category.Category;
-                lblUrgency.Text= Lead.Urgency == null ? "" : Lead.Urgency.Urgency;
+                lblExpectedDateOfSale.Text= Lead.ExpectedDateOfSale == null ? "" : ((DateTime) Lead.ExpectedDateOfSale).ToShortDateString();
                 lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
                 lblQualification.Text = Lead.Qualification == null ? "" : Lead.Qualification.Qualification;
                 lblSource.Text = Lead.Source == null ? "" : Lead.Source.Source;

@@ -146,14 +146,14 @@ namespace DealerManagementSystem.ViewPreSale
             
 
             MPE_Customer.Show();
-            PColdVisit ColdVisitList = new PColdVisit();
+            PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
             lblMessageColdVisit.ForeColor = Color.Red;
             lblMessageColdVisit.Visible = true;
             string Message = "";
            // TextBox txtCustomerID = (TextBox)UC_Customer.FindControl("txtCustomerID");
             if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
             {
-                ColdVisitList.Customer = new PDMS_Customer();
+                ColdVisitList.Customer = new PDMS_Customer_Insert();
                 ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
 
                 string script = "<script  type='text/javascript' >document.getElementById('divCustomerViewID').style.display = 'block'; document.getElementById('divCustomerCreateID').style.display = 'none' </ script > ";
@@ -184,8 +184,7 @@ namespace DealerManagementSystem.ViewPreSale
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.Remark = txtRemark.Text.Trim();
             ColdVisitList.Location = txtLocation.Text.Trim();
-
-            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
+             
                string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
 
             result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);

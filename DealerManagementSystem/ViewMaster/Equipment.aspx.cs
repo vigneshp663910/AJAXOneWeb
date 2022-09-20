@@ -129,7 +129,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessageCustomer.Text = Message;
                 return;
             }
-            PDMS_Customer cust = UC_Customer.ReadCustomer();
+            PDMS_Customer_Insert cust = UC_Customer.ReadCustomer();
             string result = new BAPI().ApiPut("Customer", cust);
             result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
             if (result == "0")

@@ -536,10 +536,10 @@ namespace DealerManagementSystem.ViewMaster
                 DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
                 new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
 
-                DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
-                //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
-                new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
+                //DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
+                ////new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
+                //List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
+                //new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
             }
             catch (Exception Ex)
             {
@@ -1268,16 +1268,25 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
                 LinkButton lnkBtnDistrictEdit = (LinkButton)sender;
+                GridViewRow row = (GridViewRow)(lnkBtnDistrictEdit.NamingContainer);
+
                 DropDownList ddlGDCountry = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDCountry");
                 ddlGDCountry.Enabled = false;
                 DropDownList ddlGDState = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDState");
                 ddlGDState.Enabled = false;
                 DropDownList ddlGDSalesOffice = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDSalesOffice");
                 DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");
+                Label lblGDDealerID = (Label)row.FindControl("lblGDDealerID");
+                ddlGDDealer.SelectedValue = (string.IsNullOrEmpty(lblGDDealerID.Text)) ? "0" : lblGDDealerID.Text;
+
                 DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer");
+                  
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDDealer.SelectedValue), true, null, null, 4);
+                new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
+
                 TextBox txtGDDistrict = (TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict");
                 Button BtnAddOrUpdateDistrict = (Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateDistrict");
-                GridViewRow row = (GridViewRow)(lnkBtnDistrictEdit.NamingContainer);
+                
                 Label lblGDCountry = (Label)row.FindControl("lblGDCountry");
                 Label lblGDCountryID = (Label)row.FindControl("lblGDCountryID");
                 ddlGDCountry.SelectedValue = (string.IsNullOrEmpty(lblGDCountryID.Text)) ? "0" : lblGDCountryID.Text;
@@ -1291,8 +1300,7 @@ namespace DealerManagementSystem.ViewMaster
                 Label lblGDSalesEngineerUserID = (Label)row.FindControl("lblGDSalesEngineerUserID");
                 ddlSalesEngineer.SelectedValue = (string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text)) ? "0" : lblGDSalesEngineerUserID.Text;
                 Label lblGDDealer = (Label)row.FindControl("lblGDDealer");
-                Label lblGDDealerID = (Label)row.FindControl("lblGDDealerID");
-                ddlGDDealer.SelectedValue = (string.IsNullOrEmpty(lblGDDealerID.Text)) ? "0" : lblGDDealerID.Text;
+              
                 Label lblGDDistrict = (Label)row.FindControl("lblGDDistrict");
                 txtGDDistrict.Text = lblGDDistrict.Text;
                 HiddenID.Value = Convert.ToString(lnkBtnDistrictEdit.CommandArgument);
@@ -1601,10 +1609,10 @@ namespace DealerManagementSystem.ViewMaster
             new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
             DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
             new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
-            DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
-            //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
-            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
+            //DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
+            ////new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
+            //List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
+            //new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
         }
 
        
@@ -1695,6 +1703,15 @@ namespace DealerManagementSystem.ViewMaster
                     txtGDDistrict.Enabled = false;
                 }
             }             
+        }
+
+        protected void ddlGDDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            DropDownList ddlGDDealer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlGDDealer");  
+            DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer"); 
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDDealer.SelectedValue), true, null, null, 4);
+            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer"); 
         }
         //public List<PDMS_Tehsil> LTehsil
         //{

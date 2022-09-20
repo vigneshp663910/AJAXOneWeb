@@ -60,9 +60,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
         }
-        public PDMS_Customer ReadCustomer()
+        public PDMS_Customer_Insert ReadCustomer()
         {
-            PDMS_Customer Customer = new PDMS_Customer();
+            PDMS_Customer_Insert Customer = new PDMS_Customer_Insert();
             Customer.Title = new PCustomerTitle() { TitleID = Convert.ToInt32(ddlTitle.SelectedValue) };
             Customer.CustomerName = txtCustomerName.Text.Trim();
             Customer.CustomerName2 = txtCustomerName2.Text.Trim();
@@ -90,8 +90,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
             Customer.SendSMS = cbSendSMS.Checked;
             Customer.SendEmail = cbSendEmail.Checked;
-            Customer.IsDraft = cbIsDraft.Checked;
-            Customer.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            Customer.IsDraft = cbIsDraft.Checked; 
             return Customer;
         }
 

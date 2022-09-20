@@ -51,8 +51,8 @@
                 <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
             </div>--%>
             <div class="col-md-4">
-                <label>Urgency : </label>
-                <asp:Label ID="lblUrgency" runat="server" CssClass="label"></asp:Label>
+                <label>Expected Date of Sale : </label>
+                <asp:Label ID="lblExpectedDateOfSale" runat="server" CssClass="label"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Application : </label>

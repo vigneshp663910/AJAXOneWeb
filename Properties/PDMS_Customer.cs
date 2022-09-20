@@ -81,6 +81,36 @@ namespace Properties
         public string CustomerType { get; set; }
         public DateTime? LastVisitDate { get; set; }
     }
+
+    [Serializable]
+    public class PDMS_Customer_Insert
+    {
+        public long CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerName2 { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
+        public string ContactPerson { get; set; }
+        public string Mobile { get; set; }
+        public string AlternativeMobile { get; set; }
+        public string Email { get; set; }
+        public PCustomerTitle Title { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Pincode { get; set; }
+        public PDMS_Country Country { get; set; }
+        public PDMS_State State { get; set; }
+        public PDMS_District District { get; set; }
+        public PDMS_Tehsil Tehsil { get; set; }
+        public string City { get; set; }
+        public DateTime? DOB { get; set; }
+        public DateTime? DOAnniversary { get; set; }
+        public Boolean SendSMS { get; set; }
+        public Boolean SendEmail { get; set; }
+        public Boolean IsDraft { get; set; }
+    }
+
     [Serializable]
     public class PDMS_CustomerShipTo
     {

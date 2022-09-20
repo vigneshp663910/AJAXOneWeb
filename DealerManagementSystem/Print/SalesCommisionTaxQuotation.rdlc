@@ -1512,7 +1512,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>0.08284cm</Left>
               <Height>2.73431cm</Height>
               <Width>5.17416cm</Width>
@@ -1692,7 +1691,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox111</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>5.257cm</Left>
               <Height>2.73431cm</Height>
               <Width>14.54546cm</Width>

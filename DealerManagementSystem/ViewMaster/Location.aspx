@@ -504,7 +504,7 @@
                                                         <asp:DropDownList ID="ddlGDState" runat="server" CssClass="form-control"></asp:DropDownList>
                                                     </FooterTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SalesOffice">
+                                                <asp:TemplateField HeaderText="Sales Office">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblGDSalesOffice" Text='<%# DataBinder.Eval(Container.DataItem, "SalesOffice.SalesOffice")%>' runat="server"></asp:Label>
                                                         <%--Visible="false"--%>
@@ -515,17 +515,17 @@
                                                         <asp:DropDownList ID="ddlGDSalesOffice" runat="server" CssClass="form-control"></asp:DropDownList>
                                                     </FooterTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="DealerCode">
+                                                <asp:TemplateField HeaderText="Dealer Code">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblGDDealer" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label><%-- Visible="false"--%>
                                                         <asp:Label ID="lblGDDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerID")%>' runat="server" Visible="false"></asp:Label>
                                                         <%--<asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>--%>
                                                     </ItemTemplate>
                                                     <FooterTemplate>
-                                                        <asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                      <asp:DropDownList ID="ddlGDDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlGDDealer_SelectedIndexChanged"></asp:DropDownList>
                                                     </FooterTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SalesEngineer">
+                                                <asp:TemplateField HeaderText="Sales Engineer">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblGDSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server"></asp:Label>
                                                         <asp:Label ID="lblGDSalesEngineerUserID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.UserID")%>' runat="server" Visible="false"></asp:Label>
@@ -571,6 +571,7 @@
                                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                         </asp:GridView>
+                                          
                                 </div>
                             </fieldset>
                     </div>

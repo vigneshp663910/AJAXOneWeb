@@ -70,8 +70,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();
-           // lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
-            lblUrgency.Text = Lead.Urgency==null?"": Lead.Urgency.Urgency;
+            // lblCategory.Text = Lead.Category==null?"": Lead.Category.Category;
+            lblExpectedDateOfSale.Text = Lead.ExpectedDateOfSale == null ? "" : ((DateTime)Lead.ExpectedDateOfSale).ToShortDateString();
             lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
             lblQualification.Text = Lead.Qualification == null ? "" : Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source == null ? "" : Lead.Source.Source;
@@ -676,7 +676,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             LeadEdit = UC_AddLead.Read();
 
             LeadEdit.LeadID = Lead.LeadID;
-            LeadEdit.Customer = Lead.Customer;  
+            LeadEdit.Customer = new PDMS_Customer_Insert();
+            LeadEdit.Customer.CustomerID = Lead.Customer.CustomerID;
 
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
@@ -802,7 +803,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void btnSaveVisit_Click(object sender, EventArgs e)
         {
             MPE_Visit.Show();
-            PColdVisit ColdVisitList = new PColdVisit();
+            PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
             lblMessageColdVisit.ForeColor = Color.Red;
             lblMessageColdVisit.Visible = true;
             string Message = "";
@@ -813,15 +814,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageColdVisit.Text = Message;
                 return;
             } 
-            ColdVisitList.Customer = new PDMS_Customer() { CustomerID = Lead.Customer.CustomerID };
+            ColdVisitList.Customer = new PDMS_Customer_Insert() { CustomerID = Lead.Customer.CustomerID };
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.Remark = txtVisitRemark.Text.Trim();
             ColdVisitList.Location = txtLocation.Text.Trim();
             ColdVisitList.ReferenceID = Lead.LeadID;
-            ColdVisitList.ReferenceTableID = 1;
-            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID }; 
+            ColdVisitList.ReferenceTableID = 1; 
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit", ColdVisitList));
             if (Results.Status == PApplication.Failure)

@@ -16,9 +16,10 @@ namespace Properties
         public PDMS_MainApplication Application { get; set; }
         public PLeadQualification Qualification { get; set; }
         public PLeadSource Source { get; set; }
+        public DateTime? ExpectedDateOfSale { get; set; }
         public PLeadStatus Status { get; set; }
         public PProject Project { get; set; }
-        public PLeadUrgency Urgency { get; set; }
+        //public PLeadUrgency Urgency { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_Customer Customer { get; set; }
         public string CustomerFeedback { get; set; }
@@ -46,13 +47,13 @@ namespace Properties
         public DateTime LeadDate { get; set; }
         public int ProductTypeID { get; set; }
         public int? SourceID { get; set; }
-        public int? QualificationID { get; set; }
-        public int? ProjectID { get; set; }
-        public int? UrgencyID { get; set; }
+        public DateTime ExpectedDateOfSale { get; set; }
+
+        public int? ProjectID { get; set; } 
         public int? MainApplicationID { get; set; }
         public string CustomerFeedback { get; set; }
         public string Remarks { get; set; }
-        public PDMS_Customer Customer { get; set; }
+        public PDMS_Customer_Insert Customer { get; set; }
     }
     [Serializable]
     public class PLeadSalesEngineer

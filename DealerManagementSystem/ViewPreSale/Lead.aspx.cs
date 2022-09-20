@@ -104,7 +104,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
             {
-                Lead.Customer = new PDMS_Customer();
+                Lead.Customer = new PDMS_Customer_Insert();
                 Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
             }
             else

@@ -298,9 +298,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessageCustomerEdit.Text = Message;
                 return;
             }
-            PDMS_Customer CustomerU = UC_Customer.ReadCustomer();
-            CustomerU.CustomerID = Customer.CustomerID;
-            CustomerU.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            PDMS_Customer_Insert CustomerU = UC_Customer.ReadCustomer();
+            CustomerU.CustomerID = Customer.CustomerID; 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", CustomerU));
 
             if (Result.Status == PApplication.Failure)

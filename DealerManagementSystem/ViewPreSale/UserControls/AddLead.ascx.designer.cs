@@ -42,15 +42,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
 
         /// <summary>
-        /// ddlQualification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlQualification;
-
-        /// <summary>
         /// ddlSource control.
         /// </summary>
         /// <remarks>
@@ -69,13 +60,31 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlProject;
 
         /// <summary>
-        /// ddlUrgency control.
+        /// txtExpectedDateOfSale control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUrgency;
+        protected global::System.Web.UI.WebControls.TextBox txtExpectedDateOfSale;
+
+        /// <summary>
+        /// cxExpectedDateOfSale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cxExpectedDateOfSale;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender13;
 
         /// <summary>
         /// ddlApplication control.
