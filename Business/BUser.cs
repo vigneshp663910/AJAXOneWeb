@@ -1099,7 +1099,7 @@ namespace Business
                 throw ex;
             }
         }
-        public List<PModuleAccess> GetDMSModuleByUser(Int64 UserId, int? ModuleMasterID, int? SubModuleMasterID)
+        public List<PModuleAccess> GetDMSModuleByUser(Int64 UserId, int? ModuleMasterID, int? SubModuleMasterID,Boolean All = true)
         {
             DateTime traceStartTime = DateTime.Now;
             List<PModuleAccess> MAs = new List<PModuleAccess>();

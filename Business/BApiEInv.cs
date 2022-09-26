@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 //using System.Net.Http;
 //using System.Net.Http.Headers;
@@ -75,34 +76,44 @@ namespace Business
             }
             return token;
         }
+        public class PSuccess
+        {
+            public string data { get; set; }
+        }
         public PResultEInv ApiPut(PApiHeader Header, PDealer Dealer, object obj = null)
         {
+
+            
+
             string PWD = "";
             PResultEInv Data = new PResultEInv();
 
-            HttpClientHandler handler = new HttpClientHandler();
+            HttpClientHandler handler = new HttpClientHandler(); 
             HttpClient client = new HttpClient(handler);
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("X-FLYNN-N-USER-TOKEN", Header.Data.token);
             client.DefaultRequestHeaders.Add("X-FLYNN-N-ORG-ID", Header.Data.associatedOrgs[0].organisation.id);
             client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-GSP-CODE", Dealer.GspCode);
             client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-GSTIN", Dealer.Gstin);
             client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-USERNAME", Dealer.ApiUserName);
-            client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-PWD", Dealer.ApiPassword);
+            client.DefaultRequestHeaders.Add("X-FLYNN-N-IRP-PWD", Dealer.ApiPassword); 
 
             var APIResponse = client.PostAsync(EInvoiceAPI, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
            
             if (APIResponse.IsSuccessStatusCode)
             { 
                 Data.Status = PApplication.Success;
-                Data.data = JsonConvert.DeserializeObject<PSuccessEInv>(APIResponse.Content.ReadAsStringAsync().Result);
+                PSuccess PSuccess = JsonConvert.DeserializeObject<PSuccess>(APIResponse.Content.ReadAsStringAsync().Result);
+                Data.data = JsonConvert.DeserializeObject<PSuccessEInvData>(PSuccess.data);
                
             }
             else
             { 
                 Data.Status = PApplication.Failure;
-                Data.data = JsonConvert.DeserializeObject<PFailedEInv>(APIResponse.Content.ReadAsStringAsync().Result); 
+                Data.data = Convert.ToString( APIResponse.Content.ReadAsStringAsync().Result); 
             } 
             return Data;
         }

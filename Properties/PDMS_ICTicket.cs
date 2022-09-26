@@ -164,6 +164,45 @@ namespace Properties
 
         public List<PDMS_ServiceTechnician> Technicians { get; set; }
     }
+
+    [Serializable]
+    public class PICTicketServiceConfirmation_Post
+    {
+        public long ICTicketID { get; set; }
+        //public string EquipmentSerialNo { get; set; }
+        //public string DealerCode { get; set; }
+        //public string CustomerCode { get; set; }
+        public string Location { get; set; }
+        public int? OfficeID { get; set; }
+        public DateTime? DepartureDate { get; set; }
+        public DateTime? ReachedDate { get; set; }
+        public int? ServiceTypeID { get; set; }
+        public int? ServiceSubTypeID { get; set; }
+        public int? ServiceTypeOverhaulID { get; set; }
+        public int? ServicePriorityID { get; set; }
+        public DateTime? CurrentHMRDate { get; set; }
+        public int? CurrentHMRValue { get; set; }
+        //public Boolean IsWarranty { get; set; }
+        public int? TypeOfWarrantyID { get; set; }
+        public int? MainApplicationID { get; set; }
+        public int? SubApplicationID { get; set; }
+        public string ScopeOfWork { get; set; }
+        public string KindAttn { get; set; }
+        public string Remarks { get; set; }
+        public string SiteContactPersonName { get; set; }
+        public string SiteContactPersonNumber { get; set; }
+        public string SiteContactPersonNumber2 { get; set; }
+        public PDMS_SiteContactPersonDesignation SiteContactPersonDesignation { get; set; }
+        public Boolean IsCess { get; set; }
+        public Boolean IsMachineActive { get; set; }
+        public string SubApplicationEntry { get; set; }
+        public Boolean NoClaim { get; set; }
+        public string NoClaimReason { get; set; }
+        public DateTime? McEnteredServiceDate { get; set; }
+        public DateTime? ServiceStartedDate { get; set; }
+        public DateTime? ServiceEndedDate { get; set; }
+        public DateTime? RequestedDate { get; set; }
+    }
     [Serializable]
     public class PDMS_ServiceType
     {

@@ -472,7 +472,6 @@
     <Content Include="JS\bootstrap.min.js" />
     <Content Include="JS\jquery-resizable.js" />
     <Content Include="JS\jquery.min.js" />
-    <Content Include="Open.aspx" />
     <Content Include="Account\LoginAs.aspx" />
     <Content Include="ViewAdmin\OrganizationStructure.aspx" />
     <Content Include="ViewFinance\BankDepositClearingCreate.aspx" />
@@ -1455,13 +1454,6 @@
     </Compile>
     <Compile Include="Dealer.Master.designer.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Open.aspx.cs">
-      <DependentUpon>Open.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Open.aspx.designer.cs">
-      <DependentUpon>Open.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\LoginAs.aspx.cs">
       <DependentUpon>LoginAs.aspx</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,15 @@ namespace DealerManagementSystem.ViewMaster
 {
     public partial class EInvoiceRequest : System.Web.UI.Page
     {
+
+        public class PSuccess
+        {
+            public string data { get; set; }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
-        { 
+        {
+           // PSuccess Data = JsonConvert.DeserializeObject<PSuccess>("{\"data\":\"{\"AckNo\":152212890354493,\"AckDt\":\"2022-09-23 17:45:00\",\"Irn\":\"dsgffrgsr\",\"SignedInvoice\":\"fsgdfgsgdfg..-gAOf7SCXZTUuHp\",\"SignedQRCode\":\"..YcJruW70p2g1TJ\",\"Status\":\"ACT\",\"EwbNo\":null,\"EwbDt\":null,\"EwbValidTill\":null,\"Remarks\":null}\"}");
+           // PSuccessEInv PSuccess1 = JsonConvert.DeserializeObject<PSuccessEInv>("{\"data\": {\"AckNo\": 162210030870114,\"AckDt\": \"2022-01-10 12:21:00\",\"Irn\": \"Irn0158eb6a8b\",\"SignedInvoice\": \"SignedInvoiceuMMJAeuQ\",\"SignedQRCode\": \"SignedQRCodeFyA\",\"Status\": \"ACT\",\"EwbNo\": null,\"EwbDt\": null,\"EwbValidTill\": null,\"Remarks\": null }}");
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -110,6 +118,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             if (!IsPostBack)
             {
+                 
                 if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
                 {
                     ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
@@ -149,11 +158,11 @@ namespace DealerManagementSystem.ViewMaster
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 string CustomerCode = txtCustomerCode.Text.Trim();
 
-
+                InvoiceGrid = new List<PEInvoiceGrid>();
                 List<PDMS_PaidServiceInvoice> Paidinvs = new BDMS_EInvoice().GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
                 foreach (PDMS_PaidServiceInvoice inv in Paidinvs)
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertPaidServiceInvoice(inv), InvType = "PAY" }); 
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertPaidServiceInvoice(inv), InvType = "PAY" });
                 }
 
                 //List<PEInvoice> invs = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
@@ -165,7 +174,7 @@ namespace DealerManagementSystem.ViewMaster
                 List<PDMS_WarrantyClaimInvoice> Pinv = new BDMS_EInvoice().getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
                 foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "ATY" }); 
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "ATY" });
                 }
 
                 //List<PEInvoice> invs = new BDMS_EInvoice().GetActivityForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
@@ -177,7 +186,7 @@ namespace DealerManagementSystem.ViewMaster
                 gvInv.PageIndex = 0;
                 gvInv.DataSource = InvoiceGrid;
                 gvInv.DataBind();
-                 lblRowCount.Text = (((gvInv.PageIndex) * gvInv.PageSize) + 1) + " - " + (((gvInv.PageIndex) * gvInv.PageSize) + gvInv.Rows.Count) + " of " + InvoiceGrid.Count;
+                lblRowCount.Text = (((gvInv.PageIndex) * gvInv.PageSize) + 1) + " - " + (((gvInv.PageIndex) * gvInv.PageSize) + gvInv.Rows.Count) + " of " + InvoiceGrid.Count;
 
 
                 //  EWarrInvoice = new BDMS_EInvoice().GetInvoiceForRequestEInvoice_New(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
@@ -188,10 +197,8 @@ namespace DealerManagementSystem.ViewMaster
                 //gvPayInvoice.DataSource = EPayInvoice;
                 //gvPayInvoice.DataBind();
                 //lblRowCount.Text = (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + 1) + " - " + (((gvPayInvoice.PageIndex) * gvPayInvoice.PageSize) + gvPayInvoice.Rows.Count) + " of " + EPayInvoice.Count;
+                 
 
-
-
-                
                 //gvMarketingInv.PageIndex = 0;
                 //gvMarketingInv.DataSource = EMarketingInvoice;
                 //gvMarketingInv.DataBind();

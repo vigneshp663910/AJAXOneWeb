@@ -145,17 +145,7 @@ namespace Business
             { }
             return L1SupportMappingS;
         }
-
-        public string DealerMaster()
-        {
-            if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
-                return "~/Dealer.master";
-            else if (PSession.User.SystemCategoryID == (short)SystemCategory.SupportTR)
-                return "~/SupportTR.master";
-            else if (PSession.User.SystemCategoryID == (short)SystemCategory.Support)
-                        return "~/Support.master";
-                return "";
-        }
+ 
         public List<PDealer> GetDealerByUserID(long UserID)
         {
             List<PDealer> Dealers = new List<PDealer>();

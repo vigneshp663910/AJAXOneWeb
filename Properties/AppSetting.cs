@@ -5,14 +5,13 @@ using System.Text;
 
 namespace Properties
 {
-    public  class PAppSetting
+    public  class PApplicationSettings
     {
-        public  Boolean Admin { get; set; }
-        public  Boolean SupperUser { get; set; }
-        public  Boolean HOD { get; set; }
-        public  Boolean Manger { get; set; }
-        public  Boolean TicketAssign { get; set; }
-        public  Boolean TRApprover { get; set; }
+        public int SettingID { get; set; }
+        public string Name { get; set; }
+        public string Value1 { get; set; }
+        public string Value2 { get; set; }
+        public string Value3 { get; set; } 
     }
     static public class PApplication
     {

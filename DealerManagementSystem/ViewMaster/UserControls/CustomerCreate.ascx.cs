@@ -30,12 +30,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             PDealer Dealer = PSession.User.Dealer[0];
             int CountryID = Dealer.Country.CountryID;
-            ddlCountry.SelectedValue = Convert.ToString(CountryID);  
+            ddlCountry.SelectedValue = Convert.ToString(CountryID);
             new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
-            ddlState.SelectedValue = Convert.ToString(Dealer.State.StateID); 
-             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(CountryID, null, Dealer.State.StateID, null,null, null), "District", "DistrictID");
-            // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
             fillDealer();
+
+            
+            
+            // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
+         
             CheckDealet();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -315,11 +317,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             List<PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
 
-            int CountryID = Dealer[0].Country.CountryID;
-            ddlCountry.SelectedValue = Convert.ToString(CountryID);
-            new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
-            ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Dealer[0].Country.CountryID, null, Dealer[0].State.StateID, null, null, Dealer[0].DID), "District", "DistrictID");
+            //int CountryID = Dealer[0].Country.CountryID;
+          //  ddlCountry.SelectedValue = Convert.ToString(CountryID);
+          //  new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
+         //   ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
+          //  new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Dealer[0].Country.CountryID, null, Dealer[0].State.StateID, null, null, Dealer[0].DID), "District", "DistrictID");
 
             CheckDealet();
 
@@ -335,6 +337,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 ddlCountry.Enabled = false;
                 ddlState.Enabled = false;
+                List<PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
+                ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
+                new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Dealer[0].State.StateID, null, null, null), "District", "DistrictID");
             }
         }
         void fillDealer()

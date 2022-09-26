@@ -346,6 +346,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     lblMessage.Visible = true;
                     fillCustomer(Customer.CustomerID);
                 }
+                else if (lbActions.Text == "Sync to Parts")
+                {
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer.CustomerID));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessage.Text = Results.Message;
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Green;
+                }
             }
             catch(Exception ex)
             {
@@ -1024,6 +1038,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lbAddResponsibleEmployee.Visible = true;
             lbtnVerifiedCustomer.Visible = true;
             lbtnSyncToSap.Visible = true;
+            lbtnSyncToParts.Visible = true;
+
             if (Customer.IsVerified)
             {
                 lbtnVerifiedCustomer.Visible = false;
@@ -1053,6 +1069,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lbtnVerifiedCustomer.Visible = false;
             }
 
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SyncToParts).Count() == 0)
+            {
+                lbtnSyncToParts.Visible = false;
+            }
         }
 
         protected void FillProduct(object sender, EventArgs e)

@@ -74,6 +74,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -117,7 +120,6 @@
     <Compile Include="BDMS_AvailabilityOfOtherMachine.cs" />
     <Compile Include="BDMS_BankDepositClearing.cs" />
     <Compile Include="BDMS_Campign.cs" />
-    <Compile Include="BDMS_Category.cs" />
     <Compile Include="BDMS_Customer.cs" />
     <Compile Include="BDMS_Dashboard.cs" />
     <Compile Include="BDMS_Dealer.cs" />
@@ -156,9 +158,6 @@
     <Compile Include="BDMS_WebQuotation.cs" />
     <Compile Include="BDocumentation.cs" />
     <Compile Include="BDropDownListBind.cs" />
-    <Compile Include="BEmployee.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="BEmployees.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -190,7 +189,6 @@
     <Compile Include="BXcel.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="B_HDFCBankPaymentIntegration.cs" />
     <Compile Include="BApiEInv.cs" />
     <Compile Include="EmailManager.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -231,6 +229,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

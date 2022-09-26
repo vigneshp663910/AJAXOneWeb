@@ -98,22 +98,22 @@ namespace DealerManagementSystem.ViewService
                 //FillCategory();
                 MStatusRemarks = new BDMS_Master().GetRemarks(1, null);
                 Remarks = new BDMS_Master().GetRemarks(2, null);
-                string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
-                if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
+
+                //string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
+                //string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
+                //string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval1).Count() == 1)
                 {
-                    // ddlStatus.SelectedValue = "1";
                     lblStatus.Text = "L1 Approve";
                 }
-                else if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval2).Count() == 1)
                 {
-                    // ddlStatus.SelectedValue = "3";
                     lblStatus.Text = "L2 Approve";
                 }
-                else if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval3).Count() == 1)
                 {
-                    // ddlStatus.SelectedValue = "3";
                     lblStatus.Text = "L3 Approve";
                 }
                 else
@@ -122,6 +122,24 @@ namespace DealerManagementSystem.ViewService
                     btnSearch.Visible = false;
                     btnExportExcel.Visible = false;
                 }
+                //if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
+                //{ 
+                //    lblStatus.Text = "L1 Approve";
+                //}
+                //else if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                //{ 
+                //    lblStatus.Text = "L2 Approve";
+                //}
+                //else if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                //{ 
+                //    lblStatus.Text = "L3 Approve";
+                //}
+                //else
+                //{
+                //    lblStatus.Text = "You have no permission to approve";
+                //    btnSearch.Visible = false;
+                //    btnExportExcel.Visible = false;
+                //}
                 new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
             }
         }
@@ -175,22 +193,41 @@ namespace DealerManagementSystem.ViewService
                     ClaimDateT = Convert.ToDateTime(txtClaimDateT.Text.Trim());
                 }
 
-                //  StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-                string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
-                if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
+                ////  StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+
+
+
+
+                //string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
+                //string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
+                //string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
+                //if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
+                //{
+                //    StatusID = 1;
+                //}
+                //else if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                //{
+                //    StatusID = 2;
+                //}
+                //else if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                //{
+                //    StatusID = 3;
+                //}
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval1).Count() == 1)
                 {
                     StatusID = 1;
                 }
-                else if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval2).Count() == 1)
                 {
                     StatusID = 2;
                 }
-                else if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval3).Count() == 1)
                 {
                     StatusID = 3;
                 }
+
                 string DivisionID = ddlDivision.SelectedValue == "0" ? null : ddlDivision.SelectedValue;
                 List<PDMS_WarrantyInvoiceHeader> SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimApproval(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimID.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, txtTSIRNumber.Text.Trim(), DivisionID, PSession.User.UserID);
                 if (ddlDealerCode.SelectedValue == "0")
@@ -394,13 +431,16 @@ namespace DealerManagementSystem.ViewService
                     supplierPOLinesGrid.DataSource = supplierPurchaseOrderLines;
                     supplierPOLinesGrid.DataBind();
 
-                    string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                    string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                    string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
+                    //string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
+                   // string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
+                   // string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
+
+                    List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+ 
                     Label lblStatus = (Label)e.Row.FindControl("lblStatus");
                     if (lblStatus.Text == "REQUESTED")
                     {
-                        if (ClaimApprove1.Contains(PSession.User.UserID.ToString()))
+                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval1).Count() == 1)
                         {
                             Button btnApproved1By = (Button)e.Row.FindControl("btnApproved1By");
                             Label lblApproved1By = (Label)e.Row.FindControl("lblApproved1By");
@@ -449,7 +489,7 @@ namespace DealerManagementSystem.ViewService
                             }
                         }
 
-                        if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval2).Count() == 1)
                         {
                             Button btnApproved2By = (Button)e.Row.FindControl("btnApproved2By");
                             Label lblApproved2By = (Label)e.Row.FindControl("lblApproved2By");
@@ -494,7 +534,7 @@ namespace DealerManagementSystem.ViewService
                     }
                     if (lblStatus.Text == "APPROVED L1")
                     {
-                        if (ClaimApprove2.Contains(PSession.User.UserID.ToString()))
+                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval2).Count() == 1)
                         {
                             Button btnApproved2By = (Button)e.Row.FindControl("btnApproved2By");
                             Label lblApproved2By = (Label)e.Row.FindControl("lblApproved2By");
@@ -544,7 +584,7 @@ namespace DealerManagementSystem.ViewService
                     }
                     if (lblStatus.Text == "APPROVED L2")
                     {
-                        if (ClaimApprove3.Contains(PSession.User.UserID.ToString()))
+                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval3).Count() == 1)
                         {
                             Button btnApproved3By = (Button)e.Row.FindControl("btnApproved3By");
                             Label lblApproved3By = (Label)e.Row.FindControl("lblApproved3By");

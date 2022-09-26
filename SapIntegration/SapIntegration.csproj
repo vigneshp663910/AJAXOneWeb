@@ -56,20 +56,16 @@
     <Compile Include="SAP.cs" />
     <Compile Include="SCustomer.cs" />
     <Compile Include="SDMS_BankDepositClearing.cs" />
-    <Compile Include="SDMS_Category.cs" />
     <Compile Include="SDMS_Equipment.cs" />
     <Compile Include="SDMS_ICTicket.cs" />
     <Compile Include="SDMS_PurchaseOrder.cs" />
     <Compile Include="SDMS_WarrantyClaimAnnexure.cs" />
-    <Compile Include="SDMS_WebQuotation.cs" />
     <Compile Include="SEnquiry.cs" />
-    <Compile Include="SHDFCBankPaymentIntegration.cs" />
     <Compile Include="SMaterial.cs" />
     <Compile Include="SQuotation.cs" />
     <Compile Include="SSAPDocumentNumber.cs" />
     <Compile Include="SSapErrorMail.cs" />
     <Compile Include="SSAP_CRM.cs" />
-    <Compile Include="STechnician.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Properties\Properties.csproj">

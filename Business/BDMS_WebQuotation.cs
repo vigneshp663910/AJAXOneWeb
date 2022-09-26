@@ -650,15 +650,7 @@ namespace Business
             }
             return Ws;
         }
-
-        public void IntegrationWebQuotation(long? WebQuotationID = null)
-        {
-            List<PDMS_WebQuotation> Quots = GetWebQuotationForSAP(WebQuotationID);
-            foreach (PDMS_WebQuotation Quot in Quots)
-            {
-                UpdateWebQuotationSapStatus(Quot.WebQuotationID, new SDMS_WebQuotation().UpdateICTicketRequestedDateToSAP(Quot));
-            }
-        }
+ 
         public List<PDMS_WebQuotation> GetWebQuotationForSAP(long? WebQuotationID = null)
         {
             List<PDMS_WebQuotation> Ws = new List<PDMS_WebQuotation>();

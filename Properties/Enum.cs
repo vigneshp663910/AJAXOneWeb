@@ -122,17 +122,11 @@ namespace Properties
         SoftwareConfiguration,
     }
 
-    public enum LMSApplicationSettings
+    public enum ApplicationSettings
     {
-        PasswordExpiryEnabled = 4,
-        CreateUserForManagerEnabled = 5,
-        DefaultPassword = 8,
-        Region = 9,
-        JobStatusReworkEnabled = 11,
-        SMSNotificationEnabled = 14,
-        MaxLoginFailureAttempt = 17,
-        PasswordExpiryDurationInDays = 23,
-        DisplayDashboard = 46
+        DebitNoteNumberFormat = 1,
+        ICTicketNumber = 2,
+        EInvoiceToken = 3 
     }
 
     public enum UserTypes
@@ -290,15 +284,7 @@ namespace Properties
         Approve,
     }
 
-    public enum AppSetting
-    {
-        Admin = 1,
-        SupperUser = 2,
-        HOD = 3,
-        Manger = 4,
-        TicketAssign = 5,
-        TRApprover = 6,
-    }
+    
     public enum SystemCategory
     {
         AF = 1,
@@ -504,6 +490,7 @@ namespace Properties
         EidtDistrictSalesEngineer,
         CustomerExcelDownload,
         MaterialExcelDownload,
+        SyncToParts=31
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -684,4 +671,22 @@ namespace Properties
         Closed
 
     }
+
+    public enum SalesQuotationNoteList
+    {
+        Reference = 1,
+        KindAttention,
+        Note,
+        Hypothecation,
+        TermsOfPayment,
+        Delivery,
+        Validity,
+        Foc,
+        MarginMoney,
+        Subject,
+        Name,
+        Designation,
+        PhoneNumber
+    }
+    
 }

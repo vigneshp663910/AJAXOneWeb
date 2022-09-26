@@ -20,7 +20,7 @@ namespace Business
         }
         public void Start()
         {
-            UpdateJobsStatus((short)Jobs.MaterialIntegrationFromSAP, Joblist((Jobs.MaterialIntegrationFromSAP)));
+            UpdateJobsStatus((short)Jobs.SalesQuotationDocumentsFromSap, Joblist((Jobs.SalesQuotationDocumentsFromSap)));
             return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
@@ -98,7 +98,8 @@ namespace Business
 
                     case Jobs.SalesQuotationDocumentsFromSap:
                         new FileLogger().LogMessageService("Started", "SalesQuotationDocumentsFromSap", null);
-                        new BSalesQuotation().GetSalesQuotationFlow();
+                        new BAPI().ApiGet("SalesQuotation/GetSalesQuotationFlow");
+                       // new BSalesQuotation().GetSalesQuotationFlow();
                         new FileLogger().LogMessageService("Ended", "SalesQuotationDocumentsFromSap ", null);
                         break;
                     case Jobs.EnquiryFromCRM:

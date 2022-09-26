@@ -582,14 +582,14 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         }
 
-        public PICTicketServiceConfirmation Read(PDMS_ICTicket ICTicket)
+        public PICTicketServiceConfirmation_Post Read(PDMS_ICTicket ICTicket)
         {
-            PICTicketServiceConfirmation IC = new PICTicketServiceConfirmation();
+            PICTicketServiceConfirmation_Post IC = new PICTicketServiceConfirmation_Post();
             IC.RequestedDate = ICTicket.RequestedDate;
-            IC.DealerCode = ICTicket.Dealer.DealerCode;
-            IC.CustomerCode = ICTicket.Customer.CustomerCode;
+           // IC.DealerCode = ICTicket.Dealer.DealerCode;
+          //  IC.CustomerCode = ICTicket.Customer.CustomerCode;
             IC.ICTicketID = ICTicket.ICTicketID;
-            IC.EquipmentSerialNo = ICTicket.Equipment.EquipmentSerialNo;
+         //   IC.EquipmentSerialNo = ICTicket.Equipment.EquipmentSerialNo;
             IC.Location = txtLocation.Text.Trim();
             IC.OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             IC.DepartureDate = string.IsNullOrEmpty(txtDepartureDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDepartureDate.Text.Trim() + " " + ddlDepartureHH.SelectedValue + ":" + ddlDepartureMM.SelectedValue);
@@ -604,7 +604,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             IC.CurrentHMRDate = string.IsNullOrEmpty(txtHMRDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtHMRDate.Text.Trim());
             IC.CurrentHMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim()) ? (int?)null : Convert.ToInt32(txtHMRValue.Text.Trim());
 
-            IC.IsWarranty = ICTicket.IsWarranty;
+          //  IC.IsWarranty = ICTicket.IsWarranty;
 
             IC.TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
 
@@ -630,8 +630,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             IC.IsCess = cbCess.Checked;
             IC.IsMachineActive = cbIsMachineActive.Checked;
             IC.SubApplicationEntry = txtSubApplicationEntry.Text.Trim();
-
-            // DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+             
             IC.NoClaim = cbNoClaim.Checked;
             IC.NoClaimReason = txtNoClaimReason.Text.Trim();
 

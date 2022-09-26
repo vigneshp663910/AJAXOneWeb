@@ -95,7 +95,8 @@ namespace DealerManagementSystem
 
         protected void BtnSalesQuotationDetails_Click(object sender, EventArgs e)
         {
-            new BSalesQuotation().GetSalesQuotationFlow();
+            new BAPI().ApiGet("SalesQuotation/GetSalesQuotationFlow");
+           // new BSalesQuotation().GetSalesQuotationFlow();
         }
 
         protected void BtnEnquiryDetails_Click(object sender, EventArgs e)
@@ -110,6 +111,11 @@ namespace DealerManagementSystem
             {
                 
             }
-        }        
+        }
+
+        protected void btnCustomerMiss_Click(object sender, EventArgs e)
+        {
+            new BAPI().ApiGetWithOutToken("Customer/CustomerMiss?CustomerCode=" + txtCustomerCodeMiss.Text.Trim());
+        }
     }
 }

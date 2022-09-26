@@ -151,93 +151,93 @@ namespace Business
 
         }
 
-        public List<PDMS_Customer> GetCustomer(string filter)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Customer> Customers = new List<PDMS_Customer>();
-            try
-            {
-                string Query = "select bp.s_tenant_id,t.description,bp.p_bp_id,bp.r_org_name,bpa.p_office_id as office_id,bpa.r_address1,bpa.r_address2,r_city,r_state,r_postal_code"
- + " ,GSTIN.r_value as GSTIN,PAN.r_value as PAN,MOBILE.r_value as MOBILE,EMAIL.r_value as EMAIL from "
-  + " doohr_bp bp  "
-  + " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20  "
-  + " left join doohr_bp_statutory GSTIN on GSTIN.p_bp_id = bp.p_bp_id and GSTIN.r_statutory_type = 'GSTIN' and GSTIN.s_tenant_id = bp.s_tenant_id "
-  + " left join doohr_bp_statutory PAN on PAN.p_bp_id = bp.p_bp_id and PAN.r_statutory_type = 'PAN' and PAN.s_tenant_id = bp.s_tenant_id "
-  + " left join m_tenant t on t.tenantid = bp.s_tenant_id"
-  + " left join doohr_bp_contact MOBILE on MOBILE.p_bp_id = bp.p_bp_id and bpa.p_office_id = MOBILE.r_office_id and MOBILE.r_contact_type = 'MOBILE' and MOBILE.s_tenant_id = bp.s_tenant_id   "
-  + " left join doohr_bp_contact EMAIL on EMAIL.p_bp_id = bp.p_bp_id and bpa.p_office_id = EMAIL.r_office_id and EMAIL.r_contact_type = 'EMAIL' and EMAIL.s_tenant_id = bp.s_tenant_id   "
-  + filter
-  + " group by bp.s_tenant_id,t.description,bp.p_bp_id,bp.r_org_name,bpa.p_office_id,bpa.r_address1,bpa.r_address2,r_city,r_state,r_postal_code,GSTIN.r_value,PAN.r_value,MOBILE.r_value,EMAIL.r_value";
-                DataTable dt = new NpgsqlServer().ExecuteReader(Query);
-                //   DataTable dt = new NpgsqlServer().ExecuteReader("SELECT  * from pr_get_customer(" + filter + ")");
-                PDMS_Customer Customer = new PDMS_Customer();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Customer = new PDMS_Customer();
-                    Customer.CustomerCode = Convert.ToString(dr["p_bp_id"]);
-                    Customer.CustomerName = Convert.ToString(dr["r_org_name"]).Trim();
-                    // Customer.OrgName = Convert.ToString(dr["r_org_name"]).Trim();
-                    Customer.OfficeID = Convert.ToString(dr["Office_ID"]).Trim();
-                    Customer.Address1 = Convert.ToString(dr["r_address1"]).Trim();
-                    Customer.Address2 = Convert.ToString(dr["r_address2"]).Trim();
-                    Customer.City = Convert.ToString(dr["r_city"]).Trim();
-                    Customer.State = new PDMS_State() { State = Convert.ToString(dr["r_state"]).Trim() };
-                    Customer.Pincode = Convert.ToString(dr["r_postal_code"]).Trim();
-                    //  Customer.DealarCode = Convert.ToString(dr["s_tenant_id"]);
-                    //   Customer.DealarName = Convert.ToString(dr["description"]);
-                    Customer.GSTIN = Convert.ToString(dr["GSTIN"]).Trim();
-                    Customer.PAN = Convert.ToString(dr["PAN"]).Trim();
-                    Customer.Email = Convert.ToString(dr["EMAIL"]).Trim();
-                    Customer.Mobile = Convert.ToString(dr["MOBILE"]).Trim();
-                    Customers.Add(Customer);
-                }
-                return Customers;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
-                throw ex;
-            }
-            return Customers;
-        }
-        public List<PDMS_Dealer> GetCustomerAdress(string filter)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Dealer> Customers = new List<PDMS_Dealer>();
-            try
-            {
+ //       public List<PDMS_Customer> GetCustomer(string filter)
+ //       {
+ //           TraceLogger.Log(DateTime.Now);
+ //           List<PDMS_Customer> Customers = new List<PDMS_Customer>();
+ //           try
+ //           {
+ //               string Query = "select bp.s_tenant_id,t.description,bp.p_bp_id,bp.r_org_name,bpa.p_office_id as office_id,bpa.r_address1,bpa.r_address2,r_city,r_state,r_postal_code"
+ //+ " ,GSTIN.r_value as GSTIN,PAN.r_value as PAN,MOBILE.r_value as MOBILE,EMAIL.r_value as EMAIL from "
+ // + " doohr_bp bp  "
+ // + " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20  "
+ // + " left join doohr_bp_statutory GSTIN on GSTIN.p_bp_id = bp.p_bp_id and GSTIN.r_statutory_type = 'GSTIN' and GSTIN.s_tenant_id = bp.s_tenant_id "
+ // + " left join doohr_bp_statutory PAN on PAN.p_bp_id = bp.p_bp_id and PAN.r_statutory_type = 'PAN' and PAN.s_tenant_id = bp.s_tenant_id "
+ // + " left join m_tenant t on t.tenantid = bp.s_tenant_id"
+ // + " left join doohr_bp_contact MOBILE on MOBILE.p_bp_id = bp.p_bp_id and bpa.p_office_id = MOBILE.r_office_id and MOBILE.r_contact_type = 'MOBILE' and MOBILE.s_tenant_id = bp.s_tenant_id   "
+ // + " left join doohr_bp_contact EMAIL on EMAIL.p_bp_id = bp.p_bp_id and bpa.p_office_id = EMAIL.r_office_id and EMAIL.r_contact_type = 'EMAIL' and EMAIL.s_tenant_id = bp.s_tenant_id   "
+ // + filter
+ // + " group by bp.s_tenant_id,t.description,bp.p_bp_id,bp.r_org_name,bpa.p_office_id,bpa.r_address1,bpa.r_address2,r_city,r_state,r_postal_code,GSTIN.r_value,PAN.r_value,MOBILE.r_value,EMAIL.r_value";
+ //               DataTable dt = new NpgsqlServer().ExecuteReader(Query);
+ //               //   DataTable dt = new NpgsqlServer().ExecuteReader("SELECT  * from pr_get_customer(" + filter + ")");
+ //               PDMS_Customer Customer = new PDMS_Customer();
+ //               foreach (DataRow dr in dt.Rows)
+ //               {
+ //                   Customer = new PDMS_Customer();
+ //                   Customer.CustomerCode = Convert.ToString(dr["p_bp_id"]);
+ //                   Customer.CustomerName = Convert.ToString(dr["r_org_name"]).Trim();
+ //                   // Customer.OrgName = Convert.ToString(dr["r_org_name"]).Trim();
+ //                   Customer.OfficeID = Convert.ToString(dr["Office_ID"]).Trim();
+ //                   Customer.Address1 = Convert.ToString(dr["r_address1"]).Trim();
+ //                   Customer.Address2 = Convert.ToString(dr["r_address2"]).Trim();
+ //                   Customer.City = Convert.ToString(dr["r_city"]).Trim();
+ //                   Customer.State = new PDMS_State() { State = Convert.ToString(dr["r_state"]).Trim() };
+ //                   Customer.Pincode = Convert.ToString(dr["r_postal_code"]).Trim();
+ //                   //  Customer.DealarCode = Convert.ToString(dr["s_tenant_id"]);
+ //                   //   Customer.DealarName = Convert.ToString(dr["description"]);
+ //                   Customer.GSTIN = Convert.ToString(dr["GSTIN"]).Trim();
+ //                   Customer.PAN = Convert.ToString(dr["PAN"]).Trim();
+ //                   Customer.Email = Convert.ToString(dr["EMAIL"]).Trim();
+ //                   Customer.Mobile = Convert.ToString(dr["MOBILE"]).Trim();
+ //                   Customers.Add(Customer);
+ //               }
+ //               return Customers;
+ //               TraceLogger.Log(DateTime.Now);
+ //           }
+ //           catch (Exception ex)
+ //           {
+ //               new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
+ //               throw ex;
+ //           }
+ //           return Customers;
+ //       }
+        //public List<PDMS_Dealer> GetCustomerAdress(string filter)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    List<PDMS_Dealer> Customers = new List<PDMS_Dealer>();
+        //    try
+        //    {
 
-                DataTable dt = new NpgsqlServer().ExecuteReader("SELECT  * from pr_get_customer_address(" + filter + ")");
-                PDMS_Dealer Customer = new PDMS_Dealer();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Customer = new PDMS_Dealer();
-                    Customer.DealerCode = Convert.ToString(dr["p_bp_id"]);
-                    //      Customer.DealerName = Convert.ToString(dr["r_org_name"]);
-                    Customer.Address1 = Convert.ToString(dr["address1"]);
-                    Customer.Address2 = Convert.ToString(dr["address2"]);
-                    Customer.City = Convert.ToString(dr["city"]);
-                    Customer.State = Convert.ToString(dr["state"]);
-                    Customer.Country = Convert.ToString(dr["country"]);
-                    Customer.Pincode = Convert.ToString(dr["postal"]);
+        //        DataTable dt = new NpgsqlServer().ExecuteReader("SELECT  * from pr_get_customer_address(" + filter + ")");
+        //        PDMS_Dealer Customer = new PDMS_Dealer();
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            Customer = new PDMS_Dealer();
+        //            Customer.DealerCode = Convert.ToString(dr["p_bp_id"]);
+        //            //      Customer.DealerName = Convert.ToString(dr["r_org_name"]);
+        //            Customer.Address1 = Convert.ToString(dr["address1"]);
+        //            Customer.Address2 = Convert.ToString(dr["address2"]);
+        //            Customer.City = Convert.ToString(dr["city"]);
+        //            Customer.State = Convert.ToString(dr["state"]);
+        //            Customer.Country = Convert.ToString(dr["country"]);
+        //            Customer.Pincode = Convert.ToString(dr["postal"]);
 
-                    Customer.Email = Convert.ToString(dr["email"]);
-                    Customer.Mobile = Convert.ToString(dr["mobile"]);
+        //            Customer.Email = Convert.ToString(dr["email"]);
+        //            Customer.Mobile = Convert.ToString(dr["mobile"]);
 
-                    Customer.GSTIN = Convert.ToString(dr["gstin"]);
-                    Customers.Add(Customer);
-                }
-                return Customers;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
-                throw ex;
-            }
-            return Customers;
-        }
+        //            Customer.GSTIN = Convert.ToString(dr["gstin"]);
+        //            Customers.Add(Customer);
+        //        }
+        //        return Customers;
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
+        //        throw ex;
+        //    }
+        //    return Customers;
+        //}
 
         public List<PDMS_Customer> GetCustomerName()
         {
@@ -264,45 +264,45 @@ namespace Business
             }
             return Customers;
         }
-        public int InsertOrUpdateCustomer(string CustomerCode)
-        {
-            TraceLogger.Log(DateTime.Now);
+        //public int InsertOrUpdateCustomer(string CustomerCode)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
 
-            PDMS_CustomerJSON Customers = new PDMS_CustomerJSON();
-            try
-            {
-                string folderPath = "\\\\192.168.19.35\\Clarion\\DCONNECT\\out";
-                // foreach (string file in Directory.EnumerateFiles(folderPath, "*.json"))
-                foreach (string file in Directory.GetFiles(folderPath, "doohr_bp*.json"))
-                {
-                    try
-                    {
-                        string json = File.ReadAllText(file);
-                        JavaScriptSerializer ser = new JavaScriptSerializer();
-                        Customers = ser.Deserialize<PDMS_CustomerJSON>(json);
-                        foreach (PDMS_resultsJSON C in Customers.results)
-                        {
-                            if (!InsertOrUpdateCustomer(C.p_bp_id, C.r_org_name))
-                            {
-                                throw new Exception();
-                            }
-                        }
-                        File.Move(file, file.Replace("DCONNECT", "DCONNECT\\Processed"));
-                    }
-                    catch (Exception e1)
-                    {
+        //    PDMS_CustomerJSON Customers = new PDMS_CustomerJSON();
+        //    try
+        //    {
+        //        string folderPath = "\\\\192.168.19.35\\Clarion\\DCONNECT\\out";
+        //        // foreach (string file in Directory.EnumerateFiles(folderPath, "*.json"))
+        //        foreach (string file in Directory.GetFiles(folderPath, "doohr_bp*.json"))
+        //        {
+        //            try
+        //            {
+        //                string json = File.ReadAllText(file);
+        //                JavaScriptSerializer ser = new JavaScriptSerializer();
+        //                Customers = ser.Deserialize<PDMS_CustomerJSON>(json);
+        //                foreach (PDMS_resultsJSON C in Customers.results)
+        //                {
+        //                    if (!InsertOrUpdateCustomer(C.p_bp_id, C.r_org_name))
+        //                    {
+        //                        throw new Exception();
+        //                    }
+        //                }
+        //                File.Move(file, file.Replace("DCONNECT", "DCONNECT\\Processed"));
+        //            }
+        //            catch (Exception e1)
+        //            {
 
-                    }
-                }
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);
-                throw ex;
-            }
-            return Customers.results.Count();
-        }
+        //            }
+        //        }
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_Material", "IntegrationMaterial", ex);
+        //        throw ex;
+        //    }
+        //    return Customers.results.Count();
+        //}
         public Boolean InsertOrUpdateCustomer(string CustomerCode, string CustomerName)
         {
             TraceLogger.Log(DateTime.Now);
@@ -324,36 +324,36 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return false;
         }
-        public int IntegrationCustomerFromPG()
-        {
-            TraceLogger.Log(DateTime.Now);
-            new FileLogger().LogMessageService("Started", "Customer Integration From PG", null);
-            List<PDMS_Customer> CustomerS = GetCustomerNameFromPG();
-            int Count = 0;
-            try
-            {
+        //public int IntegrationCustomerFromPG()
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    new FileLogger().LogMessageService("Started", "Customer Integration From PG", null);
+        //    List<PDMS_Customer> CustomerS = GetCustomerNameFromPG();
+        //    int Count = 0;
+        //    try
+        //    {
 
-                foreach (PDMS_Customer Customer in CustomerS)
-                {
-                    DbParameter CustomerCode = provider.CreateParameter("CustomerCode", Customer.CustomerCode, DbType.String);
-                    DbParameter CustomerName = provider.CreateParameter("CustomerName", Customer.CustomerName, DbType.String);
-                    DbParameter GSTIN = provider.CreateParameter("GSTIN", Customer.GSTIN, DbType.String);
-                    DbParameter State = provider.CreateParameter("State", Customer.State.State, DbType.String);
-                    DbParameter[] Params = new DbParameter[4] { CustomerCode, CustomerName, GSTIN, State };
+        //        foreach (PDMS_Customer Customer in CustomerS)
+        //        {
+        //            DbParameter CustomerCode = provider.CreateParameter("CustomerCode", Customer.CustomerCode, DbType.String);
+        //            DbParameter CustomerName = provider.CreateParameter("CustomerName", Customer.CustomerName, DbType.String);
+        //            DbParameter GSTIN = provider.CreateParameter("GSTIN", Customer.GSTIN, DbType.String);
+        //            DbParameter State = provider.CreateParameter("State", Customer.State.State, DbType.String);
+        //            DbParameter[] Params = new DbParameter[4] { CustomerCode, CustomerName, GSTIN, State };
 
-                    provider.Insert("ZDMS_InsertOrUpdateCustomerPG", Params);
-                }
-                TraceLogger.Log(DateTime.Now);
-                Count = CustomerS.Count;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_Customer", "IntegrationCustomer", ex);
-                throw ex;
-            }
-            new FileLogger().LogMessageService("End", "Customer Integration", null);
-            return Count;
-        }
+        //            provider.Insert("ZDMS_InsertOrUpdateCustomerPG", Params);
+        //        }
+        //        TraceLogger.Log(DateTime.Now);
+        //        Count = CustomerS.Count;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessageService("BDMS_Customer", "IntegrationCustomer", ex);
+        //        throw ex;
+        //    }
+        //    new FileLogger().LogMessageService("End", "Customer Integration", null);
+        //    return Count;
+        //}
         public List<PDMS_Customer> GetCustomerNameFromPG()
         {
             TraceLogger.Log(DateTime.Now);

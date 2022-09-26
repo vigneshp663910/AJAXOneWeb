@@ -51,7 +51,7 @@
         </asp:DropDownList>
 
 
-        <div id="chart" style="width: 100%; height: 500px;"></div>
+        
         <table>
 
             <tr>
@@ -150,7 +150,19 @@
                     <asp:Button ID="BtnEnquiryDetails" runat="server" Text="EnquiryDetails" OnClick="BtnEnquiryDetails_Click" />
                 </td>
             </tr>
+
+              <tr>
+                <td>
+                    <br />
+                     <asp:Label ID="Label5" runat="server" Text="Customer Code"></asp:Label>
+                    <asp:TextBox ID="txtCustomerCodeMiss" runat="server"></asp:TextBox>
+                    <asp:Button ID="btnCustomerMiss" runat="server" Text="Customer Miss" OnClick="btnCustomerMiss_Click" />
+                </td>
+            </tr>
+
         </table>
+
+        <div id="chart" style="width: 100%; height: 500px;"></div>
     </form>
 </body>
 </html>

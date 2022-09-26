@@ -109,95 +109,95 @@ namespace SapIntegration
             tagTable.SetValue("ACTIVE", "X");
             tagListBapi.Invoke(SAP.RfcDes());
         }
-        public List<PDMS_Material> getMaterialDetails(string MaterialCode)
-        {
-            List<PDMS_Material> Materials = new List<PDMS_Material>();
-            PDMS_Material Material = null;
+        //public List<PDMS_Material> getMaterialDetails(string MaterialCode)
+        //{
+        //    List<PDMS_Material> Materials = new List<PDMS_Material>();
+        //    PDMS_Material Material = null;
 
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZBAPI_MATERIALS_GET");
-            tagListBapi.SetValue("MATERIALCODE", MaterialCode);
-            tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("It_MARA");
-            for (int i = 0; i < tagTable.RowCount; i++)
-            {
-                tagTable.CurrentIndex = i;
-                Material = new PDMS_Material();
-                Material.MaterialCode = tagTable.CurrentRow.GetString(1);
-                Material.MaterialDescription = tagTable.CurrentRow.GetString(2);
-                Material.BaseUnit = tagTable.CurrentRow.GetString(1);
-                Material.MaterialType = tagTable.CurrentRow.GetString(2);
-                Material.MaterialGroup = tagTable.CurrentRow.GetString(1);
-                Material.GrossWeight = Convert.ToDecimal(tagTable.CurrentRow.GetString(2));
-                Material.NetWeight = Convert.ToDecimal(tagTable.CurrentRow.GetString(1));
-                Material.WeightUnit = tagTable.CurrentRow.GetString(2);
-                Material.HSN = tagTable.CurrentRow.GetString(1);
-                Material.TaxPercentage = Convert.ToDecimal(tagTable.CurrentRow.GetString(2));
-                Material.MaterialCode = tagTable.CurrentRow.GetString(1);
-                Material.CurrentPrice = Convert.ToDecimal(tagTable.CurrentRow.GetString(2));
-                Materials.Add(Material);
-            }
-            return Materials;
-        }
-        public PDMS_ServiceMaterial getMaterialTax(string Customer, string Vendor, string OrderType, int Item, string MaterialCode, decimal Quantity, string IV_SEC_SALES, string PRICEDATE, Boolean IsWarrenty)
-        {
-            PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial();
+        //    IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZBAPI_MATERIALS_GET");
+        //    tagListBapi.SetValue("MATERIALCODE", MaterialCode);
+        //    tagListBapi.Invoke(SAP.RfcDes());
+        //    IRfcTable tagTable = tagListBapi.GetTable("It_MARA");
+        //    for (int i = 0; i < tagTable.RowCount; i++)
+        //    {
+        //        tagTable.CurrentIndex = i;
+        //        Material = new PDMS_Material();
+        //        Material.MaterialCode = tagTable.CurrentRow.GetString(1);
+        //        Material.MaterialDescription = tagTable.CurrentRow.GetString(2);
+        //        Material.BaseUnit = tagTable.CurrentRow.GetString(1);
+        //        Material.MaterialType = tagTable.CurrentRow.GetString(2);
+        //        Material.MaterialGroup = tagTable.CurrentRow.GetString(1);
+        //        Material.GrossWeight = Convert.ToDecimal(tagTable.CurrentRow.GetString(2));
+        //        Material.NetWeight = Convert.ToDecimal(tagTable.CurrentRow.GetString(1));
+        //        Material.WeightUnit = tagTable.CurrentRow.GetString(2);
+        //        Material.HSN = tagTable.CurrentRow.GetString(1);
+        //        Material.TaxPercentage = Convert.ToDecimal(tagTable.CurrentRow.GetString(2));
+        //        Material.MaterialCode = tagTable.CurrentRow.GetString(1);
+        //        Material.CurrentPrice = Convert.ToDecimal(tagTable.CurrentRow.GetString(2));
+        //        Materials.Add(Material);
+        //    }
+        //    return Materials;
+        //}
+        //public PDMS_ServiceMaterial getMaterialTax(string Customer, string Vendor, string OrderType, int Item, string MaterialCode, decimal Quantity, string IV_SEC_SALES, string PRICEDATE, Boolean IsWarrenty)
+        //{
+        //    PDMS_ServiceMaterial Material = new PDMS_ServiceMaterial();
 
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_SO");
-            tagListBapi.SetValue("IV_SEC_SALES", IV_SEC_SALES);
-            IRfcStructure IS_SO_HEAD = tagListBapi.GetStructure("IS_SO_HEAD");
-            IS_SO_HEAD.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer)?"": Customer.Trim().PadLeft(10, '0'));
-            IS_SO_HEAD.SetValue("ORDER_TYPE", OrderType);
-            IS_SO_HEAD.SetValue("VENDOR", string.IsNullOrEmpty(Vendor) ? "" : Vendor.Trim().PadLeft(10, '0'));
-            IS_SO_HEAD.SetValue("PRICEDATE", PRICEDATE);
+        //    IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSIMULATE_SO");
+        //    tagListBapi.SetValue("IV_SEC_SALES", IV_SEC_SALES);
+        //    IRfcStructure IS_SO_HEAD = tagListBapi.GetStructure("IS_SO_HEAD");
+        //    IS_SO_HEAD.SetValue("CUSTOMER", string.IsNullOrEmpty(Customer)?"": Customer.Trim().PadLeft(10, '0'));
+        //    IS_SO_HEAD.SetValue("ORDER_TYPE", OrderType);
+        //    IS_SO_HEAD.SetValue("VENDOR", string.IsNullOrEmpty(Vendor) ? "" : Vendor.Trim().PadLeft(10, '0'));
+        //    IS_SO_HEAD.SetValue("PRICEDATE", PRICEDATE);
 
-            IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
+        //    IRfcTable IT_SO_ITEMS = tagListBapi.GetTable("IT_SO_ITEMS");
 
-            long n;
-            if (long.TryParse(MaterialCode, out n))
-            {
-                MaterialCode = MaterialCode.PadLeft(18, '0');
-            }
+        //    long n;
+        //    if (long.TryParse(MaterialCode, out n))
+        //    {
+        //        MaterialCode = MaterialCode.PadLeft(18, '0');
+        //    }
 
-            IT_SO_ITEMS.Append();
-            IT_SO_ITEMS.SetValue("ITEM_NO", 1);
-            IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);
-            IT_SO_ITEMS.SetValue("QUANTITY", Quantity);
+        //    IT_SO_ITEMS.Append();
+        //    IT_SO_ITEMS.SetValue("ITEM_NO", 1);
+        //    IT_SO_ITEMS.SetValue("MATERIAL", MaterialCode);
+        //    IT_SO_ITEMS.SetValue("QUANTITY", Quantity);
 
 
-            tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("IT_SO_COND");
-            IRfcStructure ES_ERROR = tagListBapi.GetStructure("ES_ERROR");
-            string ConditionType;
-            for (int i = 0; i < tagTable.RowCount; i++)
-            {
-                tagTable.CurrentIndex = i;
-                ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
-                if ((ConditionType == "ZOSG") || (ConditionType == "JOSG"))
-                {
-                    Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
-                    Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
-                }
-                else if (ConditionType == "ZOIG")
-                {
-                    Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
-                    Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
-                }
-                else if ((ConditionType == "ZPRP") || (ConditionType == "ZASS"))
-                {
-                    if (IsWarrenty)
-                    {
-                        if (ConditionType == "ZASS")
-                            Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
-                    }
-                    else
-                    {
-                        if (ConditionType == "ZPRP")
-                            Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
-                    }
-                }
-            }
-            return Material;
-        }
+        //    tagListBapi.Invoke(SAP.RfcDes());
+        //    IRfcTable tagTable = tagListBapi.GetTable("IT_SO_COND");
+        //    IRfcStructure ES_ERROR = tagListBapi.GetStructure("ES_ERROR");
+        //    string ConditionType;
+        //    for (int i = 0; i < tagTable.RowCount; i++)
+        //    {
+        //        tagTable.CurrentIndex = i;
+        //        ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
+        //        if ((ConditionType == "ZOSG") || (ConditionType == "JOSG"))
+        //        {
+        //            Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+        //            Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+        //        }
+        //        else if (ConditionType == "ZOIG")
+        //        {
+        //            Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+        //            Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+        //        }
+        //        else if ((ConditionType == "ZPRP") || (ConditionType == "ZASS"))
+        //        {
+        //            if (IsWarrenty)
+        //            {
+        //                if (ConditionType == "ZASS")
+        //                    Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+        //            }
+        //            else
+        //            {
+        //                if (ConditionType == "ZPRP")
+        //                    Material.BasePrice = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+        //            }
+        //        }
+        //    }
+        //    return Material;
+        //}
         public List<PDMS_Material> getAllMaterialFromEccSap(string MaterialCode)
         {
             List<PDMS_Material> Materials = new List<PDMS_Material>();

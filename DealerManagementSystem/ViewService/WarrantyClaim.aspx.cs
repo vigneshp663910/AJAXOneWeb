@@ -432,8 +432,11 @@ namespace DealerManagementSystem.ViewService
 
                     supplierPOLinesGrid.DataSource = supplierPurchaseOrderLines;
                     supplierPOLinesGrid.DataBind();
-                    string[] ClaimCancel = ConfigurationManager.AppSettings["ClaimCancel"].Split(',');
-                    if (ClaimCancel.Contains(PSession.User.UserID.ToString()))
+                   // string[] ClaimCancel = ConfigurationManager.AppSettings["ClaimCancel"].Split(',');
+
+                    List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                     
+                    if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimCancel).Count() == 1)
                     {
 
                         Label lblAnnexureNumber = (Label)e.Row.FindControl("lblAnnexureNumber");
