@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewEquipment
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// divList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+
+        /// <summary>
         /// ddlDealerCode control.
         /// </summary>
         /// <remarks>
@@ -166,5 +175,50 @@ namespace DealerManagementSystem.ViewEquipment
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvEquipment;
+
+        /// <summary>
+        /// divEquipmentView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEquipmentView;
+
+        /// <summary>
+        /// btnBackToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
+
+        /// <summary>
+        /// tblDashboard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
+
+        /// <summary>
+        /// UC_EquipmentView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewEquipment.UserControls.EquipmentView UC_EquipmentView;
+
+        /// <summary>
+        /// ph_usercontrols_1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_1;
     }
 }

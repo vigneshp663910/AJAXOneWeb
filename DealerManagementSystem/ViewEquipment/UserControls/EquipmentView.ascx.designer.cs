@@ -15,112 +15,247 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
     {
 
         /// <summary>
-        /// lblLeadNumber control.
+        /// lblModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeadNumber;
+        protected global::System.Web.UI.WebControls.Label lblModel;
 
         /// <summary>
-        /// lblLeadDate control.
+        /// lblModelDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeadDate;
+        protected global::System.Web.UI.WebControls.Label lblModelDescription;
 
         /// <summary>
-        /// lblDealer control.
+        /// lblWarrantyExpiryDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDealer;
+        protected global::System.Web.UI.WebControls.Label lblWarrantyExpiryDate;
 
         /// <summary>
-        /// lblRemarks control.
+        /// lblCurrentHMRDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRemarks;
+        protected global::System.Web.UI.WebControls.Label lblCurrentHMRDate;
 
         /// <summary>
-        /// lblCustomer control.
+        /// lblRFWarrantyStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCustomer;
+        protected global::System.Web.UI.WebControls.Label lblRFWarrantyStartDate;
 
         /// <summary>
-        /// lblContactPerson control.
+        /// cbIsAMC control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactPerson;
+        protected global::System.Web.UI.WebControls.CheckBox cbIsAMC;
 
         /// <summary>
-        /// lblMobile control.
+        /// lblVariantsFittingDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMobile;
+        protected global::System.Web.UI.WebControls.Label lblVariantsFittingDate;
 
         /// <summary>
-        /// lblEmail control.
+        /// lblESN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmail;
+        protected global::System.Web.UI.WebControls.Label lblESN;
 
         /// <summary>
-        /// lblAddress control.
+        /// lblSpecialVariants control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddress;
+        protected global::System.Web.UI.WebControls.Label lblSpecialVariants;
 
         /// <summary>
-        /// lblImportance control.
+        /// lblEngineSerialNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblImportance;
+        protected global::System.Web.UI.WebControls.Label lblEngineSerialNo;
 
         /// <summary>
-        /// lblStatus control.
+        /// lblDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatus;
+        protected global::System.Web.UI.WebControls.Label lblDistrict;
 
         /// <summary>
-        /// lblLocation control.
+        /// lblEngineModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLocation;
+        protected global::System.Web.UI.WebControls.Label lblEngineModel;
+
+        /// <summary>
+        /// lblCurrentHMRValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCurrentHMRValue;
+
+        /// <summary>
+        /// lblRFWarrantyExpiryDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRFWarrantyExpiryDate;
+
+        /// <summary>
+        /// lblAMCStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAMCStartDate;
+
+        /// <summary>
+        /// lblPlant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlant;
+
+        /// <summary>
+        /// lblProductionStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProductionStatus;
+
+        /// <summary>
+        /// lblManufacturingDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblManufacturingDate;
+
+        /// <summary>
+        /// lblEquipmentSerialNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEquipmentSerialNo;
+
+        /// <summary>
+        /// lblState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblState;
+
+        /// <summary>
+        /// lblDispatchedOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDispatchedOn;
+
+        /// <summary>
+        /// lblCommisioningOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCommisioningOn;
+
+        /// <summary>
+        /// lblTypeOfWheelAssembly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTypeOfWheelAssembly;
+
+        /// <summary>
+        /// lblAMCExpiryDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAMCExpiryDate;
+
+        /// <summary>
+        /// lblMaterialCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMaterialCode;
+
+        /// <summary>
+        /// lblChassisSlNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChassisSlNo;
+
+        /// <summary>
+        /// lblDispatch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDispatch;
 
         /// <summary>
         /// hfLatitude control.
@@ -150,13 +285,13 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tbpCust control.
+        /// tbpIbase control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tbpCust;
+        protected global::AjaxControlToolkit.TabContainer tbpIbase;
 
         /// <summary>
         /// TabPanel2 control.
@@ -166,5 +301,95 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanel2;
+
+        /// <summary>
+        /// lblInstalledBaseNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInstalledBaseNo;
+
+        /// <summary>
+        /// lblDeliveryDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeliveryDate;
+
+        /// <summary>
+        /// lblIbaseWarrantyStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIbaseWarrantyStart;
+
+        /// <summary>
+        /// lblIBaseLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIBaseLocation;
+
+        /// <summary>
+        /// lblIBaseCreatedOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIBaseCreatedOn;
+
+        /// <summary>
+        /// lblIbaseWarrantyEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIbaseWarrantyEnd;
+
+        /// <summary>
+        /// lblMajorRegion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMajorRegion;
+
+        /// <summary>
+        /// lblFinancialYearOfDispatch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFinancialYearOfDispatch;
+
+        /// <summary>
+        /// TabCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabCustomer;
+
+        /// <summary>
+        /// CustomerViewSoldTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerViewHeader CustomerViewSoldTo;
     }
 }
