@@ -117,5 +117,10 @@ namespace DealerManagementSystem
         {
             new BAPI().ApiGetWithOutToken("Customer/CustomerMiss?CustomerCode=" + txtCustomerCodeMiss.Text.Trim());
         }
+
+        protected void btnAPIEInvoice_Click(object sender, EventArgs e)
+        {
+            new BDMS_EInvoice().StartGeneratEInvoice();
+        }
     }
 }

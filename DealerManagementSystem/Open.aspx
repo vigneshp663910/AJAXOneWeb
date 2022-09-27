@@ -159,7 +159,14 @@
                     <asp:Button ID="btnCustomerMiss" runat="server" Text="Customer Miss" OnClick="btnCustomerMiss_Click" />
                 </td>
             </tr>
-
+            
+              <tr>
+                <td>
+                    <br />
+                     <asp:Label ID="Label6" runat="server" Text="API E Invoice"></asp:Label> 
+                    <asp:Button ID="btnAPIEInvoice" runat="server" Text="API E Invoice" OnClick="btnAPIEInvoice_Click" />
+                </td>
+            </tr>
         </table>
 
         <div id="chart" style="width: 100%; height: 500px;"></div>

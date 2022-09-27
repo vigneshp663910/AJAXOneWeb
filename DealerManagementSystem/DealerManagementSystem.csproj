@@ -290,6 +290,7 @@
     <Content Include="JS\jquery-ui.css" />
     <Content Include="MapTest1.aspx" />
     <Content Include="MapTest2.aspx" />
+    <Content Include="Open.aspx" />
     <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\DMM_Process.aspx" />
@@ -813,6 +814,13 @@
     </Compile>
     <Compile Include="MapTestM.Master.designer.cs">
       <DependentUpon>MapTestM.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Open.aspx.cs">
+      <DependentUpon>Open.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Open.aspx.designer.cs">
+      <DependentUpon>Open.aspx</DependentUpon>
     </Compile>
     <Compile Include="PDF.aspx.cs">
       <DependentUpon>PDF.aspx</DependentUpon>

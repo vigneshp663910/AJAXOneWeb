@@ -747,183 +747,7 @@ namespace Business
             }
             return false;
         }
-
-        public List<PDMS_EInvoice> GetEInvoiceBillingDocumentforFtpProcess()
-        {
-            List<PDMS_EInvoice> InvoiceE = new List<PDMS_EInvoice>();
-            try
-            {
-                using (DataSet DataSet = provider.Select("ZDMS_GetEInvoiceBillingDocumentforFtpProcess"))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            InvoiceE.Add(new PDMS_EInvoice()
-                            {
-                                BillingDocument = Convert.ToString(dr["BillingDocument"]),
-                                EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
-                                EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
-                                EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]),
-                                FileSubName = Convert.ToString(dr["FileSubName"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return InvoiceE;
-        }
-                 
-        public void DownloadAllFilesToBeImported(string FTPPath, string FTPUserName, string FTPPassword, string DestinationPath, string FTPFileName)
-        {
-            FTPManager ftp = new FTPManager();
-            List<string> fileNames = new List<string>();
-            FTPDetails ftpDetails = GetFTPDetails(FTPPath, FTPUserName, FTPPassword);
-            //try
-            //{
-            fileNames = GetFilesOnFilter(ftpDetails, FTPFileName);
-            ftpDetails.DestinationPath = DestinationPath;
-            if (fileNames == null)
-                fileNames = new List<string>();
-            //foreach (string file in fileNames)
-            //{
-            try
-            {
-                ftpDetails.FTPFileName = fileNames[fileNames.Count() - 1];
-                ftpDetails.FTPFileName = ftpDetails.FTPFileName.Substring(39, ftpDetails.FTPFileName.Length - 39);
-                ftp.Download(ftpDetails);
-                //try
-                //{
-                //    ftp.Delete(ftpDetails);
-                //}
-                //catch (Exception ex)
-                //{
-                //    ExceptionLogger.LogError(string.Format("Unable to delete the file {0} from ftp", ftpDetails.FTPFileName), ex);
-                //}
-            }
-            catch (Exception ex)
-            {
-                ExceptionLogger.LogError(string.Format("Unable to download the file {0} from ftp", ftpDetails.FTPFileName), ex);
-            }
-            //  }
-            //}
-            //catch (VPSException vpsEx)
-            //{
-            //    throw vpsEx;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new VPSException(ErrorCode.GENE, ex);
-            //}
-        }
-      
-        public static FTPDetails GetFTPDetails(string FTPPath, string FTPUserName, string FTPPassword)
-        {
-            FTPCredentials credential = new FTPCredentials()
-            {
-                UserName = FTPUserName,
-                Password = FTPPassword
-            };
-            return new FTPDetails()
-            {
-                Credentials = credential,
-                FTPPath = FTPPath
-            };
-        }
-
-        public List<string> GetFilesOnFilter(FTPDetails ftpDetails, string ftpFilter)
-        {
-            try
-            {
-                string[] ftpFileList = GetAllFiles(ftpDetails);
-                if (ftpFileList != null)
-                {
-                    var filteredFileList = from list in ftpFileList where list.Contains(ftpFilter) orderby list select list;
-                    return filteredFileList.ToList();
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                //1   throw new VPSException(ErrorCode.FTPERROR, ex);
-            }
-            return null;
-        }
-        public string[] GetAllFiles(FTPDetails ftpDetails)
-        {
-            string[] downloadFiles = null;
-            StringBuilder result = new StringBuilder();
-            FtpWebRequest ftpRequest = null;
-            StreamReader reader = null;
-            WebResponse response = null;
-            try
-            {
-                string uri = ftpDetails.FTPPath;
-                ftpRequest = Login(uri, ftpDetails.Credentials);
-                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-                ftpRequest.Proxy = null;
-                //  ftpRequest.UsePassive = true;
-                response = ftpRequest.GetResponse();
-                reader = new StreamReader(response.GetResponseStream(), System.Text.Encoding.ASCII);
-                string line = reader.ReadLine();
-                while (line != null)
-                {
-                    result.Append(line);
-                    result.Append("\n");
-                    line = reader.ReadLine();
-                }
-
-                if (result.ToString().Trim().Length > 1)
-                {
-                    result.Remove(result.ToString().LastIndexOf('\n'), 1);
-                    downloadFiles = result.ToString().Split('\n');
-                }
-                return downloadFiles;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                    reader.Dispose();
-                }
-                if (response != null)
-                    response.Close();
-
-            }
-        }
-
-        public FtpWebRequest Login(string uri, FTPCredentials credential)
-        {
-            try
-            {
-                FtpWebRequest ftpRequest;
-                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(new Uri(uri));
-                ftpRequest.Credentials = new NetworkCredential(credential.UserName, credential.Password);
-                ftpRequest.KeepAlive = false;
-                return ftpRequest;
-            }
-            catch (Exception ex)
-            {
-                //  throw new VPSException(ErrorCode.FTPERROR, ex);
-            }
-            return null;
-        }
-
-        void hh(string UserName, string Password)
-        {
-            WebClient r = new WebClient();
-            r.Credentials = new NetworkCredential(UserName, Password);
-            byte[] fdata = r.DownloadData("");
-        }
+   
 
 
         //public string GeneratEInvoice(string InvoiceNumber)
@@ -1539,7 +1363,7 @@ namespace Business
                         Qty = Pinvi.Qty.ToString(),
                         FreeQty = "0",
                         Unit = "NOS",
-                        UnitPrice = Pinvi.Rate.ToString(),
+                        UnitPrice = Convert.ToString(Math.Round((decimal)Pinvi.Rate, 2)),
                         TotAmt = Math.Round(Pinvi.TaxableValue, 2).ToString(),
                         Discount = Convert.ToString(Pinvi.Discount),
                         PreTaxVal = "0",
@@ -1977,6 +1801,183 @@ namespace Business
             return EInvoice;
         }
 
+        public PEInvoice ConvertWarrantyInvoice(PDMS_WarrantyClaimInvoice Pinv)
+        {
+            PEInvoice EInvoice = new PEInvoice();
+            try
+            {
+                int TOTALLINEITEMS = 0;
+                EInvoice.TranDtls = new PTranDtls()
+                {
+                    IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "Y" : "N",
+                };
+                EInvoice.DocDtls = new PDocDtls()
+                {
+                    Typ = "INV",
+                    No = Pinv.InvoiceNumber,
+                    Dt = Pinv.InvoiceDate.ToShortDateString()// .Year.ToString() + Pinv.InvoiceDate.Month.ToString("00") + Pinv.InvoiceDate.Day.ToString("00"),
+                };
+                EInvoice.SellerDtls = new PSellerDtls()
+                {
+
+                    Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
+                    LglNm = Pinv.Dealer.DealerName,
+                    // TrdNm = Pinv.ICTicket.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    //Addr2 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                    //Ph = Pinv.ICTicket.Dealer.Mobile, 
+                    //Em = Pinv.ICTicket.Dealer.Email
+                };
+                //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
+                EInvoice.BuyerDtls = new PBuyerDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    //TrdNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Pos = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    // Addr2 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    //Ph = Pinv.ICTicket.Customer.Mobile,
+                    //Em = Pinv.ICTicket.Customer.Email 
+                };
+                EInvoice.DispDtls = new PDispDtls()
+                {
+                    Nm = Pinv.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                };
+                 
+                EInvoice.ShipDtls = new PShipDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    //TrdNm = Pinv.InvoiceDetails.BuyerName.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    //Addr2 = Pinv.InvoiceDetails.Buyer_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                };
+
+                EInvoice.ItemList = new List<PItemList>();
+                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
+                AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
+                TOTALLINEITEMS = 0;
+
+                foreach (PDMS_WarrantyClaimInvoiceItem Pinvi in Pinv.InvoiceItems)
+                {
+                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
+
+                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
+                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
+                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
+                    AccumulatedCesVal = AccumulatedCesVal + 0;
+                    //     AccumulatedOtherCharges = AccumulatedOtherCharges + Pinvi.t;
+                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
+
+                    EInvoice.ItemList.Add(new PItemList()
+                    {
+                        SlNo = Convert.ToString(TOTALLINEITEMS),
+                        PrdDesc = Pinvi.MaterialDesc,
+                        IsServc = Pinvi.HSNCode == "998719" ? "Y" : "N",
+                        HsnCd = Pinvi.HSNCode,
+                        //Barcde = "",
+                        Qty = Pinvi.Qty.ToString(),
+                        FreeQty = "0",
+                        Unit = "NOS",
+                        UnitPrice = Math.Round(Pinvi.Rate, 2).ToString(),
+                        TotAmt = Math.Round(Pinvi.TaxableValue, 2).ToString(),
+                        Discount = Convert.ToString(Pinvi.Discount),
+                        PreTaxVal = "0",
+                        AssAmt = Math.Round(Pinvi.TaxableValue, 2).ToString(),
+                        GstRt = Convert.ToString(Math.Round(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST, 2)),
+                        IgstAmt = Convert.ToString(Math.Round(Pinvi.IGSTValue, 2)),
+                        CgstAmt = Convert.ToString(Math.Round(Pinvi.CGSTValue, 2)),
+                        SgstAmt = Convert.ToString(Math.Round(Pinvi.SGSTValue, 2)),
+                        CesRt = "",
+                        CesAmt = "0",
+                        CesNonAdvlAmt = "",
+                        StateCesRt = "",
+                        StateCesAmt = "",
+                        StateCesNonAdvlAmt = "",
+                        OthChrg = "",
+                        TotItemVal = Convert.ToString(Math.Round(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0, 2)),
+                        OrdLineRef = Convert.ToString(TOTALLINEITEMS),
+                        OrgCntry = "IN",
+                        PrdSlNo = Convert.ToString(TOTALLINEITEMS),
+
+                        // public PBchDtls BchDtls { get; set; }
+                        // public List<PAttribDtls> AttribDtls { get; set; }
+                    });
+                    // InvoiceItemID = Pinvi.PaidServiceInvoiceItemID,
+                    // BillingDocument = Pinv.InvoiceNumber,   
+                    // CESSRate = "", 
+
+                }
+
+                EInvoice.ValDtls = new PValDtls()
+                {
+                    AssVal = Convert.ToString(Math.Round(AccumulatedTotalAmount, 2)),
+                    CgstVal = Convert.ToString(Math.Round(AccumulatedCgstVal, 2)),
+                    SgstVal = Convert.ToString(Math.Round(AccumulatedSgstVal, 2)),
+                    IgstVal = Convert.ToString(Math.Round(AccumulatedIgstVal, 2)),
+                    CesVal = Convert.ToString(Math.Round(AccumulatedCesVal, 2)),
+                    StCesVal = "0",
+                    Discount = "0",
+                    OthChrg = Convert.ToString(AccumulatedOtherCharges),
+                    RndOffAmt = Convert.ToString(Math.Round(Math.Round(AccumulatedTotItemVal, 2) - AccumulatedTotItemVal, 2)),
+                    TotInvVal = Convert.ToString(Math.Round(AccumulatedTotItemVal)),
+                    TotInvValFc = Convert.ToString(Math.Round(AccumulatedTotItemVal, 2))
+
+                    //   "ValDtls": {
+                    //    "AssVal": 9978.84,
+                    //    "CgstVal": 0,
+                    //    "SgstVal": 0,
+                    //    "IgstVal": 1197.46,
+                    //    "CesVal": 508.94,
+                    //    "StCesVal": 1202.46,
+                    //    "Discount": 10,
+                    //    "OthChrg": 20,
+                    //    "RndOffAmt": 0.3,
+                    //    "TotInvVal": 12908,
+                    //    "TotInvValFc": 12897.7
+                    //},
+                };
+
+                // EInvoice.TOTALLINEITEMS = Convert.ToString(TOTALLINEITEMS);
+                // EInvoice.AccumulatedTotalAmount = Convert.ToString(AccumulatedTotalAmount);
+                // EInvoice.AccumulatedAssTotalAmount = Convert.ToString(AccumulatedAssTotalAmount); 
+                // EInvoice.AccumulatedOtherCharges = Convert.ToString(AccumulatedOtherCharges); 
+
+
+                EInvoice.PayDtls = new PPayDtls() { };
+                EInvoice.RefDtls = new PRefDtls() { };
+                EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
+                EInvoice.ExpDtls = new PExpDtls()
+                {
+
+                };
+                EInvoice.EwbDtls = new PEwbDtls() { };
+                string SS = JsonConvert.SerializeObject(EInvoice);
+            }
+            catch (Exception ex)
+            {
+            }
+            return EInvoice;
+
+           
+        }
+
         public string GeneratEInvoice(string InvoiceNumber, string InvType)
         {
             PEInvoice EInvoice = new PEInvoice();
@@ -1997,6 +1998,14 @@ namespace Business
                 EInvoice = ConvertActivityInvoice(Pinv);
                 IRN = Pinv.IRN;
             }
+            else if (InvType == "WARR")
+            {
+                PDMS_WarrantyClaimInvoice Pinv = getWarrantyClaimInvoiceForRequestEInvoice(InvoiceNumber, null, null, null,null)[0];
+                Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
+                EInvoice = ConvertWarrantyInvoice(Pinv);
+                IRN = Pinv.IRN;
+            }
+
             string Message = ValidationEInvoice(EInvoice);
             if (!string.IsNullOrEmpty(Message))
             {
@@ -2109,6 +2118,41 @@ namespace Business
             return "";
         }
 
-    
+
+
+        public void StartGeneratEInvoice()
+        {
+            Dictionary<string, string> Invs = GetInvoiceForEInvoiceRequest();
+            foreach (KeyValuePair<string, string>  inv in Invs)
+            {
+                GeneratEInvoice(inv.Key, inv.Value);
+            }
+        }
+
+        public Dictionary<string, string> GetInvoiceForEInvoiceRequest()
+        {
+           // List<string> Inv = new List<string>(); 
+            Dictionary<string,string> Inv = new Dictionary<string, string>(); 
+            try
+            { 
+                
+                using (DataSet DataSet = provider.Select("GetInvoiceForEInvoiceRequest"))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Inv.Add(Convert.ToString(dr["InvoiceNumber"]), Convert.ToString(dr["InvType"]));
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Inv;
+        }
+
     }
 }

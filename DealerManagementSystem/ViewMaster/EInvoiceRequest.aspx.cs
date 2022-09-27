@@ -163,13 +163,7 @@ namespace DealerManagementSystem.ViewMaster
                 foreach (PDMS_PaidServiceInvoice inv in Paidinvs)
                 {
                     InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertPaidServiceInvoice(inv), InvType = "PAY" });
-                }
-
-                //List<PEInvoice> invs = new BDMS_EInvoice().GetPaidServiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-                //foreach (PEInvoice Inv in invs)
-                //{
-                //    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "PAY" });
-                //}
+                } 
 
                 List<PDMS_WarrantyClaimInvoice> Pinv = new BDMS_EInvoice().getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
                 foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
@@ -177,11 +171,11 @@ namespace DealerManagementSystem.ViewMaster
                     InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "ATY" });
                 }
 
-                //List<PEInvoice> invs = new BDMS_EInvoice().GetActivityForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-                //foreach (PEInvoice Inv in invs)
-                //{
-                //    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = Inv, InvType = "ATY" });
-                //}
+                List<PDMS_WarrantyClaimInvoice> PinvW = new BDMS_EInvoice().getWarrantyClaimInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID,"");
+                foreach (PDMS_WarrantyClaimInvoice inv in PinvW)
+                {
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "WARR" });
+                }
 
                 gvInv.PageIndex = 0;
                 gvInv.DataSource = InvoiceGrid;
