@@ -478,14 +478,14 @@ namespace DealerManagementSystem.ViewService
                             PDealer Dealer = new BDealer().GetDealerByID(null, SOIs.Dealer.DealerCode);
 
                             Label InvoiceNumber = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblBillingDocument");
-                            PApiEInv ul = new PApiEInv();
-                            ul.handle = Dealer.EInvUserAPI.Handle;
-                            ul.handleType = Dealer.EInvUserAPI.HandleType;
-                            ul.password = Dealer.EInvUserAPI.Password;
+                            //PApiEInv ul = new PApiEInv();
+                            //ul.handle = Dealer.EInvUserAPI.Handle;
+                            //ul.handleType = Dealer.EInvUserAPI.HandleType;
+                            //ul.password = Dealer.EInvUserAPI.Password;
 
                            //string AccessToken = new JavaScriptSerializer().Deserialize<PData>(new JavaScriptSerializer().Serialize(new JavaScriptSerializer().Deserialize<PApiResult>(new BAPI().GetAccessToken(ul)).Data)).token;
 
-                            string AccessToken1 =  JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult1>(new BApiEInv().GetAccessToken(ul)).Data)).token;
+                           // string AccessToken1 =  JsonConvert.DeserializeObject<PData>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult1>(new BApiEInv().GetAccessToken(ul)).Data)).token;
                             //new BDMS_EInvoice().GeneratEInvoiceUsingAPI(InvoiceNumber.Text, AccessToken);
                             lblMessage.Visible = true;
                         }

@@ -19,7 +19,7 @@ using System.Web.Mvc;
 
 namespace Business
 {
-    public class PApiEInv
+    public class PApiEInvHandle
     {
         public string handle { get; set; }
         public string handleType { get; set; }
@@ -39,52 +39,20 @@ namespace Business
     public class BApiEInv
     {
         private static string EInvoiceAPI { get; set; }
-        private static string EInvoiceTokensAPI { get; set; }
         public BApiEInv()
         {
             EInvoiceAPI = Convert.ToString(ConfigurationManager.AppSettings["EInvoiceAPI"]);
-            EInvoiceTokensAPI = Convert.ToString(ConfigurationManager.AppSettings["EInvoiceTokensAPI"]);
         }
         public void Main1()
         {
         }
-
-        public string GetAccessToken(PApiEInv user)
-        {
-            string token = "";
-            HttpClientHandler handler = new HttpClientHandler();
-            HttpClient client = new HttpClient(handler);
-            try
-            {
-                string SS = JsonConvert.SerializeObject(user);
-
-                var tokenResponse = client.PostAsync(EInvoiceTokensAPI, new StringContent(SS, Encoding.UTF8, "application/json")).Result;
-
-                if (tokenResponse.IsSuccessStatusCode)
-                {
-                    var JsonContent = tokenResponse.Content.ReadAsStringAsync().Result;
-                    token = JsonContent;
-                }
-                else
-                {
-                    token = "";
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-            return token;
-        }
+         
         public class PSuccess
         {
             public string data { get; set; }
         }
         public PResultEInv ApiPut(PApiHeader Header, PDealer Dealer, object obj = null)
-        {
-
-            
-
+        { 
             string PWD = "";
             PResultEInv Data = new PResultEInv();
 

@@ -276,6 +276,7 @@ namespace DealerManagementSystem.ViewService
                 HttpContext.Current.Response.Charset = "utf-16";
                 HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
                 Response.BinaryWrite(UploadedFile.AttachedFile);
+                new BXcel().PdfDowload();
                 Response.Flush();
                 Response.End();
             }

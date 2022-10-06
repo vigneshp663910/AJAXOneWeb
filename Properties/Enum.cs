@@ -571,8 +571,9 @@ namespace Properties
         MaterialIntegrationFromSAP = 21,
         CustomerIntegration =22  ,
         UpdateSalesQuotationDeliveryDetails = 23 ,
-        SalesQuotationDocumentsFromSap = 24,
-        EnquiryFromCRM = 25
+        SalesQuotationFlowFromSap = 24,
+        EnquiryFromCRM = 25,
+        LeadQualificationByExpectedDateOfSale = 26
     }
 
     public enum DashboardControl

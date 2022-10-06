@@ -263,6 +263,19 @@ namespace Business
                 throw new Exception("APIResponse, Error : " + APIResponse.StatusCode);
             }
         }
-
+        public String ApiPutWithOutToken(string EndPoint, object obj = null)
+        { 
+            HttpClientHandler handler = new HttpClientHandler();
+            HttpClient client = new HttpClient(handler);  
+            var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result; 
+            if (APIResponse.IsSuccessStatusCode)
+            {
+                return APIResponse.Content.ReadAsStringAsync().Result;
+            }
+            else
+            {
+                throw new Exception("APIResponse, Error : " + APIResponse.StatusCode);
+            }
+        }
     }
 }

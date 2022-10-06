@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Properties;
+using SapIntegration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -240,5 +241,98 @@ namespace Business
             { }
             return Dealer;
         }
+
+        public int InsertOrUpdateDealerAddress(string Code)
+        {
+            PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Code);
+            if ( String.IsNullOrEmpty (Dealer.CustomerName))
+            {
+                return 0;
+            }
+            int success = 0;
+            DbParameter DealerCode = provider.CreateParameter("DealerCode", Dealer.CustomerCode, DbType.String);
+            DbParameter Address1 = provider.CreateParameter("Address1", Dealer.Address12, DbType.String);
+            DbParameter Address2 = provider.CreateParameter("Address2", Dealer.Address3, DbType.String);
+            DbParameter City = provider.CreateParameter("City", Dealer.City, DbType.String);
+            DbParameter State = provider.CreateParameter("State", Dealer.State.State, DbType.String);
+            DbParameter StateCode = provider.CreateParameter("StateCode", Dealer.State.StateCode, DbType.String);
+            DbParameter Pincode = provider.CreateParameter("Pincode", Dealer.Pincode, DbType.String);
+            DbParameter GSTIN = provider.CreateParameter("GSTIN", Dealer.GSTIN, DbType.String);
+            DbParameter PAN = provider.CreateParameter("PAN", Dealer.PAN, DbType.String);
+            DbParameter Mobile = provider.CreateParameter("Mobile", Dealer.Mobile, DbType.String);
+            DbParameter Email = provider.CreateParameter("Email", Dealer.Email, DbType.String);
+            DbParameter ContactPerson = provider.CreateParameter("ContactPerson", Dealer.ContactPerson, DbType.String); 
+
+            DbParameter[] Params = new DbParameter[12] { DealerCode, Address1, Address2, City, State, StateCode, Pincode, GSTIN, PAN, Mobile, Email, ContactPerson };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("InsertOrUpdateDealerAddress", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                string m = sqlEx.Message;
+            }
+            catch (Exception ex)
+            { }
+            return success;
+        }
+
+
+        //public PDealerAddress GetDealerAddress(int? DealerID, string DealerCode)
+        //{
+
+        //    PDealerAddress Dealer = null;
+
+        //    DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+        //    DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.Int32);
+        //    DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+        //    try
+        //    {
+        //        using (DataSet ds = provider.Select("GetDealerAddress", Params))
+        //        {
+        //            if (ds != null)
+        //            {
+        //                foreach (DataRow dr in ds.Tables[0].Rows)
+        //                {
+        //                    Dealer = new PDealer();
+        //                    Dealer.DID = Convert.ToInt32(dr["DID"]);
+        //                    Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
+        //                    Dealer.UserName = Convert.ToString(dr["UserName"]);
+        //                    Dealer.ContactName = Convert.ToString(dr["ContactName"]);
+        //                    Dealer.MailID1 = Convert.ToString(dr["MailID"]);
+        //                    Dealer.Phone = Convert.ToString(dr["Phone"]);
+        //                    Dealer.UserTypeID = Convert.ToInt32(dr["UserTypeID"]);
+        //                    Dealer.IsActive = Convert.ToBoolean(Convert.ToString(dr["IsActive"]));
+        //                    Dealer.HeadOfficeID = Convert.ToString(dr["HeadOfficeID"]).Trim();
+        //                    Dealer.StateCode = Convert.ToString(dr["StateCode"]).Trim();
+        //                    Dealer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]) };
+        //                    Dealer.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) };
+
+        //                    Dealer.EInvAPI = Convert.ToBoolean(dr["EInvAPI"]);
+        //                    Dealer.GspCode = Convert.ToString(dr["GspCode"]);
+        //                    Dealer.Gstin = Convert.ToString(dr["Gstin"]);
+        //                    Dealer.ApiUserName = Convert.ToString(dr["ApiUserName"]);
+        //                    Dealer.ApiPassword = Convert.ToString(dr["ApiPassword"]);
+
+        //                    Dealer.EInvUserAPI = new PEInvUserAPI()
+        //                    {
+        //                        Handle = Convert.ToString(dr["EInvHandle"]),
+        //                        HandleType = Convert.ToString(dr["EInvHandleType"]),
+        //                        Password = Convert.ToString(dr["EInvMailPassword"])
+        //                    };
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return Dealer;
+        //}
     }
 }

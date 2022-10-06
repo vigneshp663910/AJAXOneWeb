@@ -71,10 +71,10 @@ namespace Business
                                 Service.ICTicket.Dealer.Email = Convert.ToString(dr["DealerEmail"]);
 
 
-                                Service.ICTicket.Dealer.EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]);
-                                Service.ICTicket.Dealer.EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]);
-                                Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
-                                Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
+                                //Service.ICTicket.Dealer.EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]);
+                                //Service.ICTicket.Dealer.EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]);
+                                //Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
+                                //Service.ICTicket.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
 
                                
                                
@@ -169,9 +169,9 @@ namespace Business
                                     DealerName = Convert.ToString(dr["ContactName"]),
                                     IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
                                     EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"]),
-                                    EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
-                                    EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
-                                    EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"])
+                                    //EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
+                                    //EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
+                                    //EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"])
                                 };
                                 W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
                                 W.InvoiceItems = new List<PDMS_WarrantyClaimInvoiceItem>();
@@ -259,9 +259,16 @@ namespace Business
                                     DealerName = Convert.ToString(dr["DealerName"]),
                                     IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
                                     EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"]),
-                                    EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
-                                    EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
-                                    EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"])
+                                    GSTIN= Convert.ToString(dr["GSTIN"]),
+                                    Address1 = Convert.ToString(dr["Address1"]),
+                                    Address2 = Convert.ToString(dr["Address2"]),
+                                    City = Convert.ToString(dr["City"]),
+                                    Pincode = Convert.ToString(dr["Pincode"]),
+                                    StateCode = Convert.ToString(dr["StateCode"]),
+                                    //EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
+                                    //EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
+                                    //EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"])
+
                                 };
                                 W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
                                 W.InvoiceItems = new List<PDMS_WarrantyClaimInvoiceItem>();
@@ -270,17 +277,18 @@ namespace Business
 
                                 W.InvoiceDetails = new PDMS_WarrantyClaimInvoiceDetails();
 
-                                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(W.Dealer.DealerCode);
+                                //  PDMS_Customer Dealer = new SCustomer().getCustomerAddress(W.Dealer.DealerCode);
+                                //  PDealerAddress Dealer = new PDealerAddress();
 
                                 // string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                                 // string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
 
-                                W.InvoiceDetails.SupplierGSTIN = Dealer.GSTIN;
-                                W.InvoiceDetails.Supplier_addr1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2)).Trim(',');
-                                W.InvoiceDetails.SupplierLocation = Dealer.City;
-                                W.InvoiceDetails.SupplierPincode = Dealer.Pincode;
-                                W.InvoiceDetails.SupplierStateCode = Dealer.State.StateCode;
+                                W.InvoiceDetails.SupplierGSTIN = W.Dealer.GSTIN;
+                                W.InvoiceDetails.Supplier_addr1 = (W.Dealer.Address1 + (string.IsNullOrEmpty(W.Dealer.Address2) ? "" : "," + W.Dealer.Address2)).Trim(',');
+                                W.InvoiceDetails.SupplierLocation = W.Dealer.City;
+                                W.InvoiceDetails.SupplierPincode = W.Dealer.Pincode;
+                                W.InvoiceDetails.SupplierStateCode = W.Dealer.StateCode;
 
                                 W.InvoiceDetails.BuyerGSTIN = Convert.ToString(dr["BuyerGSTIN"]);
                                 W.InvoiceDetails.BuyerName = Convert.ToString(dr["BuyerName"]);
@@ -959,13 +967,21 @@ namespace Business
                     try
                     {
                         PDealer Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
-                        PApiEInv ul = new PApiEInv();
-                        ul.handle = Dealer.EInvUserAPI.Handle;
-                        ul.handleType = Dealer.EInvUserAPI.HandleType;
-                        ul.password = Dealer.EInvUserAPI.Password;
-                        PApiHeader HeaderData =  JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));                         
+                        PApiEInvHandle Handle = new PApiEInvHandle();
+                        Handle.handle = Dealer.EInvUserAPI.Handle;
+                        Handle.handleType = Dealer.EInvUserAPI.HandleType;
+                        Handle.password = Dealer.EInvUserAPI.Password;
+                        PApiHeader Header = null;
+                        PApiResult ResultToken = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPutWithOutToken("EInvoice/GetEInvoiceToken", Handle));
+                        if (ResultToken.Status == PApplication.Failure)
+                        {
+                            return ;
+                        }
+                        Header = JsonConvert.DeserializeObject<PApiHeader>(JsonConvert.SerializeObject(ResultToken.Data));
+
+
                         PEInvoice EInvoice = ConvertSalesCommissionClaimInvoice(Pinv);                            
-                        PResultEInv Results = new BApiEInv().ApiPut(HeaderData, Dealer, EInvoice);
+                        PResultEInv Results = new BApiEInv().ApiPut(Header, Dealer, EInvoice);
                         if (Results.Status == PApplication.Failure)
                         {
                             PSuccessEInv data = (PSuccessEInv)Results.data;
@@ -1015,9 +1031,9 @@ namespace Business
                             Service.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
                             Service.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
 
-                            Service.Dealer.EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]);
-                            Service.Dealer.EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]);
-                            Service.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
+                            //Service.Dealer.EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]);
+                            //Service.Dealer.EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]);
+                            //Service.Dealer.EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"]);
 
 
                             //Service.ICTicket.Customer = new PDMS_Customer();
@@ -1272,7 +1288,8 @@ namespace Business
                 int TOTALLINEITEMS = 0;
                 EInvoice.TranDtls = new PTranDtls()
                 {
-                    IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "Y" : "N",
+                    // IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "N" : "Y",
+                    IgstOnIntra = "N"
                 };
                 EInvoice.DocDtls = new PDocDtls()
                 {
@@ -1294,9 +1311,7 @@ namespace Business
                     //Ph = Pinv.ICTicket.Dealer.Mobile, 
                     //Em = Pinv.ICTicket.Dealer.Email
                 };
-
                 //SupplierCode = Pinv.ICTicket.Dealer.DealerCode, 
-
                 EInvoice.BuyerDtls = new PBuyerDtls()
                 {
                     Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
@@ -1320,8 +1335,6 @@ namespace Business
                     Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
                 };
 
-
-
                 EInvoice.ShipDtls = new PShipDtls()
                 {
                     Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
@@ -1339,7 +1352,6 @@ namespace Business
                 AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
                 TOTALLINEITEMS = 0;
 
-
                 foreach (PDMS_PaidServiceInvoiceItem Pinvi in Pinv.InvoiceItems)
                 {
                     TOTALLINEITEMS = TOTALLINEITEMS + 1;
@@ -1354,16 +1366,16 @@ namespace Business
                     AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
 
                     EInvoice.ItemList.Add(new PItemList()
-                    { 
+                    {
                         SlNo = Convert.ToString(TOTALLINEITEMS),
                         PrdDesc = Pinvi.Material.MaterialDescription,
-                        IsServc = "Y",
+                        IsServc = Pinvi.Material.HSN == "998719" ? "Y" : "N",
                         HsnCd = Pinvi.Material.HSN,
                         //Barcde = "",
                         Qty = Pinvi.Qty.ToString(),
                         FreeQty = "0",
                         Unit = "NOS",
-                        UnitPrice = Convert.ToString(Math.Round((decimal)Pinvi.Rate, 2)),
+                        UnitPrice = Math.Round((decimal)Pinvi.Rate, 2).ToString(),
                         TotAmt = Math.Round(Pinvi.TaxableValue, 2).ToString(),
                         Discount = Convert.ToString(Pinvi.Discount),
                         PreTaxVal = "0",
@@ -1442,6 +1454,7 @@ namespace Business
             {
             }
             return EInvoice;
+
 
             //PEInvoice EInvoice = new PEInvoice();
             //try
@@ -1619,7 +1632,7 @@ namespace Business
             //{
             //}
             //return EInvoice;
-        } 
+        }
         public PEInvoice ConvertActivityInvoice(PDMS_WarrantyClaimInvoice Pinv)
         {
             PEInvoice EInvoice = new PEInvoice();
@@ -1628,7 +1641,8 @@ namespace Business
                 int TOTALLINEITEMS = 0;
                 EInvoice.TranDtls = new PTranDtls()
                 {
-                    IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "Y" : "N",
+                    // IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "N" : "Y",
+                    IgstOnIntra ="N"
                 };
                 EInvoice.DocDtls = new PDocDtls()
                 {
@@ -1809,7 +1823,8 @@ namespace Business
                 int TOTALLINEITEMS = 0;
                 EInvoice.TranDtls = new PTranDtls()
                 {
-                    IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "Y" : "N",
+                    //IgstOnIntra = Pinv.InvoiceDetails.SupplierGSTIN.Substring(0, 2) == Pinv.InvoiceDetails.BuyerGSTIN.Substring(0, 2) ? "Y" : "N",
+                    IgstOnIntra = "N"
                 };
                 EInvoice.DocDtls = new PDocDtls()
                 {
@@ -2022,37 +2037,49 @@ namespace Business
             try
             {
                 PApiHeader Header = null;
-                PApplicationSettings Asetting = new BApplicationSettings().getAppSetting((short)ApplicationSettings.EInvoiceToken)[0];
-                if (Convert.ToDateTime(Asetting.Value3).AddHours(6) >= DateTime.Now)
-                {
-                    Header = new PApiHeader();
-                    Header.Data = new PHeaderData();
-                    Header.Data.token = Asetting.Value1;
-                    Header.Data.associatedOrgs = new List<PHeaderDataAssociated>();
-                    Header.Data.associatedOrgs.Add(new PHeaderDataAssociated() { organisation = new PHeaderDataAssociatedOrg() { id = Asetting.Value2 } });
-                }
-                else
-                {
-                    PApiEInv ul = new PApiEInv();
-                    ul.handle = Dealer.EInvUserAPI.Handle;
-                    ul.handleType = Dealer.EInvUserAPI.HandleType;
-                    ul.password = Dealer.EInvUserAPI.Password;
-                    Header = JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));
-                    int SettingID = (short)ApplicationSettings.EInvoiceToken;
-                    string Value1 = Header.Data.token;
-                    string Value2 = Header.Data.associatedOrgs[0].organisation.id;
-                    string Value3 = DateTime.Now.ToString();
-                    new BApplicationSettings().UpdateApplicationSetting(SettingID, Value1, Value2, Value3);
+                //PApplicationSettings Asetting = new BApplicationSettings().getAppSetting((short)ApplicationSettings.EInvoiceToken)[0];
+                //if (Convert.ToDateTime(Asetting.Value3).AddHours(6) >= DateTime.Now)
+                //{
+                //    Header = new PApiHeader();
+                //    Header.Data = new PHeaderData();
+                //    Header.Data.token = Asetting.Value1;
+                //    Header.Data.associatedOrgs = new List<PHeaderDataAssociated>();
+                //    Header.Data.associatedOrgs.Add(new PHeaderDataAssociated() { organisation = new PHeaderDataAssociatedOrg() { id = Asetting.Value2 } });
+                //}
+                //else
+                //{
+                //    PApiEInv ul = new PApiEInv();
+                //    ul.handle = Dealer.EInvUserAPI.Handle;
+                //    ul.handleType = Dealer.EInvUserAPI.HandleType;
+                //    ul.password = Dealer.EInvUserAPI.Password;
+                //    Header = JsonConvert.DeserializeObject<PApiHeader>(new BApiEInv().GetAccessToken(ul));
+                //    int SettingID = (short)ApplicationSettings.EInvoiceToken;
+                //    string Value1 = Header.Data.token;
+                //    string Value2 = Header.Data.associatedOrgs[0].organisation.id;
+                //    string Value3 = DateTime.Now.ToString();
+                //    new BApplicationSettings().UpdateApplicationSetting(SettingID, Value1, Value2, Value3);
 
-                }
+                //}
 
-                if (Header == null)
+                //if (Header == null)
+                //{
+                //    return "Token not generated";
+                //}
+
+                PApiEInvHandle Handle = new PApiEInvHandle();
+                Handle.handle = Dealer.EInvUserAPI.Handle;
+                Handle.handleType = Dealer.EInvUserAPI.HandleType;
+                Handle.password = Dealer.EInvUserAPI.Password;
+               // return JsonConvert.DeserializeObject<List<PDMS_Dealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                PApiResult ResultToken= JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPutWithOutToken("EInvoice/GetEInvoiceToken", Handle));
+                if (ResultToken.Status == PApplication.Failure)
                 {
                     return "Token not generated";
                 }
+                Header= JsonConvert.DeserializeObject<PApiHeader>(JsonConvert.SerializeObject(ResultToken.Data));
                 PResultEInv Results = new BApiEInv().ApiPut(Header, Dealer, EInvoice);
                 // PResultEInv Results = new PResultEInv();
-                //  PSuccessEInv PSuccess = JsonConvert.DeserializeObject<PSuccessEInv>("{\"data\": {\"AckNo\": 162210030870114,\"AckDt\": \"2022-01-10 12:21:00\",\"Irn\": \"Irn0158eb6a8b\",\"SignedInvoice\": \"SignedInvoiceuMMJAeuQ\",\"SignedQRCode\": \"SignedQRCodeFyA\",\"Status\": \"ACT\",\"EwbNo\": null,\"EwbDt\": null,\"EwbValidTill\": null,\"Remarks\": null }}");
+                // PSuccessEInv PSuccess = JsonConvert.DeserializeObject<PSuccessEInv>("{\"data\": {\"AckNo\": 162210030870114,\"AckDt\": \"2022-01-10 12:21:00\",\"Irn\": \"Irn0158eb6a8b\",\"SignedInvoice\": \"SignedInvoiceuMMJAeuQ\",\"SignedQRCode\": \"SignedQRCodeFyA\",\"Status\": \"ACT\",\"EwbNo\": null,\"EwbDt\": null,\"EwbValidTill\": null,\"Remarks\": null }}");
                 if (Results.Status == PApplication.Success)
                 {
                     //PResultEInvData data = JsonConvert.DeserializeObject<PResultEInvData>(JsonConvert.SerializeObject(Results.data));

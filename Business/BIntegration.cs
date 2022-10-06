@@ -20,8 +20,8 @@ namespace Business
         }
         public void Start()
         {
-            UpdateJobsStatus((short)Jobs.SalesQuotationDocumentsFromSap, Joblist((Jobs.SalesQuotationDocumentsFromSap)));
-            return;
+           // UpdateJobsStatus((short)Jobs.LeadQualificationByExpectedDateOfSale, Joblist((Jobs.LeadQualificationByExpectedDateOfSale)));
+          //  return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
             {
@@ -85,21 +85,21 @@ namespace Business
                         break;
                     case Jobs.CustomerIntegration:
                         new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
-                        new BAPI().ApiGet("Customer/CustomerMiss");
-                        new BAPI().ApiGet("Customer/CustomerShipToMiss");
+                        new BAPI().ApiGetWithOutToken("Customer/CustomerMiss");
+                        new BAPI().ApiGetWithOutToken("Customer/CustomerShipToMiss");
                         new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                         break;
 
                     case Jobs.UpdateSalesQuotationDeliveryDetails:
                         new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
-                        new BAPI().ApiGet("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails");
+                        new BAPI().ApiGetWithOutToken("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails");
                         new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                         break;
 
-                    case Jobs.SalesQuotationDocumentsFromSap:
+                    case Jobs.SalesQuotationFlowFromSap:
                         new FileLogger().LogMessageService("Started", "SalesQuotationDocumentsFromSap", null);
-                        new BAPI().ApiGet("SalesQuotation/GetSalesQuotationFlow");
-                       // new BSalesQuotation().GetSalesQuotationFlow();
+                        new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
+                        // new BSalesQuotation().GetSalesQuotationFlow();
                         new FileLogger().LogMessageService("Ended", "SalesQuotationDocumentsFromSap ", null);
                         break;
                     case Jobs.EnquiryFromCRM:
@@ -107,6 +107,18 @@ namespace Business
                         new BAPI().ApiGetWithOutToken("Enquiry/getEnquiryFromSAP");
                         new FileLogger().LogMessageService("Ended", "EnquiryFromCRM ", null);
                         break;
+                    case Jobs.EInvoice:
+                        new FileLogger().LogMessageService("Started", "EInvoice Integration", null);
+                        new BDMS_EInvoice().StartGeneratEInvoice();
+                        new FileLogger().LogMessageService("Ended", "EInvoice Integration", null);
+                        break;
+                    case Jobs.LeadQualificationByExpectedDateOfSale:
+                        new FileLogger().LogMessageService("Started", "EInvoice Integration", null);
+                        new BAPI().ApiGetWithOutToken("Lead/UpdateLeadQualificationByExpectedDateOfSale");
+                        new FileLogger().LogMessageService("Ended", "EInvoice Integration", null);
+                        break;
+
+
                     //case Jobs.ICTicketIntegrationFromCRM:
                     //    new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);
                     //    C = new BDMS_ICTicket().IntegrationICTicket();
@@ -117,8 +129,8 @@ namespace Business
                     //    new FileLogger().LogMessageService("Started", "MaterialIntegrationFromPostgre", null);
                     //    C = new BDMS_Material().IntegrationMaterial();
                     //    new FileLogger().LogMessageService("Ended", "Material Integration From Postgre Total Record " + C.ToString(), null);
-
                     //    break;
+
                     //case Jobs.SAPDocumentForWarrantyInvoiceFromSAP:
                     //    new FileLogger().LogMessageService("Started", "SAP Document For Warranty Invoice From SAP", null);
                     //    new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumberOld();
@@ -130,6 +142,7 @@ namespace Business
                     //    new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
                     //    new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
                     //    break;
+
                     //case Jobs.TechnicianIntegrationFromSAP:
                     //    new FileLogger().LogMessageService("Started", "Technician Integration From SAP", null);
                     //    new BEmployees().InsertOrUpdateTechnicianUserFromSAP();
@@ -140,6 +153,7 @@ namespace Business
                     //    new BDMS_ICTicket().UpdateICTicketToSAP();
                     //    new FileLogger().LogMessageService("Ended", "Update ICTicket To SAP", null);
                     //    break;
+
                     //case Jobs.ModelForClaim:
                     //    new FileLogger().LogMessageService("Started", "Model For Claim", null);
                     //    new BDMS_WarrantyClaim().UpdateWarrantyClaimMachineSerialNumberForModel();
@@ -186,6 +200,7 @@ namespace Business
                     //    //new BDMS_MTTR().MailEscalationMoreThan24Hrs();
                     //    new FileLogger().LogMessageService("Ended", "EscalationMoreThan72Hrs", null);
                     //    break;
+
                     case Jobs.IntegrationEquipmentFromSAP:
                         new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP", null);
                         new BDMS_Equipment().IntegrationEquipmentFromSAP();

@@ -43,4 +43,20 @@ namespace Properties
 
         public PEInvUserAPI EInvUserAPI { get; set; }
     }
+
+    public class PDealerAddress
+    {
+        public int DealerID { get; set; }
+        public string Gstin { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public PDMS_State State { get; set; }
+        public string City { get; set; }
+        public string Pincode { get; set; }
+        public string Pan { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string IsActive { get; set; }
+        public string ContactPerson { get; set; }  
+    }
 }

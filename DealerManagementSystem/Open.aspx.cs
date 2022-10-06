@@ -122,5 +122,57 @@ namespace DealerManagementSystem
         {
             new BDMS_EInvoice().StartGeneratEInvoice();
         }
+
+        protected void btnDealerAddress_Click(object sender, EventArgs e)
+        {
+            List<string> Dealer = new List<string>();
+            Dealer.Add("9001");
+            Dealer.Add("9004");
+            Dealer.Add("9005");
+            Dealer.Add("9007");
+            Dealer.Add("9008");
+            Dealer.Add("9009");
+            Dealer.Add("9010");
+            Dealer.Add("9012");
+            Dealer.Add("9013");
+            Dealer.Add("9014");
+            Dealer.Add("9015");
+            Dealer.Add("9017");
+            Dealer.Add("9018");
+            Dealer.Add("9019");
+            Dealer.Add("9020");
+            Dealer.Add("9021"); 
+            Dealer.Add("9023");
+            Dealer.Add("9024");
+            Dealer.Add("9026");
+            Dealer.Add("9027");
+            Dealer.Add("9028");
+            Dealer.Add("9029");
+            Dealer.Add("9030");
+            Dealer.Add("9031");
+            Dealer.Add("9032");
+            Dealer.Add("9034");
+            Dealer.Add("9033");
+            Dealer.Add("9036");
+            Dealer.Add("9038");
+            Dealer.Add("9040");
+            Dealer.Add("9041");
+            Dealer.Add("9042");
+            Dealer.Add("9043");
+            Dealer.Add("9044");
+            Dealer.Add("9045");
+            Dealer.Add("9046");
+            Dealer.Add("9049");
+            Dealer.Add("9050");
+            Dealer.Add("9051");
+            Dealer.Add("9052");
+            Dealer.Add("9053");
+            Dealer.Add("9054");
+            Dealer.Add("9055");  
+            foreach (string DealerCode in Dealer)
+            {
+                new BDealer().InsertOrUpdateDealerAddress(DealerCode);
+            }
+        }
     }
 }

@@ -167,6 +167,13 @@
                     <asp:Button ID="btnAPIEInvoice" runat="server" Text="API E Invoice" OnClick="btnAPIEInvoice_Click" />
                 </td>
             </tr>
+             <tr>
+                <td>
+                    <br />
+                     <asp:Label ID="Label7" runat="server" Text="Dealer Address from SAP"></asp:Label> 
+                    <asp:Button ID="btnDealerAddress" runat="server" Text="Dealer Address from SAP" OnClick="btnDealerAddress_Click" />
+                </td>
+            </tr>
         </table>
 
         <div id="chart" style="width: 100%; height: 500px;"></div>

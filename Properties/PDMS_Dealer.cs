@@ -31,9 +31,9 @@ namespace Properties
         public PUser SM { get; set; }
         public Boolean ServicePaidEInvoice { get; set; }
         public Boolean IsEInvoice { get; set; }
-        public string EInvoiceFTPPath { get; set; }
-        public string EInvoiceFTPUserID { get; set; }
-        public string EInvoiceFTPPassword { get; set; }
+        //public string EInvoiceFTPPath { get; set; }
+        //public string EInvoiceFTPUserID { get; set; }
+        //public string EInvoiceFTPPassword { get; set; }
         public DateTime? EInvoiceDate { get; set; }
         public string AuthorityName { get; set; }
         public string AuthorityDesignation { get; set; }
