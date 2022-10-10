@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblGSTIN.Text = Customer.GSTIN;
                 lblPAN.Text = Customer.PAN;
 
-                string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
+                string Address = Customer.Address1 == null ? "" : (Customer.Address1) + ", " + Customer.Address2 == null ? "" : (Customer.Address2) + ", " + Customer.District.District == null ? "" : Customer.District.District + ", " + Customer.State.State;
                 lblAddress.Text = Address;
 
                 cbVerified.Checked = Customer.IsVerified;

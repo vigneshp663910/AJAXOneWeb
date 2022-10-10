@@ -33,10 +33,12 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lnkBtnEditWarranty" runat="server" OnClick="lnkBtnActions_Click">Update Warranty Type</asp:LinkButton>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
@@ -79,7 +81,11 @@
                 <div class="col-md-12">
                     <label>Special Variants : </label>
                     <asp:Label ID="lblSpecialVariants" runat="server" CssClass="label"></asp:Label>
-                </div>                
+                </div>  
+                <div class="col-md-12">
+                    <label>Warranty Type : </label>
+                    <asp:Label ID="lblWarrantyType" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -216,13 +222,70 @@
                     </div>
                 </fieldset>
             </div>
-        </ContentTemplate>
-    </asp1:TabPanel>
+        
+</ContentTemplate>
+    
+
+
+
+</asp1:TabPanel>
     <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
+
+
+
+
             </div>
-        </ContentTemplate>
-    </asp1:TabPanel>
+        
+</ContentTemplate>
+    
+
+
+
+</asp1:TabPanel>
 </asp1:TabContainer>
+
+<asp:Panel ID="pnlUpdateWarrantyType" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueUpdateWarrantyType">Update Warranty Type</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnUpdateWarrantyTypeClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageUpdateWarrantyType" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                <div class="col-md-12">
+                     <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer</label>
+                        <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Model</label>
+                        <asp:Label ID="lblModelP" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Equipment Serial No.</label>
+                        <asp:Label ID="lblEquipmentSerialNoP" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Warranty Type</label>
+                        <asp:DropDownList ID="ddlWarranty" runat="server" CssClass="form-control" BorderColor="Silver"/>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnUpdateWarrantyType" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateWarrantyType_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateWarrantyType" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateWarrantyType" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<div style="display: none">
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+</div>
