@@ -143,7 +143,7 @@ namespace DealerManagementSystem.ViewService
                 int? TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
                 int? ModelID = ddlModelID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlModelID.SelectedValue);
                 int? TsirStatusID = ddlTsirStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTsirStatus.SelectedValue);
-                SOIs = new BDMS_ICTicketTSIR().GetICTicketTSIR(DealerCode, txtCustomerCode.Text.Trim(), txtTSIRNo.Text.Trim(), TSIRDateF, TSIRDateT
+                SOIs = new BDMS_ICTicketTSIR().GetICTicketTSIR(null, DealerCode, txtCustomerCode.Text.Trim(), txtTSIRNo.Text.Trim(), TSIRDateF, TSIRDateT
                     , txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, txtSroCode.Text.Trim(), TechnicianID, TypeOfWarrantyID, ModelID, txtMachineSerialNumber.Text.Trim(), TsirStatusID);
 
                 if (ddlDealerCode.SelectedValue == "0")

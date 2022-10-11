@@ -2124,7 +2124,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[51] = new ReportParameter("CompanyName", Dealer.CustomerFullName.ToUpper(), false);
                 P[52] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
                 P[53] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-                P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Ajax.GSTIN);
+                P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
                 P[56] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
             }

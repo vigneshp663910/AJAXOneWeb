@@ -21,8 +21,7 @@ namespace DealerManagementSystem.ViewService
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
 
         public List<PDMS_WarrantyFailureMaterial> SDMS_WarrantyClaimHeader
@@ -433,6 +432,7 @@ namespace DealerManagementSystem.ViewService
             HttpContext.Current.Response.Charset = "utf-16";
             HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
             Response.BinaryWrite(UploadedFile.AttachedFile);
+            new BXcel().PdfDowload();
             Response.Flush();
             Response.End();
         }

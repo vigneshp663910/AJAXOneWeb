@@ -1248,7 +1248,7 @@ namespace Business
                 DbParameter[] Params = new DbParameter[7] { DealerIDP, CustomerCodeP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, SaleOrderInvoiceStatusIDP, MaterialCodeP };
 
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
-                using (DataSet DataSet = provider.Select("ZDMS_GetSaleOrderInvoicePartsDealerCustomerAndMaterialWise", Params))
+                using (DataSet DataSet = provider.Select("ZDMS_GetSaleOrderInvoiceWarrantyDealerCustomerAndMaterialWise", Params))
                 {
                     if (DataSet != null)
                     {

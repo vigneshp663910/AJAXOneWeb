@@ -40,7 +40,7 @@ namespace DealerManagementSystem.UserControls
         void FillTSIR()
         {
             string TSIRNumber = (string)Session["TSIRNumber"];
-            List<PDMS_ICTicketTSIR> TSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIR(null, "", TSIRNumber, null, null, "", null, null, "", null, null, null, "", null);
+            List<PDMS_ICTicketTSIR> TSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIR(null, null, "", TSIRNumber, null, null, "", null, null, "", null, null, null, "", null);
             if (TSIRs.Count == 0)
             {
                 return;

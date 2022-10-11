@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -31,91 +32,9 @@ namespace Business
         }
         public List<PDMS_PurchaseOrder> GetPurchaseOrder(string filter)
         {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_PurchaseOrder> POs = new List<PDMS_PurchaseOrder>();
-            try
-            {
-                string Query = "select po.p_po_id po,po.s_created_on po_date,po.s_tenant_id,ten.description tenant_name,po.f_location,po.f_bill_to,po.f_currency,po.r_insurance_p"
-                    + ",po.r_tax_amt r_tax_amtH,po.f_sold_to,po.s_status,po.r_net_amt  r_net_amtH,po.r_gross_amt  r_gross_amtH,po.r_discount_amt  r_discount_amtH,po.f_division,poi.p_po_item "
-         + ",poi.f_material_id,mmh.r_hsn_id,poi.r_order_qty,poi.r_tax_amt,poi.f_uom,poi.r_net_amt,poi.d_material_desc,poi.r_gross_amt,poi.r_shiped_qty,poi.r_discount_amt"
-           + ",poi.r_unit_price,poi.r_approved_qty,SGST.r_cond_amt SGST,CGST.r_cond_amt CGST,IGST.r_cond_amt IGST,F.r_cond_amt ZFRH,I.r_cond_amt ZINS,B.r_cond_amt  ZPKF,o.r_desc  PO_Type"
-               + " from dppor_purc_order_hdr po "
-+ " inner join dppor_purc_order_item poi on poi.k_po_id = po.p_po_id  "
-+ " inner join m_tenant ten on ten.tenantid = po.s_tenant_id  "
-+ " left join maf_object_type o on o.s_object_type = po.s_object_type and o.k_entityname='dppor_purc_order_hdr' and o.is_deleted is null "
-+ " left join dmmmr_mmaster mmh on mmh.p_material = poi.f_material_id and mmh.s_tenant_id = po.s_tenant_id "
-
-+ " left Join dppor_purc_order_cond SGST  on SGST.k_po_id = poi.k_po_id and SGST.k_po_item =poi.p_po_item and SGST.p_condition_type ='JOSG' "
-+ " left Join dppor_purc_order_cond CGST  on CGST.k_po_id = poi.k_po_id and CGST.k_po_item =poi.p_po_item and CGST.p_condition_type ='JOCG' "
-+ " left Join dppor_purc_order_cond IGST  on IGST.k_po_id = poi.k_po_id and IGST.k_po_item =poi.p_po_item and IGST.p_condition_type ='JOIG' "
-
-+ " left Join dppor_purc_order_cond F  on F.k_po_id = poi.k_po_id and F.k_po_item =poi.p_po_item and F.p_condition_type ='ZFRH' "
-+ " left Join dppor_purc_order_cond I  on I.k_po_id = poi.k_po_id and I.k_po_item =poi.p_po_item and I.p_condition_type ='ZINS' "
-+ " left Join dppor_purc_order_cond B  on B.k_po_id = poi.k_po_id and B.k_po_item =poi.p_po_item and B.p_condition_type ='ZPKF' where 1=1 "
-+ filter;
-
-                // string Query = "SELECT  * from pr_get_purchase_order(" + filter + ")";
-                DataTable dt = new NpgsqlServer().ExecuteReader(Query);
-                PDMS_PurchaseOrder PO = new PDMS_PurchaseOrder();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    PO = new PDMS_PurchaseOrder();
-                    PO.PurchaseOrderID = Convert.ToString(dr["po"]);
-                    PO.PurchaseOrderDate = Convert.ToDateTime(dr["po_date"]);
-                    PO.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["s_tenant_id"]), DealerName = Convert.ToString(dr["tenant_name"]) };
-                    PO.Location = Convert.ToString(dr["f_location"]);
-                    PO.Currency = Convert.ToString(dr["f_currency"]);
-                    PO.BillTo = Convert.ToString(dr["f_bill_to"]);
-
-                    PO.Insurance = Convert.ToString(dr["r_insurance_p"]);
-                    PO.TaxAmount = DBNull.Value == dr["r_tax_amt"] ? 0 : Convert.ToDecimal(dr["r_tax_amt"]);
-                    PO.SoldTo = Convert.ToString(dr["f_sold_to"]);
-                    PO.POStatus = Convert.ToString(dr["s_status"]);
-                    PO.NetAmount = DBNull.Value == dr["r_net_amt"] ? 0 : Convert.ToDecimal(dr["r_net_amt"]);
-                    PO.GrossAmount = DBNull.Value == dr["r_gross_amt"] ? 0 : Convert.ToDecimal(dr["r_gross_amt"]);
-                    PO.DiscountAmount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
-                    PO.Division = Convert.ToString(dr["f_division"]);
-                    PO.POType = Convert.ToString(dr["PO_Type"]);
-
-                    PO.PurchaseOrderItem = new PDMS_PurchaseOrderItem();
-                    PO.PurchaseOrderItem.POItem = Convert.ToInt32(dr["p_po_item"]);
-                    PO.PurchaseOrderItem.Material = new PDMS_Material()
-                    {
-                        MaterialCode = Convert.ToString(dr["f_material_id"]),
-                        MaterialDescription = Convert.ToString(dr["d_material_desc"]),
-                        HSN = Convert.ToString(dr["r_hsn_id"]),
-                        // PO.PurchaseOrderItem.Material.MaterialType = Convert.ToString(dr["f_material_id"]);
-                    };
-
-                    PO.PurchaseOrderItem.OrderQuantity = DBNull.Value == dr["r_order_qty"] ? 0 : Convert.ToDecimal(dr["r_order_qty"]);
-                    PO.PurchaseOrderItem.TaxAmount = DBNull.Value == dr["r_tax_amt"] ? 0 : Convert.ToDecimal(dr["r_tax_amt"]);
-                    PO.PurchaseOrderItem.UOM = Convert.ToString(dr["f_uom"]);
-                    PO.PurchaseOrderItem.NetAmount = DBNull.Value == dr["r_net_amt"] ? 0 : Convert.ToDecimal(dr["r_net_amt"]);
-
-                    PO.PurchaseOrderItem.GrossAmount = DBNull.Value == dr["r_gross_amt"] ? 0 : Convert.ToDecimal(dr["r_gross_amt"]);
-                    PO.PurchaseOrderItem.ShipedQuantity = DBNull.Value == dr["r_shiped_qty"] ? 0 : Convert.ToDecimal(dr["r_shiped_qty"]);
-                    PO.PurchaseOrderItem.DiscountAmount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
-                    PO.PurchaseOrderItem.UnitPrice = DBNull.Value == dr["r_unit_price"] ? 0 : Convert.ToDecimal(dr["r_unit_price"]);
-                    PO.PurchaseOrderItem.ApprovedQuantity = DBNull.Value == dr["r_approved_qty"] ? 0 : Convert.ToDecimal(dr["r_approved_qty"]);
-
-                    PO.PurchaseOrderItem.Fright = DBNull.Value == dr["ZFRH"] ? 0 : Convert.ToDecimal(dr["ZFRH"]);
-                    PO.PurchaseOrderItem.Insurance = DBNull.Value == dr["ZINS"] ? 0 : Convert.ToDecimal(dr["ZINS"]);
-                    PO.PurchaseOrderItem.PackingAndForwarding = DBNull.Value == dr["ZPKF"] ? 0 : Convert.ToDecimal(dr["ZPKF"]);
-                    PO.PurchaseOrderItem.SGST = DBNull.Value == dr["SGST"] ? 0 : Convert.ToDecimal(dr["SGST"]);
-                    PO.PurchaseOrderItem.CGST = DBNull.Value == dr["CGST"] ? 0 : Convert.ToDecimal(dr["CGST"]);
-                    PO.PurchaseOrderItem.IGST = DBNull.Value == dr["IGST"] ? 0 : Convert.ToDecimal(dr["IGST"]);
-
-                    POs.Add(PO);
-                }
-                return POs;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_PurchaseOrder", "GetPurchaseOrder", ex);
-                throw ex;
-            }
-            return POs;
+            string endPoint = "PurchaseOrder/PurchaseOrder?Filter=" + filter;
+            return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+ 
         }
         public List<PDMS_PurchaseOrder> GetPurchaseOrderPerformance(string filter)
         {
@@ -242,199 +161,16 @@ namespace Business
         }
         public List<PDMS_PurchaseOrder> GetPurchaseOrderPerformanceLinq(string filter1, string filter2)
         {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_PurchaseOrder> POs = new List<PDMS_PurchaseOrder>();
-            try
-            {
-                string Query1 = "select  po.p_po_id  PO_No,po.r_order_date PO_Date, po.f_location as Location,po.s_status PO_Status,poi.p_po_item PO_Item,poi.f_material_id Material_Number,poi.d_material_desc Material_Description,poi.r_order_qty Qty"
-+ " ,poi.r_unit_price  Unit_Price,poi.r_discount_amt Discount,poi.f_uom UOM,poi.r_gross_amt Net_Amount ,poi.r_net_amt Gross_Amount,poi.r_tax_amt  Tax_Amount,o.r_desc  Order_Type,mmh.r_hsn_id HSN_Code"
-+ " ,ten.tenantid Dealer_Code,ten.description Dealer_Name,asni.r_delivery_qty  ASN_Qty,asn.r_asn_date ASN_Date,gri.k_gr_id  GR_Number,gr.r_gr_date GR_Date,gri.r_delivery_qty GR_Qty"
-+ " ,(gri.r_delivery_qty - gri.r_received_qty)   Missing_Qty,gri.r_damaged_qty Damaged_Qty"
-+ " ,case when gri.r_is_wrongparts  is null then 0 when gri.r_is_wrongparts  is true then 1 else 0 end  as Wrong_Supply,gr.s_status GR_Status"
-+ " FROM   dppor_purc_order_hdr po  "
-+ "  inner JOIN dppor_purc_order_item poi ON  poi.k_po_id = po.p_po_id AND poi.s_tenant_id = po.s_tenant_id  and  po.s_tenant_id <> 20 "
-+ " left join maf_object_type o on o.s_object_type = po.s_object_type and o.k_entityname='dppor_purc_order_hdr' and o.is_deleted is null "
-+ " left join dmmmr_mmaster mmh on mmh.p_material = poi.f_material_id and mmh.s_tenant_id = po.s_tenant_id "
-+ " inner join m_tenant ten on ten.tenantid = po.s_tenant_id  "
-+ " left join dpasr_asn_item asni on asni.f_po_id = po.p_po_id and asni.f_po_item = poi.p_po_item "
-+ " left join dpasr_asn_hdr asn on asn.p_asn_id = asni.k_asn_id   "
-+ " left join dpgrr_gr_hdr gr on  gr.f_asn_id = asni.k_asn_id   "
-+ " left join dpgrr_gr_item gri on gri.f_po_id = po.p_po_id and gri.f_po_item = poi.p_po_item   and gr.p_gr_id = gri.k_gr_id Where 1 = 1 " + filter1;
-                string Query2 = "select  po.p_po_id  PO_No,poi.p_po_item PO_Item,poi.s_tenant_id , T.p_condition_type,T.r_cond_amt  "
-                    + " from  dppor_purc_order_hdr po "
-                    + " inner JOIN dppor_purc_order_item poi ON  poi.k_po_id = po.p_po_id AND poi.s_tenant_id = po.s_tenant_id  and  po.s_tenant_id <> 20 "
-                    + " left join maf_object_type o on o.s_object_type = po.s_object_type and o.k_entityname='dppor_purc_order_hdr' and o.is_deleted is null "
-                    + " left Join dppor_purc_order_cond T  on  T.k_po_id = poi.k_po_id and  T.k_po_item =poi.p_po_item  Where 1 = 1 " + filter2;
-                //          Query = "SELECT  * from pr_get_po_performance(" + filter + ")";
-                DataTable dt1 = new NpgsqlServer().ExecuteReader(Query1);
-                DataTable dt2 = new NpgsqlServer().ExecuteReader(Query2);
+            string endPoint = "PurchaseOrder/PurchaseOrderPerformanceLinq?filter1=" + filter1+ "&filter2=" + filter2;
+            return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
-                PDMS_PurchaseOrder PO = new PDMS_PurchaseOrder();
-                foreach (DataRow dr in dt1.Rows)
-                {
-                    PO = new PDMS_PurchaseOrder();
-                    PO.PurchaseOrderID = Convert.ToString(dr["po_no"]);
-                    PO.PurchaseOrderDate = Convert.ToDateTime(dr["po_date"]);
-                    PO.POMonth = PO.PurchaseOrderDate.ToString("MMMM");
-
-                    PO.Location = Convert.ToString(dr["location"]);
-                    PO.POStatus = Convert.ToString(dr["po_status"]);
-                    PO.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["dealer_code"]), DealerName = Convert.ToString(dr["dealer_name"]) };
-
-                    //  PO.Currency = Convert.ToString(dr["f_currency"]);
-                    //   PO.BillTo = Convert.ToString(dr["f_bill_to"]);
-
-                    //    PO.Insurance = Convert.ToString(dr["r_insurance_p"]);
-                    //   PO.TaxAmount = DBNull.Value == dr["r_tax_amt"] ? 0 : Convert.ToDecimal(dr["r_tax_amt"]);
-                    // PO.SoldTo = Convert.ToString(dr["f_sold_to"]);
-
-                    //   PO.NetAmount = DBNull.Value == dr["r_net_amt"] ? 0 : Convert.ToDecimal(dr["r_net_amt"]);
-                    //    PO.GrossAmount = DBNull.Value == dr["r_gross_amt"] ? 0 : Convert.ToDecimal(dr["r_gross_amt"]);
-                    //  PO.DiscountAmount = DBNull.Value == dr["r_discount_amt"] ? 0 : Convert.ToDecimal(dr["r_discount_amt"]);
-                    //  PO.Division = Convert.ToString(dr["f_division"]);
-                    PO.POType = Convert.ToString(dr["order_type"]);
-
-                    PO.PurchaseOrderItem = new PDMS_PurchaseOrderItem();
-                    PO.PurchaseOrderItem.POItem = Convert.ToInt32(dr["po_item"]);
-                    PO.PurchaseOrderItem.Material = new PDMS_Material()
-                    {
-                        MaterialCode = Convert.ToString(dr["material_number"]),
-                        MaterialDescription = Convert.ToString(dr["material_description"]),
-                        HSN = Convert.ToString(dr["hsn_code"]),
-                        // PO.PurchaseOrderItem.Material.MaterialType = Convert.ToString(dr["f_material_id"]);
-                    };
-
-                    PO.PurchaseOrderItem.OrderQuantity = DBNull.Value == dr["qty"] ? 0 : Convert.ToDecimal(dr["qty"]);
-                    PO.PurchaseOrderItem.UnitPrice = DBNull.Value == dr["unit_price"] ? 0 : Convert.ToDecimal(dr["unit_price"]);
-                    PO.PurchaseOrderItem.DiscountAmount = DBNull.Value == dr["discount"] ? 0 : Convert.ToDecimal(dr["discount"]);
-                    PO.PurchaseOrderItem.UOM = Convert.ToString(dr["uom"]);
-                    PO.PurchaseOrderItem.NetAmount = DBNull.Value == dr["Net_Amount"] ? 0 : Convert.ToDecimal(dr["Net_Amount"]);
-                    PO.PurchaseOrderItem.GrossAmount = DBNull.Value == dr["Gross_Amount"] ? 0 : Convert.ToDecimal(dr["Gross_Amount"]);
-
-                    PO.PurchaseOrderItem.TaxAmount = DBNull.Value == dr["Tax_Amount"] ? 0 : Convert.ToDecimal(dr["Tax_Amount"]);
-
-
-
-                    PO.PurchaseOrderItem.ASNDate = DBNull.Value == dr["asn_date"] ? (DateTime?)null : Convert.ToDateTime(dr["asn_date"]);
-                    PO.PurchaseOrderItem.ASNQuantity = DBNull.Value == dr["asn_qty"] ? 0 : Convert.ToDecimal(dr["asn_qty"]);
-                    PO.PurchaseOrderItem.GRNumber = Convert.ToString(dr["gr_number"]);
-                    PO.PurchaseOrderItem.GRDate = DBNull.Value == dr["gr_date"] ? (DateTime?)null : Convert.ToDateTime(dr["gr_date"]);
-                    PO.PurchaseOrderItem.GRQuantity = DBNull.Value == dr["gr_qty"] ? 0 : Convert.ToDecimal(dr["gr_qty"]);
-                    PO.PurchaseOrderItem.MissingQuantity = DBNull.Value == dr["missing_qty"] ? 0 : Convert.ToDecimal(dr["missing_qty"]);
-                    PO.PurchaseOrderItem.DamagedQuantity = DBNull.Value == dr["damaged_qty"] ? 0 : Convert.ToDecimal(dr["damaged_qty"]);
-                    PO.PurchaseOrderItem.GRStatus = Convert.ToString(dr["gr_status"]);
-                    PO.PurchaseOrderItem.ISWrongSupplied = Convert.ToBoolean(dr["wrong_supply"]);
-                    if (PO.PurchaseOrderItem.ISWrongSupplied)
-                        PO.PurchaseOrderItem.WrongSupplyQuantity = DBNull.Value == dr["asn_qty"] ? 0 : Convert.ToDecimal(dr["asn_qty"]);
-
-                    PO.PurchaseOrderItem.AsnMinusPODate = DBNull.Value == dr["asn_date"] ? (int?)null : (int)(((DateTime)PO.PurchaseOrderItem.ASNDate - PO.PurchaseOrderDate).TotalDays);
-                    PO.PurchaseOrderItem.POMinusAsnQuantity = DBNull.Value == dr["asn_qty"] ? (int?)null : (int)(PO.PurchaseOrderItem.OrderQuantity - PO.PurchaseOrderItem.ASNQuantity);
-
-                    PO.PurchaseOrderItem.GrMinusPODate = DBNull.Value == dr["gr_date"] ? (int?)null : (int)(((DateTime)PO.PurchaseOrderItem.GRDate - PO.PurchaseOrderDate).TotalDays);
-                    PO.PurchaseOrderItem.POMinusGrQuantity = DBNull.Value == dr["gr_qty"] ? (int?)null : (int)(PO.PurchaseOrderItem.OrderQuantity - PO.PurchaseOrderItem.GRQuantity);
-
-                    PO.PurchaseOrderItem.Fright = 0;
-                    PO.PurchaseOrderItem.Insurance = 0;
-                    PO.PurchaseOrderItem.PackingAndForwarding = 0;
-                    PO.PurchaseOrderItem.SGST = 0;
-                    PO.PurchaseOrderItem.CGST = 0;
-                    PO.PurchaseOrderItem.IGST = 0;
-
-                    DataRow[] ZFRH = dt2.Select("PO_No = '" + PO.PurchaseOrderID + "' AND PO_Item = '" + PO.PurchaseOrderItem.POItem + "' AND s_tenant_id = '" + PO.Dealer.DealerCode + "' and p_condition_type ='ZFRH' ");
-                    if (ZFRH.Count() == 1)
-                    {
-                        PO.PurchaseOrderItem.Fright = DBNull.Value == ZFRH[0]["r_cond_amt"] ? 0 : Convert.ToDecimal(ZFRH[0]["r_cond_amt"]);
-                    }
-                    DataRow[] ZINS = dt2.Select("PO_No = '" + PO.PurchaseOrderID + "' AND PO_Item = '" + PO.PurchaseOrderItem.POItem + "' AND s_tenant_id = '" + PO.Dealer.DealerCode + "' and p_condition_type ='ZINS' ");
-                    if (ZINS.Count() == 1)
-                    {
-                        PO.PurchaseOrderItem.Insurance = DBNull.Value == ZINS[0]["r_cond_amt"] ? 0 : Convert.ToDecimal(ZINS[0]["r_cond_amt"]);
-                    }
-                    DataRow[] ZPKF = dt2.Select("PO_No = '" + PO.PurchaseOrderID + "' AND PO_Item = '" + PO.PurchaseOrderItem.POItem + "' AND s_tenant_id = '" + PO.Dealer.DealerCode + "' and p_condition_type ='ZPKF' ");
-                    if (ZPKF.Count() == 1)
-                    {
-                        PO.PurchaseOrderItem.PackingAndForwarding = DBNull.Value == ZPKF[0]["r_cond_amt"] ? 0 : Convert.ToDecimal(ZPKF[0]["r_cond_amt"]);
-                    }
-                    DataRow[] JOSG = dt2.Select("PO_No = '" + PO.PurchaseOrderID + "' AND PO_Item = '" + PO.PurchaseOrderItem.POItem + "' AND s_tenant_id = '" + PO.Dealer.DealerCode + "' and p_condition_type ='JOSG' ");
-                    if (JOSG.Count() == 1)
-                    {
-                        PO.PurchaseOrderItem.SGST = DBNull.Value == JOSG[0]["r_cond_amt"] ? 0 : Convert.ToDecimal(JOSG[0]["r_cond_amt"]);
-                    }
-                    DataRow[] JOCG = dt2.Select("PO_No = '" + PO.PurchaseOrderID + "' AND PO_Item = '" + PO.PurchaseOrderItem.POItem + "' AND s_tenant_id = '" + PO.Dealer.DealerCode + "' and p_condition_type ='JOCG' ");
-                    if (JOCG.Count() == 1)
-                    {
-                        PO.PurchaseOrderItem.CGST = DBNull.Value == JOCG[0]["r_cond_amt"] ? 0 : Convert.ToDecimal(JOCG[0]["r_cond_amt"]);
-                    }
-                    DataRow[] JOIG = dt2.Select("PO_No = '" + PO.PurchaseOrderID + "' AND PO_Item = '" + PO.PurchaseOrderItem.POItem + "' AND s_tenant_id = '" + PO.Dealer.DealerCode + "' and p_condition_type ='JOIG' ");
-                    if (JOIG.Count() == 1)
-                    {
-                        PO.PurchaseOrderItem.IGST = DBNull.Value == JOIG[0]["r_cond_amt"] ? 0 : Convert.ToDecimal(JOIG[0]["r_cond_amt"]);
-                    }
-
-
-                    PO.PurchaseOrderItem.TaxableAmount = PO.PurchaseOrderItem.NetAmount + PO.PurchaseOrderItem.DiscountAmount + PO.PurchaseOrderItem.Fright + PO.PurchaseOrderItem.Insurance + PO.PurchaseOrderItem.PackingAndForwarding;
-
-
-                    POs.Add(PO);
-                }
-                foreach (PDMS_PurchaseOrder P in POs)
-                {
-                    P.PurchaseOrderItem.CumulativeGrQuantity = POs.Where(item => item.PurchaseOrderID == P.PurchaseOrderID && item.PurchaseOrderItem.POItem == P.PurchaseOrderItem.POItem && item.PurchaseOrderItem.Material.MaterialCode == P.PurchaseOrderItem.Material.MaterialCode).Sum(item => (item.PurchaseOrderItem.GRQuantity == null ? 0 : (decimal)item.PurchaseOrderItem.GRQuantity));
-                    P.PurchaseOrderItem.CumulativeAsnQuantity = POs.Where(item => item.PurchaseOrderID == P.PurchaseOrderID && item.PurchaseOrderItem.POItem == P.PurchaseOrderItem.POItem && item.PurchaseOrderItem.Material.MaterialCode == P.PurchaseOrderItem.Material.MaterialCode).Sum(item => (item.PurchaseOrderItem.GRQuantity == null ? 0 : (decimal)item.PurchaseOrderItem.ASNQuantity));
-                    P.PurchaseOrderItem.LatestGrDate = POs.Where(item => item.PurchaseOrderID == P.PurchaseOrderID && item.PurchaseOrderItem.POItem == P.PurchaseOrderItem.POItem && item.PurchaseOrderItem.Material.MaterialCode == P.PurchaseOrderItem.Material.MaterialCode).Max(item => (item.PurchaseOrderItem.GRDate));
-                }
-
-                return POs;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_PurchaseOrder", "GetPurchaseOrderPerformance", ex);
-                throw ex;
-            }
-            return POs;
         }
 
         public List<PDMS_PurchaseOrder> GetPurchaseOrderMonthily(string filter)
         {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_PurchaseOrder> POs = new List<PDMS_PurchaseOrder>();
-            try
-            {
+            string endPoint = "PurchaseOrder/PurchaseOrderMonthily?filter=" + filter;
+            return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
-                string Query = "select tenant_id, tenant_name,PO_Type , sum( gross_amt)  as gross_amt, sum(order_qty) as order_qty ,count(*) Header_count,sum( item_count) as item_count , (to_char(to_timestamp (month::text, 'MM'), 'TMmon')) || ' '   ||year  as Period "
-+ " from ( select   po.s_tenant_id as tenant_id  ,ten.description tenant_name  ,o.r_desc  PO_Type ,sum( poi.r_gross_amt)  as gross_amt  ,sum( poi.r_order_qty)  as order_qty  ,count(*) item_count "
-      + " , EXTRACT(MONTH FROM r_order_date ) as month ,EXTRACT(Year FROM r_order_date ) as year from  dppor_purc_order_hdr po "
-      + " inner join dppor_purc_order_item poi on poi.k_po_id = po.p_po_id "
-      + " inner join m_tenant ten on ten.tenantid = po.s_tenant_id "
-      + " left join maf_object_type o on o.s_object_type = po.s_object_type and o.k_entityname='dppor_purc_order_hdr' and o.is_deleted is null 	   where  1 =1"
-+ filter
-  + " group by po.s_tenant_id ,ten.description   ,o.r_desc    ,po.p_po_id ,EXTRACT(MONTH FROM r_order_date ) ,EXTRACT(Year FROM r_order_date ) ) t  group by  tenant_id, tenant_name,PO_Type,month,year order by year,month";
-                DataTable dt = new NpgsqlServer().ExecuteReader(Query);
-                PDMS_PurchaseOrder PO = new PDMS_PurchaseOrder();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    PO = new PDMS_PurchaseOrder();
-
-                    PO.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["tenant_id"]), DealerName = Convert.ToString(dr["tenant_name"]) };
-                    PO.HeaderCount = Convert.ToInt64(dr["Header_count"]);
-                    PO.POMonth = Convert.ToString(dr["Period"]);
-                    PO.POType = Convert.ToString(dr["PO_Type"]);
-                    PO.PurchaseOrderItem = new PDMS_PurchaseOrderItem();
-                    PO.PurchaseOrderItem.OrderQuantity = DBNull.Value == dr["order_qty"] ? 0 : Convert.ToDecimal(dr["order_qty"]);
-                    PO.PurchaseOrderItem.GrossAmount = DBNull.Value == dr["gross_amt"] ? 0 : Convert.ToDecimal(dr["gross_amt"]);
-                    PO.PurchaseOrderItem.ItemCount = Convert.ToInt64(dr["item_count"]);
-                    POs.Add(PO);
-                }
-                return POs;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_PurchaseOrder", "GetPurchaseOrderMonthily", ex);
-                throw ex;
-            }
-            return POs;
         }
 
 

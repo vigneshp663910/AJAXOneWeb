@@ -33,8 +33,7 @@ namespace DealerManagementSystem.ViewProcurement
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
