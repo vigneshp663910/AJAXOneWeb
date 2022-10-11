@@ -43,6 +43,7 @@ namespace Properties
         public string ManufacturingDate { get; set; }
 
         public PDMS_EquipmentIbase Ibase { get; set; }
+        public PDMS_EquipmentWarrantyType EquipmentWarrantyType { get; set; }
     }
     [Serializable]
     public class PDMS_Model

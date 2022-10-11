@@ -37,7 +37,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -53,8 +52,10 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblModelDescription.Text = EquipmentViewDet.EquipmentModel.ModelDescription;
             lblEngineSerialNo.Text = EquipmentViewDet.EngineSerialNo;
             lblEquipmentSerialNo.Text = EquipmentViewDet.EquipmentSerialNo;
-            lblDistrict.Text = EquipmentViewDet.Customer.District.District;
-            lblState.Text = EquipmentViewDet.Customer.State.State;
+            //lblDistrict.Text = EquipmentViewDet.Customer.District.District;
+            lblDistrict.Text = EquipmentViewDet.Customer.District == null ? "" : Convert.ToString(EquipmentViewDet.Customer.District.District);
+            //lblState.Text = EquipmentViewDet.Customer.State.State;
+            lblState.Text = EquipmentViewDet.Customer.State == null ? "" : Convert.ToString(EquipmentViewDet.Customer.State.State);
             lblDispatchedOn.Text = EquipmentViewDet.DispatchedOn == null ? "" : ((DateTime)EquipmentViewDet.DispatchedOn).ToLongDateString();
             lblWarrantyExpiryDate.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToLongDateString();
             lblEngineModel.Text = EquipmentViewDet.EngineModel;
@@ -85,42 +86,60 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblIbaseWarrantyEnd.Text = EquipmentViewDet.Ibase.WarrantyEnd == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyEnd).ToLongDateString();
             lblFinancialYearOfDispatch.Text = EquipmentViewDet.Ibase.FinancialYearOfDispatch.ToString();
             lblMajorRegion.Text = EquipmentViewDet.Ibase.MajorRegion.Region;
-
+            lblWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
             CustomerViewSoldTo.fillCustomer(EquipmentViewDet.Customer);
             ActionControlMange();
         }
-
-        protected void lbActions_Click(object sender, EventArgs e)
+        protected void lnkBtnActions_Click(object sender, EventArgs e)
         {
-            LinkButton lbActions = ((LinkButton)sender);
-
-            if (lbActions.Text == "Add Effort")
+            try
             {
+                LinkButton lbActions = ((LinkButton)sender);
 
+                if (lbActions.Text == "Update Warranty Type")
+                {
+                    new DDLBind(ddlWarranty, new BDMS_Equipment().GetEquipmentWarrantyType(null, null), "Description", "EquipmentWarrantyTypeID");
+                    //ddlWarranty.SelectedValue = EquipmentViewDet.EquipmentWarrantyType.EquipmentWarrantyTypeID.ToString();
+                    ddlWarranty.SelectedValue = EquipmentViewDet.EquipmentWarrantyType == null ? "0" : EquipmentViewDet.EquipmentWarrantyType.EquipmentWarrantyTypeID.ToString();
+                    lblCustomer.Text = EquipmentViewDet.Customer.CustomerFullName;
+                    lblModelP.Text = EquipmentViewDet.EquipmentModel.Model;
+                    lblEquipmentSerialNoP.Text = EquipmentViewDet.EquipmentSerialNo;
+                    MPE_UpdateWarrantyType.Show();
+                }
             }
-            else if (lbActions.Text == "Add Expense")
+            catch (Exception ex)
             {
-
-            }
-            else if (lbActions.Text == "Status Change to Close")
-            {
-
-            }
-            else if (lbActions.Text == "Status Change to Cancel")
-            {
-
-            }
-            else if (lbActions.Text == "Add Activity")
-            {
-
-
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
             }
         }
-
-
         void ActionControlMange()
         {
-
+            if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
+            {
+                lnkBtnEditWarranty.Visible = true;
+            }
+            else
+            {
+                lnkBtnEditWarranty.Visible = false;
+            }
+        }
+        protected void btnUpdateWarrantyType_Click(object sender, EventArgs e)
+        {
+            if (new BDMS_Equipment().UpdateEquipmentWarrantyType(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue)))
+            {
+                lblMessage.Text = "Warranty Type updated for the Equipment.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Visible = true;
+            }
+            else
+            {
+                lblMessage.Text = "Warranty Type not updated for the Equipment.";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+            fillEquipment(EquipmentViewDet.EquipmentHeaderID);
         }
     }
 }

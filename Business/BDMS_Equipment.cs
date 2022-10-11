@@ -274,6 +274,13 @@ namespace Business
                                 Region = Convert.ToString(dr["MajorRegion"])
                             },
                         };
+
+                        Equip.EquipmentWarrantyType = dr["EquipmentWarrantyTypeID"] == DBNull.Value ? null : new PDMS_EquipmentWarrantyType
+                        { 
+                            EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+                            WarrantyType = Convert.ToString(dr["WarrantyType"]),
+                            Description = Convert.ToString(dr["Description"])
+                        };
                     }
                 }
             }
@@ -686,6 +693,65 @@ namespace Business
         {
             string endPoint = "Equipment/EquipmentForCreateICTicket?EquipmentHeaderID=" + EquipmentHeaderID + "&EquipmentSerialNo=" + EquipmentSerialNo + "&Customer=" + Customer;
             return JsonConvert.DeserializeObject<List<PDMS_EquipmentHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PDMS_EquipmentWarrantyType> GetEquipmentWarrantyType(int? EquipmentWarrantyTypeID, string WarrantyType)
+        {
+            List<PDMS_EquipmentWarrantyType> MML = new List<PDMS_EquipmentWarrantyType>();
+            try
+            {
+                DbParameter EquipmentWarrantyTypeIDP = provider.CreateParameter("EquipmentWarrantyTypeID", EquipmentWarrantyTypeID, DbType.Int32);
+                DbParameter WarrantyTypeP = provider.CreateParameter("WarrantyType", string.IsNullOrEmpty(WarrantyType) ? null : WarrantyType, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { EquipmentWarrantyTypeIDP, WarrantyTypeP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetEquipmentWarrantyType", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PDMS_EquipmentWarrantyType()
+                            {
+                                EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+                                WarrantyType = Convert.ToString(dr["WarrantyType"]),
+                                Description = Convert.ToString(dr["Description"]),
+                                HMR = Convert.ToInt32(dr["HMR"]),
+                                Period = Convert.ToDecimal(dr["Period"]),
+                                TimeUnit = Convert.ToString(dr["TimeUnit"]),
+                                BaseCategory = Convert.ToString(dr["BaseCategory"])
+                            }); ;
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return MML;
+        }
+        public Boolean UpdateEquipmentWarrantyType(long EquipmentHeaderID, int EquipmentWarrantyTypeID)
+        {
+            DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+            DbParameter EquipmentWarrantyTypeIDP = provider.CreateParameter("EquipmentWarrantyTypeID", EquipmentWarrantyTypeID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[2] { EquipmentHeaderIDP, EquipmentWarrantyTypeIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("ZDMS_UpdateEquipmentWarrantyType", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "ZDMS_UpdateEquipmentWarrantyType", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "ZDMS_UpdateEquipmentWarrantyType", ex);
+                return false;
+            }
+            return true;
         }
     }
 }

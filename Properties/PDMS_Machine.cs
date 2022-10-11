@@ -132,5 +132,6 @@ namespace Properties
         public decimal Period { get; set; }
         public string TimeUnit { get; set; }
         public string BaseCategory { get; set; }
+        public string Description { get; set; }
     }
 }
