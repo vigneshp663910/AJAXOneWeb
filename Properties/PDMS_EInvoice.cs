@@ -214,7 +214,7 @@ namespace Properties
     {
         public string TaxSch { get { return "GST"; } }
         public string SupTyp { get { return "B2B"; } }
-        public string RegRev { get { return "Y"; } }
+        public string RegRev { get { return "N"; } }
         public string EcmGstin { get; set; }
         public string IgstOnIntra { get; set; }
         // "TranDtls": {

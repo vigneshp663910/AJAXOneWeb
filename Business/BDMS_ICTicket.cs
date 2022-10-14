@@ -299,7 +299,7 @@ namespace Business
              
         }
 
-        public Boolean UpdateICTicketWarrantyDistribution(long ICTicketID, decimal? CustomerPayPercentage, decimal? DealerPayPercentage, decimal? AEPayPercentage)
+        public Boolean UpdateICTicketWarrantyDistribution(long ICTicketID, decimal CustomerPayPercentage, decimal DealerPayPercentage, decimal AEPayPercentage)
         { 
             string endPoint = "ICTicket/UpdateICTicketWarrantyDistribution?ICTicketID=" + ICTicketID + "&CustomerPayPercentage=" + CustomerPayPercentage
                 + "&DealerPayPercentage=" + DealerPayPercentage + "&AEPayPercentage=" + AEPayPercentage;

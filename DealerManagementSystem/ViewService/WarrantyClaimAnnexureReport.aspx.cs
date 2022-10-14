@@ -21,8 +21,7 @@ namespace DealerManagementSystem.ViewService
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         public List<PDMS_WarrantyClaimAnnexureHeader> SDMS_WarrantyClaimHeader
         {
@@ -281,7 +280,7 @@ namespace DealerManagementSystem.ViewService
         {
             try
             {
-                PrintC();
+              //  PrintC();
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 string WarrantyClaimAnnexureHeaderID = Convert.ToString(gvClaimByClaimID.DataKeys[gvRow.RowIndex].Value);
                 PDMS_WarrantyClaimAnnexureHeader AnnexureH = new PDMS_WarrantyClaimAnnexureHeader();
@@ -301,111 +300,111 @@ namespace DealerManagementSystem.ViewService
                 }
                 return;
 
-                decimal SumOfCommission = 0, SumOfNEPI = 0, Total = 0, ApprovedTotal = 0;
-                DataTable CommissionDT = new DataTable();
-                CommissionDT.Columns.Add("SNO");
-                CommissionDT.Columns.Add("ICTicketID");
-                CommissionDT.Columns.Add("ICTicketDate");
-                CommissionDT.Columns.Add("CustomerCode");
-                CommissionDT.Columns.Add("CustomerName");
-                CommissionDT.Columns.Add("Material");
-                CommissionDT.Columns.Add("MaterialDesc");
-                CommissionDT.Columns.Add("HMR");
-                CommissionDT.Columns.Add("MachineSerialNumber");
-                CommissionDT.Columns.Add("Model");
-                CommissionDT.Columns.Add("HSNCode");
-                CommissionDT.Columns.Add("RestoreDate");
-                CommissionDT.Columns.Add("Amount", typeof(decimal));
-                CommissionDT.Columns.Add("ApprovedAmount", typeof(decimal));
+                //decimal SumOfCommission = 0, SumOfNEPI = 0, Total = 0, ApprovedTotal = 0;
+                //DataTable CommissionDT = new DataTable();
+                //CommissionDT.Columns.Add("SNO");
+                //CommissionDT.Columns.Add("ICTicketID");
+                //CommissionDT.Columns.Add("ICTicketDate");
+                //CommissionDT.Columns.Add("CustomerCode");
+                //CommissionDT.Columns.Add("CustomerName");
+                //CommissionDT.Columns.Add("Material");
+                //CommissionDT.Columns.Add("MaterialDesc");
+                //CommissionDT.Columns.Add("HMR");
+                //CommissionDT.Columns.Add("MachineSerialNumber");
+                //CommissionDT.Columns.Add("Model");
+                //CommissionDT.Columns.Add("HSNCode");
+                //CommissionDT.Columns.Add("RestoreDate");
+                //CommissionDT.Columns.Add("Amount", typeof(decimal));
+                //CommissionDT.Columns.Add("ApprovedAmount", typeof(decimal));
 
-                int CommissionRowNo = 0;
-                int NEPIRowNo = 0;
-                //  List<PDMS_WarrantyClaimAnnexureHeader> ClaimWarranty = SDMS_WarrantyClaimHeader.Where(M => M.AnnexureItem.Category == "Commission").ToList();
-                //  List<PDMS_WarrantyClaimAnnexureHeader> ClaimNEPI = SDMS_WarrantyClaimHeader.Where(M => M.InvoiceItem.Category == "NEPI").ToList();
+                //int CommissionRowNo = 0;
+                //int NEPIRowNo = 0;
+                ////  List<PDMS_WarrantyClaimAnnexureHeader> ClaimWarranty = SDMS_WarrantyClaimHeader.Where(M => M.AnnexureItem.Category == "Commission").ToList();
+                ////  List<PDMS_WarrantyClaimAnnexureHeader> ClaimNEPI = SDMS_WarrantyClaimHeader.Where(M => M.InvoiceItem.Category == "NEPI").ToList();
 
-                DataTable ClaimNEPIDT = CommissionDT.Clone();
+                //DataTable ClaimNEPIDT = CommissionDT.Clone();
 
-                foreach (PDMS_WarrantyClaimAnnexureItem item in AnnexureH.AnnexureItems)
-                {
-                    if (item.Category == "Commission")
-                    {
-                        CommissionRowNo = CommissionRowNo + 1;
-                        CommissionDT.Rows.Add(CommissionRowNo, item.ICTicketID, ((DateTime)item.ICTicketDate).ToShortDateString(), item.CustomerCode, item.CustomerName.ToUpper(), item.Material, item.MaterialDesc, item.HMR,
-                            item.MachineSerialNumber, item.Model, item.HSNCode, ((DateTime)item.RestoreDate).ToShortDateString(), item.ClaimAmount, item.ApprovedAmount);
-                        SumOfCommission = SumOfCommission + (decimal)item.ClaimAmount;
-                        ApprovedTotal = ApprovedTotal + (decimal)item.ApprovedAmount;
-                    }
-                    if (item.Category == "NEPI")
-                    {
-                        NEPIRowNo = NEPIRowNo + 1;
-                        ClaimNEPIDT.Rows.Add(NEPIRowNo, item.ICTicketID, ((DateTime)item.ICTicketDate).ToShortDateString(), item.CustomerCode, item.CustomerName.ToUpper(), item.Material, item.MaterialDesc, item.HMR,
-                            item.MachineSerialNumber, item.Model, item.HSNCode, ((DateTime)item.RestoreDate).ToShortDateString(), item.ClaimAmount, item.ApprovedAmount);
-                        SumOfNEPI = SumOfNEPI + (decimal)item.ClaimAmount;
-                        ApprovedTotal = ApprovedTotal + (decimal)item.ApprovedAmount;
-                    }
-                }
+                //foreach (PDMS_WarrantyClaimAnnexureItem item in AnnexureH.AnnexureItems)
+                //{
+                //    if (item.Category == "Commission")
+                //    {
+                //        CommissionRowNo = CommissionRowNo + 1;
+                //        CommissionDT.Rows.Add(CommissionRowNo, item.ICTicketID, ((DateTime)item.ICTicketDate).ToShortDateString(), item.CustomerCode, item.CustomerName.ToUpper(), item.Material, item.MaterialDesc, item.HMR,
+                //            item.MachineSerialNumber, item.Model, item.HSNCode, ((DateTime)item.RestoreDate).ToShortDateString(), item.ClaimAmount, item.ApprovedAmount);
+                //        SumOfCommission = SumOfCommission + (decimal)item.ClaimAmount;
+                //        ApprovedTotal = ApprovedTotal + (decimal)item.ApprovedAmount;
+                //    }
+                //    if (item.Category == "NEPI")
+                //    {
+                //        NEPIRowNo = NEPIRowNo + 1;
+                //        ClaimNEPIDT.Rows.Add(NEPIRowNo, item.ICTicketID, ((DateTime)item.ICTicketDate).ToShortDateString(), item.CustomerCode, item.CustomerName.ToUpper(), item.Material, item.MaterialDesc, item.HMR,
+                //            item.MachineSerialNumber, item.Model, item.HSNCode, ((DateTime)item.RestoreDate).ToShortDateString(), item.ClaimAmount, item.ApprovedAmount);
+                //        SumOfNEPI = SumOfNEPI + (decimal)item.ClaimAmount;
+                //        ApprovedTotal = ApprovedTotal + (decimal)item.ApprovedAmount;
+                //    }
+                //}
 
-                DataTable InSAP = CommissionDT.Clone();
-
-
-
-                string contentType = string.Empty;
-                contentType = "application/pdf";
-                var CC = CultureInfo.CurrentCulture;
-                string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
-                string extension;
-                string encoding;
-                string mimeType;
-                string[] streams;
-                Warning[] warnings;
-
-                LocalReport report = new LocalReport();
-                report.EnableExternalImages = true;
-
-                ReportParameter[] P = new ReportParameter[15];
+                //DataTable InSAP = CommissionDT.Clone();
 
 
 
-                string Annexure = "Annexure -" + AnnexureH.AnnexureNumber;
-                P[0] = new ReportParameter("DealerCode", AnnexureH.Dealer.DealerCode, false);
-                P[1] = new ReportParameter("DealerAddress", "b", false);
-                P[2] = new ReportParameter("FromDate", AnnexureH.PeriodFrom.ToShortDateString(), false);
-                P[3] = new ReportParameter("ToDate", AnnexureH.PeriodTo.ToShortDateString(), false);
-                P[4] = new ReportParameter("Annexure", Annexure, false);
-                P[5] = new ReportParameter("DateOfClaim", AnnexureH.CreatedOn.ToShortDateString(), false);
-                P[6] = new ReportParameter("SumOfCommission", SumOfCommission.ToString(), false);
-                P[7] = new ReportParameter("SumOfNEPI", SumOfNEPI.ToString(), false);
-                P[8] = new ReportParameter("Total", (SumOfCommission + SumOfNEPI).ToString(), false);
+                //string contentType = string.Empty;
+                //contentType = "application/pdf";
+                //var CC = CultureInfo.CurrentCulture;
+                //string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
+                //string extension;
+                //string encoding;
+                //string mimeType;
+                //string[] streams;
+                //Warning[] warnings;
 
-                P[9] = new ReportParameter("DealerName", AnnexureH.Dealer.DealerName.ToUpper(), false);
-                P[10] = new ReportParameter("Address1", AnnexureH.Address1.ToUpper(), false);
-                P[11] = new ReportParameter("Address2", AnnexureH.Address2.ToUpper(), false);
-                P[12] = new ReportParameter("Contact", "Contact" + AnnexureH.Contact.ToUpper(), false);
-                P[13] = new ReportParameter("GSTIN", AnnexureH.GSTIN.ToUpper(), false);
-                P[14] = new ReportParameter("ApprovedTotal", ApprovedTotal.ToString(), false);
+                //LocalReport report = new LocalReport();
+                //report.EnableExternalImages = true;
 
-                report.ReportPath = Server.MapPath("~/Print/DMS_ClaimAnnexure.rdlc");
-                ReportDataSource rds = new ReportDataSource();
-                rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
-                rds.Value = CommissionDT;
-                report.DataSources.Add(rds);
-
-                ReportDataSource rds2 = new ReportDataSource();
-                rds2.Name = "DataSet2";//This refers to the dataset name in the RDLC file  
-                rds2.Value = ClaimNEPIDT;
-                report.DataSources.Add(rds2);
+                //ReportParameter[] P = new ReportParameter[15];
 
 
 
-                report.SetParameters(P);
-                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+                //string Annexure = "Annexure -" + AnnexureH.AnnexureNumber;
+                //P[0] = new ReportParameter("DealerCode", AnnexureH.Dealer.DealerCode, false);
+                //P[1] = new ReportParameter("DealerAddress", "b", false);
+                //P[2] = new ReportParameter("FromDate", AnnexureH.PeriodFrom.ToShortDateString(), false);
+                //P[3] = new ReportParameter("ToDate", AnnexureH.PeriodTo.ToShortDateString(), false);
+                //P[4] = new ReportParameter("Annexure", Annexure, false);
+                //P[5] = new ReportParameter("DateOfClaim", AnnexureH.CreatedOn.ToShortDateString(), false);
+                //P[6] = new ReportParameter("SumOfCommission", SumOfCommission.ToString(), false);
+                //P[7] = new ReportParameter("SumOfNEPI", SumOfNEPI.ToString(), false);
+                //P[8] = new ReportParameter("Total", (SumOfCommission + SumOfNEPI).ToString(), false);
 
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                Response.Flush(); // send it to the client to download
+                //P[9] = new ReportParameter("DealerName", AnnexureH.Dealer.DealerName.ToUpper(), false);
+                //P[10] = new ReportParameter("Address1", AnnexureH.Address1.ToUpper(), false);
+                //P[11] = new ReportParameter("Address2", AnnexureH.Address2.ToUpper(), false);
+                //P[12] = new ReportParameter("Contact", "Contact" + AnnexureH.Contact.ToUpper(), false);
+                //P[13] = new ReportParameter("GSTIN", AnnexureH.GSTIN.ToUpper(), false);
+                //P[14] = new ReportParameter("ApprovedTotal", ApprovedTotal.ToString(), false);
+
+                //report.ReportPath = Server.MapPath("~/Print/DMS_ClaimAnnexure.rdlc");
+                //ReportDataSource rds = new ReportDataSource();
+                //rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
+                //rds.Value = CommissionDT;
+                //report.DataSources.Add(rds);
+
+                //ReportDataSource rds2 = new ReportDataSource();
+                //rds2.Name = "DataSet2";//This refers to the dataset name in the RDLC file  
+                //rds2.Value = ClaimNEPIDT;
+                //report.DataSources.Add(rds2);
+
+
+
+                //report.SetParameters(P);
+                //Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+                //Response.Buffer = true;
+                //Response.Clear();
+                //Response.ContentType = mimeType;
+                //Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                //Response.BinaryWrite(mybytes); // create the file
+                //Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)
             {
@@ -516,7 +515,7 @@ namespace DealerManagementSystem.ViewService
                 }
                 P[15] = new ReportParameter("NewLogo", NewLogo, false);
                 // report.ReportPath = Server.MapPath("~/Print/DMS_ClaimAnnexureNC.rdlc");
-                report.ReportPath = Server.MapPath("~/Print/Report1.rdlc");
+                report.ReportPath = Server.MapPath("~/Print/DMS_ClaimAnnexureNC.rdlc");
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
                 rds.Value = CommissionDT;
@@ -535,6 +534,7 @@ namespace DealerManagementSystem.ViewService
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)
@@ -644,6 +644,7 @@ namespace DealerManagementSystem.ViewService
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)
@@ -741,6 +742,7 @@ namespace DealerManagementSystem.ViewService
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)

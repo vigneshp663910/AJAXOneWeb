@@ -394,29 +394,16 @@ namespace DealerManagementSystem.ViewService
                     string supplierPOID = Convert.ToString(gvICTickets.DataKeys[e.Row.RowIndex].Value);
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
 
-                    Label lblPscID = (Label)e.Row.FindControl("lblPscID");
-                    if (!string.IsNullOrEmpty(lblPscID.Text))
-                    {
-                        GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
-                        gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
-                        gvFileAttached.DataBind();
-                    }
+                     
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
 
                     List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicket(null, "", lblICTicketID.Text, null, null, null, null);
                     if (SOIs.Count == 1)
-                    {
-                        List<PAttachedFile> UploadedFile = new BDMS_ICTicket().GetICTicketAttachedFile(SOIs[0].ICTicketID, null);
-
-                        GridView gvFileAttachedAF = (GridView)e.Row.FindControl("gvFileAttachedAF");
-                        gvFileAttachedAF.DataSource = UploadedFile;
-                        gvFileAttachedAF.DataBind();
-
+                    { 
                         List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(SOIs[0].ICTicketID, null);
                         GridView gvFileAttachedFSR = (GridView)e.Row.FindControl("gvFileAttachedFSR");
                         gvFileAttachedFSR.DataSource = UploadedFileFSR;
-                        gvFileAttachedFSR.DataBind();
-
+                        gvFileAttachedFSR.DataBind(); 
 
                         List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SOIs[0].ICTicketID, null, null);
                         GridView gvFileAttachedTSIR = (GridView)e.Row.FindControl("gvFileAttachedTSIR");
@@ -632,7 +619,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("DMS_MTTR_Report", "fillMTTR", ex);
+                new FileLogger().LogMessage("Warranty Claim Approval", "gvICTickets_RowDataBound", ex);
                 throw ex;
             }
         }

@@ -263,49 +263,6 @@
                             <asp:TemplateField HeaderText="Attachment" HeaderStyle-Width="240px">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblPscID" Text='<%# DataBinder.Eval(Container.DataItem, "PscID")%>' runat="server" Visible="false" />
-                                    <asp:GridView ID="gvFileAttached" runat="server" AutoGenerateColumns="false" ShowHeader="false" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
-                                        <Columns>
-                                            <asp:TemplateField
-                                                HeaderImageUrl="~/Images/AttachmentLogo.png">
-                                                <ItemStyle BorderStyle="None" />
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkDownload" Text='<%# Eval("fileName") %>' OnClientClick='<%# Eval("Url") %>' runat="server"></asp:LinkButton>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderImageUrl="~/Images/grid_expand.png">
-                                                <ItemStyle BorderStyle="None" />
-                                                <ItemTemplate>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
-                                    <asp:GridView ID="gvFileAttachedAF" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
-                                        <Columns>
-                                            <asp:TemplateField>
-                                                <ItemStyle BorderStyle="None" />
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click">
-                                                        <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                    </asp:LinkButton>
-                                                    <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:FileUpload ID="fu" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
                                     <asp:GridView ID="gvFileAttachedFSR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
                                         <Columns>
                                             <asp:TemplateField>

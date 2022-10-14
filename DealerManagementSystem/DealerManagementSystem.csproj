@@ -578,6 +578,7 @@
     <Content Include="ViewService\UserControls\AddFSRAttachments.ascx" />
     <Content Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx" />
     <Content Include="ViewService\UserControls\AddTsirAttachments.ascx" />
+    <Content Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx" />
     <Content Include="ViewService\UserControls\AddTSIR.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddNotes.ascx" />
@@ -585,6 +586,7 @@
     <Content Include="ViewService\UserControls\ICTicketAddServiceCharges.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddTechnician.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddTechnicianWork.ascx" />
+    <Content Include="ViewService\UserControls\ICTicketTSIRView.ascx" />
     <Content Include="ViewService\UserControls\ICTicketUpdateCallInformation.ascx" />
     <Content Include="ViewService\UserControls\ICTicketUpdateRestore.ascx" />
     <Content Include="ViewService\UserControls\ICTicketView.ascx" />
@@ -2198,6 +2200,13 @@
     <Compile Include="ViewService\UserControls\AddTsirAttachments.ascx.designer.cs">
       <DependentUpon>AddTsirAttachments.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx.cs">
+      <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx.designer.cs">
+      <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx.cs">
       <DependentUpon>ICTicketAddMaterialCharges.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2246,6 +2255,13 @@
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddTechnicianWork.ascx.designer.cs">
       <DependentUpon>ICTicketAddTechnicianWork.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketTSIRView.ascx.cs">
+      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketTSIRView.ascx.designer.cs">
+      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketUpdateCallInformation.ascx.cs">
       <DependentUpon>ICTicketUpdateCallInformation.ascx</DependentUpon>

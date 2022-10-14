@@ -1590,7 +1590,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             FillServiceMaterial(); 
         }
-        
+
 
         protected void btnSaveWarrantyDistribution_Click(object sender, EventArgs e)
         {
@@ -1599,7 +1599,6 @@ namespace DealerManagementSystem.ViewService.UserControls
             decimal? DealerPayPercentage = string.IsNullOrEmpty(txtDealerPayPercentage.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtDealerPayPercentage.Text.Trim());
             decimal? AEPayPercentage = string.IsNullOrEmpty(txtAEPayPercentage.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtAEPayPercentage.Text.Trim());
 
-
             if ((CustomerPayPercentage == null) || (DealerPayPercentage == null) || (AEPayPercentage == null))
             {
                 lblMessage.Text = "Please check the warranty distribution .";
@@ -1607,16 +1606,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 return;
             }
 
-            decimal TotalP = (decimal)CustomerPayPercentage + (decimal)DealerPayPercentage + (decimal)AEPayPercentage;
-            if (TotalP != 100)
-            {
-                lblMessage.Text = "Please check the warranty distribution total.";
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
-
-
-            if (new BDMS_ICTicket().UpdateICTicketWarrantyDistribution(SDMS_ICTicket.ICTicketID, CustomerPayPercentage, DealerPayPercentage, AEPayPercentage))
+            if (new BDMS_ICTicket().UpdateICTicketWarrantyDistribution(SDMS_ICTicket.ICTicketID, (decimal)CustomerPayPercentage, (decimal)DealerPayPercentage, (decimal)AEPayPercentage))
             {
                 lblMessage.Text = "ICTicket is updated successfully";
                 lblMessage.ForeColor = Color.Green;

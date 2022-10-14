@@ -75,7 +75,7 @@
     <Compile Include="PDMS_ICTicket.cs" />
     <Compile Include="PDMS_ICTicketTSIR.cs" />
     <Compile Include="PDMS_IncoTerm.cs" />
-    <Compile Include="PDMS_Machine.cs" />
+    <Compile Include="PDMS_EquipmentHeader.cs" />
     <Compile Include="PDMS_material.cs" />
     <Compile Include="PDMS_MTTR.cs" />
     <Compile Include="PDMS_PaidService.cs" />
