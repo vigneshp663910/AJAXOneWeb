@@ -15,15 +15,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
     public partial class EquipmentView : System.Web.UI.UserControl
     {
 
-        public PDMS_Equipment EquipmentViewDet
+        public PDMS_EquipmentHeader EquipmentViewDet
         {
             get
             {
                 if (Session["EquipmentView"] == null)
                 {
-                    Session["EquipmentView"] = new PDMS_Equipment();
+                    Session["EquipmentView"] = new PDMS_EquipmentHeader();
                 }
-                return (PDMS_Equipment)Session["EquipmentView"];
+                return (PDMS_EquipmentHeader)Session["EquipmentView"];
             }
             set
             {
@@ -77,7 +77,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblSpecialVariants.Text = EquipmentViewDet.SpecialVariants;
             lblProductionStatus.Text = EquipmentViewDet.ProductionStatus;
             lblVariantsFittingDate.Text = EquipmentViewDet.VariantsFittingDate == null ? "" : ((DateTime)EquipmentViewDet.VariantsFittingDate).ToLongDateString();
-            lblManufacturingDate.Text = EquipmentViewDet.ManufacturingDate;
+            lblManufacturingDate.Text = Convert.ToString(EquipmentViewDet.ManufacturingDate);
             lblInstalledBaseNo.Text = EquipmentViewDet.Ibase.InstalledBaseNo;
             lblIBaseLocation.Text = EquipmentViewDet.Ibase.IBaseLocation;
             lblDeliveryDate.Text = EquipmentViewDet.Ibase.DeliveryDate == null ? "" : ((DateTime)EquipmentViewDet.Ibase.DeliveryDate).ToLongDateString();

@@ -198,10 +198,10 @@ namespace Business
             }
             return pDMS_Equipment;
         }
-        public PDMS_Equipment GetEquipmentHeaderByID(Int32? EquipmentHeaderID)
+        public PDMS_EquipmentHeader GetEquipmentHeaderByID(Int32? EquipmentHeaderID)
         {
             TraceLogger.Log(DateTime.Now);
-            PDMS_Equipment Equip = new PDMS_Equipment();
+            PDMS_EquipmentHeader Equip = new PDMS_EquipmentHeader();
             try
             {
                 DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int32);
@@ -241,7 +241,7 @@ namespace Business
                         Equip.CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]);
                         Equip.CurrentHMRDate = Convert.ToDateTime(dr["CurrentHMRDate"]);
                         Equip.IsRefurbished = dr["IsRefurbished"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(dr["IsRefurbished"]);
-                        Equip.RefurbishedBy = Convert.ToString(dr["RefurbishedBy"]);
+                       // Equip.RefurbishedBy = Convert.ToString(dr["RefurbishedBy"]);
                         Equip.RFWarrantyStartDate = dr["RFWarrantyStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RFWarrantyStartDate"]);
                         Equip.RFWarrantyExpiryDate = dr["RFWarrantyExpiryDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RFWarrantyExpiryDate"]);
                         Equip.IsAMC = dr["IsAMC"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(dr["IsAMC"]);
@@ -258,7 +258,7 @@ namespace Business
                         Equip.SpecialVariants = Convert.ToString(dr["SpecialVariants"]);
                         Equip.ProductionStatus = Convert.ToString(dr["ProductionStatus"]);
                         Equip.VariantsFittingDate = dr["VariantsFittingDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["VariantsFittingDate"]);
-                        Equip.ManufacturingDate = Convert.ToString(dr["ManufacturingDate"]);
+                     //   Equip.ManufacturingDate = Convert.ToString(dr["ManufacturingDate"]);
 
                         Equip.Ibase = new PDMS_EquipmentIbase
                         {

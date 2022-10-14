@@ -62,6 +62,7 @@ namespace Properties
         public string HorsePower { get; set; }
 
         public PDMS_EquipmentWarrantyType EquipmentWarrantyType { get; set; }
+        public PDMS_EquipmentIbase Ibase { get; set; }
 
     }
        [Serializable]
@@ -133,5 +134,17 @@ namespace Properties
         public string TimeUnit { get; set; }
         public string BaseCategory { get; set; }
         public string Description { get; set; }
+    }
+
+    public class PEquipmentWarrantyTypeApproval
+    {
+        public int WarrantyTypeChangeID { get; set; }
+        public PDMS_EquipmentWarrantyType WarrantyType { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public PUser RequestedBy { get; set; }
+        public DateTime RequestedDate { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public Boolean? IsApproved { get; set; }
     }
 }
