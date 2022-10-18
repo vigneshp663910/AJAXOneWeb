@@ -174,5 +174,10 @@ namespace DealerManagementSystem
                 new BDealer().InsertOrUpdateDealerAddress(DealerCode);
             }
         }
+
+        protected void btnIntegrationWarrantyClaimAnnexureToSAP_Click(object sender, EventArgs e)
+        {
+            new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
+        }
     }
 }

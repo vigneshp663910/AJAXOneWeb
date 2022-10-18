@@ -118,6 +118,11 @@ namespace Business
                         new FileLogger().LogMessageService("Ended", "EInvoice Integration", null);
                         break;
 
+                    case Jobs.IntegrationClaimAnnexure:
+                        new FileLogger().LogMessageService("Started", "IntegrationWarrantyClaimAnnexureToSAP", null);
+                        new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
+                        new FileLogger().LogMessageService("Ended", "IntegrationWarrantyClaimAnnexureToSAP", null);
+                        break;
 
                     //case Jobs.ICTicketIntegrationFromCRM:
                     //    new FileLogger().LogMessageService("Started", "ICTicketIntegrationFromCRM", null);

@@ -176,6 +176,12 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "WARR" });
                 }
+                 
+                List<PSalesCommissionClaimInvoice> PinvC = new BDMS_EInvoice().GetSalesCommissionClaimInvoiceForRequestEInvoice(null, InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+                foreach (PSalesCommissionClaimInvoice inv in PinvC)
+                {
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSalesCommissionClaimInvoice(inv), InvType = "SalesCom" });
+                }
 
                 gvInv.PageIndex = 0;
                 gvInv.DataSource = InvoiceGrid;

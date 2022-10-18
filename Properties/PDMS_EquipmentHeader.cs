@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Properties
 {
-       [Serializable]
+    [Serializable]
     public class PDMS_EquipmentHeader
-    {     
+    {
         public DateTime CurrentHMRDate { get; set; }
-        public int CurrentHMRValue { get; set; }  
+        public int CurrentHMRValue { get; set; }
         public long EquipmentHeaderID { get; set; }
         public PDMS_Customer Customer { get; set; }
         public PDMS_Model EquipmentModel { get; set; }
@@ -28,13 +28,13 @@ namespace Properties
 
         public Boolean? IsAMC { get; set; }
         public DateTime? AMCStartDate { get; set; }
-        public DateTime? AMCExpiryDate { get; set; } 
+        public DateTime? AMCExpiryDate { get; set; }
         public DateTime? HMRDate { get; set; }
         public int? HMRValue { get; set; }
         public string CounterObjectID { get; set; }
-        
+
         public PDMS_EquipmentItem MachineItem { get; set; }
-        public List<PDMS_EquipmentItem> MachineItems { get; set; } 
+        public List<PDMS_EquipmentItem> MachineItems { get; set; }
         public DateTime? Service100Hrs { get; set; }
         public DateTime? Service500Hrs { get; set; }
         public DateTime? Service1000Hrs { get; set; }
@@ -65,7 +65,7 @@ namespace Properties
         public PDMS_EquipmentIbase Ibase { get; set; }
 
     }
-       [Serializable]
+    [Serializable]
     public class PDMS_EquipmentItem
     {
         public long MachineItemID { get; set; }
@@ -74,55 +74,6 @@ namespace Properties
         public string PartSerialNo { get; set; }
     }
 
-    public class PDMS_EquipmentJSON
-    {
-        public string fromentityname { get; set; }
-        public string tenant { get; set; }
-        public string flavor { get; set; }
-        public string establishment { get; set; }
-        public string msg_id { get; set; }
-        public string msg_type { get; set; }
-        public IEnumerable<PDMS_EquipmentResultsJSON> results { get; set; }
-
-    }
-    public class PDMS_EquipmentResultsJSON
-    {
-        public string p_equipment_id { get; set; }
-        public string r_decommisioned_date { get; set; }
-        public string r_active_date { get; set; } 
-        public IEnumerable<PDMS_equip_eqipdetails> equip_eqipdetails { get; set; }
-        public IEnumerable<PDMS_get_equip_details> get_equip_details { get; set; } 
-    }
-
-    [Serializable]
-    public class PDMS_equip_eqipdetails
-    {
-        public string p_product_id { get; set; }
-        public string p_serial_num { get; set; }
-        public string r_description { get; set; } 
-        public string r_installation_date { get; set; }
-        public IEnumerable<PDMS_equipdet_counter> equipdet_counter { get; set; }
-        public IEnumerable<PDMS_equipdet_warranty> equipdet_warranty { get; set; }
-    }
-    [Serializable]
-    public class PDMS_equipdet_counter
-    {
-        public string p_counter_obj_id { get; set; } 
-        public string r_read_date { get; set; }
-        public string r_value { get; set; }
-    }
-    [Serializable]
-    public class PDMS_equipdet_warranty
-    {
-        public string r_end_date { get; set; }
-        public string r_start_date { get; set; }
-    }
-
-    [Serializable]
-    public class PDMS_get_equip_details
-    {
-        public string p_customer_id { get; set; } 
-    }
 
     [Serializable]
     public class PDMS_EquipmentWarrantyType
