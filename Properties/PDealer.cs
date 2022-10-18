@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Properties
 {
-     [Serializable]
-    
+     [Serializable]    
     public class PDealer
     {
         public int DID { get; set; }
@@ -43,7 +42,14 @@ namespace Properties
 
         public PEInvUserAPI EInvUserAPI { get; set; }
     }
-
+    [Serializable] 
+    public class PDealerStateMappingID
+    {
+        public int DealerStateMappingID { get; set; }
+        public PDealer Dealer { get; set; }
+        public PDMS_State State { get; set; } 
+    }
+    [Serializable]
     public class PDealerAddress
     {
         public int DealerID { get; set; }
@@ -58,5 +64,42 @@ namespace Properties
         public string Email { get; set; }
         public string IsActive { get; set; }
         public string ContactPerson { get; set; }  
+    }
+
+    [Serializable]
+    public class PDealerBankDetails
+    {
+        public int DealerBankID { get; set; }
+        public string BankName { get; set; }
+        public string Branch { get; set; }
+        public string AcNumber { get; set; }
+        public string IfscCode { get; set; }
+        public Boolean IsActive { get; set; }
+        public int DealerID { get; set; }
+    }
+    [Serializable]
+    public class PDealerNotification
+    {
+        public int DealerNotificationID { get; set; }
+        public PDealerNotificationModule Module { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public PUser User { get; set; }
+        public Boolean IsSMS { get; set; }
+        public Boolean IsMail { get; set; }
+        public Boolean IsActive { get; set; }
+    }
+
+    [Serializable]
+    public class PDealerNotificationModule
+    {
+        public int DealerNotificationModuleID { get; set; }
+        public string ModuleName { get; set; }
+    }
+    [Serializable]
+    public class PEInvUserAPI
+    {
+        public string Handle { get; set; }
+        public string HandleType { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             ddlCountry.SelectedValue = "1";
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             Clear();
         } 
@@ -37,7 +37,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlDistrict.Items.Clear();
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             ddlCountry.SelectedValue = "1";
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
             
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtMobile.Text = enquiry.Mobile;
             txtMail.Text = enquiry.Mail;
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-            new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
@@ -146,7 +146,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         { 
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
         }
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)

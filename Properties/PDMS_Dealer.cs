@@ -26,7 +26,7 @@ namespace Properties
         public string GSTIN { get; set; }
         public string PAN { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
-        public PDMS_DealerBankDetails DealerBank { get; set; }
+        public PDealerBankDetails DealerBank { get; set; }
         public PUser TL { get; set; }
         public PUser SM { get; set; }
         public Boolean ServicePaidEInvoice { get; set; }
@@ -43,13 +43,7 @@ namespace Properties
         
         public PDMS_Region Region { get; set; }
     }
-    [Serializable]
-    public class PEInvUserAPI
-    {
-        public string Handle { get; set; }
-        public string HandleType { get; set; }
-        public string Password { get; set; }
-    }
+    
     [Serializable]
     public class PDMS_DealerOffice
     {
@@ -67,17 +61,7 @@ namespace Properties
         public string Email { get; set; }
         public string Mobile { get; set; }
     }
-       [Serializable]
-    public class PDMS_DealerBankDetails
-    {
-        public int DealerBankID { get; set; }
-        public string BankName { get; set; }
-        public string Branch { get; set; }
-        public string AcNumber { get; set; }
-        public string IfscCode { get; set; }
-        public Boolean IsActive { get; set; }
-        public int DealerID { get; set; }
-    }
+      
     [Serializable]
     
     public class PDMS_DealerEmployee
@@ -194,22 +178,5 @@ namespace Properties
         public int BloodGroupID { get; set; }
         public string BloodGroup { get; set; }
     }
-    [Serializable]
-    public class PDealerNotification
-    {
-        public int DealerNotificationID { get; set; }
-        public PDealerNotificationModule Module { get; set; }
-        public PDMS_Dealer Dealer { get; set; }
-        public PUser User { get; set; }
-        public Boolean IsSMS { get; set; }
-        public Boolean IsMail { get; set; }
-        public Boolean IsActive { get; set; }
-    }
-
-    [Serializable]
-    public class PDealerNotificationModule
-    {
-        public int DealerNotificationModuleID { get; set; }
-        public string ModuleName { get; set; }
-    }
+   
 }

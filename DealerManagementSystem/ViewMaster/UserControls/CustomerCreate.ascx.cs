@@ -31,7 +31,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PDealer Dealer = PSession.User.Dealer[0];
             int CountryID = Dealer.Country.CountryID;
             ddlCountry.SelectedValue = Convert.ToString(CountryID);
-            new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
             fillDealer();
 
             
@@ -42,7 +42,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
+            List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
         }
 
@@ -121,7 +121,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtPincode.Text = Customer.Pincode;
 
             ddlCountry.SelectedValue = Convert.ToString(Customer.Country.CountryID);
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
 
             ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");

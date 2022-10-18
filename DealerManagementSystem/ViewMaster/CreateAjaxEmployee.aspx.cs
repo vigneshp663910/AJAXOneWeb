@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewMaster
             if (!IsPostBack)
             {                
                 ViewState["DealerEmployeeID"] = null;
-                new BDMS_Address().GetState(ddlState, null, null, null, null);
+                new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEqucationalQualification, null, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
 

@@ -27,12 +27,12 @@ namespace DealerManagementSystem.ViewService
             PDealer Dealer = PSession.User.Dealer[0];
             int CountryID = Dealer.Country.CountryID;
             ddlCountry.SelectedValue = Convert.ToString(CountryID);
-            new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
             FillGetServicePriority();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
+            List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
         }
 

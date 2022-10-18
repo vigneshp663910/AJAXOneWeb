@@ -155,7 +155,7 @@ namespace Business
             //{ }
             //return Dealers;
         }
-        public Boolean InsertOrUpdateDealerBankDetails(PDMS_DealerBankDetails BankDetails, int UserID)
+        public Boolean InsertOrUpdateDealerBankDetails(PDealerBankDetails BankDetails, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             try

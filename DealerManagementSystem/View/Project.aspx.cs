@@ -47,8 +47,8 @@ namespace DealerManagementSystem.View
             {
                 if (!IsPostBack)
                 {
-                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
-                    new DDLBind(ddlSState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlSState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     //new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     //new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     //FillGrid(null);
@@ -343,7 +343,7 @@ namespace DealerManagementSystem.View
                     txtProjectName.Text = project.ProjectName;
                     txtEmailDate.Text = project.EmailDate.ToString("dd/MM/yyyy HH:mm:ss");
                     txtTenderNumber.Text = project.TenderNumber;
-                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     ddlState.SelectedValue = (project.State == null) ? "0" : project.State.StateID.ToString();
                     ddlDistrict.SelectedValue = (project.District == null) ? "0" : project.District.DistrictID.ToString();
@@ -516,7 +516,7 @@ namespace DealerManagementSystem.View
                                         project.ProjectName = dr[14].ToString().Trim();
                                         //project.ProjectNumber = "";
                                         project.TenderNumber = dr[2].ToString().Trim();
-                                        List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, string.IsNullOrEmpty(dr[7].ToString()) ? null : dr[7].ToString());
+                                        List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, string.IsNullOrEmpty(dr[7].ToString()) ? null : dr[7].ToString());
 
                                         if (!string.IsNullOrEmpty(dr[7].ToString()))
                                         {

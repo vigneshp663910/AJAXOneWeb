@@ -432,7 +432,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         protected void btnEditBank_Click(object sender, EventArgs e)
         {
-            PDMS_DealerBankDetails BankDetails = new PDMS_DealerBankDetails();
+            PDealerBankDetails BankDetails = new PDealerBankDetails();
             BankDetails.DealerID = Convert.ToInt32(Dealer.DealerID);
             BankDetails.DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
             BankDetails.BankName = txtBank.Text;

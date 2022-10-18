@@ -126,7 +126,7 @@ namespace DealerManagementSystem.ViewMaster
                     lblProjectTitle.Text = "Location";
                     FillCountry();
                     LRegion = new BDMS_Address().GetRegion(null, null, null);
-                    LState = new BDMS_Address().GetState(null, null, null, null);
+                    LState = new BDMS_Address().GetState(null, null, null, null, null);
                     LSalesOffice = new BDMS_Address().GetSalesOffice(null, null);
                     LDistrict = new BDMS_Address().GetDistrict(null, null, null, null, null, null, "true");
                    // LDealer = new BDMS_Dealer().GetDealer(null, null, null, null);
@@ -203,7 +203,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                LState = new BDMS_Address().GetState(CountryID, RegionID, StateID, State);
+                LState = new BDMS_Address().GetState(null, CountryID, RegionID, StateID, State);
                 ddl.DataValueField = "StateID";
                 ddl.DataTextField = "State";
                 ddl.DataSource = LState;
@@ -392,7 +392,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
 
                 //List<PDMS_State> MML = new BDMS_Address().GetState(CountryID, RegionID, null, State);
-                LState = new BDMS_Address().GetState(CountryID, RegionID, null, State);
+                LState = new BDMS_Address().GetState(null, CountryID, RegionID, null, State);
 
                 if (LState.Count == 0)
                 {
@@ -459,7 +459,7 @@ namespace DealerManagementSystem.ViewMaster
             new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
 
             DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
-            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID", true, "Select State");
 
             DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
             new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
@@ -528,7 +528,7 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
 
                 DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
-                new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+                new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID", true, "Select State");
 
                 DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
                 new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
@@ -1604,7 +1604,7 @@ namespace DealerManagementSystem.ViewMaster
             DropDownList ddlGDCountry = gvDistrict.FooterRow.FindControl("ddlGDCountry") as DropDownList;
             new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
             DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
-            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null), "State", "StateID", true, "Select State");
+            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID", true, "Select State");
             DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
             new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
             DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;

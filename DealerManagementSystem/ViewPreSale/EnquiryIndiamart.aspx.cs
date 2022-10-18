@@ -134,7 +134,7 @@ namespace DealerManagementSystem.ViewPreSale
                 //}
 
                 //List<PDMS_State> State = new BDMS_Address().GetState(Country[0].CountryID, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
+                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
                 if (State.Count == 1)
                 {
                     ((DropDownList)UC_AddEnquiry.FindControl("ddlState")).SelectedValue = State[0].StateID.ToString();

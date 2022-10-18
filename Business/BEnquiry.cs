@@ -28,7 +28,7 @@ namespace Business
             {
                 List<PLeadSource> DBMasterSource = new BLead().GetLeadSource(null, null);
                 List<PLeadSource> Source = new BLead().GetLeadSource(null, dr["SOURCE"].ToString());
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, dr["C_STATE"].ToString());
+                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, dr["C_STATE"].ToString());
                 List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (State.Count == 0) ?(int?)null: Convert.ToInt32(State[0].StateID), null, string.IsNullOrEmpty(dr["C_DISTRICT"].ToString())? "UNKNOWN": dr["C_DISTRICT"].ToString(), null);
                 Int32? SourceID = null;
                 if(dr["SOURCE"].ToString().Contains("Through Hoardings") || dr["SOURCE"].ToString().Contains("Dontuse") || dr["SOURCE"].ToString().Contains("Direct Enquiry"))

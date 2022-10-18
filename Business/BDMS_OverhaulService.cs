@@ -82,7 +82,7 @@ namespace Business
                                  Service.ICTicket.Dealer = new PDMS_Dealer();
                                  Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
                                  Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
-                                 Service.ICTicket.Dealer.DealerBank = new PDMS_DealerBankDetails();
+                                 Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
                                  Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
                                  Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
                                  Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
@@ -332,7 +332,7 @@ namespace Business
                                  Service.ICTicket.Dealer = new PDMS_Dealer();
                                  Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
                                  Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
-                                 Service.ICTicket.Dealer.DealerBank = new PDMS_DealerBankDetails();
+                                 Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
                                  Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
                                  Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
                                  Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
@@ -554,7 +554,7 @@ namespace Business
                                  Service.ICTicket.Dealer = new PDMS_Dealer();
                                  Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
                                  Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
-                                 Service.ICTicket.Dealer.DealerBank = new PDMS_DealerBankDetails();
+                                 Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
                                  Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
                                  Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
                                  Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);

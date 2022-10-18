@@ -254,7 +254,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     Session["CustomerShipToID"] = 0;
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
-                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     MPE_ShipTo.Show();
                 }
                 else if (lbActions.Text == "Edit ShipTo")
@@ -1182,7 +1182,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_ShipTo.Show();
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             
         } 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
@@ -1234,7 +1234,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             ddlCountry.SelectedValue = Convert.ToString(Customer.Country.CountryID);
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
             
@@ -1260,7 +1260,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtPincode.Text = "";
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             ddlCountry.SelectedValue = "1";
-            new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
         }
 
         

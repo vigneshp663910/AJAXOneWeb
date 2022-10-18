@@ -56,11 +56,11 @@ namespace Business
         }
         
 
-        public void GetState(DropDownList ddl, int? CountryID, int? RegionID, int? StateID, string State)
+        public void GetStateDDL(DropDownList ddl, int? CountryID, int? RegionID, int? StateID, string State)
         {
             try
             {
-                List<PDMS_State> MML = GetState(CountryID, RegionID, StateID, State);
+                List<PDMS_State> MML = GetState(null, CountryID, RegionID, StateID, State);
                 ddl.DataValueField = "StateID";
                 ddl.DataTextField = "State";
                 ddl.DataSource = MML;
@@ -431,9 +431,9 @@ namespace Business
             string endPoint = "Location/Region?CountryID=" + CountryID + "&RegionID=" + RegionID + "&Region=" + Region;
             return JsonConvert.DeserializeObject<List<PDMS_Region>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PDMS_State> GetState(int? CountryID, int? RegionID, int? StateID, string State)
+        public List<PDMS_State> GetState(int? DealerID, int? CountryID, int? RegionID, int? StateID, string State)
         {
-            string endPoint = "Location/State?CountryID=" + CountryID + "&RegionID=" + RegionID + "&StateID=" + StateID + "&State=" + State;
+            string endPoint = "Location/State?DealerID=" + DealerID + "&CountryID=" + CountryID + "&RegionID=" + RegionID + "&StateID=" + StateID + "&State=" + State;
             return JsonConvert.DeserializeObject<List<PDMS_State>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
              
         }

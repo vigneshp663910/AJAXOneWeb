@@ -41,7 +41,7 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlSCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(1, null, null, null);
+                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID"); 
                 new DDLBind(ddlSActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
 
@@ -136,7 +136,7 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

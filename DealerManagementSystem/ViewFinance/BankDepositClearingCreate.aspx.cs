@@ -91,7 +91,7 @@ namespace DealerManagementSystem.ViewFinance
                     ddlDealer.Enabled = true;
                     fillDealer();
                 }
-                new BDMS_Address().GetState(ddlState, null, null, null, null);
+                new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
                 //new BDMS_Address().GetRegion(ddlRegion, null, null);
             }
         }

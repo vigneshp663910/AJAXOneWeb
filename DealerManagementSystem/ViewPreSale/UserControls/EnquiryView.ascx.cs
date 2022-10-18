@@ -217,7 +217,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
             ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID); 
-            new DDLBind(ddlDistrict, new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Enquiry.State.StateID);
 
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");

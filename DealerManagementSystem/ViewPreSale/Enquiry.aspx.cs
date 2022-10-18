@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewPreSale
                     new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
-                    new DDLBind(ddlState, new BDMS_Address().GetState(1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     //new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
                     txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtToDate.Text = DateTime.Now.ToShortDateString();
@@ -253,7 +253,7 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
+            List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
         }
 
