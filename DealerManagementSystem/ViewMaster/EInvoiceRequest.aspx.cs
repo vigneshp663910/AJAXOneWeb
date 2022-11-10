@@ -47,68 +47,7 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
-        //public List<PEInvoice> EMarketingInvoice
-        //{
-        //    get
-        //    {
-        //        if (Session["EInvoiceRequestEMarketingInvoice"] == null)
-        //        {
-        //            Session["EInvoiceRequestEMarketingInvoice"] = new List<PEInvoice>();
-        //        }
-        //        return (List<PEInvoice>)Session["EInvoiceRequestEMarketingInvoice"];
-        //    }
-        //    set
-        //    {
-        //        Session["EInvoiceRequestEMarketingInvoice"] = value;
-        //    }
-        //}
-        //public List<PEInvoice> EPayInvoice
-        //{
-        //    get
-        //    {
-        //        if (Session["EInvoiceRequestEPayInvoice"] == null)
-        //        {
-        //            Session["EInvoiceRequestEPayInvoice"] = new List<PEInvoice>();
-        //        }
-        //        return (List<PEInvoice>)Session["EInvoiceRequestEPayInvoice"];
-        //    }
-        //    set
-        //    {
-        //        Session["EInvoiceRequestEPayInvoice"] = value;
-        //    }
-        //}
-        //public List<PEInvoice> EWarrInvoice
-        //{
-        //    get
-        //    {
-        //        if (Session["EInvoiceRequestEWarrInvoice"] == null)
-        //        {
-        //            Session["EInvoiceRequestEWarrInvoice"] = new List<PEInvoice>();
-        //        }
-        //        return (List<PEInvoice>)Session["EInvoiceRequestEWarrInvoice"];
-        //    }
-        //    set
-        //    {
-        //        Session["EInvoiceRequestEWarrInvoice"] = value;
-        //    }
-        //}
-
-        //public List<PEInvoice> ESalesComInvoice
-        //{
-        //    get
-        //    {
-        //        if (Session["EInvoiceRequestESalesComInvoice"] == null)
-        //        {
-        //            Session["EInvoiceRequestESalesComInvoice"] = new List<PEInvoice>();
-        //        }
-        //        return (List<PEInvoice>)Session["EInvoiceRequestESalesComInvoice"];
-        //    }
-        //    set
-        //    {
-        //        Session["EInvoiceRequestESalesComInvoice"] = value;
-        //    }
-        //}
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;

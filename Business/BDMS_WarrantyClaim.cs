@@ -509,7 +509,13 @@ namespace Business
                                 W.CustomerName = Convert.ToString(dr["CustomerName"]);
                                 W.DealerCode = Convert.ToString(dr["DealerCode"]);
                                 W.DealerName = Convert.ToString(dr["DealerName"]);
-                                W.ICTicket = new PDMS_ICTicket() { ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) } };
+                                W.ICTicket = new PDMS_ICTicket()
+                                {
+                                    ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) },
+                                    ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]),
+                                    Equipment = new PDMS_EquipmentHeader() { CommissioningOn = DBNull.Value == dr["CommissioningOn"] ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]) },
+
+                                };
 
                                 W.Approved1By = new PUser();
                                 if (dr["Approved1By"] != DBNull.Value)
@@ -563,6 +569,7 @@ namespace Business
 
                             item.HSNCode = Convert.ToString(dr["HSNCode"]);
                             item.Qty = Convert.ToDecimal(dr["Qty"]);
+                            item.Per = DBNull.Value == dr["Per"] ? (decimal?)null : Convert.ToDecimal(dr["Per"]);
                             item.UnitOM = Convert.ToString(dr["UnitOM"]);
                             item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
                             item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);

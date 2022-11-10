@@ -266,6 +266,8 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("HMR");
             dt.Columns.Add("Margin Warranty");
             dt.Columns.Add("Machine Serial Number");
+            dt.Columns.Add("Commissioning On");
+            dt.Columns.Add("Nature of Failure");
             dt.Columns.Add("Status");
             dt.Columns.Add("Apr.1 By");
             dt.Columns.Add("Apr.1 On");
@@ -284,6 +286,7 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Material Desc");
             dt.Columns.Add("Category");
             dt.Columns.Add("Qty");
+            dt.Columns.Add("Per");
             dt.Columns.Add("UOM");
             dt.Columns.Add("Amount");
             dt.Columns.Add("BaseTax");
@@ -326,6 +329,8 @@ namespace DealerManagementSystem.ViewService
                         , M.HMR
                         , M.MarginWarranty
                         , M.MachineSerialNumber
+                        , M.ICTicket.Equipment.CommissioningOn
+                         , M.ICTicket.ComplaintDescription
                         , M.ClaimStatus
                         , M.Approved1By.ContactName
                         , M.Approved1On
@@ -342,6 +347,7 @@ namespace DealerManagementSystem.ViewService
                         , Item.MaterialDesc
                         , Item.Category
                         , Item.Qty
+                        , Item.Per
                         , Item.UnitOM
                         , Item.Amount
                         , Item.BaseTax

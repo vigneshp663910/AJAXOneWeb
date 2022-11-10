@@ -2448,5 +2448,10 @@ namespace Business
             return dt;
         }
 
+        public PICTicketCustomerFeedback GetICTicketCustomerFeedback(long ICTicketID)
+        {
+            string endPoint = "ICTicket/CustomerFeedback?ICTicketID=" + ICTicketID;
+            return JsonConvert.DeserializeObject<PICTicketCustomerFeedback>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

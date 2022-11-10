@@ -354,6 +354,7 @@ namespace Properties
         public string MaterialDesc { get; set; }
 
         public decimal? Qty { get; set; }
+        public decimal? Per { get; set; }
         public string UnitOM { get; set; }
         public decimal? Amount { get; set; }
         public decimal? BaseTax { get; set; }

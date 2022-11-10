@@ -33,7 +33,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket, PDMS_ICTicketFSR ICTicketFSR)
         {
             EnableOrDesableBasedOnServiceCharges();
-            FillCustomerSatisfactionLevel();
+           
 
             txtRestoreDate.Text = SDMS_ICTicket.RestoreDate == null ? "" : ((DateTime)SDMS_ICTicket.RestoreDate).ToShortDateString();
             ddlRestoreHH.SelectedValue = SDMS_ICTicket.RestoreDate == null ? "-1" : ((DateTime)SDMS_ICTicket.RestoreDate).Hour.ToString();
@@ -68,10 +68,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ddlArrivalBackMM.SelectedValue = "0";
             }
 
-            if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
-                ddlCustomerSatisfactionLevel.SelectedValue = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
+           
 
-            txtCustomerRemarks.Text = ICTicketFSR.CustomerRemarks;
+          //  txtCustomerRemarks.Text = ICTicketFSR.CustomerRemarks;
 
             if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
                 ddlComplaintStatus.SelectedValue = ICTicketFSR.ComplaintStatus;
@@ -102,9 +101,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             DateTime? RestoreDate = string.IsNullOrEmpty(txtRestoreDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRestoreDate.Text.Trim() + " " + ddlRestoreHH.SelectedValue + ":" + ddlRestoreMM.SelectedValue);
             DateTime? ArrivalBack = string.IsNullOrEmpty(txtArrivalBackDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtArrivalBackDate.Text.Trim() + " " + ddlArrivalBackHH.SelectedValue + ":" + ddlArrivalBackMM.SelectedValue);
 
-           
-            return "&RestoreDate=" + RestoreDate + "&ArrivalBack=" + ArrivalBack + "&CustomerSatisfactionLevelID=" + ddlCustomerSatisfactionLevel.SelectedValue
-                + "&CustomerRemarks=" + txtCustomerRemarks.Text.Trim() + "&ComplaintStatus=" + ddlComplaintStatus.SelectedValue; 
+
+            return "&RestoreDate=" + RestoreDate + "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=" + ddlComplaintStatus.SelectedValue; 
         }
         public string Validation(PDMS_ICTicket SDMS_ICTicket)
         {
@@ -136,13 +134,6 @@ namespace DealerManagementSystem.ViewService.UserControls
                 txtRestoreDate.Text = "";
             }
         }
-        private void FillCustomerSatisfactionLevel()
-        {
-            ddlCustomerSatisfactionLevel.DataTextField = "CustomerSatisfactionLevel";
-            ddlCustomerSatisfactionLevel.DataValueField = "CustomerSatisfactionLevelID";
-            ddlCustomerSatisfactionLevel.DataSource = new BDMS_Service().GetCustomerSatisfactionLevel(null, null);
-            ddlCustomerSatisfactionLevel.DataBind();
-            ddlCustomerSatisfactionLevel.Items.Insert(0, new ListItem("Select", "0"));
-        }
+        
     }
 }
