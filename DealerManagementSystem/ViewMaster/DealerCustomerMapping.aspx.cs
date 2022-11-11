@@ -41,8 +41,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue.Trim());
             }
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
-            gvCustomer.DataSource = Customer;
+            gvCustomer.DataSource = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode, null);
             gvCustomer.DataBind();
         }
         protected void lbViewCustomer_Click(object sender, EventArgs e)

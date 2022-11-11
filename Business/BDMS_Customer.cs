@@ -699,7 +699,7 @@ namespace Business
             string endPoint = "Customer/CustomerForDuplicateVerificatio?CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PDMS_Customer> GetDealerCustomer(int? DealerID, string DealerCode)
+        public DataTable GetDealerCustomer(int? DealerID, string DealerCode, string CustomerCode)
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Customer> Customers = new List<PDMS_Customer>();
@@ -707,21 +707,24 @@ namespace Business
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
-                DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, DealerCodeP, CustomerCodeP };
 
                 PDMS_Customer Customer = new PDMS_Customer();
                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerCustomer", Params))
                 {
                     if (DataSet != null)
                     {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Customer = new PDMS_Customer();
-                            Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
-                            Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                            Customers.Add(Customer);
-                        }
+                        return DataSet.Tables[0];
+                        //foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        //{
+                        //    Customer = new PDMS_Customer();
+                        //    Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
+                        //    //Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                        //    Customer.CustomerCode = Convert.ToString(dr["DealerCodeCustomerCode"]);
+                        //    Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+                        //    Customers.Add(Customer);
+                        //}
                     }
                 }
                 TraceLogger.Log(DateTime.Now);
@@ -731,31 +734,25 @@ namespace Business
                 new FileLogger().LogMessage("GetDealerCustomer", "ZDMS_GetDealerCustomer", ex);
                 throw ex;
             }
-            return Customers;
+            return null;
         }
         public int InsertOrUpdateDealerCustomerMapping(int? DealerCustomerMappingID, int? DealerID, string CustomerCode, int UserID, Boolean IsActive)
         {
-            int result = 0;
             TraceLogger.Log(DateTime.Now);
             DbParameter DealerCustomerMappingIDP = provider.CreateParameter("DealerCustomerMappingID", DealerCustomerMappingID, DbType.Int32);
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int32, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[6] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP, OutValue };
+            DbParameter[] Params = new DbParameter[5] { DealerCustomerMappingIDP, DealerIDP, CustomerCodeP, UserIDP, IsActiveP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    result = provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
-                    if (result != 0)
-                    {
-                        result = Convert.ToInt32(OutValue.Value);
-                    }
+                    provider.Insert("ZDMS_InsertOrUpdateDealerCustomerMapping", Params);
                     scope.Complete();
                 }
-                return result;
+                return 1;
             }
             catch (SqlException sqlEx)
             {
@@ -767,7 +764,7 @@ namespace Business
             }
 
             TraceLogger.Log(DateTime.Now);
-            return result;
+            return 0;
         }
         //public List<PDMS_Customer> GetCustomerFromSQL(long? CustomerID, string CustomerCode)
         //{
