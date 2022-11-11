@@ -15,9 +15,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
 
         }
-        public void FillMaster()
+        public void FillMaster(PICTicketCustomerFeedback Feedback)
         {
-             
+            FillCustomerSatisfactionLevel();
+
+            if (Feedback.CustomerSatisfactionLevel != null)
+                ddlCustomerSatisfactionLevel.SelectedValue = Feedback.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
+
         }
 
         void Clear()
@@ -33,6 +37,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             Feed.Signature = CreateUploadedFile(fuSignature.PostedFile);
             Feed.Latitude = 0;
             Feed.Longitude = 0;
+            Feed.CustomerSatisfactionLevel = new PDMS_CustomerSatisfactionLevel() { CustomerSatisfactionLevelID = Convert.ToInt32(ddlCustomerSatisfactionLevel.SelectedValue) }; 
             return Feed;
         }
         public string Validation()
@@ -63,6 +68,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             AttachedFile.AttachedFileID = 0; 
             // AttachedFile.ICTicket = new PDMS_ICTicket() { ICTicketID = SDMS_ICTicket.ICTicketID }; 
             return AttachedFile;
+        }
+        private void FillCustomerSatisfactionLevel()
+        {
+            ddlCustomerSatisfactionLevel.DataTextField = "CustomerSatisfactionLevel";
+            ddlCustomerSatisfactionLevel.DataValueField = "CustomerSatisfactionLevelID";
+            ddlCustomerSatisfactionLevel.DataSource = new BDMS_Service().GetCustomerSatisfactionLevel(null, null);
+            ddlCustomerSatisfactionLevel.DataBind();
+            ddlCustomerSatisfactionLevel.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }

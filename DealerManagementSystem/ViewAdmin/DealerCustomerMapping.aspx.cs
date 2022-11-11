@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Data;
 
 namespace DealerManagementSystem.ViewAdmin
 {
@@ -18,27 +19,28 @@ namespace DealerManagementSystem.ViewAdmin
 
             if (!IsPostBack)
             {
-                FillDealer();                
+                FillDealer(ddlDealerCode);
+                FillDealer(ddlDealerCodeM);
             }
         }
-        void FillDealer()
+        void FillDealer(DropDownList ddlDealerCode)
         {
             List<PDMS_Dealer> Dealer = new List<PDMS_Dealer>();
             //Dealer = new BDMS_Dealer().GetDealer(null, null, null, null);
             //new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
-            new DDLBind(ddlDealerCode, PSession.User.Dealer, "CodeWithName", "DID");
+            new DDLBind(ddlDealerCode, PSession.User.Dealer, "CodeWithDisplayName", "DID");
         }
 
 
-        public List<PDMS_Customer> Customer
+        public DataTable Customer
         {
             get
             {
                 if (Session["Customer"] == null)
                 {
-                    Session["Customer"] = new List<PDMS_Customer>();
+                    Session["Customer"] = new DataTable();
                 }
-                return (List<PDMS_Customer>)Session["Customer"];
+                return (DataTable)Session["Customer"];
             }
             set
             {
@@ -63,28 +65,33 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
 
-        void DCBind(GridView gv, Label lbl, List<PDMS_Customer> Customer)
+        void DCBind(GridView gv, Label lbl, DataTable Customer)
         {
             gv.DataSource = Customer;
             gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Customer.Count;
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Customer.Rows.Count;
         }
 
         void FillCustomer()
         {
             int? DealerID = null;
             string DealerCode = null;
+            string CustomeCode = null;
             if (ddlDealerCode.SelectedValue!="0")
             {
                 DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue.Trim());
             }
+            if(!string.IsNullOrEmpty(txtCustomerCodeS.Text.Trim()))
+            {
+                CustomeCode = txtCustomerCodeS.Text.Trim();
+            }
 
             //List<PDMS_Customer> Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
-            Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode);
+            Customer = new BDMS_Customer().GetDealerCustomer(DealerID, DealerCode, CustomeCode);
             gvCustomer.DataSource = Customer;
             gvCustomer.DataBind();
 
-            if (Customer.Count == 0)
+            if (Customer.Rows.Count == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnDCArrowLeft.Visible = false;
@@ -95,10 +102,11 @@ namespace DealerManagementSystem.ViewAdmin
                 lblRowCount.Visible = true;
                 ibtnDCArrowLeft.Visible = true;
                 ibtnDCArrowRight.Visible = true;
-                lblRowCount.Text = (((gvCustomer.PageIndex) * gvCustomer.PageSize) + 1) + " - " + (((gvCustomer.PageIndex) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Customer.Count;
+                lblRowCount.Text = (((gvCustomer.PageIndex) * gvCustomer.PageSize) + 1) + " - " + (((gvCustomer.PageIndex) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Customer.Rows.Count;
             }
 
-
+            FillDealer(ddlDealerCodeM);
+            txtCustomerCode.Text = string.Empty;
         }
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
@@ -126,7 +134,7 @@ namespace DealerManagementSystem.ViewAdmin
                 int Result = 0;
                 string Message = "";
 
-                if (ddlDealerCode.SelectedValue=="0")
+                if (ddlDealerCodeM.SelectedValue=="0")
                 {
                     Message = Message + "<br/> Please Select the Dealer...!";
                     Success = false;
@@ -143,25 +151,25 @@ namespace DealerManagementSystem.ViewAdmin
                 }
                 else
                 {
-                    Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
+                    Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCodeM.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
                     if (Result == 1)
                     {
                         //lblMessage.Text = "Dealer To Customer Mapped successfully";
-                        lblMessage.Text = "Customer mapped to Dealer successfully";
+                        lblMessage.Text = "Customer mapped to Dealer successfully.";
                         lblMessage.ForeColor = Color.Green;
                         FillCustomer();
                     }
                     else if(Result == 2)
                     {
                         //lblMessage.Text = "Dealer To Customer Already Mapped";
-                        lblMessage.Text = "Customer already mapped to Dealer";
+                        lblMessage.Text = "Customer already mapped to Dealer.";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
                     else
                     {
                         //lblMessage.Text = "Dealer To Customer Is Not Mapped successfully";
-                        lblMessage.Text = "Customer not mapped to Dealer successfully";
+                        lblMessage.Text = "Customer not mapped to Dealer successfully.";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }
@@ -179,20 +187,26 @@ namespace DealerManagementSystem.ViewAdmin
         {
             int Result = 0;
             LinkButton lblCustomerDelete = (LinkButton)sender;
-            string customercode = lblCustomerDelete.CommandArgument;
-            Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), customercode.ToString().Trim(), PSession.User.UserID, false);
+            //string customercode = lblCustomerDelete.CommandArgument;
+            string DealerCustomerMappingID = lblCustomerDelete.CommandArgument;
+            //Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), customercode.ToString().Trim(), PSession.User.UserID, false);
+            Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(Convert.ToInt32(DealerCustomerMappingID), null, null, PSession.User.UserID, false);
             if (Result == 1)
             {
-                lblMessage.Text = "Mapping was Deleted successfully";
+                lblMessage.Text = "Delaer Customer mapping was deleted successfully.";
                 lblMessage.ForeColor = Color.Green;
                 FillCustomer();
             }
             else
             {
-                lblMessage.Text = "Mapping was not deleted successfully";
+                lblMessage.Text = "Delaer Customer mapping was not deleted successfully.";
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
+        }
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            FillCustomer();
         }
     }
 }

@@ -334,5 +334,40 @@ namespace Business
         //    { }
         //    return Dealer;
         //}
+
+        public List<PDealer> GetDealerStateMapping(int? DealerID, string DealerCode, int StateID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDealer> DealerStateMappings = new List<PDealer>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
+                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, DealerCodeP, StateIDP };
+
+                PDealer DealerStateMapping = new PDealer();
+                using (DataSet DataSet = provider.Select("GetDealerStateMapping", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            DealerStateMapping = new PDealer();
+                            DealerStateMapping.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            DealerStateMapping.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) };
+                            DealerStateMappings.Add(DealerStateMapping);
+                        }
+                    }
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("GetDealerStateMapping", "GetDealerStateMapping", ex);
+                throw ex;
+            }
+            return null;
+        }
     }
 }

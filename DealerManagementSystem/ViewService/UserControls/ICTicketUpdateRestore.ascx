@@ -53,14 +53,11 @@
                         <asp:ListItem>55</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="col-md-12 col-sm-12">
+             <%--   <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Customer Remarks</label>
                     <asp:TextBox ID="txtCustomerRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Customer Satisfaction Level</label>
-                    <asp:DropDownList ID="ddlCustomerSatisfactionLevel" runat="server" CssClass="form-control" />
-                </div>
+                </div>--%>
+               
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Arrival Back Date and Time</label>
                     <asp:TextBox ID="txtArrivalBackDate" runat="server" CssClass="form-control" AutoComplete="Off" onkeyup="return removeText('MainContent_txtRestoreDate');"></asp:TextBox><asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtArrivalBackDate" PopupButtonID="txtArrivalBackDate" Format="dd/MM/yyyy"></asp:CalendarExtender>

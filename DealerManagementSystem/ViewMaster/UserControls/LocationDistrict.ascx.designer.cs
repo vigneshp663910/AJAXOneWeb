@@ -7,128 +7,119 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewService.UserControls
+namespace DealerManagementSystem.ViewMaster.UserControls
 {
 
 
-    public partial class ICTicketUpdateRestore
+    public partial class LocationDistrict
     {
 
         /// <summary>
-        /// updatepnl control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatepnl;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// Fieldset1 control.
+        /// HiddenID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenID;
 
         /// <summary>
-        /// txtRestoreDate control.
+        /// fldDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRestoreDate;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldDistrict;
 
         /// <summary>
-        /// ceRestoreDate control.
+        /// ddlDDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender ceRestoreDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDDealer;
 
         /// <summary>
-        /// TextBoxWatermarkExtender2 control.
+        /// ddlDCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDCountry;
 
         /// <summary>
-        /// ddlRestoreHH control.
+        /// ddlDState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRestoreHH;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDState;
 
         /// <summary>
-        /// ddlRestoreMM control.
+        /// txtDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRestoreMM;
+        protected global::System.Web.UI.WebControls.TextBox txtDistrict;
 
         /// <summary>
-        /// txtArrivalBackDate control.
+        /// BtnSearchDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtArrivalBackDate;
+        protected global::System.Web.UI.WebControls.Button BtnSearchDistrict;
 
         /// <summary>
-        /// CalendarExtender3 control.
+        /// lblRowCountD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
+        protected global::System.Web.UI.WebControls.Label lblRowCountD;
 
         /// <summary>
-        /// TextBoxWatermarkExtender4 control.
+        /// ibtnDistrictArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender4;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDistrictArrowLeft;
 
         /// <summary>
-        /// ddlArrivalBackHH control.
+        /// ibtnDistrictArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlArrivalBackHH;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnDistrictArrowRight;
 
         /// <summary>
-        /// ddlArrivalBackMM control.
+        /// gvDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlArrivalBackMM;
-
-        /// <summary>
-        /// ddlComplaintStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlComplaintStatus;
+        protected global::System.Web.UI.WebControls.GridView gvDistrict;
     }
 }
