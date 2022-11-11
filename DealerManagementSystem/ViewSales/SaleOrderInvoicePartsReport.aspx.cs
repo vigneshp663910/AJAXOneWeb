@@ -516,7 +516,7 @@ namespace DealerManagementSystem.ViewSales
         }
         void fillDealer()
         {
-            ddlDealerCode.DataTextField = "CodeWithName";
+            ddlDealerCode.DataTextField = "CodeWithDisplayName";
             ddlDealerCode.DataValueField = "DID";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();

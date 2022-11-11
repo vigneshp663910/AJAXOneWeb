@@ -268,7 +268,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         void fillDealer()
         {
-            ddlDealer.DataTextField = "CodeWithName";
+            ddlDealer.DataTextField = "CodeWithDisplayName";
             ddlDealer.DataValueField = "DID";
             ddlDealer.DataSource = PSession.User.Dealer;
             ddlDealer.DataBind();

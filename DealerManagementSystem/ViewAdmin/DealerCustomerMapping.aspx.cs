@@ -28,7 +28,7 @@ namespace DealerManagementSystem.ViewAdmin
             List<PDMS_Dealer> Dealer = new List<PDMS_Dealer>();
             //Dealer = new BDMS_Dealer().GetDealer(null, null, null, null);
             //new DDLBind(ddlDealerCode, Dealer, "DealerCode", "DealerID");
-            new DDLBind(ddlDealerCode, PSession.User.Dealer, "CodeWithName", "DID");
+            new DDLBind(ddlDealerCode, PSession.User.Dealer, "CodeWithDisplayName", "DID");
         }
 
 
