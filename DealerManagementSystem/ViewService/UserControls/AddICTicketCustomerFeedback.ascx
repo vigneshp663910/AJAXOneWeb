@@ -3,6 +3,10 @@
  
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
     <div class="col-md-12"> 
+         <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Customer Satisfaction Level</label>
+                    <asp:DropDownList ID="ddlCustomerSatisfactionLevel" runat="server" CssClass="form-control" />
+                </div>
         <div class="col-md-12 col-sm-12">
             <label class="modal-label">Remarks</label>
              <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>

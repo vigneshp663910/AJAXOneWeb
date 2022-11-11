@@ -207,13 +207,13 @@
                     <label class="modal-label">
                         Country
                         <samp style="color: red">*</samp></label>
-                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" Enabled="false" />
+                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true"  />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">
                         State
                         <samp style="color: red">*</samp></label>
-                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" Enabled="false" />
+                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true"  />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">

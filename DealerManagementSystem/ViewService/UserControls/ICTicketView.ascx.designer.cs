@@ -87,6 +87,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnAddMaterialCharges;
 
         /// <summary>
+        /// lbtnMaterialQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnMaterialQuotation;
+
+        /// <summary>
         /// lbtnAddNotes control.
         /// </summary>
         /// <remarks>
@@ -166,15 +175,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnMaterialClaim;
-
-        /// <summary>
-        /// lbtnMaterialQuotation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnMaterialQuotation;
 
         /// <summary>
         /// lblICTicket control.
@@ -924,6 +924,33 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblRestoreDate;
 
         /// <summary>
+        /// lblArrivalBackDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblArrivalBackDate;
+
+        /// <summary>
+        /// lblComplaintStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblComplaintStatus;
+
+        /// <summary>
+        /// tpnlCustomerFeedback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlCustomerFeedback;
+
+        /// <summary>
         /// lblCustomerRemarks control.
         /// </summary>
         /// <remarks>
@@ -942,22 +969,22 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblCustomerSatisfactionLevel;
 
         /// <summary>
-        /// lblArrivalBackDate control.
+        /// lbtnPhoto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblArrivalBackDate;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnPhoto;
 
         /// <summary>
-        /// lblComplaintStatus control.
+        /// lbtnSignature control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblComplaintStatus;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnSignature;
 
         /// <summary>
         /// pnlAddTechnician control.

@@ -25,30 +25,30 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             cxDOAnniversary.EndDate = DateTime.Now;
             cxDOB.EndDate = DateTime.Now;
-
+            fillDealer();
             new DDLBind(ddlTitle, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID",false);
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             PDealer Dealer = PSession.User.Dealer[0];
             int CountryID = Dealer.Country.CountryID;
             ddlCountry.SelectedValue = Convert.ToString(CountryID);
-            new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
-            fillDealer();
+            new DDLBind(ddlState, new BDMS_Address().GetState(Dealer.DealerID, CountryID, null, null, null), "State", "StateID");
+            
 
             
             
             // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
          
-            CheckDealet();
+         //   CheckDealet();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
+            List<PDMS_State> State = new BDMS_Address().GetState(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
         }
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
         }
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
@@ -318,30 +318,29 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             List<PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
 
             //int CountryID = Dealer[0].Country.CountryID;
-          //  ddlCountry.SelectedValue = Convert.ToString(CountryID);
-          //  new DDLBind(ddlState, new BDMS_Address().GetState(CountryID, null, null, null), "State", "StateID");
-         //   ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
-          //  new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Dealer[0].Country.CountryID, null, Dealer[0].State.StateID, null, null, Dealer[0].DID), "District", "DistrictID");
+            //ddlCountry.SelectedValue = Convert.ToString(CountryID);
+            new DDLBind(ddlState, new BDMS_Address().GetState(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID"); 
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Dealer[0].Country.CountryID, null, Convert.ToInt32(ddlState.SelectedValue), null, null, Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
 
-            CheckDealet();
+            // CheckDealet();
 
         }
-        void CheckDealet()
-        {
-            if (ddlDealer.SelectedValue == ConfigurationManager.AppSettings["AjaxDealerID"])
-            {
-                ddlCountry.Enabled = true;
-                ddlState.Enabled = true;
-            }
-            else
-            {
-                ddlCountry.Enabled = false;
-                ddlState.Enabled = false;
-                List<PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
-                ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
-                new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Dealer[0].State.StateID, null, null, null), "District", "DistrictID");
-            }
-        }
+        //void CheckDealet()
+        //{
+        //    if (ddlDealer.SelectedValue == ConfigurationManager.AppSettings["AjaxDealerID"])
+        //    {
+        //        ddlCountry.Enabled = true;
+        //        ddlState.Enabled = true;
+        //    }
+        //    else
+        //    {
+        //        ddlCountry.Enabled = false;
+        //        ddlState.Enabled = false;
+        //        List<PDealer> Dealer = new BDealer().GetDealerList(Convert.ToInt32(ddlDealer.SelectedValue), "", "");
+        //        ddlState.SelectedValue = Convert.ToString(Dealer[0].State.StateID);
+        //        new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Dealer[0].State.StateID, null, null, null), "District", "DistrictID");
+        //    }
+        //}
         void fillDealer()
         {
             ddlDealer.DataValueField = "DID";

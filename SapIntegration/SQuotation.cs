@@ -317,19 +317,35 @@ namespace SapIntegration
                 {
                     ConditionType = tagTable.CurrentRow.GetString("COND_TYPE");
 
-                    if ((ConditionType == "JOCG") || (ConditionType == "JOSG")|| (ConditionType == "JOIG"))
+                    if ((ConditionType == "JOCG") || (ConditionType == "JOSG") || (ConditionType == "JOIG"))
                     {
                         if (Quotation.Lead.Dealer.StateCode == Quotation.Lead.Customer.State.StateCode)
                         {
-                            Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
-                            Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                            if ((ConditionType == "JOCG") || (ConditionType == "JOSG"))
+                            {
+                                Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+                                Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                            }
+                            else if (ConditionType == "JOIG")
+                            {
+                                Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE"))) / 2;
+                                Material.SGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE")) / 2;
+                            }
                         }
                         else
                         {
-                            Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
-                            Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                            if ((ConditionType == "JOCG") || (ConditionType == "JOSG"))
+                            {
+                                Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE"))) * 2;
+                                Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE")) * 2;
+                            }
+                            else if (ConditionType == "JOIG")
+                            {
+                                Material.IGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));
+                                Material.IGSTValue = Convert.ToDecimal(tagTable.CurrentRow.GetString("VALUE"));
+                            }
                         }
-                    } 
+                    }
                     //if ((ConditionType == "JOCG") || (ConditionType == "JOSG"))
                     //{
                     //    Material.SGST = Convert.ToInt32(Convert.ToDecimal(tagTable.CurrentRow.GetString("PERCENTAGE")));

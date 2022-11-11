@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
+        /// ddlCustomerSatisfactionLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerSatisfactionLevel;
+
+        /// <summary>
         /// txtRemarks control.
         /// </summary>
         /// <remarks>

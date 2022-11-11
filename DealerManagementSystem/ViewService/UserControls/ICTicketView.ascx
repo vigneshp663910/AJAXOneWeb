@@ -26,6 +26,7 @@
                 <asp:LinkButton ID="lbtnAddServiceCharges" runat="server" OnClick="lbActions_Click">Add Service Charges</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddTSIR" runat="server" OnClick="lbActions_Click">Add TSIR</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddMaterialCharges" runat="server" OnClick="lbActions_Click">Add Material Charges</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMaterialQuotation" runat="server" OnClick="lbActions_Click">Material Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddNotes" runat="server" OnClick="lbActions_Click">Add Notes</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddTechnicianWork" runat="server" OnClick="lbActions_Click">Add Technician Work</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
@@ -35,7 +36,7 @@
                 <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click">Service Profarma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click">Service Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton>
-                <asp:LinkButton ID="lbtnMaterialQuotation" runat="server" OnClick="lbActions_Click">Material Quotation</asp:LinkButton>
+
             </div>
         </div>
     </div>
@@ -945,21 +946,11 @@
     </asp1:TabPanel>
     <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="IC Ticket Restore" Font-Bold="True" ToolTip="">
         <ContentTemplate>
-
             <br />
-
             <div class="col-md-12 View">
                 <div class="col-md-4">
                     <label>Restore Date and Time : </label>
                     <asp:Label ID="lblRestoreDate" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-4">
-                    <label>Customer Remarks : </label>
-                    <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-4">
-                    <label>Customer Satisfaction Level : </label>
-                    <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Arrival Back Date and Time : </label>
@@ -970,10 +961,33 @@
                     <asp:Label ID="lblComplaintStatus" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
-
         </ContentTemplate>
     </asp1:TabPanel>
-</asp1:TabContainer><asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
+    <asp1:TabPanel ID="tpnlCustomerFeedback" runat="server" HeaderText="Customer Feedback" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12 View">
+                <div class="col-md-4">
+                    <label>Customer Remarks : </label>
+                    <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Customer Satisfaction Level : </label>
+                    <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Photo</label>
+                    <asp:LinkButton ID="lbtnPhoto" runat="server" OnClick="lbtnPhoto_Click" Text=""></asp:LinkButton>
+                </div>
+                <div class="col-md-4">
+                    <label>Signature</label>
+                    <asp:LinkButton ID="lbtnSignature" runat="server" OnClick="lbtnSignature_Click" Text=""></asp:LinkButton>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
+</asp1:TabContainer>
+<asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Technician</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
