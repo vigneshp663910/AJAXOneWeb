@@ -1187,7 +1187,8 @@ namespace Business
         public void LoadDealerDDL(DropDownList ddl)
         {
             ddl.DataValueField = "DID";
-            ddl.DataTextField = "CodeWithName";
+            //ddl.DataTextField = "CodeWithName";
+            ddl.DataTextField = "CodeWithDisplayName" ;
             ddl.DataSource = PSession.User.Dealer;
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));

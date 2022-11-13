@@ -82,7 +82,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             try
             { 
                 ddl.DataValueField = "DID";
-                ddl.DataTextField = "CodeWithName";
+                ddl.DataTextField = "CodeWithDisplayName";
                 ddl.DataSource = PSession.User.Dealer;
                 ddl.DataBind();
                 // ddl.Items.Insert(0, new ListItem("Select", "0"));
