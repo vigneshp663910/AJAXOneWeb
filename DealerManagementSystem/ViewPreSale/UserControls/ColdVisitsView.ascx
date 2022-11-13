@@ -111,8 +111,8 @@
     </fieldset>
 </div>
 
-<asp:HiddenField ID="hfLatitude" runat="server" />
-    <asp:HiddenField ID="hfLongitude" runat="server" />
+
+ 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
     <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Activity">
@@ -427,16 +427,7 @@
 </asp:Panel>
 
 <ajaxToolkit:ModalPopupExtender ID="MPE_Expense" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlExpense" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
-
-
-
-<%--<p>
-    s</p>--%>
-
-
-
-
+  
 <asp:Panel ID="pnlAddActivity" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -549,26 +540,7 @@
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 
-<script> 
-        function success(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            document.getElementById('hfLatitude').value = latitude;
-            document.getElementById('hfLongitude').value = longitude;
-            status.textContent = '';
-        }
-        function error() {
-            status.textContent = 'Unable to retrieve your location';
-        }
 
-        if (!navigator.geolocation) {
-            status.textContent = 'Geolocation is not supported by your browser';
-
-        } else {
-            status.textContent = 'Locating…';
-            navigator.geolocation.getCurrentPosition(success, error);
-        }
-    </script>
 
     <script type="text/javascript">
 
@@ -603,5 +575,29 @@
 
     </script>
 
+   <asp:HiddenField ID="hfLatitudeAction" runat="server" />
+   <asp:HiddenField ID="hfLongitudeAction" runat="server" />
 
+  <script> 
+      debugger;
+      function success(position1) {
+           const latitude1 = position1.coords.latitude;
+           const longitude1 = position1.coords.longitude; 
+          document.getElementById('MainContent_UC_ColdVisitsView_hfLatitudeAction').value = latitude1;
+          document.getElementById('MainContent_UC_ColdVisitsView_hfLongitudeAction').value = longitude1;
+          status.textContent = '';
+      }
+      function error() {
+          status.textContent = 'Unable to retrieve your location';
+      }
+
+      if (!navigator.geolocation) {
+          status.textContent = 'Geolocation is not supported by your browser';
+
+      } else {
+          status.textContent = 'Locating…';
+          debugger;
+          navigator.geolocation.getCurrentPosition(success, error);
+      }
+  </script>
 

@@ -436,7 +436,7 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                 </div></div></div><div>
+                    </div></div></div><div>
             <div class="" id="boxHere"></div>
             <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
@@ -531,4 +531,6 @@
              navigator.geolocation.getCurrentPosition(success, error);
          }
      </script>
+
+  
 </asp:Content>

@@ -435,7 +435,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     ddlActivityTypeS.BorderColor = Color.Red;
                     return;
                 }
-                if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+                if (string.IsNullOrEmpty(hfLatitudeAction.Value) || string.IsNullOrEmpty(hfLongitudeAction.Value))
                 {
                     lblAddActivityMessage.Text = "Please Enable GeoLocation...!";
                     lblAddActivityMessage.ForeColor = Color.Red;
