@@ -42,6 +42,7 @@ namespace Properties
         public PEffortType EffortType { get; set; }
         public decimal? EffortDuration { get; set; }
         public PExpenseType ExpenseType { get; set; }
+        public string ReferenceInfo { get; set; }
     }   
 
     [Serializable]

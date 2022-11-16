@@ -221,6 +221,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessage.Text = "Please select the Product";
                     return;
                 }
+                List<PLeadQuestionaries> Questionaries = new BLead().GetLeadQuestionaries(Lead.LeadID);
+                if (Questionaries.Count == 0)
+                {
+                    lblMessage.Text = "Please Add the Questionaries";
+                    return ;
+                }
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Label lblLeadProductID = (Label)gvRow.FindControl("lblLeadProductID");
                 Session["LeadProductID"] = lblLeadProductID.Text;
