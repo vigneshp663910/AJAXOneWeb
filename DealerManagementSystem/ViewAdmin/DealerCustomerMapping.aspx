@@ -85,7 +85,15 @@
                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
+                        </asp:GridView>                        
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <div class="col-md-12 Report">
                         <div id="DivCustomer" runat="server" visible="true">
                             <div class="col-md-2 col-sm-12">
                                 <label class="modal-label">Dealer</label>

@@ -335,31 +335,40 @@ namespace Business
         //    return Dealer;
         //}
 
-        public List<PDealer> GetDealerStateMapping(int? DealerID, string DealerCode, int StateID)
+        public List<PDealerStateMappingID> GetDealerStateMapping(int? DealerID, int? CountryID, int? StateID)
         {
             TraceLogger.Log(DateTime.Now);
-            List<PDealer> DealerStateMappings = new List<PDealer>();
+            List<PDealerStateMappingID> DealerStateMappings = new List<PDealerStateMappingID>();
             try
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
+                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { DealerIDP, DealerCodeP, StateIDP };
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, CountryIDP, StateIDP };
 
-                PDealer DealerStateMapping = new PDealer();
+                PDealerStateMappingID DealerStateMapping = new PDealerStateMappingID();
                 using (DataSet DataSet = provider.Select("GetDealerStateMapping", Params))
                 {
                     if (DataSet != null)
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            DealerStateMapping = new PDealer();
-                            DealerStateMapping.DealerCode = Convert.ToString(dr["DealerCode"]);
-                            DealerStateMapping.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) };
+                            //DealerStateMappings.Add(new PDealerStateMappingID()
+                            //{
+
+                            //    State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) , State = Convert.ToString(dr["State"]) },
+                            //    Dealer = new PDealer() { DID = Convert.ToInt32(dr["DID"]) , DealerCode = Convert.ToString(dr["DealerCode"]) },
+
+                            //});
+                            DealerStateMapping = new PDealerStateMappingID();
+                            DealerStateMapping.DealerStateMappingID = Convert.ToInt32(dr["DealerStateMappingID"]);
+                            DealerStateMapping.Dealer= new PDealer() { DealerID =  Convert.ToInt32(dr["DID"]), DealerCode = Convert.ToString(dr["DealerCode"]) };
+                            DealerStateMapping.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]), State = Convert.ToString(dr["State"]) };
                             DealerStateMappings.Add(DealerStateMapping);
                         }
                     }
                 }
+                return DealerStateMappings;
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception ex)
@@ -367,7 +376,38 @@ namespace Business
                 new FileLogger().LogMessage("GetDealerStateMapping", "GetDealerStateMapping", ex);
                 throw ex;
             }
-            return null;
+            return DealerStateMappings;
+        }
+
+        public int InsertOrUpdateDealerStateMapping(int? DealerStateMappingID, int? DealerID, int? CountryID, int? StateID, int UserID, Boolean IsActive)
+        {
+            TraceLogger.Log(DateTime.Now);
+            DbParameter DealerStateMappingIDP = provider.CreateParameter("DealerStateMappingID", DealerStateMappingID, DbType.Int32);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+            DbParameter[] Params = new DbParameter[5] { DealerStateMappingIDP, DealerIDP, StateIDP, UserIDP, IsActiveP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateDealerStateMapping", Params);
+                    scope.Complete();
+                }
+                return 1;
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDealer", "InsertOrUpdateDealerStateMapping", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDealer", "InsertOrUpdateDealerStateMapping", ex);
+            }
+
+            TraceLogger.Log(DateTime.Now);
+            return 0;
         }
     }
 }
