@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-12 col-sm-12">
             <label class="modal-label">Nature Of Complaint</label>
-            <asp:TextBox ID="txtNatureOfComplaint" runat="server" CssClass="form-control"  TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="txtNatureOfComplaint" runat="server" CssClass="form-control"  ></asp:TextBox>
         </div>
         <div class="col-md-12 col-sm-12">
             <label class="modal-label">Observation</label>

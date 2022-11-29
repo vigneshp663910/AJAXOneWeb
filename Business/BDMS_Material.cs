@@ -271,122 +271,8 @@ namespace Business
             }
             return SOIs;
         }
-
-        public List<PDMS_Material> GetMaterialSupersede(string filter)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Material> SOIs = new List<PDMS_Material>();
-            try
-            {
-                // string query = "SELECT  * from af_m_materials where 1 = 1 " + filter;
-
-                string query = "select s.p_rmaterial,mm.r_description as  mm_desc,s.p_smaterial,ms.r_description  as sm_desc ,s.valid_from, s.valid_to, s.r_message_desc  from af_m_supersede s left join af_m_materials mm on mm.p_material = s.p_rmaterial left join af_m_materials ms on ms.p_material = s.p_smaterial   where 1 = 1  " + filter + "  order by valid_from desc";
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
-                PDMS_Material SOI = new PDMS_Material();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    SOI = new PDMS_Material();
-                    SOI.MaterialCode = Convert.ToString(dr["p_rmaterial"]);
-                    SOI.MaterialDescription = Convert.ToString(dr["mm_desc"]);
-                    SOI.Supersede = new PSupersede();
-                    SOI.Supersede.Material = Convert.ToString(dr["p_smaterial"]);
-                    SOI.Supersede.MaterialDescription = Convert.ToString(dr["sm_desc"]);
-                    SOI.Supersede.ValidFrom = Convert.ToDateTime(dr["valid_from"]);
-                    SOI.Supersede.ValidTo = Convert.ToDateTime(dr["valid_to"]);
-                    SOI.Supersede.Description = Convert.ToString(dr["r_message_desc"]);
-                    SOIs.Add(SOI);
-                }
-                return SOIs;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Material", "GetMaterialSupersede", ex);
-                throw ex;
-            }
-            return SOIs;
-        }
-
-        public List<PDMS_Material> GetMaterialRoqDoq(string filter)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Material> SOIs = new List<PDMS_Material>();
-            try
-            {
-                // string query = "SELECT  * from af_m_materials where 1 = 1 " + filter;
-
-                string query = "SELECT   r.p_material,r.s_tenant_id, k_season_code, p_office, r.s_status,r.r_valid_from, r_req_roq_qty, r_doq_qty,   r.r_valid_to,   d_office_desc,  r_unit,   r_roq_qty ,r_description,description	,s.r_valid_from as  season_valid_from ,s.r_valid_to as  season_valid_to FROM public.dmror_roqdoq r	left join af_m_materials m on m.p_material =r.p_material	left  JOIN m_tenant ten ON  ten.tenantid = r.s_tenant_id     left join dmror_season s on s.p_season_code = r.k_season_code and s.s_tenant_id = r.s_tenant_id   where 1 = 1  " + filter + "  order by r_valid_from desc";
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
-                PDMS_Material SOI = new PDMS_Material();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    SOI = new PDMS_Material();
-                    SOI.MaterialCode = Convert.ToString(dr["p_material"]);
-                    SOI.MaterialDescription = Convert.ToString(dr["r_description"]);
-                    SOI.RoqDoq = new PRoqDoq();
-                    SOI.RoqDoq.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["s_tenant_id"]), DealerName = Convert.ToString(dr["description"]) };
-                    SOI.RoqDoq.SeasonCode = Convert.ToString(dr["k_season_code"]);
-                    SOI.RoqDoq.SeasonValidFrom = Convert.ToDateTime(dr["season_valid_from"]);
-                    SOI.RoqDoq.SeasonValidTo = Convert.ToDateTime(dr["season_valid_to"]);
-                    SOI.RoqDoq.Office = Convert.ToString(dr["p_office"]);
-                    SOI.RoqDoq.ValidFrom = Convert.ToDateTime(dr["r_valid_from"]);
-                    SOI.RoqDoq.ValidTo = Convert.ToDateTime(dr["r_valid_to"]);
-                    SOI.RoqDoq.Status = Convert.ToString(dr["s_status"]);
-
-                    SOI.RoqDoq.ReqRoqQty = dr["r_req_roq_qty"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["r_req_roq_qty"]); ;
-                    SOI.RoqDoq.DoqQty = dr["r_doq_qty"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["r_doq_qty"]);
-
-                    SOI.RoqDoq.OfficeDesc = Convert.ToString(dr["d_office_desc"]);
-                    SOI.RoqDoq.Unit = Convert.ToString(dr["r_unit"]);
-                    SOI.RoqDoq.RoqQty = dr["r_roq_qty"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["r_roq_qty"]);
-
-                    SOIs.Add(SOI);
-                }
-                return SOIs;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Material", "GetMaterialSupersede", ex);
-                throw ex;
-            }
-            return SOIs;
-        }
-        public List<PDMS_Material> GetMaterialBin(string filter)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Material> SOIs = new List<PDMS_Material>();
-            try
-            {
-                // string query = "SELECT  * from af_m_materials where 1 = 1 " + filter;
-
-                string query = "SELECT  b.p_material ,r_description,s_tenant_id,description, p_office, p_location,      r_bin_id  	FROM public.dmmer_bin_location b left join af_m_materials m on m.p_material =b.p_material left  JOIN m_tenant ten ON  ten.tenantid = b.s_tenant_id    where 1 = 1  " + filter;
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
-                PDMS_Material SOI = new PDMS_Material();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    SOI = new PDMS_Material();
-                    SOI.MaterialCode = Convert.ToString(dr["p_material"]);
-                    SOI.MaterialDescription = Convert.ToString(dr["r_description"]);
-                    SOI.Bin = new PBin();
-                    SOI.Bin.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["s_tenant_id"]), DealerName = Convert.ToString(dr["description"]) };
-
-                    SOI.Bin.Office = Convert.ToString(dr["p_office"]);
-                    SOI.Bin.Location = Convert.ToString(dr["p_location"]);
-                    SOI.Bin.BinID = Convert.ToString(dr["r_bin_id"]);
-
-                    SOIs.Add(SOI);
-                }
-                return SOIs;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Material", "GetMaterialSupersede", ex);
-                throw ex;
-            }
-            return SOIs;
-        }
+         
+          
 
         public List<string> GetMaterialAutocomplete(string Material, string MaterialType,int? DivisionID)
         {
@@ -424,6 +310,12 @@ namespace Business
             catch (Exception ex)
             { }
             return Materials;
+        }
+        public List<PDMS_Material> GetMaterialAutocompleteN(string Material, string MaterialType, int? DivisionID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Material/MaterialAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
+            return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<string> GetMaterialServiceAutocomplete(string Material, string MaterialType, int? ServiceTypeID, int? Category1ID, Boolean IsMainServiceMaterial)
         {

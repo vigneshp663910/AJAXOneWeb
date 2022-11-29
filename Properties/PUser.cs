@@ -56,6 +56,7 @@ namespace Properties
         public Boolean ajaxOne { get; set; }
         public Boolean ajaxOneDealer { get; set; }
         public List<PUserMobileFeature> UserMobileFeature { get; set; }
+        public Boolean IsOffLineAllowed { get; set; }
         #endregion
     }
     [Serializable]
@@ -260,6 +261,7 @@ namespace Properties
         public DateTime? RejectedOn { get; set; }
         public int? RejectedBy { get; set; }
         public string Remarks { get; set; }
+        public Boolean DebuggingStatus { get; set; }
     }
     [Serializable]
     public class PDashboard

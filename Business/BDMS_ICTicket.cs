@@ -1434,31 +1434,7 @@ namespace Business
             }
             return true;
         }
-
-        public void UpdateICTicketToSAP()
-        {
-            PDMS_ICTicket Ticket = new PDMS_ICTicket();
-            Ticket = GetICTicketByICTIcketID(56);
-
-
-            List<PDMS_ServiceCharge> Service = new BDMS_Service().GetServiceCharges(Ticket.ICTicketID, null, "", null);
-
-
-            List<PDMS_ServiceMaterial> Material = new BDMS_Service().GetServiceMaterials(Ticket.ICTicketID, null, null, "", null, "");
-
-
-            List<PDMS_ServiceNote> NoteType = new List<PDMS_ServiceNote>();
-            NoteType = new BDMS_Service().GetServiceNote(Ticket.ICTicketID, null, null, "");
-
-
-            List<PAttachedFile> AFile = GetICTicketAttachedFile(Ticket.ICTicketID, null);
-
-
-
-            new SDMS_ICTicket().UpdateICTicketToSAP(Ticket, Service, Material, NoteType, AFile);
-
-        }
-
+         
         public int ValidateNEPI(string ServiceMaterial, string EquipmentSerialNo)
         {
             DbParameter ServiceMaterialP = provider.CreateParameter("ServiceMaterial", ServiceMaterial, DbType.String);

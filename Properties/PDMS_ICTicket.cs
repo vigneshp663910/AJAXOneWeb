@@ -61,11 +61,7 @@ namespace Properties
         public PDMS_DealerOffice DealerOffice { get; set; }
 
         public DateTime? FSRDate { get; set; }
-        public PDMS_Category1 Category1 { get; set; }
-        public PDMS_Category2 Category2 { get; set; }
-        public PDMS_Category3 Category3 { get; set; }
-        public PDMS_Category4 Category4 { get; set; }
-        public PDMS_Category5 Category5 { get; set; }
+        
         public PDMS_MainApplication MainApplication { get; set; }
         public PDMS_SubApplication SubApplication { get; set; }
         public PDMS_CustomerSatisfactionLevel CustomerSatisfactionLevel { get; set; }
@@ -122,6 +118,10 @@ namespace Properties
 
         public List<PDMS_ServiceTechnician> Technicians { get; set; }
         public List<PDMS_ServiceCharge> ServiceCharges { get; set; }
+        public Boolean? IsLocked { get; set; }
+        public int? LockedUserID { get; set; }
+        public int? LockedDeviceID { get; set; }
+        public DateTime? LockedOn { get; set; }
 
     }
     [Serializable]

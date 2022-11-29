@@ -64,6 +64,7 @@ namespace SapIntegration
         }
         public DataTable CreateCustomerInSAP(PDMS_Customer Customer, Boolean IsShipTo)
         {
+
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CREATE_NEW");
             tagListBapi.SetValue("MODE", "N");
             tagListBapi.SetValue("P_COMPANYCODE", (IsShipTo == false)?"AF":"");

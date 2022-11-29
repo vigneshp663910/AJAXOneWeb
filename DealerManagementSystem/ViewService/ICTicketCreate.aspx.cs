@@ -1,10 +1,12 @@
 ﻿using Business;
 using Newtonsoft.Json;
+using Newtonsoft.JsonResult;
 using Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -94,6 +96,27 @@ namespace DealerManagementSystem.ViewService
             ddlServicePriority.DataSource = new BDMS_Service().GetServicePriority(null, null);
             ddlServicePriority.DataBind();
             ddlServicePriority.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
+        [WebMethod]
+        public static string GetCustomer(string CustS)
+        {
+            //  List<string> Emp = new List<string>();
+            //  List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
+            //int i = 0;
+            //foreach (PDMS_Customer cust in Customer)
+            //{
+            //    i = i + 1; 
+            //    string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+            //        + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
+
+            //        + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+            //        + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
+            //    Emp.Add(div); 
+            // }
+
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
+            return JsonConvert.SerializeObject(Customer);
         }
     }
 }

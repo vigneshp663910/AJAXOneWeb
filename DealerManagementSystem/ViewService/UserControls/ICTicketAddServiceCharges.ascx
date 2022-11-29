@@ -2,18 +2,19 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 
+
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
     <div class="col-md-12">
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Service Date</label>
-
+            <asp:HiddenField ID="hdfMaterialID" runat="server" />
             <asp:TextBox ID="txtServiceDate" runat="server" CssClass="form-control" onkeyup="return removeText('MainContent_gvServiceCharges_txtServiceDate');"></asp:TextBox>
             <asp:CalendarExtender ID="ceServiceDate" runat="server" TargetControlID="txtServiceDate" PopupButtonID="txtServiceDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtServiceDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">SRO Code</label>
-            <asp:TextBox ID="txtServiceMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+            <asp:TextBox ID="txtServiceMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" onKeyUp="GetServiceCharges()"></asp:TextBox>
             <%-- <asp:UpdatePanel ID="up" runat="server">
                 <ContentTemplate>
                    
@@ -39,13 +40,10 @@
 
     </div>
 </fieldset>
-<%--<script src="Scripts/jquery-latest.min.js" type="text/javascript"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+ 
 
-
-<script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
-<script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
+<%--<script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
+<script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>--%>
 <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Font-Bold="true" Font-Size="15px" />
@@ -85,74 +83,140 @@
 
 
 <script type="text/javascript">
-    function InIEvent() { }
 
-    $(document).ready(InIEvent);
-
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
-    if (prm != null) {
-
-        prm.add_endRequest(function (sender, e) {
-            $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
-                source: function (request, response) {
-
-                    var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val() };
-                    $.ajax({
-                        url: "ICTicket.aspx/SearchMaterials",
-                        data: JSON.stringify(param),
-                        dataType: "json",
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        dataFilter: function (data) { return data; },
-                        success: function (data) {
-                            response($.map(data.d, function (item) {
-                                return {
-                                    value: item
-                                }
-                            }))
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            var err = eval("(" + XMLHttpRequest.responseText + ")");
-                            alert(err.Message)
-                            // console.log("Ajax Error!");  
-                        }
-                    });
-                },
-                minLength: 2 //This is the Char length of inputTextBox  
-            });
-
-        });
-    };
-
-    $(function () {
-        $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
-            source: function (request, response) {
-                debugger;
-                var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val() };
-                $.ajax({
-                    url: "ICTicket.aspx/SearchMaterials",
-                    data: JSON.stringify(param),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
-                        response($.map(data.d, function (item) {
-                            return {
-                                value: item
-                            }
-                        }))
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        var err = eval("(" + XMLHttpRequest.responseText + ")");
-                        alert(err.Message)
-                        // console.log("Ajax Error!");  
+    function GetServiceCharges() {
+        debugger;
+        var param = { Material: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val(), MaterialType:'DIEN' }
+        var Customers = [];
+        if ($('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val().trim().length >= 3) {
+            $.ajax({
+                url: "ICTicket.aspx/GetMaterial",
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                data: JSON.stringify(param),
+                dataType: 'JSON',
+                success: function (data) {
+                    debugger;
+                    var DataList = JSON.parse(data.d);
+                    for (i = 0; i < DataList.length; i++) {
+                        Customers[i] = {
+                            value: DataList[i].MaterialCode + ' ' + DataList[i].MaterialDescription,
+                            value1: DataList[i].MaterialID
+                        };
                     }
-                });
-            },
-            minLength: 2 //This is the Char length of inputTextBox  
-        });
-    });
+                    $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').autocomplete({
+                        source: function (request, response) { response(Customers) },
+                        select: function (e, u) { $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_hdfMaterialID").val(u.item.value1); },
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "max-width":
+                                    $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').width() + 48,
+                            });
+                            $(this).autocomplete("widget").scrollTop(0);
+                        }
+                    }).focus(function (e) {
+                        $(this).autocomplete("search");
+                    }).click(function () {
+                        $(this).autocomplete("search");
+                    }).data('ui-autocomplete')._renderItem = function (ul, item) {
+                        debugger;
+                        var inner_html = FormatAutocompleteList(item);
+                        return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                            .data('item.autocomplete', item)
+                            .append(inner_html)
+                            .appendTo(ul);
+                    };
+
+                }
+            });
+        }
+        else {
+            $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').autocomplete({
+                source: function (request, response) {
+                    response($.ui.autocomplete.filter(Customers, ""))
+                }
+            });
+        }
+    }
+
+    function FormatAutocompleteList(item) {
+        var inner_html = '<a>';
+        inner_html += '<p style="margin:0;">dfsrdgr<strong>' + item.value + '</strong></p>';
+        inner_html += '</a>';
+        return inner_html;
+    }
+
+
+
+
+    //function InIEvent() { }
+
+    //$(document).ready(InIEvent);
+
+    //var prm = Sys.WebForms.PageRequestManager.getInstance();
+    //if (prm != null) {
+
+    //    prm.add_endRequest(function (sender, e) {
+    //        $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
+    //            source: function (request, response) {
+
+    //                var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val() };
+    //                $.ajax({
+    //                    url: "ICTicket.aspx/SearchMaterials",
+    //                    data: JSON.stringify(param),
+    //                    dataType: "json",
+    //                    type: "POST",
+    //                    contentType: "application/json; charset=utf-8",
+    //                    dataFilter: function (data) { return data; },
+    //                    success: function (data) {
+    //                        response($.map(data.d, function (item) {
+    //                            return {
+    //                                value: item
+    //                            }
+    //                        }))
+    //                    },
+    //                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+    //                        alert(err.Message)
+    //                        // console.log("Ajax Error!");  
+    //                    }
+    //                });
+    //            },
+    //            minLength: 2 //This is the Char length of inputTextBox  
+    //        });
+
+    //    });
+    //};
+
+    //$(function () {
+    //    $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
+    //        source: function (request, response) {
+    //            debugger;
+    //            var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val() };
+    //            $.ajax({
+    //                url: "ICTicket.aspx/SearchMaterials",
+    //                data: JSON.stringify(param),
+    //                dataType: "json",
+    //                type: "POST",
+    //                contentType: "application/json; charset=utf-8",
+    //                dataFilter: function (data) { return data; },
+    //                success: function (data) {
+    //                    response($.map(data.d, function (item) {
+    //                        return {
+    //                            value: item
+    //                        }
+    //                    }))
+    //                },
+    //                error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //                    var err = eval("(" + XMLHttpRequest.responseText + ")");
+    //                    alert(err.Message)
+    //                    // console.log("Ajax Error!");  
+    //                }
+    //            });
+    //        },
+    //        minLength: 2 //This is the Char length of inputTextBox  
+    //    });
+    //});
 </script>
 
 

@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -380,5 +381,22 @@ namespace DealerManagementSystem.ViewService
             return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
         }
 
+        [WebMethod]
+        public static string GetMaterial(string Material, string MaterialType)
+        {
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+            return JsonConvert.SerializeObject(Materials);
+        }
+
+
+        [WebMethod]
+        public static List<string> SearchMaterialNatureOfComplaint(string input)
+        {
+            //  int Category1ID = (int)HttpContext.Current.Session["Category1ID"];
+            int ServiceTypeID = (int)HttpContext.Current.Session["ServiceTypeID"];
+
+            List<string> Materials = new BDMS_Material().GetMaterialServiceAutocomplete(input, "", ServiceTypeID, null, false);
+            return Materials.FindAll(item => item.ToLower().Contains(input.ToLower()));
+        }
     }
 }

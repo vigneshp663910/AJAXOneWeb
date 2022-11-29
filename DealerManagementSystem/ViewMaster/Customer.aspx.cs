@@ -30,6 +30,37 @@ namespace DealerManagementSystem.ViewMaster
                 Session["Customer"] = value;
             }
         }
+
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] =0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -61,23 +92,28 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            PageIndex = 1;
             SearchCustomer();
         }
 
         protected void ibtnCustArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvCustomer.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvCustomer.PageIndex = gvCustomer.PageIndex - 1;
-                CustBind(gvCustomer, lblRowCount, Cust);
+                //  gvCustomer.PageIndex = gvCustomer.PageIndex - 1;
+                PageIndex = PageIndex = 1;
+                SearchCustomer();
+               // CustBind(gvCustomer, lblRowCount, Cust);
             }
         }
         protected void ibtnCustArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvCustomer.PageCount > gvCustomer.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvCustomer.PageIndex = gvCustomer.PageIndex + 1;
-                CustBind(gvCustomer, lblRowCount, Cust);
+                // gvCustomer.PageIndex = gvCustomer.PageIndex + 1;
+                PageIndex = PageIndex + 1;
+                SearchCustomer();
+               // CustBind(gvCustomer, lblRowCount, Cust);
             }
         }
 
@@ -99,12 +135,11 @@ namespace DealerManagementSystem.ViewMaster
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            Cust = new BDMS_Customer().GetCustomer(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID);
-            gvCustomer.DataSource = Cust;
+            PApiResult Result = new BDMS_Customer().GetCustomerN(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID, PageIndex, gvCustomer.PageSize);
+
+            gvCustomer.DataSource = JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(Result.Data));
             gvCustomer.DataBind();
-
-
-            if (Cust.Count == 0)
+            if (Result.RowCount == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnCustArrowLeft.Visible = false;
@@ -112,11 +147,26 @@ namespace DealerManagementSystem.ViewMaster
             }
             else
             {
+                PageCount = (Result.RowCount + gvCustomer.PageSize - 1) / gvCustomer.PageSize;
                 lblRowCount.Visible = true;
                 ibtnCustArrowLeft.Visible = true;
                 ibtnCustArrowRight.Visible = true;
-                lblRowCount.Text = (((gvCustomer.PageIndex) * gvCustomer.PageSize) + 1) + " - " + (((gvCustomer.PageIndex) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Cust.Count;
+                lblRowCount.Text = (((PageIndex-1) * gvCustomer.PageSize) + 1) + " - " + (((PageIndex-1) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Result.RowCount;
             }
+
+            //if (Cust.Count == 0)
+            //{
+            //    lblRowCount.Visible = false;
+            //    ibtnCustArrowLeft.Visible = false;
+            //    ibtnCustArrowRight.Visible = false;
+            //}
+            //else
+            //{
+            //    lblRowCount.Visible = true;
+            //    ibtnCustArrowLeft.Visible = true;
+            //    ibtnCustArrowRight.Visible = true;
+            //    lblRowCount.Text = (((gvCustomer.PageIndex) * gvCustomer.PageSize) + 1) + " - " + (((gvCustomer.PageIndex) * gvCustomer.PageSize) + gvCustomer.Rows.Count) + " of " + Cust.Count;
+            //}
 
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -209,7 +259,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCustomer.PageIndex = e.NewPageIndex;
+            gvCustomer.PageIndex = e.NewPageIndex; 
             SearchCustomer();
         }
         [WebMethod]
@@ -229,13 +279,7 @@ namespace DealerManagementSystem.ViewMaster
                     + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
                 Emp.Add(div);
 
-
-                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                //                   + "<table><tr><td>"
-                //                   + "<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
-                //                   + "<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
-                //                   + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
-                //Emp.Add(div);
+ 
             }
             return Emp;
         }
