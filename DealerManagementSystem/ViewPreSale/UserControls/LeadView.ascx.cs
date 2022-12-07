@@ -88,8 +88,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
             lblLocation.Text = Location;
-            lblTotalEffort.Text = Convert.ToString(Lead.TotalEffort);
-            lblTotalExpense.Text = Convert.ToString(Lead.TotalExpense);
+            //lblTotalEffort.Text = Convert.ToString(Lead.TotalEffort);
+            //lblTotalExpense.Text = Convert.ToString(Lead.TotalExpense);
              
 
             fillAssignSalesEngineer();

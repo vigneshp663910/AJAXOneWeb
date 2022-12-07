@@ -1804,6 +1804,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnMaterialClaim.Visible = true;
             lbtnMaterialQuotation.Visible = true; 
 
+            if(!SDMS_ICTicket.ServiceType.IsMaterialRequired)
+            {
+                lbtnAddMaterialCharges.Visible = false;
+            }
+
             if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Open) || (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Reopen))
             {
                 lbtnEditCallInformation.Visible = false;

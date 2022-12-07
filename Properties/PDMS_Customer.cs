@@ -22,13 +22,21 @@ namespace Properties
 
         }
         public string CustomerName { get; set; }
-        public string CustomerName2 { get; set; }
+        //public string CustomerName2 { get; set; }
+
+        //public string CustomerFullName
+        //{
+        //    get
+        //    {
+        //        return (CustomerName + " " + CustomerName2).Trim() + (string.IsNullOrEmpty(CustomerCodeWithOutZero) ? "" : " (" + CustomerCodeWithOutZero + ")");
+        //    }
+        //}
 
         public string CustomerFullName
         {
             get
             {
-                return (CustomerName + " " + CustomerName2).Trim() + (string.IsNullOrEmpty(CustomerCodeWithOutZero) ? "" : " (" + CustomerCodeWithOutZero + ")");
+                return CustomerName + (string.IsNullOrEmpty(CustomerCodeWithOutZero) ? "" : " (" + CustomerCodeWithOutZero + ")");
             }
         }
 

@@ -1721,11 +1721,11 @@ namespace Business
                                 pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                                 pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                                 pHeader.ClosedOn = DR["ClosedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ClosedOn"]);
-                                pHeader.TR = new PTR();
-                                pHeader.TR.TRNumber = Convert.ToString(DR["TRNumber"]);
-                                pHeader.TR.Purpose = Convert.ToString(DR["Purpose"]);
-                                pHeader.TR.MailNote = Convert.ToString(DR["MailNote"]);
-                                pHeader.TR.Status = Convert.ToString(DR["Status"]);
+                                //pHeader.TR = new PTR();
+                                //pHeader.TR.TRNumber = Convert.ToString(DR["TRNumber"]);
+                                //pHeader.TR.Purpose = Convert.ToString(DR["Purpose"]);
+                                //pHeader.TR.MailNote = Convert.ToString(DR["MailNote"]);
+                                //pHeader.TR.Status = Convert.ToString(DR["Status"]);
 
                                 pHeader.UATBy = new PUser { ContactName = Convert.ToString(DR["UATBy"]) };
                                 pHeader.UATOn = DR["UATOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["UATOn"]);

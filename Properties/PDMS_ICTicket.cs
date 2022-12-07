@@ -208,7 +208,11 @@ namespace Properties
     {
         public int ServiceTypeID { get; set; }
         public string ServiceType { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } 
+        public int IsFree { get; set; }
+        public Boolean ManualPriceForService { get; set; }
+        public Boolean IsMaterialRequired { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceSubType

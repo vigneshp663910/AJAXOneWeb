@@ -36,8 +36,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
 
-            lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
-            lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
+            //lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
+            //lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
         }
     }
 }

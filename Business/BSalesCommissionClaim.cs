@@ -280,7 +280,8 @@ namespace Business
                 P[18] = new ReportParameter("SerialNo", (item.Material.MaterialSerialNumber==null)?"":item.Material.MaterialSerialNumber, false);
                 P[19] = new ReportParameter("MInvoiceNo", SalesCommissionClaimInvoice.Quotation.SalesInvoiceNumber, false);
                 P[20] = new ReportParameter("MInvoiceDate", SalesCommissionClaimInvoice.Quotation.SalesInvoiceDate.ToString(), false);
-                P[21] = new ReportParameter("CustomerName", (SalesCommissionClaimInvoice.Claim.Quotation==null) ? "" : SalesCommissionClaimInvoice.Claim.Quotation.Lead.Customer.CustomerName + " " + SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerName2, false);
+                // P[21] = new ReportParameter("CustomerName", (SalesCommissionClaimInvoice.Claim.Quotation==null) ? "" : SalesCommissionClaimInvoice.Claim.Quotation.Lead.Customer.CustomerName + " " + SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerName2, false);
+                P[21] = new ReportParameter("CustomerName", (SalesCommissionClaimInvoice.Claim.Quotation == null) ? "" : SalesCommissionClaimInvoice.Claim.Quotation.Lead.Customer.CustomerName, false);
                 P[22] = new ReportParameter("CustomerCode", (SalesCommissionClaimInvoice.Claim.Quotation == null) ? "" : SalesCommissionClaimInvoice.Quotation.Lead.Customer.CustomerCode, false);
                 P[28] = new ReportParameter("ClaimNo", SalesCommissionClaimInvoice.Claim.ClaimNumber, false);
                 P[29] = new ReportParameter("ClaimDate", SalesCommissionClaimInvoice.Claim.ClaimDate.ToString(), false);

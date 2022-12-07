@@ -117,7 +117,7 @@
                     <label class="modal-label">
                         Customer Name ( Search by customer Code(6 char.)/Name(min 4 Char.)/Mobile(10 digits))
                         <samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver"
+                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" MaxLength="80" BorderColor="Silver"
                         AutoCompleteType="Disabled"></asp:TextBox>
                     <%--<div id="UCdivAuto" style="position: absolute; background-color: red; display: none; z-index: 1;">--%>
                     <div id="UCdivAuto" class="custom-auto-complete">
@@ -138,7 +138,7 @@
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtCustomerName" WatermarkText="Customer Name" WatermarkCssClass="WatermarkCssClass" />
                 </div>
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12" style="display:none">
                     <label class="modal-label">Customer Name2</label>
                     <asp:TextBox ID="txtCustomerName2" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomerName2" WatermarkText="Customer Name2" WatermarkCssClass="WatermarkCssClass" />

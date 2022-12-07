@@ -821,8 +821,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
 
-            lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
-            lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
+           // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
+           // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
             cbCommissionAgent.Checked = Quotation.CommissionAgent;
             fillFinancier();
             fillProduct();
@@ -1278,8 +1278,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 string mimeType = string.Empty;
-                Byte[] mybytes = MachineQuotationRdlc(out mimeType); 
-                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                Byte[] mybytes = MachineQuotationRdlc(out mimeType);
+                // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
+
                 string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                 string contentType = "application/pdf";
                 var uploadPath = Server.MapPath("~/Backup");
@@ -1311,9 +1313,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 string contentType = string.Empty;
                 contentType = "application/pdf";
-               
-          
-                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+
+
+                // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
+
                 string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                  
                 
@@ -1851,7 +1855,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             contentType = "application/pdf";
             var CC = CultureInfo.CurrentCulture;
             Random r = new Random();
-            string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+            //   string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+            string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
+
             string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
             string extension;
             string encoding;
@@ -2157,7 +2163,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.ForeColor = Color.Red;
   
                  
-                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+               // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName ).Substring(0, 20) : (Q.Lead.Customer.CustomerName );
 
                 string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 
@@ -2188,7 +2195,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 PSalesQuotation Q = Quotation;
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
-                string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+               // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
                 string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 

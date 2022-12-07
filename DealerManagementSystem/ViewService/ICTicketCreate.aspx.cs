@@ -4,6 +4,7 @@ using Newtonsoft.JsonResult;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -14,13 +15,19 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketCreate : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » IC Ticket » Create');</script>");
             if (!IsPostBack)
             {
-                FillMaster();
-
+                FillMaster(); 
             }
         }
         public void FillMaster()
@@ -45,12 +52,22 @@ namespace DealerManagementSystem.ViewService
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentForCreateICTicket(null, txtEquipment.Text.Trim(), txtCustomer.Text.Trim());
+            long? CustomerID = null;
+            string EquipmentSerialNo = txtEquipment.Text.Trim();
+            string Customer = txtCustomer.Text.Trim();
+            if (!string.IsNullOrEmpty(hdfCustomerId.Value))
+            {
+                CustomerID = Convert.ToInt64(hdfCustomerId.Value);
+                Customer = null;
+            }
+            gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentForCreateICTicket(CustomerID, EquipmentSerialNo, Customer);
             gvEquipment.DataBind();
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
             Label lblEquipmentHeaderID = null;
             Label lblCustomerID = null;
             for (int i = 0; i < gvEquipment.Rows.Count; i++)
@@ -64,12 +81,18 @@ namespace DealerManagementSystem.ViewService
                 }
             }
 
+            if(lblEquipmentHeaderID == null)
+            {
+                lblMessage.Text = "Please select the Equipment ";
+                return;
+            }
+
             PDMS_ICTicket IC = new PDMS_ICTicket();
             IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim());
             IC.ContactPerson = txtContactPerson.Text;
             IC.PresentContactNumber = txtContactNumber.Text;
             IC.ComplaintDescription = txtComplaintDescription.Text;
-            IC.Information = txtInformation.Text;
+           // IC.Information = txtInformation.Text;
             IC.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(ddlServicePriority.SelectedValue) };
 
             IC.Equipment = new PDMS_EquipmentHeader() { EquipmentHeaderID = Convert.ToInt64(lblEquipmentHeaderID.Text) };
@@ -82,12 +105,12 @@ namespace DealerManagementSystem.ViewService
             };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket", IC));
+            lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = Results.Message;
                 return;
             }
-
+            lblMessage.ForeColor = Color.Green; 
         }
         private void FillGetServicePriority()
         {

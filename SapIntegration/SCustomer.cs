@@ -63,15 +63,19 @@ namespace SapIntegration
             return Custs;
         }
         public DataTable CreateCustomerInSAP(PDMS_Customer Customer, Boolean IsShipTo)
-        {
-
+        { 
+             
+            List<string> Name = AddressSplit(Customer.CustomerName);
+            Customer.CustomerName = Name[0];
+            string CustomerName2 = Name[1];
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CREATE_NEW");
             tagListBapi.SetValue("MODE", "N");
             tagListBapi.SetValue("P_COMPANYCODE", (IsShipTo == false)?"AF":"");
             tagListBapi.SetValue("P_PARTNER", (IsShipTo == true) ? "WE":"AG");
             tagListBapi.SetValue("P_TITLE", Customer.Title.Title);
             tagListBapi.SetValue("P_NAME1", Customer.CustomerName);
-            tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
+            tagListBapi.SetValue("P_NAME2", CustomerName2);
+            // tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
             tagListBapi.SetValue("P_NAME3", "");
             tagListBapi.SetValue("P_NAME4", "");
             tagListBapi.SetValue("P_STREET2", Customer.Address1);
@@ -120,13 +124,18 @@ namespace SapIntegration
         }
         public DataTable ChangeCustomerInSAP(PDMS_Customer  Customer, Boolean IsShipTo)
         {
+            List<string> Name = AddressSplit(Customer.CustomerName);
+            Customer.CustomerName = Name[0];
+           string CustomerName2 = Name[1];
+
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_CUSTOMER_CHANGE_NEW");
             tagListBapi.SetValue("MODE", "N");
             tagListBapi.SetValue("P_CUSTOMER", Customer.CustomerCode);
             tagListBapi.SetValue("P_COMPANYCODE", (IsShipTo == false) ? "AF" : "");
             tagListBapi.SetValue("P_TITLE", Customer.Title.Title);
             tagListBapi.SetValue("P_NAME1", Customer.CustomerName);
-            tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
+            //tagListBapi.SetValue("P_NAME2", Customer.CustomerName2);
+            tagListBapi.SetValue("P_NAME2", CustomerName2);
             tagListBapi.SetValue("P_NAME3", "");
             tagListBapi.SetValue("P_NAME4", "");
             tagListBapi.SetValue("P_STREET2", Customer.Address1);
@@ -173,6 +182,28 @@ namespace SapIntegration
             if (dtRet.Rows.Count == 0) { dtRet.Rows.Add("", "", "", "S", "", "", "", SUBRC, "", "", "", "", ""); }
 
             return dtRet;
+        }
+
+        public List<string> AddressSplit(string Input)
+        {
+            List<string> OutPut = new List<string>();
+            string[] SplitedInput = Input.Split(' ');
+
+            string N1 = "", N2 = "";
+            foreach (string Word in SplitedInput)
+            {
+                if (((N1 + Word).Length <= 40) && (string.IsNullOrEmpty(N2)))
+                {
+                    N1 = N1 + " " + Word;
+                }
+                else
+                {
+                    N2 = N2 + " " + Word;
+                }
+            }
+            OutPut.Add(N1.Trim());
+            OutPut.Add(N2.Trim());
+            return OutPut;
         }
     }
 }

@@ -70,7 +70,7 @@ namespace Properties
         public string ContactName { get; set; }
         public int? PriorityLevel { get; set; }
         public string WithInSLA1 { get; set; }
-        public PTR TR { get; set; }
+        //public PTR TR { get; set; }
 
         public PUser UATBy { get; set; }
 
@@ -92,10 +92,10 @@ namespace Properties
         public Decimal? Effort { get; set; }
         public PResolutionType ResolutionType { get; set; }
         public string Resolution { get; set; }
-        public Boolean? NewTR { get; set; }
-        public string TRNumber { get; set; }
-        public Boolean? TRClosed { get; set; }
-        public Boolean? TRClosedOn { get; set; }
+        //public Boolean? NewTR { get; set; }
+        //public string TRNumber { get; set; }
+        //public Boolean? TRClosed { get; set; }
+        //public Boolean? TRClosedOn { get; set; }
         public int age { get; set; }
         public string WithInSLA1 { get; set; }
         public string WithInSLA2 { get; set; }

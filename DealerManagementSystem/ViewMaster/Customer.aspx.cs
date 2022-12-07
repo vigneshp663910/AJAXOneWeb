@@ -101,7 +101,7 @@ namespace DealerManagementSystem.ViewMaster
             if (PageIndex > 1)
             {
                 //  gvCustomer.PageIndex = gvCustomer.PageIndex - 1;
-                PageIndex = PageIndex = 1;
+                PageIndex = PageIndex - 1;
                 SearchCustomer();
                // CustBind(gvCustomer, lblRowCount, Cust);
             }
@@ -323,7 +323,7 @@ namespace DealerManagementSystem.ViewMaster
             dt.Columns.Add("Customer Code");
             dt.Columns.Add("Title");
             dt.Columns.Add("Name");
-            dt.Columns.Add("Name2");
+           // dt.Columns.Add("Name2");
             dt.Columns.Add("Contact Person");
             dt.Columns.Add("Mobile");
             dt.Columns.Add("Alternative Mobile");
@@ -360,7 +360,7 @@ namespace DealerManagementSystem.ViewMaster
                     , Customer.CustomerCode
                     , Customer.Title.Title
                     , Customer.CustomerName
-                    , Customer.CustomerName2
+                    //, Customer.CustomerName2
                     , Customer.ContactPerson
                     , Customer.Mobile
                     , Customer.AlternativeMobile
