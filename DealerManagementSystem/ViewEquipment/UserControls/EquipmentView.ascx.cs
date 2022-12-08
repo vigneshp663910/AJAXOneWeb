@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 using System.IO;
+using System.Data;
 
 namespace DealerManagementSystem.ViewEquipment.UserControls
 {
@@ -28,6 +29,21 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             set
             {
                 Session["EquipmentView"] = value;
+            }
+        }
+        public List<PDMS_ICTicket> ICTickets1
+        {
+            get
+            {
+                if (Session["DMS_EquipmentHistory1"] == null)
+                {
+                    Session["DMS_EquipmentHistory1"] = new List<PDMS_ICTicket>();
+                }
+                return (List<PDMS_ICTicket>)Session["DMS_EquipmentHistory1"];
+            }
+            set
+            {
+                Session["DMS_EquipmentHistory1"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -88,15 +104,115 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblMajorRegion.Text = EquipmentViewDet.Ibase.MajorRegion.Region;
             lblWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
             CustomerViewSoldTo.fillCustomer(EquipmentViewDet.Customer);
+            fillEquipmentService();
             ActionControlMange();
         }
+        void fillEquipmentService()
+        {
+            DataSet ds = new BDMS_Equipment().GetEquipmentHistory(null, lblEquipmentSerialNo.Text.Trim());
+
+            if (ds.Tables.Count == 0)
+            {
+                gvICTickets1.DataSource = null;
+                gvICTickets1.DataBind();
+                return;
+            }
+            ICTickets1 = GetEquipmentDT1toClass(ds.Tables[1]);
+
+            //gvICTickets1.DataSource = ICTickets1;
+            //gvICTickets1.DataBind();
+            EquipmentServiceBind();
+        }
+        public List<PDMS_ICTicket> GetEquipmentDT1toClass(DataTable dt)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_ICTicket> ICTickets = new List<PDMS_ICTicket>();
+            try
+            {
+
+                PDMS_ICTicket ICTicket = new PDMS_ICTicket();
+
+                if (dt != null)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        ICTicket = new PDMS_ICTicket();
+                        ICTickets.Add(ICTicket);
+                        ICTicket.Equipment = new PDMS_EquipmentHeader()
+                        {
+                            EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]),
+                            EquipmentModel = new PDMS_Model()
+                            {
+                                Model = Convert.ToString(dr["EquipmentModel"]),
+                                // Division = new PDMS_Division() {  DivisionCode = Convert.ToString(dr["DivisionCode"]), DivisionDescription = Convert.ToString(dr["DivisionDescription"]) }
+                            },
+                            EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
+                        };
+                        ICTicket.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+                        ICTicket.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                        ICTicket.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
+                        ICTicket.ServiceMaterial = new PDMS_ServiceCharge()
+                        {
+                            Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["SMaterialCode"]), MaterialDescription = Convert.ToString(dr["SMaterialDescription"]) },
+                        };
+                        ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                        ICTicket.RequestedDate = DBNull.Value == dr["RequestedDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+                        ICTicket.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+                        ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
+                        ICTicket.CurrentHMRValue = DBNull.Value == dr["CurrentHMRValue"] ? 0 : Convert.ToInt32(dr["CurrentHMRValue"]);
+                        ICTicket.ServiceMaterialM = new PDMS_ServiceMaterial()
+                        {
+                            Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["MaterialCode"]), MaterialDescription = Convert.ToString(dr["MaterialDescription"]) },
+                            TSIR = new PDMS_ICTicketTSIR() { TsirNumber = Convert.ToString(dr["TsirNumber"]) }
+                        };
+                    }
+                }
+                return ICTickets;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipment", ex);
+                throw ex;
+            }
+        }
+        protected void ibtnServiceArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvICTickets1.PageIndex > 0)
+            {
+                gvICTickets1.PageIndex = gvICTickets1.PageIndex - 1;
+                EquipmentServiceBind();
+            }
+        }
+
+        protected void ibtnServiceArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvICTickets1.PageCount > gvICTickets1.PageIndex)
+            {
+                gvICTickets1.PageIndex = gvICTickets1.PageIndex + 1;
+                EquipmentServiceBind();
+            }
+        }
+
+        void EquipmentServiceBind()
+        {
+            gvICTickets1.DataSource = ICTickets1;
+            gvICTickets1.DataBind();
+            lblRowCountService.Text = (((gvICTickets1.PageIndex) * gvICTickets1.PageSize) + 1) + " - " + (((gvICTickets1.PageIndex) * gvICTickets1.PageSize) + gvICTickets1.Rows.Count) + " of " + ICTickets1.Count;
+        }
+
+        protected void gvICTickets1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvICTickets1.PageIndex = e.NewPageIndex;
+            fillEquipmentService();
+        }
+
         protected void lnkBtnActions_Click(object sender, EventArgs e)
         {
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
 
-                if (lbActions.Text == "Update Warranty Type")
+                if (lbActions.Text == "Equipment Warranty Type Change Request")
                 {
                     new DDLBind(ddlWarranty, new BDMS_Equipment().GetEquipmentWarrantyType(null, null), "Description", "EquipmentWarrantyTypeID");
                     //ddlWarranty.SelectedValue = EquipmentViewDet.EquipmentWarrantyType.EquipmentWarrantyTypeID.ToString();
@@ -105,6 +221,14 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     lblModelP.Text = EquipmentViewDet.EquipmentModel.Model;
                     lblEquipmentSerialNoP.Text = EquipmentViewDet.EquipmentSerialNo;
                     MPE_UpdateWarrantyType.Show();
+                }
+                if (lbActions.Text == "Update Commissioning Date")
+                {
+                    lblCustomerC.Text = EquipmentViewDet.Customer.CustomerFullName;
+                    lblModelC.Text = EquipmentViewDet.EquipmentModel.Model;
+                    lblEquipmentSerialNoC.Text = EquipmentViewDet.EquipmentSerialNo;
+                    lblHMRC.Text = EquipmentViewDet.CurrentHMRValue.ToString();
+                    MPE_UpdateCommiDate.Show();
                 }
             }
             catch (Exception ex)
@@ -118,28 +242,61 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         {
             if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
             {
-                lnkBtnEditWarranty.Visible = true;
+                lnkBtnUpdateWarranty.Visible = true;
             }
             else
             {
-                lnkBtnEditWarranty.Visible = false;
+                lnkBtnUpdateWarranty.Visible = false;
             }
         }
-        protected void btnUpdateWarrantyType_Click(object sender, EventArgs e)
+        protected void btnReqWarrantyTypeChange_Click(object sender, EventArgs e)
         {
-            if (new BDMS_Equipment().UpdateEquipmentWarrantyType(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue)))
+            //if (new BDMS_Equipment().UpdateEquipmentWarrantyType(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue)))
+            //{
+            //    lblMessage.Text = "Warranty Type updated for the Equipment.";
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Visible = true;
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Warranty Type not updated for the Equipment.";
+            //    lblMessage.ForeColor = Color.Red;
+            //    lblMessage.Visible = true;
+            //}
+            if (new BDMS_Equipment().InsertEquipmentWarrantyTypeChangeRequest(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue), PSession.User.UserID))
             {
-                lblMessage.Text = "Warranty Type updated for the Equipment.";
+                lblMessage.Text = "Equipment Warranty Type Change is requested.";
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
             }
             else
             {
-                lblMessage.Text = "Warranty Type not updated for the Equipment.";
+                lblMessage.Text = "Equipment Warranty Type Change not requested.";
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
             }
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
         }
+        protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
+        {
+            lblMessage.Visible = true;
+            if (new BDMS_Equipment().UpdateCommissioningDate(Convert.ToInt64(EquipmentViewDet.EquipmentHeaderID), Convert.ToDateTime(txtCommissioningDate.Text.Trim()), PSession.User.UserID))
+            {
+                lblCustomerC.Text = "";
+                lblModelC.Text = "";
+                lblEquipmentSerialNoC.Text = "";
+                lblHMRC.Text = "";
+                txtCommissioningDate.Text = "";
+
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "Commissioning Date Equipment updated successfully.";
+            }
+            else
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = "Commissioning Date for Equipment not updated successfully.";
+            }
+            fillEquipment(EquipmentViewDet.EquipmentHeaderID);
+        }
+        
     }
 }

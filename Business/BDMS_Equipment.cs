@@ -753,6 +753,117 @@ namespace Business
             }
             return true;
         }
+        public Boolean InsertEquipmentWarrantyTypeChangeRequest(long EquipmentHeaderID, long EquipmentWarrantyTypeID, int RequestedBy)
+        {
+
+            DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+            DbParameter EquipmentWarrantyTypeIDP = provider.CreateParameter("EquipmentWarrantyTypeID", EquipmentWarrantyTypeID, DbType.Int64);
+            DbParameter RequestedByP = provider.CreateParameter("RequestedBy", RequestedBy, DbType.Int32);
+            DbParameter[] Paramss = new DbParameter[3] { EquipmentHeaderIDP, EquipmentWarrantyTypeIDP, RequestedByP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertEquipmentWarrantyTypeChange", Paramss);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "InsertEquipmentWarrantyTypeChange", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", " InsertEquipmentWarrantyTypeChange", ex);
+                return false;
+            }
+            return true;
+        }
+        public List<PDMS_Equipment> GetEquipmentWarrantTypeChangeForApproval(DateTime? WarrantyChangeRequestedFrom, DateTime? WarrantyChangeRequestedTo, string EquipmentSerialNo)
+        {
+            List<PDMS_Equipment> Equips = new List<PDMS_Equipment>();
+            PDMS_Equipment Equip = null;
+            try
+            {
+                DbParameter WarrantyChangeRequestedFromP = provider.CreateParameter("WarrantyChangeRequestedFrom", WarrantyChangeRequestedFrom, DbType.DateTime);
+                DbParameter WarrantyChangeRequestedToP = provider.CreateParameter("WarrantyChangeRequestedTo", WarrantyChangeRequestedTo, DbType.DateTime);
+
+                DbParameter EquipmentSerialNoP;
+                if (!string.IsNullOrEmpty(EquipmentSerialNo))
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", EquipmentSerialNo, DbType.String);
+                else
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", null, DbType.String);
+
+                DbParameter[] Params = new DbParameter[3] { WarrantyChangeRequestedFromP, WarrantyChangeRequestedToP, EquipmentSerialNoP };
+                using (DataSet DataSet = provider.Select("GetEquipmentWarrantTypeChangeForApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Equip = new PDMS_Equipment();
+                            Equips.Add(Equip);
+
+                            Equip.EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]);
+                            Equip.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
+                            Equip.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            Equip.CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]);
+                            Equip.EquipmentModel = new PDMS_Model()
+                            {
+                                Model = Convert.ToString(dr["Model"]),
+                                ModelDescription = Convert.ToString(dr["ModelDescription"]),
+                            };
+                            Equip.Customer = new PDMS_Customer
+                            {
+                                CustomerID = Convert.ToInt32(dr["CustomerID"]),
+                                CustomerCode = Convert.ToString(dr["CustomerCode"]),
+                                CustomerName = Convert.ToString(dr["CustomerName"]),
+                            };
+                            Equip.EquipmentWarrantyType = dr["EquipmentWarrantyTypeID"] == DBNull.Value ? null : new PDMS_EquipmentWarrantyType
+                            {
+                                EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+                                WarrantyType = Convert.ToString(dr["WarrantyType"]),
+                                Description = Convert.ToString(dr["Description"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Equips;
+        }
+        public Boolean ApproveOrRejectEquipmentWarrrantyTypeChange(long WarrantyTypeChangeID, long EquipmentHeaderID, long EquipmentWarrantyTypeID, int ApprovedBy, Boolean IsApprove)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    DbParameter WarrantyTypeChangeIDP = provider.CreateParameter("WarrantyTypeChangeID", WarrantyTypeChangeID, DbType.Int64);
+                    DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                    DbParameter EquipmentWarrantyTypeIDP = provider.CreateParameter("EquipmentWarrantyTypeID", EquipmentWarrantyTypeID, DbType.Int64);
+                    DbParameter IsApproveP = provider.CreateParameter("IsApprove", IsApprove, DbType.Boolean);
+                    DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
+                    DbParameter[] Paramss = new DbParameter[5] { WarrantyTypeChangeIDP, EquipmentHeaderIDP, EquipmentWarrantyTypeIDP, IsApproveP, ApprovedByP };
+                    provider.Insert("ApproveOrRejectEquipmentWarrrantyTypeChange", Paramss);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "ApproveOrRejectEquipmentWarrrantyTypeChange", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", " ApproveOrRejectEquipmentWarrrantyTypeChange", ex);
+                return false;
+            }
+            return true;
+        }
     }
 }
 

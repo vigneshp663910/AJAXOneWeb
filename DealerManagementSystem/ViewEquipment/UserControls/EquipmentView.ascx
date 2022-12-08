@@ -33,12 +33,13 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lnkBtnEditWarranty" runat="server" OnClick="lnkBtnActions_Click">Update Warranty Type</asp:LinkButton>
+                <%--<asp:LinkButton ID="lnkBtnEditWarranty" runat="server" OnClick="lnkBtnActions_Click">Update Warranty Type</asp:LinkButton>--%>
+                <asp:LinkButton ID="lnkBtnUpdateWarranty" runat="server" OnClick="lnkBtnActions_Click">Equipment Warranty Type Change Request</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnUpdateCommDate" runat="server" OnClick="lnkBtnActions_Click">Update Commissioning Date</asp:LinkButton>
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
@@ -221,35 +222,139 @@
                         </div>
                     </div>
                 </fieldset>
-            </div>
-        
-</ContentTemplate>
-    
-
-
-
+            </div>     
+    </ContentTemplate>
 </asp1:TabPanel>
-    <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+     <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
-
-
-
-
             </div>
-        
-</ContentTemplate>
-    
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlService" runat="server" HeaderText="Equipment Service">
+        <ContentTemplate>
+            <div class="col-md-12">
+                <div class="boxHead">
+                    <div class="logheading">
+                        <div style="float: left">
+                            <table>
+                                <tr>
+                                    <td>Equipment Service:</td>
 
+                                    <td>
+                                        <asp:Label ID="lblRowCountService" runat="server" CssClass="label"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:ImageButton ID="ibtnServiceArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnServiceArrowLeft_Click" />
+                                    </td>
+                                    <td>
+                                        <asp:ImageButton ID="ibtnServiceArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnServiceArrowRight_Click" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 Report">
+                    <div class="table-responsive">
+                        <asp:GridView ID="gvICTickets1" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
+                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvICTickets1_PageIndexChanging" DataKeyNames="ICTicketID">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Issues Code">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterial.Material.MaterialCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Issues Description">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterial.Material.MaterialDescription")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="IC Ticket">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketNumber")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Service Request Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
+                                <asp:TemplateField HeaderText="Service Requested Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
-</asp1:TabPanel>
+                                <asp:TemplateField HeaderText="Service Type">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceType" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceType.ServiceType")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Warranty Material Replaced">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblstatus1" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Material Description">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.Material.MaterialDescription")%>' runat="server"></asp:Label>
+
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="HMR">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "CurrentHMRValue")%>' runat="server"></asp:Label>
+
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Tsir Number">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.TSIR.TsirNumber")%>' runat="server"></asp:Label>
+
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dealer">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dealer Name">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlUpdateWarrantyType" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogueUpdateWarrantyType">Update Warranty Type</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogueUpdateWarrantyType">Equipment Warranty Type Change Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="btnUpdateWarrantyTypeClose" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -259,7 +364,7 @@
             <asp:Label ID="lblMessageUpdateWarrantyType" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <div class="col-md-12">
-                     <div class="col-md-6 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Customer</label>
                         <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
                     </div>
@@ -273,10 +378,10 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Warranty Type</label>
-                        <asp:DropDownList ID="ddlWarranty" runat="server" CssClass="form-control" BorderColor="Silver"/>
+                        <asp:DropDownList ID="ddlWarranty" runat="server" CssClass="form-control" BorderColor="Silver" />
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnUpdateWarrantyType" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateWarrantyType_Click" />
+                        <asp:Button ID="btnReqWarrantyTypeChange" runat="server" Text="Save" CssClass="btn Save" OnClick="btnReqWarrantyTypeChange_Click" />
                     </div>
                 </div>
             </fieldset>
@@ -285,6 +390,52 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_UpdateWarrantyType" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateWarrantyType" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlUpdateCommiDate" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueUpdateCommiDate">Update Commissioning Date</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnPopupUpdateCommiDateClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer</label>
+                        <asp:Label ID="lblCustomerC" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Model</label>
+                        <asp:Label ID="lblModelC" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Equipment Serial No.</label>
+                        <asp:Label ID="lblEquipmentSerialNoC" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">HMR</label>
+                        <asp:Label ID="lblHMRC" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Date Of Commissioning</label>
+                        <asp:TextBox ID="txtCommissioningDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                        <asp1:CalendarExtender ID="cxExpectedDateOfSale" runat="server" TargetControlID="txtCommissioningDate" PopupButtonID="txtCommissioningDate" Format="dd/MM/yyyy" />
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderDateOFCommi" runat="server" TargetControlID="txtCommissioningDate" WatermarkText="DD/MM/YYYY" />
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnUpdateCommiDate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateCommiDate_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateCommiDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateCommiDate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

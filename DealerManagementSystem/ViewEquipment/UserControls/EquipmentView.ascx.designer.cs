@@ -15,13 +15,22 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
     {
 
         /// <summary>
-        /// lnkBtnEditWarranty control.
+        /// lnkBtnUpdateWarranty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnEditWarranty;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnUpdateWarranty;
+
+        /// <summary>
+        /// lnkBtnUpdateCommDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnUpdateCommDate;
 
         /// <summary>
         /// lblModel control.
@@ -411,6 +420,51 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerViewHeader CustomerViewSoldTo;
 
         /// <summary>
+        /// tpnlService control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlService;
+
+        /// <summary>
+        /// lblRowCountService control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountService;
+
+        /// <summary>
+        /// ibtnServiceArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnServiceArrowLeft;
+
+        /// <summary>
+        /// ibtnServiceArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnServiceArrowRight;
+
+        /// <summary>
+        /// gvICTickets1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvICTickets1;
+
+        /// <summary>
         /// pnlUpdateWarrantyType control.
         /// </summary>
         /// <remarks>
@@ -483,13 +537,13 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlWarranty;
 
         /// <summary>
-        /// btnUpdateWarrantyType control.
+        /// btnReqWarrantyTypeChange control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateWarrantyType;
+        protected global::System.Web.UI.WebControls.Button btnReqWarrantyTypeChange;
 
         /// <summary>
         /// MPE_UpdateWarrantyType control.
@@ -499,6 +553,123 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_UpdateWarrantyType;
+
+        /// <summary>
+        /// pnlUpdateCommiDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlUpdateCommiDate;
+
+        /// <summary>
+        /// btnPopupUpdateCommiDateClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupUpdateCommiDateClose;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// Fieldset2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
+
+        /// <summary>
+        /// lblCustomerC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCustomerC;
+
+        /// <summary>
+        /// lblModelC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModelC;
+
+        /// <summary>
+        /// lblEquipmentSerialNoC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEquipmentSerialNoC;
+
+        /// <summary>
+        /// lblHMRC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHMRC;
+
+        /// <summary>
+        /// txtCommissioningDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCommissioningDate;
+
+        /// <summary>
+        /// cxExpectedDateOfSale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cxExpectedDateOfSale;
+
+        /// <summary>
+        /// TextBoxWatermarkExtenderDateOFCommi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtenderDateOFCommi;
+
+        /// <summary>
+        /// btnUpdateCommiDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateCommiDate;
+
+        /// <summary>
+        /// MPE_UpdateCommiDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_UpdateCommiDate;
 
         /// <summary>
         /// lnkMPE control.
