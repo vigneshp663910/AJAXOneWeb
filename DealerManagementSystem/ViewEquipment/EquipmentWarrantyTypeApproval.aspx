@@ -91,65 +91,72 @@
                                     <asp:TemplateField HeaderText="Model">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblModel" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentModel.Model")%>' runat="server" />
-                                            <asp:Label ID="lblWarrantyTypeChangeID" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyTypeChangeID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblModel" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentModel.Model")%>' runat="server" />
+                                            <%--<asp:Label ID="lblWarrantyTypeChangeID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentWarrantyType.WarrantyTypeChangeID")%>' runat="server" Visible="false" />--%>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Engine SerialNo">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblEngineSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EngineSerialNo")%>' runat="server" />
+                                            <asp:Label ID="lblEngineSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EngineSerialNo")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Equipment SerialNo">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentSerialNo")%>' runat="server" />
-                                            <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentSerialNo")%>' runat="server" />
+                                            <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentHeaderID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Model Description">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentModel.ModelDescription")%>' runat="server" />
+                                            <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentModel.ModelDescription")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Warranty Type">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEquipmentWarrantyTypeDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentWarrantyType.Description")%>' runat="server" />
+                                            <asp:Label ID="lblEquipmentWarrantyTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentWarrantyType.EquipmentWarrantyTypeID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Customer Code">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
+                                            <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.Customer.CustomerCode")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Customer Name">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.Customer.CustomerName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="District">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.District.District")%>' runat="server" />
+                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.Customer.District.District")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="State">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.State.State")%>' runat="server" />
+                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.Customer.State.State")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Dispatched On">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDispatchedOn" Text='<%# DataBinder.Eval(Container.DataItem, "DispatchedOn")%>' runat="server" />
+                                            <asp:Label ID="lblDispatchedOn" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.DispatchedOn")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Warranty ExpiryDate">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyExpiryDate")%>' runat="server" />
+                                            <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.WarrantyExpiryDate")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action" SortExpression="Action">

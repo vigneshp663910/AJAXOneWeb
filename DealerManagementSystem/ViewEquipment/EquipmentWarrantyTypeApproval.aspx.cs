@@ -13,19 +13,19 @@ namespace DealerManagementSystem.ViewEquipment
 {
     public partial class EquipmentWarrantyTypeApproval : System.Web.UI.Page
     {
-        public List<PDMS_Equipment> EquipWarrantyTypeChgReq
+        public List<PEquipmentWarrantyTypeApproval> EquipWarrantyTypeChgReq
         {
             get
             {
                 if (Session["EquipWarrantyTypeChgReq"] == null)
                 {
-                    Session["EquipWarrantyTypeChgReq"] = new List<PDMS_Equipment>();
+                    Session["EquipWarrantyTypeChgReq"] = new List<PEquipmentWarrantyTypeApproval>();
                 }
-                return (List<PDMS_Equipment>)Session["EquipWarrantyTypeChgReq"];
+                return (List<PEquipmentWarrantyTypeApproval>)Session["EquipWarrantyTypeChgReq"];
             }
             set
             {
-                Session["Attendance_Attendance1"] = value;
+                Session["EquipWarrantyTypeChgReq"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace DealerManagementSystem.ViewEquipment
             gvEquipWarrantyTypeChgReq.PageIndex = e.NewPageIndex;
             FillEquipmentWarrantTypeChangeReq();
         }
-        void EquipWarrantyTypeChgReqBind(GridView gv, Label lbl, List<PDMS_Equipment> Activity1)
+        void EquipWarrantyTypeChgReqBind(GridView gv, Label lbl, List<PEquipmentWarrantyTypeApproval> Activity1)
         {
             gv.DataSource = EquipWarrantyTypeChgReq;
             gv.DataBind();
@@ -126,7 +126,7 @@ namespace DealerManagementSystem.ViewEquipment
             }
             if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), Convert.ToInt64(lblEquipmentWarrantyTypeID.Text), PSession.User.UserID, iSApprove))
             {
-                lblMessage.Text = "Equipment tWarrranty Type Change approved succesfully.";
+                lblMessage.Text = "Equipment Warrranty Type Change approved succesfully.";
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
             }

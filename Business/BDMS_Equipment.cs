@@ -780,10 +780,66 @@ namespace Business
             }
             return true;
         }
-        public List<PDMS_Equipment> GetEquipmentWarrantTypeChangeForApproval(DateTime? WarrantyChangeRequestedFrom, DateTime? WarrantyChangeRequestedTo, string EquipmentSerialNo)
+        //public List<PDMS_Equipment> GetEquipmentWarrantTypeChangeForApproval(DateTime? WarrantyChangeRequestedFrom, DateTime? WarrantyChangeRequestedTo, string EquipmentSerialNo)
+        //{
+        //    List<PDMS_Equipment> Equips = new List<PDMS_Equipment>();
+        //    PDMS_Equipment Equip = null;
+        //    try
+        //    {
+        //        DbParameter WarrantyChangeRequestedFromP = provider.CreateParameter("WarrantyChangeRequestedFrom", WarrantyChangeRequestedFrom, DbType.DateTime);
+        //        DbParameter WarrantyChangeRequestedToP = provider.CreateParameter("WarrantyChangeRequestedTo", WarrantyChangeRequestedTo, DbType.DateTime);
+
+        //        DbParameter EquipmentSerialNoP;
+        //        if (!string.IsNullOrEmpty(EquipmentSerialNo))
+        //            EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", EquipmentSerialNo, DbType.String);
+        //        else
+        //            EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", null, DbType.String);
+
+        //        DbParameter[] Params = new DbParameter[3] { WarrantyChangeRequestedFromP, WarrantyChangeRequestedToP, EquipmentSerialNoP };
+        //        using (DataSet DataSet = provider.Select("GetEquipmentWarrantTypeChangeForApproval", Params))
+        //        {
+        //            if (DataSet != null)
+        //            {
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
+        //                    Equip = new PDMS_Equipment();
+        //                    Equips.Add(Equip);
+
+        //                    Equip.EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]);
+        //                    Equip.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
+        //                    Equip.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+        //                    Equip.CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]);
+        //                    Equip.EquipmentModel = new PDMS_Model()
+        //                    {
+        //                        Model = Convert.ToString(dr["Model"]),
+        //                        ModelDescription = Convert.ToString(dr["ModelDescription"]),
+        //                    };
+        //                    Equip.Customer = new PDMS_Customer
+        //                    {
+        //                        CustomerID = Convert.ToInt32(dr["CustomerID"]),
+        //                        CustomerCode = Convert.ToString(dr["CustomerCode"]),
+        //                        CustomerName = Convert.ToString(dr["CustomerName"]),
+        //                    };
+        //                    Equip.EquipmentWarrantyType = dr["EquipmentWarrantyTypeID"] == DBNull.Value ? null : new PDMS_EquipmentWarrantyType
+        //                    {
+        //                        EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+        //                        WarrantyType = Convert.ToString(dr["WarrantyType"]),
+        //                        Description = Convert.ToString(dr["Description"])
+        //                    };
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return Equips;
+        //}
+        public List<PEquipmentWarrantyTypeApproval> GetEquipmentWarrantTypeChangeForApproval(DateTime? WarrantyChangeRequestedFrom, DateTime? WarrantyChangeRequestedTo, string EquipmentSerialNo)
         {
-            List<PDMS_Equipment> Equips = new List<PDMS_Equipment>();
-            PDMS_Equipment Equip = null;
+            List<PEquipmentWarrantyTypeApproval> Equips = new List<PEquipmentWarrantyTypeApproval>();
+            PEquipmentWarrantyTypeApproval Equip = null;
             try
             {
                 DbParameter WarrantyChangeRequestedFromP = provider.CreateParameter("WarrantyChangeRequestedFrom", WarrantyChangeRequestedFrom, DbType.DateTime);
@@ -802,29 +858,34 @@ namespace Business
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            Equip = new PDMS_Equipment();
+                            Equip = new PEquipmentWarrantyTypeApproval();
                             Equips.Add(Equip);
 
-                            Equip.EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]);
-                            Equip.EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]);
-                            Equip.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
-                            Equip.CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]);
-                            Equip.EquipmentModel = new PDMS_Model()
+                            Equip.WarrantyTypeChangeID = Convert.ToInt32(dr["WarrantyTypeChangeID"]); 
+                            
+                            Equip.Equipment = new PDMS_EquipmentHeader()
                             {
-                                Model = Convert.ToString(dr["Model"]),
-                                ModelDescription = Convert.ToString(dr["ModelDescription"]),
-                            };
-                            Equip.Customer = new PDMS_Customer
-                            {
-                                CustomerID = Convert.ToInt32(dr["CustomerID"]),
-                                CustomerCode = Convert.ToString(dr["CustomerCode"]),
-                                CustomerName = Convert.ToString(dr["CustomerName"]),
-                            };
-                            Equip.EquipmentWarrantyType = dr["EquipmentWarrantyTypeID"] == DBNull.Value ? null : new PDMS_EquipmentWarrantyType
-                            {
-                                EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
-                                WarrantyType = Convert.ToString(dr["WarrantyType"]),
-                                Description = Convert.ToString(dr["Description"])
+                                EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]),
+                                EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]),
+                                EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
+                                CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]),
+                                EquipmentModel = new PDMS_Model()
+                                {
+                                    Model = Convert.ToString(dr["Model"]),
+                                    ModelDescription = Convert.ToString(dr["ModelDescription"]),
+                                },
+                                Customer = new PDMS_Customer
+                                {
+                                    CustomerID = Convert.ToInt32(dr["CustomerID"]),
+                                    CustomerCode = Convert.ToString(dr["CustomerCode"]),
+                                    CustomerName = Convert.ToString(dr["CustomerName"]),
+                                },
+                                EquipmentWarrantyType = new PDMS_EquipmentWarrantyType()
+                                {
+                                    EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+                                    WarrantyType = Convert.ToString(dr["WarrantyType"]),
+                                    Description = Convert.ToString(dr["Description"])
+                                }
                             };
                         }
                     }
