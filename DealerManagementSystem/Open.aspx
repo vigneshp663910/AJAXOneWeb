@@ -181,6 +181,14 @@
                     <asp:Button ID="btnIntegrationWarrantyClaimAnnexureToSAP" runat="server" Text="IntegrationWarrantyClaimAnnexureToSAP" OnClick="btnIntegrationWarrantyClaimAnnexureToSAP_Click" />
                 </td>
             </tr>
+
+              <tr>
+                <td>
+                    <br />
+                     <asp:Label ID="Label9" runat="server" Text="Integration Equipment From SAP"></asp:Label> 
+                    <asp:Button ID="btnIntegrationEquipmentFromSAP" runat="server" Text="IntegrationEquipmentFromSAP" OnClick="btnIntegrationEquipmentFromSAP_Click" />
+                </td>
+            </tr>
         </table>
 
         <div id="chart" style="width: 100%; height: 500px;"></div>

@@ -938,16 +938,15 @@ namespace DealerManagementSystem.ViewService.UserControls
             ICTicketTSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIRBasicDetails(SDMS_ICTicket.ICTicketID);
             gvTSIR.DataSource = ICTicketTSIRs;
             gvTSIR.DataBind();
-            string[] TsirCancel = ConfigurationManager.AppSettings["TsirCancel"].Split(',');
-            for (int i = 0; i < gvTSIR.Rows.Count; i++)
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCancel).Count() == 1)
             {
-                LinkButton lblCancelTSIR = (LinkButton)gvTSIR.Rows[i].FindControl("lblCancelTSIR");
-                lblCancelTSIR.Visible = false;
-                if (TsirCancel.Contains(PSession.User.UserID.ToString()))
+                for (int i = 0; i < gvTSIR.Rows.Count; i++)
                 {
+                    LinkButton lblCancelTSIR = (LinkButton)gvTSIR.Rows[i].FindControl("lblCancelTSIR");
                     lblCancelTSIR.Visible = true;
                 }
-            }
+            }           
         }
 
         protected void cbCheck_CheckedChanged(object sender, EventArgs e)

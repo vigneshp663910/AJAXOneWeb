@@ -314,7 +314,19 @@ namespace Business
         public List<PDMS_Material> GetMaterialAutocompleteN(string Material, string MaterialType, int? DivisionID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Material/MaterialAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
+            string endPoint = "";
+            if (MaterialType == "DIEN")
+            {
+                endPoint = "Material/ServiceMaterialAutocomplete?Material=" + Material + "&DivisionID=" + DivisionID;
+            }
+            else if (MaterialType == "FERT")
+            {
+                endPoint = "Material/MaterialFinishedGoodsAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
+            }
+            else  
+            {
+                endPoint = "Material/MaterialAccessoriesAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
+            }
             return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<string> GetMaterialServiceAutocomplete(string Material, string MaterialType, int? ServiceTypeID, int? Category1ID, Boolean IsMainServiceMaterial)

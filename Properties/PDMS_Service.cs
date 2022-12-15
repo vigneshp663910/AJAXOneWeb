@@ -57,7 +57,7 @@ namespace Properties
     {
         public int MainApplicationID { get; set; }
         public string MainApplication { get; set; }
-        public bool IsActive { get; set; }        
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_SubApplication
@@ -66,6 +66,7 @@ namespace Properties
         public int MainApplicationID { get; set; }
         public string SubApplication { get; set; }
         public PDMS_MainApplication MainApplication { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceCharge
@@ -110,7 +111,8 @@ namespace Properties
     {
         public long ServiceChargeID { get; set; }
         public long ICTicketID { get; set; }
-        public string MaterialWithDescription { get; set; }
+        public long MaterialID { get; set; }
+        //public string MaterialWithDescription { get; set; } 
         public DateTime? Date { get; set; }
         public decimal WorkedHours { get; set; }
         public decimal BasePrice { get; set; }
@@ -120,7 +122,6 @@ namespace Properties
         //public long MaterialID { get; set; }
         //public int Item { get; set; }
         //public long TsirID { get; set; }
-
     }
     [Serializable]
     public class PDMS_ServiceMaterial
@@ -178,9 +179,10 @@ namespace Properties
     {
         public long ServiceMaterialID { get; set; }
         public long ICTicketID { get; set; }
-        public string MaterialWithDescription { get; set; }
+        public long MaterialID { get; set; }
+        //public string MaterialWithDescription { get; set; } 
         public string MaterialSerialNumber { get; set; }
-        public string DefectiveMaterialWithDescription { get; set; }
+        public long DefectiveMaterialID { get; set; }
         public string DefectiveMaterialSerialNumber { get; set; }
         public PDMS_MaterialSource MaterialSource { get; set; }
         public int Qty { get; set; }
@@ -209,6 +211,7 @@ namespace Properties
         public int NoteTypeID { get; set; }
         public string NoteType { get; set; }
         public string NoteCode { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceNote
@@ -238,6 +241,7 @@ namespace Properties
     {
         public int CustomerSatisfactionLevelID { get; set; }
         public string CustomerSatisfactionLevel { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceTechnicianWorkedDate
@@ -253,5 +257,6 @@ namespace Properties
     {
         public int MaterialSourceID { get; set; }
         public string MaterialSource { get; set; }
+        public Boolean IsActive { get; set; }
     }
 }
