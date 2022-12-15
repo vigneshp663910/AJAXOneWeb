@@ -89,6 +89,7 @@ namespace Business
                         provider.Insert("insertMailSendInfo", Params);
                         scope.Complete();
                     }
+                    MailSend(mailTo, "", Subject, messageBody);
                 }
                 catch (SqlException sqlEx)
                 {

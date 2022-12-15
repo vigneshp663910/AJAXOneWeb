@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="OpenSupportTicket.aspx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.OpenSupportTicket" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
+<%@ Register Src="~/ViewSupportTicket/UserControls/SupportTicketView.ascx" TagPrefix="UC" TagName="UC_SupportTicketView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
         .page-main-container .col, .page-main-container .col-1, .page-main-container .col-10, .page-main-container .col-11, .page-main-container .col-12, .page-main-container .col-2, .page-main-container .col-3, .page-main-container .col-4,
@@ -84,50 +87,55 @@
     </script>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
 
-    <div class="container-fluid form-container">
-        <asp:Panel ID="pnList" runat="server">
-            <div class="form-container-fields">
-                <span class="field-label">Open Task</span>
-                <div class="row">
-                    <div class="col-md-2 col-sm-6">
-                        <asp:Label ID="Label2" runat="server" Text="Req Date From" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtRequestedDateFrom" runat="server" CssClass="TextBox form-control" TextMode="Date" />
+    <div class="col-md-12">
+        <div class="col-md-12" id="divList" runat="server">
+            <div class="col-md-12">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">From</label>
+                            <asp:TextBox ID="txtRequestedDateFrom" runat="server" CssClass="TextBox form-control" TextMode="Date" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">To</label>
+                            <asp:TextBox ID="txtRequestedDateTo" runat="server" CssClass="TextBox form-control" TextMode="Date" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Requested User ID</label>
+                            <asp:DropDownList ID="ddlCreatedBy" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Ticket ID</label>
+                            <asp:TextBox ID="txtTicketId" runat="server" CssClass="TextBox form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Category</label>
+                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="btnSearch_Click" />
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-6">
-
-                        <asp:Label ID="Label3" runat="server" Text="To" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtRequestedDateTo" runat="server" CssClass="TextBox form-control" TextMode="Date" />
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-
-                        <asp:Label ID="Label4" runat="server" Text="Requested User ID" CssClass="label"></asp:Label>
-                        <asp:DropDownList ID="ddlCreatedBy" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-                        <asp:Label ID="Label1" runat="server" Text="Ticket ID" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtTicketId" runat="server" CssClass="TextBox form-control" />
-                    </div>
-                    <div class="col-md-2 col-sm-6">
-                        <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="label"></asp:Label>
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton btn Save" OnClick="btnSearch_Click" />
-                    </div>
-                </div>
-
+                </fieldset>
             </div>
             <br />
-            <div class="form-container-fields">
-                <span class="field-label">Report</span>
-                <div class="row">
-                    <br />
-                    <%--<div style="height:auto; width:800px; overflow-x:scroll ; overflow-y: hidden; padding-bottom:10px;"> --%>
-                    <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
-                        <asp:RadioButton ID="rbAssign" runat="server" Text="Assign" GroupName="ss" CssClass="label" Checked="true" />
-                        <asp:RadioButton ID="rbSendForApproval" runat="server" Text="Send for Approval" GroupName="ss" CssClass="label" />
-                        <%-- <asp:RadioButton ID="rbResolve" runat="server" Text="Resolve" GroupName="ss" CssClass="label" />--%>
-                        <asp:RadioButton ID="rbReject" runat="server" Text="Reject" GroupName="ss" CssClass="label" />
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <div class="col-md-12 Report">
+                        <div class="col-md-12" style="display:none">
+                            <div class="col-md-2 col-sm-12">
+                                <asp:RadioButton ID="rbAssign" runat="server" Text="Assign" GroupName="ss" CssClass="label" Checked="true" />
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <asp:RadioButton ID="rbSendForApproval" runat="server" Text="Send for Approval" GroupName="ss" CssClass="label" />
+                            </div>
+                            <%-- <asp:RadioButton ID="rbResolve" runat="server" Text="Resolve" GroupName="ss" CssClass="label" />--%>
+                            <div class="col-md-2 col-sm-12">
+                                <asp:RadioButton ID="rbReject" runat="server" Text="Reject" GroupName="ss" CssClass="label" />
+                            </div>
+                        </div>
                         <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                             <Columns>
                                 <asp:TemplateField HeaderText="">
@@ -139,9 +147,10 @@
                                 <asp:TemplateField HeaderText="Ticket ID">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lbTicketNo" runat="server" OnClick="lbTicketNo_Click">
+                                        <%--<asp:LinkButton ID="lbTicketNo" runat="server" OnClick="lbTicketNo_Click">
                                             <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "HeaderID")%>' runat="server" />
-                                        </asp:LinkButton>
+                                        </asp:LinkButton>--%>
+                                            <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "HeaderID")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Category">
@@ -208,87 +217,99 @@
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-md-12" id="divSupportTicketView" runat="server" visible="false">
+            <div class="col-md-12 lead-back-btn">
+                <div class="" id="boxHere"></div>
+                <div class="back-buttton" id="backBtn">
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
                 </div>
             </div>
-        </asp:Panel>
+            <UC:UC_SupportTicketView ID="UC_SupportTicketView" runat="server"></UC:UC_SupportTicketView>
+        </div>
+    </div>
+    <div style="display: none">
+        <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+    </div>
 
 
-        <asp:Panel ID="pnView" runat="server" Visible="false">
-            <div class="form-container-fields">
-                <span class="field-label">Send For Approval Form</span>
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="lblRequestedOn" runat="server" Text="Requested By" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtRequestedBy" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label5" runat="server" Text="Category" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtCategory" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="label"></asp:Label>
+    <div class="col-md-12" id="pnView" runat="server" visible="false">
+        <div class="form-container-fields">
+            <span class="field-label">Send For Approval Form</span>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblRequestedOn" runat="server" Text="Requested By" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtRequestedBy" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="Label5" runat="server" Text="Category" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtCategory" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="label"></asp:Label>
 
-                        <asp:TextBox ID="txtStatus" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12 col-sm-6">
-                        <asp:Label ID="lblTicketDescription" runat="server" Text="Ticket Description" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtTicketDescription" runat="server" TextMode="MultiLine" Height="70px" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label6" runat="server" Text="Ticket Type" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtTicketType" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label8" runat="server" Text="Approver" CssClass="label"></asp:Label>
-                        <asp:DropDownList ID="ddlapprovar" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label7" runat="server" Text="Attached File" CssClass="label"></asp:Label>
-                        <asp:GridView ID="gvFileAttached" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None">
-                            <Columns>
-                                <asp:TemplateField>
-                                    <ItemStyle BorderStyle="None" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkDownload" Text='<%# Eval("text") %>' CommandArgument='<%# Eval("Value") %>' runat="server" OnClick="DownloadFile"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
+                    <asp:TextBox ID="txtStatus" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-12 col-sm-6">
+                    <asp:Label ID="lblTicketDescription" runat="server" Text="Ticket Description" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketDescription" runat="server" TextMode="MultiLine" Height="70px" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="Label6" runat="server" Text="Ticket Type" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketType" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="Label8" runat="server" Text="Approver" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlapprovar" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="Label7" runat="server" Text="Attached File" CssClass="label"></asp:Label>
+                    <asp:GridView ID="gvFileAttached" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemStyle BorderStyle="None" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkDownload" Text='<%# Eval("text") %>' CommandArgument='<%# Eval("Value") %>' runat="server" OnClick="DownloadFile"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
 
-                    </div>
+                </div>
 
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSendForApproval" runat="server" Text="Send For Approval" CssClass="InputButton btn Save" Width="200px" OnClick="btnSendForApproval_Click" />
-                        <asp:Button ID="btnBack" runat="server" Text="Go Back" CssClass="InputButton btn Save" OnClick="btnBack_Click" />
-                    </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnSendForApproval" runat="server" Text="Send For Approval" CssClass="InputButton btn Save" Width="200px" OnClick="btnSendForApproval_Click" />
+                    <asp:Button ID="btnBack" runat="server" Text="Go Back" CssClass="InputButton btn Save" OnClick="btnBack_Click" />
                 </div>
             </div>
-        </asp:Panel>
+        </div>
+    </div>
 
-        <asp:Panel ID="pnlReject" runat="server" Visible="false">
-            <div class="form-container-fields">
-                <span class="field-label">Reject Form</span>
-                <div class="row">
+    <div class="col-md-12" id="pnlReject" runat="server" visible="false">
+        <div class="form-container-fields">
+            <span class="field-label">Reject Form</span>
+            <div class="row">
 
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label9" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtTicketNoReject" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12 col-sm-6">
-                        <asp:Label ID="Label13" runat="server" Text="Description" CssClass="label"></asp:Label>
-                        <asp:TextBox ID="txtTicketNoRejectRemark" runat="server" TextMode="MultiLine"  CssClass="TextBox form-control"></asp:TextBox>
-                    </div>
-                   <div class="col-md-12 text-center">
-                        <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="InputButton btn Save" OnClick="btnReject_Click" />
-                        <asp:Button ID="btnRejectBack" runat="server" Text="Go Back" CssClass="InputButton btn Save" OnClick="btnRejectBack_Click" />
-                    </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="Label9" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketNoReject" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="col-md-12 col-sm-6">
+                    <asp:Label ID="Label13" runat="server" Text="Description" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtTicketNoRejectRemark" runat="server" TextMode="MultiLine" CssClass="TextBox form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="InputButton btn Save" OnClick="btnReject_Click" />
+                    <asp:Button ID="btnRejectBack" runat="server" Text="Go Back" CssClass="InputButton btn Save" OnClick="btnRejectBack_Click" />
                 </div>
             </div>
-        </asp:Panel>
+        </div>
     </div>
 </asp:Content>
 

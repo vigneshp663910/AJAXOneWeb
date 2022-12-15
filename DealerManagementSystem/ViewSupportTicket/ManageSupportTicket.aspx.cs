@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
                 gvTickets.Columns[10].Visible = false;
-                gvTickets.Columns[11].Visible = false;
+                //gvTickets.Columns[11].Visible = false;
             }
             // }
 
@@ -92,7 +92,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                 Label lblTicketStatus = (Label)gvTickets.Rows[i].FindControl("lblTicketStatus");
                 Button btnClose = (Button)gvTickets.Rows[i].FindControl("btnClose");
-                Button btnReassign = (Button)gvTickets.Rows[i].FindControl("btnReassign");
+                //Button btnReassign = (Button)gvTickets.Rows[i].FindControl("btnReassign");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
                 if (lblTicketStatus.Text == "Resolved")
                 {
@@ -103,14 +103,14 @@ namespace DealerManagementSystem.ViewSupportTicket
                     btnClose.Visible = false;
                 }
 
-                if (lblTicketStatus.Text == "Resolved" || lblTicketStatus.Text == "Closed")
-                {
-                    btnReassign.Visible = false;
-                }
-                else
-                {
-                    btnReassign.Visible = true;
-                }
+                //if (lblTicketStatus.Text == "Resolved" || lblTicketStatus.Text == "Closed")
+                //{
+                //    btnReassign.Visible = false;
+                //}
+                //else
+                //{
+                //    btnReassign.Visible = true;
+                //}
                 int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
                 if (count == 0)
                 {
@@ -183,15 +183,19 @@ namespace DealerManagementSystem.ViewSupportTicket
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
         }
-
         protected void ibMessage_Click(object sender, ImageClickEventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
-            Response.Redirect(url);
+            //string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            //Response.Redirect(url);
+            divSupportTicketView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
-
         protected void btnReassign_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -211,6 +215,12 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Response.Redirect(url);
             }
             Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + lblTicketID.Text + "&ItemNo=" + ItemNo.ToString());
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divSupportTicketView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
         }
     }
 }
