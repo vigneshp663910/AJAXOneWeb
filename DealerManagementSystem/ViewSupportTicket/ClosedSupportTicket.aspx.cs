@@ -9,6 +9,13 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class ClosedSupportTicket : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Close');</script>");
@@ -16,9 +23,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (!IsPostBack)
             {
                 FillCategory();
-
-                FillTicketSeverity();
-                FillTicketType();
                 //FillStatus();
                 //FillResolutionType(); 
                 FillTickets();
@@ -40,23 +44,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        void FillTicketSeverity()
-        {
-            ddlSeverity.DataTextField = "Severity";
-            ddlSeverity.DataValueField = "SeverityID";
-            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
-            ddlSeverity.DataBind();
-            ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
-        }
-
-        void FillTicketType()
-        {
-            ddlTicketType.DataTextField = "Type";
-            ddlTicketType.DataValueField = "TypeID";
-            ddlTicketType.DataSource = new BTicketType().getTicketType(null, null);
-            ddlTicketType.DataBind();
-            ddlTicketType.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         //void FillStatus()
@@ -80,18 +67,31 @@ namespace DealerManagementSystem.ViewSupportTicket
         void FillTickets()
         {
             string TicketNO = txtTicketNo.Text.Trim();
+            int? HeaderID = string.IsNullOrEmpty(TicketNO) ? (int?)null : Convert.ToInt32(TicketNO);
             int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? TicketSubCategoryID = null;
             if (ddlSubcategory.Items.Count > 0)
             {
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
-            int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
-            int? TicketType = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
 
-
-            gvTickets.DataSource = new BTickets().GetTicketToClose(null, TicketCategoryID, TicketSubCategoryID, TicketType, PSession.User.UserID, null);
+            gvTickets.DataSource = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PSession.User.UserID);
             gvTickets.DataBind();
+            for (int i = 0; i < gvTickets.Rows.Count; i++)
+            {
+                Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
+                ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
+
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
+                if (count == 0)
+                {
+                    ibMessage.ImageUrl = "~/Images/Message.jpg";
+                }
+                else
+                {
+                    ibMessage.ImageUrl = "~/Images/MessageNew.jpg";
+                }
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -115,6 +115,25 @@ namespace DealerManagementSystem.ViewSupportTicket
             FillTickets();
             gvTickets.PageIndex = e.NewPageIndex;
             gvTickets.DataBind();
+        }
+        protected void ibMessage_Click(object sender, ImageClickEventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+            //string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            //Response.Redirect(url);
+            divSupportTicketView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divSupportTicketView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
         }
         protected void btnClose_Click(object sender, EventArgs e)
         {

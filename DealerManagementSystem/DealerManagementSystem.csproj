@@ -661,6 +661,7 @@
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
+    <Content Include="ViewSupportTicket\UserControls\SupportTicketView.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="View\Appointment.aspx" />
     <Content Include="View\Attendance.aspx" />
@@ -2515,6 +2516,13 @@
     </Compile>
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.cs">
+      <DependentUpon>SupportTicketView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.designer.cs">
+      <DependentUpon>SupportTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

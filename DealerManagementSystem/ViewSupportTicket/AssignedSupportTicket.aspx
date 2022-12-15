@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="AssignedSupportTicket.aspx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.AssignedSupportTicket" %>
 
+<%@ Register Src="~/ViewSupportTicket/UserControls/SupportTicketView.ascx" TagPrefix="UC" TagName="UC_SupportTicketView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <style>
@@ -76,7 +77,6 @@
             }
     </style>
 
-
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -144,45 +144,39 @@
     </script>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
 
-    <div class="container-fluid form-container">
-        <div class="form-container-fields">
-            <span class="field-label">Assigned Task</span>
-            <div class="row">
-                <div class="col-md-2 col-sm-6">
-                    <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label"></asp:Label>
-                    <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox form-control" Style="position: relative;"></asp:TextBox>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <asp:Label ID="lblAssignedBy" runat="server" Text="Assigned By" CssClass="label"></asp:Label>
-                    <asp:DropDownList ID="ddlAssignedBy" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="label"></asp:Label>
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged"></asp:DropDownList></td>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <asp:Label ID="lblSubcategory" runat="server" Text="Subcategory" CssClass="label"></asp:Label>
-                    <asp:DropDownList ID="ddlSubcategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <asp:Label ID="lblSeverity" runat="server" Text="Severity" CssClass="label"></asp:Label>
-                    <asp:DropDownList ID="ddlSeverity" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <asp:Label ID="lblTicketType" runat="server" Text="Ticket Type" CssClass="label"></asp:Label>
-                    <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                </div>
-                <div class="col-md-12 text-center">
-                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="InputButton btn Save" OnClick="btnSearch_Click" />
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="form-container-fields">
-            <span class="field-label">Report</span>
+    <div class="col-md-12">
+        <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
-                <div class="col-md-12 Report">
-                    <fieldset class="fieldset-border">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Ticket No</label>
+                            <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox form-control" Style="position: relative;"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Category</label>
+                            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Subcategory</label>
+                            <asp:DropDownList ID="ddlSubcategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Severity</label>
+                            <asp:DropDownList ID="ddlSeverity" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="btnSearch_Click" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <br />
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                    <div class="col-md-12 Report">
                         <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvTickets_PageIndexChanging" AllowPaging="true" PageSize="15">
                             <Columns>
                                 <asp:TemplateField HeaderText="">
@@ -194,10 +188,8 @@
                                 <asp:TemplateField HeaderText="Ticket ID">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-
                                         <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "HeaderID")%>' runat="server" />
                                         <asp:Label ID="lblItemID" Text='<%# DataBinder.Eval(Container.DataItem, "TicketItem.ItemID")%>' runat="server" Visible="false" />
-
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Category">
@@ -212,29 +204,12 @@
                                         <asp:Label ID="lblTicketSubCategory" Text='<%# DataBinder.Eval(Container.DataItem, "SubCategory.SubCategory")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%--   <asp:TemplateField HeaderText="Repeat">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblRepeat" Text='<%# DataBinder.Eval(Container.DataItem, "Repeat")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%><asp:TemplateField HeaderText="Severity">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblTicketSeverity" Text='<%# DataBinder.Eval(Container.DataItem, "Severity.Severity")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Ticket Type">
+                                <asp:TemplateField HeaderText="Severity">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblTicketType" Text='<%# DataBinder.Eval(Container.DataItem, "Type.Type")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblTicketSeverity" Text='<%# DataBinder.Eval(Container.DataItem, "Severity.Severity")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%--  <asp:TemplateField HeaderText="Description">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblTicketDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Description")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Contact Name">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -247,35 +222,12 @@
                                         <asp:Label ID="lblMobileNo" Text='<%# DataBinder.Eval(Container.DataItem, "MobileNo")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%-- <asp:TemplateField HeaderText="Justification">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblJustification" Text='<%# DataBinder.Eval(Container.DataItem, "Justification")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%><asp:TemplateField HeaderText="Status">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblTicketStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Assigned By">
+                                <asp:TemplateField HeaderText="Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAssignedBy" Text='<%# DataBinder.Eval(Container.DataItem, "TicketItem.AssignedBy.ContactName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblTicketStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Assigned On">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAssignedOn" Text='<%# DataBinder.Eval(Container.DataItem, "TicketItem.AssignedOn")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <%--  <asp:TemplateField HeaderText="Expectation (H)">
-                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblActualDuration" Text='<%# DataBinder.Eval(Container.DataItem, "TicketItem.ActualDuration")%>' runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Created By">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -288,24 +240,6 @@
                                         <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%-- <asp:TemplateField HeaderText="Department">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            <ItemTemplate>
-                                <asp:Label ID="lblDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.Department.DepartmentName")%>' runat="server"></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>--%>
-                                <asp:TemplateField>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnInProgress" runat="server" Text="In Progress" CssClass="InputButton btn Save" OnClick="btnInProgress_Click" Width="100px" Height="30px" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnReassign" runat="server" Text="Reassign" CssClass="InputButton btn Save" OnClick="btnReassign_Click" Width="100px" Height="30px" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -313,9 +247,21 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
-                    </fieldset>
-                </div>
+                    </div>
+                </fieldset>
             </div>
         </div>
+        <div class="col-md-12" id="divSupportTicketView" runat="server" visible="false">
+            <div class="col-md-12 lead-back-btn">
+                <div class="" id="boxHere"></div>
+                <div class="back-buttton" id="backBtn">
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                </div>
+            </div>
+            <UC:UC_SupportTicketView ID="UC_SupportTicketView" runat="server"></UC:UC_SupportTicketView>
+        </div>
+    </div>
+    <div style="display: none">
+        <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
 </asp:Content>

@@ -34,7 +34,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-             
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Task Report View');</script>");
             if (!IsPostBack)
             {
                 //new BEmployees().CheckPermition(0);
@@ -77,8 +77,20 @@ namespace DealerManagementSystem.ViewSupportTicket
         void FillTickets(int? TicketNO)
         {
             List<PTicketHeader> Ticket = new BTickets().GetTicketByID(TicketNO);
-            gvTickets.DataSource = Ticket;
-            gvTickets.DataBind();
+            lblTicketID.Text = Ticket[0].HeaderID.ToString();
+            lblCategory.Text = Ticket[0].Category.Category;
+            lblSubCategory.Text = (Ticket[0].SubCategory==null)?"":Ticket[0].SubCategory.SubCategory;
+            lblRepeat.Text = Ticket[0].Repeat.ToString();
+            lblSeverity.Text = (Ticket[0].Severity==null)?"":Ticket[0].Severity.Severity;
+            lblTicketType.Text = Ticket[0].Type.Type;
+            lblDescription.Text = Ticket[0].Description;
+            lblStatus.Text = Ticket[0].Status.Status;
+            lblCreatedBy.Text = Ticket[0].CreatedBy.ContactName;
+            lblCreatedOn.Text = Ticket[0].CreatedOn.ToString();
+            lblAge.Text = Ticket[0].age.ToString();
+            lblClosedOn.Text = Ticket[0].ClosedOn.ToString();
+            //gvTickets.DataSource = Ticket;
+            //gvTickets.DataBind();
 
             gvTicketItem.DataSource = Ticket[0].TicketItems;
             gvTicketItem.DataBind();
