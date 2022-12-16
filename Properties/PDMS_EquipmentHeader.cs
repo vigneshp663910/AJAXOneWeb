@@ -89,7 +89,7 @@ namespace Properties
 
     public class PEquipmentWarrantyTypeApproval
     {
-        public int WarrantyTypeChangeID { get; set; }
+        public long WarrantyTypeChangeID { get; set; }
         public PDMS_EquipmentWarrantyType WarrantyType { get; set; }
         public PDMS_EquipmentHeader Equipment { get; set; }
         public PUser RequestedBy { get; set; }
@@ -97,5 +97,42 @@ namespace Properties
         public PUser ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public Boolean? IsApproved { get; set; }
+    }
+
+    public class PEquipmentOwnershipChangeApproval
+    {
+        public long OwnershipChangeID { get; set; }
+        public PDMS_Customer Customer { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public DateTime SoldDate { get; set; }
+        public PUser RequestedBy { get; set; }
+        public DateTime RequestedDate { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public Boolean? IsApproved { get; set; }
+    }
+    public class PWarrantyExpiryDateChangeApproval
+    {
+        public long WarrantyExpiryDateChangeID { get; set; } 
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public DateTime OldWarrantyExpiryDate { get; set; }
+        public DateTime NewWarrantyExpiryDate { get; set; }
+        public PUser RequestedBy { get; set; }
+        public DateTime RequestedDate { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public Boolean? IsApproved { get; set; }
+    }
+
+
+    public class PEquipmentAttachedFile
+    {
+        public long AttachedFileID { get; set; }
+        public string FileName { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public long ReferenceID { get; set; }
+        public string ReferenceName { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; } 
     }
 }
