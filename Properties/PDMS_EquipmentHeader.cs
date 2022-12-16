@@ -86,7 +86,7 @@ namespace Properties
         public string BaseCategory { get; set; }
         public string Description { get; set; }
     }
-
+    [Serializable]
     public class PEquipmentWarrantyTypeApproval
     {
         public long WarrantyTypeChangeID { get; set; }
@@ -98,7 +98,7 @@ namespace Properties
         public DateTime? ApprovedDate { get; set; }
         public Boolean? IsApproved { get; set; }
     }
-
+    [Serializable]
     public class PEquipmentOwnershipChangeApproval
     {
         public long OwnershipChangeID { get; set; }
@@ -123,12 +123,13 @@ namespace Properties
         public DateTime? ApprovedDate { get; set; }
         public Boolean? IsApproved { get; set; }
     }
-
-
+    [Serializable]
     public class PEquipmentAttachedFile
     {
         public long AttachedFileID { get; set; }
         public string FileName { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public long FileSize { get; set; }
         public PDMS_EquipmentHeader Equipment { get; set; }
         public long ReferenceID { get; set; }
         public string ReferenceName { get; set; }
