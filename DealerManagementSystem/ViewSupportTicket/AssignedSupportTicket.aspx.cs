@@ -69,7 +69,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             
-            gvTickets.DataSource = new BTickets().GetAssignedTickets(TicketNO, TicketCategoryID, TicketSubCategoryID, TicketSeverity);
+            gvTickets.DataSource = new BTickets().GetAssignedTickets(TicketNO, TicketCategoryID, TicketSubCategoryID, TicketSeverity,PSession.User.UserID);
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {

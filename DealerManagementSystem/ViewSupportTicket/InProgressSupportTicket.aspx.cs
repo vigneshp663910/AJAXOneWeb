@@ -115,7 +115,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             string AssignedTo = PSession.User.UserName;
 
-            gvTickets.DataSource = new BTickets().GetInProgressTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity);
+            gvTickets.DataSource = new BTickets().GetInProgressTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity,PSession.User.UserID);
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {

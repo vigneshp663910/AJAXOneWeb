@@ -23,8 +23,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>"); 
             if (!IsPostBack)
             {
-
                 new FillDropDownt().Category(ddlCategory, null,null);
+                ddlCategory_SelectedIndexChanged(null, null);
+                FillTicketSeverity();
                 //  new FillDropDownt().SubCategory(ddlSubcategory, null, null, null);
                 new FillDropDownt().Type(ddlTicketType, null, null);
                 FillStatus();
@@ -42,12 +43,36 @@ namespace DealerManagementSystem.ViewSupportTicket
             lbStatus.DataBind();
             lbStatus.Items.Insert(0, new ListItem("Select", "0"));
         }
-
+        void FillSubCategory()
+        {
+            ddlSubcategory.DataTextField = "SubCategory";
+            ddlSubcategory.DataValueField = "SubCategoryID";
+            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataBind();
+            ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillCategory()
+        {
+            ddlCategory.DataTextField = "Category";
+            ddlCategory.DataValueField = "CategoryID";
+            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillTicketSeverity()
+        {
+            ddlSeverity.DataTextField = "Severity";
+            ddlSeverity.DataValueField = "SeverityID";
+            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlSeverity.DataBind();
+            ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
+        }
         void FillTickets()
         {
             int? TicketNO = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
-            int? SubCategoryID = null;
+            int? SubCategoryID = ddlSubcategory.SelectedValue=="0"?(int?)null:Convert.ToInt32(ddlSubcategory.SelectedValue);
+            int? SeverityID = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             //if (ddlSubcategory.Items.Count > 0)
             //{
             //    SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
@@ -69,7 +94,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
             //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
             //{ 
-            TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
+            TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, null, null, PSession.User.UserID, TicketStatus);
 
             // if (PSession.User.UserName.Contains("IT."))
             if ((User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemHead) || (User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemManager))
@@ -131,7 +156,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
-            // new FillDropDownt().SubCategory(ddlSubcategory, null, null, CategoryID);
+            new FillDropDownt().SubCategory(ddlSubcategory, null, null, CategoryID);
         }
 
         //protected void lbTicketNo_Click(object sender, EventArgs e)
