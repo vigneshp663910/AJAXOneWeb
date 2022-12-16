@@ -82,6 +82,16 @@ namespace DealerManagementSystem.ViewSupportTicket
                     TicketStatus = TicketStatus + "," + li.Text;
                 }
             }
+            DateTime? RequestedDateFrom = null;
+            if (!string.IsNullOrEmpty(txtTicketFrom.Text))
+            {
+                RequestedDateFrom = Convert.ToDateTime(txtTicketFrom.Text);
+            }
+            DateTime? RequestedDateTo = null;
+            if (!string.IsNullOrEmpty(txtTicketTo.Text))
+            {
+                RequestedDateTo = Convert.ToDateTime(txtTicketTo.Text).AddDays(1);
+            }
             PUser User = PSession.User;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
             TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, null, null, PSession.User.UserID, TicketStatus);
