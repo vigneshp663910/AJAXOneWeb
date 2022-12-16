@@ -96,20 +96,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             //{ 
             TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, null, null, PSession.User.UserID, TicketStatus);
 
-            // if (PSession.User.UserName.Contains("IT."))
-            if ((User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemHead) || (User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemManager))
-            {
-                // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, null, TicketStatus);
-                gvTickets.Columns[10].Visible = true;
-            }
-            else
-            {
-                // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
-                gvTickets.Columns[10].Visible = false;
-                //gvTickets.Columns[11].Visible = false;
-            }
-            // }
-
             gvTickets.DataSource = TicketHeader;
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
