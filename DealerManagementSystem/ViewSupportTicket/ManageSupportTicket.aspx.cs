@@ -16,14 +16,14 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            } 
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>"); 
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>");
             if (!IsPostBack)
             {
-                new FillDropDownt().Category(ddlCategory, null,null);
+                new FillDropDownt().Category(ddlCategory, null, null);
                 ddlCategory_SelectedIndexChanged(null, null);
                 FillTicketSeverity();
                 //  new FillDropDownt().SubCategory(ddlSubcategory, null, null, null);
@@ -71,16 +71,10 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             int? TicketNO = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
-            int? SubCategoryID = ddlSubcategory.SelectedValue=="0"?(int?)null:Convert.ToInt32(ddlSubcategory.SelectedValue);
+            int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             int? SeverityID = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
-            //if (ddlSubcategory.Items.Count > 0)
-            //{
-            //    SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
-            //}
-
-            // int? CreatedBy = ddlCreatedBy.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCreatedBy.SelectedValue);
             int? TypeId = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-            string TicketStatus = "";// lbStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(lbStatus.SelectedValue);
+            string TicketStatus = "";
             foreach (ListItem li in lbStatus.Items)
             {
                 if (li.Selected)
@@ -89,11 +83,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 }
             }
             PUser User = PSession.User;
-
-            //  gvTickets.DataSource = new BTickets().GetManageTickets(TicketNO, TicketStatus, TicketCategoryID, TicketSubCategoryID, TicketType, CreatedBy, DepartmentID, AssignedTo, usreID);
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
-            //{ 
             TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, null, null, PSession.User.UserID, TicketStatus);
 
             gvTickets.DataSource = TicketHeader;
@@ -101,27 +91,8 @@ namespace DealerManagementSystem.ViewSupportTicket
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
-                Label lblTicketStatus = (Label)gvTickets.Rows[i].FindControl("lblTicketStatus");
-                Button btnClose = (Button)gvTickets.Rows[i].FindControl("btnClose");
-                //Button btnReassign = (Button)gvTickets.Rows[i].FindControl("btnReassign");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
-                if (lblTicketStatus.Text == "Resolved")
-                {
-                    btnClose.Visible = true;
-                }
-                else
-                {
-                    btnClose.Visible = false;
-                }
 
-                //if (lblTicketStatus.Text == "Resolved" || lblTicketStatus.Text == "Closed")
-                //{
-                //    btnReassign.Visible = false;
-                //}
-                //else
-                //{
-                //    btnReassign.Visible = true;
-                //}
                 int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
                 if (count == 0)
                 {
