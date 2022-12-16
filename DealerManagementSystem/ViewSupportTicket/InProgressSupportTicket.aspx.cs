@@ -100,7 +100,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         void FillTickets()
         {
 
-            int? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
+            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? TicketSubCategoryID = null;
             if (ddlSubcategory.Items.Count > 0)

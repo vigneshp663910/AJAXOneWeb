@@ -1144,18 +1144,12 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnForceclose.Visible = false;
                 lbtnClose.Visible = false;
             }
-            if (PSession.User.UserID == 1)
-            {
-                lbtnAssignTo.Visible = true;
-                lbtnSendApproval.Visible = true;
-                lbtnForceclose.Visible = true;
-            }
-            else
+            if (PSession.User.UserID != 1)
             {
                 lbtnAssignTo.Visible = false;
                 lbtnSendApproval.Visible = false;
                 lbtnForceclose.Visible = false;
-            }
+            } 
         }
     }
     class PMessage

@@ -60,7 +60,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         void FillTickets()
         {
-            string TicketNO = txtTicketNo.Text.Trim();
+            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? TicketSubCategoryID = null;
             if (ddlSubcategory.Items.Count > 0)
@@ -69,7 +69,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             
-            gvTickets.DataSource = new BTickets().GetAssignedTickets(TicketNO, TicketCategoryID, TicketSubCategoryID, TicketSeverity,PSession.User.UserID);
+            gvTickets.DataSource = new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity,PSession.User.UserID);
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
