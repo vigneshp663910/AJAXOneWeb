@@ -41,6 +41,7 @@ namespace Properties
     {
         public int MakeID { get; set; }
         public string Make { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PProductType

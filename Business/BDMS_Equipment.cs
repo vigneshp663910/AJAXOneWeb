@@ -237,9 +237,9 @@ namespace Business
                         Equip.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
                         Equip.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
                         Equip.EngineModel = Convert.ToString(dr["EngineModel"]);
-                        Equip.CurrentHMRValue = Convert.ToInt32(dr["CurrentHMRValue"]);
-                        Equip.CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]);
-                        Equip.CurrentHMRDate = Convert.ToDateTime(dr["CurrentHMRDate"]);
+                        Equip.CurrentHMRValue = dr["CurrentHMRValue"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["CurrentHMRValue"]);
+                        Equip.CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]);
+                        Equip.CurrentHMRDate = dr["CurrentHMRDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CurrentHMRDate"]);
                         Equip.IsRefurbished = dr["IsRefurbished"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(dr["IsRefurbished"]);
                        // Equip.RefurbishedBy = Convert.ToString(dr["RefurbishedBy"]);
                         Equip.RFWarrantyStartDate = dr["RFWarrantyStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RFWarrantyStartDate"]);
@@ -264,10 +264,10 @@ namespace Business
                         {
                             InstalledBaseNo = Convert.ToString(dr["InstalledBaseNo"]),
                             IBaseLocation = Convert.ToString(dr["IBaseLocation"]),
-                            DeliveryDate = Convert.ToDateTime(dr["DeliveryDate"]),
-                            IBaseCreatedOn = Convert.ToDateTime(dr["IBaseCreatedOn"]),
-                            WarrantyStart = Convert.ToDateTime(dr["IbaseWarrantyStart"]),
-                            WarrantyEnd = Convert.ToDateTime(dr["IbaseWarrantyEnd"]),
+                            DeliveryDate =   Convert.ToDateTime(dr["DeliveryDate"]),
+                            IBaseCreatedOn = dr["IBaseCreatedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IBaseCreatedOn"]),
+                            WarrantyStart = dr["IbaseWarrantyStart"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyStart"]),
+                            WarrantyEnd = dr["IbaseWarrantyEnd"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyEnd"]),
                             FinancialYearOfDispatch = Convert.ToInt32(dr["FinancialYearOfDispatch"]),
                             MajorRegion = new PDMS_Region
                             {
@@ -603,7 +603,7 @@ namespace Business
                         List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
                         if (Customer.Count == 0)
                         {
-                            ShipToPartyID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
+                            ShipToPartyID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
                         }
                         else
                         {
@@ -618,7 +618,7 @@ namespace Business
 
                         if (Customer.Count == 0)
                         {
-                            Buyer1stID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
+                            Buyer1stID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
                         }
                         else
                         {
@@ -631,7 +631,7 @@ namespace Business
                         List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
                         if (Customer.Count == 0)
                         {
-                            Buyer2ndID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
+                            Buyer2ndID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
                         }
                         else
                         {
@@ -868,7 +868,7 @@ namespace Business
                                 EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]),
                                 EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]),
                                 EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
-                                CommissioningOn = Convert.ToDateTime(dr["CommissioningOn"]),
+                                CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]),
                                 EquipmentModel = new PDMS_Model()
                                 {
                                     Model = Convert.ToString(dr["Model"]),

@@ -1,6 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketAddServiceCharges.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.ICTicketAddServiceCharges" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
+<style>
+    .ui-autocomplete{
+    top: -38.875px;
+    left: 756.225px;
+    max-width: 388.5px;
+    width: 390px;
+    z-index: 10002
+    }
+</style>
 
 
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
@@ -85,7 +94,7 @@
 <script type="text/javascript">
 
     function GetServiceCharges() {
-        debugger;
+        $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_hdfMaterialID").val('');
         var param = { Material: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val(), MaterialType:'DIEN' }
         var Customers = [];
         if ($('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val().trim().length >= 3) {
@@ -95,8 +104,7 @@
                 type: 'POST',
                 data: JSON.stringify(param),
                 dataType: 'JSON',
-                success: function (data) {
-                    debugger;
+                success: function (data) { 
                     var DataList = JSON.parse(data.d);
                     for (i = 0; i < DataList.length; i++) {
                         Customers[i] = {
@@ -119,7 +127,7 @@
                     }).click(function () {
                         $(this).autocomplete("search");
                     }).data('ui-autocomplete')._renderItem = function (ul, item) {
-                        debugger;
+                         
                         var inner_html = FormatAutocompleteList(item);
                         return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
                             .data('item.autocomplete', item)
@@ -141,7 +149,7 @@
 
     function FormatAutocompleteList(item) {
         var inner_html = '<a>';
-        inner_html += '<p style="margin:0;">dfsrdgr<strong>' + item.value + '</strong></p>';
+        inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
         inner_html += '</a>';
         return inner_html;
     }

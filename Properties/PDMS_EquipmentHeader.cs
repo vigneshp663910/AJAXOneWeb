@@ -8,8 +8,8 @@ namespace Properties
     [Serializable]
     public class PDMS_EquipmentHeader
     {
-        public DateTime CurrentHMRDate { get; set; }
-        public int CurrentHMRValue { get; set; }
+        public DateTime? CurrentHMRDate { get; set; }
+        public int? CurrentHMRValue { get; set; }
         public long EquipmentHeaderID { get; set; }
         public PDMS_Customer Customer { get; set; }
         public PDMS_Model EquipmentModel { get; set; }

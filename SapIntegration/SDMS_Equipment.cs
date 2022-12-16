@@ -45,7 +45,7 @@ namespace SapIntegration
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("Z_BAPI_READ_MACHINE_POP_LIST");
            // tagListBapi.SetValue("IV_LFDAT",Convert.ToDateTime("01.01.2010"));
-            tagListBapi.SetValue("IV_COUNT", 100);
+            tagListBapi.SetValue("IV_COUNT", 300);
             tagListBapi.Invoke(SAP.RfcDes());
 
             IRfcTable TT_EUIP_DET = tagListBapi.GetTable("ET_MACHINE_LIST");

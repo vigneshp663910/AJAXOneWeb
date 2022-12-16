@@ -179,5 +179,10 @@ namespace DealerManagementSystem
         {
             new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
         }
+
+        protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)
+        {
+            new BDMS_Equipment().IntegrationEquipmentFromSAP();
+        }
     }
 }
