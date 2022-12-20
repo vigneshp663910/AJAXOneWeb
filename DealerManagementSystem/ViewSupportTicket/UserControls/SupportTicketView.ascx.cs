@@ -74,7 +74,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 if (FileUpload.PostedFile.FileName.Length > 0)
                 {
-
                     HttpPostedFile file = FileUpload.PostedFile;
                     PAttachedFile F = new PAttachedFile();
                     int size = file.ContentLength;
@@ -263,15 +262,41 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ViewState["TicketNo"] = TicketNO;
             Ticket = new BTickets().GetTicketByID(TicketNO);
 
+            ddlMailNotification.Items.Clear();
+            ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem("Select", "0"));
+            ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem("Select All", "-1"));
+            ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(Ticket[0].CreatedBy.ContactName, Ticket[0].CreatedBy.UserID.ToString()));
+
+
+            foreach (PTicketItem T in Ticket[0].TicketItems)
+            {
+                if (ddlMailNotification.Items.FindByValue(T.AssignedTo.UserID.ToString()) == null)
+                {
+                    ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(T.AssignedTo.ContactName, T.AssignedTo.UserID.ToString()));
+                }
+                if (ddlMailNotification.Items.FindByValue(T.AssignedBy.UserID.ToString()) == null)
+                {
+                    ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(T.AssignedBy.ContactName, T.AssignedBy.UserID.ToString()));
+                }
+            }
+
+            foreach (PTicketsApprovalDetails A in Ticket[0].ApprovalDetails)
+            {
+                if (ddlMailNotification.Items.FindByValue(A.Approver.UserID.ToString()) == null)
+                {
+                    ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(A.Approver.ContactName, A.Approver.UserID.ToString()));
+                }
+            }
+
             lblTicketID.Text = Ticket[0].HeaderID.ToString();
             lblCategory.Text = Ticket[0].Category.Category;
             lblSubCategory.Text = (Ticket[0].SubCategory == null) ? "" : Ticket[0].SubCategory.SubCategory;
-            lblRepeat.Text = Ticket[0].Repeat.ToString();
             lblSeverity.Text = (Ticket[0].Severity == null) ? "" : Ticket[0].Severity.Severity;
             lblTicketType.Text = Ticket[0].Type.Type;
             lblDescription.Text = Ticket[0].Description;
             lblStatus.Text = Ticket[0].Status.Status;
             lblCreatedBy.Text = Ticket[0].CreatedBy.ContactName;
+            lblCreatedByContactNumber.Text = Ticket[0].CreatedBy.ContactNumber;
             lblCreatedOn.Text = Ticket[0].CreatedOn.ToString();
             lblAge.Text = Ticket[0].age.ToString();
             lblClosedOn.Text = Ticket[0].ClosedOn.ToString();
@@ -291,8 +316,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             List<PMessage> PMessages = new List<PMessage>();
             PMessage Message = null;
 
-            // dt.Rows.Add("<p style = 'text-align: right'><U>" + F.FromUser.ContactName + "</U> </br> <p style = 'padding-left : 10px; text-align: right'>" + F.Message + "</p></p>","Right");
-            //  dt.Rows.Add("<U>" + F.FromUser.ContactName + "</U> </br> <p style = 'padding-left : 10px'>" + F.Message + "</p>","Left");
             long LastMessageID = 0;
             List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
             foreach (PForum F in Forums)
@@ -426,14 +449,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
         void FillAllFields(int TicketNo)
         {
-            ////if (string.IsNullOrEmpty(TicketNo))
-            ////{
-            ////    TicketNo = txtTicketNo.Text.Trim();
-            ////}
-            //PTicketHeader Tickets = new PTicketHeader();
-            //// Tickets = new BTickets().GeTicketsByTicketNo(TicketNo);
-            //Tickets = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, PSession.User.UserID)[0];
-
             txtRequestedOn.Text = Convert.ToString(Ticket[0].CreatedOn);
             ddlCategory.SelectedValue = Convert.ToString(Ticket[0].Category.CategoryID);
             FillSubCategory();
@@ -456,18 +471,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             txtRequestedBy.Text = Ticket[0].CreatedBy.ContactName + " " + txtRequestedOn.Text;
             ddlTicketType.SelectedValue = Convert.ToString(Ticket[0].Type.TypeID);
-            //if (Tickets.AssignedTo != null)
-            //{
-            //    ddlAssignedTo.SelectedValue = Convert.ToString(Tickets.AssignedTo.EID);
-            //}
-
+            
             ddlStatus.SelectedValue = Convert.ToString(Ticket[0].Status.StatusID);
             txtRequesterRemark.Text = Ticket[0].Description;
-
-            //if (Tickets.ActualDuration != null)
-            //{
-            //    txtActualDuration.Text = Convert.ToString(Tickets.ActualDuration);
-            //}
 
             Dictionary<string, long> AttachedFiles = new Dictionary<string, long>(); // new BTickets().getAttachedFiles(TicketNo);
             List<PForum> Forums = new BTickets().GetForumDetails(TicketNo);
@@ -478,7 +484,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     AttachedFiles.Add(F.Message, F.ID);
                 }
             }
-
             List<ListItem> files = new List<ListItem>();
             foreach (KeyValuePair<string, long> Files in AttachedFiles)
             {
@@ -487,7 +492,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             gvFileAttached.DataSource = files;
             gvFileAttached.DataBind();
             ViewState["RequestedBy"] = Ticket[0].CreatedBy.UserName;
-
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -496,6 +500,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 txtMessage.Text = "";
                 txtMessage.Visible = true;
+                divMailNotification.Visible = true;
                 FileUpload.Visible = false;
                 btnSend.Text = "Send";
                 btnSend.Visible = true;
@@ -509,6 +514,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 txtMessage.Text = "";
                 txtMessage.Visible = false;
                 FileUpload.Visible = true;
+                divMailNotification.Visible = true;
                 btnSend.Text = "Upload File";
                 btnSend.Visible = true;
                 btnSend.Focus();
@@ -527,6 +533,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 txtMessage.Text = "";
                 txtMessage.Visible = true;
                 FileUpload.Visible = false;
+                divMailNotification.Visible = false;
                 btnSend.Text = "Send";
                 btnSend.Focus();
                 MPE_Conversation.Show();
@@ -565,6 +572,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 txtMessage.Text = "";
                 txtMessage.Visible = true;
                 FileUpload.Visible = false;
+                divMailNotification.Visible = false;
                 btnSend.Text = "Send";
                 btnSend.Focus();
                 MPE_Conversation.Show();
@@ -574,7 +582,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         }
         protected void btnSend_Click(object sender, EventArgs e)
         {
-
             PForum_Insert Forum = new PForum_Insert();
             Forum.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
 
@@ -605,7 +612,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
 
             btnSend.Focus();
-            // new BTickets().insertForum(TicketNo, PSession.User.UserID, Message, FileName);
 
             string result = new BAPI().ApiPut("Task/Forum", Forum);
             if (Label2.Text == "Force Close")
@@ -628,9 +634,43 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 MPE_Conversation.Show();
                 return;
             }
+            if (Label2.Text == "Message" || Label2.Text == "Upload")
+            {
+                if (ddlMailNotification.SelectedValue != "0")
+                {
+                    if (ddlMailNotification.SelectedValue == "-1")
+                    {
+                        var items = ddlMailNotification.Items;
+                        foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
+                        {
+                            PUser UserApproval = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
+                            string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/Forum.htm");
+
+                            messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
+                            messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
+                            messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/ManageSupportTicket.aspx");
+                            new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + Forum.HeaderID.ToString(), messageBody, Forum.HeaderID);
+                        }
+                    }
+                    else
+                    {
+                        PUser UserApproval = new BUser().GetUserDetails(Convert.ToInt32(ddlMailNotification.SelectedValue));
+                        string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/Forum.htm");
+
+                        messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
+                        messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
+                        messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                        messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/ManageSupportTicket.aspx");
+                        new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + Forum.HeaderID.ToString(), messageBody, Forum.HeaderID);
+                    }
+                }
+            }
+
             FillTickets(Forum.HeaderID);
             FillChatTemp(Forum.HeaderID);
             FillChat(Forum.HeaderID);
+            
             if (AttchedFile.Count > 0)
                 AttchedFile.RemoveAt(0);
         }
@@ -1149,7 +1189,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnAssignTo.Visible = false;
                 lbtnSendApproval.Visible = false;
                 lbtnForceclose.Visible = false;
-            } 
+            }
         }
     }
     class PMessage

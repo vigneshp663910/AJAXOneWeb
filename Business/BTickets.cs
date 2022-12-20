@@ -1067,6 +1067,7 @@ namespace Business
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
+                                    ContactNumber = Convert.ToString(DR["CreatedByContactNumber"]),
                                     Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
@@ -1090,9 +1091,9 @@ namespace Business
                                     pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
                                     pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
 
-                                    pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
+                                    pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]), ContactNumber = Convert.ToString(DR["AssignedByContactNumber"]) };
                                     pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
-                                    pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
+                                    pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]), ContactNumber = Convert.ToString(DR["AssignedToContactNumber"]) };
 
                                     pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
 
@@ -1118,9 +1119,9 @@ namespace Business
                                     ApprovalDetails = new PTicketsApprovalDetails();
                                     ApprovalDetails.Id = Convert.ToInt32(DR["TicketsApprovalId"]);
                                     ApprovalDetails.IsAppoved = DR["IsAppoved"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(DR["IsAppoved"]);
-                                    ApprovalDetails.RequestedBy = new PUser() { ContactName = Convert.ToString(DR["ApproveRequestedByName"]) };
+                                    ApprovalDetails.RequestedBy = new PUser() { UserID = Convert.ToInt32(DR["ApproveRequestedById"]), ContactName = Convert.ToString(DR["ApproveRequestedByName"]), ContactNumber = Convert.ToString(DR["ApproveRequestedByContactNumber"]) };
                                     ApprovalDetails.RequestedOn = Convert.ToDateTime(DR["RequestedOn"]);
-                                    ApprovalDetails.Approver = new PUser() { ContactName = Convert.ToString(DR["TicketApproverName"]) };
+                                    ApprovalDetails.Approver = new PUser() { UserID = Convert.ToInt32(DR["TicketApproverID"]), ContactName = Convert.ToString(DR["TicketApproverName"]), ContactNumber = Convert.ToString(DR["TicketApproverContactNumber"]) };
                                     ApprovalDetails.ApprovedOn = DR["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ApprovedOn"]);
                                     ApprovalDetails.ApproverRemark = Convert.ToString(DR["ApproverRemark"]);
                                     pHeader.ApprovalDetails.Add(ApprovalDetails);
