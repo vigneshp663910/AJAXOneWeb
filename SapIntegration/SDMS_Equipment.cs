@@ -10,33 +10,33 @@ namespace SapIntegration
 {
     public class SDMS_Equipment
     {
-        public PDMS_Equipment getEquipmentFromCRM(string EquipmentSerNo)
-        {
-            PDMS_Equipment Equ = new PDMS_Equipment();
+        //public PDMS_Equipment getEquipmentFromCRM(string EquipmentSerNo)
+        //{
+        //    PDMS_Equipment Equ = new PDMS_Equipment();
 
-            IRfcFunction tagListBapi = SSAP_CRM.CRM_RfcRep().CreateFunction("ZFM_EUIP_EXTRACT");
-            IRfcTable IT_EXTID = tagListBapi.GetTable("IT_EXTID");
-            IT_EXTID.Append();
-            IT_EXTID.SetValue("EXTID", EquipmentSerNo);
-            tagListBapi.Invoke(SSAP_CRM.CRM_RfcDes());
-            IRfcTable TT_EUIP_DET = tagListBapi.GetTable("TT_EUIP_DET");
-            Equ.Customer = new PDMS_Customer() { CustomerCode = TT_EUIP_DET.GetString("CUSTOMER") };
-            Equ.WarrantyExpiryDate = Convert.ToDateTime(TT_EUIP_DET.GetString("WARRANTYEXPIRYDATE"));
-            Equ.CounterObjectID = TT_EUIP_DET.GetString("COUNTEROBJECTID");
+        //    IRfcFunction tagListBapi = SSAP_CRM.CRM_RfcRep().CreateFunction("ZFM_EUIP_EXTRACT");
+        //    IRfcTable IT_EXTID = tagListBapi.GetTable("IT_EXTID");
+        //    IT_EXTID.Append();
+        //    IT_EXTID.SetValue("EXTID", EquipmentSerNo);
+        //    tagListBapi.Invoke(SSAP_CRM.CRM_RfcDes());
+        //    IRfcTable TT_EUIP_DET = tagListBapi.GetTable("TT_EUIP_DET");
+        //    Equ.Customer = new PDMS_Customer() { CustomerCode = TT_EUIP_DET.GetString("CUSTOMER") };
+        //    Equ.WarrantyExpiryDate = Convert.ToDateTime(TT_EUIP_DET.GetString("WARRANTYEXPIRYDATE"));
+        //    Equ.CounterObjectID = TT_EUIP_DET.GetString("COUNTEROBJECTID");
 
-            //Cust.CustomerName = tagListBapi.GetString("NAME1");
-            //Cust.Address1 = tagListBapi.GetString("ADD1");
-            //Cust.Address2 = tagListBapi.GetString("ADD2");
-            //Cust.Address3 = tagListBapi.GetString("ADD3");
-            //Cust.City = tagListBapi.GetString("CITY");
-            //Cust.State = tagListBapi.GetString("STATE");
-            //Cust.StateCode = tagListBapi.GetString("STATE_CODE");
-            //Cust.Pincode = tagListBapi.GetString("PINCODE");
-            //Cust.GSTIN = tagListBapi.GetString("GST");
-            //Cust.PAN = tagListBapi.GetString("PAN");
+        //    //Cust.CustomerName = tagListBapi.GetString("NAME1");
+        //    //Cust.Address1 = tagListBapi.GetString("ADD1");
+        //    //Cust.Address2 = tagListBapi.GetString("ADD2");
+        //    //Cust.Address3 = tagListBapi.GetString("ADD3");
+        //    //Cust.City = tagListBapi.GetString("CITY");
+        //    //Cust.State = tagListBapi.GetString("STATE");
+        //    //Cust.StateCode = tagListBapi.GetString("STATE_CODE");
+        //    //Cust.Pincode = tagListBapi.GetString("PINCODE");
+        //    //Cust.GSTIN = tagListBapi.GetString("GST");
+        //    //Cust.PAN = tagListBapi.GetString("PAN");
 
-            return Equ;
-        }
+        //    return Equ;
+        //}
 
         public List<PDMS_Equipment> getEquipmentFromSAP()
         {

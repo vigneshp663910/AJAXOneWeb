@@ -278,7 +278,7 @@
                             <label class="modal-label">Dealer Employee</label>
                             <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
                         </div>
-                          <div class="col-md-2 col-sm-12">
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Action Type</label>
                             <asp:DropDownList ID="ddlSActionType" runat="server" CssClass="form-control" />
                         </div>
@@ -325,7 +325,7 @@
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddColdVisit" runat="server" CssClass="btn Save" Text="Add Customer Visit" OnClick="btnAddColdVisit_Click" Width="150px"></asp:Button>
                             <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
-                         <asp:Button ID="btnExportSAP" runat="server" Text=" Export SAP" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportSAP_Click" Width="100px" />
+                            <asp:Button ID="btnExportSAP" runat="server" Text=" Export SAP" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportSAP_Click" Width="100px" />
                         </div>
                     </div>
                 </fieldset>
@@ -362,19 +362,21 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cold Visit No">
+                                    <asp:TemplateField HeaderText="Visit">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblColdVisitID" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitID")%>' runat="server" Visible="false" />
                                             <asp:Label ID="lblColdVisitNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitNumber")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cold Visit Date">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
+                                            <br />
                                             <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <%--    <asp:TemplateField HeaderText="Cold Visit Date">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            
+                                        </ItemTemplate>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Action Type">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -385,6 +387,12 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealer" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Designation">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.Designation.DealerDesignation")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Engineer">
@@ -406,17 +414,18 @@
                                             <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.ContactPerson")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Mobile">
+                                    <asp:TemplateField HeaderText="Contact">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%></a>
-                                            </asp:Label></ItemTemplate></asp:TemplateField><asp:TemplateField HeaderText="EMail">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
+                                            </asp:Label><br />
                                             <asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%></a>
-                                            </asp:Label></ItemTemplate></asp:TemplateField><asp:TemplateField HeaderText="Status">
+                                            </asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
@@ -425,6 +434,15 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewColdVisit" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewColdVisit_Click" Width="50px" Height="33px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Track" SortExpression="Action">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                             <asp:Label ID="lblLatitude" Text='<%# DataBinder.Eval(Container.DataItem, "Latitude")%>' runat="server" Visible="false" />
+                                             <asp:Label ID="lblLongitude" Text='<%# DataBinder.Eval(Container.DataItem, "Longitude")%>' runat="server" Visible="false"/>
+                                            <asp:Button ID="btnTrackActivity" runat="server" Text="Track" CssClass="btn Back" OnClick="btnTrackActivity_Click"
+                                                Width="105px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -436,7 +454,11 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
-                    </div></div></div><div>
+
+                </div>
+            </div>
+        </div>
+        <div>
             <div class="" id="boxHere"></div>
             <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
@@ -456,7 +478,8 @@
 
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div style="display: none">
@@ -471,22 +494,32 @@
                         <div class="col-md-12">
 
                             <div class="col-md-2 text-right">
-                                <label>Customer Name</label> </div><div class="col-md-4">
+                                <label>Customer Name</label>
+                            </div>
+                            <div class="col-md-4">
                                 <label id="lblCustomerName"></label>
 
                             </div>
                             <div class="col-md-2 text-right">
-                                <label>Contact Person</label> </div><div class="col-md-4">
+                                <label>Contact Person</label>
+                            </div>
+                            <div class="col-md-4">
                                 <label id="lblContactPerson"></label>
 
                             </div>
                             <div class="col-md-2 text-right">
-                                <label>Mobile</label> </div><div class="col-md-4">
+                                <label>Mobile</label>
+                            </div>
+                            <div class="col-md-4">
                                 <label id="lblMobile"></label>
                             </div>
                         </div>
                         <div id="divChangeCustomer">
-                            <label>Change Customer</label> </div></fieldset> </div><div id="divCustomerCreateID">
+                            <label>Change Customer</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="divCustomerCreateID">
                     <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                 </div>
 
@@ -494,43 +527,104 @@
                     <div class="col-md-12">
 
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Cold Visit Date</label> <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox></div><div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Action Type</label> <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Cold Visit Date</label>
+                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Importance</label> <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Action Type</label>
+                            <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Location</label> <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox></div><div class="col-md-12 col-sm-12">
-                            <label class="modal-label">Remark</label> <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox></div></div></fieldset> </div><div class="col-md-12 text-center">
+                            <label class="modal-label">Importance</label>
+                            <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Location</label>
+                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <label class="modal-label">Remark</label>
+                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
             </div>
         </div>
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_Customer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-     <asp:HiddenField ID="hfLatitude" runat="server" />
- <asp:HiddenField ID="hfLongitude" runat="server" />
-     <script> 
-         function success(position) {
-             const latitude = position.coords.latitude;
-             const longitude = position.coords.longitude;
-             document.getElementById('MainContent_hfLatitude').value = latitude;
-             document.getElementById('MainContent_hfLongitude').value = longitude;
-             status.textContent = '';
-         }
-         function error() {
-             status.textContent = 'Unable to retrieve your location';
+
+     <asp:Panel ID="pnlTrackActivity" runat="server" CssClass="Popup" Style="display: none">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <div class="model-scroll">
+                <div id="map_canvas" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
+    </asp:Panel>
+    <asp1:ModalPopupExtender ID="MPE_TrackActivity" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlTrackActivity" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+    <asp:HiddenField ID="hfLatitude" runat="server" />
+    <asp:HiddenField ID="hfLongitude" runat="server" />
+    <script> 
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById('MainContent_hfLatitude').value = latitude;
+            document.getElementById('MainContent_hfLongitude').value = longitude;
+            status.textContent = '';
+        }
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
+
+        if (!navigator.geolocation) {
+            status.textContent = 'Geolocation is not supported by your browser';
+
+        } else {
+            status.textContent = 'Locating…';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+    </script>
+
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
+     <script type="text/javascript">
+
+
+         var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
+         var mapOptions = {
+             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+             zoom: 9.6,
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+         };
+         var infoWindow = new google.maps.InfoWindow();
+         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+         for (i = 0; i < markers.length; i++) {
+             var data = markers[i]
+
+             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+             var marker = new google.maps.Marker({
+                 position: myLatlng,
+                 map: map,
+                 title: data.title,
+                 icon: { url: data.image, scaledSize: new google.maps.Size(25, 25) },
+             });
+
+             (function (marker, data) {
+
+                 google.maps.event.addListener(marker, "click", function (e) {
+                     infoWindow.setContent(data.description);
+                     infoWindow.open(map, marker);
+                 });
+             })(marker, data);
          }
 
-         if (!navigator.geolocation) {
-             status.textContent = 'Geolocation is not supported by your browser';
-
-         } else {
-             status.textContent = 'Locating…';
-             navigator.geolocation.getCurrentPosition(success, error);
-         }
      </script>
 
-  
 </asp:Content>

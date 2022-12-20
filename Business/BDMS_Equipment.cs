@@ -22,61 +22,61 @@ namespace Business
             provider = new ProviderFactory().GetProvider();
         }
         
-        public int IntegrationEquipmentByBapi(string EquipmentSerNo)
-        {
-            TraceLogger.Log(DateTime.Now);
-            try
-            {
-                try
-                {
-                    PDMS_Equipment Equipment = new SDMS_Equipment().getEquipmentFromCRM(EquipmentSerNo);
+        //public int IntegrationEquipmentByBapi(string EquipmentSerNo)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    try
+        //    {
+        //        try
+        //        {
+        //            PDMS_Equipment Equipment = new SDMS_Equipment().getEquipmentFromCRM(EquipmentSerNo);
 
-                    string ch = new NpgsqlServer().ExecuteScalar(" select p_serial_no from af_cust_mc_serial_no where p_bp_id = '" + Equipment.Customer.CustomerCode + "' and  p_serial_no = " + EquipmentSerNo);
-                    if (string.IsNullOrEmpty(ch))
-                    {
-                        string Query = "INSERT INTO public.af_cust_mc_serial_no(s_establishment,s_tenant_id,p_bp_id,p_serial_no,s_created_on)  VALUES (1000," + 0 + ",'" + Equipment.Customer.CustomerCode + "','" + EquipmentSerNo + "',now() )";
-                        new NpgsqlServer().ExecuteNonQuery(Query);
-                    }
-                    DbParameter HMRDate;
-                    DbParameter EquipmentSerNoP = provider.CreateParameter("EquipmentSerNo", EquipmentSerNo, DbType.String);
-                    DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", Equipment.Customer.CustomerCode, DbType.String);
-                    DbParameter WarrantyExpiryDate = provider.CreateParameter("WarrantyExpiryDate", Equipment.WarrantyExpiryDate, DbType.DateTime);
-                    DbParameter CounterObjectID = provider.CreateParameter("CounterObjectID", Equipment.CounterObjectID, DbType.String);
-                    if (Equipment.CurrentHMRDate < Convert.ToDateTime("1947-01-01"))
-                    {
-                        HMRDate = provider.CreateParameter("HMRDate", DBNull.Value, DbType.DateTime);
-                    }
-                    else
-                    {
-                        HMRDate = provider.CreateParameter("HMRDate", Equipment.CurrentHMRDate, DbType.DateTime);
-                    }
-                    DbParameter HMRValue = provider.CreateParameter("HMRValue", Equipment.CurrentHMRValue, DbType.String);
+        //            string ch = new NpgsqlServer().ExecuteScalar(" select p_serial_no from af_cust_mc_serial_no where p_bp_id = '" + Equipment.Customer.CustomerCode + "' and  p_serial_no = " + EquipmentSerNo);
+        //            if (string.IsNullOrEmpty(ch))
+        //            {
+        //                string Query = "INSERT INTO public.af_cust_mc_serial_no(s_establishment,s_tenant_id,p_bp_id,p_serial_no,s_created_on)  VALUES (1000," + 0 + ",'" + Equipment.Customer.CustomerCode + "','" + EquipmentSerNo + "',now() )";
+        //                new NpgsqlServer().ExecuteNonQuery(Query);
+        //            }
+        //            DbParameter HMRDate;
+        //            DbParameter EquipmentSerNoP = provider.CreateParameter("EquipmentSerNo", EquipmentSerNo, DbType.String);
+        //            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", Equipment.Customer.CustomerCode, DbType.String);
+        //            DbParameter WarrantyExpiryDate = provider.CreateParameter("WarrantyExpiryDate", Equipment.WarrantyExpiryDate, DbType.DateTime);
+        //            DbParameter CounterObjectID = provider.CreateParameter("CounterObjectID", Equipment.CounterObjectID, DbType.String);
+        //            if (Equipment.CurrentHMRDate < Convert.ToDateTime("1947-01-01"))
+        //            {
+        //                HMRDate = provider.CreateParameter("HMRDate", DBNull.Value, DbType.DateTime);
+        //            }
+        //            else
+        //            {
+        //                HMRDate = provider.CreateParameter("HMRDate", Equipment.CurrentHMRDate, DbType.DateTime);
+        //            }
+        //            DbParameter HMRValue = provider.CreateParameter("HMRValue", Equipment.CurrentHMRValue, DbType.String);
 
-                    List<string> Model = new SDMS_ICTicket().getModelByProductID(EquipmentSerNo);
-                    DbParameter ModelP = provider.CreateParameter("Model", string.IsNullOrEmpty(Model[0]) ? null : Model[0], DbType.String);
-                    DbParameter DivisionP = provider.CreateParameter("Division", Model[1], DbType.String);
-                    DbParameter[] Params = new DbParameter[8] { CustomerCodeP, EquipmentSerNoP, WarrantyExpiryDate, HMRDate, HMRValue, CounterObjectID, ModelP, DivisionP };
+        //            List<string> Model = new SDMS_ICTicket().getModelByProductID(EquipmentSerNo);
+        //            DbParameter ModelP = provider.CreateParameter("Model", string.IsNullOrEmpty(Model[0]) ? null : Model[0], DbType.String);
+        //            DbParameter DivisionP = provider.CreateParameter("Division", Model[1], DbType.String);
+        //            DbParameter[] Params = new DbParameter[8] { CustomerCodeP, EquipmentSerNoP, WarrantyExpiryDate, HMRDate, HMRValue, CounterObjectID, ModelP, DivisionP };
 
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        provider.Insert("ZDMS_InsertOrUpdateEquipmentHeader", Params);
-                        scope.Complete();
-                    }
-                }
-                catch (Exception e1)
-                {
-                    new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentByBapi", e1);
-                    throw e1;
-                }
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentByBapi", ex);
-                throw ex;
-            }
-            return 0;
-        }
+        //            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //            {
+        //                provider.Insert("ZDMS_InsertOrUpdateEquipmentHeader", Params);
+        //                scope.Complete();
+        //            }
+        //        }
+        //        catch (Exception e1)
+        //        {
+        //            new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentByBapi", e1);
+        //            throw e1;
+        //        }
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentByBapi", ex);
+        //        throw ex;
+        //    }
+        //    return 0;
+        //}
         public List<PDMS_EquipmentHeader> GetEquipment(long? EquipmentHeaderID, string EquipmentSerialNo)
         {
             TraceLogger.Log(DateTime.Now);

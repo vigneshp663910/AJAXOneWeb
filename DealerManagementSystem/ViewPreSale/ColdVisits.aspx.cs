@@ -146,7 +146,22 @@ namespace DealerManagementSystem.ViewPreSale
             
 
             MPE_Customer.Show();
+
+
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                lblMessage.Text = "Please Enable GeoLocation!";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                return;
+            }
+            decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
+            decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
+
+
             PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
+            ColdVisitList.Latitude = Latitude;
+            ColdVisitList.Longitude = Longitude;
             lblMessageColdVisit.ForeColor = Color.Red;
             lblMessageColdVisit.Visible = true;
             string Message = "";
@@ -452,6 +467,71 @@ namespace DealerManagementSystem.ViewPreSale
             
 
 
+
+        }
+
+        protected void btnTrackActivity_Click(object sender, EventArgs e)
+        {
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Button btnEndActivity = (Button)gvRow.FindControl("btnTrackActivity"); 
+
+            MPE_TrackActivity.Show();
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+
+            Label lblLatitude = (Label)gvRow.FindControl("lblLatitude");
+            Label lblLongitude = (Label)gvRow.FindControl("lblLongitude");  
+            
+            row = new Dictionary<string, object>();
+            row.Add("lat", lblLatitude.Text);
+            row.Add("lng", lblLongitude.Text);
+           // row.Add("description", Activity.StartLatitudeLongitudeDate);
+          //  row.Add("image", Activity.StartMapImage);
+            rows.Add(row); 
+            CurrentLocation = serializer.Serialize(rows);
+        }
+        public string CurrentLocation
+        {
+            get
+            {
+                if (Session["ActivityReport"] == null)
+                {
+                    Session["ActivityReport"] = "";
+                }
+                return (string)Session["ActivityReport"];
+            }
+            set
+            {
+                Session["ActivityReport"] = value;
+            }
+        }
+        public string ConvertDataTabletoString()
+        {
+            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //Dictionary<string, object> row;
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "1");
+            //row.Add("lat", "12.897400");
+            //row.Add("lng", "80.288000");
+            //row.Add("description", "1");
+            //rows.Add(row);
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "2");
+            //row.Add("lat", "12.997450");
+            //row.Add("lng", "80.298050");
+            //row.Add("description", "2");
+
+            //rows.Add(row);
+
+            //return serializer.Serialize(rows);
+
+            return CurrentLocation;
 
         }
     }

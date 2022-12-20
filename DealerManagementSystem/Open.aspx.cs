@@ -103,9 +103,9 @@ namespace DealerManagementSystem
         {
             try
             {
-                DateTime From = Convert.ToDateTime(txtFromDate.Text.Trim());
-                DateTime To = Convert.ToDateTime(txtToDate.Text.Trim());
-                new BEnquiry().EnquirySync(From, To,txtEnquiryNo.Text.Trim(),txtDelaerCode.Text.Trim(),txtCustomerCode.Text.Trim());               
+               // DateTime From = Convert.ToDateTime(txtFromDate.Text.Trim());
+               // DateTime To = Convert.ToDateTime(txtToDate.Text.Trim());
+               // new BEnquiry().EnquirySync(From, To,txtEnquiryNo.Text.Trim(),txtDelaerCode.Text.Trim(),txtCustomerCode.Text.Trim());               
             }
             catch (Exception ex)
             {

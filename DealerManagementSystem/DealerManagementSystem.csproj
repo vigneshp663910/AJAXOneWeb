@@ -477,10 +477,6 @@
     <Content Include="JS\jquery.min.js" />
     <Content Include="Account\LoginAs.aspx" />
     <Content Include="ViewAdmin\OrganizationStructure.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingCreate.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingPostingInSAP.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingReport.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
     <Content Include="ViewMaster\DealerEmployeeAssigningRole.aspx" />
@@ -1502,34 +1498,6 @@
     </Compile>
     <Compile Include="ViewAdmin\OrganizationStructure.aspx.designer.cs">
       <DependentUpon>OrganizationStructure.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.cs">
-      <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx.cs">
-      <DependentUpon>BankDepositClearingEditAndConfirm.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingEditAndConfirm.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingPostingInSAP.aspx.cs">
-      <DependentUpon>BankDepositClearingPostingInSAP.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingPostingInSAP.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingPostingInSAP.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingReport.aspx.cs">
-      <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingReport.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -2583,6 +2551,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewFinance\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>

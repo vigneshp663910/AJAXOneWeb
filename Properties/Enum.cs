@@ -7,14 +7,7 @@ using System.Web;
 namespace Properties
 {
 
-    public enum EmpModuleAccess
-    {
-        QIRCreate = 1,
-        QIRCorrection,
-        QIRApprove,
-        QIRReport,
-        EmpManagement
-    }
+   
     public enum FileType
     {
         Unknown = 1,
@@ -281,7 +274,12 @@ namespace Properties
         InProgress,
         Resolved,
         Closed,
-        Approve,
+        WaitingForApproval,
+        Cancel,
+        Approved,
+        Reopen,
+        Deleted,
+        Foreclose
     }
 
     
