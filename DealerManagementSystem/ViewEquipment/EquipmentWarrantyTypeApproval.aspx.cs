@@ -132,11 +132,30 @@ namespace DealerManagementSystem.ViewEquipment
             }
             else
             {
-                lblMessage.Text = "UEquipment tWarrranty Type Change rejected.";
+                lblMessage.Text = "Equipment Warrranty Type Change rejected.";
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
             FillEquipmentWarrantTypeChangeReq();
+        }
+        protected void btnViewEquipmentWarrantyTypeChange_Click(object sender, EventArgs e)
+        {
+            divEquipmentWarrantyTypeChangeView.Visible = true;
+            divList.Visible = false;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblWarrantyTypeChangeID = (Label)gvRow.FindControl("lblWarrantyTypeChangeID");
+            Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID");
+            Label lblEquipmentWarrantyTypeID = (Label)gvRow.FindControl("lblEquipmentWarrantyTypeID");
+            Session["WarrantyTypeChangeID"] = lblWarrantyTypeChangeID.Text;
+            Session["EquipmentHeaderID"] = lblEquipmentHeaderID.Text;
+            Session["EquipmentWarrantyTypeID"] = lblEquipmentWarrantyTypeID.Text;
+            
+            UC_EquipmentView.fillEquipment(Convert.ToInt64(lblEquipmentHeaderID.Text));
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divEquipmentWarrantyTypeChangeView.Visible = false;
+            divList.Visible = true;
         }
     }
 }

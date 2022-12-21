@@ -15,13 +15,22 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
     {
 
         /// <summary>
-        /// lnkBtnUpdateWarranty control.
+        /// lnkBtnReqWarrantyTypeChange control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnUpdateWarranty;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnReqWarrantyTypeChange;
+
+        /// <summary>
+        /// lnkBtnApprDeclineWarrantyTypeChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnApprDeclineWarrantyTypeChange;
 
         /// <summary>
         /// lnkBtnUpdateCommDate control.
@@ -465,22 +474,85 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.GridView gvICTickets1;
 
         /// <summary>
-        /// pnlUpdateWarrantyType control.
+        /// TabPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUpdateWarrantyType;
+        protected global::AjaxControlToolkit.TabPanel TabPanel1;
 
         /// <summary>
-        /// btnUpdateWarrantyTypeClose control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateWarrantyTypeClose;
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
+        /// ImageButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+
+        /// <summary>
+        /// ImageButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+
+        /// <summary>
+        /// GridView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+
+        /// <summary>
+        /// tabPnlWarrantyTypeChangeAttachedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tabPnlWarrantyTypeChangeAttachedFile;
+
+        /// <summary>
+        /// gvWarrantyTypeChangeAttachedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvWarrantyTypeChangeAttachedFile;
+
+        /// <summary>
+        /// pnlWarrantyTypeChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlWarrantyTypeChangeReq;
+
+        /// <summary>
+        /// btnWarrantyTypeChangeReqClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnWarrantyTypeChangeReqClose;
 
         /// <summary>
         /// lblMessageUpdateWarrantyType control.
@@ -537,6 +609,33 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlWarranty;
 
         /// <summary>
+        /// fileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileUpload;
+
+        /// <summary>
+        /// btnAddFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddFile;
+
+        /// <summary>
+        /// gvWarrantyTypeSupportDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvWarrantyTypeSupportDocument;
+
+        /// <summary>
         /// btnReqWarrantyTypeChange control.
         /// </summary>
         /// <remarks>
@@ -546,13 +645,76 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Button btnReqWarrantyTypeChange;
 
         /// <summary>
-        /// MPE_UpdateWarrantyType control.
+        /// MPE_WarrantyTypeChangeReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_UpdateWarrantyType;
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_WarrantyTypeChangeReq;
+
+        /// <summary>
+        /// pnlApprDeclineWarrantyTypeChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlApprDeclineWarrantyTypeChangeReq;
+
+        /// <summary>
+        /// btnApprDeclineWarrantyTypeChangeReqClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnApprDeclineWarrantyTypeChangeReqClose;
+
+        /// <summary>
+        /// lblMessageApprDeclineWarrantyTypeChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageApprDeclineWarrantyTypeChangeReq;
+
+        /// <summary>
+        /// Fieldset3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset3;
+
+        /// <summary>
+        /// ddlAction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction;
+
+        /// <summary>
+        /// btnApprDeclineWarrantyTypeChange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnApprDeclineWarrantyTypeChange;
+
+        /// <summary>
+        /// MPE_ApprDeclineWarrantyTypeChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_ApprDeclineWarrantyTypeChangeReq;
 
         /// <summary>
         /// pnlUpdateCommiDate control.
