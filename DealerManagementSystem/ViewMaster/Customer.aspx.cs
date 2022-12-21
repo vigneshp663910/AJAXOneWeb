@@ -80,6 +80,8 @@ namespace DealerManagementSystem.ViewMaster
             lblMessage.Text = "";
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlSCountry.SelectedValue = "1";

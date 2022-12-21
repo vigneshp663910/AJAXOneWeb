@@ -83,8 +83,8 @@ namespace Properties
         public Boolean OrderBlock { get; set; }
         public Boolean DeliveryBlock { get; set; }
         public Boolean BillingBlock { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public Boolean IsDraft { get; set; }
         public string CustomerType { get; set; }
         public DateTime? LastVisitDate { get; set; }
