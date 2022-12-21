@@ -46,15 +46,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 Session["DMS_EquipmentHistory1"] = value;
             }
         }
-        public List<PEquipmentAttachedFile> AttachedFileTemp
+        public List<PEquipmentAttachedFilee_Insert> AttachedFileTemp
         {
             get
             {
                 if (Session["PEquipmentAttachedFileEquipmentView"] == null)
                 {
-                    Session["PEquipmentAttachedFileEquipmentView"] = new List<PEquipmentAttachedFile>();
+                    Session["PEquipmentAttachedFileEquipmentView"] = new List<PEquipmentAttachedFilee_Insert>();
                 }
-                return (List<PEquipmentAttachedFile>)Session["PEquipmentAttachedFileEquipmentView"];
+                return (List<PEquipmentAttachedFilee_Insert>)Session["PEquipmentAttachedFileEquipmentView"];
             }
             set
             {
@@ -282,17 +282,38 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
 
-            if (new BDMS_Equipment().InsertEquipmentWarrantyTypeChangeRequest(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue), PSession.User.UserID, 1, AttachedFileTemp))
-            {
-                lblMessage.Text = "Equipment Warranty Type Change is requested.";
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Visible = true;
-            }
-            else
-            {
-                lblMessage.Text = "Equipment Warranty Type Change not requested.";
-                lblMessage.ForeColor = Color.Red;
-            }
+            PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert(); 
+            WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID; 
+            WT.EquipmentWarrantyTypeID = Convert.ToInt32(ddlWarranty.SelectedValue);
+            WT.AttachedFile = new List<PEquipmentAttachedFilee_Insert>();
+            WT.AttachedFile = AttachedFileTemp;
+
+            string result = new BAPI().ApiPut("Equipment/InsertEquipmentWarrantyTypeChangeRequest", WT);
+            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+            //if (result == "0")
+            //{
+            //    MPE_Customer.Show();
+            //    lblMessageCustomer.Text = "Customer is not updated successfully ";
+            //    return;
+            //}
+            //else
+            //{
+            //    lblMessage.Visible = true;
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Text = "Customer is updated successfully ";
+            //}
+
+            //if (new BDMS_Equipment().InsertEquipmentWarrantyTypeChangeRequest(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue), PSession.User.UserID, 1, AttachedFileTemp))
+            //{
+            //    lblMessage.Text = "Equipment Warranty Type Change is requested.";
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessage.Visible = true;
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Equipment Warranty Type Change not requested.";
+            //    lblMessage.ForeColor = Color.Red;
+            //}
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
@@ -320,7 +341,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         {
             MPE_WarrantyTypeChangeReq.Show();
             lblMessageUpdateWarrantyType.Visible = true;
-            foreach (PEquipmentAttachedFile f in AttachedFileTemp)
+            foreach (PEquipmentAttachedFilee_Insert f in AttachedFileTemp)
             {
                 if (f.FileName == fileUpload.FileName)
                 {
@@ -373,7 +394,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
 
             }
         }
-        private PEquipmentAttachedFile CreateUploadedFileEquipment(HttpPostedFile file)
+        private PEquipmentAttachedFilee_Insert CreateUploadedFileEquipment(HttpPostedFile file)
         {
             int size = file.ContentLength;
             string name = file.FileName;
@@ -381,14 +402,14 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             name = name.Substring(position + 1);
             byte[] fileData = new byte[size];
             file.InputStream.Read(fileData, 0, size);
-            return new PEquipmentAttachedFile()
+            return new PEquipmentAttachedFilee_Insert()
             {
                 FileName = name,
-                ReferenceName = file.ContentType,
+             //   ReferenceName = file.ContentType,
                 AttachedFile = fileData,
-                AttachedFileID = 0,
-                CreatedBy = new PUser() { UserID = PSession.User.UserID },
-                Equipment = new PDMS_EquipmentHeader() { EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID }
+             //   AttachedFileID = 0,
+              //  CreatedBy = new PUser() { UserID = PSession.User.UserID },
+              //  Equipment = new PDMS_EquipmentHeader() { EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID }
             };
         }
         protected void lnkBtnWarrantyTypeSupportDocumentDownload_Click(object sender, EventArgs e)

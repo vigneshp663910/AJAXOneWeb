@@ -97,6 +97,7 @@ namespace Properties
         public PUser ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public Boolean? IsApproved { get; set; }
+        public List<PEquipmentAttachedFile> AttachedFile { get; set; }
     }
     [Serializable]
     public class PEquipmentOwnershipChangeApproval
@@ -135,5 +136,19 @@ namespace Properties
         public string ReferenceName { get; set; }
         public PUser CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; } 
+    }
+
+    public class PEquipmentWarranty_Insert
+    {
+        public long EquipmentHeaderID { get; set; }
+        public int EquipmentWarrantyTypeID { get; set; }
+        public long CustomerID { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public List<PEquipmentAttachedFilee_Insert> AttachedFile { get; set; }
+    }
+    public class PEquipmentAttachedFilee_Insert
+    {
+        public string FileName { get; set; }
+        public byte[] AttachedFile { get; set; }
     }
 }

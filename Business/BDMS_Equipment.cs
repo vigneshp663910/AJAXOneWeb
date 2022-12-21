@@ -753,40 +753,7 @@ namespace Business
             }
             return true;
         }
-        public Boolean InsertEquipmentWarrantyTypeChangeRequest(long EquipmentHeaderID, long EquipmentWarrantyTypeID, int RequestedBy, int AttachedFileTypeID, List<PEquipmentAttachedFile> AF)
-        {
-            DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
-            DbParameter EquipmentWarrantyTypeIDP = provider.CreateParameter("EquipmentWarrantyTypeID", EquipmentWarrantyTypeID, DbType.Int64);
-            DbParameter RequestedByP = provider.CreateParameter("RequestedBy", RequestedBy, DbType.Int32);
-            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Paramss = new DbParameter[4] { EquipmentHeaderIDP, EquipmentWarrantyTypeIDP, RequestedByP, OutValue };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("InsertEquipmentWarrantyTypeChange", Paramss);
-                    //long AttachedFileID = Convert.ToInt64(OutValue.Value);
-                    long ReferenceID = Convert.ToInt64(OutValue.Value);
-                    foreach (PEquipmentAttachedFile AttachedFile in AF)
-                    {
-                        //InsertOrUpdateEquipmentAttachedFile(AttachedFile, AttachedFileID, AttachedFileTypeID);
-                        InsertOrUpdateEquipmentAttachedFile(AttachedFile, ReferenceID, AttachedFileTypeID);
-                    }
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Equipment", "InsertEquipmentWarrantyTypeChange", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Equipment", " InsertEquipmentWarrantyTypeChange", ex);
-                return false;
-            }
-            return true;
-        }
+      
         //public List<PDMS_Equipment> GetEquipmentWarrantTypeChangeForApproval(DateTime? WarrantyChangeRequestedFrom, DateTime? WarrantyChangeRequestedTo, string EquipmentSerialNo)
         //{
         //    List<PDMS_Equipment> Equips = new List<PDMS_Equipment>();
@@ -963,36 +930,7 @@ namespace Business
         //    TraceLogger.Log(DateTime.Now);
         //    return true;
         //}
-        public Boolean InsertOrUpdateEquipmentAttachedFile(PEquipmentAttachedFile AF, long ReferenceID, int AttachedFileTypeID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            int success = 0;
-            long Out = 0;
-            try
-            {
-                DbParameter AttachedFileIDP = provider.CreateParameter("AttachedFileID", AF.AttachedFileID, DbType.Int64);
-                DbParameter FileNameP = provider.CreateParameter("FileName", AF.FileName, DbType.String);
-                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", AF.Equipment.EquipmentHeaderID, DbType.Int64);
-                DbParameter ReferenceIDP = provider.CreateParameter("ReferenceID", ReferenceID, DbType.Int64);
-                DbParameter AttachedFileTypeIDP = provider.CreateParameter("AttachedFileTypeID", AttachedFileTypeID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", AF.CreatedBy.UserID, DbType.Int32);
-                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-                DbParameter[] Params = new DbParameter[7] { AttachedFileIDP, FileNameP, EquipmentHeaderIDP, ReferenceIDP, AttachedFileTypeIDP, UserIDP, OutValue };
-
-                success = provider.Insert("InsertOrUpdateEquipmentAttachedFile", Params);
-                if ((success != 0) && (AF.AttachedFileID == 0))
-                {
-                    //  new FileManager().UploadFileAmazonS3("Customer", OutValue.Value + Path.GetExtension(AF.FileName), AF.AttachedFile);
-                }
-            }
-            catch (Exception e1)
-            {
-                new FileLogger().LogMessageService("BDMS_Equipment", "InsertOrUpdateEquipmentAttachedFile", e1);
-                return false;
-            }
-            TraceLogger.Log(DateTime.Now);
-            return true;
-        }
+        
 
         public List<PEquipmentAttachedFile> GetEquipmentWarrantyTypeAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID)
         {
