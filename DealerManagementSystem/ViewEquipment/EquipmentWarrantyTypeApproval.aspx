@@ -92,7 +92,7 @@
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblModel" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentModel.Model")%>' runat="server" />
-                                            <%--<asp:Label ID="lblWarrantyTypeChangeID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentWarrantyType.WarrantyTypeChangeID")%>' runat="server" Visible="false" />--%>
+                                            <asp:Label ID="lblWarrantyTypeChangeID" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyTypeChangeID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Engine SerialNo">
@@ -159,7 +159,7 @@
                                             <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.WarrantyExpiryDate")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Action" SortExpression="Action">
+                                    <%--<asp:TemplateField HeaderText="Action" SortExpression="Action">
                                         <ItemTemplate>
                                             <div class="dropdown">
                                                 <div class="btn Approval" style="height: 25px">Action</div>
@@ -168,6 +168,11 @@
                                                     <asp:LinkButton ID="lnkBtnReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmReject();">Reject</asp:LinkButton>
                                                 </div>
                                             </div>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewEquipmentWarrantyTypeChange" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewEquipmentWarrantyTypeChange_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -179,6 +184,18 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divEquipmentWarrantyTypeChangeView" runat="server" visible="false">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton" id="backBtn">
+                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+            </div>
+            <div class="col-md-12" runat="server" id="tblDashboard">
+                <UC:UC_EquipmentView ID="UC_EquipmentView" runat="server"></UC:UC_EquipmentView>
+                <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
+                <div class="col-md-12 text-center">
                 </div>
             </div>
         </div>

@@ -34,7 +34,8 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%--<asp:LinkButton ID="lnkBtnEditWarranty" runat="server" OnClick="lnkBtnActions_Click">Update Warranty Type</asp:LinkButton>--%>
-                <asp:LinkButton ID="lnkBtnUpdateWarranty" runat="server" OnClick="lnkBtnActions_Click">Equipment Warranty Type Change Request</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnReqWarrantyTypeChange" runat="server" OnClick="lnkBtnActions_Click">Warranty Type Change Request</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnApprDeclineWarrantyTypeChange" runat="server" OnClick="lnkBtnActions_Click">Approve/Decline Warranty Type Change Request</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnUpdateCommDate" runat="server" OnClick="lnkBtnActions_Click">Update Commissioning Date</asp:LinkButton>
             </div>
         </div>
@@ -54,7 +55,7 @@
                     <label>Model Description : </label>
                     <asp:Label ID="lblModelDescription" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
+
                 <div class="col-md-12">
                     <label>Warranty ExpiryDate : </label>
                     <asp:Label ID="lblWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
@@ -82,7 +83,7 @@
                 <div class="col-md-12">
                     <label>Special Variants : </label>
                     <asp:Label ID="lblSpecialVariants" runat="server" CssClass="label"></asp:Label>
-                </div>  
+                </div>
                 <div class="col-md-12">
                     <label>Warranty Type : </label>
                     <asp:Label ID="lblWarrantyType" runat="server" CssClass="label"></asp:Label>
@@ -97,7 +98,7 @@
                     <label>District : </label>
                     <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
+
                 <div class="col-md-12">
                     <label>Engine Model : </label>
                     <asp:Label ID="lblEngineModel" runat="server" CssClass="label"></asp:Label>
@@ -114,7 +115,7 @@
                     <label>AMC Start Date : </label>
                     <asp:Label ID="lblAMCStartDate" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
+
                 <div class="col-md-12">
                     <label>Plant : </label>
                     <asp:Label ID="lblPlant" runat="server" CssClass="label"></asp:Label>
@@ -156,7 +157,7 @@
                 <div class="col-md-12">
                     <label>Material Code : </label>
                     <asp:Label ID="lblMaterialCode" runat="server" CssClass="label"></asp:Label>
-                </div>                
+                </div>
                 <div class="col-md-12">
                     <label>Chassis No : </label>
                     <asp:Label ID="lblChassisSlNo" runat="server" CssClass="label"></asp:Label>
@@ -165,8 +166,8 @@
                     <label>Dispatch : </label>
                     <asp:Label ID="lblDispatch" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </fieldset>
@@ -222,10 +223,10 @@
                         </div>
                     </div>
                 </fieldset>
-            </div>     
-    </ContentTemplate>
-</asp1:TabPanel>
-     <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
@@ -241,16 +242,12 @@
                             <table>
                                 <tr>
                                     <td>Equipment Service:</td>
-
                                     <td>
-                                        <asp:Label ID="lblRowCountService" runat="server" CssClass="label"></asp:Label>
-                                    </td>
+                                        <asp:Label ID="lblRowCountService" runat="server" CssClass="label"></asp:Label></td>
                                     <td>
-                                        <asp:ImageButton ID="ibtnServiceArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnServiceArrowLeft_Click" />
-                                    </td>
+                                        <asp:ImageButton ID="ibtnServiceArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnServiceArrowLeft_Click" /></td>
                                     <td>
-                                        <asp:ImageButton ID="ibtnServiceArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnServiceArrowRight_Click" />
-                                    </td>
+                                        <asp:ImageButton ID="ibtnServiceArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnServiceArrowRight_Click" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -285,14 +282,12 @@
                                         <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
                                 <asp:TemplateField HeaderText="Service Requested Date">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-
                                 <asp:TemplateField HeaderText="Service Type">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -309,21 +304,18 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.Material.MaterialDescription")%>' runat="server"></asp:Label>
-
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="HMR">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "CurrentHMRValue")%>' runat="server"></asp:Label>
-
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Tsir Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.TSIR.TsirNumber")%>' runat="server"></asp:Label>
-
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
@@ -350,12 +342,169 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Equipment Service">
+        <ContentTemplate>
+            <div class="col-md-12">
+                <div class="boxHead">
+                    <div class="logheading">
+                        <div style="float: left">
+                            <table>
+                                <tr>
+                                    <td>Equipment Service:</td>
+                                    <td>
+                                        <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label></td>
+                                    <td>
+                                        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnServiceArrowLeft_Click" /></td>
+                                    <td>
+                                        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnServiceArrowRight_Click" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 Report">
+                    <div class="table-responsive">
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
+                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvICTickets1_PageIndexChanging" DataKeyNames="ICTicketID">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Issues Code">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterial.Material.MaterialCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Issues Description">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterial.Material.MaterialDescription")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="IC Ticket">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketNumber")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Service Request Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Service Requested Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Service Type">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceType" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceType.ServiceType")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Warranty Material Replaced">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblstatus1" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Material Description">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="HMR">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "CurrentHMRValue")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Tsir Number">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceMaterialM.TSIR.TsirNumber")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dealer">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dealer Name">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tabPnlWarrantyTypeChangeAttachedFile" runat="server" HeaderText="Equipment Support Document">
+        <ContentTemplate>
+            <div class="col-md-12 Report">
+                <div class="table-responsive">
+                    <asp:GridView ID="gvWarrantyTypeChangeAttachedFile" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="AttachedFileID">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="File Name" HeaderStyle-Width="250px">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                    <%--<asp:LinkButton ID="lnkBtnWarrantyTypeChangeAttachedFileDownload" runat="server" OnClick="lnkBtnWarrantyTypeChangeAttachedFileDownload_Click" Text="Download"></asp:LinkButton>--%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Created By">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Action">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkBtnWarrantyTypeChangeAttachedFileRemove" runat="server" OnClick="lnkBtnWarrantyTypeChangeAttachedFileRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
-<asp:Panel ID="pnlUpdateWarrantyType" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlWarrantyTypeChangeReq" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogueUpdateWarrantyType">Equipment Warranty Type Change Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:Button ID="btnUpdateWarrantyTypeClose" runat="server" Text="X" CssClass="PopupClose" />
+        <span id="PopupDialogueWarrantyTypeChangeReq">Equipment Warranty Type Change Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnWarrantyTypeChangeReqClose" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
 
@@ -380,6 +529,106 @@
                         <label class="modal-label">Warranty Type</label>
                         <asp:DropDownList ID="ddlWarranty" runat="server" CssClass="form-control" BorderColor="Silver" />
                     </div>
+
+
+                    <div class="col-md-12">
+                        <%--<table>
+                            <tr>
+                                <td>
+                                    <asp:FileUpload ID="fileUpload" runat="server" /></td>
+                                <td>
+                                    <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" /></td>
+                            </tr>
+                        </table>--%>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">File</label>
+                            <asp:FileUpload ID="fileUpload" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
+                            <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" />
+                        </div>
+                        <%--<div class="col-md-12 Report">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvWarrantyTypeSupportDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="File Name">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
+                                                <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                                <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Date">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Created By">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Download">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbSupportDocumentDownload" runat="server" OnClick="lbSupportDocumentDownload_Click">Download </asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbSupportDocumentDelete" runat="server" OnClick="lbSupportDocumentDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <AlternatingRowStyle BackColor="#ffffff" />
+                                    <FooterStyle ForeColor="White" />
+                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                </asp:GridView>
+                            </div>
+                        </div>--%>
+                        <div class="col-md-12 Report">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvWarrantyTypeSupportDocument" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="FileName">
+                                    <Columns>
+                                        <%-- <asp:TemplateField HeaderText="Attachment Description">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblFSRAttachedName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>--%>
+                                        <asp:TemplateField HeaderText="File Name" HeaderStyle-Width="500px">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                                <%--<asp:LinkButton ID="lnkBtnWarrantyTypeSupportDocumentDownload" runat="server" OnClick="lnkBtnWarrantyTypeSupportDocumentDownload_Click" Text="Download"></asp:LinkButton>--%>
+                                                <%--<asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceName")%>' runat="server" Visible="false" />--%>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Action">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnAttachedFileRemove" runat="server" OnClick="lnkBtnAttachedFileRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <AlternatingRowStyle BackColor="#ffffff" />
+                                    <FooterStyle ForeColor="White" />
+                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                </asp:GridView>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnReqWarrantyTypeChange" runat="server" Text="Save" CssClass="btn Save" OnClick="btnReqWarrantyTypeChange_Click" />
                     </div>
@@ -389,7 +638,56 @@
 
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateWarrantyType" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateWarrantyType" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_WarrantyTypeChangeReq" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlWarrantyTypeChangeReq" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlApprDeclineWarrantyTypeChangeReq" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueApprDeclineWarrantyTypeChangeReq">Equipment Warranty Type Change Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnApprDeclineWarrantyTypeChangeReqClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageApprDeclineWarrantyTypeChangeReq" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset3" runat="server">
+                <div class="col-md-12">
+                    <%-- <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer</label>
+                        <asp:Label ID="lblCustomerApprDeclineWT" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Model</label>
+                        <asp:Label ID="lblModelApprDeclineWT" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Equipment Serial No.</label>
+                        <asp:Label ID="lblEquipSlNoApprDeclineWT" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Warranty Type</label>
+                        <asp:Label ID="lblWarrantyTypeReq" runat="server" CssClass="label"></asp:Label>
+                    </div>--%>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Action</label>
+                        <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="99" Selected="True">Select</asp:ListItem>
+                            <asp:ListItem Value="1">Approve</asp:ListItem>
+                            <asp:ListItem Value="0">Reject</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnApprDeclineWarrantyTypeChange" runat="server" Text="Save" CssClass="btn Save" OnClick="btnApprDeclineWarrantyTypeChange_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_ApprDeclineWarrantyTypeChangeReq" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlApprDeclineWarrantyTypeChangeReq" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
 
 <asp:Panel ID="pnlUpdateCommiDate" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -435,7 +733,6 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_UpdateCommiDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateCommiDate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
