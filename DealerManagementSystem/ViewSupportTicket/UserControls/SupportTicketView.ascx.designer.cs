@@ -114,13 +114,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblTicketID;
 
         /// <summary>
-        /// lblRepeat control.
+        /// lblSeverity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRepeat;
+        protected global::System.Web.UI.WebControls.Label lblSeverity;
 
         /// <summary>
         /// lblDescription control.
@@ -132,13 +132,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblDescription;
 
         /// <summary>
-        /// lblCreatedOn control.
+        /// lblCreatedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedOn;
+        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
 
         /// <summary>
         /// lblCategory control.
@@ -150,22 +150,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblCategory;
 
         /// <summary>
-        /// lblSeverity control.
+        /// lblTicketType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSeverity;
-
-        /// <summary>
-        /// lblStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatus;
+        protected global::System.Web.UI.WebControls.Label lblTicketType;
 
         /// <summary>
         /// lblAge control.
@@ -177,6 +168,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblAge;
 
         /// <summary>
+        /// lblCreatedByContactNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatedByContactNumber;
+
+        /// <summary>
         /// lblSubCategory control.
         /// </summary>
         /// <remarks>
@@ -186,22 +186,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblSubCategory;
 
         /// <summary>
-        /// lblTicketType control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTicketType;
-
-        /// <summary>
-        /// lblCreatedBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
 
         /// <summary>
         /// lblClosedOn control.
@@ -211,6 +202,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblClosedOn;
+
+        /// <summary>
+        /// lblCreatedOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatedOn;
 
         /// <summary>
         /// lblMessage control.
@@ -355,6 +355,24 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload FileUpload;
+
+        /// <summary>
+        /// divMailNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMailNotification;
+
+        /// <summary>
+        /// ddlMailNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMailNotification;
 
         /// <summary>
         /// btnSend control.
