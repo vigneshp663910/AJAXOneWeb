@@ -930,8 +930,6 @@ namespace Business
         //    TraceLogger.Log(DateTime.Now);
         //    return true;
         //}
-        
-
         public List<PEquipmentAttachedFile> GetEquipmentWarrantyTypeAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID)
         {
             List<PEquipmentAttachedFile> AF = new List<PEquipmentAttachedFile>();
@@ -950,6 +948,282 @@ namespace Business
                             {
                                 AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]),
                                 FileName = Convert.ToString(dr["FileName"]),
+                                CreatedDate = Convert.ToDateTime(dr["CreatedOn"]),
+                                CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedByName"]) }
+                            });
+                        }
+                    }
+                }
+                return AF;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentWarrantyTypeAttachedFileDetails", ex);
+                return null;
+            }
+        }
+        public List<PEquipmentAttachedFile> GetEquipmentOwnershipChangeAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID)
+        {
+            List<PEquipmentAttachedFile> AF = new List<PEquipmentAttachedFile>();
+            try
+            {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                DbParameter AttachedFileIDP = provider.CreateParameter("AttachedFileID", AttachedFileID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[2] { EquipmentHeaderIDP, AttachedFileIDP };
+                using (DataSet DS = provider.Select("GetEquipmentOwnershipChangeAttachedFileDetails", Params))
+                {
+                    if (DS != null)
+                    {
+                        foreach (DataRow dr in DS.Tables[0].Rows)
+                        {
+                            AF.Add(new PEquipmentAttachedFile()
+                            {
+                                AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]),
+                                FileName = Convert.ToString(dr["FileName"]),
+                                CreatedDate = Convert.ToDateTime(dr["CreatedOn"]),
+                                CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedByName"]) }
+                            });
+                        }
+                    }
+                }
+                return AF;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentOwnershipChangeAttachedFileDetails", ex);
+                return null;
+            }
+        }
+        public List<PEquipmentAttachedFile> GetEquipmentWarrantyExpiryDateChangeAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID)
+        {
+            List<PEquipmentAttachedFile> AF = new List<PEquipmentAttachedFile>();
+            try
+            {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                DbParameter AttachedFileIDP = provider.CreateParameter("AttachedFileID", AttachedFileID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[2] { EquipmentHeaderIDP, AttachedFileIDP };
+                using (DataSet DS = provider.Select("GetEquipmentWarrantyExpiryDateChangeAttachedFileDetails", Params))
+                {
+                    if (DS != null)
+                    {
+                        foreach (DataRow dr in DS.Tables[0].Rows)
+                        {
+                            AF.Add(new PEquipmentAttachedFile()
+                            {
+                                AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]),
+                                FileName = Convert.ToString(dr["FileName"]),
+                                CreatedDate = Convert.ToDateTime(dr["CreatedOn"]),
+                                CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedByName"]) }
+                            });
+                        }
+                    }
+                }
+                return AF;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentWarrantyExpiryDateChangeAttachedFileDetails", ex);
+                return null;
+            }
+        }
+        public List<PEquipmentOwnershipChangeApproval> GetEquipmentOwnershipChangeForApproval(DateTime? OwnershipChangeRequestedFrom, DateTime? OwnershipChangeRequestedTo, string EquipmentSerialNo)
+        {
+            List<PEquipmentOwnershipChangeApproval> Equips = new List<PEquipmentOwnershipChangeApproval>();
+            PEquipmentOwnershipChangeApproval Equip = null;
+            try
+            {
+                DbParameter OwnershipChangeRequestedFromP = provider.CreateParameter("OwnershipChangeRequestedFrom", OwnershipChangeRequestedFrom, DbType.DateTime);
+                DbParameter OwnershipChangeRequestedToP = provider.CreateParameter("OwnershipChangeRequestedTo", OwnershipChangeRequestedTo, DbType.DateTime);
+
+                DbParameter EquipmentSerialNoP;
+                if (!string.IsNullOrEmpty(EquipmentSerialNo))
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", EquipmentSerialNo, DbType.String);
+                else
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", null, DbType.String);
+
+                DbParameter[] Params = new DbParameter[3] { OwnershipChangeRequestedFromP, OwnershipChangeRequestedToP, EquipmentSerialNoP };
+                using (DataSet DataSet = provider.Select("GetEquipmentOwnershipChangeForApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Equip = new PEquipmentOwnershipChangeApproval();
+                            Equips.Add(Equip);
+
+                            Equip.OwnershipChangeID = Convert.ToInt32(dr["OwnershipChangeID"]);
+
+                            Equip.Equipment = new PDMS_EquipmentHeader()
+                            {
+                                EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]),
+                                EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]),
+                                EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
+                                CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]),
+                                EquipmentModel = new PDMS_Model()
+                                {
+                                    Model = Convert.ToString(dr["Model"]),
+                                    ModelDescription = Convert.ToString(dr["ModelDescription"]),
+                                },
+                                Customer = new PDMS_Customer
+                                {
+                                    CustomerID = Convert.ToInt32(dr["OwnershipChgReqCustomerID"]),
+                                    CustomerCode = Convert.ToString(dr["OwnershipChgReqCustomerCode"]),
+                                    CustomerName = Convert.ToString(dr["OwnershipChgReqCustomerName"]),
+                                },
+                                EquipmentWarrantyType = new PDMS_EquipmentWarrantyType()
+                                {
+                                    EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+                                    WarrantyType = Convert.ToString(dr["WarrantyType"]),
+                                    Description = Convert.ToString(dr["Description"])
+                                }
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Equips;
+        }
+        public Boolean ApproveOrRejectEquipmentOwnershipChange(long OwnershipChangeID, long EquipmentHeaderID, long CustomerID, int ApprovedBy, Boolean IsApproved)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    DbParameter OwnershipChangeIDP = provider.CreateParameter("OwnershipChangeID", OwnershipChangeID, DbType.Int64);
+                    DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                    DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int64);
+                    DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
+                    DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
+                    DbParameter[] Paramss = new DbParameter[5] { OwnershipChangeIDP, EquipmentHeaderIDP, CustomerIDP, IsApprovedP, ApprovedByP };
+                    provider.Insert("ApproveOrRejectEquipmentOwnershipChange", Paramss);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "ApproveOrRejectEquipmentOwnershipChange", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", " ApproveOrRejectEquipmentOwnershipChange", ex);
+                return false;
+            }
+            return true;
+        }
+        public List<PWarrantyExpiryDateChangeApproval> GetEquipmentWarrantyExpiryDateChangeForApproval(DateTime? WarrantyExpiryDateChangeRequestedFrom, DateTime? WarrantyExpiryDateChangeRequestedTo, string EquipmentSerialNo)
+        {
+            List<PWarrantyExpiryDateChangeApproval> Equips = new List<PWarrantyExpiryDateChangeApproval>();
+            PWarrantyExpiryDateChangeApproval Equip = null;
+            try
+            {
+                DbParameter WarrantyExpiryDateChangeRequestedFromP = provider.CreateParameter("WarrantyExpiryDateChangeRequestedFrom", WarrantyExpiryDateChangeRequestedFrom, DbType.DateTime);
+                DbParameter WarrantyExpiryDateChangeRequestedToP = provider.CreateParameter("WarrantyExpiryDateChangeRequestedTo", WarrantyExpiryDateChangeRequestedTo, DbType.DateTime);
+
+                DbParameter EquipmentSerialNoP;
+                if (!string.IsNullOrEmpty(EquipmentSerialNo))
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", EquipmentSerialNo, DbType.String);
+                else
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", null, DbType.String);
+
+                DbParameter[] Params = new DbParameter[3] { WarrantyExpiryDateChangeRequestedFromP, WarrantyExpiryDateChangeRequestedToP, EquipmentSerialNoP };
+                using (DataSet DataSet = provider.Select("GetEquipmentWarrantyExpiryDateChangeForApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            Equip = new PWarrantyExpiryDateChangeApproval();
+                            Equips.Add(Equip);
+
+                            Equip.WarrantyExpiryDateChangeID = Convert.ToInt32(dr["WarrantyExpiryDateChangeID"]);
+                            Equip.NewWarrantyExpiryDate = Convert.ToDateTime(dr["NewWarrantyExpiryDate"]);
+
+                            Equip.Equipment = new PDMS_EquipmentHeader()
+                            {
+                                EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]),
+                                EngineSerialNo = Convert.ToString(dr["EngineSerialNo"]),
+                                EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
+                                CommissioningOn = dr["CommissioningOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]),
+                                EquipmentModel = new PDMS_Model()
+                                {
+                                    Model = Convert.ToString(dr["Model"]),
+                                    ModelDescription = Convert.ToString(dr["ModelDescription"]),
+                                },
+                                Customer = new PDMS_Customer
+                                {
+                                    CustomerID = Convert.ToInt32(dr["OwnershipChgReqCustomerID"]),
+                                    CustomerCode = Convert.ToString(dr["OwnershipChgReqCustomerCode"]),
+                                    CustomerName = Convert.ToString(dr["OwnershipChgReqCustomerName"]),
+                                },
+                                EquipmentWarrantyType = new PDMS_EquipmentWarrantyType()
+                                {
+                                    EquipmentWarrantyTypeID = Convert.ToInt32(dr["EquipmentWarrantyTypeID"]),
+                                    WarrantyType = Convert.ToString(dr["WarrantyType"]),
+                                    Description = Convert.ToString(dr["Description"])
+                                }
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Equips;
+        }
+        public Boolean ApproveOrRejectEquipmentWarrantyExpiryDateChange(long WarrantyExpiryDateChangeID, long EquipmentHeaderID, DateTime NewWarrantyExpiryDate, int ApprovedBy, Boolean IsApproved)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    DbParameter WarrantyExpiryDateChangeIDP = provider.CreateParameter("WarrantyExpiryDateChangeID", WarrantyExpiryDateChangeID, DbType.Int64);
+                    DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                    DbParameter NewWarrantyExpiryDateP = provider.CreateParameter("NewWarrantyExpiryDate", NewWarrantyExpiryDate, DbType.DateTime);
+                    DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
+                    DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
+                    DbParameter[] Paramss = new DbParameter[5] { WarrantyExpiryDateChangeIDP, EquipmentHeaderIDP, NewWarrantyExpiryDateP, IsApprovedP, ApprovedByP };
+                    provider.Insert("ApproveOrRejectEquipmentWarrantyExpiryDateChange", Paramss);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "ApproveOrRejectEquipmentWarrantyExpiryDateChange", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", " ApproveOrRejectEquipmentWarrantyExpiryDateChange", ex);
+                return false;
+            }
+            return true;
+        }
+        public List<PEquipmentAttachedFile> GetEquipmentAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID)
+        {
+            List<PEquipmentAttachedFile> AF = new List<PEquipmentAttachedFile>();
+            try
+            {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                DbParameter AttachedFileIDP = provider.CreateParameter("AttachedFileID", AttachedFileID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[2] { EquipmentHeaderIDP, AttachedFileIDP };
+                using (DataSet DS = provider.Select("GetEquipmentAttachedFileDetails", Params))
+                {
+                    if (DS != null)
+                    {
+                        foreach (DataRow dr in DS.Tables[0].Rows)
+                        {
+                            AF.Add(new PEquipmentAttachedFile()
+                            {
+                                AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]),
+                                FileName = Convert.ToString(dr["FileName"]),
+                                ReferenceName = Convert.ToString(dr["FileType"]),
                                 CreatedDate = Convert.ToDateTime(dr["CreatedOn"]),
                                 CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedByName"]) }
                             });

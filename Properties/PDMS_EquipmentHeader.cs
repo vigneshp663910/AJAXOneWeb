@@ -143,8 +143,10 @@ namespace Properties
         public long EquipmentHeaderID { get; set; }
         public int EquipmentWarrantyTypeID { get; set; }
         public long CustomerID { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public DateTime OldExpiryDate { get; set; }
+        public DateTime NewExpiryDate { get; set; }
         public List<PEquipmentAttachedFilee_Insert> AttachedFile { get; set; }
+        public DateTime SoldDate { get; set; }
     }
     public class PEquipmentAttachedFilee_Insert
     {
