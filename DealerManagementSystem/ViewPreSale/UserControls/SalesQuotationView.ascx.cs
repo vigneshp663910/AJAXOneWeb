@@ -229,11 +229,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "View Tax Quotation")
             {
-                ViewTaxQuotation();
+                ViewTaxQuotation(false);
             }
             else if (lbActions.Text == "Download Tax Quotation")
             {
-                DownloadTaxQuotation();
+                DownloadTaxQuotation(false);
+            }
+            else if (lbActions.Text == "Download Consolidated Tax Quotation")
+            {
+                DownloadTaxQuotation(true);
             }
             else if (lbActions.Text == "Add Visit")
             {
@@ -1838,7 +1842,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         //}
 
 
-        Byte[] TaxQuotationRdlc(out string mimeType)
+       
+        Byte[] TaxQuotationRdlc(out string mimeType, Boolean Consolidated)
         {
 
             mimeType = "";
@@ -2039,61 +2044,151 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             decimal SubTotal = 0;
             decimal Lifetimetax = 0;
             decimal GrandTotal = 0;
-            foreach (PSalesQuotationItem item in Q.QuotationItems)
+
+            if (Consolidated)
             {
-                i = i + 1;
-                if (item.SGST != 0)
+                string Material = "", Description = "", HSN = "", UOM = "";
+                int Qty = 0;
+                decimal Rate = 0, Total = 0, Discount = 0, Value = 0, CGSTPer = 0, CGSTVal = 0, SGSTPer = 0, SGSTVal = 0, IGSTPer = 0, IGSTVal = 0;
+                foreach (PSalesQuotationItem item in Q.QuotationItems)
                 {
-                    P[47] = new ReportParameter("CGST_Header", "CGST %", false);
-                    P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
-                    P[49] = new ReportParameter("SGST_Header", "SGST %", false);
-                    P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
-                    dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                        String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
+                    i = i + 1;
+                    if (item.Material.MaterialType == "FERT")
+                    {
+                        Material = item.Material.MaterialCode;
+                        Description = item.Material.MaterialDescription;
+                        HSN = item.Material.HSN;
+                        UOM = item.Material.BaseUnit;
+                        Qty = item.Qty; 
+                    }
 
-                    decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
-                    decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
-                    decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
+                    Rate = Rate + (item.TaxableValue / item.Qty);
+                    Discount = Discount + item.Discount == null ? 0 : (decimal)item.Discount;
 
-                    TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
-                    TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
-                    SubTotal = TaxSubTotal + TCSSubTotal;
-                    Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-                    GrandTotal = SubTotal + Lifetimetax;
-                    P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                    P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
-                    P[14] = new ReportParameter("Tax", "", false);
-                    P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
-                    P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-                    P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
-                    P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
+                   // Total = Total + item.TaxableValue;                    
+                   // Value = Value + item.TaxableValue;
+                    
+                   // CGSTVal = CGSTVal + item.SGSTValue;
+                   
+                   
+
+                    if (item.SGST != 0)
+                    {
+                        CGSTPer = item.CGST;
+                        SGSTPer = item.SGST;
+
+                        P[47] = new ReportParameter("CGST_Header", "CGST %", false);
+                        P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
+                        P[49] = new ReportParameter("SGST_Header", "SGST %", false);
+                        P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
+ 
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
+                        decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
+                        TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
+                        SubTotal = TaxSubTotal + TCSSubTotal;
+                        Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
+                        GrandTotal = SubTotal + Lifetimetax;
+
+                        Total = TaxableValues;
+                        CGSTVal = CGSTValues;
+                        SGSTVal = SGSTValues;
+
+                    }
+                    else
+                    {
+                        IGSTPer = item.IGST;
+
+                        P[47] = new ReportParameter("CGST_Header", "", false);
+                        P[48] = new ReportParameter("CGSTVal_Header", "", false);
+                        P[49] = new ReportParameter("SGST_Header", "IGST %", false);
+                        P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
+                        
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + IGSTValues;
+                        TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
+                        SubTotal = TaxSubTotal + TCSSubTotal;
+                        Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
+                        GrandTotal = SubTotal + Lifetimetax;
+
+                        Total = TaxableValues;
+                        IGSTVal = IGSTValues;
+                    }
+                }
+
+                if (CGSTPer != 0)
+                {
+                    dtItem.Rows.Add(1, Material, Description, HSN, UOM, Qty,
+                               String.Format("{0:n}", Rate), String.Format("{0:n}", Total), Discount, String.Format("{0:n}", Total)
+                               , CGSTPer, String.Format("{0:n}", CGSTVal), SGSTPer, String.Format("{0:n}", SGSTVal));
                 }
                 else
                 {
-                    P[47] = new ReportParameter("CGST_Header", "", false);
-                    P[48] = new ReportParameter("CGSTVal_Header", "", false);
-                    P[49] = new ReportParameter("SGST_Header", "IGST %", false);
-                    P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
-                    dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-                        String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
+                    dtItem.Rows.Add(1, Material, Description, HSN, UOM, Qty,
+                            String.Format("{0:n}", Rate), String.Format("{0:n}", Total), Discount, String.Format("{0:n}", Total), null, null, IGSTPer, String.Format("{0:n}", IGSTVal));
 
-                    decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
-                    decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
-
-                    TaxSubTotal = TaxableValues + IGSTValues;
-                    TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
-                    SubTotal = TaxSubTotal + TCSSubTotal;
-                    Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-                    GrandTotal = SubTotal + Lifetimetax;
-                    P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-                    P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
-                    P[14] = new ReportParameter("Tax", "", false);
-                    P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
-                    P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-                    P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
-                    P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
                 }
             }
+            else
+            {
+                foreach (PSalesQuotationItem item in Q.QuotationItems)
+                {
+                    i = i + 1;
+                    if (item.SGST != 0)
+                    {
+                        P[47] = new ReportParameter("CGST_Header", "CGST %", false);
+                        P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
+                        P[49] = new ReportParameter("SGST_Header", "SGST %", false);
+                        P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
+                        dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
+                            String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
+
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
+                        decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
+                        TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
+                        SubTotal = TaxSubTotal + TCSSubTotal;
+                        Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
+                        GrandTotal = SubTotal + Lifetimetax; 
+                    }
+                    else
+                    {
+                        P[47] = new ReportParameter("CGST_Header", "", false);
+                        P[48] = new ReportParameter("CGSTVal_Header", "", false);
+                        P[49] = new ReportParameter("SGST_Header", "IGST %", false);
+                        P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
+                        dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
+                            String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
+
+                        decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
+                        decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
+
+                        TaxSubTotal = TaxableValues + IGSTValues;
+                        TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
+                        SubTotal = TaxSubTotal + TCSSubTotal;
+                        Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
+                        GrandTotal = SubTotal + Lifetimetax; 
+                    }
+                }
+           }
+
+            P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+            P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
+            P[14] = new ReportParameter("Tax", "", false);
+            P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
+            P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
+            P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
+            P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", Convert.ToInt32(GrandTotal)), false);
+
+
+
+
             P[54] = new ReportParameter("TCSPer", Q.QuotationItems[0].TCSTax.ToString(), false);
             Boolean Success = false;
 
@@ -2150,7 +2245,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return mybytes;
         }
 
-        void ViewTaxQuotation()
+        void ViewTaxQuotation(Boolean Consolidated)
         {
             try
             {
@@ -2169,7 +2264,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 
                 string mimeType = string.Empty;
-                Byte[] mybytes = TaxQuotationRdlc(out  mimeType);
+                Byte[] mybytes = TaxQuotationRdlc(out  mimeType, Consolidated);
                 if (mybytes == null)
                 {
                     return;
@@ -2187,7 +2282,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
         }
-        void DownloadTaxQuotation()
+        void DownloadTaxQuotation(Boolean Consolidated)
         {
             try
             {
@@ -2201,7 +2296,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 
                 string mimeType = string.Empty;
-                Byte[] mybytes = TaxQuotationRdlc(out mimeType);
+                Byte[] mybytes = TaxQuotationRdlc(out mimeType, Consolidated);
 
                 if (mybytes == null)
                 {
@@ -2856,6 +2951,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
           
             lbtnViewTaxQuotation.Visible = true;
             lbtnDownloadTaxQuotation.Visible = true;
+            lbtnDownloadConsolidatedTaxQuotation.Visible = true;
             lbtnViewMachineQuotation.Visible = true;
             lbtnDownloadMachineQuotation.Visible = true;
 
@@ -2877,6 +2973,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lbtnViewTaxQuotation.Visible = false;
                 lbtnDownloadTaxQuotation.Visible = false;
+                lbtnDownloadConsolidatedTaxQuotation.Visible = false;
             }
             if(Quotation.Status.SalesQuotationStatusID != (short)SalesQuotationStatus.Quotation) 
             {
@@ -2886,9 +2983,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnAddCompetitor.Visible = false;
                 lbtnAddQuotationNote.Visible = false;
                 lbtnAddFollowUp.Visible = false; 
-                lbtnGenerateQuotation.Visible = false;
-               // lbtnViewTaxQuotation.Visible = false;
-               // lbtnDownloadTaxQuotation.Visible = false; 
+                lbtnGenerateQuotation.Visible = false; 
                 lbtnSaleOrderConfirmation.Visible = false;
             }
         }

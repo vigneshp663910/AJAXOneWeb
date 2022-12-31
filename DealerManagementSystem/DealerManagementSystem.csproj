@@ -493,7 +493,9 @@
     <Content Include="ViewMaster\UserControls\DealerView.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
+    <Content Include="ViewPreSale\EnquiryN.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
+    <Content Include="ViewPreSale\LeadN.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
@@ -512,11 +514,13 @@
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryView.ascx" />
+    <Content Include="ViewPreSale\UserControls\EnquiryViewN.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadViewHeader.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx" />
+    <Content Include="ViewPreSale\Visit.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
@@ -1611,12 +1615,26 @@
     <Compile Include="ViewPreSale\ColdVisits.aspx.designer.cs">
       <DependentUpon>ColdVisits.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\EnquiryN.aspx.cs">
+      <DependentUpon>EnquiryN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\EnquiryN.aspx.designer.cs">
+      <DependentUpon>EnquiryN.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadN.aspx.cs">
+      <DependentUpon>LeadN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadN.aspx.designer.cs">
+      <DependentUpon>LeadN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
@@ -1744,6 +1762,13 @@
     <Compile Include="ViewPreSale\UserControls\EnquiryView.ascx.designer.cs">
       <DependentUpon>EnquiryView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.cs">
+      <DependentUpon>EnquiryViewN.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.designer.cs">
+      <DependentUpon>EnquiryViewN.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\UserControls\Expense.ascx.cs">
       <DependentUpon>Expense.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1778,6 +1803,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.designer.cs">
       <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Visit.aspx.cs">
+      <DependentUpon>Visit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Visit.aspx.designer.cs">
+      <DependentUpon>Visit.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitReport.aspx.cs">
       <DependentUpon>VisitReport.aspx</DependentUpon>

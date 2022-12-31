@@ -1,14 +1,23 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Enquiry.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Enquiry" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="EnquiryN.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.EnquiryN" %>
 
-
-<%@ Register Src="~/ViewPreSale/UserControls/EnquiryView.ascx" TagPrefix="UC" TagName="UC_EnquiryView" %>
+<%@ Register Src="~/ViewPreSale/UserControls/EnquiryViewN.ascx" TagPrefix="UC" TagName="UC_EnquiryView" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddEnquiry.ascx" TagPrefix="UC" TagName="UC_AddEnquiry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-       <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
-    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
-    <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
+     <script type="text/javascript">
+         $(document).ready(function () {
+             var hdfCustomerID = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID');
+             if (hdfCustomerID.value != "") {
+                 document.getElementById('divCustomerViewID').style.display = "block";
+                 document.getElementById('divCustomerCreateID').style.display = "none";
+
+                 document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerName').value;
+                 document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfContactPerson').value;
+                 document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfMobile').value;
+             }
+         });        
+     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
@@ -23,9 +32,9 @@
                         <label class="modal-label">Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                     </div>
-                     <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Employee</label>
-                        <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true"  />
+                        <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Enquiry Number</label>
@@ -83,8 +92,7 @@
                 </div>
             </fieldset>
             <div class="col-md-12">
-
-                <%--<div class="col-md-12">--%>
+                 
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
@@ -138,11 +146,7 @@
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <%-- <asp:TemplateField HeaderText="Mail">
-                                    <ItemStyle VerticalAlign="Middle" />
-                                    <ItemTemplate> 
-                                    </ItemTemplate>
-                                </asp:TemplateField> <asp:BoundField HeaderText="Country" DataField="Country.Country"></asp:BoundField>--%>
+                                   
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Address">
@@ -155,9 +159,7 @@
                                             <asp:Label ID="lblAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <%--    <asp:BoundField HeaderText="Address1" DataField="Address"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Address2" DataField="Address2"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Address3" DataField="Address3"></asp:BoundField>--%>
+                                   
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
@@ -222,9 +224,8 @@
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_AddEnquiry" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddEnquiry" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-
-    <script type="text/javascript"> 
-         function GetCustomerAuto() { 
+     <script type="text/javascript"> 
+         function GetCustomerAuto() {
              $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID").val('');
              var param = { Cust: $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').val() }
              var Customers = [];
@@ -252,6 +253,10 @@
                                  $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID").val(u.item.value1);
                                  document.getElementById('divCustomerViewID').style.display = "block";
                                  document.getElementById('divCustomerCreateID').style.display = "none";
+
+                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerName").val(u.item.value);
+                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfContactPerson").val(u.item.ContactPerson);
+                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfMobile").val(u.item.Mobile);
 
                                  document.getElementById('lblCustomerName').innerText = u.item.value;
                                  document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
@@ -289,5 +294,6 @@
                  });
              }
          }
-    </script>
+     </script>
+
 </asp:Content>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EnquiryView.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.EnquiryView" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EnquiryViewN.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.EnquiryViewN" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddEnquiry.ascx" TagPrefix="UC" TagName="UC_AddEnquiry" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
@@ -105,23 +105,13 @@
 <asp1:TabContainer ID="tbpEnquiry" runat="server" ToolTip="Enquiry Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
 
     <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Customer" Font-Bold="True" ToolTip="">
-        <ContentTemplate>
-            <%--<div class="col-md-12">--%>
-            <%-- <div class="col-md-12 Report">--%>
-            <%--<div class="table-responsive">--%>
-            <%-- <div class="col-md-12 field-margin-top">--%>
-            <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
-            <%-- </div>--%>
-            <%--  </div>--%>
-            <%-- </div>--%>
-            <%--  </div>--%>
+        <ContentTemplate> 
+            <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo> 
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Lead" Font-Bold="True" ToolTip="">
-        <ContentTemplate>
-            <%--<div class="col-md-12 field-margin-top">--%>
-            <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
-            <%--</div>--%>
+        <ContentTemplate> 
+            <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView> 
         </ContentTemplate>
     </asp1:TabPanel>
 </asp1:TabContainer>
@@ -250,49 +240,10 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <div style="display: none">
-                <asp:TextBox ID="txtCustomerID" runat="server"></asp:TextBox>
-                <asp:TextBox ID="txtCustomerNameS" runat="server" />
-                <asp:TextBox ID="txtContactPersonS" runat="server" />
-                <asp:TextBox ID="txtMobileS" runat="server" />
-            </div>
-
             <asp:Label ID="lblMessageLead" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
-                <asp:Panel ID="pnlCustomerOld" runat="server">
-                    <div id="divCustomerViewID" style="display: none">
-                        <fieldset class="fieldset-border">
-                            <div class="col-md-12">
-
-                                <div class="col-md-2 text-right">
-                                    <label>Customer Name</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label id="lblCustomerName"></label>
-                                </div>
-                                <div class="col-md-2 text-right">
-                                    <label>Contact Person</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label id="lblContactPerson"></label>
-                                </div>
-
-                                <div class="col-md-2 text-right">
-                                    <label>Mobile</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label id="lblMobile"></label>
-                                </div>
-                            </div>
-                            <div id="divChangeCustomer">
-                                <label>Change Customer</label>
-                            </div>
-
-                        </fieldset>
-                    </div>
-                    <div id="divCustomerCreateID">
-                        <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-                    </div>
+                <asp:Panel ID="pnlCustomerOld" runat="server"> 
+                    <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                 </asp:Panel>
                 <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>
             </fieldset>

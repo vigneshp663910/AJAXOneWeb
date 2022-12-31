@@ -18,9 +18,9 @@ namespace DealerManagementSystem.ViewPreSale
     public partial class Pre_Sales_Dashboard : System.Web.UI.Page
     {
         DateTime? From = null;
-        DateTime? To = DateTime.Now;
+       // DateTime? To = DateTime.Now.Date;
         DateTime? FromF = null;
-        DateTime? ToF = DateTime.Now;
+       // DateTime? ToF = DateTime.Now.Date;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -33,14 +33,11 @@ namespace DealerManagementSystem.ViewPreSale
         {
             if (!IsPostBack)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales Dashboard');</script>");
-                // lblConvertToProspect.InnerText = "Convert To  Prospect: 25000";
-                From = DateTime.Now;
-                FromF = DateTime.Now.AddDays(-7);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales Dashboard');</script>"); 
+                From = DateTime.Now.Date;
+                FromF = DateTime.Now.Date.AddDays(-7);
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
-                FillStatusCount();
-                //FillFunnel();
-                //FillEnquiryStatusCount();
+                FillStatusCount(); 
             }
         }
         public string funnelData()
@@ -90,24 +87,25 @@ namespace DealerManagementSystem.ViewPreSale
             lblLost.Text = "0";
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? EngineerUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            DateTime TodayDate = DateTime.Now.Date;
             if (rbToday.Checked)
             {
-                From = DateTime.Now;
+                From = TodayDate;
             }
             else if (rbWeek.Checked)
             {
-                From = DateTime.Now.AddDays(-7);
+                From = TodayDate.AddDays(-7);
             }
             else if (rbMonth.Checked)
             {
-                From = DateTime.Now.AddMonths(-1);
+                From = TodayDate.AddMonths(-1);
             }
             else if (rbYear.Checked)
             {
-                From = DateTime.Now.AddYears(-1);
+                From = TodayDate.AddYears(-1);
             }
 
-            List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(From, To, DealerID, EngineerUserID);
+            List<PLeadStatus> Status = new BLead().GetLeadCountByStatus(From, null, DealerID, EngineerUserID);
            
             if (Status != null)
             {
@@ -149,7 +147,7 @@ namespace DealerManagementSystem.ViewPreSale
             lblEnquiryConvertedToLead.Text = "0";
             lblEnquiryRejected.Text = "0";
             int TotalEnq = 0;
-            List <PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, To, DealerID, EngineerUserID);
+            List <PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, null, DealerID, EngineerUserID);
             if (StatusEnq != null)
             {
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
@@ -173,7 +171,7 @@ namespace DealerManagementSystem.ViewPreSale
                 }
             }
 
-            List<PLeadStatus> StatusFunnel = new BLead().GetLeadCountByStatus(From, To, DealerID, EngineerUserID);
+            List<PLeadStatus> StatusFunnel = new BLead().GetLeadCountByStatus(From, null, DealerID, EngineerUserID);
 
             int AssignedFunnel = 0, QuotationFunnel = 0, WonFunnel = 0, LostFunnel = 0, CancelFunnel = 0;
             if (StatusFunnel != null)
@@ -216,36 +214,7 @@ namespace DealerManagementSystem.ViewPreSale
             lblQuotationF.InnerText = (QuotationFunnel + WonFunnel).ToString();
             lblWonF.InnerText = "Won: " + WonFunnel.ToString();
         }
-
-
-        //void FillFunnel()
-        //{
-
-        //    lblNewlyCreatedF.InnerText = "Newly Created: 0" ;
-        //    lblConvertToProspectF.InnerText = "0";
-        //    lblWonF.InnerText = "0";
-
-        //    if (rbWeekF.Checked)
-        //    {
-        //        FromF = DateTime.Now.AddDays(-7);
-        //    }
-        //    else if (rbMonthF.Checked)
-        //    {
-        //        FromF = DateTime.Now.AddMonths(-1);
-        //    }
-        //    else if (rbYearF.Checked)
-        //    {
-        //        FromF = DateTime.Now.AddYears(-1);
-        //    }
-
-           
-        //}
-
-        //protected void rbStatusE_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    FillEnquiryStatusCount();
-        //}
-
+         
         protected void rbStatus_CheckedChanged(object sender, EventArgs e)
         {
            FillStatusCount();
@@ -285,23 +254,25 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 Session["leadStatusID"] = 6;
             }
-         
-            
-            if(rbToday.Checked)
+
+
+            DateTime TodayDate = DateTime.Now.Date;
+
+            if (rbToday.Checked)
             {
-                Session["leadDateFrom"] = DateTime.Now; 
+                Session["leadDateFrom"] = TodayDate; 
             }
             else if (rbWeek.Checked)
             {
-                Session["leadDateFrom"] = DateTime.Now.AddDays(-7);
+                Session["leadDateFrom"] = TodayDate.AddDays(-7);
             }
             else if (rbMonth.Checked)
             {
-                Session["leadDateFrom"] = DateTime.Now.AddMonths(-1);
+                Session["leadDateFrom"] = TodayDate.AddMonths(-1);
             }
             else
             {
-                Session["leadDateFrom"] = DateTime.Now.AddYears(-1);
+                Session["leadDateFrom"] = TodayDate.AddYears(-1);
             }
 
             Session["leadDealerID"] = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
@@ -326,54 +297,30 @@ namespace DealerManagementSystem.ViewPreSale
                 Session["leadStatusID"] = 5;
             }
 
+            DateTime TodayDate = DateTime.Now.Date;
+
             if (rbToday.Checked)
             {
-                Session["leadDateFrom"] = DateTime.Now;
+                Session["leadDateFrom"] = TodayDate;
             }
             else if (rbWeek.Checked)
             {
-                Session["leadDateFrom"] = DateTime.Now.AddDays(-7);
+                Session["leadDateFrom"] = TodayDate.AddDays(-7);
             }
             else if (rbMonth.Checked)
             {
-                Session["leadDateFrom"] = DateTime.Now.AddMonths(-1);
+                Session["leadDateFrom"] = TodayDate.AddMonths(-1);
             }
             else
             {
-                Session["leadDateFrom"] = DateTime.Now.AddYears(-1);
+                Session["leadDateFrom"] = TodayDate.AddYears(-1);
             }
 
             Session["leadDealerID"] = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             Session["EngineerUserID"] = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             Response.Redirect("Enquiry.aspx");
         }
-        //void FillEnquiryStatusCount()
-        //{
-        //    lblEnquiryOpen.Text = "0";
-        //    lblEnquiryConvertedToLead.Text = "0";
-        //    lblEnquiryRejected.Text = "0"; 
-        //    int? DealerID = null;
-        //    if (rbEnquiryToday.Checked)
-        //    {
-        //        From = DateTime.Now;
-        //    }
-        //    else if (rbEnquiryWeek.Checked)
-        //    {
-        //        From = DateTime.Now.AddDays(-7);
-        //    }
-        //    else if (rbEnquiryMonth.Checked)
-        //    {
-        //        From = DateTime.Now.AddMonths(-1);
-        //    }
-        //    else if (rbEnquiryYear.Checked)
-        //    {
-        //        From = DateTime.Now.AddYears(-1);
-        //    }
-
-
-
-        //}
-
+        
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);

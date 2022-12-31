@@ -10,6 +10,22 @@
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var hdfCustomerID = document.getElementById('MainContent_UC_Customer_hdfCustomerID');
+                if (hdfCustomerID.value != "") {
+                    document.getElementById('divCustomerViewID').style.display = "block";
+                    document.getElementById('divCustomerCreateID').style.display = "none";
+
+
+                    document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_Customer_hdfCustomerName').value;
+                    document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_Customer_hdfContactPerson').value;
+                    document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_Customer_hdfMobile').value;
+                }
+            });
+        </script>
+
     <script type="text/javascript">  
 
         $(document).ready(function () {
@@ -471,6 +487,78 @@
                 background-color: blue;
             }
     </style>
+     <script type="text/javascript"> 
+         function GetCustomerAuto() { 
+             $("#MainContent_UC_Customer_hdfCustomerID").val('');
+             var param = { Cust: $('#MainContent_UC_Customer_txtCustomerName').val() }
+             var Customers = [];
+             if ($('#MainContent_UC_Customer_txtCustomerName').val().trim().length >= 3) {
+                 $.ajax({
+                     url: "ColdVisits.aspx/GetCustomer1",
+                     contentType: "application/json; charset=utf-8",
+                     type: 'POST',
+                     data: JSON.stringify(param),
+                     dataType: 'JSON',
+                     success: function (data) {
+                         var DataList = JSON.parse(data.d);
+                         for (i = 0; i < DataList.length; i++) {
+                             Customers[i] = {
+                                 value: DataList[i].CustomerName,
+                                 value1: DataList[i].CustomerID,
+                                 CustomerType: DataList[i].CustomerType,
+                                 ContactPerson: DataList[i].ContactPerson,
+                                 Mobile: DataList[i].Mobile
+                             };
+                         }
+                         $('#MainContent_UC_Customer_txtCustomerName').autocomplete({
+                             source: function (request, response) { response(Customers) },
+                             select: function (e, u) {
+                                 $("#MainContent_UC_Customer_hdfCustomerID").val(u.item.value1);
+                                 document.getElementById('divCustomerViewID').style.display = "block";
+                                 document.getElementById('divCustomerCreateID').style.display = "none";
+
+                                 $("#MainContent_UC_Customer_hdfCustomerName").val(u.item.value);
+                                 $("#MainContent_UC_Customer_hdfContactPerson").val(u.item.ContactPerson);
+                                 $("#MainContent_UC_Customer_hdfMobile").val(u.item.Mobile);
+
+                                 document.getElementById('lblCustomerName').innerText = u.item.value;
+                                 document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                                 document.getElementById('lblMobile').innerText = u.item.Mobile;
+
+
+                             },
+                             open: function (event, ui) {
+                                 $(this).autocomplete("widget").css({
+                                     "max-width":
+                                         $('#MainContent_UC_Customer_txtCustomerName').width() + 48,
+                                 });
+                                 $(this).autocomplete("widget").scrollTop(0);
+                             }
+                         }).focus(function (e) {
+                             $(this).autocomplete("search");
+                         }).click(function () {
+                             $(this).autocomplete("search");
+                         }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                             var inner_html = FormatAutocompleteList(item);
+                             return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                                 .data('item.autocomplete', item)
+                                 .append(inner_html)
+                                 .appendTo(ul);
+                         };
+
+                     }
+                 });
+             }
+             else {
+                 $('#MainContent_UC_Customer_txtCustomerName').autocomplete({
+                     source: function (request, response) {
+                         response($.ui.autocomplete.filter(Customers, ""))
+                     }
+                 });
+             }
+         }
+     </script>
 </asp:Content>
 
 

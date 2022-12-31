@@ -1,289 +1,32 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="ColdVisits.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.ColdVisits" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Visit.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Visit" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/ColdVisitsView.ascx" TagPrefix="UC" TagName="UC_ColdVisitsView" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"> 
+    
 
-    <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
-    <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
-    <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var hdfCustomerID = document.getElementById('MainContent_UC_Customer_hdfCustomerID');
-            if (hdfCustomerID.value != "") {
-                document.getElementById('divCustomerViewID').style.display = "block";
-                document.getElementById('divCustomerCreateID').style.display = "none";
+     
 
+     <script type="text/javascript">
+         $(document).ready(function () {
+             var hdfCustomerID = document.getElementById('MainContent_UC_Customer_hdfCustomerID');
+             if (hdfCustomerID.value != "") {
+                 document.getElementById('divCustomerViewID').style.display = "block";
+                 document.getElementById('divCustomerCreateID').style.display = "none";
 
-                document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_Customer_hdfCustomerName').value;
-                document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_Customer_hdfContactPerson').value;
-                document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_Customer_hdfMobile').value;
-            }
-        });
-    </script>
-
-
-    <script type="text/javascript">  
-
-        $(document).ready(function () {
-            var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
-            if (txtCustomerID.value != "") {
-                document.getElementById('divCustomerViewID').style.display = "block";
-                document.getElementById('divCustomerCreateID').style.display = "none";
-
-                document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_txtCustomerNameS').value;
-                document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_txtContactPersonS').value;
-                document.getElementById('lblMobile').innerText = document.getElementById('MainContent_txtMobileS').value;
-            }
-        });
-
-
-
-
-
-        $(function () {
-            //$("#MainContent_txtCustomer").autocomplete({
-            //    source: function (request, response) {
-            //        debugger
-            //        var param = { CustS: $('#MainContent_txtCustomer').val() };
-            //        $.ajax({
-            //            type: 'POST',
-            //            contentType: "application/json; charset=utf-8",
-            //            /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-            //            url: "ColdVisits.aspx/GetCustomer",
-            //            data: JSON.stringify(param),
-            //            dataType: 'JSON',
-            //            success: function (data) {
-            //                debugger
-            //                document.getElementById('divAuto').style.display = "block";
-            //                var n = 0;
-            //                for (var i = 1; i <= 5; i++) {
-            //                    $(('#div' + i)).empty();
-            //                    document.getElementById('div' + i).style.display = "none";
-            //                }
-            //                $.map(data.d, function (item) {
-            //                    n = n + 1;
-            //                    document.getElementById('div' + n).style.display = "block";
-            //                    document.getElementById("div" + n).innerHTML = item;
-            //                })
-
-            //            },
-            //            error: function () {
-            //                alert("Error");
-            //            }
-            //        });
-            //    },
-            //    minLength: 3 //This is the Char length of inputTextBox    
-            //});
-            $("#MainContent_UC_Customer_txtCustomerName").autocomplete({
-                source: function (request, response) {
-
-                    var param = { CustS: $('#MainContent_UC_Customer_txtCustomerName').val() };
-                    $.ajax({
-                        type: 'POST',
-                        contentType: "application/json; charset=utf-8",
-                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                        url: "ColdVisits.aspx/GetCustomer",
-                        data: JSON.stringify(param),
-                        dataType: 'JSON',
-                        success: function (data) {
-                            document.getElementById('UCdivAuto').style.display = "block";
-                            var n = 0;
-                            for (var i = 1; i <= 5; i++) {
-                                $(('#div' + i)).empty();
-                                document.getElementById('UCdiv' + i).style.display = "none";
-                            }
-                            $.map(data.d, function (item) {
-                                n = n + 1;
-                                document.getElementById('UCdiv' + n).style.display = "block";
-                                document.getElementById("UCdiv" + n).innerHTML = item;
-                            })
-                            if (n == 0)
-                                document.getElementById('UCdiv0').style.display = "none";
-                            else
-                                document.getElementById('UCdiv0').style.display = "block";
-                        },
-                        error: function () {
-                            alert("Error");
-                        }
-                    });
-                },
-                minLength: 3 //This is the Char length of inputTextBox    
-            });
-            $("#MainContent_UC_CustomerView_txtFleet").autocomplete({
-                source: function (request, response) {
-
-                    var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
-                    txtCustomerID.value = "";
-                    var param = { CustS: $('#MainContent_UC_CustomerView_txtFleet').val() };
-                    $.ajax({
-                        type: 'POST',
-                        contentType: "application/json; charset=utf-8",
-                        /*  url: "TestAutocomplete.aspx/GetEmpNames",*/
-                        url: "ColdVisits.aspx/GetCustomer",
-                        data: JSON.stringify(param),
-                        dataType: 'JSON',
-                        success: function (data) {
-                            var UCdivAuto = document.getElementById('FleDivAuto');
-                            UCdivAuto.style.display = "block";
-                            /* document.getElementById('UCdivAuto').style.display = "block";*/
-                            var n = 0;
-                            for (var i = 1; i <= 5; i++) {
-                                $(('#div' + i)).empty();
-                                document.getElementById('FleDiv' + i).style.display = "none";
-                            }
-                            $.map(data.d, function (item) {
-                                n = n + 1;
-                                document.getElementById('FleDiv' + n).style.display = "block";
-                                document.getElementById("FleDiv" + n).innerHTML = item;
-                            })
-                        },
-                        error: function () {
-                            alert("Error fedrfve");
-                        }
-                    });
-                },
-                minLength: 3 //This is the Char length of inputTextBox    
-            });
-        });
-    </script>
-
-    <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
-    <script type="text/javascript"> 
-        $(function () {
-            $('#div1').click(function () {
-                AutoCustomer(document.getElementById('lblCustomerID1'), document.getElementById('lblCustomerName1'));
-            });
-        });
-        $(function () {
-            $('#div2').click(function () {
-                AutoCustomer(document.getElementById('lblCustomerID2'), document.getElementById('lblCustomerName2'));
-            });
-        });
-        $(function () {
-            $('#div3').click(function () {
-                AutoCustomer(document.getElementById('lblCustomerID3'), document.getElementById('lblCustomerName3'));
-            });
-        });
-        $(function () {
-            $('#div4').click(function () {
-                AutoCustomer(document.getElementById('lblCustomerID4'), document.getElementById('lblCustomerName4'));
-            });
-        });
-        $(function () {
-            $('#div5').click(function () {
-                AutoCustomer(document.getElementById('lblCustomerID5'), document.getElementById('lblCustomerName5'));
-            });
-        });
-        function AutoCustomer(lblCustomerID, lblCustomerName) {
-            var txtCustomer = document.getElementById('MainContent_txtCustomer');
-            txtCustomer.value = lblCustomerName.innerText;
-            document.getElementById('divAuto').style.display = "none";
-        }
-        function UCAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
-
-            var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
-            txtCustomerID.value = CustomerID.innerText;
-
-            var txtCustomer = document.getElementById('MainContent_UC_Customer_txtCustomerName');
-
-            txtCustomer.value = CustomerName.innerText;
-
-            document.getElementById('lblCustomerName').innerText = CustomerName.innerText;
-            document.getElementById('lblContactPerson').innerText = ContactPerson.innerText;
-            document.getElementById('lblMobile').innerText = Mobile.innerText;
-
-
-            //document.getElementById('MainContent_lblCustomerName').innerText = CustomerName.innerText;
-            //document.getElementById('MainContent_lblContactPerson').innerText = ContactPerson.innerText;
-            //document.getElementById('MainContent_lblMobile').innerText = Mobile.innerText;
-
-            document.getElementById('MainContent_txtCustomerNameS').value = CustomerName.innerText;
-            document.getElementById('MainContent_txtContactPersonS').value = ContactPerson.innerText;
-            document.getElementById('MainContent_txtMobileS').value = Mobile.innerText;
-
-
-
-            document.getElementById('UCdivAuto').style.display = "none";
-
-            document.getElementById('divCustomerViewID').style.display = "block";
-            document.getElementById('divCustomerCreateID').style.display = "none";
-        }
-
-        $(function () {
-            $('#divChangeCustomer').click(function () {
-                var txtCustomerID = document.getElementById('MainContent_txtCustomerID');
-                txtCustomerID.value = "";
-                var txtCustomer = document.getElementById('MainContent_UC_Customer_txtCustomerName');
-                txtCustomer.value = "";
-                document.getElementById('divCustomerViewID').style.display = "none";
-                document.getElementById('divCustomerCreateID').style.display = "block";
-            });
-        });
-
-    </script>
-    <style>
-        .fieldset-borderAuto {
-            border: solid 1px #cacaca;
-            margin: 1px 0;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #b4b4b4;
-        }
-
-            .fieldset-borderAuto tr {
-                /* background-color: #000084; */
-                background-color: inherit;
-                font-weight: bold;
-                color: white;
-            }
-
-            .fieldset-borderAuto:hover {
-                background-color: blue;
-            }
-    </style>
-    <style>
-        .portlet.box.green {
-            border: 1px solid #5cd1db;
-            border-top: 0;
-        }
-
-            .portlet.box.green > .portlet-title {
-                background-color: #32c5d2;
-            }
-
-                .portlet.box.green > .portlet-title > .caption {
-                    color: #fff;
-                }
-
-        .pull-right {
-            float: right !important;
-        }
-
-        .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-sm {
-            font-size: 11px;
-            padding: 6px 18px 6px 18px;
-        }
-
-        .btn.yellow:not(.btn-outline) {
-            color: #fff;
-            background-color: #c49f47;
-            border-color: #c49f47;
-        }
-
-        .form-group {
-            margin-bottom: 5px;
-        }
-
-        b, optgroup, strong {
-            font-weight: 700;
-        }
-    </style>
+                 document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_Customer_hdfCustomerName').value;
+                 document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_Customer_hdfContactPerson').value;
+                 document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_Customer_hdfMobile').value;
+                  
+             }
+         });
+          
+     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+   
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -316,18 +59,6 @@
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer</label>
                             <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            <div id="divAuto" style="position: absolute; background-color: red; z-index: 1;">
-                                <div id="div1" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div2" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div3" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div4" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                                <div id="div5" class="fieldset-borderAuto" style="display: none">
-                                </div>
-                            </div>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Mobile</label>
@@ -346,7 +77,6 @@
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddColdVisit" runat="server" CssClass="btn Save" Text="Add Customer Visit" OnClick="btnAddColdVisit_Click" Width="150px"></asp:Button>
                             <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
-                            <asp:Button ID="btnExportSAP" runat="server" Text=" Export SAP" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportSAP_Click" Width="100px" />
                         </div>
                     </div>
                 </fieldset>
@@ -391,7 +121,7 @@
                                             <br />
                                             <asp:Label ID="lblColdVisitDate" Text='<%# DataBinder.Eval(Container.DataItem, "ColdVisitDate","{0:d}")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action Type">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -434,9 +164,13 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%></a>
-                                            </asp:Label><br /><asp:Label ID="lblEMail" runat="server">
+                                            </asp:Label><br />
+                                            <asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%></a>
-                                            </asp:Label></ItemTemplate></asp:TemplateField><asp:TemplateField HeaderText="Status">
+                                            </asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
@@ -478,7 +212,10 @@
                         </div>
                     </fieldset>
 
-                     </div></div></div><div>
+                </div>
+            </div>
+        </div>
+        <div>
             <div class="" id="boxHere"></div>
             <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
@@ -498,7 +235,8 @@
 
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div style="display: none">
@@ -508,43 +246,38 @@
             </div>
             <div class="model-scroll">
                 <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
-                <div id="divCustomerViewID" style="display: none">
-                    <fieldset class="fieldset-border">
-                        <div class="col-md-12">
-
-                            <div class="col-md-2 text-right">
-                                <label>Customer Name</label> </div><div class="col-md-4">
-                                <label id="lblCustomerName"></label>
-
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <label>Contact Person</label> </div><div class="col-md-4">
-                                <label id="lblContactPerson"></label>
-
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <label>Mobile</label> </div><div class="col-md-4">
-                                <label id="lblMobile"></label>
-                            </div>
-                        </div>
-                        <div id="divChangeCustomer">
-                            <label>Change Customer</label> </div></fieldset> </div><div id="divCustomerCreateID">
+              
+            <%--    <div id="divCustomerCreateID">--%>
                     <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-                </div>
+               <%-- </div>--%>
 
                 <fieldset class="fieldset-border">
                     <div class="col-md-12">
 
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Cold Visit Date</label> <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox></div><div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Action Type</label> <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Cold Visit Date</label>
+                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Importance</label> <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Action Type</label>
+                            <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Location</label> <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox></div><div class="col-md-12 col-sm-12">
-                            <label class="modal-label">Remark</label> <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox></div></div></fieldset> </div><div class="col-md-12 text-center">
+                            <label class="modal-label">Importance</label>
+                            <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Location</label>
+                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <label class="modal-label">Remark</label>
+                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
             </div>
         </div>
@@ -554,7 +287,8 @@
 
     <asp:Panel ID="pnlTrackActivity" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
@@ -589,8 +323,6 @@
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5plfGdJPhLvXriCfqIplJKBzbJVC8GlI"></script>
     <script type="text/javascript">
-
-
         var markers = JSON.parse('<%=ConvertDataTabletoString() %>');
         var mapOptions = {
             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
@@ -621,21 +353,12 @@
 
     </script>
 
-    <style>
-        .ui-autocomplete {
-            top: -38.875px;
-            left: 756.225px;
-            max-width: 388.5px;
-            width: 390px;
-            z-index: 10002
-        }
-    </style>
-    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
-    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  
+
+
     <script type="text/javascript">
 
-        function GetCustomerAuto() {
-            debugger;
+        function GetCustomerAuto() { 
             $("#MainContent_UC_Customer_hdfCustomerID").val('');
             var param = { Cust: $('#MainContent_UC_Customer_txtCustomerName').val() }
             var Customers = [];
@@ -654,7 +377,8 @@
                                 value1: DataList[i].CustomerID,
                                 CustomerType: DataList[i].CustomerType,
                                 ContactPerson: DataList[i].ContactPerson,
-                                Mobile: DataList[i].Mobile
+                                Mobile: DataList[i].Mobile,
+                                Address: DataList[i].Address1
                             };
                         }
                         $('#MainContent_UC_Customer_txtCustomerName').autocomplete({
@@ -692,7 +416,6 @@
                                 .append(inner_html)
                                 .appendTo(ul);
                         };
-
                     }
                 });
             }
@@ -703,18 +426,7 @@
                     }
                 });
             }
-        }
-        function FormatAutocompleteList(item) {
-            var inner_html = '<a>';
-            inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
-            inner_html += '</a>';
-            return inner_html;
-            //alert("");
-            //var inner_html = '<a>';
-            //inner_html += '<p><label>' + item.value + "</label><span>" + item.CustomerType + '</span></p>';
-            //inner_html += '<div class=customer - info><label>' + item.ContactPerson + '</label>';
-            //inner_html += '<label >' + item.Mobile + '</label></div>';
-            //inner_html += '</a>';
-            //return inner_html;
-        } </script>
+        } 
+    </script>
 </asp:Content>
+

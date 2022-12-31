@@ -264,7 +264,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             ddlMailNotification.Items.Clear();
             ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem("Select", "0"));
-            ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem("Select All", "-1"));
+            ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem("All", "-1"));
             ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(Ticket[0].CreatedBy.ContactName, Ticket[0].CreatedBy.UserID.ToString()));
 
 
@@ -285,6 +285,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 if (ddlMailNotification.Items.FindByValue(A.Approver.UserID.ToString()) == null)
                 {
                     ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(A.Approver.ContactName, A.Approver.UserID.ToString()));
+                }
+                if (ddlMailNotification.Items.FindByValue(A.RequestedBy.UserID.ToString()) == null)
+                {
+                    ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem(A.RequestedBy.ContactName, A.RequestedBy.UserID.ToString()));
                 }
             }
 

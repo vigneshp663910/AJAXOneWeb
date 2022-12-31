@@ -867,7 +867,7 @@ namespace Business
             }
             return success;
         }
-        public List<PTicketHeader> GetTicketDetails(int? HeaderId, int? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus)
+        public List<PTicketHeader> GetTicketDetails(int? HeaderId, int? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus,DateTime? TicketFrom= null, DateTime? TicketTo = null)
         {
             DbParameter HeaderIdP;
             DbParameter ItemIdP;
@@ -939,8 +939,10 @@ namespace Business
                 else
                     HeaderStatusP = provider.CreateParameter("HeaderStatus", DBNull.Value, DbType.String);
 
+                DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
+                DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
 
-                DbParameter[] TicketTypeParams = new DbParameter[10] { HeaderIdP, ItemIdP, CategoryIDP, SubCategoryIDP, SeverityP, TypeP, AssignedToP, AssignedByP, UserIdP, HeaderStatusP };
+                DbParameter[] TicketTypeParams = new DbParameter[12] { HeaderIdP, ItemIdP, CategoryIDP, SubCategoryIDP, SeverityP, TypeP, AssignedToP, AssignedByP, UserIdP, HeaderStatusP, TicketFromP, TicketToP };
 
                 using (DataSet DS = provider.Select("GetTicketDetails", TicketTypeParams))
                 {

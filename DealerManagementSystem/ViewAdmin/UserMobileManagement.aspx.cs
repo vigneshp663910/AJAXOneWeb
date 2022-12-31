@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -83,7 +84,7 @@ namespace DealerManagementSystem.ViewAdmin
                 //gvUser.DataSource = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
                 //gvUser.DataBind();
 
-                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(),Convert.ToBoolean(Convert.ToInt32(ddlStatus.SelectedValue)));
                 gvUser.DataSource = UserLst;
                 gvUser.DataBind();
 
@@ -114,6 +115,21 @@ namespace DealerManagementSystem.ViewAdmin
             ddlDealer.DataBind();
 
             ddlDealer.Items.Insert(0, new ListItem("All", "0"));
+        }
+
+        protected void lblDeactivate_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblUserMobileID = (Label)gvRow.FindControl("lblUserMobileID");
+
+            
+
+            string endPoint = "User/UserMobileInActive?UserMobileID=" + lblUserMobileID.Text;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            { 
+                
+            }
         }
     }
 }

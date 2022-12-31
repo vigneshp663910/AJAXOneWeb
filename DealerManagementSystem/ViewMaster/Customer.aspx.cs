@@ -188,6 +188,12 @@ namespace DealerManagementSystem.ViewMaster
                 return;
             }
             PDMS_Customer_Insert cust = UC_Customer.ReadCustomer();
+            if(cust.CustomerID != 0)
+            {
+                MPE_Customer.Hide();
+                return;
+            }
+
             string result = new BAPI().ApiPut("Customer", cust);
             result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
             if (result == "0")
@@ -415,6 +421,14 @@ namespace DealerManagementSystem.ViewMaster
             {
                 btnExportExcel.Visible = false;
             }
+        }
+
+        [WebMethod]
+        public static string GetCustomer1(string Cust)
+        {
+            List<string> Emp = new List<string>();
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(Cust, 1);
+            return JsonConvert.SerializeObject(Customer);
         }
     }
 }

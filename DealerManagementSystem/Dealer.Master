@@ -22,6 +22,108 @@
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="http://aqvatarius.com/themes/aries/css/icons.css" />--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%--<style>
+        .ui-autocomplete {
+            top: -38.875px;
+            left: 756.225px;
+            max-width: 388.5px;
+            width: 390px;
+            z-index: 10002
+        }
+    </style>--%>
+    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+    <style>
+        div#divChangeCustomer {
+            text-align: right;
+            margin-top: -40px;
+            position: relative;
+        }
+
+        @media only screen and (max-width: 767px) {
+            div#divChangeCustomer {
+                margin-top: 0;
+                text-align: center;
+            }
+        }
+
+        #divChangeCustomer .btn {
+            width: auto;
+            height: auto;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        .ui-autocomplete {
+            top: -38.875px;
+            left: 756.225px;
+            max-width: 388.5px;
+            width: 390px;
+            z-index: 10002;
+            overflow: auto;
+            height: 300px;
+            /*    display:block!important;*/
+        }
+
+            .ui-autocomplete li {
+                padding: 0px !important;
+                background-image: linear-gradient(#fffcfc, #c0ebf2);
+            }
+
+                .ui-autocomplete li:hover {
+                    padding: 0px !important;
+                    background: #f3f2f2;
+                    /*background-image: linear-gradient(#c0ebf2, #fffcfc);*/
+                }
+
+                .ui-autocomplete li a.ui-state-focus {
+                    background: none;
+                }
+
+                .ui-autocomplete li a label {
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+
+                .ui-autocomplete li a.customer .customer-info {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: space-between;
+                }
+
+                    .ui-autocomplete li a.customer .customer-info label {
+                        font-weight: bold;
+                    }
+
+                .ui-autocomplete li a.customer p.customer-name-info {
+                    margin: 0;
+                }
+
+            .ui-autocomplete a.customer .customer-type {
+                color: green;
+            }
+
+            .ui-autocomplete li a.customer p.customer-name-info label {
+                color: darkblue;
+                font-weight: bold;
+            }
+
+            .ui-autocomplete a.customer .contact-number {
+                color: darkslateblue;
+            }
+
+            .ui-autocomplete a.customer .customer-address {
+                color: #107cf1;
+                font-weight: bold;
+                margin: 0;
+            }
+
+        .customerAuto-View .col-6 {
+            padding: 0;
+        }
+    </style>
+
+
+
     <style>
         .col-md-12 {
             padding: 0px 12px 12px 12px;
@@ -593,9 +695,9 @@
             height: calc(1.5em + .75rem + 2px);
         }
 
-        .Save:hover {
-            background: #145c14;
-        }
+            .Save:hover {
+                background: #145c14;
+            }
 
         .Search {
             background: #009ad7 !important;
@@ -818,7 +920,7 @@
         }
 
         .modalBackground {
-            background-color: #000000bd; 
+            background-color: #000000bd;
         }
 
         .Popup label {
@@ -915,13 +1017,15 @@
             height: 600px;
         }
 
-        .Popup .model-scroll {
-            height: 500px;
-            overflow: auto;            
-        }
-        .Popup.flexible-popup {
-            height: auto;
-        }
+            .Popup .model-scroll {
+                height: 500px;
+                overflow: auto;
+            }
+
+            .Popup.flexible-popup {
+                height: auto;
+            }
+
         .modal-label {
             display: block;
         }
@@ -1033,16 +1137,17 @@
                 padding: 11px;
                 margin-top: 7px;
             }
-            #MainContent_UC_CustomerView_PnlCustomerView .action-btn .btn.Approval {
-                margin-top: 2px;
-            }
 
-            .action-btn .btnactions.sticky {
-                position: fixed;
-                right: 118px;
-                z-index: 99;
-                top: 78px;
-            }
+        #MainContent_UC_CustomerView_PnlCustomerView .action-btn .btn.Approval {
+            margin-top: 2px;
+        }
+
+        .action-btn .btnactions.sticky {
+            position: fixed;
+            right: 118px;
+            z-index: 99;
+            top: 78px;
+        }
 
         .dropdown.btnactions {
             z-index: 1;
@@ -1117,13 +1222,13 @@
             z-index: 9;
         }
 
-        .project-title-outer .ProjectTitle {
-            position: fixed;
-            width: calc( 100% - 250px );
-            margin: 0;
-            top: 50px;
-            border-top: 1px solid #4c7da7;
-        }
+            .project-title-outer .ProjectTitle {
+                position: fixed;
+                width: calc( 100% - 250px );
+                margin: 0;
+                top: 50px;
+                border-top: 1px solid #4c7da7;
+            }
 
         .w3-main.closed-sidebar-main .project-title-outer .ProjectTitle {
             width: calc( 100% - 50px );
@@ -1175,34 +1280,33 @@
                     padding-left: 5px;
                 }
 
-        .lead-static .portlet #divLeadStatistics  {
+        .lead-static .portlet #divLeadStatistics {
             justify-content: center;
         }
 
 
-        .lead-static .portlet #divEnquiryStatistics  {
+        .lead-static .portlet #divEnquiryStatistics {
             justify-content: center;
         }
 
-            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
-                width: 15%;
-                padding-top: 20px;
-                padding-bottom: 20px;
-                padding-right: 25px !important;
-                margin-right: 10px !important;
-                margin-top: 10px;
-            }
+        .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
+            width: 15%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 25px !important;
+            margin-right: 10px !important;
+            margin-top: 10px;
+        }
 
 
-            #divEnquiryStatistics .thumbnail.wide_thumbnail {
-                width: 30.6%;           
-                padding-top: 20px;
-                padding-bottom: 20px;
-                padding-right: 25px !important;
-                margin-right: 10px !important;
-                margin-top: 10px;
-            
-            }
+        #divEnquiryStatistics .thumbnail.wide_thumbnail {
+            width: 30.6%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 25px !important;
+            margin-right: 10px !important;
+            margin-top: 10px;
+        }
 
         /*Report pages*/
         .report-container tr > td {
@@ -1302,14 +1406,16 @@
                     .custom-auto-complete .auto-item .customer-info label:last-child {
                         color: #009AD7;
                     }
-            .lead-static .portlet .btn-group.btn-group-devided label input {
-                margin: 0;
-            }
-            .portlet-title .actions .btn-group{
-                margin-top: 4px;
-                display: flex;
-                padding: 0;
-            }            
+
+        .lead-static .portlet .btn-group.btn-group-devided label input {
+            margin: 0;
+        }
+
+        .portlet-title .actions .btn-group {
+            margin-top: 4px;
+            display: flex;
+            padding: 0;
+        }
 
         @media only screen and (min-width: 992px) {
             .closed-sidebar {
@@ -1360,17 +1466,17 @@
                     overflow: auto;
                 }
 
-                .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
-                    padding: 5px 10px 5px 21px !important
-                }
+                    .closed-sidebar #main-menu > li:hover > .w3-bar-block a {
+                        padding: 5px 10px 5px 21px !important
+                    }
 
-                .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
-                    padding-left: 0;
-                }
+                        .closed-sidebar #main-menu > li:hover > .w3-bar-block a span {
+                            padding-left: 0;
+                        }
 
-                .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
-                    display: inline !important;
-                }
+                        .closed-sidebar #main-menu > li:hover > .w3-bar-block a.submenu .sub-menu-icon {
+                            display: inline !important;
+                        }
         }
 
         @media only screen and (max-width: 992px) {
@@ -1390,7 +1496,7 @@
         @media only screen and (max-width: 767px) {
             .Popup {
                 height: auto;
-                left: 0!important;
+                left: 0 !important;
                 width: auto;
             }
             /*.back-buttton.sticky #MainContent_btnBackToList {
@@ -1424,7 +1530,7 @@
                 float: none !important;
             }
 
-            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail #divEnquiryStatistics{
+            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail #divEnquiryStatistics {
                 width: 28%;
             }
 
@@ -1435,30 +1541,35 @@
             .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail:nth-child(2n) #divEnquiryStatistics {
                 margin-right: 0 !important;
             }
+
             .Popup .model-scroll {
                 width: 440px;
                 margin: 0 auto;
                 max-height: calc(100vh - 175px);
                 height: auto;
-            }            
+            }
+
             .flexible-popup .flexible-scroll {
                 max-height: calc(100vh - 175px);
                 overflow: auto;
                 display: block;
             }
-            .lead-static .portlet #divLeadStatistics  {
+
+            .lead-static .portlet #divLeadStatistics {
                 margin-right: 0;
                 margin-left: 0;
                 flex-direction: column;
             }
-            .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail,
-            #divEnquiryStatistics .thumbnail.wide_thumbnail {
-                width: 60%;
-                margin-right: auto!important;
-                margin-left: auto!important;
-            }
+
+                .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail,
+                #divEnquiryStatistics .thumbnail.wide_thumbnail {
+                    width: 60%;
+                    margin-right: auto !important;
+                    margin-left: auto !important;
+                }
+
             .portlet-title .caption {
-                padding-bottom:10px;
+                padding-bottom: 10px;
             }
         }
 
@@ -1470,9 +1581,11 @@
             .lead-static .portlet .btn-group.btn-group-devided label {
                 width: 70px;
             }
+
             .Popup .model-scroll {
                 width: 340px;
             }
+
             .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail,
             #divEnquiryStatistics .thumbnail.wide_thumbnail {
                 width: 80%;
@@ -2002,66 +2115,6 @@
 
     </script>
 
-    <script>
-<%--
-        function MenuMaster() {
-            var x = document.getElementById('Master');
-            if (x.className.indexOf('w3-show') == -1) {
-                x.className += ' w3-show';
-            } else {
-                x.className = x.className.replace(' w3-show', '');
-            }
-        }
-        function MenuMasters() {
-            var x = document.getElementById("Masters");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-        function MenuPresales() {
-            var x = document.getElementById("Presales");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-        function MenuSales() {
-            var x = document.getElementById("Sales");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-        function MenuService() {
-            var x = document.getElementById("Service");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-        function MenuDealer() {
-            var x = document.getElementById("Dealer");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }--%>
-    </script>
 
     <script>
         jQuery(function ($) {
@@ -2095,23 +2148,7 @@
             min-height: 100%;
             width: 100%;
         }
-        /*.Popup {
-            transition: all .4s ease-in-out;
-            top:0;
-            left:0;
 
-        }*/
-        /*.loading {
-            font-family: Arial;
-            font-size: 10pt;
-            border: 5px solid #67CFF5;
-            width: 200px;
-            height: 100px;
-            display: none;
-            position: fixed;
-            background-color: White;
-            z-index: 999;
-        }*/
         /* Start Loader Graphic */
         .loading {
             display: none;
@@ -2277,7 +2314,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body onkeydown="return (event.keyCode!=13)">
-    <form id="form2" runat="server">
+    <form id="form2" runat="server" autocomplete="off">
         <div class="loading" id="divLoading">
             <div class="outerspinner">
                 <div class="submission-msg">Loading. Please wait...</div>
@@ -2580,6 +2617,14 @@
             </asp:Panel>
         </div>
     </form>
+
+
+
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+
+
 </body>
+
 </html>
 

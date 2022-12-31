@@ -12,6 +12,7 @@ namespace Properties
     {
         public long AttachedFileID { get; set; }
         public long ReferenceID { get; set; }
+        public string ReferenceName { get; set; }
         public string FileName { get; set; }
         public string FileType { get; set; }
         public long TicketID { get; set; }

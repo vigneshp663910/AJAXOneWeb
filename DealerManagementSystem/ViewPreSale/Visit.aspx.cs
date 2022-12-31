@@ -14,42 +14,31 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class ColdVisits : System.Web.UI.Page
+    public partial class Visit : System.Web.UI.Page
     {
         protected void Page_PreInit(object sender, EventArgs e)
-        { 
+        {
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            } 
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
-        {
-            UC_Customer.Disposed += new EventHandler(UserControl_ButtonClick);
-
-            
-
+        { 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Customer Visit');</script>");
 
-              lblMessage.Text = "";
+            lblMessage.Text = "";
             lblMessageColdVisit.Text = "";
 
             if (!IsPostBack)
-            {
-                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
-                //new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
-
+            { 
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
-
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlSCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
-                new DDLBind(ddlState, State, "State", "StateID"); 
+                new DDLBind(ddlState, State, "State", "StateID");
                 new DDLBind(ddlSActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
-
-
             }
         }
 
@@ -62,7 +51,7 @@ namespace DealerManagementSystem.ViewPreSale
             FillClodVisit();
         }
 
-        public List<PColdVisit> Visit
+        public List<PColdVisit> VisitList
         {
             get
             {
@@ -94,15 +83,12 @@ namespace DealerManagementSystem.ViewPreSale
                 LeadBind(gvLead, lblRowCount);
             }
         }
-
         void LeadBind(GridView gv, Label lbl)
         {
-            gv.DataSource = Visit;
+            gv.DataSource = VisitList;
             gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Visit.Count;
+            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + VisitList.Count;
         }
-
-
 
         void FillClodVisit()
         {
@@ -116,18 +102,17 @@ namespace DealerManagementSystem.ViewPreSale
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-            
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
-            //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
 
-            Visit = new BColdVisit().GetColdVisit(null, null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
+            VisitList = new BColdVisit().GetColdVisit(null, null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
-            gvLead.DataSource = Visit;
+            gvLead.DataSource = VisitList;
             gvLead.DataBind();
 
-            if (Visit.Count == 0)
+            if (VisitList.Count == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnLeadArrowLeft.Visible = false;
@@ -138,99 +123,14 @@ namespace DealerManagementSystem.ViewPreSale
                 lblRowCount.Visible = true;
                 ibtnLeadArrowLeft.Visible = true;
                 ibtnLeadArrowRight.Visible = true;
-                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Visit.Count;
+                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + VisitList.Count;
             }
 
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
-        }
-
-        //protected void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    // Boolean d = UC_Customer.Visible;
-
-
-
-        //    MPE_Customer.Show();
-
-
-        //    if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
-        //    {
-        //        lblMessage.Text = "Please Enable GeoLocation!";
-        //        lblMessage.ForeColor = Color.Red;
-        //        lblMessage.Visible = true;
-        //        return;
-        //    }
-        //    decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
-        //    decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
-
-
-        //    PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
-        //    ColdVisitList.Latitude = Latitude;
-        //    ColdVisitList.Longitude = Longitude;
-        //    lblMessageColdVisit.ForeColor = Color.Red;
-        //    lblMessageColdVisit.Visible = true;
-        //    string Message = "";
-        //   // TextBox txtCustomerID = (TextBox)UC_Customer.FindControl("txtCustomerID");
-        //    if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
-        //    {
-        //        ColdVisitList.Customer = new PDMS_Customer_Insert();
-        //        ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
-
-        //        string script = "<script  type='text/javascript' >document.getElementById('divCustomerViewID').style.display = 'block'; document.getElementById('divCustomerCreateID').style.display = 'none' </ script > ";
-
-        //        ClientScript.RegisterStartupScript(this.GetType(), "Script1", script);
-        //    }
-        //    else
-        //    {
-        //        Message = UC_Customer.ValidationCustomer();               
-
-        //        if (!string.IsNullOrEmpty(Message))
-        //        {
-        //            lblMessageColdVisit.Text = Message;
-        //            return;
-        //        }
-        //        ColdVisitList.Customer = UC_Customer.ReadCustomer();
-        //    }
-
-        //    Message = ValidationColdVisit();
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageColdVisit.Text = Message;
-        //        return;
-        //    } 
-
-        //    ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
-        //    ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
-        //    ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
-        //    ColdVisitList.Remark = txtRemark.Text.Trim();
-        //    ColdVisitList.Location = txtLocation.Text.Trim();
-
-        //       string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
-
-        //    result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-        //    if (result == "0")
-        //    {
-        //        MPE_Customer.Show();
-        //        lblMessageColdVisit.Text = "Customer is not updated successfully ";
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Green;
-        //        lblMessage.Text = "Customer is updated successfully ";
-        //    }
-        //    List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        //    gvLead.DataSource = Leads;
-        //    gvLead.DataBind();
-        //    UC_Customer.FillClean();
-        //    MPE_Customer.Hide();
-        //}
-
-
+        } 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             MPE_Customer.Show();
@@ -296,13 +196,13 @@ namespace DealerManagementSystem.ViewPreSale
         }
         public string ValidationColdVisit()
         {
-            string Message = ""; 
+            string Message = "";
             txtColdVisitDate.BorderColor = Color.Silver;
             txtRemark.BorderColor = Color.Silver;
             ddlActionType.BorderColor = Color.Silver;
             if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
             {
-                Message = "Please enter the Cold Visit Date"; 
+                Message = "Please enter the Cold Visit Date";
                 txtColdVisitDate.BorderColor = Color.Red;
             }
             else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
@@ -312,19 +212,19 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             {
-                Message = Message + "Please enter the Remark"; 
+                Message = Message + "Please enter the Remark";
                 txtRemark.BorderColor = Color.Red;
             }
-            
-           else if (ddlActionType.SelectedValue == "0")
+
+            else if (ddlActionType.SelectedValue == "0")
             {
-                Message = Message + "Please select the Action Type"; 
+                Message = Message + "Please select the Action Type";
                 ddlActionType.BorderColor = Color.Red;
-            } 
+            }
             return Message;
         }
-       
- 
+
+
 
         protected void lbViewCustomer_Click(object sender, EventArgs e)
         {
@@ -335,8 +235,8 @@ namespace DealerManagementSystem.ViewPreSale
 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             DropDownList ddlAction = (DropDownList)gvRow.FindControl("ddlAction");
-            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID"); 
-            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text)); 
+            Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
+            UC_CustomerView.fillCustomer(Convert.ToInt64(lblCustomerID.Text));
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)
@@ -353,46 +253,9 @@ namespace DealerManagementSystem.ViewPreSale
             UC_Customer.FillMaster();
             new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
             new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
-        }
-        [WebMethod]
-        public static List<string> GetCustomer(string CustS)
-        {
-            List<string> Emp = new List<string>();
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS,1);
-            int i = 0;
-            foreach (PDMS_Customer cust in Customer)
-            {
-                //i = i + 1;
-                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                //    +"<table><tr><td>"
-                //    +"<label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label></td><td>Prospect</td></tr >"   + "<tr><td>"
-                //    +"<label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label></td><td>"
-                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + " </td></tr></ table >";
-                //Emp.Add(div);
-
-                i = i + 1;
-                //string Name = cust.CustomerName;
-                //string Prospect = "Prospect";
-                //string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-
-
-                //    + "<p><label id='lblCustomerName" + i + "'>" + Name + "</label><span>" + Prospect + "</span></p>"
-
-                //    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
-                //    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
-                //Emp.Add(div);
-
-                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                    + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
-
-                    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
-                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
-                Emp.Add(div);
-            }
-            return Emp;
-        }
+        } 
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        { 
+        {
             gvLead.PageIndex = e.NewPageIndex;
             FillClodVisit();
         }
@@ -408,12 +271,12 @@ namespace DealerManagementSystem.ViewPreSale
             Label lblColdVisitID = (Label)gvRow.FindControl("lblColdVisitID");
             UC_ColdVisitsView.fillViewColdVisit(Convert.ToInt64(lblColdVisitID.Text));
 
-           
+
             if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
             {
                 lblMessage.Text = "Please Enable GeoLocation...!";
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true; 
+                lblMessage.Visible = true;
                 return;
             }
             Session["Latitude"] = hfLatitude.Value;
@@ -441,7 +304,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                 DataTable dt = new BColdVisit().GetColdVisitExcelDownload(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
-                new BXcel().ExporttoExcel(dt, "Visit Detail Report"); 
+                new BXcel().ExporttoExcel(dt, "Visit Detail Report");
             }
             catch (Exception ex)
             {
@@ -499,14 +362,13 @@ namespace DealerManagementSystem.ViewPreSale
         }
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
-        { 
+        {
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
         }
 
         protected void btnExportSAP_Click(object sender, EventArgs e)
         {
-
             DataTable dt = new DataTable();
             dt.Columns.Add("Sl No.");
             dt.Columns.Add("Description");
@@ -519,11 +381,11 @@ namespace DealerManagementSystem.ViewPreSale
             dt.Columns.Add("Sumary description");
 
             int i = 0;
-            foreach (PColdVisit coldVisit in Visit)
+            foreach (PColdVisit coldVisit in VisitList)
             {
                 i = i + 1;
                 dt.Rows.Add(i, coldVisit.ActionType.ActionType, coldVisit.Location, coldVisit.ColdVisitDate.ToShortDateString(), coldVisit.ColdVisitDate.ToShortTimeString()
-                    , coldVisit.Customer, coldVisit.ColdVisitNumber  
+                    , coldVisit.Customer, coldVisit.ColdVisitNumber
                     , coldVisit.Customer.ContactPerson
                     , coldVisit.Customer.Mobile
                     , coldVisit.Customer.Email
@@ -536,34 +398,25 @@ namespace DealerManagementSystem.ViewPreSale
                     , ""
                     , ""
                     );
-            }
-            
-
-
-
+            } 
         }
 
         protected void btnTrackActivity_Click(object sender, EventArgs e)
         {
-
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Button btnEndActivity = (Button)gvRow.FindControl("btnTrackActivity"); 
-
+            Button btnEndActivity = (Button)gvRow.FindControl("btnTrackActivity");
             MPE_TrackActivity.Show();
-
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
 
             Label lblLatitude = (Label)gvRow.FindControl("lblLatitude");
-            Label lblLongitude = (Label)gvRow.FindControl("lblLongitude");  
-            
+            Label lblLongitude = (Label)gvRow.FindControl("lblLongitude");
+
             row = new Dictionary<string, object>();
             row.Add("lat", lblLatitude.Text);
-            row.Add("lng", lblLongitude.Text);
-           // row.Add("description", Activity.StartLatitudeLongitudeDate);
-          //  row.Add("image", Activity.StartMapImage);
-            rows.Add(row); 
+            row.Add("lng", lblLongitude.Text); 
+            rows.Add(row);
             CurrentLocation = serializer.Serialize(rows);
         }
         public string CurrentLocation
@@ -583,38 +436,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
         public string ConvertDataTabletoString()
         {
-            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-            //Dictionary<string, object> row;
-
-            //row = new Dictionary<string, object>();
-            //row.Add("title", "1");
-            //row.Add("lat", "12.897400");
-            //row.Add("lng", "80.288000");
-            //row.Add("description", "1");
-            //rows.Add(row);
-
-            //row = new Dictionary<string, object>();
-            //row.Add("title", "2");
-            //row.Add("lat", "12.997450");
-            //row.Add("lng", "80.298050");
-            //row.Add("description", "2");
-
-            //rows.Add(row);
-
-            //return serializer.Serialize(rows);
-
             return CurrentLocation;
-
         }
-
-        [WebMethod]
-        public static string GetMaterial(string Material, string MaterialType)
-       {
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
-            return JsonConvert.SerializeObject(Materials);
-        }
-
         [WebMethod]
         public static string GetCustomer1(string Cust)
         {

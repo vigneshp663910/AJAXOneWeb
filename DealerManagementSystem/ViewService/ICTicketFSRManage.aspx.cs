@@ -345,11 +345,12 @@ namespace DealerManagementSystem.ViewService
                 AvailabilityOfOtherMachineDT.Columns.Add("Qty");
                 AvailabilityOfOtherMachineDT.Columns.Add("Mack");
 
-                List<PCustomerProduct> AvailabilityOfOtherMachine = new BDMS_Customer().GetCustomerProduct(null, FSR.ICTicket.ICTicketID, null, null, null);
+                //List<PCustomerProduct> AvailabilityOfOtherMachine = new BDMS_Customer().GetCustomerProduct(null, FSR.ICTicket.ICTicketID, null, null, null);
+                List<PDMS_AvailabilityOfOtherMachine> AvailabilityOfOtherMachine = new BDMS_AvailabilityOfOtherMachine().GetAvailabilityOfOtherMachine(FSR.ICTicket.ICTicketID, null, null, null);
 
-                foreach (PCustomerProduct Aom in AvailabilityOfOtherMachine)
+                foreach (PDMS_AvailabilityOfOtherMachine Aom in AvailabilityOfOtherMachine)
                 {
-                    AvailabilityOfOtherMachineDT.Rows.Add(Aom.ProductType.ProductType, Aom.Quantity, Aom.Make.Make);
+                    AvailabilityOfOtherMachineDT.Rows.Add(Aom.TypeOfMachine.TypeOfMachine, Aom.Quantity, Aom.Make.Make);
                 }
 
                 DataTable FsrFiles = new DataTable();
@@ -392,7 +393,8 @@ namespace DealerManagementSystem.ViewService
                     {
                         if (!Signatured)
                         {
-                            PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
+                           // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
+                            PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFileAll[i].AttachedFileID);
                             Path = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
                             if (File.Exists(MapPath(Path)))
                             {
@@ -412,7 +414,8 @@ namespace DealerManagementSystem.ViewService
                     }
                     else if ((FileNameID == (short)FSRAttachedFileName.BeforeMachineRestore) || (FileNameID == (short)FSRAttachedFileName.AfterMachineRestore))
                     {
-                        PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
+                       // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
+                        PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFileAll[i].AttachedFileID);
                         Path = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
                         if (File.Exists(MapPath(Path)))
                         {
@@ -435,8 +438,8 @@ namespace DealerManagementSystem.ViewService
                 string Path2 = "";
                 for (int i = 0; i < FSRFile.Count(); i++)
                 {
-                    PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
-
+                   // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
+                    PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i].AttachedFileID);
                     string Url1 = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
                     if (File.Exists(MapPath(Url1)))
                     {
@@ -447,7 +450,8 @@ namespace DealerManagementSystem.ViewService
 
                     if (i + 1 != FSRFile.Count())
                     {
-                        PDMS_FSRAttachedFile F2 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i + 1].AttachedFileID);
+                      //  PDMS_FSRAttachedFile F2 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i + 1].AttachedFileID);
+                        PAttachedFile F2 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i + 1].AttachedFileID);
                         string Url2 = "ICTickrtFSR_Files/" + F2.AttachedFileID + "." + F2.FileName.Split('.')[F2.FileName.Split('.').Count() - 1];
                         if (File.Exists(MapPath(Url2)))
                         {
@@ -455,12 +459,12 @@ namespace DealerManagementSystem.ViewService
                         }
                         File.WriteAllBytes(MapPath(Url2), F2.AttachedFile);
                         Path2 = new Uri(Server.MapPath("~/" + Url2)).AbsoluteUri;
-
-                        FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1, F2.FSRAttachedName.FSRAttachedName, Path2);
+                         
+                        FsrFiles.Rows.Add(F1.ReferenceName, Path1, F2.ReferenceName, Path2);
                     }
                     else
                     {
-                        FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1, "", "");
+                        FsrFiles.Rows.Add(F1.ReferenceName, Path1, "", "");
                     }
                     i = i + 1;
                 }
@@ -608,6 +612,7 @@ namespace DealerManagementSystem.ViewService
                 Response.ContentType = mimeType;
                 Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
                 Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
                 Response.Flush(); // send it to the client to download
             }
             catch (Exception ex)

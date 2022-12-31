@@ -1,5 +1,4 @@
 ﻿using Business;
-using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class Enquiry : System.Web.UI.Page
+    public partial class EnquiryN : System.Web.UI.Page
     {
         public List<PEnquiry> PEnquiry
         {
@@ -45,13 +44,11 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.Text = "";
                 lblAddEnquiryMessage.Text = "";
                 if (!IsPostBack)
-                {
-                    //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                { 
                     new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
-                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
-                    //new DDLBind(ddlSDistrict, new BDMS_Address().GetDistrict(1, null, null, null, null, null), "District", "DistrictID");
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID"); 
                     txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtToDate.Text = DateTime.Now.ToShortDateString();
 
@@ -59,15 +56,12 @@ namespace DealerManagementSystem.ViewPreSale
                     List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
                     new DDLBind(ddlSSource, Source, "Source", "SourceID");
 
-                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null);
-                    // new DDLBind(ddlSStatus, Status, "Status", "StatusID");
-
+                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null); 
                     if (Session["leadStatusID"] != null)
                     {
-                        ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
-                        //txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToString("yyyy-MM-dd");
+                        ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]); 
                         txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToShortDateString();
-                        txtToDate.Text ="";
+                        txtToDate.Text = "";
                         if (!string.IsNullOrEmpty(Convert.ToString(Session["leadDealerID"])))
                         {
                             ddlDealer.SelectedValue = Convert.ToString(Session["leadDealerID"]);
@@ -114,7 +108,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID,PSession.User.UserID);
+            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID, PSession.User.UserID);
 
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();
@@ -176,23 +170,12 @@ namespace DealerManagementSystem.ViewPreSale
             Button BtnView = (Button)sender;
             ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
             UC_EnquiryView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
-        }
-
-
-
-        //protected void BtnBack_Click(object sender, EventArgs e)
-        //{
-        //    ClearField(); 
-        //}
-
+        } 
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
-        }
-
-
-
+        } 
         protected void ibtnEnqArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvEnquiry.PageIndex > 0)
@@ -200,8 +183,7 @@ namespace DealerManagementSystem.ViewPreSale
                 gvEnquiry.PageIndex = gvEnquiry.PageIndex - 1;
                 EnquiryBind(gvEnquiry, lblRowCount, PEnquiry);
             }
-        }
-
+        } 
         protected void ibtnEnqArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvEnquiry.PageCount > gvEnquiry.PageIndex)
@@ -250,8 +232,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.Text = ex.Message.ToString();
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
-        }
-
+        } 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
@@ -339,8 +320,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             }
             finally
-            {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            { 
             }
         }
     }

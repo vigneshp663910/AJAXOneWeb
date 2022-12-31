@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
-    public partial class EnquiryView : System.Web.UI.UserControl
+    public partial class EnquiryViewN : System.Web.UI.UserControl
     {
         public PDMS_Customer Customer
         {
@@ -58,7 +58,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Session["EnquiryViewPLead"] = value;
             }
         }
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -69,14 +69,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 long EnquiryID = Convert.ToInt64(Convert.ToString(ViewState["EnquiryID"]));
                 if (EnquiryID != Enquiry.EnquiryID)
                 {
-                    Enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null, null, null, null, null,PSession.User.UserID)[0];
+                    Enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null, null, null, null, null, PSession.User.UserID)[0];
                 }
             }
         }
         public void fillViewEnquiry(long EnquiryID)
         {
-            ViewState["EnquiryID"]= EnquiryID;
-            Enquiry = new BEnquiry().GetEnquiry(EnquiryID,null, null, null, null, null, null, null, null, null, null, null, PSession.User.UserID)[0];
+            ViewState["EnquiryID"] = EnquiryID;
+            Enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null, null, null, null, null, PSession.User.UserID)[0];
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
             lblPersonName.Text = Enquiry.PersonName;
@@ -120,7 +120,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 PEnquiry enquiryAdd = UC_AddEnquiry.Read();
 
-                enquiryAdd.EnquiryID = Enquiry.EnquiryID; 
+                enquiryAdd.EnquiryID = Enquiry.EnquiryID;
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry is saved successfully...";
@@ -143,27 +143,27 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            LinkButton lbActions = ((LinkButton)sender);  
+            LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Edit Enquiry")
-            { 
+            {
                 MPE_Enquiry.Show();
                 UC_AddEnquiry.FillMaster();
-                UC_AddEnquiry.Write(Enquiry); 
+                UC_AddEnquiry.Write(Enquiry);
             }
             if (lbActions.Text == "Convert To Lead")
             {
-                MPE_CustomerSelect.Show();  
+                MPE_CustomerSelect.Show();
                 gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile, Enquiry.State.StateID);
                 gvCustomer.DataBind();
             }
             if (lbActions.Text == "Reject")
             {
-                MPE_EnquiryReject.Show(); 
+                MPE_EnquiryReject.Show();
             }
         }
 
         protected void btnEnquiryStatus_Click(object sender, EventArgs e)
-        { 
+        {
             if (new BEnquiry().UpdateEnquiryReject(Enquiry.EnquiryID, txtRemark.Text.Trim(), PSession.User.UserID))
             {
                 lblMessage.Text = "Enquiry Rejected Successfully...";
@@ -179,7 +179,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnSelectCustomer_Click(object sender, EventArgs e)
         {
-            MPE_Lead.Show();           
+            MPE_Lead.Show();
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
             Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt64(lblCustomerID.Text));
@@ -187,7 +187,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             UC_AddLead.FillMaster();
             UC_Customer.FillMaster();
             UC_Customer.FillCustomer(Customer);
-            txtCustomerID.Text = Convert.ToString(Customer.CustomerID);
+            //    txtCustomerID.Text = Convert.ToString(Customer.CustomerID);
+            ((HiddenField)UC_Customer.FindControl("hdfCustomerID")).Value = Convert.ToString(Customer.CustomerID);
+            ((HiddenField)UC_Customer.FindControl("hdfCustomerName")).Value = Convert.ToString(Customer.CustomerFullName);
+            ((HiddenField)UC_Customer.FindControl("hdfContactPerson")).Value = Convert.ToString(Customer.ContactPerson);
+            ((HiddenField)UC_Customer.FindControl("hdfMobile")).Value = Convert.ToString(Customer.Mobile);
+          ((Button)UC_Customer.FindControl("BtnChangeCustomer")).Enabled = true;
+             
+
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
         }
@@ -201,13 +208,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
             DropDownList ddlCountry = (DropDownList)UC_Customer.FindControl("ddlCountry");
             DropDownList ddlState = (DropDownList)UC_Customer.FindControl("ddlState");
-            
+
             DropDownList ddlDistrict = (DropDownList)UC_Customer.FindControl("ddlDistrict");
             DropDownList ddlTehsil = (DropDownList)UC_Customer.FindControl("ddlTehsil");
 
 
-            TextBox txtCustomerName = (TextBox)UC_Customer.FindControl("txtCustomerName");
-            //  TextBox txtCustomerName2 = (TextBox)UC_Customer.FindControl("txtCustomerName2");
+            TextBox txtCustomerName = (TextBox)UC_Customer.FindControl("txtCustomerName"); 
             TextBox txtContactPerson = (TextBox)UC_Customer.FindControl("txtContactPerson");
             TextBox txtMobile = (TextBox)UC_Customer.FindControl("txtMobile");
             TextBox txtEmail = (TextBox)UC_Customer.FindControl("txtEmail");
@@ -216,14 +222,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             TextBox txtAddress3 = (TextBox)UC_Customer.FindControl("txtAddress3");
 
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
-            ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID); 
-            new DDLBind(ddlDistrict, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+            ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID);
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Enquiry.State.StateID);
 
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
             ddlDistrict.SelectedValue = Convert.ToString(Enquiry.District.DistrictID);
 
-            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null); 
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
             new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
 
             txtContactPerson.Text = Enquiry.PersonName;
@@ -258,21 +264,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
             Lead = UC_AddLead.Read();
-            //if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
-            //{
-            //    Lead.Customer = new PDMS_Customer_Insert();
-            //    Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
-            //}
-            //else
-            //{
+            
             Message = UC_Customer.ValidationCustomer();
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessageLead.Text = Message;
                 return;
             }
-            Lead.Customer = UC_Customer.ReadCustomer();
-            //}
+            Lead.Customer = UC_Customer.ReadCustomer(); 
+
             Lead.EnquiryID = Enquiry.EnquiryID;
             string result = new BAPI().ApiPut("Lead", Lead);
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -285,12 +285,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             MPE_Lead.Hide();
             fillViewEnquiry(Enquiry.EnquiryID);
 
-            // PLeadSearch S = new PLeadSearch();
-            // S.LeadID = Convert.ToInt64(Results.Data);
-
-            // gvLead.DataSource = new BLead().GetLead(S);
-            // gvLead.DataBind();
-            // UC_CustomerCreate.FillClean(); 
+          
         }
         void ShowMessage(PApiResult Results)
         {
