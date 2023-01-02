@@ -131,7 +131,6 @@
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.Customer.CustomerName")%>' runat="server" />
-                                            <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.Customer.CustomerID")%>' runat="server" visible="false"/>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="District">

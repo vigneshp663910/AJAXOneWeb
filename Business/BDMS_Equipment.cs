@@ -871,7 +871,7 @@ namespace Business
             { }
             return Equips;
         }
-        public Boolean ApproveOrRejectEquipmentWarrrantyTypeChange(long WarrantyTypeChangeID, long EquipmentHeaderID, long EquipmentWarrantyTypeID, int ApprovedBy, Boolean IsApproved)
+        public Boolean ApproveOrRejectEquipmentWarrrantyTypeChange(long WarrantyTypeChangeID, long EquipmentHeaderID, int ApprovedBy, Boolean IsApproved)
         {
             try
             {
@@ -879,10 +879,9 @@ namespace Business
                 {
                     DbParameter WarrantyTypeChangeIDP = provider.CreateParameter("WarrantyTypeChangeID", WarrantyTypeChangeID, DbType.Int64);
                     DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
-                    DbParameter EquipmentWarrantyTypeIDP = provider.CreateParameter("EquipmentWarrantyTypeID", EquipmentWarrantyTypeID, DbType.Int64);
                     DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
                     DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
-                    DbParameter[] Paramss = new DbParameter[5] { WarrantyTypeChangeIDP, EquipmentHeaderIDP, EquipmentWarrantyTypeIDP, IsApprovedP, ApprovedByP };
+                    DbParameter[] Paramss = new DbParameter[4] { WarrantyTypeChangeIDP, EquipmentHeaderIDP, IsApprovedP, ApprovedByP };
                     provider.Insert("ApproveOrRejectEquipmentWarrrantyTypeChange", Paramss);
                     scope.Complete();
                 }
@@ -1087,7 +1086,7 @@ namespace Business
             { }
             return Equips;
         }
-        public Boolean ApproveOrRejectEquipmentOwnershipChange(long OwnershipChangeID, long EquipmentHeaderID, long CustomerID, int ApprovedBy, Boolean IsApproved)
+        public Boolean ApproveOrRejectEquipmentOwnershipChange(long OwnershipChangeID, long EquipmentHeaderID, int ApprovedBy, Boolean IsApproved)
         {
             try
             {
@@ -1095,10 +1094,9 @@ namespace Business
                 {
                     DbParameter OwnershipChangeIDP = provider.CreateParameter("OwnershipChangeID", OwnershipChangeID, DbType.Int64);
                     DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
-                    DbParameter CustomerIDP = provider.CreateParameter("CustomerID", CustomerID, DbType.Int64);
                     DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
                     DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
-                    DbParameter[] Paramss = new DbParameter[5] { OwnershipChangeIDP, EquipmentHeaderIDP, CustomerIDP, IsApprovedP, ApprovedByP };
+                    DbParameter[] Paramss = new DbParameter[4] { OwnershipChangeIDP, EquipmentHeaderIDP, IsApprovedP, ApprovedByP };
                     provider.Insert("ApproveOrRejectEquipmentOwnershipChange", Paramss);
                     scope.Complete();
                 }
@@ -1177,7 +1175,7 @@ namespace Business
             { }
             return Equips;
         }
-        public Boolean ApproveOrRejectEquipmentWarrantyExpiryDateChange(long WarrantyExpiryDateChangeID, long EquipmentHeaderID, DateTime NewWarrantyExpiryDate, int ApprovedBy, Boolean IsApproved)
+        public Boolean ApproveOrRejectEquipmentWarrantyExpiryDateChange(long WarrantyExpiryDateChangeID, long EquipmentHeaderID, int ApprovedBy, Boolean IsApproved)
         {
             try
             {
@@ -1185,10 +1183,9 @@ namespace Business
                 {
                     DbParameter WarrantyExpiryDateChangeIDP = provider.CreateParameter("WarrantyExpiryDateChangeID", WarrantyExpiryDateChangeID, DbType.Int64);
                     DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
-                    DbParameter NewWarrantyExpiryDateP = provider.CreateParameter("NewWarrantyExpiryDate", NewWarrantyExpiryDate, DbType.DateTime);
                     DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
                     DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
-                    DbParameter[] Paramss = new DbParameter[5] { WarrantyExpiryDateChangeIDP, EquipmentHeaderIDP, NewWarrantyExpiryDateP, IsApprovedP, ApprovedByP };
+                    DbParameter[] Paramss = new DbParameter[4] { WarrantyExpiryDateChangeIDP, EquipmentHeaderIDP, IsApprovedP, ApprovedByP };
                     provider.Insert("ApproveOrRejectEquipmentWarrantyExpiryDateChange", Paramss);
                     scope.Complete();
                 }
@@ -1237,6 +1234,39 @@ namespace Business
                 new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentWarrantyTypeAttachedFileDetails", ex);
                 return null;
             }
+        }
+        public DataTable GetEquipmentChangeForApproval(DateTime? RequestedFrom, DateTime? RequestedTo, string EquipmentSerialNo)
+        {
+            TraceLogger.Log(DateTime.Now);
+            try
+            {
+                DbParameter RequestedFromP = provider.CreateParameter("RequestedFrom", RequestedFrom, DbType.DateTime);
+                DbParameter RequestedToP = provider.CreateParameter("RequestedTo", RequestedTo, DbType.DateTime);
+
+                DbParameter EquipmentSerialNoP;
+                if (!string.IsNullOrEmpty(EquipmentSerialNo))
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", EquipmentSerialNo, DbType.String);
+                else
+                    EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", null, DbType.String);
+
+                DbParameter[] Params = new DbParameter[3] { RequestedFromP, RequestedToP, EquipmentSerialNoP };
+
+                
+                using (DataSet DataSet = provider.Select("GetEquipmentChangeForApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+                return null;
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
         }
     }
 }
