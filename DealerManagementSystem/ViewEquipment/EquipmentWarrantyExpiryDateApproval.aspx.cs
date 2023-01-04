@@ -120,14 +120,13 @@ namespace DealerManagementSystem.ViewEquipment
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblWarrantyExpiryDateChangeID = (Label)gvRow.FindControl("lblWarrantyExpiryDateChangeID");
             Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID");
-            Label lblWarrantyExpiryDate = (Label)gvRow.FindControl("lblWarrantyExpiryDate");
             Boolean iSApprove = false;
 
             if (lbActions.Text == "Approve")
             {
                 iSApprove = true;
             }
-            if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyExpiryDateChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), Convert.ToDateTime(lblWarrantyExpiryDate.Text), PSession.User.UserID, iSApprove))
+            if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyExpiryDateChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), PSession.User.UserID, iSApprove))
             {
                 lblMessageEquipWarrantyExpiryDateChgReq.Text = "Equipment Warranty Type Change approved.";
                 lblMessageEquipWarrantyExpiryDateChgReq.ForeColor = Color.Green;

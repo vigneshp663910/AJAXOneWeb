@@ -93,8 +93,8 @@
                 <asp:LinkButton ID="lnkBtnRejWarrantyTypeChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejWarrantyTypeChg();">Reject Warranty Type Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnApprOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprOwnershipChg();">Approve Ownership Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnRejOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejrOwnershipChg();">Reject Ownership Change</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnApprWarrantyExpiryDateChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprWarrantyExpiryDateChg();">Approve Expiry Date Change</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnRejWarrantyExpiryDateChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejWarrantyExpiryDateChg();">Reject Warranty Expiry DateChange</asp:LinkButton>            
+                <asp:LinkButton ID="lnkBtnApprWarrantyExpiryDateChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprWarrantyExpiryDateChg();">Approve Warranty Expiry Date Change</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnRejWarrantyExpiryDateChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejWarrantyExpiryDateChg();">Reject Warranty Expiry Date Change</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -400,7 +400,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-   
+
     <asp1:TabPanel ID="tabPnlAttachedFile" runat="server" HeaderText="Support Document">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -454,7 +454,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>    
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlUpdateCommiDate" runat="server" CssClass="Popup" Style="display: none">
@@ -533,23 +533,20 @@
 
 
                     <div class="col-md-12">
-                       
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">File</label>
                             <asp:FileUpload ID="fileUpload" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
                             <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" />
                         </div>
-                        
                         <div class="col-md-12 Report">
                             <div class="table-responsive">
                                 <asp:GridView ID="gvWarrantyTypeSupportDocument" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="FileName">
                                     <Columns>
-                                       
                                         <asp:TemplateField HeaderText="File Name" HeaderStyle-Width="500px">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                </ItemTemplate>
+                                            </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -613,23 +610,20 @@
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderSoldDate" runat="server" TargetControlID="txtSoldDate" WatermarkText="DD/MM/YYYY" />
                     </div>
                     <div class="col-md-12">
-                        
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">File</label>
                             <asp:FileUpload ID="fileUploadOwnershipChange" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
                             <asp:Button ID="btnAddFileOwnershipChange" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFileOwnershipChange_Click" />
                         </div>
-                       
                         <div class="col-md-12 Report">
                             <div class="table-responsive">
                                 <asp:GridView ID="gvOwnershipChangeReqSupportDocument" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="FileName">
                                     <Columns>
-                                       
                                         <asp:TemplateField HeaderText="File Name" HeaderStyle-Width="500px">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                </ItemTemplate>
+                                            </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -694,23 +688,20 @@
                     </div>
 
                     <div class="col-md-12">
-                        
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">File</label>
                             <asp:FileUpload ID="fileUploadWarrantyExpiryDateChange" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
                             <asp:Button ID="btnAddFileWarrantyExpiryDateChange" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFileWarrantyExpiryDateChange_Click" />
                         </div>
-                        
                         <div class="col-md-12 Report">
                             <div class="table-responsive">
                                 <asp:GridView ID="gvWarrantyExpiryDateChangeSupportDocument" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" DataKeyNames="FileName">
                                     <Columns>
-                                       
                                         <asp:TemplateField HeaderText="File Name" HeaderStyle-Width="500px">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                </ItemTemplate>
+                                            </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -738,7 +729,7 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_WarrantyExpiryDateChangeReq" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlWarrantyExpiryDateChangeReq" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
- 
+
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>

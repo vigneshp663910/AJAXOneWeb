@@ -117,14 +117,13 @@ namespace DealerManagementSystem.ViewEquipment
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblWarrantyTypeChangeID = (Label)gvRow.FindControl("lblWarrantyTypeChangeID");
             Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID");
-            Label lblEquipmentWarrantyTypeID = (Label)gvRow.FindControl("lblEquipmentWarrantyTypeID");
             Boolean iSApprove = false;
 
             if (lbActions.Text == "Approve")
             {
                 iSApprove = true;
             }
-            if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), Convert.ToInt64(lblEquipmentWarrantyTypeID.Text), PSession.User.UserID, iSApprove))
+            if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), PSession.User.UserID, iSApprove))
             {
                 lblMessage.Text = "Equipment Warrranty Type Change approved succesfully.";
                 lblMessage.ForeColor = Color.Green;

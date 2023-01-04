@@ -391,6 +391,7 @@
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
+    <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentHistory.aspx" />
     <Content Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
@@ -1053,6 +1054,13 @@
     </Compile>
     <Compile Include="ViewEquipment\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.cs">
+      <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.designer.cs">
+      <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>

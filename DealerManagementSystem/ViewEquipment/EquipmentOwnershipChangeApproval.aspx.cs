@@ -123,14 +123,13 @@ namespace DealerManagementSystem.ViewEquipment
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblOwnershipChangeID = (Label)gvRow.FindControl("lblOwnershipChangeID");
             Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID");
-            Label lblOwnershipChgReqCustomerID = (Label)gvRow.FindControl("lblOwnershipChgReqCustomerID");
             Boolean iSApprove = false;
 
             if (lbActions.Text == "Approve")
             {
                 iSApprove = true;
             }
-            if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(lblOwnershipChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), Convert.ToInt64(lblOwnershipChgReqCustomerID.Text), PSession.User.UserID, iSApprove))
+            if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(lblOwnershipChangeID.Text), Convert.ToInt64(lblEquipmentHeaderID.Text), PSession.User.UserID, iSApprove))
             {
                 lblMessageEquipOwnershipChgReq.Text = "Equipment Ownership Change approved succesfully.";
                 lblMessageEquipOwnershipChgReq.ForeColor = Color.Green;
