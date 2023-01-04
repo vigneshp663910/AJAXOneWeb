@@ -158,6 +158,7 @@ namespace Business
                             {
                                 EnquiryID = Convert.ToInt64(dr["EnquiryID"]),
                                 LeadID = DBNull.Value == dr["LeadID"] ? (long?)null: Convert.ToInt64(dr["LeadID"]),
+                                
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 EnquiryDate = Convert.ToDateTime(dr["EnquiryDate"]),
                                 EnquiryNumber = Convert.ToString(dr["EnquiryNumber"]),
@@ -165,6 +166,7 @@ namespace Business
                                 {
                                     Source = Convert.ToString(dr["LeadSource"]),
                                     SourceID = Convert.ToInt32(dr["LeadSourceID"]),
+                               
                                 },
                                 Status = DBNull.Value == dr["PreSaleStatusID"] ? null : new PPreSaleStatus()
                                 {
@@ -180,11 +182,13 @@ namespace Business
                                 {
                                     State = Convert.ToString(dr["State"]),
                                     StateID = Convert.ToInt32(dr["StateID"]),
+                                    Region = new PDMS_Region() { Region = Convert.ToString(dr["Region"]) }
                                 },
                                 District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District()
                                 {
                                     District = Convert.ToString(dr["District"]),
-                                    DistrictID = Convert.ToInt32(dr["DistrictID"]),
+                                    DistrictID = Convert.ToInt32(dr["DistrictID"]), 
+                                    Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]),DealerName = Convert.ToString(dr["DealerName"]) }
                                 },
                                 Address = Convert.ToString(dr["Address"]),
                                 Address2 = Convert.ToString(dr["Address2"]),

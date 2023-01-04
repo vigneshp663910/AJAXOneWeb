@@ -255,7 +255,7 @@
                     <div class="col-md-12">
 
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Cold Visit Date</label>
+                            <label class="modal-label">Visit Date</label>
                             <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-6 col-sm-12">

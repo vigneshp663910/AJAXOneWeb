@@ -122,7 +122,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 txtGSTIN.Enabled = true;
                 txtPAN.Enabled = true;
             }
-
+            ddlTitle.SelectedValue = Convert.ToString(Customer.Title.TitleID);
             txtCustomerName.Text = Customer.CustomerName;
             //  txtCustomerName2.Text = Customer.CustomerName2;
             txtGSTIN.Text = Customer.GSTIN;

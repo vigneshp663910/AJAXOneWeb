@@ -288,8 +288,6 @@
     <Content Include="JSAutocomplete\ajax\ui1.8.22jquery-ui.js" />
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
-    <Content Include="MapTest1.aspx" />
-    <Content Include="MapTest2.aspx" />
     <Content Include="Open.aspx" />
     <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
@@ -318,7 +316,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="MapTestM.Master" />
     <Content Include="Help\Files\Getting Started.pdf" />
     <Content Include="Help\Files\Getting Started.pps" />
     <None Include="packages.config" />
@@ -364,8 +361,6 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
-    <Content Include="TestAutocomplete.aspx" />
-    <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -460,7 +455,6 @@
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx" />
     <Content Include="Dashboard\ICTicketTransactionStatics.ascx" />
     <Content Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="Images\ajax-fiori logo for signature.bmp" />
     <Content Include="Images\ajax-fiori logo for signature.png" />
     <Content Include="Images\construction.gif" />
@@ -631,7 +625,6 @@
     <Content Include="BackUp\DMSDynamic.Master" />
     <Content Include="JSAutocomplete\jquery-3.6.0.js" />
     <Content Include="JSAutocomplete\ui1.13.0jquery-ui.js" />
-    <Content Include="DealerOld.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -745,13 +738,6 @@
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
-    <Compile Include="DealerOld.Master.cs">
-      <DependentUpon>DealerOld.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DealerOld.Master.designer.cs">
-      <DependentUpon>DealerOld.Master</DependentUpon>
-    </Compile>
     <Compile Include="Geolocation.aspx.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -800,27 +786,6 @@
     </Compile>
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapTest1.aspx.cs">
-      <DependentUpon>MapTest1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapTest1.aspx.designer.cs">
-      <DependentUpon>MapTest1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapTest2.aspx.cs">
-      <DependentUpon>MapTest2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapTest2.aspx.designer.cs">
-      <DependentUpon>MapTest2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapTestM.Master.cs">
-      <DependentUpon>MapTestM.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapTestM.Master.designer.cs">
-      <DependentUpon>MapTestM.Master</DependentUpon>
     </Compile>
     <Compile Include="Open.aspx.cs">
       <DependentUpon>Open.aspx</DependentUpon>
@@ -878,27 +843,6 @@
     </Compile>
     <Compile Include="Test.aspx.designer.cs">
       <DependentUpon>Test.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestAutocomplete.aspx.cs">
-      <DependentUpon>TestAutocomplete.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestAutocomplete.aspx.designer.cs">
-      <DependentUpon>TestAutocomplete.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestDealerOld.aspx.cs">
-      <DependentUpon>TestDealerOld.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestDealerOld.aspx.designer.cs">
-      <DependentUpon>TestDealerOld.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestMenu.Master.cs">
-      <DependentUpon>TestMenu.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestMenu.Master.designer.cs">
-      <DependentUpon>TestMenu.Master</DependentUpon>
     </Compile>
     <Compile Include="TestPageForMenu.aspx.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
@@ -2604,7 +2548,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site1.Master" />
-    <Content Include="TestMenu.Master" />
     <Content Include="Scripts\Voice\jquery-3.3.1.min.map" />
     <Content Include="Scripts\Voice\jquery-3.3.1.slim.min.map" />
     <Content Include="Site.Mobile.Master" />

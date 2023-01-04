@@ -3,8 +3,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketView.ascx" TagPrefix="UC" TagName="UC_ICTicketView" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
-    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+   <%-- <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>--%>
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById("MainContent_pnlFilterContent");

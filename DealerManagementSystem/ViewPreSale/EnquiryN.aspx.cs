@@ -258,7 +258,11 @@ namespace DealerManagementSystem.ViewPreSale
         void SalesCommisionClaimExportExcel(List<PEnquiry> Enquirys, String Name)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("Enquiry ID");
+            dt.Columns.Add("Sno");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Region");
+            dt.Columns.Add("Dealer Code");
+            dt.Columns.Add("Dealer Name");
             dt.Columns.Add("Enquiry Number");
             dt.Columns.Add("Enquiry Date");
             dt.Columns.Add("Status");
@@ -278,7 +282,7 @@ namespace DealerManagementSystem.ViewPreSale
             dt.Columns.Add("Rejected By");
             dt.Columns.Add("Rejected On");
             dt.Columns.Add("Rejected Remark");
-            dt.Columns.Add("Created By");
+           
             dt.Columns.Add("Created On");
             dt.Columns.Add("Modified By");
             dt.Columns.Add("Modified On");
@@ -286,6 +290,10 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 dt.Rows.Add(
                     "'" + Enquiry.EnquiryID
+                    , Enquiry.CreatedBy.ContactName
+                    , Enquiry.State.Region.Region
+                    , Enquiry.District.Dealer.DealerCode
+                    , Enquiry.District.Dealer.DealerName    
                     , Enquiry.EnquiryNumber
                     , (Enquiry.EnquiryDate == null) ? "" : Enquiry.EnquiryDate.ToString()
                     , Enquiry.Status.Status
@@ -305,7 +313,7 @@ namespace DealerManagementSystem.ViewPreSale
                     , ""
                     , ""
                     , ""
-                    , Enquiry.CreatedBy.ContactName
+                    
                     , Enquiry.CreatedOn.ToString()
                     , ""
                     , ""

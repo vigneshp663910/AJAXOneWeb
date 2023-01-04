@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// divList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+
+        /// <summary>
         /// ddlDealerCode control.
         /// </summary>
         /// <remarks>
@@ -265,5 +274,32 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvICTickets;
+
+        /// <summary>
+        /// divTSIRView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTSIRView;
+
+        /// <summary>
+        /// btnBackToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
+
+        /// <summary>
+        /// UC_TSIRView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewService.UserControls.ICTicketTSIRView UC_TSIRView;
     }
 }

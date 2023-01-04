@@ -202,26 +202,30 @@ namespace DealerManagementSystem.ViewPreSale
             ddlActionType.BorderColor = Color.Silver;
             if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
             {
-                Message = "Please enter the Cold Visit Date";
                 txtColdVisitDate.BorderColor = Color.Red;
+                return "Please enter the Visit Date";
             }
-            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            if (Convert.ToDateTime(txtColdVisitDate.Text.Trim()) > DateTime.Now)
             {
-                Message = Message + "Please enter the Location";
+                txtColdVisitDate.BorderColor = Color.Red;
+                return "You cannot select future Visit Date";
+            }
+            if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
                 txtLocation.BorderColor = Color.Red;
+                return "Please enter the Location";
             }
-            else if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
+            if (string.IsNullOrEmpty(txtRemark.Text.Trim()))
             {
-                Message = Message + "Please enter the Remark";
                 txtRemark.BorderColor = Color.Red;
+                return "Please enter the Remark";
             }
-
-            else if (ddlActionType.SelectedValue == "0")
+            if (ddlActionType.SelectedValue == "0")
             {
-                Message = Message + "Please select the Action Type";
                 ddlActionType.BorderColor = Color.Red;
+                return "Please select the Action Type"; 
             }
-            return Message;
+            return "";
         }
 
 
