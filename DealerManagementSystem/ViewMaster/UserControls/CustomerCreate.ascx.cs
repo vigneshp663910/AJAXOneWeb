@@ -160,6 +160,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         public void FillClean()
         {
+            hdfCustomerID.Value = "";
             txtCustomerName.Text = "";
             txtGSTIN.Text = "";
             txtPAN.Text = "";
@@ -176,6 +177,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtDOAnniversary.Text = "";
             cbSendSMS.Checked = false;
             cbSendEmail.Checked = false;
+
             FillMaster();
         }
 
