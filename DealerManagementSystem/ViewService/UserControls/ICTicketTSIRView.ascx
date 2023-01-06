@@ -8,8 +8,14 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbtnEditQuotation" runat="server"  >Edit Quotation Basic Info</asp:LinkButton>
-               
+                <asp:LinkButton ID="lbtnEdit" runat="server" OnClick="lbActions_Click">Edit TSIR</asp:LinkButton>
+                <asp:LinkButton ID="lbtnCheck" runat="server" OnClick="lbActions_Click">TSIR Check</asp:LinkButton>
+                <asp:LinkButton ID="lbtnApprove" runat="server" OnClick="lbActions_Click">TSIR Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnSalesApproveL1" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L1</asp:LinkButton>
+                <asp:LinkButton ID="lbtnSalesApproveL2" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L2</asp:LinkButton>
+                <asp:LinkButton ID="lbtnSendBack" runat="server" OnClick="lbActions_Click">TSIR Send Back</asp:LinkButton>
+                <asp:LinkButton ID="lbtnReject" runat="server" OnClick="lbActions_Click">TSIR Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbtnCancel" runat="server" OnClick="lbActions_Click">TSIR Cancel</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -68,9 +74,8 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <style>
-    .cc
-    {
-        visibility:visible!important
+    .cc {
+        visibility: visible !important
     }
 </style>
 <asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
@@ -108,7 +113,7 @@
                                 <asp:TemplateField HeaderText="Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label> 
+                                        <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
 
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -249,13 +254,13 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-     
-</asp:TabContainer>
- 
 
- 
- 
- 
+</asp:TabContainer>
+
+
+
+
+
 <%--<script type="text/javascript">
 
     function collapseExpand(obj) {

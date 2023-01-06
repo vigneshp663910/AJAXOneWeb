@@ -396,11 +396,11 @@ namespace DealerManagementSystem.ViewService
                            // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
                             PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFileAll[i].AttachedFileID);
                             Path = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-                            if (File.Exists(MapPath(Path)))
+                            if (File.Exists(Server.MapPath("~/" + Path)))
                             {
-                                File.Delete(MapPath(Path));
+                                File.Delete(Server.MapPath("~/" + Path));
                             }
-                            File.WriteAllBytes(MapPath(Path), F1.AttachedFile);
+                            File.WriteAllBytes(Server.MapPath("~/" + Path), F1.AttachedFile);
 
                             if (FileNameID == (short)FSRAttachedFileName.Technician)
                                 TechnicianFilePath = new Uri(Server.MapPath("~/" + Path)).AbsoluteUri;
@@ -417,11 +417,11 @@ namespace DealerManagementSystem.ViewService
                        // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
                         PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFileAll[i].AttachedFileID);
                         Path = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-                        if (File.Exists(MapPath(Path)))
+                        if (File.Exists(Server.MapPath("~/" + Path)))
                         {
-                            File.Delete(MapPath(Path));
+                            File.Delete(Server.MapPath("~/" + Path));
                         }
-                        File.WriteAllBytes(MapPath(Path), F1.AttachedFile);
+                        File.WriteAllBytes(Server.MapPath("~/" + Path), F1.AttachedFile);
 
                         if (FileNameID == (short)FSRAttachedFileName.BeforeMachineRestore)
                             BeforeMachineRestoreFilePath = new Uri(Server.MapPath("~/" + Path)).AbsoluteUri;

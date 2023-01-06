@@ -488,7 +488,9 @@ namespace Properties
         EidtDistrictSalesEngineer,
         CustomerExcelDownload,
         MaterialExcelDownload,
-        SyncToParts=31
+        SyncToParts = 31,
+        TsirSalesApproveL1,
+        TsirSalesApproveL2,
     }
     public enum DMS_WarrantyClaimStatus
     {

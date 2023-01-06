@@ -40,7 +40,94 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
         }
 
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Edit TSIR")
+            {
+                //MPE_AddTechnician.Show();
+                //UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID);
+            }
+            else if (lbActions.Text == "TSIR Check")
+            {
+                if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.Checked, PSession.User.UserID, 0))
+                {
+                    lblMessage.ForeColor = Color.Green;
+                    FillTsir(Tsir.TsirID);
+                    lblMessage.Text = "TSIR Status changed to Checked";
+                }
+                else
+                {
+                    lblMessage.Text = "TSIR Status is not changed";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "TSIR Approve")
+            {
+                // string[] TsirApprove = ConfigurationManager.AppSettings["TsirApprove"].Split(',');
+                //if (TsirApprove.Contains(PSession.User.UserID.ToString()))
+                //{
 
+                if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.Approved, PSession.User.UserID, 0))
+                {
+                    lblMessage.ForeColor = Color.Green;
+                    FillTsir(Tsir.TsirID);
+                    lblMessage.Text = "TSIR Status changed to Approved";
+                }
+                else
+                {
+                    lblMessage.Text = "TSIR Status is not changed";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+                //}
+                //else
+                //{
+                //    return;
+                //}
+            }
+            else if (lbActions.Text == "TSIR Sales Approve L1")
+            {
+                //    UC_AddFSRAttachments.FillMaster(SDMS_ICTicket);
+                //    MPE_AddFSRAttachments.Show();
+            }
+            else if (lbActions.Text == "TSIR Sales Approve L2")
+            {
+                //    UC_AddFSRAttachments.FillMaster(SDMS_ICTicket);
+                //    MPE_AddFSRAttachments.Show();
+            }
+            else if (lbActions.Text == "TSIR Reject")
+            {
+                if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.Rejected, PSession.User.UserID, 0))
+                {
+                    lblMessage.Text = "TSIR Status changed to Rejected";
+                    lblMessage.ForeColor = Color.Green;
+                    FillTsir(Tsir.TsirID);
+                }
+                else
+                {
+                    lblMessage.Text = "TSIR Status is not changed";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "TSIR Send Back")
+            {
+                if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.SendBack, PSession.User.UserID, 0))
+                {
+                    lblMessage.Text = "TSIR Status changed to Send Back";
+                    lblMessage.ForeColor = Color.Green;
+                    FillTsir(Tsir.TsirID);
+                }
+                else
+                {
+                    lblMessage.Text = "TSIR Status is not changed";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+        }
         public void FillTsir(long TsirID)
         {
             Tsir = new BDMS_ICTicketTSIR().GetICTicketTSIRByTsirID(TsirID, null);
@@ -66,6 +153,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             gvMaterial.DataSource = new BDMS_Service().GetServiceMaterials(ICTicket.ICTicketID, null, TsirID, "", false, "");
             gvMaterial.DataBind();
+            ActionControlMange();
             if (ICTicket.RestoreDate == null)
             {
                 return;
@@ -124,75 +212,93 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
         }
 
-        //protected void btnChecked_Click(object sender, EventArgs e)
-        //{
-        //    //int StatusID = 1;
-        //    int StatusID = ICTicketTSIR.Status.StatusID;
+        void ActionControlMange()
+        {
+            lbtnEdit.Visible = true;
+            lbtnCheck.Visible = true;
+            lbtnApprove.Visible = true;
+            lbtnSalesApproveL1.Visible = true;
+            lbtnSalesApproveL2.Visible = true;
+            lbtnSendBack.Visible = true;
+            lbtnReject.Visible = true;
+            lbtnCancel.Visible = true;
+            
 
-        //    if ((ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Requested) || (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Rerequested))
-        //    {
-        //        StatusID = (short)TSIRStatus.Checked;
-        //        lblMessage.Text = "TSIR Status changed to Checked";
-        //    }
-        //    else if (ICTicketTSIR.Status.StatusID == (short)TSIRStatus.Checked)
-        //    {
-        //        string[] TsirApprove = ConfigurationManager.AppSettings["TsirApprove"].Split(',');
-        //        if (TsirApprove.Contains(PSession.User.UserID.ToString()))
-        //        {
-        //            StatusID = (short)TSIRStatus.Approved;
-        //            lblMessage.Text = "TSIR Status changed to Approved";
-        //        }
-        //        else
-        //        {
-        //            return;
-        //        }
-        //    }
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCheck).Count() == 0)
+            {
+                lbtnEdit.Visible = false;
+                lbtnCheck.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirApprove).Count() == 0)
+            {
+                lbtnApprove.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL1).Count() == 0)
+            {
+                lbtnSalesApproveL1.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL2).Count() == 0)
+            {
+                lbtnSalesApproveL2.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCancel).Count() == 0)
+            {
+                lbtnCancel.Visible = false;
+            }
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
+            //{
+            //    lbtnReject.Visible = false;
+            //}
 
-        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, StatusID, PSession.User.UserID, 0))
-        //    {
 
-        //        lblMessage.ForeColor = Color.Green;
-        //        FillTsirDetails(ICTicketTSIR.TsirID);
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Text = "TSIR Status is not changed";
-        //        lblMessage.ForeColor = Color.Red;
-        //    }
-        //    lblMessage.Visible = true;
-        //}
 
-        //protected void btnSendBack_Click(object sender, EventArgs e)
-        //{
-        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, (short)TSIRStatus.SendBack, PSession.User.UserID, 0))
-        //    {
-        //        lblMessage.Text = "TSIR Status changed to Send Back";
-        //        lblMessage.ForeColor = Color.Green;
-        //        FillTsirDetails(ICTicketTSIR.TsirID);
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Text = "TSIR Status is not changed";
-        //        lblMessage.ForeColor = Color.Red;
-        //    }
-        //    lblMessage.Visible = true;
-        //}       
+            if (Tsir.Status.StatusID == (short)TSIRStatus.Requested || Tsir.Status.StatusID == (short)TSIRStatus.Rerequested)
+            {
+                lbtnApprove.Visible = false;
+                lbtnSalesApproveL1.Visible = false;
+                lbtnSalesApproveL2.Visible = false;
+                lbtnSendBack.Visible = false;
+                lbtnReject.Visible = false;
+            }
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.Checked)
+            {
+                lbtnEdit.Visible = false;
+                lbtnCheck.Visible = false;
 
-        //protected void btnReject_Click1(object sender, EventArgs e)
-        //{
-        //    if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(ICTicketTSIR.TsirID, (short)TSIRStatus.Rejected, PSession.User.UserID, 0))
-        //    {
-        //        lblMessage.Text = "TSIR Status changed to Rejected";
-        //        lblMessage.ForeColor = Color.Green;
-        //        FillTsirDetails(ICTicketTSIR.TsirID);
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Text = "TSIR Status is not changed";
-        //        lblMessage.ForeColor = Color.Red;
-        //    }
-        //    lblMessage.Visible = true;
-        //}
+                lbtnSalesApproveL1.Visible = false;
+                lbtnSalesApproveL2.Visible = false; 
+            }
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.Approved || (Tsir.Status.StatusID == (short)TSIRStatus.SalesApproved) || (Tsir.Status.StatusID == (short)TSIRStatus.SendBack))
+            {
+                lbtnEdit.Visible = false;
+                lbtnCheck.Visible = false;
+                lbtnApprove.Visible = false;
+                lbtnSalesApproveL1.Visible = false;
+                lbtnSalesApproveL2.Visible = false;
+                lbtnSendBack.Visible = false;
+                lbtnReject.Visible = false;
+                lbtnCancel.Visible = false;
+            }
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.SalesApprovedLevel1)
+            {
+                lbtnEdit.Visible = false;
+                lbtnCheck.Visible = false;
+                lbtnApprove.Visible = false;
+                lbtnSalesApproveL1.Visible = false; 
+                lbtnSendBack.Visible = false;
+                lbtnReject.Visible = false;
+            }
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.Rejected)
+            {
+                lbtnEdit.Visible = false;
+                lbtnCheck.Visible = false;
+                lbtnApprove.Visible = false; 
+                lbtnSalesApproveL2.Visible = false;
+                lbtnSendBack.Visible = false;
+                lbtnReject.Visible = false;
+            }
+        }
 
         //protected void btnSave_Click(object sender, EventArgs e)
         //{

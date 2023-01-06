@@ -5,10 +5,7 @@
 <%@ Register Src="~/ViewPreSale/UserControls/ColdVisitsView.ascx" TagPrefix="UC" TagName="UC_ColdVisitsView" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"> 
-    
-
      
-
      <script type="text/javascript">
          $(document).ready(function () {
              var hdfCustomerID = document.getElementById('MainContent_UC_Customer_hdfCustomerID');
@@ -181,16 +178,12 @@
                                             <asp:Button ID="btnViewColdVisit" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewColdVisit_Click" Width="50px" Height="33px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Latitude">
+                                    <asp:TemplateField HeaderText="Latitude Longitude">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblLatitude" Text='<%# DataBinder.Eval(Container.DataItem, "Latitude")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Longitude">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblLongitude" Text='<%# DataBinder.Eval(Container.DataItem, "Longitude")%>' runat="server" />
+                                             <asp:Label ID="Label1" Text="," runat="server" /> 
+                                             <asp:Label ID="lblLongitude" Text='<%# DataBinder.Eval(Container.DataItem, "Longitude")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Track" SortExpression="Action">

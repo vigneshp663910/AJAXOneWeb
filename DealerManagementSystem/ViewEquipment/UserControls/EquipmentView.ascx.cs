@@ -395,6 +395,19 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         }
         void ActionControlMange()
         {
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
+            lnkBtnReqWarrantyTypeChange.Visible = true;
             if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954 || PSession.User.UserID == 491)
             {
                 lnkBtnReqWarrantyTypeChange.Visible = true;
