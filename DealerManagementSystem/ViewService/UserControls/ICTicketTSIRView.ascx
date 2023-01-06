@@ -11,11 +11,13 @@
                 <asp:LinkButton ID="lbtnEdit" runat="server" OnClick="lbActions_Click">Edit TSIR</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCheck" runat="server" OnClick="lbActions_Click">TSIR Check</asp:LinkButton>
                 <asp:LinkButton ID="lbtnApprove" runat="server" OnClick="lbActions_Click">TSIR Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnReject" runat="server" OnClick="lbActions_Click">TSIR Reject</asp:LinkButton> 
                 <asp:LinkButton ID="lbtnSalesApproveL1" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L1</asp:LinkButton>
-                <asp:LinkButton ID="lbtnSalesApproveL2" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L2</asp:LinkButton>
-                <asp:LinkButton ID="lbtnSendBack" runat="server" OnClick="lbActions_Click">TSIR Send Back</asp:LinkButton>
-                <asp:LinkButton ID="lbtnReject" runat="server" OnClick="lbActions_Click">TSIR Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbtnSalesApproveL2" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L2</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnSalesReject" runat="server" OnClick="lbActions_Click">TSIR Sales Reject</asp:LinkButton>
+                 <asp:LinkButton ID="lbtnSendBack" runat="server" OnClick="lbActions_Click">TSIR Send Back</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCancel" runat="server" OnClick="lbActions_Click">TSIR Cancel</asp:LinkButton>
+                
             </div>
         </div>
     </div>
@@ -258,6 +260,37 @@
 </asp:TabContainer>
 
 
+<asp:Panel ID="pnlSaleApprove" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Sale Approve</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button101" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageCustomerFeedback" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                <div class="col-md-12"> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Amount</label>
+                        <asp:TextBox ID="txtSalesApproveAmount" runat="server" CssClass="form-control" ></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaleApproveL1" runat="server" Text="Sale Approve" CssClass="btn Save" OnClick="btnSaleApproveL1_Click" />
+            <asp:Button ID="btnSaleApproveL2" runat="server" Text="Sale Approve" CssClass="btn Save" OnClick="btnSaleApproveL2_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_SaleApprove" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSaleApprove" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+
+<div style="display: none">
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+</div>
 
 
 

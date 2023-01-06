@@ -873,6 +873,7 @@
             font-family: Segoe UI,Arial,sans-serif;
             font-size: 1.1em;
             margin: 0 1% 0 1%;
+            transition:transform 0.9s, top 0.9s;
         }
 
         .PopupHeader {

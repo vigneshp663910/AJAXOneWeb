@@ -87,21 +87,38 @@ namespace DealerManagementSystem.ViewService.UserControls
                 //    return;
                 //}
             }
-            else if (lbActions.Text == "TSIR Sales Approve L1")
-            {
-                //    UC_AddFSRAttachments.FillMaster(SDMS_ICTicket);
-                //    MPE_AddFSRAttachments.Show();
-            }
-            else if (lbActions.Text == "TSIR Sales Approve L2")
-            {
-                //    UC_AddFSRAttachments.FillMaster(SDMS_ICTicket);
-                //    MPE_AddFSRAttachments.Show();
-            }
             else if (lbActions.Text == "TSIR Reject")
             {
                 if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.Rejected, PSession.User.UserID, 0))
                 {
                     lblMessage.Text = "TSIR Status changed to Rejected";
+                    lblMessage.ForeColor = Color.Green;
+                    FillTsir(Tsir.TsirID);
+                }
+                else
+                {
+                    lblMessage.Text = "TSIR Status is not changed";
+                    lblMessage.ForeColor = Color.Red;
+                }
+                lblMessage.Visible = true;
+            }
+            else if (lbActions.Text == "TSIR Sales Approve L1")
+            {
+                btnSaleApproveL1.Visible = true;
+                btnSaleApproveL2.Visible = false;
+                MPE_SaleApprove.Show();
+            }
+            else if (lbActions.Text == "TSIR Sales Approve L2")
+            {
+                btnSaleApproveL1.Visible = false;
+                btnSaleApproveL2.Visible = true;
+                MPE_SaleApprove.Show();
+            }
+            else if (lbActions.Text == "TSIR Sales Reject")
+            {
+                if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.SalesRejected, PSession.User.UserID, 0))
+                {
+                    lblMessage.Text = "TSIR Status changed to Sales Rejected";
                     lblMessage.ForeColor = Color.Green;
                     FillTsir(Tsir.TsirID);
                 }
@@ -212,15 +229,65 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
         }
 
+        protected void btnSaleApproveL1_Click(object sender, EventArgs e)
+        {
+            lblMessage.Visible = true;
+
+            if (string.IsNullOrEmpty(txtSalesApproveAmount.Text.Trim()))
+            {
+                lblMessage.Text = "Please check the Sales 1 Approve Amount";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            Decimal ApproveAmount = Convert.ToDecimal(txtSalesApproveAmount.Text.Trim());
+            if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.SalesApprovedLevel1, PSession.User.UserID, ApproveAmount))
+            {
+                lblMessage.Text = "TSIR Status changed to Sales Approved";
+                lblMessage.ForeColor = Color.Green;
+                FillTsir(Tsir.TsirID); 
+            }
+            else
+            {
+                lblMessage.Text = "TSIR Status is not changed";
+                lblMessage.ForeColor = Color.Red;
+            }
+
+        }
+        protected void btnSaleApproveL2_Click(object sender, EventArgs e)
+        {
+            lblMessage.Visible = true;
+
+            if (string.IsNullOrEmpty(txtSalesApproveAmount.Text.Trim()))
+            {
+                lblMessage.Text = "Please check the Sales 2 Approve Amount";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+
+            Decimal ApproveAmount = Convert.ToDecimal(txtSalesApproveAmount.Text.Trim());
+            if (new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.SalesApproved, PSession.User.UserID, ApproveAmount))
+            {
+                lblMessage.Text = "TSIR Status changed to Sales Approved";
+                lblMessage.ForeColor = Color.Green;
+                FillTsir(Tsir.TsirID);
+            }
+            else
+            {
+                lblMessage.Text = "TSIR Status is not changed";
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+       
         void ActionControlMange()
         {
             lbtnEdit.Visible = true;
             lbtnCheck.Visible = true;
             lbtnApprove.Visible = true;
+            lbtnReject.Visible = true;
             lbtnSalesApproveL1.Visible = true;
             lbtnSalesApproveL2.Visible = true;
-            lbtnSendBack.Visible = true;
-            lbtnReject.Visible = true;
+            lbtnSalesReject.Visible = true;
+            lbtnSendBack.Visible = true;            
             lbtnCancel.Visible = true;
             
 
@@ -233,14 +300,17 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirApprove).Count() == 0)
             {
                 lbtnApprove.Visible = false;
+                lbtnReject.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL1).Count() == 0)
             {
                 lbtnSalesApproveL1.Visible = false;
+                lbtnSalesReject.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL2).Count() == 0)
             {
                 lbtnSalesApproveL2.Visible = false;
+                lbtnSalesReject.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCancel).Count() == 0)
             {
@@ -256,10 +326,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (Tsir.Status.StatusID == (short)TSIRStatus.Requested || Tsir.Status.StatusID == (short)TSIRStatus.Rerequested)
             {
                 lbtnApprove.Visible = false;
+                lbtnReject.Visible = false;
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
-                lbtnSendBack.Visible = false;
-                lbtnReject.Visible = false;
+                lbtnSalesReject.Visible = false;
+                lbtnSendBack.Visible = false; 
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.Checked)
             {
@@ -267,18 +338,20 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnCheck.Visible = false;
 
                 lbtnSalesApproveL1.Visible = false;
-                lbtnSalesApproveL2.Visible = false; 
+                lbtnSalesApproveL2.Visible = false;
+                lbtnSalesReject.Visible = false; 
             }
-            else if (Tsir.Status.StatusID == (short)TSIRStatus.Approved || (Tsir.Status.StatusID == (short)TSIRStatus.SalesApproved) || (Tsir.Status.StatusID == (short)TSIRStatus.SendBack))
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.Approved || (Tsir.Status.StatusID == (short)TSIRStatus.SalesApproved) || Tsir.Status.StatusID == (short)TSIRStatus.SendBack || Tsir.Status.StatusID == (short)TSIRStatus.SalesRejected)
             {
                 lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
                 lbtnApprove.Visible = false;
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
+                lbtnSalesReject.Visible = false;
                 lbtnSendBack.Visible = false;
                 lbtnReject.Visible = false;
-                lbtnCancel.Visible = false;
+                lbtnCancel.Visible = false; 
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.SalesApprovedLevel1)
             {
@@ -293,12 +366,18 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
-                lbtnApprove.Visible = false; 
-                lbtnSalesApproveL2.Visible = false;
-                lbtnSendBack.Visible = false;
+                lbtnApprove.Visible = false;
                 lbtnReject.Visible = false;
+
+              //  lbtnSalesApproveL1.Visible = false;
+                lbtnSalesApproveL2.Visible = false;
+                //lbtnSalesReject.Visible = false;
+
+                lbtnSendBack.Visible = false;
+                
             }
         }
+         
 
         //protected void btnSave_Click(object sender, EventArgs e)
         //{
