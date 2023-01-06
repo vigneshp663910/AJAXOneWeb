@@ -34,7 +34,7 @@
 
         #div1 {
             /*height: 91.7vh;*/
-            height: 100vh;
+           /* height: 100vh;*/
             display: flex;
             flex-direction: column;
             overflow: hidden;

@@ -185,8 +185,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt64(lblCustomerID.Text));
             pnlCustomerOld.Enabled = false;
             UC_AddLead.FillMaster();
-            UC_CustomerCreate.FillMaster();
-            UC_CustomerCreate.FillCustomer(Customer);
+            UC_Customer.FillMaster();
+            UC_Customer.FillCustomer(Customer);
             txtCustomerID.Text = Convert.ToString(Customer.CustomerID);
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
@@ -196,24 +196,24 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             MPE_Lead.Show();
             UC_AddLead.FillMaster();
-            UC_CustomerCreate.FillMaster();
+            UC_Customer.FillMaster();
 
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
-            DropDownList ddlCountry = (DropDownList)UC_CustomerCreate.FindControl("ddlCountry");
-            DropDownList ddlState = (DropDownList)UC_CustomerCreate.FindControl("ddlState");
+            DropDownList ddlCountry = (DropDownList)UC_Customer.FindControl("ddlCountry");
+            DropDownList ddlState = (DropDownList)UC_Customer.FindControl("ddlState");
             
-            DropDownList ddlDistrict = (DropDownList)UC_CustomerCreate.FindControl("ddlDistrict");
-            DropDownList ddlTehsil = (DropDownList)UC_CustomerCreate.FindControl("ddlTehsil");
+            DropDownList ddlDistrict = (DropDownList)UC_Customer.FindControl("ddlDistrict");
+            DropDownList ddlTehsil = (DropDownList)UC_Customer.FindControl("ddlTehsil");
 
 
-            TextBox txtCustomerName = (TextBox)UC_CustomerCreate.FindControl("txtCustomerName");
+            TextBox txtCustomerName = (TextBox)UC_Customer.FindControl("txtCustomerName");
             //  TextBox txtCustomerName2 = (TextBox)UC_Customer.FindControl("txtCustomerName2");
-            TextBox txtContactPerson = (TextBox)UC_CustomerCreate.FindControl("txtContactPerson");
-            TextBox txtMobile = (TextBox)UC_CustomerCreate.FindControl("txtMobile");
-            TextBox txtEmail = (TextBox)UC_CustomerCreate.FindControl("txtEmail");
-            TextBox txtAddress1 = (TextBox)UC_CustomerCreate.FindControl("txtAddress1");
-            TextBox txtAddress2 = (TextBox)UC_CustomerCreate.FindControl("txtAddress2");
-            TextBox txtAddress3 = (TextBox)UC_CustomerCreate.FindControl("txtAddress3");
+            TextBox txtContactPerson = (TextBox)UC_Customer.FindControl("txtContactPerson");
+            TextBox txtMobile = (TextBox)UC_Customer.FindControl("txtMobile");
+            TextBox txtEmail = (TextBox)UC_Customer.FindControl("txtEmail");
+            TextBox txtAddress1 = (TextBox)UC_Customer.FindControl("txtAddress1");
+            TextBox txtAddress2 = (TextBox)UC_Customer.FindControl("txtAddress2");
+            TextBox txtAddress3 = (TextBox)UC_Customer.FindControl("txtAddress3");
 
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
             ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID); 
@@ -257,22 +257,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageLead.Text = Message;
                 return;
             }
-            Lead = UC_AddLead.Read(); 
-            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+            Lead = UC_AddLead.Read();
+            //if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+            //{
+            //    Lead.Customer = new PDMS_Customer_Insert();
+            //    Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+            //}
+            //else
+            //{
+            Message = UC_Customer.ValidationCustomer();
+            if (!string.IsNullOrEmpty(Message))
             {
-                Lead.Customer = new PDMS_Customer_Insert();
-                Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+                lblMessageLead.Text = Message;
+                return;
             }
-            else
-            {
-                Message = UC_CustomerCreate.ValidationCustomer();
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblMessageLead.Text = Message;
-                    return;
-                }
-                Lead.Customer = UC_CustomerCreate.ReadCustomer();
-            }
+            Lead.Customer = UC_Customer.ReadCustomer();
+            //}
             Lead.EnquiryID = Enquiry.EnquiryID;
             string result = new BAPI().ApiPut("Lead", Lead);
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -285,8 +285,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             MPE_Lead.Hide();
             fillViewEnquiry(Enquiry.EnquiryID);
 
-           // PLeadSearch S = new PLeadSearch();
-           // S.LeadID = Convert.ToInt64(Results.Data);
+            // PLeadSearch S = new PLeadSearch();
+            // S.LeadID = Convert.ToInt64(Results.Data);
 
             // gvLead.DataSource = new BLead().GetLead(S);
             // gvLead.DataBind();

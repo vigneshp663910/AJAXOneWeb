@@ -1517,6 +1517,25 @@ namespace DealerManagementSystem.ViewService
             return null;
         }
 
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+
+            divTSIRView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblTsirID = (Label)gvRow.FindControl("lblTsirID");
+            UC_TSIRView.FillTsir(Convert.ToInt64(lblTsirID.Text));
+
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divTSIRView.Visible = false;
+            btnBackToList.Visible = false;
+        }
+
         //protected void btnView_Click(object sender, EventArgs e)
         //{
         //    pnlTSIRManage.Visible = false;

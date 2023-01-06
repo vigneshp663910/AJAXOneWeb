@@ -12,17 +12,23 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class OpenSupportTicket : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Open');</script>");
 
             if (!IsPostBack)
             {
-
                 if (!string.IsNullOrEmpty(Request.QueryString["SendForApproval"]))
                 {
                     FillAllFields(Convert.ToInt32(Request.QueryString["SendForApproval"]));
-                    pnList.Visible = false;
+                    divList.Visible = false;
                     pnView.Visible = true;
                 }
                 else
@@ -30,9 +36,10 @@ namespace DealerManagementSystem.ViewSupportTicket
                     FillCategory();
                     //   FillStatus();
                     FillCreatedBy();
-                    FillTickets();
+                    FillOpenTickets();
                 }
                 FillApproval();
+
 
                 //  txtRequestedDateFrom.Text = d.DataDespesa.ToString("yyyy-MM-dd");
             }
@@ -64,7 +71,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         //    ddlStatus.SelectedValue = "1";
         //}
 
-        void FillTickets()
+        void FillOpenTickets()
         {
             try
             {
@@ -111,7 +118,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            FillTickets();
+            FillOpenTickets();
         }
 
         protected void lbTicketNo_Click(object sender, EventArgs e)
@@ -126,7 +133,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             else if (rbSendForApproval.Checked)
             {
                 FillAllFields(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-                pnList.Visible = false;
+                divList.Visible = false;
                 pnView.Visible = true;
             }
             //else if (rbResolve.Checked)
@@ -136,7 +143,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             //}
             else if (rbReject.Checked)
             {
-                pnList.Visible = false;
+                divList.Visible = false;
                 pnlReject.Visible = true;
                 int HeaderId = Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text);
                 PTicketHeader TH = new BTickets().GetTicketByID(HeaderId)[0];
@@ -147,7 +154,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillTickets();
+            FillOpenTickets();
             gvTickets.PageIndex = e.NewPageIndex;
             gvTickets.DataBind();
             FillMessageStatus();
@@ -242,9 +249,9 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            pnList.Visible = true;
+            divList.Visible = true;
             pnView.Visible = false;
-            FillTickets();
+            FillOpenTickets();
         }
         protected void DownloadFile(object sender, EventArgs e)
         {
@@ -289,8 +296,14 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
-            Response.Redirect(url);
+            //string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            //Response.Redirect(url);
+            divSupportTicketView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
 
         void FillMessageStatus()
@@ -354,10 +367,15 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void btnRejectBack_Click(object sender, EventArgs e)
         {
-            pnList.Visible = true;
+            divList.Visible = true;
             pnlReject.Visible = false;
-            FillTickets();
+            FillOpenTickets();
         }
-
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divSupportTicketView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
+        }
     }
 }

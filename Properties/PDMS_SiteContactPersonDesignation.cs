@@ -10,5 +10,6 @@ namespace Properties
     {
         public int DesignationID { get; set; }
         public string Designation { get; set; }
+        public Boolean IsActive { get; set; }
     }
 }

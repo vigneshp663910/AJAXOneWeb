@@ -64,7 +64,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         public PDMS_Customer_Insert ReadCustomer()
         {
-            PDMS_Customer_Insert Customer = new PDMS_Customer_Insert();
+            PDMS_Customer_Insert Customer = new PDMS_Customer_Insert(); 
+            if (!string.IsNullOrEmpty(hdfCustomerID.Value))
+            {
+                Customer.CustomerID = Convert.ToInt64(hdfCustomerID.Value);
+                return Customer;
+            } 
+           
             Customer.Title = new PCustomerTitle() { TitleID = Convert.ToInt32(ddlTitle.SelectedValue) };
             Customer.CustomerName = txtCustomerName.Text.Trim();
             Customer.CustomerName2 = txtCustomerName2.Text.Trim();
@@ -116,7 +122,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 txtGSTIN.Enabled = true;
                 txtPAN.Enabled = true;
             }
-
+            ddlTitle.SelectedValue = Convert.ToString(Customer.Title.TitleID);
             txtCustomerName.Text = Customer.CustomerName;
             //  txtCustomerName2.Text = Customer.CustomerName2;
             txtGSTIN.Text = Customer.GSTIN;
@@ -154,6 +160,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         public void FillClean()
         {
+            hdfCustomerID.Value = "";
             txtCustomerName.Text = "";
             txtGSTIN.Text = "";
             txtPAN.Text = "";
@@ -170,11 +177,18 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtDOAnniversary.Text = "";
             cbSendSMS.Checked = false;
             cbSendEmail.Checked = false;
+
             FillMaster();
         }
 
         public string ValidationCustomer()
         {
+
+            if (!string.IsNullOrEmpty(hdfCustomerID.Value))
+            {
+                return "";
+            }
+
             long longCheck;
 
 
@@ -359,6 +373,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlDealer.DataSource = PSession.User.Dealer;
             ddlDealer.DataBind();
             
+        }
+
+        protected void BtnChangeCustomer_Click(object sender, EventArgs e)
+        {
+            hdfCustomerID.Value = "";
+            txtCustomerName.Text = "";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>document.getElementById('divCustomerViewID').style.display = 'none';</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>document.getElementById('divCustomerCreateID').style.display = 'block';</script>");
         }
     }
 }

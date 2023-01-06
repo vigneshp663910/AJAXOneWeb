@@ -16,15 +16,16 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            } 
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>"); 
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Report');</script>");
             if (!IsPostBack)
             {
-
-                new FillDropDownt().Category(ddlCategory, null,null);
+                new FillDropDownt().Category(ddlCategory, null, null);
+                ddlCategory_SelectedIndexChanged(null, null);
+                FillTicketSeverity();
                 //  new FillDropDownt().SubCategory(ddlSubcategory, null, null, null);
                 new FillDropDownt().Type(ddlTicketType, null, null);
                 FillStatus();
@@ -42,20 +43,38 @@ namespace DealerManagementSystem.ViewSupportTicket
             lbStatus.DataBind();
             lbStatus.Items.Insert(0, new ListItem("Select", "0"));
         }
-
+        void FillSubCategory()
+        {
+            ddlSubcategory.DataTextField = "SubCategory";
+            ddlSubcategory.DataValueField = "SubCategoryID";
+            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataBind();
+            ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillCategory()
+        {
+            ddlCategory.DataTextField = "Category";
+            ddlCategory.DataValueField = "CategoryID";
+            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillTicketSeverity()
+        {
+            ddlSeverity.DataTextField = "Severity";
+            ddlSeverity.DataValueField = "SeverityID";
+            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlSeverity.DataBind();
+            ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
+        }
         void FillTickets()
         {
             int? TicketNO = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
-            int? SubCategoryID = null;
-            //if (ddlSubcategory.Items.Count > 0)
-            //{
-            //    SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
-            //}
-
-            // int? CreatedBy = ddlCreatedBy.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCreatedBy.SelectedValue);
+            int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
+            int? SeverityID = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int? TypeId = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-            string TicketStatus = "";// lbStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(lbStatus.SelectedValue);
+            string TicketStatus = "";
             foreach (ListItem li in lbStatus.Items)
             {
                 if (li.Selected)
@@ -63,54 +82,27 @@ namespace DealerManagementSystem.ViewSupportTicket
                     TicketStatus = TicketStatus + "," + li.Text;
                 }
             }
+            DateTime? TicketFrom = null;
+            if (!string.IsNullOrEmpty(txtTicketFrom.Text))
+            {
+                TicketFrom = Convert.ToDateTime(txtTicketFrom.Text);
+            }
+            DateTime? TicketTo = null;
+            if (!string.IsNullOrEmpty(txtTicketTo.Text))
+            {
+                TicketTo = Convert.ToDateTime(txtTicketTo.Text).AddDays(1);
+            }
             PUser User = PSession.User;
-
-            //  gvTickets.DataSource = new BTickets().GetManageTickets(TicketNO, TicketStatus, TicketCategoryID, TicketSubCategoryID, TicketType, CreatedBy, DepartmentID, AssignedTo, usreID);
-            List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer)
-            //{ 
-            TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
-
-            // if (PSession.User.UserName.Contains("IT."))
-            if ((User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemHead) || (User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemManager))
-            {
-                // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, null, TicketStatus);
-                gvTickets.Columns[10].Visible = true;
-            }
-            else
-            {
-                // TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, PSession.User.UserID, TicketStatus);
-                gvTickets.Columns[10].Visible = false;
-                gvTickets.Columns[11].Visible = false;
-            }
-            // }
+            List<PTicketHeader> TicketHeader = new List<PTicketHeader>();  
+            TicketHeader = new BTickets().GetTicketDetails(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, null, null, PSession.User.UserID, TicketStatus, TicketFrom, TicketTo);
 
             gvTickets.DataSource = TicketHeader;
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
-                Label lblTicketStatus = (Label)gvTickets.Rows[i].FindControl("lblTicketStatus");
-                Button btnClose = (Button)gvTickets.Rows[i].FindControl("btnClose");
-                Button btnReassign = (Button)gvTickets.Rows[i].FindControl("btnReassign");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
-                if (lblTicketStatus.Text == "Resolved")
-                {
-                    btnClose.Visible = true;
-                }
-                else
-                {
-                    btnClose.Visible = false;
-                }
 
-                if (lblTicketStatus.Text == "Resolved" || lblTicketStatus.Text == "Closed")
-                {
-                    btnReassign.Visible = false;
-                }
-                else
-                {
-                    btnReassign.Visible = true;
-                }
                 int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
                 if (count == 0)
                 {
@@ -131,7 +123,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
-            // new FillDropDownt().SubCategory(ddlSubcategory, null, null, CategoryID);
+            new FillDropDownt().SubCategory(ddlSubcategory, null, null, CategoryID);
         }
 
         //protected void lbTicketNo_Click(object sender, EventArgs e)
@@ -183,15 +175,19 @@ namespace DealerManagementSystem.ViewSupportTicket
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
         }
-
         protected void ibMessage_Click(object sender, ImageClickEventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
-            Response.Redirect(url);
+            //string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            //Response.Redirect(url);
+            divSupportTicketView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
-
         protected void btnReassign_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -211,6 +207,12 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Response.Redirect(url);
             }
             Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + lblTicketID.Text + "&ItemNo=" + ItemNo.ToString());
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divSupportTicketView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
         }
     }
 }

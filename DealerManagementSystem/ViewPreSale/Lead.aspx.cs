@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
         }
 
-        
+
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -99,28 +99,28 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessageLead.Text = Message;
                 return;
             }
-            Lead= UC_AddLead.Read();
+            Lead = UC_AddLead.Read();
 
 
-            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+            //if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+            //{
+            //    Lead.Customer = new PDMS_Customer_Insert();
+            //    Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+            //}
+            //else
+            //{
+            Message = UC_Customer.ValidationCustomer();
+            if (!string.IsNullOrEmpty(Message))
             {
-                Lead.Customer = new PDMS_Customer_Insert();
-                Lead.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+                lblMessageLead.Text = Message;
+                return;
             }
-            else
-            {
-                Message = UC_Customer.ValidationCustomer(); 
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblMessageLead.Text = Message;
-                    return;
-                }
-                Lead.Customer = UC_Customer.ReadCustomer();
-            }   
-            
+            Lead.Customer = UC_Customer.ReadCustomer();
+            //}   
+
 
             string result = new BAPI().ApiPut("Lead", Lead);
-            PApiResult Result=  JsonConvert.DeserializeObject<PApiResult>(result);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
             //result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
 
             if (Result.Status == PApplication.Failure)
@@ -147,9 +147,9 @@ namespace DealerManagementSystem.ViewPreSale
 
             PLeadSearch S = new PLeadSearch();
             S.LeadID = Convert.ToInt64(Result.Data);
-             
+
             gvLead.DataSource = new BLead().GetLead(S);
-            gvLead.DataBind();  
+            gvLead.DataBind();
             UC_Customer.FillClean();
             MPE_Customer.Hide();
         }

@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,37 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class MTTR_New : System.Web.UI.Page
     {
-        public List<PDMS_MTTR_New> SDMS_MTTR
+        private int PageCount
         {
             get
             {
-                if (Session["DMS_MTTR_New"] == null)
+                if (ViewState["PageCount"] == null)
                 {
-                    Session["DMS_MTTR_New"] = new List<PDMS_MTTR_New>();
+                    ViewState["PageCount"] = 0;
                 }
-                return (List<PDMS_MTTR_New>)Session["DMS_MTTR_New"];
+                return (int)ViewState["PageCount"];
             }
             set
             {
-                Session["DMS_MTTR_New"] = value;
+                ViewState["PageCount"] = value;
             }
         }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
+        
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_MTTR_New.aspx";
@@ -35,8 +52,7 @@ namespace DealerManagementSystem.ViewService
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,19 +64,13 @@ namespace DealerManagementSystem.ViewService
             }
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
+
                 fillStatus();
                 new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                new BDMS_Dealer().LoadDealerDDL(ddlDealerCode);
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
                 txtICLoginDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtICLoginDateTo.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;
@@ -72,6 +82,7 @@ namespace DealerManagementSystem.ViewService
         {
             try
             {
+                PageIndex = 1;
                 fillMTTR();
             }
             catch (Exception e1)
@@ -87,35 +98,20 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 TraceLogger.Log(DateTime.Now);
-                string DealerCode = ddlDealerCode.SelectedValue == "0" ? "" : ddlDealerCode.SelectedValue;
-                DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
-                DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim());
+                int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
                 string Division = "";
                 if (ddlDivision.SelectedValue != "0")
                 {
                     Division = ddlDivision.SelectedValue;
                 }
-                List<PDMS_MTTR_New> MttrsWithText = new BDMS_MTTR().GetMTTR(DealerCode, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, PSession.User.UserID, Division);
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in MttrsWithText
-                                 join D in PSession.User.Dealer on S.ICTicket.Dealer.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    MttrsWithText.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        MttrsWithText.Add(w.S);
-                    }
-                }
-                SDMS_MTTR = MttrsWithText;
+                //   List<PDMS_MTTR_New> MttrsWithText
+                PApiResult Result = new BDMS_MTTR().GetMTTR(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), txtICLoginDateFrom.Text.Trim(), txtICLoginDateTo.Text.Trim(), StatusID, Division, PageIndex, gvICTickets.PageSize);
+
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SDMS_MTTR;
+                gvICTickets.DataSource = JsonConvert.DeserializeObject<List<PDMS_MTTR_New>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.DataBind();
-                if (SDMS_MTTR.Count == 0)
+                if (Result.RowCount == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -123,11 +119,14 @@ namespace DealerManagementSystem.ViewService
                 }
                 else
                 {
+                    PageCount = (Result.RowCount + gvICTickets.PageSize - 1) / gvICTickets.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_MTTR.Count;
+                    lblRowCount.Text = (((PageIndex - 1) * gvICTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + Result.RowCount;
                 }
+
+               
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -146,23 +145,19 @@ namespace DealerManagementSystem.ViewService
         }
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageIndex > 0)
-            {
-                gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
-                gvICTickets.DataSource = SDMS_MTTR;
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_MTTR.Count;
+            if (PageIndex > 1)
+            { 
+                PageIndex = PageIndex - 1;
+                fillMTTR(); 
             }
         }
 
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageCount > gvICTickets.PageIndex)
-            {
-                gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
-                gvICTickets.DataSource = SDMS_MTTR;
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_MTTR.Count;
+            if (PageCount > PageIndex)
+            { 
+                PageIndex = PageIndex + 1;
+                fillMTTR(); 
             }
         }
 
@@ -257,115 +252,134 @@ namespace DealerManagementSystem.ViewService
             DateTime? WorkDate = null;
             Decimal? WorkHrs = null;
 
-            foreach (PDMS_MTTR_New M in SDMS_MTTR)
+
+            int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+            string Division = "";
+            if (ddlDivision.SelectedValue != "0")
             {
-                List<PDMS_ServiceNote> Breakdown = new BDMS_Service().GetServiceNote(M.ICTicketID, null, null, "");
-                List<Technician> Technicians = fillTechnician(M.ICTicketID);
-
-                int totalC = Breakdown.Count > Technicians.Count ? Breakdown.Count : Technicians.Count;
-                int i = 0;
-
-                do
-                {
-                    CallOpenReason = "";
-                    CallOpenReasonDetails = "";
-
-                    SerEnggName = "";
-                    WorkDate = null;
-                    WorkHrs = null;
-                    if (i < Breakdown.Count)
-                    {
-                        CallOpenReason = Breakdown[i].NoteType.NoteType;
-                        CallOpenReasonDetails = Breakdown[i].Comments;
-                    }
-
-                    if (i < Technicians.Count)
-                    {
-                        SerEnggName = Technicians[i].Name;
-                        WorkDate = Technicians[i].WorkedDate;
-                        WorkHrs = Technicians[i].WorkedHours;
-                    }
-
-
-                    dt.Rows.Add(
-                                                 M.ICTicket.ICTicketNumber
-                                               , M.ICTicket.ICTicketDate.ToShortDateString()
-
-                                               , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortDateString()
-                                               , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortDateString()
-                                               , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortDateString()
-
-
-
-                                               , M.ICTicket.Equipment.EquipmentModel.Model
-                                               , M.ICTicket.Equipment.EquipmentSerialNo
-                                               , M.ICTicket.ComplaintDescription
-                                               , M.ICTicket.ServicePriority.ServicePriority
-                                                 , M.ICTicket.CurrentHMRValue
-                                                 , M.ICTicket.ServiceStatus.ServiceStatus
-                                                   , CallOpenReason
-                                               , CallOpenReasonDetails
-                                                , M.ICTicket.Customer.CustomerName
-                                                , M.ICTicket.Dealer.DealerName
-                                                 , M.ICTicket.Location
-                                               , M.MTTR1
-                                               , M.MTTR2
-
-                                               , M.StatusSince
-
-                                               , M.ICTicket.ServiceType.ServiceType
-                                               , M.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)M.ICTicket.Equipment.DispatchedOn).ToShortDateString()
-                                               , M.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)M.ICTicket.Equipment.CommissioningOn).ToShortDateString()
-                                               , M.ICTicket.Equipment.WarrantyExpiryDate == null ? "" : ((DateTime)M.ICTicket.Equipment.WarrantyExpiryDate).ToShortDateString()
-                                               , Convert.ToString(M.ICTicket.IsWarranty)
-
-                                               , M.ICTicket.Customer.CustomerCode
-
-                                               , M.ICTicket.Dealer.DealerCode
-
-
-                                               , M.ICTicket.Address.District.District
-                                               , M.ICTicket.Address.State.State
-                                               , M.ICTicket.Address.Region.Region
-
-
-                                               , M.ICTicket.Equipment.EquipmentModel.Division.DivisionCode
-
-                                               , SerEnggName
-                                               , WorkDate
-                                               , WorkHrs
-                                               , M.code
-                                               , M.ICTicket.Material.MaterialCode
-                                               , M.description1
-
-                                               // , M.ICTicket.ICPriority == null ? "" : M.ICTicket.ICPriority.ServicePriority
-
-                                               , M.ICTicket.MainApplication.MainApplication
-                                               , M.ICTicket.PresentContactNumber
-                                               , M.ICTicket.ContactPerson
-                                               , M.ICTicket.FSRNumber
-                                               // ,""
-                                               , ""
-                                               , M.ICTicket.CustomerSatisfactionLevel == null ? "" : M.ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel
-                                               , M.TotalMandays
-                                               , M.TotalHours
-                                               , M.ICTicket.MarginRemark
-                                               , M.ICTicket.ScopeOfWork
-                                               , M.ICTicket.HillyRegion
-
-                                               , M.ICTicket.ReqDeclinedReason
-                                                , M.ICTicket.ICTicketDate.ToShortTimeString()
-                                               , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortTimeString()
-                                               , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortTimeString()
-                                               , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
-                                                 , M.MTTR1H
-                                               , M.MTTR2H
-                                                );
-
-                    i++;
-                } while (totalC > i);
-
+                Division = ddlDivision.SelectedValue;
             }
+            int Index = 0;
+            int Rowcount = 200;
+            int CRowcount = Rowcount;
+            while (Rowcount == CRowcount)
+            {
+                Index = Index + 1;
+                PApiResult Result = new BDMS_MTTR().GetMTTR(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), txtICLoginDateFrom.Text.Trim(), txtICLoginDateTo.Text.Trim(), StatusID, Division, Index, Rowcount);
+                 
+                List<PDMS_MTTR_New> SDMS_MTTR = JsonConvert.DeserializeObject<List<PDMS_MTTR_New>>(JsonConvert.SerializeObject(Result.Data));
+                CRowcount = SDMS_MTTR.Count;
+                foreach (PDMS_MTTR_New M in SDMS_MTTR)
+                {
+                    List<PDMS_ServiceNote> Breakdown = new BDMS_Service().GetServiceNote(M.ICTicketID, null, null, "");
+                    List<Technician> Technicians = fillTechnician(M.ICTicketID);
+
+                    int totalC = Breakdown.Count > Technicians.Count ? Breakdown.Count : Technicians.Count;
+                    int i = 0;
+
+                    do
+                    {
+                        CallOpenReason = "";
+                        CallOpenReasonDetails = "";
+
+                        SerEnggName = "";
+                        WorkDate = null;
+                        WorkHrs = null;
+                        if (i < Breakdown.Count)
+                        {
+                            CallOpenReason = Breakdown[i].NoteType.NoteType;
+                            CallOpenReasonDetails = Breakdown[i].Comments;
+                        }
+
+                        if (i < Technicians.Count)
+                        {
+                            SerEnggName = Technicians[i].Name;
+                            WorkDate = Technicians[i].WorkedDate;
+                            WorkHrs = Technicians[i].WorkedHours;
+                        }
+
+
+                        dt.Rows.Add(
+                                                     M.ICTicket.ICTicketNumber
+                                                   , M.ICTicket.ICTicketDate.ToShortDateString()
+
+                                                   , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortDateString()
+                                                   , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortDateString()
+                                                   , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortDateString()
+
+
+
+                                                   , M.ICTicket.Equipment.EquipmentModel.Model
+                                                   , M.ICTicket.Equipment.EquipmentSerialNo
+                                                   , M.ICTicket.ComplaintDescription
+                                                   , M.ICTicket.ServicePriority.ServicePriority
+                                                     , M.ICTicket.CurrentHMRValue
+                                                     , M.ICTicket.ServiceStatus.ServiceStatus
+                                                       , CallOpenReason
+                                                   , CallOpenReasonDetails
+                                                    , M.ICTicket.Customer.CustomerName
+                                                    , M.ICTicket.Dealer.DealerName
+                                                     , M.ICTicket.Location
+                                                   , M.MTTR1
+                                                   , M.MTTR2
+
+                                                   , M.StatusSince
+
+                                                   , M.ICTicket.ServiceType.ServiceType
+                                                   , M.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)M.ICTicket.Equipment.DispatchedOn).ToShortDateString()
+                                                   , M.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)M.ICTicket.Equipment.CommissioningOn).ToShortDateString()
+                                                   , M.ICTicket.Equipment.WarrantyExpiryDate == null ? "" : ((DateTime)M.ICTicket.Equipment.WarrantyExpiryDate).ToShortDateString()
+                                                   , Convert.ToString(M.ICTicket.IsWarranty)
+
+                                                   , M.ICTicket.Customer.CustomerCode
+
+                                                   , M.ICTicket.Dealer.DealerCode
+
+
+                                                   , M.ICTicket.Address.District.District
+                                                   , M.ICTicket.Address.State.State
+                                                   , M.ICTicket.Address.Region.Region
+
+
+                                                   , M.ICTicket.Equipment.EquipmentModel.Division.DivisionCode
+
+                                                   , SerEnggName
+                                                   , WorkDate
+                                                   , WorkHrs
+                                                   , M.code
+                                                   , M.ICTicket.Material.MaterialCode
+                                                   , M.description1
+
+                                                   // , M.ICTicket.ICPriority == null ? "" : M.ICTicket.ICPriority.ServicePriority
+
+                                                   , M.ICTicket.MainApplication.MainApplication
+                                                   , M.ICTicket.PresentContactNumber
+                                                   , M.ICTicket.ContactPerson
+                                                   , M.ICTicket.FSRNumber
+                                                   // ,""
+                                                   , ""
+                                                   , M.ICTicket.CustomerSatisfactionLevel == null ? "" : M.ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel
+                                                   , M.TotalMandays
+                                                   , M.TotalHours
+                                                   , M.ICTicket.MarginRemark
+                                                   , M.ICTicket.ScopeOfWork
+                                                   , M.ICTicket.HillyRegion
+
+                                                   , M.ICTicket.ReqDeclinedReason
+                                                    , M.ICTicket.ICTicketDate.ToShortTimeString()
+                                                   , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortTimeString()
+                                                   , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortTimeString()
+                                                   , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
+                                                     , M.MTTR1H
+                                                   , M.MTTR2H
+                                                    );
+
+                        i++;
+                    } while (totalC > i);
+
+                }
+            }  
             new BXcel().ExporttoExcel(dt, "MTTR New Report");
         }
         protected void btnExportExcel_Click_Old(object sender, EventArgs e)
@@ -446,174 +460,173 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("SE Restore Time");
             dt.Columns.Add("MTTR1-Act Resp(Hour)");
             dt.Columns.Add("MTTR2-Actual Restored(Hour)");
-
-            foreach (PDMS_MTTR_New M in SDMS_MTTR)
+            int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+            string Division = "";
+            if (ddlDivision.SelectedValue != "0")
             {
-                List<PDMS_ServiceNote> Breakdown = new BDMS_Service().GetServiceNote(Convert.ToInt64(M.ICTicketID), null, null, "");
-                if (Breakdown.Count == 0)
+                Division = ddlDivision.SelectedValue;
+            }
+            int Index = 0;
+            int Rowcount = 200;
+            int CRowcount = Rowcount;
+            while (Rowcount == CRowcount)
+            {
+                Index = Index + 1;
+                PApiResult Result = new BDMS_MTTR().GetMTTR(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), txtICLoginDateFrom.Text.Trim(), txtICLoginDateTo.Text.Trim(), StatusID, Division, Index, 100);
+                List<PDMS_MTTR_New> SDMS_MTTR = JsonConvert.DeserializeObject<List<PDMS_MTTR_New>>(JsonConvert.SerializeObject(Result.Data));
+                CRowcount = SDMS_MTTR.Count;
+                foreach (PDMS_MTTR_New M in SDMS_MTTR)
                 {
-                    dt.Rows.Add(
-                                                 M.ICTicket.ICTicketNumber
-                                               , M.ICTicket.ICTicketDate.ToShortDateString()
-
-                                               , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortDateString()
-                                               , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortDateString()
-                                               , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortDateString()
-
-
-
-                                               , M.ICTicket.Equipment.EquipmentModel.Model
-                                               , M.ICTicket.Equipment.EquipmentSerialNo
-                                               , M.ICTicket.ComplaintDescription
-                                               , M.ICTicket.ServicePriority.ServicePriority
-                                                 , M.ICTicket.CurrentHMRValue
-                                                 , M.ICTicket.ServiceStatus.ServiceStatus
-                                                   , ""
-                                               , ""
-                                                , M.ICTicket.Customer.CustomerName
-                                                , M.ICTicket.Dealer.DealerName
-                                                 , M.ICTicket.Location
-                                               , M.MTTR1
-                                               , M.MTTR2
-
-                                               , M.StatusSince
-
-                                               , M.ICTicket.ServiceType.ServiceType
-                                               , M.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)M.ICTicket.Equipment.DispatchedOn).ToShortDateString()
-                                               , M.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)M.ICTicket.Equipment.CommissioningOn).ToShortDateString()
-                                               , M.ICTicket.Equipment.WarrantyExpiryDate == null ? "" : ((DateTime)M.ICTicket.Equipment.WarrantyExpiryDate).ToShortDateString()
-                                               , Convert.ToString(M.ICTicket.IsWarranty)
-
-                                               , M.ICTicket.Customer.CustomerCode
-
-                                               , M.ICTicket.Dealer.DealerCode
-
-
-                                               , M.ICTicket.Address.District.District
-                                               , M.ICTicket.Address.State.State
-                                               , M.ICTicket.Address.Region.Region
-
-
-                                               , M.ICTicket.Equipment.EquipmentModel.Division.DivisionCode
-
-                                               , M.ICTicket.Technician.ContactName
-                                               , M.code
-                                               , M.ICTicket.Material.MaterialCode
-                                               , M.description1
-
-                                               // , M.ICTicket.ICPriority == null ? "" : M.ICTicket.ICPriority.ServicePriority
-
-                                               , M.ICTicket.MainApplication.MainApplication
-                                               , M.ICTicket.PresentContactNumber
-                                               , M.ICTicket.ContactPerson
-                                               , M.ICTicket.FSRNumber
-                                               // ,""
-                                               , ""
-                                               , M.ICTicket.CustomerSatisfactionLevel == null ? "" : M.ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel
-                                               , M.TotalMandays
-                                               , M.TotalHours
-                                               , M.ICTicket.MarginRemark
-                                               , M.ICTicket.ScopeOfWork
-                                               , M.ICTicket.HillyRegion
-
-                                               , M.ICTicket.ReqDeclinedReason
-                                                , M.ICTicket.ICTicketDate.ToShortTimeString()
-                                               , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortTimeString()
-                                               , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortTimeString()
-                                               , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
-                                                 , M.MTTR1H
-                                               , M.MTTR2H
-                                                );
-                }
-                else
-                {
-                    foreach (PDMS_ServiceNote B in Breakdown)
+                    List<PDMS_ServiceNote> Breakdown = new BDMS_Service().GetServiceNote(Convert.ToInt64(M.ICTicketID), null, null, "");
+                    if (Breakdown.Count == 0)
                     {
                         dt.Rows.Add(
-                              M.ICTicket.ICTicketNumber
-                            , M.ICTicket.ICTicketDate.ToShortDateString()
-                                               , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortDateString()
-                                               , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortDateString()
-                                               , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortDateString()
+                                                     M.ICTicket.ICTicketNumber
+                                                   , M.ICTicket.ICTicketDate.ToShortDateString()
+
+                                                   , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortDateString()
+                                                   , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortDateString()
+                                                   , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortDateString()
 
 
-                                                 , M.ICTicket.Equipment.EquipmentModel.Model
-                                               , M.ICTicket.Equipment.EquipmentSerialNo
-                                               , M.ICTicket.ComplaintDescription
-                                               , M.ICTicket.ServicePriority.ServicePriority
-                                                 , M.ICTicket.CurrentHMRValue
-                                                 , M.ICTicket.ServiceStatus.ServiceStatus
-                                                  , B.NoteType.NoteType
-                            , B.Comments
-                                                , M.ICTicket.Customer.CustomerName
-                                                , M.ICTicket.Dealer.DealerName
-                                                 , M.ICTicket.Location
+
+                                                   , M.ICTicket.Equipment.EquipmentModel.Model
+                                                   , M.ICTicket.Equipment.EquipmentSerialNo
+                                                   , M.ICTicket.ComplaintDescription
+                                                   , M.ICTicket.ServicePriority.ServicePriority
+                                                     , M.ICTicket.CurrentHMRValue
+                                                     , M.ICTicket.ServiceStatus.ServiceStatus
+                                                       , ""
+                                                   , ""
+                                                    , M.ICTicket.Customer.CustomerName
+                                                    , M.ICTicket.Dealer.DealerName
+                                                     , M.ICTicket.Location
+                                                   , M.MTTR1
+                                                   , M.MTTR2
+
+                                                   , M.StatusSince
+
+                                                   , M.ICTicket.ServiceType.ServiceType
+                                                   , M.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)M.ICTicket.Equipment.DispatchedOn).ToShortDateString()
+                                                   , M.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)M.ICTicket.Equipment.CommissioningOn).ToShortDateString()
+                                                   , M.ICTicket.Equipment.WarrantyExpiryDate == null ? "" : ((DateTime)M.ICTicket.Equipment.WarrantyExpiryDate).ToShortDateString()
+                                                   , Convert.ToString(M.ICTicket.IsWarranty)
+
+                                                   , M.ICTicket.Customer.CustomerCode
+
+                                                   , M.ICTicket.Dealer.DealerCode
 
 
-                            , M.MTTR1
-                            , M.MTTR2
-                            , M.StatusSince
-                            , M.ICTicket.ServiceType.ServiceType
-                                               , M.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)M.ICTicket.Equipment.DispatchedOn).ToShortDateString()
-                                               , M.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)M.ICTicket.Equipment.CommissioningOn).ToShortDateString()
-                                               , M.ICTicket.Equipment.WarrantyExpiryDate == null ? "" : ((DateTime)M.ICTicket.Equipment.WarrantyExpiryDate).ToShortDateString()
-                             , Convert.ToString(M.ICTicket.IsWarranty)
-                            , M.ICTicket.Customer.CustomerCode
-                            , M.ICTicket.Dealer.DealerCode
-                            , M.ICTicket.Address.District.District
-                            , M.ICTicket.Address.State.State
-                            , M.ICTicket.Address.Region.Region
-                            , M.ICTicket.Equipment.EquipmentModel.Division.DivisionCode
-                            , M.ICTicket.Technician.ContactName
-                            , M.code
-                            , M.ICTicket.Material.MaterialCode
-                            , M.description1
-                            //, M.ICTicket.ICPriority == null ? "" : M.ICTicket.ICPriority.ServicePriority 
-                            , M.ICTicket.MainApplication.MainApplication
-                            , M.ICTicket.PresentContactNumber
-                            , M.ICTicket.ContactPerson
-                            , M.ICTicket.FSRNumber
-                                               // , ""
-                                               , ""
-                            , M.ICTicket.CustomerSatisfactionLevel == null ? "" : M.ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel
-                            , M.TotalMandays
-                            , M.TotalHours
-                            , M.ICTicket.MarginRemark
-                            , M.ICTicket.ScopeOfWork
-                            , M.ICTicket.HillyRegion
+                                                   , M.ICTicket.Address.District.District
+                                                   , M.ICTicket.Address.State.State
+                                                   , M.ICTicket.Address.Region.Region
 
-                            , M.ICTicket.ReqDeclinedReason
-                             , M.ICTicket.ICTicketDate.ToShortTimeString()
-                                               , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortTimeString()
-                                               , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortTimeString()
-                                               , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
-                                                 , M.MTTR1H
-                                               , M.MTTR2H
-                                               );
+
+                                                   , M.ICTicket.Equipment.EquipmentModel.Division.DivisionCode
+
+                                                   , M.ICTicket.Technician.ContactName
+                                                   , M.code
+                                                   , M.ICTicket.Material.MaterialCode
+                                                   , M.description1
+
+                                                   // , M.ICTicket.ICPriority == null ? "" : M.ICTicket.ICPriority.ServicePriority
+
+                                                   , M.ICTicket.MainApplication.MainApplication
+                                                   , M.ICTicket.PresentContactNumber
+                                                   , M.ICTicket.ContactPerson
+                                                   , M.ICTicket.FSRNumber
+                                                   // ,""
+                                                   , ""
+                                                   , M.ICTicket.CustomerSatisfactionLevel == null ? "" : M.ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel
+                                                   , M.TotalMandays
+                                                   , M.TotalHours
+                                                   , M.ICTicket.MarginRemark
+                                                   , M.ICTicket.ScopeOfWork
+                                                   , M.ICTicket.HillyRegion
+
+                                                   , M.ICTicket.ReqDeclinedReason
+                                                    , M.ICTicket.ICTicketDate.ToShortTimeString()
+                                                   , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortTimeString()
+                                                   , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortTimeString()
+                                                   , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
+                                                     , M.MTTR1H
+                                                   , M.MTTR2H
+                                                    );
+                    }
+                    else
+                    {
+                        foreach (PDMS_ServiceNote B in Breakdown)
+                        {
+                            dt.Rows.Add(
+                                  M.ICTicket.ICTicketNumber
+                                , M.ICTicket.ICTicketDate.ToShortDateString()
+                                                   , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortDateString()
+                                                   , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortDateString()
+                                                   , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortDateString()
+
+
+                                                     , M.ICTicket.Equipment.EquipmentModel.Model
+                                                   , M.ICTicket.Equipment.EquipmentSerialNo
+                                                   , M.ICTicket.ComplaintDescription
+                                                   , M.ICTicket.ServicePriority.ServicePriority
+                                                     , M.ICTicket.CurrentHMRValue
+                                                     , M.ICTicket.ServiceStatus.ServiceStatus
+                                                      , B.NoteType.NoteType
+                                , B.Comments
+                                                    , M.ICTicket.Customer.CustomerName
+                                                    , M.ICTicket.Dealer.DealerName
+                                                     , M.ICTicket.Location
+
+
+                                , M.MTTR1
+                                , M.MTTR2
+                                , M.StatusSince
+                                , M.ICTicket.ServiceType.ServiceType
+                                                   , M.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)M.ICTicket.Equipment.DispatchedOn).ToShortDateString()
+                                                   , M.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)M.ICTicket.Equipment.CommissioningOn).ToShortDateString()
+                                                   , M.ICTicket.Equipment.WarrantyExpiryDate == null ? "" : ((DateTime)M.ICTicket.Equipment.WarrantyExpiryDate).ToShortDateString()
+                                 , Convert.ToString(M.ICTicket.IsWarranty)
+                                , M.ICTicket.Customer.CustomerCode
+                                , M.ICTicket.Dealer.DealerCode
+                                , M.ICTicket.Address.District.District
+                                , M.ICTicket.Address.State.State
+                                , M.ICTicket.Address.Region.Region
+                                , M.ICTicket.Equipment.EquipmentModel.Division.DivisionCode
+                                , M.ICTicket.Technician.ContactName
+                                , M.code
+                                , M.ICTicket.Material.MaterialCode
+                                , M.description1
+                                //, M.ICTicket.ICPriority == null ? "" : M.ICTicket.ICPriority.ServicePriority 
+                                , M.ICTicket.MainApplication.MainApplication
+                                , M.ICTicket.PresentContactNumber
+                                , M.ICTicket.ContactPerson
+                                , M.ICTicket.FSRNumber
+                                                   // , ""
+                                                   , ""
+                                , M.ICTicket.CustomerSatisfactionLevel == null ? "" : M.ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel
+                                , M.TotalMandays
+                                , M.TotalHours
+                                , M.ICTicket.MarginRemark
+                                , M.ICTicket.ScopeOfWork
+                                , M.ICTicket.HillyRegion
+
+                                , M.ICTicket.ReqDeclinedReason
+                                 , M.ICTicket.ICTicketDate.ToShortTimeString()
+                                                   , M.ICTicket.RequestedDate == null ? "" : ((DateTime)M.ICTicket.RequestedDate).ToShortTimeString()
+                                                   , M.ICTicket.ReachedDate == null ? "" : ((DateTime)M.ICTicket.ReachedDate).ToShortTimeString()
+                                                   , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
+                                                     , M.MTTR1H
+                                                   , M.MTTR2H
+                                                   );
+                        }
                     }
                 }
             }
             new BXcel().ExporttoExcel(dt, "MTTR New Report");
         }
-        protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-
-            gvICTickets.PageIndex = e.NewPageIndex;
-            gvICTickets.DataSource = SDMS_MTTR;
-            gvICTickets.DataBind();
-            lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_MTTR.Count;
-
-        }
-
-
-        void fillDealer()
-        {
-            ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
-            ddlDealerCode.DataSource = PSession.User.Dealer;
-            ddlDealerCode.DataBind();
-            ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
-        }
+        
+         
 
         protected void gvICTicketsWithText_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -626,9 +639,7 @@ namespace DealerManagementSystem.ViewService
                     Boolean cbIsNew = ((CheckBox)e.Row.FindControl("cbIsNew")).Checked;
                     GridView gvBreakdown = (GridView)e.Row.FindControl("gvBreakdown");
 
-                    long ICTicketID = Convert.ToInt64(f_ic_ticket_id);
-                    //  List<PBreakdown> Breakdown = new List<PBreakdown>();
-                    //  Breakdown = SDMS_MTTR.Find(s => s.ICTicket.ICTicketNumber == f_ic_ticket_id).Breakdown;
+                    long ICTicketID = Convert.ToInt64(f_ic_ticket_id); 
                     if (cbIsNew)
                     {
                         gvBreakdown.DataSource = new BDMS_Service().GetServiceNote(ICTicketID, null, null, "");

@@ -7,14 +7,7 @@ using System.Web;
 namespace Properties
 {
 
-    public enum EmpModuleAccess
-    {
-        QIRCreate = 1,
-        QIRCorrection,
-        QIRApprove,
-        QIRReport,
-        EmpManagement
-    }
+   
     public enum FileType
     {
         Unknown = 1,
@@ -281,7 +274,12 @@ namespace Properties
         InProgress,
         Resolved,
         Closed,
-        Approve,
+        WaitingForApproval,
+        Cancel,
+        Approved,
+        Reopen,
+        Deleted,
+        Foreclose
     }
 
     
@@ -490,7 +488,9 @@ namespace Properties
         EidtDistrictSalesEngineer,
         CustomerExcelDownload,
         MaterialExcelDownload,
-        SyncToParts=31
+        SyncToParts = 31,
+        TsirSalesApproveL1,
+        TsirSalesApproveL2,
     }
     public enum DMS_WarrantyClaimStatus
     {

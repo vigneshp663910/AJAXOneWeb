@@ -40,7 +40,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -288,8 +288,6 @@
     <Content Include="JSAutocomplete\ajax\ui1.8.22jquery-ui.js" />
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
-    <Content Include="MapTest1.aspx" />
-    <Content Include="MapTest2.aspx" />
     <Content Include="Open.aspx" />
     <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
@@ -318,7 +316,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="MapTestM.Master" />
     <Content Include="Help\Files\Getting Started.pdf" />
     <Content Include="Help\Files\Getting Started.pps" />
     <None Include="packages.config" />
@@ -364,8 +361,6 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
-    <Content Include="TestAutocomplete.aspx" />
-    <Content Include="TestDealerOld.aspx" />
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
@@ -376,6 +371,7 @@
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
+    <Content Include="ViewAdmin\DealerStateMapping.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
@@ -395,9 +391,13 @@
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
+    <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentHistory.aspx" />
+    <Content Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
+    <Content Include="ViewEquipment\EquipmentWarrantyExpiryDateApproval.aspx" />
+    <Content Include="ViewEquipment\EquipmentWarrantyTypeApproval.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
@@ -456,7 +456,6 @@
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx" />
     <Content Include="Dashboard\ICTicketTransactionStatics.ascx" />
     <Content Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="Images\ajax-fiori logo for signature.bmp" />
     <Content Include="Images\ajax-fiori logo for signature.png" />
     <Content Include="Images\construction.gif" />
@@ -475,10 +474,6 @@
     <Content Include="JS\jquery.min.js" />
     <Content Include="Account\LoginAs.aspx" />
     <Content Include="ViewAdmin\OrganizationStructure.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingCreate.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingPostingInSAP.aspx" />
-    <Content Include="ViewFinance\BankDepositClearingReport.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
     <Content Include="ViewMaster\DealerEmployeeAssigningRole.aspx" />
@@ -495,7 +490,9 @@
     <Content Include="ViewMaster\UserControls\DealerView.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
     <Content Include="ViewPreSale\ColdVisits.aspx" />
+    <Content Include="ViewPreSale\EnquiryN.aspx" />
     <Content Include="ViewPreSale\Lead.aspx" />
+    <Content Include="ViewPreSale\LeadN.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
@@ -514,11 +511,13 @@
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryView.ascx" />
+    <Content Include="ViewPreSale\UserControls\EnquiryViewN.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadViewHeader.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx" />
+    <Content Include="ViewPreSale\Visit.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
@@ -627,7 +626,6 @@
     <Content Include="BackUp\DMSDynamic.Master" />
     <Content Include="JSAutocomplete\jquery-3.6.0.js" />
     <Content Include="JSAutocomplete\ui1.13.0jquery-ui.js" />
-    <Content Include="DealerOld.Master" />
     <None Include="Print\DS.xsd" />
     <Content Include="Print\DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -659,6 +657,7 @@
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
+    <Content Include="ViewSupportTicket\UserControls\SupportTicketView.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="View\Appointment.aspx" />
     <Content Include="View\Attendance.aspx" />
@@ -740,13 +739,6 @@
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
-    <Compile Include="DealerOld.Master.cs">
-      <DependentUpon>DealerOld.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DealerOld.Master.designer.cs">
-      <DependentUpon>DealerOld.Master</DependentUpon>
-    </Compile>
     <Compile Include="Geolocation.aspx.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -795,27 +787,6 @@
     </Compile>
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapTest1.aspx.cs">
-      <DependentUpon>MapTest1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapTest1.aspx.designer.cs">
-      <DependentUpon>MapTest1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapTest2.aspx.cs">
-      <DependentUpon>MapTest2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapTest2.aspx.designer.cs">
-      <DependentUpon>MapTest2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapTestM.Master.cs">
-      <DependentUpon>MapTestM.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapTestM.Master.designer.cs">
-      <DependentUpon>MapTestM.Master</DependentUpon>
     </Compile>
     <Compile Include="Open.aspx.cs">
       <DependentUpon>Open.aspx</DependentUpon>
@@ -873,27 +844,6 @@
     </Compile>
     <Compile Include="Test.aspx.designer.cs">
       <DependentUpon>Test.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestAutocomplete.aspx.cs">
-      <DependentUpon>TestAutocomplete.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestAutocomplete.aspx.designer.cs">
-      <DependentUpon>TestAutocomplete.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestDealerOld.aspx.cs">
-      <DependentUpon>TestDealerOld.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestDealerOld.aspx.designer.cs">
-      <DependentUpon>TestDealerOld.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestMenu.Master.cs">
-      <DependentUpon>TestMenu.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestMenu.Master.designer.cs">
-      <DependentUpon>TestMenu.Master</DependentUpon>
     </Compile>
     <Compile Include="TestPageForMenu.aspx.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
@@ -964,6 +914,13 @@
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerStateMapping.aspx.cs">
+      <DependentUpon>DealerStateMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerStateMapping.aspx.designer.cs">
+      <DependentUpon>DealerStateMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DefaultUserModule.aspx.cs">
       <DependentUpon>DefaultUserModule.aspx</DependentUpon>
@@ -1098,12 +1055,26 @@
     <Compile Include="ViewEquipment\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.cs">
+      <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.designer.cs">
+      <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.designer.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx.cs">
+      <DependentUpon>EquipmentOwnershipChangeApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx.designer.cs">
+      <DependentUpon>EquipmentOwnershipChangeApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
@@ -1118,6 +1089,20 @@
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentWarrantyExpiryDateApproval.aspx.cs">
+      <DependentUpon>EquipmentWarrantyExpiryDateApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentWarrantyExpiryDateApproval.aspx.designer.cs">
+      <DependentUpon>EquipmentWarrantyExpiryDateApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentWarrantyTypeApproval.aspx.cs">
+      <DependentUpon>EquipmentWarrantyTypeApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentWarrantyTypeApproval.aspx.designer.cs">
+      <DependentUpon>EquipmentWarrantyTypeApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
@@ -1486,34 +1471,6 @@
     <Compile Include="ViewAdmin\OrganizationStructure.aspx.designer.cs">
       <DependentUpon>OrganizationStructure.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.cs">
-      <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingCreate.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingCreate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx.cs">
-      <DependentUpon>BankDepositClearingEditAndConfirm.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingEditAndConfirm.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingEditAndConfirm.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingPostingInSAP.aspx.cs">
-      <DependentUpon>BankDepositClearingPostingInSAP.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingPostingInSAP.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingPostingInSAP.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingReport.aspx.cs">
-      <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewFinance\BankDepositClearingReport.aspx.designer.cs">
-      <DependentUpon>BankDepositClearingReport.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1626,12 +1583,26 @@
     <Compile Include="ViewPreSale\ColdVisits.aspx.designer.cs">
       <DependentUpon>ColdVisits.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\EnquiryN.aspx.cs">
+      <DependentUpon>EnquiryN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\EnquiryN.aspx.designer.cs">
+      <DependentUpon>EnquiryN.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadN.aspx.cs">
+      <DependentUpon>LeadN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadN.aspx.designer.cs">
+      <DependentUpon>LeadN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
@@ -1759,6 +1730,13 @@
     <Compile Include="ViewPreSale\UserControls\EnquiryView.ascx.designer.cs">
       <DependentUpon>EnquiryView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.cs">
+      <DependentUpon>EnquiryViewN.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.designer.cs">
+      <DependentUpon>EnquiryViewN.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\UserControls\Expense.ascx.cs">
       <DependentUpon>Expense.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1793,6 +1771,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.designer.cs">
       <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Visit.aspx.cs">
+      <DependentUpon>Visit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Visit.aspx.designer.cs">
+      <DependentUpon>Visit.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitReport.aspx.cs">
       <DependentUpon>VisitReport.aspx</DependentUpon>
@@ -2500,6 +2485,13 @@
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.cs">
+      <DependentUpon>SupportTicketView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.designer.cs">
+      <DependentUpon>SupportTicketView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2559,11 +2551,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewFinance\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site1.Master" />
-    <Content Include="TestMenu.Master" />
     <Content Include="Scripts\Voice\jquery-3.3.1.min.map" />
     <Content Include="Scripts\Voice\jquery-3.3.1.slim.min.map" />
     <Content Include="Site.Mobile.Master" />

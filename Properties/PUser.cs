@@ -262,7 +262,16 @@ namespace Properties
         public int? RejectedBy { get; set; }
         public string Remarks { get; set; }
         public Boolean DebuggingStatus { get; set; }
+        public PUserMobileApplication Application { get; set; }
     }
+
+    [Serializable]
+    public class PUserMobileApplication
+    {
+        public int UserMobileApplicationID { get; set; }
+        public string Application { get; set; }
+    }
+
     [Serializable]
     public class PDashboard
     {

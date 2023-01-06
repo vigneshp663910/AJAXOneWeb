@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketAddServiceCharges.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.ICTicketAddServiceCharges" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
-
-
+ 
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
     <div class="col-md-12">
         <div class="col-md-6 col-sm-12">
@@ -15,14 +13,7 @@
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">SRO Code</label>
             <asp:TextBox ID="txtServiceMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" onKeyUp="GetServiceCharges()"></asp:TextBox>
-            <%-- <asp:UpdatePanel ID="up" runat="server">
-                <ContentTemplate>
-                   
-                </ContentTemplate>
-                <Triggers>
-                    <asp:PostBackTrigger ControlID="txtServiceMaterial" />
-                </Triggers>
-            </asp:UpdatePanel>--%>
+           
         </div>
 
         <div class="col-md-6 col-sm-12">
@@ -40,11 +31,7 @@
 
     </div>
 </fieldset>
- 
 
-<%--<script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
-<script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>--%>
-<link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Font-Bold="true" Font-Size="15px" />
 
@@ -63,7 +50,6 @@
             imageID.src = "Images/grid_expand.png";
         }
     }
-
 
     function removeText(id) {
         var TheTextBox = document.getElementById(id);
@@ -85,8 +71,8 @@
 <script type="text/javascript">
 
     function GetServiceCharges() {
-        debugger;
-        var param = { Material: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val(), MaterialType:'DIEN' }
+        $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_hdfMaterialID").val('');
+        var param = { Material: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val(), MaterialType: 'DIEN' }
         var Customers = [];
         if ($('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val().trim().length >= 3) {
             $.ajax({
@@ -96,7 +82,6 @@
                 data: JSON.stringify(param),
                 dataType: 'JSON',
                 success: function (data) {
-                    debugger;
                     var DataList = JSON.parse(data.d);
                     for (i = 0; i < DataList.length; i++) {
                         Customers[i] = {
@@ -119,14 +104,13 @@
                     }).click(function () {
                         $(this).autocomplete("search");
                     }).data('ui-autocomplete')._renderItem = function (ul, item) {
-                        debugger;
+
                         var inner_html = FormatAutocompleteList(item);
                         return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
                             .data('item.autocomplete', item)
                             .append(inner_html)
                             .appendTo(ul);
                     };
-
                 }
             });
         }
@@ -141,133 +125,10 @@
 
     function FormatAutocompleteList(item) {
         var inner_html = '<a>';
-        inner_html += '<p style="margin:0;">dfsrdgr<strong>' + item.value + '</strong></p>';
+        inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
         inner_html += '</a>';
         return inner_html;
     }
-
-
-
-
-    //function InIEvent() { }
-
-    //$(document).ready(InIEvent);
-
-    //var prm = Sys.WebForms.PageRequestManager.getInstance();
-    //if (prm != null) {
-
-    //    prm.add_endRequest(function (sender, e) {
-    //        $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
-    //            source: function (request, response) {
-
-    //                var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val() };
-    //                $.ajax({
-    //                    url: "ICTicket.aspx/SearchMaterials",
-    //                    data: JSON.stringify(param),
-    //                    dataType: "json",
-    //                    type: "POST",
-    //                    contentType: "application/json; charset=utf-8",
-    //                    dataFilter: function (data) { return data; },
-    //                    success: function (data) {
-    //                        response($.map(data.d, function (item) {
-    //                            return {
-    //                                value: item
-    //                            }
-    //                        }))
-    //                    },
-    //                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //                        var err = eval("(" + XMLHttpRequest.responseText + ")");
-    //                        alert(err.Message)
-    //                        // console.log("Ajax Error!");  
-    //                    }
-    //                });
-    //            },
-    //            minLength: 2 //This is the Char length of inputTextBox  
-    //        });
-
-    //    });
-    //};
-
-    //$(function () {
-    //    $("#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial").autocomplete({
-    //        source: function (request, response) {
-    //            debugger;
-    //            var param = { input: $('#MainContent_UC_ICTicketView_UC_ICTicketAddServiceCharges_txtServiceMaterial').val() };
-    //            $.ajax({
-    //                url: "ICTicket.aspx/SearchMaterials",
-    //                data: JSON.stringify(param),
-    //                dataType: "json",
-    //                type: "POST",
-    //                contentType: "application/json; charset=utf-8",
-    //                dataFilter: function (data) { return data; },
-    //                success: function (data) {
-    //                    response($.map(data.d, function (item) {
-    //                        return {
-    //                            value: item
-    //                        }
-    //                    }))
-    //                },
-    //                error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //                    var err = eval("(" + XMLHttpRequest.responseText + ")");
-    //                    alert(err.Message)
-    //                    // console.log("Ajax Error!");  
-    //                }
-    //            });
-    //        },
-    //        minLength: 2 //This is the Char length of inputTextBox  
-    //    });
-    //});
+     
 </script>
-
-
-
-<style>
-    .footer {
-        height: 15px;
-        width: 100%;
-    }
-
-        .footer td {
-            border: none;
-        }
-
-        .footer th {
-            border: none;
-        }
-</style>
-<style>
-    .AutoExtender {
-        font-family: Verdana, Helvetica, sans-serif;
-        font-size: .8em;
-        font-weight: normal;
-        border: solid 1px #006 height: 25px;
-        ing: 20px;
-
-
-    {
-        om: do ted 1p cursor: pointer;
-        color: roon;
-        ighlight;
-
-    {
-        color: White;
-        background-color: #006699;
-        cursor: pointer;
-    }
-
-    /*#divwidt
-                 width: 150px !important;
-        }
-
-            #divwidth div {
-                width: 150px !important;
-            }*/
-</style>
-
-
-<%--<script type="text/javascript">
-    $(document).ready(function () {
-        $("#MainContent_txtSearch").autocomplete('Search_CS.ashx');
-    });
-</script>--%>
  

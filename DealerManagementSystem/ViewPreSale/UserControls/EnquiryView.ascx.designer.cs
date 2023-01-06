@@ -483,13 +483,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Panel pnlCustomerOld;
 
         /// <summary>
-        /// UC_CustomerCreate control.
+        /// UC_Customer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerCreate UC_CustomerCreate;
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerCreate UC_Customer;
 
         /// <summary>
         /// UC_AddLead control.

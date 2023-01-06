@@ -17,9 +17,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
         { 
-            txtWorkedHours.Visible = false;
-            txtBasePrice.Visible = false;
-            txtDiscount.Visible = false; 
+           
             //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
             //  || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
             //  || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
@@ -37,6 +35,12 @@ namespace DealerManagementSystem.ViewService.UserControls
                 txtBasePrice.Visible = true;
                 txtDiscount.Visible = true;
             }
+            else
+            {
+                txtWorkedHours.Visible = false;
+                txtBasePrice.Visible = false;
+                txtDiscount.Visible = false;
+            }
         }
 
         void Clear()
@@ -47,15 +51,11 @@ namespace DealerManagementSystem.ViewService.UserControls
         public PDMS_ServiceCharge_API Read()
         {
             PDMS_ServiceCharge_API OM = new PDMS_ServiceCharge_API();
-            OM.ServiceChargeID = 0;
-            OM.ICTicketID = 0;
-            OM.IsDeleted = false;
-
-            //  PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim());
-
-            //OM.MaterialID = MaterialsDescription.MaterialID;
-
-            OM.MaterialWithDescription = txtServiceMaterial.Text.Trim();
+            OM.ServiceChargeID = 0; 
+            OM.IsDeleted = false; 
+            //  PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim()); 
+            OM.MaterialID = Convert.ToInt32(hdfMaterialID.Value); 
+            //OM.MaterialWithDescription = txtServiceMaterial.Text.Trim();
             OM.Date = Convert.ToDateTime(txtServiceDate.Text);
             if (txtWorkedHours.Visible == true)
             {
@@ -67,10 +67,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             return OM;
         }
         public string Validation()
-        {
-            string Message = "";
-
-            return Message;
+        { 
+            if(string.IsNullOrEmpty( hdfMaterialID.Value))
+            {
+                return "Please select the Material";
+            }
+            if (string.IsNullOrEmpty(txtServiceDate.Text.Trim()))
+            {
+                return "Please select the Service Date";
+            }
+            return "";
         }
     }
 }

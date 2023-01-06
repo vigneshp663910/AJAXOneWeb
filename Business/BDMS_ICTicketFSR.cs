@@ -701,8 +701,9 @@ namespace Business
         public PAttachedFile GetICTicketFSRAttachedFileForDownload(long AttachedFileID)
         {
             string endPoint = "ICTicketFSR/AttachmentsForDownload?AttachedFileID=" + AttachedFileID ;
-            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
-             
+           // return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+            return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
 
         }
 

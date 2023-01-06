@@ -3,16 +3,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketView.ascx" TagPrefix="UC" TagName="UC_ICTicketView" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-       <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"> 
-<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-
-   <script> 
-
-     
-
-
-   </script>
-
+   <%-- <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>--%>
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById("MainContent_pnlFilterContent");
@@ -27,7 +19,6 @@
                 imageID.src = "../Images/grid_expand.png";
             }
         }
-
     </script>
 </asp:Content>
 
@@ -112,16 +103,16 @@
                                         <asp:RadioButton ID="rbICTicketID" runat="server" onclick="javascript:CheckOtherIsCheckedByGVID(this);" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="IC Ticket" >
+                                <asp:TemplateField HeaderText="IC Ticket">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketNumber")%>' runat="server" />
-                                         <br />
+                                        <br />
                                         <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
-                                <asp:TemplateField HeaderText="Dealer" >
+
+                                <asp:TemplateField HeaderText="Dealer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
@@ -129,8 +120,8 @@
                                         <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DisplayName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                               
-                                <asp:TemplateField HeaderText="Customer" >
+
+                                <asp:TemplateField HeaderText="Customer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode","{0:d}")%>' runat="server"></asp:Label>
@@ -142,25 +133,25 @@
                                         <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Requested Date" >
+                                <asp:TemplateField HeaderText="Requested Date">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Model" >
+                                <asp:TemplateField HeaderText="Model">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblMTTR1" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentModel.Model")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Division"  >
+                                <asp:TemplateField HeaderText="Division">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentModel.Division.DivisionCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Service Type"  >
+                                <asp:TemplateField HeaderText="Service Type">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblMTTR2" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceType.ServiceType")%>' runat="server"></asp:Label><div style="display: none">
@@ -168,13 +159,13 @@
                                         </div>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Service Priority"  >
+                                <asp:TemplateField HeaderText="Service Priority">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblstatus1" Text='<%# DataBinder.Eval(Container.DataItem, "ServicePriority.ServicePriority")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Service Status"  >
+                                <asp:TemplateField HeaderText="Service Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblServiceStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceStatus.ServiceStatus")%>' runat="server"></asp:Label><div style="display: none">
@@ -188,10 +179,10 @@
                                         <asp:CheckBox ID="cbIsMarginWarranty" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsMarginWarranty")%>' Enabled="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="View"  >
+                                <asp:TemplateField HeaderText="View">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate> 
-                                    <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View </asp:LinkButton>
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View </asp:LinkButton>
                                         <%-- <asp:LinkButton ID="lbReqDecline" runat="server" OnClick="lbReqDecline_Click">Req.Decline </asp:LinkButton>--%>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -207,7 +198,7 @@
                 </fieldset>
             </div>
         </div>
-         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
+        <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">
@@ -215,21 +206,6 @@
                 </div>
             </div>
             <UC:UC_ICTicketView ID="UC_ICTicketView" runat="server"></UC:UC_ICTicketView>
-        </div>
-        <div class="col-md-12" id="divDecline" runat="server" visible="false">
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                <div class="col-md-12">
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Reason For Declain</label>
-                        <asp:TextBox ID="txtDeclineReason" runat="server" TextMode="MultiLine" Width="700px" Height="300px" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>
-                    <div class="col-md-19 text-left">
-                        <%-- <asp:Button ID="btnSaveDecline" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSaveDecline_Click" />
-                        <asp:Button ID="btnBackDecline" runat="server" Text="Back" CssClass="InputButton" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnBackDecline_Click" />--%>
-                    </div>
-                </div>
-            </fieldset>
         </div>
     </div>
 </asp:Content>

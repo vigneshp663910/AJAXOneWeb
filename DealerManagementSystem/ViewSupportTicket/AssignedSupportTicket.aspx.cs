@@ -15,10 +15,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
-            // if (Membership.GetUser() == null) 
-            this.Page.MasterPageFile = "~/Dealer.master";
-            //  else
-            //    this.Page.MasterPageFile = "~/myMaster.master";
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,8 +25,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 FillCategory();
                 FillTicketSeverity();
-                FillTicketType();
-                FillAssignTo();
                 FillTickets();
 
                 //if (PSession.User.UserTypeID == (short)UserTypes.Manager || PSession.User.UserTypeID == (short)UserTypes.Admin)
@@ -64,32 +58,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
         }
-
-        void FillTicketType()
-        {
-            ddlTicketType.DataTextField = "Type";
-            ddlTicketType.DataValueField = "TypeID";
-            ddlTicketType.DataSource = new BTicketType().getTicketType(null, null);
-            ddlTicketType.DataBind();
-            ddlTicketType.Items.Insert(0, new ListItem("Select", "0"));
-        }
-
-        void FillAssignTo()
-        {
-
-            List<PUser> UserList = new BUser().GetUsers(null, "", 0, "", null,null,null, null, null);
-
-            ddlAssignedBy.DataTextField = "ContactName";
-            ddlAssignedBy.DataValueField = "UserID";
-            ddlAssignedBy.DataSource = UserList;
-            ddlAssignedBy.DataBind();
-            ddlAssignedBy.Items.Insert(0, new ListItem("Select", "0"));
-
-        }
-
         void FillTickets()
         {
-            string TicketNO = txtTicketNo.Text.Trim();
+            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? TicketSubCategoryID = null;
             if (ddlSubcategory.Items.Count > 0)
@@ -97,14 +68,8 @@ namespace DealerManagementSystem.ViewSupportTicket
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
-            int? TicketType = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-
-            int? AssignedBy = ddlAssignedBy.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAssignedBy.SelectedValue);
-
-
-            int AssignedTo = PSession.User.UserID;
-
-            gvTickets.DataSource = new BTickets().GetAssignedTickets(TicketNO, TicketCategoryID, TicketSubCategoryID, TicketSeverity, TicketType, AssignedBy, AssignedTo, null);
+            
+            gvTickets.DataSource = new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity,PSession.User.UserID);
             gvTickets.DataBind();
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
@@ -172,8 +137,14 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
-            Response.Redirect(url);
+            //string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
+            //Response.Redirect(url);
+            divSupportTicketView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
 
         protected void btnReassign_Click(object sender, EventArgs e)
@@ -184,6 +155,22 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
         }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label TicketNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblTicketID");
+            Label ItemNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblItemID");
 
+            //Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
+
+            new BTickets().UpdateTicketCancelStatus(Convert.ToInt32(TicketNo.Text), Convert.ToInt32(ItemNo.Text), PSession.User.UserID);
+            FillTickets();
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divSupportTicketView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
+        }
     }
 }

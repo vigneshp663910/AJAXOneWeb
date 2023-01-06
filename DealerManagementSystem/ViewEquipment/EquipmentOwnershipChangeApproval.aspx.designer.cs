@@ -7,155 +7,182 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem
+namespace DealerManagementSystem.ViewEquipment
 {
 
 
-    public partial class DealerOld
+    public partial class EquipmentOwnershipChangeApproval
     {
 
         /// <summary>
-        /// head control.
+        /// lblMessageEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Label lblMessageEquipOwnershipChgReq;
 
         /// <summary>
-        /// form2 control.
+        /// divList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// ImgLogo control.
+        /// txtOwnershipChgReqDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgLogo;
+        protected global::System.Web.UI.WebControls.TextBox txtOwnershipChgReqDateFrom;
 
         /// <summary>
-        /// ImageApp control.
+        /// cEOwnershipChgReqDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImageApp;
+        protected global::AjaxControlToolkit.CalendarExtender cEOwnershipChgReqDateFrom;
 
         /// <summary>
-        /// lblusername control.
+        /// TextBoxWatermarkExtenderOwnershipChgReqDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblusername;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtenderOwnershipChgReqDateFrom;
 
         /// <summary>
-        /// lblPageName control.
+        /// txtOwnershipChgReqDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPageName;
+        protected global::System.Web.UI.WebControls.TextBox txtOwnershipChgReqDateTo;
 
         /// <summary>
-        /// Menu control.
+        /// cEOwnershipChgReqDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Menu;
+        protected global::AjaxControlToolkit.CalendarExtender cEOwnershipChgReqDateTo;
 
         /// <summary>
-        /// Image1 control.
+        /// TextBoxWatermarkExtendertxtOwnershipChgReqDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtendertxtOwnershipChgReqDateTo;
 
         /// <summary>
-        /// ToolkitScriptManager1 control.
+        /// txtEquipmentSerialNoEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ToolkitScriptManager1;
+        protected global::System.Web.UI.WebControls.TextBox txtEquipmentSerialNoEquipOwnershipChgReq;
 
         /// <summary>
-        /// lblProjectTitle control.
+        /// btnSearchEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProjectTitle;
+        protected global::System.Web.UI.WebControls.Button btnSearchEquipOwnershipChgReq;
 
         /// <summary>
-        /// lblQuality control.
+        /// lblRowCountEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuality;
+        protected global::System.Web.UI.WebControls.Label lblRowCountEquipOwnershipChgReq;
 
         /// <summary>
-        /// DivChangeLogin control.
+        /// ibtnArrowLeftEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivChangeLogin;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeftEquipOwnershipChgReq;
 
         /// <summary>
-        /// txtEmpId control.
+        /// ibtnArrowRightEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmpId;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRightEquipOwnershipChgReq;
 
         /// <summary>
-        /// btnLoginChange control.
+        /// gvEquipOwnershipChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLoginChange;
+        protected global::System.Web.UI.WebControls.GridView gvEquipOwnershipChgReq;
 
         /// <summary>
-        /// lblMsg control.
+        /// divEquipOwnershipChgReqView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEquipOwnershipChgReqView;
 
         /// <summary>
-        /// MainContent control.
+        /// btnBackToList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
+
+        /// <summary>
+        /// tblDashboard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
+
+        /// <summary>
+        /// UC_EquipmentView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewEquipment.UserControls.EquipmentView UC_EquipmentView;
+
+        /// <summary>
+        /// ph_usercontrols_1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_1;
     }
 }

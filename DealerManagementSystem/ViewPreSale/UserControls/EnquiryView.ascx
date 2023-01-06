@@ -291,7 +291,7 @@
                         </fieldset>
                     </div>
                     <div id="divCustomerCreateID">
-                        <UC:UC_CustomerCreate ID="UC_CustomerCreate" runat="server"></UC:UC_CustomerCreate>
+                        <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
                     </div>
                 </asp:Panel>
                 <UC:UC_AddLead ID="UC_AddLead" runat="server"></UC:UC_AddLead>

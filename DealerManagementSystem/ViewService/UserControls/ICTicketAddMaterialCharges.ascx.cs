@@ -45,13 +45,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         public PDMS_ServiceMaterial_API Read()
         {
             PDMS_ServiceMaterial_API SM = new PDMS_ServiceMaterial_API();
-            SM.MaterialWithDescription = txtMaterial.Text.Trim();
+            SM.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
             SM.MaterialSerialNumber = txtMaterialSN.Text.Trim();
             SM.SupersedeYN = cbSupersedeYN.Checked;
             SM.Qty = Convert.ToInt32(txtQty.Text.Trim());
             SM.IsFaultyPart = cbIsFaultyPart.Checked;
 
-            SM.DefectiveMaterialWithDescription = txtDefectiveMaterial.Text.Trim();
+            SM.DefectiveMaterialID = Convert.ToInt32(hdfDefectiveMaterialID.Value);
             SM.DefectiveMaterialSerialNumber = txtDefectiveMaterialSN.Text.Trim();
 
             SM.IsRecomenedParts = cbRecomenedParts.Checked;
@@ -64,19 +64,25 @@ namespace DealerManagementSystem.ViewService.UserControls
         }   
         public string Validation()
         {
-            string Message = "";
+            if (string.IsNullOrEmpty(hdfMaterialID.Value))
+            {
+                return "Please select the Material";
+            }
+            if (string.IsNullOrEmpty(hdfDefectiveMaterialID.Value))
+            {
+                return "Please select the Defective Material";
+            }
+
             if (string.IsNullOrEmpty(txtQty.Text.Trim()))
             {
-                Message = "Please enter the Qty";
-                return Message;
+               return "Please enter the Qty"; 
             }
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))
             {
-                Message = "Please enter correct format in Qty";
-                return Message;
+                return "Please enter correct format in Qty"; 
             }
-            return Message;
+            return "";
         }
     }
 }

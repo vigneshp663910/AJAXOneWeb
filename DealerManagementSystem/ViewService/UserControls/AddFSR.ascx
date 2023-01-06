@@ -62,9 +62,9 @@
     var prm = Sys.WebForms.PageRequestManager.getInstance();
     if (prm != null) {
         prm.add_endRequest(function (sender, e) {
-            $("#MainContent_DMS_ICTicketFSR_txtNatureOfComplaint").autocomplete({
+            $("#MainContent_UC_ICTicketView_UC_AddFSR_txtNatureOfComplaint").autocomplete({
                 source: function (request, response) {
-                    var param = { input: $('#MainContent_DMS_ICTicketFSR_txtNatureOfComplaint').val() };
+                    var param = { input: $('#MainContent_UC_ICTicketView_UC_AddFSR_txtNatureOfComplaint').val() };
                     $.ajax({
                         url: "DMS_ICTicketProcess.aspx/SearchMaterialNatureOfComplaint",
                         data: JSON.stringify(param),
@@ -91,9 +91,9 @@
         });
     };
     $(function () {
-        $("#MainContent_DMS_ICTicketFSR_txtNatureOfComplaint").autocomplete({
+        $("#MainContent_UC_ICTicketView_UC_AddFSR_txtNatureOfComplaint").autocomplete({
             source: function (request, response) {
-                var param = { input: $('#MainContent_DMS_ICTicketFSR_txtNatureOfComplaint').val() };
+                var param = { input: $('#MainContent_UC_ICTicketView_UC_AddFSR_txtNatureOfComplaint').val() };
                 $.ajax({
                     url: "DMS_ICTicketProcess.aspx/SearchMaterialNatureOfComplaint",
                     data: JSON.stringify(param),

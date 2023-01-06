@@ -67,6 +67,7 @@ namespace DealerManagementSystem.ViewPreSale
                         ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
                         //txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToString("yyyy-MM-dd");
                         txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToShortDateString();
+                        txtToDate.Text ="";
                         if (!string.IsNullOrEmpty(Convert.ToString(Session["leadDealerID"])))
                         {
                             ddlDealer.SelectedValue = Convert.ToString(Session["leadDealerID"]);

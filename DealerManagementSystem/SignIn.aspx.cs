@@ -12,7 +12,8 @@ namespace DealerManagementSystem
     {
         private int NoOfAllowedLoginAttempt;
         protected void Page_PreInit(object sender, EventArgs e)
-        {  
+        {
+            string n = "";
         }
 
         protected void Page_Load(object sender, EventArgs e)

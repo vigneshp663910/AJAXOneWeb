@@ -25,6 +25,10 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            UC_Customer.Disposed += new EventHandler(UserControl_ButtonClick);
+
+            
+
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Customer Visit');</script>");
 
               lblMessage.Text = "";
@@ -49,6 +53,10 @@ namespace DealerManagementSystem.ViewPreSale
             }
         }
 
+        protected void UserControl_ButtonClick(object sender, EventArgs e)
+        {
+            //handle the event 
+        }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillClodVisit();
@@ -139,53 +147,133 @@ namespace DealerManagementSystem.ViewPreSale
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
         }
 
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    // Boolean d = UC_Customer.Visible;
+
+
+
+        //    MPE_Customer.Show();
+
+
+        //    if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+        //    {
+        //        lblMessage.Text = "Please Enable GeoLocation!";
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        return;
+        //    }
+        //    decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
+        //    decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
+
+
+        //    PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
+        //    ColdVisitList.Latitude = Latitude;
+        //    ColdVisitList.Longitude = Longitude;
+        //    lblMessageColdVisit.ForeColor = Color.Red;
+        //    lblMessageColdVisit.Visible = true;
+        //    string Message = "";
+        //   // TextBox txtCustomerID = (TextBox)UC_Customer.FindControl("txtCustomerID");
+        //    if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
+        //    {
+        //        ColdVisitList.Customer = new PDMS_Customer_Insert();
+        //        ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
+
+        //        string script = "<script  type='text/javascript' >document.getElementById('divCustomerViewID').style.display = 'block'; document.getElementById('divCustomerCreateID').style.display = 'none' </ script > ";
+
+        //        ClientScript.RegisterStartupScript(this.GetType(), "Script1", script);
+        //    }
+        //    else
+        //    {
+        //        Message = UC_Customer.ValidationCustomer();               
+
+        //        if (!string.IsNullOrEmpty(Message))
+        //        {
+        //            lblMessageColdVisit.Text = Message;
+        //            return;
+        //        }
+        //        ColdVisitList.Customer = UC_Customer.ReadCustomer();
+        //    }
+
+        //    Message = ValidationColdVisit();
+        //    if (!string.IsNullOrEmpty(Message))
+        //    {
+        //        lblMessageColdVisit.Text = Message;
+        //        return;
+        //    } 
+
+        //    ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+        //    ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+        //    ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+        //    ColdVisitList.Remark = txtRemark.Text.Trim();
+        //    ColdVisitList.Location = txtLocation.Text.Trim();
+
+        //       string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
+
+        //    result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
+        //    if (result == "0")
+        //    {
+        //        MPE_Customer.Show();
+        //        lblMessageColdVisit.Text = "Customer is not updated successfully ";
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Visible = true;
+        //        lblMessage.ForeColor = Color.Green;
+        //        lblMessage.Text = "Customer is updated successfully ";
+        //    }
+        //    List<PColdVisit> Leads = new BColdVisit().GetColdVisit(Convert.ToInt64(result), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        //    gvLead.DataSource = Leads;
+        //    gvLead.DataBind();
+        //    UC_Customer.FillClean();
+        //    MPE_Customer.Hide();
+        //}
+
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            // Boolean d = UC_Customer.Visible;
-
-            
-
             MPE_Customer.Show();
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                lblMessage.Text = "Please Enable GeoLocation!";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                return;
+            }
+            decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
+            decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
             PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
+            ColdVisitList.Latitude = Latitude;
+            ColdVisitList.Longitude = Longitude;
             lblMessageColdVisit.ForeColor = Color.Red;
             lblMessageColdVisit.Visible = true;
             string Message = "";
-           // TextBox txtCustomerID = (TextBox)UC_Customer.FindControl("txtCustomerID");
-            if (!string.IsNullOrEmpty(txtCustomerID.Text.Trim()))
-            {
-                ColdVisitList.Customer = new PDMS_Customer_Insert();
-                ColdVisitList.Customer.CustomerID = Convert.ToInt64(txtCustomerID.Text.Trim());
 
-                string script = "<script  type='text/javascript' >document.getElementById('divCustomerViewID').style.display = 'block'; document.getElementById('divCustomerCreateID').style.display = 'none' </ script > ";
+            Message = UC_Customer.ValidationCustomer();
 
-                ClientScript.RegisterStartupScript(this.GetType(), "Script1", script);
-            }
-            else
+            if (!string.IsNullOrEmpty(Message))
             {
-                Message = UC_Customer.ValidationCustomer();               
-               
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblMessageColdVisit.Text = Message;
-                    return;
-                }
-                ColdVisitList.Customer = UC_Customer.ReadCustomer();
+                lblMessageColdVisit.Text = Message;
+                return;
             }
+            ColdVisitList.Customer = UC_Customer.ReadCustomer();
+
 
             Message = ValidationColdVisit();
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessageColdVisit.Text = Message;
                 return;
-            } 
-           
+            }
+
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.Remark = txtRemark.Text.Trim();
             ColdVisitList.Location = txtLocation.Text.Trim();
-             
-               string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
+
+            string result = new BAPI().ApiPut("ColdVisit", ColdVisitList);
 
             result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
             if (result == "0")
@@ -453,6 +541,86 @@ namespace DealerManagementSystem.ViewPreSale
 
 
 
+        }
+
+        protected void btnTrackActivity_Click(object sender, EventArgs e)
+        {
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Button btnEndActivity = (Button)gvRow.FindControl("btnTrackActivity"); 
+
+            MPE_TrackActivity.Show();
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+
+            Label lblLatitude = (Label)gvRow.FindControl("lblLatitude");
+            Label lblLongitude = (Label)gvRow.FindControl("lblLongitude");  
+            
+            row = new Dictionary<string, object>();
+            row.Add("lat", lblLatitude.Text);
+            row.Add("lng", lblLongitude.Text);
+           // row.Add("description", Activity.StartLatitudeLongitudeDate);
+          //  row.Add("image", Activity.StartMapImage);
+            rows.Add(row); 
+            CurrentLocation = serializer.Serialize(rows);
+        }
+        public string CurrentLocation
+        {
+            get
+            {
+                if (Session["ActivityReport"] == null)
+                {
+                    Session["ActivityReport"] = "";
+                }
+                return (string)Session["ActivityReport"];
+            }
+            set
+            {
+                Session["ActivityReport"] = value;
+            }
+        }
+        public string ConvertDataTabletoString()
+        {
+            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            //Dictionary<string, object> row;
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "1");
+            //row.Add("lat", "12.897400");
+            //row.Add("lng", "80.288000");
+            //row.Add("description", "1");
+            //rows.Add(row);
+
+            //row = new Dictionary<string, object>();
+            //row.Add("title", "2");
+            //row.Add("lat", "12.997450");
+            //row.Add("lng", "80.298050");
+            //row.Add("description", "2");
+
+            //rows.Add(row);
+
+            //return serializer.Serialize(rows);
+
+            return CurrentLocation;
+
+        }
+
+        [WebMethod]
+        public static string GetMaterial(string Material, string MaterialType)
+       {
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+            return JsonConvert.SerializeObject(Materials);
+        }
+
+        [WebMethod]
+        public static string GetCustomer1(string Cust)
+        {
+            List<string> Emp = new List<string>();
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(Cust, 1);
+            return JsonConvert.SerializeObject(Customer);
         }
     }
 }

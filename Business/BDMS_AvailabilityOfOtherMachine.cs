@@ -21,6 +21,7 @@ namespace Business
     {
         public int TypeOfMachineID { get; set; }
         public string TypeOfMachine { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_AvailabilityOfOtherMachine

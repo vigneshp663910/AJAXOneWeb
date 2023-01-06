@@ -365,3 +365,6 @@ FodyWeavers.xsd
 /DealerManagementSystem/ViewMaster/DealerCustomerMapping.aspx.cs
 /DealerManagementSystem/ViewMaster/DealerCustomerMapping.aspx.designer.cs
 /DealerManagementSystem/ViewService/ICTickrtTSIR_Files/Org
+/DealerManagementSystem/ICTickrtTSIR_Files
+/DealerManagementSystem/ViewMaster/DealerEmpPhotos
+/DealerManagementSystem/ViewService/ICTickrtFSR_Files

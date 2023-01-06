@@ -128,8 +128,7 @@
                         </div>
                     </div>
                     <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="4000px"
-                        AllowPaging="true" PageSize="30" OnRowDataBound="gvICTicketsWithText_RowDataBound" DataKeyNames="ICTicketID"
-                        OnPageIndexChanging="gvICTickets_PageIndexChanging">
+                        AllowPaging="true" PageSize="20" OnRowDataBound="gvICTicketsWithText_RowDataBound" DataKeyNames="ICTicketID">
                         <Columns>
                             <asp:TemplateField HeaderText="IC Tkt No." HeaderStyle-Width="62px">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />

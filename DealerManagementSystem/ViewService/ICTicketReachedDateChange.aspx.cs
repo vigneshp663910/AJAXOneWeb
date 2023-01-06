@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewService
                 ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(ICTicket.ICTicketID);
                 UC_BasicInformation.SDMS_ICTicket = ICTicket;
                 UC_BasicInformation.FillBasicInformation();
-                new SDMS_ICTicket().UpdateICTicketRequestedDateToSAP(ICTicket.ICTicketNumber, RequestedDate);
+               // new SDMS_ICTicket().UpdateICTicketRequestedDateToSAP(ICTicket.ICTicketNumber, RequestedDate);
             }
             else
             {

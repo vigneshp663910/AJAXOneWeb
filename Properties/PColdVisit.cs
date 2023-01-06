@@ -21,6 +21,8 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public long? ReferenceTableID { get; set; }
         public long? ReferenceID { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public PDealer Dealer { get; set; }
     }
     public class PColdVisit_Insert
@@ -34,6 +36,8 @@ namespace Properties
         public string Location { get; set; }
         public long? ReferenceTableID { get; set; }
         public long? ReferenceID { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
     }
     public class PActionType
     {

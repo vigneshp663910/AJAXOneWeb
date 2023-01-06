@@ -219,7 +219,8 @@ namespace Properties
     {
         public int ServiceSubTypeID { get; set; }
         public int ServiceTypeID { get; set; }
-        public string ServiceSubType { get; set; } 
+        public string ServiceSubType { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceTypeOverhaul
@@ -233,12 +234,14 @@ namespace Properties
         public int ServicePriorityID { get; set; }
         public string ServicePriority { get; set; }
         public string Description { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PDMS_ServiceStatus
     {
         public int ServiceStatusID { get; set; }
         public string ServiceStatus { get; set; }
+        public Boolean IsActive { get; set; }
     }
 
     public class PDMS_ICTicketJSON
@@ -379,12 +382,15 @@ namespace Properties
         public int ModeOfPaymentID { get; set; }
         public string ModeOfPayment { get; set; }
         public string Description { get; set; }
+        public Boolean IsActive { get; set; }
+
     }
     [Serializable]
     public class PDMS_MachineMaintenanceLevel
     {
         public int MachineMaintenanceLevelID { get; set; }
         public string MachineMaintenanceLevel { get; set; }
+        public Boolean IsActive { get; set; }
     }
  
     
@@ -419,6 +425,7 @@ namespace Properties
     {
         public int FSRAttachedFileNameID { get; set; }
         public string FSRAttachedName { get; set; }
+        public Boolean IsActive { get; set; }
     }
     [Serializable]
     public class PAttachedFileS

@@ -339,118 +339,44 @@ namespace Business
             { }
             return TicketsList;
         }
-        public List<PTicketHeader> GetAssignedTickets(string TicketNO, int? TicketCategoryID, int? TicketSubCategoryID, int? TicketSeverity, int? TicketType, int? AssignedBy, int AssignedTo, int? UserTypeID)
+        public List<PTicketHeader> GetAssignedTickets(long? HeaderID, int? CategoryID, int? SubCategoryID, int? SeverityID, int UserID)
         {
-            DbParameter TicketNOParam;
-            DbParameter TicketCategoryIDParam;
-            DbParameter TicketSubCategoryIDParam;
-            DbParameter TicketSeverityParam;
-            DbParameter TicketTypeParam;
-            DbParameter AssignedToParam;
-            DbParameter AssignedByParam;
-
-
-
             List<PTicketHeader> Header = new List<PTicketHeader>();
-            List<PTicketItem> Item = new List<PTicketItem>();
             PTicketHeader pHeader;
-            PTicketItem pItem;
             try
             {
-                if (!string.IsNullOrEmpty(TicketNO))
-                    TicketNOParam = provider.CreateParameter("TicketNO", TicketNO, DbType.String);
-                else
-                    TicketNOParam = provider.CreateParameter("TicketNO", DBNull.Value, DbType.String);
+                DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
+                DbParameter CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
+                DbParameter SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
+                DbParameter SeverityIDP = provider.CreateParameter("SeverityID", SeverityID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[5] { HeaderIDP, CategoryIDP, SubCategoryIDP, SeverityIDP, UserIDP };
 
-                if (TicketCategoryID != null)
-                    TicketCategoryIDParam = provider.CreateParameter("CategoryID", TicketCategoryID, DbType.Int32);
-                else
-                    TicketCategoryIDParam = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
-
-                if (TicketSubCategoryID != null)
-                    TicketSubCategoryIDParam = provider.CreateParameter("SubCategoryID", TicketSubCategoryID, DbType.Int32);
-                else
-                    TicketSubCategoryIDParam = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
-
-
-                if (TicketSeverity != null)
-                    TicketSeverityParam = provider.CreateParameter("Severity", TicketSeverity, DbType.Int32);
-                else
-                    TicketSeverityParam = provider.CreateParameter("Severity", DBNull.Value, DbType.Int32);
-
-                if (TicketType != null)
-                    TicketTypeParam = provider.CreateParameter("Type", TicketType, DbType.Int32);
-                else
-                    TicketTypeParam = provider.CreateParameter("Type", DBNull.Value, DbType.Int32);
-
-
-                AssignedToParam = provider.CreateParameter("AssignedTo", AssignedTo, DbType.String);
-
-
-                if (AssignedBy != null)
-                    AssignedByParam = provider.CreateParameter("AssignedBy", AssignedBy, DbType.Int32);
-                else
-                    AssignedByParam = provider.CreateParameter("AssignedBy", DBNull.Value, DbType.Int32);
-
-                DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
-
-                DbParameter[] TicketTypeParams = new DbParameter[8] { TicketNOParam, TicketCategoryIDParam, TicketSubCategoryIDParam, TicketSeverityParam, TicketTypeParam, AssignedToParam, AssignedByParam, UserTypeIDP };
-
-                using (DataSet DS = provider.Select("GetAssignedTickets", TicketTypeParams))
+                using (DataSet DS = provider.Select("GetAssignedTickets", Params))
                 {
                     if (DS != null)
                     {
-                        // Int32 HeaderId = 0;
                         foreach (DataRow DR in DS.Tables[0].Rows)
                         {
                             pHeader = new PTicketHeader();
-                            //  if (HeaderId != Convert.ToInt32(DR["HeaderID"]))
-                            // {      
+
                             pHeader.HeaderID = Convert.ToInt32(DR["HeaderID"]);
                             pHeader.Category = new PCategory { Category = Convert.ToString(DR["Category"]), CategoryID = Convert.ToInt32(DR["CategoryID"]) };
                             pHeader.SubCategory = DR["SubCategoryID"] == DBNull.Value ? null : new PSubCategory { CategoryId = Convert.ToInt32(DR["CategoryId"]), SubCategory = Convert.ToString(DR["SubCategory"]), SubCategoryID = Convert.ToInt32(DR["SubCategoryID"]) };
-                            pHeader.Type = DR["TypeID"] == DBNull.Value ? null : new PType { TypeID = Convert.ToInt32(DR["TypeID"]), Type = Convert.ToString(DR["Type"]) };
                             pHeader.CreatedBy = new PUser
                             {
                                 UserID = Convert.ToInt32(DR["CreatedBy"]),
                                 ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
+                                //Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                             };
                             pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
                             pHeader.Subject = Convert.ToString(DR["Subject"]);
                             pHeader.Description = Convert.ToString(DR["Description"]);
-                            pHeader.Repeat = Convert.ToBoolean(DR["Repeat"]);
                             pHeader.Severity = DR["SeverityID"] == DBNull.Value ? null : new PSeverity { SeverityID = Convert.ToInt32(DR["SeverityID"]), Severity = Convert.ToString(DR["Severity"]) };
                             pHeader.Status = DR["HeaderStatusID"] == DBNull.Value ? null : new PStatus { StatusID = Convert.ToInt32(DR["HeaderStatusID"]), Status = Convert.ToString(DR["HeaderStatus"]) };
-                            //    HeaderId = Convert.ToInt32(DR["HeaderID"]);
                             pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                             pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                             pHeader.TicketItem = new PTicketItem();
-                            // }                            
-                            pItem = new PTicketItem();
-                            pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
-                            pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
-
-                            pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
-                            pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
-                            pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
-
-                            pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
-
-                            pItem.Resolution = Convert.ToString(DR["Resolution"]);
-                            pItem.AssignerRemark = Convert.ToString(DR["AssignerRemark"]);
-                            pItem.HeaderID = Convert.ToInt32(DR["HeaderID"]);
-                            pItem.ResolutionType = DR["ResolutionTypeID"] == DBNull.Value ? null : new PResolutionType { ResolutionType = Convert.ToString(DR["ResolutionType"]) };
-
-                            pItem.ItemStatus = DR["ItemStatus"] == DBNull.Value ? null :
-                            new PStatus
-                            {
-                                StatusID = Convert.ToInt32(DR["ItemStatusID"]),
-                                Status = Convert.ToString(DR["ItemStatus"])
-                            };
-
-                            pHeader.TicketItem = pItem;
-                            // if (!Header.Exists(s => s.HeaderID == HeaderId))
                             Header.Add(pHeader);
                         }
                     }
@@ -533,7 +459,7 @@ namespace Business
         //    return TicketID;
         //}
 
-        public int insertTicketApprovalDetails(int EID, int HeaderId, int Approver)
+        public int insertTicketApprovalDetails(int EID, int HeaderId, int? Approver)
         {
 
             int success = 0;
@@ -797,124 +723,46 @@ namespace Business
             }
             return success;
         }
-        public List<PTicketHeader> GetInProgressTickets(int? HeaderId, int? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, String AssignedTo, int? UserTypeID)
-        {
-            DbParameter HeaderIdParam;
-            DbParameter ItemIdParam;
-            DbParameter CategoryIDParam;
-            DbParameter SubCategoryIDParam;
-            DbParameter SeverityParam;
-            DbParameter TypeParam;
-            DbParameter AssignedToParam;
-            DbParameter AssignedByParam;
-
-
-            List<PTicketHeader> Header = new List<PTicketHeader>();
-            List<PTicketItem> Item = new List<PTicketItem>();
-            PTicketHeader pHeader;
-            PTicketItem pItem;
+        public List<PTicketHeader> GetInProgressTickets(long? HeaderId, int? CategoryID, int? SubCategoryID, int? SeverityID, int UserID)
+        {  
+            List<PTicketHeader> Header = new List<PTicketHeader>(); 
+            PTicketHeader pHeader; 
             try
-            {
-                if (HeaderId != null)
-                    HeaderIdParam = provider.CreateParameter("HeaderId", HeaderId, DbType.String);
-                else
-                    HeaderIdParam = provider.CreateParameter("HeaderId", DBNull.Value, DbType.String);
+            { 
+                DbParameter HeaderIdP = provider.CreateParameter("HeaderID", HeaderId, DbType.Int64); 
+                DbParameter CategoryIDP= provider.CreateParameter("CategoryID", CategoryID, DbType.Int32); 
+                DbParameter SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32); 
+                DbParameter SeverityIDP = provider.CreateParameter("SeverityID", SeverityID, DbType.Int32); 
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
-                if (ItemId != null)
-                    ItemIdParam = provider.CreateParameter("ItemId", ItemId, DbType.String);
-                else
-                    ItemIdParam = provider.CreateParameter("ItemId", DBNull.Value, DbType.String);
-
-
-                if (CategoryID != null)
-                    CategoryIDParam = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
-                else
-                    CategoryIDParam = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
-
-                if (SubCategoryID != null)
-                    SubCategoryIDParam = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
-                else
-                    SubCategoryIDParam = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
-
-
-                if (Severity != null)
-                    SeverityParam = provider.CreateParameter("Severity", Severity, DbType.Int32);
-                else
-                    SeverityParam = provider.CreateParameter("Severity", DBNull.Value, DbType.Int32);
-
-                if (Type != null)
-                    TypeParam = provider.CreateParameter("Type", Type, DbType.Int32);
-                else
-                    TypeParam = provider.CreateParameter("Type", DBNull.Value, DbType.Int32);
-
-                if (AssignedTo != null)
-                    AssignedToParam = provider.CreateParameter("AssignedTo", AssignedTo, DbType.String);
-                else
-                    AssignedToParam = provider.CreateParameter("AssignedTo", DBNull.Value, DbType.String);
-
-                if (string.IsNullOrEmpty(AssignedTo))
-                    AssignedByParam = provider.CreateParameter("AssignedBy", AssignedTo, DbType.Int32);
-                else
-                    AssignedByParam = provider.CreateParameter("AssignedBy", DBNull.Value, DbType.Int32);
-
-                DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
-                DbParameter[] TicketTypeParams = new DbParameter[9] { HeaderIdParam, ItemIdParam, CategoryIDParam, SubCategoryIDParam, SeverityParam, TypeParam, AssignedToParam, AssignedByParam, UserTypeIDP };
+                DbParameter[] TicketTypeParams = new DbParameter[5] { HeaderIdP, CategoryIDP, SubCategoryIDP, SeverityIDP, UserIDP };
 
                 using (DataSet DS = provider.Select("GetInProgressTickets", TicketTypeParams))
                 {
                     if (DS != null)
-                    {
-                        // Int32 HeaderId = 0;
+                    { 
                         foreach (DataRow DR in DS.Tables[0].Rows)
                         {
                             pHeader = new PTicketHeader();
-                            //  if (HeaderId != Convert.ToInt32(DR["HeaderID"]))
-                            // {      
+                           
                             pHeader.HeaderID = Convert.ToInt32(DR["HeaderID"]);
                             pHeader.Category = new PCategory { Category = Convert.ToString(DR["Category"]), CategoryID = Convert.ToInt32(DR["CategoryID"]) };
                             pHeader.SubCategory = DR["SubCategoryID"] == DBNull.Value ? null : new PSubCategory { CategoryId = Convert.ToInt32(DR["CategoryId"]), SubCategory = Convert.ToString(DR["SubCategory"]), SubCategoryID = Convert.ToInt32(DR["SubCategoryID"]) };
-                            pHeader.Type = DR["TypeID"] == DBNull.Value ? null : new PType { TypeID = Convert.ToInt32(DR["TypeID"]), Type = Convert.ToString(DR["Type"]) };
                             pHeader.Subject = Convert.ToString(DR["Subject"]);
                             pHeader.Description = Convert.ToString(DR["Description"]);
                             pHeader.CreatedBy = new PUser
                             {
                                 UserID = Convert.ToInt32(DR["CreatedBy"]),
-                                ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
+                                ContactName = Convert.ToString(DR["CreatedByEmployeeName"]), 
                             };
-                            pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
-                            // pTickets.Justification = Convert.ToString(DR["Justification"]);
-                            pHeader.Repeat = Convert.ToBoolean(DR["Repeat"]);
+                            pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]); 
                             pHeader.Severity = DR["SeverityID"] == DBNull.Value ? null : new PSeverity { SeverityID = Convert.ToInt32(DR["SeverityID"]), Severity = Convert.ToString(DR["Severity"]) };
                             pHeader.Status = DR["HeaderStatusID"] == DBNull.Value ? null : new PStatus { StatusID = Convert.ToInt32(DR["HeaderStatusID"]), Status = Convert.ToString(DR["HeaderStatus"]) };
-                            //    HeaderId = Convert.ToInt32(DR["HeaderID"]);
+                           
                             pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                             pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                             pHeader.TicketItem = new PTicketItem();
-                            // }                            
-                            pItem = new PTicketItem();
-                            pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
-                            pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
-
-                            pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
-                            pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
-                            pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
-
-                            pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
-
-                            pItem.Resolution = Convert.ToString(DR["Resolution"]);
-                            pItem.AssignerRemark = Convert.ToString(DR["AssignerRemark"]);
-                            pItem.HeaderID = Convert.ToInt32(DR["HeaderID"]);
-                            pItem.ResolutionType = DR["ResolutionTypeID"] == DBNull.Value ? null : new PResolutionType { ResolutionType = Convert.ToString(DR["ResolutionType"]) };
-
-                            pItem.ItemStatus = DR["ItemStatus"] == DBNull.Value ? null :
-                            new PStatus
-                            {
-                                StatusID = Convert.ToInt32(DR["ItemStatusID"]),
-                                Status = Convert.ToString(DR["ItemStatus"])
-                            };
-                            pHeader.TicketItem = pItem;
-                            // if (!Header.Exists(s => s.HeaderID == HeaderId))
+                          
                             Header.Add(pHeader);
                         }
                     }
@@ -1019,7 +867,7 @@ namespace Business
             }
             return success;
         }
-        public List<PTicketHeader> GetTicketDetails(int? HeaderId, int? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus)
+        public List<PTicketHeader> GetTicketDetails(int? HeaderId, int? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus,DateTime? TicketFrom= null, DateTime? TicketTo = null)
         {
             DbParameter HeaderIdP;
             DbParameter ItemIdP;
@@ -1091,8 +939,10 @@ namespace Business
                 else
                     HeaderStatusP = provider.CreateParameter("HeaderStatus", DBNull.Value, DbType.String);
 
+                DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
+                DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
 
-                DbParameter[] TicketTypeParams = new DbParameter[10] { HeaderIdP, ItemIdP, CategoryIDP, SubCategoryIDP, SeverityP, TypeP, AssignedToP, AssignedByP, UserIdP, HeaderStatusP };
+                DbParameter[] TicketTypeParams = new DbParameter[12] { HeaderIdP, ItemIdP, CategoryIDP, SubCategoryIDP, SeverityP, TypeP, AssignedToP, AssignedByP, UserIdP, HeaderStatusP, TicketFromP, TicketToP };
 
                 using (DataSet DS = provider.Select("GetTicketDetails", TicketTypeParams))
                 {
@@ -1108,70 +958,67 @@ namespace Business
                                 pHeader.HeaderID = Convert.ToInt32(DR["HeaderID"]);
                                 pHeader.Category = new PCategory { Category = Convert.ToString(DR["Category"]), CategoryID = Convert.ToInt32(DR["CategoryID"]) };
                                 pHeader.SubCategory = DR["SubCategoryID"] == DBNull.Value ? null : new PSubCategory { CategoryId = Convert.ToInt32(DR["CategoryId"]), SubCategory = Convert.ToString(DR["SubCategory"]), SubCategoryID = Convert.ToInt32(DR["SubCategoryID"]) };
-                                pHeader.Type = DR["TypeID"] == DBNull.Value ? null : new PType { TypeID = Convert.ToInt32(DR["TypeID"]), Type = Convert.ToString(DR["Type"]) };
                                 pHeader.CreatedBy = new PUser
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                    Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
+                                    //Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
                                 pHeader.Subject = Convert.ToString(DR["Subject"]);
                                 pHeader.Description = Convert.ToString(DR["Description"]);
-                                pHeader.Repeat = Convert.ToBoolean(DR["Repeat"]);
                                 pHeader.Severity = DR["SeverityID"] == DBNull.Value ? null : new PSeverity { SeverityID = Convert.ToInt32(DR["SeverityID"]), Severity = Convert.ToString(DR["Severity"]) };
                                 pHeader.Status = DR["HeaderStatusID"] == DBNull.Value ? null : new PStatus { StatusID = Convert.ToInt32(DR["HeaderStatusID"]), Status = Convert.ToString(DR["HeaderStatus"]) };
                                 cHeaderId = Convert.ToInt32(DR["HeaderID"]);
-                                pHeader.PriorityLevel = DR["PriorityLevel"] == DBNull.Value ? (int?)null : Convert.ToInt32(DR["PriorityLevel"]);
                                 pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                                 pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                                 pHeader.TicketItems = new List<PTicketItem>();
                                 pHeader.ApprovalDetails = new List<PTicketsApprovalDetails>();
                             }
-                            if (DR["ItemID"] != DBNull.Value)
-                            {
-                                if (!pHeader.TicketItems.Exists(s => s.ItemID == (Convert.ToInt32(DR["ItemID"]))))
-                                {
-                                    pItem = new PTicketItem();
-                                    pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
-                                    pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
+                            //if (DR["ItemID"] != DBNull.Value)
+                            //{
+                            //    if (!pHeader.TicketItems.Exists(s => s.ItemID == (Convert.ToInt32(DR["ItemID"]))))
+                            //    {
+                            //        pItem = new PTicketItem();
+                            //        pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
+                            //        pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
 
-                                    pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
-                                    pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
-                                    pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
+                            //        pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
+                            //        pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
+                            //        pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
 
-                                    pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
+                            //        pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
 
-                                    pItem.Resolution = Convert.ToString(DR["Resolution"]);
-                                    pItem.AssignerRemark = Convert.ToString(DR["AssignerRemark"]);
-                                    pItem.HeaderID = Convert.ToInt32(DR["HeaderID"]);
-                                    pItem.ResolutionType = DR["ResolutionTypeID"] == DBNull.Value ? null : new PResolutionType { ResolutionType = Convert.ToString(DR["ResolutionType"]) };
-                                    pItem.ResolvedOn = DR["ResolvedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ResolvedOn"]);
-                                    pItem.InProgressOn = DR["InProgressOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["InProgressOn"]);
-                                    pItem.ItemStatus = DR["ItemStatus"] == DBNull.Value ? null :
-                                    new PStatus
-                                    {
-                                        StatusID = Convert.ToInt32(DR["ItemStatusID"]),
-                                        Status = Convert.ToString(DR["ItemStatus"])
-                                    };
-                                    pHeader.TicketItems.Add(pItem);
-                                }
-                            }
-                            if (DR["TicketsApprovalId"] != DBNull.Value)
-                            {
-                                if (!pHeader.ApprovalDetails.Exists(s => s.Id == Convert.ToInt32(DR["TicketsApprovalId"])))
-                                {
-                                    ApprovalDetails = new PTicketsApprovalDetails();
-                                    ApprovalDetails.Id = Convert.ToInt32(DR["TicketsApprovalId"]);
-                                    ApprovalDetails.IsAppoved = DR["IsAppoved"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(DR["IsAppoved"]);
-                                    ApprovalDetails.RequestedBy = new PUser() { ContactName = Convert.ToString(DR["ApproveRequestedByName"]) };
-                                    ApprovalDetails.RequestedOn = Convert.ToDateTime(DR["RequestedOn"]);
-                                    ApprovalDetails.Approver = new PUser() { ContactName = Convert.ToString(DR["TicketApproverName"]) };
-                                    ApprovalDetails.ApprovedOn = DR["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ApprovedOn"]);
-                                    ApprovalDetails.ApproverRemark = Convert.ToString(DR["ApproverRemark"]);
-                                    pHeader.ApprovalDetails.Add(ApprovalDetails);
-                                }
-                            }
+                            //        pItem.Resolution = Convert.ToString(DR["Resolution"]);
+                            //        pItem.AssignerRemark = Convert.ToString(DR["AssignerRemark"]);
+                            //        pItem.HeaderID = Convert.ToInt32(DR["HeaderID"]);
+                            //        pItem.ResolutionType = DR["ResolutionTypeID"] == DBNull.Value ? null : new PResolutionType { ResolutionType = Convert.ToString(DR["ResolutionType"]) };
+                            //        pItem.ResolvedOn = DR["ResolvedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ResolvedOn"]);
+                            //        pItem.InProgressOn = DR["InProgressOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["InProgressOn"]);
+                            //        pItem.ItemStatus = DR["ItemStatus"] == DBNull.Value ? null :
+                            //        new PStatus
+                            //        {
+                            //            StatusID = Convert.ToInt32(DR["ItemStatusID"]),
+                            //            Status = Convert.ToString(DR["ItemStatus"])
+                            //        };
+                            //        pHeader.TicketItems.Add(pItem);
+                            //    }
+                            //}
+                            //if (DR["TicketsApprovalId"] != DBNull.Value)
+                            //{
+                            //    if (!pHeader.ApprovalDetails.Exists(s => s.Id == Convert.ToInt32(DR["TicketsApprovalId"])))
+                            //    {
+                            //        ApprovalDetails = new PTicketsApprovalDetails();
+                            //        ApprovalDetails.Id = Convert.ToInt32(DR["TicketsApprovalId"]);
+                            //        ApprovalDetails.IsAppoved = DR["IsAppoved"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(DR["IsAppoved"]);
+                            //        ApprovalDetails.RequestedBy = new PUser() { ContactName = Convert.ToString(DR["ApproveRequestedByName"]) };
+                            //        ApprovalDetails.RequestedOn = Convert.ToDateTime(DR["RequestedOn"]);
+                            //        ApprovalDetails.Approver = new PUser() { ContactName = Convert.ToString(DR["TicketApproverName"]) };
+                            //        ApprovalDetails.ApprovedOn = DR["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ApprovedOn"]);
+                            //        ApprovalDetails.ApproverRemark = Convert.ToString(DR["ApproverRemark"]);
+                            //        pHeader.ApprovalDetails.Add(ApprovalDetails);
+                            //    }
+                            //}
 
                             if (!Header.Exists(s => s.HeaderID == cHeaderId))
                                 Header.Add(pHeader);
@@ -1222,6 +1069,7 @@ namespace Business
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
+                                    ContactNumber = Convert.ToString(DR["CreatedByContactNumber"]),
                                     Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
@@ -1245,9 +1093,9 @@ namespace Business
                                     pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
                                     pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
 
-                                    pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
+                                    pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]), ContactNumber = Convert.ToString(DR["AssignedByContactNumber"]) };
                                     pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
-                                    pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
+                                    pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]), ContactNumber = Convert.ToString(DR["AssignedToContactNumber"]) };
 
                                     pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
 
@@ -1273,9 +1121,9 @@ namespace Business
                                     ApprovalDetails = new PTicketsApprovalDetails();
                                     ApprovalDetails.Id = Convert.ToInt32(DR["TicketsApprovalId"]);
                                     ApprovalDetails.IsAppoved = DR["IsAppoved"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(DR["IsAppoved"]);
-                                    ApprovalDetails.RequestedBy = new PUser() { ContactName = Convert.ToString(DR["ApproveRequestedByName"]) };
+                                    ApprovalDetails.RequestedBy = new PUser() { UserID = Convert.ToInt32(DR["ApproveRequestedById"]), ContactName = Convert.ToString(DR["ApproveRequestedByName"]), ContactNumber = Convert.ToString(DR["ApproveRequestedByContactNumber"]) };
                                     ApprovalDetails.RequestedOn = Convert.ToDateTime(DR["RequestedOn"]);
-                                    ApprovalDetails.Approver = new PUser() { ContactName = Convert.ToString(DR["TicketApproverName"]) };
+                                    ApprovalDetails.Approver = new PUser() { UserID = Convert.ToInt32(DR["TicketApproverID"]), ContactName = Convert.ToString(DR["TicketApproverName"]), ContactNumber = Convert.ToString(DR["TicketApproverContactNumber"]) };
                                     ApprovalDetails.ApprovedOn = DR["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ApprovedOn"]);
                                     ApprovalDetails.ApproverRemark = Convert.ToString(DR["ApproverRemark"]);
                                     pHeader.ApprovalDetails.Add(ApprovalDetails);
@@ -1551,7 +1399,7 @@ namespace Business
             }
             return FileTypeID;
         }
-        public int UpdateTicketClosedStatus(int HeaderID,int UserID)
+        public int UpdateTicketClosedStatus(int HeaderID, int UserID)
         {
             DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
@@ -1686,7 +1534,7 @@ namespace Business
                 DbParameter SystemCategoryIDP = provider.CreateParameter("SystemCategoryID", SystemCategoryID, DbType.String);
 
 
-                DbParameter[] TicketTypeParams = new DbParameter[11] { HeaderIdP,   CategoryIDP, SubCategoryIDP, AssignedToP, CreatedByP, 
+                DbParameter[] TicketTypeParams = new DbParameter[11] { HeaderIdP,   CategoryIDP, SubCategoryIDP, AssignedToP, CreatedByP,
                     UserIdP, HeaderStatusP,DepartmentIDP,TicketFromP ,TicketToP,SystemCategoryIDP};
 
                 using (DataSet DS = provider.Select("GetManageTickets", TicketTypeParams))
@@ -1800,52 +1648,21 @@ namespace Business
             { }
             return Header;
         }
-       
 
-        public List<PTicketHeader> GetTicketToClose(int? HeaderId, int? CategoryID, int? SubCategoryID, int? Type, int UserId, int? UserTypeID)
+
+        public List<PTicketHeader> GetTicketToClose(long? HeaderID, int? CategoryID, int? SubCategoryID, int UserID)
         {
-            DbParameter HeaderIdP;
-            DbParameter CategoryIDP;
-            DbParameter SubCategoryIDP;
-            DbParameter TypeP;
-            DbParameter UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
-
-
+           
             List<PTicketHeader> Header = new List<PTicketHeader>();
-            PTicketHeader pHeader = null;
-            PTicketItem pItem;
-            PTicketsApprovalDetails ApprovalDetails;
+            PTicketHeader pHeader = null; 
             try
             {
-                if (HeaderId != null)
-                    HeaderIdP = provider.CreateParameter("HeaderId", HeaderId, DbType.Int32);
-                else
-                    HeaderIdP = provider.CreateParameter("HeaderId", DBNull.Value, DbType.Int32);
+                DbParameter HeaderIdP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64); 
+                DbParameter CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
+                DbParameter SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
-
-
-                if (CategoryID != null)
-                    CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
-                else
-                    CategoryIDP = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
-
-                if (SubCategoryID != null)
-                    SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
-                else
-                    SubCategoryIDP = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
-
-
-                if (Type != null)
-                    TypeP = provider.CreateParameter("Type", Type, DbType.Int32);
-                else
-                    TypeP = provider.CreateParameter("Type", DBNull.Value, DbType.Int32);
-                DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
-
-
-
-
-
-                DbParameter[] TicketTypeParams = new DbParameter[6] { HeaderIdP, CategoryIDP, SubCategoryIDP, TypeP, UserIdP, UserTypeIDP };
+                DbParameter[] TicketTypeParams = new DbParameter[4] { HeaderIdP, CategoryIDP, SubCategoryIDP, UserIDP };
 
                 using (DataSet DS = provider.Select("GetTicketToClose", TicketTypeParams))
                 {
@@ -1861,18 +1678,17 @@ namespace Business
                                 pHeader.HeaderID = Convert.ToInt32(DR["HeaderID"]);
                                 pHeader.Category = new PCategory { Category = Convert.ToString(DR["Category"]), CategoryID = Convert.ToInt32(DR["CategoryID"]) };
                                 pHeader.SubCategory = DR["SubCategoryID"] == DBNull.Value ? null : new PSubCategory { CategoryId = Convert.ToInt32(DR["CategoryId"]), SubCategory = Convert.ToString(DR["SubCategory"]), SubCategoryID = Convert.ToInt32(DR["SubCategoryID"]) };
-                                pHeader.Type = DR["TypeID"] == DBNull.Value ? null : new PType { TypeID = Convert.ToInt32(DR["TypeID"]), Type = Convert.ToString(DR["Type"]) };
                                 pHeader.CreatedBy = new PUser
                                 {
                                     UserID = Convert.ToInt32(DR["CreatedBy"]),
                                     ContactName = Convert.ToString(DR["CreatedByEmployeeName"]),
-                                    Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
+                                    //Department = new PDMS_DealerDepartment { DealerDepartment = Convert.ToString(DR["CreatedByDepartment"]) }
                                 };
                                 pHeader.CreatedOn = Convert.ToDateTime(DR["CreatedOn"]);
 
                                 pHeader.Description = Convert.ToString(DR["Description"]);
                                 pHeader.Repeat = Convert.ToBoolean(DR["Repeat"]);
-                                pHeader.Severity = DR["SeverityID"] == DBNull.Value ? null : new PSeverity { SeverityID = Convert.ToInt32(DR["SeverityID"]), Severity = Convert.ToString(DR["Severity"]) };
+                                //pHeader.Severity = DR["SeverityID"] == DBNull.Value ? null : new PSeverity { SeverityID = Convert.ToInt32(DR["SeverityID"]), Severity = Convert.ToString(DR["Severity"]) };
                                 pHeader.Status = DR["HeaderStatusID"] == DBNull.Value ? null : new PStatus { StatusID = Convert.ToInt32(DR["HeaderStatusID"]), Status = Convert.ToString(DR["HeaderStatus"]) };
                                 cHeaderId = Convert.ToInt32(DR["HeaderID"]);
                                 pHeader.PriorityLevel = DR["PriorityLevel"] == DBNull.Value ? (int?)null : Convert.ToInt32(DR["PriorityLevel"]);
@@ -1881,50 +1697,50 @@ namespace Business
                                 pHeader.TicketItems = new List<PTicketItem>();
                                 pHeader.ApprovalDetails = new List<PTicketsApprovalDetails>();
                             }
-                            if (DR["ItemID"] != DBNull.Value)
-                            {
-                                if (!pHeader.TicketItems.Exists(s => s.ItemID == (Convert.ToInt32(DR["ItemID"]))))
-                                {
-                                    pItem = new PTicketItem();
-                                    pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
-                                    pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
+                            //if (DR["ItemID"] != DBNull.Value)
+                            //{
+                            //    if (!pHeader.TicketItems.Exists(s => s.ItemID == (Convert.ToInt32(DR["ItemID"]))))
+                            //    {
+                            //        pItem = new PTicketItem();
+                            //        pItem.ItemID = Convert.ToInt32(DR["ItemID"]);
+                            //        pItem.ActualDuration = DR["ActualDuration"] != DBNull.Value ? Convert.ToDecimal(DR["ActualDuration"]) : (decimal?)null;
 
-                                    pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
-                                    pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
-                                    pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
+                            //        pItem.AssignedBy = DR["AssignedBy"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedBy"]), ContactName = Convert.ToString(DR["AssignedByEmployeeName"]) };
+                            //        pItem.AssignedOn = Convert.ToDateTime(DR["AssignedOn"]);
+                            //        pItem.AssignedTo = DR["AssignedTo"] == DBNull.Value ? null : new PUser { UserID = Convert.ToInt32(DR["AssignedTo"]), ContactName = Convert.ToString(DR["AssignedToEmployeeName"]) };
 
-                                    pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
+                            //        pItem.Effort = DR["Effort"] == DBNull.Value ? (decimal?)null : Convert.ToDecimal(DR["Effort"]);
 
-                                    pItem.Resolution = Convert.ToString(DR["Resolution"]);
-                                    pItem.AssignerRemark = Convert.ToString(DR["AssignerRemark"]);
-                                    pItem.HeaderID = Convert.ToInt32(DR["HeaderID"]);
-                                    pItem.ResolutionType = DR["ResolutionTypeID"] == DBNull.Value ? null : new PResolutionType { ResolutionType = Convert.ToString(DR["ResolutionType"]) };
-                                    pItem.ResolvedOn = DR["ResolvedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ResolvedOn"]);
-                                    pItem.InProgressOn = DR["InProgressOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["InProgressOn"]);
-                                    pItem.ItemStatus = DR["ItemStatus"] == DBNull.Value ? null :
-                                    new PStatus
-                                    {
-                                        StatusID = Convert.ToInt32(DR["ItemStatusID"]),
-                                        Status = Convert.ToString(DR["ItemStatus"])
-                                    };
-                                    pHeader.TicketItems.Add(pItem);
-                                }
-                            }
-                            if (DR["TicketsApprovalId"] != DBNull.Value)
-                            {
-                                if (!pHeader.ApprovalDetails.Exists(s => s.Id == Convert.ToInt32(DR["TicketsApprovalId"])))
-                                {
-                                    ApprovalDetails = new PTicketsApprovalDetails();
-                                    ApprovalDetails.Id = Convert.ToInt32(DR["TicketsApprovalId"]);
-                                    ApprovalDetails.IsAppoved = DR["IsAppoved"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(DR["IsAppoved"]);
-                                    ApprovalDetails.RequestedBy = new PUser() { ContactName = Convert.ToString(DR["ApproveRequestedByName"]) };
-                                    ApprovalDetails.RequestedOn = Convert.ToDateTime(DR["RequestedOn"]);
-                                    ApprovalDetails.Approver = new PUser() { ContactName = Convert.ToString(DR["TicketApproverName"]) };
-                                    ApprovalDetails.ApprovedOn = DR["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ApprovedOn"]);
-                                    ApprovalDetails.ApproverRemark = Convert.ToString(DR["ApproverRemark"]);
-                                    pHeader.ApprovalDetails.Add(ApprovalDetails);
-                                }
-                            }
+                            //        pItem.Resolution = Convert.ToString(DR["Resolution"]);
+                            //        pItem.AssignerRemark = Convert.ToString(DR["AssignerRemark"]);
+                            //        pItem.HeaderID = Convert.ToInt32(DR["HeaderID"]);
+                            //        pItem.ResolutionType = DR["ResolutionTypeID"] == DBNull.Value ? null : new PResolutionType { ResolutionType = Convert.ToString(DR["ResolutionType"]) };
+                            //        pItem.ResolvedOn = DR["ResolvedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ResolvedOn"]);
+                            //        pItem.InProgressOn = DR["InProgressOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["InProgressOn"]);
+                            //        pItem.ItemStatus = DR["ItemStatus"] == DBNull.Value ? null :
+                            //        new PStatus
+                            //        {
+                            //            StatusID = Convert.ToInt32(DR["ItemStatusID"]),
+                            //            Status = Convert.ToString(DR["ItemStatus"])
+                            //        };
+                            //        pHeader.TicketItems.Add(pItem);
+                            //    }
+                            //}
+                            //if (DR["TicketsApprovalId"] != DBNull.Value)
+                            //{
+                            //    if (!pHeader.ApprovalDetails.Exists(s => s.Id == Convert.ToInt32(DR["TicketsApprovalId"])))
+                            //    {
+                            //        ApprovalDetails = new PTicketsApprovalDetails();
+                            //        ApprovalDetails.Id = Convert.ToInt32(DR["TicketsApprovalId"]);
+                            //        ApprovalDetails.IsAppoved = DR["IsAppoved"] == DBNull.Value ? (Boolean?)null : Convert.ToBoolean(DR["IsAppoved"]);
+                            //        ApprovalDetails.RequestedBy = new PUser() { ContactName = Convert.ToString(DR["ApproveRequestedByName"]) };
+                            //        ApprovalDetails.RequestedOn = Convert.ToDateTime(DR["RequestedOn"]);
+                            //        ApprovalDetails.Approver = new PUser() { ContactName = Convert.ToString(DR["TicketApproverName"]) };
+                            //        ApprovalDetails.ApprovedOn = DR["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(DR["ApprovedOn"]);
+                            //        ApprovalDetails.ApproverRemark = Convert.ToString(DR["ApproverRemark"]);
+                            //        pHeader.ApprovalDetails.Add(ApprovalDetails);
+                            //    }
+                            //}
 
                             if (!Header.Exists(s => s.HeaderID == cHeaderId))
                                 Header.Add(pHeader);
@@ -2100,9 +1916,9 @@ namespace Business
             return success;
         }
         public List<PTicketHeader> GetTicketsForDelete(int UserId)
-        { 
+        {
             List<PTicketHeader> Header = new List<PTicketHeader>();
-            PTicketHeader pHeader = null; 
+            PTicketHeader pHeader = null;
             try
             {
                 DbParameter UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
@@ -2143,14 +1959,14 @@ namespace Business
         }
         public int UpdateDeleteTicket(int TicketNo)
         {
-            DbParameter TicketNoP = provider.CreateParameter("TicketNo", TicketNo, DbType.Int32); 
-            int success = 0; 
+            DbParameter TicketNoP = provider.CreateParameter("TicketNo", TicketNo, DbType.Int32);
+            int success = 0;
             DbParameter[] Params = new DbParameter[1] { TicketNoP };
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    success = provider.Insert("UpdateDeleteTicket", Params); 
+                    success = provider.Insert("UpdateDeleteTicket", Params);
                     scope.Complete();
                 }
             }
@@ -2173,7 +1989,7 @@ namespace Business
             int success = 0;
             DbParameter EIDParam = provider.CreateParameter("EID", EID, DbType.Int32);
             DbParameter TicketNoParam = provider.CreateParameter("HeaderID", HeaderID, DbType.Int32);
-            DbParameter RemarkParam = provider.CreateParameter("Remark", Remark, DbType.String); 
+            DbParameter RemarkParam = provider.CreateParameter("Remark", Remark, DbType.String);
             DbParameter[] Params = new DbParameter[3] { EIDParam, TicketNoParam, RemarkParam };
             try
             {
@@ -2192,6 +2008,83 @@ namespace Business
             {
                 new FileLogger().LogMessage("BTickets", "UpdateTicketApproval", ex);
                 success = 0;
+            }
+            return success;
+        }
+        public int UpdateTicketStatusApprove(int HeaderId, int? Approver, string ApproverRemark)
+        {
+            int success = 0;
+
+            DbParameter HeaderIdP = provider.CreateParameter("HeaderId", HeaderId, DbType.Int32);
+            DbParameter ApproverParam = provider.CreateParameter("Approver", Approver, DbType.Int32);
+            DbParameter ApproverRemarkParam = provider.CreateParameter("ApproverRemark", ApproverRemark, DbType.String);
+            DbParameter[] Params = new DbParameter[3] { HeaderIdP, ApproverParam, ApproverRemarkParam };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("UpdateTicketStatusApprove", Params);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BTickets", "UpdateTicketStatusApprove", sqlEx);
+                success = 0;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "UpdateTicketStatusApprove", ex);
+                success = 0;
+            }
+            return success;
+        }
+        public int UpdateTicketForceClosedStatus(int HeaderID, int UserID)
+        {
+            DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            int success = 0;
+            DbParameter[] TicketTypeParams = new DbParameter[2] { HeaderIDP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("UpdateTicketStatusForceClose", TicketTypeParams);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BTickets", "UpdateTicketStatusForceClose", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "UpdateTicketStatusForceClose", ex);
+            }
+            return success;
+        }
+        public int UpdateTicketCancelStatus(int HeaderID, int ItemID, int UserID)
+        {
+            DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
+            DbParameter ItemIDP = provider.CreateParameter("ItemID", ItemID, DbType.Int64);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            int success = 0;
+            DbParameter[] TicketTypeParams = new DbParameter[3] { HeaderIDP, ItemIDP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    success = provider.Insert("UpdateTicketStatusCancel", TicketTypeParams);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BTickets", "UpdateTicketStatusCancel", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "UpdateTicketStatusCancel", ex);
             }
             return success;
         }

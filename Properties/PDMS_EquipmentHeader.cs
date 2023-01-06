@@ -8,8 +8,8 @@ namespace Properties
     [Serializable]
     public class PDMS_EquipmentHeader
     {
-        public DateTime CurrentHMRDate { get; set; }
-        public int CurrentHMRValue { get; set; }
+        public DateTime? CurrentHMRDate { get; set; }
+        public int? CurrentHMRValue { get; set; }
         public long EquipmentHeaderID { get; set; }
         public PDMS_Customer Customer { get; set; }
         public PDMS_Model EquipmentModel { get; set; }
@@ -86,10 +86,10 @@ namespace Properties
         public string BaseCategory { get; set; }
         public string Description { get; set; }
     }
-
+    [Serializable]
     public class PEquipmentWarrantyTypeApproval
     {
-        public int WarrantyTypeChangeID { get; set; }
+        public long WarrantyTypeChangeID { get; set; }
         public PDMS_EquipmentWarrantyType WarrantyType { get; set; }
         public PDMS_EquipmentHeader Equipment { get; set; }
         public PUser RequestedBy { get; set; }
@@ -97,5 +97,60 @@ namespace Properties
         public PUser ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public Boolean? IsApproved { get; set; }
+        public List<PEquipmentAttachedFile> AttachedFile { get; set; }
+    }
+    [Serializable]
+    public class PEquipmentOwnershipChangeApproval
+    {
+        public long OwnershipChangeID { get; set; }
+        public PDMS_Customer Customer { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public DateTime SoldDate { get; set; }
+        public PUser RequestedBy { get; set; }
+        public DateTime RequestedDate { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public Boolean? IsApproved { get; set; }
+    }
+    public class PWarrantyExpiryDateChangeApproval
+    {
+        public long WarrantyExpiryDateChangeID { get; set; } 
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public DateTime OldWarrantyExpiryDate { get; set; }
+        public DateTime NewWarrantyExpiryDate { get; set; }
+        public PUser RequestedBy { get; set; }
+        public DateTime RequestedDate { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+        public Boolean? IsApproved { get; set; }
+    }
+    [Serializable]
+    public class PEquipmentAttachedFile
+    {
+        public long AttachedFileID { get; set; }
+        public string FileName { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public long FileSize { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public long ReferenceID { get; set; }
+        public string ReferenceName { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; } 
+    }
+
+    public class PEquipmentWarranty_Insert
+    {
+        public long EquipmentHeaderID { get; set; }
+        public int EquipmentWarrantyTypeID { get; set; }
+        public long CustomerID { get; set; }
+        public DateTime OldExpiryDate { get; set; }
+        public DateTime NewExpiryDate { get; set; }
+        public List<PEquipmentAttachedFilee_Insert> AttachedFile { get; set; }
+        public DateTime SoldDate { get; set; }
+    }
+    public class PEquipmentAttachedFilee_Insert
+    {
+        public string FileName { get; set; }
+        public byte[] AttachedFile { get; set; }
     }
 }

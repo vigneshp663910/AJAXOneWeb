@@ -21,76 +21,76 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public void EnquirySync(DateTime From, DateTime To, string EnquiryNo, string DealerCode, string CustomerCode)
-        {
-            DataTable dtEnquiry  = new SEnquiry().getEnquiry(From, To, EnquiryNo, DealerCode, CustomerCode);
-            foreach (DataRow dr in dtEnquiry.Rows)
-            {
-                List<PLeadSource> DBMasterSource = new BLead().GetLeadSource(null, null);
-                List<PLeadSource> Source = new BLead().GetLeadSource(null, dr["SOURCE"].ToString());
-                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, dr["C_STATE"].ToString());
-                List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (State.Count == 0) ?(int?)null: Convert.ToInt32(State[0].StateID), null, string.IsNullOrEmpty(dr["C_DISTRICT"].ToString())? "UNKNOWN": dr["C_DISTRICT"].ToString(), null);
-                Int32? SourceID = null;
-                if(dr["SOURCE"].ToString().Contains("Through Hoardings") || dr["SOURCE"].ToString().Contains("Dontuse") || dr["SOURCE"].ToString().Contains("Direct Enquiry"))
-                {
-                    SourceID = DBMasterSource[10].SourceID;
-                }
-                else if(dr["SOURCE"].ToString().Contains("Indiamart -  Email")|| dr["SOURCE"].ToString().Contains("Indiamart- Call"))
-                {
-                    SourceID = DBMasterSource[8].SourceID;
-                }
-                else if (dr["SOURCE"].ToString().Contains("Indiamart-Buylead"))
-                {
-                    SourceID = DBMasterSource[7].SourceID;
-                }
-                else if (dr["SOURCE"].ToString().Contains("Monsoon Scheme") || dr["SOURCE"].ToString().Contains("Billboard Campaign"))
-                {
-                    SourceID = DBMasterSource[6].SourceID;
-                }
-                else if (dr["SOURCE"].ToString().Contains("Exhibition"))
-                {
-                    SourceID = DBMasterSource[5].SourceID;
-                }
-                else if (dr["SOURCE"].ToString().Contains("Existing Customer-Repeat order"))
-                {
-                    SourceID = DBMasterSource[3].SourceID;
-                }
+        //public void EnquirySync(DateTime From, DateTime To, string EnquiryNo, string DealerCode, string CustomerCode)
+        //{
+        //    DataTable dtEnquiry  = new SEnquiry().getEnquiry(From, To, EnquiryNo, DealerCode, CustomerCode);
+        //    foreach (DataRow dr in dtEnquiry.Rows)
+        //    {
+        //        List<PLeadSource> DBMasterSource = new BLead().GetLeadSource(null, null);
+        //        List<PLeadSource> Source = new BLead().GetLeadSource(null, dr["SOURCE"].ToString());
+        //        List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, dr["C_STATE"].ToString());
+        //        List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, (State.Count == 0) ?(int?)null: Convert.ToInt32(State[0].StateID), null, string.IsNullOrEmpty(dr["C_DISTRICT"].ToString())? "UNKNOWN": dr["C_DISTRICT"].ToString(), null);
+        //        Int32? SourceID = null;
+        //        if(dr["SOURCE"].ToString().Contains("Through Hoardings") || dr["SOURCE"].ToString().Contains("Dontuse") || dr["SOURCE"].ToString().Contains("Direct Enquiry"))
+        //        {
+        //            SourceID = DBMasterSource[10].SourceID;
+        //        }
+        //        else if(dr["SOURCE"].ToString().Contains("Indiamart -  Email")|| dr["SOURCE"].ToString().Contains("Indiamart- Call"))
+        //        {
+        //            SourceID = DBMasterSource[8].SourceID;
+        //        }
+        //        else if (dr["SOURCE"].ToString().Contains("Indiamart-Buylead"))
+        //        {
+        //            SourceID = DBMasterSource[7].SourceID;
+        //        }
+        //        else if (dr["SOURCE"].ToString().Contains("Monsoon Scheme") || dr["SOURCE"].ToString().Contains("Billboard Campaign"))
+        //        {
+        //            SourceID = DBMasterSource[6].SourceID;
+        //        }
+        //        else if (dr["SOURCE"].ToString().Contains("Exhibition"))
+        //        {
+        //            SourceID = DBMasterSource[5].SourceID;
+        //        }
+        //        else if (dr["SOURCE"].ToString().Contains("Existing Customer-Repeat order"))
+        //        {
+        //            SourceID = DBMasterSource[3].SourceID;
+        //        }
 
-                TraceLogger.Log(DateTime.Now);
-                try
-                {
-                    //DbParameter EnquiryID = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
-                    DbParameter EnquiryDate = provider.CreateParameter("EnquiryDate", Convert.ToDateTime(dr["CFCDAT"].ToString()), DbType.DateTime);
-                    DbParameter SapEnquiryNumber = provider.CreateParameter("SapEnquiryNumber", dr["S_OPPID"].ToString(), DbType.String);
-                    DbParameter CustomerName = provider.CreateParameter("CustomerName", dr["NAME"].ToString(), DbType.String);
-                    DbParameter PersonName = provider.CreateParameter("PersonName", dr["C_NO"].ToString(), DbType.String);
-                    DbParameter Mail = provider.CreateParameter("Mail", "", DbType.String);
-                    DbParameter Mobile = provider.CreateParameter("Mobile", dr["C_PER"].ToString(), DbType.String);
-                    DbParameter Address = provider.CreateParameter("Address", dr["C_ADDR1"].ToString(), DbType.String);
-                    DbParameter Address2 = provider.CreateParameter("Address2", dr["C_ADDR2"].ToString(), DbType.String);
-                    DbParameter Address3 = provider.CreateParameter("Address3", dr["C_STREET"].ToString(), DbType.String);
-                    DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
-                    DbParameter CountryID = provider.CreateParameter("CountryID", 1, DbType.Int32);
-                    DbParameter StateID = provider.CreateParameter("StateID", (State.Count == 0) ? (Int32?)null : State[0].StateID, DbType.Int32);
-                    DbParameter DistrictID = provider.CreateParameter("DistrictID", (District.Count==0)? (Int32?)null:District[0].DistrictID, DbType.Int32);
-                    DbParameter Product = provider.CreateParameter("Product", dr["PRODUCT"].ToString(), DbType.String);
-                    DbParameter Remarks = provider.CreateParameter("Remarks", dr["ENQ_REASON"].ToString(), DbType.String);
-                    DbParameter CreatedBy = provider.CreateParameter("CreatedBy", PSession.User.UserID, DbType.Int32);
-                    DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        DbParameter[] Params = new DbParameter[17] { /*EnquiryID, */EnquiryDate, SapEnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceIDP, CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
-                        provider.Insert("InsertOrUpdateEnquiryFromSAP", Params);
-                        scope.Complete();
-                    }
-                    TraceLogger.Log(DateTime.Now);
-                }
-                catch (Exception ex)
-                {
-                    new FileLogger().LogMessageService("BEnquiry", "InsertOrUpdateEnquiry", ex);
-                }
-            }
-        }
+        //        TraceLogger.Log(DateTime.Now);
+        //        try
+        //        {
+        //            //DbParameter EnquiryID = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
+        //            DbParameter EnquiryDate = provider.CreateParameter("EnquiryDate", Convert.ToDateTime(dr["CFCDAT"].ToString()), DbType.DateTime);
+        //            DbParameter SapEnquiryNumber = provider.CreateParameter("SapEnquiryNumber", dr["S_OPPID"].ToString(), DbType.String);
+        //            DbParameter CustomerName = provider.CreateParameter("CustomerName", dr["NAME"].ToString(), DbType.String);
+        //            DbParameter PersonName = provider.CreateParameter("PersonName", dr["C_NO"].ToString(), DbType.String);
+        //            DbParameter Mail = provider.CreateParameter("Mail", "", DbType.String);
+        //            DbParameter Mobile = provider.CreateParameter("Mobile", dr["C_PER"].ToString(), DbType.String);
+        //            DbParameter Address = provider.CreateParameter("Address", dr["C_ADDR1"].ToString(), DbType.String);
+        //            DbParameter Address2 = provider.CreateParameter("Address2", dr["C_ADDR2"].ToString(), DbType.String);
+        //            DbParameter Address3 = provider.CreateParameter("Address3", dr["C_STREET"].ToString(), DbType.String);
+        //            DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
+        //            DbParameter CountryID = provider.CreateParameter("CountryID", 1, DbType.Int32);
+        //            DbParameter StateID = provider.CreateParameter("StateID", (State.Count == 0) ? (Int32?)null : State[0].StateID, DbType.Int32);
+        //            DbParameter DistrictID = provider.CreateParameter("DistrictID", (District.Count==0)? (Int32?)null:District[0].DistrictID, DbType.Int32);
+        //            DbParameter Product = provider.CreateParameter("Product", dr["PRODUCT"].ToString(), DbType.String);
+        //            DbParameter Remarks = provider.CreateParameter("Remarks", dr["ENQ_REASON"].ToString(), DbType.String);
+        //            DbParameter CreatedBy = provider.CreateParameter("CreatedBy", PSession.User.UserID, DbType.Int32);
+        //            DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+        //            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //            {
+        //                DbParameter[] Params = new DbParameter[17] { /*EnquiryID, */EnquiryDate, SapEnquiryNumber, CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceIDP, CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+        //                provider.Insert("InsertOrUpdateEnquiryFromSAP", Params);
+        //                scope.Complete();
+        //            }
+        //            TraceLogger.Log(DateTime.Now);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            new FileLogger().LogMessageService("BEnquiry", "InsertOrUpdateEnquiry", ex);
+        //        }
+        //    }
+        //}
         public Boolean InsertOrUpdateEnquiry(PEnquiry enquiry,int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -158,6 +158,7 @@ namespace Business
                             {
                                 EnquiryID = Convert.ToInt64(dr["EnquiryID"]),
                                 LeadID = DBNull.Value == dr["LeadID"] ? (long?)null: Convert.ToInt64(dr["LeadID"]),
+                                
                                 CustomerName = Convert.ToString(dr["CustomerName"]),
                                 EnquiryDate = Convert.ToDateTime(dr["EnquiryDate"]),
                                 EnquiryNumber = Convert.ToString(dr["EnquiryNumber"]),
@@ -165,6 +166,7 @@ namespace Business
                                 {
                                     Source = Convert.ToString(dr["LeadSource"]),
                                     SourceID = Convert.ToInt32(dr["LeadSourceID"]),
+                               
                                 },
                                 Status = DBNull.Value == dr["PreSaleStatusID"] ? null : new PPreSaleStatus()
                                 {
@@ -180,11 +182,13 @@ namespace Business
                                 {
                                     State = Convert.ToString(dr["State"]),
                                     StateID = Convert.ToInt32(dr["StateID"]),
+                                    Region = new PDMS_Region() { Region = Convert.ToString(dr["Region"]) }
                                 },
                                 District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District()
                                 {
                                     District = Convert.ToString(dr["District"]),
-                                    DistrictID = Convert.ToInt32(dr["DistrictID"]),
+                                    DistrictID = Convert.ToInt32(dr["DistrictID"]), 
+                                    Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]),DealerName = Convert.ToString(dr["DealerName"]) }
                                 },
                                 Address = Convert.ToString(dr["Address"]),
                                 Address2 = Convert.ToString(dr["Address2"]),

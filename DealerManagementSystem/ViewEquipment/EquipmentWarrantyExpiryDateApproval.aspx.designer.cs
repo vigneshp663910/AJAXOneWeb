@@ -7,236 +7,182 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewFinance
+namespace DealerManagementSystem.ViewEquipment
 {
 
 
-    public partial class BankDepositClearingPostingInSAP
+    public partial class EquipmentWarrantyExpiryDateApproval
     {
 
         /// <summary>
-        /// lblMessage control.
+        /// lblMessageEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label lblMessageEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// imgCallInformation control.
+        /// divList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgCallInformation;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// Label13 control.
+        /// txtWarrantyExpiryDateChgReqDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label13;
+        protected global::System.Web.UI.WebControls.TextBox txtWarrantyExpiryDateChgReqDateFrom;
 
         /// <summary>
-        /// ddlDealer control.
+        /// cxOwnershipChgReqDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+        protected global::AjaxControlToolkit.CalendarExtender cxOwnershipChgReqDateFrom;
 
         /// <summary>
-        /// Label1 control.
+        /// TextBoxWatermarkExtenderWarrantyExpiryDateChgReqDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtenderWarrantyExpiryDateChgReqDateFrom;
 
         /// <summary>
-        /// txtTransactionDateF control.
+        /// txtWarrantyExpiryDateChgReqDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTransactionDateF;
+        protected global::System.Web.UI.WebControls.TextBox txtWarrantyExpiryDateChgReqDateTo;
 
         /// <summary>
-        /// CalendarExtender1 control.
+        /// cxWarrantyExpiryDateChgReqDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+        protected global::AjaxControlToolkit.CalendarExtender cxWarrantyExpiryDateChgReqDateTo;
 
         /// <summary>
-        /// TextBoxWatermarkExtender1 control.
+        /// TextBoxWatermarkExtendertxtWarrantyExpiryDateChgReqDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtendertxtWarrantyExpiryDateChgReqDateTo;
 
         /// <summary>
-        /// Label2 control.
+        /// txtEquipmentSerialNoEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.TextBox txtEquipmentSerialNoEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// txtTransactionDateT control.
+        /// btnSearchEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTransactionDateT;
+        protected global::System.Web.UI.WebControls.Button btnSearchEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// CalendarExtender2 control.
+        /// lblRowCountEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
+        protected global::System.Web.UI.WebControls.Label lblRowCountEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// TextBoxWatermarkExtender2 control.
+        /// ibtnArrowLeftEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeftEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// Label3 control.
+        /// ibtnArrowRightEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRightEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// ddlCreatedBy control.
+        /// gvEquipWarrantyExpiryDateChgReq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCreatedBy;
+        protected global::System.Web.UI.WebControls.GridView gvEquipWarrantyExpiryDateChgReq;
 
         /// <summary>
-        /// Label4 control.
+        /// divEquipWarrantyExpiryDateChgReqView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEquipWarrantyExpiryDateChgReqView;
 
         /// <summary>
-        /// txtCreatedDateF control.
+        /// btnBackToList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreatedDateF;
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
 
         /// <summary>
-        /// CalendarExtender3 control.
+        /// tblDashboard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
 
         /// <summary>
-        /// TextBoxWatermarkExtender3 control.
+        /// UC_EquipmentView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
+        protected global::DealerManagementSystem.ViewEquipment.UserControls.EquipmentView UC_EquipmentView;
 
         /// <summary>
-        /// Label7 control.
+        /// ph_usercontrols_1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
-
-        /// <summary>
-        /// txtCreatedDateT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreatedDateT;
-
-        /// <summary>
-        /// CalendarExtender4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender4;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender4;
-
-        /// <summary>
-        /// btnSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
-
-        /// <summary>
-        /// lblRowCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCount;
-
-        /// <summary>
-        /// gvSo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSo;
+        protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_1;
     }
 }

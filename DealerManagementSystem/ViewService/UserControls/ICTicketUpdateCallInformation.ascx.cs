@@ -250,45 +250,57 @@ namespace DealerManagementSystem.ViewService.UserControls
             txtReachedDate.BorderColor = Color.Silver;
             txtLocation.BorderColor = Color.Silver;
 
+            if((SDMS_ICTicket.Equipment.WarrantyExpiryDate == null)|| (SDMS_ICTicket.Equipment.CommissioningOn == null))
+            {
+                int ServiceTypeID = Convert.ToInt32(ddlServiceType.SelectedValue);
+                if((ServiceTypeID == (short)DMS_ServiceType.PreCommission) || (ServiceTypeID == (short)DMS_ServiceType.Commission))
+                {
+
+                }
+                else
+                {
+                    return "Warranty Date and Commissioning On is not available so please select Pre -Commission or Commission ";
+                }
+            }
             if (string.IsNullOrEmpty(txtDepartureDate.Text.Trim()))
             {
-                Message = Message + "<br/> Please Enter the Departure Date";
+                return "Please Enter the Departure Date";
             }
             if (ddlDepartureHH.SelectedValue == "-1")
             {
-                Message = Message + "<br/> Please Enter the Departure Hour";
+                return "Please Enter the Departure Hour";
             }
             if (ddlDepartureMM.SelectedValue == "0")
             {
-                Message = Message + "<br/> Please Enter the Departure Minute";
+                return "Please Enter the Departure Minute";
             }
 
 
             if (string.IsNullOrEmpty(txtReachedDate.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Reached Date";
                 txtReachedDate.BorderColor = Color.Red;
+                return "Please enter the Reached Date";
+                
             }
             else
             {
                 if (ddlReachedHH.SelectedValue == "-1")
                 {
-                    Message = Message + "<br/>Please select the Reached Hour";
                     ddlReachedHH.BorderColor = Color.Red;
+                    return "Please select the Reached Hour"; 
                 }
 
                 if (ddlReachedMM.SelectedValue == "0")
                 {
-                    Message = Message + "<br/>Please select the Reached Minute";
                     ddlReachedMM.BorderColor = Color.Red;
-                }
-
+                    return "Please select the Reached Minute"; 
+                } 
             }
 
             if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Location";
                 txtLocation.BorderColor = Color.Red;
+                return "Please enter the Location"; 
             }
 
             if (string.IsNullOrEmpty(Message))
@@ -301,13 +313,15 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 if (!int.TryParse("0" + txtHMRValue.Text, out value))
                 {
-                    Message = Message + "<br/> Please enter integer in HMR Value";
                     txtHMRValue.BorderColor = Color.Red;
+                    return " Please enter integer in HMR Value";
+                   
                 }
                 if (SDMS_ICTicket.LastHMRValue > Convert.ToInt32(txtHMRValue.Text.Trim()))
                 {
-                    Message = Message + "<br/>HMR value should not be less than last HMR value.";
                     txtHMRValue.BorderColor = Color.Red;
+                    return "HMR value should not be less than last HMR value.";
+                    
                 }
             }
 
@@ -315,8 +329,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 if (Convert.ToDateTime(txtReachedDate.Text.Trim()) > Convert.ToDateTime(txtHMRDate.Text.Trim()))
                 {
-                    Message = Message + "<br/>HMR date should not be less than Reached date.";
                     txtHMRDate.BorderColor = Color.Red;
+                    return "HMR date should not be less than Reached date."; 
                 }
             }
             return Message;
@@ -403,7 +417,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             //    Message = Message + "<br/>Please add service code in service charges screen."; 
             //}
 
-            return "";
+            return Message;
 
         }
 

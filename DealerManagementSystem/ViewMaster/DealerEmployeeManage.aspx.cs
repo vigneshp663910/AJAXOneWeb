@@ -49,19 +49,7 @@ namespace DealerManagementSystem.ViewMaster
 
             if (!IsPostBack)
             {
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    ddlDealer.Enabled = false;
-
-                }
-                else
-                {
-                    ddlDealer.Enabled = true;
-                    fillDealer();
-                }
-
+                fillDealer();
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
             }
         }
@@ -266,7 +254,7 @@ namespace DealerManagementSystem.ViewMaster
             int index = gvRow.RowIndex;
             string url = "";
            Label lblDealerCode = (Label)gvDealerEmployee.Rows[index].FindControl("lblDealerCode");
-            if (lblDealerCode.Text == "2000")
+            if ((lblDealerCode.Text == "2000") || (lblDealerCode.Text == "3000"))
             {
                 url = "CreateAjaxEmployee.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
             }

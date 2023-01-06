@@ -9,6 +9,7 @@ namespace Properties
     public class PDMS_TypeOfWarranty
     {
         public int TypeOfWarrantyID { get; set; }
-        public string TypeOfWarranty { get; set; } 
+        public string TypeOfWarranty { get; set; }
+        public Boolean IsActive { get; set; }
     }
 }
