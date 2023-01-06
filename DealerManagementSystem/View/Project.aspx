@@ -85,6 +85,7 @@
                 </fieldset>
             </div>
         </asp:Panel>
+
         <ajaxToolkit:ModalPopupExtender ID="MPE_Project" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlProject" BackgroundCssClass="modalBackground" />
         <div style="display: none">
             <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
