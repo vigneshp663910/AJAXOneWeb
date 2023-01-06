@@ -491,6 +491,13 @@ namespace Properties
         SyncToParts = 31,
         TsirSalesApproveL1,
         TsirSalesApproveL2,
+        UpdateCommDate,
+        WarrantyTypeChange,
+        OwnershipChange,
+        ExpiryDateChange,
+        ApproveWarrantyTypeChange,
+        ApproveOwnershipChange,
+        ApproveExpiryDateChange,
     }
     public enum DMS_WarrantyClaimStatus
     {

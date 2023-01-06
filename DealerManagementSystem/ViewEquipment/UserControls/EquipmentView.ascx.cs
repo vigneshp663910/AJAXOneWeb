@@ -395,26 +395,76 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         }
         void ActionControlMange()
         {
+            lnkBtnUpdateCommDate.Visible = true;
+
             lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqWarrantyTypeChange.Visible = true;
-            if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954 || PSession.User.UserID == 491)
+            lnkBtnReqOwnershipChange.Visible = true;
+            lnkBtnReqWarrantyExpiryDateChange.Visible = true;
+
+
+
+
+            lnkBtnApprWarrantyTypeChangeReq.Visible = false;
+            lnkBtnRejWarrantyTypeChangeReq.Visible = false;
+            lnkBtnApprOwnershipChangeReq.Visible = false;
+            lnkBtnRejOwnershipChangeReq.Visible = false;
+            lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
+            lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
+            DataTable Equip = new BDMS_Equipment().GetEquipmentChangeForApproval(null, null, EquipmentViewDet.EquipmentSerialNo);
+            foreach (DataRow dr in Equip.Rows)
             {
-                lnkBtnReqWarrantyTypeChange.Visible = true;
+                if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Type")
+                {
+                    lnkBtnApprWarrantyTypeChangeReq.Visible = true;
+                    lnkBtnRejWarrantyTypeChangeReq.Visible = true;
+                }
+                if (Convert.ToString(dr["ChangeRequested"]) == "Ownership Change")
+                {
+                    lnkBtnApprOwnershipChangeReq.Visible = true;
+                    lnkBtnRejOwnershipChangeReq.Visible = true;
+                }
+                if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Expiry Date")
+                {
+                    lnkBtnApprWarrantyExpiryDateChangeReq.Visible = true;
+                    lnkBtnRejWarrantyExpiryDateChangeReq.Visible = true;
+                }
             }
-            else
+
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
+            {
+                lnkBtnUpdateCommDate.Visible = false;
+            }
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.WarrantyTypeChange).Count() == 0)
             {
                 lnkBtnReqWarrantyTypeChange.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.OwnershipChange).Count() == 0)
+            {
+                lnkBtnReqOwnershipChange.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ExpiryDateChange).Count() == 0)
+            {
+                lnkBtnReqWarrantyExpiryDateChange.Visible = false;
+            }
+
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveWarrantyTypeChange).Count() == 0)
+            {
+                lnkBtnApprWarrantyTypeChangeReq.Visible = false;
+                lnkBtnRejWarrantyTypeChangeReq.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveOwnershipChange).Count() == 0)
+            {
+                lnkBtnApprOwnershipChangeReq.Visible = false;
+                lnkBtnRejOwnershipChangeReq.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveExpiryDateChange).Count() == 0)
+            {
+                lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
+                lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
             }
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
