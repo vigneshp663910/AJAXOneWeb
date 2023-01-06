@@ -33,6 +33,7 @@ namespace DataAccess
         {
             if (providerType.Equals(sqlProvider))
                 provider = new SQLServer(IsReport);
+
             if (providerType.Equals(npgsqlProvider))
                 providerNP = new NpgsqlServer();
 
