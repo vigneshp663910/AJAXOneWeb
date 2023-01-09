@@ -976,7 +976,7 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void txtAadhaarCardNo_TextChanged(object sender, EventArgs e)
         {
-            if (new BDMS_Dealer().GetDealerEmployeeManage(null, AadhaarCardNo, null, null, "", null, null).Count() != 0)
+            if (new BDMS_Dealer().GetDealerEmployeeManage(null, AadhaarCardNo, null, null, "", null, null, null, null).Count() != 0)
             {
                 lblMessage.Text = "This Aadhaar Card ( "+ AadhaarCardNo + " ) Already Available";
                 lblMessage.Visible = true;

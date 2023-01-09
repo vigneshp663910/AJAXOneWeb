@@ -483,7 +483,8 @@ namespace Business
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
 
-        public List<PDMS_DealerEmployee> GetDealerEmployeeManage(int? DealerID, string AadhaarCardNo, int? StateID, int? DistrictID, string Name, string SAPEmpCode, Boolean? StatusID)
+        public List<PDMS_DealerEmployee> GetDealerEmployeeManage(int? DealerID, string AadhaarCardNo, int? StateID, int? DistrictID
+            , string Name, string SAPEmpCode, Boolean? StatusID,int? DealerDepartmentID, int? DealerDesignationID)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
             try
@@ -495,7 +496,9 @@ namespace Business
                 DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
                 DbParameter SAPEmpCodeP = provider.CreateParameter("SAPEmpCode", string.IsNullOrEmpty(SAPEmpCode) ? null : SAPEmpCode, DbType.String);
                 DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Boolean);
-                DbParameter[] Params = new DbParameter[7] { DealerIDP, AadhaarCardNoP, StateIDP, DistrictIDP, NameP, SAPEmpCodeP, StatusIDP };
+                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[9] { DealerIDP, AadhaarCardNoP, StateIDP, DistrictIDP, NameP, SAPEmpCodeP, StatusIDP, DealerDepartmentIDP, DealerDesignationIDP };
 
                 using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeManage", Params))
                 {
@@ -815,7 +818,7 @@ namespace Business
 
         public void GetDealerEmployeeDDL(DropDownList ddl, int? DealerID)
         {
-            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null, true);
+            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null, true,null,null);
             ddl.DataValueField = "DealerEmployeeID";
             ddl.DataTextField = "Name";
             ddl.DataSource = Employee;

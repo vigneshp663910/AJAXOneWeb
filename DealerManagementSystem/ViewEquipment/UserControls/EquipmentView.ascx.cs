@@ -401,9 +401,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lnkBtnReqOwnershipChange.Visible = true;
             lnkBtnReqWarrantyExpiryDateChange.Visible = true;
 
-
-
-
             lnkBtnApprWarrantyTypeChangeReq.Visible = false;
             lnkBtnRejWarrantyTypeChangeReq.Visible = false;
             lnkBtnApprOwnershipChangeReq.Visible = false;

@@ -51,6 +51,8 @@ namespace DealerManagementSystem.ViewMaster
             {
                 fillDealer();
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
             }
         }
 
@@ -67,7 +69,9 @@ namespace DealerManagementSystem.ViewMaster
             {
                 StatusID = Convert.ToBoolean(Convert.ToInt32(ddlStatus.SelectedValue));
             }
-            ICTicket = new BDMS_Dealer().GetDealerEmployeeManage(DealerID, AadhaarCardNo, StateID, null, txtName.Text.Trim(), null, StatusID);
+            int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+            ICTicket = new BDMS_Dealer().GetDealerEmployeeManage(DealerID, AadhaarCardNo, StateID, null, txtName.Text.Trim(), null, StatusID, DepartmentID, DesignationID);
             gvDealerEmployee.DataSource = ICTicket;
             gvDealerEmployeeDataBind();
         }
@@ -279,6 +283,10 @@ namespace DealerManagementSystem.ViewMaster
             //gvDealerEmployee.DataBind();
             //lblRowCount.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + ICTicket.Count;
 
+        }
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
     }
 }

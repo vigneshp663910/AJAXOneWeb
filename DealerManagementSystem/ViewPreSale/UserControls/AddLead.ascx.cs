@@ -50,11 +50,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void fillLead(PLead Lead)
         {
-            txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");  
-            
-            ddlProductType.SelectedValue = Convert.ToString(Lead.ProductType.ProductTypeID);
-            //ddlCategory.SelectedValue = Convert.ToString(Lead.Category.CategoryID);
-           // ddlQualification.SelectedValue = Lead.Qualification == null ? "0" : Convert.ToString(Lead.Qualification.QualificationID);
+            txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");
+            List<PLeadProduct> LeadProduct = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
+            if(LeadProduct.Count !=0)
+            {
+                ddlProductType.Enabled = false;
+            }
+            ddlProductType.SelectedValue = Convert.ToString(Lead.ProductType.ProductTypeID); 
             ddlSource.SelectedValue = Lead.Source==null?"0": Convert.ToString(Lead.Source.SourceID);
             ddlProject.SelectedValue = Lead.Project == null ? "0" : Convert.ToString(Lead.Project.ProjectID);
             //ddlUrgency.SelectedValue = Lead.Urgency == null ? "0" : Convert.ToString(Lead.Urgency.UrgencyID);

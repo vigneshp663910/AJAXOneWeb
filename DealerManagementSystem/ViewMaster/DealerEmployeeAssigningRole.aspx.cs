@@ -443,7 +443,7 @@ namespace DealerManagementSystem.ViewMaster
             //}
 
 
-            List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, "", txtSAPEmpCode.Text.Trim(), null);
+            List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, "", txtSAPEmpCode.Text.Trim(), null, null, null);
             if (Employee.Count() != 0)
             {
                 Message = Message + "<br/>This SAP Emp Code already used. Please enter new SAP Emp Code";
