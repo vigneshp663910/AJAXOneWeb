@@ -34,16 +34,11 @@ namespace DealerManagementSystem.ViewEquipment
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Visible = false;
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            lblMessage.Visible = false; 
             if (!IsPostBack)
             {
                 txtReqDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
@@ -52,6 +47,7 @@ namespace DealerManagementSystem.ViewEquipment
                 lblRowCountEquipChgReq.Visible = false;
                 ibtnArrowLeftEquipChgReq.Visible = false;
                 ibtnArrowRightEquipChgReq.Visible = false;
+                Session["ChangeID"] = null;
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -117,11 +113,8 @@ namespace DealerManagementSystem.ViewEquipment
             divList.Visible = false;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblChangeID = (Label)gvRow.FindControl("lblChangeID");
-            Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID");
-            Label lblNewValueID = (Label)gvRow.FindControl("lblNewValueID");
-            Session["ChangeID"] = lblChangeID.Text;
-            Session["EquipmentHeaderID"] = lblEquipmentHeaderID.Text;
-
+            Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID"); 
+            Session["ChangeID"] = lblChangeID.Text; 
             UC_EquipmentView.fillEquipment(Convert.ToInt64(lblEquipmentHeaderID.Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)

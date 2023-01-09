@@ -27,6 +27,7 @@ namespace DealerManagementSystem.ViewService
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » IC Ticket » Create');</script>");
             if (!IsPostBack)
             {
+                hdfCustomerId.Value = "";
                 FillMaster(); 
             }
         }
@@ -38,6 +39,7 @@ namespace DealerManagementSystem.ViewService
             ddlCountry.SelectedValue = Convert.ToString(CountryID);
             new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
             FillGetServicePriority();
+            Clear();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -87,22 +89,26 @@ namespace DealerManagementSystem.ViewService
                 return;
             }
 
-            PDMS_ICTicket IC = new PDMS_ICTicket();
-            IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim());
+            string Valid = Validation();
+            if (!string.IsNullOrEmpty(Valid))
+            {
+                lblMessage.Text = Valid;
+                return;
+            }
+            PICTicket_Create IC = new PICTicket_Create();
+         //   IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim()); 
+            IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
             IC.ContactPerson = txtContactPerson.Text;
             IC.PresentContactNumber = txtContactNumber.Text;
             IC.ComplaintDescription = txtComplaintDescription.Text;
            // IC.Information = txtInformation.Text;
-            IC.ServicePriority = new PDMS_ServicePriority() { ServicePriorityID = Convert.ToInt32(ddlServicePriority.SelectedValue) };
+            IC.ServicePriorityID = Convert.ToInt32(ddlServicePriority.SelectedValue) ;
 
-            IC.Equipment = new PDMS_EquipmentHeader() { EquipmentHeaderID = Convert.ToInt64(lblEquipmentHeaderID.Text) };
-            IC.Customer = new PDMS_Customer() { CustomerID = Convert.ToInt64(lblCustomerID.Text) };
-            IC.Address = new PDMS_Address()
-            {
-                Country = new PDMS_Country() { CountryID = Convert.ToInt32(ddlCountry.SelectedValue) },
-                State = new PDMS_State() { StateID = Convert.ToInt32(ddlState.SelectedValue) },
-                District = new PDMS_District() { DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue) }
-            };
+            IC.EquipmentHeaderID = Convert.ToInt64(lblEquipmentHeaderID.Text) ;
+            IC.CustomerID = Convert.ToInt64(lblCustomerID.Text) ;
+            IC.CountryID = Convert.ToInt32(ddlCountry.SelectedValue);
+            IC.StateID = Convert.ToInt32(ddlState.SelectedValue);
+            IC.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket", IC));
             lblMessage.Text = Results.Message;
@@ -110,6 +116,7 @@ namespace DealerManagementSystem.ViewService
             {
                 return;
             }
+            Clear();
             lblMessage.ForeColor = Color.Green; 
         }
         private void FillGetServicePriority()
@@ -140,6 +147,76 @@ namespace DealerManagementSystem.ViewService
 
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
             return JsonConvert.SerializeObject(Customer);
+        }
+
+        string Validation()
+        {
+           
+            txtContactNumber.BorderColor = Color.Silver;
+            txtContactPerson.BorderColor = Color.Silver;
+            txtComplaintDescription.BorderColor = Color.Silver;
+            txtRequestedDate.BorderColor = Color.Silver;
+
+            ddlRequestedHH.BorderColor = Color.Silver;
+            ddlRequestedMM.BorderColor = Color.Silver;
+            ddlServicePriority.BorderColor = Color.Silver;
+            ddlDistrict.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtContactNumber.Text.Trim()))
+            {
+                txtContactNumber.BorderColor = Color.Red;
+                return "Please Enter the Contact Number"; 
+            }
+            if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
+            {
+                txtContactPerson.BorderColor = Color.Red;
+                return "Please Enter the Contact Person";
+            }
+            if (string.IsNullOrEmpty(txtComplaintDescription.Text.Trim()))
+            {
+                txtComplaintDescription.BorderColor = Color.Red;
+                return "Please Enter the Complaint Description";
+            }
+            if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
+            {
+                txtRequestedDate.BorderColor = Color.Red;
+                return "Please Enter the Requested Date";
+            }
+            if (ddlRequestedHH.SelectedValue == "-1")
+            {
+                ddlRequestedHH.BorderColor = Color.Red;
+                return "Please Enter the Requested Hour"; 
+            }
+            if (ddlRequestedMM.SelectedValue == "0")
+            {
+                ddlRequestedMM.BorderColor = Color.Red;
+                return "Please Enter the Requested Minute"; 
+            }
+            if (ddlServicePriority.SelectedValue == "0")
+            {
+                ddlServicePriority.BorderColor = Color.Red;
+                return "Please Enter the Service Priority";
+            }
+
+            if (ddlDistrict.SelectedValue == "0")
+            {
+                ddlDistrict.BorderColor = Color.Red;
+                return "Please Enter the District";
+            }
+            return "";
+        }
+
+        void Clear()
+        {
+            txtContactNumber.Text = "";
+            txtContactPerson.Text = "";
+            txtComplaintDescription.Text = "";
+            txtRequestedDate.Text = "";
+            ddlRequestedHH.SelectedValue = "9";
+            ddlRequestedMM.SelectedValue = "0";
+            ddlServicePriority.SelectedValue = "0";
+            ddlDistrict.Text = "";
+            gvEquipment.DataSource = null;
+            gvEquipment.DataBind();
         }
     }
 }

@@ -125,6 +125,21 @@ namespace Properties
 
     }
     [Serializable]
+    public class PICTicket_Create
+    {
+        public long ICTicketID { get; set; }
+        public long? CustomerID { get; set; }
+        public long? EquipmentHeaderID { get; set; }
+        public string PresentContactNumber { get; set; }
+        public string ContactPerson { get; set; }
+        public DateTime? RequestedDate { get; set; }
+        public string ComplaintDescription { get; set; }
+        public int? ServicePriorityID { get; set; } 
+        public int CountryID { get; set; }
+        public int StateID { get; set; }
+        public int DistrictID { get; set; }
+    }
+    [Serializable]
     public class PICTicketServiceConfirmation
     {
         public long ICTicketID { get; set; }
@@ -453,7 +468,7 @@ namespace Properties
     [Serializable]
     public class PDMS_FSRAttachedFile_M
     {
-        public long AttachedFileID { get; set; }
+        public long? AttachedFileID { get; set; }
         public long ICTicketID { get; set; }
         public long FsrID { get; set; }
         public string FileName { get; set; }

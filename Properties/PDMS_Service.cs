@@ -109,7 +109,7 @@ namespace Properties
     [Serializable]
     public class PDMS_ServiceCharge_API
     {
-        public long ServiceChargeID { get; set; }
+        public long? ServiceChargeID { get; set; }
         public long ICTicketID { get; set; }
         public long MaterialID { get; set; }
         //public string MaterialWithDescription { get; set; } 
