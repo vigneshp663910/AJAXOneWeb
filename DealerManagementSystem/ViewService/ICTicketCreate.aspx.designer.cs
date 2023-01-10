@@ -132,6 +132,24 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtRequestedDate;
 
         /// <summary>
+        /// ddlRequestedHH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestedHH;
+
+        /// <summary>
+        /// ddlRequestedMM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestedMM;
+
+        /// <summary>
         /// ddlServicePriority control.
         /// </summary>
         /// <remarks>

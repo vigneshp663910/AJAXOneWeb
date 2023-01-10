@@ -1,8 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="ICTicketCreate.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketCreate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="ICTicketCreate.aspx.cs" Inherits="DealerManagementSystem.ViewService.ICTicketCreate" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
-    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <%-- <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>--%>
 
     <script>
         function GetCustomers() {
@@ -176,13 +176,16 @@
         //        });
         //    }
         //}
+
         function FormatAutocompleteList(item) {
-            var inner_html = '<a>';
-            inner_html += '<p style="margin:0;">sdssd<strong>' + item.value + '</strong></p>';
+
+            var inner_html = '<a class="customer">';
+            inner_html += '<p class="customer-name-info"><label>' + item.value + '</label></p>';
+            inner_html += '<div class=customer-info><label class="contact-number">Contact :' + item.ContactPerson + '(' + item.Mobile + ') </label>';
+            inner_html += '<label class="customer-type">' + item.CustomerType + '</label></div>';
+            inner_html += '<p class="customer-address"><label>' + item.Address + '</label></p>';
             inner_html += '</a>';
             return inner_html;
-
-
         }
 
 
@@ -237,7 +240,7 @@
                         <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
                             <ItemTemplate>
                                 <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
-                                <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerID")%>' runat="server" />
+                                <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerID")%>' runat="server" Visible="false" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
@@ -276,7 +279,49 @@
                 </div>--%>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Requested Date<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtRequestedDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
+                    <asp:TextBox ID="txtRequestedDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" MaxLength="10"></asp:TextBox>
+                    <asp:DropDownList ID="ddlRequestedHH" runat="server" CssClass="TextBox" Width="60px">
+                        <asp:ListItem Value="-1">HH</asp:ListItem>
+                        <asp:ListItem>0</asp:ListItem>
+                        <asp:ListItem>1</asp:ListItem>
+                        <asp:ListItem>2</asp:ListItem>
+                        <asp:ListItem>3</asp:ListItem>
+                        <asp:ListItem>4</asp:ListItem>
+                        <asp:ListItem>5</asp:ListItem>
+                        <asp:ListItem>6</asp:ListItem>
+                        <asp:ListItem>7</asp:ListItem>
+                        <asp:ListItem>8</asp:ListItem>
+                        <asp:ListItem>9</asp:ListItem>
+                        <asp:ListItem>10</asp:ListItem>
+                        <asp:ListItem>11</asp:ListItem>
+                        <asp:ListItem>12</asp:ListItem>
+                        <asp:ListItem>13</asp:ListItem>
+                        <asp:ListItem>14</asp:ListItem>
+                        <asp:ListItem>15</asp:ListItem>
+                        <asp:ListItem>16</asp:ListItem>
+                        <asp:ListItem>17</asp:ListItem>
+                        <asp:ListItem>18</asp:ListItem>
+                        <asp:ListItem>19</asp:ListItem>
+                        <asp:ListItem>20</asp:ListItem>
+                        <asp:ListItem>21</asp:ListItem>
+                        <asp:ListItem>22</asp:ListItem>
+                        <asp:ListItem>23</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:DropDownList ID="ddlRequestedMM" runat="server" CssClass="TextBox" Width="65px">
+                        <asp:ListItem Value="0">MM</asp:ListItem>
+                        <asp:ListItem>00</asp:ListItem>
+                        <asp:ListItem>05</asp:ListItem>
+                        <asp:ListItem>10</asp:ListItem>
+                        <asp:ListItem>15</asp:ListItem>
+                        <asp:ListItem>20</asp:ListItem>
+                        <asp:ListItem>25</asp:ListItem>
+                        <asp:ListItem>30</asp:ListItem>
+                        <asp:ListItem>35</asp:ListItem>
+                        <asp:ListItem>40</asp:ListItem>
+                        <asp:ListItem>45</asp:ListItem>
+                        <asp:ListItem>50</asp:ListItem>
+                        <asp:ListItem>55</asp:ListItem>
+                    </asp:DropDownList>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Service Priority<samp style="color: red">*</samp></label>

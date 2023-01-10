@@ -393,11 +393,8 @@
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentHistory.aspx" />
-    <Content Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
-    <Content Include="ViewEquipment\EquipmentWarrantyExpiryDateApproval.aspx" />
-    <Content Include="ViewEquipment\EquipmentWarrantyTypeApproval.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
@@ -1069,13 +1066,6 @@
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.designer.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx.cs">
-      <DependentUpon>EquipmentOwnershipChangeApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewEquipment\EquipmentOwnershipChangeApproval.aspx.designer.cs">
-      <DependentUpon>EquipmentOwnershipChangeApproval.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1089,20 +1079,6 @@
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewEquipment\EquipmentWarrantyExpiryDateApproval.aspx.cs">
-      <DependentUpon>EquipmentWarrantyExpiryDateApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewEquipment\EquipmentWarrantyExpiryDateApproval.aspx.designer.cs">
-      <DependentUpon>EquipmentWarrantyExpiryDateApproval.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewEquipment\EquipmentWarrantyTypeApproval.aspx.cs">
-      <DependentUpon>EquipmentWarrantyTypeApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewEquipment\EquipmentWarrantyTypeApproval.aspx.designer.cs">
-      <DependentUpon>EquipmentWarrantyTypeApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>

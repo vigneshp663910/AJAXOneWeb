@@ -49,7 +49,7 @@ namespace Properties
     [Serializable]
     public class PDMS_ICTicketTSIR_API
     {
-        public long TsirID { get; set; }
+        public long? TsirID { get; set; }
         public long ICTicketID { get; set; }
         public long ServiceChargeID { get; set; }
         public string NatureOfFailures { get; set; }

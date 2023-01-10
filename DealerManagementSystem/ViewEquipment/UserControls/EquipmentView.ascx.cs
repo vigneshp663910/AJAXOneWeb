@@ -297,7 +297,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 //}
                 if (lbActions.Text == "Approve Warranty Type Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(Session["ChangeID"]), Convert.ToInt64(Session["EquipmentHeaderID"]), PSession.User.UserID, true))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
                         lblMessage.Text = "Equipment Warrranty Type Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -311,7 +311,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Reject Warranty Type Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), Convert.ToInt64(Session["EquipmentHeaderID"]), PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Warrranty Type Change rejected.";
                         lblMessage.ForeColor = Color.Green;
@@ -326,7 +326,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Approve Ownership Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(Session["ChangeID"]), Convert.ToInt64(Session["EquipmentHeaderID"]), PSession.User.UserID, true))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
                         lblMessage.Text = "Equipment Ownership Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -340,7 +340,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Reject Ownership Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(Session["ChangeID"]), Convert.ToInt64(Session["EquipmentHeaderID"]), PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Ownership Change rejected.";
                         lblMessage.ForeColor = Color.Green;
@@ -354,7 +354,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Approve Warranty Expiry Date Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), Convert.ToInt64(Session["EquipmentHeaderID"]), PSession.User.UserID, true))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
                         lblMessage.Text = "Equipment Warrranty Expiry Date Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -370,7 +370,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Reject Warranty Expiry Date Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), Convert.ToInt64(Session["EquipmentHeaderID"]), PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Warrranty Expiry Date Change approved.";
                         lblMessage.ForeColor = Color.Green;
