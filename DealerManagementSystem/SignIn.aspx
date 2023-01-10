@@ -9,10 +9,12 @@
     <title>AJAX-DMS | Sign in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../CSS/bootstrap.min.4.5.2.css" />
+  
+    <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -476,7 +478,7 @@ return false;
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="UserID / Email / Mobile"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter User Id / Email Id / Mobile No..." PlaceHolder="UserID / Email / Mobile" CssClass="form-control"></asp:TextBox>
                                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                         ControlToValidate="txtUsername" ToolTip="<%$ Resources:Resource,ttpUsername %>" ForeColor="Red"><img src="images/error_info.png" alt="info" />
 
@@ -488,7 +490,7 @@ return false;
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" CssClass="form-control"></asp:TextBox>
                                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
@@ -515,8 +517,7 @@ return false;
                                     <label><b>OTP</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px"></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" /><div id="some_div"></div>
-
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px" ></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" /><div id="some_div"></div>
                                     <%--<asp:LinkButton ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" Text="Send OTP">LinkButton</asp:LinkButton>--%>
                                 </div>
                                 <div>
@@ -524,7 +525,7 @@ return false;
                                     <label><b>New Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtRNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" autocomplete="off" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtRNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" autocomplete="off" TextMode="Password" CssClass="form-control"></asp:TextBox>
                                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtRNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <div>
@@ -532,7 +533,7 @@ return false;
                                     <label><b>Retype Password</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtRRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" autocomplete="off" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox ID="txtRRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" autocomplete="off" TextMode="Password" CssClass="form-control"></asp:TextBox>
                                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtRRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
                                 </div>
                                 <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
