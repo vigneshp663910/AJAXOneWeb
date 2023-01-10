@@ -244,7 +244,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblDistrict.Text = SDMS_ICTicket.Address.District.District + " - " + SDMS_ICTicket.Address.State.State;
             lblContactPerson.Text = SDMS_ICTicket.ContactPerson + " " + SDMS_ICTicket.PresentContactNumber;
             lblComplaintDescription.Text = SDMS_ICTicket.ComplaintDescription;
-            lblInformation.Text = SDMS_ICTicket.Information;
+            //lblInformation.Text = SDMS_ICTicket.Information;
             lblOldICTicketNumber.Text = SDMS_ICTicket.OldICTicketNumber;
             lblEquipment.Text = SDMS_ICTicket.Equipment.EquipmentSerialNo;
             lblModel.Text = SDMS_ICTicket.Equipment.EquipmentModel.Model;

@@ -45,6 +45,9 @@ namespace DealerManagementSystem.ViewService
         {
             List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
             new DDLBind(ddlState, State, "State", "StateID");
+            ddlDistrict.Items.Clear();
+            ddlDistrict.DataSource = null;
+            ddlDistrict.DataBind();
         }
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
@@ -160,47 +163,59 @@ namespace DealerManagementSystem.ViewService
             ddlRequestedHH.BorderColor = Color.Silver;
             ddlRequestedMM.BorderColor = Color.Silver;
             ddlServicePriority.BorderColor = Color.Silver;
+            ddlState.BorderColor = Color.Silver;
             ddlDistrict.BorderColor = Color.Silver;
             if (string.IsNullOrEmpty(txtContactNumber.Text.Trim()))
             {
                 txtContactNumber.BorderColor = Color.Red;
-                return "Please Enter the Contact Number"; 
+                return "Please enter the Contact Number."; 
+            }
+            long value;
+            if (!long.TryParse("0" + txtContactNumber.Text, out value))
+            {
+                txtContactNumber.BorderColor = Color.Red;
+                return "Please enter valid Mobile number";
             }
             if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
             {
                 txtContactPerson.BorderColor = Color.Red;
-                return "Please Enter the Contact Person";
+                return "Please enter the Contact Person.";
             }
             if (string.IsNullOrEmpty(txtComplaintDescription.Text.Trim()))
             {
                 txtComplaintDescription.BorderColor = Color.Red;
-                return "Please Enter the Complaint Description";
+                return "Please enter the Complaint Description";
             }
             if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
             {
                 txtRequestedDate.BorderColor = Color.Red;
-                return "Please Enter the Requested Date";
+                return "Please enter the Requested Date.";
             }
             if (ddlRequestedHH.SelectedValue == "-1")
             {
                 ddlRequestedHH.BorderColor = Color.Red;
-                return "Please Enter the Requested Hour"; 
+                return "Please enter the Requested Hour."; 
             }
             if (ddlRequestedMM.SelectedValue == "0")
             {
                 ddlRequestedMM.BorderColor = Color.Red;
-                return "Please Enter the Requested Minute"; 
+                return "Please enter the Requested Minute."; 
             }
             if (ddlServicePriority.SelectedValue == "0")
             {
                 ddlServicePriority.BorderColor = Color.Red;
-                return "Please Enter the Service Priority";
+                return "Please enter the Service Priority.";
+            }
+            if (ddlState.SelectedValue == "0")
+            {
+                ddlState.BorderColor = Color.Red;
+                return "Please enter the State.";
             }
 
             if (ddlDistrict.SelectedValue == "0")
             {
                 ddlDistrict.BorderColor = Color.Red;
-                return "Please Enter the District";
+                return "Please enter the District.";
             }
             return "";
         }
@@ -214,7 +229,10 @@ namespace DealerManagementSystem.ViewService
             ddlRequestedHH.SelectedValue = "9";
             ddlRequestedMM.SelectedValue = "0";
             ddlServicePriority.SelectedValue = "0";
-            ddlDistrict.Text = "";
+            ddlState.SelectedValue = "0";
+            ddlDistrict.Items.Clear();
+            ddlDistrict.DataSource = null;
+            ddlDistrict.DataBind();
             gvEquipment.DataSource = null;
             gvEquipment.DataBind();
         }

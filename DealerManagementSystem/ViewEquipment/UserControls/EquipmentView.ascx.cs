@@ -230,10 +230,13 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
 
                 if (lbActions.Text == "Update Commissioning Date")
                 {
+                    lblMessageUpdateCommissioningDate.Text = "";
+                    lblMessageUpdateCommissioningDate.Visible = false;
                     lblCustomerC.Text = EquipmentViewDet.Customer.CustomerFullName;
                     lblModelC.Text = EquipmentViewDet.EquipmentModel.Model;
                     lblEquipmentSerialNoC.Text = EquipmentViewDet.EquipmentSerialNo;
                     lblHMRC.Text = EquipmentViewDet.CurrentHMRValue.ToString();
+                    txtCommissioningDate.Text = "";
                     MPE_UpdateCommiDate.Show();
                 }
                 if (lbActions.Text == "Warranty Type Change Request")
@@ -466,7 +469,22 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
         {
-            lblMessage.Visible = true;
+            lblMessageUpdateCommissioningDate.Text = string.Empty;
+            lblMessageUpdateCommissioningDate.Visible = true;
+            if(string.IsNullOrEmpty(txtCommissioningDate.Text))
+            {
+                lblMessageUpdateCommissioningDate.ForeColor = Color.Red;
+                lblMessageUpdateCommissioningDate.Text = "Please select Commissioning Date.";
+                MPE_UpdateCommiDate.Show();
+                return;
+            }
+            if (Convert.ToDateTime(txtCommissioningDate.Text) < EquipmentViewDet.DispatchedOn)
+            {
+                lblMessageUpdateCommissioningDate.ForeColor = Color.Red;
+                lblMessageUpdateCommissioningDate.Text = "Commissioning Date cannot be earlier than the Dispatched Date.";
+                MPE_UpdateCommiDate.Show();
+                return;
+            }
             if (new BDMS_Equipment().UpdateCommissioningDate(Convert.ToInt64(EquipmentViewDet.EquipmentHeaderID), Convert.ToDateTime(txtCommissioningDate.Text.Trim()), PSession.User.UserID))
             {
                 lblCustomerC.Text = "";

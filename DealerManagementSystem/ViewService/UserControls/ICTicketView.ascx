@@ -65,10 +65,10 @@
                 <label>Status : </label>
                 <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
             </div>
-            <div class="col-md-4">
+            <%--<div class="col-md-4">
                 <label>Information : </label>
                 <asp:Label ID="lblInformation" runat="server" CssClass="label"></asp:Label>
-            </div>
+            </div>--%>
             <div class="col-md-4">
                 <label>Dealer : </label>
                 <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
@@ -120,18 +120,6 @@
             <div class="col-md-4">
                 <label>AMC Expiry : </label>
                 <asp:Label ID="lblAMCExpiryDate" runat="server" CssClass="label"></asp:Label>
-            </div>
-            <div class="col-md-4">
-                <label>: </label>
-
-            </div>
-            <div class="col-md-4">
-                <label>: </label>
-
-            </div>
-            <div class="col-md-4">
-                <label>: </label>
-
             </div>
         </div>
     </fieldset>

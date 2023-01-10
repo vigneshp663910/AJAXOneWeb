@@ -220,12 +220,6 @@
                     <label>Chassis No : </label>
                     <asp:Label ID="lblChassisSlNo" runat="server" CssClass="label"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Dispatch : </label>
-                    <asp:Label ID="lblDispatch" runat="server" CssClass="label"></asp:Label>
-                </div>
-
-
             </div>
         </div>
     </fieldset>
@@ -466,7 +460,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageUpdateCommissioningDate" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
