@@ -191,5 +191,20 @@ namespace Business
             string endPoint = "Lead/LeadFollowUpCount?DealerID=" + DealerID + "&UserID=" + UserID;
             return JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public DataTable GetLeadCountByStatusAndDealer(int? DealerID,string LeadDateFrom, string LeadDateTo, int? CountryID, int? RegionID, int? ProductTypeID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/LeadCountByStatusAndDealer?DealerID=" + DealerID + "&LeadDateFrom=" + LeadDateFrom + "&LeadDateTo=" + LeadDateTo
+                + "&CountryID=" + CountryID + "&RegionID=" + RegionID + "&ProductTypeID=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetLeadCountByStatusAndRegion(int? DealerID, string LeadDateFrom, string LeadDateTo, int? CountryID, int? RegionID, int? ProductTypeID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/LeadCountByStatusAndRegion?DealerID=" + DealerID + "&LeadDateFrom=" + LeadDateFrom + "&LeadDateTo=" + LeadDateTo
+                + "&CountryID=" + CountryID + "&RegionID=" + RegionID + "&ProductTypeID=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

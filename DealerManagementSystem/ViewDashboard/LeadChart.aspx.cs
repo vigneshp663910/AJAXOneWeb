@@ -36,6 +36,7 @@ namespace DealerManagementSystem.ViewDashboard
                 new DDLBind(ddlYCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 new DDLBind(ddlMDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind(ddlMCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
                 loadYearAndMonth();
             }
         }
@@ -60,46 +61,55 @@ namespace DealerManagementSystem.ViewDashboard
         }
 
         [WebMethod]
-        public static List<object> GetChartData2(string country)
+        public static List<object> GetChartData2(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
         {
             List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "General", "Open", "Assign", "Quotation", "Won" });
-            chartData.Add(new object[] { "9001", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9002", 52, 20, 32, 18 });
-            chartData.Add(new object[] { "9004", 10, 70, 32, 18 });
-            chartData.Add(new object[] { "9005", 96, 50, 32, 18 });
+            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
+            int? CountryID= string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
+            int? RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (int?)null : Convert.ToInt32(Region);
+            int? ProductTypeID= ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
+            DataTable dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+            foreach(DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+            }
+            //chartData.Add(new object[] { "9001", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9002", 52, 20, 32, 18 });
+            //chartData.Add(new object[] { "9004", 10, 70, 32, 18 });
+            //chartData.Add(new object[] { "9005", 96, 50, 32, 18 });
 
-            chartData.Add(new object[] { "9011", 40, 40, 32, 18 });
-            chartData.Add(new object[] { "9012", 10, 35, 32, 18 });
-            chartData.Add(new object[] { "9014", 38, 25, 32, 18 });
-            chartData.Add(new object[] { "9015", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9016", 74, 90, 32, 18 });
-            chartData.Add(new object[] { "9017", 36, 70, 32, 18 });
-            chartData.Add(new object[] { "9018", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9019", 98, 60, 32, 18 });
+            //chartData.Add(new object[] { "9011", 40, 40, 32, 18 });
+            //chartData.Add(new object[] { "9012", 10, 35, 32, 18 });
+            //chartData.Add(new object[] { "9014", 38, 25, 32, 18 });
+            //chartData.Add(new object[] { "9015", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9016", 74, 90, 32, 18 });
+            //chartData.Add(new object[] { "9017", 36, 70, 32, 18 });
+            //chartData.Add(new object[] { "9018", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9019", 98, 60, 32, 18 });
 
-            chartData.Add(new object[] { "9021", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9022", 40, 24, 32, 18 });
-            chartData.Add(new object[] { "9024", 10, 50, 32, 18 });
-            chartData.Add(new object[] { "9025", 96, 24, 32, 18 });
+            //chartData.Add(new object[] { "9021", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9022", 40, 24, 32, 18 });
+            //chartData.Add(new object[] { "9024", 10, 50, 32, 18 });
+            //chartData.Add(new object[] { "9025", 96, 24, 32, 18 });
 
-            chartData.Add(new object[] { "9031", 10, 64, 32, 18 });
-            chartData.Add(new object[] { "9032", 74, 37, 32, 18 });
-            chartData.Add(new object[] { "9034", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9035", 63, 70, 32, 18 });
-            chartData.Add(new object[] { "9036", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9037", 5, 24, 32, 18 });
-            chartData.Add(new object[] { "9038", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9039", 75, 24, 32, 18 });
+            //chartData.Add(new object[] { "9031", 10, 64, 32, 18 });
+            //chartData.Add(new object[] { "9032", 74, 37, 32, 18 });
+            //chartData.Add(new object[] { "9034", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9035", 63, 70, 32, 18 });
+            //chartData.Add(new object[] { "9036", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9037", 5, 24, 32, 18 });
+            //chartData.Add(new object[] { "9038", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9039", 75, 24, 32, 18 });
 
-            chartData.Add(new object[] { "9041", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9042", 32, 24, 32, 18 });
-            chartData.Add(new object[] { "9044", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9045", 74, 24, 32, 18 });
-            chartData.Add(new object[] { "9046", 65, 24, 32, 18 });
-            chartData.Add(new object[] { "9047", 85, 24, 32, 18 });
-            chartData.Add(new object[] { "9048", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "9049", 5, 24, 32, 18 });
+            //chartData.Add(new object[] { "9041", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9042", 32, 24, 32, 18 });
+            //chartData.Add(new object[] { "9044", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9045", 74, 24, 32, 18 });
+            //chartData.Add(new object[] { "9046", 65, 24, 32, 18 });
+            //chartData.Add(new object[] { "9047", 85, 24, 32, 18 });
+            //chartData.Add(new object[] { "9048", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "9049", 5, 24, 32, 18 });
 
             return chartData;
 
@@ -113,17 +123,28 @@ namespace DealerManagementSystem.ViewDashboard
         }
 
         [WebMethod]
-        public static List<object> GetRegionWiseLeadStatus(string country)
+        public static List<object> GetRegionWiseLeadStatus(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
         {
             List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "General", "Open", "Assign", "Quotation", "Won" });
-            chartData.Add(new object[] { "Western", 10, 24, 32, 18 });
-            chartData.Add(new object[] { "Central", 52, 20, 32, 18 });
-            chartData.Add(new object[] { "East", 10, 70, 32, 18 });
-            chartData.Add(new object[] { "North", 96, 50, 32, 18 });
+            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
+            int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
+            int? RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (int?)null : Convert.ToInt32(Region);
+            int? ProductTypeID = ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
+            DataTable dt = new BLead().GetLeadCountByStatusAndRegion(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+            foreach (DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[] { Convert.ToString(dr["Region"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+            }
 
-            chartData.Add(new object[] { "South1", 40, 40, 32, 18 });
-            chartData.Add(new object[] { "South2", 10, 35, 32, 18 });
+           
+            //chartData.Add(new object[] { "Western", 10, 24, 32, 18 });
+            //chartData.Add(new object[] { "Central", 52, 20, 32, 18 });
+            //chartData.Add(new object[] { "East", 10, 70, 32, 18 });
+            //chartData.Add(new object[] { "North", 96, 50, 32, 18 });
+
+            //chartData.Add(new object[] { "South1", 40, 40, 32, 18 });
+            //chartData.Add(new object[] { "South2", 10, 35, 32, 18 });
 
             return chartData;
             //  var data = google.visualization.arrayToDataTable([

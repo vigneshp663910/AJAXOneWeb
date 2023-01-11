@@ -6,12 +6,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-
-    <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
     <asp1:TabContainer ID="tbpCust" runat="server" Font-Bold="True" Font-Size="Medium">
-        <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="YTD" Font-Bold="True" ToolTip="">
+        <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="YTD" Font-Bold="True" ToolTip="" Enabled="false">
             <ContentTemplate>
-                 <div class="col-md-12">
+                <div class="col-md-12">
                     <div class="col-md-12" id="div1" runat="server">
                         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                             <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -27,7 +25,8 @@
                                 <div class="col-md-2 col-sm-12">
                                     <label>Region</label>
                                     <asp:DropDownList ID="ddlYRegion" runat="server" CssClass="form-control"></asp:DropDownList>
-                                </div> 
+                                </div>
+                                
                             </div>
                         </fieldset>
                     </div>
@@ -65,6 +64,10 @@
                                     <label class="modal-label">Date To</label>
                                     <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                                 </div>
+                                 <div class="col-md-2 col-sm-12">
+                                    <label>ProductType</label>
+                                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
                                 <div class="col-md-12 text-center">
                                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                                 </div>
@@ -77,6 +80,9 @@
                     <div class="table-responsive">
                     </div>
                 </div>
+                <div id="columnchart_values"></div>
+                <div id="divRegionWiseLeadStatus"></div>
+                <div id="curve_chart" style="width: 900px; height: 500px"></div>
                 <%--</div>--%>
             </ContentTemplate>
         </asp1:TabPanel>
@@ -87,17 +93,27 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">        
         function drawChart() {
+            var Region = $('#MainContent_tbpCust_tpnlFollowUp_ddlMRegion').val(); 
+            var param = {
+                Dealer: $('#MainContent_tbpCust_tpnlFollowUp_ddlMDealer').val()
+                , LeadDateFrom: $('#MainContent_tbpCust_tpnlFollowUp_txtDateFrom').val()
+                , LeadDateTo: $('#MainContent_tbpCust_tpnlFollowUp_txtDateTo').val()
+                , Country: $('#MainContent_tbpCust_tpnlFollowUp_ddlMCountry').val()
+                , Region: Region
+                , ProductType: $('#MainContent_tbpCust_tpnlFollowUp_ddlProductType').val()
+            }
             $.ajax({
                 type: "POST",
                 url: 'LeadChart.aspx/GetChartData2',
-                data: "{country: '  country '}",
+                //data: "{country: '  country '}",
+                data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 dataFilter: function (data) {
                     return data;
                 },
                 success: function (data) {
-                    
+
                     var data1 = google.visualization.arrayToDataTable(data.d);
                     var view = new google.visualization.DataView(data1);
                     view.setColumns([0, 1,
@@ -107,7 +123,7 @@
                         //    type: "string",
                         //    role: "annotation"
                         //},
-                        2, 3, 4
+                        2, 3, 4,5
                     ]);
                     var options = {
                         //width: '80%',
@@ -133,10 +149,20 @@
         }
 
         function RegionWiseLeadStatusChart() {
+            var Region = $('#MainContent_tbpCust_tpnlFollowUp_ddlMRegion').val();
+            var param = {
+                Dealer: $('#MainContent_tbpCust_tpnlFollowUp_ddlMDealer').val()
+                , LeadDateFrom: $('#MainContent_tbpCust_tpnlFollowUp_txtDateFrom').val()
+                , LeadDateTo: $('#MainContent_tbpCust_tpnlFollowUp_txtDateTo').val()
+                , Country: $('#MainContent_tbpCust_tpnlFollowUp_ddlMCountry').val()
+                , Region: Region
+                , ProductType: $('#MainContent_tbpCust_tpnlFollowUp_ddlProductType').val()
+            }
             $.ajax({
                 type: "POST",
                 url: 'LeadChart.aspx/GetRegionWiseLeadStatus',
-                data: "{country: '  country '}",
+                //data: "{country: '  country '}",
+                data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 dataFilter: function (data) {
@@ -152,7 +178,7 @@
                         //    type: "string",
                         //    role: "annotation"
                         //},
-                        2, 3, 4
+                        2, 3, 4,5
                     ]);
                     var options = {
                         //width: '80%',
@@ -177,11 +203,8 @@
         }
     </script>
 
-    <div id="columnchart_values"></div>
-    <div id="divRegionWiseLeadStatus"></div>
 
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart1);
 
@@ -225,5 +248,5 @@
 
             chart.draw(data, options);
         }
-    </script>
+    </script>--%>
 </asp:Content>
