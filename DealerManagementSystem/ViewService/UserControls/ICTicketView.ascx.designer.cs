@@ -222,15 +222,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblStatus;
 
         /// <summary>
-        /// lblInformation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInformation;
-
-        /// <summary>
         /// lblDealer control.
         /// </summary>
         /// <remarks>

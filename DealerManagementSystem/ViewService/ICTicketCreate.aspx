@@ -215,63 +215,99 @@
                 </fieldset>
             </div>
         </div>
-        <div class="col-md-12 Report">
-            <div class="table-responsive">
-                <asp:GridView ID="gvEquipment" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
-                    <Columns>
-                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
-                            <ItemTemplate>
-                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="bCheck">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            <ItemTemplate>
-                                <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" />
-                                <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="EquipmentSerialNo" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentSerialNo")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
-                                <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerID")%>' runat="server" Visible="false" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
+        <%--<div class="col-md-12 Report">--%>
+            <fieldset class="fieldset-border">
+                <div class="col-md-12 Report">
+                    <div class="table-responsive">
+                        <asp:GridView ID="gvEquipment" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <Columns>
+                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Select">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" />
+                                        <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Equipment Serial No" SortExpression="Equipment Serial No">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentSerialNo")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Model Description">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentModel.ModelDescription")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Customer Code" SortExpression="Customer Code">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server" />
+                                        <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerID")%>' runat="server" Visible="false" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Customer Name" SortExpression="Customer Name">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="State">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.State.State")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="District">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.District.District")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dispatched On">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDispatchedOn" Text='<%# DataBinder.Eval(Container.DataItem, "DispatchedOn","{0:d}")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Warranty Expiry Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyExpiryDate","{0:d}")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
 
-                    </Columns>
-                    <AlternatingRowStyle BackColor="#ffffff" />
-                    <FooterStyle ForeColor="White" />
-                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                </asp:GridView>
-
-            </div>
-        </div>
+                    </div>
+                </div>
+            </fieldset>
+        <%--</div>--%>
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Number<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" MaxLength="10" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Complaint Description<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtComplaintDescription" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="35"></asp:TextBox>
+                    <asp:TextBox ID="txtComplaintDescription" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
                 </div>
                 <%-- <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Information<samp style="color: red">*</samp></label>
